@@ -1,0 +1,34 @@
+{
+  "name": "@destyler/monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue component",
+    "unstyle"
+  ],
+  "scripts": {
+    "build": "pnpm run --filter \"./packages/**\" -r build",
+    "dev:vue": "pnpm run build && pnpm -C playground/vue run dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.41.0",
+    "@types/node": "^20.5.7",
+    "@vitejs/plugin-vue": "^4.3.3",
+    "@vitest/coverage-v8": "^0.34.3",
+    "bumpp": "^9.2.0",
+    "eslint": "^8.48.0",
+    "happy-dom": "^10.11.0",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.2.2",
+    "unbuild": "^2.0.0",
+    "unplugin-vue-components": "^0.25.1",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.3",
+    "vue": "^3.3.4",
+    "vue-tsc": "^1.8.8"
+  }
+}

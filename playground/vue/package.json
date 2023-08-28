@@ -1,0 +1,21 @@
+{
+  "name": "@destyler/vue-playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@destyler/icon": "workspace:*",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.1.20",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5"
+  }
+}
