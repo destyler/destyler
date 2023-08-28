@@ -1,5 +1,7 @@
-import { DestylerIcon, DestylerIconProps } from '@destyler/icon'
-import { DestylerButton, DestylerButtonProps } from '@destyler/button'
+import { DestylerIcon } from '@destyler/icon'
+import type { DestylerIconProps } from '@destyler/icon'
+import { DestylerButton } from '@destyler/button'
+import type { DestylerButtonProps } from '@destyler/button'
 
 export {
   DestylerIcon,

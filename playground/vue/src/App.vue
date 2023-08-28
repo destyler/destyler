@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { DestylerButton } from '@destyler/button'
-import { DestylerIcon } from '@destyler/icon'
+import { DestylerButton, DestylerIcon } from 'destyler'
 </script>
 
 <template>
