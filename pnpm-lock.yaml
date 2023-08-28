@@ -69,10 +69,22 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
-  playground/vue:
+  packages/destyler:
     dependencies:
       '@destyler/button':
         specifier: workspace:^
+        version: link:../components/button
+      '@destyler/icon':
+        specifier: workspace:^
+        version: link:../components/icon
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
+  playground/vue:
+    dependencies:
+      '@destyler/button':
+        specifier: workspace:*
         version: link:../../packages/components/button
       '@destyler/icon':
         specifier: workspace:*
