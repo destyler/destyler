@@ -54,6 +54,12 @@ importers:
         specifier: ^1.8.8
         version: 1.8.8(typescript@5.2.2)
 
+  packages/components/button:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
@@ -65,6 +71,9 @@ importers:
 
   playground/vue:
     dependencies:
+      '@destyler/button':
+        specifier: workspace:^
+        version: link:../../packages/components/button
       '@destyler/icon':
         specifier: workspace:*
         version: link:../../packages/components/icon

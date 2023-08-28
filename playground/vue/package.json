@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@destyler/button": "workspace:*",
     "@destyler/icon": "workspace:*",
     "vue": "^3.3.4"
   },

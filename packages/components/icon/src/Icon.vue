@@ -3,6 +3,10 @@ import { computed } from 'vue'
 import { Icon as Iconify } from '@iconify/vue'
 import type { DestylerIconProps } from './props'
 
+defineOptions({
+  name: 'DestylerIcon',
+})
+
 const { name } = defineProps<DestylerIconProps>()
 
 const iconName = computed(() => name.replace(/^i-/, ''))

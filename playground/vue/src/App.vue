@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { DestylerButton } from '@destyler/button'
 import { DestylerIcon } from '@destyler/icon'
 </script>
 
 <template>
-  <DestylerIcon name="i-logos-vue" style="width: 24px;height: 24px;" />
-  hello
+  <DestylerButton>
+    <DestylerIcon name="i-carbon-home" />
+  </DestylerButton>
 </template>
