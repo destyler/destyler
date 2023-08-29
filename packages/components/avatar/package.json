@@ -1,18 +1,18 @@
 {
-  "name": "destyler",
+  "name": "@destyler/avatar",
   "version": "0.0.0",
-  "description": "",
+  "description": "unstyled avatar component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js"
     },
     "./*": "./*"
   },
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
@@ -21,15 +21,12 @@
   ],
   "scripts": {
     "clear": "rimraf ./dist",
-    "build": "pnpm run clear && unbuild"
-
+    "dev": "vite build",
+    "build:type": "vue-tsc --declaration --emitDeclarationOnly",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && pnpm run dev && pnpm run build:type"
   },
   "peerDependencies": {
     "vue": "^3.3.4"
-  },
-  "dependencies": {
-    "@destyler/avatar": "workspace:^",
-    "@destyler/button": "workspace:^",
-    "@destyler/icon": "workspace:^"
   }
 }

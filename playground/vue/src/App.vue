@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { DestylerButton, DestylerIcon } from 'destyler'
+import { DestylerAvatar } from 'destyler'
 </script>
 
 <template>
-  <DestylerButton>
-    <DestylerIcon name="i-carbon-home" />
-  </DestylerButton>
+  <DestylerAvatar src="https://github.com/elonehoo.png" fallback="EH" />
 </template>

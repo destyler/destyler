@@ -54,6 +54,12 @@ importers:
         specifier: ^1.8.8
         version: 1.8.8(typescript@5.2.2)
 
+  packages/components/avatar:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/button:
     dependencies:
       vue:
@@ -71,6 +77,9 @@ importers:
 
   packages/destyler:
     dependencies:
+      '@destyler/avatar':
+        specifier: workspace:^
+        version: link:../components/avatar
       '@destyler/button':
         specifier: workspace:^
         version: link:../components/button
@@ -84,7 +93,7 @@ importers:
   playground/vue:
     dependencies:
       destyler:
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/destyler
       vue:
         specifier: ^3.3.4
