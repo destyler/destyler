@@ -1,7 +1,7 @@
 import { DestylerAccordionResolver } from './resolver'
-
-export * from './props'
+import DestylerAccordion from './AccordionRoot.vue'
 
 export {
+  DestylerAccordion,
   DestylerAccordionResolver,
 }
