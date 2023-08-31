@@ -7,11 +7,18 @@ defineOptions({
 })
 
 const { value } = defineProps<DestylerAccordionItemProps>()
+
+function handleSelected() {
+  if (selected.value === value)
+    selected.value = ''
+  else
+    selected.value = value
+}
 </script>
 
 <template>
   <div>
-    <div accordion-item-header @click="selected = value">
+    <div accordion-item-header @click="handleSelected">
       <slot name="header" />
     </div>
     <div v-show="selected === value" accordion-item-content>

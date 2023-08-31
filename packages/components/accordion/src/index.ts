@@ -1,7 +1,7 @@
 import { DestylerAccordionResolver } from './resolver'
 import DestylerAccordionRoot from './AccordionRoot.vue'
 import DestylerAccordionItem from './AccordionItem.vue'
-import { selected } from './composition'
+import { selected, useAccordionSelected } from './composition'
 
 export * from './props'
 
@@ -10,4 +10,5 @@ export {
   DestylerAccordionRoot,
   DestylerAccordionItem,
   DestylerAccordionResolver,
+  useAccordionSelected,
 }

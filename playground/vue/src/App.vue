@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DestylerAccordionItem, DestylerAccordionRoot } from 'destyler'
+import { DestylerAccordionItem, DestylerAccordionRoot, useAccordionSelected } from 'destyler'
 
-const defaultItem = 'item1'
+const selected = useAccordionSelected()
 
 const items = [
   {
@@ -23,7 +23,10 @@ const items = [
 </script>
 
 <template>
-  <DestylerAccordionRoot :default-value="defaultItem">
+  <div>
+    {{ selected }}
+  </div>
+  <DestylerAccordionRoot>
     <DestylerAccordionItem v-for="item in items" :key="item.value" :value="item.value">
       <template #header>
         {{ item.title }}
