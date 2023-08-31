@@ -28,6 +28,7 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
+    "@destyler/accordion": "workspace:^",
     "@destyler/avatar": "workspace:^",
     "@destyler/button": "workspace:^",
     "@destyler/icon": "workspace:^"

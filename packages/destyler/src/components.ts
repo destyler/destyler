@@ -4,6 +4,8 @@ import { DestylerButton } from '@destyler/button'
 import type { DestylerButtonProps } from '@destyler/button'
 import { DestylerAvatar } from '@destyler/avatar'
 import type { DestylerAvatarProps } from '@destyler/avatar'
+import { DestylerAccordionItem, DestylerAccordionRoot } from '@destyler/accordion'
+import type { DestylerAccordionItemProps, DestylerAccordionRootProps } from '@destyler/accordion'
 
 export {
   DestylerIcon,
@@ -12,4 +14,8 @@ export {
   DestylerButtonProps,
   DestylerAvatar,
   DestylerAvatarProps,
+  DestylerAccordionItem,
+  DestylerAccordionItemProps,
+  DestylerAccordionRoot,
+  DestylerAccordionRootProps,
 }

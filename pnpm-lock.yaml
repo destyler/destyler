@@ -54,6 +54,12 @@ importers:
         specifier: ^1.8.8
         version: 1.8.8(typescript@5.2.2)
 
+  packages/components/accordion:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/avatar:
     dependencies:
       vue:
@@ -77,6 +83,9 @@ importers:
 
   packages/destyler:
     dependencies:
+      '@destyler/accordion':
+        specifier: workspace:^
+        version: link:../components/accordion
       '@destyler/avatar':
         specifier: workspace:^
         version: link:../components/avatar
