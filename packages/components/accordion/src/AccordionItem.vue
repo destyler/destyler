@@ -6,18 +6,18 @@ defineOptions({
   name: 'DestylerAccordionItem',
 })
 
-const { value } = defineProps<DestylerAccordionItemProps>()
+const { value, disabled } = withDefaults(defineProps<DestylerAccordionItemProps>(), {
+  disabled: false,
+})
 
 function handleSelected() {
-  if (selected.value === value)
-    selected.value = ''
-  else
-    selected.value = value
+  if (!disabled)
+    selected.value = selected.value === value ? '' : value
 }
 </script>
 
 <template>
-  <div :accordion-item-status="selected === value">
+  <div :accordion-item-status="selected === value" :accordion-item-disabled="disabled">
     <div accordion-item-header @click="handleSelected">
       <slot name="header" />
     </div>
