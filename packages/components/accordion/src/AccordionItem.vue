@@ -17,7 +17,7 @@ function handleSelected() {
 </script>
 
 <template>
-  <div>
+  <div :accordion-item-status="selected === value">
     <div accordion-item-header @click="handleSelected">
       <slot name="header" />
     </div>

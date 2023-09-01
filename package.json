@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
-    "dev:vue": "pnpm run build && pnpm -C playground/vue run dev",
+    "dev:vue": "pnpm -C playground/vue run dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

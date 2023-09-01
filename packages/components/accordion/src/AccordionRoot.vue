@@ -5,7 +5,7 @@ defineOptions({
 </script>
 
 <template>
-  <div>
+  <div accordion-item-root>
     <slot />
   </div>
 </template>
