@@ -7,6 +7,7 @@ export default defineBuildConfig({
   externals: [
     'vue',
     'unplugin-vue-components',
+    'unplugin-auto-import',
   ],
   clean: false,
   declaration: true,

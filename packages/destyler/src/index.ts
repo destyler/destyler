@@ -1,10 +1,10 @@
 import { DestylerUIResolver } from './resolver'
-import { DestylerPresets } from './presets'
+import DestylerUIPresets from './presets'
 
 export * from './components'
 export * from './composition'
 
 export {
   DestylerUIResolver,
-  DestylerPresets,
+  DestylerUIPresets,
 }

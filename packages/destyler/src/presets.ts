@@ -1,8 +1,7 @@
-import { useAccordionSelected } from '@destyler/accordion'
+import type { ImportsMap } from 'unplugin-auto-import/types'
 
-export const DestylerPresets = [
-  {
-    from: 'destyler',
-    imports: useAccordionSelected,
-  },
-]
+export default <ImportsMap>({
+  destyler: [
+    'useAccordionSelected',
+  ],
+})
