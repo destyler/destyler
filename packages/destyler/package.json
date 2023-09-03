@@ -31,6 +31,7 @@
     "@destyler/accordion": "workspace:^",
     "@destyler/avatar": "workspace:^",
     "@destyler/button": "workspace:^",
+    "@destyler/checkbox": "workspace:^",
     "@destyler/icon": "workspace:^"
   }
 }

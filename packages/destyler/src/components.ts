@@ -6,6 +6,7 @@ import { DestylerAvatar } from '@destyler/avatar'
 import type { DestylerAvatarProps } from '@destyler/avatar'
 import { DestylerAccordionItem, DestylerAccordionRoot } from '@destyler/accordion'
 import type { DestylerAccordionItemProps } from '@destyler/accordion'
+import { DestylerCheckbox } from '@destyler/checkbox'
 
 export {
   DestylerIcon,
@@ -17,4 +18,5 @@ export {
   DestylerAccordionItem,
   DestylerAccordionItemProps,
   DestylerAccordionRoot,
+  DestylerCheckbox,
 }

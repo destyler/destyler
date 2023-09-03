@@ -75,6 +75,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/checkbox:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
@@ -95,6 +101,9 @@ importers:
       '@destyler/button':
         specifier: workspace:^
         version: link:../components/button
+      '@destyler/checkbox':
+        specifier: workspace:^
+        version: link:../components/checkbox
       '@destyler/icon':
         specifier: workspace:^
         version: link:../components/icon

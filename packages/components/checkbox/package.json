@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/avatar",
+  "name": "@destyler/checkbox",
   "version": "0.0.0",
-  "description": "unstyled avatar component for vue",
+  "description": "unstyled checkbox component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

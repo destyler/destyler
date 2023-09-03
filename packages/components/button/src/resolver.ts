@@ -1,11 +1,14 @@
 import type { ComponentResolver } from 'unplugin-vue-components'
+import { name } from '../package.json'
 
-export function DestylerIconResolver(): ComponentResolver {
+const packageName = name
+
+export function DestylerButtonResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
       if (name === 'DestylerButton')
-        return { name, from: '@destyler/icon' }
+        return { name, from: packageName }
     },
   }
 }
