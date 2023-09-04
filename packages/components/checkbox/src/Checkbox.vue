@@ -3,7 +3,7 @@ defineOptions({
   name: 'DestylerCheckbox',
 })
 
-const modelValue = defineModel()
+const modelValue = defineModel<boolean>({ required: true })
 
 function handleClick() {
   modelValue.value = !modelValue.value
