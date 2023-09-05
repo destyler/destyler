@@ -1,7 +1,5 @@
-import DestylerButton from './Button.vue'
+import DestylerButton from './Button'
 import { DestylerButtonResolver } from './resolver'
-
-export * from './props'
 
 export {
   DestylerButton,

@@ -1,7 +1,5 @@
-import DestylerAvatar from './Avatar.vue'
+import DestylerAvatar from './Avatar'
 import { DestylerAvatarResolver } from './resolver'
-
-export * from './props'
 
 export {
   DestylerAvatar,

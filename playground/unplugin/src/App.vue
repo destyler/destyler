@@ -25,24 +25,11 @@ const items = [
   <div>
     {{ selected }}
   </div>
-  <DestylerAccordionRoot v-model="selected">
-    <DestylerAccordionItem v-for="item in items" :key="item.value" :value="item.value">
-      <template #header>
-        {{ item.title }}
-      </template>
-      <template #conter>
-        {{ item.content }}
-      </template>
-    </DestylerAccordionItem>
-  </DestylerAccordionRoot>
-  <DestylerAccordionRoot v-model="selected1">
-    <DestylerAccordionItem v-for="item in items" :key="item.value" :value="item.value">
-      <template #header>
-        {{ item.title }}
-      </template>
-      <template #conter>
-        {{ item.content }}
-      </template>
-    </DestylerAccordionItem>
-  </DestylerAccordionRoot>
+  <DestylerIcon name="carbon-home" />
+
+  <DestylerButton :disabled="true">
+    button
+  </DestylerButton>
+
+  <DestylerAvatar />
 </template>

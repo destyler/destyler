@@ -22,7 +22,6 @@
   "scripts": {
     "clear": "rimraf ./dist",
     "build": "pnpm run clear && unbuild"
-
   },
   "peerDependencies": {
     "vue": "^3.3.4"
