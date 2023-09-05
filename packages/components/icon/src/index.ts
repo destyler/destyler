@@ -1,7 +1,5 @@
-import DestylerIcon from './Icon.vue'
+import DestylerIcon from './Icon'
 import { DestylerIconResolver } from './resolver'
-
-export * from './props'
 
 export {
   DestylerIcon,
