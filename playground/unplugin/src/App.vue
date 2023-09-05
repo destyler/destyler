@@ -2,6 +2,8 @@
 const selected = ref('item1')
 const selected1 = ref('item3')
 
+const checkbox = ref<boolean>(true)
+
 const items = [
   {
     title: 'Item 1',
@@ -32,4 +34,11 @@ const items = [
   </DestylerButton>
 
   <DestylerAvatar />
+
+  {{ checkbox }}
+  <DestylerCheckbox
+    v-model="checkbox"
+  >
+    <DestylerIcon name="carbon-checkmark" />
+  </DestylerCheckbox>
 </template>

@@ -1,7 +1,5 @@
-import DestylerCheckbox from './Checkbox.vue'
+import DestylerCheckbox from './Checkbox'
 import { DestylerCheckboxResolver } from './resolver'
-
-export * from './props'
 
 export {
   DestylerCheckbox,
