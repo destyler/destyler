@@ -21,6 +21,8 @@ const items = [
     content: 'Item 3.Item 3.Item 3',
   },
 ]
+
+const alertList = ref<number>(0)
 </script>
 
 <template>
@@ -63,4 +65,13 @@ const items = [
   >
     <DestylerIcon name="carbon-checkmark" />
   </DestylerCheckbox>
+
+  <br>
+  <br>
+  <DestylerButton @click="alertList++">
+    add alert
+  </DestylerButton>
+  <DestylerAlert v-for="i in alertList" :key="i">
+    {{ i }}
+  </DestylerAlert>
 </template>

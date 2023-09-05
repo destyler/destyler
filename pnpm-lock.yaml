@@ -63,6 +63,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/alert:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/avatar:
     dependencies:
       vue:
@@ -95,6 +101,9 @@ importers:
       '@destyler/accordion':
         specifier: workspace:^
         version: link:../components/accordion
+      '@destyler/alert':
+        specifier: workspace:^
+        version: link:../components/alert
       '@destyler/avatar':
         specifier: workspace:^
         version: link:../components/avatar
