@@ -1,5 +1,5 @@
 import { DestylerAccordionResolver } from './resolver'
-import DestylerAlert from './Alert'
+import DestylerAlert from './alert'
 
 export {
   DestylerAlert,

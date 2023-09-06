@@ -1,6 +1,6 @@
 import { DestylerAccordionResolver } from './resolver'
-import DestylerAccordionRoot from './AccordionRoot'
-import DestylerAccordionItem from './AccordionItem'
+import DestylerAccordionRoot from './accordionRoot'
+import DestylerAccordionItem from './accordionItem'
 
 export {
   DestylerAccordionRoot,

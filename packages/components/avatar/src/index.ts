@@ -1,4 +1,4 @@
-import DestylerAvatar from './Avatar'
+import DestylerAvatar from './avatar'
 import { DestylerAvatarResolver } from './resolver'
 
 export {

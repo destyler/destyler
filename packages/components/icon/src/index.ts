@@ -1,4 +1,4 @@
-import DestylerIcon from './Icon'
+import DestylerIcon from './icon'
 import { DestylerIconResolver } from './resolver'
 
 export {

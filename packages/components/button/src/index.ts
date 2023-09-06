@@ -1,4 +1,4 @@
-import DestylerButton from './Button'
+import DestylerButton from './button'
 import { DestylerButtonResolver } from './resolver'
 
 export {
