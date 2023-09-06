@@ -87,6 +87,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/disclosure:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
@@ -113,6 +119,9 @@ importers:
       '@destyler/checkbox':
         specifier: workspace:^
         version: link:../components/checkbox
+      '@destyler/disclosure':
+        specifier: workspace:^
+        version: link:../components/disclosure
       '@destyler/icon':
         specifier: workspace:^
         version: link:../components/icon

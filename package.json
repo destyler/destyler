@@ -12,6 +12,7 @@
     "build": "pnpm run --filter \"./packages/**\" -r build",
     "dev:vue": "pnpm -C playground/vue run dev",
     "dev:unplugin": "pnpm -C playground/unplugin run dev",
+    "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

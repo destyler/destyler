@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { DestylerDisclosure } from 'destyler'
+
 const selected = ref('item1')
 const selected1 = ref('item1')
 
@@ -74,4 +76,14 @@ const alertList = ref<number>(0)
   <DestylerAlert v-for="i in alertList" :key="i">
     {{ i }}
   </DestylerAlert>
+  <br>
+  <br>
+  <DestylerDisclosure>
+    <template #action="{ action, handleToggleAction }">
+      <button @click="handleToggleAction">
+        {{ action }}
+      </button>
+    </template>
+    111111
+  </DestylerDisclosure>
 </template>
