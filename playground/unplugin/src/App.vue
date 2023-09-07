@@ -80,9 +80,9 @@ const alertList = ref<number>(0)
   <br>
   <DestylerDisclosure>
     <template #action="{ action, handleToggleAction }">
-      <button @click="handleToggleAction">
+      <DestylerButton @click="handleToggleAction">
         {{ action }}
-      </button>
+      </DestylerButton>
     </template>
     111111
   </DestylerDisclosure>
