@@ -25,6 +25,8 @@ const items = [
 ]
 
 const alertList = ref<number>(0)
+
+const visible = ref(false)
 </script>
 
 <template>
@@ -86,4 +88,12 @@ const alertList = ref<number>(0)
     </template>
     111111
   </DestylerDisclosure>
+  <br>
+  <br>
+  <button @click="visible = !visible">
+    show dialog
+  </button>
+  <DestylerDialog v-model="visible">
+    <div>hello</div>
+  </DestylerDialog>
 </template>

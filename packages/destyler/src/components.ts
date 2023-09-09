@@ -5,6 +5,7 @@ import { DestylerAccordionItem, DestylerAccordionRoot } from '@destyler/accordio
 import { DestylerCheckbox } from '@destyler/checkbox'
 import { DestylerAlert } from '@destyler/alert'
 import { DestylerDisclosure } from '@destyler/disclosure'
+import { DestylerDialog } from '@destyler/dialog'
 
 export {
   DestylerIcon,
@@ -15,4 +16,5 @@ export {
   DestylerCheckbox,
   DestylerAlert,
   DestylerDisclosure,
+  DestylerDialog,
 }

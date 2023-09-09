@@ -90,6 +90,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/dialog:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/disclosure:
     dependencies:
       vue:
@@ -122,6 +128,9 @@ importers:
       '@destyler/checkbox':
         specifier: workspace:^
         version: link:../components/checkbox
+      '@destyler/dialog':
+        specifier: workspace:^
+        version: link:../components/dialog
       '@destyler/disclosure':
         specifier: workspace:^
         version: link:../components/disclosure
