@@ -1,6 +1,6 @@
 <h1 align=center>Destyler</h1>
 
-<p align=center>unstyled component for vue</p>
+<p align=center>unstyled component for vue.</p>
 
 
 ## Features
