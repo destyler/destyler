@@ -24,7 +24,7 @@ export default defineComponent({
       [props.modelValue
         ? h('div', {
           destyler: 'dialog-root',
-        }, slots.default?.(handleVisible))
+        }, slots.default?.({ handleVisible }))
         : null,
       ],
       ))

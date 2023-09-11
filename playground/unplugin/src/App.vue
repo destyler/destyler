@@ -90,10 +90,14 @@ const visible = ref(false)
   </DestylerDisclosure>
   <br>
   <br>
+  {{ visible }}
   <button @click="visible = !visible">
     show dialog
   </button>
-  <DestylerDialog v-model="visible">
+  <DestylerDialog v-slot="{ handleVisible }" v-model="visible">
+    <button @click="handleVisible">
+      close
+    </button>
     <div>hello</div>
   </DestylerDialog>
 </template>
