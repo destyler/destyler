@@ -31,6 +31,7 @@ const visible = ref(false)
 const menu = ref(false)
 
 function handleMenuItemClick() {
+  // eslint-disable-next-line no-console
   console.log('handleMenuItemClick')
 }
 </script>
