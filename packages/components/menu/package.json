@@ -1,7 +1,7 @@
 {
-  "name": "destyler",
+  "name": "@destyler/menu",
   "version": "0.0.0",
-  "description": "",
+  "description": "unstyled menu component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -25,16 +25,5 @@
   },
   "peerDependencies": {
     "vue": "^3.3.4"
-  },
-  "dependencies": {
-    "@destyler/accordion": "workspace:^",
-    "@destyler/alert": "workspace:^",
-    "@destyler/avatar": "workspace:^",
-    "@destyler/button": "workspace:^",
-    "@destyler/checkbox": "workspace:^",
-    "@destyler/dialog": "workspace:^",
-    "@destyler/disclosure": "workspace:^",
-    "@destyler/icon": "workspace:^",
-    "@destyler/menu": "workspace:^"
   }
 }

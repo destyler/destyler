@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerDisclosure } from 'destyler'
+import { DestylerDisclosure, DestylerMenuItem, DestylerMenuItems } from 'destyler'
 
 const selected = ref('item1')
 const selected1 = ref('item1')
@@ -27,6 +27,12 @@ const items = [
 const alertList = ref<number>(0)
 
 const visible = ref(false)
+
+const menu = ref(false)
+
+function handleMenuItemClick() {
+  console.log('handleMenuItemClick')
+}
 </script>
 
 <template>
@@ -100,4 +106,24 @@ const visible = ref(false)
     </button>
     <div>hello</div>
   </DestylerDialog>
+
+  <br>
+  <br>
+  {{ menu }}
+  <DestylerMenuRoot v-slot="{ handleModelValue }" v-model="menu">
+    <button @click="handleModelValue">
+      More
+    </button>
+    <DestylerMenuItems>
+      <DestylerMenuItem v-slot="{ active }" @on="handleMenuItemClick">
+        hello{{ active }}
+      </DestylerMenuItem>
+      <DestylerMenuItem v-slot="{ active }">
+        hello{{ active }}
+      </DestylerMenuItem>
+      <DestylerMenuItem disabled @on="handleMenuItemClick">
+        <span>Invite a friend (coming soon!)</span>
+      </DestylerMenuItem>
+    </DestylerMenuItems>
+  </DestylerMenuRoot>
 </template>

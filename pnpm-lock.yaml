@@ -111,6 +111,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/menu:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/destyler:
     dependencies:
       '@destyler/accordion':
@@ -137,6 +143,9 @@ importers:
       '@destyler/icon':
         specifier: workspace:^
         version: link:../components/icon
+      '@destyler/menu':
+        specifier: workspace:^
+        version: link:../components/menu
       vue:
         specifier: ^3.3.4
         version: 3.3.4
