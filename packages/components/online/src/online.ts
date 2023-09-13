@@ -13,31 +13,18 @@ export default defineComponent({
   },
   emits: ['networkStatus'],
   setup(props, { emit, slots }) {
-    // state
     const isOnline = ref<boolean>(navigator.onLine || false)
     const events = ref<string[]>(['online', 'offline', 'load'])
     const url = ref<string>(props.url || 'https://google.com')
-    /**
-     * Created lifecycle hook
-     */
+
     events.value.forEach(event => window.addEventListener(event, status))
 
-    /**
-     * Before unmount lifecycle hook
-     */
     onBeforeUnmount(() => {
-      // Cleanup of the event listeners
       events.value.forEach(event =>
         window.removeEventListener(event, status),
       )
     })
 
-    /**
-     * Pings the URL and emits an
-     * detected online/offline event.
-     *
-     * @returns {Promise<void>}
-     */
     async function status(): Promise<void> {
       const p = new Ping()
       try {
