@@ -7,6 +7,7 @@ import { DestylerAlert } from '@destyler/alert'
 import { DestylerDisclosure } from '@destyler/disclosure'
 import { DestylerDialog } from '@destyler/dialog'
 import { DestylerMenuItem, DestylerMenuItems, DestylerMenuRoot } from '@destyler/menu'
+import { DestylerOnline } from '@destyler/online'
 
 export {
   DestylerIcon,
@@ -21,4 +22,5 @@ export {
   DestylerMenuRoot,
   DestylerMenuItems,
   DestylerMenuItem,
+  DestylerOnline,
 }

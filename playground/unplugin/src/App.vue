@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerDisclosure, DestylerMenuItem, DestylerMenuItems } from 'destyler'
+import { DestylerDisclosure, DestylerMenuItem, DestylerMenuItems, DestylerOnline } from 'destyler'
 
 const selected = ref('item1')
 const selected1 = ref('item1')
@@ -33,6 +33,11 @@ const menu = ref(false)
 function handleMenuItemClick() {
   // eslint-disable-next-line no-console
   console.log('handleMenuItemClick')
+}
+
+const online: Ref<boolean> = ref(false)
+function onNetworkChange(status: boolean) {
+  online.value = status
 }
 </script>
 
@@ -127,4 +132,21 @@ function handleMenuItemClick() {
       </DestylerMenuItem>
     </DestylerMenuItems>
   </DestylerMenuRoot>
+
+  <br>
+  <br>
+  <DestylerOnline
+    @network-status="onNetworkChange"
+  >
+    <template v-if="online">
+      <div class="flex w-full h-full justify-center items-center text-6xl">
+        ⚡️ online
+      </div>
+    </template>
+    <template v-if="!online">
+      <div class="flex w-full h-full justify-center items-center text-6xl">
+        💩 offline
+      </div>
+    </template>
+  </DestylerOnline>
 </template>
