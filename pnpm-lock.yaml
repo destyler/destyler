@@ -60,6 +60,53 @@ importers:
         specifier: ^1.8.8
         version: 1.8.8(typescript@5.2.2)
 
+  examples/unplugin:
+    dependencies:
+      destyler:
+        specifier: workspace:*
+        version: link:../../packages/destyler
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@4.4.9)(vue@3.3.4)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      vite:
+        specifier: ^4.4.9
+        version: 4.4.9(@types/node@20.5.9)
+      vue-tsc:
+        specifier: ^1.8.8
+        version: 1.8.8(typescript@5.2.2)
+
+  examples/vue:
+    dependencies:
+      destyler:
+        specifier: workspace:*
+        version: link:../../packages/destyler
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+    devDependencies:
+      '@iconify-json/carbon':
+        specifier: ^1.1.21
+        version: 1.1.21
+      '@vitejs/plugin-vue':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@4.4.9)(vue@3.3.4)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      vite:
+        specifier: ^4.4.9
+        version: 4.4.9(@types/node@20.5.9)
+      vue-tsc:
+        specifier: ^1.8.8
+        version: 1.8.8(typescript@5.2.2)
+
   packages/components/accordion:
     dependencies:
       vue:
@@ -126,6 +173,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/tooltip:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/destyler:
     dependencies:
       '@destyler/accordion':
@@ -162,51 +215,23 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
-  playground/unplugin:
+  playground:
     dependencies:
-      destyler:
-        specifier: workspace:*
-        version: link:../../packages/destyler
       vue:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
       '@vitejs/plugin-vue':
-        specifier: ^4.3.4
+        specifier: ^4.2.3
         version: 4.3.4(vite@4.4.9)(vue@3.3.4)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.0.2
         version: 5.2.2
       vite:
-        specifier: ^4.4.9
+        specifier: ^4.4.5
         version: 4.4.9(@types/node@20.5.9)
       vue-tsc:
-        specifier: ^1.8.8
-        version: 1.8.8(typescript@5.2.2)
-
-  playground/vue:
-    dependencies:
-      destyler:
-        specifier: workspace:*
-        version: link:../../packages/destyler
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-    devDependencies:
-      '@iconify-json/carbon':
-        specifier: ^1.1.21
-        version: 1.1.21
-      '@vitejs/plugin-vue':
-        specifier: ^4.3.4
-        version: 4.3.4(vite@4.4.9)(vue@3.3.4)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vite:
-        specifier: ^4.4.9
-        version: 4.4.9(@types/node@20.5.9)
-      vue-tsc:
-        specifier: ^1.8.8
+        specifier: ^1.8.5
         version: 1.8.8(typescript@5.2.2)
 
 packages:

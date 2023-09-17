@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { DestylerDisclosure, DestylerMenuItem, DestylerMenuItems, DestylerOnline } from 'destyler'
-
 const selected = ref('item1')
 const selected1 = ref('item1')
 
