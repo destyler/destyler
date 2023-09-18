@@ -9,6 +9,7 @@ import { DestylerDialog } from '@destyler/dialog'
 import { DestylerMenuItem, DestylerMenuItems, DestylerMenuRoot } from '@destyler/menu'
 import { DestylerOnline } from '@destyler/online'
 import { DestylerTooltip } from '@destyler/tooltip'
+import { DestylerHoverCardItem, DestylerHoverCardRoot, DestylerHoverCardToggle } from '@destyler/hover-card'
 
 export {
   DestylerIcon,
@@ -25,4 +26,7 @@ export {
   DestylerMenuItem,
   DestylerOnline,
   DestylerTooltip,
+  DestylerHoverCardRoot,
+  DestylerHoverCardItem,
+  DestylerHoverCardToggle,
 }

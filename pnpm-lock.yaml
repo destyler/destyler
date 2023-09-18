@@ -149,6 +149,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/hoverCard:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
@@ -202,6 +208,9 @@ importers:
       '@destyler/disclosure':
         specifier: workspace:^
         version: link:../components/disclosure
+      '@destyler/hover-card':
+        specifier: workspace:^
+        version: link:../components/hoverCard
       '@destyler/icon':
         specifier: workspace:^
         version: link:../components/icon
@@ -211,6 +220,9 @@ importers:
       '@destyler/online':
         specifier: workspace:^
         version: link:../components/online
+      '@destyler/tooltip':
+        specifier: workspace:^
+        version: link:../components/tooltip
       vue:
         specifier: ^3.3.4
         version: 3.3.4

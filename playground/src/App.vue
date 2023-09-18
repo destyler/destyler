@@ -10,6 +10,7 @@ import { DestylerMenuItem, DestylerMenuItems, DestylerMenuRoot } from '@destyler
 import { DestylerOnline } from '@destyler/online/src'
 import { DestylerAlert } from '@destyler/alert/src'
 import { DestylerTooltip } from '@destyler/tooltip/src'
+import { DestylerHoverCardItem, DestylerHoverCardRoot, DestylerHoverCardToggle } from '@destyler/hoverCard/src'
 
 const selected = ref('item1')
 const selected1 = ref('item1')
@@ -166,4 +167,14 @@ function onNetworkChange(status: boolean) {
       {{ isHovered }}
     </button>
   </DestylerTooltip>
+  <br>
+  <br>
+  <DestylerHoverCardRoot>
+    <DestylerHoverCardItem>
+      hello
+    </DestylerHoverCardItem>
+    <DestylerHoverCardToggle>
+      <button>toggle</button>
+    </DestylerHoverCardToggle>
+  </DestylerHoverCardRoot>
 </template>
