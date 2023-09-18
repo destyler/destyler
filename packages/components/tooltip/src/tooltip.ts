@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'DestylerTooltip',
@@ -8,9 +8,31 @@ export default defineComponent({
       type: String as PropType<string>,
       required: true,
     },
+    delayEnter: {
+      type: Number as PropType<number>,
+      default: 0,
+      required: false,
+    },
+    delayLeave: {
+      type: Number as PropType<number>,
+      default: 0,
+      required: false,
+    },
   },
   setup(props, { slots }) {
-    const active = ref<boolean>(false)
+    const isHovered = ref<boolean>(false)
+    let timer: ReturnType<typeof setTimeout> | undefined
+    function toggle(entering: boolean) {
+      const delay = entering ? props.delayEnter : props.delayLeave
+      if (timer) {
+        clearTimeout(timer)
+        timer = undefined
+      }
+      if (delay)
+        timer = setTimeout(() => isHovered.value = entering, delay)
+      else
+        isHovered.value = entering
+    }
     return () => {
       return h(
         'div',
@@ -21,13 +43,13 @@ export default defineComponent({
           h('span', {
             destyler: 'tooltip-active',
             onMouseover: () => {
-              active.value = true
+              toggle(true)
             },
             onMouseout: () => {
-              active.value = false
+              toggle(false)
             },
-          }, slots.default?.()),
-          [active.value ? h('div', { destyler: 'tooltip-content' }, props.label) : null],
+          }, slots.default?.({ isHovered })),
+          [isHovered.value ? h('div', { destyler: 'tooltip-content' }, props.label) : null],
         ],
       )
     }

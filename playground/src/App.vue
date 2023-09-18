@@ -161,9 +161,9 @@ function onNetworkChange(status: boolean) {
   </DestylerOnline>
   <br>
   <br>
-  <DestylerTooltip label="tooltip">
+  <DestylerTooltip v-slot="{ isHovered }" label="tooltip" :delay-enter="300" :delay-leave="300">
     <button>
-      hello
+      {{ isHovered }}
     </button>
   </DestylerTooltip>
 </template>
