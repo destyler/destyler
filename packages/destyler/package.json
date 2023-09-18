@@ -36,6 +36,7 @@
     "@destyler/disclosure": "workspace:^",
     "@destyler/icon": "workspace:^",
     "@destyler/menu": "workspace:^",
-    "@destyler/online": "workspace:^"
+    "@destyler/online": "workspace:^",
+    "@destyler/tooltip": "workspace:^"
   }
 }
