@@ -179,6 +179,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/toggle:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/tooltip:
     dependencies:
       vue:
@@ -220,6 +226,9 @@ importers:
       '@destyler/online':
         specifier: workspace:^
         version: link:../components/online
+      '@destyler/toggle':
+        specifier: workspace:^
+        version: link:../components/toggle
       '@destyler/tooltip':
         specifier: workspace:^
         version: link:../components/tooltip

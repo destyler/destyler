@@ -10,6 +10,7 @@ import { DestylerMenuItem, DestylerMenuItems, DestylerMenuRoot } from '@destyler
 import { DestylerOnline } from '@destyler/online'
 import { DestylerTooltip } from '@destyler/tooltip'
 import { DestylerHoverCardItem, DestylerHoverCardRoot, DestylerHoverCardToggle } from '@destyler/hover-card'
+import { DestylerToggle } from '@destyler/toggle'
 
 export {
   DestylerIcon,
@@ -29,4 +30,5 @@ export {
   DestylerHoverCardRoot,
   DestylerHoverCardItem,
   DestylerHoverCardToggle,
+  DestylerToggle,
 }
