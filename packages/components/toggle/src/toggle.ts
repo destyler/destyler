@@ -15,7 +15,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
-    function handleClick() {
+    function handleModelValue() {
       if (!props.disabled)
         emit('update:modelValue', !props.modelValue)
     }
@@ -24,7 +24,7 @@ export default defineComponent({
         'destyler': 'toggle',
         'data-state': props.modelValue ? 'on' : 'off',
         'data-disabled': props.disabled,
-        'onClick': handleClick,
+        'onClick': handleModelValue,
       }, slots.default?.())
     }
   },

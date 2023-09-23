@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/toggle",
+  "name": "@destyler/toggle-group",
   "version": "0.0.0",
-  "description": "unstyled toggle component for vue",
+  "description": "unstyled toggle group component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

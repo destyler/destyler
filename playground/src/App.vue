@@ -12,6 +12,7 @@ import { DestylerAlert } from '@destyler/alert/src'
 import { DestylerTooltip } from '@destyler/tooltip/src'
 import { DestylerHoverCardItem, DestylerHoverCardRoot, DestylerHoverCardToggle } from '@destyler/hoverCard/src'
 import { DestylerToggle } from '@destyler/toggle/src'
+import { DestylerToggleItem, DestylerToggleRoot } from '@destyler/toggleGroup/src'
 
 const selected = ref('item1')
 const selected1 = ref('item1')
@@ -53,6 +54,8 @@ function onNetworkChange(status: boolean) {
 }
 
 const toggle = ref(true)
+
+const toggleGroup = ref('hello')
 </script>
 
 <template>
@@ -190,4 +193,19 @@ const toggle = ref(true)
   >
     <DestylerIcon :name="toggle ? 'carbon-home' : 'carbon-user'" />
   </DestylerToggle>
+
+  <br>
+  <br>
+  {{ toggleGroup }}
+  <DestylerToggleRoot v-model="toggleGroup">
+    <DestylerToggleItem value="hello">
+      hello
+    </DestylerToggleItem>
+    <DestylerToggleItem value="hello1">
+      hello1
+    </DestylerToggleItem>
+    <DestylerToggleItem value="hello2">
+      hello2
+    </DestylerToggleItem>
+  </DestylerToggleRoot>
 </template>
