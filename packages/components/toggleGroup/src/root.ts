@@ -12,28 +12,35 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
-    const select = ref<string | string[]>('')
-
-    const type = ref<boolean>(false)
+    const select = ref<string[]>([])
 
     onMounted(() => {
-      type.value = Array.isArray(props.modelValue)
-      select.value = props.modelValue
+      if (Array.isArray(props.modelValue))
+        select.value = props.modelValue
+      else
+        select.value.push(props.modelValue)
     })
 
-    function handleModelValue(value: string | string[]) {
-      emit('update:modelValue', value)
+    function handleModelValue(value: string) {
       if (Array.isArray(props.modelValue)) {
-        select.value.push(value as string)
-        return
+        if (select.value.includes(value))
+          select.value = select.value.filter(v => v !== value)
+        else
+          select.value.push(value)
       }
-      select.value = value
+      else {
+        select.value = [value]
+      }
+
+      if (Array.isArray(props.modelValue))
+        emit('update:modelValue', select.value)
+      else
+        emit('update:modelValue', select.value[0])
     }
 
     provide(destylerToggle, {
       select,
-      type,
-      updateSelected: (value: string | string[]) => handleModelValue(value),
+      updateSelected: (value: string) => handleModelValue(value),
     })
 
     return () => {

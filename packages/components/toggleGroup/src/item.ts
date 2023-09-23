@@ -15,21 +15,20 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { select, type, updateSelected } = inject(destylerToggle) as {
-      select: Ref<string | string[]>
-      type: Ref<boolean>
+    const { select, updateSelected } = inject(destylerToggle) as {
+      select: Ref<string[]>
       updateSelected: (value: string) => void
     }
 
     function handleSelected() {
       if (!props.disabled)
-        updateSelected(select.value === props.value ? '' : props.value)
+        updateSelected(props.value)
     }
 
     return () => {
       return h('button', {
         'destyler': `accordion-item-${props.value}`,
-        'data-state': select.value ? 'on' : 'off',
+        'data-state': select.value.includes(props.value) ? 'on' : 'off',
         'data-disabled': props.disabled,
         'onClick': handleSelected,
       }, slots.default?.())
