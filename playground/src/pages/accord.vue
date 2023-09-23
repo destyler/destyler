@@ -38,13 +38,14 @@ const items = [
     <template #style>
       <DestylerAccordionRoot
         v-model="selected"
-        class="bg-white w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
+        class="
+        bg-white w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5
+        "
       >
         <DestylerAccordionItem
           v-for="item in items"
           :key="item.value"
           :value="item.value"
-          class="[&[destyler=accordion-item-header]]:text-green"
         >
           <template #header>
             {{ item.title }}
@@ -59,5 +60,4 @@ const items = [
 </template>
 
 <style>
-
 </style>
