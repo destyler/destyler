@@ -20,7 +20,8 @@
       "@destyler/*": ["../packages/components/*"]
     },
     "types": [
-      "vite/client"
+      "vite/client",
+      "vite-plugin-vue-layouts/client"
     ]
   },
   "exclude": [
