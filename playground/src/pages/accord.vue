@@ -44,7 +44,7 @@ const items = [
           v-for="item in items"
           :key="item.value"
           :value="item.value"
-          class=""
+          class="[&[destyler=accordion-item-header]]:text-green"
         >
           <template #header>
             {{ item.title }}
