@@ -32,7 +32,8 @@ export default defineConfig({
       ],
     }),
     Components({
-
+      dirs: ['src/components'],
+      directoryAsNamespace: true,
     }),
   ],
 })

@@ -4,6 +4,7 @@ import {
   presetIcons,
   presetUno,
   presetWebFonts,
+  transformerDirectives,
 } from 'unocss'
 
 export default defineConfig({
@@ -25,5 +26,8 @@ export default defineConfig({
       },
     }),
     presetWebFonts(),
+  ],
+  transformers: [
+    transformerDirectives(),
   ],
 })

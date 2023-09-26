@@ -34,13 +34,16 @@ export default defineComponent({
         h('div', {
           destyler: 'accordion-item-header',
           onClick: handleSelected,
-        }, slots.header?.()),
+        }, slots.header?.({
+          state: select.value === props.value,
+        })),
         h('div', {
-          destyler: 'accordion-item-content',
-          style: {
-            display: select.value === props.value ? '' : 'none',
-          },
-        }, slots.conter?.()),
+          'destyler': 'accordion-item-content',
+          'data-state': select.value === props.value ? 'open' : 'close',
+          'hidden': select.value !== props.value,
+        }, slots.conter?.({
+          state: select.value === props.value,
+        })),
       ])
     }
   },
