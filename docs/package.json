@@ -1,0 +1,15 @@
+{
+  "name": "@destyler/docs",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build"
+  },
+  "dependencies": {
+    "unocss": "^0.56.1",
+    "vitepress": "1.0.0-rc.20"
+  },
+  "devDependencies": {
+    "@unocss/reset": "^0.56.1"
+  }
+}
