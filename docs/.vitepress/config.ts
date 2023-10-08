@@ -13,9 +13,6 @@ export default defineConfig({
       dark: 'vitesse-dark',
     },
   },
-  vite: {
-
-  },
   themeConfig: {
     search: {
       provider: 'local',
