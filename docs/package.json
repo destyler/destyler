@@ -6,10 +6,10 @@
     "build": "vitepress build"
   },
   "dependencies": {
-    "unocss": "^0.56.1",
+    "unocss": "^0.56.5",
     "vitepress": "1.0.0-rc.20"
   },
   "devDependencies": {
-    "@unocss/reset": "^0.56.1"
+    "@unocss/reset": "^0.56.5"
   }
 }

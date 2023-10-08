@@ -19,22 +19,22 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.41.0",
-    "@types/node": "^20.5.9",
-    "@vitejs/plugin-vue": "^4.3.4",
-    "@vitest/coverage-v8": "^0.34.3",
+    "@antfu/eslint-config": "0.43.1",
+    "@types/node": "^20.8.3",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "@vitest/coverage-v8": "^0.34.6",
     "@vue/test-utils": "^2.4.1",
     "bumpp": "^9.2.0",
-    "eslint": "^8.48.0",
-    "happy-dom": "^10.11.2",
-    "rimraf": "^5.0.1",
+    "eslint": "^8.51.0",
+    "happy-dom": "^12.9.0",
+    "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "unbuild": "^2.0.0",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.2",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.3",
+    "vite": "^4.4.11",
+    "vitest": "^0.34.6",
     "vue": "^3.3.4",
-    "vue-tsc": "^1.8.8"
+    "vue-tsc": "^1.8.16"
   }
 }

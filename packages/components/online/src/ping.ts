@@ -1,6 +1,6 @@
 /**
-* Creates a Ping instance.
-*/
+ * Creates a Ping instance.
+ */
 export default class Ping {
   opt: {
     favicon?: string
@@ -23,11 +23,11 @@ export default class Ping {
   }
 
   /**
-  * Pings source and triggers a callback when completed.
-  * @param {string} source Source of the website or server, including protocol and port.
-  * @param {Function} callback Callback function to trigger when completed. Returns error and ping value.
-  * @returns {Promise<number>|undefined} A promise that both resolves and rejects to the ping value. Or undefined if the browser does not support Promise.
-  */
+   * Pings source and triggers a callback when completed.
+   * @param {string} source Source of the website or server, including protocol and port.
+   * @param {Function} callback Callback function to trigger when completed. Returns error and ping value.
+   * @returns {Promise<number>|undefined} A promise that both resolves and rejects to the ping value. Or undefined if the browser does not support Promise.
+   */
   ping(source: string, callback?: (error: string | null, pingValue: number) => void): Promise<number> | undefined {
     let promise: Promise<number> | undefined
     let resolve: (value?: number | PromiseLike<number>) => void
@@ -52,7 +52,7 @@ export default class Ping {
     /**
      * Times ping and triggers callback.
      */
-    const pingCheck = function (this: Ping, e?: Event) {
+    const pingCheck = function (this: Ping) {
       if (timer)
         window.clearTimeout(timer)
 
