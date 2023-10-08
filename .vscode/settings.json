@@ -1,5 +1,6 @@
 {
   "unocss.root": [
-    "playground"
+    "playground",
+    "docs"
   ]
 }

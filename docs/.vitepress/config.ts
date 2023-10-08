@@ -39,6 +39,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Accord', link: '/components/accord' },
+            { text: 'Avatar', link: '/components/avatar' },
           ],
         },
       ],

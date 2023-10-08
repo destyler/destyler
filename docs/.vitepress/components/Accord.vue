@@ -38,17 +38,17 @@ const items = [
   </DestylerAccordionRoot>
 </template>
 
-<style>
+<style scoped>
 [destyler='accordion-root']{
   @apply p-2 bg-light dark:bg-dark rounded-lg w-600px;
 }
-[destyler='accordion-item']{
+[destyler='accordion-root'] :deep([destyler='accordion-item']){
   @apply w-full p-1;
 }
-[destyler='accordion-item-header']{
+[destyler='accordion-root'] :deep([destyler='accordion-item-header']){
   @apply cursor-pointer flex w-full justify-between rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75;
 }
-[destyler='accordion-item-content']{
+[destyler='accordion-root'] :deep([destyler='accordion-item-content']){
   @apply px-2 pt-2 pb-1 text-sm text-dark-500 dark:text-light-500;
 }
 </style>
