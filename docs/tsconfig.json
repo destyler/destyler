@@ -23,9 +23,9 @@
     "noUnusedLocals": true,
     "skipLibCheck": true
   },
+  "include": [".vitepress/**/*.ts", ".vitepress/**/*.d.ts", ".vitepress/**/*.tsx", ".vitepress/**/*.vue"],
   "exclude": [
     "dist",
     "node_modules"
-  ],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  ]
 }
