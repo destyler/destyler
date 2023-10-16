@@ -39,6 +39,7 @@ export default defineConfig({
           items: [
             { text: 'Accord', link: '/components/accord' },
             { text: 'Avatar', link: '/components/avatar' },
+            { text: 'Button', link: '/components/button' },
           ],
         },
       ],
