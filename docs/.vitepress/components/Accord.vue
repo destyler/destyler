@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerAccordionItem, DestylerAccordionRoot } from '@destyler/accordion/src'
-import { DestylerIcon } from '@destyler/icon/src'
+import { DestylerAccordionItem, DestylerAccordionRoot } from '@destyler/components/accordion/src'
+import { DestylerIcon } from '@destyler/components/icon/src'
 
 const selected = ref('item1')
 const items = [

@@ -52,7 +52,7 @@ export default class Ping {
     /**
      * Times ping and triggers callback.
      */
-    const pingCheck = function (this: Ping) {
+    const pingCheck = function (this: Ping, e?: Event) {
       if (timer)
         window.clearTimeout(timer)
 

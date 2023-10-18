@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["DOM", "ESNext"],
     "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "node",
     "baseUrl": ".",
-    "paths": {
-      "@destyler/components/*": ["../packages/components/*"]
-    },
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ],
     "resolveJsonModule": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -23,9 +19,6 @@
     "noUnusedLocals": true,
     "skipLibCheck": true
   },
-  "include": [".vitepress/**/*.ts", ".vitepress/**/*.d.ts", ".vitepress/**/*.tsx", ".vitepress/**/*.vue"],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["dist", "node_modules"]
 }

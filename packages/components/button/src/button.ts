@@ -1,30 +1,174 @@
-import type { PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import type { PropType, VNodeChild } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
+import type { MaybeArray } from '@destyler/shared'
+import { BaseIconSwitchTransition, FadeInExpandTransition, call, isSafari, resolveWrappedSlot } from '@destyler/shared'
 
 export default defineComponent({
   name: 'DestylerButton',
   props: {
+    tag: {
+      type: String as PropType<keyof HTMLElementTagNameMap>,
+      default: 'button',
+    },
     attrType: {
       type: String as PropType<'button' | 'submit' | 'reset'>,
       default: 'button',
     },
+    iconPlacement: {
+      type: String as PropType<'left' | 'right'>,
+      default: 'left',
+    },
+    renderIcon: Function as PropType<() => VNodeChild>,
     focusable: {
       type: Boolean as PropType<boolean>,
       default: false,
+    },
+    keyboard: {
+      type: Boolean as PropType<boolean>,
+      default: true,
     },
     disabled: {
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    loading: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    },
+    onClick: [Function, Array] as PropType<MaybeArray<(e: MouseEvent) => void>>,
+    nativeFocusBehavior: {
+      type: Boolean,
+      default: !isSafari,
+    },
   },
   setup(props, { slots }) {
+    const selfElRef = ref<HTMLElement | null>(null)
+
+    function handleClick(e: MouseEvent): void {
+      if (!props.disabled && !props.loading) {
+        const { onClick } = props
+        if (onClick)
+          call(onClick, e)
+      }
+    }
+
+    const mergedFocusableRef = computed(() => {
+      return props.focusable && !props.disabled
+    })
+
+    function handleMousedown(e: MouseEvent): void {
+      if (!mergedFocusableRef.value)
+        e.preventDefault()
+
+      if (props.nativeFocusBehavior)
+        return
+
+      e.preventDefault()
+      // normally this won't be called if disabled (when tag is button)
+      // if not, we try to make it behave like a button
+      if (props.disabled)
+        return
+
+      if (mergedFocusableRef.value)
+        selfElRef.value?.focus({ preventScroll: true })
+    }
+
+    const enterPressedRef = ref<boolean>(false)
+
+    const handleKeyup = (e: KeyboardEvent): void => {
+      switch (e.key) {
+        case 'Enter':
+          if (!props.keyboard)
+            return
+
+          enterPressedRef.value = false
+      }
+    }
+
+    function handleKeydown(e: KeyboardEvent): void {
+      switch (e.key) {
+        case 'Enter':
+          if (!props.keyboard || props.loading) {
+            e.preventDefault()
+            return
+          }
+          enterPressedRef.value = true
+      }
+    }
+
+    const children = resolveWrappedSlot(
+      slots.default,
+      children =>
+        children && (
+          h('span', {
+            destyler: 'button-content',
+          }, children)
+        ),
+    )
+
     return () => {
-      return h('button', {
+      return h(props.tag, {
+        ref: 'selfElRef',
+        tabindex: mergedFocusableRef.value ? 0 : -1,
         destyler: 'button',
         type: props.attrType,
         disabled: props.disabled,
         autofocus: props.focusable,
-      }, slots.default?.())
+        onClick: handleClick,
+        onMousedown: handleMousedown,
+        onKeyup: handleKeyup,
+        onKeydown: handleKeydown,
+      }, [
+        props.iconPlacement === 'right' && children,
+        h(FadeInExpandTransition, {
+          width: true,
+        }, {
+          default: () => {
+            return resolveWrappedSlot(
+              slots.icon,
+              children =>
+                (props.loading || props.renderIcon || children) && (
+                  h('span', {
+                    destyler: 'button-icon',
+                  }, h(BaseIconSwitchTransition, null, h('div', {
+                    destyler: 'button-icon-slot',
+                  }, [
+                    props.loading
+                      ? h('svg', {
+                        width: '1em',
+                        height: '1em',
+                        viewBox: '0 0 24 24',
+                      }, h('path', {
+                        fill: 'none',
+                        stroke: 'currentColor',
+                        strokeDasharray: '15',
+                        strokeDashoffset: '15',
+                        strokeLinecap: 'round',
+                        strokeWidth: '2',
+                        d: 'M12 3C16.9706 3 21 7.02944 21 12',
+                      }, [
+                        h('animate', {
+                          fill: 'freeze',
+                          attributeName: 'stroke-dashoffset',
+                          dur: '0.3s',
+                          values: '15;0',
+                        }),
+                        h('animateTransform', {
+                          attributeName: 'transform',
+                          dur: '1.5s',
+                          repeatCount: 'indefinite',
+                          type: 'rotate',
+                          values: '0 12 12;360 12 12',
+                        }),
+                      ]))
+                      : props.renderIcon ? props.renderIcon() : children,
+                  ])))
+                ),
+            )
+          },
+        }),
+        props.iconPlacement === 'left' && children,
+      ])
     }
   },
 })

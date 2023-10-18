@@ -140,6 +140,12 @@ importers:
 
   packages/components/button:
     dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -210,6 +216,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/composition:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/destyler:
     dependencies:
       '@destyler/accordion':
@@ -251,6 +263,15 @@ importers:
       '@destyler/tooltip':
         specifier: workspace:^
         version: link:../components/tooltip
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
+  packages/shared:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:^
+        version: link:../composition
       vue:
         specifier: ^3.3.4
         version: 3.3.4

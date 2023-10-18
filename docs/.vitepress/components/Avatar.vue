@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerAvatar } from '@destyler/avatar/src'
+import { DestylerAvatar } from '@destyler/components/avatar/src'
 </script>
 
 <template>
