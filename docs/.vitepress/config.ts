@@ -1,9 +1,42 @@
 import { defineConfig } from 'vitepress'
+import { version } from '../../package.json'
+import {
+  contributing,
+  destylerDescription,
+  destylerName,
+  discord,
+  font,
+  github,
+  mastodon,
+  ogImage,
+  ogUrl,
+  releases,
+  twitter,
+} from './meta'
 
 export default defineConfig({
   lang: 'en-US',
-  title: 'Destyler',
-  description: 'unstyled component for Vue.js.',
+  title: destylerName,
+  description: destylerDescription,
+  head: [
+    ['meta', { name: 'theme-color', content: '#729b1a' }],
+    ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['meta', { name: 'author', content: 'Elone Hoo' }],
+    ['meta', { name: 'keywords', content: 'unstyled component for vue.' }],
+    ['meta', { property: 'og:title', content: destylerName }],
+    ['meta', { property: 'og:description', content: destylerDescription }],
+    ['meta', { property: 'og:url', content: ogUrl }],
+    ['meta', { property: 'og:image', content: ogImage }],
+    ['meta', { name: 'twitter:title', content: destylerName }],
+    ['meta', { name: 'twitter:description', content: destylerDescription }],
+    ['meta', { name: 'twitter:image', content: ogImage }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['link', { rel: 'preload', as: 'style', onload: 'this.onload=null;this.rel=\'stylesheet\'', href: font }],
+    ['noscript', {}, `<link rel="stylesheet" crossorigin="anonymous" href="${font}" />`],
+    ['link', { rel: 'mask-icon', href: '/logo.svg', color: '#ffffff' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' }],
+  ],
   cleanUrls: true,
   lastUpdated: true,
   markdown: {
@@ -28,9 +61,26 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/destyler/destyler' },
+      { icon: 'mastodon', link: mastodon },
+      { icon: 'twitter', link: twitter },
+      { icon: 'discord', link: discord },
+      { icon: 'github', link: github },
     ],
-
+    nav: [
+      {
+        text: `v${version}`,
+        items: [
+          {
+            text: 'Release Notes ',
+            link: releases,
+          },
+          {
+            text: 'Contributing ',
+            link: contributing,
+          },
+        ],
+      },
+    ],
     sidebar: {
       '/': [
         {
