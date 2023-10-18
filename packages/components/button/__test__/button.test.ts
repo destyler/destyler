@@ -1,91 +1,59 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import DestylerButton from '../src/button'
 
 describe('Button', () => {
-  // Tests that the button component renders with default props
-  it('should render button component with default props', () => {
-    // Arrange
-    const wrapper = mount(DestylerButton)
-
-    // Assert
-    expect(wrapper.find('button').exists()).toBe(true)
-    expect(wrapper.find('button').attributes('destyler')).toBe('button')
-    expect(wrapper.find('button').attributes('type')).toBe('button')
-    expect(wrapper.find('button').attributes('disabled')).toBe(undefined)
-    expect(wrapper.find('button').attributes('autofocus')).toBe('false')
+  it('should work with import on demand', () => {
+    mount(DestylerButton)
   })
 
-  // Tests that the button component renders with custom props
-  it('should render button component with custom props', () => {
-    // Arrange
-    const wrapper = mount(DestylerButton, {
+  it('clickable', async () => {
+    const onClick = vi.fn()
+    const inst = mount(DestylerButton, {
       props: {
-        attrType: 'submit',
-        focusable: true,
-        disabled: true,
-      },
-      slots: {
-        default: 'Custom Button',
+        onClick,
       },
     })
-
-    // Act
-
-    // Assert
-    expect(wrapper.find('button').exists()).toBe(true)
-    expect(wrapper.find('button').attributes('destyler')).toBe('button')
-    expect(wrapper.find('button').attributes('type')).toBe('submit')
-    expect(wrapper.find('button').attributes('disabled')).toBe('')
-    expect(wrapper.find('button').attributes('autofocus')).toBe('true')
-    expect(wrapper.find('button').text()).toBe('Custom Button')
+    await inst.trigger('click')
+    expect(onClick).toHaveBeenCalled()
+    inst.unmount()
   })
 
-  // Tests that the button component renders with slot content
-  it('should render button component with slot content', () => {
-    // Arrange
-    const wrapper = mount(DestylerButton, {
-      slots: {
-        default: 'Slot Content',
+  it('keyboard', async () => {
+    const onClick = vi.fn()
+    const inst = mount(DestylerButton, {
+      props: {
+        keyboard: false,
+        onClick,
       },
     })
-
-    // Act
-
-    // Assert
-    expect(wrapper.find('button').exists()).toBe(true)
-    expect(wrapper.find('button').text()).toBe('Slot Content')
+    await inst.trigger('click')
+    expect(onClick).toBeCalledTimes(1)
+    await inst.trigger('keydown.space')
+    expect(onClick).toBeCalledTimes(1)
+    await inst.trigger('keydown.enter')
+    expect(onClick).toBeCalledTimes(1)
+    inst.unmount()
   })
 
-  // Tests that the button component renders with the disabled prop
-  it('should render button component with the disabled prop', () => {
-    // Arrange
-    const wrapper = mount(DestylerButton, {
+  it('disabled', async () => {
+    const onClick = vi.fn()
+    const inst = mount(DestylerButton, {
       props: {
         disabled: true,
+        onClick,
       },
     })
-
-    // Act
-
-    // Assert
-    expect(wrapper.find('button').exists()).toBe(true)
-    expect(wrapper.find('button').attributes('disabled')).toBe('')
+    await inst.trigger('click')
+    expect(onClick).not.toHaveBeenCalled()
+    inst.unmount()
   })
 
-  // Tests that the button component renders with the focusable prop
-  it('should render button component with the focusable prop', () => {
-    // Arrange
-    const wrapper = mount(DestylerButton, {
-      props: {
-        focusable: true,
-      },
+  it('should work with `attr-type` prop', () => {
+    ;(['button', 'submit', 'reset'] as const).forEach((type) => {
+      const wrapper = mount(DestylerButton, { props: { attrType: type } })
+      expect(wrapper.find('button').attributes('type')).toContain(type)
+      wrapper.unmount()
     })
-
-    // Act
-
-    // Assert
-    expect(wrapper.find('button').exists()).toBe(true)
-    expect(wrapper.find('button').attributes('autofocus')).toBe('true')
   })
 })
