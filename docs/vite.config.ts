@@ -10,6 +10,7 @@ import {
   presetWebFonts,
   transformerDirectives,
 } from 'unocss'
+import UI from '@elonehoo/ui'
 
 export default defineConfig({
   resolve: {
@@ -33,6 +34,7 @@ export default defineConfig({
     }) as Plugin,
     Unocss({
       presets: [
+        UI(),
         presetUno(),
         presetAttributify(),
         presetIcons({
