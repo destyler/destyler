@@ -107,7 +107,7 @@ export default defineComponent({
           ),
       )
       return h(props.tag, {
-        ref: 'selfElRef',
+        ref: selfElRef,
         tabindex: mergedFocusableRef.value ? 0 : -1,
         destyler: 'button',
         type: props.attrType,

@@ -42,11 +42,33 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
+    let memoedTextHtml: string | null = null
     const textRef = ref<HTMLElement | null>(null)
     const selfRef = ref<HTMLElement | null>(null)
     const loaded = ref(!props.lazy)
     const shouldStartLoading = ref(!props.lazy)
     const hasLoadError = ref(false)
+
+    function fitTextTransform(): void {
+      const { value: textEl } = textRef
+      if (textEl) {
+        if (memoedTextHtml === null || memoedTextHtml !== textEl.innerHTML) {
+          memoedTextHtml = textEl.innerHTML
+          const { value: selfEl } = selfRef
+          if (selfEl) {
+            const { offsetWidth: elWidth, offsetHeight: elHeight } = selfEl
+            const { offsetWidth: textWidth, offsetHeight: textHeight } = textEl
+            const radix = 0.9
+            const ratio = Math.min(
+              (elWidth / textWidth) * radix,
+              (elHeight / textHeight) * radix,
+              1,
+            )
+            textEl.style.transform = `translateX(-50%) translateY(-50%) scale(${ratio})`
+          }
+        }
+      }
+    }
 
     function mergedOnLoad(e: Event) {
       props.onLoad?.(e)
@@ -92,29 +114,6 @@ export default defineComponent({
       })
     })
 
-    let memoedTextHtml: string | null = null
-
-    function fitTextTransform(): void {
-      const { value: textEl } = textRef
-      if (textEl) {
-        if (memoedTextHtml === null || memoedTextHtml !== textEl.innerHTML) {
-          memoedTextHtml = textEl.innerHTML
-          const { value: selfEl } = selfRef
-          if (selfEl) {
-            const { offsetWidth: elWidth, offsetHeight: elHeight } = selfEl
-            const { offsetWidth: textWidth, offsetHeight: textHeight } = textEl
-            const radix = 0.9
-            const ratio = Math.min(
-              (elWidth / textWidth) * radix,
-              (elHeight / textHeight) * radix,
-              1,
-            )
-            textEl.style.transform = `translateX(-50%) translateY(-50%) scale(${ratio})`
-          }
-        }
-      }
-    }
-
     return () => {
       let img: VNodeChild
       const placeholderNode = !loaded.value
@@ -136,13 +135,15 @@ export default defineComponent({
       else {
         img = resolveWrappedSlot(slots.default, (children) => {
           if (children) {
+            const avatatText = h('span', {
+              ref: textRef,
+              destyler: 'avatar-text',
+            }, children)
             return h(DestylerResizeObserver, {
               onResize: fitTextTransform,
-            },
-            () => h('span', {
-              ref: 'textRef',
-              destyler: 'avatar-text',
-            }, children))
+            }, {
+              default: () => avatatText,
+            })
           }
           else if (props.src) {
             return h('img', {
@@ -167,6 +168,7 @@ export default defineComponent({
         })
       }
       return h('span', {
+        ref: selfRef,
         destyler: 'avatar',
       }, [
         img,

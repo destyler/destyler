@@ -13,16 +13,17 @@ export type ResizeObserverOnResize = (entry: ResizeObserverEntry) => void
 export default defineComponent({
   name: 'DestylerResizeObserver',
   props: {
-    onResize: Function as PropType<ResizeObserverOnResize>,
+    onResize: {
+      type: Function as PropType<ResizeObserverOnResize>,
+    },
   },
-  setup(props, { slots }) {
+  setup(props) {
     let registered = false
 
     const proxy = getCurrentInstance()!.proxy!
     function handleResize(entry: ResizeObserverEntry): void {
-      const { onResize } = props
-      if (onResize !== undefined)
-        onResize(entry)
+      if (props.onResize !== undefined)
+        props.onResize(entry)
     }
     onMounted(() => {
       const el = proxy.$el as Element | undefined
@@ -49,7 +50,9 @@ export default defineComponent({
       if (registered)
         delegate.unregisterHandler(proxy.$el.nextElementSibling)
     })
-
-    return () => renderSlot(slots, 'default')
   },
+  render() {
+    return renderSlot(this.$slots, 'default')
+  },
+
 })
