@@ -17,7 +17,13 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^4.4.0
         version: 4.4.0(vite@4.4.11)(vue@3.3.4)
+      '@vitest/browser':
+        specifier: ^0.34.6
+        version: 0.34.6(esbuild@0.18.20)(rollup@3.29.4)(vitest@0.34.6)
       '@vitest/coverage-v8':
+        specifier: ^0.34.6
+        version: 0.34.6(vitest@0.34.6)
+      '@vitest/ui':
         specifier: ^0.34.6
         version: 0.34.6(vitest@0.34.6)
       '@vue/test-utils':
@@ -52,7 +58,7 @@ importers:
         version: 4.4.11(@types/node@20.8.3)
       vitest:
         specifier: ^0.34.6
-        version: 0.34.6(happy-dom@12.9.0)
+        version: 0.34.6(@vitest/browser@0.34.6)(@vitest/ui@0.34.6)(happy-dom@12.9.0)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -138,10 +144,10 @@ importers:
   packages/components/avatar:
     dependencies:
       '@destyler/resize-observer':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../resizeObserver
       '@destyler/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: ^3.3.4
@@ -1364,6 +1370,10 @@ packages:
       type-detect: 4.0.8
     dev: true
 
+  /@jspm/core@2.0.1:
+    resolution: {integrity: sha512-Lg3PnLp0QXpxwLIAuuJboLeRaIhrgJjeuh797QADg3xz8wGLugQOS5DpsE8A6i6Adgzf+bacllkKZG3J0tGfDw==}
+    dev: true
+
   /@juggle/resize-observer@3.4.0:
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
     dev: false
@@ -1974,6 +1984,21 @@ packages:
       vue: 3.3.4
     dev: true
 
+  /@vitest/browser@0.34.6(esbuild@0.18.20)(rollup@3.29.4)(vitest@0.34.6):
+    resolution: {integrity: sha512-XCIGROVgw3L+PwYw/T2l+HP/SPrXvh2MfmQNU3aULl5ekE+QVj9A1RYu/1mcYXdac9ES4ahxUz6n4wgcVd9tbA==}
+    peerDependencies:
+      vitest: '>=0.34.0'
+    dependencies:
+      estree-walker: 3.0.3
+      magic-string: 0.30.4
+      modern-node-polyfills: 1.0.0(esbuild@0.18.20)(rollup@3.29.4)
+      sirv: 2.0.3
+      vitest: 0.34.6(@vitest/browser@0.34.6)(@vitest/ui@0.34.6)(happy-dom@12.9.0)
+    transitivePeerDependencies:
+      - esbuild
+      - rollup
+    dev: true
+
   /@vitest/coverage-v8@0.34.6(vitest@0.34.6):
     resolution: {integrity: sha512-fivy/OK2d/EsJFoEoxHFEnNGTg+MmdZBAVK9Ka4qhXR2K3J0DS08vcGVwzDtXSuUMabLv4KtPcpSKkcMXFDViw==}
     peerDependencies:
@@ -1990,7 +2015,7 @@ packages:
       std-env: 3.4.3
       test-exclude: 6.0.0
       v8-to-istanbul: 9.1.3
-      vitest: 0.34.6(happy-dom@12.9.0)
+      vitest: 0.34.6(@vitest/browser@0.34.6)(@vitest/ui@0.34.6)(happy-dom@12.9.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2023,6 +2048,21 @@ packages:
     resolution: {integrity: sha512-xaCvneSaeBw/cz8ySmF7ZwGvL0lBjfvqc1LpQ/vcdHEvpLn3Ff1vAvjw+CoGn0802l++5L/pxb7whwcWAw+DUQ==}
     dependencies:
       tinyspy: 2.2.0
+    dev: true
+
+  /@vitest/ui@0.34.6(vitest@0.34.6):
+    resolution: {integrity: sha512-/fxnCwGC0Txmr3tF3BwAbo3v6U2SkBTGR9UB8zo0Ztlx0BTOXHucE0gDHY7SjwEktCOHatiGmli9kZD6gYSoWQ==}
+    peerDependencies:
+      vitest: '>=0.30.1 <1'
+    dependencies:
+      '@vitest/utils': 0.34.6
+      fast-glob: 3.3.1
+      fflate: 0.8.1
+      flatted: 3.2.9
+      pathe: 1.1.1
+      picocolors: 1.0.0
+      sirv: 2.0.3
+      vitest: 0.34.6(@vitest/browser@0.34.6)(@vitest/ui@0.34.6)(happy-dom@12.9.0)
     dev: true
 
   /@vitest/utils@0.34.6:
@@ -3303,6 +3343,12 @@ packages:
   /estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
+  /estree-walker@3.0.3:
+    resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
+    dependencies:
+      '@types/estree': 1.0.2
+    dev: true
+
   /esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
@@ -3348,6 +3394,10 @@ packages:
     resolution: {integrity: sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==}
     dependencies:
       reusify: 1.0.4
+
+  /fflate@0.8.1:
+    resolution: {integrity: sha512-/exOvEuc+/iaUm105QIiOt4LpBdMTWsXxqR0HDF35vx3fmaKzw7354gTilCh5rkzEt8WYyG//ku3h3nRmd7CHQ==}
+    dev: true
 
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
@@ -4145,6 +4195,20 @@ packages:
       pathe: 1.1.1
       pkg-types: 1.0.3
       ufo: 1.3.1
+
+  /modern-node-polyfills@1.0.0(esbuild@0.18.20)(rollup@3.29.4):
+    resolution: {integrity: sha512-w1yb6ae5qSUJJ2u41krkUAxs+L7i9143Qam8EuXwDMeZHxl1JN8RfTSXG4S2bt0RHIRMeoWm/HCeO0pNIHmIYQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      esbuild: ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0
+    dependencies:
+      '@jspm/core': 2.0.1
+      '@rollup/pluginutils': 5.0.5(rollup@3.29.4)
+      esbuild: 0.18.20
+      local-pkg: 0.4.3
+    transitivePeerDependencies:
+      - rollup
+    dev: true
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -5248,7 +5312,7 @@ packages:
       - universal-cookie
     dev: false
 
-  /vitest@0.34.6(happy-dom@12.9.0):
+  /vitest@0.34.6(@vitest/browser@0.34.6)(@vitest/ui@0.34.6)(happy-dom@12.9.0):
     resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
@@ -5282,10 +5346,12 @@ packages:
       '@types/chai': 4.3.6
       '@types/chai-subset': 1.3.3
       '@types/node': 20.8.3
+      '@vitest/browser': 0.34.6(esbuild@0.18.20)(rollup@3.29.4)(vitest@0.34.6)
       '@vitest/expect': 0.34.6
       '@vitest/runner': 0.34.6
       '@vitest/snapshot': 0.34.6
       '@vitest/spy': 0.34.6
+      '@vitest/ui': 0.34.6(vitest@0.34.6)
       '@vitest/utils': 0.34.6
       acorn: 8.10.0
       acorn-walk: 8.2.0

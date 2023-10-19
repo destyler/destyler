@@ -15,6 +15,7 @@
     "example:unplugin": "pnpm -C example/unplugin run dev",
     "docs:dev": "pnpm -C docs run dev",
     "test": "vitest",
+    "test:ui": "vitest --ui --open false",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -23,6 +24,7 @@
     "@types/node": "^20.8.3",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/ui": "^0.34.6",
     "@vue/test-utils": "^2.4.1",
     "bumpp": "^9.2.0",
     "eslint": "^8.51.0",
