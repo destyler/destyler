@@ -96,17 +96,16 @@ export default defineComponent({
       }
     }
 
-    const children = resolveWrappedSlot(
-      slots.default,
-      children =>
-        children && (
-          h('span', {
-            destyler: 'button-content',
-          }, children)
-        ),
-    )
-
     return () => {
+      const children = resolveWrappedSlot(
+        slots.default,
+        children =>
+          children && (
+            h('span', {
+              destyler: 'button-content',
+            }, children)
+          ),
+      )
       return h(props.tag, {
         ref: 'selfElRef',
         tabindex: mergedFocusableRef.value ? 0 : -1,

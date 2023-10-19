@@ -6,6 +6,8 @@ export * from './vue/call'
 export * from './env/browser'
 export * from './env/is-browser'
 export * from './vue/resolve-slot'
+export * from './env/is-native-lazy-load'
+export * from './image/index'
 
 export {
   FadeInExpandTransition,

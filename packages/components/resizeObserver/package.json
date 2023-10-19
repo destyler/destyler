@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/avatar",
+  "name": "@destyler/resize-observer",
   "version": "0.0.0",
-  "description": "unstyled avatar component for vue",
+  "description": "unstyled resizeObserver component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -27,7 +27,6 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/resize-observer": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@juggle/resize-observer": "^3.4.0"
   }
 }
