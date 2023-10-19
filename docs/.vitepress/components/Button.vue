@@ -56,13 +56,11 @@ function handleClick() {
 
 <style>
 .fade-in-width-expand-transition-leave-from, .fade-in-width-expand-transition-enter-to{
-  opacity: 1
+  @apply op-100;
 }
 
 .fade-in-width-expand-transition-leave-to, .fade-in-width-expand-transition-enter-from{
-  opacity: 0!important;
-  margin-left: 0!important;
-  margin-right: 0!important;
+  @apply op-0! ml-0! mr-0!;
 }
 .fade-in-width-expand-transition-leave-active{
   overflow: hidden;
