@@ -22,10 +22,6 @@ import { DestylerIcon } from '@destyler/components/icon/src'
   @apply flex justify-center items-center bg-white dark:bg-black overflow-hidden rounded-1/2 inline-flex relative;
 }
 [destyler="avatar"] :deep([destyler="avatar-text"]){
-  white-space: nowrap;
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
+  @apply inline-block absolute left-1/2 top-1/2 whitespace-nowrap;
 }
 </style>
