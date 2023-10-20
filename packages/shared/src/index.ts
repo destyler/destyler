@@ -8,6 +8,7 @@ export * from './env/is-browser'
 export * from './vue/resolve-slot'
 export * from './env/is-native-lazy-load'
 export * from './image/index'
+export * from './vue/create-injection-key'
 
 export {
   FadeInExpandTransition,

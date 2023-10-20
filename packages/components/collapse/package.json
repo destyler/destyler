@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/accordion",
+  "name": "@destyler/collapse",
   "version": "0.0.0",
-  "description": "unstyled avatar component for vue",
+  "description": "unstyled collapse component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -25,5 +25,9 @@
   },
   "peerDependencies": {
     "vue": "^3.3.4"
+  },
+  "dependencies": {
+    "@destyler/composition": "workspace:*",
+    "@destyler/shared": "workspace:*"
   }
 }

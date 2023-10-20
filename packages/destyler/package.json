@@ -27,11 +27,11 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/accordion": "workspace:^",
     "@destyler/alert": "workspace:^",
     "@destyler/avatar": "workspace:^",
     "@destyler/button": "workspace:^",
     "@destyler/checkbox": "workspace:^",
+    "@destyler/collapse": "workspace:^",
     "@destyler/dialog": "workspace:^",
     "@destyler/disclosure": "workspace:^",
     "@destyler/hover-card": "workspace:^",
