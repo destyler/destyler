@@ -5,34 +5,49 @@ import type { MaybeArray } from '@destyler/shared'
 import { call, createInjectionKey } from '@destyler/shared'
 import type { HeaderClickInfo, OnItemHeaderClick, OnItemHeaderClickImpl, OnUpdateExpandedNames, OnUpdateExpandedNamesImpl } from './interface'
 
+export const Prop = {
+  'defaultExpandedNames': {
+    type: [Array, String] as PropType<string | number | Array<string | number> | null>,
+    default: null,
+  },
+  'expandedNames': {
+    type: [Array, String] as PropType<string | number | Array<string | number> | null>,
+  },
+  'accordion': {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  'displayDirective': {
+    type: String as PropType<'if' | 'show'>,
+    default: 'if',
+  },
+  'onItemHeaderClick': {
+    type: [Function, Array] as PropType<MaybeArray<OnItemHeaderClick>>,
+  },
+  'onUpdateExpandedNames': {
+    type: [Function, Array] as PropType<MaybeArray<OnUpdateExpandedNames>>,
+  },
+  'onUpdate:expandedNames': {
+    type: [Function, Array] as PropType<MaybeArray<OnUpdateExpandedNames>>,
+  },
+}
+
+export interface DestylerCollapseInjection {
+  props: ExtractPropTypes<typeof Prop>
+  expandedNamesRef: Ref<string | number | Array<string | number> | null>
+  slots: Slots
+  toggleItem: (
+    collapse: boolean,
+    name: string | number,
+    event: MouseEvent
+  ) => void
+}
+
+export const collapseInjectionKey = createInjectionKey<DestylerCollapseInjection>('destyler-collapse')
+
 export default defineComponent({
   name: 'DestylerCollapse',
-  props: {
-    'defaultExpandedNames': {
-      type: [Array, String] as PropType<string | number | Array<string | number> | null>,
-      default: null,
-    },
-    'expandedNames': {
-      type: [Array, String] as PropType<string | number | Array<string | number> | null>,
-    },
-    'accordion': {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    'displayDirective': {
-      type: String as PropType<'if' | 'show'>,
-      default: 'if',
-    },
-    'onItemHeaderClick': {
-      type: [Function, Array] as PropType<MaybeArray<OnItemHeaderClick>>,
-    },
-    'onUpdateExpandedNames': {
-      type: [Function, Array] as PropType<MaybeArray<OnUpdateExpandedNames>>,
-    },
-    'onUpdate:expandedNames': {
-      type: [Function, Array] as PropType<MaybeArray<OnUpdateExpandedNames>>,
-    },
-  },
+  props: Prop,
   setup(props, { slots }) {
     const uncontrolledExpandedNamesRef = ref<string | number | Array<string | number> | null>(props.defaultExpandedNames)
     const controlledExpandedNamesRef = computed(() => props.expandedNames)
@@ -40,19 +55,6 @@ export default defineComponent({
       controlledExpandedNamesRef,
       uncontrolledExpandedNamesRef,
     )
-
-    interface DestylerCollapseInjection {
-      props: ExtractPropTypes<typeof props>
-      expandedNamesRef: Ref<string | number | Array<string | number> | null>
-      slots: Slots
-      toggleItem: (
-        collapse: boolean,
-        name: string | number,
-        event: MouseEvent
-      ) => void
-    }
-
-    const collapseInjectionKey = createInjectionKey<DestylerCollapseInjection>('destyler-collapse')
 
     function doUpdateExpandedNames(names: Array<string | number> | string | number): void {
       const {
@@ -118,7 +120,9 @@ export default defineComponent({
     })
 
     return () => {
-      return h('div', slots)
+      return h('div', {
+        destyler: 'collapse',
+      }, slots)
     }
   },
 })
