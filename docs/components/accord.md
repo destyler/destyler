@@ -1,10 +1,10 @@
 # Accord
 <script setup>
-import Accord from '../.vitepress/components/Accord.vue'
+import Collpase from '../.vitepress/components/Collpase.vue'
 </script>
 
 <Showcase title="accord" >
-  <Accord />
+  <Collpase />
 </Showcase>
 
 ```vue
