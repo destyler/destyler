@@ -1,25 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { DestylerCollapse, DestylerCollapseItem } from '@destyler/components/collapse/src'
-import { DestylerIcon } from '@destyler/components/icon/src'
-
-const selected = ref('item1')
-const items = [
-  {
-    title: 'What is your refund policy?',
-    value: 'item1',
-    content: 'If you\'re unhappy with your purchase for any reason, email us within 90 days and we\'ll refund you in full, no questions asked.',
-  },
-  {
-    title: 'Do you offer technical support?',
-    value: 'item2',
-    content: 'No.',
-  },
-]
 </script>
 
 <template>
-  <DestylerCollapse>
+  <DestylerCollapse default-expanded-names="1" accordion class="min-w-70% w-full">
     <DestylerCollapseItem title="青铜" name="1">
       <div>可以</div>
     </DestylerCollapseItem>
@@ -33,5 +17,10 @@ const items = [
 </template>
 
 <style scoped>
-
+[destyler="collapse-item"]{
+  @apply border-b box-border border-#e5e7eb border-op-10 my-4;
+}
+[destyler="collapse-item"] :deep([destyler="collapse-item-header"]){
+  @apply flex cursor-pointer overflow-hidden;
+}
 </style>

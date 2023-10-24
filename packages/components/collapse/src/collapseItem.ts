@@ -86,15 +86,15 @@ export default defineComponent({
             collapsed,
           }, (children) => {
             return h('div', {
-              destyler: 'collapse-item-title',
+              destyler: 'collapse-item-header-extra',
               onClick: handleClick,
             }, [children])
           }),
-          h(DestylerCollapseItemContent, {
-            displayDirective: mergedDisplayDirective.value,
-            show: !collapsed.value,
-          }, slots),
         ]),
+        h(DestylerCollapseItemContent, {
+          displayDirective: mergedDisplayDirective.value,
+          show: !collapsed.value,
+        }, slots),
       ])
     }
   },

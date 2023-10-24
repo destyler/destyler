@@ -87,7 +87,7 @@ export default defineConfig({
           text: 'Components',
           collapsed: false,
           items: [
-            { text: 'Accord', link: '/components/accord' },
+            { text: 'Collpase', link: '/components/collpase' },
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'Button', link: '/components/button' },
           ],
