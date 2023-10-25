@@ -20,7 +20,9 @@ export default defineComponent({
     return () => {
       const useVShow = props.displayDirective === 'show' && onceTrue
       const contentNode = h('div', null, slots)
-      return h(FadeInExpandTransition, {}, [
+      return h(FadeInExpandTransition, {
+        destyler: 'collapse-item-content',
+      }, [
         useVShow
           ? withDirectives(contentNode, [[vShow, props.show]])
           : props.show

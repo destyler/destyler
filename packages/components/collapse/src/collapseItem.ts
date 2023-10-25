@@ -75,7 +75,8 @@ export default defineComponent({
       )
       const headerExtraSlot = slots['header-extra'] || collapseSlots['header-extra']
       return h('div', {
-        destyler: 'collapse-item',
+        'destyler': 'collapse-item',
+        'destyler-status': !collapsed.value ? 'open' : 'close',
       }, [
         h('div', {
           destyler: 'collapse-item-header',
@@ -84,6 +85,7 @@ export default defineComponent({
           headerNode,
           resolveWrappedSlotWithProps(headerExtraSlot, {
             collapsed,
+            handleClick,
           }, (children) => {
             return h('div', {
               destyler: 'collapse-item-header-extra',
