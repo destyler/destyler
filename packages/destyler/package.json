@@ -27,18 +27,10 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/alert": "workspace:^",
     "@destyler/avatar": "workspace:^",
     "@destyler/button": "workspace:^",
-    "@destyler/checkbox": "workspace:^",
     "@destyler/collapse": "workspace:^",
-    "@destyler/dialog": "workspace:^",
-    "@destyler/disclosure": "workspace:^",
-    "@destyler/hover-card": "workspace:^",
     "@destyler/icon": "workspace:^",
-    "@destyler/menu": "workspace:^",
-    "@destyler/online": "workspace:^",
-    "@destyler/toggle": "workspace:^",
-    "@destyler/tooltip": "workspace:^"
+    "@destyler/online": "workspace:^"
   }
 }
