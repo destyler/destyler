@@ -138,6 +138,15 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/binder:
+    dependencies:
+      '@destyler/shared':
+        specifier: workspace:^
+        version: link:../../shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/button:
     dependencies:
       '@destyler/composition':
@@ -182,6 +191,9 @@ importers:
 
   packages/components/popover:
     dependencies:
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -191,6 +203,15 @@ importers:
       '@juggle/resize-observer':
         specifier: ^3.4.0
         version: 3.4.0
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
+  packages/components/target:
+    dependencies:
+      '@destyler/shared':
+        specifier: workspace:^
+        version: link:../../shared
       vue:
         specifier: ^3.3.4
         version: 3.3.4

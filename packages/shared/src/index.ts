@@ -1,5 +1,9 @@
 import FadeInExpandTransition from './_internal/FadeInExpandTransition'
 import BaseIconSwitchTransition from './_internal/IconSwitchTransition'
+import { beforeNextFrameOnce } from './animation/next-frame-once'
+import { beforeNextFrame } from './animation/next-frame'
+import { off, on } from './events/delegate'
+import { getFirstVNode, getSlot } from './vue/v-node'
 
 export * from './dom/is-document'
 export * from './vue/call'
@@ -14,4 +18,10 @@ export * from './misc/index'
 export {
   FadeInExpandTransition,
   BaseIconSwitchTransition,
+  beforeNextFrameOnce,
+  beforeNextFrame,
+  off,
+  on,
+  getFirstVNode,
+  getSlot,
 }
