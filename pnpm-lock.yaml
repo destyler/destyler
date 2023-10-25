@@ -126,12 +126,6 @@ importers:
         specifier: ^1.8.16
         version: 1.8.16(typescript@5.2.2)
 
-  packages/components/alert:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
   packages/components/avatar:
     dependencies:
       '@destyler/resize-observer':
@@ -156,38 +150,14 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
-  packages/components/checkbox:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
   packages/components/collapse:
     dependencies:
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition
       '@destyler/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../shared
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
-  packages/components/dialog:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
-  packages/components/disclosure:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
-  packages/components/hoverCard:
-    dependencies:
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -201,12 +171,6 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
-  packages/components/menu:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
   packages/components/online:
     dependencies:
       ping.js:
@@ -216,23 +180,17 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/popover:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/resizeObserver:
     dependencies:
       '@juggle/resize-observer':
         specifier: ^3.4.0
         version: 3.4.0
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
-  packages/components/toggle:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
-
-  packages/components/toggleGroup:
-    dependencies:
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -251,45 +209,27 @@ importers:
 
   packages/destyler:
     dependencies:
-      '@destyler/alert':
-        specifier: workspace:^
-        version: link:../components/alert
       '@destyler/avatar':
         specifier: workspace:^
         version: link:../components/avatar
       '@destyler/button':
         specifier: workspace:^
         version: link:../components/button
-      '@destyler/checkbox':
-        specifier: workspace:^
-        version: link:../components/checkbox
       '@destyler/collapse':
         specifier: workspace:^
         version: link:../components/collapse
-      '@destyler/dialog':
-        specifier: workspace:^
-        version: link:../components/dialog
-      '@destyler/disclosure':
-        specifier: workspace:^
-        version: link:../components/disclosure
-      '@destyler/hover-card':
-        specifier: workspace:^
-        version: link:../components/hoverCard
       '@destyler/icon':
         specifier: workspace:^
         version: link:../components/icon
-      '@destyler/menu':
-        specifier: workspace:^
-        version: link:../components/menu
       '@destyler/online':
         specifier: workspace:^
         version: link:../components/online
-      '@destyler/toggle':
-        specifier: workspace:^
-        version: link:../components/toggle
-      '@destyler/tooltip':
-        specifier: workspace:^
-        version: link:../components/tooltip
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
+  packages/directives:
+    dependencies:
       vue:
         specifier: ^3.3.4
         version: 3.3.4

@@ -7,7 +7,7 @@ export function DestylerAccordionResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerAccordionItem' || name === 'DestylerAccordionRoot')
+      if (name === 'DestylerCollapse' || name === 'DestylerCollapseItem')
         return { name, from: packageName }
     },
   }
