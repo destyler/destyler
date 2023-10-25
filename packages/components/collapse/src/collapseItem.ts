@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, inject, provide, ref } from 'vue'
+import { computed, defineComponent, h, inject } from 'vue'
 import { createId, resolveSlotWithProps, resolveWrappedSlotWithProps } from '@destyler/shared'
 import { useMemo } from '@destyler/composition'
 import type { DestylerCollapseInjection } from './collapse'
