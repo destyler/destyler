@@ -180,6 +180,18 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/lazy-teleport:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/online:
     dependencies:
       ping.js:
@@ -191,9 +203,21 @@ importers:
 
   packages/components/popover:
     dependencies:
+      '@destyler/binder':
+        specifier: workspace:*
+        version: link:../binder
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
       '@destyler/directives':
         specifier: workspace:*
         version: link:../../directives
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/target':
+        specifier: workspace:*
+        version: link:../target
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -300,6 +324,12 @@ importers:
       vue-tsc:
         specifier: ^1.8.16
         version: 1.8.16(typescript@5.2.2)
+
+  template:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
 
 packages:
 

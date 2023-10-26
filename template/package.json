@@ -1,7 +1,8 @@
 {
-  "name": "@destyler/popover",
+  "name": "@destyler/template",
   "version": "0.0.0",
-  "description": "unstyled popover component for vue",
+  "private": "true",
+  "description": "unstyled template component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -25,12 +26,5 @@
   },
   "peerDependencies": {
     "vue": "^3.3.4"
-  },
-  "dependencies": {
-    "@destyler/binder": "workspace:*",
-    "@destyler/composition": "workspace:*",
-    "@destyler/directives": "workspace:*",
-    "@destyler/shared": "workspace:*",
-    "@destyler/target": "workspace:*"
   }
 }

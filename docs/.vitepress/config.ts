@@ -90,6 +90,7 @@ export default defineConfig({
             { text: 'Collpase', link: '/components/collpase' },
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'Button', link: '/components/button' },
+            { text: 'Popover', link: '/components/popover' },
           ],
         },
       ],

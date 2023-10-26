@@ -14,6 +14,8 @@ export * from './env/is-native-lazy-load'
 export * from './image/index'
 export * from './vue/create-injection-key'
 export * from './misc/index'
+export * from './vue/flatten'
+export * from './vue/get-first-slot-vnode'
 
 export {
   FadeInExpandTransition,
