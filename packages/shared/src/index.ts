@@ -6,6 +6,8 @@ import { off, on } from './events/delegate'
 import { getFirstVNode, getSlot } from './vue/v-node'
 
 export * from './dom/is-document'
+export * from './dom/get-precise-event-target'
+export * from './dom/resolve-to'
 export * from './vue/call'
 export * from './env/browser'
 export * from './env/is-browser'

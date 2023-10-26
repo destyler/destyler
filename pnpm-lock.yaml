@@ -171,6 +171,15 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/focus-trap:
+    dependencies:
+      '@destyler/shared':
+        specifier: workspace:^
+        version: link:../../shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+
   packages/components/follower:
     dependencies:
       '@destyler/composition':
@@ -180,11 +189,14 @@ importers:
         specifier: workspace:*
         version: link:../../directives
       '@destyler/lazy-teleport':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../lazy-teleport
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
 
   packages/components/icon:
     dependencies:
@@ -339,12 +351,6 @@ importers:
       vue-tsc:
         specifier: ^1.8.16
         version: 1.8.16(typescript@5.2.2)
-
-  template:
-    dependencies:
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.4
 
 packages:
 
