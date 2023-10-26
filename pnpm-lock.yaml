@@ -171,6 +171,21 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
 
+  packages/components/follower:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/lazy-teleport':
+        specifier: workspace:^
+        version: link:../lazy-teleport
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
