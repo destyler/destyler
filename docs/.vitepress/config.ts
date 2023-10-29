@@ -91,6 +91,8 @@ export default defineConfig({
             { text: 'Avatar', link: '/components/avatar' },
             { text: 'Button', link: '/components/button' },
             { text: 'Popover', link: '/components/popover' },
+            { text: 'FocusTrap', link: '/components/focusTrap' },
+            { text: 'ResizeObserver', link: '/components/resizeObserver' },
           ],
         },
       ],

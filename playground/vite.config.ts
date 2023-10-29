@@ -13,7 +13,7 @@ import { VueRouterAutoImports } from 'unplugin-vue-router'
 export default defineConfig({
   resolve: {
     alias: {
-      '@destyler/': `${path.resolve(__dirname, '../packages/components')}/`,
+      '@destyler/components': `${path.resolve(__dirname, '../packages/components')}/`,
     },
   },
   plugins: [

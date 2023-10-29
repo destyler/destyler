@@ -1,13 +1,16 @@
 import type { ComputedRef, PropType, Ref, VNode } from 'vue'
 import { cloneVNode, computed, defineComponent, h, provide, ref, toRef, watchEffect, withDirectives } from 'vue'
 import type { MaybeArray } from '@destyler/shared'
-import { call, getFirstSlotVNode } from '@destyler/shared'
+import { call, getFirstSlotVNode, keep } from '@destyler/shared'
 import { zindexable } from '@destyler/directives'
 import type { ExposedBinderInstance } from '@destyler/binder'
 import { DestylerBinder } from '@destyler/binder'
 import { DestylerTarget } from '@destyler/target'
 import { useIsMounted, useMemo, useMergedState } from '@destyler/composition'
 import type { InternalRenderBody, PopoverTrigger } from './interface'
+import DestylerPopoverBody, { popoverBodyProps } from './popoverBody'
+
+const bodyPropKeys = Object.keys(popoverBodyProps) as Array<keyof typeof popoverBodyProps>
 
 const triggerEventMap = {
   focus: ['onFocus', 'onBlur'],
@@ -441,6 +444,17 @@ export default defineComponent({
             )
             : null,
           this.positionManually ? null : h(DestylerTarget, null, [triggerVNode]),
+          h(DestylerPopoverBody,
+            keep(this.$props, bodyPropKeys, {
+              ...this.$attrs,
+              show: mergedShow,
+            }),
+            {
+              default: () => this.$slots.default?.(),
+              header: () => this.$slots.header?.(),
+              footer: () => this.$slots.footer?.(),
+            },
+          ),
         ]
       },
     }))

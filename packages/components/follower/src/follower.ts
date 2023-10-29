@@ -4,14 +4,12 @@ import { zindexable } from '@destyler/directives'
 import { useIsMounted, useMemo } from '@destyler/composition'
 import { DestylerLazyTeleport } from '@destyler/lazy-teleport'
 
-export interface FollowerInst {
-  syncPosition: () => void
-}
-
 export default defineComponent({
   name: 'DestylerFollower',
   props: {
-    show: Boolean,
+    show: {
+      type: Boolean as PropType<boolean>,
+    },
     enabled: {
       type: Boolean as PropType<boolean | undefined>,
       default: undefined,

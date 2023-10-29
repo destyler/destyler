@@ -8,6 +8,7 @@ import { getFirstVNode, getSlot } from './vue/v-node'
 export * from './dom/is-document'
 export * from './dom/get-precise-event-target'
 export * from './dom/resolve-to'
+export * from './dom/is-jsdom'
 export * from './vue/call'
 export * from './env/browser'
 export * from './env/is-browser'
@@ -18,6 +19,7 @@ export * from './vue/create-injection-key'
 export * from './misc/index'
 export * from './vue/flatten'
 export * from './vue/get-first-slot-vnode'
+export * from './vue/keep'
 
 export {
   FadeInExpandTransition,

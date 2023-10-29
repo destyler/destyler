@@ -8,9 +8,6 @@ import { setupLayouts } from 'virtual:generated-layouts'
 
 import App from './App.vue'
 
-import '@unocss/reset/tailwind.css'
-import 'uno.css'
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
   extendRoutes: routes => setupLayouts(routes),

@@ -7,16 +7,16 @@ const show = ref<boolean>(false)
 
 <template>
   <div>
-    <button @click="show = !show">
+    <button class="btn-green" @click="show = !show">
       {{ show ? 'close' : 'open' }}
     </button>
     <div v-if="show" style="padding: 10px;">
       <DestylerFocusTrap :active="show">
-        <div>
+        <div class="flex flex-wrap gap-1">
           1111
-          <input type="text">
-          <input type="text">
-          <button @click="show = !show">
+          <input class="input-green w-100px" type="text">
+          <input class="input-green w-100px" type="text">
+          <button class="btn-sky" @click="show = !show">
             close
           </button>
         </div>

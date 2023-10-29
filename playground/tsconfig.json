@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@destyler/*": ["../packages/components/*"]
+      "@destyler/components/*": ["../packages/components/*"]
     },
     "types": [
       "vite/client",

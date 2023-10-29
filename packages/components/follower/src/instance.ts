@@ -1,3 +1,7 @@
+export interface FollowerInst {
+  syncPosition: () => void
+}
+
 export interface ExposedBinderInstance {
   targetRef: HTMLElement | null
 }

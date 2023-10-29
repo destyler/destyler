@@ -239,6 +239,12 @@ importers:
       '@destyler/directives':
         specifier: workspace:*
         version: link:../../directives
+      '@destyler/focus-trap':
+        specifier: workspace:^
+        version: link:../focus-trap
+      '@destyler/follower':
+        specifier: workspace:*
+        version: link:../follower
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -302,6 +308,9 @@ importers:
 
   packages/directives:
     dependencies:
+      '@destyler/shared':
+        specifier: workspace:^
+        version: link:../shared
       vue:
         specifier: ^3.3.4
         version: 3.3.4
