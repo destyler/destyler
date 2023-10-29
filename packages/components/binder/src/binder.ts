@@ -4,6 +4,7 @@ import type {
 import {
   defineComponent,
   getCurrentInstance,
+  h,
   inject,
   onBeforeUnmount,
   provide,
@@ -112,6 +113,8 @@ export default defineComponent({
     }
   },
   render() {
-    return getSlot('binder', this.$slots)
+    return h('div', {
+      destyler: 'binder',
+    }, getSlot('binder', this.$slots))
   },
 })

@@ -216,14 +216,18 @@ export default defineComponent({
     const { active, focusableStyle } = this
     return h(Fragment, null, [
       h('div', {
+        'destyler': 'focusable-start',
         'aria-hidden': 'true',
         'tabindex': active ? '0' : '-1',
         'ref': 'focusableStartRef',
         'style': focusableStyle,
         'onFocus': this.handleStartFocus,
       }),
-      defaultSlot(),
       h('div', {
+        destyler: 'focusable-content',
+      }, defaultSlot()),
+      h('div', {
+        'destyler': 'focusable-end',
         'aria-hidden': 'true',
         'style': focusableStyle,
         'ref': 'focusableEndRef',

@@ -1,4 +1,4 @@
-import { defineComponent, inject, withDirectives } from 'vue'
+import { defineComponent, h, inject, withDirectives } from 'vue'
 import { getFirstVNode } from '@destyler/shared'
 import type { BinderInstance } from './instance'
 
@@ -22,6 +22,8 @@ export default defineComponent({
         [setTargetDirective],
       ])
     }
-    return getFirstVNode('follower', this.$slots)
+    return h('div', {
+      destyler: 'target',
+    }, getFirstVNode('follower', this.$slots))
   },
 })
