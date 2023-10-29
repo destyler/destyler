@@ -7,7 +7,7 @@ export function DestylerBinderResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerBinder')
+      if (name === 'DestylerBinder' || name === 'DestylerTarget' || name === 'DestylerFollower')
         return { name, from: packageName }
     },
   }

@@ -10,7 +10,9 @@ export default defineComponent({
       type: [String, Object] as PropType<string | HTMLElement>,
       default: undefined,
     },
-    disabled: Boolean,
+    disabled: {
+      type: Boolean as PropType<boolean>,
+    },
     show: {
       type: Boolean,
       required: true,
