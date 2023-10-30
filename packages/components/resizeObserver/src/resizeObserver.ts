@@ -2,7 +2,6 @@ import type { PropType } from 'vue'
 import {
   defineComponent,
   getCurrentInstance,
-  h,
   onBeforeUnmount,
   onMounted,
   renderSlot,
@@ -53,7 +52,7 @@ export default defineComponent({
     })
   },
   render() {
-    return h('div', { destyler: 'resize-observer' }, renderSlot(this.$slots, 'default'))
+    return renderSlot(this.$slots, 'default')
   },
 
 })
