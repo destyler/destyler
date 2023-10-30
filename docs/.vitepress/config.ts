@@ -93,6 +93,7 @@ export default defineConfig({
             { text: 'Popover', link: '/components/popover' },
             { text: 'FocusTrap', link: '/components/focusTrap' },
             { text: 'ResizeObserver', link: '/components/resizeObserver' },
+            { text: 'BackTop', link: '/components/backTop' },
           ],
         },
       ],

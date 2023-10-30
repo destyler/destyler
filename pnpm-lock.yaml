@@ -138,6 +138,21 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
+  packages/components/back-top:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/lazy-teleport':
+        specifier: workspace:*
+        version: link:../lazy-teleport
+      '@destyler/shared':
+        specifier: workspace:^
+        version: link:../../shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
+
   packages/components/binder:
     dependencies:
       '@destyler/composition':
