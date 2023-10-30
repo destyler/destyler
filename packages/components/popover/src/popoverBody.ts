@@ -1,7 +1,7 @@
 import type { DirectiveArguments, PropType, VNode, VNodeChild } from 'vue'
 import { computed, defineComponent, h, inject, mergeProps, onBeforeUnmount, ref, toRef, vShow, watch, watchEffect, withDirectives } from 'vue'
-import type { FollowerInst } from '@destyler/follower'
-import { DestylerFollower } from '@destyler/follower'
+import type { FollowerInst } from '@destyler/binder'
+import { DestylerFollower } from '@destyler/binder'
 import { DestylerFocusTrap } from '@destyler/focus-trap'
 import { getPreciseEventTarget, isJsdom, isSlotEmpty, resolveWrappedSlot } from '@destyler/shared'
 import { clickoutside, mousemoveoutside } from '@destyler/directives'
@@ -11,6 +11,7 @@ import type { PopoverInjection } from './popover'
 export const popoverBodyProps = {
   show: {
     type: Boolean as PropType<boolean>,
+    default: true,
   },
   trigger: {
     type: String as PropType<PopoverTrigger>,

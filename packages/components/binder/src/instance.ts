@@ -11,3 +11,7 @@ export interface BinderInstance extends ExposedBinderInstance {
   addResizeListener: (listener: () => void) => void
   removeResizeListener: (listener: () => void) => void
 }
+
+export interface FollowerInst {
+  syncPosition: () => void
+}

@@ -27,6 +27,9 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/shared": "workspace:^"
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
+    "@destyler/lazy-teleport": "workspace:*",
+    "@destyler/shared": "workspace:*"
   }
 }

@@ -8,7 +8,7 @@ export default defineComponent({
   props: {
     to: {
       type: [String, Object] as PropType<string | HTMLElement>,
-      default: undefined,
+      default: 'body',
     },
     disabled: {
       type: Boolean as PropType<boolean>,
