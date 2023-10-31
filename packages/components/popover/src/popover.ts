@@ -68,12 +68,11 @@ export interface PopoverInjection {
 
 export const destylerPopoverProps = {
   'show': {
-    type: Boolean as PropType<boolean>,
-    default: false,
+    type: Boolean as PropType<boolean | undefined>,
+    default: undefined,
   },
   'defaultShow': {
     type: Boolean as PropType<boolean>,
-    default: false,
   },
   'trigger': {
     type: String as PropType<PopoverTrigger>,
@@ -144,7 +143,7 @@ interface BodyInstance {
 export default defineComponent({
   name: 'DestylerPopover',
   props: destylerPopoverProps,
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const isMounted = useIsMounted()
     const binderInst = ref<ExposedBinderInstance | null>(null)
     // setup show
@@ -196,10 +195,6 @@ export default defineComponent({
         call(onShow, true)
       if (value && onHide)
         call(onHide, false)
-    }
-    function syncPosition(): void {
-      if (bodyInstance)
-        bodyInstance.syncPosition()
     }
     function clearShowTimer(): void {
       if (showTimerId.value) {
@@ -288,9 +283,6 @@ export default defineComponent({
         doUpdateShow(nextShow)
       }
     }
-    function setShow(value: boolean): void {
-      uncontrolledShow.value = value
-    }
     function getTriggerElement(): HTMLElement {
       return binderInst.value?.targetRef as HTMLElement
     }
@@ -315,147 +307,116 @@ export default defineComponent({
         doUpdateShow(false)
     })
 
-    return {
-      binderInst,
-      positionManually,
-      mergedShowConsideringDisabledProp,
-      // if to show popover body
-      uncontrolledShow,
-      getMergedShow,
-      setShow,
-      handleClick,
-      handleMouseEnter,
-      handleMouseLeave,
-      handleFocus,
-      handleBlur,
-      syncPosition,
-    }
-  },
-  render() {
-    let triggerVNode: VNode | null
-    let popoverInside = false
-    if (!this.positionManually) {
-      if (this.$slots.activator)
-        triggerVNode = getFirstSlotVNode(this.$slots, 'activator')
-      else
-        triggerVNode = getFirstSlotVNode(this.$slots, 'trigger')
+    return () => {
+      let triggerVNode: VNode | null
+      let popoverInside = false
+      if (!positionManually.value) {
+        if (slots.activator)
+          triggerVNode = getFirstSlotVNode(slots, 'activator')
+        else
+          triggerVNode = getFirstSlotVNode(slots, 'trigger')
 
-      if (triggerVNode) {
-        triggerVNode = cloneVNode(triggerVNode)
-        triggerVNode
+        if (triggerVNode) {
+          triggerVNode = cloneVNode(triggerVNode)
+          triggerVNode
             = triggerVNode.type === Text ? h('span', [triggerVNode]) : triggerVNode
-        const handlers = {
-          onClick: this.handleClick,
-          onMouseenter: this.handleMouseEnter,
-          onMouseleave: this.handleMouseLeave,
-          onFocus: this.handleFocus,
-          onBlur: this.handleBlur,
-        }
-        if ((triggerVNode.type as any)?.__popover__) {
-          popoverInside = true
-          // We assume that there's no DOM event handlers on popover element
-          if (!triggerVNode.props) {
-            triggerVNode.props = {
-              internalSyncTargetWithParent: true,
-              internalInheritedEventHandlers: [],
+          const handlers = {
+            onClick: handleClick,
+            onMouseenter: handleMouseEnter,
+            onMouseleave: handleMouseLeave,
+            onFocus: handleFocus,
+            onBlur: handleBlur,
+          }
+          if ((triggerVNode.type as any)?.__popover__) {
+            popoverInside = true
+            // We assume that there's no DOM event handlers on popover element
+            if (!triggerVNode.props) {
+              triggerVNode.props = {
+                internalSyncTargetWithParent: true,
+                internalInheritedEventHandlers: [],
+              }
+            }
+            triggerVNode.props.internalSyncTargetWithParent = true
+            if (!triggerVNode.props.internalInheritedEventHandlers) {
+              triggerVNode.props.internalInheritedEventHandlers = [handlers]
+            }
+            else {
+              triggerVNode.props.internalInheritedEventHandlers = [
+                handlers,
+                ...triggerVNode.props.internalInheritedEventHandlers,
+              ]
             }
           }
-          triggerVNode.props.internalSyncTargetWithParent = true
-          if (!triggerVNode.props.internalInheritedEventHandlers) {
-            triggerVNode.props.internalInheritedEventHandlers = [handlers]
-          }
           else {
-            triggerVNode.props.internalInheritedEventHandlers = [
+            const { internalInheritedEventHandlers } = props
+            const ascendantAndCurrentHandlers: TriggerEventHandlers[] = [
               handlers,
-              ...triggerVNode.props.internalInheritedEventHandlers,
+              ...internalInheritedEventHandlers,
             ]
+            const mergedHandlers: TriggerEventHandlers = {
+              onBlur: (e: FocusEvent) => {
+                ascendantAndCurrentHandlers.forEach((_handlers) => {
+                  _handlers.onBlur(e)
+                })
+              },
+              onFocus: (e: FocusEvent) => {
+                ascendantAndCurrentHandlers.forEach((_handlers) => {
+                  _handlers.onFocus(e)
+                })
+              },
+              onClick: (e: MouseEvent) => {
+                ascendantAndCurrentHandlers.forEach((_handlers) => {
+                  _handlers.onClick(e)
+                })
+              },
+              onMouseenter: (e: MouseEvent) => {
+                ascendantAndCurrentHandlers.forEach((_handlers) => {
+                  _handlers.onMouseenter(e)
+                })
+              },
+              onMouseleave: (e: MouseEvent) => {
+                ascendantAndCurrentHandlers.forEach((_handlers) => {
+                  _handlers.onMouseleave(e)
+                })
+              },
+            }
+            appendEvents(
+              triggerVNode,
+              internalInheritedEventHandlers
+                ? 'nested'
+                : positionManually
+                  ? 'manual'
+                  : props.trigger,
+              mergedHandlers,
+            )
           }
-        }
-        else {
-          const { internalInheritedEventHandlers } = this
-          const ascendantAndCurrentHandlers: TriggerEventHandlers[] = [
-            handlers,
-            ...internalInheritedEventHandlers,
-          ]
-          const mergedHandlers: TriggerEventHandlers = {
-            onBlur: (e: FocusEvent) => {
-              ascendantAndCurrentHandlers.forEach((_handlers) => {
-                _handlers.onBlur(e)
-              })
-            },
-            onFocus: (e: FocusEvent) => {
-              ascendantAndCurrentHandlers.forEach((_handlers) => {
-                _handlers.onFocus(e)
-              })
-            },
-            onClick: (e: MouseEvent) => {
-              ascendantAndCurrentHandlers.forEach((_handlers) => {
-                _handlers.onClick(e)
-              })
-            },
-            onMouseenter: (e: MouseEvent) => {
-              ascendantAndCurrentHandlers.forEach((_handlers) => {
-                _handlers.onMouseenter(e)
-              })
-            },
-            onMouseleave: (e: MouseEvent) => {
-              ascendantAndCurrentHandlers.forEach((_handlers) => {
-                _handlers.onMouseleave(e)
-              })
-            },
-          }
-          appendEvents(
-            triggerVNode,
-            internalInheritedEventHandlers
-              ? 'nested'
-              : this.positionManually
-                ? 'manual'
-                : this.trigger,
-            mergedHandlers,
-          )
         }
       }
-    }
 
-    return h('div', {
-      destyler: 'popover',
-    }, h(DestylerBinder, {
-      ref: 'binderInst',
-      syncTarget: popoverInside,
-      syncTargetWithParent: this.internalSyncTargetWithParent,
-    }, {
-      default: () => {
-        void this.mergedShowConsideringDisabledProp
-        const mergedShow = this.getMergedShow()
+      return h('div', {
+        destyler: 'popover',
+      }, h(DestylerBinder, {
+        ref: binderInst,
+        syncTarget: popoverInside,
+        syncTargetWithParent: props.internalSyncTargetWithParent,
+      },
+      () => {
         return [
-          this.internalTrapFocus && mergedShow
-            ? withDirectives(
-              h('div'),
-              [
-                [
-                  zindexable,
-                  {
-                    enabled: mergedShow,
-                    zIndex: this.zIndex,
-                  },
-                ],
-              ],
-            )
+          props.internalTrapFocus && getMergedShow()
+            ? withDirectives(h('div'), [[zindexable, { enabled: getMergedShow(), zIndex: props.zIndex }]])
             : null,
-          this.positionManually ? null : h(DestylerTarget, null, [triggerVNode]),
+          positionManually.value ? null : h(DestylerTarget, null, [triggerVNode]),
           h(DestylerPopoverBody,
-            keep(this.$props, bodyPropKeys, {
-              ...this.$attrs,
-              show: mergedShow,
-            }),
+            keep(props, bodyPropKeys, { ...attrs, show: getMergedShow() }),
             {
-              default: () => this.$slots.default?.(),
-              header: () => this.$slots.header?.(),
-              footer: () => this.$slots.footer?.(),
+              default: () => slots.default?.(),
+              header: () => slots.header?.(),
+              footer: () => slots.footer?.(),
             },
           ),
         ]
       },
-    }))
+      ))
+    }
   },
 })

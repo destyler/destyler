@@ -11,7 +11,6 @@ import type { PopoverInjection } from './popover'
 export const popoverBodyProps = {
   show: {
     type: Boolean as PropType<boolean>,
-    default: true,
   },
   trigger: {
     type: String as PropType<PopoverTrigger>,
@@ -102,10 +101,7 @@ export default defineComponent({
     }
 
     function handleMouseMoveOutside(e: MouseEvent): void {
-      if (
-        props.trigger === 'hover'
-        && !getTriggerElement().contains(getPreciseEventTarget(e) as Node | null)
-      )
+      if (props.trigger === 'hover' && !getTriggerElement().contains(getPreciseEventTarget(e) as Node | null))
         DestylerPopover.handleMouseMoveOutside(e)
     }
 
@@ -193,7 +189,7 @@ export default defineComponent({
             : h('div', slots)
           return [body]
         }
-        contentNode = h('dvi', mergeProps({
+        contentNode = h('div', mergeProps({
           ref: body,
           onMouseenter: handleMouseEnter,
           onMouseleave: handleMouseLeave,
@@ -223,7 +219,9 @@ export default defineComponent({
         y: props.y,
         flip: props.flip,
         overlap: props.overlap,
-      }, [renderContentNode()])
+      }, () => {
+        return [renderContentNode()]
+      })
     }
   },
 })
