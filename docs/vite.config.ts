@@ -16,6 +16,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@destyler/components': `${path.resolve(__dirname, '../packages/components')}/`,
+      '@destyler/composition': `${path.resolve(__dirname, '../packages/composition')}/`,
     },
   },
   optimizeDeps: {
@@ -29,7 +30,7 @@ export default defineConfig({
   plugins: [
     Components({
       include: [/\.vue/, /\.md/],
-      dirs: '.vitepress/components',
+      dirs: ['.vitepress/components'],
       dts: '.vitepress/components.d.ts',
     }) as Plugin,
     Unocss({

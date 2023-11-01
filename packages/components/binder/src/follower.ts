@@ -1,11 +1,12 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, withDirectives } from 'vue'
 import { zindexable } from '@destyler/directives'
-import { useMemo } from '@destyler/composition'
+import { useIsMounted, useMemo } from '@destyler/composition'
 import { DestylerLazyTeleport } from '@destyler/lazy-teleport'
 
 export default defineComponent({
   name: 'DestylerFollower',
+  inheritAttrs: true,
   props: {
     show: {
       type: Boolean as PropType<boolean>,
@@ -61,10 +62,23 @@ export default defineComponent({
     })
     const follower = ref<HTMLElement | null>(null)
     const offsetContainer = ref<HTMLElement | null>(null)
+    const isMounted = useIsMounted()
+    const mergedTo = useMemo<string | HTMLElement | undefined>(
+      (): HTMLElement | string | undefined => {
+        const { to } = props
+        if (to !== undefined)
+          return to
+        if (isMounted.value) {
+          // TODO: find proper container
+          return undefined
+        }
+        return undefined
+      },
+    )
 
     return () => {
       return h(DestylerLazyTeleport, {
-        to: props.to,
+        to: mergedTo.value,
         disabled: props.teleportDisabled,
         show: props.show,
       }, {

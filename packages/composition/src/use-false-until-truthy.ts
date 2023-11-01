@@ -1,15 +1,15 @@
 import type { Ref } from 'vue'
 import { readonly, ref, watch } from 'vue'
 
-export default function useFalseUntilTruthy(originalRef: Ref<any>): Readonly<Ref<boolean>> {
-  const currentRef = ref(!!(originalRef.value as boolean))
-  if (currentRef.value)
-    return readonly(currentRef)
-  const stop = watch(originalRef, (value: any) => {
+export default function useFalseUntilTruthy(arg: Ref<any>): Readonly<Ref<boolean>> {
+  const current = ref(!!(arg.value as boolean))
+  if (current.value)
+    return readonly(current)
+  const stop = watch(arg, (value: any) => {
     if (value as boolean) {
-      currentRef.value = true
+      current.value = true
       stop()
     }
   })
-  return readonly(currentRef)
+  return readonly(current)
 }

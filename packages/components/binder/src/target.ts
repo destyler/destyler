@@ -4,24 +4,16 @@ import type { BinderInstance } from './instance'
 
 export default defineComponent({
   name: 'DestylerTarget',
-  setup() {
+  setup(_, { slots }) {
     const { setTargetRef, syncTarget } = inject<BinderInstance>('DestylerBinder')!
     const setTargetDirective = {
       mounted: setTargetRef,
       updated: setTargetRef,
     }
-    return {
-      syncTarget,
-      setTargetDirective,
+    return () => {
+      if (syncTarget)
+        return withDirectives(getFirstVNode('follower', slots), [[setTargetDirective]])
+      return getFirstVNode('follower', slots)
     }
-  },
-  render() {
-    const { syncTarget, setTargetDirective } = this
-    if (syncTarget) {
-      return withDirectives(getFirstVNode('follower', this.$slots), [
-        [setTargetDirective],
-      ])
-    }
-    return getFirstVNode('follower', this.$slots)
   },
 })

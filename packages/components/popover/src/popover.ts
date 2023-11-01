@@ -3,9 +3,9 @@ import { cloneVNode, computed, defineComponent, h, provide, ref, toRef, watchEff
 import type { MaybeArray } from '@destyler/shared'
 import { call, getFirstSlotVNode, keep } from '@destyler/shared'
 import { zindexable } from '@destyler/directives'
-import type { ExposedBinderInstance } from '@destyler/binder'
-import { DestylerBinder, DestylerTarget } from '@destyler/binder'
 import { useIsMounted, useMemo, useMergedState } from '@destyler/composition'
+import { DestylerBinder, DestylerTarget } from '../../binder/src'
+import type { ExposedBinderInstance } from '../../binder/src'
 import type { InternalRenderBody, PopoverTrigger } from './interface'
 import DestylerPopoverBody, { popoverBodyProps } from './popoverBody'
 
@@ -142,7 +142,9 @@ interface BodyInstance {
 
 export default defineComponent({
   name: 'DestylerPopover',
+  inheritAttrs: false,
   props: destylerPopoverProps,
+  __popover__: true,
   setup(props, { slots, attrs }) {
     const isMounted = useIsMounted()
     const binderInst = ref<ExposedBinderInstance | null>(null)
@@ -318,8 +320,7 @@ export default defineComponent({
 
         if (triggerVNode) {
           triggerVNode = cloneVNode(triggerVNode)
-          triggerVNode
-            = triggerVNode.type === Text ? h('span', [triggerVNode]) : triggerVNode
+          triggerVNode = triggerVNode.type === Text ? h('span', [triggerVNode]) : triggerVNode
           const handlers = {
             onClick: handleClick,
             onMouseenter: handleMouseEnter,
@@ -405,7 +406,12 @@ export default defineComponent({
           props.internalTrapFocus && getMergedShow()
             ? withDirectives(h('div'), [[zindexable, { enabled: getMergedShow(), zIndex: props.zIndex }]])
             : null,
-          positionManually.value ? null : h(DestylerTarget, null, [triggerVNode]),
+          positionManually.value
+            ? null
+            : h(DestylerTarget, null, {
+
+              default: () => triggerVNode,
+            }),
           h(DestylerPopoverBody,
             keep(props, bodyPropKeys, { ...attrs, show: getMergedShow() }),
             {

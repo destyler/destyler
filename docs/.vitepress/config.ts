@@ -96,6 +96,14 @@ export default defineConfig({
             { text: 'BackTop', link: '/components/backTop' },
           ],
         },
+        {
+          text: 'Composition',
+          collapsed: false,
+          items: [
+            { text: 'Getting Started', link: '/composition/index' },
+            { text: 'useFalseUntilTruthy', link: '/composition/useFalseUntilTruthy' },
+          ],
+        },
       ],
     },
 
