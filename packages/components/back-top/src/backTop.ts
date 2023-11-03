@@ -110,20 +110,25 @@ export default defineComponent({
       if (scrollElement)
         scrollElement.removeEventListener('scroll', handleScroll)
     })
-    return () => {
-      return h('div', {
-        ref: placeholder,
-      }, h(DestylerLazyTeleport, {
-        to: props.to,
-        show: mergedShow.value,
-      }, [
-        mergedShow.value
-          ? h('div', {
-            onClick: handleClick,
-            destyler: 'back-top',
-          }, slots.default?.())
-          : null,
-      ]))
+    return {
+      mergedShow,
+      handleClick,
+      placeholder,
     }
+  },
+  render() {
+    return h('div', {
+      ref: 'placeholder',
+    }, h(DestylerLazyTeleport, {
+      to: this.$props.to,
+      show: this.mergedShow,
+    }, [
+      this.mergedShow
+        ? h('div', {
+          onClick: this.handleClick,
+          destyler: 'back-top',
+        }, this.$slots.default?.())
+        : null,
+    ]))
   },
 })

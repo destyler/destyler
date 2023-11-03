@@ -67,37 +67,44 @@ export default defineComponent({
         DestylerCollapse.toggleItem(collapsed.value, mergedName.value, e)
     }
 
-    return () => {
-      const headerNode = resolveSlotWithProps(
-        slots.header,
-        { collapsed },
-        () => [props.title],
-      )
-      const headerExtraSlot = slots['header-extra'] || collapseSlots['header-extra']
-      return h('div', {
-        'destyler': 'collapse-item',
-        'destyler-status': !collapsed.value ? 'open' : 'close',
-      }, [
-        h('div', {
-          destyler: 'collapse-item-header',
-          onClick: handleClick,
-        }, [
-          headerNode,
-          resolveWrappedSlotWithProps(headerExtraSlot, {
-            collapsed,
-            handleClick,
-          }, (children) => {
-            return h('div', {
-              destyler: 'collapse-item-header-extra',
-              onClick: handleClick,
-            }, [children])
-          }),
-        ]),
-        h(DestylerCollapseItemContent, {
-          displayDirective: mergedDisplayDirective.value,
-          show: !collapsed.value,
-        }, slots),
-      ])
+    return {
+      collapseSlots,
+      randomName,
+      collapsed,
+      mergedDisplayDirective,
+      handleClick,
     }
+  },
+  render() {
+    const headerNode = resolveSlotWithProps(
+      this.$slots.header,
+      { collapsed: this.collapsed },
+      () => [this.$props.title],
+    )
+    const headerExtraSlot = this.$slots['header-extra'] || this.collapseSlots['header-extra']
+    return h('div', {
+      'destyler': 'collapse-item',
+      'destyler-status': !this.collapsed ? 'open' : 'close',
+    }, [
+      h('div', {
+        destyler: 'collapse-item-header',
+        onClick: this.handleClick,
+      }, [
+        headerNode,
+        resolveWrappedSlotWithProps(headerExtraSlot, {
+          collapsed: this.collapsed,
+          handleClick: this.handleClick,
+        }, (children) => {
+          return h('div', {
+            destyler: 'collapse-item-header-extra',
+            onClick: this.handleClick,
+          }, [children])
+        }),
+      ]),
+      h(DestylerCollapseItemContent, {
+        displayDirective: this.mergedDisplayDirective,
+        show: !this.collapsed,
+      }, this.$slots),
+    ])
   },
 })

@@ -96,78 +96,87 @@ export default defineComponent({
       }
     }
 
-    return () => {
-      const children = resolveWrappedSlot(
-        slots.default,
-        children =>
-          children && (
-            h('span', {
-              destyler: 'button-content',
-            }, children)
-          ),
-      )
-      return h(props.tag, {
-        ref: selfElRef,
-        tabindex: mergedFocusableRef.value ? 0 : -1,
-        destyler: 'button',
-        type: props.attrType,
-        disabled: props.disabled,
-        autofocus: props.focusable,
-        onClick: handleClick,
-        onMousedown: handleMousedown,
-        onKeyup: handleKeyup,
-        onKeydown: handleKeydown,
-      }, [
-        props.iconPlacement === 'right' && children,
-        h(FadeInExpandTransition, {
-          width: true,
-        }, {
-          default: () => {
-            return resolveWrappedSlot(
-              slots.icon,
-              children =>
-                (props.loading || props.renderIcon || children) && (
-                  h('span', {
-                    destyler: 'button-icon',
-                  }, h(BaseIconSwitchTransition, null, h('div', {
-                    destyler: 'button-icon-slot',
-                  }, [
-                    props.loading
-                      ? h('svg', {
-                        width: '1em',
-                        height: '1em',
-                        viewBox: '0 0 24 24',
-                      }, h('path', {
-                        fill: 'none',
-                        stroke: 'currentColor',
-                        strokeDasharray: '15',
-                        strokeDashoffset: '15',
-                        strokeLinecap: 'round',
-                        strokeWidth: '2',
-                        d: 'M12 3C16.9706 3 21 7.02944 21 12',
-                      }, [
-                        h('animate', {
-                          fill: 'freeze',
-                          attributeName: 'stroke-dashoffset',
-                          dur: '0.3s',
-                          values: '15;0',
-                        }),
-                        h('animateTransform', {
-                          attributeName: 'transform',
-                          dur: '1.5s',
-                          repeatCount: 'indefinite',
-                          type: 'rotate',
-                          values: '0 12 12;360 12 12',
-                        }),
-                      ]))
-                      : props.renderIcon ? props.renderIcon() : children,
-                  ])))
-                ),
-            )
-          },
-        }),
-        props.iconPlacement === 'left' && children,
-      ])
+    return {
+      selfElRef,
+      mergedFocusableRef,
+      enterPressedRef,
+      handleClick,
+      handleMousedown,
+      handleKeyup,
+      handleKeydown,
     }
+  },
+  render() {
+    const children = resolveWrappedSlot(
+      this.$slots.default,
+      children =>
+        children && (
+          h('span', {
+            destyler: 'button-content',
+          }, children)
+        ),
+    )
+    return h(this.$props.tag, {
+      ref: 'selfElRef',
+      tabindex: this.mergedFocusableRef ? 0 : -1,
+      destyler: 'button',
+      type: this.$props.attrType,
+      disabled: this.$props.disabled,
+      autofocus: this.$props.focusable,
+      onClick: this.handleClick,
+      onMousedown: this.handleMousedown,
+      onKeyup: this.handleKeyup,
+      onKeydown: this.handleKeydown,
+    }, [
+      this.$props.iconPlacement === 'right' && children,
+      h(FadeInExpandTransition, {
+        width: true,
+      }, {
+        default: () => {
+          return resolveWrappedSlot(
+            this.$slots.icon,
+            children =>
+              (this.$props.loading || this.$props.renderIcon || children) && (
+                h('span', {
+                  destyler: 'button-icon',
+                }, h(BaseIconSwitchTransition, null, h('div', {
+                  destyler: 'button-icon-slot',
+                }, [
+                  this.$props.loading
+                    ? h('svg', {
+                      width: '1em',
+                      height: '1em',
+                      viewBox: '0 0 24 24',
+                    }, h('path', {
+                      fill: 'none',
+                      stroke: 'currentColor',
+                      strokeDasharray: '15',
+                      strokeDashoffset: '15',
+                      strokeLinecap: 'round',
+                      strokeWidth: '2',
+                      d: 'M12 3C16.9706 3 21 7.02944 21 12',
+                    }, [
+                      h('animate', {
+                        fill: 'freeze',
+                        attributeName: 'stroke-dashoffset',
+                        dur: '0.3s',
+                        values: '15;0',
+                      }),
+                      h('animateTransform', {
+                        attributeName: 'transform',
+                        dur: '1.5s',
+                        repeatCount: 'indefinite',
+                        type: 'rotate',
+                        values: '0 12 12;360 12 12',
+                      }),
+                    ]))
+                    : this.$props.renderIcon ? this.$props.renderIcon() : children,
+                ])))
+              ),
+          )
+        },
+      }),
+      this.$props.iconPlacement === 'left' && children,
+    ])
   },
 })

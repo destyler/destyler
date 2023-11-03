@@ -118,11 +118,10 @@ export default defineComponent({
       slots,
       toggleItem,
     })
-
-    return () => {
-      return h('div', {
-        destyler: 'collapse',
-      }, slots)
-    }
+  },
+  render() {
+    return h('div', {
+      destyler: 'collapse',
+    }, this.$slots)
   },
 })

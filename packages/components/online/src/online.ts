@@ -41,11 +41,10 @@ export default defineComponent({
         }
       }
     }
-
-    return () => {
-      return h('div', {
-        destyler: 'online',
-      }, slots.default?.())
-    }
+  },
+  render() {
+    return h('div', {
+      destyler: 'online',
+    }, this.$slots.default?.())
   },
 })

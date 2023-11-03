@@ -14,21 +14,24 @@ export default defineComponent({
       type: Boolean as PropType<boolean>,
     },
   },
-  setup(props, { slots }) {
+  setup(props) {
     const onceTrue = useFalseUntilTruthy(toRef(props, 'show'))
 
-    return () => {
-      const useVShow = props.displayDirective === 'show' && onceTrue
-      const contentNode = h('div', null, slots)
-      return h(FadeInExpandTransition, {
-        destyler: 'collapse-item-content',
-      }, [
-        useVShow
-          ? withDirectives(contentNode, [[vShow, props.show]])
-          : props.show
-            ? contentNode
-            : null,
-      ])
+    return {
+      onceTrue,
     }
+  },
+  render() {
+    const useVShow = this.$props.displayDirective === 'show' && this.onceTrue
+    const contentNode = h('div', null, this.$slots)
+    return h(FadeInExpandTransition, {
+      destyler: 'collapse-item-content',
+    }, [
+      useVShow
+        ? withDirectives(contentNode, [[vShow, this.$props.show]])
+        : this.$props.show
+          ? contentNode
+          : null,
+    ])
   },
 })

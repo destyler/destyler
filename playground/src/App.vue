@@ -1,26 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { DestylerFocusTrap } from '@destyler/components/focus-trap/src'
-
-const show = ref<boolean>(false)
+import { DestylerPopover } from '@destyler/components/popover/src'
+import { DestylerButton } from '@destyler/components/button/src'
 </script>
 
 <template>
-  <div>
-    <button @click="show = !show">
-      {{ show ? 'close' : 'open' }}
-    </button>
-    <div v-if="show" style="padding: 10px;">
-      <DestylerFocusTrap :active="show">
-        <div>
-          1111
-          <input type="text">
-          <input type="text">
-          <button @click="show = !show">
-            close
-          </button>
-        </div>
-      </DestylerFocusTrap>
-    </div>
-  </div>
+  <DestylerPopover trigger="hover">
+    <template #trigger>
+      <DestylerButton class="btn-green!">
+        悬浮
+      </DestylerButton>
+    </template>
+    <span>或许不想知道你的花园长得咋样</span>
+  </DestylerPopover>
 </template>

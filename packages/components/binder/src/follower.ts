@@ -76,34 +76,40 @@ export default defineComponent({
       },
     )
 
-    return () => {
-      return h(DestylerLazyTeleport, {
-        to: mergedTo.value,
-        disabled: props.teleportDisabled,
-        show: props.show,
-      }, {
-        default: () => {
-          const vNode = h('div', {
-            ref: offsetContainer,
-          }, [
-            h('div', {
-              ref: follower,
-            }, slots.default?.()),
-          ])
-          if (props.zindexable) {
-            return withDirectives(vNode, [
-              [
-                zindexable,
-                {
-                  enabled: mergedEnabled.value,
-                  zIndex: props.zIndex,
-                },
-              ],
-            ])
-          }
-          return vNode
-        },
-      })
+    return {
+      mergedEnabled,
+      follower,
+      offsetContainer,
+      mergedTo,
     }
+  },
+  render() {
+    return h(DestylerLazyTeleport, {
+      to: this.mergedTo,
+      disabled: this.$props.teleportDisabled,
+      show: this.$props.show,
+    }, {
+      default: () => {
+        const vNode = h('div', {
+          ref: 'offsetContainer',
+        }, [
+          h('div', {
+            ref: 'follower',
+          }, this.$slots.default?.()),
+        ])
+        if (this.$props.zindexable) {
+          return withDirectives(vNode, [
+            [
+              zindexable,
+              {
+                enabled: this.mergedEnabled,
+                zIndex: this.$props.zIndex,
+              },
+            ],
+          ])
+        }
+        return vNode
+      },
+    })
   },
 })
