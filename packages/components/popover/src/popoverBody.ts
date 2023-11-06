@@ -186,11 +186,14 @@ export default defineComponent({
                     : null
                 })
               )
-            : h('div', slots)
+            : h('div', {
+              destyler: 'popover-body-content',
+            }, slots)
           return [body]
         }
         contentNode = h('div', mergeProps({
           ref: body,
+          destyler: 'popover-body-toggle',
           onMouseenter: handleMouseEnter,
           onMouseleave: handleMouseLeave,
         }, attrs),
@@ -208,20 +211,26 @@ export default defineComponent({
       return withDirectives(contentNode, directives.value)
     }
 
-    return () => {
-      return h(DestylerFollower, {
-        ref: follower,
-        zIndex: DestylerPopover.zIndex.value,
-        show: props.show,
-        enabled: followerEnabled.value,
-        to: 'body',
-        x: props.x,
-        y: props.y,
-        flip: props.flip,
-        overlap: props.overlap,
-      }, () => {
-        return [renderContentNode()]
-      })
+    return {
+      displayed,
+      isMounted: DestylerPopover.isMounted,
+      zIndex: DestylerPopover.zIndex,
+      follower,
+      followerEnabled,
+      renderContentNode,
     }
+  },
+  render() {
+    return h(DestylerFollower, {
+      ref: 'follower',
+      zIndex: this.zIndex,
+      show: this.$props.show,
+      enabled: this.followerEnabled,
+      to: 'body',
+      x: this.$props.x,
+      y: this.$props.y,
+      flip: this.$props.flip,
+      overlap: this.$props.overlap,
+    }, [this.renderContentNode()])
   },
 })

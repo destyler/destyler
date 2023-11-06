@@ -1,8 +1,9 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, ref, withDirectives } from 'vue'
+import { defineComponent, h, inject, ref, withDirectives } from 'vue'
 import { zindexable } from '@destyler/directives'
 import { useIsMounted, useMemo } from '@destyler/composition'
 import { DestylerLazyTeleport } from '@destyler/lazy-teleport'
+import type { BinderInstance } from './instance'
 
 export default defineComponent({
   name: 'DestylerFollower',
@@ -56,7 +57,8 @@ export default defineComponent({
       type: Boolean as PropType<boolean>,
     },
   },
-  setup(props, { slots }) {
+  setup(props) {
+    const DestylerBinder = inject<BinderInstance>('DestylerBinder')!
     const mergedEnabled = useMemo(() => {
       return props.enabled !== undefined ? props.enabled : props.show
     })
@@ -76,11 +78,17 @@ export default defineComponent({
       },
     )
 
+    function getElementBounding(): { x: number; y: number; width: number; height: number } {
+      const rect = DestylerBinder.targetRef!.getBoundingClientRect()
+      return { x: rect.x, y: rect.y, width: rect.width, height: rect.height }
+    }
+
     return {
       mergedEnabled,
       follower,
       offsetContainer,
       mergedTo,
+      getElementBounding,
     }
   },
   render() {
@@ -92,9 +100,17 @@ export default defineComponent({
       default: () => {
         const vNode = h('div', {
           ref: 'offsetContainer',
+          destyler: 'offset-container',
         }, [
           h('div', {
             ref: 'follower',
+            destyler: 'follower',
+            style: `
+            --destyler-follower-x:${this.getElementBounding().x}px;
+            --destyler-follower-y:${this.getElementBounding().y}px;
+            --destyler-follower-width:${this.getElementBounding().width}px;
+            --destyler-follower-height:${this.getElementBounding().height}px;
+            `,
           }, this.$slots.default?.()),
         ])
         if (this.$props.zindexable) {
