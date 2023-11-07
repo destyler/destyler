@@ -27,10 +27,10 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/avatar": "workspace:^",
-    "@destyler/button": "workspace:^",
-    "@destyler/collapse": "workspace:^",
-    "@destyler/icon": "workspace:^",
-    "@destyler/online": "workspace:^"
+    "@destyler/avatar": "workspace:*",
+    "@destyler/button": "workspace:*",
+    "@destyler/collapse": "workspace:*",
+    "@destyler/icon": "workspace:*",
+    "@destyler/online": "workspace:*"
   }
 }

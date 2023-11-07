@@ -3,7 +3,7 @@ import { computed, defineComponent, h, ref } from 'vue'
 import type { MaybeArray } from '@destyler/shared'
 import { BaseIconSwitchTransition, FadeInExpandTransition, call, isSafari, resolveWrappedSlot } from '@destyler/shared'
 
-export default defineComponent({
+const DestylerButton = defineComponent({
   name: 'DestylerButton',
   props: {
     tag: {
@@ -180,3 +180,7 @@ export default defineComponent({
     ])
   },
 })
+
+export {
+  DestylerButton,
+}

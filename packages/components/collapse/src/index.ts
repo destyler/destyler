@@ -1,9 +1,3 @@
-import DestylerCollapse from './collapse'
-import DestylerCollapseItem from './collapseItem'
-import { DestylerAccordionResolver } from './resolver'
-
-export {
-  DestylerCollapse,
-  DestylerCollapseItem,
-  DestylerAccordionResolver,
-}
+export * from './collapse'
+export * from './collapseItem'
+export * from './resolver'

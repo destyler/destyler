@@ -1,7 +1,2 @@
-import DestylerButton from './button'
-import { DestylerButtonResolver } from './resolver'
-
-export {
-  DestylerButton,
-  DestylerButtonResolver,
-}
+export * from './button'
+export * from './resolver'

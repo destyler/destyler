@@ -45,7 +45,7 @@ export interface DestylerCollapseInjection {
 
 export const collapseInjectionKey = createInjectionKey<DestylerCollapseInjection>('destyler-collapse')
 
-export default defineComponent({
+const DestylerCollapse = defineComponent({
   name: 'DestylerCollapse',
   props: Prop,
   setup(props, { slots }) {
@@ -125,3 +125,7 @@ export default defineComponent({
     }, this.$slots)
   },
 })
+
+export {
+  DestylerCollapse,
+}

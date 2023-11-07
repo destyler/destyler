@@ -3,7 +3,7 @@ import { Teleport, computed, defineComponent, h, toRef } from 'vue'
 import { getSlot } from '@destyler/shared'
 import { useFalseUntilTruthy } from '@destyler/composition'
 
-export default defineComponent({
+const DestylerLazyTeleport = defineComponent({
   name: 'DestylerLazyTeleport',
   props: {
     to: {
@@ -42,3 +42,7 @@ export default defineComponent({
       : null
   },
 })
+
+export {
+  DestylerLazyTeleport,
+}

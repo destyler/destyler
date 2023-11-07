@@ -1,7 +1,2 @@
-import DestylerAvatar from './avatar'
-import { DestylerAvatarResolver } from './resolver'
-
-export {
-  DestylerAvatar,
-  DestylerAvatarResolver,
-}
+export * from './avatar'
+export * from './resolver'

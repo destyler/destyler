@@ -30,7 +30,7 @@
     "@destyler/binder": "workspace:*",
     "@destyler/composition": "workspace:*",
     "@destyler/directives": "workspace:*",
-    "@destyler/focus-trap": "workspace:^",
+    "@destyler/focus-trap": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }

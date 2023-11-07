@@ -53,7 +53,7 @@ export const popoverBodyProps = {
   },
 }
 
-export default defineComponent({
+const DestylerPopoverBody = defineComponent({
   name: 'DestylerPopoverBody',
   props: popoverBodyProps,
   setup(props, { slots, attrs }) {
@@ -234,3 +234,7 @@ export default defineComponent({
     }, [this.renderContentNode()])
   },
 })
+
+export {
+  DestylerPopoverBody,
+}

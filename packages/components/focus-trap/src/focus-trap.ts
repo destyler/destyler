@@ -5,7 +5,7 @@ import { focusFirstDescendant, focusLastDescendant } from './utils'
 
 let stack: string[] = []
 
-export default defineComponent({
+const DestylerFocusTrap = defineComponent({
   name: 'DestylerFocusTrap',
   props: {
     disabled: {
@@ -237,3 +237,7 @@ export default defineComponent({
     ])
   },
 })
+
+export {
+  DestylerFocusTrap,
+}

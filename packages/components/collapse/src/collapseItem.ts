@@ -4,9 +4,9 @@ import { createId, resolveSlotWithProps, resolveWrappedSlotWithProps } from '@de
 import { useMemo } from '@destyler/composition'
 import type { DestylerCollapseInjection } from './collapse'
 import { collapseInjectionKey } from './collapse'
-import DestylerCollapseItemContent from './collapseItemContent'
+import { DestylerCollapseItemContent } from './collapseItemContent'
 
-export default defineComponent({
+const DestylerCollapseItem = defineComponent({
   name: 'DestylerCollapseItem',
   props: {
     title: {
@@ -108,3 +108,7 @@ export default defineComponent({
     ])
   },
 })
+
+export {
+  DestylerCollapseItem,
+}

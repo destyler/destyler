@@ -30,6 +30,6 @@
   "dependencies": {
     "@destyler/composition": "workspace:*",
     "@destyler/lazy-teleport": "workspace:*",
-    "@destyler/shared": "workspace:^"
+    "@destyler/shared": "workspace:*"
   }
 }

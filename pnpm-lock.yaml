@@ -147,7 +147,7 @@ importers:
         specifier: workspace:*
         version: link:../lazy-teleport
       '@destyler/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: ^3.3.4
@@ -195,10 +195,25 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
+  packages/components/ellipsis:
+    dependencies:
+      '@destyler/popover':
+        specifier: workspace:*
+        version: link:../popover
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
+
   packages/components/focus-trap:
     dependencies:
       '@destyler/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: ^3.3.4
@@ -246,7 +261,7 @@ importers:
         specifier: workspace:*
         version: link:../../directives
       '@destyler/focus-trap':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../focus-trap
       '@destyler/shared':
         specifier: workspace:*
@@ -267,10 +282,10 @@ importers:
   packages/components/tooltip:
     dependencies:
       '@destyler/popover':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../popover
       '@destyler/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: ^3.3.4
@@ -285,19 +300,19 @@ importers:
   packages/destyler:
     dependencies:
       '@destyler/avatar':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/avatar
       '@destyler/button':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/button
       '@destyler/collapse':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/collapse
       '@destyler/icon':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/icon
       '@destyler/online':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/online
       vue:
         specifier: ^3.3.4
@@ -306,7 +321,7 @@ importers:
   packages/directives:
     dependencies:
       '@destyler/shared':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../shared
       vue:
         specifier: ^3.3.4

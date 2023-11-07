@@ -1,7 +1,2 @@
-import DestylerFocusTrap from './focus-trap'
-import { DestylerFocusTrapResolver } from './resolver'
-
-export {
-  DestylerFocusTrap,
-  DestylerFocusTrapResolver,
-}
+export * from './focus-trap'
+export * from './resolver'

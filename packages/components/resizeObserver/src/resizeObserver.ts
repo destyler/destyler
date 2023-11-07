@@ -10,7 +10,7 @@ import delegate from './util'
 
 export type ResizeObserverOnResize = (entry: ResizeObserverEntry) => void
 
-export default defineComponent({
+const DestylerResizeObserver = defineComponent({
   name: 'DestylerResizeObserver',
   props: {
     onResize: {
@@ -56,3 +56,7 @@ export default defineComponent({
   },
 
 })
+
+export {
+  DestylerResizeObserver,
+}

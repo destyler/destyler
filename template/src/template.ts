@@ -9,10 +9,13 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    return () => {
-      return h('div', {
-        destyler: props.modelValue,
-      }, props.modelValue)
-    }
+
+  },
+  render() {
+    return h('div', {
+      destyler: this.$props.modelValue,
+    },
+    this.modelValue,
+    )
   },
 })

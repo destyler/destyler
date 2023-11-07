@@ -1,7 +1,2 @@
-import DestylerResizeObserver from './resizeObserver'
-import { DestylerResizeObserverResolver } from './resolver'
-
-export {
-  DestylerResizeObserver,
-  DestylerResizeObserverResolver,
-}
+export * from './resizeObserver'
+export * from './resolver'

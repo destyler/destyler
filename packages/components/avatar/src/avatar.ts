@@ -10,7 +10,7 @@ IntersectionObserverInit,
   root?: Element | Document | null | string
 }
 
-export default defineComponent({
+const DestylerAvatar = defineComponent({
   name: 'DestylerAvatar',
   props: {
     src: {
@@ -187,3 +187,7 @@ export default defineComponent({
     ])
   },
 })
+
+export {
+  DestylerAvatar,
+}

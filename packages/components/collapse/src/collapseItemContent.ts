@@ -3,7 +3,7 @@ import { defineComponent, h, toRef, vShow, withDirectives } from 'vue'
 import { useFalseUntilTruthy } from '@destyler/composition'
 import { FadeInExpandTransition } from '@destyler/shared'
 
-export default defineComponent({
+const DestylerCollapseItemContent = defineComponent({
   name: 'DestylerCollapseItemContent',
   props: {
     displayDirective: {
@@ -35,3 +35,7 @@ export default defineComponent({
     ])
   },
 })
+
+export {
+  DestylerCollapseItemContent,
+}

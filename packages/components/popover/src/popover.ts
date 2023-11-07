@@ -1,13 +1,13 @@
 import type { ComputedRef, PropType, Ref, VNode } from 'vue'
 import { cloneVNode, computed, defineComponent, h, provide, ref, toRef, watchEffect, withDirectives } from 'vue'
-import type { MaybeArray } from '@destyler/shared'
+import type { ExtractPublicPropTypes, MaybeArray } from '@destyler/shared'
 import { call, getFirstSlotVNode, keep } from '@destyler/shared'
 import { zindexable } from '@destyler/directives'
 import { useIsMounted, useMemo, useMergedState } from '@destyler/composition'
 import { DestylerBinder, DestylerTarget } from '../../binder/src'
 import type { ExposedBinderInstance } from '../../binder/src'
 import type { InternalRenderBody, PopoverTrigger } from './interface'
-import DestylerPopoverBody, { popoverBodyProps } from './popoverBody'
+import { DestylerPopoverBody, popoverBodyProps } from './popoverBody'
 
 const bodyPropKeys = Object.keys(popoverBodyProps) as Array<keyof typeof popoverBodyProps>
 
@@ -135,12 +135,14 @@ export const destylerPopoverProps = {
   },
 }
 
+export type PopoverProps = ExtractPublicPropTypes<typeof destylerPopoverProps>
+
 interface BodyInstance {
   syncPosition: () => void
   [key: string]: unknown
 }
 
-export default defineComponent({
+const DestylerPopover = defineComponent({
   name: 'DestylerPopover',
   inheritAttrs: false,
   props: destylerPopoverProps,
@@ -439,3 +441,7 @@ export default defineComponent({
   },
 
 })
+
+export {
+  DestylerPopover,
+}

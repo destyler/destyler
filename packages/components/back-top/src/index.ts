@@ -1,7 +1,2 @@
-import DestylerBackTop from './backTop'
-import { DestylerBackTopResolver } from './resolver'
-
-export {
-  DestylerBackTop,
-  DestylerBackTopResolver,
-}
+export * from './backTop'
+export * from './resolver'

@@ -35,7 +35,7 @@ export const backTopProps = {
   },
 } as const
 
-export default defineComponent({
+const DestylerBackTop = defineComponent({
   name: 'DestylerBackTop',
   props: backTopProps,
   setup(props, { slots, attrs }) {
@@ -132,3 +132,7 @@ export default defineComponent({
     ]))
   },
 })
+
+export {
+  DestylerBackTop,
+}

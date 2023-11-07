@@ -28,6 +28,6 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/shared": "workspace:^"
+    "@destyler/shared": "workspace:*"
   }
 }
