@@ -20,7 +20,7 @@ export default defineComponent({
   setup(props, { slots, attrs }) {
     const triggerRef = ref<HTMLElement | null>(null)
     const triggerInnerRef = ref<HTMLElement | null>(null)
-    const tooltipRef = ref<TooltipInst | null>(null)
+    const tooltipRef = ref<any | null>(null)
     const expandedRef = ref(false)
   },
 })

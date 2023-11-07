@@ -203,9 +203,6 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@destyler/tooltip':
-        specifier: workspace:*
-        version: link:../tooltip
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
@@ -282,10 +279,10 @@ importers:
   packages/components/tooltip:
     dependencies:
       '@destyler/popover':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../popover
       '@destyler/shared':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../shared
       vue:
         specifier: ^3.3.4

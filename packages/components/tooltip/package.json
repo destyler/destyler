@@ -1,8 +1,8 @@
 {
-  "name": "@destyler/ellipsis",
+  "name": "@destyler/tooltip",
   "version": "0.0.0",
   "private": "true",
-  "description": "unstyled ellipsis component for vue",
+  "description": "unstyled tooltip component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -28,7 +28,7 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/popover": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@destyler/popover": "workspace:^",
+    "@destyler/shared": "workspace:^"
   }
 }
