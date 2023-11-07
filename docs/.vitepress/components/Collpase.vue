@@ -5,23 +5,23 @@ import { DestylerIcon } from '@destyler/components/icon/src'
 
 <template>
   <DestylerCollapse default-expanded-names="1" accordion class="min-w-70% w-full">
-    <DestylerCollapseItem title="青铜" name="1">
+    <DestylerCollapseItem title="right" name="1">
       <template #header-extra="{ handleClick }">
         <DestylerIcon name="i-carbon-chevron-down" @click="handleClick" />
       </template>
-      <div>可以</div>
+      <div>Good</div>
     </DestylerCollapseItem>
-    <DestylerCollapseItem title="白银" name="2">
+    <DestylerCollapseItem title="right" name="2">
       <template #header-extra="{ handleClick }">
         <DestylerIcon name="i-carbon-chevron-down" @click="handleClick" />
       </template>
-      <div>很好</div>
+      <div>Good</div>
     </DestylerCollapseItem>
-    <DestylerCollapseItem title="黄金" name="3">
+    <DestylerCollapseItem title="right" name="3">
       <template #header-extra="{ handleClick }">
         <DestylerIcon name="i-carbon-chevron-down" @click="handleClick" />
       </template>
-      <div>真棒</div>
+      <div>Good</div>
     </DestylerCollapseItem>
   </DestylerCollapse>
 </template>

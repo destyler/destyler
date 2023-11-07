@@ -4,13 +4,13 @@ import { DestylerButton } from '@destyler/components/button/src'
 </script>
 
 <template>
-  <DestylerPopover trigger="click">
+  <DestylerPopover trigger="hover">
     <template #trigger>
       <DestylerButton class="btn-green!">
-        悬浮
+        Hover
       </DestylerButton>
     </template>
-    <span>或许不想知道你的花园长得咋样</span>
+    <span>Maybe I don't really want to know how your garden grows</span>
   </DestylerPopover>
 </template>
 
