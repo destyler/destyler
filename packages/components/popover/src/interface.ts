@@ -7,3 +7,12 @@ export type InternalRenderBody = (
   onMouseenter: (e: MouseEvent) => void,
   onMouseleave: (e: MouseEvent) => void
 ) => VNode
+
+export interface PopoverInst {
+  syncPosition: () => void
+  setShow: (value: boolean) => void
+}
+
+export type InternalPopoverInst = PopoverInst & {
+  getMergedShow: () => boolean
+}

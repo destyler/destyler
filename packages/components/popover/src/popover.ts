@@ -173,7 +173,7 @@ export default defineComponent({
         return false
       return mergedShowWithoutDisabled.value!
     }
-    // bodyInstance
+    // @ts-expect-error bodyInstance
     let bodyInstance: BodyInstance | null = null
     const showTimerId = ref<number | null>(null)
     const hideTimerId = ref<number | null>(null)

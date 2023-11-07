@@ -1,57 +1,33 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, ref } from 'vue'
+import type { PopoverInst } from '@destyler/popover'
+import { DestylerPopover, destylerPopoverProps } from '@destyler/popover'
+
+export type TooltipInst = PopoverInst
 
 export default defineComponent({
   name: 'DestylerTooltip',
-  props: {
-    label: {
-      type: String as PropType<string>,
-      required: true,
-    },
-    delayEnter: {
-      type: Number as PropType<number>,
-      default: 0,
-      required: false,
-    },
-    delayLeave: {
-      type: Number as PropType<number>,
-      default: 0,
-      required: false,
-    },
+  __popover__: true,
+  props: destylerPopoverProps,
+  setup() {
+    const popoverRef = ref<PopoverInst | null>(null)
+    const tooltipExposedMethod: TooltipInst = {
+      syncPosition() {
+        popoverRef.value!.syncPosition()
+      },
+      setShow(show: boolean) {
+        popoverRef.value!.setShow(show)
+      },
+    }
+    return {
+      ...tooltipExposedMethod,
+      popoverRef,
+    }
   },
-  setup(props, { slots }) {
-    const isHovered = ref<boolean>(false)
-    let timer: ReturnType<typeof setTimeout> | undefined
-    function toggle(entering: boolean) {
-      const delay = entering ? props.delayEnter : props.delayLeave
-      if (timer) {
-        clearTimeout(timer)
-        timer = undefined
-      }
-      if (delay)
-        timer = setTimeout(() => isHovered.value = entering, delay)
-      else
-        isHovered.value = entering
-    }
-    return () => {
-      return h(
-        'div',
-        {
-          destyler: 'tooltip-toot',
-        },
-        [
-          h('span', {
-            destyler: 'tooltip-active',
-            onMouseover: () => {
-              toggle(true)
-            },
-            onMouseout: () => {
-              toggle(false)
-            },
-          }, slots.default?.({ isHovered })),
-          [isHovered.value ? h('div', { destyler: 'tooltip-content' }, props.label) : null],
-        ],
-      )
-    }
+  render() {
+    return h(DestylerPopover, {
+      ...this.$props,
+      ref: 'popoverRef',
+    },
+    this.$slots)
   },
 })
