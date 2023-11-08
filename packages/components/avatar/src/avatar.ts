@@ -3,12 +3,7 @@ import { defineComponent, h, onBeforeUnmount, onMounted, ref, watch, watchEffect
 import { isImageSupportNativeLazy, observeIntersection, resolveSlot, resolveWrappedSlot } from '@destyler/shared'
 import { DestylerResizeObserver } from '@destyler/resize-observer'
 
-export type IntersectionObserverOptions = Omit<
-IntersectionObserverInit,
-'root'
-> & {
-  root?: Element | Document | null | string
-}
+export type IntersectionObserverOptions = Omit<IntersectionObserverInit, 'root'> & { root?: Element | Document | null | string }
 
 const DestylerAvatar = defineComponent({
   name: 'DestylerAvatar',
