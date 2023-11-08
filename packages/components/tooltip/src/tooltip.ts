@@ -1,8 +1,8 @@
 import type { PropType, Ref, VNode } from 'vue'
 import { defineComponent, h, ref } from 'vue'
+import type { MaybeArray } from '@destyler/shared'
 import type { PopoverInst } from '@destyler/popover'
 import { DestylerPopover } from '@destyler/popover'
-import type { MaybeArray } from '@destyler/shared'
 
 export type TooltipInst = PopoverInst
 
