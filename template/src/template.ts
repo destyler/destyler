@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 
-export default defineComponent({
+const DestylerTemplate = defineComponent({
   name: 'DestylerTemplate',
   props: {
     modelValue: {
@@ -19,3 +19,7 @@ export default defineComponent({
     )
   },
 })
+
+export {
+  DestylerTemplate,
+}
