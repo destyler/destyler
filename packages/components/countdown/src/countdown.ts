@@ -1,5 +1,6 @@
 import type { PropType, VNodeChild } from 'vue'
 import { defineComponent, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export interface CountdownTimeInfo {
   hours: number
@@ -32,6 +33,8 @@ export const destylerCountdownProps = {
     type: Function as PropType<() => void>,
   },
 }
+
+export type CountdownProps = ExtractPublicPropTypes<typeof destylerCountdownProps>
 
 const DestylerCountdown = defineComponent({
   name: 'DestylerCountdown',

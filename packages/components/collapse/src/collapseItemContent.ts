@@ -23,9 +23,9 @@ const DestylerCollapseItemContent = defineComponent({
   },
   render() {
     const useVShow = this.$props.displayDirective === 'show' && this.onceTrue
-    const contentNode = h('div', null, this.$slots)
+    const contentNode = h('div', { destyler: 'collapse-item-content' }, this.$slots)
     return h(FadeInExpandTransition, {
-      destyler: 'collapse-item-content',
+      destyler: 'collapse-item-content-wrapper',
     }, [
       useVShow
         ? withDirectives(contentNode, [[vShow, this.$props.show]])

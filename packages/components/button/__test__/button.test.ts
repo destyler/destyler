@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import DestylerButton from '../src/button'
+import { DestylerButton } from '../src/button'
 
 describe('Button', () => {
   it('should work with import on demand', () => {

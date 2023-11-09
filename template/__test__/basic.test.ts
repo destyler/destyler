@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import DestylerTemplate from '../src/template'
+import { DestylerTemplate } from '../src/template'
 
 describe('Basic', () => {
   it('should work with import on demand', () => {
