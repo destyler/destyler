@@ -195,13 +195,10 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
-  packages/components/ellipsis:
+  packages/components/countdown:
     dependencies:
-      '@destyler/popover':
-        specifier: workspace:*
-        version: link:../popover
       '@destyler/shared':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../shared
       vue:
         specifier: ^3.3.4

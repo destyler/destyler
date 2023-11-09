@@ -19,7 +19,6 @@ export default defineConfig({
   plugins: [
     Router(),
     Layouts(),
-    UnoCss(),
     vue(),
     AutoImport({
       imports: [
