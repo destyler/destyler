@@ -67,6 +67,8 @@ const DestylerPopoverBody = defineComponent({
       const { show } = props
       if (show && !isJsdom() && !props.internalDeactivateImmediately)
         displayed.value = true
+      else
+        displayed.value = false
     })
 
     onBeforeUnmount(() => {
@@ -146,22 +148,17 @@ const DestylerPopoverBody = defineComponent({
           { capture: true },
         ])
       }
-      if (
-        props.displayDirective === 'show'
-        || displayed.value
-      )
+      if (props.displayDirective === 'show' && displayed.value)
         directives.push([vShow, props.show])
 
       return directives
     })
 
     function renderContentNode(): VNode | null {
-      const shouldRenderDom
-        = props.displayDirective === 'show'
-        || props.show
-        || displayed.value
+      const shouldRenderDom = props.displayDirective === 'show' || props.show || displayed.value
       if (!shouldRenderDom)
         return null
+
       let contentNode: VNode
       const renderBody = DestylerPopover.internalRenderBody.value
       if (!renderBody) {
@@ -169,7 +166,7 @@ const DestylerPopoverBody = defineComponent({
         const hasHeaderOrFooter = !isSlotEmpty(slots.header) || !isSlotEmpty(slots.footer)
         const renderContentInnerNode = (): VNodeChild[] => {
           const body = hasHeaderOrFooter
-            ? (
+            ? [
                 resolveWrappedSlot(slots.header, (children) => {
                   return children
                     ? h('div', null, children)
@@ -184,8 +181,8 @@ const DestylerPopoverBody = defineComponent({
                   return children
                     ? h('div', null, children)
                     : null
-                })
-              )
+                }),
+              ]
             : h('div', {
               destyler: 'popover-body-content',
             }, slots)
@@ -231,7 +228,7 @@ const DestylerPopoverBody = defineComponent({
       y: this.$props.y,
       flip: this.$props.flip,
       overlap: this.$props.overlap,
-    }, [this.renderContentNode()])
+    }, () => this.renderContentNode())
   },
 })
 

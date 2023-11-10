@@ -426,9 +426,10 @@ const DestylerPopover = defineComponent({
             default: () => triggerVNode,
           }),
         h(DestylerPopoverBody,
-          {
-            ...keep(this.$props, bodyPropKeys, { ...this.$attrs, show: this.getMergedShow() }),
-          },
+          keep(this.$props, bodyPropKeys, {
+            ...this.$attrs,
+            show: this.getMergedShow(),
+          }),
           {
             default: () => this.$slots.default?.(),
             header: () => this.$slots.header?.(),

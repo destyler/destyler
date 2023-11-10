@@ -29,6 +29,7 @@
     "bumpp": "^9.2.0",
     "eslint": "^8.51.0",
     "happy-dom": "^12.9.0",
+    "jsdom": "^22.1.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "unbuild": "^2.0.0",

@@ -1,23 +1,28 @@
 <script setup lang="ts">
-import type { CountdownInst } from '@destyler/components/countdown/src'
-import { DestylerCountdown } from '@destyler/components/countdown/src'
-
-const countdown = ref<CountdownInst | null>()
-
-function handleReset() {
-  countdown.value?.reset()
-}
+import { DestylerPopover } from '@destyler/components/popover/src'
+import { DestylerButton } from '@destyler/components/button/src'
 </script>
 
 <template>
-  <span>
-    <DestylerCountdown ref="countdown" :duration="86400000" :active="true" />
-  </span>
-  <button @click="handleReset">
-    重置
-  </button>
+  <DestylerPopover trigger="hover" display-directive="if">
+    <template #trigger>
+      <span>Hover</span>
+    </template>
+    <template #header>
+      i am header
+    </template>
+    <template #footer>
+      i am footer
+    </template>
+    <span>Maybe I don't really want to know how your garden grows</span>
+  </DestylerPopover>
 </template>
 
 <style>
-
+[destyler="follower"]{
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  transform: translate(var(--destyler-follower-x), 100px);
+}
 </style>

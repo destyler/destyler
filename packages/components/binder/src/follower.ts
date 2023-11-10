@@ -79,8 +79,23 @@ export default defineComponent({
     )
 
     function getElementBounding(): { x: number; y: number; width: number; height: number } {
-      const rect = DestylerBinder.targetRef!.getBoundingClientRect()
-      return { x: rect.x, y: rect.y, width: rect.width, height: rect.height }
+      if (DestylerBinder.targetRef === null) {
+        return {
+          x: 0,
+          y: 0,
+          width: 0,
+          height: 0,
+        }
+      }
+      else {
+        const rect = DestylerBinder.targetRef.getBoundingClientRect()
+        return {
+          x: rect.x,
+          y: rect.y,
+          width: rect.width,
+          height: rect.height,
+        }
+      }
     }
 
     return {
