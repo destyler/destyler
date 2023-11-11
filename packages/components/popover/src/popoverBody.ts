@@ -148,7 +148,7 @@ const DestylerPopoverBody = defineComponent({
           { capture: true },
         ])
       }
-      if (props.displayDirective === 'show' && displayed.value)
+      if (props.displayDirective === 'show' || displayed.value)
         directives.push([vShow, props.show])
 
       return directives
