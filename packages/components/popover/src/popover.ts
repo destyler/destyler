@@ -311,12 +311,17 @@ const DestylerPopover = defineComponent({
         doUpdateShow(false)
     })
 
+    function setShow(value: boolean): void {
+      uncontrolledShow.value = value
+    }
+
     return {
       binderInst,
       positionManually,
       mergedShowConsideringDisabledProp,
       // if to show popover body
       uncontrolledShow,
+      setShow,
       getMergedShow,
       handleClick,
       handleMouseEnter,
