@@ -1,7 +1,7 @@
 import type { ImgHTMLAttributes, PropType, VNodeChild } from 'vue'
 import { defineComponent, h, onBeforeUnmount, onMounted, ref, watch, watchEffect } from 'vue'
 import { isImageSupportNativeLazy, observeIntersection, resolveSlot, resolveWrappedSlot } from '@destyler/shared'
-import { DestylerResizeObserver } from '@destyler/resize-observer'
+import { DestylerResizeObserver } from '../../../../private/src/resizeObserver'
 
 export type IntersectionObserverOptions = Omit<IntersectionObserverInit, 'root'> & { root?: Element | Document | null | string }
 

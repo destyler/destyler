@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, inject, ref, withDirectives } from 'vue'
 import { zindexable } from '@destyler/directives'
 import { useIsMounted, useMemo } from '@destyler/composition'
-import { DestylerLazyTeleport } from '@destyler/lazy-teleport'
+import { DestylerLazyTeleport } from '../lazy-teleport/lazy-teleport'
 import type { BinderInstance } from './instance'
 
 export default defineComponent({

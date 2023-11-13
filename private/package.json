@@ -1,7 +1,8 @@
 {
-  "name": "@destyler/binder",
+  "name": "@destyler/private",
   "version": "0.0.0",
-  "description": "unstyled avatar component for vue",
+  "private": "true",
+  "description": "unstyled private component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -29,7 +30,6 @@
   "dependencies": {
     "@destyler/composition": "workspace:*",
     "@destyler/directives": "workspace:*",
-    "@destyler/lazy-teleport": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }

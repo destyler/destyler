@@ -27,10 +27,8 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/binder": "workspace:*",
     "@destyler/composition": "workspace:*",
     "@destyler/directives": "workspace:*",
-    "@destyler/focus-trap": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }

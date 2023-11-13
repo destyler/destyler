@@ -1,8 +1,8 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, toRef, watch, watchEffect } from 'vue'
 import { useMergedState } from '@destyler/composition'
-import { DestylerLazyTeleport } from '@destyler/lazy-teleport'
 import { getScrollParent, isDocument, unwrapElement } from '@destyler/shared'
+import { DestylerLazyTeleport } from '../../../../private/src/lazy-teleport/lazy-teleport'
 
 export const backTopProps = {
   'show': {

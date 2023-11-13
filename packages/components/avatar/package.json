@@ -27,7 +27,6 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/resize-observer": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }

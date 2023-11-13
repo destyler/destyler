@@ -1,10 +1,10 @@
 import type { DirectiveArguments, PropType, VNode, VNodeChild } from 'vue'
 import { computed, defineComponent, h, inject, mergeProps, onBeforeUnmount, ref, toRef, vShow, watch, watchEffect, withDirectives } from 'vue'
-import { DestylerFocusTrap } from '@destyler/focus-trap'
 import { getPreciseEventTarget, isJsdom, isSlotEmpty, resolveWrappedSlot } from '@destyler/shared'
 import { clickoutside, mousemoveoutside } from '@destyler/directives'
-import { DestylerFollower } from '../../binder/src'
-import type { FollowerInst } from '../../binder/src'
+import { DestylerFocusTrap } from '../../../../private/src/focus-trap/focus-trap'
+import { DestylerFollower } from '../../../../private/src/binder'
+import type { FollowerInst } from '../../../../private/src/binder'
 import type { PopoverTrigger } from './interface'
 import type { PopoverInjection } from './popover'
 

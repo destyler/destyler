@@ -131,9 +131,6 @@ importers:
 
   packages/components/avatar:
     dependencies:
-      '@destyler/resize-observer':
-        specifier: workspace:*
-        version: link:../resizeObserver
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -146,27 +143,6 @@ importers:
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition
-      '@destyler/lazy-teleport':
-        specifier: workspace:*
-        version: link:../lazy-teleport
-      '@destyler/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.7(typescript@5.2.2)
-
-  packages/components/binder:
-    dependencies:
-      '@destyler/composition':
-        specifier: workspace:*
-        version: link:../../composition
-      '@destyler/directives':
-        specifier: workspace:*
-        version: link:../../directives
-      '@destyler/lazy-teleport':
-        specifier: workspace:*
-        version: link:../lazy-teleport
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -207,32 +183,11 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
-  packages/components/focus-trap:
-    dependencies:
-      '@destyler/shared':
-        specifier: workspace:*
-        version: link:../../shared
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.7(typescript@5.2.2)
-
   packages/components/icon:
     dependencies:
       '@iconify/vue':
         specifier: ^4.1.1
         version: 4.1.1(vue@3.3.7)
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.7(typescript@5.2.2)
-
-  packages/components/lazy-teleport:
-    dependencies:
-      '@destyler/composition':
-        specifier: workspace:*
-        version: link:../../composition
-      '@destyler/shared':
-        specifier: workspace:*
-        version: link:../../shared
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
@@ -248,30 +203,15 @@ importers:
 
   packages/components/popover:
     dependencies:
-      '@destyler/binder':
-        specifier: workspace:*
-        version: link:../binder
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition
       '@destyler/directives':
         specifier: workspace:*
         version: link:../../directives
-      '@destyler/focus-trap':
-        specifier: workspace:*
-        version: link:../focus-trap
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
-      vue:
-        specifier: ^3.3.4
-        version: 3.3.7(typescript@5.2.2)
-
-  packages/components/resizeObserver:
-    dependencies:
-      '@juggle/resize-observer':
-        specifier: ^3.4.0
-        version: 3.4.0
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
@@ -369,6 +309,21 @@ importers:
       vue-tsc:
         specifier: ^1.8.16
         version: 1.8.22(typescript@5.2.2)
+
+  private:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../packages/composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../packages/directives
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../packages/shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
 
 packages:
 
@@ -1402,10 +1357,6 @@ packages:
       string-argv: 0.3.2
       type-detect: 4.0.8
     dev: true
-
-  /@juggle/resize-observer@3.4.0:
-    resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
-    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
