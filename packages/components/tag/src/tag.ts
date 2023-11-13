@@ -119,6 +119,7 @@ const DestylerTag = defineComponent({
     return h('div', {
       'destyler': 'tag',
       'data-checked': this.checked,
+      'data-disabled': this.disabled,
       'onClick': this.handleClick,
       'onMouseenter': this.$props.onMouseenter,
       'onMouseleave': this.$props.onMouseleave,
