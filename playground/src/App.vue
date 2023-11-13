@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import { DestylerPopover } from '@destyler/components/popover/src'
-import { DestylerButton } from '@destyler/components/button/src'
+import { DestylerAvatar } from '@destyler/components/avatar/src'
+import { DestylerTag } from '@destyler/components/tag/src'
+import { DestylerIcon } from '@destyler/components/icon/src'
+
+const checked = ref(false)
+
+function handleClose() {
+  console.log('close')
+}
 </script>
 
 <template>
-  <DestylerPopover trigger="hover" display-directive="if">
-    <template #trigger>
-      <span>Hover</span>
+  <DestylerTag closable @close="handleClose">
+    <template #avatar>
+      <DestylerAvatar
+        src="https://cdnimg103.lizhi.fm/user/2017/02/04/2583325032200238082_160x160.jpg"
+      />
     </template>
-    <template #header>
-      i am header
+    爱在西元前
+    <template #close>
+      <DestylerIcon name="i-carbon-close" />
     </template>
-    <template #footer>
-      i am footer
-    </template>
-    <span>Maybe I don't really want to know how your garden grows</span>
-  </DestylerPopover>
+  </DestylerTag>
 </template>
 
 <style>
-[destyler="follower"]{
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  transform: translate(var(--destyler-follower-x), 100px);
-}
+
 </style>

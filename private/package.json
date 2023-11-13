@@ -31,5 +31,8 @@
     "@destyler/composition": "workspace:*",
     "@destyler/directives": "workspace:*",
     "@destyler/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@juggle/resize-observer": "^3.4.0"
   }
 }

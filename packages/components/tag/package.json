@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/countdown",
+  "name": "@destyler/tag",
   "version": "0.0.0",
-  "description": "unstyled countdown component for vue",
+  "description": "unstyled tag component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

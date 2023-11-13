@@ -216,6 +216,15 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
+  packages/components/tag:
+    dependencies:
+      '@destyler/shared':
+        specifier: workspace:^
+        version: link:../../shared
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
+
   packages/components/tooltip:
     dependencies:
       '@destyler/popover':
@@ -324,6 +333,10 @@ importers:
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
+    devDependencies:
+      '@juggle/resize-observer':
+        specifier: ^3.4.0
+        version: 3.4.0
 
 packages:
 
@@ -1356,6 +1369,10 @@ packages:
       cross-spawn: 7.0.3
       string-argv: 0.3.2
       type-detect: 4.0.8
+    dev: true
+
+  /@juggle/resize-observer@3.4.0:
+    resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:
