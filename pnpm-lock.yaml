@@ -216,6 +216,16 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
+  packages/components/statistic:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
+    devDependencies:
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+
   packages/components/tag:
     dependencies:
       '@destyler/shared':
@@ -233,6 +243,9 @@ importers:
       date-fns-tz:
         specifier: ^2.0.0
         version: 2.0.0(date-fns@2.30.0)
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
 
   packages/components/tooltip:
     dependencies:

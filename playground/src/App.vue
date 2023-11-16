@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { DestylerTime } from '@destyler/components/time/src'
+import { DestylerStatistic } from '@destyler/components/statistic/src'
 </script>
 
 <template>
-  <DestylerTime :time="0" :to="86400000" type="relative" />
+  <DestylerStatistic label="统计数据" :value="99" >
+    <template #suffix>
+      / 100
+    </template>
+  </DestylerStatistic>
 </template>
 
 <style>
