@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { DestylerLabel } from '@destyler/components/label/src'
+import { DestylerScroll } from '../../private/src/scroll/scroll'
 </script>
 
 <template>
-  <DestylerLabel for="firstName"> First name </DestylerLabel>
+  <DestylerScroll>{{ '1234'.repeat(8) }}</DestylerScroll>
+  <DestylerScroll>{{ '1234'.repeat(64) }}</DestylerScroll>
 </template>
 
 <style>
