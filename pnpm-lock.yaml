@@ -234,6 +234,9 @@ importers:
 
   packages/components/tabs:
     devDependencies:
+      '@destyler/composition':
+        specifier: workspace:^
+        version: link:../../composition
       '@destyler/shared':
         specifier: workspace:^
         version: link:../../shared
