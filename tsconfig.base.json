@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@destyler/avatar": ["./packages/components/avatar/src/*"],
+      "@destyler/back-top": ["./packages/components/back-top/src/*"],
+      "@destyler/button": ["./packages/components/button/src/*"],
+      "@destyler/collapse": ["./packages/components/collapse/src/*"],
+      "@destyler/countdown": ["./packages/components/countdown/src/*"],
+      "@destyler/icon": ["./packages/components/icon/src/*"],
+      "@destyler/label": ["./packages/components/label/src/*"],
+      "@destyler/online": ["./packages/components/online/src/*"],
+      "@destyler/popover": ["./packages/components/popover/src/*"],
+      "@destyler/statistic": ["./packages/components/statistic/src/*"],
+      "@destyler/tabs": ["./packages/components/tabs/src/*"],
+      "@destyler/tag": ["./packages/components/tag/src/*"],
+      "@destyler/time": ["./packages/components/time/src/*"],
+      "@destyler/tooltip": ["./packages/components/tooltip/src/*"],
+      "@destyler/composition": ["./packages/composition/src/*"],
+      "@destyler/directives": ["./packages/directives/src/*"],
+      "@destyler/shared": ["./packages/shared/src/*"],
+      "@destyler/private": ["./private/src/*"],
+    },
+    "strict": true,
+    "declaration": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}

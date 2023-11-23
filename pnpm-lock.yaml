@@ -192,6 +192,12 @@ importers:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.2.2)
 
+  packages/components/label:
+    dependencies:
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.7(typescript@5.2.2)
+
   packages/components/online:
     dependencies:
       ping.js:
@@ -224,6 +230,12 @@ importers:
     devDependencies:
       '@destyler/shared':
         specifier: workspace:*
+        version: link:../../shared
+
+  packages/components/tabs:
+    devDependencies:
+      '@destyler/shared':
+        specifier: workspace:^
         version: link:../../shared
 
   packages/components/tag:
