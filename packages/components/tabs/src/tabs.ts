@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import { MaybeArray } from '@destyler/shared'
-import { OnBeforeLeave, OnUpdateValue, OnClose } from './interface'
+import { OnBeforeLeave, OnUpdateValue, OnClose, tabsInjectionKey } from './interface'
 import { useCompitable, useMergedState } from '@destyler/composition'
 import { flatten, ExtractPublicPropTypes } from '@destyler/shared'
 
