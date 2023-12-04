@@ -1,32 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
-    "jsx": "preserve",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@destyler/components/*": ["../packages/components/*"],
-      "@destyler/composition/*": ["../packages/composition/*"]
-    },
-    "types": [
-      "vite/client"
-    ],
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true
-  },
-  "include": [".vitepress/**/*.ts", ".vitepress/**/*.d.ts", ".vitepress/**/*.tsx", ".vitepress/**/*.vue"],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }
