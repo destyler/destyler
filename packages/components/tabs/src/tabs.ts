@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, ref, watch } from 'vue'
 import { MaybeArray } from '@destyler/shared'
 import { OnBeforeLeave, OnUpdateValue, OnClose, tabsInjectionKey } from './interface'
 import { useCompitable, useMergedState } from '@destyler/composition'
@@ -63,6 +63,16 @@ const DestylerTabs = defineComponent({
     )
     const mergedValueRef = useMergedState( compitableValueRef, uncontrolledValueRef )
     const tabChangeIdRef = { id: 0 }
+
+    watch(mergedValueRef,()=>{
+      tabChangeIdRef.id = 0
+    })
+    function getCurrentEl (): HTMLElement | null {
+      const { value } = mergedValueRef
+      if (value === null) return null
+      const tabEl = tabsElRef.value?.querySelector(`[data-name="${value}"]`)
+      return tabEl as HTMLElement | null
+    }
   },
   render() {
   },
