@@ -41,7 +41,7 @@ const DestylerButton = defineComponent({
       default: !isSafari,
     },
   },
-  setup(props, { slots }) {
+  setup(props) {
     const selfElRef = ref<HTMLElement | null>(null)
 
     function handleClick(e: MouseEvent): void {

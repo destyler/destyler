@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerCollapse, DestylerCollapseItem } from '../src'
 
-describe('DestylerCollapse', () => {
+describe('destylerCollapse', () => {
   it('should work with import on demand', () => {
     mount(DestylerCollapse)
   })

@@ -4,22 +4,20 @@ import { defineComponent, h } from 'vue'
 const DestylerLabel = defineComponent({
   name: 'DestylerLabel',
   props: {
-    as:{
+    as: {
       type: String as PropType<'label'>,
       required: false,
       default: 'label',
     },
-    for:{
+    for: {
       type: String,
       required: false,
-    }
+    },
   },
   setup() {
     function handleMousedown(e: MouseEvent): void {
-      console.log('handleMousedown')
-      if (!e.defaultPrevented && e.detail > 1){
+      if (!e.defaultPrevented && e.detail > 1)
         e.preventDefault()
-      }
     }
 
     return {
@@ -29,7 +27,7 @@ const DestylerLabel = defineComponent({
   render() {
     return h(this.as, {
       for: this.for,
-      destyler:'label',
+      destyler: 'label',
       onMousedown: this.handleMousedown,
     }, this.$slots.default?.())
   },

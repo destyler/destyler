@@ -13,7 +13,7 @@ const ctx = '@@ziContext'
 // We don't expect manually bound zindex should be changed
 const zindexable: ObjectDirective<
   ZIndexableElement,
-  { zIndex?: number; enabled?: boolean } | undefined
+  { zIndex?: number, enabled?: boolean } | undefined
 > = {
   mounted(el, bindings) {
     const { value = {} } = bindings

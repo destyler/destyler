@@ -22,7 +22,7 @@ const DestylerCollapseItem = defineComponent({
       type: String as PropType<'if' | 'show'>,
     },
   },
-  setup(props, { slots }) {
+  setup(props) {
     const randomName = createId()
     const mergedName = useMemo(() => {
       return props.name ?? randomName

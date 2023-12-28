@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerStatistic } from '../src'
 
-describe('DestylerStatistic', () => {
+describe('destylerStatistic', () => {
   it('should work with import on demand', () => {
     mount(DestylerStatistic)
   })
@@ -54,5 +54,4 @@ describe('DestylerStatistic', () => {
     expect(wrapper.find('span[destyler="statistic-value-suffix"]').text()).toBe('test')
     wrapper.unmount()
   })
-
 })

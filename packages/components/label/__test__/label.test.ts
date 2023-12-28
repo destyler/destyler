@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerLabel } from '../src'
 
-describe('Basic', () => {
+describe('basic', () => {
   it('should work with import on demand', () => {
     mount(DestylerLabel)
   })
@@ -13,9 +13,9 @@ describe('Basic', () => {
   })
   it('should render with a default slot', async () => {
     const label = mount(DestylerLabel, {
-      slots:{
+      slots: {
         default: 'Label',
-      }
+      },
     })
     expect(label.html()).toBe('<label destyler="label">Label</label>')
   })

@@ -12,7 +12,7 @@ export default defineComponent({
     },
   },
   emits: ['networkStatus'],
-  setup(props, { emit, slots }) {
+  setup(props, { emit }) {
     const isOnline = ref<boolean>(navigator.onLine || false)
     const events = ref<string[]>(['online', 'offline', 'load'])
     const url = ref<string>(props.url || 'https://google.com')

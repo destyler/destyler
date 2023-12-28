@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { DestylerButton } from '@destyler/button/src/button'
 import { version } from '../../package.json'
-import {DestylerButton} from '@destyler/button/src/button'
 
 const colorMode = useColorMode()
 
@@ -15,19 +15,21 @@ function toggleTheme() {
       <div class="jumbo absolute -inset-[10px] opacity-50" />
     </div>
     <h1 class="relative flex items-center text-5xl font-bold text-gray-800 dark:text-white dark:opacity-80 transition-colors">
-        Destyler
-        <span class="ml-1.5 rounded-xl bg-current p-2 text-[0.5em] leading-none">
-            <span class="text-white dark:text-black">{{version}}</span>
-        </span>
+      Destyler
+      <span class="ml-1.5 rounded-xl bg-current p-2 text-[0.5em] leading-none">
+        <span class="text-white dark:text-black">{{ version }}</span>
+      </span>
     </h1>
     <div class="mt-4">
       <DestylerButton
-        class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400 mr-2">
+        class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400 mr-2"
+      >
         Get Started
       </DestylerButton>
       <DestylerButton
+        class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400"
         @click="toggleTheme()"
-        class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400">
+      >
         Toggle Theme
       </DestylerButton>
     </div>

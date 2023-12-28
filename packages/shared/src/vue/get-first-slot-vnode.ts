@@ -1,4 +1,4 @@
-import { type Slots, type VNode } from 'vue'
+import type { Slots, VNode } from 'vue'
 import { flatten } from './flatten'
 
 export function getFirstSlotVNode(

@@ -147,7 +147,7 @@ const DestylerPopover = defineComponent({
   inheritAttrs: false,
   props: destylerPopoverProps,
   __popover__: true,
-  setup(props, { slots, attrs }) {
+  setup(props) {
     const isMounted = useIsMounted()
     const binderInst = ref<ExposedBinderInstance | null>(null)
     // setup show
@@ -418,8 +418,7 @@ const DestylerPopover = defineComponent({
       ref: 'binderInst',
       syncTarget: !popoverInside,
       syncTargetWithParent: this.$props.internalSyncTargetWithParent,
-    },
-    () => {
+    }, () => {
       return [
         this.$props.internalTrapFocus && this.getMergedShow()
           ? withDirectives(h('div'), [[zindexable, { enabled: this.getMergedShow(), zIndex: this.$props.zIndex }]])
@@ -430,20 +429,16 @@ const DestylerPopover = defineComponent({
 
             default: () => triggerVNode,
           }),
-        h(DestylerPopoverBody,
-          keep(this.$props, bodyPropKeys, {
-            ...this.$attrs,
-            show: this.getMergedShow(),
-          }),
-          {
-            default: () => this.$slots.default?.(),
-            header: () => this.$slots.header?.(),
-            footer: () => this.$slots.footer?.(),
-          },
-        ),
+        h(DestylerPopoverBody, keep(this.$props, bodyPropKeys, {
+          ...this.$attrs,
+          show: this.getMergedShow(),
+        }), {
+          default: () => this.$slots.default?.(),
+          header: () => this.$slots.header?.(),
+          footer: () => this.$slots.footer?.(),
+        }),
       ]
-    },
-    )
+    })
   },
 
 })

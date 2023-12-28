@@ -36,7 +36,7 @@ const DestylerAvatar = defineComponent({
       type: Function as PropType<(e: Event) => void>,
     },
   },
-  setup(props, { slots }) {
+  setup(props) {
     let memoedTextHtml: string | null = null
     const textRef = ref<HTMLElement | null>(null)
     const selfRef = ref<HTMLElement | null>(null)
@@ -123,10 +123,10 @@ const DestylerAvatar = defineComponent({
   render() {
     let img: VNodeChild
     const placeholderNode = !this.loaded
-    && !this.hasLoadError
-    && (this.$props.renderPlaceholder
-      ? this.$props.renderPlaceholder()
-      : this.$slots.placeholder?.())
+      && !this.hasLoadError
+      && (this.$props.renderPlaceholder
+        ? this.$props.renderPlaceholder()
+        : this.$slots.placeholder?.())
 
     if (this.hasLoadError) {
       img = this.$props.renderPlaceholder

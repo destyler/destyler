@@ -14,9 +14,7 @@ const DestylerTemplate = defineComponent({
   render() {
     return h('div', {
       destyler: this.$props.modelValue,
-    },
-    this.modelValue,
-    )
+    }, this.modelValue)
   },
 })
 

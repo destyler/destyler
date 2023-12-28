@@ -78,7 +78,7 @@ export default defineComponent({
       },
     )
 
-    function getElementBounding(): { x: number; y: number; width: number; height: number } {
+    function getElementBounding(): { x: number, y: number, width: number, height: number } {
       if (DestylerBinder.targetRef === null) {
         return {
           x: 0,

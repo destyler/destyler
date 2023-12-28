@@ -1,9 +1,9 @@
-import { defineComponent, h, PropType, ref } from 'vue'
+import type { PropType } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 
 export interface DestylerScrollInst {
   scrollTo: HTMLElement['scrollTo']
 }
-
 
 const DestylerScroll = defineComponent({
   name: 'DestylerScroll',
@@ -12,40 +12,41 @@ const DestylerScroll = defineComponent({
       type: Boolean as PropType<boolean>,
     },
     onScroll: {
-      type: Function as PropType<(e: Event) => void>
-    }
+      type: Function as PropType<(e: Event) => void>,
+    },
   },
-  setup(){
+  setup() {
     const selfRef = ref<HTMLElement | null>(null)
-    function handleWheel (e: WheelEvent): void {
+    function handleWheel(e: WheelEvent): void {
       const preventYWheel = (e.currentTarget as HTMLElement).offsetWidth < (e.currentTarget as HTMLElement).scrollWidth
-      if (!preventYWheel || e.deltaY === 0) return;
+      if (!preventYWheel || e.deltaY === 0)
+        return;
       (e.currentTarget as HTMLElement).scrollLeft += e.deltaY + e.deltaX
       e.preventDefault()
     }
     const exposedMethods: DestylerScrollInst = {
-      scrollTo (...args: any[]) {
+      scrollTo(...args: any[]) {
         selfRef.value?.scrollTo(...args)
-      }
+      },
     }
 
     return {
       selfRef,
       handleWheel,
-      ...exposedMethods
+      ...exposedMethods,
     }
   },
-  render(){
-    return h('div',{
-      destyler:'scroll',
+  render() {
+    return h('div', {
+      destyler: 'scroll',
       ref: 'selfRef',
-      style:'overflow:auto;scrollbar-width:none;',
+      style: 'overflow:auto;scrollbar-width:none;',
       onScroll: this.onScroll,
       onWheel: this.disabled ? undefined : this.handleWheel,
-    },this.$slots)
-  }
+    }, this.$slots)
+  },
 })
 
 export {
-  DestylerScroll
+  DestylerScroll,
 }

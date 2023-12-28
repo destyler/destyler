@@ -2,7 +2,6 @@
 
 <p align=center>unstyled component for vue.</p>
 
-
 ## Features
 
 - On demand Import - Provide resolver to automatically import only used components.

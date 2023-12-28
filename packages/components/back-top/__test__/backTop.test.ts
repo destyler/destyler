@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerBackTop } from '../src'
 
-describe('DestylerBackTop', () => {
+describe('destylerBackTop', () => {
   it('should work with import on demand', () => {
     mount(DestylerBackTop, {
       attachTo: document.body,
