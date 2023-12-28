@@ -67,7 +67,6 @@ const DestylerAlert = defineComponent({
             const components = []
             if (this.closable) {
               components.push(h('div', {
-
                 destyler: 'alert-close',
                 onClick: this.handleCloseClick,
               }, $slots.close?.()))
