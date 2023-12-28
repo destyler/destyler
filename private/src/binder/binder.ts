@@ -24,7 +24,7 @@ export default defineComponent({
       default: true,
     },
   },
-  setup(props, { slots }) {
+  setup(props) {
     provide('DestylerBinder', getCurrentInstance()?.proxy)
     const DestylerBinder = inject<BinderInstance | null>('DestylerBinder', null)
     const targetRef = ref<HTMLElement | null>(null)

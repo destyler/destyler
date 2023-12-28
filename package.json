@@ -1,5 +1,6 @@
 {
   "name": "@destyler/monorepo",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
   "author": "Elone Hoo <elonehoo@gmail.com>",

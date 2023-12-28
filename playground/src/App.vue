@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { DestylerScroll } from '../../private/src/scroll/scroll'
+import { DestylerAlert } from '@destyler/components/alert/src/alert'
 </script>
 
 <template>
-  <DestylerScroll>{{ '1234'.repeat(8) }}</DestylerScroll>
-  <DestylerScroll>{{ '1234'.repeat(64) }}</DestylerScroll>
+  <DestylerAlert :closable="true" >
+    <template #header>
+      header
+    </template>
+  </DestylerAlert>
 </template>
 
 <style>

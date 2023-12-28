@@ -3,7 +3,7 @@ import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { DestylerTooltip } from '../src'
 
-describe('DestylerTooltip', () => {
+describe('destylerTooltip', () => {
   it('should work with import on demand', () => {
     mount(DestylerTooltip, {
       slots: {

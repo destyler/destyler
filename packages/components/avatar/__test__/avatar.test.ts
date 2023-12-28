@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerAvatar } from '../src'
 
-describe('Avatar', () => {
+describe('avatar', () => {
   it('image avatar', () => {
     const wrapper = mount(DestylerAvatar, {
       props: {

@@ -4,7 +4,7 @@ import { sleep } from '@destyler/shared'
 import type { CountdownProps } from '../src/countdown'
 import { DestylerCountdown } from '../src/countdown'
 
-describe('DestylerCountdown', () => {
+describe('destylerCountdown', () => {
   it('should work with import on demand', () => {
     mount(DestylerCountdown)
   })

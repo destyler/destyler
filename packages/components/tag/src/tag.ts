@@ -124,15 +124,12 @@ const DestylerTag = defineComponent({
       'onMouseenter': this.$props.onMouseenter,
       'onMouseleave': this.$props.onMouseleave,
     }, [
-      (iconNode || avatarNode),
-      h('span', {
+      (iconNode || avatarNode), h('span', {
         destyler: 'tag-content',
         ref: 'content',
-      }, this.$slots.default?.()),
-      !this.$props.checkable && this.$props.closable
+      }, this.$slots.default?.()), !this.$props.checkable && this.$props.closable
         ? closeNode
-        : null,
-    ])
+        : null])
   },
 })
 

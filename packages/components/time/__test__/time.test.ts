@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerTime } from '../src'
 
-describe('DestylerTime', () => {
+describe('destylerTime', () => {
   const date = new Date('1970-01-01 00:00:00 UTC').getTime()
 
   const mockedNow = new Date('2020-01-01 00:00:01 UTC').getTime()

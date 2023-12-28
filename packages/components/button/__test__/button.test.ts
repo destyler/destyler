@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { DestylerButton } from '../src/button'
 
-describe('Button', () => {
+describe('button', () => {
   it('should work with import on demand', () => {
     mount(DestylerButton)
   })

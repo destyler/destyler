@@ -12,7 +12,7 @@ const TriggerComponent1 = defineComponent({
   },
 })
 
-describe('DestylerPopover', () => {
+describe('destylerPopover', () => {
   it('should work with import on demand', () => {
     mount(DestylerPopover, {
       slots: {

@@ -1,7 +1,8 @@
 {
-  "name": "@destyler/shared",
+  "name": "@destyler/alert",
   "version": "0.0.0",
-  "description": "",
+  "private": "true",
+  "description": "unstyled alert component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -27,6 +28,6 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:*"
+    "@destyler/shared": "workspace:^"
   }
 }

@@ -113,9 +113,7 @@ const DestylerTooltip = defineComponent({
     return h(DestylerPopover, {
       ...this.$props,
       ref: 'popoverRef',
-    },
-    this.$slots,
-    )
+    }, this.$slots)
   },
 })
 

@@ -38,7 +38,7 @@ export const backTopProps = {
 const DestylerBackTop = defineComponent({
   name: 'DestylerBackTop',
   props: backTopProps,
-  setup(props, { slots, attrs }) {
+  setup(props) {
     const scrollTop = ref<number | null>(null)
     const uncontrolledShow = ref<boolean>(false)
     watchEffect(() => {

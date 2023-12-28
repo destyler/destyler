@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { h } from 'vue'
 import { DestylerTag } from '../src'
 
-describe('Basic', () => {
+describe('basic', () => {
   it('should work with import on demand', () => {
     mount(DestylerTag)
   })

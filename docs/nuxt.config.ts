@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@unocss/nuxt',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
   ],
   colorMode: {
     classSuffix: '',
@@ -11,5 +11,5 @@ export default defineNuxtConfig({
     '@unocss/reset/tailwind.css',
   ],
 
-  devtools: { enabled: true }
+  devtools: { enabled: true },
 })

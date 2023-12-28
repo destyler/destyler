@@ -114,9 +114,9 @@ const DestylerPopoverBody = defineComponent({
     function handleClickOutside(e: MouseEvent): void {
       if (
         (props.trigger === 'click'
-          && !getTriggerElement().contains(
-            getPreciseEventTarget(e) as Node | null,
-          ))
+        && !getTriggerElement().contains(
+          getPreciseEventTarget(e) as Node | null,
+        ))
         || props.onClickoutside
       )
         DestylerPopover.handleClickOutside(e)
@@ -193,14 +193,12 @@ const DestylerPopoverBody = defineComponent({
           destyler: 'popover-body-toggle',
           onMouseenter: handleMouseEnter,
           onMouseleave: handleMouseLeave,
-        }, attrs),
-        internalTrapFocus
+        }, attrs), internalTrapFocus
           ? h(DestylerFocusTrap, {
             active: props.show,
             autoFocus: true,
           }, renderContentInnerNode)
-          : renderContentInnerNode(),
-        )
+          : renderContentInnerNode())
       }
       else {
         contentNode = renderBody(body, handleMouseEnter, handleMouseLeave)
