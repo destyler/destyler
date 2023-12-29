@@ -1,6 +1,6 @@
 {
   "name": "@destyler/button",
-  "version": "0.0.1-beta.4",
+  "version": "0.0.1-beta.5",
   "description": "unstyled button component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
