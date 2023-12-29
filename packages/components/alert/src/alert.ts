@@ -23,7 +23,7 @@ export type DestylerAlertProps = ExtractPublicPropTypes<typeof destylerAlertProp
 const DestylerAlert = defineComponent({
   name: 'DestylerAlert',
   props: destylerAlertProps,
-  inheritAttrs: false,
+  inheritAttrs: true,
   setup(props) {
     const visibleRef = ref<boolean>(true)
 
