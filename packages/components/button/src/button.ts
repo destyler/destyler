@@ -1,46 +1,50 @@
 import type { PropType, VNodeChild } from 'vue'
 import { computed, defineComponent, h, ref } from 'vue'
-import type { MaybeArray } from '@destyler/shared'
+import type { ExtractPublicPropTypes, MaybeArray } from '@destyler/shared'
 import { BaseIconSwitchTransition, FadeInExpandTransition, call, isSafari, resolveWrappedSlot } from '@destyler/shared'
 
-const DestylerButton = defineComponent({
-  name: 'DestylerButton',
-  props: {
-    tag: {
-      type: String as PropType<keyof HTMLElementTagNameMap>,
-      default: 'button',
-    },
-    attrType: {
-      type: String as PropType<'button' | 'submit' | 'reset'>,
-      default: 'button',
-    },
-    iconPlacement: {
-      type: String as PropType<'left' | 'right'>,
-      default: 'left',
-    },
-    renderIcon: Function as PropType<() => VNodeChild>,
-    focusable: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    keyboard: {
-      type: Boolean as PropType<boolean>,
-      default: true,
-    },
-    disabled: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    loading: {
-      type: Boolean as PropType<boolean>,
-      default: false,
-    },
-    onClick: [Function, Array] as PropType<MaybeArray<(e: MouseEvent) => void>>,
-    nativeFocusBehavior: {
-      type: Boolean,
-      default: !isSafari,
-    },
+export const destylerButtonProps = {
+  tag: {
+    type: String as PropType<keyof HTMLElementTagNameMap>,
+    default: 'button',
   },
+  attrType: {
+    type: String as PropType<'button' | 'submit' | 'reset'>,
+    default: 'button',
+  },
+  iconPlacement: {
+    type: String as PropType<'left' | 'right'>,
+    default: 'left',
+  },
+  renderIcon: Function as PropType<() => VNodeChild>,
+  focusable: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  keyboard: {
+    type: Boolean as PropType<boolean>,
+    default: true,
+  },
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  loading: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  onClick: [Function, Array] as PropType<MaybeArray<(e: MouseEvent) => void>>,
+  nativeFocusBehavior: {
+    type: Boolean,
+    default: !isSafari,
+  },
+}
+
+export type DestylerButtonProps = ExtractPublicPropTypes<typeof destylerButtonProps>
+
+const DestylerButton: any = defineComponent({
+  name: 'DestylerButton',
+  props: destylerButtonProps,
   setup(props) {
     const selfElRef = ref<HTMLElement | null>(null)
 

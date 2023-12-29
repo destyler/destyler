@@ -1,2 +1,2 @@
-export * from './template'
+export * from './alert'
 export * from './resolver'
