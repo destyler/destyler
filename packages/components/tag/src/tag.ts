@@ -45,7 +45,7 @@ const destylerTagProps = {
   },
 }
 
-const DestylerTag = defineComponent({
+const DestylerTag: any = defineComponent({
   name: 'DestylerTag',
   props: destylerTagProps,
   setup(props) {

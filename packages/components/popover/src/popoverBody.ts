@@ -53,7 +53,7 @@ export const popoverBodyProps = {
   },
 }
 
-const DestylerPopoverBody = defineComponent({
+const DestylerPopoverBody: any = defineComponent({
   name: 'DestylerPopoverBody',
   props: popoverBodyProps,
   setup(props, { slots, attrs }) {

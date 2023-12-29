@@ -142,7 +142,7 @@ interface BodyInstance {
   [key: string]: unknown
 }
 
-const DestylerPopover = defineComponent({
+const DestylerPopover: any = defineComponent({
   name: 'DestylerPopover',
   inheritAttrs: false,
   props: destylerPopoverProps,

@@ -35,7 +35,7 @@ export const backTopProps = {
   },
 } as const
 
-const DestylerBackTop = defineComponent({
+const DestylerBackTop: any = defineComponent({
   name: 'DestylerBackTop',
   props: backTopProps,
   setup(props) {

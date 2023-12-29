@@ -13,7 +13,7 @@ import { beforeNextFrameOnce, getSlot, off, on } from '@destyler/shared'
 import { getScrollParent } from './utils'
 import type { BinderInstance } from './instance'
 
-export default defineComponent({
+const DestylerBinder: any = defineComponent({
   name: 'DestylerBinder',
   props: {
     syncTargetWithParent: {
@@ -115,3 +115,5 @@ export default defineComponent({
     return getSlot('binder', this.$slots)
   },
 })
+
+export default DestylerBinder

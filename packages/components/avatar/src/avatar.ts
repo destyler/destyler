@@ -5,7 +5,7 @@ import { DestylerResizeObserver } from '../../../../private/src/resizeObserver'
 
 export type IntersectionObserverOptions = Omit<IntersectionObserverInit, 'root'> & { root?: Element | Document | null | string }
 
-const DestylerAvatar = defineComponent({
+const DestylerAvatar: any = defineComponent({
   name: 'DestylerAvatar',
   props: {
     src: {
