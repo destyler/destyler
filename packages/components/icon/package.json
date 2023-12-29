@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "clear": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
