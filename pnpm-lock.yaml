@@ -73,8 +73,14 @@ importers:
         version: 2.10.0(nuxt@3.9.0)(rollup@3.29.4)(vue@3.3.13)
     devDependencies:
       '@destyler/button':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../packages/components/button
+      '@destyler/icon':
+        specifier: workspace:*
+        version: link:../packages/components/icon
+      '@destyler/label':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/label
       '@nuxt/devtools':
         specifier: ^1.0.6
         version: 1.0.6(nuxt@3.9.0)(rollup@3.29.4)(vite@5.0.10)

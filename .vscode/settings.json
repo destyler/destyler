@@ -1,7 +1,7 @@
 {
   "unocss.root": [
-    "playground",
-    "docs"
+    "docs",
+    "playground"
   ],
   "testing.automaticallyOpenPeekView": "never"
 }
