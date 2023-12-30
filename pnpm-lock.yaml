@@ -90,9 +90,15 @@ importers:
       '@unocss/nuxt':
         specifier: ^0.58.2
         version: 0.58.2(postcss@8.4.32)(rollup@3.29.4)(vite@5.0.10)(webpack@5.89.0)
+      '@unocss/reset':
+        specifier: ^0.58.2
+        version: 0.58.2
       nuxt:
         specifier: ^3.9.0
         version: 3.9.0(@types/node@20.10.5)(eslint@8.56.0)(rollup@3.29.4)(typescript@5.3.3)(vite@5.0.10)(vue-tsc@1.8.27)
+      unocss:
+        specifier: ^0.58.2
+        version: 0.58.2(@unocss/webpack@0.58.2)(postcss@8.4.32)(rollup@3.29.4)(vite@5.0.10)
       vue:
         specifier: ^3.3.13
         version: 3.3.13(typescript@5.3.3)
