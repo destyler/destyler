@@ -17,5 +17,8 @@
     "nuxt": "^3.9.0",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@nuxt/content": "^2.10.0"
   }
 }
