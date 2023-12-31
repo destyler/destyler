@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { DestylerButton } from '@destyler/button/src/button'
 </script>
 
 <template>
