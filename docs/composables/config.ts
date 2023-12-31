@@ -20,6 +20,15 @@ export const asideItems = [
     children: [
       { text: 'Alert', link: '/components/alert' },
       { text: 'Button', link: '/components/button' },
+      { text: 'Collapse', link: '/components/collapse' },
+      { text: 'Countdown', link: '/components/countdown' },
+      { text: 'Icon', link: '/components/icon' },
+      { text: 'Label', link: '/components/label' },
+      { text: 'Popover', link: '/components/popover' },
+      { text: 'Statistic', link: '/components/statistic' },
+      { text: 'Tag', link: '/components/tag' },
+      { text: 'Time', link: '/components/time' },
+
     ],
   },
 ]

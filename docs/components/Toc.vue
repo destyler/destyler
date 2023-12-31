@@ -10,7 +10,7 @@ const { data } = await useAsyncData(`content-${route.path}`, () => {
 
 <template>
   <div class="hidden text-sm xl:block">
-    <div class="sticky top-16 -mt-10 pt-4">
+    <div class="sticky top-16 -mt-10 pt-8">
       <div class="relative overflow-hidden pb-10">
         <div class="h-full w-full rounded-[inherit]">
           <div style="min-width: 100%; display: table;">

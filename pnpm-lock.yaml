@@ -75,15 +75,42 @@ importers:
       '@destyler/alert':
         specifier: workspace:0.0.1-beta.5
         version: link:../packages/components/alert
+      '@destyler/avatar':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/avatar
       '@destyler/button':
         specifier: workspace:*
         version: link:../packages/components/button
+      '@destyler/collapse':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/collapse
+      '@destyler/countdown':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/countdown
       '@destyler/icon':
         specifier: workspace:*
         version: link:../packages/components/icon
       '@destyler/label':
         specifier: workspace:0.0.1-beta.5
         version: link:../packages/components/label
+      '@destyler/online':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/online
+      '@destyler/popover':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/popover
+      '@destyler/statistic':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/statistic
+      '@destyler/tag':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/tag
+      '@destyler/time':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/time
+      '@destyler/tooltip':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../packages/components/tooltip
       '@nuxt/devtools':
         specifier: ^1.0.6
         version: 1.0.6(nuxt@3.9.0)(rollup@3.29.4)(vite@5.0.10)

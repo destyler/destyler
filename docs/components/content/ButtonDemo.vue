@@ -4,8 +4,10 @@ import { DestylerButton } from '@destyler/button/src/button'
 
 <template>
   <DestylerButton>
-    Button
-  </DestylerButton>
+    <slot>
+      Button
+    </slot>
+</DestylerButton>
 </template>
 
 <style>
