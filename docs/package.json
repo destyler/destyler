@@ -14,6 +14,7 @@
     "@nuxt/content": "^2.10.0"
   },
   "devDependencies": {
+    "@destyler/alert": "workspace:0.0.1-beta.5",
     "@destyler/button": "workspace:*",
     "@destyler/icon": "workspace:*",
     "@destyler/label": "workspace:0.0.1-beta.5",

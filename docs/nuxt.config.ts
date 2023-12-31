@@ -15,15 +15,11 @@ export default defineNuxtConfig({
   css: [
     '@unocss/reset/tailwind.css',
     '~/style/main.css',
+    '~/style/markdown.css',
+    '~/style/prose.css',
   ],
   content: {
     documentDriven: true,
-    markdown: {
-      tags: {
-        h1: 'ProseH1',
-        blockquote: 'ProseBlockquote',
-      },
-    },
     highlight: {
       theme: {
         default: 'vitesse-light',
