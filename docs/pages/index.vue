@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { DestylerButton } from '@destyler/button/src/button'
-import { version } from '../../package.json'
 </script>
 
 <template>
@@ -11,7 +10,7 @@ import { version } from '../../package.json'
     <h1 class="relative flex items-center text-5xl font-bold text-gray-800 dark:text-white dark:opacity-80 transition-colors">
       Destyler
       <span class="ml-1.5 rounded-xl bg-current p-2 text-[0.5em] leading-none">
-        <span class="text-white dark:text-black">{{ version }}</span>
+        <span class="text-white dark:text-black">{{ lastVersion }}</span>
       </span>
     </h1>
     <div class="mt-8">

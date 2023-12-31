@@ -9,7 +9,8 @@ import { DestylerLabel } from '@destyler/label/src/label'
         <NuxtLink to="/" class="cursor-pointer flex items-center mr-6">
           <Logo class="mr-3 " />
           <DestylerLabel class="cursor-pointer">
-            Destyler
+            <span>Destyler</span>
+            <sup>{{ lastVersion }}</sup>
           </DestylerLabel>
         </NuxtLink>
         <nav class="flex items-center gap-6 text-sm">
