@@ -8,7 +8,9 @@ import { DestylerLabel } from '@destyler/label/src/label'
       <div class="mr-4 hidden md:flex">
         <NuxtLink to="/" class="cursor-pointer flex items-center mr-6">
           <Logo class="mr-3 " />
-          <DestylerLabel>Destyler</DestylerLabel>
+          <DestylerLabel class="cursor-pointer">
+            Destyler
+          </DestylerLabel>
         </NuxtLink>
         <nav class="flex items-center gap-6 text-sm">
           <NavItem v-for="item in headNavItems" :key="item.link" :link="item.link" :title="item.text" />
