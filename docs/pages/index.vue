@@ -14,24 +14,24 @@ import { DestylerButton } from '@destyler/button/src/button'
       </span>
     </h1>
     <div class="mt-8">
-      <DestylerButton
+      <button
         class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400 mr-2"
       >
         <NuxtLink to="/guide/install">
           Get Started
         </NuxtLink>
-      </DestylerButton>
-      <DestylerButton
+      </button>
+      <button
         class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400 mr-2"
         @click="toggleTheme()"
       >
         Toggle Theme
-      </DestylerButton>
-      <DestylerButton
+      </button>
+      <button
         class="px-3 py-1 border border-stone-200 rounded-full drop-shadow-sm text-sm text-stone-800 dark:text-white bg-white/40 dark:bg-black/40 backdrop-blur-lg hover:border-stone-300 transition-colors dark:border-stone-500 dark:hover:border-stone-400"
       >
         <ViewSource title="View on GitHub" />
-      </DestylerButton>
+      </button>
     </div>
   </div>
 </template>
