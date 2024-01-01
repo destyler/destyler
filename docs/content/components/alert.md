@@ -15,5 +15,3 @@ layout: component
 ```bash
 pnpm install @destyler/alert
 ```
-
-## API Reference
