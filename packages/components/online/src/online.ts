@@ -10,6 +10,21 @@ const DestylerOnline = defineComponent({
       required: false,
       default: 'https://google.com',
     },
+    favicon: {
+      type: String as PropType<string>,
+      required: false,
+      default: '/favicon.ico',
+    },
+    timeout: {
+      type: Number as PropType<number>,
+      required: false,
+      default: 0,
+    },
+    logError: {
+      type: Boolean as PropType<boolean>,
+      required: false,
+      default: false,
+    },
   },
   emits: ['networkStatus'],
   setup(props, { emit }) {
