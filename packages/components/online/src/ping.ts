@@ -1,7 +1,7 @@
 /**
  * Creates a Ping instance.
  */
-export default class Ping {
+export class Ping {
   opt: {
     favicon?: string
     timeout?: number

@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, onBeforeUnmount, ref } from 'vue'
-import Ping from './ping'
+import { Ping } from './ping'
 
 const DestylerOnline = defineComponent({
   name: 'DestylerOnline',
