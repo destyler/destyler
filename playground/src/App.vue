@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { DestylerAlert } from '@destyler/components/alert/src/alert'
+import { DestylerOnline } from '@destyler/components/online/src/online'
 </script>
 
 <template>
-  <DestylerAlert :closable="true" >
-    <template #header>
-      header
-    </template>
-  </DestylerAlert>
+  <DestylerOnline v-slot="{ online }">
+    {{ online }}
+  </DestylerOnline>
 </template>
 
 <style>

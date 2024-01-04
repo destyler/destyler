@@ -43,7 +43,6 @@ export default class Ping {
     this.wasSuccess = false
     this.img = new Image()
     this.img.onload = onload.bind(this)
-    // @ts-expect-error - TS complains about resolve and reject not being initialized
     this.img.onerror = onerror.bind(this)
 
     let timer: number | undefined
@@ -52,7 +51,7 @@ export default class Ping {
     /**
      * Times ping and triggers callback.
      */
-    const pingCheck = function (this: Ping, e?: Event) {
+    const pingCheck = function (this: Ping) {
       if (timer)
         window.clearTimeout(timer)
 
@@ -87,19 +86,19 @@ export default class Ping {
       }
     }.bind(this)
 
-    function onload(this: Ping, e: Event) {
+    function onload(this: Ping) {
       this.wasSuccess = true
-      pingCheck.call(this, e)
+      pingCheck.call(this)
     }
 
-    function onerror(this: Ping, e: Event) {
+    function onerror(this: Ping) {
       this.wasSuccess = false
-      pingCheck.call(this, e)
+      pingCheck.call(this)
     }
 
     if (this.opt.timeout) {
       timer = window.setTimeout(() => {
-        pingCheck.call(this, undefined)
+        pingCheck.call(this)
       }, this.opt.timeout)
     }
 

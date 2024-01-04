@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, onBeforeUnmount, ref } from 'vue'
 import Ping from './ping'
 
-export default defineComponent({
+const DestylerOnline = defineComponent({
   name: 'DestylerOnline',
   props: {
     url: {
@@ -48,3 +48,7 @@ export default defineComponent({
     }, this.$slots.default?.())
   },
 })
+
+export {
+  DestylerOnline,
+}
