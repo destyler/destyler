@@ -327,9 +327,6 @@ importers:
 
   packages/composition:
     dependencies:
-      '@destyler/shared':
-        specifier: workspace:0.0.1-beta.5
-        version: link:../shared
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.3.3)

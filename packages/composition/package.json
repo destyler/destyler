@@ -26,8 +26,5 @@
   },
   "peerDependencies": {
     "vue": "^3.3.4"
-  },
-  "dependencies": {
-    "@destyler/shared": "workspace:0.0.1-beta.5"
   }
 }
