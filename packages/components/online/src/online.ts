@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, onBeforeUnmount, ref } from 'vue'
+import { defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
 import { Ping } from './ping'
 
 const DestylerOnline = defineComponent({
@@ -32,7 +32,9 @@ const DestylerOnline = defineComponent({
     const events = ref<string[]>(['online', 'offline', 'load'])
     const url = ref<string>(props.url || 'https://google.com')
 
-    events.value.forEach(event => window.addEventListener(event, status))
+    onMounted(() => {
+      events.value.forEach(event => window.addEventListener(event, status))
+    })
 
     onBeforeUnmount(() => {
       events.value.forEach(event =>

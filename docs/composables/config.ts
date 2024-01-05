@@ -24,6 +24,7 @@ export const asideItems = [
       { text: 'Countdown', link: '/components/countdown' },
       { text: 'Icon', link: '/components/icon' },
       { text: 'Label', link: '/components/label' },
+      { text: 'Online', link: '/components/online' },
       { text: 'Popover', link: '/components/popover' },
       { text: 'Statistic', link: '/components/statistic' },
       { text: 'Tag', link: '/components/tag' },
