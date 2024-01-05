@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerOnline } from '@destyler/components/online/src/online'
+import { DestylerOnline } from '@destyler/online/src/online'
 
 const isOnline = ref<boolean>(false)
 
@@ -13,7 +13,3 @@ function handleOnline(state: boolean) {
     {{ isOnline }}
   </DestylerOnline>
 </template>
-
-<style>
-
-</style>
