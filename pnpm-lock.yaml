@@ -263,9 +263,6 @@ importers:
 
   packages/components/online:
     dependencies:
-      ping.js:
-        specifier: ^0.3.0
-        version: 0.3.0
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.3.3)
@@ -330,6 +327,9 @@ importers:
 
   packages/composition:
     dependencies:
+      '@destyler/shared':
+        specifier: workspace:0.0.1-beta.5
+        version: link:../shared
       vue:
         specifier: ^3.3.4
         version: 3.3.7(typescript@5.3.3)
@@ -7524,10 +7524,6 @@ packages:
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
-
-  /ping.js@0.3.0:
-    resolution: {integrity: sha512-qisFwio7j0cwYbOcRL4BlTdxKALcpGPTkpl8ichGASgkrVqfI3sZfQDsP8wETR5rfutXZJLjlJ117aLkRnk2mA==}
-    dev: false
 
   /pkg-types@1.0.3:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}

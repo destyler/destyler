@@ -28,36 +28,39 @@ const DestylerOnline = defineComponent({
   },
   emits: ['networkStatus'],
   setup(props, { emit }) {
-    const isOnline = ref<boolean>(navigator.onLine || false)
-    const events = ref<string[]>(['online', 'offline', 'load'])
-    const url = ref<string>(props.url || 'https://google.com')
-
     onMounted(() => {
-      events.value.forEach(event => window.addEventListener(event, status))
-    })
+      const isOnline = ref<boolean>(navigator.onLine || false)
+      const events = ref<string[]>(['online', 'offline', 'load'])
+      const url = ref<string>(props.url || 'https://google.com')
+      events.value.forEach((event) => {
+        window.addEventListener(event, status)
+      })
 
-    onBeforeUnmount(() => {
-      events.value.forEach(event =>
-        window.removeEventListener(event, status),
-      )
-    })
+      onBeforeUnmount(() => {
+        events.value.forEach(event =>
+          window.removeEventListener(event, status),
+        )
+      })
 
-    async function status(): Promise<void> {
-      const p = new Ping()
-      try {
-        const ping = await p.ping(url.value)
-        if (ping || navigator.onLine) {
-          isOnline.value = true
-          emit('networkStatus', isOnline.value)
+      async function status(): Promise<void> {
+        const p = new Ping()
+        try {
+          const ping = await p.ping(url.value)
+          if (ping || navigator.onLine) {
+            isOnline.value = true
+            emit('networkStatus', isOnline.value)
+          }
+        }
+        catch (error) {
+          if (error || !navigator.onLine) {
+            isOnline.value = false
+            emit('networkStatus', isOnline.value)
+          }
         }
       }
-      catch (error) {
-        if (error || !navigator.onLine) {
-          isOnline.value = false
-          emit('networkStatus', isOnline.value)
-        }
-      }
-    }
+
+      status()
+    })
   },
   render() {
     return h('div', {
