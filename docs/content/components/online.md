@@ -4,7 +4,7 @@ layout: component
 
 # Online
 
-> Renders an accessible label associated with controls.
+> A reactive offline indicator component
 
 ::craft-box
 :::online-demo

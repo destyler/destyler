@@ -4,7 +4,7 @@ layout: component
 
 # Tag
 
-> Displays a button
+> Tags are great for showing attributes; and sometimes toggle options.
 
 ::craft-box
 :::tag-demo
