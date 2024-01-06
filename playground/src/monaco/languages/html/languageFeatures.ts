@@ -4,19 +4,21 @@
 *-------------------------------------------------------------------------------------------- */
 
 import * as htmlService from 'vscode-html-languageservice'
-import { InsertReplaceEdit, TextEdit } from 'vscode-html-languageservice'
-import { LanguageServiceDefaults } from './monaco.contribution'
+import type { InsertReplaceEdit, TextEdit } from 'vscode-html-languageservice'
+import type { LanguageServiceDefaults } from './monaco.contribution'
 import type { HTMLWorker } from './htmlWorker'
-import {
-  languages,
-  editor,
-  Uri,
-  Position,
-  Range,
+import type {
   CancellationToken,
   IDisposable,
-  MarkerSeverity,
   IMarkdownString,
+  Position,
+} from './fillers/monaco-editor-core'
+import {
+  MarkerSeverity,
+  Range,
+  Uri,
+  editor,
+  languages,
 } from './fillers/monaco-editor-core'
 
 export interface WorkerAccessor {
@@ -177,7 +179,7 @@ function toRange(range: htmlService.Range): Range {
 function isInsertReplaceEdit(edit: TextEdit | InsertReplaceEdit): edit is InsertReplaceEdit {
   return (
     typeof (<InsertReplaceEdit>edit).insert !== 'undefined'
-  && typeof (<InsertReplaceEdit>edit).replace !== 'undefined'
+      && typeof (<InsertReplaceEdit>edit).replace !== 'undefined'
   )
 }
 
@@ -357,8 +359,8 @@ export class CompletionAdapter implements languages.CompletionItemProvider {
 function isMarkupContent(thing: any): thing is htmlService.MarkupContent {
   return (
     thing
-  && typeof thing === 'object'
-  && typeof (<htmlService.MarkupContent>thing).kind === 'string'
+    && typeof thing === 'object'
+    && typeof (<htmlService.MarkupContent>thing).kind === 'string'
   )
 }
 

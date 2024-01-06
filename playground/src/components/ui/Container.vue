@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{ title: string; noOverflow?: boolean; noRounding?: boolean }>()
+defineProps<{ title: string, noOverflow?: boolean, noRounding?: boolean }>()
 </script>
 
 <template>

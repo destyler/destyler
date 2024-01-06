@@ -1,6 +1,7 @@
 import { getCurrentInstance, onMounted, watch } from 'vue'
 import * as monaco from 'monaco-editor'
 import { createSingletonPromise } from '@antfu/utils'
+
 /* __imports__ */
 
 import vueuseTypes from '@vueuse/core/index.d.ts?raw'
@@ -8,7 +9,7 @@ import vueTypes from '@vue/runtime-core/dist/runtime-core.d.ts?raw'
 
 import { orchestrator } from '~/orchestrator'
 
-const setup = createSingletonPromise(async() => {
+const setup = createSingletonPromise(async () => {
   monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
     ...monaco.languages.typescript.javascriptDefaults.getCompilerOptions(),
     noUnusedLocals: false,
@@ -46,7 +47,7 @@ const setup = createSingletonPromise(async() => {
 
   await Promise.all([
     // load workers
-    (async() => {
+    (async () => {
       const [
         { default: EditorWorker },
         { default: HtmlWorker },

@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 
-const utilities: { [key: string]: string[]} = {
+const utilities: { [key: string]: string[] } = {
   animation: [
     'animate-{static}',
   ],
@@ -797,7 +797,7 @@ const utilities: { [key: string]: string[]} = {
   ],
 }
 
-const negative: { [key: string]: true} = {
+const negative: { [key: string]: true } = {
   inset: true,
   zIndex: true,
   order: true,

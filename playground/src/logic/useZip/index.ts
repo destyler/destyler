@@ -1,4 +1,5 @@
-import Zip, { JSZipFileOptions } from 'jszip'
+import type { JSZipFileOptions } from 'jszip'
+import Zip from 'jszip'
 import { saveAs } from 'file-saver'
 
 export function useZip() {

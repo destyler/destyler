@@ -3,8 +3,9 @@
 *  Licensed under the MIT License. See License.txt in the project root for license information.
 *-------------------------------------------------------------------------------------------- */
 
-import * as mode from './htmlMode'
-import { languages, Emitter, IEvent } from './fillers/monaco-editor-core'
+import type * as mode from './htmlMode'
+import type { IEvent } from './fillers/monaco-editor-core'
+import { Emitter, languages } from './fillers/monaco-editor-core'
 
 export interface HTMLFormatConfiguration {
   readonly tabSize: number
@@ -31,8 +32,8 @@ export interface Options {
  */
   readonly format?: HTMLFormatConfiguration
   /**
- * A list of known schemas and/or associations of schemas to file names.
- */
+   * A list of known schemas and/or associations of schemas to file names.
+   */
   readonly suggest?: CompletionConfiguration
 }
 
@@ -43,58 +44,58 @@ export interface ModeConfiguration {
   readonly completionItems?: boolean
 
   /**
- * Defines whether the built-in hoverProvider is enabled.
- */
+   * Defines whether the built-in hoverProvider is enabled.
+   */
   readonly hovers?: boolean
 
   /**
- * Defines whether the built-in documentSymbolProvider is enabled.
- */
+   * Defines whether the built-in documentSymbolProvider is enabled.
+   */
   readonly documentSymbols?: boolean
 
   /**
- * Defines whether the built-in definitions provider is enabled.
- */
+   * Defines whether the built-in definitions provider is enabled.
+   */
   readonly links?: boolean
 
   /**
- * Defines whether the built-in references provider is enabled.
- */
+   * Defines whether the built-in references provider is enabled.
+   */
   readonly documentHighlights?: boolean
 
   /**
- * Defines whether the built-in rename provider is enabled.
- */
+   * Defines whether the built-in rename provider is enabled.
+   */
   readonly rename?: boolean
 
   /**
- * Defines whether the built-in color provider is enabled.
- */
+   * Defines whether the built-in color provider is enabled.
+   */
   readonly colors?: boolean
 
   /**
- * Defines whether the built-in foldingRange provider is enabled.
- */
+   * Defines whether the built-in foldingRange provider is enabled.
+   */
   readonly foldingRanges?: boolean
 
   /**
- * Defines whether the built-in diagnostic provider is enabled.
- */
+   * Defines whether the built-in diagnostic provider is enabled.
+   */
   readonly diagnostics?: boolean
 
   /**
- * Defines whether the built-in selection range provider is enabled.
- */
+   * Defines whether the built-in selection range provider is enabled.
+   */
   readonly selectionRanges?: boolean
 
   /**
- * Defines whether the built-in documentFormattingEdit provider is enabled.
- */
+   * Defines whether the built-in documentFormattingEdit provider is enabled.
+   */
   readonly documentFormattingEdits?: boolean
 
   /**
- * Defines whether the built-in documentRangeFormattingEdit provider is enabled.
- */
+   * Defines whether the built-in documentRangeFormattingEdit provider is enabled.
+   */
   readonly documentRangeFormattingEdits?: boolean
 }
 

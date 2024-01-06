@@ -4,10 +4,10 @@ import type { editor as Editor } from 'monaco-editor'
 import * as monaco from 'monaco-editor'
 import { hex2RGB } from 'windicss/utils'
 import { isString } from '@antfu/utils'
-import { flatColors, isAttrUtility, isAttrVariant, isValidColor, isDarkColor, rgb2Hex } from './utils'
+import { flatColors, isAttrUtility, isAttrVariant, isDarkColor, isValidColor, rgb2Hex } from './utils'
 import { generateCompletions } from './utils/completions'
 import { HTMLParser } from './utils/parser'
-import { EditorPlugin } from '~/monaco/plugins/types'
+import type { EditorPlugin } from '~/monaco/plugins/types'
 import { useStyleSheet } from '~/logic/useStyleSheet'
 
 const processor = new Processor()
@@ -58,7 +58,7 @@ export const WindiDecoration: EditorPlugin = {
     const model = editor.getModel()!
 
     // Map Attribute Colors
-    // @ts-ignore
+    // @ts-expect-error
     const attributeProviders: Provider[] = attrs
       .filter(attr => isAttrUtility(attr.key, windi.completions.attr.static))
       .map((attr) => {
@@ -82,7 +82,7 @@ export const WindiDecoration: EditorPlugin = {
       })
       .flat()
 
-    // @ts-ignore
+    // @ts-expect-error
     const classProviders: Provider[] = attrs
       .filter(attr => isAttrVariant(attr.key, windi.variants) || ['class', 'className'].includes(attr.key))
       .map((attr) => {
@@ -121,12 +121,12 @@ export const WindiDecoration: EditorPlugin = {
       .filter(({ color }) => color)
       .reduce((acc, color) => {
         const _color = isString(color.color) ? color.color : rgb2Hex(color.color[0], color.color[1], color.color[2])
-        // @ts-ignore
+        // @ts-expect-error
         acc[`.color-${_color.replace('#', '')}`] = `background-color: ${_color}`
         return acc
       }, {})
 
-    // @ts-ignore
+    // @ts-expect-error
     state.decorations = editor.deltaDecorations(state.decorations, [
       ...attributeProviders.map(({ decoration }) => decoration),
       ...classProviders.map(({ decoration }) => decoration),

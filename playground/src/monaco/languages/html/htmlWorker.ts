@@ -4,9 +4,9 @@
   *-------------------------------------------------------------------------------------------- */
 
 import * as htmlService from 'vscode-html-languageservice'
-import { worker } from './fillers/monaco-editor-core'
-import type { Options } from './monaco.contribution'
 import { htmlCompletionPlugins } from '../../plugins/index'
+import type { worker } from './fillers/monaco-editor-core'
+import type { Options } from './monaco.contribution'
 
 export interface ICreateData {
   languageId: string

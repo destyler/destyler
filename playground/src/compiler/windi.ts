@@ -37,7 +37,8 @@ export function generateStyles(html: string) {
       const attrKey = curr.key
 
       // ignore class or className attributes
-      if (attrKey === 'class' || attrKey === 'className') return acc
+      if (attrKey === 'class' || attrKey === 'className')
+        return acc
 
       // get current match value as array
       const attrValue = castArray(curr.value)

@@ -1,11 +1,12 @@
 import {
-  babelParse,
   MagicString,
+  babelParse,
   walk,
   walkIdentifiers,
 } from '@vue/compiler-sfc'
-import { ExportSpecifier, Identifier, Node, ObjectProperty } from '@babel/types'
-import { orchestrator as store, OrchestratorFile as File } from '../orchestrator'
+import type { ExportSpecifier, Identifier, Node, ObjectProperty } from '@babel/types'
+import type { OrchestratorFile as File } from '../orchestrator'
+import { orchestrator as store } from '../orchestrator'
 import { MAIN_FILE } from './sfcCompiler'
 
 export function compileModulesForPreview() {
@@ -158,7 +159,8 @@ function processFile(file: File, seen = new Set<File>()) {
 
   // 3. convert references to import bindings
   for (const node of ast) {
-    if (node.type === 'ImportDeclaration') continue
+    if (node.type === 'ImportDeclaration')
+      continue
     walkIdentifiers(node, (id, parent, parentStack) => {
       const binding = idToImportMap.get(id.name)
       if (!binding)
@@ -222,8 +224,9 @@ function processFile(file: File, seen = new Set<File>()) {
   return processed
 }
 
-const isStaticProperty = (node: Node): node is ObjectProperty =>
-  node.type === 'ObjectProperty' && !node.computed
+function isStaticProperty(node: Node): node is ObjectProperty {
+  return node.type === 'ObjectProperty' && !node.computed
+}
 
 function extractNames(param: Node): string[] {
   return extractIdentifiers(param).map(id => id.name)
@@ -257,7 +260,8 @@ function extractIdentifiers(
 
     case 'ArrayPattern':
       param.elements.forEach((element) => {
-        if (element) extractIdentifiers(element, nodes)
+        if (element)
+          extractIdentifiers(element, nodes)
       })
       break
 

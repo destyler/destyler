@@ -22,7 +22,7 @@ describe('alert', () => {
   it('should have designated title', () => {
     const title = 'unstyle alert'
     const wrapper = mount(DestylerAlert, {
-      props: { title }
+      props: { title },
     })
     expect(wrapper.find('div[destyler="alert"]').find('div[destyler="alert-body"]').find('div[destyler="alert-body-title"]').text()).toBe(title)
     wrapper.unmount()
@@ -31,8 +31,8 @@ describe('alert', () => {
   it('should work with `default` slot', () => {
     const wrapper = mount(DestylerAlert, {
       slots: {
-        default: () => 'default'
-      }
+        default: () => 'default',
+      },
     })
 
     expect(wrapper.find('div[destyler="alert"]').find('div[destyler="alert-body"]').find('div[destyler="alert-body-content"]').exists()).toBe(true)
@@ -43,8 +43,8 @@ describe('alert', () => {
   it('should work with `header` slot', async () => {
     const wrapper = mount(DestylerAlert, {
       slots: {
-        header: () => 'test-header'
-      }
+        header: () => 'test-header',
+      },
     })
 
     expect(wrapper.find('div[destyler="alert"]').find('div[destyler="alert-body"]').find('div[destyler="alert-body-title"]').text()).toBe('test-header')
@@ -63,9 +63,9 @@ describe('alert', () => {
     wrapper.unmount()
   })
 
-  it("shouldn't closed when on-close prop returns false", async () => {
+  it('shouldn\'t closed when on-close prop returns false', async () => {
     const wrapper = mount(DestylerAlert, {
-      props: { closable: true, onClose: () => false }
+      props: { closable: true, onClose: () => false },
     })
     const closeBtn = wrapper.find('div[destyler="alert"]').find('div[destyler="alert-close"]')
     await closeBtn.trigger('click')
@@ -81,8 +81,8 @@ describe('alert', () => {
       props: {
         closable: true,
         onClose: handleCloseClick,
-        onAfterLeave: handleOnAfterLeave
-      }
+        onAfterLeave: handleOnAfterLeave,
+      },
     })
     const closeBtn = wrapper.find('div[destyler="alert"]').find('div[destyler="alert-close"]')
     expect(closeBtn.exists()).toBe(true)

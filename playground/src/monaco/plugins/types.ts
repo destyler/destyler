@@ -1,4 +1,4 @@
-import type { CompletionItem, TextDocument, HTMLDocument, Position } from 'vscode-html-languageservice'
+import type { CompletionItem, HTMLDocument, Position, TextDocument } from 'vscode-html-languageservice'
 import type { editor as Editor } from 'monaco-editor'
 
 export interface HTMLPluginCompletion {

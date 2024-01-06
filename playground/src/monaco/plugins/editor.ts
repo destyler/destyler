@@ -1,4 +1,4 @@
-import { EditorPlugin } from './types'
+import type { EditorPlugin } from './types'
 import { WindiDecoration } from './windicss/decorations'
 
 export const editorPlugins: EditorPlugin[] = [

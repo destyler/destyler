@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watchEffect, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import type { WatchStopHandle } from 'vue'
+
 // import { useElementSize, useCssVar } from '@vueuse/core'
 import srcdoc from '../template.html?raw'
 import { PreviewProxy } from '~/logic/PreviewProxy'
@@ -184,7 +185,7 @@ async function updatePreview() {
     flex="~"
     class="preview-container"
     place="items-center content-center"
-  ></div>
+  />
 </template>
 
 <style>

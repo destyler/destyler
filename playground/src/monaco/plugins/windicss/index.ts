@@ -1,9 +1,10 @@
 import { Processor } from 'windicss/lib'
-import { CompletionItemKind, CompletionItem, TextDocument, Position } from 'vscode-html-languageservice'
+import type { CompletionItem, Position, TextDocument } from 'vscode-html-languageservice'
+import { CompletionItemKind } from 'vscode-html-languageservice'
 import type { HTMLPlugin } from '../types'
 import { generateCompletions } from './utils/completions'
 import { patterns } from './utils/fileTypes'
-import { isAttrVariant, isAttrUtility } from './utils'
+import { isAttrUtility, isAttrVariant } from './utils'
 
 const pattern = patterns.html
 
@@ -20,7 +21,7 @@ function attrKey(label: string, kind: CompletionItemKind, order: number): Comple
   }
 }
 
-const resolveVariants = (document: TextDocument, position: Position) => {
+function resolveVariants(document: TextDocument, position: Position) {
   const text = document.getText({
     start: { line: 0, character: 0 },
     end: position,
@@ -67,7 +68,7 @@ const resolveVariants = (document: TextDocument, position: Position) => {
   ]
 }
 
-const resolveAttrKeys = (document: TextDocument, position: Position) => {
+function resolveAttrKeys(document: TextDocument, position: Position) {
   const text = document.getText({
     start: { line: 0, character: 0 },
     end: position,
@@ -88,7 +89,7 @@ const resolveAttrKeys = (document: TextDocument, position: Position) => {
   return []
 }
 
-const resolveAttrValues = (document: TextDocument, position: Position) => {
+function resolveAttrValues(document: TextDocument, position: Position) {
   const text = document.getText({
     start: { line: 0, character: 0 },
     end: position,

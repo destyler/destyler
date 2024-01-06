@@ -3,9 +3,10 @@
 *  Licensed under the MIT License. See License.txt in the project root for license information.
 *-------------------------------------------------------------------------------------------- */
 
-import { LanguageServiceDefaults } from './monaco.contribution'
+import type { LanguageServiceDefaults } from './monaco.contribution'
 import type { HTMLWorker } from './htmlWorker'
-import { Uri, IDisposable, editor } from './fillers/monaco-editor-core'
+import type { IDisposable, Uri } from './fillers/monaco-editor-core'
+import { editor } from './fillers/monaco-editor-core'
 
 const STOP_WHEN_IDLE_FOR = 2 * 60 * 1000 // 2min
 

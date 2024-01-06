@@ -1,6 +1,6 @@
 import type { Processor } from 'windicss/lib'
 import type { Attr, Completion } from '../interfaces'
-import { utilities, negative } from './utilities'
+import { negative, utilities } from './utilities'
 import { flatColors } from './index'
 
 export function generateCompletions(processor: Processor, colors: any, attributify = true, prefix = '') {
@@ -40,7 +40,8 @@ export function generateCompletions(processor: Processor, colors: any, attributi
             break
           case '{color}':
             for (const [k, v] of Object.entries(flatColors(processor.theme(config, colors)))) {
-              if (k === 'DEFAULT') continue
+              if (k === 'DEFAULT')
+                continue
               completions.color.push({
                 label: `${key}-${k}`,
                 doc: v,
@@ -70,7 +71,8 @@ export function generateCompletions(processor: Processor, colors: any, attributi
   if (attributify) {
     const attrDisable = processor.config('attributify.disable') as string[] | undefined
     const addAttr = (key: string, value: any, type: 'static' | 'color' | 'bracket' | 'dynamic' = 'static') => {
-      if (attrDisable && attrDisable.includes(key)) return
+      if (attrDisable && attrDisable.includes(key))
+        return
       key in attr[type] ? attr[type][key].push(value) : attr[type][key] = [value]
     }
 
@@ -88,7 +90,8 @@ export function generateCompletions(processor: Processor, colors: any, attributi
     addAttr('backdrop', 'none')
 
     for (const [key, style] of Object.entries(staticUtilities)) {
-      if (!style[0]) continue
+      if (!style[0])
+        continue
       switch (style[0].meta.group) {
         case 'fontStyle':
         case 'fontSmoothing':
@@ -189,7 +192,8 @@ export function generateCompletions(processor: Processor, colors: any, attributi
         case 'textDecorationStyle':
         case 'overscrollBehavior':
           const splits = split(key)
-          if (!splits.key) break
+          if (!splits.key)
+            break
           addAttr(splits.key, splits.body)
           break
         case 'boxDecorationBreak':
@@ -226,7 +230,8 @@ export function generateCompletions(processor: Processor, colors: any, attributi
     for (const utility of completions.static) {
       const { key, body } = split(utility)
       if (key) {
-        if (key === 'underline') addAttr('text', utility)
+        if (key === 'underline')
+          addAttr('text', utility)
         addAttr(key, body)
       }
     }
@@ -235,18 +240,21 @@ export function generateCompletions(processor: Processor, colors: any, attributi
       const { key, body } = split(label)
       if (key) {
         addAttr(key, { label: body, doc }, 'color')
-        if (key === 'underline') addAttr('text', { label, doc }, 'color')
+        if (key === 'underline')
+          addAttr('text', { label, doc }, 'color')
       }
     }
 
     for (const utility of completions.bracket) {
       const { key, body } = split(utility)
-      if (key) addAttr(key, body, 'bracket')
+      if (key)
+        addAttr(key, body, 'bracket')
     }
 
     for (const { label, pos } of completions.dynamic) {
       const { key, body } = split(label)
-      if (key) addAttr(key, { label: body, pos }, 'dynamic')
+      if (key)
+        addAttr(key, { label: body, pos }, 'dynamic')
     }
   }
 
@@ -256,31 +264,53 @@ export function generateCompletions(processor: Processor, colors: any, attributi
 }
 
 function split(utility: string) {
-  if (utility.startsWith('bg-gradient')) return { key: 'gradient', body: utility.replace(/^bg-gradient-/, '') }
-  if (utility === 'w-min') return { key: 'w', body: 'min-content' }
-  if (utility === 'w-max') return { key: 'w', body: 'max-content' }
-  if (utility === 'h-min') return { key: 'h', body: 'min-content' }
-  if (utility === 'h-max') return { key: 'h', body: 'max-content' }
-  if (utility.startsWith('min-w')) return { key: 'w', body: utility.replace(/^min-w-/, 'min-') }
-  if (utility.startsWith('max-w')) return { key: 'w', body: utility.replace(/^max-w-/, 'max-') }
-  if (utility.startsWith('min-h')) return { key: 'h', body: utility.replace(/^min-h-/, 'min-') }
-  if (utility.startsWith('max-h')) return { key: 'h', body: utility.replace(/^max-h-/, 'max-') }
+  if (utility.startsWith('bg-gradient'))
+    return { key: 'gradient', body: utility.replace(/^bg-gradient-/, '') }
+  if (utility === 'w-min')
+    return { key: 'w', body: 'min-content' }
+  if (utility === 'w-max')
+    return { key: 'w', body: 'max-content' }
+  if (utility === 'h-min')
+    return { key: 'h', body: 'min-content' }
+  if (utility === 'h-max')
+    return { key: 'h', body: 'max-content' }
+  if (utility.startsWith('min-w'))
+    return { key: 'w', body: utility.replace(/^min-w-/, 'min-') }
+  if (utility.startsWith('max-w'))
+    return { key: 'w', body: utility.replace(/^max-w-/, 'max-') }
+  if (utility.startsWith('min-h'))
+    return { key: 'h', body: utility.replace(/^min-h-/, 'min-') }
+  if (utility.startsWith('max-h'))
+    return { key: 'h', body: utility.replace(/^max-h-/, 'max-') }
 
   const key = utility.match(/[^-]+/)?.[0]
   if (key) {
-    if (['duration', 'ease', 'delay'].includes(key)) return { key: 'transition', body: utility }
-    if (['scale', 'rotate', 'translate', 'skew', 'origin', 'perspect'].includes(key)) return { key: 'transform', body: utility }
-    if (['blur', 'brightness', 'contrast', 'drop', 'grayscale', 'hue', 'invert', 'saturate', 'sepia'].includes(key)) return { key: 'filter', body: utility }
-    if (['inset', 'top', 'left', 'bottom', 'right'].includes(key)) return { key: 'pos', body: utility }
-    if (['py', 'px', 'pt', 'pl', 'pb', 'pr'].includes(key)) return { key: 'p', body: utility.slice(1) }
-    if (['my', 'mx', 'mt', 'ml', 'mb', 'mr'].includes(key)) return { key: 'm', body: utility.charAt(0) === '-' ? `-${utility.slice(2)}` : utility.slice(1) }
-    if (['stroke', 'fill'].includes(key)) return { key: 'icon', body: utility }
-    if (['from', 'via', 'to'].includes(key)) return { key: 'gradient', body: utility }
-    if (['tracking', 'leading'].includes(key)) return { key: 'font', body: utility }
-    if (['tab', 'indent'].includes(key)) return { key: 'text', body: utility }
-    if (['col', 'row', 'auto', 'gap'].includes(key)) return { key: 'grid', body: utility }
-    if (key === 'placeholder') return { key: 'text', body: utility }
-    if (key === 'rounded') return { key: 'border', body: utility }
+    if (['duration', 'ease', 'delay'].includes(key))
+      return { key: 'transition', body: utility }
+    if (['scale', 'rotate', 'translate', 'skew', 'origin', 'perspect'].includes(key))
+      return { key: 'transform', body: utility }
+    if (['blur', 'brightness', 'contrast', 'drop', 'grayscale', 'hue', 'invert', 'saturate', 'sepia'].includes(key))
+      return { key: 'filter', body: utility }
+    if (['inset', 'top', 'left', 'bottom', 'right'].includes(key))
+      return { key: 'pos', body: utility }
+    if (['py', 'px', 'pt', 'pl', 'pb', 'pr'].includes(key))
+      return { key: 'p', body: utility.slice(1) }
+    if (['my', 'mx', 'mt', 'ml', 'mb', 'mr'].includes(key))
+      return { key: 'm', body: utility.charAt(0) === '-' ? `-${utility.slice(2)}` : utility.slice(1) }
+    if (['stroke', 'fill'].includes(key))
+      return { key: 'icon', body: utility }
+    if (['from', 'via', 'to'].includes(key))
+      return { key: 'gradient', body: utility }
+    if (['tracking', 'leading'].includes(key))
+      return { key: 'font', body: utility }
+    if (['tab', 'indent'].includes(key))
+      return { key: 'text', body: utility }
+    if (['col', 'row', 'auto', 'gap'].includes(key))
+      return { key: 'grid', body: utility }
+    if (key === 'placeholder')
+      return { key: 'text', body: utility }
+    if (key === 'rounded')
+      return { key: 'border', body: utility }
   }
   const negative = utility.charAt(0) === '-'
   const body = (negative ? utility.slice(1) : utility).match(/-.+/)?.[0].slice(1) || '~'

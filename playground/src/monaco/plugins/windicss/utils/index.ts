@@ -47,7 +47,8 @@ export function rgb2Hex(r: number, g: number, b: number) {
 
 export function isValidColor(utility: string, colors: any, type = 'hex') {
   const sep = utility.search('/')
-  if (sep !== -1) utility = utility.slice(0, sep)
+  if (sep !== -1)
+    utility = utility.slice(0, sep)
   if (/hex-?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/.test(utility)) {
     const hex = utility.replace(/^\S*hex-/, '')
     return { color: (type === 'hex' ? hex2RGB : toRGBA)(`#${hex}`), key: `hex-${hex}` }
@@ -64,7 +65,8 @@ function match(a: [r: number, g: number, b: number], b: [r: number, g: number, b
 }
 
 export function isDarkColor(r: number, g: number, b: number) {
-  if (match([r, g, b], [20, 184, 166]) || match([r, g, b], [245, 158, 11]) || match([r, g, b], [249, 115, 22]) || match([r, g, b], [217, 70, 239]) || match([r, g, b], [6, 182, 212]) || match([r, g, b], [132, 204, 22])) return true
+  if (match([r, g, b], [20, 184, 166]) || match([r, g, b], [245, 158, 11]) || match([r, g, b], [249, 115, 22]) || match([r, g, b], [217, 70, 239]) || match([r, g, b], [6, 182, 212]) || match([r, g, b], [132, 204, 22]))
+    return true
   // special cases: orange-500 yellow-500 teal-500 fuchsia-500 cyan-500 lime-500, With 500 as the dividing line, the view is better
 
   const hsp = Math.sqrt(

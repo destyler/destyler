@@ -7,7 +7,7 @@ import { DestylerButton } from '@destyler/button/src/button'
     <slot>
       Button
     </slot>
-</DestylerButton>
+  </DestylerButton>
 </template>
 
 <style>

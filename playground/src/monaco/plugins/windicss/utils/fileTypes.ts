@@ -1,4 +1,4 @@
-export function connect(strings: string|string[]) {
+export function connect(strings: string | string[]) {
   return Array.isArray(strings) ? new RegExp(strings.map(i => `(${i})`).join('|')) : new RegExp(strings)
 }
 
@@ -14,13 +14,13 @@ const htmlPattern = [classPattern, applyPattern, windiPattern]
 
 export const applyRegex = new RegExp(applyPattern)
 
-export const patterns: {[key: string]: RegExp} = {
+export const patterns: { [key: string]: RegExp } = {
   html: connect(htmlPattern),
   js: connect(htmlPattern),
   css: connect(applyPattern),
 }
 
-export const fileTypes: {[key: string]: {pattern?: RegExp; type: string}} = {
+export const fileTypes: { [key: string]: { pattern?: RegExp, type: string } } = {
   css: {
     type: 'css',
   },

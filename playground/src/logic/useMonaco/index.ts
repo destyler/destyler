@@ -1,5 +1,5 @@
-import type { Ref} from 'vue';
-import { watch, unref, ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref, unref, watch } from 'vue'
 import { createEventHook, tryOnUnmounted, until } from '@vueuse/core'
 
 import darktheme from 'theme-vitesse/themes/vitesse-dark.json'

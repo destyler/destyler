@@ -381,15 +381,12 @@ function loadInitialState() {
   if (location.hash.slice(1)) {
     const { files, packages } = JSON.parse(lz.decompressFromEncodedURIComponent(location.hash.slice(1)))
 
-    console.log(files, packages)
-
     if (files && packages) {
       orchestrator.packages = packages
 
-      for (const f in files) {
-        console.log(f)
+      for (const f in files) 
         addFile(new OrchestratorFile(f, files[f].template, files[f].script))
-      }
+      
       setActiveFile('App.vue')
       shouldUpdateContent.trigger(null)
     }

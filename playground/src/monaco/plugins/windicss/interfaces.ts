@@ -1,8 +1,8 @@
 import type { Processor } from 'windicss/lib'
 
-export type DictStr = { [key: string]: string | string[] }
+export interface DictStr { [key: string]: string | string[] }
 
-export type DeepNestDictStr = { [key: string]: string | DeepNestDictStr }
+export interface DeepNestDictStr { [key: string]: string | DeepNestDictStr }
 
 export interface Core {
   processor?: Processor

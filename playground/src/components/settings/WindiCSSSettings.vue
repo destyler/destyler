@@ -4,6 +4,6 @@
 
 <template>
   <div w="full" h="full">
-    <Editor  />
+    <Editor />
   </div>
 </template>

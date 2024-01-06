@@ -14,7 +14,7 @@ useEventListener('keydown', (e) => {
   }
 })
 
-function addFile () {
+function addFile() {
   isAddingTab.value = false
   if (filename.value.length === 0)
     return
@@ -33,7 +33,7 @@ onClickOutside(fileNameInput, () => {
     addFile()
 })
 
-function addTab () {
+function addTab() {
   isAddingTab.value = true
   setTimeout(() => {
     if (fileNameInput.value)

@@ -1,4 +1,5 @@
-import { CompletionItemKind, CompletionItem } from 'vscode-html-languageservice'
+import type { CompletionItem } from 'vscode-html-languageservice'
+import { CompletionItemKind } from 'vscode-html-languageservice'
 
 export const EventModifiers = {
   stop: 'call event.stopPropagation().',

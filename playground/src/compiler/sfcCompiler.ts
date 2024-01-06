@@ -1,7 +1,8 @@
-import { SFCDescriptor, BindingMetadata } from '@vue/compiler-sfc'
+import type { BindingMetadata, SFCDescriptor } from '@vue/compiler-sfc'
 import * as defaultCompiler from '@vue/compiler-sfc'
 import { ref } from 'vue'
-import { orchestrator as store, OrchestratorFile as File } from '../orchestrator'
+import type { OrchestratorFile as File } from '../orchestrator'
+import { orchestrator as store } from '../orchestrator'
 import { generateStyles } from './windi'
 
 export const MAIN_FILE = 'App.vue'
@@ -13,7 +14,7 @@ export const COMP_IDENTIFIER = '__sfc__'
  */
 let SFCCompiler: typeof defaultCompiler = defaultCompiler
 
-// @ts-ignore
+// @ts-expect-error
 const defaultVueUrl = import.meta.env.PROD
   ? `${location.origin}/vue.runtime.esm-browser.js` // to be copied on build
   : `${location.origin}/src/vue-dev-proxy`
@@ -132,7 +133,7 @@ export async function compileFile({ filename, code, compiled }: File) {
   if (clientCode || ssrCode) {
     appendSharedCode(
       `\n${COMP_IDENTIFIER}.__file = ${JSON.stringify(filename)}`
-        + `\nexport default ${COMP_IDENTIFIER}`,
+      + `\nexport default ${COMP_IDENTIFIER}`,
     )
     compiled.js = clientCode.trimStart()
     compiled.ssr = ssrCode.trimStart()

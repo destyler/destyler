@@ -25,14 +25,14 @@ watch(version, () => {
 })
 
 const uninstall = () => orchestrator.packages = orchestrator.packages.filter(({ name }) => name !== props.name)
-function install () {
+function install() {
   return orchestrator.packages = [...orchestrator.packages, {
-  name: props.name,
-  url: `https://cdn.skypack.dev/${props.name}`,
-  description: props.description,
-  version: version.value,
-  source: 'skypack',
-}]
+    name: props.name,
+    url: `https://cdn.skypack.dev/${props.name}`,
+    description: props.description,
+    version: version.value,
+    source: 'skypack',
+  }]
 }
 </script>
 
@@ -46,7 +46,7 @@ function install () {
       {{ description }}
     </div>
     <div flex="~ row" m="t-2">
-      <span flex="1"/>
+      <span flex="1" />
       <div flex="~" space="x-[1px]" bg="light-900 dark:dark-900" border="~ rounded dark:dark-900">
         <!-- <PackageVersion v-model="version" v-if="source === 'skypack'" :name="name" /> -->
         <Button v-if="isInstalled" border="rounded-r" :class="{ rounded: source !== 'skypack' }" @click="uninstall()">
