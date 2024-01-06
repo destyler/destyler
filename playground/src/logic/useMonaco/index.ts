@@ -1,5 +1,6 @@
-import { watch, Ref, unref, ref } from 'vue'
-import { until, createEventHook, tryOnUnmounted } from '@vueuse/core'
+import type { Ref} from 'vue';
+import { watch, unref, ref } from 'vue'
+import { createEventHook, tryOnUnmounted, until } from '@vueuse/core'
 
 import darktheme from 'theme-vitesse/themes/vitesse-dark.json'
 import lightTheme from 'theme-vitesse/themes/vitesse-light.json'
@@ -13,13 +14,13 @@ export function useMonaco(target: Ref, options: any) {
   const isSetup = ref(false)
   let editor: Editor.IStandaloneCodeEditor
 
-  const setContent = async(content: string) => {
+  const setContent = async (content: string) => {
     await until(isSetup).toBeTruthy()
     if (editor)
       editor.setValue(content)
   }
 
-  const init = async() => {
+  const init = async () => {
     const { monaco } = await setupMonaco()
     // @ts-expect-error
     monaco.editor.defineTheme('vitesse-dark', darktheme)
@@ -39,6 +40,8 @@ export function useMonaco(target: Ref, options: any) {
           return 'js'
         else if (options.language === 'html')
           return 'html'
+        else if (options.language === 'css')
+          return 'css'
       }
 
       const model = monaco.editor.createModel(options.code, options.language, monaco.Uri.parse(`file:///root/${Date.now()}.${extension()}`))
