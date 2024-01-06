@@ -4,9 +4,10 @@ import {
   getCurrentInstance,
   onBeforeUnmount,
   onMounted,
+  ref,
   renderSlot,
 } from 'vue'
-import delegate from './util'
+import { ResizeObserverDelegate } from './util'
 
 export type ResizeObserverOnResize = (entry: ResizeObserverEntry) => void
 
@@ -20,12 +21,15 @@ const DestylerResizeObserver = defineComponent({
   setup(props) {
     let registered = false
 
+    const delegate = ref<any>(null)
+
     const proxy = getCurrentInstance()!.proxy!
     function handleResize(entry: ResizeObserverEntry): void {
       if (props.onResize !== undefined)
         props.onResize(entry)
     }
     onMounted(() => {
+      delegate.value = new ResizeObserverDelegate()
       const el = proxy.$el as Element | undefined
       if (el === undefined) {
         console.error('DestylerResizeObserver', '$el does not exist.')

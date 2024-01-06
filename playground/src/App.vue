@@ -1,17 +1,9 @@
 <script setup lang="ts">
-import { DestylerOnline } from '@destyler/components/online/src/online'
-
-const isOnline = ref<boolean>(false)
-
-function handleOnline(state: boolean) {
-  isOnline.value = state
-}
+import { DestylerAvatar } from '@destyler/components/avatar/src/avatar'
 </script>
 
 <template>
-  <DestylerOnline @network-status="handleOnline">
-    {{ isOnline }}
-  </DestylerOnline>
+  <DestylerAvatar src="https://github.com/elonehoo.png"/>
 </template>
 
 <style>
