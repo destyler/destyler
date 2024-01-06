@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import { DestylerOnline } from '@destyler/components/online/src/online'
+import { ref } from 'vue'
 
-const isOnline = ref<boolean>(false)
-
-function handleOnline(state: boolean) {
-  isOnline.value = state
-}
+const isOpen = ref(false)
 </script>
 
 <template>
-  <DestylerOnline @network-status="handleOnline">
-    {{ isOnline }}
-  </DestylerOnline>
+  <div class="h-screen dark:bg-dark-900 p-4 dark:text-light-100 pl-18">
+    <Navigation v-model="isOpen" />
+    <Playground />
+  </div>
+  <Settings v-model="isOpen" />
 </template>
-
-<style>
-
-</style>

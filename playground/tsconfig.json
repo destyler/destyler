@@ -1,36 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "esnext",
     "jsx": "preserve",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
-    "baseUrl": ".",
-    "module": "ESNext",
+    "lib": ["esnext", "dom"],
+    "module": "esnext",
     "moduleResolution": "node",
+
     "paths": {
-      "@destyler/components/*": ["../packages/components/*"]
+      "~/*": ["./src/*"]
     },
     "resolveJsonModule": true,
-    "types": [
-      "vite/client",
-      "vite-plugin-vue-layouts/client"
-    ],
     "strict": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "sourceMap": true,
+    "esModuleInterop": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vite.config.ts",
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "typed-router.d.ts"
   ]
 }
