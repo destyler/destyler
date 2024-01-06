@@ -5,6 +5,7 @@ import {
   setupDataFetchingGuard,
 } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
+import 'uno.css'
 
 import App from './App.vue'
 

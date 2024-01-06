@@ -5,6 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Router from 'unplugin-vue-router/vite'
 import Layouts from 'vite-plugin-vue-layouts'
+import UnoCss from 'unocss/vite'
 
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 
@@ -19,6 +20,7 @@ export default defineConfig({
     Router(),
     Layouts(),
     vue(),
+    UnoCss(),
     AutoImport({
       imports: [
         'vue',
