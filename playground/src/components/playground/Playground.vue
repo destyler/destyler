@@ -7,6 +7,7 @@ import sizes from '~/data/screen-sizes.json'
 
 const initialScript = ref('')
 const initialTemplate = ref('')
+const initialStyle = ref('')
 const size = ref<keyof typeof sizes>('Default')
 const enabled = computed(() => size.value === 'Default')
 const width = computed(() => sizes[size.value][0])
@@ -16,15 +17,18 @@ onShouldUpdateContent(() => {
   if (orchestrator.activeFile) {
     initialScript.value = orchestrator.activeFile?.script
     initialTemplate.value = orchestrator.activeFile?.template
+    initialStyle.value = orchestrator.activeFile?.style
   }
 })
 
-function onContentChanged (source: string, content: string) {
+function onContentChanged(source: string, content: string) {
   if (orchestrator.activeFile) {
     if (source === 'script')
       orchestrator.activeFile.script = content
     else if (source === 'template')
       orchestrator.activeFile.template = content
+    else if (source === 'css')
+      orchestrator.activeFile.style = content
   }
 }
 </script>
@@ -53,6 +57,17 @@ function onContentChanged (source: string, content: string) {
                   language="html"
                   :value="initialTemplate"
                   @change="content => onContentChanged('template', content)"
+                />
+              </template>
+            </Container>
+          </Pane>
+          <Pane>
+            <Container title="Style" class="border-1 border-white" no-overflow>
+              <template #default>
+                <Editor
+                  language="css"
+                  :value="initialStyle"
+                  @change="content => onContentChanged('css', content)"
                 />
               </template>
             </Container>
