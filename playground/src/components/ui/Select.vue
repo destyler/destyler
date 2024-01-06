@@ -19,7 +19,7 @@ const value = useVModel(props)
         position="relative"
       >
         <slot :value="value" />
-        <carbon-chevron-down />
+        <i-carbon-chevron-down />
       </ListboxButton>
       <ListboxOptions
         position="absolute top-5 right-0"

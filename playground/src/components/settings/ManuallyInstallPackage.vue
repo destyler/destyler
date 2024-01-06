@@ -3,13 +3,13 @@ import { ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { orchestrator } from '~/orchestrator'
 
+const props = defineProps<{ modelValue: boolean }>()
 const name = ref('')
 const url = ref('')
 
-const props = defineProps<{ modelValue: boolean }>()
 const isOpen = useVModel(props)
 
-const addPackage = () => {
+function addPackage() {
   orchestrator.packages = [
     ...orchestrator.packages,
     {
@@ -62,14 +62,16 @@ const addPackage = () => {
             Add Package
           </div>
           <Textfield v-model="name" placeholder="@vueuse/core">
-            <mdi-package-variant-closed />
+            <i-mdi-package-variant-closed />
           </Textfield>
           <Textfield v-model="url" placeholder="https://unpkg.com/@vueuse/core/dist/index.esm.js">
-            <carbon-link />
+            <i-carbon-link />
           </Textfield>
           <div flex="~ row" space="x-4">
-            <span flex="1"></span>
-            <Button @click="isOpen = false">Cancel</Button>
+            <span flex="1" />
+            <Button @click="isOpen = false">
+              Cancel
+            </Button>
             <Button primary @click="addPackage()">
               Add Package
             </Button>

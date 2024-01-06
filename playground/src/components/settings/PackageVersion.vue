@@ -41,7 +41,7 @@ const versions = computed(() => {
           <span>
             {{ version }}
           </span>
-          <carbon-chevron-down />
+          <i-carbon-chevron-down />
         </ListboxButton>
         <ListboxOptions
           position="absolute top-6"

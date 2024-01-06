@@ -52,29 +52,29 @@ const activeTab = ref('packages')
               p="l-4 t-[1px] r-2"
               space="x-2"
             >
-              <carbon-settings />
+              <i-carbon-settings />
               <span flex="1">
                 Settings
               </span>
               <Button icon @click="isOpen = false">
-                <carbon-close />
+                <i-carbon-close />
               </Button>
             </div>
 
             <!-- <SettingsTab m="t-2" :active="activeTab === 'editor'" @click="activeTab = 'editor'">
-              <carbon-code />
+              <i-carbon-code />
               <span>Editor</span>
             </SettingsTab> -->
             <SettingsTab :badge="orchestrator.packages.length" :active="activeTab === 'packages'" @click="activeTab = 'packages'">
-              <mdi-package-variant />
+              <i-mdi-package-variant />
               <span>Packages</span>
             </SettingsTab>
             <SettingsTab :active="activeTab === 'install'" @click="activeTab = 'install'">
-              <mdi-package-variant-closed />
+              <i-mdi-package-variant-closed />
               <span>Install</span>
             </SettingsTab>
             <!-- <SettingsTab :active="activeTab === 'windicss'" @click="activeTab = 'windicss'">
-              <mdi-tailwind />
+              <i-mdi-tailwind />
               <span>WindiCSS</span>
             </SettingsTab> -->
           </div>

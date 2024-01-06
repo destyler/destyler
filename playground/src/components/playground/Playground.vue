@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Splitpanes, Pane } from 'splitpanes'
+import { computed, ref } from 'vue'
+import { Pane, Splitpanes } from 'splitpanes'
 import { Hako } from 'vue-hako'
-import { orchestrator, onShouldUpdateContent } from '~/orchestrator'
+import { onShouldUpdateContent, orchestrator } from '~/orchestrator'
 import sizes from '~/data/screen-sizes.json'
 
 const initialScript = ref('')
@@ -19,7 +19,7 @@ onShouldUpdateContent(() => {
   }
 })
 
-const onContentChanged = (source: string, content: string) => {
+function onContentChanged (source: string, content: string) {
   if (orchestrator.activeFile) {
     if (source === 'script')
       orchestrator.activeFile.script = content
@@ -67,7 +67,7 @@ const onContentChanged = (source: string, content: string) => {
             <template #controls>
               <Select v-model="size">
                 <template #default="{ value }">
-                  <carbon-devices />
+                  <i-carbon-devices />
                   <span>
                     {{ value }}
                   </span>

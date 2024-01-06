@@ -17,7 +17,7 @@
       <span flex="1">
         <slot />
       </span>
-      <carbon-checkmark v-if="selected" />
+      <i-carbon-checkmark v-if="selected" />
     </div>
   </listboxoption>
 </template>
