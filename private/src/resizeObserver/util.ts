@@ -2,7 +2,7 @@ import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observe
 
 type ResizeHandler = (entry: ResizeObserverEntry) => void
 
-class ResizeObserverDelegate {
+export class ResizeObserverDelegate {
   elHandlersMap: Map<Element, ResizeHandler>
   observer: PolyfillResizeObserver
 
