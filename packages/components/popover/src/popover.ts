@@ -67,6 +67,11 @@ export interface PopoverInjection {
 }
 
 export const destylerPopoverProps = {
+  'name': {
+    type: String as PropType<string>,
+    required: false,
+    default: 'popover',
+  },
   'show': {
     type: Boolean as PropType<boolean | undefined>,
     default: undefined,
@@ -431,6 +436,7 @@ const DestylerPopover: any = defineComponent({
           }),
         h(DestylerPopoverBody, keep(this.$props, bodyPropKeys, {
           ...this.$attrs,
+          name: this.$props.name,
           show: this.getMergedShow(),
         }), {
           default: () => this.$slots.default?.(),

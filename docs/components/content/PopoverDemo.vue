@@ -10,29 +10,31 @@ const data = ref([
 </script>
 
 <template>
-  <DestylerPopover trigger="click">
-    <template #trigger>
-      <ButtonDemo>
-        Open popover
-      </ButtonDemo>
-    </template>
-    <template #header>
-      <div class="space-y-2">
-        <h4 class="font-medium leading-none">
-          Dimensions
-        </h4>
-        <p class="text-sm text-#09090b dark:text-#fafafa text-op-60">
-          Set the dimensions for the layer.
-        </p>
+  <ClientOnly>
+    <DestylerPopover trigger="click">
+      <template #trigger>
+        <ButtonDemo>
+          Open popover
+        </ButtonDemo>
+      </template>
+      <template #header>
+        <div class="space-y-2">
+          <h4 class="font-medium leading-none">
+            Dimensions
+          </h4>
+          <p class="text-sm text-#09090b dark:text-#fafafa text-op-60">
+            Set the dimensions for the layer.
+          </p>
+        </div>
+      </template>
+      <div class="grid gap-2">
+        <div v-for="item in data" :key="item.label" class="grid grid-cols-3 items-center gap-4">
+          <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">{{ item.label }}</label>
+          <input id="width" class="flex w-full rounded-md border border-#e4e4e7 dark:border-#27272a bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium text-#09090b dark:text-#fafafa text-op-60! focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 col-span-2 h-8" :value="item.value">
+        </div>
       </div>
-    </template>
-    <div class="grid gap-2">
-      <div v-for="item in data" :key="item.label" class="grid grid-cols-3 items-center gap-4">
-        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">{{ item.label }}</label>
-        <input id="width" class="flex w-full rounded-md border border-#e4e4e7 dark:border-#27272a bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium text-#09090b dark:text-#fafafa text-op-60! focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 col-span-2 h-8" :value="item.value">
-      </div>
-    </div>
-  </DestylerPopover>
+    </DestylerPopover>
+  </ClientOnly>
 </template>
 
 <style>

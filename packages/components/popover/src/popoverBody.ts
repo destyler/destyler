@@ -9,6 +9,11 @@ import type { PopoverTrigger } from './interface'
 import type { PopoverInjection } from './popover'
 
 export const popoverBodyProps = {
+  name: {
+    type: String as PropType<string>,
+    required: false,
+    default: 'popover',
+  },
   show: {
     type: Boolean as PropType<boolean>,
   },
@@ -184,13 +189,13 @@ const DestylerPopoverBody: any = defineComponent({
                 }),
               ]
             : h('div', {
-              destyler: 'popover-body-content',
+              destyler: `${props.name}-body-content`,
             }, slots)
           return [body]
         }
         contentNode = h('div', mergeProps({
           ref: body,
-          destyler: 'popover-body-toggle',
+          destyler: `${props.name}-body-toggle`,
           onMouseenter: handleMouseEnter,
           onMouseleave: handleMouseLeave,
         }, attrs), internalTrapFocus

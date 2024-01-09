@@ -30,6 +30,7 @@ export const asideItems = [
       { text: 'Statistic', link: '/components/statistic' },
       { text: 'Tag', link: '/components/tag' },
       { text: 'Time', link: '/components/time' },
+      { text: 'Tooltip', link: '/components/tooltip' },
 
     ],
   },
