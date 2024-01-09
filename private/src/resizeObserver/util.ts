@@ -1,40 +1,28 @@
-import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observer'
+import ResizeObserver from 'resize-observer-polyfill'
 
-type ResizeHandler = (entry: ResizeObserverEntry) => void
+export type ResizeListener = (element: Element) => void
 
-class ResizeObserverDelegate {
-  elHandlersMap: Map<Element, ResizeHandler>
-  observer: PolyfillResizeObserver
+const elementListeners = new Map<Element, Set<ResizeListener>>()
 
-  constructor() {
-    this.handleResize = this.handleResize.bind(this)
-    this.observer = new (window.ResizeObserver || PolyfillResizeObserver)(this.handleResize)
-    this.elHandlersMap = new Map()
-  }
-
-  handleResize(
-    this: ResizeObserverDelegate,
-    entries: ResizeObserverEntry[],
-  ): void {
-    for (const entry of entries) {
-      const handler = this.elHandlersMap.get(entry.target)
-      if (handler !== undefined)
-        handler(entry)
-    }
-  }
-
-  registerHandler(el: Element, handler: ResizeHandler): void {
-    this.elHandlersMap.set(el, handler)
-    this.observer.observe(el)
-  }
-
-  unregisterHandler(el: Element): void {
-    if (!this.elHandlersMap.has(el))
-      return
-
-    this.elHandlersMap.delete(el)
-    this.observer.unobserve(el)
-  }
+function onResize(entities: ResizeObserverEntry[]) {
+  entities.forEach((entity) => {
+    const { target } = entity
+    elementListeners.get(target)?.forEach(listener => listener(target))
+  })
 }
 
-export default new ResizeObserverDelegate()
+const resizeObserver = new ResizeObserver(onResize)
+
+export function observe(element: Element, callback: ResizeListener) {
+  if (!elementListeners.has(element)) {
+    elementListeners.set(element, new Set())
+    resizeObserver.observe(element)
+  }
+
+  elementListeners.get(element)!.add(callback)
+}
+
+export function unobserve(element: Element, callback: ResizeListener) {
+  if (elementListeners.has(element))
+    elementListeners.get(element)!.delete(callback)
+}

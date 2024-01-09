@@ -5,7 +5,7 @@ export interface DestylerScrollInst {
   scrollTo: HTMLElement['scrollTo']
 }
 
-const DestylerScroll = defineComponent({
+const DestylerScroll: any = defineComponent({
   name: 'DestylerScroll',
   props: {
     disabled: {
