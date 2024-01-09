@@ -10,8 +10,8 @@ import { DestylerAvatar } from '@destyler/avatar/src/avatar'
 [destyler="avatar"]{
   position: relative;
   display: flex;
-  height: 5rem;
-  width: 5rem;
+  height: 2.5rem;
+  width: 2.5rem;
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 9999px;
