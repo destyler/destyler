@@ -1,6 +1,6 @@
 {
   "name": "@destyler/alert",
-  "version": "0.0.1-beta.5",
+  "version": "0.0.1-beta.6",
   "description": "unstyled alert component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
