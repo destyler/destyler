@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Basic > should work with default slot 1`] = `"<span destyler="tag-content">default</span>"`;
-
-exports[`basic > should work with default slot 1`] = `"<span destyler="tag-content">default</span>"`;

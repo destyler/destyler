@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Avatar > image avatar 1`] = `"<span destyler="avatar"><img destyler="avatar-img" src="https://github.com/elonehoo.png"><!----></span>"`;
-
-exports[`avatar > image avatar 1`] = `"<span destyler="avatar"><img destyler="avatar-img" src="https://github.com/elonehoo.png"><!----></span>"`;
