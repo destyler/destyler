@@ -26,6 +26,9 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
+  },
+  "dependencies": {
+    "@destyler/primitive": "workspace:*"
   }
 }

@@ -107,7 +107,7 @@ describe('render as template (asChild)', () => {
     }
     const RootComponent = {
       components: { ChildComponent, DestylerPrimitive },
-      template: '<Primitive><ChildComponent /></Primitive>',
+      template: '<DestylerPrimitive><ChildComponent /></DestylerPrimitive>',
     }
 
     const wrapper = mount(RootComponent, {

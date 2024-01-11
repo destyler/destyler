@@ -1,7 +1,7 @@
 {
-  "name": "destyler",
-  "version": "0.0.1-beta.6",
-  "description": "",
+  "name": "@destyler/label",
+  "version": "0.0.0",
+  "description": "unstyled label component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -25,12 +25,10 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
-    "@destyler/label": "workspace:*",
-    "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@destyler/primitive": "workspace:*"
   }
 }
