@@ -144,6 +144,21 @@ importers:
         specifier: ^1.8.27
         version: 1.8.27(typescript@5.3.3)
 
+  packages/components/avatar:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
@@ -194,6 +209,9 @@ importers:
 
   packages/destyler:
     dependencies:
+      '@destyler/avatar':
+        specifier: workspace:*
+        version: link:../components/avatar
       '@destyler/composition':
         specifier: workspace:*
         version: link:../composition
@@ -1706,6 +1724,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     bundledDependencies:
       - napi-wasm
 
@@ -6779,6 +6798,9 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
