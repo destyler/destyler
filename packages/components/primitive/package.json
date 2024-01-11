@@ -26,10 +26,10 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.6",
+    "@destyler/composition": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }
