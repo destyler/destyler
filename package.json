@@ -12,8 +12,8 @@
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
     "play": "pnpm -C playground run dev",
-    "example:vue": "pnpm -C examples/vue run dev",
-    "example:unplugin": "pnpm -C examples/unplugin run dev",
+    "play:vue": "pnpm -C examples/vue run dev",
+    "play:unplugin": "pnpm -C examples/unplugin run dev",
     "docs:dev": "pnpm -C docs run dev",
     "test": "vitest",
     "test:ui": "vitest --ui --open false",
