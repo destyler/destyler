@@ -22,6 +22,7 @@ export * from './misc/index'
 export * from './vue/flatten'
 export * from './vue/get-first-slot-vnode'
 export * from './vue/keep'
+export * from './vue/render-slot-fragments'
 export * from './naive/extract-public-props'
 
 export {
