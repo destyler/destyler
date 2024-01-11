@@ -2,9 +2,7 @@
 
 import type { ComponentPublicInstance, Ref } from 'vue'
 
-import {
-  isFunction,
-} from '@vue/shared'
+import { isFunction } from '@vue/shared'
 import { isValidVNodeElement } from '@destyler/shared'
 
 export type RefSetter = (

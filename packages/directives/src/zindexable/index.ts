@@ -46,4 +46,6 @@ const zindexable: ObjectDirective<
   },
 }
 
-export default zindexable
+export {
+  zindexable,
+}

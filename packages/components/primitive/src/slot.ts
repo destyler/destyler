@@ -2,7 +2,7 @@ import { cloneVNode, createVNode, defineComponent, mergeProps } from 'vue'
 import { useComposedRefs, useForwardRef } from '@destyler/composition'
 import { isSlottable } from './utils'
 
-const DestylerSlot = defineComponent({
+const DestylerSlot: any = defineComponent({
   name: 'DestylerSlot',
   inheritAttrs: false,
   setup() {

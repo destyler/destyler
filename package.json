@@ -12,8 +12,8 @@
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
     "play": "pnpm -C playground run dev",
-    "example:vue": "pnpm -C example/vue run dev",
-    "example:unplugin": "pnpm -C example/unplugin run dev",
+    "example:vue": "pnpm -C examples/vue run dev",
+    "example:unplugin": "pnpm -C examples/unplugin run dev",
     "docs:dev": "pnpm -C docs run dev",
     "test": "vitest",
     "test:ui": "vitest --ui --open false",
@@ -28,6 +28,7 @@
     "@vitejs/plugin-vue": "^5.0.3",
     "@vitest/coverage-v8": "^1.1.3",
     "@vitest/ui": "^1.1.3",
+    "@vue/runtime-core": "^3.4.8",
     "@vue/test-utils": "^2.4.3",
     "bumpp": "^9.2.1",
     "eslint": "^8.56.0",
