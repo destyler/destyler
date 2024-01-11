@@ -1,1 +1,1 @@
-export * from '@destyler/primitive/src'
+export * from '@destyler/primitive'

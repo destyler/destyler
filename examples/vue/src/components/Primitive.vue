@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import {} from 'destyler'
+import { DestylerPrimitive } from 'destyler'
 </script>
 
 <template>
-  <div>
-    <slot />
-  </div>
+  <DestylerPrimitive id="parent" as="template" data-type="button">
+    <div id="child" data-type="primary">
+      Child class
+    </div>
+  </DestylerPrimitive>
 </template>

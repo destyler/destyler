@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import {
   createVNode,
   defineComponent,
@@ -9,46 +9,45 @@ import {
 
 import { useComposedRefs, useForwardRef } from '@destyler/composition'
 import { DestylerSlot } from './slot'
-import { NODES } from './types'
-import type { DestylerElement, Primitives } from './types'
+import type { AsTag } from './types'
 
-const Primitive = NODES.reduce((primitive, node) => {
-  const selectNode = defineComponent({
-    name: `Primitive${node}`,
-    inheritAttrs: false,
-    props: {
-      asChild: Boolean as PropType<boolean>,
+const DestylerPrimitive: any = defineComponent({
+  name: 'DestylerPrimitive',
+  props: {
+    as: {
+      type: [String, Object] as PropType<AsTag | Component>,
+      required: false,
+      default: 'div',
     },
-    setup(props) {
-      const forwarded = useForwardRef()
-      const composedRefs = useComposedRefs(forwarded)
-
-      const { asChild, ...primitiveProps } = toRefs(props)
-
-      onMounted(() => {
-        (window as any)[Symbol.for('destyler')] = true
-      })
-
-      const Tag: any = asChild.value ? DestylerSlot : node
-
-      return {
-        Tag,
-        primitiveProps,
-        composedRefs,
-      }
+    asChild: {
+      type: Boolean as PropType<boolean>,
+      required: false,
+      default: false,
     },
-    render() {
-      const mergedProps = mergeProps(this.$attrs, this.primitiveProps)
+  },
+  setup(props) {
+    const forwarded = useForwardRef()
+    const composedRefs = useComposedRefs(forwarded)
 
-      return createVNode(this.Tag, { ...mergedProps, ref: 'composedRefs' }, this.$slots)
-    },
-  })
+    const { asChild } = toRefs(props)
+    const asTag = asChild.value ? 'template' : props.as
 
-  const NodeProps = selectNode as typeof selectNode & (new () => { $props: DestylerElement<typeof node, true> })
+    onMounted(() => {
+      (window as any)[Symbol.for('destyler')] = true
+    })
 
-  return { ...primitive, [node]: NodeProps }
-}, {} as Primitives)
+    return {
+      asTag,
+      composedRefs,
+    }
+  },
+  render() {
+    const mergedProps = mergeProps(this.$attrs)
+    if (this.asTag !== 'template')
+      return createVNode(this.$props.as, { ...mergedProps, ref: 'composedRefs' }, this.$slots)
 
-const DestylerPrimitive = Primitive
+    return createVNode(DestylerSlot, { ...mergedProps, ref: 'composedRefs' }, this.$slots)
+  },
+})
 
-export { DestylerPrimitive, Primitive }
+export { DestylerPrimitive }
