@@ -144,6 +144,15 @@ importers:
         specifier: ^1.8.27
         version: 1.8.27(typescript@5.3.3)
 
+  packages/components/alert:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/avatar:
     dependencies:
       '@destyler/composition':
@@ -209,6 +218,9 @@ importers:
 
   packages/destyler:
     dependencies:
+      '@destyler/alert':
+        specifier: workspace:*
+        version: link:../components/alert
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
