@@ -168,13 +168,34 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/collapse:
+    dependencies:
+      '@destyler/collapsible':
+        specifier: workspace:*
+        version: link:../collapsible
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/collapsible:
     dependencies:
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition
       '@destyler/directives':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../../directives
       '@destyler/presence':
         specifier: workspace:*
@@ -266,6 +287,9 @@ importers:
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
+      '@destyler/collapse':
+        specifier: workspace:*
+        version: link:../components/collapse
       '@destyler/collapsible':
         specifier: workspace:*
         version: link:../components/collapsible

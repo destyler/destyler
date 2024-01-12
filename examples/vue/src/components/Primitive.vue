@@ -3,9 +3,9 @@ import { DestylerPrimitive } from 'destyler'
 </script>
 
 <template>
-  <DestylerPrimitive id="parent" as="template" data-type="button">
-    <div id="child" data-type="primary">
-      Child class
-    </div>
+  <DestylerPrimitive as="h3">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
   </DestylerPrimitive>
 </template>

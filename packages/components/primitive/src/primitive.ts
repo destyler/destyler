@@ -1,13 +1,6 @@
 import type { Component, PropType } from 'vue'
-import {
-  createVNode,
-  defineComponent,
-  mergeProps,
-  onMounted,
-  toRefs,
-} from 'vue'
+import { defineComponent, h } from 'vue'
 
-import { useComposedRefs, useForwardRef } from '@destyler/composition'
 import { DestylerSlot } from './slot'
 import type { AsTag } from './types'
 
@@ -36,27 +29,17 @@ const DestylerPrimitive = defineComponent({
   name: 'DestylerPrimitive',
   props: destylerPrimitiveProps,
   setup(props) {
-    const forwarded = useForwardRef()
-    const composedRefs = useComposedRefs(forwarded)
-
-    const { asChild } = toRefs(props)
-    const asTag = asChild.value ? 'template' : props.as
-
-    onMounted(() => {
-      (window as any)[Symbol.for('destyler')] = true
-    })
+    const asTag = props.asChild ? 'template' : props.as
 
     return {
       asTag,
-      composedRefs,
     }
   },
   render() {
-    const mergedProps = mergeProps(this.$attrs)
     if (this.asTag !== 'template')
-      return createVNode(this.$props.as, { ...mergedProps, ref: 'composedRefs' }, this.$slots.default?.())
-
-    return createVNode(DestylerSlot, { ...mergedProps, ref: 'composedRefs' }, this.$slots.default?.())
+      return h(this.$props.as, this.$attrs, this.$slots.default?.())
+    else
+      return h(DestylerSlot, this.$attrs, this.$slots.default?.())
   },
 })
 

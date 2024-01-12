@@ -7,3 +7,5 @@ export * from './vue/is-def'
 export * from './vue/create-global-state'
 export * from './vue/unref-element'
 export * from './vue/render-slot-fragments'
+
+export * from './types'

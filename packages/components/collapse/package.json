@@ -1,7 +1,8 @@
 {
-  "name": "destyler",
-  "version": "0.0.1-beta.6",
-  "description": "",
+  "name": "@destyler/collapse",
+  "version": "0.0.0",
+  "private": "true",
+  "description": "unstyled collapse component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -25,18 +26,12 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/alert": "workspace:*",
-    "@destyler/avatar": "workspace:*",
-    "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
     "@destyler/composition": "workspace:*",
-    "@destyler/countdown": "workspace:*",
-    "@destyler/icon": "workspace:*",
-    "@destyler/label": "workspace:*",
-    "@destyler/presence": "workspace:*",
+    "@destyler/directives": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
