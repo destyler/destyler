@@ -173,6 +173,9 @@ importers:
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../../directives
       '@destyler/presence':
         specifier: workspace:*
         version: link:../presence
@@ -273,7 +276,7 @@ importers:
         specifier: workspace:*
         version: link:../components/countdown
       '@destyler/icon':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/icon
       '@destyler/label':
         specifier: workspace:*
@@ -296,6 +299,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared
+      scule:
+        specifier: ^1.2.0
+        version: 1.2.0
       vue:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)

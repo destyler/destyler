@@ -1,8 +1,9 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, defineComponent, h, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
 import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
+import { BindOnceDirective } from '@destyler/directives'
 import { injectCollapsibleRootContext } from './collapsibleRoot'
 
 const destylerPrimitivePropsProps = {
@@ -84,8 +85,7 @@ export const DestylerCollapsibleContent = defineComponent({
       ref: 'presentRef',
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
-    }, h(DestylerPrimitive, {
-      'id': this.rootContext.contentId,
+    }, withDirectives(h(DestylerPrimitive, {
       'ref': 'customElement',
       'asChild': this.$props.asChild,
       'as': this.$props.as,
@@ -98,6 +98,8 @@ export const DestylerCollapsibleContent = defineComponent({
       },
     }, [
       this.presentRef?.present ? this.$slots.default?.() : null,
+    ]), [
+      [BindOnceDirective, { id: this.rootContext.contentId }],
     ]))
   },
 })

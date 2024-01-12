@@ -28,6 +28,7 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/shared": "workspace:*"
+    "@destyler/shared": "workspace:*",
+    "scule": "^1.2.0"
   }
 }

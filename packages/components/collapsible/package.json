@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
     "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*"
