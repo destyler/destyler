@@ -168,6 +168,24 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/collapsible:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/presence':
+        specifier: workspace:*
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/countdown:
     dependencies:
       '@destyler/primitive':
@@ -204,6 +222,18 @@ importers:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/presence:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/primitive:
     dependencies:
       '@destyler/composition':
@@ -233,15 +263,24 @@ importers:
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
+      '@destyler/collapsible':
+        specifier: workspace:*
+        version: link:../components/collapsible
       '@destyler/composition':
         specifier: workspace:*
         version: link:../composition
       '@destyler/countdown':
         specifier: workspace:*
         version: link:../components/countdown
+      '@destyler/icon':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/icon
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/presence':
+        specifier: workspace:*
+        version: link:../components/presence
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../components/primitive
