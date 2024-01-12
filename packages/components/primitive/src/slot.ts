@@ -50,8 +50,10 @@ const DestylerSlot: any = defineComponent({
 const DestylerSlottable = defineComponent({
   name: 'DestylerSlottable',
   inheritAttrs: false,
-  setup(_, { slots }) {
-    return () => slots.default ? slots.default?.() : null
+  setup() {
+  },
+  render() {
+    return this.$slots.default ? this.$slots.default?.() : null
   },
 })
 

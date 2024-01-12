@@ -32,7 +32,7 @@ const destylerPrimitiveProps = {
   },
 }
 
-const DestylerPrimitive: any = defineComponent({
+const DestylerPrimitive = defineComponent({
   name: 'DestylerPrimitive',
   props: destylerPrimitiveProps,
   setup(props) {
@@ -54,9 +54,9 @@ const DestylerPrimitive: any = defineComponent({
   render() {
     const mergedProps = mergeProps(this.$attrs)
     if (this.asTag !== 'template')
-      return createVNode(this.$props.as, { ...mergedProps, ref: 'composedRefs' }, this.$slots)
+      return createVNode(this.$props.as, { ...mergedProps, ref: 'composedRefs' }, this.$slots.default?.())
 
-    return createVNode(DestylerSlot, { ...mergedProps, ref: 'composedRefs' }, this.$slots)
+    return createVNode(DestylerSlot, { ...mergedProps, ref: 'composedRefs' }, this.$slots.default?.())
   },
 })
 
