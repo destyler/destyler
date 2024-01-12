@@ -279,6 +279,15 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/teleport:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/composition:
     dependencies:
       '@destyler/shared':
@@ -323,6 +332,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared
+      '@destyler/teleport':
+        specifier: workspace:^
+        version: link:../components/teleport
       vue:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)

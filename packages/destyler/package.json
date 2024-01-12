@@ -38,6 +38,7 @@
     "@destyler/label": "workspace:*",
     "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@destyler/shared": "workspace:*",
+    "@destyler/teleport": "workspace:*"
   }
 }
