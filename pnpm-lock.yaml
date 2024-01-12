@@ -153,6 +153,18 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/arrow:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/avatar:
     dependencies:
       '@destyler/composition':
@@ -302,6 +314,9 @@ importers:
       '@destyler/alert':
         specifier: workspace:*
         version: link:../components/alert
+      '@destyler/arrow':
+        specifier: workspace:^
+        version: link:../components/arrow
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
@@ -333,7 +348,7 @@ importers:
         specifier: workspace:*
         version: link:../shared
       '@destyler/teleport':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/teleport
       vue:
         specifier: ^3.3.4

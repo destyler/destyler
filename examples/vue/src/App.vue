@@ -3,6 +3,7 @@ import AvatarBasic from '../../../packages/components/avatar/demos/AvatarBasic.d
 import AlertBasic from '../../../packages/components/alert/demos/AlertBasic.demo.vue'
 import CountdownDemo from '../../../packages/components/countdown/demos/Countdown.demo.vue'
 import CollapseDemo from '../../../packages/components/collapse/demos/Collapse.demo.vue'
+import ArrowDemo from '../../../packages/components/arrow/demos/Arrow.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -10,5 +11,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <CollapseDemo />
+  <ArrowDemo />
 </template>
