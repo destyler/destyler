@@ -261,7 +261,7 @@ importers:
   packages/components/popper:
     dependencies:
       '@destyler/arrow':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../arrow
       '@destyler/composition':
         specifier: workspace:*
@@ -359,6 +359,9 @@ importers:
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/popper':
+        specifier: workspace:^
+        version: link:../components/popper
       '@destyler/presence':
         specifier: workspace:*
         version: link:../components/presence

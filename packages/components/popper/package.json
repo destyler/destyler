@@ -1,8 +1,7 @@
 {
-  "name": "@destyler/template",
+  "name": "@destyler/popper",
   "version": "0.0.0",
-  "private": "true",
-  "description": "unstyled template component for vue",
+  "description": "unstyled popper component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

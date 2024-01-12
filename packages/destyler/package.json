@@ -37,6 +37,7 @@
     "@destyler/countdown": "workspace:*",
     "@destyler/icon": "workspace:*",
     "@destyler/label": "workspace:*",
+    "@destyler/popper": "workspace:^",
     "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
