@@ -6,7 +6,6 @@ import {
   toRefs,
 } from 'vue'
 import type {
-  Ref,
   SlotsType,
   VNode,
 } from 'vue'
@@ -41,7 +40,7 @@ export const DestylerPresence = defineComponent({
     },
   },
   slots: {} as SlotsType<{
-    default: (opts: { present: Ref<boolean> }) => any
+    default: (opts: { present: boolean }) => any
   }>,
   setup(props, { slots, expose }) {
     const { present, forceMount } = toRefs(props)
@@ -51,7 +50,7 @@ export const DestylerPresence = defineComponent({
     const { isPresent } = usePresence(present, node)
     expose({ present: isPresent })
 
-    let children = slots.default({ present: isPresent })
+    let children = slots.default({ present: isPresent.value })
     children = renderSlotFragments(children || [])
     const instance = getCurrentInstance()
 
@@ -76,25 +75,31 @@ export const DestylerPresence = defineComponent({
       )
     }
 
-    return () => {
-      if (forceMount.value || present.value || isPresent.value) {
-        return h(slots.default({ present: isPresent })[0] as VNode, {
-          ref: (v) => {
-            const el = unrefElement(v as HTMLElement)
-            if (typeof el?.hasAttribute === 'undefined')
-              return el
-
-            // special case to handle animation for PopperContent
-            if (el?.hasAttribute('data-destyler-popper-content-wrapper'))
-              node.value = el.firstElementChild as HTMLElement
-            else
-              node.value = el
-
-            return el
-          },
-        })
-      }
-      else { return null }
+    return {
+      forceMount,
+      present,
+      isPresent,
+      node,
     }
+  },
+  render() {
+    if (this.forceMount || this.present || this.isPresent) {
+      return h(this.$slots.default({ present: this.isPresent })[0] as VNode, {
+        ref: (v) => {
+          const el = unrefElement(v as HTMLElement)
+          if (typeof el?.hasAttribute === 'undefined')
+            return el
+
+          // special case to handle animation for PopperContent
+          if (el?.hasAttribute('data-destyler-popper-content-wrapper'))
+            this.node = el.firstElementChild as HTMLElement
+          else
+            this.node = el
+
+          return el
+        },
+      })
+    }
+    else { return null }
   },
 })
