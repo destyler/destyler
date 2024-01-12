@@ -1,4 +1,5 @@
 export * from './dom/is-valid-v-node-element'
+export * from './dom/is-client'
 
 export * from './vue/create-context'
 export * from './vue/to-value'
