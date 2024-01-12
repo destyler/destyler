@@ -168,6 +168,15 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/countdown:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/icon:
     dependencies:
       '@iconify/vue':
@@ -227,6 +236,9 @@ importers:
       '@destyler/composition':
         specifier: workspace:*
         version: link:../composition
+      '@destyler/countdown':
+        specifier: workspace:*
+        version: link:../components/countdown
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
