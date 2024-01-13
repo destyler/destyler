@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import { createContext } from '@destyler/shared'
+import { DestylerPrimitive } from '@destyler/primitive'
 
 export interface Measurable {
   getBoundingClientRect(): DOMRect
@@ -25,6 +26,9 @@ export const DestylerPopperRoot = defineComponent({
     })
   },
   render() {
-    return this.$slots.default?.()
+    return h(DestylerPrimitive, {
+      asChild: true,
+      as: 'template',
+    }, this.$slots.default?.())
   },
 })

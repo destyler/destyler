@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/composition",
-  "version": "0.0.1-beta.6",
-  "description": "",
+  "name": "@destyler/popover",
+  "version": "0.0.0",
+  "description": "unstyled popover component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -25,10 +25,17 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/focus-scope": "workspace:*",
+    "@destyler/popper": "workspace:*",
+    "@destyler/presence": "workspace:*",
+    "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "aria-hidden": "^1.2.3"
+    "@destyler/teleport": "workspace:*"
   }
 }

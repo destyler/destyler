@@ -1,5 +1,7 @@
 import type { Ref } from 'vue'
 
+export type Fn = () => void
+
 /**
  * Any function
  */

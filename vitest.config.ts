@@ -6,6 +6,21 @@ export default defineConfig({
     Vue(),
   ],
   test: {
-    environment: 'happy-dom',
+    setupFiles: './vitest.setup.ts',
+    environment: 'jsdom',
+    exclude: ['**/node_modules/**'],
+    coverage: {
+      provider: 'istanbul', // or 'v8'
+    },
+    server: {
+      deps: {
+        inline: ['vitest-canvas-mock'],
+      },
+    },
+    environmentOptions: {
+      jsdom: {
+        resources: 'usable',
+      },
+    },
   },
 })

@@ -4,6 +4,10 @@ import AlertBasic from '../../../packages/components/alert/demos/AlertBasic.demo
 import CountdownDemo from '../../../packages/components/countdown/demos/Countdown.demo.vue'
 import CollapseDemo from '../../../packages/components/collapse/demos/Collapse.demo.vue'
 import ArrowDemo from '../../../packages/components/arrow/demos/Arrow.demo.vue'
+import PopoverDemo from '../../../packages/components/popover/demos/Popover.demo.vue'
+import DismissableLayerDemo from '../../../packages/components/dismissableLayer/demos/DismissableLayer.demo.vue'
+import FocusScopeDemo from '../../../packages/components/focusScope/demos/FocusScope.demo.vue'
+import PopperDemo from '../../../packages/components/popper/demos/Popper.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -11,5 +15,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <ArrowDemo />
+  <PopoverDemo />
 </template>

@@ -5,7 +5,7 @@ import { useCustomElement } from '@destyler/composition'
 import type { Measurable } from './popperRoot'
 import { injectPopperRootContext } from './popperRoot'
 
-const destylerPopperAnchorProps = {
+export const destylerPopperAnchorProps = {
   ...destylerPrimitiveProps,
   element: {
     type: Object as PropType<Measurable>,

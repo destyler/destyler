@@ -176,7 +176,7 @@ export const DestylerFocusScope = defineComponent({
       tabindex: '-1',
       as: this.$props.as,
       asChild: this.$props.asChild,
-      onKeyDown: this.handleKeyDown,
+      onKeydown: this.handleKeyDown,
     }, this.$slots.default?.())
   },
 })
