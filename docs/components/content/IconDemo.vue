@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerIcon } from '@destyler/icon/src/icon'
+import { DestylerIcon } from 'destyler'
 </script>
 
 <template>

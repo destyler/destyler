@@ -1,7 +1,6 @@
 import type { Ref } from 'vue'
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { createContext } from '@destyler/shared'
-import { DestylerPrimitive } from '@destyler/primitive'
 
 export interface Measurable {
   getBoundingClientRect(): DOMRect

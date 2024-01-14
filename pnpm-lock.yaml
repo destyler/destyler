@@ -86,6 +86,9 @@ importers:
       '@nuxt/content':
         specifier: ^2.10.0
         version: 2.10.0(nuxt@3.9.1)(rollup@3.29.4)(vue@3.4.8)
+      destyler:
+        specifier: workspace:*
+        version: link:../packages/destyler
     devDependencies:
       '@nuxt/devtools':
         specifier: ^1.0.6
@@ -302,6 +305,9 @@ importers:
 
   packages/components/online:
     dependencies:
+      '@destyler/primitive':
+        specifier: workspace:^
+        version: link:../primitive
       vue:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)
@@ -488,6 +494,9 @@ importers:
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/online':
+        specifier: workspace:*
+        version: link:../components/online
       '@destyler/popover':
         specifier: workspace:*
         version: link:../components/popover
@@ -503,6 +512,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared
+      '@destyler/tag':
+        specifier: workspace:*
+        version: link:../components/tag
       '@destyler/teleport':
         specifier: workspace:*
         version: link:../components/teleport

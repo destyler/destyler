@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h, mergeProps, ref } from 'vue'
 import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
 
 const destylerAlertProps = {
@@ -40,6 +40,7 @@ const DestylerAlert = defineComponent({
         as: 'div',
         role: 'alert',
         asChild: this.$props.asChild,
+        ...mergeProps(this.$attrs),
       }, [
         this.$props.closable ? this.$slots.close?.({ handleClose: this.handleCloseClick }) : null,
         this.$slots.default?.(),

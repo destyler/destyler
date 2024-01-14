@@ -1,24 +1,14 @@
 <script setup lang="ts">
-import { DestylerAvatar } from '@destyler/avatar/src/avatar'
+import { DestylerAvatarFallback, DestylerAvatarImage, DestylerAvatarRoot } from 'destyler'
 </script>
 
 <template>
-  <DestylerAvatar src="https://elonehoo.me/avatar.png" />
+  <div>
+    <DestylerAvatarRoot class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+      <DestylerAvatarImage class="aspect-square h-full w-full" src="https://elonehoo.me/avatar.png" />
+      <DestylerAvatarFallback class="flex h-full w-full items-center justify-center rounded-full bg-#F4F4F5 dark:bg-#27272A">
+        EH
+      </DestylerAvatarFallback>
+    </DestylerAvatarRoot>
+  </div>
 </template>
-
-<style>
-[destyler="avatar"]{
-  position: relative;
-  display: flex;
-  height: 2.5rem;
-  width: 2.5rem;
-  flex-shrink: 0;
-  overflow: hidden;
-  border-radius: 9999px;
-}
-[destyler="avatar-img"]{
-  aspect-ratio: 1/1;
-  height: 100%;
-  width: 100%;
-}
-</style>

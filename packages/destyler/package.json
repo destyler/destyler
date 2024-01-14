@@ -39,11 +39,13 @@
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
     "@destyler/label": "workspace:*",
+    "@destyler/online": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/popper": "workspace:*",
     "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
+    "@destyler/tag": "workspace:*",
     "@destyler/teleport": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/visually-hidden": "workspace:*"

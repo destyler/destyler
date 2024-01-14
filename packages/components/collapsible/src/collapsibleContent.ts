@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
 import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
@@ -86,6 +86,7 @@ export const DestylerCollapsibleContent = defineComponent({
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
     }, withDirectives(h(DestylerPrimitive, {
+      ...mergeProps(this.$attrs),
       'ref': 'customElement',
       'asChild': this.$props.asChild,
       'as': this.$props.as,

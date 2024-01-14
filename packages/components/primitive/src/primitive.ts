@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 
 import { DestylerSlot } from './slot'
 import type { AsTag } from './types'
@@ -36,10 +36,16 @@ const DestylerPrimitive = defineComponent({
     }
   },
   render() {
-    if (this.asTag !== 'template')
-      return h(this.$props.as, this.$attrs, this.$slots.default?.())
-    else
-      return h(DestylerSlot, this.$attrs, this.$slots.default?.())
+    if (this.asTag !== 'template') {
+      return h(this.$props.as, {
+        ...mergeProps(this.$attrs),
+      }, this.$slots.default?.())
+    }
+    else {
+      return h(DestylerSlot, {
+        ...mergeProps(this.$attrs),
+      }, this.$slots.default?.())
+    }
   },
 })
 
