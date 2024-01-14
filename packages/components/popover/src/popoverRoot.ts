@@ -25,7 +25,7 @@ export const destylerPopoverRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
-    default: false,
+    default: undefined,
   },
   modal: {
     type: Boolean as PropType<boolean>,
@@ -43,7 +43,7 @@ export const DestylerPopoverRoot = defineComponent({
     const openRef = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
       passive: (props.open === undefined) as false,
-    })
+    }) as Ref<boolean>
 
     const triggerElement = ref<HTMLElement>()
     const hasCustomAnchor = ref(false)
