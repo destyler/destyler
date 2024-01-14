@@ -32,6 +32,9 @@ importers:
       '@vue/runtime-core':
         specifier: ^3.4.8
         version: 3.4.8
+      '@vue/shared':
+        specifier: ^3.4.8
+        version: 3.4.8
       '@vue/test-utils':
         specifier: ^2.4.3
         version: 2.4.3(vue@3.4.8)

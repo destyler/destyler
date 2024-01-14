@@ -6,6 +6,7 @@ export default defineBuildConfig({
   ],
   externals: [
     'vue',
+    '@vue/shared',
     'unplugin-vue-components',
     'unplugin-auto-import',
   ],
