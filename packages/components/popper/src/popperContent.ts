@@ -237,7 +237,7 @@ export const DestylerPopperContent = defineComponent({
   },
   render() {
     return h('div', {
-      'data-radix-popper-content-wrapper': '',
+      'data-destyler-popper-content-wrapper': '',
       'ref': 'floatingRef',
       'style': {
         ...this.floatingStyles,

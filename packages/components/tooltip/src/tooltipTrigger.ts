@@ -65,9 +65,7 @@ export const DestylerTooltipTrigger = defineComponent({
       'onPointermove': (event: any) => {
         if (event.pointerType === 'touch')
           return
-        if (
-          !this.hasPointerMoveOpened && !this.providerContext.isPointerInTransitRef.value
-        ) {
+        if (!this.hasPointerMoveOpened && !this.providerContext.isPointerInTransitRef.value) {
           this.rootContext.onTriggerEnter()
           this.hasPointerMoveOpened = true
         }

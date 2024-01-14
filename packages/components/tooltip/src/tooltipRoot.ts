@@ -20,7 +20,7 @@ export const destylerTooltipRootProps = {
   delayDuration: {
     type: Number as PropType<number>,
     required: false,
-    default: 700,
+    default: 400,
   },
   disableHoverableContent: {
     type: Boolean as PropType<boolean>,
@@ -57,16 +57,18 @@ export const DestylerTooltipRoot = defineComponent({
   setup(props, { emit }) {
     const providerContext = injectTooltipProviderContext()
 
-    const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
+    const disableHoverableContent = computed(() => {
+      return props.disableHoverableContent ?? providerContext.disableHoverableContent.value
+    })
     const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
     const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
 
-    const open = useVModel(props, 'open', emit, {
+    const openRef = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
       passive: (props.open === undefined) as false,
     }) as Ref<boolean>
 
-    watch(open, (isOpen) => {
+    watch(openRef, (isOpen) => {
       if (!providerContext.onClose)
         return
       if (isOpen) {
@@ -84,24 +86,24 @@ export const DestylerTooltipRoot = defineComponent({
     const trigger = ref<HTMLElement>()
 
     const stateAttribute = computed(() => {
-      if (!open.value)
+      if (!openRef.value)
         return 'closed'
       return wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open'
     })
 
     const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
       wasOpenDelayedRef.value = true
-      open.value = true
+      openRef.value = true
     }, delayDuration, { immediate: false })
 
     function handleOpen() {
       clearTimer()
       wasOpenDelayedRef.value = false
-      open.value = true
+      openRef.value = true
     }
     function handleClose() {
       clearTimer()
-      open.value = false
+      openRef.value = false
     }
     function handleDelayedOpen() {
       startTimer()
@@ -109,7 +111,7 @@ export const DestylerTooltipRoot = defineComponent({
 
     provideTooltipRootContext({
       contentId: useId(),
-      open,
+      open: openRef,
       stateAttribute,
       trigger,
       onTriggerChange(el) {
@@ -118,14 +120,14 @@ export const DestylerTooltipRoot = defineComponent({
       onTriggerEnter() {
         if (providerContext.isOpenDelayed.value)
           handleDelayedOpen()
-        else handleOpen()
+        else
+          handleOpen()
       },
       onTriggerLeave() {
-        if (disableHoverableContent.value) { handleClose() }
-        else {
-          // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
+        if (disableHoverableContent.value)
+          handleClose()
+        else
           clearTimer()
-        }
       },
       onOpen: handleOpen,
       onClose: handleClose,
