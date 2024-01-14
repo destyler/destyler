@@ -23,7 +23,7 @@ export const destylerPopoverRootProps = {
     default: false,
   },
   open: {
-    type: Boolean as PropType<boolean>,
+    type: Boolean as PropType<boolean | undefined>,
     required: false,
     default: undefined,
   },
@@ -40,6 +40,7 @@ export const DestylerPopoverRoot = defineComponent({
   emits: ['update:open'],
   setup(props, { emit }) {
     const modalRef = toRef(props.modal)
+
     const openRef = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
       passive: (props.open === undefined) as false,
@@ -71,10 +72,9 @@ export const DestylerPopoverRoot = defineComponent({
       modalRef,
       triggerElement,
       hasCustomAnchor,
-      handleUpdateOpen,
     }
   },
   render() {
-    return h(DestylerPopperRoot, this.$slots.default?.({ handleUpdateOpen: this.handleUpdateOpen }))
+    return h(DestylerPopperRoot, this.$slots.default?.())
   },
 })

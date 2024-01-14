@@ -3,7 +3,7 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function DestylerPopperResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import {
   DestylerPopoverArrow,
   DestylerPopoverClose,
@@ -9,12 +9,12 @@ import {
   DestylerPopoverTrigger,
 } from '../src'
 
-const openRef = ref<boolean>(true)
+const status = ref(false)
 </script>
 
 <template>
-  {{ openRef }}
-  <DestylerPopoverRoot :default-open="true">
+  {{ status }}
+  <DestylerPopoverRoot>
     <DestylerPopoverTrigger
       aria-label="Update dimensions"
     >

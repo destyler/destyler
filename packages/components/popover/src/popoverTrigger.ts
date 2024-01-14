@@ -25,7 +25,6 @@ export const DestylerPopoverTrigger = defineComponent({
 
     onMounted(() => {
       rootContext.triggerElement.value = triggerElement.value
-      rootContext.open.value = true
     })
 
     return {
@@ -45,7 +44,9 @@ export const DestylerPopoverTrigger = defineComponent({
       'aria-expanded': this.rootContext.open.value,
       'aria-controls': this.rootContext.contentId,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
-      'onClick': this.rootContext.onOpenToggle,
+      'onClick': () => {
+        this.rootContext.onOpenToggle()
+      },
     }, this.$slots.default?.()))
   },
 })

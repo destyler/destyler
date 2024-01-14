@@ -39,15 +39,27 @@ export const DestylerPopoverContentImpl = defineComponent({
       asChild: this.$props.asChild,
       loop: true,
       trapped: this.$props.trapFocus,
-      onMountAutoFocus: event => this.$emit('openAutoFocus', event),
-      onUnmountAutoFocus: event => this.$emit('closeAutoFocus', event),
+      onMountAutoFocus: (event) => {
+        this.$emit('openAutoFocus', event)
+      },
+      onUnmountAutoFocus: (event) => {
+        this.$emit('closeAutoFocus', event)
+      },
     }, h(DestylerDismissableLayer, {
       asChild: this.$props.asChild,
       disableOutsidePointerEvents: this.$props.disableOutsidePointerEvents,
-      onPointerDownOutside: event => this.$emit('pointerDownOutside', event),
-      onInteractOutside: event => this.$emit('interactOutside', event),
-      onEscapeKeyDown: event => this.$emit('escapeKeyDown', event),
-      onFocusOutside: event => this.$emit('focusOutside', event),
+      onPointerDownOutside: (event) => {
+        this.$emit('pointerDownOutside', event)
+      },
+      onInteractOutside: (event) => {
+        this.$emit('interactOutside', event)
+      },
+      onEscapeKeyDown: (event) => {
+        this.$emit('escapeKeyDown', event)
+      },
+      onFocusOutside: (event) => {
+        this.$emit('focusOutside', event)
+      },
       onDismiss: () => {
         this.rootContext.onOpenChange(false)
       },

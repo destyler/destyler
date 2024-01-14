@@ -16,5 +16,17 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
+  <PopoverDemo />
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <TooltipDemo />
 </template>
