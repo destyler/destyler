@@ -5,6 +5,7 @@ import CountdownDemo from '../../../packages/components/countdown/demos/Countdow
 import CollapseDemo from '../../../packages/components/collapse/demos/Collapse.demo.vue'
 import ArrowDemo from '../../../packages/components/arrow/demos/Arrow.demo.vue'
 import PopoverDemo from '../../../packages/components/popover/demos/Popover.demo.vue'
+import TooltipDemo from '../../../packages/components/tooltip/demos/Tooltip.demo.vue'
 import DismissableLayerDemo from '../../../packages/components/dismissableLayer/demos/DismissableLayer.demo.vue'
 import FocusScopeDemo from '../../../packages/components/focusScope/demos/FocusScope.demo.vue'
 import PopperDemo from '../../../packages/components/popper/demos/Popper.demo.vue'
@@ -15,5 +16,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <PopoverDemo />
+  <TooltipDemo />
 </template>

@@ -11,5 +11,6 @@ export * from './vue/unref-element'
 export * from './vue/render-slot-fragments'
 export * from './vue/computed-eager'
 export * from './vue/computed-with-control'
+export * from './vue/try-on-scope-dispose'
 
 export * from './types'

@@ -24,3 +24,20 @@ export type MaybeRef<T> = T | Ref<T>
  * ```
  */
 export type MaybeRefOrGetter<T> = MaybeRef<T> | (() => T)
+
+export interface Stoppable<StartFnArgs extends any[] = any[]> {
+  /**
+   * A ref indicate whether a stoppable instance is executing
+   */
+  isPending: Readonly<Ref<boolean>>
+
+  /**
+   * Stop the effect from executing
+   */
+  stop: Fn
+
+  /**
+   * Start the effects
+   */
+  start: (...args: StartFnArgs) => void
+}

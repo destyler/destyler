@@ -26,9 +26,6 @@ export const DestylerPopperRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPrimitive, {
-      asChild: true,
-      as: 'template',
-    }, this.$slots.default?.())
+    return this.$slots.default?.()
   },
 })

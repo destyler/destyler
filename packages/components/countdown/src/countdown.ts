@@ -170,6 +170,7 @@ const DestylerCountdown = defineComponent({
     }
     return h(DestylerPrimitive, {
       as: 'template',
+      asChild: true,
     }, [
       this.render ? this.render(timeInfo) : this.getDisplayValue(timeInfo),
     ])
