@@ -48,3 +48,16 @@ export default defineConfig({
   ],
 })
 ```
+
+## Credits
+
+> All credits go to these open-source works and resources
+
+- [radix-ui](https://github.com/radix-ui/primitives)
+- [radix-vue](https://github.com/radix-vue/radix-vue)
+- [oku-ui](https://github.com/oku-ui/primitives)
+- [headlessui](https://github.com/tailwindlabs/headlessui)
+- [melt-ui](https://github.com/melt-ui/melt-ui)
+- [vueuse](https://github.com/vueuse/vueuse)
+- [anu](https://github.com/jd-solanki/anu)
+- [floating-ui](https://github.com/floating-ui/floating-ui)
