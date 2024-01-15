@@ -1,6 +1,7 @@
 {
   "name": "@destyler/countdown",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.0",
+  "private": "true",
   "description": "unstyled countdown component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
@@ -25,9 +26,9 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/shared": "workspace:^"
+    "@destyler/primitive": "workspace:*"
   }
 }

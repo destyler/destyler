@@ -1,7 +1,21 @@
 <script setup lang="ts">
-import { DestylerCountdown } from '@destyler/countdown/src/countdown'
+import { ref } from 'vue'
+import { DestylerCountdown } from 'destyler'
+
+const countdownRef = ref<any>(null)
+
+function handleReset() {
+  countdownRef.value?.reset()
+}
 </script>
 
 <template>
-  <DestylerCountdown :duration="86400000" />
+  <div class="flex flex-col items-center justify-center">
+    <div><DestylerCountdown ref="countdownRef" :duration="50000" /></div>
+    <div>
+      <button @click="handleReset">
+        Reset
+      </button>
+    </div>
+  </div>
 </template>

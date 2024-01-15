@@ -1,6 +1,7 @@
 {
   "name": "@destyler/tooltip",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.0",
+  "private": "true",
   "description": "unstyled tooltip component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
@@ -25,10 +26,16 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/popover": "workspace:^",
-    "@destyler/shared": "workspace:^"
+    "@destyler/composition": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:^",
+    "@destyler/popper": "workspace:*",
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:*",
+    "@destyler/teleport": "workspace:^",
+    "@destyler/visually-hidden": "workspace:^",
+    "@vueuse/core": "^10.7.1"
   }
 }

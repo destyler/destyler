@@ -7,7 +7,7 @@ export function DestylerTooltipResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerTooltip')
+      if (name === 'DestylerTemplate')
         return { name, from: packageName }
     },
   }

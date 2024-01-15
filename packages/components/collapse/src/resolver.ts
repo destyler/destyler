@@ -3,11 +3,11 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export function DestylerAccordionResolver(): ComponentResolver {
+export function DestylerCollapseResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerCollapse' || name === 'DestylerCollapseItem')
+      if (['DestylerCollapseRoot', 'DestylerCollapseTrigger', 'DestylerCollapseItem', 'DestylerCollapseHeader', 'DestylerCollapseContent'].includes(name))
         return { name, from: packageName }
     },
   }

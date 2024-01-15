@@ -7,7 +7,7 @@ export function DestylerAvatarResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerAvatar')
+      if (['DestylerAvatarRoot', 'DestylerAvatarImage', 'DestylerAvatarFallback'].includes(name))
         return { name, from: packageName }
     },
   }

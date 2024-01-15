@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerLabel } from '@destyler/label/src/label'
+import { DestylerLabel } from 'destyler'
 
 const route = useRoute()
 </script>

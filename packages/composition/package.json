@@ -26,5 +26,9 @@
   },
   "peerDependencies": {
     "vue": "^3.3.4"
+  },
+  "dependencies": {
+    "@destyler/shared": "workspace:*",
+    "aria-hidden": "^1.2.3"
   }
 }

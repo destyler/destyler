@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { DestylerLabel } from '@destyler/label/src/label'
-import { DestylerIcon } from '@destyler/icon/src/icon'
+import { DestylerIcon , DestylerLabel } from 'destyler'
 
 const props = defineProps<{
   items: string[]

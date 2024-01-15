@@ -1,10 +1,13 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, onBeforeUnmount, onMounted, ref } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { Ping } from './ping'
 
 const DestylerOnline = defineComponent({
   name: 'DestylerOnline',
+  inheritAttrs: false,
   props: {
+    ...destylerPrimitiveProps,
     url: {
       type: String as PropType<string>,
       required: false,
@@ -43,7 +46,11 @@ const DestylerOnline = defineComponent({
       })
 
       async function status(): Promise<void> {
-        const p = new Ping()
+        const p = new Ping({
+          favicon: props.favicon,
+          timeout: props.timeout,
+          logError: props.logError,
+        })
         try {
           const ping = await p.ping(url.value)
           if (ping || navigator.onLine) {
@@ -63,9 +70,10 @@ const DestylerOnline = defineComponent({
     })
   },
   render() {
-    return h('div', {
-      destyler: 'online',
-    }, this.$slots.default?.())
+    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+      as: this.$props.as,
+      asChild: this.$props.asChild,
+    }), this.$slots.default?.())
   },
 })
 

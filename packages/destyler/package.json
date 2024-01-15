@@ -28,10 +28,26 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
+    "@destyler/alert": "workspace:*",
+    "@destyler/arrow": "workspace:*",
     "@destyler/avatar": "workspace:*",
-    "@destyler/button": "workspace:*",
     "@destyler/collapse": "workspace:*",
+    "@destyler/collapsible": "workspace:*",
+    "@destyler/composition": "workspace:*",
+    "@destyler/countdown": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
-    "@destyler/online": "workspace:*"
+    "@destyler/label": "workspace:*",
+    "@destyler/online": "workspace:*",
+    "@destyler/popover": "workspace:*",
+    "@destyler/popper": "workspace:*",
+    "@destyler/presence": "workspace:*",
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:*",
+    "@destyler/tag": "workspace:*",
+    "@destyler/teleport": "workspace:*",
+    "@destyler/tooltip": "workspace:*",
+    "@destyler/visually-hidden": "workspace:*"
   }
 }

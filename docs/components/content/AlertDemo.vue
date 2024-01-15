@@ -1,44 +1,17 @@
 <script setup lang="ts">
-import { DestylerAlert } from '@destyler/alert/src/alert'
+import { DestylerAlert, DestylerIcon } from 'destyler'
 </script>
 
 <template>
-  <DestylerAlert title="Heads up!">
-    You can add components to your app using the cli.
-  </DestylerAlert>
+  <div class="p-10 w-full">
+    <DestylerAlert class="relative w-full rounded-lg border border-#E4E4E7 dark:border-#27272A px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-#09090B dark:[&>svg]:text-#FAFAFA [&>svg~*]:pl-7 bg-white dark:bg-#09090B text-#09090B dark:text-#FAFAFA">
+      <DestylerIcon name="i-carbon-home" class="w-4 h-4" />
+      <h5 class="mb-1 font-medium leading-none tracking-tight">
+        Go Home
+      </h5>
+      <div class="text-sm [&_p]:leading-relaxed">
+        Gee it's good to be back home
+      </div>
+    </DestylerAlert>
+  </div>
 </template>
-
-<style>
-[destyler="alert"]{
-  position: relative;
-  width: 80%;
-  border-radius: 0.5rem;
-  border-width: 1px;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  background-color: #ffffff;
-  color: #09090b;
-  border-color: #e4e4e7;
-}
-.dark [destyler="alert"]{
-  background-color: #09090b;
-  color: #fafafa;
-  border-color: #1c1c1f;
-}
-[destyler="alert-body"]{
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-[destyler="alert-body-title"]{
-  letter-spacing: -.025em;
-  line-height: 1;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
-}
-[destyler="alert-body-content"]{
-  font-size: .875rem;
-  line-height: 1.25rem;
-}
-</style>

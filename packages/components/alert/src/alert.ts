@@ -1,39 +1,25 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, ref } from 'vue'
-import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { FadeInExpandTransition, resolveWrappedSlot } from '@destyler/shared'
+import { defineComponent, h, mergeProps, ref } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
 
-export const destylerAlertProps = {
-  title: {
-    type: String as PropType<string>,
-  },
+const destylerAlertProps = {
+  ...destylerPrimitiveProp,
   closable: {
     type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
   },
   onClose: {
     type: Function as PropType<() => boolean | Promise<boolean> | any>,
   },
-  onAfterLeave: {
-    type: Function as PropType<() => void>,
-  },
 }
-
-export type DestylerAlertProps = ExtractPublicPropTypes<typeof destylerAlertProps>
 
 const DestylerAlert = defineComponent({
   name: 'DestylerAlert',
+  inheritAttrs: false,
   props: destylerAlertProps,
-  inheritAttrs: true,
   setup(props) {
     const visibleRef = ref<boolean>(true)
-
-    const doAfterLeave = (): void => {
-      const {
-        onAfterLeave,
-      } = props
-      if (onAfterLeave)
-        onAfterLeave()
-    }
 
     const handleCloseClick = (): void => {
       void Promise.resolve(props.onClose?.()).then((result) => {
@@ -42,68 +28,23 @@ const DestylerAlert = defineComponent({
         visibleRef.value = false
       })
     }
-
-    const handleAfterLeave = (): void => {
-      doAfterLeave()
-    }
-
     return {
       visible: visibleRef,
       handleCloseClick,
-      handleAfterLeave,
     }
   },
   render() {
-    return h(FadeInExpandTransition, {
-      onAfterEnter: this.handleAfterLeave,
-    }, {
-      default: () => {
-        const { $slots } = this
-        return h('div', {
-          role: 'alert',
-          destyler: 'alert',
-        }, {
-          default: () => {
-            const components = []
-            if (this.closable) {
-              components.push(h('div', {
-                destyler: 'alert-close',
-                onClick: this.handleCloseClick,
-              }, $slots.close?.()))
-            }
-            components.push(h('div', {
-              destyler: 'alert-body',
-            }, {
-              default: () => {
-                return [
-                  // @ts-expect-error $slots.header is not a valid type
-                  resolveWrappedSlot($slots.header, (children) => {
-                    const mergedChildren = children || this.title
-                    return mergedChildren
-                      ? (
-                          h('div', {
-                            destyler: 'alert-body-title',
-                          }, {
-                            default: () => {
-                              return mergedChildren
-                            },
-                          })
-                        )
-                      : null
-                  }),
-                  $slots.default && (
-                    h('div', {
-                      destyler: 'alert-body-content',
-                    }, $slots)
-                  ),
-                ]
-              },
-            }))
-            return components
-          },
-        })
-      },
-    })
+    const useVShow = this.visible
+    return useVShow
+      ? h(DestylerPrimitive, mergeProps(this.$attrs, {
+        as: 'div',
+        role: 'alert',
+        asChild: this.$props.asChild,
+      }), [
+        this.$props.closable ? this.$slots.close?.({ handleClose: this.handleCloseClick }) : null,
+        this.$slots.default?.(),
+      ])
+      : null
   },
 })
 

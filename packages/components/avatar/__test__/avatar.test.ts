@@ -1,28 +1,28 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { DestylerAvatar } from '../src'
+import AvatarBasicDemo from '../demos/AvatarBasic.demo.vue'
 
-describe('avatar', () => {
-  it('image avatar', () => {
-    const wrapper = mount(DestylerAvatar, {
+describe('basic', () => {
+  it('should work with import on demand', () => {
+    mount(AvatarBasicDemo)
+  })
+
+  it('should not render the image initially', async () => {
+    const wrapper = mount(AvatarBasicDemo, {
       props: {
         src: 'https://github.com/elonehoo.png',
       },
     })
-    expect(wrapper.find('img').exists()).toBe(true)
-    expect(wrapper.html()).toMatchSnapshot()
+    expect(wrapper.find('img').exists()).toBeFalsy()
     wrapper.unmount()
   })
-  it('image avatar error handle when load failed', async () => {
-    const onError = vi.fn()
-    const wrapper = mount(DestylerAvatar, {
+
+  it('should render as snapshot', () => {
+    const wrapper = mount(AvatarBasicDemo, {
       props: {
         src: 'https://github.com/elonehoo.png',
-        onError,
       },
     })
-    await wrapper.find('img').trigger('error')
-    expect(onError).toHaveBeenCalled()
-    wrapper.unmount()
+    expect(wrapper.html()).toMatchSnapshot()
   })
 })

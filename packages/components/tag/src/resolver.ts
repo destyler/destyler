@@ -3,11 +3,11 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function DestylerTagResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerTemplate')
+      if (name === 'DestylerTag')
         return { name, from: packageName }
     },
   }

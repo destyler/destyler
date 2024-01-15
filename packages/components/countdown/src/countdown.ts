@@ -1,6 +1,6 @@
 import type { PropType, VNodeChild } from 'vue'
 import { defineComponent, h, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
-import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
 
 export interface CountdownTimeInfo {
   hours: number
@@ -14,6 +14,7 @@ export interface CountdownInst {
 }
 
 export const destylerCountdownProps = {
+  ...destylerPrimitiveProp,
   duration: {
     type: Number as PropType<number>,
     default: 0,
@@ -33,8 +34,6 @@ export const destylerCountdownProps = {
     type: Function as PropType<() => void>,
   },
 }
-
-export type CountdownProps = ExtractPublicPropTypes<typeof destylerCountdownProps>
 
 const DestylerCountdown = defineComponent({
   name: 'DestylerCountdown',
@@ -169,8 +168,9 @@ const DestylerCountdown = defineComponent({
       case 3:
         timeInfo = this.getTimeInfo(this.distance)
     }
-    return h('div', {
-      destyler: 'countdown',
+    return h(DestylerPrimitive, {
+      as: 'template',
+      asChild: true,
     }, [
       this.render ? this.render(timeInfo) : this.getDisplayValue(timeInfo),
     ])

@@ -1,20 +1,24 @@
 import type { PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { useForwardRef } from '@destyler/composition'
+
+const destylerLabelProps = {
+  ...destylerPrimitiveProp,
+  for: {
+    type: String as PropType<string>,
+    required: false,
+  },
+}
 
 const DestylerLabel = defineComponent({
   name: 'DestylerLabel',
-  props: {
-    as: {
-      type: String as PropType<'label'>,
-      required: false,
-      default: 'label',
-    },
-    for: {
-      type: String,
-      required: false,
-    },
-  },
+  inheritAttrs: false,
+  props: destylerLabelProps,
+
   setup() {
+    const forwardedRef = useForwardRef()
+
     function handleMousedown(e: MouseEvent): void {
       if (!e.defaultPrevented && e.detail > 1)
         e.preventDefault()
@@ -22,14 +26,17 @@ const DestylerLabel = defineComponent({
 
     return {
       handleMousedown,
+      forwardedRef,
     }
   },
   render() {
-    return h(this.as, {
-      for: this.for,
-      destyler: 'label',
+    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+      as: 'label',
+      for: this.$props.for,
+      asChild: this.$props.asChild,
+      ref: 'forwardedRef',
       onMousedown: this.handleMousedown,
-    }, this.$slots.default?.())
+    }), () => this.$slots.default?.())
   },
 })
 
