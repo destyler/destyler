@@ -61,7 +61,7 @@ const items = [
 
 @keyframes collapse-up {
   0% {
-    height: var(--destyler_collapsible_content_height)
+    height: var(--destyler_collapse_content_height)
   }
   to {
     height: 0
@@ -73,7 +73,7 @@ const items = [
     height: 0
   }
   to {
-    height: var(--destyler_collapsible_content_height)
+    height: var(--destyler_collapse_content_height)
   }
 }
 </style>

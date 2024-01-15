@@ -16,5 +16,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <TooltipDemo />
+  <CollapseDemo />
 </template>
