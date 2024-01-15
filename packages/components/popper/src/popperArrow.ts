@@ -62,8 +62,7 @@ export const DestylerPopperArrow = defineComponent({
         }[this.contentContext.placedSide.value],
         visibility: this.contentContext.shouldHideArrow.value ? 'hidden' : undefined,
       },
-    }, h(DestylerArrow, {
-      ...mergeProps(this.$attrs),
+    }, h(DestylerArrow, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       width: this.$props.width,
@@ -71,6 +70,6 @@ export const DestylerPopperArrow = defineComponent({
       style: {
         display: 'block',
       },
-    }, this.$slots.default?.()))
+    }), this.$slots.default?.()))
   },
 })

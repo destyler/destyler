@@ -9,8 +9,6 @@ export const DestylerPopoverPortal = defineComponent({
   name: 'DestylerPopoverPortal',
   props: destylerPopoverPortalProps,
   render() {
-    return h(DestylerTeleport, {
-      ...mergeProps(this.$props),
-    }, this.$slots.default?.())
+    return h(DestylerTeleport, mergeProps(this.$props), this.$slots.default?.())
   },
 })

@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted,ref } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref } from 'vue'
 import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { Ping } from './ping'
 
@@ -70,11 +70,10 @@ const DestylerOnline = defineComponent({
     })
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(DestylerPrimitive, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-      ...mergeProps(this.$attrs),
-    }, this.$slots.default?.())
+    }), this.$slots.default?.())
   },
 })
 

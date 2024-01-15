@@ -37,13 +37,12 @@ export const DestylerArrow = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
-      ...mergeProps(this.$props),
+    return h(DestylerPrimitive, mergeProps(this.$props, {
       width: this.$props.width,
       height: this.$props.height,
       viewBox: this.asChild ? undefined : '0 0 30 10',
       preserveAspectRatio: this.asChild ? undefined : 'none',
-    }, this.hasSlot
+    }), this.hasSlot
       ? this.$slots.default?.()
       : h('polygon', {
         points: '0,0 30,0 15,10',

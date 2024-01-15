@@ -20,8 +20,7 @@ export const DestylerPopoverAnchor = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperAnchor, {
-      ...mergeProps(this.$props),
-    }, this.$slots.default?.())
+    return h(DestylerPopperAnchor, mergeProps(this.$props, {
+    }), this.$slots.default?.())
   },
 })

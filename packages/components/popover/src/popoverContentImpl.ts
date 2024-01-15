@@ -63,8 +63,7 @@ export const DestylerPopoverContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onOpenChange(false)
       },
-    }, withDirectives(h(DestylerPopperContent, {
-      ...mergeProps(this.forwarded),
+    }, withDirectives(h(DestylerPopperContent, mergeProps(this.forwarded, {
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
       'role': 'dialog',
       'style': {
@@ -74,7 +73,7 @@ export const DestylerPopoverContentImpl = defineComponent({
         '--destyler_popover_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_popover_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }, this.$slots.default?.()), [
+    }), this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ])))
   },

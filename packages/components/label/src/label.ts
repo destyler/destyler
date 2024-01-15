@@ -30,14 +30,13 @@ const DestylerLabel = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(DestylerPrimitive, mergeProps(this.$attrs, {
       as: 'label',
       for: this.$props.for,
       asChild: this.$props.asChild,
       ref: 'forwardedRef',
-      ...mergeProps(this.$attrs),
       onMousedown: this.handleMousedown,
-    }, () => this.$slots.default?.())
+    }), () => this.$slots.default?.())
   },
 })
 

@@ -36,12 +36,11 @@ const DestylerAlert = defineComponent({
   render() {
     const useVShow = this.visible
     return useVShow
-      ? h(DestylerPrimitive, {
+      ? h(DestylerPrimitive, mergeProps(this.$attrs, {
         as: 'div',
         role: 'alert',
         asChild: this.$props.asChild,
-        ...mergeProps(this.$attrs),
-      }, [
+      }), [
         this.$props.closable ? this.$slots.close?.({ handleClose: this.handleCloseClick }) : null,
         this.$slots.default?.(),
       ])
