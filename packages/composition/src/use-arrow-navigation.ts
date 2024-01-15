@@ -2,66 +2,41 @@ import type { ArrowKeyOptions, Direction } from '@destyler/shared'
 
 interface ArrowNavigationOptions {
   /**
-   * The arrow key options to allow navigation
-   *
    * @default "both"
    */
   arrowKeyOptions?: ArrowKeyOptions
 
   /**
-   * The attribute name to find the collection items in the parent element.
-   *
    * @default "data-destyler-vue-collection-item"
    */
   attributeName?: string
 
   /**
-   * The parent element where contains all the collection items, this will collect every item to be used when nav
-   * It will be ignored if attributeName is provided
-   *
    * @default []
    */
   itemsArray?: HTMLElement[]
 
   /**
-   * Allow loop navigation. If false, it will stop at the first and last element
-   *
    * @default true
    */
   loop?: boolean
 
   /**
-   * The orientation of the collection
-   *
    * @default "ltr"
    */
   dir?: Direction
 
   /**
-   * Prevent the scroll when navigating. This happens when the direction of the
-   * key matches the scroll direction of any ancestor scrollable elements.
-   *
    * @default true
    */
   preventScroll?: boolean
 
   /**
-   * Focus the element after navigation
-   *
    * @default false
    */
   focus?: boolean
 }
 
-/**
- * Allow arrow navigation for every html element with data-radix-vue-collection-item tag
- *
- * @param e               Keyboard event
- * @param currentElement  Event initiator element or any element that wants to handle the navigation
- * @param parentElement   Parent element where contains all the collection items, this will collect every item to be used when nav
- * @param options         further options
- * @returns               the navigated html element or null if none
- */
 export function useArrowNavigation(
   e: KeyboardEvent,
   currentElement: HTMLElement,
@@ -132,14 +107,6 @@ export function useArrowNavigation(
   return item
 }
 
-/**
- * Recursive function to find the next focusable element to avoid disabled elements
- *
- * @param elements Elements to navigate
- * @param currentElement Current active element
- * @param options
- * @returns
- */
 function findNextFocusableElement(
   elements: HTMLElement[],
   currentElement: HTMLElement,

@@ -32,11 +32,6 @@ function isLayerExist(layerElement: HTMLElement, targetElement: HTMLElement) {
   else return false
 }
 
-/**
- * Listens for `pointerdown` outside a DOM subtree. We use `pointerdown` rather than `pointerup`
- * to mimic layer dismissing behaviour present in OS.
- * Returns props to pass to the node we want to check for outside events.
- */
 export function usePointerDownOutside(
   onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
   element?: Ref<HTMLElement | undefined>,
@@ -70,18 +65,6 @@ export function usePointerDownOutside(
           )
         }
 
-        /**
-         * On touch devices, we need to wait for a click event because browsers implement
-         * a ~350ms delay between the time the user stops touching the display and when the
-         * browser executres events. We need to ensure we don't reactivate pointer-events within
-         * this timeframe otherwise the browser may execute events that should have been prevented.
-         *
-         * Additionally, this also lets us deal automatically with cancellations when a click event
-         * isn't raised because the page was considered scrolled/drag-scrolled, long-pressed, etc.
-         *
-         * This is why we also continuously remove the previous listener, because we cannot be
-         * certain that it was raised, and therefore cleaned-up.
-         */
         if (event.pointerType === 'touch') {
           ownerDocument.removeEventListener('click', handleClickRef.value)
           handleClickRef.value = handleAndDispatchPointerDownOutsideEvent
@@ -100,19 +83,6 @@ export function usePointerDownOutside(
       }
       isPointerInsideDOMTree.value = false
     }
-    /**
-     * if this hook executes in a component that mounts via a `pointerdown` event, the event
-     * would bubble up to the document and trigger a `pointerDownOutside` event. We avoid
-     * this by delaying the event listener registration on the document.
-     * This is how the DOM works, ie:
-     * ```
-     * button.addEventListener('pointerdown', () => {
-     *   console.log('I will log');
-     *   document.addEventListener('pointerdown', () => {
-     *     console.log('I will also log');
-     *   })
-     * });
-     */
     const timerId = window.setTimeout(() => {
       ownerDocument.addEventListener('pointerdown', handlePointerDown)
     }, 0)
@@ -129,10 +99,6 @@ export function usePointerDownOutside(
   }
 }
 
-/**
- * Listens for when focus happens outside a DOM subtree.
- * Returns props to pass to the root (node) of the subtree we want to check.
- */
 export function useFocusOutside(
   onFocusOutside?: (event: FocusOutsideEvent) => void,
   element?: Ref<HTMLElement | undefined>,
