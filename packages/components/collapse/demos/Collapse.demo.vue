@@ -22,20 +22,19 @@ const items = [
 
 <template>
   <DestylerCollapseRoot
-    class="AccordionRoot"
     default-value="'item-1'"
     type="single"
     :collapsible="true"
   >
     <template v-for="item in items" :key="item.value">
-      <DestylerCollapseItem class="AccordionItem" :value="item.value">
-        <DestylerCollapseHeader class="AccordionHeader">
-          <DestylerCollapseTrigger class="AccordionTrigger">
+      <DestylerCollapseItem :value="item.value">
+        <DestylerCollapseHeader>
+          <DestylerCollapseTrigger>
             <span>{{ item.title }}</span>
           </DestylerCollapseTrigger>
         </DestylerCollapseHeader>
-        <DestylerCollapseContent class="AccordionContent">
-          <div class="AccordionContentText">
+        <DestylerCollapseContent>
+          <div>
             {{ item.content }}
           </div>
         </DestylerCollapseContent>

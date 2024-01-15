@@ -91,7 +91,7 @@ export const DestylerPopperContent = defineComponent({
   name: 'DestylerPopperContent',
   inheritAttrs: false,
   props: destylerPopperContentProps,
-  setup(props) {
+  setup(props, { attrs }) {
     const rootContext = injectPopperRootContext()
     const forwardRef = useForwardRef()
     const { customElement, currentElement: contentElement } = useCustomElement()
@@ -233,12 +233,14 @@ export const DestylerPopperContent = defineComponent({
       customElement,
       placedSide,
       placedAlign,
+      attrStyle: attrs.style as any,
     }
   },
   render() {
     return h('div', {
       'data-destyler-popper-content-wrapper': '',
       'ref': 'floatingRef',
+      ...mergeProps(this.$attrs),
       'style': {
         ...this.floatingStyles,
         transform: this.isPositioned ? this.floatingStyles.transform : 'translate(0, -200%)',
@@ -248,6 +250,7 @@ export const DestylerPopperContent = defineComponent({
           this.middlewareData.transformOrigin?.x,
           this.middlewareData.transformOrigin?.y,
         ].join(' '),
+        ...this.attrStyle,
       },
     }, h(DestylerPrimitive, {
       ...mergeProps(this.$attrs),

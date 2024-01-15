@@ -30,10 +30,7 @@ export const DestylerCollapseContent = defineComponent({
       'data-state': this.itemContext.dataState.value,
       'data-disabled': this.itemContext.dataDisabled.value,
       'data-orientation': this.rootContext.orientation,
-      'style': {
-        '--destyler_collapse_content_width': `var(--destyler_collapsible_content_width)`,
-        '--destyler_collapse_content_height': `var(--destyler_collapsible_content_height)`,
-      },
+      'style': '--destyler_collapse_content_width: var(--destyler_collapsible_content_width);--destyler_collapse_content_height: var(--destyler_collapsible_content_height);',
     }, this.$slots.default?.()), [
       [BindOnceDirective, { id: this.itemContext.triggerId }],
     ])
