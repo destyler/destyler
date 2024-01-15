@@ -237,10 +237,9 @@ export const DestylerPopperContent = defineComponent({
     }
   },
   render() {
-    return h('div', {
+    return h('div', mergeProps(this.$attrs, {
       'data-destyler-popper-content-wrapper': '',
       'ref': 'floatingRef',
-      ...mergeProps(this.$attrs),
       'style': {
         ...this.floatingStyles,
         transform: this.isPositioned ? this.floatingStyles.transform : 'translate(0, -200%)',
@@ -250,10 +249,8 @@ export const DestylerPopperContent = defineComponent({
           this.middlewareData.transformOrigin?.x,
           this.middlewareData.transformOrigin?.y,
         ].join(' '),
-        ...this.attrStyle,
       },
-    }, h(DestylerPrimitive, {
-      ...mergeProps(this.$attrs),
+    }), h(DestylerPrimitive, mergeProps(this.$attrs, {
       'ref': (vnode) => {
         this.forwardRef(vnode)
         this.customElement = vnode as ComponentPublicInstance
@@ -266,6 +263,6 @@ export const DestylerPopperContent = defineComponent({
         animation: !this.isPositioned ? 'none' : undefined,
         opacity: this.middlewareData.hide?.referenceHidden ? 0 : undefined,
       },
-    }, this.$slots.default?.()))
+    }), this.$slots.default?.()))
   },
 })

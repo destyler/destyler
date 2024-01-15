@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { computed, defineComponent, h, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
 import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
@@ -79,26 +79,23 @@ export const DestylerCollapsibleContent = defineComponent({
       width,
       height,
       attrStyle: attrs.style,
+      attrClass: attrs.class,
     }
   },
   render() {
-    // {
-    //   [`--destyler_collapsible_content_width`]: `${this.width}px`,
-    //   [`--destyler_collapsible_content_height`]: `${this.height}px`,
-    // },
     return h(DestylerPresence, {
       ref: 'presentRef',
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
-    }, withDirectives(h(DestylerPrimitive, {
+    }, withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
       'ref': 'customElement',
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
       'data-disabled': this.rootContext.disabled?.value ? 'true' : undefined,
       'hidden': !this.presentRef?.present,
-      'style': `--destyler_collapsible_content_width:${this.width}px;--destyler_collapsible_content_height:${this.height}px;${this.attrStyle}`,
-    }, [
+      'style': `--destyler_collapsible_content_width:${this.width}px;--destyler_collapsible_content_height:${this.height}px;`,
+    }), [
       this.presentRef?.present ? this.$slots.default?.() : null,
     ]), [
       [BindOnceDirective, { id: this.rootContext.contentId }],

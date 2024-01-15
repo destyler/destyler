@@ -33,7 +33,7 @@ const items = [
             <span>{{ item.title }}</span>
           </DestylerCollapseTrigger>
         </DestylerCollapseHeader>
-        <DestylerCollapseContent>
+        <DestylerCollapseContent class="demo-100">
           <div>
             {{ item.content }}
           </div>
