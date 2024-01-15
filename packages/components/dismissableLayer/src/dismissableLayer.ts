@@ -74,9 +74,8 @@ export const DestylerDismissableLayer = defineComponent({
         return
       emit('focusOutside', event)
       emit('interactOutside', event)
-      if (!event.defaultPrevented) 
+      if (!event.defaultPrevented)
         emit('dismiss')
-      
     }, layerElement)
 
     onKeyStroke('Escape', (event) => {
@@ -84,9 +83,8 @@ export const DestylerDismissableLayer = defineComponent({
       if (!isHighestLayer)
         return
       emit('escapeKeyDown', event)
-      if (!event.defaultPrevented) 
+      if (!event.defaultPrevented)
         emit('dismiss')
-      
     })
 
     let originalBodyPointerEvents: string

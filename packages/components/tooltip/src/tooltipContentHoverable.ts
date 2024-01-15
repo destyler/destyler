@@ -77,7 +77,7 @@ export const DestylerTooltipContentHoverable = defineComponent({
   },
   render() {
     return h(DestylerTooltipContentImpl, {
-      ref: 'contentElement',
+      ref: 'customElement',
       ...mergeProps(this.$props),
     }, this.$slots.default?.())
   },
