@@ -1,3 +1,5 @@
+export * from './naive/is-number'
+
 export * from './dom/is-valid-v-node-element'
 export * from './dom/is-client'
 export * from './dom/handle-and-dispatch-custom-event'
