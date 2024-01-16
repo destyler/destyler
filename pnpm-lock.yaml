@@ -492,7 +492,7 @@ importers:
         specifier: workspace:*
         version: link:../components/avatar
       '@destyler/checkbox':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../components/checkbox
       '@destyler/collapse':
         specifier: workspace:*
