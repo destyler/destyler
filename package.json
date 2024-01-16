@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
+    "preview": "pnpm -C preview run dev",
     "play": "pnpm -C playground run dev",
     "play:vue": "pnpm -C examples/vue run dev",
     "play:unplugin": "pnpm -C examples/unplugin run dev",
