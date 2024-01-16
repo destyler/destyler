@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import { Icon as Iconify } from '@iconify/vue'
 
-const DestylerIcon = defineComponent({
+export const DestylerIcon = defineComponent({
   name: 'DestylerIcon',
   props: {
     name: {
@@ -12,16 +12,15 @@ const DestylerIcon = defineComponent({
   },
   setup(props) {
     const iconName = computed(() => props.name.replace(/^i-/, ''))
-    return () => {
-      return h(Iconify, {
-        destyler: 'icon',
-        icon: iconName.value,
-      })
+    return {
+      iconName,
     }
+  },
+  render() {
+    return h(Iconify, {
+      destyler: 'icon',
+      icon: this.iconName,
+    })
   },
 
 })
-
-export {
-  DestylerIcon,
-}

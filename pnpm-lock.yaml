@@ -198,6 +198,27 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/checkbox:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/presence':
+        specifier: workspace:*
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/collapse:
     dependencies:
       '@destyler/collapsible':
@@ -470,6 +491,9 @@ importers:
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
+      '@destyler/checkbox':
+        specifier: workspace:^
+        version: link:../components/checkbox
       '@destyler/collapse':
         specifier: workspace:*
         version: link:../components/collapse

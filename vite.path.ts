@@ -47,4 +47,6 @@ export const alias = {
   '@destyler/tooltip/': `${path.resolve(__dirname, 'packages/components/tooltip')}/`,
   '@destyler/visuallyHidden': `${path.resolve(__dirname, 'packages/components/visuallyHidden')}/src/index.ts`,
   '@destyler/visuallyHidden/': `${path.resolve(__dirname, 'packages/components/visuallyHidden')}/`,
+  '@destyler/checkbox': `${path.resolve(__dirname, 'packages/components/checkbox')}/src/index.ts`,
+  '@destyler/checkbox/': `${path.resolve(__dirname, 'packages/components/checkbox')}/`,
 }

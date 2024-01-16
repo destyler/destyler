@@ -46,7 +46,9 @@
       "@destyler/tooltip": ["./packages/components/tooltip/src/index.ts"],
       "@destyler/tooltip/*": ["./packages/components/tooltip/*"],
       "@destyler/visuallyHidden": ["./packages/components/visuallyHidden/src/index.ts"],
-      "@destyler/visuallyHidden/*": ["./packages/components/visuallyHidden/*"]
+      "@destyler/visuallyHidden/*": ["./packages/components/visuallyHidden/*"],
+      "@destyler/checkbox": ["./packages/components/checkbox/src/index.ts"],
+      "@destyler/checkbox/*": ["./packages/components/checkbox/*"]
     }
   }
 }

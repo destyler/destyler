@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerCheckboxIndicator, DestylerCheckboxRoot, DestylerIcon, DestylerLabel } from 'destyler'
+import { DestylerCheckboxIndicator, DestylerCheckboxRoot, DestylerIcon } from 'destyler'
 </script>
 
 <template>
@@ -11,8 +11,11 @@ import { DestylerCheckboxIndicator, DestylerCheckboxRoot, DestylerIcon, Destyler
         <DestylerIcon name="i-ri-check-line" class="w-4 h-4" />
       </DestylerCheckboxIndicator>
     </DestylerCheckboxRoot>
-    <DestylerLabel class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+    <label
+      htmlFor="terms"
+      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+    >
       Accept terms and conditions
-    </DestylerLabel>
+    </label>
   </div>
 </template>
