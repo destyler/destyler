@@ -548,6 +548,9 @@ importers:
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../components/primitive
+      '@destyler/progress':
+        specifier: workspace:^
+        version: link:../components/progress
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared
