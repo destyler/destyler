@@ -25,7 +25,7 @@ export const destylerProgressRootProps = {
   },
 }
 
-interface ProgressRootContext {
+export interface ProgressRootContext {
   modelValue?: Readonly<Ref<number | null>>
   max: Readonly<Ref<number>>
   progressState: ComputedRef<ProgressState>
