@@ -48,7 +48,9 @@
       "@destyler/visuallyHidden": ["./packages/components/visuallyHidden/src/index.ts"],
       "@destyler/visuallyHidden/*": ["./packages/components/visuallyHidden/*"],
       "@destyler/checkbox": ["./packages/components/checkbox/src/index.ts"],
-      "@destyler/checkbox/*": ["./packages/components/checkbox/*"]
+      "@destyler/checkbox/*": ["./packages/components/checkbox/*"],
+      "@destyler/progress": ["./packages/components/progress/src/index.ts"],
+      "@destyler/progress/*": ["./packages/components/progress/*"]
     }
   }
 }

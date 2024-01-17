@@ -45,6 +45,7 @@
     "@destyler/popper": "workspace:*",
     "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
+    "@destyler/progress": "workspace:*",
     "@destyler/shared": "workspace:*",
     "@destyler/tag": "workspace:*",
     "@destyler/teleport": "workspace:*",
