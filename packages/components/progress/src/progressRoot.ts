@@ -6,7 +6,7 @@ import { useVModel } from '@destyler/composition'
 
 export const DEFAULT_MAX = 100
 
-export const destylerProgressProps = {
+export const destylerProgressRootProps = {
   ...destylerPrimitiveProps,
   modelValue: {
     type: Number as PropType<number>,
@@ -36,9 +36,9 @@ export const [injectProgressRootContext, provideProgressRootContext]
 
 export type ProgressState = 'indeterminate' | 'loading' | 'complete'
 
-export const DestylerProgress = defineComponent({
-  name: 'DestylerProgress',
-  props: destylerProgressProps,
+export const DestylerProgressRoot = defineComponent({
+  name: 'DestylerProgressRoot',
+  props: destylerProgressRootProps,
   emits: ['update:modelValue', 'update:max'],
   setup(props, { emit }) {
     function validateValue(value: any, max: number): number | null {
