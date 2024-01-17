@@ -429,7 +429,7 @@ importers:
   packages/components/slider:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
@@ -569,6 +569,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared
+      '@destyler/slider':
+        specifier: workspace:^
+        version: link:../components/slider
       '@destyler/tag':
         specifier: workspace:*
         version: link:../components/tag

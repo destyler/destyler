@@ -92,16 +92,16 @@ export const DestylerSliderRoot = defineComponent({
 
     const thumbElements = ref<HTMLElement[]>([])
 
-    const modelValueRef = useVModel(props, 'modelValue', emit, {
+    const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue,
       passive: (props.modelValue === undefined) as false,
     }) as Ref<number[]>
 
     const valueIndexToChangeRef = ref(0)
-    const valuesBeforeSlideStartRef = ref(modelValueRef.value)
+    const valuesBeforeSlideStartRef = ref(modelValue.value)
 
     function handleSlideStart(value: number) {
-      const closestIndex = getClosestValueIndex(modelValueRef.value, value)
+      const closestIndex = getClosestValueIndex(modelValue.value, value)
       updateValues(value, closestIndex)
     }
 
@@ -111,10 +111,10 @@ export const DestylerSliderRoot = defineComponent({
 
     function handleSlideEnd() {
       const prevValue = valuesBeforeSlideStartRef.value[valueIndexToChangeRef.value]
-      const nextValue = modelValueRef.value[valueIndexToChangeRef.value]
+      const nextValue = modelValue.value[valueIndexToChangeRef.value]
       const hasChanged = nextValue !== prevValue
       if (hasChanged)
-        emit('valueCommit', modelValueRef.value)
+        emit('valueCommit', modelValue.value)
     }
 
     function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
@@ -122,23 +122,23 @@ export const DestylerSliderRoot = defineComponent({
       const snapToStep = roundValue(Math.round((value - min.value) / step.value!) * step.value! + min.value, decimalCount)
       const nextValue = clamp(snapToStep, [min.value, max.value])
 
-      const nextValues = getNextSortedValues(modelValueRef.value, nextValue, atIndex)
+      const nextValues = getNextSortedValues(modelValue.value, nextValue, atIndex)
 
       if (hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs.value * step.value!)) {
         valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
-        const hasChanged = String(nextValues) !== String(modelValueRef.value)
+        const hasChanged = String(nextValues) !== String(modelValue.value)
         if (hasChanged && commit)
           emit('valueCommit', nextValues)
 
         if (hasChanged) {
           thumbElements.value[valueIndexToChangeRef.value]?.focus()
-          modelValueRef.value = nextValues
+          modelValue.value = nextValues
         }
       }
     }
 
     provideSliderRootContext({
-      modelValue: modelValueRef,
+      modelValue,
       valueIndexToChangeRef,
       thumbElements,
       orientation,
@@ -155,7 +155,7 @@ export const DestylerSliderRoot = defineComponent({
       dir,
       disabled,
       valuesBeforeSlideStartRef,
-      modelValueRef,
+      modelValue,
       step,
       valueIndexToChangeRef,
       isFormControl,
@@ -179,7 +179,7 @@ export const DestylerSliderRoot = defineComponent({
         'data-disabled': this.disabled,
         'onPointerdown': () => {
           if (!this.disabled)
-            this.valuesBeforeSlideStartRef = this.modelValueRef
+            this.valuesBeforeSlideStartRef = this.modelValue
         },
         'onSlideStart': (event: any) => {
           !this.disabled && this.handleSlideStart(event)
@@ -194,7 +194,7 @@ export const DestylerSliderRoot = defineComponent({
           !this.disabled && this.updateValues(this.min, 0, { commit: true })
         },
         'onEndKeyDown': () => {
-          !this.disabled && this.updateValues(this.max, this.modelValueRef.length - 1, { commit: true })
+          !this.disabled && this.updateValues(this.max, this.modelValue.length - 1, { commit: true })
         },
         'onStepKeyDown': (event: any, direction: any) => {
           if (!this.disabled) {
@@ -202,15 +202,15 @@ export const DestylerSliderRoot = defineComponent({
             const isSkipKey = isPageKey || (event.shiftKey && ARROW_KEYS.includes(event.key))
             const multiplier = isSkipKey ? 10 : 1
             const atIndex = this.valueIndexToChangeRef
-            const value = this.modelValueRef[atIndex]
+            const value = this.modelValue[atIndex]
             const stepInDirection = this.step! * multiplier * direction
             this.updateValues(value + stepInDirection, atIndex, { commit: true })
           }
         },
-      }), this.$slots.default?.({ modelValue: this.modelValueRef })),
+      }), this.$slots.default?.({ modelValue: this.modelValue })),
       this.isFormControl
         ? [
-            this.modelValueRef.map((value, index) => h('input', {
+            this.modelValue.map((value, index) => h('input', {
               key: index,
               value,
               type: 'number',
@@ -218,7 +218,7 @@ export const DestylerSliderRoot = defineComponent({
                 display: 'none',
               },
               disabled: this.disabled,
-              name: this.name ? this.name + (this.modelValueRef.length > 1 ? '[]' : '') : undefined,
+              name: this.name ? this.name + (this.modelValue.length > 1 ? '[]' : '') : undefined,
             })),
           ]
         : null,

@@ -144,12 +144,11 @@ export const BACK_KEYS: Record<SlideDirection, string[]> = {
 }
 
 type Side = 'top' | 'right' | 'bottom' | 'left'
-interface SliderOrientation {
+export interface SliderOrientation {
   startEdge: Side
   endEdge: Side
   size: 'width' | 'height'
   direction: number
 }
 
-export const [injectSliderOrientationContext, provideSliderOrientationContext]
-  = createContext<SliderOrientation>(['SliderVertical', 'SliderHorizontal'])
+export const [injectSliderOrientationContext, provideSliderOrientationContext] = createContext<SliderOrientation>(['SliderVertical', 'SliderHorizontal'])
