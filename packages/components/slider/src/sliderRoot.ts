@@ -68,7 +68,7 @@ export const destylerSliderRootProps = {
   step: {
     type: Number as PropType<number>,
     required: false,
-    step: 1,
+    default: 1,
   },
   minStepsBetweenThumbs: {
     type: Number as PropType<number>,
@@ -121,9 +121,7 @@ export const DestylerSliderRoot = defineComponent({
       const decimalCount = getDecimalCount(step.value!)
       const snapToStep = roundValue(Math.round((value - min.value) / step.value!) * step.value! + min.value, decimalCount)
       const nextValue = clamp(snapToStep, [min.value, max.value])
-
       const nextValues = getNextSortedValues(modelValue.value, nextValue, atIndex)
-
       if (hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs.value * step.value!)) {
         valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
         const hasChanged = String(nextValues) !== String(modelValue.value)

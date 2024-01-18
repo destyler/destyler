@@ -57,7 +57,7 @@ export const DestylerSliderThumbImpl = defineComponent({
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
       'ref': 'customElement',
       'role': 'slider',
-      'data-radix-vue-collection-item': '',
+      'data-destyler-collection-item': '',
       'tabindex': this.rootContext.disabled.value ? undefined : 0,
       'aria-label': this.$attrs['aria-label'] || this.label,
       'data-disabled': this.rootContext.disabled.value,

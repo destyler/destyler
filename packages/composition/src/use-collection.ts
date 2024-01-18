@@ -11,7 +11,7 @@ import {
   watch,
 } from 'vue'
 
-const ITEM_DATA_ATTR = 'data-radix-vue-collection-item'
+const ITEM_DATA_ATTR = 'data-destyler-collection-item'
 
 type ContextValue = Ref<HTMLElement[]>
 
