@@ -51,4 +51,6 @@ export const alias = {
   '@destyler/checkbox/': `${path.resolve(__dirname, 'packages/components/checkbox')}/`,
   '@destyler/progress': `${path.resolve(__dirname, 'packages/components/progress')}/src/index.ts`,
   '@destyler/progress/': `${path.resolve(__dirname, 'packages/components/progress')}/`,
+  '@destyler/slider': `${path.resolve(__dirname, 'packages/components/slider')}/src/index.ts`,
+  '@destyler/slider/': `${path.resolve(__dirname, 'packages/components/slider')}/`,
 }

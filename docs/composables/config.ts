@@ -28,6 +28,7 @@ export const asideItems = [
       { text: 'Online', link: '/components/online' },
       { text: 'Popover', link: '/components/popover' },
       { text: 'Progress', link: '/components/progress' },
+      { text: 'Slider', link: '/components/slider' },
       { text: 'Tag', link: '/components/tag' },
       { text: 'Tooltip', link: '/components/tooltip' },
 

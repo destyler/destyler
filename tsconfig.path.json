@@ -50,7 +50,9 @@
       "@destyler/checkbox": ["./packages/components/checkbox/src/index.ts"],
       "@destyler/checkbox/*": ["./packages/components/checkbox/*"],
       "@destyler/progress": ["./packages/components/progress/src/index.ts"],
-      "@destyler/progress/*": ["./packages/components/progress/*"]
+      "@destyler/progress/*": ["./packages/components/progress/*"],
+      "@destyler/slider": ["./packages/components/slider/src/index.ts"],
+      "@destyler/slider/*": ["./packages/components/slider/*"]
     }
   }
 }
