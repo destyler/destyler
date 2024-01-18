@@ -52,7 +52,9 @@
       "@destyler/progress": ["./packages/components/progress/src/index.ts"],
       "@destyler/progress/*": ["./packages/components/progress/*"],
       "@destyler/slider": ["./packages/components/slider/src/index.ts"],
-      "@destyler/slider/*": ["./packages/components/slider/*"]
+      "@destyler/slider/*": ["./packages/components/slider/*"],
+      "@destyler/dialog": ["./packages/components/dialog/src/index.ts"],
+      "@destyler/dialog/*": ["./packages/components/dialog/*"]
     }
   }
 }

@@ -36,6 +36,7 @@
     "@destyler/collapsible": "workspace:*",
     "@destyler/composition": "workspace:*",
     "@destyler/countdown": "workspace:*",
+    "@destyler/dialog": "workspace:^",
     "@destyler/dismissable-layer": "workspace:*",
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",

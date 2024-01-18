@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/progress",
+  "name": "@destyler/dialog",
   "version": "0.0.0",
-  "description": "unstyled progress component for vue",
+  "description": "unstyled dialog component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -28,8 +28,13 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:*",
+    "@destyler/composition": "workspace:0.0.1-beta.6",
+    "@destyler/directives": "workspace:0.0.1-beta.6",
+    "@destyler/dismissable-layer": "workspace:^",
+    "@destyler/focus-scope": "workspace:^",
+    "@destyler/presence": "workspace:^",
     "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@destyler/shared": "workspace:*",
+    "@destyler/teleport": "workspace:^"
   }
 }

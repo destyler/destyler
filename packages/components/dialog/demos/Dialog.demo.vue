@@ -9,7 +9,7 @@ import {
   DestylerDialogRoot,
   DestylerDialogTitle,
   DestylerDialogTrigger,
-} from '@destyler/dialog'
+} from '../src'
 
 const dialogOpen = ref(false)
 </script>
