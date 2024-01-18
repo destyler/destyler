@@ -426,6 +426,21 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/slider:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/tag:
     dependencies:
       '@destyler/primitive':
@@ -554,6 +569,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared
+      '@destyler/slider':
+        specifier: workspace:^
+        version: link:../components/slider
       '@destyler/tag':
         specifier: workspace:*
         version: link:../components/tag
@@ -691,15 +709,24 @@ importers:
         specifier: ^3.3.11
         version: 3.4.8(typescript@5.3.3)
     devDependencies:
+      '@unocss/reset':
+        specifier: ^0.58.3
+        version: 0.58.3
       '@vitejs/plugin-vue':
         specifier: ^4.5.2
         version: 4.6.2(vite@5.0.11)(vue@3.4.8)
+      unocss:
+        specifier: ^0.58.3
+        version: 0.58.3(@unocss/webpack@0.58.3)(postcss@8.4.33)(rollup@3.29.4)(vite@5.0.11)
       unplugin-vue-components:
         specifier: ^0.26.0
         version: 0.26.0(rollup@3.29.4)(vue@3.4.8)
       vite:
         specifier: ^5.0.8
         version: 5.0.11(@types/node@20.11.0)
+      vite-plugin-vue-devtools:
+        specifier: ^7.0.8
+        version: 7.0.8(rollup@3.29.4)(vite@5.0.11)
 
   private:
     dependencies:
