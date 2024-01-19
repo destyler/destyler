@@ -354,6 +354,27 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/modal:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../../composition
+      '@destyler/dialog':
+        specifier: workspace:^
+        version: link:../dialog
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:^
+        version: link:../teleport
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.8(typescript@5.3.3)
+
   packages/components/online:
     dependencies:
       '@destyler/primitive':
@@ -581,6 +602,9 @@ importers:
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/modal':
+        specifier: workspace:^
+        version: link:../components/modal
       '@destyler/online':
         specifier: workspace:*
         version: link:../components/online

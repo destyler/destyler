@@ -41,6 +41,7 @@
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
     "@destyler/label": "workspace:*",
+    "@destyler/modal": "workspace:^",
     "@destyler/online": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/popper": "workspace:*",

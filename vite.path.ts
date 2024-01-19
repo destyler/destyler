@@ -55,4 +55,6 @@ export const alias = {
   '@destyler/slider/': `${path.resolve(__dirname, 'packages/components/slider')}/`,
   '@destyler/dialog': `${path.resolve(__dirname, 'packages/components/dialog')}/src/index.ts`,
   '@destyler/dialog/': `${path.resolve(__dirname, 'packages/components/dialog')}/`,
+  '@destyler/modal': `${path.resolve(__dirname, 'packages/components/modal')}/src/index.ts`,
+  '@destyler/modal/': `${path.resolve(__dirname, 'packages/components/modal')}/`,
 }

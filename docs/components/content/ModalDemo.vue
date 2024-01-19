@@ -9,7 +9,7 @@ import {
   DestylerModalRoot,
   DestylerModalTitle,
   DestylerModalTrigger,
-} from '@destyler/modal'
+} from 'destyler'
 </script>
 
 <template>

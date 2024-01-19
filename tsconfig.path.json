@@ -54,7 +54,9 @@
       "@destyler/slider": ["./packages/components/slider/src/index.ts"],
       "@destyler/slider/*": ["./packages/components/slider/*"],
       "@destyler/dialog": ["./packages/components/dialog/src/index.ts"],
-      "@destyler/dialog/*": ["./packages/components/dialog/*"]
+      "@destyler/dialog/*": ["./packages/components/dialog/*"],
+      "@destyler/modal": ["./packages/components/modal/src/index.ts"],
+      "@destyler/modal/*": ["./packages/components/modal/*"]
     }
   }
 }
