@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.path.json",
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
@@ -6,5 +7,8 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts",
+    "../../vite.path.ts"
+  ]
 }

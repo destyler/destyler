@@ -21,5 +21,5 @@
     "skipLibCheck": true
   },
   "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "../../vite.path.ts"]
 }
