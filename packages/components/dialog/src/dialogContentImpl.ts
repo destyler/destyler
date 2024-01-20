@@ -51,6 +51,7 @@ export const DestylerDialogContentImpl = defineComponent({
         this.$emit('closeAutoFocus', event)
       },
     }, withDirectives(h(DestylerDismissableLayer, {
+      ...this.$attrs,
       'ref': 'customElement',
       'as': this.$props.as,
       'asChild': this.$props.asChild,

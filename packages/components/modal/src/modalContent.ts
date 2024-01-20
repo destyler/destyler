@@ -1,4 +1,4 @@
-import { defineComponent, h, nextTick, ref } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, ref } from 'vue'
 import { createContext } from '@destyler/shared'
 import { DestylerDialogContent, destylerDialogContentProps } from '@destyler/dialog'
 import { useEmitAsProps } from '@destyler/composition'
@@ -7,7 +7,7 @@ export interface ModalContentContext {
   onCancelElementChange(el: HTMLElement | undefined): void
 }
 
-export const [injectAlertDialogContentContext, provideAlertDialogContentContext] = createContext<ModalContentContext>('ModalContent')
+export const [injectModalContentContext, provideModalContentContext] = createContext<ModalContentContext>('ModalContent')
 
 export const destylerModalContentProps = {
   ...destylerDialogContentProps,
@@ -22,7 +22,7 @@ export const DestylerModalContent = defineComponent({
 
     const cancelElement = ref<HTMLElement | undefined>()
 
-    provideAlertDialogContentContext({
+    provideModalContentContext({
       onCancelElementChange: (el) => {
         cancelElement.value = el
       },
@@ -34,7 +34,7 @@ export const DestylerModalContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerDialogContent, {
+    return h(DestylerDialogContent, mergeProps(this.$props, this.emitsAsProps, {
       role: 'modal',
       onOpenAutoFocus: () => {
         nextTick(() => {
@@ -43,6 +43,6 @@ export const DestylerModalContent = defineComponent({
           })
         })
       },
-    }, this.$slots.default?.())
+    }), this.$slots.default?.())
   },
 })

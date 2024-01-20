@@ -3,6 +3,7 @@ import AvatarBasic from '@destyler/demo/avatar/demos/AvatarBasic.demo.vue'
 import AlertBasic from '@destyler/demo/alert/demos/AlertBasic.demo.vue'
 import CountdownDemo from '@destyler/demo/countdown/demos/Countdown.demo.vue'
 import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
+import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
 import ArrowDemo from '@destyler/demo/arrow/demos/Arrow.demo.vue'
 import PopoverDemo from '@destyler/demo/popover/demos/Popover.demo.vue'
 import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
@@ -16,5 +17,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <CollapseDemo />
+  <ModalDemo />
 </template>
