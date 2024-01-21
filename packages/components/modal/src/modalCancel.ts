@@ -1,11 +1,9 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h, mergeProps, onMounted } from 'vue'
-import { DestylerDialogClose } from '@destyler/dialog'
-import { useCustomElement } from '@destyler/composition'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
 
-import { injectModalContentContext } from './modalContent'
+import { injectModalRootContext } from './modalRoot'
 
 export const destylerModalCancelProps = {
   ...destylerPrimitiveProp,
@@ -15,25 +13,22 @@ export const destylerModalCancelProps = {
     default: 'button',
   },
 }
-
 export const DestylerModalCancel = defineComponent({
   name: 'DestylerModalCancel',
   props: destylerModalCancelProps,
   setup() {
-    const contentContext = injectModalContentContext()
-    const { customElement, currentElement } = useCustomElement()
-
-    onMounted(() => {
-      contentContext.onCancelElementChange(currentElement.value)
-    })
+    const rootContext = injectModalRootContext()
 
     return {
-      customElement,
+      rootContext,
     }
   },
   render() {
-    return h(DestylerDialogClose, mergeProps(this.$props, {
-      ref: 'customElement',
+    return h(DestylerPrimitive, mergeProps(this.$props, {
+      type: this.$props.as === 'button' ? 'button' : undefined,
+      onClick: () => {
+        this.rootContext.onOpenChange(false)
+      },
     }), this.$slots.default?.())
   },
 })

@@ -16,7 +16,7 @@ export const destylerDismissableLayerProps = {
 
 export const destylerDismissableLayerEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss']
 
-export const context = reactive({
+export const context: any = reactive({
   layersRoot: new Set<HTMLElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<HTMLElement>(),
   branches: new Set<HTMLElement>(),

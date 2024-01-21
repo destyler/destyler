@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
-    "@destyler/dialog": "workspace:*",
     "@destyler/directives": "workspace:*",
     "@destyler/dismissable-layer": "workspace:*",
     "@destyler/focus-scope": "workspace:*",

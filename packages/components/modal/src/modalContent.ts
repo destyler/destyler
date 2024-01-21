@@ -1,16 +1,18 @@
-import { defineComponent, h, mergeProps, nextTick, ref } from 'vue'
-import { createContext } from '@destyler/shared'
-import { DestylerDialogContent, destylerDialogContentProps } from '@destyler/dialog'
+import type { PropType } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
+import { DestylerPresence } from '@destyler/presence'
 
-export interface ModalContentContext {
-  onCancelElementChange(el: HTMLElement | undefined): void
-}
-
-export const [injectModalContentContext, provideModalContentContext] = createContext<ModalContentContext>('ModalContent')
+import { injectModalRootContext } from './modalRoot'
+import { destylerModalContentImplProps } from './modalContentImpl'
+import { DestylerModalContentModal } from './modalContentModal'
 
 export const destylerModalContentProps = {
-  ...destylerDialogContentProps,
+  ...destylerModalContentImplProps,
+  forceMount: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+  },
 }
 
 export const DestylerModalContent = defineComponent({
@@ -18,31 +20,22 @@ export const DestylerModalContent = defineComponent({
   props: destylerModalContentProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(_, { emit }) {
+    const rootContext = injectModalRootContext()
+
     const emitsAsProps = useEmitAsProps(emit)
 
-    const cancelElement = ref<HTMLElement | undefined>()
-
-    provideModalContentContext({
-      onCancelElementChange: (el) => {
-        cancelElement.value = el
-      },
-    })
-
     return {
-      cancelElement,
+      rootContext,
       emitsAsProps,
     }
   },
   render() {
-    return h(DestylerDialogContent, mergeProps(this.$props, this.emitsAsProps, {
-      role: 'modal',
-      onOpenAutoFocus: () => {
-        nextTick(() => {
-          this.cancelElement?.focus({
-            preventScroll: true,
-          })
-        })
+    return h(DestylerPresence, {
+      present: this.$props.forceMount || this.rootContext.open.value,
+    }, h(DestylerModalContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
+      onOpenAutoFocus: (event: any) => {
+        this.$emit('openAutoFocus', event)
       },
-    }), this.$slots.default?.())
+    }), this.$slots.default?.()))
   },
 })

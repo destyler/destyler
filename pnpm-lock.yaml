@@ -358,9 +358,6 @@ importers:
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition
-      '@destyler/dialog':
-        specifier: workspace:*
-        version: link:../dialog
       '@destyler/directives':
         specifier: workspace:*
         version: link:../../directives

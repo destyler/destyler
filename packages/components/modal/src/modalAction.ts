@@ -1,15 +1,15 @@
 import { defineComponent, h, mergeProps } from 'vue'
 
-import { DestylerDialogClose, destylerDialogCloseProps } from '@destyler/dialog'
+import { DestylerModalCancel, destylerModalCancelProps } from './modalCancel'
 
 export const destylerModalActionProps = {
-  ...destylerDialogCloseProps,
+  ...destylerModalCancelProps,
 }
 
 export const DestylerModalAction = defineComponent({
   name: 'DestylerModalAction',
   props: destylerModalActionProps,
   render() {
-    return h(DestylerDialogClose, mergeProps(this.$props), this.$slots.default?.())
+    return h(DestylerModalCancel, mergeProps(this.$props), this.$slots.default?.())
   },
 })

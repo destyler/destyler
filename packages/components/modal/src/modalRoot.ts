@@ -1,7 +1,7 @@
-import type { PropType } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
-import { useForwardPropsEmits } from '@destyler/composition'
-import { DestylerDialogRoot } from '@destyler/dialog'
+import type { PropType, Ref } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { createContext } from '@destyler/shared'
+import { useId, useVModel } from '@destyler/composition'
 
 export const destylerModalRootProps = {
   open: {
@@ -16,20 +16,53 @@ export const destylerModalRootProps = {
   },
 }
 
+export interface ModalRootContext {
+  open: Readonly<Ref<boolean>>
+  openModal(): void
+  onOpenChange(value: boolean): void
+  onOpenToggle(): void
+  triggerElement: Ref<HTMLElement | undefined>
+  contentElement: Ref<HTMLElement | undefined>
+  contentId: string
+  titleId: string
+  descriptionId: string
+}
+
+export const [injectModalRootContext, provideModalRootContext]
+  = createContext<ModalRootContext>('ModalRoot')
+
 export const DestylerModalRoot = defineComponent({
   name: 'DestylerModalRoot',
   props: destylerModalRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
-    const forwarded = useForwardPropsEmits(props, emit)
+    const open = useVModel(props, 'open', emit, {
+      defaultValue: props.defaultOpen,
+      passive: (props.open === undefined) as false,
+    }) as Ref<boolean>
 
-    return {
-      forwarded,
-    }
+    const triggerElement = ref<HTMLElement>()
+    const contentElement = ref<HTMLElement>()
+
+    provideModalRootContext({
+      open,
+      openModal: () => {
+        open.value = true
+      },
+      onOpenChange: (value) => {
+        open.value = value
+      },
+      onOpenToggle: () => {
+        open.value = !open.value
+      },
+      contentId: useId(),
+      titleId: useId(),
+      descriptionId: useId(),
+      triggerElement,
+      contentElement,
+    })
   },
   render() {
-    return h(DestylerDialogRoot, mergeProps(this.forwarded, {
-      modal: true,
-    }), this.$slots.default?.())
+    return this.$slots.default?.()
   },
 })
