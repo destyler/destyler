@@ -15,7 +15,7 @@ const dialogOpen = ref(false)
 </script>
 
 <template>
-  <DestylerDialogRoot v-model:open="dialogOpen" modal>
+  <DestylerDialogRoot v-model:open="dialogOpen">
     <DestylerDialogTrigger>
       Open Dialog
     </DestylerDialogTrigger>

@@ -17,7 +17,7 @@ export const destylerDialogRootProps = {
   modal: {
     type: Boolean as PropType<boolean>,
     required: false,
-    modal: true,
+    default: true,
   },
 }
 

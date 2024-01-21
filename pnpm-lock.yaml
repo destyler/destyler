@@ -362,7 +362,7 @@ importers:
         specifier: workspace:*
         version: link:../dialog
       '@destyler/primitive':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
         specifier: workspace:*
@@ -3780,7 +3780,7 @@ packages:
       pathe: 1.1.2
       vite-dev-rpc: 0.1.4(vite@5.0.11)
       vite-hot-client: 0.2.3(vite@5.0.11)
-      vite-plugin-inspect: 0.8.1(@nuxt/kit@3.9.3)(rollup@3.29.4)(vite@5.0.11)
+      vite-plugin-inspect: 0.8.1(@nuxt/kit@3.9.1)(rollup@3.29.4)(vite@5.0.11)
     transitivePeerDependencies:
       - '@nuxt/kit'
       - rollup
@@ -10952,7 +10952,7 @@ packages:
       execa: 8.0.1
       sirv: 2.0.4
       vite: 5.0.11(@types/node@20.11.0)
-      vite-plugin-inspect: 0.8.1(@nuxt/kit@3.9.3)(rollup@3.29.4)(vite@5.0.11)
+      vite-plugin-inspect: 0.8.1(@nuxt/kit@3.9.1)(rollup@3.29.4)(vite@5.0.11)
       vite-plugin-vue-inspector: 4.0.2(vite@5.0.11)
     transitivePeerDependencies:
       - '@nuxt/kit'
