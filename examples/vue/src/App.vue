@@ -10,6 +10,7 @@ import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
 import DismissableLayerDemo from '@destyler/demo/dismissableLayer/demos/DismissableLayer.demo.vue'
 import FocusScopeDemo from '@destyler/demo/focusScope/demos/FocusScope.demo.vue'
 import PopperDemo from '@destyler/demo/popper/demos/Popper.demo.vue'
+import InfoDemo from '@destyler/demo/info/demos/Info.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -17,5 +18,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <ModalDemo />
+  <InfoDemo />
 </template>
