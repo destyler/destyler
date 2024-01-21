@@ -28,7 +28,6 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "@destyler/alert": "workspace:*",
     "@destyler/arrow": "workspace:*",
     "@destyler/avatar": "workspace:*",
     "@destyler/checkbox": "workspace:*",
@@ -40,6 +39,7 @@
     "@destyler/dismissable-layer": "workspace:*",
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
+    "@destyler/info": "workspace:^",
     "@destyler/label": "workspace:*",
     "@destyler/modal": "workspace:^",
     "@destyler/online": "workspace:*",
@@ -50,7 +50,6 @@
     "@destyler/progress": "workspace:*",
     "@destyler/shared": "workspace:*",
     "@destyler/slider": "workspace:^",
-    "@destyler/tag": "workspace:*",
     "@destyler/teleport": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/visually-hidden": "workspace:*"

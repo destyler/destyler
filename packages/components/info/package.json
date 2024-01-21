@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/tag",
+  "name": "@destyler/info",
   "version": "0.0.0",
-  "description": "unstyled tag component for vue",
+  "description": "unstyled info component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -28,6 +28,8 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/primitive": "workspace:*"
+    "@destyler/composition": "workspace:*",
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:*"
   }
 }

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { DestylerTag } from 'destyler'
+import { DestylerInfoRoot } from 'destyler'
 </script>
 
 <template>
-  <DestylerTag class="text-sm px-2.5 py-1.5 inline-flex items-center font-medium rounded-md text-xs px-2 py-1 bg-green-50 dark:bg-green-400 dark:bg-opacity-10 text-green-500 dark:text-green-400 ring-1 ring-inset ring-green-500 dark:ring-green-400 ring-opacity-10 dark:ring-opacity-20">
+  <DestylerInfoRoot class="text-sm px-2.5 py-1.5 inline-flex items-center font-medium rounded-md text-xs px-2 py-1 bg-green-50 dark:bg-green-400 dark:bg-opacity-10 text-green-500 dark:text-green-400 ring-1 ring-inset ring-green-500 dark:ring-green-400 ring-opacity-10 dark:ring-opacity-20">
     Tag
-  </DestylerTag>
+  </DestylerInfoRoot>
 </template>
