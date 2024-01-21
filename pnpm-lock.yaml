@@ -586,9 +586,6 @@ importers:
 
   packages/destyler:
     dependencies:
-      '@destyler/alert':
-        specifier: workspace:*
-        version: link:../components/alert
       '@destyler/arrow':
         specifier: workspace:*
         version: link:../components/arrow
@@ -622,6 +619,9 @@ importers:
       '@destyler/icon':
         specifier: workspace:*
         version: link:../components/icon
+      '@destyler/info':
+        specifier: workspace:^
+        version: link:../components/info
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
@@ -652,9 +652,6 @@ importers:
       '@destyler/slider':
         specifier: workspace:^
         version: link:../components/slider
-      '@destyler/tag':
-        specifier: workspace:*
-        version: link:../components/tag
       '@destyler/teleport':
         specifier: workspace:*
         version: link:../components/teleport

@@ -6,6 +6,9 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
+    "paths": {
+      "@vue/runtime-core": ["../../../node_modules/@vue/runtime-core"]
+    },
     "resolveJsonModule": true,
     "types": [
       "vite/client",
