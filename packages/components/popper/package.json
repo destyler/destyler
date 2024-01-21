@@ -32,6 +32,6 @@
     "@destyler/composition": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@floating-ui/vue": "^1.0.3"
+    "@floating-ui/vue": "^1.0.4"
   }
 }
