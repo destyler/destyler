@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
 import Dialogdemo from '@destyler/demo/dialog/demos/Dialog.demo.vue'
+import ButtonDemo from '@destyler/demo/button/demos/Button.demo.vue'
 </script>
 
 <template>
   <div>
-    <ClientOnly>
-      <ModalDemo />
-    </ClientOnly>
-    <Dialogdemo />
+    <ButtonDemo />
   </div>
 </template>

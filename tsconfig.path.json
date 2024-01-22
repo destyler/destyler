@@ -58,7 +58,9 @@
       "@destyler/modal": ["./packages/components/modal/src/index.ts"],
       "@destyler/demo/modal/*": ["./packages/components/modal/*"],
       "@destyler/info": ["./packages/components/info/src/index.ts"],
-      "@destyler/demo/info/*": ["./packages/components/info/*"]
+      "@destyler/demo/info/*": ["./packages/components/info/*"],
+      "@destyler/button": ["./packages/components/button/src/index.ts"],
+      "@destyler/demo/button/*": ["./packages/components/button/*"]
     }
   }
 }

@@ -161,15 +161,6 @@ importers:
         specifier: ^1.8.27
         version: 1.8.27(typescript@5.3.3)
 
-  packages/components/alert:
-    dependencies:
-      '@destyler/primitive':
-        specifier: workspace:*
-        version: link:../primitive
-      vue:
-        specifier: '>=3.3.4'
-        version: 3.4.8(typescript@5.3.3)
-
   packages/components/arrow:
     dependencies:
       '@destyler/composition':
@@ -196,6 +187,15 @@ importers:
       vue:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
+
+  packages/components/button:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
 
   packages/components/checkbox:
     dependencies:
@@ -515,15 +515,6 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
-  packages/components/tag:
-    dependencies:
-      '@destyler/primitive':
-        specifier: workspace:*
-        version: link:../primitive
-      vue:
-        specifier: '>=3.3.4'
-        version: 3.4.8(typescript@5.3.3)
-
   packages/components/teleport:
     dependencies:
       '@destyler/composition':
@@ -592,6 +583,9 @@ importers:
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
+      '@destyler/button':
+        specifier: workspace:*
+        version: link:../components/button
       '@destyler/checkbox':
         specifier: workspace:*
         version: link:../components/checkbox
