@@ -1,6 +1,7 @@
-import type { PropType, VNodeChild } from 'vue'
-import { defineComponent, h, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import type { Component, PropType, VNodeChild } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 
 export interface CountdownTimeInfo {
   hours: number
@@ -14,7 +15,16 @@ export interface CountdownInst {
 }
 
 export const destylerCountdownProps = {
-  ...destylerPrimitiveProp,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'template',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: true,
+  },
   duration: {
     type: Number as PropType<number>,
     default: 0,
@@ -37,6 +47,7 @@ export const destylerCountdownProps = {
 
 const DestylerCountdown = defineComponent({
   name: 'DestylerCountdown',
+  inheritAttrs: false,
   props: destylerCountdownProps,
   setup(props) {
     let timerId: number | null = null
@@ -168,10 +179,10 @@ const DestylerCountdown = defineComponent({
       case 3:
         timeInfo = this.getTimeInfo(this.distance)
     }
-    return h(DestylerPrimitive, {
-      as: 'template',
-      asChild: true,
-    }, [
+    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+      as: this.$props.as,
+      asChild: this.$props.asChild,
+    }), [
       this.render ? this.render(timeInfo) : this.getDisplayValue(timeInfo),
     ])
   },
