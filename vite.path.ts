@@ -61,4 +61,6 @@ export const alias = {
   '@destyler/demo/info/': `${path.resolve(__dirname, 'packages/components/info')}/`,
   '@destyler/button': `${path.resolve(__dirname, 'packages/components/button')}/src/index.ts`,
   '@destyler/demo/button/': `${path.resolve(__dirname, 'packages/components/button')}/`,
+  '@destyler/backTop': `${path.resolve(__dirname, 'packages/components/backTop')}/src/index.ts`,
+  '@destyler/demo/backTop/': `${path.resolve(__dirname, 'packages/components/backTop')}/`,
 }
