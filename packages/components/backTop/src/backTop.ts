@@ -1,0 +1,88 @@
+import type { Component, PropType } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { getScrollParent, isDocument, unwrapElement } from '@destyler/shared'
+import { useCustomElement } from '@destyler/composition'
+
+export const destylerBackTopProps = {
+  ...destylerPrimitiveProp,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'button',
+  },
+  listen: {
+    type: [String, Object, Function] as PropType<string | HTMLElement | Document | (() => HTMLElement | Document)>,
+    required: false,
+    default: undefined,
+  },
+}
+
+export const DestylerBackTop = defineComponent({
+  name: 'DestylerBackTop',
+  props: destylerBackTopProps,
+  setup(props) {
+    const scrollTop = ref<number | null>(null)
+    const DomInfoReady = ref<boolean>(false)
+    let scrollElement: HTMLElement | Document
+    let scrollListenerRegistered: boolean
+
+    const { currentElement, customElement } = useCustomElement()
+
+    function init(): void {
+      if (scrollListenerRegistered)
+        return
+      scrollListenerRegistered = true
+      const scrollEl = unwrapElement(props.listen) || getScrollParent(currentElement.value)
+      if (!scrollEl)
+        return
+
+      scrollElement = scrollEl === document.documentElement ? document : scrollEl
+
+      scrollElement.addEventListener('scroll', handleScroll)
+      handleScroll()
+    }
+
+    function handleScroll(): void {
+      scrollTop.value = (isDocument(scrollElement) ? document.documentElement : scrollElement).scrollTop
+      if (!DomInfoReady.value) {
+        void nextTick(() => {
+          DomInfoReady.value = true
+        })
+      }
+    }
+
+    function handleClick(): void {
+      (isDocument(scrollElement)
+        ? document.documentElement
+        : scrollElement
+      ).scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
+
+    onMounted(() => {
+      init()
+    })
+
+    onBeforeUnmount(() => {
+      if (scrollElement)
+        scrollElement.removeEventListener('scroll', handleScroll)
+    })
+
+    return {
+      customElement,
+      handleClick,
+    }
+  },
+  render() {
+    return h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+      ref: 'customElement',
+      onClick: () => {
+        this.handleClick()
+      },
+    }), this.$slots.default?.())
+  },
+})

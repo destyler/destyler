@@ -7,6 +7,7 @@ import ArrowDemo from '@destyler/demo/arrow/demos/Arrow.demo.vue'
 import PopoverDemo from '@destyler/demo/popover/demos/Popover.demo.vue'
 import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
 import DismissableLayerDemo from '@destyler/demo/dismissableLayer/demos/DismissableLayer.demo.vue'
+import BackTopDemo from '@destyler/demo/backTop/demos/BackTop.demo.vue'
 import FocusScopeDemo from '@destyler/demo/focusScope/demos/FocusScope.demo.vue'
 import PopperDemo from '@destyler/demo/popper/demos/Popper.demo.vue'
 import InfoDemo from '@destyler/demo/info/demos/Info.demo.vue'
@@ -18,5 +19,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <ButtonDemo />
+  <BackTopDemo />
 </template>
