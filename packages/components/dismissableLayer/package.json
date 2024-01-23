@@ -1,6 +1,6 @@
 {
   "name": "@destyler/dismissable-layer",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.6",
   "description": "unstyled dismissableLayer component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
