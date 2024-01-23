@@ -191,13 +191,13 @@ importers:
   packages/components/backTop:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -287,10 +287,10 @@ importers:
   packages/components/dialog:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/directives':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../../directives
       '@destyler/dismissable-layer':
         specifier: workspace:^
