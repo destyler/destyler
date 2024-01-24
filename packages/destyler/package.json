@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@destyler/arrow": "workspace:*",
+    "@destyler/aspect-radio": "workspace:*",
     "@destyler/avatar": "workspace:*",
     "@destyler/back-top": "workspace:*",
     "@destyler/button": "workspace:*",

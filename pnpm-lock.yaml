@@ -604,6 +604,9 @@ importers:
       '@destyler/arrow':
         specifier: workspace:*
         version: link:../components/arrow
+      '@destyler/aspect-radio':
+        specifier: workspace:*
+        version: link:../components/aspectRatio
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar

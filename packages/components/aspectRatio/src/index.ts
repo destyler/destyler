@@ -1,2 +1,2 @@
-export * from './aspectRatio'
+export * from './aspectRadio'
 export * from './resolver'

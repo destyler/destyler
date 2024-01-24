@@ -13,6 +13,7 @@ export const destylerAspectRadioProps = {
 
 export const DestylerAspectRadio = defineComponent({
   name: 'DestylerAspectRadio',
+  inheritAttrs: false,
   props: destylerAspectRadioProps,
   setup(props) {
     const aspect = computed(() => {
