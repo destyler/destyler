@@ -13,5 +13,5 @@ layout: component
 ## Install
 
 ```bash
-pnpm install @destyler/aspect-ratio
+pnpm install @destyler/aspect-radio
 ```
