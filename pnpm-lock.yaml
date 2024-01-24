@@ -173,7 +173,7 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
-  packages/components/aspectRatio:
+  packages/components/aspectRadio:
     dependencies:
       '@destyler/primitive':
         specifier: workspace:*
@@ -606,7 +606,7 @@ importers:
         version: link:../components/arrow
       '@destyler/aspect-radio':
         specifier: workspace:*
-        version: link:../components/aspectRatio
+        version: link:../components/aspectRadio
       '@destyler/avatar':
         specifier: workspace:*
         version: link:../components/avatar
