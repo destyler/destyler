@@ -62,7 +62,9 @@
       "@destyler/button": ["./packages/components/button/src/index.ts"],
       "@destyler/demo/button/*": ["./packages/components/button/*"],
       "@destyler/backTop": ["./packages/components/backTop/src/index.ts"],
-      "@destyler/demo/backTop/*": ["./packages/components/backTop/*"]
+      "@destyler/demo/backTop/*": ["./packages/components/backTop/*"],
+      "@destyler/aspectRatio": ["./packages/components/backTop/src/index.ts"],
+      "@destyler/demo/aspectRatio/*": ["./packages/components/backTop/*"]
     }
   }
 }

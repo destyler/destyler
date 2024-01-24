@@ -173,6 +173,15 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/aspectRatio:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/avatar:
     dependencies:
       '@destyler/composition':
