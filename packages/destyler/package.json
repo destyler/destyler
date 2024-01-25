@@ -49,6 +49,7 @@
     "@destyler/popover": "workspace:*",
     "@destyler/popper": "workspace:*",
     "@destyler/presence": "workspace:*",
+    "@destyler/preview": "workspace:0.0.1-beta.6",
     "@destyler/primitive": "workspace:*",
     "@destyler/progress": "workspace:*",
     "@destyler/shared": "workspace:*",
