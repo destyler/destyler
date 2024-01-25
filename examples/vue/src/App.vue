@@ -13,6 +13,7 @@ import PopperDemo from '@destyler/demo/popper/demos/Popper.demo.vue'
 import InfoDemo from '@destyler/demo/info/demos/Info.demo.vue'
 import ButtonDemo from '@destyler/demo/button/demos/Button.demo.vue'
 import AspectRatioDemo from '@destyler/demo/aspectRadio/demos/AspectRadio.demo.vue'
+import PreviewDemo from '@destyler/demo/preview/demos/Preview.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -20,5 +21,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <AspectRatioDemo />
+  <PreviewDemo />
 </template>

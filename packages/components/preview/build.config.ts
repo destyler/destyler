@@ -8,6 +8,7 @@ export default defineBuildConfig({
     'vue',
     'unplugin-vue-components',
     'unplugin-auto-import',
+    '@vue/runtime-core',
   ],
   clean: true,
   declaration: true,

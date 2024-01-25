@@ -499,9 +499,21 @@ importers:
 
   packages/components/preview:
     dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.8
+        version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:0.0.1-beta.8
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.8
+        version: link:../teleport
+      '@vueuse/core':
+        specifier: ^10.7.2
+        version: 10.7.2(vue@3.4.15)
       vue:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
@@ -673,6 +685,9 @@ importers:
       '@destyler/presence':
         specifier: workspace:*
         version: link:../components/presence
+      '@destyler/preview':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/preview
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../components/primitive
@@ -1821,7 +1836,7 @@ packages:
     dependencies:
       '@nuxt/kit': 3.9.1(rollup@3.29.4)
       '@nuxtjs/mdc': 0.3.0(rollup@3.29.4)
-      '@vueuse/core': 10.7.1(vue@3.4.15)
+      '@vueuse/core': 10.7.2(vue@3.4.15)
       '@vueuse/head': 2.0.0(vue@3.4.15)
       '@vueuse/nuxt': 10.7.1(nuxt@3.9.3)(rollup@3.29.4)(vue@3.4.15)
       consola: 3.2.3

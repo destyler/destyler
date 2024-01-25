@@ -28,6 +28,10 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/primitive": "workspace:*"
+    "@destyler/composition": "workspace:0.0.1-beta.8",
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:0.0.1-beta.8",
+    "@destyler/teleport": "workspace:0.0.1-beta.8",
+    "@vueuse/core": "^10.7.2"
   }
 }

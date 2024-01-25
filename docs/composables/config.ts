@@ -32,6 +32,7 @@ export const asideItems = [
       { text: 'Modal', link: '/components/modal' },
       { text: 'Online', link: '/components/online' },
       { text: 'Popover', link: '/components/popover' },
+      { text: 'Preview', link: '/components/preview' },
       { text: 'Progress', link: '/components/progress' },
       { text: 'Slider', link: '/components/slider' },
       { text: 'Tag', link: '/components/tag' },

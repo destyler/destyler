@@ -17,5 +17,6 @@ export * from './vue/render-slot-fragments'
 export * from './vue/computed-eager'
 export * from './vue/computed-with-control'
 export * from './vue/try-on-scope-dispose'
+export * from './vue/ref-auto-reset'
 
 export * from './types'
