@@ -9,6 +9,6 @@ import PreviewDemo from '@destyler/demo/preview/demos/Preview.demo.vue'
 
 <template>
   <div>
-    <PreviewDemo />
+    <Dialogdemo />
   </div>
 </template>

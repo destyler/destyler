@@ -21,9 +21,9 @@ export const DestylerDialogOverlayImpl = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
-      "style": {
+      'style': {
         'pointer-events': 'auto',
-      }
+      },
     }, this.$slots.default?.())
   },
 })
