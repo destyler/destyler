@@ -71,7 +71,7 @@ export const DestylerModalContentImpl = defineComponent({
       'onInteractOutside': (event) => {
         this.$emit('interactOutside', event)
       },
-      'onPoInterDownOutside': (event) => {
+      'onPointerDownOutside': (event) => {
         this.$emit('pointerDownOutside', event)
       },
     }, this.$slots.default?.()), [
