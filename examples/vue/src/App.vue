@@ -22,5 +22,5 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <Dialogdemo />
+  <PopoverDemo />
 </template>

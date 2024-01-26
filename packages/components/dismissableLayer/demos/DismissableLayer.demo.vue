@@ -3,17 +3,22 @@ import { ref } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 import { DestylerDismissableLayer } from '../src'
 
-defineProps<{
+withDefaults(defineProps<{
   openLabel?: string
   closeLabel?: string
   outsideLabel?: string
-}>()
+}>(), {
+  openLabel: 'Open',
+  closeLabel: 'Close',
+  outsideLabel: 'Outside',
+})
 
 const emits = defineEmits(['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'])
 
 const open = ref(false)
 
 function handleDismiss() {
+  console.info('Dismissed')
   open.value = false
 }
 </script>

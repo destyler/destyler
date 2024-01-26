@@ -36,8 +36,7 @@ export function usePointerDownOutside(
   onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
   element?: Ref<HTMLElement | undefined>,
 ) {
-  const ownerDocument: Document
-    = element?.value?.ownerDocument ?? globalThis?.document
+  const ownerDocument: Document = element?.value?.ownerDocument ?? globalThis?.document
 
   const isPointerInsideDOMTree = ref(false)
   const handleClickRef = ref(() => {})

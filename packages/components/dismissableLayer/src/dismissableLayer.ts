@@ -25,7 +25,7 @@ export const context: any = reactive({
 export const DestylerDismissableLayer = defineComponent({
   name: 'DestylerDismissableLayer',
   props: destylerDismissableLayerProps,
-  emits: destylerDismissableLayerEmits,
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
     const { customElement, currentElement: layerElement } = useCustomElement()
 
@@ -128,13 +128,19 @@ export const DestylerDismissableLayer = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': 'currentElement',
+      'ref': 'customElement',
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-dismissable-layer': '',
-      'onFocusCapture': this.focusOutside.onFocusCapture,
-      'onBlurCapture': this.focusOutside.onBlurCapture,
-      'onPointerdownCapture': this.pointerDownOutside.onPointerDownCapture,
+      'onFocusCapture': () => {
+        this.focusOutside.onFocusCapture()
+      },
+      'onBlurCapture': () => {
+        this.focusOutside.onBlurCapture()
+      },
+      'onPointerDownOutside': () => {
+        this.pointerDownOutside.onPointerDownCapture()
+      },
       'style': {
         pointerEvents: this.isBodyPointerEventsDisabled
           ? this.isPointerEventsEnabled

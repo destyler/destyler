@@ -20,32 +20,25 @@ const dialogOpen = ref(false)
       Open Dialog
     </DestylerDialogTrigger>
     <DestylerDialogPortal>
-      <Transition name="fade">
-        <DestylerDialogOverlay />
-      </Transition>
-      <Transition name="fade">
-        <DestylerDialogContent
-          :is-escape-key-down-default="true"
-          @pointer-down-outside.prevent
-        >
-          <DestylerDialogTitle>
-            Open Dialog
-          </DestylerDialogTitle>
-          <DestylerDialogDescription>
-            Open Dialog Description
-          </DestylerDialogDescription>
-          <div>
-            content
-          </div>
-          <div>
-            <DestylerDialogClose as-child>
-              <button>
-                close
-              </button>
-            </DestylerDialogClose>
-          </div>
-        </DestylerDialogContent>
-      </Transition>
+      <DestylerDialogOverlay />
+      <DestylerDialogContent>
+        <DestylerDialogTitle>
+          Open Dialog
+        </DestylerDialogTitle>
+        <DestylerDialogDescription>
+          Open Dialog Description
+        </DestylerDialogDescription>
+        <div>
+          content
+        </div>
+        <div>
+          <DestylerDialogClose as-child>
+            <button>
+              close
+            </button>
+          </DestylerDialogClose>
+        </div>
+      </DestylerDialogContent>
     </DestylerDialogPortal>
   </DestylerDialogRoot>
 </template>

@@ -33,6 +33,8 @@ export const DestylerDialogTrigger = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
       'ref': 'customElement',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-haspopup': 'dialog',
