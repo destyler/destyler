@@ -59,9 +59,6 @@ export const DestylerModalContentImpl = defineComponent({
       'aria-describedby': this.rootContext.descriptionId,
       'aria-labelledby': this.rootContext.titleId,
       'data-state': getOpenState(this.rootContext.open.value),
-      'onDismiss': () => {
-        this.rootContext.onOpenChange(false)
-      },
       'onEscapeKeyDown': (event) => {
         this.$emit('escapeKeyDown', event)
       },

@@ -9,8 +9,7 @@ import {
   DestylerDialogRoot,
   DestylerDialogTitle,
   DestylerDialogTrigger,
-  DestylerIcon,
-} from 'destyler'
+} from '../src'
 
 const dialogOpen = ref(false)
 </script>
@@ -38,12 +37,12 @@ const dialogOpen = ref(false)
           </DestylerDialogDescription>
         </div>
         <DestylerDialogClose class="absolute right-4 top-4 rounded-sm opacity-70 dark:ring-offset-#FFFFFF dark:ring-offset-#09090B transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none" as-child>
-          <DestylerIcon name="i-ri-close-line" class="w-4 h-4 text-#71717A dark:text-#A1A1AA cursor-pointer" />
+          close
         </DestylerDialogClose>
 
         <div class="w-full flex justify-end">
           <DestylerDialogClose as-child>
-            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 bg-#18181B dark:bg-#FAFAFA text-#FAFAFA dark:text-#18181B shadow hover:bg-#18181B/90 dark:hover:bg-#FAFAFA/90 h-9 px-4 py-2">
+            <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 bg-#18181B! dark:bg-#FAFAFA dark:hover:bg-#FAFAFA/90 hover:bg-#18181B/90 dark:text-#18181B text-#FAFAFA shadow h-9 px-4 py-2">
               Sure
             </button>
           </DestylerDialogClose>

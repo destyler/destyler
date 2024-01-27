@@ -66,7 +66,8 @@
       "@destyler/aspectRadio": ["./packages/components/aspectRadio/src/index.ts"],
       "@destyler/demo/aspectRadio/*": ["./packages/components/aspectRadio/*"],
       "@destyler/preview": ["./packages/components/preview/src/index.ts"],
-      "@destyler/demo/preview/*": ["./packages/components/preview/*"]
+      "@destyler/demo/preview/*": ["./packages/components/preview/*"],
+      "@destyler/docs/*": ["./docs/components/content/*"]
     }
   }
 }

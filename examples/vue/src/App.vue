@@ -4,8 +4,10 @@ import CountdownDemo from '@destyler/demo/countdown/demos/Countdown.demo.vue'
 import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
 import Dialogdemo from '@destyler/demo/dialog/demos/Dialog.demo.vue'
+import DialogCssdemo from '@destyler/demo/dialog/demos/Dialog.unocss.demo.vue'
 import ArrowDemo from '@destyler/demo/arrow/demos/Arrow.demo.vue'
 import PopoverDemo from '@destyler/demo/popover/demos/Popover.demo.vue'
+import PopoverCssDemo from '@destyler/demo/popover/demos/Popover.unocss.demo.vue'
 import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
 import DismissableLayerDemo from '@destyler/demo/dismissableLayer/demos/DismissableLayer.demo.vue'
 import BackTopDemo from '@destyler/demo/backTop/demos/BackTop.demo.vue'
@@ -15,6 +17,7 @@ import InfoDemo from '@destyler/demo/info/demos/Info.demo.vue'
 import ButtonDemo from '@destyler/demo/button/demos/Button.demo.vue'
 import AspectRatioDemo from '@destyler/demo/aspectRadio/demos/AspectRadio.demo.vue'
 import PreviewDemo from '@destyler/demo/preview/demos/Preview.demo.vue'
+import DocsDialogDemo from '@destyler/docs/DialogDemo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -22,5 +25,17 @@ import Collapse from './components/Cpllapse.vue'
 </script>
 
 <template>
-  <PopoverDemo />
+  <div>
+    <DialogCssdemo />
+  </div>
+  <div>
+    <Dialogdemo />
+  </div>
+
+  <div>
+    <PopoverCssDemo />
+  </div>
+  <div>
+    <PopoverDemo />
+  </div>
 </template>

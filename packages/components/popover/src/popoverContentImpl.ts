@@ -36,7 +36,7 @@ export const DestylerPopoverContentImpl = defineComponent({
   },
   render() {
     return h(DestylerFocusScope, {
-      asChild: this.$props.asChild,
+      asChild: true,
       loop: true,
       trapped: this.$props.trapFocus,
       onMountAutoFocus: (event) => {
@@ -46,7 +46,7 @@ export const DestylerPopoverContentImpl = defineComponent({
         this.$emit('closeAutoFocus', event)
       },
     }, h(DestylerDismissableLayer, {
-      asChild: this.$props.asChild,
+      asChild: true,
       disableOutsidePointerEvents: this.$props.disableOutsidePointerEvents,
       onPointerDownOutside: (event) => {
         this.$emit('pointerDownOutside', event)

@@ -8,12 +8,9 @@ import {
   DestylerPopoverRoot,
   DestylerPopoverTrigger,
 } from '../src'
-
-const status = ref(false)
 </script>
 
 <template>
-  {{ status }}
   <DestylerPopoverRoot>
     <DestylerPopoverTrigger
       aria-label="Update dimensions"
@@ -30,12 +27,9 @@ const status = ref(false)
             Dimensions
           </p>
         </div>
-        <DestylerPopoverClose
-          aria-label="Close"
-        >
-          Close
-        </DestylerPopoverClose>
-        <DestylerPopoverArrow />
+        <div>
+          11
+        </div>
       </DestylerPopoverContent>
     </DestylerPopoverPortal>
   </DestylerPopoverRoot>

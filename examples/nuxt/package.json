@@ -1,7 +1,6 @@
 {
-  "name": "nuxt-app",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -13,5 +12,9 @@
     "nuxt": "^3.9.3",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@unocss/nuxt": "^0.58.3",
+    "unocss": "^0.58.3"
   }
 }

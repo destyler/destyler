@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
 
@@ -41,11 +41,9 @@ export const DestylerPopoverContent = defineComponent({
     }, useVShow
       ? h(DestylerPopoverContentModal, {
         ...this.forwarded,
-        ...mergeProps(this.$attrs),
       }, this.$slots.default?.())
       : h(DestylerPopoverContentNonModal, {
         ...this.forwarded,
-        ...mergeProps(this.$attrs),
       }, this.$slots.default?.()))
   },
 })

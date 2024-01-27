@@ -29,12 +29,12 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
-    "@destyler/dismissable-layer": "workspace:^",
+    "@destyler/dismissable-layer": "workspace:*",
     "@destyler/popper": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@destyler/teleport": "workspace:^",
-    "@destyler/visually-hidden": "workspace:^",
+    "@destyler/teleport": "workspace:*",
+    "@destyler/visually-hidden": "workspace:*",
     "@vueuse/core": "^10.7.2"
   }
 }

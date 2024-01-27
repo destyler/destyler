@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, ref } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { DestylerPopoverContentImpl, destylerPopoverContentImplEmits, destylerPopoverContentImplProps } from './popoverContentImpl'
 
@@ -23,7 +23,7 @@ export const DestylerPopoverContentNonModal = defineComponent({
   },
   render() {
     return h(DestylerPopoverContentImpl, {
-      ...mergeProps(this.forwarded),
+      ...this.forwarded,
       trapFocus: false,
       disableOutsidePointerEvents: false,
       onCloseAutoFocus: (event) => {

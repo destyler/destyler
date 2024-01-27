@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { DestylerPopoverContent, DestylerPopoverPortal, DestylerPopoverRoot, DestylerPopoverTrigger } from 'destyler'
+import { DestylerPopoverClose, DestylerPopoverContent, DestylerPopoverPortal, DestylerPopoverRoot, DestylerPopoverTrigger } from '../src'
 
 const openStatus = ref(false)
 </script>
 
 <template>
-  <DestylerPopoverRoot v-model:open="openStatus">
+  <DestylerPopoverRoot>
     <DestylerPopoverTrigger
       aria-label="Update dimensions"
     >

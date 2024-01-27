@@ -61,8 +61,7 @@ export const DestylerDismissableLayer = defineComponent({
       emit('pointerDownOutside', event)
       emit('interactOutside', event)
       await nextTick()
-      if (!event.defaultPrevented)
-        emit('dismiss')
+      emit('dismiss')
     }, layerElement)
 
     const focusOutside = useFocusOutside((event) => {
@@ -74,8 +73,7 @@ export const DestylerDismissableLayer = defineComponent({
         return
       emit('focusOutside', event)
       emit('interactOutside', event)
-      if (!event.defaultPrevented)
-        emit('dismiss')
+      emit('dismiss')
     }, layerElement)
 
     onKeyStroke('Escape', (event) => {
@@ -83,8 +81,7 @@ export const DestylerDismissableLayer = defineComponent({
       if (!isHighestLayer)
         return
       emit('escapeKeyDown', event)
-      if (!event.defaultPrevented)
-        emit('dismiss')
+      emit('dismiss')
     })
 
     let originalBodyPointerEvents: string
@@ -132,15 +129,9 @@ export const DestylerDismissableLayer = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-dismissable-layer': '',
-      'onFocusCapture': () => {
-        this.focusOutside.onFocusCapture()
-      },
-      'onBlurCapture': () => {
-        this.focusOutside.onBlurCapture()
-      },
-      'onPointerDownOutside': () => {
-        this.pointerDownOutside.onPointerDownCapture()
-      },
+      'onFocusCapture': this.focusOutside.onFocusCapture,
+      'onBlurCapture': this.focusOutside.onBlurCapture,
+      'onPointerDownOutside': this.pointerDownOutside.onPointerDownCapture,
       'style': {
         pointerEvents: this.isBodyPointerEventsDisabled
           ? this.isPointerEventsEnabled
