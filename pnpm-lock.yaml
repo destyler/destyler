@@ -555,16 +555,19 @@ importers:
   packages/components/select:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../composition
+      '@destyler/popper':
+        specifier: workspace:*
+        version: link:../popper
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       '@destyler/visually-hidden':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../visuallyHidden
       vue:
         specifier: '>=3.3.4'

@@ -9,6 +9,7 @@ export default defineBuildConfig({
     'unplugin-vue-components',
     'unplugin-auto-import',
     '@vue/reactivity',
+    'vue-demi',
   ],
   clean: true,
   declaration: true,

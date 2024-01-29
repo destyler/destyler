@@ -1,12 +1,7 @@
-import type { ExtractPropTypes } from 'vue'
+export const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown']
+export const SELECTION_KEYS = [' ', 'Enter']
+export const CONTENT_MARGIN = 10
 
-type RemoveReadonly<T> = {
-  -readonly [key in keyof T]: T[key]
+export function shouldShowPlaceholder(value?: string) {
+  return value === '' || value === undefined
 }
-
-export type ExtractPublicPropTypes<T> = Omit<
-Partial<RemoveReadonly<ExtractPropTypes<T>>>,
-| Extract<keyof T, `internal${string}`>
->
-
-export type ExtractInternalPropTypes<T> = Partial<ExtractPropTypes<T>>
