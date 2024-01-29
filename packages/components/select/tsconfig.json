@@ -6,6 +6,9 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
+    "paths": {
+      "@vue/reactivity": ["../../../node_modules/@vue/reactivity"]
+    },
     "resolveJsonModule": true,
     "types": [
       "vite/client",

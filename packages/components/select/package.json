@@ -28,6 +28,9 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/primitive": "workspace:*"
+    "@destyler/composition": "workspace:0.0.1-beta.9",
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:0.0.1-beta.9",
+    "@destyler/visually-hidden": "workspace:0.0.1-beta.9"
   }
 }

@@ -8,6 +8,7 @@ export default defineBuildConfig({
     'vue',
     'unplugin-vue-components',
     'unplugin-auto-import',
+    '@vue/reactivity',
   ],
   clean: true,
   declaration: true,

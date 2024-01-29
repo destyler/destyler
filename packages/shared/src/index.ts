@@ -1,4 +1,6 @@
 export * from './naive/is-number'
+export * from './naive/noop'
+export * from './naive/extract-prop-type'
 
 export * from './dom/is-valid-v-node-element'
 export * from './dom/is-client'
@@ -18,5 +20,6 @@ export * from './vue/computed-eager'
 export * from './vue/computed-with-control'
 export * from './vue/try-on-scope-dispose'
 export * from './vue/ref-auto-reset'
+export * from './vue/to-ref'
 
 export * from './types'
