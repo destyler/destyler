@@ -1,6 +1,8 @@
 export * from './naive/is-number'
 export * from './naive/noop'
 export * from './naive/extract-prop-type'
+export * from './naive/clamp'
+export * from './naive/point'
 
 export * from './dom/is-valid-v-node-element'
 export * from './dom/is-client'

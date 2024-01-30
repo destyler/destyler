@@ -35,7 +35,7 @@ export interface DialogRootContext {
 }
 
 export const [injectDialogRootContext, provideDialogRootContext]
-  = createContext<DialogRootContext>('DialogRoot')
+  = createContext<DialogRootContext>('DestylerDialogRoot')
 
 export const DestylerDialogRoot = defineComponent({
   name: 'DestylerDialogRoot',

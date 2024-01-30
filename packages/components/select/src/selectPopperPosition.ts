@@ -1,0 +1,105 @@
+import type { PropType } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
+import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { Align, Side } from '@destyler/popper'
+import { DestylerPopperContent } from '@destyler/popper'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardProps } from '@destyler/composition'
+
+import { CONTENT_MARGIN } from './utils'
+
+export const destylerSelectPopperPositionProps = {
+  ...destylerPrimitiveProps,
+  side: {
+    type: String as PropType<Side>,
+    required: false,
+    default: 'bottom',
+  },
+  sideOffset: {
+    type: Number as PropType<number>,
+    required: false,
+    default: 0,
+  },
+  align: {
+    type: String as PropType<Align>,
+    required: false,
+    default: 'start',
+  },
+  alignOffset: {
+    type: Number as PropType<number>,
+    required: false,
+    default: 0,
+  },
+  avoidCollisions: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: true,
+  },
+  collisionBoundary: {
+    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
+    required: false,
+    default: () => [],
+  },
+  collisionPadding: {
+    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
+    required: false,
+    default: CONTENT_MARGIN,
+  },
+  arrowPadding: {
+    type: Number as PropType<number>,
+    required: false,
+    default: 0,
+  },
+  sticky: {
+    type: String as PropType<'partial' | 'always'>,
+    required: false,
+    default: 'partial',
+  },
+  hideWhenDetached: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  updatePositionStrategy: {
+    type: String as PropType<'optimized' | 'always'>,
+    required: false,
+    default: 'optimized',
+  },
+  onPlaced: {
+    type: Function as PropType<() => void>,
+    required: false,
+  },
+  prioritizePosition: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+}
+
+export type DestylerSelectPopperPositionProps = ExtractPublicPropTypes<typeof destylerSelectPopperPositionProps>
+
+export const DestylerSelectPopperPosition = defineComponent({
+  name: 'DestylerSelectPopperPosition',
+  props: destylerSelectPopperPositionProps,
+  setup(props) {
+    const { forwardProps } = useForwardProps(props)
+    return {
+      forwardProps,
+    }
+  },
+  render() {
+    return h(DestylerPopperContent, mergeProps(this.forwardProps, {
+      style: {
+        'boxSizing': 'border_box',
+        '--destyler_select_content_transform_origin':
+        'var(--destyler_popper_transform_origin)',
+        '--destyler_select_content_available_width':
+        'var(--destyler_popper_available_width)',
+        '--destyler_select_content_available_height':
+        'var(--destyler_popper_available_height)',
+        '--destyler_select_trigger_width': 'var(--destyler_popper_anchor_width)',
+        '--destyler_select_trigger_height': 'var(--destyler_popper_anchor_height)',
+      },
+    }), this.$slots.default?.())
+  },
+})

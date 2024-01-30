@@ -29,9 +29,14 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:0.0.1-beta.9",
+    "@destyler/dismissable-layer": "workspace:0.0.1-beta.9",
+    "@destyler/focus-scope": "workspace:0.0.1-beta.9",
     "@destyler/popper": "workspace:*",
+    "@destyler/presence": "workspace:0.0.1-beta.9",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
+    "@destyler/teleport": "workspace:0.0.1-beta.9",
     "@destyler/visually-hidden": "workspace:*"
   }
 }

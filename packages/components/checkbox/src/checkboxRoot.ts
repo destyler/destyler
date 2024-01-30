@@ -67,7 +67,7 @@ export interface CheckboxRootContext {
 }
 
 export const [injectCheckboxRootContext, provideCheckboxRootContext]
-  = createContext<CheckboxRootContext>('CheckboxRoot')
+  = createContext<CheckboxRootContext>('DestylerCheckboxRoot')
 
 export const DestylerCheckboxRoot = defineComponent({
   name: 'DestylerCheckboxRoot',

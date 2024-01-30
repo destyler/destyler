@@ -9,7 +9,7 @@ export interface InfoRootContext {
   onToggle(): void
 }
 
-export const [injectInfoRootContext, provideInfoRootContext] = createContext<InfoRootContext>('InfoRoot')
+export const [injectInfoRootContext, provideInfoRootContext] = createContext<InfoRootContext>('DestylerInfoRoot')
 
 export const destylerInfoRootProps = {
   ...destylerPrimitiveProps,
