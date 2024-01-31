@@ -1,4 +1,2 @@
-export * from './dismissableLayer'
-export * from './dismissableLayerBranch'
-export * from './resolver'
-export * from './utils'
+export { DestylerDismissableLayer, type DestylerDismissableLayerProps } from './dismissableLayer'
+export { DestylerDismissableLayerBranch, type DestylerDismissableLayerBranchProps } from './dismissableLayerBranch'

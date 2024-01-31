@@ -1,2 +1,1 @@
-export * from './teleport'
-export * from './resolver'
+export { DestylerTeleport, type DestylerTeleportProps } from './teleport'

@@ -1,19 +1,27 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { DestylerPopperAnchor } from '@destyler/popper'
 import { useCustomElement } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+
 import { injectPopoverRootContext } from './popoverRoot'
 
 export const destylerPopoverTriggerProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
     default: 'button',
   },
-}
+} as const
+
+export type DestylerPopoverTriggerProps = ExtractPublicPropTypes<typeof destylerPopoverTriggerProps>
 
 export const DestylerPopoverTrigger = defineComponent({
   name: 'DestylerPopoverTrigger',

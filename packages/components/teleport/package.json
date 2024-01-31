@@ -10,6 +10,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
+    },
     "./*": "./*"
   },
   "main": "dist/index.cjs",
@@ -28,6 +33,7 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:*"
+    "@destyler/composition": "workspace:*",
+    "@destyler/shared": "workspace:0.0.1-beta.9"
   }
 }

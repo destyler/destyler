@@ -1,2 +1,1 @@
-export * from './aspectRadio'
-export * from './resolver'
+export { DestylerAspectRadio, type DestylerAspectRadioProps } from './aspectRadio'

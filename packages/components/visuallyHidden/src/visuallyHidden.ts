@@ -1,16 +1,23 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerVisuallyhiddenProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
     default: 'span',
   },
 }
+
+export type DestylerVisuallyhiddenProps = ExtractPublicPropTypes<typeof destylerVisuallyhiddenProps>
 
 export const DestylerVisuallyhidden = defineComponent({
   name: 'DestylerVisuallyhidden',

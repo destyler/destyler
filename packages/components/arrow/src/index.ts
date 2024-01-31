@@ -1,2 +1,1 @@
-export * from './arrow'
-export * from './resolver'
+export { DestylerArrow, type DestylerArrowProps } from './arrow'

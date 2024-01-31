@@ -1,18 +1,32 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, reactive, watchEffect } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+
 import { useFocusOutside, usePointerDownOutside } from './utils'
 
 export const destylerDismissableLayerProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
 }
+
+export type DestylerDismissableLayerProps = ExtractPublicPropTypes<typeof destylerDismissableLayerProps>
 
 export const destylerDismissableLayerEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss']
 

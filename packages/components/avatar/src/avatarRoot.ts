@@ -1,18 +1,29 @@
-import type { Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import type { ImageLoadingStatus } from '@destyler/composition'
 
-interface AvatarRootContext {
+export interface AvatarRootContext {
   imageLoadingStatus: Ref<ImageLoadingStatus>
 }
 
-const [injectAvatarRootContext, provideAvatarRootContext] = createContext<AvatarRootContext>('DestylerAvatarRoot')
+export const [injectAvatarRootContext, provideAvatarRootContext] = createContext<AvatarRootContext>('DestylerAvatarRoot')
 
-const DestylerAvatarRoot = defineComponent({
+export const destylerAvatarRootProps = {
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+}
+
+export type DestylerAvatarRootProps = ExtractPublicPropTypes<typeof destylerAvatarRootProps>
+
+export const DestylerAvatarRoot = defineComponent({
   name: 'DestylerAvatarRoot',
-  props: destylerPrimitiveProp,
+  props: destylerAvatarRootProps,
   setup() {
     provideAvatarRootContext({
       imageLoadingStatus: ref<ImageLoadingStatus>('loading'),
@@ -25,10 +36,3 @@ const DestylerAvatarRoot = defineComponent({
     }, this.$slots.default?.())
   },
 })
-
-export {
-  DestylerAvatarRoot,
-  AvatarRootContext,
-  injectAvatarRootContext,
-  provideAvatarRootContext,
-}

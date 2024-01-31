@@ -3,11 +3,15 @@ import { name } from '../package.json'
 
 const packageName = name
 
+export const teleportComponentName = [
+  'DestylerTeleport',
+]
+
 export function DestylerTeleportResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerTeleport')
+      if (teleportComponentName.includes(name))
         return { name, from: packageName }
     },
   }

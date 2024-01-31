@@ -1,2 +1,1 @@
-export * from './countdown'
-export * from './resolver'
+export { DestylerCountdown, type DestylerCountdownProps } from './countdown'

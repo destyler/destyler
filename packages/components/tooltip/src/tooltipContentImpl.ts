@@ -1,17 +1,32 @@
-import type { PropType, VNode } from 'vue'
+import type { Component, PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
-import type { Align, Side } from '@destyler/popper'
+import type { AsTag } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
 import { DestylerPopperContent } from '@destyler/popper'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectTooltipRootContext } from './tooltipRoot'
 import { TOOLTIP_OPEN } from './utils'
 
+const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
+const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
+
+type Side = (typeof SIDE_OPTIONS)[number]
+type Align = (typeof ALIGN_OPTIONS)[number]
+
 export const destylerTooltipContentImplProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   side: {
     type: String as PropType<Side>,
     required: false,
@@ -66,7 +81,9 @@ export const destylerTooltipContentImplProps = {
     type: String as PropType<string>,
     required: false,
   },
-}
+} as const
+
+export type DestylerTooltipContentImplProps = ExtractPublicPropTypes<typeof destylerTooltipContentImplProps>
 
 export const destylerTooltipContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
 export const DestylerTooltipContentImpl = defineComponent({

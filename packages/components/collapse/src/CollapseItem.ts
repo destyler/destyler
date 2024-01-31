@@ -1,9 +1,11 @@
-import type { ComputedRef, PropType, VNodeRef } from 'vue'
+import type { Component, ComputedRef, PropType, VNodeRef } from 'vue'
 import { computed, defineComponent, h } from 'vue'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useArrowNavigation, useCustomElement, useId } from '@destyler/composition'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { DestylerCollapsibleRoot } from '@destyler/collapsible'
+
 import { injectCollapseRootContext } from './collapseRoot'
 
 enum CollapseItemState {
@@ -25,7 +27,16 @@ export interface CollapseItemContext {
 export const [injectCollapseItemContext, provideCollapseItemContext] = createContext<CollapseItemContext>('DestylerCollapseItem')
 
 export const destylerCollapseItemProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   value: {
     type: String as PropType<string>,
     required: true,
@@ -35,7 +46,9 @@ export const destylerCollapseItemProps = {
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerCollapseItemProps = ExtractPublicPropTypes<typeof destylerCollapseItemProps>
 
 export const DestylerCollapseItem = defineComponent({
   name: 'DestylerCollapseItem',

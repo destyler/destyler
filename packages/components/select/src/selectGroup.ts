@@ -1,11 +1,25 @@
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useId } from '@destyler/composition'
 
 export const destylerSelectGroupProps = {
-  ...destylerPrimitiveProps,
-}
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+} as const
+
+export type DestylerSelectGroupProps = ExtractPublicPropTypes<typeof destylerSelectGroupProps>
 
 export interface SelectGroupContext {
   id: string

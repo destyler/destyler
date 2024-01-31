@@ -1,2 +1,1 @@
-export * from './button'
-export * from './resolver'
+export { DestylerButton, type DestylerButtonProps } from './button'

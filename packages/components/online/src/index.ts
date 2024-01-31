@@ -1,3 +1,1 @@
-export * from './ping'
-export * from './online'
-export * from './resolver'
+export { DestylerOnline, type DestylerOnlineProps } from './online'

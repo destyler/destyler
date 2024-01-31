@@ -1,4 +1,3 @@
-export * from './avatarRoot'
-export * from './avatarImage'
-export * from './avatarFallback'
-export * from './resolver'
+export { DestylerAvatarFallback, type DestylerAvatarFallbackProps } from './avatarFallback'
+export { DestylerAvatarImage, type DestylerAvatarImageProps } from './avatarImage'
+export { DestylerAvatarRoot, type DestylerAvatarRootProps } from './avatarRoot'

@@ -1,2 +1,1 @@
-export * from './presence'
-export * from './resolver'
+export { DestylerPresence, type DestylerPresenceProps } from './presence'

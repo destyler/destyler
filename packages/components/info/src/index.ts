@@ -1,3 +1,2 @@
-export * from './infoRoot'
-export * from './infoClose'
-export * from './resolver'
+export { DestylerInfoRoot, type DestylerInfoRootProps } from './infoRoot'
+export { DestylerInfoClose, type DestylerInfoCloseProps } from './infoClose'

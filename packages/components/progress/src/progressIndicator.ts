@@ -1,11 +1,25 @@
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectProgressRootContext } from './progressRoot'
 
 export const destylerProgressIndicatorProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
 }
+
+export type DestylerProgressIndicatorProps = ExtractPublicPropTypes<typeof destylerProgressIndicatorProps>
 
 export const DestylerProgressIndicator = defineComponent({
   name: 'DestylerProgressIndicator',

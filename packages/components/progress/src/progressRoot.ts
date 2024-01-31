@@ -1,13 +1,24 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { Component, ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext, isNumber } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
 export const DEFAULT_MAX = 100
 
 export const destylerProgressRootProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   modelValue: {
     type: Number as PropType<number>,
     required: false,
@@ -24,6 +35,8 @@ export const destylerProgressRootProps = {
     default: (value: number, max: number) => `${Math.round((value / max) * DEFAULT_MAX)}%`,
   },
 }
+
+export type DestylerProgressRootProps = ExtractPublicPropTypes<typeof destylerProgressRootProps>
 
 export interface ProgressRootContext {
   modelValue?: Readonly<Ref<number | null>>

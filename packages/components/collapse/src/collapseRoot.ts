@@ -1,8 +1,9 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { Component, ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
-import type { DataOrientation, Direction, Type } from '@destyler/shared'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement, useSingleOrMultipleValue } from '@destyler/composition'
 
 export interface CollapseRootContext {
@@ -20,7 +21,16 @@ export const [injectCollapseRootContext, provideCollapseRootContext]
   = createContext<CollapseRootContext>('DestylerCollapseRoot')
 
 export const destylerCollapseRootProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   type: {
     type: String as PropType<Type>,
     required: true,
@@ -55,7 +65,9 @@ export const destylerCollapseRootProps = {
     required: false,
     default: 'vertical',
   },
-}
+} as const
+
+export type DestylerCollapseRootProps = ExtractPublicPropTypes<typeof destylerCollapseRootProps>
 
 export const DestylerCollapseRoot = defineComponent({
   name: 'DestylerCollapseRoot',

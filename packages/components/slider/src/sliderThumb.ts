@@ -1,12 +1,25 @@
+import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import { useCollection, useCustomElement } from '@destyler/composition'
+import type { AsTag } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { DestylerSliderThumbImpl } from './sliderThumbImpl'
 
 export const destylerSliderThumbProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
 }
+
+export type DestylerSliderThumbProps = ExtractPublicPropTypes<typeof destylerSliderThumbProps>
 
 export const DestylerSliderThumb = defineComponent({
   name: 'DestylerSliderThumb',

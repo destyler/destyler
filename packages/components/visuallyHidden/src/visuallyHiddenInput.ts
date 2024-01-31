@@ -1,5 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { DestylerVisuallyhidden } from './visuallyHidden'
 
 export const destylerVisuallyhiddenInputProps = {
@@ -20,6 +21,8 @@ export const destylerVisuallyhiddenInputProps = {
     required: false,
   },
 }
+
+export type DestylerVisuallyhiddenInputProps = ExtractPublicPropTypes<typeof destylerVisuallyhiddenInputProps>
 
 export const DestylerVisuallyhiddenInput = defineComponent({
   name: 'DestylerVisuallyhiddenInput',

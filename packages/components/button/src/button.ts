@@ -1,10 +1,15 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerButtonProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -16,6 +21,8 @@ export const destylerButtonProps = {
     default: false,
   },
 }
+
+export type DestylerButtonProps = ExtractPublicPropTypes<typeof destylerButtonProps>
 
 export const DestylerButton = defineComponent({
   name: 'DestylerButton',

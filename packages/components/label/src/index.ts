@@ -1,2 +1,1 @@
-export * from './label'
-export * from './resolver'
+export { DestylerLabel, type DestylerLabelProps } from './label'

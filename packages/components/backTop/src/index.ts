@@ -1,2 +1,1 @@
-export * from './backTop'
-export * from './resolver'
+export { DestylerBackTop, type DestylerbackTopProps } from './backTop'

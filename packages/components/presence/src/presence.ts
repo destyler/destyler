@@ -6,39 +6,30 @@ import {
   toRefs,
 } from 'vue'
 import type {
+  PropType,
   SlotsType,
   VNode,
 } from 'vue'
 import { usePresence } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { renderSlotFragments, unrefElement } from '@destyler/shared'
 
-export interface DestylerPresenceProps {
-  /**
-   * Conditional to mount or unmount the child element. Similar to `v-if`
-   *
-   * @required true
-   */
-  present: boolean
-  /**
-   * Force the first child element to render all the time.
-   * Useful for programmatically render grandchild component together with the exposed `present`
-   *
-   * @default false
-   */
-  forceMount?: boolean
-}
+export const destylerPresenceProps = {
+  present: {
+    type: Boolean as PropType<boolean>,
+    required: true,
+  },
+  forceMount: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+  },
+} as const
+
+export type DestylerPresenceProps = ExtractPublicPropTypes<typeof destylerPresenceProps>
 
 export const DestylerPresence = defineComponent({
   name: 'DestylerPresence',
-  props: {
-    present: {
-      type: Boolean,
-      required: true,
-    },
-    forceMount: {
-      type: Boolean,
-    },
-  },
+  props: destylerPresenceProps,
   slots: {} as SlotsType<{
     default: (opts: { present: boolean }) => any
   }>,
@@ -46,7 +37,6 @@ export const DestylerPresence = defineComponent({
     const { present, forceMount } = toRefs(props)
 
     const node = ref<HTMLElement>()
-    // Mount composables once to prevent duplicated eventListener
     const { isPresent } = usePresence(present, node)
     expose({ present: isPresent })
 

@@ -1,10 +1,16 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+
 import { injectAvatarRootContext } from './avatarRoot'
 
-const destylerAvatarFallbackProps = {
-  ...destylerPrimitiveProp,
+export const destylerAvatarFallbackProps = {
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   delayMs: {
     type: Number as PropType<number>,
     required: false,
@@ -12,7 +18,9 @@ const destylerAvatarFallbackProps = {
   },
 }
 
-const DestylerAvatarFallback = defineComponent({
+export type DestylerAvatarFallbackProps = ExtractPublicPropTypes<typeof destylerAvatarFallbackProps>
+
+export const DestylerAvatarFallback = defineComponent({
   name: 'DestylerAvatarFallback',
   props: destylerAvatarFallbackProps,
   setup(props) {
@@ -51,8 +59,3 @@ const DestylerAvatarFallback = defineComponent({
       : null
   },
 })
-
-export {
-  DestylerAvatarFallback,
-  destylerAvatarFallbackProps,
-}

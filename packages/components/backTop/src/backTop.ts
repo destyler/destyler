@@ -1,12 +1,17 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { getScrollParent, isDocument, unwrapElement } from '@destyler/shared'
 import { useCustomElement } from '@destyler/composition'
 
 export const destylerBackTopProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -18,6 +23,8 @@ export const destylerBackTopProps = {
     default: undefined,
   },
 }
+
+export type DestylerbackTopProps = ExtractPublicPropTypes<typeof destylerBackTopProps>
 
 export const DestylerBackTop = defineComponent({
   name: 'DestylerBackTop',

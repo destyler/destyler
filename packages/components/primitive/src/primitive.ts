@@ -1,18 +1,30 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { DestylerSlot } from './slot'
-import type { AsTag } from './types'
 
-const destylerPrimitiveProp = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-}
+export type AsTag =
+  | 'a'
+  | 'button'
+  | 'div'
+  | 'form'
+  | 'h2'
+  | 'h3'
+  | 'img'
+  | 'input'
+  | 'label'
+  | 'li'
+  | 'nav'
+  | 'ol'
+  | 'p'
+  | 'span'
+  | 'svg'
+  | 'ul'
+  | 'template'
+  | ({} & string) // any other string
 
-const destylerPrimitiveProps = {
+export const destylerPrimitiveProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -23,9 +35,11 @@ const destylerPrimitiveProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
-const DestylerPrimitive = defineComponent({
+export type DestylerPrimitiveProps = ExtractPublicPropTypes<typeof destylerPrimitiveProps>
+
+export const DestylerPrimitive = defineComponent({
   name: 'DestylerPrimitive',
   props: destylerPrimitiveProps,
   setup(props) {
@@ -36,13 +50,10 @@ const DestylerPrimitive = defineComponent({
     }
   },
   render() {
-    if (this.asTag !== 'template') 
+    if (this.asTag !== 'template')
       return h(this.$props.as, this.$attrs, this.$slots.default?.())
-    
-    else 
+
+    else
       return h(DestylerSlot, this.$attrs, this.$slots.default?.())
-    
   },
 })
-
-export { DestylerPrimitive, destylerPrimitiveProps, destylerPrimitiveProp }

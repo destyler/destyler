@@ -1,10 +1,7 @@
 import type { Ref } from 'vue'
 import { defineComponent, ref } from 'vue'
+import type { Measurable } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-
-export interface Measurable {
-  getBoundingClientRect(): DOMRect
-}
 
 interface PopperRootContext {
   anchor: Ref<Measurable | HTMLElement | undefined>

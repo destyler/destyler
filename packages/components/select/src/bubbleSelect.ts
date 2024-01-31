@@ -32,7 +32,7 @@ export const destylerBubbleSelectProps = {
   value: {
     type: Object as PropType<any>,
   },
-}
+} as const
 
 export type DestylerBubbleSelectProps = ExtractPublicPropTypes<typeof destylerBubbleSelectProps>
 

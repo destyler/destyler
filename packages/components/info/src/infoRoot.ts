@@ -1,6 +1,8 @@
-import type { PropType, Ref } from 'vue'
+import type { Component, PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
@@ -12,7 +14,16 @@ export interface InfoRootContext {
 export const [injectInfoRootContext, provideInfoRootContext] = createContext<InfoRootContext>('DestylerInfoRoot')
 
 export const destylerInfoRootProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -23,7 +34,9 @@ export const destylerInfoRootProps = {
     required: false,
     default: undefined,
   },
-}
+} as const
+
+export type DestylerInfoRootProps = ExtractPublicPropTypes<typeof destylerInfoRootProps>
 
 export const DestylerInfoRoot = defineComponent({
   name: 'DestylerInfoRoot',

@@ -1,13 +1,24 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, nextTick, reactive, ref, watchEffect } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isClient } from '@destyler/shared'
 import { useCustomElement } from '@destyler/composition'
 import { createFocusScopesStack, removeLinks } from './stack'
 import { AUTOFOCUS_ON_MOUNT, AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS, focus, focusFirst, getTabbableCandidates, getTabbableEdges } from './utils'
 
 export const destylerFocusScopeProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -18,7 +29,9 @@ export const destylerFocusScopeProps = {
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerFocusScopeProps = ExtractPublicPropTypes<typeof destylerFocusScopeProps>
 
 export const DestylerFocusScope = defineComponent({
   name: 'DestylerFocusScope',
