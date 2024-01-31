@@ -52,6 +52,7 @@
     "@destyler/preview": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/progress": "workspace:*",
+    "@destyler/select": "workspace:*",
     "@destyler/shared": "workspace:*",
     "@destyler/slider": "workspace:*",
     "@destyler/teleport": "workspace:*",

@@ -1,9 +1,7 @@
 import type { Side } from '@destyler/popper'
+import type { Point } from '@destyler/shared'
 
 export const TOOLTIP_OPEN = 'tooltip.open'
-
-export interface Point { x: number, y: number }
-export type Polygon = Point[]
 
 export function getExitSideFromRect(point: Point, rect: DOMRect): Side {
   const top = Math.abs(rect.top - point.y)
@@ -64,26 +62,6 @@ export function getPointsFromRect(rect: DOMRect) {
     { x: right, y: bottom },
     { x: left, y: bottom },
   ]
-}
-
-// Determine if a point is inside of a polygon.
-// Based on https://github.com/substack/point-in-polygon
-export function isPointInPolygon(point: Point, polygon: Polygon) {
-  const { x, y } = point
-  let inside = false
-  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-    const xi = polygon[i].x
-    const yi = polygon[i].y
-    const xj = polygon[j].x
-    const yj = polygon[j].y
-
-    // prettier-ignore
-    const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
-    if (intersect)
-      inside = !inside
-  }
-
-  return inside
 }
 
 // Returns a new array of points representing the convex hull of the given set of points.

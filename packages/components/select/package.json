@@ -1,0 +1,42 @@
+{
+  "name": "@destyler/select",
+  "version": "0.0.1-beta.6",
+  "description": "unstyled select component for vue",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./*": "./*"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && unbuild"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3.4"
+  },
+  "dependencies": {
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/focus-scope": "workspace:*",
+    "@destyler/popper": "workspace:*",
+    "@destyler/presence": "workspace:*",
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:*",
+    "@destyler/teleport": "workspace:*",
+    "@destyler/visually-hidden": "workspace:*"
+  }
+}

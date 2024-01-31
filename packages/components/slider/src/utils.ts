@@ -151,4 +151,4 @@ export interface SliderOrientation {
   direction: number
 }
 
-export const [injectSliderOrientationContext, provideSliderOrientationContext] = createContext<SliderOrientation>(['SliderVertical', 'SliderHorizontal'])
+export const [injectSliderOrientationContext, provideSliderOrientationContext] = createContext<SliderOrientation>(['DestylerSliderVertical', 'DestylerSliderHorizontal'])

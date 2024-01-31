@@ -67,5 +67,7 @@ export const alias = {
   '@destyler/demo/aspectRadio/': `${path.resolve(__dirname, 'packages/components/aspectRadio')}/`,
   '@destyler/preview': `${path.resolve(__dirname, 'packages/components/preview')}/src/index.ts`,
   '@destyler/demo/preview/': `${path.resolve(__dirname, 'packages/components/preview')}/`,
+  '@destyler/select': `${path.resolve(__dirname, 'packages/components/select')}/src/index.ts`,
+  '@destyler/demo/select/': `${path.resolve(__dirname, 'packages/components/select')}/`,
   '@destyler/docs/': `${path.resolve(__dirname, 'docs/components/content')}/`,
 }

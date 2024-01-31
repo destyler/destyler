@@ -1,10 +1,12 @@
 import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { useCustomElement } from '@destyler/composition'
 
+import type { Polygon } from '@destyler/shared'
+import { isPointInPolygon } from '@destyler/shared'
 import { injectTooltipRootContext } from './tooltipRoot'
 import { injectTooltipProviderContext } from './tooltipProvider'
 import { DestylerTooltipContentImpl, destylerTooltipContentImplProps } from './tooltipContentImpl'
-import { type Polygon, getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect, isPointInPolygon } from './utils'
+import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect } from './utils'
 
 export const DestylerTooltipContentHoverable = defineComponent({
   name: 'DestylerTooltipContentHoverable',

@@ -29,7 +29,7 @@ export interface ModalRootContext {
 }
 
 export const [injectModalRootContext, provideModalRootContext]
-  = createContext<ModalRootContext>('ModalRoot')
+  = createContext<ModalRootContext>('DestylerModalRoot')
 
 export const DestylerModalRoot = defineComponent({
   name: 'DestylerModalRoot',

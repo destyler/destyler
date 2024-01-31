@@ -18,6 +18,8 @@ import ButtonDemo from '@destyler/demo/button/demos/Button.demo.vue'
 import AspectRatioDemo from '@destyler/demo/aspectRadio/demos/AspectRadio.demo.vue'
 import PreviewDemo from '@destyler/demo/preview/demos/Preview.demo.vue'
 import DocsDialogDemo from '@destyler/docs/DialogDemo.vue'
+import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
+import SelectCssDemo from '@destyler/demo/select/demos/Select.demo.unocss.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -26,16 +28,9 @@ import Collapse from './components/Cpllapse.vue'
 
 <template>
   <div>
-    <DialogCssdemo />
+    <SelectDemo />
   </div>
   <div>
-    <Dialogdemo />
-  </div>
-
-  <div>
-    <PopoverCssDemo />
-  </div>
-  <div>
-    <PopoverDemo />
+    <SelectCssDemo />
   </div>
 </template>

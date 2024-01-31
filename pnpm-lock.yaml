@@ -552,6 +552,42 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/select:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/dismissable-layer':
+        specifier: workspace:*
+        version: link:../dismissableLayer
+      '@destyler/focus-scope':
+        specifier: workspace:*
+        version: link:../focusScope
+      '@destyler/popper':
+        specifier: workspace:*
+        version: link:../popper
+      '@destyler/presence':
+        specifier: workspace:*
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:*
+        version: link:../teleport
+      '@destyler/visually-hidden':
+        specifier: workspace:*
+        version: link:../visuallyHidden
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/slider:
     dependencies:
       '@destyler/composition':
@@ -701,6 +737,9 @@ importers:
       '@destyler/progress':
         specifier: workspace:*
         version: link:../components/progress
+      '@destyler/select':
+        specifier: workspace:*
+        version: link:../components/select
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared

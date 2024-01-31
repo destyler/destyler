@@ -32,7 +32,7 @@ export interface ProgressRootContext {
 }
 
 export const [injectProgressRootContext, provideProgressRootContext]
-  = createContext<ProgressRootContext>('ProgressRoot')
+  = createContext<ProgressRootContext>('DestylerProgressRoot')
 
 export type ProgressState = 'indeterminate' | 'loading' | 'complete'
 
