@@ -7,7 +7,7 @@ export const destylerSelectGroupProps = {
   ...destylerPrimitiveProps,
 }
 
-interface SelectGroupContext {
+export interface SelectGroupContext {
   id: string
 }
 

@@ -13,7 +13,7 @@ export const DestylerSelectProvider = defineComponent({
   name: 'DestylerSelectProvider',
   props: destylerSelectProviderProps,
   setup(props) {
-    provideSelectRootContext(props.context)
+    provideSelectRootContext(props.context!)
   },
   render() {
     return this.$slots.default?.()

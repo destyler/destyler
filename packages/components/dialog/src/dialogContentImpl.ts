@@ -5,9 +5,9 @@ import { useCustomElement } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
+import { getOpenState } from '@destyler/shared'
 
 import { injectDialogRootContext } from './dialogRoot'
-import { getOpenState } from './utils'
 
 export const destylerDialogContentImplProps = {
   ...destylerPrimitiveProps,

@@ -82,13 +82,13 @@ export const DestylerSelectPopperPosition = defineComponent({
   name: 'DestylerSelectPopperPosition',
   props: destylerSelectPopperPositionProps,
   setup(props) {
-    const { forwardProps } = useForwardProps(props)
+    const forwarded = useForwardProps(props)
     return {
-      forwardProps,
+      forwarded,
     }
   },
   render() {
-    return h(DestylerPopperContent, mergeProps(this.forwardProps, {
+    return h(DestylerPopperContent, mergeProps(this.forwarded, {
       style: {
         'boxSizing': 'border_box',
         '--destyler_select_content_transform_origin':

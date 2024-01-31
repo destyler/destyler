@@ -10,6 +10,7 @@ export default defineBuildConfig({
     'unplugin-auto-import',
     '@vue/reactivity',
     'vue-demi',
+    '@vue/shared',
   ],
   clean: true,
   declaration: true,

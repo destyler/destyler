@@ -558,19 +558,19 @@ importers:
         specifier: workspace:*
         version: link:../../composition
       '@destyler/directives':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../directives
       '@destyler/dismissable-layer':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../dismissableLayer
       '@destyler/focus-scope':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../focusScope
       '@destyler/popper':
         specifier: workspace:*
         version: link:../popper
       '@destyler/presence':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../presence
       '@destyler/primitive':
         specifier: workspace:*
@@ -579,7 +579,7 @@ importers:
         specifier: workspace:*
         version: link:../../shared
       '@destyler/teleport':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../teleport
       '@destyler/visually-hidden':
         specifier: workspace:*
@@ -737,6 +737,9 @@ importers:
       '@destyler/progress':
         specifier: workspace:*
         version: link:../components/progress
+      '@destyler/select':
+        specifier: workspace:*
+        version: link:../components/select
       '@destyler/shared':
         specifier: workspace:*
         version: link:../shared

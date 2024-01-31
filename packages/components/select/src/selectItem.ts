@@ -1,12 +1,11 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs } from 'vue'
-import { createContext } from '@destyler/shared'
+import { SELECTION_KEYS, createContext } from '@destyler/shared'
 import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useCustomElement, useId } from '@destyler/composition'
 
 import { injectSelectRootContext } from './selectRoot'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './selectContentImpl'
-import { SELECTION_KEYS } from './utils'
 
 export const destylerSelectItemProps = {
   ...destylerPrimitiveProps,
@@ -20,7 +19,7 @@ export const destylerSelectItemProps = {
   },
   textValue: {
     type: String as PropType<string>,
-    required: true,
+    required: false,
   },
 }
 
@@ -55,7 +54,7 @@ export const DestylerSelectItem = defineComponent({
         return
 
       if (!disabled.value) {
-        rootContext.onValueChange(props.value)
+        rootContext.onValueChange(props.value!)
         rootContext.onOpenChange(false)
       }
     }

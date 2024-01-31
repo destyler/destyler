@@ -27,7 +27,7 @@ export type DestylerSelectValueProps = ExtractPublicPropTypes<typeof destylerSel
 export const DestylerSelectValue = defineComponent({
   name: 'DestylerSelectValue',
   props: destylerSelectValueProps,
-  setup(props, { slots }) {
+  setup(_, { slots }) {
     const { customElement, currentElement } = useCustomElement()
 
     const rootContext = injectSelectRootContext()

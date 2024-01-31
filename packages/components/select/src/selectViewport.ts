@@ -15,10 +15,9 @@ export const DestylerSelectViewport = defineComponent({
   props: destylerSelectViewportProps,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-    const alignedPositionContext
-  = contentContext.position === 'item-aligned'
-    ? injectSelectItemAlignedPositionContext()
-    : undefined
+    const alignedPositionContext = contentContext.position === 'item-aligned'
+      ? injectSelectItemAlignedPositionContext()
+      : undefined
 
     const { customElement, currentElement } = useCustomElement()
 
