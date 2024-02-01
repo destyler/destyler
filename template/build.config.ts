@@ -1,13 +1,12 @@
 import { defineBuildConfig } from 'unbuild'
+import { entries, externals } from '../build.basic.config'
 
 export default defineBuildConfig({
   entries: [
-    'src/index',
+    ...entries,
   ],
   externals: [
-    'vue',
-    'unplugin-vue-components',
-    'unplugin-auto-import',
+    ...externals,
   ],
   clean: true,
   declaration: true,

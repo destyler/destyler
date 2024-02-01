@@ -1,23 +1,26 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-const DestylerTemplate = defineComponent({
-  name: 'DestylerTemplate',
-  props: {
-    modelValue: {
-      type: String as PropType<string>,
-    },
+export const destylerTemplateProps = {
+  modelValue: {
+    type: String as PropType<string>,
   },
-  setup(props, { slots }) {
+} as const
+
+export type DestylerTemplateProps = ExtractPublicPropTypes<typeof destylerTemplateProps>
+
+export const DestylerTemplate = defineComponent({
+  name: 'DestylerTemplate',
+  props: destylerTemplateProps,
+  setup(_) {
 
   },
   render() {
-    return h('div', {
-      destyler: this.$props.modelValue,
+    return h(DestylerPrimitive, {
+      as: 'div',
+      asChild: false,
     }, this.modelValue)
   },
 })
-
-export {
-  DestylerTemplate,
-}
