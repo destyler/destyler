@@ -177,7 +177,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -189,7 +189,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -231,7 +231,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -306,7 +306,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -378,7 +378,7 @@ importers:
   packages/components/icon:
     dependencies:
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       '@iconify/vue':
         specifier: ^4.1.1
@@ -411,7 +411,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -453,7 +453,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: ^3.3.4
@@ -630,7 +630,7 @@ importers:
         specifier: workspace:*
         version: link:../../composition
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -672,7 +672,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
+        specifier: workspace:*
         version: link:../../shared
       vue:
         specifier: '>=3.3.4'
@@ -912,15 +912,6 @@ importers:
       vue:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)
-
-  template:
-    dependencies:
-      '@destyler/primitive':
-        specifier: workspace:*
-        version: link:../packages/components/primitive
-      '@destyler/shared':
-        specifier: workspace:0.0.1-beta.9
-        version: link:../packages/shared
 
 packages:
 
