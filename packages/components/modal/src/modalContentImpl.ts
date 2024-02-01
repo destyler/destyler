@@ -1,16 +1,26 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, withDirectives } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { getOpenState } from '@destyler/shared'
 
 import { injectModalRootContext } from './modalRoot'
 
 export const destylerModalContentImplProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -20,7 +30,9 @@ export const destylerModalContentImplProps = {
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerModalContentImplProps = ExtractPublicPropTypes<typeof destylerModalContentImplProps>
 
 export const DestylerModalContentImpl = defineComponent({
   name: 'DestylerModalContentImpl',
