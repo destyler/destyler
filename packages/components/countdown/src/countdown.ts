@@ -2,6 +2,7 @@ import type { Component, PropType, VNodeChild } from 'vue'
 import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export interface CountdownTimeInfo {
   hours: number
@@ -43,7 +44,9 @@ export const destylerCountdownProps = {
   onFinish: {
     type: Function as PropType<() => void>,
   },
-}
+} as const
+
+export type DestylerCountdownProps = ExtractPublicPropTypes<typeof destylerCountdownProps>
 
 const DestylerCountdown = defineComponent({
   name: 'DestylerCountdown',

@@ -1,6 +1,7 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRef } from 'vue'
 import { DestylerPopperRoot } from '@destyler/popper'
+import type { ExtractPublicPropTypes } from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
 
@@ -32,7 +33,9 @@ export const destylerPopoverRootProps = {
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerPopoverRootProps = ExtractPublicPropTypes<typeof destylerPopoverRootProps>
 
 export const DestylerPopoverRoot = defineComponent({
   name: 'DestylerPopoverRoot',

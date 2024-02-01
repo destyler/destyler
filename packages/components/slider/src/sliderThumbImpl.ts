@@ -1,18 +1,31 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement, useMounted, useSize } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSliderRootContext } from './sliderRoot'
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from './utils'
 
 export const destylerSliderThumbImplProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   index: {
     type: Number as PropType<number>,
     required: true,
   },
-}
+} as const
+
+export type DestylerSliderThumbImplProps = ExtractPublicPropTypes<typeof destylerSliderThumbImplProps>
 
 export const DestylerSliderThumbImpl = defineComponent({
   name: 'DestylerSliderThumbImpl',

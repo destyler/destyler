@@ -1,18 +1,14 @@
 import type { Ref } from 'vue'
 import { defineComponent, ref } from 'vue'
+import type { Measurable } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-
-export interface Measurable {
-  getBoundingClientRect(): DOMRect
-}
 
 interface PopperRootContext {
   anchor: Ref<Measurable | HTMLElement | undefined>
   onAnchorChange(element: Measurable | HTMLElement | undefined): void
 }
 
-export const [injectPopperRootContext, providePopperRootContext]
-  = createContext<PopperRootContext>('DestylerPopperRoot')
+export const [injectPopperRootContext, providePopperRootContext] = createContext<PopperRootContext>('DestylerPopperRoot')
 
 export const DestylerPopperRoot = defineComponent({
   name: 'DestylerPopperRoot',

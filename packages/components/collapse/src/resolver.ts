@@ -3,11 +3,19 @@ import { name } from '../package.json'
 
 const packageName = name
 
+export const collapseComponentName = [
+  'DestylerCollapseRoot',
+  'DestylerCollapseHeader',
+  'DestylerCollapseContent',
+  'DestylerCollapseItem',
+  'DestylerCollapseTrigger',
+]
+
 export function DestylerCollapseResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (['DestylerCollapseRoot', 'DestylerCollapseTrigger', 'DestylerCollapseItem', 'DestylerCollapseHeader', 'DestylerCollapseContent'].includes(name))
+      if (collapseComponentName.includes(name))
         return { name, from: packageName }
     },
   }

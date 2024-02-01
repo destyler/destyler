@@ -1,7 +1,7 @@
 import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useCustomElement, useTypeahead } from '@destyler/composition'
 import { DestylerPopperAnchor } from '@destyler/popper'
@@ -10,7 +10,11 @@ import { injectSelectRootContext } from './selectRoot'
 import { OPEN_KEYS, shouldShowPlaceholder } from './utils'
 
 export const destylerSelectTriggerProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -20,7 +24,7 @@ export const destylerSelectTriggerProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
 
 export type DestylerSelectTriggerProps = ExtractPublicPropTypes<typeof destylerSelectTriggerProps>
 

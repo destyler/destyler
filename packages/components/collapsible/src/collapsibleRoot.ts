@@ -1,6 +1,8 @@
-import type { PropType, Ref } from 'vue'
+import type { Component, PropType, Ref } from 'vue'
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
 
@@ -15,7 +17,16 @@ export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
   = createContext<CollapsibleRootContext>('DestylerCollapsibleRoot')
 
 export const destylerCollapsibleRootProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -29,7 +40,9 @@ export const destylerCollapsibleRootProps = {
   disabled: {
     type: Boolean as PropType<boolean>,
   },
-}
+} as const
+
+export type DestylerCollapsibleRootProps = ExtractPublicPropTypes<typeof destylerCollapsibleRootProps>
 
 export const DestylerCollapsibleRoot = defineComponent({
   name: 'DestylerCollapsibleRoot',

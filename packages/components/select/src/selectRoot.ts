@@ -52,7 +52,7 @@ export const destylerSelectRootProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
 
 export type DestylerSelectRootProps = ExtractPublicPropTypes<typeof destylerSelectRootProps>
 

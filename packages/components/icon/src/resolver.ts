@@ -3,11 +3,15 @@ import { name } from '../package.json'
 
 const packageName = name
 
+export const iconComponentName = [
+  'DestylerIcon',
+]
+
 export function DestylerIconResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerIcon')
+      if (iconComponentName.includes(name))
         return { name, from: packageName }
     },
   }

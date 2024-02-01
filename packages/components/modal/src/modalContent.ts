@@ -2,6 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectModalRootContext } from './modalRoot'
 import { destylerModalContentImplProps } from './modalContentImpl'
@@ -13,7 +14,9 @@ export const destylerModalContentProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
+
+export type DestylerModalContentProps = ExtractPublicPropTypes<typeof destylerModalContentProps>
 
 export const DestylerModalContent = defineComponent({
   name: 'DestylerModalContent',

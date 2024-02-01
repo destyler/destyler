@@ -1,14 +1,25 @@
-import type { PropType, Ref } from 'vue'
+import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs } from 'vue'
-import { SELECTION_KEYS, createContext } from '@destyler/shared'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type {ExtractPublicPropTypes} from '@destyler/shared';
+import { SELECTION_KEYS, createContext  } from '@destyler/shared'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement, useId } from '@destyler/composition'
 
 import { injectSelectRootContext } from './selectRoot'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './selectContentImpl'
 
 export const destylerSelectItemProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   value: {
     type: String,
     required: true,
@@ -21,7 +32,9 @@ export const destylerSelectItemProps = {
     type: String as PropType<string>,
     required: false,
   },
-}
+} as const
+
+export type DestylerSelectItemProps = ExtractPublicPropTypes<typeof destylerSelectItemProps>
 
 export interface SelectItemContext {
   value: string | undefined

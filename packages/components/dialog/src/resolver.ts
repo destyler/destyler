@@ -3,11 +3,22 @@ import { name } from '../package.json'
 
 const packageName = name
 
+export const dialogComponentName = [
+  'DestylerDialogClose',
+  'DestylerDialogContent',
+  'DestylerDialogDescription',
+  'DestylerDialogOverlay',
+  'DestylerDialogPortal',
+  'DestylerDialogRoot',
+  'DestylerDialogTitle',
+  'DestylerDialogTrigger',
+]
+
 export function DestylerDialogResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerTemplate')
+      if (dialogComponentName.includes(name))
         return { name, from: packageName }
     },
   }

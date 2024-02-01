@@ -1,5 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useId, useTimeoutFn, useVModel } from '@destyler/composition'
 import { DestylerPopperRoot } from '@destyler/popper'
@@ -32,7 +33,9 @@ export const destylerTooltipRootProps = {
     required: false,
     default: undefined,
   },
-}
+} as const
+
+export type DestylerTooltipRootProps = ExtractPublicPropTypes<typeof destylerTooltipRootProps>
 
 export interface TooltipContext {
   contentId: string

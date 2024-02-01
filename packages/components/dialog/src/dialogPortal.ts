@@ -1,10 +1,23 @@
+import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { DestylerTeleport } from '@destyler/teleport'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerDialogPortalProps = {
-  ...destylerPrimitiveProps,
-}
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+} as const
+
+export type DestylerDialogPortalProps = ExtractPublicPropTypes<typeof destylerDialogPortalProps>
 
 export const DestylerDialogPortal = defineComponent({
   name: 'DestylerDialogPortal',

@@ -1,16 +1,29 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
-import type { Measurable } from './popperRoot'
+import type { ExtractPublicPropTypes, Measurable } from '@destyler/shared'
+
 import { injectPopperRootContext } from './popperRoot'
 
 export const destylerPopperAnchorProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   element: {
     type: Object as PropType<Measurable>,
   },
-}
+} as const
+
+export type DestylerPopperAnchorProps = ExtractPublicPropTypes<typeof destylerPopperAnchorProps>
 
 export const DestylerPopperAnchor = defineComponent({
   name: 'DestylerPopperAnchor',

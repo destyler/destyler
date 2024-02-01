@@ -1,19 +1,26 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useImageLoadingStatus } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { injectAvatarRootContext } from './avatarRoot'
 
-const destylerAvatarImageProps = {
-  ...destylerPrimitiveProp,
+export const destylerAvatarImageProps = {
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   src: {
     type: String as PropType<string>,
     required: true,
     default: '',
   },
-}
+} as const
 
-const DestylerAvatarImage = defineComponent({
+export type DestylerAvatarImageProps = ExtractPublicPropTypes<typeof destylerAvatarImageProps>
+
+export const DestylerAvatarImage = defineComponent({
   name: 'DestylerAvatarImage',
   props: destylerAvatarImageProps,
   emits: ['loadingStatusChange'],
@@ -50,8 +57,3 @@ const DestylerAvatarImage = defineComponent({
       : null
   },
 })
-
-export {
-  DestylerAvatarImage,
-  destylerAvatarImageProps,
-}

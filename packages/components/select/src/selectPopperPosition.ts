@@ -1,15 +1,29 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
-import type { Align, Side } from '@destyler/popper'
+import type { AsTag } from '@destyler/primitive'
 import { DestylerPopperContent } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardProps } from '@destyler/composition'
 
 import { CONTENT_MARGIN } from './utils'
 
+const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
+const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
+
+export type Side = (typeof SIDE_OPTIONS)[number]
+export type Align = (typeof ALIGN_OPTIONS)[number]
+
 export const destylerSelectPopperPositionProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   side: {
     type: String as PropType<Side>,
     required: false,
@@ -74,7 +88,7 @@ export const destylerSelectPopperPositionProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerSelectPopperPositionProps = ExtractPublicPropTypes<typeof destylerSelectPopperPositionProps>
 

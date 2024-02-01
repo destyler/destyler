@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { Direction } from '@destyler/shared'
+import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useCustomElement } from '@destyler/composition'
 
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
@@ -23,7 +23,9 @@ export const destylerSliderHorizontalProps = {
     type: String as PropType<Direction>,
     required: false,
   },
-}
+} as const
+
+export type DestylerSliderHorizontalProps = ExtractPublicPropTypes<typeof destylerSliderHorizontalProps>
 
 export const DestylerSliderHorizontal = defineComponent({
   name: 'DestylerSliderHorizontal',
@@ -34,7 +36,7 @@ export const DestylerSliderHorizontal = defineComponent({
 
     const { customElement, currentElement: sliderElement } = useCustomElement()
 
-    const rectRef = ref<ClientRect>()
+    const rectRef = ref<DOMRect>()
     const isSlidingFromLeft = computed(() => (dir?.value === 'ltr' && !inverted.value) || (dir?.value !== 'ltr' && inverted.value))
 
     function getValueFromPointer(pointerPosition: number) {
@@ -77,7 +79,7 @@ export const DestylerSliderHorizontal = defineComponent({
         const value = this.getValueFromPointer(event.clientX)
         this.$emit('slideStart', value)
       },
-      'onSlideMove': (event) => {
+      'onSlideMove': (event: any) => {
         const value = this.getValueFromPointer(event.clientX)
         this.$emit('slideMove', value)
       },

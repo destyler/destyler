@@ -1,6 +1,7 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { useCustomElement } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from './utils'
 import { DestylerSliderImpl } from './sliderImpl'
@@ -18,7 +19,9 @@ export const destylerSliderVerticalProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
+
+export type DestylerSliderVerticalProps = ExtractPublicPropTypes<typeof destylerSliderVerticalProps>
 
 export const DestylerSliderVertical = defineComponent({
   name: 'DestylerSliderVertical',
@@ -29,7 +32,7 @@ export const DestylerSliderVertical = defineComponent({
 
     const { customElement, currentElement: sliderElement } = useCustomElement()
 
-    const rectRef = ref<ClientRect>()
+    const rectRef = ref<DOMRect>()
     const isSlidingFromBottom = computed(() => !inverted.value)
 
     function getValueFromPointer(pointerPosition: number) {

@@ -1,7 +1,7 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, onBeforeMount, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { renderSlotFragments } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCustomElement } from '@destyler/composition'
@@ -10,7 +10,11 @@ import { injectSelectRootContext } from './selectRoot'
 import { shouldShowPlaceholder } from './utils'
 
 export const destylerSelectValueProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -20,7 +24,7 @@ export const destylerSelectValueProps = {
     type: String as PropType<string>,
     required: false,
   },
-}
+} as const
 
 export type DestylerSelectValueProps = ExtractPublicPropTypes<typeof destylerSelectValueProps>
 

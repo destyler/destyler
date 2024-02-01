@@ -1,18 +1,26 @@
 import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+
 import { injectSliderRootContext } from './sliderRoot'
 import { convertValueToPercentage, injectSliderOrientationContext } from './utils'
 
 export const destylerSliderRangeProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
     default: 'span',
   },
-}
+} as const
+
+export type DestylerSliderRangeProps = ExtractPublicPropTypes<typeof destylerSliderRangeProps>
 
 export const DestylerSliderRange = defineComponent({
   name: 'DestylerSliderRange',

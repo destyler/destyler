@@ -1,14 +1,19 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { DestylerPresence } from '@destyler/presence'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCheckboxRootContext } from './checkboxRoot'
 import { getState, isIndeterminate } from './utils'
 
 export const destylerCheckboxIndicatorProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -19,7 +24,9 @@ export const destylerCheckboxIndicatorProps = {
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerCheckboxIndicatorProps = ExtractPublicPropTypes<typeof destylerCheckboxIndicatorProps>
 
 export const DestylerCheckboxIndicator = defineComponent({
   name: 'DestylerCheckboxIndicator',

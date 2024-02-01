@@ -2,6 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { destylerPopoverContentImplEmits, destylerPopoverContentImplProps } from './popoverContentImpl'
 import { injectPopoverRootContext } from './popoverRoot'
@@ -15,7 +16,9 @@ export const destylerPopoverContentProps = {
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerPopoverContentProps = ExtractPublicPropTypes<typeof destylerPopoverContentProps>
 
 export const destylerPopoverContentEmits = [...destylerPopoverContentImplEmits]
 

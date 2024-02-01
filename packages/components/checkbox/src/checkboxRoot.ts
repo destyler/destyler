@@ -1,28 +1,21 @@
 import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRef, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive, destylerPrimitiveProp } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement, useFormControl, useVModel } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { getState, isIndeterminate } from './utils'
 import type { CheckedState } from './types'
 
-export interface DestylerCheckboxRootProps {
-  asChild?: boolean
-  as?: AsTag | Component
-  defaultChecked?: boolean
-  checked?: boolean | 'indeterminate'
-  disabled?: boolean
-  required?: boolean
-  name?: string
-  value?: string
-  id?: string
-}
-
 export const destylerCheckboxRootProps = {
-  ...destylerPrimitiveProp,
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -60,6 +53,8 @@ export const destylerCheckboxRootProps = {
     required: false,
   },
 } as const
+
+export type DestylerCheckboxRootProps = ExtractPublicPropTypes<typeof destylerCheckboxRootProps>
 
 export interface CheckboxRootContext {
   disabled: Ref<boolean>

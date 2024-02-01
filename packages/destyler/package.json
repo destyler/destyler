@@ -10,6 +10,21 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
+    },
+    "./presets": {
+      "types": "./dist/presets.d.ts",
+      "import": "./dist/presets.mjs",
+      "require": "./dist/presets.cjs"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.mjs",
+      "require": "./dist/component.cjs"
+    },
     "./*": "./*"
   },
   "main": "dist/index.cjs",
@@ -36,7 +51,6 @@
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
-    "@destyler/composition": "workspace:*",
     "@destyler/countdown": "workspace:*",
     "@destyler/dialog": "workspace:*",
     "@destyler/dismissable-layer": "workspace:*",
@@ -53,7 +67,6 @@
     "@destyler/primitive": "workspace:*",
     "@destyler/progress": "workspace:*",
     "@destyler/select": "workspace:*",
-    "@destyler/shared": "workspace:*",
     "@destyler/slider": "workspace:*",
     "@destyler/teleport": "workspace:*",
     "@destyler/tooltip": "workspace:*",

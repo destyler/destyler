@@ -1,8 +1,7 @@
-import type { PropType, Ref } from 'vue'
+import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watch, watchEffect, withDirectives } from 'vue'
 import { createContext, focusFirst, unrefElement } from '@destyler/shared'
-import { destylerPrimitiveProps } from '@destyler/primitive'
-import type { Align, Side } from '@destyler/popper'
+import type { AsTag } from '@destyler/primitive'
 import { useCollection, useFocusGuards, useForwardProps, useHideOthers, useTypeahead } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
@@ -12,8 +11,23 @@ import { injectSelectRootContext } from './selectRoot'
 import { DestylerSelectPopperPosition } from './selectPopperPosition'
 import { DestylerSelectItemAlignedPosition } from './selectItemAlignedPosition'
 
+const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
+const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
+
+type Side = (typeof SIDE_OPTIONS)[number]
+type Align = (typeof ALIGN_OPTIONS)[number]
+
 export const destylerSelectContentImplProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   side: {
     type: String as PropType<Side>,
     required: false,
@@ -83,7 +97,7 @@ export const destylerSelectContentImplProps = {
     required: false,
     default: 'item-aligned',
   },
-}
+} as const
 
 export interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>

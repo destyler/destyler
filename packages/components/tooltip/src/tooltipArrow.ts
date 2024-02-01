@@ -1,10 +1,20 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { DestylerPopperArrow } from '@destyler/popper'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerTooltipArrowProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   width: {
     type: Number as PropType<number>,
     required: false,
@@ -15,7 +25,9 @@ export const destylerTooltipArrowProps = {
     required: false,
     default: 5,
   },
-}
+} as const
+
+export type DestylerTooltipArrowProps = ExtractPublicPropTypes<typeof destylerTooltipArrowProps>
 
 export const DestylerTooltipArrow = defineComponent({
   name: 'DestylerTooltipArrow',

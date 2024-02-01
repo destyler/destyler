@@ -1,18 +1,30 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { DestylerPresence } from '@destyler/presence'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDialogRootContext } from './dialogRoot'
 import { DestylerDialogOverlayImpl } from './dialogOverlayImpl'
 
 export const destylerDialogOverlayProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
+
+export type DestylerDialogOverlayProps = ExtractPublicPropTypes<typeof destylerDialogOverlayProps>
 
 export const DestylerDialogOverlay = defineComponent({
   name: 'DestylerDialogOverlay',

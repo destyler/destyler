@@ -1,19 +1,33 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
 import { BindOnceDirective } from '@destyler/directives'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+
 import { injectCollapsibleRootContext } from './collapsibleRoot'
 
 const destylerPrimitivePropsProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
-}
+} as const
+
+export type DestylerPrimitivePropsProps = ExtractPublicPropTypes<typeof destylerPrimitivePropsProps>
 
 export const DestylerCollapsibleContent = defineComponent({
   name: 'DestylerCollapsibleContent',

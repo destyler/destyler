@@ -3,11 +3,16 @@ import { name } from '../package.json'
 
 const packageName = name
 
+export const dismissableLayerComponentName = [
+  'DestylerDismissableLayer',
+  'DestylerDismissableLayerBranch',
+]
+
 export function DestylerDismissableLayerResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (['DestylerDismissableLayer', 'DestylerDismissableLayerBranch'].includes(name))
+      if (dismissableLayerComponentName.includes(name))
         return { name, from: packageName }
     },
   }

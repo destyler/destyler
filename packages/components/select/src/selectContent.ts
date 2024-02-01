@@ -2,6 +2,7 @@ import type { PropType } from 'vue'
 import { Teleport, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { DestylerSelectContentImpl, destylerSelectContentImplProps } from './selectContentImpl'
 import { DestylerSelectProvider } from './selectProvider'
@@ -13,7 +14,9 @@ export const destylerSelectContentProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
+
+export type DestylerSelectContentProps = ExtractPublicPropTypes<typeof destylerSelectContentProps>
 
 export const DestylerSelectContent = defineComponent({
   name: 'DestylerSelectContent',

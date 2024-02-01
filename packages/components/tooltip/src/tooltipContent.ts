@@ -1,5 +1,6 @@
 import { defineComponent, h } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectTooltipRootContext } from './tooltipRoot'
 import { DestylerTooltipContentImpl, destylerTooltipContentImplEmits, destylerTooltipContentImplProps } from './tooltipContentImpl'
@@ -7,7 +8,9 @@ import { DestylerTooltipContentHoverable } from './tooltipContentHoverable'
 
 export const destylerTooltipContentProps = {
   ...destylerTooltipContentImplProps,
-}
+} as const
+
+export type DestylerTooltipContentProps = ExtractPublicPropTypes<typeof destylerTooltipContentProps>
 
 export const destylerTooltipContentEmits = [...destylerTooltipContentImplEmits]
 
