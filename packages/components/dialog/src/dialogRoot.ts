@@ -1,5 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
+import type { ExtractPublicPropTypes} from '@destyler/shared';
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
 
@@ -19,7 +20,9 @@ export const destylerDialogRootProps = {
     required: false,
     default: true,
   },
-}
+} as const
+
+export type DestylerDialogRootProps = ExtractPublicPropTypes<typeof destylerDialogRootProps>
 
 export interface DialogRootContext {
   open: Readonly<Ref<boolean>>
@@ -34,8 +37,7 @@ export interface DialogRootContext {
   descriptionId: string
 }
 
-export const [injectDialogRootContext, provideDialogRootContext]
-  = createContext<DialogRootContext>('DestylerDialogRoot')
+export const [injectDialogRootContext, provideDialogRootContext] = createContext<DialogRootContext>('DestylerDialogRoot')
 
 export const DestylerDialogRoot = defineComponent({
   name: 'DestylerDialogRoot',

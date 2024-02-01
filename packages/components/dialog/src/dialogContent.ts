@@ -1,20 +1,37 @@
-import type { PropType } from 'vue'
+import type { Component ,PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
+import type { AsTag } from '@destyler/primitive'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDialogRootContext } from './dialogRoot'
-import { destylerDialogContentImplProps } from './dialogContentImpl'
 import { DestylerDialogContentModal } from './dialogContentModal'
 import { DestylerDialogContentNonModal } from './dialogContentNonModal'
 
 export const destylerDialogContentProps = {
-  ...destylerDialogContentImplProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+  trapFocus: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+} as const
+
+export type DestylerDialogContentProps = ExtractPublicPropTypes<typeof destylerDialogContentProps>
 
 export const DestylerDialogContent = defineComponent({
   name: 'DestylerDialogContent',

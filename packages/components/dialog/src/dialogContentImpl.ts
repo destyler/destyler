@@ -1,6 +1,6 @@
-import type { PropType } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, withDirectives } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
@@ -10,7 +10,16 @@ import { getOpenState } from '@destyler/shared'
 import { injectDialogRootContext } from './dialogRoot'
 
 export const destylerDialogContentImplProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -20,7 +29,7 @@ export const destylerDialogContentImplProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export const DestylerDialogContentImpl = defineComponent({
   name: 'DestylerDialogContentImpl',
