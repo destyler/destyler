@@ -27,19 +27,13 @@ Then add the code below into your Vite config file.
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { DestylerUIPresets, DestylerUIResolver } from 'destyler'
+import { DestylerUIResolver } from 'destyler/resolver'
 
 export default defineConfig({
   // ...
   plugins: [
-    // ...
-    AutoImport({
-      imports: [
-        DestylerUIPresets,
-      ],
-    }),
+
     Components({
       resolvers: [
         DestylerUIResolver(),
