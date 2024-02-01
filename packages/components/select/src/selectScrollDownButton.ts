@@ -1,14 +1,27 @@
+import type { Component, PropType } from 'vue'
 import { defineComponent, h, ref, watch, watchEffect } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './selectContentImpl'
 import { DestylerScrollSelectButtonImpl } from './selectScrollButtonImpl'
 import { injectSelectItemAlignedPositionContext } from './selectItemAlignedPosition'
 
 export const destylerSelectScrollDownButtonProps = {
-  ...destylerPrimitiveProps,
-}
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+} as const
+
+export type DestylerSelectScrollDownButtonProps = ExtractPublicPropTypes<typeof destylerSelectScrollDownButtonProps>
 
 export const DestylerSelectScrollDownButton = defineComponent({
   name: 'DestylerSelectScrollDownButton',
