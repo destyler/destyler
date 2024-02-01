@@ -6,7 +6,7 @@ layout: component
 
 > Displays content within a desired ratio.
 
-::craft-box{style="padding: 2.5rem;"}
+::craft-box
 :::aspect-ratio-demo
 ::
 
