@@ -16,7 +16,7 @@ export const destylerAvatarFallbackProps = {
     required: false,
     default: 0,
   },
-}
+} as const
 
 export type DestylerAvatarFallbackProps = ExtractPublicPropTypes<typeof destylerAvatarFallbackProps>
 

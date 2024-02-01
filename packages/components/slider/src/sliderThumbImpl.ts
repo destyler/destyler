@@ -23,7 +23,7 @@ export const destylerSliderThumbImplProps = {
     type: Number as PropType<number>,
     required: true,
   },
-}
+} as const
 
 export type DestylerSliderThumbImplProps = ExtractPublicPropTypes<typeof destylerSliderThumbImplProps>
 

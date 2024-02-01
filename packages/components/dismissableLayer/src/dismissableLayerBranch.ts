@@ -18,7 +18,7 @@ export const destylerDismissableLayerBranchProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerDismissableLayerBranchProps = ExtractPublicPropTypes<typeof destylerDismissableLayerBranchProps>
 

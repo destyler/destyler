@@ -1,7 +1,5 @@
 export { DestylerTooltipArrow, type DestylerTooltipArrowProps } from './tooltipArrow'
 export { DestylerTooltipContent, type DestylerTooltipContentProps } from './tooltipContent'
-export { DestylerTooltipContentHoverable } from './tooltipContentHoverable'
-export { DestylerTooltipContentImpl, type DestylerTooltipContentImplProps } from './tooltipContentImpl'
 export { DestylerTooltipPortal, type DestylerTooltipPortalProps } from './tooltipPortal'
 export { DestylerTooltipProvider, type DestylerTooltipProviderProps } from './tooltipProvider'
 export { DestylerTooltipRoot, type DestylerTooltipRootProps } from './tooltipRoot'

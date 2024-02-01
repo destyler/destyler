@@ -18,7 +18,7 @@ export const destylerModalTriggerProps = {
     required: false,
     default: 'button',
   },
-}
+} as const
 
 export type DestylerModalTriggerProps = ExtractPublicPropTypes<typeof destylerModalTriggerProps>
 

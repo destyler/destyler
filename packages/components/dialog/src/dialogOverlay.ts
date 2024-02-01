@@ -24,7 +24,7 @@ export const destylerDialogOverlayProps = {
   },
 } as const
 
-export type a = ExtractPublicPropTypes<typeof destylerDialogOverlayProps>
+export type DestylerDialogOverlayProps = ExtractPublicPropTypes<typeof destylerDialogOverlayProps>
 
 export const DestylerDialogOverlay = defineComponent({
   name: 'DestylerDialogOverlay',

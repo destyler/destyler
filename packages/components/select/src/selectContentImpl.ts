@@ -97,7 +97,7 @@ export const destylerSelectContentImplProps = {
     required: false,
     default: 'item-aligned',
   },
-}
+} as const
 
 export interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>

@@ -19,7 +19,7 @@ export const destylerTeleportProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerTeleportProps = ExtractPublicPropTypes<typeof destylerTeleportProps>
 

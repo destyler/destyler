@@ -15,7 +15,7 @@ export const destylerVisuallyhiddenProps = {
     required: false,
     default: 'span',
   },
-}
+} as const
 
 export type DestylerVisuallyhiddenProps = ExtractPublicPropTypes<typeof destylerVisuallyhiddenProps>
 

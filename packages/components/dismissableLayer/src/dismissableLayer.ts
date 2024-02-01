@@ -24,7 +24,7 @@ export const destylerDismissableLayerProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerDismissableLayerProps = ExtractPublicPropTypes<typeof destylerDismissableLayerProps>
 

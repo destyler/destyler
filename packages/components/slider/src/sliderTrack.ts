@@ -17,7 +17,7 @@ export const destylerSliderTrackProps = {
     required: false,
     default: 'span',
   },
-}
+} as const
 
 export type DestylerSliderTrackProps = ExtractPublicPropTypes<typeof destylerSliderTrackProps>
 

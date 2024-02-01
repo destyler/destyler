@@ -15,6 +15,11 @@
       "import": "./dist/resolver.mjs",
       "require": "./dist/resolver.cjs"
     },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.mjs",
+      "require": "./dist/component.cjs"
+    },
     "./*": "./*"
   },
   "main": "dist/index.cjs",

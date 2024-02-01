@@ -26,7 +26,7 @@ export const destylerArrowProps = {
     required: false,
     default: 10,
   },
-}
+} as const
 
 export type DestylerArrowProps = ExtractPublicPropTypes<typeof destylerArrowProps>
 

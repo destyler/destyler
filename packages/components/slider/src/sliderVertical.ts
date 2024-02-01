@@ -19,7 +19,7 @@ export const destylerSliderVerticalProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
 
 export type DestylerSliderVerticalProps = ExtractPublicPropTypes<typeof destylerSliderVerticalProps>
 

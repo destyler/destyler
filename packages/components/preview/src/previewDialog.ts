@@ -18,7 +18,7 @@ export const destylerPreviewDialogProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerPreviewDialogProps = ExtractPublicPropTypes<typeof destylerPreviewDialogProps>
 

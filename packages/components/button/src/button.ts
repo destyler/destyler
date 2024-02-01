@@ -20,7 +20,7 @@ export const destylerButtonProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerButtonProps = ExtractPublicPropTypes<typeof destylerButtonProps>
 

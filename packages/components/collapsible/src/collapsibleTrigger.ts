@@ -17,7 +17,7 @@ export const destylerCollapsibleTriggerProps = {
     required: false,
     default: 'button',
   },
-}
+} as const
 
 export type DestylerCollapsibleTriggerProps = ExtractPublicPropTypes<typeof destylerCollapsibleTriggerProps>
 

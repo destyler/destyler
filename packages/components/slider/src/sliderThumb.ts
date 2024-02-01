@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import { useCollection, useCustomElement } from '@destyler/composition'
 import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -17,7 +17,7 @@ export const destylerSliderThumbProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerSliderThumbProps = ExtractPublicPropTypes<typeof destylerSliderThumbProps>
 
@@ -38,9 +38,10 @@ export const DestylerSliderThumb = defineComponent({
     }
   },
   render() {
-    return h(DestylerSliderThumbImpl, mergeProps(this.$attrs, {
+    return h(DestylerSliderThumbImpl, {
+      ...this.$attrs,
       ref: 'customElement',
       index: this.index,
-    }), this.$slots.default?.())
+    }, this.$slots.default?.())
   },
 })

@@ -17,8 +17,7 @@ export interface CollapseRootContext {
   collapsible: boolean
 }
 
-export const [injectCollapseRootContext, provideCollapseRootContext]
-  = createContext<CollapseRootContext>('DestylerCollapseRoot')
+export const [injectCollapseRootContext, provideCollapseRootContext] = createContext<CollapseRootContext>('DestylerCollapseRoot')
 
 export const destylerCollapseRootProps = {
   as: {

@@ -716,9 +716,6 @@ importers:
       '@destyler/collapsible':
         specifier: workspace:*
         version: link:../components/collapsible
-      '@destyler/composition':
-        specifier: workspace:*
-        version: link:../composition
       '@destyler/countdown':
         specifier: workspace:*
         version: link:../components/countdown
@@ -767,9 +764,6 @@ importers:
       '@destyler/select':
         specifier: workspace:*
         version: link:../components/select
-      '@destyler/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@destyler/slider':
         specifier: workspace:*
         version: link:../components/slider

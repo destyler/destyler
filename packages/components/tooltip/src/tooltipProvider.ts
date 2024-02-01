@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
-import type { ExtractPublicPropTypes} from '@destyler/shared';
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useTimeoutFn } from '@destyler/composition'
 
@@ -25,7 +25,7 @@ export const destylerTooltipProviderProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerTooltipProviderProps = ExtractPublicPropTypes<typeof destylerTooltipProviderProps>
 

@@ -19,7 +19,7 @@ export const destylerCollapseTriggerProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerCollapseTriggerProps = ExtractPublicPropTypes<typeof destylerCollapseTriggerProps>
 

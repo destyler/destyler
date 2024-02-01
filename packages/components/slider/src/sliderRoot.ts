@@ -1,6 +1,6 @@
 import type { Component, PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
-import type { DataOrientation, Direction , ExtractPublicPropTypes} from '@destyler/shared'
+import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
 import { useCollection, useCustomElement, useDirection, useFormControl, useVModel } from '@destyler/composition'
@@ -84,7 +84,7 @@ export const destylerSliderRootProps = {
     required: false,
     default: 0,
   },
-}
+} as const
 
 export type DestylerSliderRootProps = ExtractPublicPropTypes<typeof destylerSliderRootProps>
 

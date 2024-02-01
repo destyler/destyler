@@ -23,7 +23,7 @@ export const destylerSliderHorizontalProps = {
     type: String as PropType<Direction>,
     required: false,
   },
-}
+} as const
 
 export type DestylerSliderHorizontalProps = ExtractPublicPropTypes<typeof destylerSliderHorizontalProps>
 

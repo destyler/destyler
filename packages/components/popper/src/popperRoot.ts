@@ -8,8 +8,7 @@ interface PopperRootContext {
   onAnchorChange(element: Measurable | HTMLElement | undefined): void
 }
 
-export const [injectPopperRootContext, providePopperRootContext]
-  = createContext<PopperRootContext>('DestylerPopperRoot')
+export const [injectPopperRootContext, providePopperRootContext] = createContext<PopperRootContext>('DestylerPopperRoot')
 
 export const DestylerPopperRoot = defineComponent({
   name: 'DestylerPopperRoot',

@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import { DestylerTeleport } from '@destyler/teleport'
-import type { ExtractPublicPropTypes} from '@destyler/shared';
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, refAutoReset } from '@destyler/shared'
 import { useCustomElement } from '@destyler/composition'
 import { useWindowSize } from '@vueuse/core'
@@ -29,7 +29,7 @@ export const destylerPreviewRootProps = {
     required: false,
     default: 1000,
   },
-}
+} as const
 
 export type DestylerPreviewRootProps = ExtractPublicPropTypes<typeof destylerPreviewRootProps>
 

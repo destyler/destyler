@@ -17,7 +17,7 @@ export const destylerAvatarRootProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerAvatarRootProps = ExtractPublicPropTypes<typeof destylerAvatarRootProps>
 

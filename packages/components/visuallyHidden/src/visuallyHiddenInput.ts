@@ -20,7 +20,7 @@ export const destylerVisuallyhiddenInputProps = {
     type: Boolean as PropType<boolean>,
     required: false,
   },
-}
+} as const
 
 export type DestylerVisuallyhiddenInputProps = ExtractPublicPropTypes<typeof destylerVisuallyhiddenInputProps>
 

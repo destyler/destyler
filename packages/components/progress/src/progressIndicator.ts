@@ -17,7 +17,7 @@ export const destylerProgressIndicatorProps = {
     required: false,
     default: false,
   },
-}
+} as const
 
 export type DestylerProgressIndicatorProps = ExtractPublicPropTypes<typeof destylerProgressIndicatorProps>
 

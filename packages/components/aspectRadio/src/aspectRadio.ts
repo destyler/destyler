@@ -20,7 +20,7 @@ export const destylerAspectRadioProps = {
     required: false,
     default: 1,
   },
-}
+} as const
 
 export type DestylerAspectRadioProps = ExtractPublicPropTypes<typeof destylerAspectRadioProps>
 

@@ -1,6 +1,7 @@
 export const entries = [
   'src/index',
   'src/resolver',
+  'src/component',
 ]
 
 export const externals = [
