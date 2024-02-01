@@ -3,11 +3,15 @@ import { name } from '../package.json'
 
 const packageName = name
 
+export const focusScopeComponentName = [
+  'DestylerFocusScope',
+]
+
 export function DestylerFocusScopeResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (name === 'DestylerFocusScope')
+      if (focusScopeComponentName.includes(name))
         return { name, from: packageName }
     },
   }

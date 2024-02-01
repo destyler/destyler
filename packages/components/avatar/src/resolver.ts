@@ -3,7 +3,11 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const avatarComponentName = ['DestylerAvatarRoot', 'DestylerAvatarImage', 'DestylerAvatarFallback']
+export const avatarComponentName = [
+  'DestylerAvatarRoot',
+  'DestylerAvatarImage',
+  'DestylerAvatarFallback',
+]
 
 export function DestylerAvatarResolver(): ComponentResolver {
   return {

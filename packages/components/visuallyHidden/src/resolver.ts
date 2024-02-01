@@ -5,7 +5,6 @@ const packageName = name
 
 export const visuallyhiddenComponentName = [
   'DestylerVisuallyhidden',
-  'DestylerVisuallyhiddenInput',
 ]
 
 export function DestylerVisuallyhiddenResolver(): ComponentResolver {

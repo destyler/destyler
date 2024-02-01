@@ -1,5 +1,6 @@
 export { DestylerSelectContent, type DestylerSelectContentProps } from './selectContent'
 export { DestylerSelectGroup, type DestylerSelectGroupProps } from './selectGroup'
+export { DestylerSelectIcon, type DestylerSelectIconProps } from './selectIcon'
 export { DestylerSelectItem, type DestylerSelectItemProps } from './selectItem'
 export { DestylerSelectItemIndicator, type DestylerSelectInDicatorProps } from './selectItemIndicator'
 export { DestylerSelectItemText, type DestylerSelectItemTextProps } from './selectItemText'
