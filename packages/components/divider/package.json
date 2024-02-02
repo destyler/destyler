@@ -1,0 +1,44 @@
+{
+  "name": "@destyler/divider",
+  "version": "0.0.1-beta.6",
+  "description": "unstyled template component for vue",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.mjs",
+      "require": "./dist/component.cjs"
+    },
+    "./*": "./*"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && unbuild"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3.4"
+  },
+  "dependencies": {
+    "@destyler/primitive": "workspace:*",
+    "@destyler/shared": "workspace:*"
+  }
+}

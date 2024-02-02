@@ -54,6 +54,7 @@
     "@destyler/countdown": "workspace:*",
     "@destyler/dialog": "workspace:*",
     "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/divider": "workspace:*",
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
     "@destyler/info": "workspace:*",

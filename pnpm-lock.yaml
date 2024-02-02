@@ -360,6 +360,18 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/divider:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/focusScope:
     dependencies:
       '@destyler/composition':
@@ -740,6 +752,9 @@ importers:
       '@destyler/dismissable-layer':
         specifier: workspace:*
         version: link:../components/dismissableLayer
+      '@destyler/divider':
+        specifier: workspace:*
+        version: link:../components/divider
       '@destyler/focus-scope':
         specifier: workspace:*
         version: link:../components/focusScope
