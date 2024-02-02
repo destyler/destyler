@@ -28,6 +28,7 @@ import { backTopComponentName } from '@destyler/back-top/dist/resolver'
 import { aspectRadioComponentName } from '@destyler/aspect-radio/dist/resolver'
 import { previewComponentName } from '@destyler/preview/dist/resolver'
 import { selectComponentName } from '@destyler/select/dist/resolver'
+import { rovingFocusGroupComponentName } from '@destyler/roving-focus/dist/resolver'
 
 export const destylerComponentNames = [
   ...primitiveComponentName,
@@ -58,6 +59,7 @@ export const destylerComponentNames = [
   ...aspectRadioComponentName,
   ...previewComponentName,
   ...selectComponentName,
+  ...rovingFocusGroupComponentName,
 ]
 
 export function DestylerUIResolver(): ComponentResolver {

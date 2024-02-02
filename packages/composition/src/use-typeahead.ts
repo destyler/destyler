@@ -1,4 +1,4 @@
-import { refAutoReset } from '@destyler/shared'
+import { refAutoReset, wrapArray } from '@destyler/shared'
 import type { Ref } from 'vue'
 
 export function useTypeahead(collections: Ref<HTMLElement[]>) {
@@ -32,9 +32,6 @@ export function useTypeahead(collections: Ref<HTMLElement[]>) {
   }
 }
 
-export function wrapArray<T>(array: T[], startIndex: number) {
-  return array.map((_, index) => array[(startIndex + index) % array.length])
-}
 export function getNextMatch(
   values: string[],
   search: string,

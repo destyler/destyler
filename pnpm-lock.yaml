@@ -573,6 +573,21 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/rovingFocus:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/select:
     dependencies:
       '@destyler/composition':
@@ -761,6 +776,9 @@ importers:
       '@destyler/progress':
         specifier: workspace:*
         version: link:../components/progress
+      '@destyler/roving-focus':
+        specifier: workspace:*
+        version: link:../components/rovingFocus
       '@destyler/select':
         specifier: workspace:*
         version: link:../components/select

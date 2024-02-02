@@ -10,6 +10,7 @@ export * from './dom/handle-and-dispatch-custom-event'
 export * from './dom/unwrap-element'
 export * from './dom/get-scroll-parent'
 export * from './dom/is-document'
+export * from './dom/wrap-array'
 
 export * from './vue/create-context'
 export * from './vue/to-value'
