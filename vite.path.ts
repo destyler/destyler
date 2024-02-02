@@ -70,4 +70,10 @@ export const alias = {
   '@destyler/select': `${path.resolve(__dirname, 'packages/components/select')}/src/index.ts`,
   '@destyler/demo/select/': `${path.resolve(__dirname, 'packages/components/select')}/`,
   '@destyler/docs/': `${path.resolve(__dirname, 'docs/components/content')}/`,
+  '@destyler/divider': `${path.resolve(__dirname, 'packages/components/divider')}/src/index.ts`,
+  '@destyler/demo/divider/': `${path.resolve(__dirname, 'packages/components/divider')}/`,
+  '@destyler/rovingFocus': `${path.resolve(__dirname, 'packages/components/rovingFocus')}/src/index.ts`,
+  '@destyler/demo/rovingFocus/': `${path.resolve(__dirname, 'packages/components/rovingFocus')}/`,
+  '@destyler/radio': `${path.resolve(__dirname, 'packages/components/radio')}/src/index.ts`,
+  '@destyler/demo/radio/': `${path.resolve(__dirname, 'packages/components/radio')}/`,
 }

@@ -585,6 +585,30 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/radio:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/roving-focus':
+        specifier: workspace:*
+        version: link:../rovingFocus
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@vueuse/core':
+        specifier: ^10.7.2
+        version: 10.7.2(vue@3.4.15)
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/rovingFocus:
     dependencies:
       '@destyler/composition':
@@ -791,6 +815,9 @@ importers:
       '@destyler/progress':
         specifier: workspace:*
         version: link:../components/progress
+      '@destyler/radio':
+        specifier: workspace:*
+        version: link:../components/radio
       '@destyler/roving-focus':
         specifier: workspace:*
         version: link:../components/rovingFocus

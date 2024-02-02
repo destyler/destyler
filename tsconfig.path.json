@@ -2,6 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@destyler/components/*": ["./packages/components/*"],
+      "@destyler/docs/*": ["./docs/components/content/*"],
       "@destyler/composition": ["./packages/composition/src/index.ts"],
       "@destyler/composition/*": ["./packages/composition/*"],
       "destyler": ["./packages/destyler/src/index.ts"],
@@ -66,10 +67,16 @@
       "@destyler/aspectRadio": ["./packages/components/aspectRadio/src/index.ts"],
       "@destyler/demo/aspectRadio/*": ["./packages/components/aspectRadio/*"],
       "@destyler/preview": ["./packages/components/preview/src/index.ts"],
+      "@destyler/demo/preview/*": ["./packages/components/preview/*"],
       "@destyler/demo/select/*": ["./packages/components/select/*"],
       "@destyler/select": ["./packages/components/select/src/index.ts"],
-      "@destyler/demo/preview/*": ["./packages/components/preview/*"],
-      "@destyler/docs/*": ["./docs/components/content/*"]
+      "@destyler/demo/divider/*": ["./packages/components/divider/*"],
+      "@destyler/divider": ["./packages/components/divider/src/index.ts"],
+      "@destyler/demo/rovingFocus/*": ["./packages/components/rovingFocus/*"],
+      "@destyler/rovingFocus": ["./packages/components/rovingFocus/src/index.ts"],
+      "@destyler/demo/radio/*": ["./packages/components/radio/*"],
+      "@destyler/radio": ["./packages/components/select/src/radio.ts"]
+
     }
   }
 }

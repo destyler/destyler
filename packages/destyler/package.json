@@ -67,6 +67,7 @@
     "@destyler/preview": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/progress": "workspace:*",
+    "@destyler/radio": "workspace:*",
     "@destyler/roving-focus": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",

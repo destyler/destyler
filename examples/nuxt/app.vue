@@ -8,10 +8,11 @@ import PreviewDemo from '@destyler/demo/preview/demos/Preview.demo.vue'
 import PopoverDemo from '@destyler/demo/popover/demos/Popover.demo.vue'
 import DocsDialogDemo from '@destyler/docs/DialogDemo.vue'
 import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
+import RadioGroupDemo from '@destyler/demo/radio/demos/RadioGroup.demo.vue'
 </script>
 
 <template>
   <div>
-    <SelectDemo />
+    <RadioGroupDemo />
   </div>
 </template>
