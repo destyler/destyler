@@ -1,2 +1,2 @@
-export { DestylerInfoRoot, type DestylerInfoRootProps } from './infoRoot'
-export { DestylerInfoClose, type DestylerInfoCloseProps } from './infoClose'
+export { DestylerInfoRoot, type DestylerInfoRootProps } from './components/root'
+export { DestylerInfoClose, type DestylerInfoCloseProps } from './components/close'

@@ -1,1 +1,1 @@
-export { DestylerIcon, type DestylerIconProps } from './icon'
+export { DestylerIcon, type DestylerIconProps } from './components/icon'

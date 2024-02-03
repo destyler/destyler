@@ -1,1 +1,1 @@
-export { DestylerDivider, type DestylerDividerProps } from './divider'
+export { DestylerDivider, type DestylerDividerProps } from './components/divider'

@@ -1,1 +1,1 @@
-export { DestylerVisuallyhidden, type DestylerVisuallyhiddenProps } from './visuallyHidden'
+export { DestylerVisuallyhidden, type DestylerVisuallyhiddenProps } from './components/visuallyHidden'

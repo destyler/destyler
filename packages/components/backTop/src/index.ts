@@ -1,1 +1,1 @@
-export { DestylerBackTop, type DestylerbackTopProps } from './backTop'
+export { DestylerBackTop, type DestylerbackTopProps } from './components/backTop'
