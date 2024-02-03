@@ -1,4 +1,4 @@
-export { DestylerPopperRoot } from './popperRoot'
-export { DestylerPopperAnchor, type DestylerPopperAnchorProps } from './popperAnchor'
-export { DestylerPopperContent, type DestylerPopperContentProps } from './popperContent'
-export { DestylerPopperArrow, type DestylerPopperArrowProps } from './popperArrow'
+export { DestylerPopperRoot } from './components/root'
+export { DestylerPopperAnchor, type DestylerPopperAnchorProps } from './components/anchor'
+export { DestylerPopperContent, type DestylerPopperContentProps } from './components/content'
+export { DestylerPopperArrow, type DestylerPopperArrowProps } from './components/arrow'

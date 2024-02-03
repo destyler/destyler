@@ -1,1 +1,1 @@
-export { DestylerPresence, type DestylerPresenceProps } from './presence'
+export { DestylerPresence, type DestylerPresenceProps } from './components/presence'

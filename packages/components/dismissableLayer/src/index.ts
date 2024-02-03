@@ -1,2 +1,2 @@
-export { DestylerDismissableLayer, type DestylerDismissableLayerProps } from './dismissableLayer'
-export { DestylerDismissableLayerBranch, type DestylerDismissableLayerBranchProps } from './dismissableLayerBranch'
+export { DestylerDismissableLayer, type DestylerDismissableLayerProps } from './components/dismissableLayer'
+export { DestylerDismissableLayerBranch, type DestylerDismissableLayerBranchProps } from './components/branch'

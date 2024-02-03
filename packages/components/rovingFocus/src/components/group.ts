@@ -1,0 +1,156 @@
+import type { Component, PropType, Ref } from 'vue'
+import { defineComponent, h, ref, toRefs } from 'vue'
+import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
+import { createContext, focusFirst } from '@destyler/shared'
+import { useCollection, useCustomElement, useDirection, useVModel } from '@destyler/composition'
+
+import { ENTRY_FOCUS, EVENT_OPTIONS } from '../utils'
+
+export const destylerRovingFocusGroupProps = {
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'div',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  orientation: {
+    type: String as PropType<Orientation>,
+    required: false,
+    default: undefined,
+  },
+  dir: {
+    type: String as PropType<Direction>,
+    required: false,
+  },
+  loop: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  currentTabStopId: {
+    type: String as PropType<string>,
+    required: false,
+  },
+  defaultCurrentTabStopId: {
+    type: String as PropType<string>,
+    required: false,
+  },
+} as const
+
+export type DestylerRovingFocusGroupProps = ExtractPublicPropTypes<typeof destylerRovingFocusGroupProps>
+
+export interface RovingContext {
+  orientation: Ref<Orientation | undefined>
+  dir: Ref<Direction>
+  loop: Ref<boolean>
+  currentTabStopId: Ref<string | null | undefined>
+  onItemFocus(tabStopId: string): void
+  onItemShiftTab(): void
+  onFocusableItemAdd(): void
+  onFocusableItemRemove(): void
+}
+
+export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext] = createContext<RovingContext>('DestylerRovingFocusGroup')
+
+export const DestylerRovingFocusGroup = defineComponent({
+  name: 'DestylerRovingFocusGroup',
+  props: destylerRovingFocusGroupProps,
+  emits: ['entryFocus', 'update:currentTabStopId'],
+  setup(props, { emit }) {
+    const { loop, orientation, dir: propDir } = toRefs(props)
+    const dir = useDirection(propDir)
+    const currentTabStopId = useVModel(props, 'currentTabStopId', emit, {
+      defaultValue: props.defaultCurrentTabStopId,
+      passive: (props.currentTabStopId === undefined) as false,
+    })
+    const isTabbingBackOut = ref(false)
+    const isClickFocus = ref(false)
+    const focusableItemsCount = ref(0)
+
+    const { customElement, currentElement } = useCustomElement()
+    const { createCollection } = useCollection('rovingFocus')
+    const collections = createCollection(currentElement)
+
+    function handleFocus(event: FocusEvent) {
+      const isKeyboardFocus = !isClickFocus.value
+
+      if (
+        event.currentTarget
+        && event.target === event.currentTarget
+        && isKeyboardFocus
+        && !isTabbingBackOut.value
+      ) {
+        const entryFocusEvent = new CustomEvent(ENTRY_FOCUS, EVENT_OPTIONS)
+        event.currentTarget.dispatchEvent(entryFocusEvent)
+        emit('entryFocus', entryFocusEvent)
+
+        if (!entryFocusEvent.defaultPrevented) {
+          const items = collections.value
+          const activeItem = items.find(item => item.getAttribute('data-active') === 'true')
+          const currentItem = items.find(
+            item => item.id === currentTabStopId.value,
+          )
+          const candidateItems = [activeItem, currentItem, ...items].filter(
+            Boolean,
+          ) as typeof items
+          focusFirst(candidateItems)
+        }
+      }
+
+      isClickFocus.value = false
+    }
+
+    provideRovingFocusGroupContext({
+      loop,
+      dir,
+      orientation,
+      currentTabStopId,
+      onItemFocus: (tabStopId) => {
+        currentTabStopId.value = tabStopId
+      },
+      onItemShiftTab: () => {
+        isTabbingBackOut.value = true
+      },
+      onFocusableItemAdd: () => {
+        focusableItemsCount.value++
+      },
+      onFocusableItemRemove: () => {
+        focusableItemsCount.value--
+      },
+    })
+
+    return {
+      customElement,
+      dir,
+      isClickFocus,
+      isTabbingBackOut,
+      handleFocus,
+    }
+  },
+  render() {
+    return h(DestylerPrimitive, {
+      ref: 'customElement',
+      as: this.$props.as,
+      asChild: this.$props.asChild,
+      dir: this.dir,
+      style: {
+        outline: 'none',
+      },
+      onMousedown: () => {
+        this.isClickFocus = true
+      },
+      onFocus: (event: any) => {
+        this.handleFocus(event)
+      },
+      onBlur: () => {
+        this.isTabbingBackOut = false
+      },
+    }, this.$slots.default?.())
+  },
+})

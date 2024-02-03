@@ -1,4 +1,4 @@
-export { DestylerSliderRange, type DestylerSliderRangeProps } from './sliderRange'
-export { DestylerSliderRoot, type DestylerSliderRootProps } from './sliderRoot'
-export { DestylerSliderThumb, type DestylerSliderThumbProps } from './sliderThumb'
-export { DestylerSliderTrack, type DestylerSliderTrackProps } from './sliderTrack'
+export { DestylerSliderRange, type DestylerSliderRangeProps } from './components/range'
+export { DestylerSliderRoot, type DestylerSliderRootProps } from './components/root'
+export { DestylerSliderThumb, type DestylerSliderThumbProps } from './components/thumb'
+export { DestylerSliderTrack, type DestylerSliderTrackProps } from './components/track'

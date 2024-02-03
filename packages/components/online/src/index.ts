@@ -1,1 +1,1 @@
-export { DestylerOnline, type DestylerOnlineProps } from './online'
+export { DestylerOnline, type DestylerOnlineProps } from './components/online'

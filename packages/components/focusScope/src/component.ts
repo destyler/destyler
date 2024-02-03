@@ -1,1 +1,1 @@
-export { DestylerFocusScope, type DestylerFocusScopeProps } from './focusScope'
+export { DestylerFocusScope, type DestylerFocusScopeProps } from './components/focusScope'

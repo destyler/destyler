@@ -1,2 +1,2 @@
-export { DestylerCheckboxRoot, type DestylerCheckboxRootProps } from './checkboxRoot'
-export { DestylerCheckboxIndicator, type DestylerCheckboxIndicatorProps } from './checkboxIndicator'
+export { DestylerCheckboxRoot, type DestylerCheckboxRootProps } from './components/root'
+export { DestylerCheckboxIndicator, type DestylerCheckboxIndicatorProps } from './components/indicator'
