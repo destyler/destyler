@@ -112,6 +112,8 @@ export const DestylerRadioGroupItem = defineComponent({
       'onFocus': () => {
         this.handleFocus()
       },
-    }), this.$slots.default?.()))
+    }), {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

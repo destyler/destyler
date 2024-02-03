@@ -42,6 +42,8 @@ export const DestylerCollapsibleTrigger = defineComponent({
       'data-disabled': this.rootContext.disabled?.value ? '' : undefined,
       'disabled': this.rootContext.disabled?.value,
       'onClick': this.rootContext.onOpenToggle,
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

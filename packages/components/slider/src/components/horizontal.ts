@@ -98,6 +98,8 @@ export const DestylerSliderHorizontal = defineComponent({
       'onHomeKeyDown': (event: any) => {
         this.$emit('homeKeyDown', event)
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

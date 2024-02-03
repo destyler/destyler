@@ -33,6 +33,8 @@ export const DestylerMenuArrow = defineComponent({
   name: 'DestylerMenuArrow',
   props: destylerMenuArrowProps,
   render() {
-    return h(DestylerPopperArrow, this.$props, this.$slots.default?.())
+    return h(DestylerPopperArrow, this.$props, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

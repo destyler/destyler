@@ -44,9 +44,13 @@ export const DestylerPopoverContent = defineComponent({
     }, useVShow
       ? h(DestylerPopoverContentModal, {
         ...this.forwarded,
-      }, this.$slots.default?.())
+      }, {
+      default: () => this.$slots.default?.(),
+    })
       : h(DestylerPopoverContentNonModal, {
         ...this.forwarded,
-      }, this.$slots.default?.()))
+      }, {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

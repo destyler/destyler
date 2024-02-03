@@ -114,6 +114,8 @@ export const DestylerSelectPopperPosition = defineComponent({
         '--destyler_select_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_select_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

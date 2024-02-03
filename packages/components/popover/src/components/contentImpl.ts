@@ -160,7 +160,9 @@ export const DestylerPopoverContentImpl = defineComponent({
         '--destyler_popover_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_popover_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }), this.$slots.default?.()), [
+    }), {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ])))
   },

@@ -72,7 +72,9 @@ export const DestylerSelectItemText = defineComponent({
     return [
       withDirectives(h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
         ref: 'customElement',
-      }), this.$slots.default?.()), [
+      }), {
+        default: () => this.$slots.default?.(),
+      }), [
         [BindOnceDirective, { id: this.itemContext.textId }],
       ]),
       this.itemContext.isSelected.value && this.rootContext.valueElement.value && !this.rootContext.valueElementHasChildren.value

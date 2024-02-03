@@ -105,6 +105,8 @@ export const DestylerMenuRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, this.$slots.default?.())
+    return h(DestylerPopperRoot, null, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

@@ -153,6 +153,8 @@ export const DestylerDismissableLayer = defineComponent({
             : 'none'
           : undefined,
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

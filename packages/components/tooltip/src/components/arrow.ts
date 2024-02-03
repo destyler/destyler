@@ -33,6 +33,8 @@ export const DestylerTooltipArrow = defineComponent({
   name: 'DestylerTooltipArrow',
   props: destylerTooltipArrowProps,
   render() {
-    return h(DestylerPopperArrow, mergeProps(this.$props), this.$slots.default?.())
+    return h(DestylerPopperArrow, mergeProps(this.$props), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

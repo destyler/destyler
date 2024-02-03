@@ -50,10 +50,15 @@ export const DestylerPrimitive = defineComponent({
     }
   },
   render() {
-    if (this.asTag !== 'template')
-      return h(this.$props.as, this.$attrs, this.$slots.default?.())
-
-    else
-      return h(DestylerSlot, this.$attrs, this.$slots.default?.())
+    if (this.asTag !== 'template') {
+      return h(this.$props.as, this.$attrs, {
+        default: () => this.$slots.default?.(),
+      })
+    }
+    else {
+      return h(DestylerSlot, this.$attrs, {
+        default: () => this.$slots.default?.(),
+      })
+    }
   },
 })

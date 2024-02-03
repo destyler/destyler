@@ -234,6 +234,8 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
         boxSizing: 'border-box',
         maxHeight: '100%',
       },
-    }), this.$slots.default?.()))
+    }), {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

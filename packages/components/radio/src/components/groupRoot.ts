@@ -115,6 +115,8 @@ export const DestylerRadioGroupRoot = defineComponent({
       'aria-required': this.required,
       'dir': this.dir,
       'name': this.name,
-    }, this.$slots.default?.()))
+    }, {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

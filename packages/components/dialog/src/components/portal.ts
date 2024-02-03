@@ -24,6 +24,8 @@ export const DestylerDialogPortal = defineComponent({
   props: destylerDialogPortalProps,
   render() {
     return h(DestylerTeleport, {
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

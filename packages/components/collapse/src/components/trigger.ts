@@ -55,7 +55,9 @@ export const DestylerCollapseTrigger = defineComponent({
       'data-state': this.itemContext.dataState.value,
       'disabled': this.itemContext.disabled.value,
       'onClick': this.changeItem,
-    }, this.$slots.default?.()), [
+    }, {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.itemContext.triggerId }],
     ])
   },

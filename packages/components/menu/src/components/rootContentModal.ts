@@ -34,6 +34,8 @@ export const DestylerMenuRootContentModal = defineComponent({
       'onFocusOutside': withModifiers((event: any) => {
         this.$emit('focusOutside', event)
       }, ['prevent']),
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

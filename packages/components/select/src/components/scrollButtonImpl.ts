@@ -69,6 +69,8 @@ export const DestylerScrollSelectButtonImpl = defineComponent({
       'onPointerleave': () => {
         this.clearAutoScrollTimer()
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

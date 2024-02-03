@@ -90,7 +90,9 @@ export const DestylerSelectViewport = defineComponent({
         'onScroll': (event: any) => {
           this.handleScroll(event)
         },
-      }), this.$slots.default?.()),
+      }), {
+        default: () => this.$slots.default?.(),
+      }),
       h(DestylerPrimitive, {
         as: 'style',
       }, `/* Hide scrollbars cross-browser and enable momentum scroll for touch

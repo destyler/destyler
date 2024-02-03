@@ -47,7 +47,9 @@ export const DestylerSelectContent = defineComponent({
       h(DestylerPresence, {
         ref: 'presenceRef',
         present: this.$props.forceMount || this.rootContext.open.value,
-      }, h(DestylerSelectContentImpl, mergeProps(this.forwarded, this.$attrs), this.$slots.default?.())),
+      }, h(DestylerSelectContentImpl, mergeProps(this.forwarded, this.$attrs), {
+        default: () => this.$slots.default?.(),
+      })),
       !this.presenceRef?.present && this.fragment
         ? h(Teleport, {
           to: this.fragment,
@@ -55,7 +57,9 @@ export const DestylerSelectContent = defineComponent({
           default: () => {
             return h(DestylerSelectProvider, {
               context: this.rootContext,
-            }, h('div', this.$slots.default?.()))
+            }, h('div', {
+              default: () => this.$slots.default?.(),
+            }))
           },
         })
         : null,

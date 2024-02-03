@@ -26,6 +26,8 @@ export const DestylerModalPortal = defineComponent({
     return h(DestylerTeleport, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

@@ -151,6 +151,8 @@ export const DestylerRovingFocusGroup = defineComponent({
       onBlur: () => {
         this.isTabbingBackOut = false
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

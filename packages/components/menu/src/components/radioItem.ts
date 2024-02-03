@@ -45,6 +45,8 @@ export const DestylerMenuRadioItem = defineComponent({
         this.$emit('select', event)
         this.radioGroupContext.onValueChange(this.value)
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

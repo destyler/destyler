@@ -49,6 +49,8 @@ export const DestylerCheckboxIndicator = defineComponent({
       'style': {
         pointerEvents: 'none',
       },
-    }), this.$slots.default?.()))
+    }), {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

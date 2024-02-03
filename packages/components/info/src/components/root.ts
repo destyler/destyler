@@ -2,7 +2,7 @@ import type { Component, PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import type { ExtractPublicPropTypes} from '@destyler/shared';
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
@@ -66,7 +66,9 @@ export const DestylerInfoRoot = defineComponent({
       ? h(DestylerPrimitive, mergeProps(this.$attrs, {
         as: this.$props.as,
         asChild: this.$props.asChild,
-      }), this.$slots.default?.())
+      }), {
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

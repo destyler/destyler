@@ -149,7 +149,9 @@ export const DestylerMenuSubContent = defineComponent({
           event.preventDefault()
         }
       },
-    }), this.$slots.default?.()), [
+    }), {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.menuSubContext.contentId }],
     ]))
   },

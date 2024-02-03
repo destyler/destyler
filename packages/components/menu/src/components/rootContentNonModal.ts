@@ -26,6 +26,8 @@ export const DestylerMenuRootContentNonModal = defineComponent({
       'onDismiss': () => {
         this.menuContext.onOpenChange(false)
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

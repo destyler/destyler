@@ -83,7 +83,9 @@ export const DestylerDialogContentImpl = defineComponent({
       'onPointerDownOutside': (event) => {
         this.$emit('pointerDownOutside', event)
       },
-    }, this.$slots.default?.()), [
+    }, {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ]))
   },

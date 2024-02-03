@@ -277,6 +277,8 @@ export const DestylerPopperContent = defineComponent({
         animation: !this.isPositioned ? 'none' : undefined,
         opacity: this.middlewareData.hide?.referenceHidden ? 0 : undefined,
       },
-    }), this.$slots.default?.()))
+    }), {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

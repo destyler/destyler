@@ -46,6 +46,8 @@ export const DestylerPopoverContentModal = defineComponent({
 
         this.isRightClickOutsideRef = isRightClick
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

@@ -36,6 +36,8 @@ export const DestylerProgressIndicator = defineComponent({
       'data-state': this.rootContext.progressState.value,
       'data-value': this.rootContext.modelValue?.value ?? undefined,
       'data-max': this.rootContext.max.value,
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

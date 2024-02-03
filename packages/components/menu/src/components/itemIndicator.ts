@@ -52,6 +52,8 @@ export const DestylerMenuItemIndicator = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-state': getCheckedState(this.indicatorContext.checked.value),
-    }, this.$slots.default?.()))
+    }, {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

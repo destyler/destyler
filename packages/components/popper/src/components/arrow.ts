@@ -86,6 +86,8 @@ export const DestylerPopperArrow = defineComponent({
       style: {
         display: 'block',
       },
-    }), this.$slots.default?.()))
+    }), {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

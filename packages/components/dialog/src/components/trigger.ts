@@ -51,6 +51,8 @@ export const DestylerDialogTrigger = defineComponent({
       'onClick': () => {
         this.rootContext.onOpenToggle()
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

@@ -95,6 +95,8 @@ export const DestylerTooltipTrigger = defineComponent({
         if (!this.rootContext.disableClosingTrigger.value)
           this.rootContext.onClose()
       },
-    }, this.$slots.default?.()))
+    }, {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

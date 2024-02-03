@@ -55,6 +55,8 @@ export const DestylerPopoverTrigger = defineComponent({
       'onClick': () => {
         this.rootContext.onOpenToggle()
       },
-    }, this.$slots.default?.()))
+    }, {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

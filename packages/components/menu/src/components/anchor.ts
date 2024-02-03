@@ -26,6 +26,8 @@ export const DestylerMenuAnchor = defineComponent({
   name: 'DestylerMenuAnchor',
   props: destylerMenuAnchorProps,
   render() {
-    return h(DestylerPopperAnchor, this.$props, this.$slots.default?.())
+    return h(DestylerPopperAnchor, this.$props, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

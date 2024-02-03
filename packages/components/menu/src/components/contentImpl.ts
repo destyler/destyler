@@ -359,6 +359,8 @@ export const DestylerMenuContentImpl = defineComponent({
       'onPointermove': (event: any) => {
         this.handlePointerMove(event)
       },
-    }, this.$slots.default?.()))))
+    }, {
+      default: () => this.$slots.default?.(),
+    }))))
   },
 })

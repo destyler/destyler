@@ -25,6 +25,8 @@ export const DestylerMenuGroup = defineComponent({
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props, {
       role: 'group',
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

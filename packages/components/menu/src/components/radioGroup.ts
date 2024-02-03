@@ -39,6 +39,8 @@ export const DestylerMenuRadioGroup = defineComponent({
     })
   },
   render() {
-    return h(DestylerMenuGroup, this.$props, this.$slots.default?.())
+    return h(DestylerMenuGroup, this.$props, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

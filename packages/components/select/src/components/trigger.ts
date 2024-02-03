@@ -110,6 +110,8 @@ export const DestylerSelectTrigger = defineComponent({
           event.preventDefault()
         }
       },
-    }, this.$slots.default?.()))
+    }, {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

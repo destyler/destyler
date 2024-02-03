@@ -45,7 +45,9 @@ export const DestylerSelectArrow = defineComponent({
   },
   render() {
     return this.rootContext.open.value && this.contentContext.position === 'popper'
-      ? h(DestylerPopperArrow, this.$props, this.$slots.default?.())
+      ? h(DestylerPopperArrow, this.$props, {
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

@@ -126,6 +126,8 @@ export const DestylerRovingFocusItem = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeydown(event)
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

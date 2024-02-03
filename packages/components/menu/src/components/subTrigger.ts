@@ -141,7 +141,9 @@ export const DestylerMenuSubTrigger = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeyDown(event)
       },
-    }), this.$slots.default?.()), [
+    }), {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.subContext.contentId }],
     ]))
   },

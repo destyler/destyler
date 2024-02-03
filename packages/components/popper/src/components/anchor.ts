@@ -46,6 +46,8 @@ export const DestylerPopperAnchor = defineComponent({
       as: this.$props.as,
       asChild: this.$props.asChild,
       ref: 'customElement',
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

@@ -33,6 +33,8 @@ export const DestylerAvatarRoot = defineComponent({
     return h(DestylerPrimitive, {
       as: 'span',
       asChild: this.$props.asChild,
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

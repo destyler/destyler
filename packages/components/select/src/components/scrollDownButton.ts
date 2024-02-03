@@ -74,7 +74,9 @@ export const DestylerSelectScrollDownButton = defineComponent({
           if (viewport?.value && selectedItem?.value)
             viewport.value.scrollTop = viewport.value.scrollTop + selectedItem.value.offsetHeight
         },
-      }, this.$slots.default?.())
+      }, {
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

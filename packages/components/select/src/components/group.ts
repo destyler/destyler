@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import type { ExtractPublicPropTypes} from '@destyler/shared';
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId } from '@destyler/composition'
 
@@ -42,6 +42,8 @@ export const DestylerSelectGroup = defineComponent({
     return h(DestylerPrimitive, mergeProps(this.$props, {
       'role': 'group',
       'aria-labelledby': this.id,
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

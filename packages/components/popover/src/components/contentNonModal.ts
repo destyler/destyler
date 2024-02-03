@@ -55,6 +55,8 @@ export const DestylerPopoverContentNonModal = defineComponent({
         if (event.detail.originalEvent.type === 'focusin' && this.hasPointerDownOutsideRef)
           event.preventDefault()
       },
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

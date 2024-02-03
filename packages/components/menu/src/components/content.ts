@@ -40,8 +40,12 @@ export const DestylerMenuContent = defineComponent({
       present: this.forceMount || this.menuContext.open.value,
     }, [
       this.rootContext.modal.value
-        ? h(DestylerMenuRootContentModal, mergeProps(this.$attrs, this.forwarded), this.$slots.default?.())
-        : h(DestylerMenuRootContentNonModal, mergeProps(this.$attrs, this.forwarded), this.$slots.default?.()),
+        ? h(DestylerMenuRootContentModal, mergeProps(this.$attrs, this.forwarded), {
+          default: () => this.$slots.default?.(),
+        })
+        : h(DestylerMenuRootContentNonModal, mergeProps(this.$attrs, this.forwarded), {
+          default: () => this.$slots.default?.(),
+        }),
     ])
   },
 })

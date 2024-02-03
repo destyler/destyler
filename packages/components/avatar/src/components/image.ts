@@ -53,7 +53,9 @@ export const DestylerAvatarImage = defineComponent({
         role: 'img',
         asChild: this.$props.asChild,
         src: this.src,
-      }, this.$slots.default?.())
+      }, {
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

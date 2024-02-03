@@ -328,7 +328,9 @@ export const DestylerSelectContentImpl = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeyDown(event)
       },
-    }), this.$slots.default?.()), [
+    }), {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ])))
   },

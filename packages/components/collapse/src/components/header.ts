@@ -40,6 +40,8 @@ export const DestylerCollapseHeader = defineComponent({
       'data-orientation': this.rootContext.orientation,
       'data-state': this.itemContext.dataState.value,
       'data-disabled': this.itemContext.dataDisabled.value,
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

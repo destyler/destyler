@@ -23,6 +23,8 @@ export const DestylerMenuLabel = defineComponent({
   name: 'DestylerMenuLabel',
   props: destylerMenuLabelProps,
   render() {
-    return h(DestylerPrimitive, this.$props, this.$slots.default?.())
+    return h(DestylerPrimitive, this.$props, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

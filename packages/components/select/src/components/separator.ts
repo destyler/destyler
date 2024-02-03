@@ -23,6 +23,8 @@ export const DestylerSelectSeparator = defineComponent({
   name: 'DestylerSelectSeparator',
   props: destylerSelectSeparatorProps,
   render() {
-    return h(DestylerPrimitive, this.$props, this.$slots.default?.())
+    return h(DestylerPrimitive, this.$props, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

@@ -31,6 +31,6 @@ import Collapse from './components/Cpllapse.vue'
 
 <template>
   <div>
-    <MenuDemo />
+    <PopoverCssDemo />
   </div>
 </template>

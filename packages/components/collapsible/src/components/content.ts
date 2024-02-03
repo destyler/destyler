@@ -109,9 +109,11 @@ export const DestylerCollapsibleContent = defineComponent({
       'data-disabled': this.rootContext.disabled?.value ? 'true' : undefined,
       'hidden': !this.presentRef?.present,
       'style': `--destyler_collapsible_content_width:${this.width}px;--destyler_collapsible_content_height:${this.height}px;`,
+    }), {
+      default: () => {
+        return this.presentRef?.present ? this.$slots.default?.() : null
+      },
     }), [
-      this.presentRef?.present ? this.$slots.default?.() : null,
-    ]), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ]))
   },

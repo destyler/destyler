@@ -48,6 +48,8 @@ export const DestylerButton = defineComponent({
       onClick: (e: any) => {
         this.handleClick(e)
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

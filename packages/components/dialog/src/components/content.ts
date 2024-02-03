@@ -57,8 +57,12 @@ export const DestylerDialogContent = defineComponent({
           onOpenAutoFocus: (event: any) => {
             this.$emit('openAutoFocus', event)
           },
-        }), this.$slots.default?.())
-        : h(DestylerDialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs), this.$slots.default?.()),
+        }), {
+          default: () => this.$slots.default?.(),
+        })
+        : h(DestylerDialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs), {
+          default: () => this.$slots.default?.(),
+        }),
     ])
   },
 })

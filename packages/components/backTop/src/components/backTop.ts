@@ -90,6 +90,8 @@ export const DestylerBackTop = defineComponent({
       onClick: () => {
         this.handleClick()
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

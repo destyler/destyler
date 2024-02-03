@@ -35,7 +35,9 @@ export const DestylerSelectItemIndicator = defineComponent({
     return this.itemContext.isSelected.value
       ? h(DestylerPrimitive, mergeProps(this.$props, {
         'aria-hidden': '',
-      }), this.$slots.default?.())
+      }), {
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

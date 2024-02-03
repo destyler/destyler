@@ -89,7 +89,9 @@ const DestylerOnline = defineComponent({
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })
 

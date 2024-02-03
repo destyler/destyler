@@ -37,6 +37,8 @@ export const DestylerInfoClose = defineComponent({
       onClick: () => {
         this.rootContent.onToggle()
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

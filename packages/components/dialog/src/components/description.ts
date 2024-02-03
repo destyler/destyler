@@ -36,7 +36,9 @@ export const DestylerDialogDescription = defineComponent({
     return withDirectives(h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }, this.$slots.default?.()), [
+    }, {
+      default: () => this.$slots.default?.(),
+    }), [
       [BindOnceDirective, { id: this.rootContext.descriptionId }],
     ])
   },

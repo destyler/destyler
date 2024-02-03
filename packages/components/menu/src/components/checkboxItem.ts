@@ -44,6 +44,8 @@ export const DestylerMenuCheckboxItem = defineComponent({
         else
           this.checked = !this.checked
       },
-    }), this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

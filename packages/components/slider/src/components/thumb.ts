@@ -42,6 +42,8 @@ export const DestylerSliderThumb = defineComponent({
       ...this.$attrs,
       ref: 'customElement',
       index: this.index,
-    }, this.$slots.default?.())
+    }, {
+      default: () => this.$slots.default?.(),
+    })
   },
 })
