@@ -1,6 +1,6 @@
 {
   "name": "@destyler/collapsible",
-  "version": "0.0.1-beta.10",
+  "version": "0.0.1-beta.11",
   "description": "unstyled collapsible component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 {
   "name": "@destyler/visually-hidden",
-  "version": "0.0.1-beta.10",
+  "version": "0.0.1-beta.11",
   "description": "unstyled visuallyHidden component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
