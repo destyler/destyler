@@ -1,1 +1,1 @@
-export { DestylerTemplate, type DestylerTemplateProps } from './template'
+export { DestylerTemplate, type DestylerTemplateProps } from './components/template'
