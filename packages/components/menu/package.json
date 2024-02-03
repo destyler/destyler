@@ -38,15 +38,15 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.10",
-    "@destyler/directives": "workspace:0.0.1-beta.10",
-    "@destyler/dismissable-layer": "workspace:0.0.1-beta.10",
-    "@destyler/focus-scope": "workspace:0.0.1-beta.10",
-    "@destyler/popper": "workspace:0.0.1-beta.10",
-    "@destyler/presence": "workspace:0.0.1-beta.10",
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/focus-scope": "workspace:*",
+    "@destyler/popper": "workspace:*",
+    "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
-    "@destyler/roving-focus": "workspace:0.0.1-beta.6",
+    "@destyler/roving-focus": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@destyler/teleport": "workspace:0.0.1-beta.10"
+    "@destyler/teleport": "workspace:*"
   }
 }
