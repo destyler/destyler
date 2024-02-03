@@ -429,6 +429,42 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/menu:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../../directives
+      '@destyler/dismissable-layer':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../dismissableLayer
+      '@destyler/focus-scope':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../focusScope
+      '@destyler/popper':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../popper
+      '@destyler/presence':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/roving-focus':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../rovingFocus
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.10
+        version: link:../teleport
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/modal:
     dependencies:
       '@destyler/composition':
@@ -791,6 +827,9 @@ importers:
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/menu':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/menu
       '@destyler/modal':
         specifier: workspace:*
         version: link:../components/modal

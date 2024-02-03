@@ -22,6 +22,7 @@ import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
 import SelectCssDemo from '@destyler/demo/select/demos/Select.demo.unocss.vue'
 import RadioDemo from '@destyler/demo/radio/demos/Radio.demo.vue'
 import RadioGroupDemo from '@destyler/demo/radio/demos/RadioGroup.demo.vue'
+import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -30,6 +31,6 @@ import Collapse from './components/Cpllapse.vue'
 
 <template>
   <div>
-    <RadioGroupDemo />
+    <MenuDemo />
   </div>
 </template>

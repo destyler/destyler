@@ -76,4 +76,6 @@ export const alias = {
   '@destyler/demo/rovingFocus/': `${path.resolve(__dirname, 'packages/components/rovingFocus')}/`,
   '@destyler/radio': `${path.resolve(__dirname, 'packages/components/radio')}/src/index.ts`,
   '@destyler/demo/radio/': `${path.resolve(__dirname, 'packages/components/radio')}/`,
+  '@destyler/menu': `${path.resolve(__dirname, 'packages/components/menu')}/src/index.ts`,
+  '@destyler/demo/menu/': `${path.resolve(__dirname, 'packages/components/menu')}/`,
 }

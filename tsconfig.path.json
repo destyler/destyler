@@ -75,8 +75,9 @@
       "@destyler/demo/rovingFocus/*": ["./packages/components/rovingFocus/*"],
       "@destyler/rovingFocus": ["./packages/components/rovingFocus/src/index.ts"],
       "@destyler/demo/radio/*": ["./packages/components/radio/*"],
-      "@destyler/radio": ["./packages/components/select/src/radio.ts"]
-
+      "@destyler/radio": ["./packages/components/radio/src/index.ts"],
+      "@destyler/demo/menu/*": ["./packages/components/menu/*"],
+      "@destyler/menu": ["./packages/components/menu/src/index.ts"]
     }
   }
 }

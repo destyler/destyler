@@ -59,6 +59,7 @@
     "@destyler/icon": "workspace:*",
     "@destyler/info": "workspace:*",
     "@destyler/label": "workspace:*",
+    "@destyler/menu": "workspace:0.0.1-beta.6",
     "@destyler/modal": "workspace:*",
     "@destyler/online": "workspace:*",
     "@destyler/popover": "workspace:*",
