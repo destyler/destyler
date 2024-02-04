@@ -72,6 +72,7 @@
     "@destyler/roving-focus": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",
+    "@destyler/switch": "workspace:*",
     "@destyler/teleport": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/visually-hidden": "workspace:*"

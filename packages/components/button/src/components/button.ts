@@ -1,8 +1,11 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useCustomElement } from '@destyler/composition'
+
+import { isButton } from '../utils'
 
 export const destylerButtonProps = {
   asChild: {
@@ -30,22 +33,42 @@ export const DestylerButton = defineComponent({
   props: destylerButtonProps,
   emits: ['click'],
   setup(props, { emit }) {
+    const { customElement, currentElement } = useCustomElement()
+
     function handleClick(e: MouseEvent) {
       if (!props.disabled)
         emit('click', e)
     }
 
+    const isNativeButton = ref<boolean>()
+    const isNativeInput = ref<boolean>()
+    const isNativeLink = ref<boolean>()
+
+    onMounted(() => {
+      isNativeButton.value = currentElement.value.tagName === null ? false : isButton(currentElement.value)
+      isNativeInput.value = currentElement.value.tagName === 'input'
+      isNativeLink.value = currentElement.value.tagName === 'a' || currentElement.value.getAttribute('href') != null
+    })
+
     return {
+      customElement,
+      isNativeButton,
+      isNativeLink,
+      isNativeInput,
       handleClick,
     }
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      as: this.$props.as,
-      asChild: this.$props.asChild,
-      disabled: this.$props.disabled,
-      role: 'button',
-      onClick: (e: any) => {
+      'ref': 'customElement',
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'disabled': this.isNativeButton || this.isNativeInput ? this.$props.disabled : undefined,
+      'role': !this.isNativeButton && !this.isNativeLink ? 'button' : undefined,
+      'tabindex': !this.isNativeButton && !this.isNativeLink && !this.$props.disabled ? 0 : undefined,
+      'aria-disabled': !this.isNativeButton && !this.isNativeInput && this.$props.disabled ? true : undefined,
+      'data-disabled': this.$props.disabled ? '' : undefined,
+      'onClick': (e: any) => {
         this.handleClick(e)
       },
     }), {

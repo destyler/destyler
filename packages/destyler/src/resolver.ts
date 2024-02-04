@@ -31,6 +31,7 @@ import { selectComponentName } from '@destyler/select/dist/resolver'
 import { rovingFocusGroupComponentName } from '@destyler/roving-focus/dist/resolver'
 import { dividerComponentName } from '@destyler/divider/dist/resolver'
 import { radioComponentName } from '@destyler/radio/dist/resolver'
+import { switchComponentName } from '@destyler/switch/dist/resolver'
 
 export const destylerComponentNames = [
   ...primitiveComponentName,
@@ -64,6 +65,7 @@ export const destylerComponentNames = [
   ...rovingFocusGroupComponentName,
   ...dividerComponentName,
   ...radioComponentName,
+  ...switchComponentName,
 ]
 
 export function DestylerUIResolver(): ComponentResolver {

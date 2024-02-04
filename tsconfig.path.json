@@ -77,7 +77,9 @@
       "@destyler/demo/radio/*": ["./packages/components/radio/*"],
       "@destyler/radio": ["./packages/components/radio/src/index.ts"],
       "@destyler/demo/menu/*": ["./packages/components/menu/*"],
-      "@destyler/menu": ["./packages/components/menu/src/index.ts"]
+      "@destyler/menu": ["./packages/components/menu/src/index.ts"],
+      "@destyler/demo/switch/*": ["./packages/components/switch/*"],
+      "@destyler/switch": ["./packages/components/switch/src/index.ts"]
     }
   }
 }

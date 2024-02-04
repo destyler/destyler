@@ -7,7 +7,7 @@ function handle() {
 </script>
 
 <template>
-  <DestylerButton disabled @click="handle">
+  <DestylerButton @click="handle">
     Button
   </DestylerButton>
 </template>

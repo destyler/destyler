@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/button",
-  "version": "0.0.1-beta.11",
-  "description": "unstyled button component for vue",
+  "name": "@destyler/switch",
+  "version": "0.0.1-beta.6",
+  "description": "unstyled switch component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
