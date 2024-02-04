@@ -50,6 +50,7 @@ export default defineConfig({
 - [radix-ui](https://github.com/radix-ui/primitives)
 - [radix-vue](https://github.com/radix-vue/radix-vue)
 - [naive-ui](https://github.com/tusen-ai/naive-ui)
+- [kobalte](https://github.com/kobaltedev/kobalte)
 - [oku-ui](https://github.com/oku-ui/primitives)
 - [headlessui](https://github.com/tailwindlabs/headlessui)
 - [melt-ui](https://github.com/melt-ui/melt-ui)
