@@ -20,7 +20,6 @@ export const asideItems = [
     children: [
       { text: 'Alert', link: '/components/alert' },
       { text: 'Aspect Radio', link: '/components/aspect-ratio' },
-      { text: 'Avatar', link: '/components/avatar' },
       { text: 'BackTop', link: '/components/back-top' },
       { text: 'Button', link: '/components/button' },
       { text: 'Checkbox', link: '/components/checkbox' },
@@ -30,6 +29,7 @@ export const asideItems = [
       { text: 'Dialog', link: '/components/dialog' },
       { text: 'Divider', link: '/components/divider' },
       { text: 'Icon', link: '/components/icon' },
+      { text: 'Image', link: '/components/image' },
       { text: 'Label', link: '/components/label' },
       { text: 'Modal', link: '/components/modal' },
       { text: 'Online', link: '/components/online' },

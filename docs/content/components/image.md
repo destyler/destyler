@@ -2,16 +2,16 @@
 layout: component
 ---
 
-# Avatar
+# Image
 
 > Displays a callout for user attention.
 
 ::craft-box
-:::avatar-demo
+:::image-demo
 ::
 
 ## Install
 
 ```bash
-pnpm install @destyler/avatar
+pnpm install @destyler/image
 ```
