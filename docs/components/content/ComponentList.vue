@@ -43,6 +43,9 @@
       <ModalDemo />
     </CraftBox>
     <CraftBox>
+      <OnlineDemo />
+    </CraftBox>
+    <CraftBox>
       <PopoverDemo />
     </CraftBox>
     <CraftBox>
