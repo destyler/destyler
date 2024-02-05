@@ -8,7 +8,7 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h2)
 </script>
 
 <template>
-  <h2 :id="id" class="mt-12 scroll-m-20 border-b border-#e4e4e7 dark:border-#1c1c1f pb-2 text-2xl font-semibold tracking-tight first:mt-0">
+  <h3 :id="id" class="mt-8 scroll-m-20 text-xl font-semibold tracking-tight">
     <NuxtLink
       v-if="generate"
       :href="`#${id}`"
@@ -17,5 +17,5 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h2)
       <slot />
     </NuxtLink>
     <slot v-else />
-  </h2>
+  </h3>
 </template>

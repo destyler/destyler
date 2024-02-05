@@ -9,12 +9,12 @@ const generate = computed(() => props.id && headings?.anchorLinks?.h1)
 
 <template>
   <h1 :id="id" class="scroll-m-20 text-4xl font-bold tracking-tight">
-    <a
+    <NuxtLink
       v-if="generate"
       :href="`#${id}`"
     >
       <slot />
-    </a>
+    </NuxtLink>
     <slot v-else />
   </h1>
 </template>

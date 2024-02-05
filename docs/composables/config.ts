@@ -1,6 +1,6 @@
 export const headNavItems = [
   { text: 'Docs', link: '/guide/install' },
-  { text: 'Components', link: '/components/alert' },
+  { text: 'Components', link: '/components/button' },
 ]
 
 export const headNavIconItem = [
@@ -12,6 +12,7 @@ export const asideItems = [
   {
     text: 'Getting Started',
     children: [
+      { text: 'Introduction', link: '/guide/introduction' },
       { text: 'Install', link: '/guide/install' },
     ],
   },
