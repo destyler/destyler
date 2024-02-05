@@ -20,6 +20,13 @@ Components are shipped with zero styles, allowing you to completely customize th
 
 Each primitive can be installed individually so you can adopt them incrementally.
 
+## Components
+
+A collection of components that can be used to build your own design system.
+
+::component-list
+::
+
 ## Acknowledgment
 
 > Destyler would not have been possible without the prior art done by other meaningful projects from the frontend community including:

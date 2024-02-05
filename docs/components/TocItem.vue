@@ -14,7 +14,7 @@ const route = useRoute()
           'text-op-100!': `#${toc.id}` === route.hash,
           'text-op-60! hover:text-op-80!': `#${toc.id}` !== route.hash,
         }"
-        :to="`#${toc.id}`"
+        :href="`#${toc.id}`"
       >
         {{ toc.text }}
         <template v-if="toc.children !== undefined">
