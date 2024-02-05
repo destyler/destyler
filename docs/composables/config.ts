@@ -18,7 +18,6 @@ export const asideItems = [
   {
     text: 'Components',
     children: [
-      { text: 'Alert', link: '/components/alert' },
       { text: 'Aspect Radio', link: '/components/aspect-ratio' },
       { text: 'BackTop', link: '/components/back-top' },
       { text: 'Button', link: '/components/button' },
@@ -30,6 +29,7 @@ export const asideItems = [
       { text: 'Divider', link: '/components/divider' },
       { text: 'Icon', link: '/components/icon' },
       { text: 'Image', link: '/components/image' },
+      { text: 'Info', link: '/components/info' },
       { text: 'Label', link: '/components/label' },
       { text: 'Modal', link: '/components/modal' },
       { text: 'Online', link: '/components/online' },
@@ -40,7 +40,6 @@ export const asideItems = [
       { text: 'Select', link: '/components/select' },
       { text: 'Slider', link: '/components/slider' },
       { text: 'Switch', link: '/components/switch' },
-      { text: 'Tag', link: '/components/tag' },
       { text: 'Tooltip', link: '/components/tooltip' },
 
     ],
