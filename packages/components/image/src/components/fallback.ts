@@ -3,9 +3,9 @@ import { defineComponent, h, ref, watch } from 'vue'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { injectAvatarRootContext } from './root'
+import { injectImageRootContext } from './root'
 
-export const destylerAvatarFallbackProps = {
+export const destylerImageFallbackProps = {
   asChild: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -18,13 +18,13 @@ export const destylerAvatarFallbackProps = {
   },
 } as const
 
-export type DestylerAvatarFallbackProps = ExtractPublicPropTypes<typeof destylerAvatarFallbackProps>
+export type DestylerImageFallbackProps = ExtractPublicPropTypes<typeof destylerImageFallbackProps>
 
-export const DestylerAvatarFallback = defineComponent({
-  name: 'DestylerAvatarFallback',
-  props: destylerAvatarFallbackProps,
+export const DestylerImageFallback = defineComponent({
+  name: 'DestylerImageFallback',
+  props: destylerImageFallbackProps,
   setup(props) {
-    const rootContext = injectAvatarRootContext()
+    const rootContext = injectImageRootContext()
 
     const canRender = ref(false)
     let timeout: ReturnType<typeof setTimeout> | undefined

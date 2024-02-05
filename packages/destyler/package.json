@@ -45,7 +45,6 @@
   "dependencies": {
     "@destyler/arrow": "workspace:*",
     "@destyler/aspect-radio": "workspace:*",
-    "@destyler/avatar": "workspace:*",
     "@destyler/back-top": "workspace:*",
     "@destyler/button": "workspace:*",
     "@destyler/checkbox": "workspace:*",
@@ -57,6 +56,7 @@
     "@destyler/divider": "workspace:*",
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
+    "@destyler/image": "workspace:*",
     "@destyler/info": "workspace:*",
     "@destyler/label": "workspace:*",
     "@destyler/menu": "workspace:*",

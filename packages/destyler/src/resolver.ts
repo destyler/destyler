@@ -2,7 +2,7 @@ import type { ComponentResolver } from 'unplugin-vue-components'
 
 import { primitiveComponentName } from '@destyler/primitive/dist/resolver'
 import { labelComponentName } from '@destyler/label/dist/resolver'
-import { avatarComponentName } from '@destyler/avatar/dist/resolver'
+import { imageComponentName } from '@destyler/image/dist/resolver'
 import { countdownComponentName } from '@destyler/countdown/dist/resolver'
 import { cllapsibleComponentName } from '@destyler/collapsible/dist/resolver'
 import { presenceComponentName } from '@destyler/presence/dist/resolver'
@@ -36,7 +36,7 @@ import { switchComponentName } from '@destyler/switch/dist/resolver'
 export const destylerComponentNames = [
   ...primitiveComponentName,
   ...labelComponentName,
-  ...avatarComponentName,
+  ...imageComponentName,
   ...countdownComponentName,
   ...cllapsibleComponentName,
   ...presenceComponentName,

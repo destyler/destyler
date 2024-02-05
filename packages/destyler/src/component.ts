@@ -1,6 +1,6 @@
 export * from '@destyler/primitive/dist/component'
 export * from '@destyler/label/dist/component'
-export * from '@destyler/avatar/dist/component'
+export * from '@destyler/image/dist/component'
 export * from '@destyler/countdown/dist/component'
 export * from '@destyler/collapsible/dist/component'
 export * from '@destyler/presence/dist/component'

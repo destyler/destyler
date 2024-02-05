@@ -3,17 +3,17 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const avatarComponentName = [
-  'DestylerAvatarRoot',
-  'DestylerAvatarImage',
-  'DestylerAvatarFallback',
+export const imageComponentName = [
+  'DestylerImageRoot',
+  'DestylerImage',
+  'DestylerImageFallback',
 ]
 
-export function DestylerAvatarResolver(): ComponentResolver {
+export function DestylerImageResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (avatarComponentName.includes(name))
+      if (imageComponentName.includes(name))
         return { name, from: packageName }
     },
   }

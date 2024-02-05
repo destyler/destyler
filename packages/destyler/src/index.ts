@@ -1,6 +1,6 @@
 export * from '@destyler/primitive'
 export * from '@destyler/label'
-export * from '@destyler/avatar'
+export * from '@destyler/image'
 export * from '@destyler/countdown'
 export * from '@destyler/collapsible'
 export * from '@destyler/presence'

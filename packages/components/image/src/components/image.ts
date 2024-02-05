@@ -3,9 +3,9 @@ import { defineComponent, h, toRefs, watch } from 'vue'
 import { DestylerPrimitive } from '@destyler/primitive'
 import { useImageLoadingStatus } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { injectAvatarRootContext } from './root'
+import { injectImageRootContext } from './root'
 
-export const destylerAvatarImageProps = {
+export const destylerImageProps = {
   asChild: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -18,15 +18,15 @@ export const destylerAvatarImageProps = {
   },
 } as const
 
-export type DestylerAvatarImageProps = ExtractPublicPropTypes<typeof destylerAvatarImageProps>
+export type DestylerImageProps = ExtractPublicPropTypes<typeof destylerImageProps>
 
-export const DestylerAvatarImage = defineComponent({
-  name: 'DestylerAvatarImage',
-  props: destylerAvatarImageProps,
+export const DestylerImage = defineComponent({
+  name: 'DestylerImage',
+  props: destylerImageProps,
   emits: ['loadingStatusChange'],
   setup(props, { emit }) {
     const { src } = toRefs(props)
-    const rootContext = injectAvatarRootContext()
+    const rootContext = injectImageRootContext()
 
     const imageLoadingStatus = useImageLoadingStatus(src)
 

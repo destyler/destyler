@@ -5,13 +5,13 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import type { ImageLoadingStatus } from '@destyler/composition'
 
-export interface AvatarRootContext {
+export interface ImageRootContext {
   imageLoadingStatus: Ref<ImageLoadingStatus>
 }
 
-export const [injectAvatarRootContext, provideAvatarRootContext] = createContext<AvatarRootContext>('DestylerAvatarRoot')
+export const [injectImageRootContext, provideImageRootContext] = createContext<ImageRootContext>('DestylerImageRoot')
 
-export const destylerAvatarRootProps = {
+export const destylerImageRootProps = {
   asChild: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -19,13 +19,13 @@ export const destylerAvatarRootProps = {
   },
 } as const
 
-export type DestylerAvatarRootProps = ExtractPublicPropTypes<typeof destylerAvatarRootProps>
+export type DestylerImageRootProps = ExtractPublicPropTypes<typeof destylerImageRootProps>
 
-export const DestylerAvatarRoot = defineComponent({
-  name: 'DestylerAvatarRoot',
-  props: destylerAvatarRootProps,
+export const DestylerImageRoot = defineComponent({
+  name: 'DestylerImageRoot',
+  props: destylerImageRootProps,
   setup() {
-    provideAvatarRootContext({
+    provideImageRootContext({
       imageLoadingStatus: ref<ImageLoadingStatus>('loading'),
     })
   },
