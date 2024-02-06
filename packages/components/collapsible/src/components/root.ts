@@ -2,7 +2,7 @@ import type { Component, PropType, Ref } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import type { ExtractPublicPropTypes} from '@destyler/shared';
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
 

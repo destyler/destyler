@@ -28,6 +28,7 @@ const { data } = await useAsyncData(`content-${route.path}`, () => {
                 </p>
                 <Community />
               </div>
+              <Top />
             </div>
           </div>
         </div>
