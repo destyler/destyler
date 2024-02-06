@@ -47,17 +47,17 @@ export default defineConfig({
 
 > All credits go to these open-source works and resources
 
-- [radix-ui](https://github.com/radix-ui/primitives)
-- [radix-vue](https://github.com/radix-vue/radix-vue)
-- [naive-ui](https://github.com/tusen-ai/naive-ui)
-- [kobalte](https://github.com/kobaltedev/kobalte)
-- [oku-ui](https://github.com/oku-ui/primitives)
-- [headlessui](https://github.com/tailwindlabs/headlessui)
-- [melt-ui](https://github.com/melt-ui/melt-ui)
-- [vueuse](https://github.com/vueuse/vueuse)
-- [anu](https://github.com/jd-solanki/anu)
-- [floating-ui](https://github.com/floating-ui/floating-ui)
-- [primevue](https://github.com/primefaces/primevue)
-- [shadcn-ui](https://github.com/shadcn-ui/ui)
-- [nuxt-ui](https://github.com/nuxt/ui)
-- [nuxt-ui-pro](https://github.com/nuxt-ui-pro)
+- Radix UI - https://github.com/radix-ui/primitives
+- Radix Vue - https://github.com/radix-vue/radix-vue
+- Naïve UI - https://github.com/tusen-ai/naive-ui
+- Kobalte - https://github.com/kobaltedev/kobalte
+- Oku UI - https://github.com/oku-ui/primitives
+- Headless UI - https://github.com/tailwindlabs/headlessui
+- Melt UI - https://github.com/melt-ui/melt-ui
+- vueuse - https://github.com/vueuse/vueuse
+- Anu - https://github.com/jd-solanki/anu
+- Floating UI - https://github.com/floating-ui/floating-ui
+- primevue - https://github.com/primefaces/primevue
+- Shadcn UI - https://github.com/shadcn-ui/ui
+- nuxt-ui - https://github.com/nuxt/ui
+- nuxt-ui-pro - https://github.com/nuxt-ui-pro
