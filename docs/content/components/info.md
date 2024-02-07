@@ -6,9 +6,13 @@ layout: component
 
 > Displays a callout for user attention.
 
+## Alert
+
 ::craft-box
 :::alert-demo
 ::
+
+## Tag
 
 ::craft-box
 :::tag-demo

@@ -4,7 +4,7 @@
 
 <template>
   <Box>
-    <FrameworkCard dark-icon="vscode-icons:file-type-vue" light-icon="vscode-icons:file-type-vue" title="Vue" />
+    <FrameworkCard link="/guide/vue" dark-icon="vscode-icons:file-type-vue" light-icon="vscode-icons:file-type-vue" title="Vue" />
     <FrameworkCard dark-icon="vscode-icons:file-type-nuxt" light-icon="vscode-icons:file-type-nuxt" title="Nuxt" />
     <FrameworkCard dark-icon="vscode-icons:file-type-astro" light-icon="vscode-icons:file-type-light-astro" title="Astro" />
     <FrameworkCard dark-icon="vscode-icons:file-type-js" light-icon="vscode-icons:file-type-js" title="Browser" />
