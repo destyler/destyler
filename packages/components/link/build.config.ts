@@ -1,5 +1,5 @@
 import { defineBuildConfig } from 'unbuild'
-import { entries, externals } from '../build.basic.config'
+import { entries, externals } from '../../../build.basic.config'
 
 export default defineBuildConfig({
   entries: [
@@ -7,6 +7,8 @@ export default defineBuildConfig({
   ],
   externals: [
     ...externals,
+    '@vue/runtime-core',
+    '@vue/reactivity',
   ],
   clean: true,
   declaration: true,

@@ -860,6 +860,9 @@ importers:
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/link':
+        specifier: workspace:*
+        version: link:../components/link
       '@destyler/menu':
         specifier: workspace:*
         version: link:../components/menu
