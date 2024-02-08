@@ -764,6 +764,9 @@ importers:
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
+      '@destyler/roving-focus':
+        specifier: workspace:0.0.1-beta.11
+        version: link:../rovingFocus
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
