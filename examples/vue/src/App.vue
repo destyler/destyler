@@ -25,6 +25,7 @@ import RadioGroupDemo from '@destyler/demo/radio/demos/RadioGroup.demo.vue'
 import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
 import SwitchCssDemo from '@destyler/demo/switch/demos/Switch.unocss.demo.vue'
 import LinkCssDemo from '@destyler/demo/link/demos/Link.unocss.demo.vue'
+import ToggleDemo from '@destyler/demo/toggle/demos/Toggle.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -33,6 +34,6 @@ import Collapse from './components/Cpllapse.vue'
 
 <template>
   <div>
-    <LinkCssDemo />
+    <ToggleDemo />
   </div>
 </template>

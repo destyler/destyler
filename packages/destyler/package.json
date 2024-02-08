@@ -75,6 +75,7 @@
     "@destyler/slider": "workspace:*",
     "@destyler/switch": "workspace:*",
     "@destyler/teleport": "workspace:*",
+    "@destyler/toggle": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/visually-hidden": "workspace:*"
   }

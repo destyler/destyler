@@ -81,7 +81,9 @@
       "@destyler/demo/switch/*": ["./packages/components/switch/*"],
       "@destyler/switch": ["./packages/components/switch/src/index.ts"],
       "@destyler/demo/link/*": ["./packages/components/link/*"],
-      "@destyler/link": ["./packages/components/link/src/index.ts"]
+      "@destyler/link": ["./packages/components/link/src/index.ts"],
+      "@destyler/demo/toggle/*": ["./packages/components/toggle/*"],
+      "@destyler/toggle": ["./packages/components/toggle/src/index.ts"]
     }
   }
 }

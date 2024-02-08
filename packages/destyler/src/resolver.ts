@@ -33,6 +33,7 @@ import { dividerComponentName } from '@destyler/divider/dist/resolver'
 import { radioComponentName } from '@destyler/radio/dist/resolver'
 import { switchComponentName } from '@destyler/switch/dist/resolver'
 import { linkComponentName } from '@destyler/link/dist/resolver'
+import { toggleComponentName } from '@destyler/toggle/dist/resolver'
 
 export const destylerComponentNames = [
   ...primitiveComponentName,
@@ -68,6 +69,7 @@ export const destylerComponentNames = [
   ...radioComponentName,
   ...switchComponentName,
   ...linkComponentName,
+  ...toggleComponentName,
 ]
 
 export function DestylerUIResolver(): ComponentResolver {

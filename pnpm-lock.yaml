@@ -756,6 +756,21 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/toggle:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.11
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/tooltip:
     dependencies:
       '@destyler/composition':
@@ -908,6 +923,9 @@ importers:
       '@destyler/teleport':
         specifier: workspace:*
         version: link:../components/teleport
+      '@destyler/toggle':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/toggle
       '@destyler/tooltip':
         specifier: workspace:*
         version: link:../components/tooltip
