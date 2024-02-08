@@ -1,6 +1,6 @@
 {
   "name": "@destyler/toggle",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.12",
   "private": "true",
   "description": "unstyled toggle component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
