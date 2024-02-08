@@ -759,7 +759,7 @@ importers:
   packages/components/toggle:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.11
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
@@ -924,7 +924,7 @@ importers:
         specifier: workspace:*
         version: link:../components/teleport
       '@destyler/toggle':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/toggle
       '@destyler/tooltip':
         specifier: workspace:*
