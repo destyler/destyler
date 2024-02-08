@@ -11,11 +11,8 @@ function handleReset() {
 
 <template>
   <div class="flex flex-col items-center justify-center">
-    <div><DestylerCountdown ref="countdownRef" :duration="50000" /></div>
-    <div>
-      <button @click="handleReset">
-        Reset
-      </button>
+    <div class="cursor-pointer" @click="handleReset">
+      <DestylerCountdown ref="countdownRef" :duration="50000" />
     </div>
   </div>
 </template>
