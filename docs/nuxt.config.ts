@@ -27,6 +27,11 @@ export default defineNuxtConfig({
       },
     },
   },
+  vite: {
+    optimizeDeps: {
+      include: ['is-buffer'],
+    }
+  },
 
   devtools: { enabled: true },
 })
