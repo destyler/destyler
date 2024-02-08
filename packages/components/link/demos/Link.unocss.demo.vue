@@ -3,7 +3,7 @@ import { DestylerLink } from '../src'
 </script>
 
 <template>
-  <DestylerLink disabled href="https://github.com">
+  <DestylerLink disabled to="https://github.com" target="_blank">
     GitHub
   </DestylerLink>
 </template>
