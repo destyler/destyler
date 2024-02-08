@@ -59,6 +59,7 @@
     "@destyler/image": "workspace:*",
     "@destyler/info": "workspace:*",
     "@destyler/label": "workspace:*",
+    "@destyler/link": "workspace:*",
     "@destyler/menu": "workspace:*",
     "@destyler/modal": "workspace:*",
     "@destyler/online": "workspace:*",

@@ -432,6 +432,18 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/link:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/menu:
     dependencies:
       '@destyler/composition':
@@ -848,6 +860,9 @@ importers:
       '@destyler/label':
         specifier: workspace:*
         version: link:../components/label
+      '@destyler/link':
+        specifier: workspace:*
+        version: link:../components/link
       '@destyler/menu':
         specifier: workspace:*
         version: link:../components/menu

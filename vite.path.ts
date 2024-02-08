@@ -13,8 +13,8 @@ export const alias = {
   '@destyler/demo/alert/': `${path.resolve(__dirname, 'packages/components/alert')}/`,
   '@destyler/arrow': `${path.resolve(__dirname, 'packages/components/arrow')}/src/index.ts`,
   '@destyler/demo/arrow/': `${path.resolve(__dirname, 'packages/components/arrow')}/`,
-  '@destyler/avatar': `${path.resolve(__dirname, 'packages/components/avatar')}/src/index.ts`,
-  '@destyler/demo/avatar/': `${path.resolve(__dirname, 'packages/components/avatar')}/`,
+  '@destyler/image': `${path.resolve(__dirname, 'packages/components/image')}/src/index.ts`,
+  '@destyler/demo/image/': `${path.resolve(__dirname, 'packages/components/image')}/`,
   '@destyler/collapse': `${path.resolve(__dirname, 'packages/components/collapse')}/src/index.ts`,
   '@destyler/demo/collapse/': `${path.resolve(__dirname, 'packages/components/collapse')}/`,
   '@destyler/collapsible': `${path.resolve(__dirname, 'packages/components/collapsible')}/src/index.ts`,
@@ -80,4 +80,6 @@ export const alias = {
   '@destyler/demo/menu/': `${path.resolve(__dirname, 'packages/components/menu')}/`,
   '@destyler/switch': `${path.resolve(__dirname, 'packages/components/switch')}/src/index.ts`,
   '@destyler/demo/switch/': `${path.resolve(__dirname, 'packages/components/switch')}/`,
+  '@destyler/link': `${path.resolve(__dirname, 'packages/components/link')}/src/index.ts`,
+  '@destyler/demo/link/': `${path.resolve(__dirname, 'packages/components/link')}/`,
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AvatarBasic from '@destyler/demo/avatar/demos/AvatarBasic.demo.vue'
+import AvatarBasic from '@destyler/demo/image/demos/AvatarBasic.demo.vue'
 import CountdownDemo from '@destyler/demo/countdown/demos/Countdown.demo.vue'
 import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
@@ -24,6 +24,7 @@ import RadioDemo from '@destyler/demo/radio/demos/Radio.demo.vue'
 import RadioGroupDemo from '@destyler/demo/radio/demos/RadioGroup.demo.vue'
 import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
 import SwitchCssDemo from '@destyler/demo/switch/demos/Switch.unocss.demo.vue'
+import LinkCssDemo from '@destyler/demo/link/demos/Link.unocss.demo.vue'
 import Primitive from './components/Primitive.vue'
 import Label from './components/Label.vue'
 import Avatar from './components/Avatar.vue'
@@ -32,6 +33,6 @@ import Collapse from './components/Cpllapse.vue'
 
 <template>
   <div>
-    <SwitchCssDemo />
+    <LinkCssDemo />
   </div>
 </template>

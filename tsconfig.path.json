@@ -14,8 +14,8 @@
       "@destyler/demo/alert/*": ["./packages/components/alert/*"],
       "@destyler/arrow": ["./packages/components/arrow/src/index.ts"],
       "@destyler/demo/arrow/*": ["./packages/components/arrow/*"],
-      "@destyler/avatar": ["./packages/components/avatar/src/index.ts"],
-      "@destyler/demo/avatar/*": ["./packages/components/avatar/*"],
+      "@destyler/image": ["./packages/components/image/src/index.ts"],
+      "@destyler/demo/image/*": ["./packages/components/image/*"],
       "@destyler/collapse": ["./packages/components/collapse/src/index.ts"],
       "@destyler/demo/collapse/*": ["./packages/components/collapse/*"],
       "@destyler/collapsible": ["./packages/components/collapsible/src/index.ts"],
@@ -79,7 +79,9 @@
       "@destyler/demo/menu/*": ["./packages/components/menu/*"],
       "@destyler/menu": ["./packages/components/menu/src/index.ts"],
       "@destyler/demo/switch/*": ["./packages/components/switch/*"],
-      "@destyler/switch": ["./packages/components/switch/src/index.ts"]
+      "@destyler/switch": ["./packages/components/switch/src/index.ts"],
+      "@destyler/demo/link/*": ["./packages/components/link/*"],
+      "@destyler/link": ["./packages/components/link/src/index.ts"]
     }
   }
 }
