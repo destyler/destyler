@@ -8,7 +8,7 @@ export default defineBuildConfig({
   externals: [
     ...externals,
     '@vue/runtime-core',
-    '@vue/reactivity'
+    '@vue/reactivity',
   ],
   clean: true,
   declaration: true,

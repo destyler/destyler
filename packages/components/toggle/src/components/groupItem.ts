@@ -43,9 +43,9 @@ export const DestylerToggleGroupItem = defineComponent({
     }, {
       default: () => {
         return h(DestylerToggle, mergeProps(this.$props, {
-          "ref": 'forwardRef',
-          "disabled": this.disabled,
-          "pressed": this.rootContext.type === 'single' ? this.rootContext.modelValue.value === this.$props.value : this.rootContext.modelValue.value?.includes(this.$props.value),
+          'ref': 'forwardRef',
+          'disabled': this.disabled,
+          'pressed': this.rootContext.type === 'single' ? this.rootContext.modelValue.value === this.$props.value : this.rootContext.modelValue.value?.includes(this.$props.value),
           'onUpdate:pressed': () => {
             this.rootContext.changeModelValue(this.$props.value)
           },

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import { DestylerPopoverClose, DestylerPopoverContent, DestylerPopoverPortal, DestylerPopoverRoot, DestylerPopoverTrigger } from '../src'
+import { DestylerPopoverContent, DestylerPopoverPortal, DestylerPopoverRoot, DestylerPopoverTrigger } from '../src'
 
 const openStatus = ref(false)
 </script>

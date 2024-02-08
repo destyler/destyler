@@ -8,5 +8,5 @@ import { DestylerInfoClose, DestylerInfoRoot } from '../src'
       close
     </DestylerInfoClose>
     label
-</DestylerInfoRoot>
+  </DestylerInfoRoot>
 </template>

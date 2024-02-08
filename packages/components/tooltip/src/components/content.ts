@@ -33,8 +33,8 @@ export const DestylerTooltipContent = defineComponent({
       ? h(this.rootContext.disableHoverableContent.value ? DestylerTooltipContentImpl : DestylerTooltipContentHoverable, {
         ...this.forwarded,
       }, {
-      default: () => this.$slots.default?.(),
-    })
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import {
-  DestylerPopoverArrow,
-  DestylerPopoverClose,
   DestylerPopoverContent,
   DestylerPopoverPortal,
   DestylerPopoverRoot,

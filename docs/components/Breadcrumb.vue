@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { DestylerIcon , DestylerLabel } from 'destyler'
+import { DestylerIcon, DestylerLabel } from 'destyler'
 
 const props = defineProps<{
   items: string[]
 }>()
 
 const breadcrumbItems = computed(() => {
-  // 清空 props.items 中的空字符串
   return props.items.filter(item => item)
 })
 

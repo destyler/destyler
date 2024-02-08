@@ -38,8 +38,8 @@ export const DestylerSwitchThump = defineComponent({
     return h(DestylerPrimitive, {
       'data-state': this.rootContext.checked?.value ? 'checked' : 'unchecked',
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
-      "asChild": this.$props.asChild,
-      "as": this.$props.as,
+      'asChild': this.$props.asChild,
+      'as': this.$props.as,
     }, this.$slots.default?.())
   },
 })

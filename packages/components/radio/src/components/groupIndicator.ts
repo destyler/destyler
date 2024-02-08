@@ -39,8 +39,8 @@ export const DestylerRadioGroupIndicator = defineComponent({
         'as': this.$props.as,
         'asChild': this.$props.asChild,
       }, {
-      default: () => this.$slots.default?.(),
-    })
+        default: () => this.$slots.default?.(),
+      })
       : null
   },
 })

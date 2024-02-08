@@ -13,6 +13,6 @@ const sliderValue = ref([50])
     <DestylerSliderTrack>
       <DestylerSliderRange />
     </DestylerSliderTrack>
-    <DestylerSliderThumb/>
+    <DestylerSliderThumb />
   </DestylerSliderRoot>
 </template>

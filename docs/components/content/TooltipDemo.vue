@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerTooltipArrow, DestylerTooltipContent, DestylerTooltipPortal, DestylerTooltipProvider, DestylerTooltipRoot, DestylerTooltipTrigger } from 'destyler'
+import { DestylerTooltipContent, DestylerTooltipPortal, DestylerTooltipProvider, DestylerTooltipRoot, DestylerTooltipTrigger } from 'destyler'
 </script>
 
 <template>

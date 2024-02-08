@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import {
-  DestylerModalAction,
   DestylerModalCancel,
   DestylerModalContent,
-  DestylerModalDescription,
   DestylerModalOverlay,
   DestylerModalPortal,
   DestylerModalRoot,
-  DestylerModalTitle,
   DestylerModalTrigger,
 } from '../src'
 </script>

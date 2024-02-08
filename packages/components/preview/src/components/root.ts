@@ -135,8 +135,8 @@ export const DestylerPreviewRoot = defineComponent({
           this.isPreviewActive = !this.isPreviewActive
         },
       }), {
-      default: () => this.$slots.default?.(),
-    }),
+        default: () => this.$slots.default?.(),
+      }),
       [
         useVShow
           ? h(DestylerTeleport, h(DestylerPrimitive, mergeProps(this.$attrs, {
@@ -148,8 +148,8 @@ export const DestylerPreviewRoot = defineComponent({
             },
             style: this.computedStyle,
           }), {
-      default: () => this.$slots.default?.(),
-    }))
+            default: () => this.$slots.default?.(),
+          }))
           : null,
       ],
     ]

@@ -45,12 +45,12 @@ export const DestylerPopoverContent = defineComponent({
       ? h(DestylerPopoverContentModal, {
         ...this.forwarded,
       }, {
-      default: () => this.$slots.default?.(),
-    })
+        default: () => this.$slots.default?.(),
+      })
       : h(DestylerPopoverContentNonModal, {
         ...this.forwarded,
       }, {
-      default: () => this.$slots.default?.(),
-    }))
+        default: () => this.$slots.default?.(),
+      }))
   },
 })
