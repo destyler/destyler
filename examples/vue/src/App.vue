@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ToggleDemo from '@destyler/demo/toggle/demos/Toggle.demo.vue'
+import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
 </script>
 
 <template>
-  <div>
-    <ToggleDemo />
+  <div class="max-w-60">
+    <MenubarDemo />
   </div>
 </template>

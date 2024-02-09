@@ -10,8 +10,6 @@ import { DestylerPopperAnchor, DestylerPopperArrow, DestylerPopperContent, Desty
 
     <DestylerPopperContent>
       Content
-
-      <DestylerPopperArrow />
     </DestylerPopperContent>
   </DestylerPopperRoot>
 </template>
