@@ -3,15 +3,15 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
+export const menubarComponentName = [
   'DestylerTemplate',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function DestylerMenubarResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (menubarComponentName.includes(name))
         return { name, from: packageName }
     },
   }

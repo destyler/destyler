@@ -480,6 +480,30 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/menubar:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/menu':
+        specifier: workspace:*
+        version: link:../menu
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/roving-focus':
+        specifier: workspace:*
+        version: link:../rovingFocus
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/modal:
     dependencies:
       '@destyler/composition':
@@ -765,7 +789,7 @@ importers:
         specifier: workspace:*
         version: link:../primitive
       '@destyler/roving-focus':
-        specifier: workspace:0.0.1-beta.11
+        specifier: workspace:*
         version: link:../rovingFocus
       '@destyler/shared':
         specifier: workspace:*
@@ -884,6 +908,9 @@ importers:
       '@destyler/menu':
         specifier: workspace:*
         version: link:../components/menu
+      '@destyler/menubar':
+        specifier: workspace:*
+        version: link:../components/menubar
       '@destyler/modal':
         specifier: workspace:*
         version: link:../components/modal

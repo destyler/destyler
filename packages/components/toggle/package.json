@@ -1,7 +1,6 @@
 {
   "name": "@destyler/toggle",
   "version": "0.0.1-beta.12",
-  "private": "true",
   "description": "unstyled toggle component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
@@ -41,7 +40,7 @@
   "dependencies": {
     "@destyler/composition": "workspace:*",
     "@destyler/primitive": "workspace:*",
-    "@destyler/roving-focus": "workspace:0.0.1-beta.11",
+    "@destyler/roving-focus": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }

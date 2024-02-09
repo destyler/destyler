@@ -6,6 +6,11 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
+    "paths": {
+      "@vue/runtime-core": ["../../../node_modules/@vue/runtime-core"],
+      "@vue/reactivity": ["../../../node_modules/@vue/reactivity"],
+      "@vue/shared": ["../../../node_modules/@vue/shared"]
+    },
     "resolveJsonModule": true,
     "types": [
       "vite/client",
