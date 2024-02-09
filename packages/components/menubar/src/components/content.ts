@@ -176,8 +176,8 @@ export const DestylerMenubarContent = defineComponent({
         '--destyler_menubar_content_transform_origin': 'var(--destyler_popper_transform_origin)',
         '--destyler_menubar_content_available_width': 'var(--destyler_popper_available_width)',
         '--destyler_menubar_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_menubar_trigger_width': 'var(--radix_popper_anchor_width)',
-        '--destyler_menubar_trigger_height': 'var(--radix_popper_anchor_height)',
+        '--destyler_menubar_trigger_width': 'var(--destyler_popper_anchor_width)',
+        '--destyler_menubar_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
       'onCloseAutoFocus': (event: any) => {
         const menubarOpen = Boolean(this.rootContext.modelValue.value)
