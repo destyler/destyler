@@ -84,13 +84,13 @@ export const DestylerMenubarTrigger = defineComponent({
               'onPointerdown': (event: any) => {
                 if (!this.$props.disabled && event.button === 0 && event.ctrlKey === false) {
                   this.rootContext.onMenuOpen(this.menuContext.value)
-                  if (!open)
+                  if (!this.open)
                     event.preventDefault()
                 }
               },
               'onPointerenter': () => {
                 const menubarOpen = Boolean(this.rootContext.modelValue.value)
-                if (menubarOpen && !open) {
+                if (menubarOpen && !this.open) {
                   this.rootContext.onMenuOpen(this.menuContext.value)
                   this.triggerElement?.focus()
                 }

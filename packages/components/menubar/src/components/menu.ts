@@ -37,7 +37,9 @@ export const DestylerMenubarMenu = defineComponent({
     const triggerElement = ref<HTMLElement>()
     const wasKeyboardTriggerOpenRef = ref(false)
 
-    const open = computed(() => rootContext.modelValue.value === value)
+    const open = computed(() => {
+      return rootContext.modelValue.value === value
+    })
 
     watch(open, () => {
       if (!open.value)
@@ -53,19 +55,19 @@ export const DestylerMenubarMenu = defineComponent({
     })
 
     return {
+      value,
       open,
       rootContext,
     }
   },
   render() {
     return h(DestylerMenuRoot, {
-      "open": this.open,
-      "modal": false,
-      "dir": this.rootContext.dir.value,
-      'onUpdate:open': (value: boolean) => {
-        if (!value) 
-          this.rootContext.onMenuClose();
-        
+      'open': this.open,
+      'modal': false,
+      'dir': this.rootContext.dir.value,
+      'onUpdate:open': (value) => {
+        if (!value)
+          this.rootContext.onMenuClose()
       },
     }, {
       default: () => this.$slots.default?.(),

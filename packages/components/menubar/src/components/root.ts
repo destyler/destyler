@@ -57,6 +57,7 @@ export const DestylerMenubarRoot = defineComponent({
 
     const { dir: propDir, loop } = toRefs(props)
     const dir = useDirection(propDir)
+
     provideMenubarRootContext({
       modelValue,
       dir,
