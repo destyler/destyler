@@ -11,6 +11,7 @@ export const destylerMenubarMenuProps = {
   value: {
     type: String as PropType<string>,
     required: false,
+    default: undefined,
   },
 } as const
 
@@ -65,7 +66,7 @@ export const DestylerMenubarMenu = defineComponent({
       'open': this.open,
       'modal': false,
       'dir': this.rootContext.dir.value,
-      'onUpdate:open': (value) => {
+      'onUpdate:open': (value: boolean) => {
         if (!value)
           this.rootContext.onMenuClose()
       },

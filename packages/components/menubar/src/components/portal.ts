@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerMenuPortal } from '@destyler/menu'
+import { DestylerMenuAnchor, DestylerMenuPortal } from '@destyler/menu'
 
 export const destylerMenubarPortalProps = {
   to: {

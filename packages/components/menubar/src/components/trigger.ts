@@ -60,67 +60,59 @@ export const DestylerMenubarTrigger = defineComponent({
       asChild: true,
       focusable: !this.$props.disabled,
       tabStopId: this.menuContext.value,
-    }, {
-      default: () => {
-        return h(DestylerMenuAnchor, {
-          asChild: true,
-        }, {
-          default: () => {
-            return withDirectives(h(DestylerPrimitive, {
-              'ref': 'forwardRef',
-              'as': this.$props.as,
-              'asChild': this.$props.asChild,
-              'type': this.$props.as === 'button' ? 'button' : undefined,
-              'role': 'menuitem',
-              'aria-haspopup': 'menu',
-              'aria-expanded': 'open',
-              'aria-controls': this.open ? this.menuContext.contentId : undefined,
-              'data-highlighted': this.isFocused ? '' : undefined,
-              'data-state': this.open ? 'open' : 'closed',
-              'data-disabled': this.$props.disabled ? '' : undefined,
-              'disabled': this.$props.disabled,
-              'data-value': this.menuContext.value,
-              'data-destyler-collection-item': '',
-              'onPointerdown': (event: any) => {
-                if (!this.$props.disabled && event.button === 0 && event.ctrlKey === false) {
-                  this.rootContext.onMenuOpen(this.menuContext.value)
-                  if (!this.open)
-                    event.preventDefault()
-                }
-              },
-              'onPointerenter': () => {
-                const menubarOpen = Boolean(this.rootContext.modelValue.value)
-                if (menubarOpen && !this.open) {
-                  this.rootContext.onMenuOpen(this.menuContext.value)
-                  this.triggerElement?.focus()
-                }
-              },
-              'onFocus': () => {
-                this.isFocused = true
-              },
-              'onBlur': () => {
-                this.isFocused = false
-              },
-              'onKeydown': withModifiers((event: any) => {
-                if (this.$props.disabled)
-                  return
-                if (['Enter', ' '].includes(event.key))
-                  this.rootContext.onMenuToggle(this.menuContext.value)
-                if (event.key === 'ArrowDown')
-                  this.rootContext.onMenuOpen(this.menuContext.value)
-                if (['Enter', ' ', 'ArrowDown'].includes(event.key)) {
-                  this.menuContext.wasKeyboardTriggerOpenRef.value = true
-                  event.preventDefault()
-                }
-              }, ['enter', 'space', 'arrow-down']),
-            }, {
-              default: () => this.$slots.default?.(),
-            }), [
-              [BindOnceDirective, { id: this.menuContext.triggerId }],
-            ])
-          },
-        })
+    }, h(DestylerMenuAnchor, {
+      asChild: true,
+    }, withDirectives(h(DestylerPrimitive, {
+      'ref': 'forwardRef',
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'type': this.$props.as === 'button' ? 'button' : undefined,
+      'role': 'menuitem',
+      'aria-haspopup': 'menu',
+      'aria-expanded': 'open',
+      'aria-controls': this.open ? this.menuContext.contentId : undefined,
+      'data-highlighted': this.isFocused ? '' : undefined,
+      'data-state': this.open ? 'open' : 'closed',
+      'data-disabled': this.$props.disabled ? '' : undefined,
+      'disabled': this.$props.disabled,
+      'data-value': this.menuContext.value,
+      'data-destyler-collection-item': '',
+      'onClick': (event: any) => {
+        if (!this.$props.disabled && event.button === 0 && event.ctrlKey === false) {
+          this.rootContext.onMenuOpen(this.menuContext.value)
+          if (!this.open)
+            event.preventDefault()
+        }
       },
-    })
+      'onPointerenter': () => {
+        const menubarOpen = Boolean(this.rootContext.modelValue.value)
+        if (menubarOpen && !this.open) {
+          this.rootContext.onMenuOpen(this.menuContext.value)
+          this.triggerElement?.focus()
+        }
+      },
+      'onFocus': () => {
+        this.isFocused = true
+      },
+      'onBlur': () => {
+        this.isFocused = false
+      },
+      'onKeydown': withModifiers((event: any) => {
+        if (this.$props.disabled)
+          return
+        if (['Enter', ' '].includes(event.key))
+          this.rootContext.onMenuToggle(this.menuContext.value)
+        if (event.key === 'ArrowDown')
+          this.rootContext.onMenuOpen(this.menuContext.value)
+        if (['Enter', ' ', 'ArrowDown'].includes(event.key)) {
+          this.menuContext.wasKeyboardTriggerOpenRef.value = true
+          event.preventDefault()
+        }
+      }, ['enter', 'space', 'arrow-down']),
+    }, {
+      default: () => this.$slots.default?.(),
+    }), [
+      [BindOnceDirective, { id: this.menuContext.triggerId }],
+    ])))
   },
 })

@@ -11,7 +11,7 @@ import {
   DestylerMenuSeparator,
 } from '../src'
 
-const open = ref<boolean>(true)
+const open = ref<boolean>(false)
 
 const foodGroups = [
   {
@@ -51,10 +51,18 @@ const foodGroups = [
     ],
   },
 ]
+
+function handleToggle(value: boolean) {
+  if (!value)
+    open.value = value
+}
 </script>
 
 <template>
-  <DestylerMenuRoot v-model:open="open" :modal="false">
+  <button @click="open = true">
+    open
+  </button>
+  <DestylerMenuRoot :open="open" :modal="false" @update:open="handleToggle">
     <DestylerMenuAnchor :style="{ display: 'inline-block' }" />
     <DestylerMenuPortal>
       <DestylerMenuContent
