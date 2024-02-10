@@ -798,6 +798,30 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/toolbar:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.12
+        version: link:../../composition
+      '@destyler/divider':
+        specifier: workspace:0.0.1-beta.12
+        version: link:../divider
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/roving-focus':
+        specifier: workspace:0.0.1-beta.12
+        version: link:../rovingFocus
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/toggle':
+        specifier: workspace:0.0.1-beta.12
+        version: link:../toggle
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/tooltip:
     dependencies:
       '@destyler/composition':
