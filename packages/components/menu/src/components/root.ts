@@ -58,7 +58,6 @@ export const DestylerMenuRoot = defineComponent({
     watchEffect((cleanupFn) => {
       if (!isClient)
         return
-      const handlePointer = () => (isUsingKeyboardRef.value = false)
       const handleKeyDown = () => {
         isUsingKeyboardRef.value = true
         document.addEventListener('pointerdown', handlePointer, {
@@ -70,7 +69,7 @@ export const DestylerMenuRoot = defineComponent({
           once: true,
         })
       }
-
+      const handlePointer = () => (isUsingKeyboardRef.value = false)
       document.addEventListener('keydown', handleKeyDown, { capture: true })
 
       cleanupFn(() => {

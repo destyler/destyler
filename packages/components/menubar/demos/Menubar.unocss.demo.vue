@@ -13,7 +13,7 @@ import {
   <DestylerMenubarRoot class="flex h-9 items-center space-x-1 rounded-md border dark:border-#27272A dark:bg-#09090B p-1 shadow-sm">
     <DestylerMenubarMenu>
       <DestylerMenubarTrigger
-        class="flex cursor-default select-none items-center rounded-sm px-3 py-1 text-sm font-medium outline-none dark:focus:bg-#27272A focus:bg-#F4F4F5 focus:text-#18181B dark:focus:text-#FAFAFA dark:data-[state=open]:bg-#27272A data-[state=open]:bg-#F4F4F5 data-[state=open]:text-#18181B dark:data-[state=open]:text-#FAFAFA"
+        class="flex cursor-default select-none items-center rounded-sm px-3 py-1 text-sm font-medium outline-none dark:hover:bg-#27272A hover:bg-#F4F4F5 hover:text-#18181B dark:hover:text-#FAFAFA dark:data-[state=open]:bg-#27272A data-[state=open]:bg-#F4F4F5 data-[state=open]:text-#18181B dark:data-[state=open]:text-#FAFAFA"
       >
         File
       </DestylerMenubarTrigger>
@@ -39,6 +39,7 @@ import {
         </DestylerMenubarContent>
       </DestylerMenubarPortal>
     </DestylerMenubarMenu>
+
     <DestylerMenubarMenu>
       <DestylerMenubarTrigger
         class="flex cursor-default select-none items-center rounded-sm px-3 py-1 text-sm font-medium outline-none dark:focus:bg-#27272A focus:bg-#F4F4F5 focus:text-#18181B dark:focus:text-#FAFAFA dark:data-[state=open]:bg-#27272A data-[state=open]:bg-#F4F4F5 data-[state=open]:text-#18181B dark:data-[state=open]:text-#FAFAFA"

@@ -62,7 +62,7 @@ export const DestylerMenubarRoot = defineComponent({
       modelValue,
       dir,
       loop,
-      onMenuOpen: (value) => {
+      onMenuOpen: (value: string) => {
         modelValue.value = value
         currentTabStopId.value = value
       },

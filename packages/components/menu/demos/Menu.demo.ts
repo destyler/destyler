@@ -32,7 +32,7 @@ export const MenuDemo = defineComponent({
       }, [
         h(DestylerMenuAnchor, {
           asChild: true,
-        }, h('button', {
+        }, () => h('button', {
           onPointerdown: () => {
             this.handleToggle(true)
           },

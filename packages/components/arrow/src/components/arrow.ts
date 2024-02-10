@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerArrowProps = {
@@ -33,15 +33,8 @@ export type DestylerArrowProps = ExtractPublicPropTypes<typeof destylerArrowProp
 export const DestylerArrow = defineComponent({
   name: 'DestylerArrow',
   props: destylerArrowProps,
-  setup(_, { slots }) {
-    const { customElement } = useCustomElement()
-
-    const hasSlot = !!slots.default
-
-    return {
-      hasSlot,
-      customElement,
-    }
+  setup(_) {
+    useForwardExpose()
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props, {
@@ -51,7 +44,7 @@ export const DestylerArrow = defineComponent({
       preserveAspectRatio: this.asChild ? undefined : 'none',
     }), {
       default: () => {
-        return this.hasSlot
+        return this.$slots.default
           ? this.$slots.default?.()
           : h('polygon', {
             points: '0,0 30,0 15,10',
