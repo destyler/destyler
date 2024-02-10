@@ -83,7 +83,9 @@
       "@destyler/demo/link/*": ["./packages/components/link/*"],
       "@destyler/link": ["./packages/components/link/src/index.ts"],
       "@destyler/demo/toggle/*": ["./packages/components/toggle/*"],
-      "@destyler/toggle": ["./packages/components/toggle/src/index.ts"]
+      "@destyler/toggle": ["./packages/components/toggle/src/index.ts"],
+      "@destyler/demo/menubar/*": ["./packages/components/menubar/*"],
+      "@destyler/menubar": ["./packages/components/menubar/src/index.ts"]
     }
   }
 }

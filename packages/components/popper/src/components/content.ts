@@ -251,7 +251,7 @@ export const DestylerPopperContent = defineComponent({
     }
   },
   render() {
-    return h('div', mergeProps(this.$attrs, {
+    return h('div', {
       'data-destyler-popper-content-wrapper': '',
       'ref': 'floatingRef',
       'style': {
@@ -264,7 +264,7 @@ export const DestylerPopperContent = defineComponent({
           this.middlewareData.transformOrigin?.y,
         ].join(' '),
       },
-    }), h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, h(DestylerPrimitive, mergeProps(this.$attrs, {
       'ref': (vnode) => {
         this.forwardRef(vnode)
         this.customElement = vnode as ComponentPublicInstance

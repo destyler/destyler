@@ -84,4 +84,6 @@ export const alias = {
   '@destyler/demo/link/': `${path.resolve(__dirname, 'packages/components/link')}/`,
   '@destyler/toggle': `${path.resolve(__dirname, 'packages/components/toggle')}/src/index.ts`,
   '@destyler/demo/toggle/': `${path.resolve(__dirname, 'packages/components/toggle')}/`,
+  '@destyler/menubar': `${path.resolve(__dirname, 'packages/components/menubar')}/src/index.ts`,
+  '@destyler/demo/menubar/': `${path.resolve(__dirname, 'packages/components/menubar')}/`,
 }
