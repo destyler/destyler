@@ -699,6 +699,24 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/scrollArea:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.12
+        version: link:../../composition
+      '@destyler/presence':
+        specifier: workspace:0.0.1-beta.12
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/select:
     dependencies:
       '@destyler/composition':

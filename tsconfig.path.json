@@ -87,7 +87,9 @@
       "@destyler/demo/menubar/*": ["./packages/components/menubar/*"],
       "@destyler/menubar": ["./packages/components/menubar/src/index.ts"],
       "@destyler/demo/toolbar/*": ["./packages/components/toolbar/*"],
-      "@destyler/toolbar": ["./packages/components/toolbar/src/index.ts"]
+      "@destyler/toolbar": ["./packages/components/toolbar/src/index.ts"],
+      "@destyler/demo/scrollArea/*": ["./packages/components/scrollArea/*"],
+      "@destyler/scrollArea": ["./packages/components/scrollArea/src/index.ts"]
     }
   }
 }

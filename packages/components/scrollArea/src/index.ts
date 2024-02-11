@@ -1,0 +1,5 @@
+export { DestylerScrollAreaCorner, type DestylerScrollAreaCornerProps } from './components/corner'
+export { DestylerScrollAreaRoot, type DestylerScrollAreaRootProps } from './components/root'
+export { DestylerScrollAreaScrollbar, type DestylerScrollAreaScrollbarProps } from './components/scrollbar'
+export { DestylerScrollAreaThumb, type DestylerScrollAreaThumbProps } from './components/thumb'
+export { DestylerScrollAreaViewport, type DestylerScrollAreaViewportProps } from './components/viewport'

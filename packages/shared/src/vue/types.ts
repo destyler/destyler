@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, WatchSource } from 'vue'
 
 export type Fn = () => void
 
@@ -40,4 +40,44 @@ export interface Stoppable<StartFnArgs extends any[] = any[]> {
    * Start the effects
    */
   start: (...args: StartFnArgs) => void
+}
+
+export type ArgumentsType<T> = T extends (...args: infer U) => any ? U : never
+
+export type Awaited<T> =
+  T extends null | undefined ? T :
+    T extends object & { then(onfulfilled: infer F, ...args: infer _): any } ?
+      F extends ((value: infer V, ...args: infer _) => any) ?
+        Awaited<V> :
+        never :
+      T
+
+export type Promisify<T> = Promise<Awaited<T>>
+
+export type PromisifyFn<T extends AnyFn> = (...args: ArgumentsType<T>) => Promisify<ReturnType<T>>
+
+export interface Pausable {
+  /**
+   * A ref indicate whether a pausable instance is active
+   */
+  isActive: Readonly<Ref<boolean>>
+
+  /**
+   * Temporary pause the effect from executing
+   */
+  pause: Fn
+
+  /**
+   * Resume the effects
+   */
+  resume: Fn
+}
+
+export type MultiWatchSources = (WatchSource<unknown> | object)[]
+
+export type MapSources<T> = {
+  [K in keyof T]: T[K] extends WatchSource<infer V> ? V : never;
+}
+export type MapOldSources<T, Immediate> = {
+  [K in keyof T]: T[K] extends WatchSource<infer V> ? Immediate extends true ? V | undefined : V : never;
 }

@@ -109,7 +109,7 @@ export const DestylerMenubarSubContent = defineComponent({
     function handleArrowNavigation(event: KeyboardEvent) {
       const target = event.target as HTMLElement
       const targetIsSubTrigger = target.hasAttribute(
-        'data-radix-menubar-subtrigger',
+        'data-destyler-menubar-subtrigger',
       )
 
       if (targetIsSubTrigger)

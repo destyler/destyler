@@ -185,7 +185,7 @@ export const DestylerMenuContentImpl = defineComponent({
         return
       const target = event.target as HTMLElement
       const isKeyDownInside
-    = target.closest('[data-radix-menu-content]') === event.currentTarget
+    = target.closest('[data-destyler-menu-content]') === event.currentTarget
       const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
       const isCharacterKey = event.key.length === 1
 
@@ -198,7 +198,7 @@ export const DestylerMenuContentImpl = defineComponent({
           arrowKeyOptions: 'vertical',
           dir: rootContext?.dir.value,
           focus: true,
-          attributeName: '[data-radix-vue-collection-item]:not([data-disabled])',
+          attributeName: '[data-destyler-collection-item]:not([data-disabled])',
         },
       )
       if (el)

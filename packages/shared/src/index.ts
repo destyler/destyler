@@ -24,5 +24,7 @@ export * from './vue/computed-with-control'
 export * from './vue/try-on-scope-dispose'
 export * from './vue/ref-auto-reset'
 export * from './vue/to-ref'
+export * from './vue/filters'
+export * from './vue/watch-once'
 
 export * from './types'
