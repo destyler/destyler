@@ -980,6 +980,9 @@ importers:
       '@destyler/toggle':
         specifier: workspace:*
         version: link:../components/toggle
+      '@destyler/toolbar':
+        specifier: workspace:*
+        version: link:../components/toolbar
       '@destyler/tooltip':
         specifier: workspace:*
         version: link:../components/tooltip
