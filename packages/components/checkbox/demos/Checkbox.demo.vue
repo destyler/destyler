@@ -1,30 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { DestylerCheckboxRootProps } from '../src'
 import { DestylerCheckboxIndicator, DestylerCheckboxRoot } from '../src'
-
-const props = withDefaults(defineProps<DestylerCheckboxRootProps>(), {
-  checked: undefined,
-})
-const checked = ref(props.checked)
 </script>
 
 <template>
-  <label
-    for="test"
-  >
-    Test
-  </label>
-  <DestylerCheckboxRoot
-    v-bind="props"
-    v-model:checked="checked"
-    name="test"
-    aria-label="Test"
-  >
-    <DestylerCheckboxIndicator
-      data-testid="test-indicator"
+  <div class="flex items-center space-x-2">
+    <DestylerCheckboxRoot
+      class="peer h-4 w-4 shrink-0 rounded-sm border border-#18181B dark:border-#FAFAFA shadow focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-#18181B dark:data-[state=checked]:bg-#FAFAFA data-[state=checked]:text-#FAFAFA dark:data-[state=checked]:text-#18181B"
     >
-      <i icon="radix-icons:check" />
-    </DestylerCheckboxIndicator>
-  </DestylerCheckboxRoot>
+      <DestylerCheckboxIndicator class="flex items-center justify-center text-current">
+        ·
+      </DestylerCheckboxIndicator>
+    </DestylerCheckboxRoot>
+    <label
+      htmlFor="terms"
+      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+    >
+      Accept terms and conditions
+    </label>
+  </div>
 </template>
