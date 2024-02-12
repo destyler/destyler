@@ -37,7 +37,7 @@ export const DestylerToolbarLink = defineComponent({
     }, {
       default: () => {
         return h(DestylerPrimitive, mergeProps(this.$props, {
-          ref: 'forwardRef',
+          ref: this.forwardRef,
           onKeydown: (event: KeyboardEvent) => {
             if (event.key === ' ')
               (event.currentTarget as HTMLElement)?.click()

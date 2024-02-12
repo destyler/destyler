@@ -3,7 +3,7 @@ import { computed, defineComponent, h, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { useCollection, useCustomElement, useTypeahead } from '@destyler/composition'
+import { useCollection, useForwardExpose, useTypeahead } from '@destyler/composition'
 import { DestylerPopperAnchor } from '@destyler/popper'
 
 import { OPEN_KEYS, shouldShowPlaceholder } from '../utils'
@@ -35,7 +35,7 @@ export const DestylerSelectTrigger = defineComponent({
     const rootContext = injectSelectRootContext()
     const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
 
-    const { customElement, currentElement: triggerElement } = useCustomElement()
+    const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
     onMounted(() => {
       rootContext.triggerElement = triggerElement
@@ -57,7 +57,7 @@ export const DestylerSelectTrigger = defineComponent({
       search,
       isDisabled,
       rootContext,
-      customElement,
+      forwardRef,
       handleOpen,
       handleTypeaheadSearch,
     }
@@ -66,7 +66,7 @@ export const DestylerSelectTrigger = defineComponent({
     return h(DestylerPopperAnchor, {
       asChild: true,
     }, h(DestylerPrimitive, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'role': 'combobox',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-controls': this.rootContext.contentId,

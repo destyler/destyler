@@ -5,7 +5,7 @@ import { DestylerPrimitive } from '@destyler/primitive'
 import { DestylerTeleport } from '@destyler/teleport'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, refAutoReset } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { useWindowSize } from '@vueuse/core'
 
 export const destylerPreviewRootProps = {
@@ -45,7 +45,7 @@ export const DestylerPreviewRoot = defineComponent({
   inheritAttrs: false,
   props: destylerPreviewRootProps,
   setup(props) {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const isPreviewActive = ref(false)
     const isTransitioning = refAutoReset(false, props.duration)
@@ -117,14 +117,14 @@ export const DestylerPreviewRoot = defineComponent({
       isPreviewActive,
       isTransitioning,
       computedStyle,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     const useVShow = this.isPreviewActive || this.isTransitioning
     return [
       h(DestylerPrimitive, mergeProps(this.$attrs, {
-        ref: 'customElement',
+        ref: this.forwardRef,
         as: this.$props.as,
         asChild: this.$props.asChild,
         style: {

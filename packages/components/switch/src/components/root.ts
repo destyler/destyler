@@ -101,6 +101,7 @@ export const DestylerSwitchRoot = defineComponent({
   render() {
     return [
       withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+        'ref': this.forwardRef,
         'role': 'switch',
         'type': this.$props.as === 'button' ? 'button' : undefined,
         'value': this.value,

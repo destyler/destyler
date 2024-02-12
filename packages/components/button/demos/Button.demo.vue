@@ -7,7 +7,7 @@ function handle() {
 </script>
 
 <template>
-  <DestylerButton @click="handle">
+  <DestylerButton as="a" @click="handle">
     Button
   </DestylerButton>
 </template>

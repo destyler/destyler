@@ -331,7 +331,7 @@ export const DestylerMenuContentImpl = defineComponent({
           event.preventDefault()
       },
     }, h(DestylerPopperContent, {
-      'ref': 'forwardRef',
+      'ref': this.forwardRef,
       'role': 'menu',
       'as': this.$props.as,
       'asChild': this.$props.asChild,

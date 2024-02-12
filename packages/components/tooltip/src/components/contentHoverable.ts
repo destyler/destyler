@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { Polygon } from '@destyler/shared'
 import { isPointInPolygon } from '@destyler/shared'
 
@@ -12,7 +12,7 @@ export const DestylerTooltipContentHoverable = defineComponent({
   name: 'DestylerTooltipContentHoverable',
   props: destylerTooltipContentImplProps,
   setup() {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const { trigger, onClose } = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()
@@ -74,12 +74,12 @@ export const DestylerTooltipContentHoverable = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerTooltipContentImpl, {
-      ref: 'customElement',
+      ref: this.forwardRef,
       ...mergeProps(this.$props),
     }, {
       default: () => this.$slots.default?.(),

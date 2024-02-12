@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement, useMounted, useSize } from '@destyler/composition'
+import { useForwardExpose, useMounted, useSize } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from '../utils'
@@ -35,7 +35,7 @@ export const DestylerSliderThumbImpl = defineComponent({
     const rootContext = injectSliderRootContext()
     const orientation = injectSliderOrientationContext()
 
-    const { customElement, currentElement: thumbElement } = useCustomElement()
+    const { forwardRef, currentElement: thumbElement } = useForwardExpose()
 
     const value = computed(() => rootContext.modelValue?.value?.[props.index!])
     const percent = computed(() => value.value === undefined ? 0 : convertValueToPercentage(value.value, rootContext.min.value ?? 0, rootContext.max.value ?? 100))
@@ -58,7 +58,7 @@ export const DestylerSliderThumbImpl = defineComponent({
     return {
       rootContext,
       orientation,
-      customElement,
+      forwardRef,
       label,
       thumbInBoundsOffset,
       isMounted,
@@ -68,7 +68,7 @@ export const DestylerSliderThumbImpl = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'role': 'slider',
       'data-destyler-collection-item': '',
       'tabindex': this.rootContext.disabled.value ? undefined : 0,

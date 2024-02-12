@@ -82,7 +82,7 @@ export const DestylerScrollAreaThumb = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': 'forwardRef',
+      'ref': this.forwardRef,
       'data-state': this.scrollbarContextVisible.hasThumb ? 'visible' : 'hidden',
       'style': {
         width: 'var(--destyler_scroll_area_thumb_width)',

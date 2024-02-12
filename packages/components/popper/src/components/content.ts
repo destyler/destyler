@@ -1,4 +1,4 @@
-import type { Component, ComponentPublicInstance, PropType, Ref } from 'vue'
+import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import type { Middleware, Placement } from '@floating-ui/vue'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
@@ -6,7 +6,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { computedEager, createContext } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement, useForwardRef, useSize } from '@destyler/composition'
+import { useForwardExpose, useSize } from '@destyler/composition'
 
 import type { Align, Side } from '../utils'
 import { getSideAndAlignFromPlacement, isNotNull, transformOrigin } from '../utils'
@@ -107,8 +107,7 @@ export const DestylerPopperContent = defineComponent({
   props: destylerPopperContentProps,
   setup(props, { attrs }) {
     const rootContext = injectPopperRootContext()
-    const forwardRef = useForwardRef()
-    const { customElement, currentElement: contentElement } = useCustomElement()
+    const { forwardRef, currentElement: contentElement } = useForwardExpose()
     const floatingRef = ref<HTMLElement>()
     const arrow = ref<HTMLElement>()
     const { width: arrowWidth, height: arrowHeight } = useSize(arrow)
@@ -244,7 +243,6 @@ export const DestylerPopperContent = defineComponent({
       contentZIndex,
       middlewareData,
       forwardRef,
-      customElement,
       placedSide,
       placedAlign,
       attrStyle: attrs.style as any,
@@ -265,10 +263,7 @@ export const DestylerPopperContent = defineComponent({
         ].join(' '),
       },
     }, h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': (vnode) => {
-        this.forwardRef(vnode)
-        this.customElement = vnode as ComponentPublicInstance
-      },
+      'ref': this.forwardRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-side': this.placedSide,

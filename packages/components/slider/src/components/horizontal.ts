@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from '../utils'
 import { DestylerSliderImpl } from './impl'
@@ -34,7 +34,7 @@ export const DestylerSliderHorizontal = defineComponent({
   setup(props) {
     const { max, min, dir, inverted } = toRefs(props)
 
-    const { customElement, currentElement: sliderElement } = useCustomElement()
+    const { forwardRef, currentElement: sliderElement } = useForwardExpose()
 
     const rectRef = ref<DOMRect>()
     const isSlidingFromLeft = computed(() => (dir?.value === 'ltr' && !inverted.value) || (dir?.value !== 'ltr' && inverted.value))
@@ -61,7 +61,7 @@ export const DestylerSliderHorizontal = defineComponent({
       min,
       max,
       inverted,
-      customElement,
+      forwardRef,
       getValueFromPointer,
       rectRef,
       isSlidingFromLeft,
@@ -69,7 +69,7 @@ export const DestylerSliderHorizontal = defineComponent({
   },
   render() {
     return h(DestylerSliderImpl, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'dir': this.dir,
       'data-orientation': 'horizontal',
       'style': {

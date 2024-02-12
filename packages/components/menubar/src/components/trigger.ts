@@ -63,7 +63,7 @@ export const DestylerMenubarTrigger = defineComponent({
     }, h(DestylerMenuAnchor, {
       asChild: true,
     }, withDirectives(h(DestylerPrimitive, {
-      'ref': 'forwardRef',
+      'ref': vnode => this.forwardRef(vnode),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'type': this.$props.as === 'button' ? 'button' : undefined,

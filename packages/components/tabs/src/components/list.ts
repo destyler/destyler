@@ -54,7 +54,7 @@ export const DestylerTabsList = defineComponent({
     }, {
       default: () => {
         return h(DestylerPrimitive, {
-          'ref': 'forwardRef',
+          'ref': this.forwardRef,
           'role': 'tablist',
           'asChild': this.$props.asChild,
           'as': this.$props.as,

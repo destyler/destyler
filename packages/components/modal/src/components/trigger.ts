@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectModalRootContext } from './root'
@@ -27,7 +27,7 @@ export const DestylerModalTrigger = defineComponent({
   props: destylerModalTriggerProps,
   setup() {
     const rootContext = injectModalRootContext()
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     onMounted(() => {
       rootContext.triggerElement = currentElement
@@ -35,12 +35,12 @@ export const DestylerModalTrigger = defineComponent({
 
     return {
       rootContext,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-haspopup': 'modal',
       'aria-expanded': this.rootContext.open.value || false,

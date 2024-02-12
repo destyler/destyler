@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { clamp, createContext } from '@destyler/shared'
-import { useCollection, useCustomElement } from '@destyler/composition'
+import { useCollection, useForwardExpose } from '@destyler/composition'
 
 import { CONTENT_MARGIN } from '../utils'
 import { injectSelectRootContext } from './root'
@@ -49,7 +49,7 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
     const shouldRepositionRef = ref(true)
 
     const contentWrapperElement = ref<HTMLElement>()
-    const { customElement, currentElement: contentElement } = useCustomElement()
+    const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
     const { viewport, selectedItem, selectedItemText, focusSelectedItem } = contentContext!
 
@@ -216,7 +216,7 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
     return {
       contentWrapperElement,
       contentZIndex,
-      customElement,
+      forwardRef,
     }
   },
   render() {
@@ -229,7 +229,7 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
         zIndex: this.contentZIndex,
       },
     }, h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
-      ref: 'customElement',
+      ref: this.forwardRef,
       style: {
         boxSizing: 'border-box',
         maxHeight: '100%',

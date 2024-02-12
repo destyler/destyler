@@ -1,7 +1,7 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
@@ -37,7 +37,7 @@ export const DestylerDialogContentImpl = defineComponent({
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup() {
     const rootContext = injectDialogRootContext()
-    const { customElement, currentElement: contentElement } = useCustomElement()
+    const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
     onMounted(() => {
       rootContext.contentElement = contentElement
@@ -45,7 +45,7 @@ export const DestylerDialogContentImpl = defineComponent({
 
     return {
       rootContext,
-      customElement,
+      forwardRef,
     }
   },
   render() {
@@ -61,7 +61,7 @@ export const DestylerDialogContentImpl = defineComponent({
       },
     }, withDirectives(h(DestylerDismissableLayer, {
       ...this.$attrs,
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'role': 'dialog',

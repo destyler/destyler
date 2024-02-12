@@ -1,7 +1,7 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, ref, watch, watchEffect } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
@@ -32,7 +32,7 @@ export const DestylerSelectScrollUpButton = defineComponent({
       ? injectSelectItemAlignedPositionContext()
       : undefined
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const canScrollUp = ref(false)
 
@@ -56,14 +56,14 @@ export const DestylerSelectScrollUpButton = defineComponent({
     })
     return {
       contentContext,
-      customElement,
+      forwardRef,
       canScrollUp,
     }
   },
   render() {
     return this.canScrollUp
       ? h(DestylerScrollSelectButtonImpl, {
-        ref: 'customElement',
+        ref: this.forwardRef,
         onAutoScroll: () => {
           const { viewport, selectedItem } = this.contentContext
           if (viewport?.value && selectedItem?.value)

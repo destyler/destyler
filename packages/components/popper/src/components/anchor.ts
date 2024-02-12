@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, watch } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes, Measurable } from '@destyler/shared'
 
 import { injectPopperRootContext } from './root'
@@ -29,7 +29,7 @@ export const DestylerPopperAnchor = defineComponent({
   name: 'DestylerPopperAnchor',
   props: destylerPopperAnchorProps,
   setup(props) {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const rootContext = injectPopperRootContext()
 
@@ -38,14 +38,14 @@ export const DestylerPopperAnchor = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-      ref: 'customElement',
+      ref: this.forwardRef,
     }, {
       default: () => this.$slots.default?.(),
     })

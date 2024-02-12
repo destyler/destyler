@@ -29,7 +29,7 @@ export const DestylerScrollAreaScrollbarY = defineComponent({
   },
   render() {
     return h(DestylerScrollAreaScrollbarImpl, {
-      'ref': 'forwardRef',
+      'ref': this.forwardRef,
       'isHorizontal': false,
       'data-orientation': 'vertical',
       'style': {

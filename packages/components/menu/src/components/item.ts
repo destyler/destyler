@@ -48,7 +48,7 @@ export const DestylerMenuItem = defineComponent({
   },
   render() {
     return h(DestylerMenuItemImpl, mergeProps(this.$props, {
-      ref: 'forwardRef',
+      ref: this.forwardRef,
       onClick: () => {
         this.handleSelect()
       },

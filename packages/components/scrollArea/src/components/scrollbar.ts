@@ -86,7 +86,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
   render() {
     if (this.rootContext.type.value === 'hover') {
       return h(DestylerScrollAreaScrollbarHover, mergeProps(this.$attrs, {
-        ref: 'forwardRef',
+        ref: this.forwardRef,
         forceMount: this.$props.forceMount,
       }), {
         default: () => this.$slots.default?.(),
@@ -94,7 +94,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
     }
     else if (this.rootContext.type.value === 'scroll') {
       return h(DestylerScrollAreaScrollbarScroll, mergeProps(this.$attrs, {
-        ref: 'forwardRef',
+        ref: this.forwardRef,
         forceMount: this.$props.forceMount,
       }), {
         default: () => this.$slots.default?.(),
@@ -102,7 +102,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
     }
     else if (this.rootContext.type.value === 'auto') {
       return h(DestylerScrollAreaScrollbarAuto, mergeProps(this.$attrs, {
-        ref: 'forwardRef',
+        ref: this.forwardRef,
         forceMount: this.$props.forceMount,
       }), {
         default: () => this.$slots.default?.(),
@@ -110,7 +110,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
     }
     else if (this.rootContext.type.value === 'always') {
       return h(DestylerScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
-        'ref': 'forwardRef',
+        'ref': this.forwardRef,
         'forceMount': this.$props.forceMount,
         'data-state': 'visible',
       }), {

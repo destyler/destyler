@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 
 import { isButton } from '../utils'
 
@@ -33,7 +33,7 @@ export const DestylerButton = defineComponent({
   props: destylerButtonProps,
   emits: ['click'],
   setup(props, { emit }) {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     function handleClick(e: MouseEvent) {
       if (!props.disabled)
@@ -46,12 +46,12 @@ export const DestylerButton = defineComponent({
 
     onMounted(() => {
       isNativeButton.value = currentElement.value.tagName === null ? false : isButton(currentElement.value)
-      isNativeInput.value = currentElement.value.tagName === 'input'
-      isNativeLink.value = currentElement.value.tagName === 'a' || currentElement.value.getAttribute('href') != null
+      isNativeInput.value = currentElement.value.tagName.toLowerCase() === 'input'
+      isNativeLink.value = currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
     })
 
     return {
-      customElement,
+      forwardRef,
       isNativeButton,
       isNativeLink,
       isNativeInput,
@@ -60,7 +60,7 @@ export const DestylerButton = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'disabled': this.isNativeButton || this.isNativeInput ? this.$props.disabled : undefined,

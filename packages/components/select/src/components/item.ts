@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { SELECTION_KEYS, createContext } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement, useId } from '@destyler/composition'
+import { useForwardExpose, useId } from '@destyler/composition'
 
 import { injectSelectRootContext } from './root'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
@@ -54,7 +54,7 @@ export const DestylerSelectItem = defineComponent({
 
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const isSelected = computed(() => rootContext.modelValue?.value === props.value)
     const isFocused = ref(false)
@@ -135,7 +135,7 @@ export const DestylerSelectItem = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       textId,
       isFocused,
       isSelected,
@@ -148,7 +148,7 @@ export const DestylerSelectItem = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'role': 'option',
       'data-destyler-collection-item': '',
       'aria-labelledby': this.textId,

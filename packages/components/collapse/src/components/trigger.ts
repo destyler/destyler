@@ -44,7 +44,7 @@ export const DestylerCollapseTrigger = defineComponent({
   },
   render() {
     return withDirectives(h(DestylerCollapsibleTrigger, {
-      'ref': this.itemContext.customElement,
+      'ref': this.itemContext.currentRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'aria-controls': this.itemContext.triggerId,

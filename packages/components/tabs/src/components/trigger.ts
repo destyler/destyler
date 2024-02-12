@@ -61,7 +61,7 @@ export const DestylerTabsTrigger = defineComponent({
     }, {
       default: () => {
         return withDirectives(h(DestylerPrimitive, {
-          'ref': 'forwardRef',
+          'ref': this.forwardRef,
           'role': 'tab',
           'type': this.$props.as === 'button' ? 'button' : undefined,
           'as': this.$props.as,

@@ -3,7 +3,7 @@ import { computed, defineComponent, h, nextTick, reactive, watchEffect } from 'v
 import { onKeyStroke } from '@vueuse/core'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { useFocusOutside, usePointerDownOutside } from '../utils'
@@ -41,7 +41,7 @@ export const DestylerDismissableLayer = defineComponent({
   props: destylerDismissableLayerProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
-    const { customElement, currentElement: layerElement } = useCustomElement()
+    const { forwardRef, currentElement: layerElement } = useForwardExpose()
 
     const ownerDocument = computed(
       () => layerElement.value?.ownerDocument ?? globalThis.document,
@@ -130,7 +130,7 @@ export const DestylerDismissableLayer = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       focusOutside,
       pointerDownOutside,
       isBodyPointerEventsDisabled,
@@ -139,7 +139,7 @@ export const DestylerDismissableLayer = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-dismissable-layer': '',

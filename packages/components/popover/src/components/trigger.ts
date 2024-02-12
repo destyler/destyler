@@ -3,7 +3,7 @@ import { defineComponent, h, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import { DestylerPopperAnchor } from '@destyler/popper'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectPopoverRootContext } from './root'
@@ -29,7 +29,7 @@ export const DestylerPopoverTrigger = defineComponent({
   setup() {
     const rootContext = injectPopoverRootContext()
 
-    const { customElement, currentElement: triggerElement } = useCustomElement()
+    const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
     onMounted(() => {
       rootContext.triggerElement.value = triggerElement.value
@@ -37,14 +37,14 @@ export const DestylerPopoverTrigger = defineComponent({
 
     return {
       rootContext,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(this.rootContext.hasCustomAnchor.value ? DestylerPrimitive : DestylerPopperAnchor, {
       asChild: true,
     }, h(DestylerPrimitive, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
       'aria-haspopup': 'dialog',

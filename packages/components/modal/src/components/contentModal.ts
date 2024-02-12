@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { useCustomElement, useEmitAsProps, useHideOthers } from '@destyler/composition'
+import { useEmitAsProps, useForwardExpose, useHideOthers } from '@destyler/composition'
 
 import { injectModalRootContext } from './root'
 import { DestylerModalContentImpl, destylerModalContentImplProps } from './contentImpl'
@@ -13,19 +13,19 @@ export const DestylerModalContentModal = defineComponent({
 
     const emitsAsProps = useEmitAsProps(emit)
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     useHideOthers(currentElement)
 
     return {
       rootContext,
       emitsAsProps,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerModalContentImpl, mergeProps(this.$props, this.emitsAsProps, {
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'trap-focus': this.rootContext.open.value,
       'disable-outside-pointer-events': true,
       'onCloseAutoFocus': (event: any) => {

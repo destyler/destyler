@@ -2,7 +2,7 @@ import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRef, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement, useFormControl, useVModel } from '@destyler/composition'
+import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { BindOnceDirective } from '@destyler/directives'
@@ -76,7 +76,7 @@ export const DestylerCheckboxRoot = defineComponent({
       passive: (props.checked === undefined) as false,
     }) as Ref<CheckedState>
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
     const isFormControl = useFormControl(currentElement)
 
     const ariaLabel = computed(() => props.id && currentElement.value
@@ -91,7 +91,7 @@ export const DestylerCheckboxRoot = defineComponent({
     return {
       disabled: disabledRef,
       checked: checkedRef,
-      customElement,
+      forwardRef,
       isFormControl,
       ariaLabel,
     }
@@ -100,7 +100,7 @@ export const DestylerCheckboxRoot = defineComponent({
     const useVShow = this.isFormControl
     return [
       withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
-        'ref': 'customElement',
+        'ref': this.forwardRef,
         'role': 'checkbox',
         'asChild': this.$props.asChild,
         'as': this.$props.as,

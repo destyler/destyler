@@ -148,12 +148,12 @@ export const DestylerScrollAreaScrollbarVisible = defineComponent({
   render() {
     return this.isShowingScrollbarX
       ? h(DestylerScrollAreaScrollbarX, mergeProps(this.$props, {
-        ref: 'forwardRef',
+        ref: this.forwardRef,
       }), {
         default: () => this.$slots.default?.(),
       })
       : h(DestylerScrollAreaScrollbarY, mergeProps(this.$props, {
-        ref: 'forwardRef',
+        ref: this.forwardRef,
       }), {
         default: () => this.$slots.default?.(),
       })

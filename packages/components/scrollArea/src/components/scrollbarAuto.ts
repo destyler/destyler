@@ -59,7 +59,7 @@ export const DestylerScrollAreaScrollbarAuto = defineComponent({
     }, {
       default: () => {
         return h(DestylerScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
-          "ref": 'forwardRef',
+          'ref': this.forwardRef,
           'data-state': this.visible ? 'visible' : 'hidden',
         }), {
           default: () => this.$slots.default?.(),

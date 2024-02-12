@@ -1,6 +1,6 @@
 import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
-import { useCollection, useCustomElement } from '@destyler/composition'
+import { useCollection, useForwardExpose } from '@destyler/composition'
 import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -28,19 +28,19 @@ export const DestylerSliderThumb = defineComponent({
     const { injectCollection } = useCollection('sliderThumb')
     const collections = injectCollection()
 
-    const { customElement, currentElement: thumbElement } = useCustomElement()
+    const { forwardRef, currentElement: thumbElement } = useForwardExpose()
 
     const index = computed(() => thumbElement.value ? collections.value.findIndex(i => i === thumbElement.value) : -1)
 
     return {
       index,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerSliderThumbImpl, {
       ...this.$attrs,
-      ref: 'customElement',
+      ref: this.forwardRef,
       index: this.index,
     }, {
       default: () => this.$slots.default?.(),

@@ -24,7 +24,7 @@ export const DestylerMenuRootContentModal = defineComponent({
   },
   render() {
     return h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
-      'ref': 'forwardRef',
+      'ref': this.forwardRef,
       'trap-focus': this.menuContext.open.value,
       'disable-outside-pointer-events': this.menuContext.open.value,
       'disable-outside-scroll': true,

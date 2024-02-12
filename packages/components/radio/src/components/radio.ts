@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withM
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { useCustomElement, useFormControl, useVModel } from '@destyler/composition'
+import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 
 export const destylerRadioProps = {
@@ -57,7 +57,7 @@ export const DestylerRadio = defineComponent({
     })
 
     const { value } = toRefs(props)
-    const { customElement, currentElement: triggerElement } = useCustomElement()
+    const { forwardRef, currentElement: triggerElement } = useForwardExpose()
     const isFormControl = useFormControl(triggerElement)
 
     const ariaLabel = computed(() => props.id && triggerElement.value ? (document.querySelector(`[for="${props.id}"]`) as HTMLLabelElement)?.textContent ?? props.value : undefined)
@@ -69,7 +69,7 @@ export const DestylerRadio = defineComponent({
     }
 
     return {
-      customElement,
+      forwardRef,
       checkedRef,
       ariaLabel,
       value,
@@ -80,7 +80,7 @@ export const DestylerRadio = defineComponent({
   render() {
     return withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
       'role': 'radio',
-      'ref': 'customElement',
+      'ref': this.forwardRef,
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
       'aria-checked': this.checkedRef,
