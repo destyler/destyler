@@ -72,6 +72,7 @@
     "@destyler/progress": "workspace:*",
     "@destyler/radio": "workspace:*",
     "@destyler/roving-focus": "workspace:*",
+    "@destyler/scroll-area": "workspace:0.0.1-beta.6",
     "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",
     "@destyler/switch": "workspace:*",

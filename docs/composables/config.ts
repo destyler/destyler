@@ -40,6 +40,7 @@ export const asideItems = [
       { text: 'Preview', link: '/components/preview' },
       { text: 'Progress', link: '/components/progress' },
       { text: 'Radio', link: '/components/radio' },
+      { text: 'ScrollArea', link: '/components/scroll-area' },
       { text: 'Select', link: '/components/select' },
       { text: 'Slider', link: '/components/slider' },
       { text: 'Switch', link: '/components/switch' },

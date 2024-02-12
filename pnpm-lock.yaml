@@ -983,6 +983,9 @@ importers:
       '@destyler/roving-focus':
         specifier: workspace:*
         version: link:../components/rovingFocus
+      '@destyler/scroll-area':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/scrollArea
       '@destyler/select':
         specifier: workspace:*
         version: link:../components/select

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import {
+  DestylerDivider,
   DestylerScrollAreaCorner,
   DestylerScrollAreaRoot,
   DestylerScrollAreaScrollbar,
   DestylerScrollAreaThumb,
   DestylerScrollAreaViewport,
-} from '../src'
+} from 'destyler'
 
-const tags = Array.from({ length: 50 }).map((_, i, a) => `v0.0.1-beta.${a.length - i}`)
+const tags = Array.from({ length: 51 }).map((_, i, a) => `v0.0.1-beta.${a.length - i - 1}`)
 </script>
 
 <template>
@@ -24,6 +25,7 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v0.0.1-beta.${a.length
           <div class="text-sm">
             {{ tag }}
           </div>
+          <DestylerDivider class="shrink-0 dark:bg-#27272A bg-#E4E4E7 h-[1px] w-full my-2" />
         </template>
       </div>
     </DestylerScrollAreaViewport>
