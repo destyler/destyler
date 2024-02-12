@@ -702,10 +702,10 @@ importers:
   packages/components/scrollArea:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.12
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/presence':
-        specifier: workspace:0.0.1-beta.12
+        specifier: workspace:*
         version: link:../presence
       '@destyler/primitive':
         specifier: workspace:*
@@ -786,6 +786,30 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/tabs:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:*
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:*
+        version: link:../../directives
+      '@destyler/presence':
+        specifier: workspace:*
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/roving-focus':
+        specifier: workspace:*
+        version: link:../rovingFocus
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/teleport:
     dependencies:
       '@destyler/composition':
@@ -819,22 +843,22 @@ importers:
   packages/components/toolbar:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.12
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/divider':
-        specifier: workspace:0.0.1-beta.12
+        specifier: workspace:*
         version: link:../divider
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
       '@destyler/roving-focus':
-        specifier: workspace:0.0.1-beta.12
+        specifier: workspace:*
         version: link:../rovingFocus
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
       '@destyler/toggle':
-        specifier: workspace:0.0.1-beta.12
+        specifier: workspace:*
         version: link:../toggle
       vue:
         specifier: '>=3.3.4'
@@ -984,7 +1008,7 @@ importers:
         specifier: workspace:*
         version: link:../components/rovingFocus
       '@destyler/scroll-area':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/scrollArea
       '@destyler/select':
         specifier: workspace:*
@@ -995,6 +1019,9 @@ importers:
       '@destyler/switch':
         specifier: workspace:*
         version: link:../components/switch
+      '@destyler/tabs':
+        specifier: workspace:*
+        version: link:../components/tabs
       '@destyler/teleport':
         specifier: workspace:*
         version: link:../components/teleport

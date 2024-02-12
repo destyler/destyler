@@ -38,11 +38,11 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.12",
-    "@destyler/divider": "workspace:0.0.1-beta.12",
+    "@destyler/composition": "workspace:*",
+    "@destyler/divider": "workspace:*",
     "@destyler/primitive": "workspace:*",
-    "@destyler/roving-focus": "workspace:0.0.1-beta.12",
+    "@destyler/roving-focus": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@destyler/toggle": "workspace:0.0.1-beta.12"
+    "@destyler/toggle": "workspace:*"
   }
 }

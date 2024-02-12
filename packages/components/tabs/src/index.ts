@@ -1,0 +1,5 @@
+export { DestylerTabsContent, type DestylerTabsContentProps } from './components/content'
+export { DestylerTabsIndicator, type DestylerTabsIndicatorProps } from './components/indicator'
+export { DestylerTabsList, type DestylerTabsListProps } from './components/list'
+export { DestylerTabsRoot, type DestylerTabsRootProps } from './components/root'
+export { DestylerTabsTrigger, type DestylerTabsTriggerProps } from './components/trigger'

@@ -44,6 +44,7 @@ export const asideItems = [
       { text: 'Select', link: '/components/select' },
       { text: 'Slider', link: '/components/slider' },
       { text: 'Switch', link: '/components/switch' },
+      { text: 'Tabs', link: '/components/tabs' },
       { text: 'Toggle', link: '/components/toggle' },
       { text: 'Tollbar', link: '/components/tollbar' },
       { text: 'Tooltip', link: '/components/tooltip' },

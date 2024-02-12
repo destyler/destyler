@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/scroll-area",
+  "name": "@destyler/tabs",
   "version": "0.0.1-beta.6",
-  "description": "unstyled ScrollArea component for vue",
+  "description": "unstyled tabs component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -39,8 +39,10 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
     "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
+    "@destyler/roving-focus": "workspace:*",
     "@destyler/shared": "workspace:*"
   }
 }
