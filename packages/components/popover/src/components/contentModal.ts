@@ -26,7 +26,7 @@ export const DestylerPopoverContentModal = defineComponent({
   },
   render() {
     return h(DestylerPopoverContentImpl, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       ...mergeProps(this.forwarded),
       'trapFocus': this.rootContext.open.value,
       'disable-outside-pointer-events': '',

@@ -45,7 +45,7 @@ export const DestylerPopperAnchor = defineComponent({
     return h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-      ref: this.forwardRef,
+      ref: (el: any) => this.forwardRef(el),
     }, {
       default: () => this.$slots.default?.(),
     })

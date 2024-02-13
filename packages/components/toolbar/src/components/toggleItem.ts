@@ -57,7 +57,7 @@ export const DestylerToolbarToggleItem = defineComponent({
       default: () => {
         return h(DestylerToggleGroupItem, {
           ...this.$props,
-          ref: this.forwardRef,
+          ref: (el: any) => this.forwardRef(el),
         }, {
           default: () => this.$slots.default?.(),
         })

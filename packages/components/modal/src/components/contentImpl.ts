@@ -64,7 +64,7 @@ export const DestylerModalContentImpl = defineComponent({
       },
     }, withDirectives(h(DestylerDismissableLayer, {
       ...this.$attrs,
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'role': 'Modal',

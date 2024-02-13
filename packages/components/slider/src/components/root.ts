@@ -177,7 +177,7 @@ export const DestylerSliderRoot = defineComponent({
   render() {
     return [
       h(this.orientation === 'horizontal' ? DestylerSliderHorizontal : DestylerSliderVertical, mergeProps(this.$attrs, {
-        'ref': this.forwardRef,
+        'ref': (el: any) => this.forwardRef(el),
         'asChild': this.$props.asChild,
         'as': this.$props.as,
         'min': this.min,

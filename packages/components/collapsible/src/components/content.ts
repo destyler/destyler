@@ -102,7 +102,7 @@ export const DestylerCollapsibleContent = defineComponent({
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
     }, withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': (vnode: any) => this.forwardRef(vnode),
+      'ref': (el: any) => this.forwardRef(el),
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',

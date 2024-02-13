@@ -263,7 +263,7 @@ export const DestylerPopperContent = defineComponent({
         ].join(' '),
       },
     }, h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-side': this.placedSide,

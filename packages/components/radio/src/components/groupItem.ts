@@ -103,7 +103,7 @@ export const DestylerRadioGroupItem = defineComponent({
       focusable: !this.disabled,
       active: this.checked,
     }, h(DestylerRadio, mergeProps(this.$attrs, this.$props, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'checked': this.checked,
       'required': this.required,
       'onUpdate:checked': () => {

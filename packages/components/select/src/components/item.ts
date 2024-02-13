@@ -148,7 +148,7 @@ export const DestylerSelectItem = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'role': 'option',
       'data-destyler-collection-item': '',
       'aria-labelledby': this.textId,

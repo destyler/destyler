@@ -68,7 +68,7 @@ export const DestylerTabsContent = defineComponent({
       default: ({ present }: any) => {
         return [
           withDirectives(h(DestylerPrimitive, {
-            'ref': this.forwardRef,
+            'ref': (el: any) => this.forwardRef(el),
             'as': this.$props.as,
             'asChild': this.$props.asChild,
             'role': 'tabpanel',

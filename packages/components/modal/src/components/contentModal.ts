@@ -25,7 +25,7 @@ export const DestylerModalContentModal = defineComponent({
   },
   render() {
     return h(DestylerModalContentImpl, mergeProps(this.$props, this.emitsAsProps, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'trap-focus': this.rootContext.open.value,
       'disable-outside-pointer-events': true,
       'onCloseAutoFocus': (event: any) => {

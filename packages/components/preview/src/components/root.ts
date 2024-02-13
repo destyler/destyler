@@ -124,7 +124,7 @@ export const DestylerPreviewRoot = defineComponent({
     const useVShow = this.isPreviewActive || this.isTransitioning
     return [
       h(DestylerPrimitive, mergeProps(this.$attrs, {
-        ref: this.forwardRef,
+        ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,
         style: {

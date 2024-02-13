@@ -71,7 +71,7 @@ export const DestylerSelectItemText = defineComponent({
   render() {
     return [
       withDirectives(h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
-        ref: this.forwardRef,
+        ref: (el: any) => this.forwardRef(el),
       }), {
         default: () => this.$slots.default?.(),
       }), [

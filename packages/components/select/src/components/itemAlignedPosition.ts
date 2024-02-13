@@ -229,7 +229,7 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
         zIndex: this.contentZIndex,
       },
     }, h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
-      ref: this.forwardRef,
+      ref: (el: any) => this.forwardRef(el),
       style: {
         boxSizing: 'border-box',
         maxHeight: '100%',

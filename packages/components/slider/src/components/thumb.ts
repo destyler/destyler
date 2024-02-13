@@ -40,7 +40,7 @@ export const DestylerSliderThumb = defineComponent({
   render() {
     return h(DestylerSliderThumbImpl, {
       ...this.$attrs,
-      ref: this.forwardRef,
+      ref: (el: any) => this.forwardRef(el),
       index: this.index,
     }, {
       default: () => this.$slots.default?.(),

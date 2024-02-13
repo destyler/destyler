@@ -69,7 +69,7 @@ export const DestylerSliderHorizontal = defineComponent({
   },
   render() {
     return h(DestylerSliderImpl, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'dir': this.dir,
       'data-orientation': 'horizontal',
       'style': {

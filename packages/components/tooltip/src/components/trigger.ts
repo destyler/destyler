@@ -64,7 +64,7 @@ export const DestylerTooltipTrigger = defineComponent({
     return h(DestylerPopperAnchor, {
       asChild: true,
     }, h(DestylerPrimitive, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'aria-describedby': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.stateAttribute.value,
       'as': this.$props.as,

@@ -66,7 +66,7 @@ export const DestylerSelectTrigger = defineComponent({
     return h(DestylerPopperAnchor, {
       asChild: true,
     }, h(DestylerPrimitive, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'role': 'combobox',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-controls': this.rootContext.contentId,

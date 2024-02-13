@@ -139,7 +139,7 @@ export const DestylerDismissableLayer = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-dismissable-layer': '',

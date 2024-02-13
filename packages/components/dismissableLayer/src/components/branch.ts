@@ -40,7 +40,7 @@ export const DestylerDismissableLayerBranch = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props, {
-      ref: this.forwardRef,
+      ref: (el: any) => this.forwardRef(el),
     }), {
       default: () => this.$slots.default?.(),
     })

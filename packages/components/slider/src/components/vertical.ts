@@ -64,7 +64,7 @@ export const DestylerSliderVertical = defineComponent({
   },
   render() {
     return h(DestylerSliderImpl, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'data-orientation': 'vertical',
       'style': {
         '--destyler_slider_thumb_transform': 'translateY(50%)',

@@ -60,7 +60,7 @@ export const DestylerButton = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'disabled': this.isNativeButton || this.isNativeInput ? this.$props.disabled : undefined,

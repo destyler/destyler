@@ -68,7 +68,7 @@ export const DestylerSelectScrollDownButton = defineComponent({
   render() {
     return this.canScrollDown
       ? h(DestylerScrollSelectButtonImpl, {
-        ref: this.forwardRef,
+        ref: (el: any) => this.forwardRef(el),
         onAutoScroll: () => {
           const { viewport, selectedItem } = this.contentContext
           if (viewport?.value && selectedItem?.value)

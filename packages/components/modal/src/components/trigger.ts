@@ -40,7 +40,7 @@ export const DestylerModalTrigger = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-haspopup': 'modal',
       'aria-expanded': this.rootContext.open.value || false,

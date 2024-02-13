@@ -44,7 +44,7 @@ export const DestylerScrollAreaCorner = defineComponent({
   render() {
     return this.hasCorner
       ? h(DestylerScrollAreaCornerImpl, mergeProps(this.$props, {
-        ref: this.forwardRef,
+        ref: (el: any) => this.forwardRef(el),
       }), {
         default: () => this.$slots.default?.(),
       })

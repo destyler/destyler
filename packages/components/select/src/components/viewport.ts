@@ -79,7 +79,7 @@ export const DestylerSelectViewport = defineComponent({
   render() {
     return [
       h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
-        'ref': this.forwardRef,
+        'ref': (el: any) => this.forwardRef(el),
         'data-destyler-select-viewport': '',
         'role': 'presentation',
         'style': {

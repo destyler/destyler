@@ -44,7 +44,7 @@ export const DestylerPopoverTrigger = defineComponent({
     return h(this.rootContext.hasCustomAnchor.value ? DestylerPrimitive : DestylerPopperAnchor, {
       asChild: true,
     }, h(DestylerPrimitive, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
       'aria-haspopup': 'dialog',

@@ -68,7 +68,7 @@ export const DestylerSliderThumbImpl = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'role': 'slider',
       'data-destyler-collection-item': '',
       'tabindex': this.rootContext.disabled.value ? undefined : 0,

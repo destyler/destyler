@@ -52,7 +52,7 @@ export const DestylerSelectValue = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      ref: this.forwardRef,
+      ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,
       style: {

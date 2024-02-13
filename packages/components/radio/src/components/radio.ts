@@ -80,7 +80,7 @@ export const DestylerRadio = defineComponent({
   render() {
     return withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
       'role': 'radio',
-      'ref': this.forwardRef,
+      'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
       'aria-checked': this.checkedRef,

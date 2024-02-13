@@ -186,7 +186,7 @@ export const DestylerFocusScope = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      ref: this.forwardRef,
+      ref: (el: any) => this.forwardRef(el),
       tabindex: '-1',
       as: this.$props.as,
       asChild: this.$props.asChild,

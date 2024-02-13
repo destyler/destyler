@@ -100,7 +100,7 @@ export const DestylerCheckboxRoot = defineComponent({
     const useVShow = this.isFormControl
     return [
       withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
-        'ref': this.forwardRef,
+        'ref': (el: any) => this.forwardRef(el),
         'role': 'checkbox',
         'asChild': this.$props.asChild,
         'as': this.$props.as,
