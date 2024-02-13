@@ -1,6 +1,6 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { useEmitAsProps } from '@destyler/composition'
+import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
 import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -42,9 +42,12 @@ export const DestylerDialogContent = defineComponent({
 
     const emitsAsProps = useEmitAsProps(emit)
 
+    const { forwardRef } = useForwardExpose()
+
     return {
       rootContext,
       emitsAsProps,
+      forwardRef,
     }
   },
   render() {
@@ -54,6 +57,7 @@ export const DestylerDialogContent = defineComponent({
     }, [
       useVShow
         ? h(DestylerDialogContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
+          ref: (el: any) => this.forwardRef(el),
           onOpenAutoFocus: (event: any) => {
             this.$emit('openAutoFocus', event)
           },
@@ -61,6 +65,7 @@ export const DestylerDialogContent = defineComponent({
           default: () => this.$slots.default?.(),
         })
         : h(DestylerDialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs), {
+          ref: (el: any) => this.forwardRef(el),
           default: () => this.$slots.default?.(),
         }),
     ])

@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { computed, defineComponent, h, nextTick, reactive, watchEffect } from 'vue'
+import { computed, defineComponent, h, nextTick, reactive, watchEffect, withModifiers } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
@@ -23,6 +23,11 @@ export const destylerDismissableLayerProps = {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
+  },
+  isDismissable: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: true,
   },
 } as const
 
@@ -70,14 +75,16 @@ export const DestylerDismissableLayer = defineComponent({
       const isPointerDownOnBranch = [...context.branches].some(branch =>
         branch.contains(event.target as HTMLElement),
       )
-
       if (!isPointerEventsEnabled.value || isPointerDownOnBranch)
         return
       emit('pointerDownOutside', event)
       emit('interactOutside', event)
       await nextTick()
-      if (!event.defaultPrevented)
+      if (props.isDismissable)
         emit('dismiss')
+      else
+        if (!event.defaultPrevented)
+          emit('dismiss')
     }, layerElement)
 
     const focusOutside = useFocusOutside((event) => {
@@ -147,9 +154,16 @@ export const DestylerDismissableLayer = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-dismissable-layer': '',
-      'onFocusCapture': this.focusOutside.onFocusCapture,
-      'onBlurCapture': this.focusOutside.onBlurCapture,
-      'onPointerDownOutside': this.pointerDownOutside.onPointerDownCapture,
+      'onFocus': withModifiers(() => {
+        this.focusOutside.onFocusCapture()
+      }, ['capture']),
+      'onBlur': withModifiers(() => {
+        this.focusOutside.onBlurCapture()
+      }, ['capture']),
+      'onPointerdown':
+      withModifiers(() => {
+        this.pointerDownOutside.onPointerDownCapture()
+      }, ['capture']),
       'style': {
         pointerEvents: this.isBodyPointerEventsDisabled
           ? this.isPointerEventsEnabled

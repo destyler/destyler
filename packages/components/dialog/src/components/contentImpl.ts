@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h, onMounted, withDirectives } from 'vue'
+import { defineComponent, h, mergeProps, onMounted, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
@@ -59,8 +59,7 @@ export const DestylerDialogContentImpl = defineComponent({
       onUnmountAutoFocus: (event) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, withDirectives(h(DestylerDismissableLayer, {
-      ...this.$attrs,
+    }, withDirectives(h(DestylerDismissableLayer, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
@@ -68,22 +67,23 @@ export const DestylerDialogContentImpl = defineComponent({
       'aria-describedby': this.rootContext.descriptionId,
       'aria-labelledby': this.rootContext.titleId,
       'data-state': getOpenState(this.rootContext.open.value),
+      "isDismissable": true,
       'onDismiss': () => {
         this.rootContext.onOpenChange(false)
       },
-      'onEscapeKeyDown': (event) => {
+      'onEscapeKeyDown': (event: any) => {
         this.$emit('escapeKeyDown', event)
       },
-      'onFocusOutside': (event) => {
+      'onFocusOutside': (event: any) => {
         this.$emit('focusOutside', event)
       },
-      'onInteractOutside': (event) => {
+      'onInteractOutside': (event: any) => {
         this.$emit('interactOutside', event)
       },
-      'onPointerDownOutside': (event) => {
+      'onPointerDownOutside': (event: any) => {
         this.$emit('pointerDownOutside', event)
       },
-    }, {
+    }), {
       default: () => this.$slots.default?.(),
     }), [
       [BindOnceDirective, { id: this.rootContext.contentId }],

@@ -12,6 +12,7 @@ import CheckboxDemo from '@destyler/demo/checkbox/demos/Checkbox.demo.vue'
 import CollapsibleDemo from '@destyler/demo/collapsible/demos/Collapsible.demo.vue'
 import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 import SwitchDemo from '@destyler/demo/switch/demos/Switch.unocss.demo.vue'
+import DialogCssDemo from '@destyler/demo/dialog/demos/Dialog.unocss.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -33,14 +34,19 @@ import SwitchDemo from '@destyler/demo/switch/demos/Switch.unocss.demo.vue'
   <!-- <DestylerPrimitive ref="forwardRef" as="button" @click="handleClick">
     button
   </DestylerPrimitive> -->
-  <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
+  <!-- <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
     <div class="w-full h-full flex items-center justify-center touch-none box-border">
       <MenuDemo />
+    </div>
+  </div> -->
+  <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
+    <div class="w-full h-full flex items-center justify-center touch-none box-border">
+      <MenubarDemo />
     </div>
   </div>
   <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
     <div class="w-full h-full flex items-center justify-center touch-none box-border">
-      <MenubarDemo />
+      <DialogCssDemo />
     </div>
   </div>
   <!-- <TabsDemo /> -->
