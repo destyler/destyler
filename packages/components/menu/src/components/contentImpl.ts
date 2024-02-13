@@ -313,8 +313,8 @@ export const DestylerMenuContentImpl = defineComponent({
       onInteractOutside: (event) => {
         this.$emit('interactOutside', event)
       },
-      onDismiss: (event) => {
-        this.$emit('dismiss', event)
+      onDismiss: () => {
+        this.$emit('dismiss')
       },
     }, h(DestylerRovingFocusGroup, {
       'asChild': true,

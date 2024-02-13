@@ -77,7 +77,7 @@ export const DestylerMenubarTrigger = defineComponent({
       'disabled': this.$props.disabled,
       'data-value': this.menuContext.value,
       'data-destyler-collection-item': '',
-      'onClick': (event: any) => {
+      'onPointerdown': (event: any) => {
         if (!this.$props.disabled && event.button === 0 && event.ctrlKey === false) {
           this.rootContext.onMenuOpen(this.menuContext.value)
           if (!this.open)

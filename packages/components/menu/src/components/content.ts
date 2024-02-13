@@ -38,14 +38,19 @@ export const DestylerMenuContent = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.forceMount || this.menuContext.open.value,
-    }, [
-      this.rootContext.modal.value
-        ? h(DestylerMenuRootContentModal, mergeProps(this.$attrs, this.forwarded), {
-          default: () => this.$slots.default?.(),
-        })
-        : h(DestylerMenuRootContentNonModal, mergeProps(this.$attrs, this.forwarded), {
-          default: () => this.$slots.default?.(),
-        }),
-    ])
+    }, {
+      default: () => {
+        if (this.rootContext.modal.value) {
+          return h(DestylerMenuRootContentModal, mergeProps(this.$attrs, this.forwarded), {
+            default: () => this.$slots.default?.(),
+          })
+        }
+        else {
+          return h(DestylerMenuRootContentNonModal, mergeProps(this.$attrs, this.forwarded), {
+            default: () => this.$slots.default?.(),
+          })
+        }
+      },
+    })
   },
 })

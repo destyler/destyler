@@ -42,7 +42,6 @@ export const DestylerDismissableLayer = defineComponent({
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
-
     const ownerDocument = computed(
       () => layerElement.value?.ownerDocument ?? globalThis.document,
     )
@@ -50,7 +49,9 @@ export const DestylerDismissableLayer = defineComponent({
     const layers = computed(() => context.layersRoot)
 
     const index = computed(() => {
-      return layerElement.value ? Array.from(layers.value).indexOf(layerElement.value) : -1
+      return layerElement.value
+        ? Array.from(layers.value).indexOf(layerElement.value)
+        : -1
     })
 
     const isBodyPointerEventsDisabled = computed(() => {
@@ -75,7 +76,8 @@ export const DestylerDismissableLayer = defineComponent({
       emit('pointerDownOutside', event)
       emit('interactOutside', event)
       await nextTick()
-      emit('dismiss')
+      if (!event.defaultPrevented)
+        emit('dismiss')
     }, layerElement)
 
     const focusOutside = useFocusOutside((event) => {
@@ -87,7 +89,8 @@ export const DestylerDismissableLayer = defineComponent({
         return
       emit('focusOutside', event)
       emit('interactOutside', event)
-      emit('dismiss')
+      if (!event.defaultPrevented)
+        emit('dismiss')
     }, layerElement)
 
     onKeyStroke('Escape', (event) => {
@@ -95,7 +98,8 @@ export const DestylerDismissableLayer = defineComponent({
       if (!isHighestLayer)
         return
       emit('escapeKeyDown', event)
-      emit('dismiss')
+      if (!event.defaultPrevented)
+        emit('dismiss')
     })
 
     let originalBodyPointerEvents: string
