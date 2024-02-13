@@ -48,7 +48,7 @@ export const destylerCountdownProps = {
 
 export type DestylerCountdownProps = ExtractPublicPropTypes<typeof destylerCountdownProps>
 
-const DestylerCountdown = defineComponent({
+export const DestylerCountdown = defineComponent({
   name: 'DestylerCountdown',
   inheritAttrs: false,
   props: destylerCountdownProps,
@@ -191,7 +191,3 @@ const DestylerCountdown = defineComponent({
     ])
   },
 })
-
-export {
-  DestylerCountdown,
-}

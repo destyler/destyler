@@ -1,7 +1,7 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
@@ -40,7 +40,7 @@ export const DestylerModalContentImpl = defineComponent({
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup() {
     const rootContext = injectModalRootContext()
-    const { customElement, currentElement: contentElement } = useCustomElement()
+    const { forwardRef, currentElement: contentElement } = useForwardExpose()
 
     onMounted(() => {
       rootContext.contentElement = contentElement
@@ -48,7 +48,7 @@ export const DestylerModalContentImpl = defineComponent({
 
     return {
       rootContext,
-      customElement,
+      forwardRef,
     }
   },
   render() {
@@ -64,7 +64,7 @@ export const DestylerModalContentImpl = defineComponent({
       },
     }, withDirectives(h(DestylerDismissableLayer, {
       ...this.$attrs,
-      'ref': 'customElement',
+      'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'role': 'Modal',

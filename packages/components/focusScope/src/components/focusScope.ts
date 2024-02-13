@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isClient } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 
 import { AUTOFOCUS_ON_MOUNT, AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS, focus, focusFirst, getTabbableCandidates, getTabbableEdges } from '../utils'
 import { createFocusScopesStack, removeLinks } from './stack'
@@ -39,7 +39,7 @@ export const DestylerFocusScope = defineComponent({
   props: destylerFocusScopeProps,
   emits: ['mountAutoFocus', 'unmountAutoFocus'],
   setup(props, { emit }) {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
     const lastFocusedElementRef = ref<HTMLElement | null>(null)
     const focusScopesStack = createFocusScopesStack()
     const focusScope = reactive({
@@ -180,13 +180,13 @@ export const DestylerFocusScope = defineComponent({
     }
 
     return {
-      customElement,
+      forwardRef,
       handleKeyDown,
     }
   },
   render() {
     return h(DestylerPrimitive, {
-      ref: 'customElement',
+      ref: (el: any) => this.forwardRef(el),
       tabindex: '-1',
       as: this.$props.as,
       asChild: this.$props.asChild,

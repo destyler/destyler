@@ -54,7 +54,7 @@ export const DestylerScrollAreaViewport = defineComponent({
         },
         'tabindex': 0,
       }), h(DestylerPrimitive, {
-        ref: 'forwardRef',
+        ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,
         style: {

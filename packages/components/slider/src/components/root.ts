@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
-import { useCollection, useCustomElement, useDirection, useFormControl, useVModel } from '@destyler/composition'
+import { useCollection, useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from '../utils'
 import { DestylerSliderVertical } from './vertical'
@@ -97,7 +97,7 @@ export const DestylerSliderRoot = defineComponent({
     const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
     const { createCollection } = useCollection('sliderThumb')
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
     createCollection(currentElement)
     const isFormControl = useFormControl(currentElement)
 
@@ -157,7 +157,7 @@ export const DestylerSliderRoot = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       orientation,
       min,
       max,
@@ -177,7 +177,7 @@ export const DestylerSliderRoot = defineComponent({
   render() {
     return [
       h(this.orientation === 'horizontal' ? DestylerSliderHorizontal : DestylerSliderVertical, mergeProps(this.$attrs, {
-        'ref': 'customElement',
+        'ref': (el: any) => this.forwardRef(el),
         'asChild': this.$props.asChild,
         'as': this.$props.as,
         'min': this.min,

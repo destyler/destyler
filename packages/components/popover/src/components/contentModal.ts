@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps, ref } from 'vue'
-import { useCustomElement, useForwardPropsEmits, useHideOthers } from '@destyler/composition'
+import { useForwardExpose, useForwardPropsEmits, useHideOthers } from '@destyler/composition'
 
 import { DestylerPopoverContentImpl, destylerPopoverContentImplEmits, destylerPopoverContentImplProps } from './contentImpl'
 import { injectPopoverRootContext } from './root'
@@ -13,7 +13,7 @@ export const DestylerPopoverContentModal = defineComponent({
     const isRightClickOutsideRef = ref(false)
     const forwarded = useForwardPropsEmits(props, emit)
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     useHideOthers(currentElement)
 
@@ -21,12 +21,12 @@ export const DestylerPopoverContentModal = defineComponent({
       rootContext,
       forwarded,
       isRightClickOutsideRef,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerPopoverContentImpl, {
-      'ref': 'customElement',
+      'ref': (el: any) => this.forwardRef(el),
       ...mergeProps(this.forwarded),
       'trapFocus': this.rootContext.open.value,
       'disable-outside-pointer-events': '',

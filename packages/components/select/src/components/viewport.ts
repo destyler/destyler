@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { CONTENT_MARGIN } from '../utils'
@@ -33,7 +33,7 @@ export const DestylerSelectViewport = defineComponent({
       ? injectSelectItemAlignedPositionContext()
       : undefined
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     onMounted(() => {
       contentContext?.onViewportChange(currentElement.value)
@@ -72,14 +72,14 @@ export const DestylerSelectViewport = defineComponent({
     }
 
     return {
-      customElement,
+      forwardRef,
       handleScroll,
     }
   },
   render() {
     return [
       h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
-        'ref': 'customElement',
+        'ref': (el: any) => this.forwardRef(el),
         'data-destyler-select-viewport': '',
         'role': 'presentation',
         'style': {

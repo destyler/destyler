@@ -3,6 +3,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPresence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 import { DestylerDialogOverlayImpl } from './overlayImpl'
@@ -32,8 +33,10 @@ export const DestylerDialogOverlay = defineComponent({
   setup() {
     const rootContext = injectDialogRootContext()
 
+    const { forwardRef } = useForwardExpose()
     return {
       rootContext,
+      forwardRef,
     }
   },
   render() {
@@ -42,6 +45,7 @@ export const DestylerDialogOverlay = defineComponent({
       ? h(DestylerPresence, {
         present: this.$props.forceMount || this.rootContext.open.value,
       }, h(DestylerDialogOverlayImpl, mergeProps(this.$attrs, {
+        ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,
       }), {

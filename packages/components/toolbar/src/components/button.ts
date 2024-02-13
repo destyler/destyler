@@ -43,7 +43,7 @@ export const DestylerToolbarButton = defineComponent({
     }, {
       default: () => {
         return h(DestylerPrimitive, mergeProps(this.$props, {
-          ref: 'forwardRef',
+          ref: (el: any) => this.forwardRef(el),
           type: this.$props.as === 'button' ? 'button' : undefined,
         }), {
           default: () => this.$slots.default?.(),

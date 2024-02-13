@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -38,7 +38,7 @@ export const DestylerCollapsibleContent = defineComponent({
 
     const presentRef = ref<InstanceType<typeof DestylerPresence>>()
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const width = ref<number>(0)
     const height = ref<number>(0)
@@ -89,7 +89,7 @@ export const DestylerCollapsibleContent = defineComponent({
     return {
       rootContext,
       presentRef,
-      customElement,
+      forwardRef,
       width,
       height,
       attrStyle: attrs.style,
@@ -102,7 +102,7 @@ export const DestylerCollapsibleContent = defineComponent({
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
     }, withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'ref': 'customElement',
+      'ref': (el: any) => this.forwardRef(el),
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',

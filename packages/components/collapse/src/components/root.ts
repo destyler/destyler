@@ -4,7 +4,7 @@ import { createContext } from '@destyler/shared'
 import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement, useSingleOrMultipleValue } from '@destyler/composition'
+import { useForwardExpose, useSingleOrMultipleValue } from '@destyler/composition'
 
 export interface CollapseRootContext {
   disabled: Ref<boolean>
@@ -75,7 +75,7 @@ export const DestylerCollapseRoot = defineComponent({
     const { dir, disabled } = toRefs(props)
     const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emit)
 
-    const { customElement, currentElement: parentElement } = useCustomElement()
+    const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
     provideCollapseRootContext({
       disabled,
@@ -89,14 +89,14 @@ export const DestylerCollapseRoot = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       parentElement,
       modelValue,
     }
   },
   render() {
     return h(DestylerPrimitive, {
-      ref: 'customElement',
+      ref: (el: any) => this.forwardRef(el),
       asChild: this.$props.asChild,
       as: this.$props.as,
     }, this.$slots.default?.({ modelValue: this.modelValue }))

@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { DestylerPopperAnchor } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -33,7 +33,7 @@ export const DestylerTooltipTrigger = defineComponent({
     const rootContext = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()
 
-    const { customElement, currentElement: triggerElement } = useCustomElement()
+    const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
     const isPointerDown = ref(false)
     const hasPointerMoveOpened = ref(false)
@@ -54,7 +54,7 @@ export const DestylerTooltipTrigger = defineComponent({
     return {
       rootContext,
       providerContext,
-      customElement,
+      forwardRef,
       isPointerDown,
       hasPointerMoveOpened,
       handlePointerDown,
@@ -64,7 +64,7 @@ export const DestylerTooltipTrigger = defineComponent({
     return h(DestylerPopperAnchor, {
       asChild: true,
     }, h(DestylerPrimitive, {
-      'ref': 'customElement',
+      'ref': (el: any) => this.forwardRef(el),
       'aria-describedby': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.stateAttribute.value,
       'as': this.$props.as,

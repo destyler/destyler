@@ -24,7 +24,7 @@ const DestylerLabel = defineComponent({
   props: destylerLabelProps,
 
   setup() {
-    const forwardedRef = useForwardRef()
+    useForwardRef()
 
     function handleMousedown(e: MouseEvent): void {
       if (!e.defaultPrevented && e.detail > 1)
@@ -33,7 +33,6 @@ const DestylerLabel = defineComponent({
 
     return {
       handleMousedown,
-      forwardedRef,
     }
   },
   render() {
@@ -41,7 +40,6 @@ const DestylerLabel = defineComponent({
       as: 'label',
       for: this.$props.for,
       asChild: this.$props.asChild,
-      ref: 'forwardedRef',
       onMousedown: this.handleMousedown,
     }), {
       default: () => this.$slots.default?.(),

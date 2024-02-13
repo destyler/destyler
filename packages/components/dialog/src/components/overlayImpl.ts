@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 
@@ -26,6 +27,7 @@ export const DestylerDialogOverlayImpl = defineComponent({
   props: destylerDialogOverlayImplProps,
   setup() {
     const rootContext = injectDialogRootContext()
+    useForwardExpose()
 
     return {
       rootContext,

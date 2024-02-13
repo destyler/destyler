@@ -120,7 +120,7 @@ export const DestylerMenuSubContent = defineComponent({
     return h(DestylerPresence, {
       present: this.forceMount || this.menuContext.open.value,
     }, withDirectives(h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
-      'ref': 'forwardRef',
+      'ref': (el: any) => this.forwardRef(el),
       'align': 'start',
       'side': this.rootContext.dir.value === 'rtl' ? 'left' : 'right',
       'disable-outside-pointer-events': false,

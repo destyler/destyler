@@ -123,7 +123,7 @@ export const DestylerScrollAreaRoot = defineComponent({
     return h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-      ref: 'forwardRef',
+      ref: (el: any) => this.forwardRef(el),
       dir: this.dir,
       style: {
         'position': 'relative',

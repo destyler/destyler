@@ -36,7 +36,8 @@ export function usePointerDownOutside(
   onPointerDownOutside?: (event: PointerDownOutsideEvent) => void,
   element?: Ref<HTMLElement | undefined>,
 ) {
-  const ownerDocument: Document = element?.value?.ownerDocument ?? globalThis?.document
+  const ownerDocument: Document
+    = element?.value?.ownerDocument ?? globalThis?.document
 
   const isPointerInsideDOMTree = ref(false)
   const handleClickRef = ref(() => {})
@@ -45,13 +46,18 @@ export function usePointerDownOutside(
     if (!isClient)
       return
     const handlePointerDown = async (event: PointerEvent) => {
+      const target = event.target as HTMLElement
+
       if (!element?.value)
         return
 
-      if (isLayerExist(element.value, event.target as HTMLElement)) {
+      if (isLayerExist(element.value, target)) {
         isPointerInsideDOMTree.value = false
         return
       }
+
+      if (event.offsetX > target.clientWidth || event.offsetY > target.clientHeight)
+        return
 
       if (event.target && !isPointerInsideDOMTree.value) {
         const eventDetail = { originalEvent: event }
@@ -76,11 +82,11 @@ export function usePointerDownOutside(
         }
       }
       else {
-        // See: https://github.com/radix-ui/primitives/issues/2171
         ownerDocument.removeEventListener('click', handleClickRef.value)
       }
       isPointerInsideDOMTree.value = false
     }
+
     const timerId = window.setTimeout(() => {
       ownerDocument.addEventListener('pointerdown', handlePointerDown)
     }, 0)

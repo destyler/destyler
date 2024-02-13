@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -35,7 +35,7 @@ export const DestylerSelectItemText = defineComponent({
     const nativeOptionContext = injectSelectNativeOptionsContext()
     const itemContext = injectSelectItemContext()
 
-    const { customElement, currentElement: itemTextElement } = useCustomElement()
+    const { forwardRef, currentElement: itemTextElement } = useForwardExpose()
 
     const nativeOption = computed(() => {
       return h('option', {
@@ -63,7 +63,7 @@ export const DestylerSelectItemText = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       itemContext,
       rootContext,
     }
@@ -71,7 +71,7 @@ export const DestylerSelectItemText = defineComponent({
   render() {
     return [
       withDirectives(h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
-        ref: 'customElement',
+        ref: (el: any) => this.forwardRef(el),
       }), {
         default: () => this.$slots.default?.(),
       }), [

@@ -111,7 +111,7 @@ export const DestylerToggleGroupRoot = defineComponent({
     }, {
       default: () => {
         return h(DestylerPrimitive, {
-          ref: 'forwardRef',
+          ref: (el: any) => this.forwardRef(el),
           role: 'group',
           as: this.$props.as,
           asChild: this.$props.asChild,

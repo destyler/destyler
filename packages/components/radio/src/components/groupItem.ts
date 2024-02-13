@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, ref } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { useEventListener } from '@vueuse/core'
 import { DestylerRovingFocusItem } from '@destyler/roving-focus'
 
@@ -58,7 +58,7 @@ export const DestylerRadioGroupItem = defineComponent({
   inheritAttrs: false,
   props: destylerRadioGroupItemProps,
   setup(props) {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const rootContext = injectRadioGroupRootContext()
 
@@ -90,7 +90,7 @@ export const DestylerRadioGroupItem = defineComponent({
       checked,
       disabled,
       required,
-      customElement,
+      forwardRef,
       rootContext,
       handleFocus,
     }
@@ -103,7 +103,7 @@ export const DestylerRadioGroupItem = defineComponent({
       focusable: !this.disabled,
       active: this.checked,
     }, h(DestylerRadio, mergeProps(this.$attrs, this.$props, {
-      'ref': 'customElement',
+      'ref': (el: any) => this.forwardRef(el),
       'checked': this.checked,
       'required': this.required,
       'onUpdate:checked': () => {

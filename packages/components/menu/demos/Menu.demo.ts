@@ -23,18 +23,14 @@ export const MenuDemo = defineComponent({
   render() {
     return [
       h(DestylerMenuRoot, {
-        'open': this.open,
-        'modal': false,
-        'onUpdate:open': (value) => {
-          if (!value)
-            this.handleToggle(false)
-        },
+        open: this.open,
+        modal: false,
       }, [
         h(DestylerMenuAnchor, {
           asChild: true,
         }, () => h('button', {
           onPointerdown: () => {
-            this.handleToggle(true)
+            this.handleToggle(!this.open)
           },
         }, this.open)),
         h(DestylerMenuPortal, {

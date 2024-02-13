@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getScrollParent, isDocument, unwrapElement } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 
 export const destylerBackTopProps = {
   asChild: {
@@ -35,7 +35,7 @@ export const DestylerBackTop = defineComponent({
     let scrollElement: HTMLElement | Document
     let scrollListenerRegistered: boolean
 
-    const { currentElement, customElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     function init(): void {
       if (scrollListenerRegistered)
@@ -80,13 +80,13 @@ export const DestylerBackTop = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       handleClick,
     }
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
-      ref: 'customElement',
+      ref: (el: any) => this.forwardRef(el),
       onClick: () => {
         this.handleClick()
       },

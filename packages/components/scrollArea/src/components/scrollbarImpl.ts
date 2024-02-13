@@ -125,7 +125,7 @@ export const DestylerScrollAreaScrollbarImpl = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': 'forwardRef',
+      'ref': (el: any) => this.forwardRef(el),
       'style': {
         position: 'absolute',
       },

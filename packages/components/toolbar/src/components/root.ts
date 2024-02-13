@@ -67,7 +67,7 @@ export const DestylerToolbarRoot = defineComponent({
     }, {
       default: () => {
         return h(DestylerPrimitive, {
-          'ref': 'forwardRef',
+          'ref': (el: any) => this.forwardRef(el),
           'role': 'toolbar',
           'aria-orientation': this.orientation,
           'asChild': this.$props.asChild,

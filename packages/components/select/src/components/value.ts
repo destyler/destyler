@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import { renderSlotFragments } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 
 import { shouldShowPlaceholder } from '../utils'
 import { injectSelectRootContext } from './root'
@@ -32,7 +32,7 @@ export const DestylerSelectValue = defineComponent({
   name: 'DestylerSelectValue',
   props: destylerSelectValueProps,
   setup(_, { slots }) {
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
 
     const rootContext = injectSelectRootContext()
 
@@ -47,12 +47,12 @@ export const DestylerSelectValue = defineComponent({
 
     return {
       rootContext,
-      customElement,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerPrimitive, {
-      ref: 'customElement',
+      ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,
       style: {

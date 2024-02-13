@@ -1,9 +1,9 @@
 import type { Component, PropType } from 'vue'
-import { computed, defineComponent, h, nextTick, reactive, watchEffect } from 'vue'
+import { computed, defineComponent, h, nextTick, reactive, watchEffect, withModifiers } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useCustomElement } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { useFocusOutside, usePointerDownOutside } from '../utils'
@@ -24,6 +24,11 @@ export const destylerDismissableLayerProps = {
     required: false,
     default: false,
   },
+  isDismissable: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: true,
+  },
 } as const
 
 export type DestylerDismissableLayerProps = ExtractPublicPropTypes<typeof destylerDismissableLayerProps>
@@ -41,8 +46,7 @@ export const DestylerDismissableLayer = defineComponent({
   props: destylerDismissableLayerProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
-    const { customElement, currentElement: layerElement } = useCustomElement()
-
+    const { forwardRef, currentElement: layerElement } = useForwardExpose()
     const ownerDocument = computed(
       () => layerElement.value?.ownerDocument ?? globalThis.document,
     )
@@ -50,7 +54,9 @@ export const DestylerDismissableLayer = defineComponent({
     const layers = computed(() => context.layersRoot)
 
     const index = computed(() => {
-      return layerElement.value ? Array.from(layers.value).indexOf(layerElement.value) : -1
+      return layerElement.value
+        ? Array.from(layers.value).indexOf(layerElement.value)
+        : -1
     })
 
     const isBodyPointerEventsDisabled = computed(() => {
@@ -69,13 +75,16 @@ export const DestylerDismissableLayer = defineComponent({
       const isPointerDownOnBranch = [...context.branches].some(branch =>
         branch.contains(event.target as HTMLElement),
       )
-
       if (!isPointerEventsEnabled.value || isPointerDownOnBranch)
         return
       emit('pointerDownOutside', event)
       emit('interactOutside', event)
       await nextTick()
-      emit('dismiss')
+      if (props.isDismissable)
+        emit('dismiss')
+      else
+        if (!event.defaultPrevented)
+          emit('dismiss')
     }, layerElement)
 
     const focusOutside = useFocusOutside((event) => {
@@ -87,7 +96,8 @@ export const DestylerDismissableLayer = defineComponent({
         return
       emit('focusOutside', event)
       emit('interactOutside', event)
-      emit('dismiss')
+      if (!event.defaultPrevented)
+        emit('dismiss')
     }, layerElement)
 
     onKeyStroke('Escape', (event) => {
@@ -95,7 +105,8 @@ export const DestylerDismissableLayer = defineComponent({
       if (!isHighestLayer)
         return
       emit('escapeKeyDown', event)
-      emit('dismiss')
+      if (!event.defaultPrevented)
+        emit('dismiss')
     })
 
     let originalBodyPointerEvents: string
@@ -130,7 +141,7 @@ export const DestylerDismissableLayer = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       focusOutside,
       pointerDownOutside,
       isBodyPointerEventsDisabled,
@@ -139,13 +150,20 @@ export const DestylerDismissableLayer = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      'ref': 'customElement',
+      'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-dismissable-layer': '',
-      'onFocusCapture': this.focusOutside.onFocusCapture,
-      'onBlurCapture': this.focusOutside.onBlurCapture,
-      'onPointerDownOutside': this.pointerDownOutside.onPointerDownCapture,
+      'onFocus': withModifiers(() => {
+        this.focusOutside.onFocusCapture()
+      }, ['capture']),
+      'onBlur': withModifiers(() => {
+        this.focusOutside.onBlurCapture()
+      }, ['capture']),
+      'onPointerdown':
+      withModifiers(() => {
+        this.pointerDownOutside.onPointerDownCapture()
+      }, ['capture']),
       'style': {
         pointerEvents: this.isBodyPointerEventsDisabled
           ? this.isPointerEventsEnabled

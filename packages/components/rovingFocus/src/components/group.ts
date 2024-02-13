@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { createContext, focusFirst } from '@destyler/shared'
-import { useCollection, useCustomElement, useDirection, useVModel } from '@destyler/composition'
+import { useCollection, useDirection, useForwardExpose, useVModel } from '@destyler/composition'
 
 import { ENTRY_FOCUS, EVENT_OPTIONS } from '../utils'
 
@@ -73,7 +73,7 @@ export const DestylerRovingFocusGroup = defineComponent({
     const isClickFocus = ref(false)
     const focusableItemsCount = ref(0)
 
-    const { customElement, currentElement } = useCustomElement()
+    const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('rovingFocus')
     const collections = createCollection(currentElement)
 
@@ -126,7 +126,7 @@ export const DestylerRovingFocusGroup = defineComponent({
     })
 
     return {
-      customElement,
+      forwardRef,
       dir,
       isClickFocus,
       isTabbingBackOut,
@@ -135,7 +135,7 @@ export const DestylerRovingFocusGroup = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      ref: 'customElement',
+      ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,
       dir: this.dir,

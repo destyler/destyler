@@ -2,7 +2,7 @@ import type { Component, ComputedRef, PropType, VNodeRef } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useArrowNavigation, useCustomElement, useId } from '@destyler/composition'
+import { useArrowNavigation, useForwardExpose, useId } from '@destyler/composition'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerCollapsibleRoot } from '@destyler/collapsible'
 
@@ -19,7 +19,7 @@ export interface CollapseItemContext {
   disabled: ComputedRef<boolean>
   dataDisabled: ComputedRef<'' | undefined>
   triggerId: string
-  customElement: VNodeRef
+  currentRef: VNodeRef
   currentElement: ComputedRef<HTMLElement | undefined>
   value: ComputedRef<string>
 }
@@ -77,7 +77,7 @@ export const DestylerCollapseItem = defineComponent({
       open.value ? CollapseItemState.Open : CollapseItemState.Closed,
     )
 
-    const { customElement, currentElement } = useCustomElement()
+    const { currentRef, currentElement } = useForwardExpose()
 
     provideCollapseItemContext({
       open,
@@ -85,7 +85,7 @@ export const DestylerCollapseItem = defineComponent({
       disabled,
       dataDisabled,
       triggerId: useId(),
-      customElement,
+      currentRef,
       currentElement,
       value: computed(() => props.value!),
     })
