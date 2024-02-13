@@ -92,4 +92,6 @@ export const alias = {
   '@destyler/demo/scrollArea/': `${path.resolve(__dirname, 'packages/components/scrollArea')}/`,
   '@destyler/tabs': `${path.resolve(__dirname, 'packages/components/tabs')}/src/index.ts`,
   '@destyler/demo/tabs/': `${path.resolve(__dirname, 'packages/components/tabs')}/`,
+  '@destyler/dropdown': `${path.resolve(__dirname, 'packages/components/dropdown')}/src/index.ts`,
+  '@destyler/demo/dropdown/': `${path.resolve(__dirname, 'packages/components/dropdown')}/`,
 }

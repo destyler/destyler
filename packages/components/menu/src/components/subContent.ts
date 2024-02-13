@@ -123,7 +123,7 @@ export const DestylerMenuSubContent = defineComponent({
       'ref': (el: any) => this.forwardRef(el),
       'align': 'start',
       'side': this.rootContext.dir.value === 'rtl' ? 'left' : 'right',
-      'disable-outside-pointer-events': false,
+      'disableOutsidePointerEvents': false,
       'disable-outside-scroll': false,
       'trap-focus': false,
       'onOpenAutoFocus': withModifiers(() => {

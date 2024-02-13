@@ -298,15 +298,15 @@ export const DestylerSelectContentImpl = defineComponent({
         event.preventDefault()
       },
     }, h(DestylerDismissableLayer, {
-      'asChild': true,
-      'disable-outside-pointer-events': '',
-      'onDismiss': () => {
+      asChild: true,
+      disableOutsidePointerEvents: true,
+      onDismiss: () => {
         this.rootContext.onOpenChange(false)
       },
-      'onEscapeKeyDown': (event) => {
+      onEscapeKeyDown: (event) => {
         this.$emit('escapeKeyDown', event)
       },
-      'onPointerDownOutside': (event) => {
+      onPointerDownOutside: (event) => {
         this.$emit('pointerDownOutside', event)
       },
     }, withDirectives(h(this.$props.position === 'popper' ? DestylerSelectPopperPosition : DestylerSelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {

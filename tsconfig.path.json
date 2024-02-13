@@ -91,7 +91,9 @@
       "@destyler/demo/scrollArea/*": ["./packages/components/scrollArea/*"],
       "@destyler/scrollArea": ["./packages/components/scrollArea/src/index.ts"],
       "@destyler/demo/tabs/*": ["./packages/components/tabs/*"],
-      "@destyler/tabs": ["./packages/components/tabs/src/index.ts"]
+      "@destyler/tabs": ["./packages/components/tabs/src/index.ts"],
+      "@destyler/demo/dropdown/*": ["./packages/components/dropdown/*"],
+      "@destyler/dropdown": ["./packages/components/dropdown/src/index.ts"]
     }
   }
 }

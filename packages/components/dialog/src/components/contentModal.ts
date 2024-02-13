@@ -27,7 +27,7 @@ export const DestylerDialogContentModal = defineComponent({
     return h(DestylerDialogContentImpl, mergeProps(this.$props, this.emitsAsProps, {
       'ref': (el: any) => this.forwardRef(el),
       'trap-focus': this.rootContext.open.value,
-      'disable-outside-pointer-events': true,
+      'disableOutsidePointerEvents': true,
       'onCloseAutoFocus': (event: any) => {
         this.$emit('closeAutoFocus', event)
 

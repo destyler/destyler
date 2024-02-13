@@ -26,17 +26,17 @@ export const DestylerPopoverContentModal = defineComponent({
   },
   render() {
     return h(DestylerPopoverContentImpl, {
-      'ref': (el: any) => this.forwardRef(el),
+      ref: (el: any) => this.forwardRef(el),
       ...mergeProps(this.forwarded),
-      'trapFocus': this.rootContext.open.value,
-      'disable-outside-pointer-events': '',
-      'onCloseAutoFocusPrevent': (event: any) => {
+      trapFocus: this.rootContext.open.value,
+      disableOutsidePointerEvents: true,
+      onCloseAutoFocusPrevent: (event: any) => {
         this.$emit('closeAutoFocus', event)
 
         if (!this.isRightClickOutsideRef)
           this.rootContext.triggerElement.value?.focus()
       },
-      'onPointerDownOutside': (event: any) => {
+      onPointerDownOutside: (event: any) => {
         this.$emit('pointerDownOutside', event)
 
         const originalEvent = event.detail.originalEvent

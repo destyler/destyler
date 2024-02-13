@@ -61,7 +61,7 @@ export const DestylerDropdownTrigger = defineComponent({
           'data-disabled': this.$props.disabled ? '' : undefined,
           'disabled': this.$props.disabled,
           'data-state': this.rootContext.open.value ? 'open' : 'closed',
-          'onClick': async (event: any) => {
+          'onPointerdown': async (event: any) => {
             if (!this.$props.disabled && event.button === 0 && event.ctrlKey === false) {
               this.rootContext?.onOpenToggle()
               await nextTick()
