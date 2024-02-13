@@ -28,6 +28,7 @@ export const asideItems = [
       { text: 'Countdown', link: '/components/countdown' },
       { text: 'Dialog', link: '/components/dialog' },
       { text: 'Divider', link: '/components/divider' },
+      { text: 'Dropdown', link: '/components/dropdown' },
       { text: 'Icon', link: '/components/icon' },
       { text: 'Image', link: '/components/image' },
       { text: 'Info', link: '/components/info' },
