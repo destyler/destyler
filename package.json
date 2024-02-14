@@ -10,7 +10,7 @@
     "unstyle"
   ],
   "scripts": {
-    "build": "pnpm run --filter \"./packages/**\" -r build",
+    "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run size",
     "play": "pnpm -C playground run dev",
     "play:vue": "pnpm -C examples/vue run dev",
     "play:nuxt": "pnpm -C examples/nuxt run dev",
@@ -21,12 +21,14 @@
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "pnpm run build",
     "remove:branch": "git branch | grep -v \"main\" | xargs git branch -D",
+    "size": "tsx scripts/export-size.ts",
     "release": "bumpp package.json packages/*/package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.6.3",
     "@testing-library/user-event": "^14.5.2",
     "@testing-library/vue": "^8.0.1",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.5",
     "@vitejs/plugin-vue": "^5.0.3",
     "@vitest/coverage-v8": "^1.2.1",
@@ -36,8 +38,12 @@
     "@vue/test-utils": "^2.4.3",
     "bumpp": "^9.3.0",
     "eslint": "^8.56.0",
+    "export-size": "^0.7.0",
+    "filesize": "^10.1.0",
+    "fs-extra": "^11.2.0",
     "jsdom": "^23.2.0",
     "rimraf": "^5.0.5",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "unbuild": "^2.0.0",
     "unplugin-auto-import": "^0.17.3",

@@ -3,9 +3,8 @@ import {
   customRef,
   readonly,
   ref,
-
   toRef as vueToRef,
-} from 'vue-demi'
+} from 'vue'
 import { noop } from '../naive/noop'
 import type { MaybeRefOrGetter } from './types'
 

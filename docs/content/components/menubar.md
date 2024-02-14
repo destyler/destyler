@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/menubar
+npm install @destyler/menubar
 ```
+
+#yarn
+```bash
+yarn add @destyler/menubar
+```
+
+#pnpm
+```bash
+pnpm add @destyler/menubar
+```
+
+::

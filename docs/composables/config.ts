@@ -19,13 +19,13 @@ export const asideItems = [
   {
     text: 'Components',
     children: [
-      { text: 'Aspect Radio', link: '/components/aspect-ratio' },
+      { text: 'Aspect Radio', link: '/components/aspect-radio' },
       { text: 'BackTop', link: '/components/back-top' },
       { text: 'Button', link: '/components/button' },
       { text: 'Checkbox', link: '/components/checkbox' },
       { text: 'Collapse', link: '/components/collapse' },
       { text: 'Collapsible', link: '/components/collapsible' },
-      { text: 'Content Menu', link: '/components/content-menu' },
+      { text: 'Context Menu', link: '/components/context-menu' },
       { text: 'Countdown', link: '/components/countdown' },
       { text: 'Dialog', link: '/components/dialog' },
       { text: 'Divider', link: '/components/divider' },

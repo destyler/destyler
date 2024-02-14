@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/radio
+npm install @destyler/radio
 ```
+
+#yarn
+```bash
+yarn add @destyler/radio
+```
+
+#pnpm
+```bash
+pnpm add @destyler/radio
+```
+
+::

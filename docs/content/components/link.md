@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/link
+npm install @destyler/link
 ```
+
+#yarn
+```bash
+yarn add @destyler/link
+```
+
+#pnpm
+```bash
+pnpm add @destyler/link
+```
+
+::

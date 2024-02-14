@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/slider
+npm install @destyler/slider
 ```
+
+#yarn
+```bash
+yarn add @destyler/slider
+```
+
+#pnpm
+```bash
+pnpm add @destyler/slider
+```
+
+::

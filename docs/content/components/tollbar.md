@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/tollbar
+npm install @destyler/tollbar
 ```
+
+#yarn
+```bash
+yarn add @destyler/tollbar
+```
+
+#pnpm
+```bash
+pnpm add @destyler/tollbar
+```
+
+::

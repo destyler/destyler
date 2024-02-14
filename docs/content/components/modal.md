@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/modal
+npm install @destyler/modal
 ```
+
+#yarn
+```bash
+yarn add @destyler/modal
+```
+
+#pnpm
+```bash
+pnpm add @destyler/modal
+```
+
+::

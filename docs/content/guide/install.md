@@ -8,11 +8,26 @@ layout: component
 
 ## Install Destyler
 
+::package
+
+#npm
 ```bash
-pnpm install destyler
+npm install destyler
 ```
+
+#yarn
+```bash
+yarn add destyler
+```
+
+#pnpm
+```bash
+pnpm add destyler
+```
+
+::
 
 ## Frameworks
 
-:::framework-list
-:::
+::framework-list
+::

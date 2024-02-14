@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/icon
+npm install @destyler/icon
 ```
+
+#yarn
+```bash
+yarn add @destyler/icon
+```
+
+#pnpm
+```bash
+pnpm add @destyler/icon
+```
+
+::

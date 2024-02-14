@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/switch
+npm install @destyler/switch
 ```
+
+#yarn
+```bash
+yarn add @destyler/switch
+```
+
+#pnpm
+```bash
+pnpm add @destyler/switch
+```
+
+::

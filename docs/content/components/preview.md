@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/preview
+npm install @destyler/preview
 ```
+
+#yarn
+```bash
+yarn add @destyler/preview
+```
+
+#pnpm
+```bash
+pnpm add @destyler/preview
+```
+
+::

@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/tooltip
+npm install @destyler/tooltip
 ```
+
+#yarn
+```bash
+yarn add @destyler/tooltip
+```
+
+#pnpm
+```bash
+pnpm add @destyler/tooltip
+```
+
+::

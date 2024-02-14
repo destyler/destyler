@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/popover
+npm install @destyler/popover
 ```
+
+#yarn
+```bash
+yarn add @destyler/popover
+```
+
+#pnpm
+```bash
+pnpm add @destyler/popover
+```
+
+::

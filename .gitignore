@@ -28,3 +28,4 @@ typed-router.d.ts
 .vitepress/cache
 .nuxt
 .output
+docs/public/export-size.json

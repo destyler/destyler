@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/countdown
+npm install @destyler/countdown
 ```
+
+#yarn
+```bash
+yarn add @destyler/countdown
+```
+
+#pnpm
+```bash
+pnpm add @destyler/countdown
+```
+
+::

@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/back-top
+npm install @destyler/back-top
 ```
+
+#yarn
+```bash
+yarn add @destyler/back-top
+```
+
+#pnpm
+```bash
+pnpm add @destyler/back-top
+```
+
+::

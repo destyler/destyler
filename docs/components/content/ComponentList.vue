@@ -22,10 +22,19 @@
       <CollapsibleDemo />
     </CraftBox>
     <CraftBox>
+      <ContextMenuDemo />
+    </CraftBox>
+    <CraftBox>
+      <CountdownDemo />
+    </CraftBox>
+    <CraftBox>
       <DialogDemo />
     </CraftBox>
     <CraftBox>
       <DividerDemo />
+    </CraftBox>
+    <CraftBox>
+      <DropdownDemo />
     </CraftBox>
     <CraftBox>
       <IconDemo />
@@ -38,6 +47,12 @@
     </CraftBox>
     <CraftBox>
       <LabelDemo />
+    </CraftBox>
+    <CraftBox>
+      <LinkDemo />
+    </CraftBox>
+    <CraftBox>
+      <MenubarDemo />
     </CraftBox>
     <CraftBox>
       <ModalDemo />
@@ -58,6 +73,9 @@
       <RadioDemo />
     </CraftBox>
     <CraftBox>
+      <ScrollAreaDemo />
+    </CraftBox>
+    <CraftBox>
       <SelectDemo />
     </CraftBox>
     <CraftBox>
@@ -67,7 +85,18 @@
       <SwitchDemo />
     </CraftBox>
     <CraftBox>
+      <ToggleGroupDemo />
+    </CraftBox>
+    <CraftBox>
       <TooltipDemo />
     </CraftBox>
   </Box>
+  <div>
+    <CraftBox class="h-112!">
+      <TabsDemo />
+    </CraftBox>
+    <CraftBox>
+      <TollbarDemo />
+    </CraftBox>
+  </div>
 </template>

@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/divider
+npm install @destyler/divider
 ```
+
+#yarn
+```bash
+yarn add @destyler/divider
+```
+
+#pnpm
+```bash
+pnpm add @destyler/divider
+```
+
+::

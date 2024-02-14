@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/collapsible
+npm install @destyler/collapsible
 ```
+
+#yarn
+```bash
+yarn add @destyler/collapsible
+```
+
+#pnpm
+```bash
+pnpm add @destyler/collapsible
+```
+
+::

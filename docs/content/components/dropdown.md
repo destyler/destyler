@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/dropdown
+npm install @destyler/dropdown
 ```
+
+#yarn
+```bash
+yarn add @destyler/dropdown
+```
+
+#pnpm
+```bash
+pnpm add @destyler/dropdown
+```
+
+::

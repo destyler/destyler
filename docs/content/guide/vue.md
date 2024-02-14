@@ -12,21 +12,53 @@ layout: content
 
 Start by creating a new Vue project using vite:
 
+::package
+
+#npm
+```bash
+npm create vite@latest
+```
+
+#yarn
+```bash
+yarn create vite@latest
+```
+
+#pnpm
 ```bash
 pnpm create vite@latest
 ```
+
+::
 
 ### Add dependencies
 
 Install Destyler and unplugin-vue-components :
 
+::package
+
+#npm
+```bash
+npm install destyler unplugin-vue-components
+```
+
+#yarn
+```bash
+yarn add destyler unplugin-vue-components
+```
+
+#pnpm
 ```bash
 pnpm add destyler unplugin-vue-components
 ```
 
+::
+
 ### Edit vite.config.ts file
 
 Add plugin to vite.config.ts file:
+
+::custom-code{icon="vscode-icons:file-type-vite" name="vite.config"}
 
 ```ts
 import { defineConfig } from 'vite'
@@ -45,5 +77,7 @@ export default defineConfig({
   ],
 })
 ```
+
+::
 
 </div>

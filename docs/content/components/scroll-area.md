@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/scroll-area
+npm install @destyler/scroll-area
 ```
+
+#yarn
+```bash
+yarn add @destyler/scroll-area
+```
+
+#pnpm
+```bash
+pnpm add @destyler/scroll-area
+```
+
+::

@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/collapse
+npm install @destyler/collapse
 ```
+
+#yarn
+```bash
+yarn add @destyler/collapse
+```
+
+#pnpm
+```bash
+pnpm add @destyler/collapse
+```
+
+::

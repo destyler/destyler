@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/label
+npm install @destyler/label
 ```
+
+#yarn
+```bash
+yarn add @destyler/label
+```
+
+#pnpm
+```bash
+pnpm add @destyler/label
+```
+
+::

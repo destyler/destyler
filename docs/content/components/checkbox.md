@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/checkbox
+npm install @destyler/checkbox
 ```
+
+#yarn
+```bash
+yarn add @destyler/checkbox
+```
+
+#pnpm
+```bash
+pnpm add @destyler/checkbox
+```
+
+::

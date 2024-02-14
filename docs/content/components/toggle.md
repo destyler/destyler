@@ -20,6 +20,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/toggle
+npm install @destyler/toggle
 ```
+
+#yarn
+```bash
+yarn add @destyler/toggle
+```
+
+#pnpm
+```bash
+pnpm add @destyler/toggle
+```
+
+::

@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/dialog
+npm install @destyler/dialog
 ```
+
+#yarn
+```bash
+yarn add @destyler/dialog
+```
+
+#pnpm
+```bash
+pnpm add @destyler/dialog
+```
+
+::

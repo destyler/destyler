@@ -12,6 +12,21 @@ layout: component
 
 ## Install
 
+::package
+
+#npm
 ```bash
-pnpm install @destyler/progress
+npm install @destyler/progress
 ```
+
+#yarn
+```bash
+yarn add @destyler/progress
+```
+
+#pnpm
+```bash
+pnpm add @destyler/progress
+```
+
+::
