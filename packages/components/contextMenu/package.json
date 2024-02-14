@@ -1,6 +1,6 @@
 {
   "name": "@destyler/context-menu",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.14",
   "private": "true",
   "description": "unstyled content menu component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
