@@ -25,6 +25,7 @@ export const asideItems = [
       { text: 'Checkbox', link: '/components/checkbox' },
       { text: 'Collapse', link: '/components/collapse' },
       { text: 'Collapsible', link: '/components/collapsible' },
+      { text: 'Content Menu', link: '/components/content-menu' },
       { text: 'Countdown', link: '/components/countdown' },
       { text: 'Dialog', link: '/components/dialog' },
       { text: 'Divider', link: '/components/divider' },

@@ -7,7 +7,7 @@ import { getCheckedState, isIndeterminate } from '@destyler/shared'
 import { DestylerMenuItem, destylerMenuItemProps } from './item'
 import { provideMenuItemIndicatorContext } from './itemIndicator'
 
-export const destylerMenuCheckBoxItemProps = {
+export const destylerMenuCheckboxItemProps = {
   ...destylerMenuItemProps,
   checked: {
     type: [Boolean, String] as PropType<CheckedState>,
@@ -16,11 +16,11 @@ export const destylerMenuCheckBoxItemProps = {
   },
 } as const
 
-export type DestylerMenuCheckBoxItemProps = ExtractPublicPropTypes<typeof destylerMenuCheckBoxItemProps>
+export type DestylerMenuCheckboxItemProps = ExtractPublicPropTypes<typeof destylerMenuCheckboxItemProps>
 
 export const DestylerMenuCheckboxItem = defineComponent({
   name: 'DestylerMenuCheckboxItem',
-  props: destylerMenuCheckBoxItemProps,
+  props: destylerMenuCheckboxItemProps,
   emits: ['update:checked', 'select'],
   setup(props, { emit }) {
     const checked = useVModel(props, 'checked', emit)

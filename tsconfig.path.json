@@ -93,7 +93,9 @@
       "@destyler/demo/tabs/*": ["./packages/components/tabs/*"],
       "@destyler/tabs": ["./packages/components/tabs/src/index.ts"],
       "@destyler/demo/dropdown/*": ["./packages/components/dropdown/*"],
-      "@destyler/dropdown": ["./packages/components/dropdown/src/index.ts"]
+      "@destyler/dropdown": ["./packages/components/dropdown/src/index.ts"],
+      "@destyler/demo/contentMenu/*": ["./packages/components/contentMenu/*"],
+      "@destyler/contentMenu": ["./packages/components/contentMenu/src/index.ts"]
     }
   }
 }

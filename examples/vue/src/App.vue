@@ -14,6 +14,7 @@ import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 import SwitchDemo from '@destyler/demo/switch/demos/Switch.unocss.demo.vue'
 import DialogCssDemo from '@destyler/demo/dialog/demos/Dialog.unocss.demo.vue'
 import DropdownDemo from '@destyler/demo/dropdown/demos/Dropdown.demo.vue'
+import ContentMenuDemo from '@destyler/demo/contentMenu/demos/ContentMenu.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -53,6 +54,11 @@ import DropdownDemo from '@destyler/demo/dropdown/demos/Dropdown.demo.vue'
   <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
     <div class="w-full h-full flex items-center justify-center touch-none box-border">
       <DropdownDemo />
+    </div>
+  </div>
+  <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
+    <div class="w-full h-full flex items-center justify-center touch-none box-border">
+      <ContentMenuDemo />
     </div>
   </div>
   <!-- <TabsDemo /> -->

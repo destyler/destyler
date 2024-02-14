@@ -288,6 +288,24 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/contextMenu:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.13
+        version: link:../../composition
+      '@destyler/menu':
+        specifier: workspace:0.0.1-beta.13
+        version: link:../menu
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/countdown:
     dependencies:
       '@destyler/primitive':
@@ -962,6 +980,9 @@ importers:
       '@destyler/collapsible':
         specifier: workspace:*
         version: link:../components/collapsible
+      '@destyler/context-menu':
+        specifier: workspace:*
+        version: link:../components/contextMenu
       '@destyler/countdown':
         specifier: workspace:*
         version: link:../components/countdown

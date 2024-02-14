@@ -1,6 +1,6 @@
 export { DestylerMenuAnchor, type DestylerMenuAnchorProps } from './components/anchor'
 export { DestylerMenuArrow, type DestylerMenuArrowProps } from './components/arrow'
-export { DestylerMenuCheckboxItem, type DestylerMenuCheckBoxItemProps } from './components/checkboxItem'
+export { DestylerMenuCheckboxItem, type DestylerMenuCheckboxItemProps } from './components/checkboxItem'
 export { DestylerMenuContent, type DestylerMenuContentProps } from './components/content'
 export { DestylerMenuGroup, type DestylerMenuGroupProps } from './components/group'
 export { DestylerMenuItem, type DestylerMenuItemProps } from './components/item'
