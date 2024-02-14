@@ -291,10 +291,10 @@ importers:
   packages/components/contextMenu:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.13
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/menu':
-        specifier: workspace:0.0.1-beta.13
+        specifier: workspace:*
         version: link:../menu
       '@destyler/primitive':
         specifier: workspace:*
