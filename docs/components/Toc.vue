@@ -21,14 +21,14 @@ const { data } = await useAsyncData(`content-${route.path}`, () => {
                 </p>
                 <TocItem :toc-list="data?.body?.toc?.links" />
               </div>
-              <DestylerDivider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-1/2 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+              <DestylerDivider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-2/3 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
               <div class="space-y-2 mt-2">
                 <p class="font-medium">
                   <DestylerLabel>Packages</DestylerLabel>
                 </p>
                 <Packages />
               </div>
-              <DestylerDivider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-1/2 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+              <DestylerDivider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-2/3 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
               <div class="space-y-2 mt-2">
                 <p class="font-medium">
                   <DestylerLabel>Community</DestylerLabel>

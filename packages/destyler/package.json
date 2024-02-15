@@ -57,6 +57,7 @@
     "@destyler/divider": "workspace:*",
     "@destyler/dropdown": "workspace:*",
     "@destyler/focus-scope": "workspace:*",
+    "@destyler/hover-card": "workspace:0.0.1-beta.6",
     "@destyler/icon": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/info": "workspace:*",

@@ -30,6 +30,7 @@ export const asideItems = [
       { text: 'Dialog', link: '/components/dialog' },
       { text: 'Divider', link: '/components/divider' },
       { text: 'Dropdown', link: '/components/dropdown' },
+      { text: 'Hover Card', link: '/components/hover-card' },
       { text: 'Icon', link: '/components/icon' },
       { text: 'Image', link: '/components/image' },
       { text: 'Info', link: '/components/info' },

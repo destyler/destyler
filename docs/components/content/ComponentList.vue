@@ -37,6 +37,9 @@
       <DropdownDemo />
     </CraftBox>
     <CraftBox>
+      <HoverCardDemo />
+    </CraftBox>
+    <CraftBox>
       <IconDemo />
     </CraftBox>
     <CraftBox>

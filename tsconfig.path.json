@@ -94,8 +94,10 @@
       "@destyler/tabs": ["./packages/components/tabs/src/index.ts"],
       "@destyler/demo/dropdown/*": ["./packages/components/dropdown/*"],
       "@destyler/dropdown": ["./packages/components/dropdown/src/index.ts"],
-      "@destyler/demo/contentMenu/*": ["./packages/components/contentMenu/*"],
-      "@destyler/contentMenu": ["./packages/components/contentMenu/src/index.ts"]
+      "@destyler/demo/contextMenu/*": ["./packages/components/contextMenu/*"],
+      "@destyler/contextMenu": ["./packages/components/contextMenu/src/index.ts"],
+      "@destyler/demo/hoverCard/*": ["./packages/components/hoverCard/*"],
+      "@destyler/hoverCard": ["./packages/components/hoverCard/src/index.ts"]
     }
   }
 }
