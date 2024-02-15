@@ -40,7 +40,11 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:0.0.1-beta.14",
+    "@destyler/directives": "workspace:0.0.1-beta.14",
+    "@destyler/dismissable-layer": "workspace:0.0.1-beta.14",
+    "@destyler/presence": "workspace:0.0.1-beta.14",
     "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@destyler/shared": "workspace:*",
+    "@destyler/visually-hidden": "workspace:0.0.1-beta.14"
   }
 }

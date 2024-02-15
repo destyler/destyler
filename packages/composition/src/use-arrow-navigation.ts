@@ -1,41 +1,68 @@
-import type { ArrowKeyOptions, Direction } from '@destyler/shared'
+import type { Direction } from '@destyler/shared'
+
+type ArrowKeyOptions = 'horizontal' | 'vertical' | 'both'
 
 interface ArrowNavigationOptions {
   /**
-   * @default "both"
+   * The arrow key options to allow navigation
+   *
+   * @defaultValue "both"
    */
   arrowKeyOptions?: ArrowKeyOptions
 
   /**
-   * @default "data-destyler-vue-collection-item"
+   * The attribute name to find the collection items in the parent element.
+   *
+   * @defaultValue "data-radix-vue-collection-item"
    */
   attributeName?: string
 
   /**
-   * @default []
+   * The parent element where contains all the collection items, this will collect every item to be used when nav
+   * It will be ignored if attributeName is provided
+   *
+   * @defaultValue []
    */
   itemsArray?: HTMLElement[]
 
   /**
-   * @default true
+   * Allow loop navigation. If false, it will stop at the first and last element
+   *
+   * @defaultValue true
    */
   loop?: boolean
 
   /**
-   * @default "ltr"
+   * The orientation of the collection
+   *
+   * @defaultValue "ltr"
    */
   dir?: Direction
 
   /**
-   * @default true
+   * Prevent the scroll when navigating. This happens when the direction of the
+   * key matches the scroll direction of any ancestor scrollable elements.
+   *
+   * @defaultValue true
    */
   preventScroll?: boolean
 
   /**
-   * @default false
+   * By default all currentElement would trigger navigation. If `true`, currentElement nodeName in the ignore list will return null
+   *
+   * @defaultValue false
+   */
+  enableIgnoredElement?: boolean
+
+  /**
+   * Focus the element after navigation
+   *
+   * @defaultValue false
    */
   focus?: boolean
 }
+
+const ignoredElement = ['INPUT', 'TEXTAREA']
 
 export function useArrowNavigation(
   e: KeyboardEvent,
@@ -43,12 +70,12 @@ export function useArrowNavigation(
   parentElement: HTMLElement | undefined,
   options: ArrowNavigationOptions = {},
 ): HTMLElement | null {
-  if (!currentElement)
+  if (!currentElement || (options.enableIgnoredElement && ignoredElement.includes(currentElement.nodeName)))
     return null
 
   const {
     arrowKeyOptions = 'both',
-    attributeName = 'data-destyler-vue-collection-item',
+    attributeName = '[data-radix-vue-collection-item]',
     itemsArray = [],
     loop = true,
     dir = 'ltr',
@@ -76,7 +103,7 @@ export function useArrowNavigation(
     return null
 
   const allCollectionItems: HTMLElement[] = parentElement
-    ? Array.from(parentElement.querySelectorAll(`[${attributeName}]`))
+    ? Array.from(parentElement.querySelectorAll(attributeName))
     : itemsArray
 
   if (!allCollectionItems.length)

@@ -49,7 +49,7 @@ export const destylerNavigationRootProps = {
 
 export type DestylerNavigationRootProps = ExtractPublicPropTypes<typeof destylerNavigationRootProps>
 
-export interface NavigationMenuContext {
+export interface NavigationContext {
   isRootMenu: boolean
   modelValue: Ref<string>
   previousValue: Ref<string>
@@ -69,7 +69,7 @@ export interface NavigationMenuContext {
   onItemDismiss(): void
 }
 
-export const [injectNavigationMenuContext, provideNavigationMenuContext] = createContext<NavigationMenuContext>(['DestylerNavigationMenuRoot', 'DestylerNavigationMenuSub'], 'DestylerNavigationMenuContext')
+export const [injectNavigationContext, provideNavigationContext] = createContext<NavigationContext>(['DestylerNavigationRoot', 'DestylerNavigationSub'], 'DestylerNavigationContext')
 
 export const DestylerNavigationRoot = defineComponent({
   name: 'DestylerNavigationRoot',
@@ -106,7 +106,7 @@ export const DestylerNavigationRoot = defineComponent({
       modelValue.value = val
     }, computedDelay)
 
-    provideNavigationMenuContext({
+    provideNavigationContext({
       isRootMenu: true,
       modelValue,
       previousValue,

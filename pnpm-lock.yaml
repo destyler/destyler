@@ -626,12 +626,24 @@ importers:
       '@destyler/composition':
         specifier: workspace:0.0.1-beta.14
         version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../../directives
+      '@destyler/dismissable-layer':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../dismissableLayer
+      '@destyler/presence':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../presence
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@destyler/visually-hidden':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../visuallyHidden
       vue:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)

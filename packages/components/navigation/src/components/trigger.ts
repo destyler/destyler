@@ -1,0 +1,191 @@
+import type { Component, PropType, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, ref, withDirectives } from 'vue'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { refAutoReset } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
+import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import { BindOnceDirective } from '@destyler/directives'
+
+import { getOpenState, makeContentId, makeTriggerId } from '../utils'
+import { injectNavigationContext } from './root'
+import { injectNavigationItemContext } from './item'
+
+export const destylerNavigationTriggerProps = {
+  as: {
+    type: [String, Object] as PropType<AsTag | Component>,
+    required: false,
+    default: 'button',
+  },
+  asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+  },
+} as const
+
+export type DestylerNavigationTriggerProps = ExtractPublicPropTypes<typeof destylerNavigationTriggerProps>
+
+export const DestylerNavigationTrigger = defineComponent({
+  name: 'DestylerNavigationTrigger',
+  inheritAttrs: false,
+  props: destylerNavigationTriggerProps,
+  setup(props) {
+    const menuContext = injectNavigationContext()
+    const itemContext = injectNavigationItemContext()
+
+    const { forwardRef, currentElement: triggerElement } = useForwardExpose()
+    const triggerId = ref('')
+    const contentId = ref('')
+
+    const hasPointerMoveOpenedRef = refAutoReset(false, 300)
+    const wasClickCloseRef = ref(false)
+
+    const open = computed(() => itemContext.value === menuContext.modelValue.value)
+
+    onMounted(() => {
+      itemContext.triggerRef = triggerElement
+      triggerId.value = makeTriggerId(menuContext.baseId, itemContext.value)
+      contentId.value = makeContentId(menuContext.baseId, itemContext.value)
+    })
+
+    function handlePointerEnter() {
+      wasClickCloseRef.value = false
+      itemContext.wasEscapeCloseRef.value = false
+    }
+
+    function handlePointerMove(ev: PointerEvent) {
+      if (ev.pointerType === 'mouse') {
+        if (
+          props.disabled
+          || wasClickCloseRef.value
+          || itemContext.wasEscapeCloseRef.value
+          || hasPointerMoveOpenedRef.value
+        )
+          return
+        menuContext.onTriggerEnter(itemContext.value)
+        hasPointerMoveOpenedRef.value = true
+      }
+    }
+
+    function handlePointerLeave(ev: PointerEvent) {
+      if (ev.pointerType === 'mouse') {
+        if (props.disabled)
+          return
+        menuContext.onTriggerLeave()
+        hasPointerMoveOpenedRef.value = false
+      }
+    }
+
+    function handleClick() {
+      if (hasPointerMoveOpenedRef.value)
+        return
+
+      if (open.value)
+        menuContext.onItemSelect('')
+      else menuContext.onItemSelect(itemContext.value)
+
+      wasClickCloseRef.value = open.value
+    }
+
+    function handleKeydown(ev: KeyboardEvent) {
+      const verticalEntryKey = menuContext.dir.value === 'rtl' ? 'ArrowLeft' : 'ArrowRight'
+      const entryKey = { horizontal: 'ArrowDown', vertical: verticalEntryKey }[
+        menuContext.orientation
+      ]
+      if (open.value && ev.key === entryKey) {
+        itemContext.onEntryKeyDown()
+        ev.preventDefault()
+        ev.stopPropagation()
+      }
+    }
+
+    function setFocusProxyRef(node: VNode) {
+      // @ts-expect-error unrefElement expect MaybeRef, but also support Vnode
+      itemContext.focusProxyRef.value = unrefElement(node)
+      return undefined
+    }
+
+    function handleVisuallyHiddenFocus(ev: FocusEvent) {
+      const content = document.getElementById(itemContext.contentId)
+      const prevFocusedElement = ev.relatedTarget as HTMLElement | null
+
+      const wasTriggerFocused = prevFocusedElement === triggerElement.value
+      const wasFocusFromContent = content?.contains(prevFocusedElement)
+
+      if (wasTriggerFocused || !wasFocusFromContent)
+        itemContext.onFocusProxyEnter(wasTriggerFocused ? 'start' : 'end')
+    }
+
+    return {
+      forwardRef,
+      open,
+      triggerId,
+      contentId,
+      menuContext,
+      handlePointerEnter,
+      handlePointerMove,
+      handlePointerLeave,
+      handleClick,
+      handleKeydown,
+      setFocusProxyRef,
+      handleVisuallyHiddenFocus,
+    }
+  },
+  render() {
+    return [
+      withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+        'ref': (el: any) => this.forwardRef(el),
+        'disabled': this.$props.disabled,
+        'data-disabled': this.$props.disabled ? '' : undefined,
+        'data-state': getOpenState(this.open),
+        'aria-expanded': this.open,
+        'aria-controls': this.contentId,
+        'asChild': this.$props.asChild,
+        'as': this.$props.as,
+        'data-radix-vue-collection-item': '',
+        'onPointerenter': () => {
+          this.handlePointerEnter()
+        },
+        'onPointermove': (ev: PointerEvent) => {
+          this.handlePointerMove(ev)
+        },
+        'onPointerleave': (ev: PointerEvent) => {
+          this.handlePointerLeave(ev)
+        },
+        'onClick': () => {
+          this.handleClick()
+        },
+        'onKeydown': (ev: KeyboardEvent) => {
+          this.handleKeydown(ev)
+        },
+      }), {
+        default: () => this.$slots.default?.(),
+      }), [
+        [BindOnceDirective, { id: this.triggerId }],
+      ]),
+      this.open
+        ? h(DestylerVisuallyhidden, {
+          'ref': (el: any) => this.setFocusProxyRef(el),
+          'aria-hidden': '',
+          'tabindex': 0,
+          'onFocus': (ev: FocusEvent) => {
+            this.handleVisuallyHiddenFocus(ev)
+          },
+        }, {
+          default: () => {
+            return this.menuContext.viewport
+              ? h('span', {
+                'aria-owns': this.contentId,
+              })
+              : null
+          },
+        })
+        : null,
+    ]
+  },
+})
