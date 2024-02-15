@@ -39,7 +39,7 @@ export interface HoverCardRootContext {
   isPointerDownOnContentRef: Ref<boolean>
 }
 
-export const [injectHoverCardRootContext, provideHoverCardRootContext] = createContext<HoverCardRootContext>('HoverCardRoot')
+export const [injectHoverCardRootContext, provideHoverCardRootContext] = createContext<HoverCardRootContext>('DestylerHoverCardRoot')
 
 export const DestylerHoverCardRoot = defineComponent({
   name: 'DestylerHoverCardRoot',
