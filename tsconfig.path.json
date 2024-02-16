@@ -97,7 +97,9 @@
       "@destyler/demo/contextMenu/*": ["./packages/components/contextMenu/*"],
       "@destyler/contextMenu": ["./packages/components/contextMenu/src/index.ts"],
       "@destyler/demo/hoverCard/*": ["./packages/components/hoverCard/*"],
-      "@destyler/hoverCard": ["./packages/components/hoverCard/src/index.ts"]
+      "@destyler/hoverCard": ["./packages/components/hoverCard/src/index.ts"],
+      "@destyler/demo/navigation/*": ["./packages/components/navigation/*"],
+      "@destyler/navigation": ["./packages/components/navigation/src/index.ts"]
     }
   }
 }

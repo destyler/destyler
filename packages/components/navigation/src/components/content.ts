@@ -1,7 +1,8 @@
-import { type PropType, Teleport, computed, defineComponent, h, mergeProps } from 'vue'
+import { type PropType, computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose, useMounted } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
+import { DestylerTeleport } from '@destyler/teleport'
 
 import { getOpenState } from '../utils'
 import type { PointerDownOutsideEvent } from './contentImpl'
@@ -13,6 +14,7 @@ export const destylerNavigationContentProps = {
   ...destylerNavigationContentImplProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
+    required: false,
     default: false,
   },
 } as const
@@ -55,8 +57,8 @@ export const DestylerNavigationContent = defineComponent({
     }
   },
   render() {
-    return this.isClientMounted
-      ? h(Teleport, {
+    if (this.isClientMounted) {
+      return h(DestylerTeleport, {
         to: this.menuContext.viewport.value,
         disabled: !this.menuContext.viewport.value,
       }, {
@@ -86,11 +88,13 @@ export const DestylerNavigationContent = defineComponent({
                 'onInteractOutside': (event: any) => {
                   this.$emit('interactOutside', event)
                 },
-              }), {})
+              }), {
+                default: () => this.$slots.default?.(),
+              })
             },
           })
         },
       })
-      : null
+    }
   },
 })

@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { computed, defineComponent, h, nextTick, ref, watch } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
@@ -8,7 +8,7 @@ import { DestylerPresence } from '@destyler/presence'
 import { getOpenState } from '../utils'
 import { injectNavigationContext } from './root'
 
-export const destylerNavigationViewPortProps = {
+export const destylerNavigationViewportProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -25,12 +25,12 @@ export const destylerNavigationViewPortProps = {
   },
 } as const
 
-export type DestylerNavigationViewPortProps = ExtractPublicPropTypes<typeof destylerNavigationViewPortProps>
+export type DestylerNavigationViewPortprops = ExtractPublicPropTypes<typeof destylerNavigationViewportProps>
 
-export const DestylerNavigationViewPort = defineComponent({
+export const DestylerNavigationViewport = defineComponent({
   name: 'DestylerNavigationViewPort',
   inheritAttrs: false,
-  props: destylerNavigationViewPortProps,
+  props: destylerNavigationViewportProps,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -78,24 +78,24 @@ export const DestylerNavigationViewPort = defineComponent({
       present: this.$props.forceMount || this.open,
     }, {
       default: () => {
-        return h(DestylerPrimitive, {
+        return h(DestylerPrimitive, mergeProps(this.$attrs, {
           'ref': (el: any) => this.forwardRef(el),
           'as': this.$props.as,
           'asChild': this.$props.asChild,
           'data-state': getOpenState(this.open),
           'data-orientation': this.menuContext.orientation,
           'style': {
-            'pointerEvents': !this.open && this.menuContext.isRootMenu ? 'none' : undefined,
-            '--destyler_navigation_menu_viewport_width': this.size ? `${this.size?.width}px` : undefined,
-            '--destyler_navigation_menu_viewport_height': this.size ? `${this.size?.height}px` : undefined,
+            pointerEvents: !this.open && this.menuContext.isRootMenu ? 'none' : undefined,
+            ['--destyler_navigation_menu_viewport_width' as any]: this.size ? `${this.size?.width}px` : undefined,
+            ['--destyler_navigation_menu_viewport_height' as any]: this.size ? `${this.size?.height}px` : undefined,
           },
-          'onpPointerenter': () => {
+          'onPointerenter': () => {
             this.menuContext.onContentEnter(this.menuContext.modelValue.value)
           },
           'onPointerleave': () => {
             this.menuContext.onContentLeave()
           },
-        }, {
+        }), {
           default: () => this.$slots.default?.(),
         })
       },

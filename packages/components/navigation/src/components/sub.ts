@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
 import { useCollection, useForwardExpose, useVModel } from '@destyler/composition'
 
-import { injectNavigationMenuContext, provideNavigationMenuContext } from './root'
+import { injectNavigationContext, provideNavigationContext } from './root'
 
 export const destylerNavigationSubProps = {
   as: {
@@ -45,7 +45,7 @@ export const DestylerNavigationSub = defineComponent({
     }) as Ref<string>
     const previousValue = ref('')
 
-    const menuContext = injectNavigationMenuContext()
+    const menuContext = injectNavigationContext()
     const { forwardRef, currentElement } = useForwardExpose()
 
     const indicatorTrack = ref<HTMLElement>()
@@ -54,7 +54,7 @@ export const DestylerNavigationSub = defineComponent({
     const { createCollection } = useCollection('nav')
     createCollection(indicatorTrack)
 
-    provideNavigationMenuContext({
+    provideNavigationContext({
       ...menuContext,
       isRootMenu: false,
       modelValue,
@@ -96,10 +96,10 @@ export const DestylerNavigationSub = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, {
-      "ref": (el: any) => this.forwardRef(el),
+      'ref': (el: any) => this.forwardRef(el),
       'data-orientation': this.$props.orientation,
-      "as": this.$props.as,
-      "asChild": this.$props.asChild,
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
     }, {
       default: () => this.$slots.default?.(),
     })

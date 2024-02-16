@@ -45,6 +45,7 @@
     "@destyler/presence": "workspace:0.0.1-beta.14",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
+    "@destyler/teleport": "workspace:0.0.1-beta.14",
     "@destyler/visually-hidden": "workspace:0.0.1-beta.14"
   }
 }

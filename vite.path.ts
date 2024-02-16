@@ -98,4 +98,6 @@ export const alias = {
   '@destyler/demo/contextMenu/': `${path.resolve(__dirname, 'packages/components/contextMenu')}/`,
   '@destyler/hoverCard': `${path.resolve(__dirname, 'packages/components/hoverCard')}/src/index.ts`,
   '@destyler/demo/hoverCard/': `${path.resolve(__dirname, 'packages/components/hoverCard')}/`,
+  '@destyler/navigation': `${path.resolve(__dirname, 'packages/components/navigation')}/src/index.ts`,
+  '@destyler/demo/navigation/': `${path.resolve(__dirname, 'packages/components/navigation')}/`,
 }

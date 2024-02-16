@@ -641,6 +641,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../teleport
       '@destyler/visually-hidden':
         specifier: workspace:0.0.1-beta.14
         version: link:../visuallyHidden
@@ -1103,6 +1106,9 @@ importers:
       '@destyler/modal':
         specifier: workspace:*
         version: link:../components/modal
+      '@destyler/navigation':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/navigation
       '@destyler/online':
         specifier: workspace:*
         version: link:../components/online

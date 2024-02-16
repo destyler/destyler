@@ -6,4 +6,4 @@ export { DestylerNavigationList, type DestylerNavigationListProps } from './comp
 export { DestylerNavigationRoot, type DestylerNavigationRootProps } from './components/root'
 export { DestylerNavigationSub, type DestylerNavigationSubProps } from './components/sub'
 export { DestylerNavigationTrigger, type DestylerNavigationTriggerProps } from './components/trigger'
-export { DestylerNavigationViewPort, type DestylerNavigationViewPortProps } from './components/viewport'
+export { DestylerNavigationViewport, type DestylerNavigationViewPortprops } from './components/viewport'
