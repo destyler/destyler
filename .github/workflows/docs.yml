@@ -18,6 +18,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
       - name: Install
         run: pnpm install --no-frozen-lockfile
       - name: Install Vercel CLI
