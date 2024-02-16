@@ -130,6 +130,14 @@ export const componentsPackages = [
     ],
   },
   {
+    path: 'components/navigation',
+    external: [
+      '@vue/runtime-core',
+      '@vue/reactivity',
+      '@vue/shared',
+    ],
+  },
+  {
     path: 'components/online',
     external: [],
   },

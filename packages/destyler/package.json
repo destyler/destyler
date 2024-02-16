@@ -66,6 +66,7 @@
     "@destyler/menu": "workspace:*",
     "@destyler/menubar": "workspace:*",
     "@destyler/modal": "workspace:*",
+    "@destyler/navigation": "workspace:0.0.1-beta.6",
     "@destyler/online": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/popper": "workspace:*",

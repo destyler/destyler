@@ -621,6 +621,36 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/navigation:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../../directives
+      '@destyler/dismissable-layer':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../dismissableLayer
+      '@destyler/presence':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../teleport
+      '@destyler/visually-hidden':
+        specifier: workspace:0.0.1-beta.14
+        version: link:../visuallyHidden
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/online:
     dependencies:
       '@destyler/primitive':
@@ -1076,6 +1106,9 @@ importers:
       '@destyler/modal':
         specifier: workspace:*
         version: link:../components/modal
+      '@destyler/navigation':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/navigation
       '@destyler/online':
         specifier: workspace:*
         version: link:../components/online
