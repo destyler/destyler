@@ -39,13 +39,13 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.14",
-    "@destyler/directives": "workspace:0.0.1-beta.14",
-    "@destyler/dismissable-layer": "workspace:0.0.1-beta.14",
-    "@destyler/presence": "workspace:0.0.1-beta.14",
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@destyler/teleport": "workspace:0.0.1-beta.14",
-    "@destyler/visually-hidden": "workspace:0.0.1-beta.14"
+    "@destyler/teleport": "workspace:*",
+    "@destyler/visually-hidden": "workspace:*"
   }
 }

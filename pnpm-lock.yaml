@@ -438,16 +438,16 @@ importers:
   packages/components/hoverCard:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/dismissable-layer':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../dismissableLayer
       '@destyler/popper':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../popper
       '@destyler/presence':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../presence
       '@destyler/primitive':
         specifier: workspace:*
@@ -456,7 +456,7 @@ importers:
         specifier: workspace:*
         version: link:../../shared
       '@destyler/teleport':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../teleport
       vue:
         specifier: '>=3.3.4'
@@ -624,16 +624,16 @@ importers:
   packages/components/navigation:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/directives':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../../directives
       '@destyler/dismissable-layer':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../dismissableLayer
       '@destyler/presence':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../presence
       '@destyler/primitive':
         specifier: workspace:*
@@ -642,10 +642,10 @@ importers:
         specifier: workspace:*
         version: link:../../shared
       '@destyler/teleport':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../teleport
       '@destyler/visually-hidden':
-        specifier: workspace:0.0.1-beta.14
+        specifier: workspace:*
         version: link:../visuallyHidden
       vue:
         specifier: '>=3.3.4'
@@ -1080,7 +1080,7 @@ importers:
         specifier: workspace:*
         version: link:../components/focusScope
       '@destyler/hover-card':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/hoverCard
       '@destyler/icon':
         specifier: workspace:*
@@ -1107,7 +1107,7 @@ importers:
         specifier: workspace:*
         version: link:../components/modal
       '@destyler/navigation':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/navigation
       '@destyler/online':
         specifier: workspace:*
