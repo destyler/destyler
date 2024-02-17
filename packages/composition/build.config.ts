@@ -1,5 +1,5 @@
 import { defineBuildConfig } from 'unbuild'
-import { buildEndHook } from '../../build.basic.config'
+import { buildEndHook } from '../../scripts/export-size'
 
 export default defineBuildConfig({
   entries: [

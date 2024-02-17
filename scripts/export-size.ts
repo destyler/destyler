@@ -1,42 +1,50 @@
 import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'node:path'
-import { getExportsSize } from 'export-size'
-import { filesize } from 'filesize'
+import path, { dirname } from 'node:path'
 import fs from 'fs-extra'
-import { componentsPackages, rootPackages } from '../meta/packages'
+import { consola } from 'consola'
+import type { BuildContext } from 'unbuild'
+import { filesize } from 'filesize'
 
-async function run() {
+export async function buildEndHook(ctx: BuildContext) {
+  consola.info(`start ${ctx.pkg.name}`)
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
-  // made shared library imported can resolve correctly
-  const packagesRoot = resolve(__dirname, '..', 'packages')
+  const filePath = path.join(__dirname, '../docs', 'public', 'export-size.json')
+
   const mdJSON = <{ path: {
     name: string
     size: string
     version: string
   } }>{}
 
-  const packages = [...rootPackages, ...componentsPackages]
+  const componentName = ctx.options.rootDir.split('packages/').pop()!
+  let size = 0
+  ctx.buildEntries.forEach((entrie) => {
+    size += entrie.bytes !== undefined ? entrie.bytes : 0
+  })
 
-  for (const pkg of packages) {
-    const { exports } = await getExportsSize({
-      pkg: `./packages/${pkg.path}/`,
-      output: false,
-      bundler: 'rollup',
-      external: ['vue', 'unplugin-vue-components', 'unplugin-auto-import', ...(pkg.external || [])],
-    })
-
-    const data = await fs.readFile(`${packagesRoot}/${pkg.path}/package.json`, 'utf-8')
-
-    exports.forEach((i) => {
-      mdJSON[pkg.path] = {
-        name: JSON.parse(data).name,
-        size: filesize(i.bundled),
-        version: JSON.parse(data).version,
+  if (fs.existsSync(filePath)) {
+    try {
+      const data = fs.readFileSync(filePath, 'utf8')
+      const jsonData = JSON.parse(data)
+      jsonData[componentName] = {
+        name: ctx.pkg.name,
+        size: filesize(size),
+        version: ctx.pkg.version,
       }
-    })
+      await fs.writeJSON(filePath, jsonData, { spaces: 2 })
+    }
+    catch (err) {
+      consola.error(`error reading file: ${err}`)
+    }
   }
-  await fs.writeJSON('docs/public/export-size.json', mdJSON, { spaces: 2 })
+  else {
+    mdJSON[componentName] = {
+      name: ctx.pkg.name,
+      size: filesize(size),
+      version: ctx.pkg.version,
+    }
+    await fs.writeJSON(filePath, mdJSON, { spaces: 2 })
+    consola.success('not found file, create export-size.json file')
+  }
 }
-
-run()

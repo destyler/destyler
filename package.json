@@ -10,7 +10,7 @@
     "unstyle"
   ],
   "scripts": {
-    "build": "pnpm run --filter \"./packages/**\" -r build",
+    "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run component:count",
     "play": "pnpm -C playground run dev",
     "play:vue": "pnpm -C examples/vue run dev",
     "play:nuxt": "pnpm -C examples/nuxt run dev",
@@ -21,7 +21,8 @@
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "pnpm run build",
     "remove:branch": "git branch | grep -v \"main\" | xargs git branch -D",
-    "release": "bumpp package.json packages/*/package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
+    "release": "bumpp package.json packages/*/package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public",
+    "component:count": "tsx scripts/component-count-number.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.6.3",
@@ -42,6 +43,7 @@
     "filesize": "^10.1.0",
     "fs-extra": "^11.2.0",
     "jsdom": "^23.2.0",
+    "ofetch": "^1.3.3",
     "rimraf": "^5.0.5",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",

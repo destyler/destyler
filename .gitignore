@@ -29,4 +29,5 @@ typed-router.d.ts
 .nuxt
 .output
 docs/public/export-size.json
+docs/public/component-count-number.svg
 .vercel
