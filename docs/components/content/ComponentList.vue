@@ -88,13 +88,19 @@
       <SwitchDemo />
     </CraftBox>
     <CraftBox>
+      <ToastDemo />
+    </CraftBox>
+    <CraftBox>
       <ToggleGroupDemo />
     </CraftBox>
     <CraftBox>
       <TooltipDemo />
     </CraftBox>
   </Box>
-  <div>
+  <div class="grid sm:grid-cols-1 gap-1 mt-4 sm:gap-6">
+    <CraftBox>
+      <NavigationDemo />
+    </CraftBox>
     <CraftBox class="h-112!">
       <TabsDemo />
     </CraftBox>
