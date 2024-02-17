@@ -1,69 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerHoverCardArrow, DestylerHoverCardContent, DestylerHoverCardPortal, DestylerHoverCardRoot, DestylerHoverCardTrigger } from '../src'
+import {
+  DestylerHoverCardContent,
+  DestylerHoverCardPortal,
+  DestylerHoverCardRoot,
+  DestylerHoverCardTrigger,
+} from '../src'
 
 const hoverState = ref(false)
 </script>
 
 <template>
   <DestylerHoverCardRoot v-model:open="hoverState">
-    <DestylerHoverCardTrigger
-      class="inline-block cursor-pointer rounded-full shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] outline-none focus:shadow-[0_0_0_2px_white]"
-      href="https://twitter.com/radix_ui"
-      target="_blank"
-      rel="noreferrer noopener"
-    >
-      <img
-        class="block h-[45px] w-[45px] rounded-full"
-        src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
-        alt="Radix UI"
+    <DestylerHoverCardTrigger :as-child="true">
+      <button
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-#18181B dark:text-#FAFAFA underline-offset-4 hover:underline h-9 px-4 py-2"
       >
+        Nuxt
+      </button>
     </DestylerHoverCardTrigger>
     <DestylerHoverCardPortal>
       <DestylerHoverCardContent
-        class="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-[300px] rounded-md bg-white p-5 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
+        class="z-50 w-80 rounded-md border border-black border-op-9 dark:border-white dark:border-op-9 bg-#FFFFFF dark:bg-#09090B p-4 text-#09090B dark:text-#FAFAFA shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
         :side-offset="5"
       >
-        <div class="flex flex-col gap-[7px]">
-          <img
-            class="block h-[60px] w-[60px] rounded-full"
-            src="https://pbs.twimg.com/profile_images/1337055608613253126/r_eiMp2H_400x400.png"
-            alt="Radix UI"
-          >
-          <div class="flex flex-col gap-[15px]">
-            <div>
-              <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                Radix
-              </div>
-              <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                @radix_ui
-              </div>
-            </div>
-            <div class="text-mauve12 m-0 text-[15px] leading-[1.5]">
-              Components, icons, colors, and templates for building high-quality, accessible UI. Free and open-source.
-            </div>
-            <div class="flex gap-[15px]">
-              <div class="flex gap-[5px]">
-                <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                  0
-                </div>
-                <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                  Following
-                </div>
-              </div>
-              <div class="flex gap-[5px]">
-                <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
-                  2,900
-                </div>
-                <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
-                  Followers
-                </div>
-              </div>
-            </div>
+        <div class="flex justify-between space-x-4">
+          <div class="space-y-1">
+            <h4 class="text-sm font-semibold">
+              nuxt.js
+            </h4>
+            <p class="text-sm">
+              Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js.
+            </p>
           </div>
         </div>
-
-        <DestylerHoverCardArrow class="fill-white" size="8" />
       </DestylerHoverCardContent>
     </DestylerHoverCardPortal>
   </DestylerHoverCardRoot>
