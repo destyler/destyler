@@ -948,16 +948,16 @@ importers:
   packages/components/toast:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.15
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/dismissable-layer':
-        specifier: workspace:0.0.1-beta.15
+        specifier: workspace:*
         version: link:../dismissableLayer
       '@destyler/focus-scope':
-        specifier: workspace:0.0.1-beta.15
+        specifier: workspace:*
         version: link:../focusScope
       '@destyler/presence':
-        specifier: workspace:0.0.1-beta.15
+        specifier: workspace:*
         version: link:../presence
       '@destyler/primitive':
         specifier: workspace:*
@@ -966,10 +966,10 @@ importers:
         specifier: workspace:*
         version: link:../../shared
       '@destyler/teleport':
-        specifier: workspace:0.0.1-beta.15
+        specifier: workspace:*
         version: link:../teleport
       '@destyler/visually-hidden':
-        specifier: workspace:0.0.1-beta.15
+        specifier: workspace:*
         version: link:../visuallyHidden
       '@vueuse/core':
         specifier: ^10.7.2
@@ -1194,7 +1194,7 @@ importers:
         specifier: workspace:*
         version: link:../components/teleport
       '@destyler/toast':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/toast
       '@destyler/toggle':
         specifier: workspace:*
