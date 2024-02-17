@@ -1,4 +1,5 @@
 import { defineBuildConfig } from 'unbuild'
+import { buildEndHook } from '../../build.basic.config'
 
 export default defineBuildConfig({
   entries: [
@@ -14,5 +15,8 @@ export default defineBuildConfig({
   rollup: {
     emitCJS: true,
     inlineDependencies: true,
+  },
+  hooks: {
+    'build:done': buildEndHook,
   },
 })

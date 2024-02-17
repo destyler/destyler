@@ -44,6 +44,9 @@ importers:
       bumpp:
         specifier: ^9.3.0
         version: 9.3.0
+      consola:
+        specifier: ^3.2.3
+        version: 3.2.3
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -939,6 +942,39 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/toast:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.15
+        version: link:../../composition
+      '@destyler/dismissable-layer':
+        specifier: workspace:0.0.1-beta.15
+        version: link:../dismissableLayer
+      '@destyler/focus-scope':
+        specifier: workspace:0.0.1-beta.15
+        version: link:../focusScope
+      '@destyler/presence':
+        specifier: workspace:0.0.1-beta.15
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.15
+        version: link:../teleport
+      '@destyler/visually-hidden':
+        specifier: workspace:0.0.1-beta.15
+        version: link:../visuallyHidden
+      '@vueuse/core':
+        specifier: ^10.7.2
+        version: 10.7.2(vue@3.4.15)
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/toggle:
     dependencies:
       '@destyler/composition':
@@ -1154,6 +1190,9 @@ importers:
       '@destyler/teleport':
         specifier: workspace:*
         version: link:../components/teleport
+      '@destyler/toast':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/toast
       '@destyler/toggle':
         specifier: workspace:*
         version: link:../components/toggle

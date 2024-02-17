@@ -85,13 +85,6 @@ export const componentsPackages = [
     ],
   },
   {
-    path: 'components/image',
-    external: [
-      '@vue/reactivity',
-      '@vue/runtime-core',
-    ],
-  },
-  {
     path: 'components/info',
     external: [
       '@vue/runtime-core',
@@ -215,6 +208,14 @@ export const componentsPackages = [
   {
     path: 'components/teleport',
     external: [],
+  },
+  {
+    path: 'components/toast',
+    external: [
+      '@vue/runtime-core',
+      '@vue/reactivity',
+      '@vue/shared',
+    ],
   },
   {
     path: 'components/toggle',

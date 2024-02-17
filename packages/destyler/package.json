@@ -82,6 +82,7 @@
     "@destyler/switch": "workspace:*",
     "@destyler/tabs": "workspace:*",
     "@destyler/teleport": "workspace:*",
+    "@destyler/toast": "workspace:0.0.1-beta.6",
     "@destyler/toggle": "workspace:*",
     "@destyler/toolbar": "workspace:*",
     "@destyler/tooltip": "workspace:*",

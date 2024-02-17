@@ -10,7 +10,7 @@
     "unstyle"
   ],
   "scripts": {
-    "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run size",
+    "build": "pnpm run --filter \"./packages/**\" -r build",
     "play": "pnpm -C playground run dev",
     "play:vue": "pnpm -C examples/vue run dev",
     "play:nuxt": "pnpm -C examples/nuxt run dev",
@@ -21,7 +21,6 @@
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "pnpm run build",
     "remove:branch": "git branch | grep -v \"main\" | xargs git branch -D",
-    "size": "tsx scripts/export-size.ts",
     "release": "bumpp package.json packages/*/package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
@@ -37,6 +36,7 @@
     "@vue/shared": "^3.4.15",
     "@vue/test-utils": "^2.4.3",
     "bumpp": "^9.3.0",
+    "consola": "^3.2.3",
     "eslint": "^8.56.0",
     "export-size": "^0.7.0",
     "filesize": "^10.1.0",

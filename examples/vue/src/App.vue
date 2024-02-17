@@ -17,6 +17,7 @@ import DropdownDemo from '@destyler/demo/dropdown/demos/Dropdown.demo.vue'
 import ContentMenuDemo from '@destyler/demo/contextMenu/demos/ContentMenu.demo.vue'
 import HoverCardDemo from '@destyler/demo/hoverCard/demos/HoverCard.demo.vue'
 import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
+import ToastDemo from '@destyler/demo/toast/demos/Toast.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -71,6 +72,11 @@ import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
   <div class="h-80 mt-4 w-full border flex items-center justify-center overflow-hidden relative select-none rounded-xl border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] box-border">
     <div class="w-full h-full flex items-center justify-center touch-none box-border">
       <HoverCardDemo />
+    </div>
+  </div>
+  <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
+    <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+      <ToastDemo />
     </div>
   </div>
   <!-- <TabsDemo /> -->

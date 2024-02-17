@@ -100,4 +100,6 @@ export const alias = {
   '@destyler/demo/hoverCard/': `${path.resolve(__dirname, 'packages/components/hoverCard')}/`,
   '@destyler/navigation': `${path.resolve(__dirname, 'packages/components/navigation')}/src/index.ts`,
   '@destyler/demo/navigation/': `${path.resolve(__dirname, 'packages/components/navigation')}/`,
+  '@destyler/toast': `${path.resolve(__dirname, 'packages/components/toast')}/src/index.ts`,
+  '@destyler/demo/toast/': `${path.resolve(__dirname, 'packages/components/toast')}/`,
 }

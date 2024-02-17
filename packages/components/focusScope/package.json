@@ -20,6 +20,11 @@
       "import": "./dist/component.mjs",
       "require": "./dist/component.cjs"
     },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.cjs"
+    },
     "./*": "./*"
   },
   "main": "dist/index.cjs",

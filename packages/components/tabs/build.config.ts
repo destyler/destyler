@@ -1,5 +1,5 @@
 import { defineBuildConfig } from 'unbuild'
-import { entries, externals } from '../../../build.basic.config'
+import { buildEndHook, entries,externals } from '../../../build.basic.config'
 
 export default defineBuildConfig({
   entries: [
@@ -8,12 +8,15 @@ export default defineBuildConfig({
   externals: [
     ...externals,
     '@vue/runtime-core',
-    '@vue/reactivity'
+    '@vue/reactivity',
   ],
   clean: true,
   declaration: true,
   rollup: {
     emitCJS: true,
     inlineDependencies: true,
+  },
+  hooks: {
+    'build:done': buildEndHook,
   },
 })

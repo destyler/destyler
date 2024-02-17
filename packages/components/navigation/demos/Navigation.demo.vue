@@ -61,7 +61,7 @@ const components = ref([
   },
 ])
 
-const currentTrigger = ref('destyler-2')
+const currentTrigger = ref('')
 </script>
 
 <template>

@@ -1,7 +1,6 @@
 {
   "name": "@destyler/dropdown",
   "version": "0.0.1-beta.15",
-  "private": "true",
   "description": "unstyled dropdown component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
