@@ -1,6 +1,6 @@
 {
   "name": "@destyler/toolbar",
-  "version": "0.0.1-beta.15",
+  "version": "0.0.1-beta.16",
   "description": "unstyled toolbar component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
