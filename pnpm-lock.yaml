@@ -672,7 +672,7 @@ importers:
   packages/components/pagination:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.16
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
@@ -1167,7 +1167,7 @@ importers:
         specifier: workspace:*
         version: link:../components/online
       '@destyler/pagination':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/pagination
       '@destyler/popover':
         specifier: workspace:*

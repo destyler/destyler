@@ -68,7 +68,7 @@
     "@destyler/modal": "workspace:*",
     "@destyler/navigation": "workspace:*",
     "@destyler/online": "workspace:*",
-    "@destyler/pagination": "workspace:0.0.1-beta.6",
+    "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/popper": "workspace:*",
     "@destyler/presence": "workspace:*",
