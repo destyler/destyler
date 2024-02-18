@@ -1,6 +1,6 @@
 {
   "name": "@destyler/pagination",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.17",
   "description": "unstyled pagination component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
