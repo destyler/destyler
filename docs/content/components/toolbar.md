@@ -2,12 +2,12 @@
 layout: component
 ---
 
-# Tollbar
+# Toolbar
 
 > A container for grouping a set of controls, such as buttons, Toolbar groups or dropdown menus.
 
 ::craft-box
-:::tollbar-demo
+:::toolbar-demo
 ::
 
 ## Install
@@ -16,17 +16,17 @@ layout: component
 
 #npm
 ```bash
-npm install @destyler/tollbar
+npm install @destyler/toolbar
 ```
 
 #yarn
 ```bash
-yarn add @destyler/tollbar
+yarn add @destyler/toolbar
 ```
 
 #pnpm
 ```bash
-pnpm add @destyler/tollbar
+pnpm add @destyler/toolbar
 ```
 
 ::

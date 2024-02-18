@@ -101,7 +101,9 @@
       "@destyler/demo/navigation/*": ["./packages/components/navigation/*"],
       "@destyler/navigation": ["./packages/components/navigation/src/index.ts"],
       "@destyler/demo/toast/*": ["./packages/components/toast/*"],
-      "@destyler/toast": ["./packages/components/toast/src/index.ts"]
+      "@destyler/toast": ["./packages/components/toast/src/index.ts"],
+      "@destyler/demo/pagination/*": ["./packages/components/pagination/*"],
+      "@destyler/pagination": ["./packages/components/pagination/src/index.ts"]
     }
   }
 }

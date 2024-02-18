@@ -6,7 +6,7 @@ layout: component
 
 > A succinct message that is displayed temporarily.
 
-::craft-box{style="height:28rem;"}
+::craft-box
 :::toast-demo
 ::
 

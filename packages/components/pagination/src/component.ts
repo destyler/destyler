@@ -1,0 +1,8 @@
+export { DestylerPaginationEllipsis, type DestylerPaginationEllipsisProps } from './components/ellipsis'
+export { DestylerPaginationFirst, type DestylerPaginationFirstProps } from './components/first'
+export { DestylerPaginationLast, type DestylerPaginationLastProps } from './components/last'
+export { DestylerPaginationList, type DestylerPaginationListProps } from './components/list'
+export { DestylerPaginationListItem, type DestylerPaginationListItemProps } from './components/listItem'
+export { DestylerPaginationNext, type DestylerPaginationNextProps } from './components/next'
+export { DestylerPaginationPrev, type DestylerPaginationPrevProps } from './components/prev'
+export { DestylerPaginationRoot, type DestylerPaginationRootProps } from './components/root'

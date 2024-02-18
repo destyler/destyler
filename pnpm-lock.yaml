@@ -669,6 +669,21 @@ importers:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/pagination:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.16
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/popover:
     dependencies:
       '@destyler/composition':
@@ -1151,6 +1166,9 @@ importers:
       '@destyler/online':
         specifier: workspace:*
         version: link:../components/online
+      '@destyler/pagination':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/pagination
       '@destyler/popover':
         specifier: workspace:*
         version: link:../components/popover

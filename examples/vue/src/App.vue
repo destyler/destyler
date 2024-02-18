@@ -18,6 +18,7 @@ import ContentMenuDemo from '@destyler/demo/contextMenu/demos/ContentMenu.demo.v
 import HoverCardDemo from '@destyler/demo/hoverCard/demos/HoverCard.demo.vue'
 import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
 import ToastDemo from '@destyler/demo/toast/demos/Toast.demo.vue'
+import PaginationDemo from '@destyler/demo/pagination/demos/Pagination.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -44,6 +45,11 @@ import ToastDemo from '@destyler/demo/toast/demos/Toast.demo.vue'
       <MenuDemo />
     </div>
   </div> -->
+  <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
+    <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+      <PaginationDemo />
+    </div>
+  </div>
   <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
     <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
       <NavigationDemo />

@@ -40,6 +40,7 @@ export const asideItems = [
       { text: 'Modal', link: '/components/modal' },
       { text: 'Navigation', link: '/components/navigation' },
       { text: 'Online', link: '/components/online' },
+      { text: 'Pagination', link: '/components/pagination' },
       { text: 'Popover', link: '/components/popover' },
       { text: 'Preview', link: '/components/preview' },
       { text: 'Progress', link: '/components/progress' },
@@ -51,7 +52,7 @@ export const asideItems = [
       { text: 'Tabs', link: '/components/tabs' },
       { text: 'Toast', link: '/components/toast' },
       { text: 'Toggle', link: '/components/toggle' },
-      { text: 'Tollbar', link: '/components/tollbar' },
+      { text: 'Toolbar', link: '/components/toolbar' },
       { text: 'Tooltip', link: '/components/tooltip' },
 
     ],
