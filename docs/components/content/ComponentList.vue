@@ -101,11 +101,14 @@
     <CraftBox>
       <NavigationDemo />
     </CraftBox>
+    <CraftBox>
+      <PaginationDemo />
+    </CraftBox>
     <CraftBox class="h-112!">
       <TabsDemo />
     </CraftBox>
     <CraftBox>
-      <TollbarDemo />
+      <ToolbarDemo />
     </CraftBox>
   </div>
 </template>

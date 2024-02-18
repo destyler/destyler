@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import {
   DestylerIcon,
+  DestylerLabel,
   DestylerPaginationEllipsis,
-  DestylerPaginationFirst,
-  DestylerPaginationLast,
   DestylerPaginationList,
   DestylerPaginationListItem,
   DestylerPaginationNext,
@@ -19,7 +18,7 @@ import {
         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-#F4F4F5 dark:hover:bg-#27272A hover:text-#18181B dark:hover:text-#FAFAFA h-9 px-4 py-2 gap-1 pr-2.5"
       >
         <DestylerIcon name="radix-icons:chevron-left" class="w-4 h-4" />
-        <span>Previous</span>
+        <DestylerLabel>Previous</DestylerLabel>
       </DestylerPaginationPrev>
       <template v-for="(page, index) in items">
         <DestylerPaginationListItem
@@ -43,7 +42,7 @@ import {
       <DestylerPaginationNext
         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-#F4F4F5 dark:hover:bg-#27272A hover:text-#18181B dark:hover:text-#FAFAFA h-9 px-4 py-2 gap-1 pr-2.5"
       >
-        <span>Next</span>
+        <DestylerLabel>Next</DestylerLabel>
         <DestylerIcon name="radix-icons:chevron-right" class="w-4 h-4" />
       </DestylerPaginationNext>
     </DestylerPaginationList>
