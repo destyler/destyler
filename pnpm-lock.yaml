@@ -315,6 +315,18 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/combobox:
+    dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/contextMenu:
     dependencies:
       '@destyler/composition':
