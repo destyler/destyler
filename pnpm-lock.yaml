@@ -315,14 +315,56 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
-  packages/components/combobox:
+  packages/components/collection:
     dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
+  packages/components/combobox:
+    dependencies:
+      '@destyler/collection':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../collection
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../../directives
+      '@destyler/dismissable-layer':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../dismissableLayer
+      '@destyler/popper':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../popper
+      '@destyler/presence':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../presence
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../teleport
+      '@destyler/visually-hidden':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../visuallyHidden
+      fast-deep-equal:
+        specifier: ^3.1.3
+        version: 3.1.3
       vue:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
@@ -1124,6 +1166,12 @@ importers:
       '@destyler/collapsible':
         specifier: workspace:*
         version: link:../components/collapsible
+      '@destyler/collection':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/collection
+      '@destyler/combobox':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/combobox
       '@destyler/context-menu':
         specifier: workspace:*
         version: link:../components/contextMenu

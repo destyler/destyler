@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/combobox",
+  "name": "@destyler/collection",
   "version": "0.0.1-beta.6",
-  "description": "unstyled combobox component for vue",
+  "description": "unstyled collection component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -38,16 +38,8 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/collection": "workspace:0.0.1-beta.6",
     "@destyler/composition": "workspace:0.0.1-beta.18",
-    "@destyler/directives": "workspace:0.0.1-beta.18",
-    "@destyler/dismissable-layer": "workspace:0.0.1-beta.18",
-    "@destyler/popper": "workspace:0.0.1-beta.18",
-    "@destyler/presence": "workspace:0.0.1-beta.18",
     "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*",
-    "@destyler/teleport": "workspace:0.0.1-beta.18",
-    "@destyler/visually-hidden": "workspace:0.0.1-beta.18",
-    "fast-deep-equal": "^3.1.3"
+    "@destyler/shared": "workspace:*"
   }
 }

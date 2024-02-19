@@ -103,7 +103,9 @@
       "@destyler/demo/toast/*": ["./packages/components/toast/*"],
       "@destyler/toast": ["./packages/components/toast/src/index.ts"],
       "@destyler/demo/pagination/*": ["./packages/components/pagination/*"],
-      "@destyler/pagination": ["./packages/components/pagination/src/index.ts"]
+      "@destyler/pagination": ["./packages/components/pagination/src/index.ts"],
+      "@destyler/demo/combobox/*": ["./packages/components/combobox/*"],
+      "@destyler/combobox": ["./packages/components/combobox/src/index.ts"]
     }
   }
 }
