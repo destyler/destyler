@@ -104,4 +104,6 @@ export const alias = {
   '@destyler/demo/toast/': `${path.resolve(__dirname, 'packages/components/toast')}/`,
   '@destyler/pagination': `${path.resolve(__dirname, 'packages/components/pagination')}/src/index.ts`,
   '@destyler/demo/pagination/': `${path.resolve(__dirname, 'packages/components/pagination')}/`,
+  '@destyler/combobox': `${path.resolve(__dirname, 'packages/components/combobox')}/src/index.ts`,
+  '@destyler/demo/combobox/': `${path.resolve(__dirname, 'packages/components/combobox')}/`,
 }

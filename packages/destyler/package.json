@@ -50,6 +50,8 @@
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
+    "@destyler/collection": "workspace:0.0.1-beta.6",
+    "@destyler/combobox": "workspace:0.0.1-beta.6",
     "@destyler/context-menu": "workspace:*",
     "@destyler/countdown": "workspace:*",
     "@destyler/dialog": "workspace:*",
