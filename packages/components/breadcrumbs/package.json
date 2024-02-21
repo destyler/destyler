@@ -1,6 +1,6 @@
 {
   "name": "@destyler/breadcrumbs",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.19",
   "description": "unstyled breadcrumbs component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
