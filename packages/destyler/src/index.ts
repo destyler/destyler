@@ -1,5 +1,6 @@
 export * from '@destyler/aspect-radio'
 export * from '@destyler/back-top'
+export * from '@destyler/breadcrumbs'
 export * from '@destyler/button'
 export * from '@destyler/checkbox'
 export * from '@destyler/collapse'

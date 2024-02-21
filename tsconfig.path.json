@@ -105,7 +105,9 @@
       "@destyler/demo/pagination/*": ["./packages/components/pagination/*"],
       "@destyler/pagination": ["./packages/components/pagination/src/index.ts"],
       "@destyler/demo/combobox/*": ["./packages/components/combobox/*"],
-      "@destyler/combobox": ["./packages/components/combobox/src/index.ts"]
+      "@destyler/combobox": ["./packages/components/combobox/src/index.ts"],
+      "@destyler/demo/breadcrumbs/*": ["./packages/components/breadcrumbs/*"],
+      "@destyler/breadcrumbs": ["./packages/components/breadcrumbs/src/index.ts"]
     }
   }
 }

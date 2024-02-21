@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { DestylerIcon, DestylerLabel } from 'destyler'
+import {
+  DestylerBreadcrumbsContent,
+  DestylerBreadcrumbsItem,
+  DestylerBreadcrumbsLabel,
+  DestylerBreadcrumbsRoot,
+  DestylerBreadcrumbsSeparator,
+  DestylerIcon,
+} from 'destyler'
 
 const props = defineProps<{
   items: string[]
@@ -15,22 +22,22 @@ function upperCase(str: string) {
 </script>
 
 <template>
-  <div class="mb-4 flex items-center space-x-1 text-sm">
-    <DestylerLabel
-      v-for="item, index in breadcrumbItems"
-      :key="item"
-      class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa"
-      :class="{
-        'text-op-100!': index + 1 === breadcrumbItems.length,
-        'text-op-60!': index + 1 !== breadcrumbItems.length,
-      }"
-    >
-      <div
-        class="overflow-hidden text-ellipsis whitespace-nowrap "
+  <DestylerBreadcrumbsRoot>
+    <DestylerBreadcrumbsContent class="mb-4 flex items-center space-x-1 text-sm">
+      <DestylerBreadcrumbsItem
+        v-for="item in breadcrumbItems"
+        :key="item"
+        class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60"
       >
-        {{ upperCase(item) }}
-      </div>
-      <DestylerIcon v-if="index + 1 !== breadcrumbItems.length" class="w-4 h-4" name="i-ri-arrow-right-s-line" />
-    </DestylerLabel>
-  </div>
+        <DestylerBreadcrumbsLabel
+          class="overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer"
+        >
+          {{ upperCase(item) }}
+        </DestylerBreadcrumbsLabel>
+        <DestylerBreadcrumbsSeparator class="w-2">
+          >
+        </DestylerBreadcrumbsSeparator>
+      </DestylerBreadcrumbsItem>
+    </DestylerBreadcrumbsContent>
+  </DestylerBreadcrumbsRoot>
 </template>

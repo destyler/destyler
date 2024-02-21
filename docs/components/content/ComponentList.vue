@@ -10,6 +10,9 @@
       <BacktopDemo />
     </CraftBox>
     <CraftBox>
+      <BreadcrumbsDemo />
+    </CraftBox>
+    <CraftBox>
       <ButtonDemo />
     </CraftBox>
     <CraftBox>

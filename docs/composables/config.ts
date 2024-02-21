@@ -21,6 +21,7 @@ export const asideItems = [
     children: [
       { text: 'Aspect Radio', link: '/components/aspect-radio' },
       { text: 'BackTop', link: '/components/back-top' },
+      { text: 'Breadcrumbs', link: '/components/breadcrumbs' },
       { text: 'Button', link: '/components/button' },
       { text: 'Checkbox', link: '/components/checkbox' },
       { text: 'Collapse', link: '/components/collapse' },
