@@ -1,6 +1,7 @@
 export * from '@destyler/arrow/dist/component'
 export * from '@destyler/aspect-radio/dist/component'
 export * from '@destyler/back-top/dist/component'
+export * from '@destyler/breadcrumbs/dist/component'
 export * from '@destyler/button/dist/component'
 export * from '@destyler/checkbox/dist/component'
 export * from '@destyler/collapse/dist/component'

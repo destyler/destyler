@@ -46,6 +46,7 @@
     "@destyler/arrow": "workspace:*",
     "@destyler/aspect-radio": "workspace:*",
     "@destyler/back-top": "workspace:*",
+    "@destyler/breadcrumbs": "workspace:0.0.1-beta.6",
     "@destyler/button": "workspace:*",
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",

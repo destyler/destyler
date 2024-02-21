@@ -1,1 +1,5 @@
-export { DestylerTemplate, type DestylerTemplateProps } from './components/template'
+export { DestylerBreadcrumbsContent, type DestylerBreadcrumbsContentProps } from './components/content'
+export { DestylerBreadcrumbsItem, type DestylerBreadcrumbsItemProps } from './components/item'
+export { DestylerBreadcrumbsLabel, type DestylerBreadcrumbsLabelProps } from './components/label'
+export { DestylerBreadcrumbsRoot, type DestylerBreadcrumbsRootProps } from './components/root'
+export { DestylerBreadcrumbsSeparator, type DestylerBreadcrumbsSeparatorProps } from './components/separator'

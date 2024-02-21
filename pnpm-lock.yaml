@@ -237,6 +237,24 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/breadcrumbs:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.18
+        version: link:../../directives
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/button:
     dependencies:
       '@destyler/composition':
@@ -1154,6 +1172,9 @@ importers:
       '@destyler/back-top':
         specifier: workspace:*
         version: link:../components/backTop
+      '@destyler/breadcrumbs':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/breadcrumbs
       '@destyler/button':
         specifier: workspace:*
         version: link:../components/button
