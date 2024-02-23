@@ -107,7 +107,9 @@
       "@destyler/demo/combobox/*": ["./packages/components/combobox/*"],
       "@destyler/combobox": ["./packages/components/combobox/src/index.ts"],
       "@destyler/demo/breadcrumbs/*": ["./packages/components/breadcrumbs/*"],
-      "@destyler/breadcrumbs": ["./packages/components/breadcrumbs/src/index.ts"]
+      "@destyler/breadcrumbs": ["./packages/components/breadcrumbs/src/index.ts"],
+      "@destyler/demo/dynamic/*": ["./packages/components/dynamic/*"],
+      "@destyler/dynamic": ["./packages/components/dynamic/src/index.ts"]
     }
   }
 }
