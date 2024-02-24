@@ -109,7 +109,9 @@
       "@destyler/demo/breadcrumbs/*": ["./packages/components/breadcrumbs/*"],
       "@destyler/breadcrumbs": ["./packages/components/breadcrumbs/src/index.ts"],
       "@destyler/demo/dynamic/*": ["./packages/components/dynamic/*"],
-      "@destyler/dynamic": ["./packages/components/dynamic/src/index.ts"]
+      "@destyler/dynamic": ["./packages/components/dynamic/src/index.ts"],
+      "@destyler/demo/otpInput/*": ["./packages/components/otpInput/*"],
+      "@destyler/otpInput": ["./packages/components/otpInput/src/index.ts"]
     }
   }
 }

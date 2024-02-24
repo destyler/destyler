@@ -23,6 +23,7 @@ import ComboboxDemo from '@destyler/demo/combobox/demos/Combobox.demo.vue'
 import ComboboxLongDemo from '@destyler/demo/combobox/demos/Combobox.long.demo.vue'
 import BreadcrumbsDemo from '@destyler/demo/breadcrumbs/demos/Breadcrumbs.demo.vue'
 import DynamicDemo from '@destyler/demo/dynamic/demos/Dynamic.demo.vue'
+import OtpInputDemo from '@destyler/demo/otpInput/demos/OtpInput.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -49,6 +50,11 @@ import DynamicDemo from '@destyler/demo/dynamic/demos/Dynamic.demo.vue'
       <MenuDemo />
     </div>
   </div> -->
+  <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
+    <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+      <OtpInputDemo />
+    </div>
+  </div>
   <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
     <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
       <DynamicDemo />

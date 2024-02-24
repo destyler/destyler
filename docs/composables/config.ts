@@ -43,6 +43,7 @@ export const asideItems = [
       { text: 'Modal', link: '/components/modal' },
       { text: 'Navigation', link: '/components/navigation' },
       { text: 'Online', link: '/components/online' },
+      { text: 'Otp Input', link: '/components/otp-input' },
       { text: 'Pagination', link: '/components/pagination' },
       { text: 'Popover', link: '/components/popover' },
       { text: 'Preview', link: '/components/preview' },

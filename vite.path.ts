@@ -110,4 +110,6 @@ export const alias = {
   '@destyler/demo/breadcrumbs/': `${path.resolve(__dirname, 'packages/components/breadcrumbs')}/`,
   '@destyler/dynamic': `${path.resolve(__dirname, 'packages/components/dynamic')}/src/index.ts`,
   '@destyler/demo/dynamic/': `${path.resolve(__dirname, 'packages/components/dynamic')}/`,
+  '@destyler/otpInput': `${path.resolve(__dirname, 'packages/components/otpInput')}/src/index.ts`,
+  '@destyler/demo/otpInput/': `${path.resolve(__dirname, 'packages/components/otpInput')}/`,
 }

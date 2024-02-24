@@ -768,6 +768,24 @@ importers:
         specifier: ^3.3.4
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/otpInput:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.20
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.20
+        version: link:../../directives
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/pagination:
     dependencies:
       '@destyler/composition':
@@ -1277,6 +1295,9 @@ importers:
       '@destyler/online':
         specifier: workspace:*
         version: link:../components/online
+      '@destyler/otp-input':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/otpInput
       '@destyler/pagination':
         specifier: workspace:*
         version: link:../components/pagination
