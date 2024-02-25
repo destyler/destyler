@@ -1,6 +1,6 @@
 {
   "name": "@destyler/scroll-area",
-  "version": "0.0.1-beta.21",
+  "version": "0.0.1-beta.22",
   "description": "unstyled ScrollArea component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
