@@ -39,8 +39,8 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.20",
-    "@destyler/directives": "workspace:0.0.1-beta.20",
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*"
   }

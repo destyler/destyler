@@ -38,12 +38,12 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/collection": "workspace:0.0.1-beta.20",
-    "@destyler/composition": "workspace:0.0.1-beta.20",
-    "@destyler/directives": "workspace:0.0.1-beta.20",
+    "@destyler/collection": "workspace:*",
+    "@destyler/composition": "workspace:*",
+    "@destyler/directives": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@destyler/visually-hidden": "workspace:0.0.1-beta.20",
+    "@destyler/visually-hidden": "workspace:*",
     "@vueuse/core": "^10.7.2"
   }
 }
