@@ -58,6 +58,7 @@
     "@destyler/dialog": "workspace:*",
     "@destyler/dismissable-layer": "workspace:*",
     "@destyler/divider": "workspace:*",
+    "@destyler/draggable": "workspace:0.0.1-beta.6",
     "@destyler/dropdown": "workspace:*",
     "@destyler/dynamic": "workspace:0.0.1-beta.6",
     "@destyler/focus-scope": "workspace:*",

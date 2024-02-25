@@ -112,4 +112,6 @@ export const alias = {
   '@destyler/demo/dynamic/': `${path.resolve(__dirname, 'packages/components/dynamic')}/`,
   '@destyler/otpInput': `${path.resolve(__dirname, 'packages/components/otpInput')}/src/index.ts`,
   '@destyler/demo/otpInput/': `${path.resolve(__dirname, 'packages/components/otpInput')}/`,
+  '@destyler/draggable': `${path.resolve(__dirname, 'packages/components/draggable')}/src/index.ts`,
+  '@destyler/demo/draggable/': `${path.resolve(__dirname, 'packages/components/draggable')}/`,
 }

@@ -111,7 +111,9 @@
       "@destyler/demo/dynamic/*": ["./packages/components/dynamic/*"],
       "@destyler/dynamic": ["./packages/components/dynamic/src/index.ts"],
       "@destyler/demo/otpInput/*": ["./packages/components/otpInput/*"],
-      "@destyler/otpInput": ["./packages/components/otpInput/src/index.ts"]
+      "@destyler/otpInput": ["./packages/components/otpInput/src/index.ts"],
+      "@destyler/demo/draggable/*": ["./packages/components/draggable/*"],
+      "@destyler/draggable": ["./packages/components/draggable/src/index.ts"]
     }
   }
 }

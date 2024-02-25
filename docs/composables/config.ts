@@ -31,6 +31,7 @@ export const asideItems = [
       { text: 'Countdown', link: '/components/countdown' },
       { text: 'Dialog', link: '/components/dialog' },
       { text: 'Divider', link: '/components/divider' },
+      { text: 'Draggable', link: '/components/draggable' },
       { text: 'Dropdown', link: '/components/dropdown' },
       { text: 'Dynamic', link: '/components/dynamic' },
       { text: 'Hover Card', link: '/components/hover-card' },

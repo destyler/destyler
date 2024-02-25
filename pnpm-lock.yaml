@@ -477,6 +477,21 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/draggable:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.20
+        version: link:../../composition
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/dropdown:
     dependencies:
       '@destyler/composition':
@@ -1253,6 +1268,9 @@ importers:
       '@destyler/divider':
         specifier: workspace:*
         version: link:../components/divider
+      '@destyler/draggable':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/draggable
       '@destyler/dropdown':
         specifier: workspace:*
         version: link:../components/dropdown
