@@ -116,4 +116,6 @@ export const alias = {
   '@destyler/demo/draggable/': `${path.resolve(__dirname, 'packages/components/draggable')}/`,
   '@destyler/qrCode': `${path.resolve(__dirname, 'packages/components/qrCode')}/src/index.ts`,
   '@destyler/demo/qrCode/': `${path.resolve(__dirname, 'packages/components/qrCode')}/`,
+  '@destyler/splitter': `${path.resolve(__dirname, 'packages/components/splitter')}/src/index.ts`,
+  '@destyler/demo/splitter/': `${path.resolve(__dirname, 'packages/components/splitter')}/`,
 }

@@ -1053,6 +1053,27 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.8(typescript@5.3.3)
 
+  packages/components/splitter:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../../composition
+      '@destyler/directives':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../../directives
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      nanoid:
+        specifier: ^5.0.6
+        version: 5.0.6
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/switch:
     dependencies:
       '@destyler/composition':
@@ -1370,6 +1391,9 @@ importers:
       '@destyler/slider':
         specifier: workspace:*
         version: link:../components/slider
+      '@destyler/splitter':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/splitter
       '@destyler/switch':
         specifier: workspace:*
         version: link:../components/switch
@@ -8753,6 +8777,12 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+
+  /nanoid@5.0.6:
+    resolution: {integrity: sha512-rRq0eMHoGZxlvaFOUdK1Ev83Bd1IgzzR+WJ3IbDJ7QOSdAxYjlurSPqFs9s4lJg29RT6nPwizFtJhQS6V5xgiA==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    dev: false
 
   /napi-wasm@1.1.0:
     resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}

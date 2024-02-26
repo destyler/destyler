@@ -54,6 +54,7 @@ export const asideItems = [
       { text: 'ScrollArea', link: '/components/scroll-area' },
       { text: 'Select', link: '/components/select' },
       { text: 'Slider', link: '/components/slider' },
+      { text: 'Splitter', link: '/components/splitter' },
       { text: 'Switch', link: '/components/switch' },
       { text: 'Tabs', link: '/components/tabs' },
       { text: 'Toast', link: '/components/toast' },

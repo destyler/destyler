@@ -2,10 +2,11 @@
 import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
 import ScrollAreaDemo from '@destyler/demo/scrollArea/demos/ScrollArea.demo.vue'
 import TabsDemo from '@destyler/demo/tabs/demos/Tabs.demo.vue'
+import SplitterDemo from '@destyler/demo/splitter/demos/Splitter.demo.vue'
 </script>
 
 <template>
   <div>
-    <TabsDemo />
+    <SplitterDemo />
   </div>
 </template>

@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/qr-code",
+  "name": "@destyler/splitter",
   "version": "0.0.1-beta.6",
-  "description": "unstyled qr code component for vue",
+  "description": "unstyled splitter component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -39,7 +39,9 @@
   },
   "dependencies": {
     "@destyler/composition": "workspace:0.0.1-beta.22",
+    "@destyler/directives": "workspace:0.0.1-beta.22",
     "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*"
+    "@destyler/shared": "workspace:*",
+    "nanoid": "^5.0.6"
   }
 }
