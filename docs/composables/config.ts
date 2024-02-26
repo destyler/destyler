@@ -49,6 +49,7 @@ export const asideItems = [
       { text: 'Popover', link: '/components/popover' },
       { text: 'Preview', link: '/components/preview' },
       { text: 'Progress', link: '/components/progress' },
+      { text: 'QR Code', link: '/components/qr-code' },
       { text: 'Radio', link: '/components/radio' },
       { text: 'ScrollArea', link: '/components/scroll-area' },
       { text: 'Select', link: '/components/select' },

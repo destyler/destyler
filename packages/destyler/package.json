@@ -81,6 +81,7 @@
     "@destyler/preview": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/progress": "workspace:*",
+    "@destyler/qr-code": "workspace:0.0.1-beta.6",
     "@destyler/radio": "workspace:*",
     "@destyler/roving-focus": "workspace:*",
     "@destyler/scroll-area": "workspace:*",

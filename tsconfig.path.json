@@ -113,7 +113,9 @@
       "@destyler/demo/otpInput/*": ["./packages/components/otpInput/*"],
       "@destyler/otpInput": ["./packages/components/otpInput/src/index.ts"],
       "@destyler/demo/draggable/*": ["./packages/components/draggable/*"],
-      "@destyler/draggable": ["./packages/components/draggable/src/index.ts"]
+      "@destyler/draggable": ["./packages/components/draggable/src/index.ts"],
+      "@destyler/demo/qrCode/*": ["./packages/components/qrCode/*"],
+      "@destyler/qrCode": ["./packages/components/qrCode/src/index.ts"]
     }
   }
 }

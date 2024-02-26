@@ -25,6 +25,7 @@ import BreadcrumbsDemo from '@destyler/demo/breadcrumbs/demos/Breadcrumbs.demo.v
 import DynamicDemo from '@destyler/demo/dynamic/demos/Dynamic.demo.vue'
 import OtpInputDemo from '@destyler/demo/otpInput/demos/OtpInput.demo.vue'
 import DraggabledDemo from '@destyler/demo/draggable/demos/Draggable.demo.vue'
+import QrCodeDemo from '@destyler/demo/qrCode/demos/QrCode.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -51,6 +52,11 @@ import DraggabledDemo from '@destyler/demo/draggable/demos/Draggable.demo.vue'
       <MenuDemo />
     </div>
   </div> -->
+  <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
+    <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+      <QrCodeDemo />
+    </div>
+  </div>
   <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
     <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
       <DraggabledDemo />
