@@ -25,6 +25,9 @@
       <CollapsibleDemo />
     </CraftBox>
     <CraftBox>
+      <ComboboxDemo />
+    </CraftBox>
+    <CraftBox>
       <ContextMenuDemo />
     </CraftBox>
     <CraftBox>
@@ -35,9 +38,6 @@
     </CraftBox>
     <CraftBox>
       <DividerDemo />
-    </CraftBox>
-    <CraftBox>
-      <DropdownDemo />
     </CraftBox>
     <CraftBox>
       <HoverCardDemo />
@@ -76,6 +76,9 @@
       <ProgressDemo />
     </CraftBox>
     <CraftBox>
+      <QrCodeDemo />
+    </CraftBox>
+    <CraftBox>
       <RadioDemo />
     </CraftBox>
     <CraftBox>
@@ -101,6 +104,9 @@
     </CraftBox>
   </Box>
   <div class="grid sm:grid-cols-1 gap-1 mt-4 sm:gap-6">
+    <CraftBox>
+      <DynamicDemo />
+    </CraftBox>
     <CraftBox>
       <NavigationDemo />
     </CraftBox>
