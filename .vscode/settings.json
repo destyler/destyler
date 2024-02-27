@@ -1,6 +1,8 @@
 {
   "unocss.root": [
     "docs",
+    "examples/nuxt",
+    "examples/vue",
     "playground",
     "preview"
   ],
