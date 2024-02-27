@@ -91,6 +91,9 @@
       <SliderDemo />
     </CraftBox>
     <CraftBox>
+      <SplitterDemo />
+    </CraftBox>
+    <CraftBox>
       <SwitchDemo />
     </CraftBox>
     <CraftBox>
