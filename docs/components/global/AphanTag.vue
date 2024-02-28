@@ -1,0 +1,12 @@
+<script setup lang="ts">
+import { DestylerInfoRoot } from 'destyler'
+</script>
+
+<template>
+  <DestylerInfoRoot
+    as="span"
+    class="text-xs px-1.5 py-0.5 inline-flex items-center font-medium rounded-md text-xs px-2 py-1 bg-green-50 dark:bg-green-400 dark:bg-opacity-10 text-green-500 dark:text-green-400 ring-1 ring-inset ring-green-500 dark:ring-green-400 ring-opacity-10 dark:ring-opacity-20"
+  >
+    <slot />
+  </DestylerInfoRoot>
+</template>

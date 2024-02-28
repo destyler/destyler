@@ -38,6 +38,9 @@ const route = useRoute()
                   }"
                 >
                   {{ item.text }}
+                  <AphanTag v-if="item.aphan">
+                    New
+                  </AphanTag>
                 </NuxtLink>
               </div>
             </div>
