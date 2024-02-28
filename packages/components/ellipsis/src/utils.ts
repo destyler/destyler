@@ -4,7 +4,7 @@ const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 
 export type Side = (typeof SIDE_OPTIONS)[number]
 
-export const TOOLTIP_OPEN = 'tooltip.open'
+export const ELLIPSIS_OPEN = 'ellipsis.open'
 
 export function getExitSideFromRect(point: Point, rect: DOMRect): Side {
   const top = Math.abs(rect.top - point.y)

@@ -61,6 +61,7 @@
     "@destyler/draggable": "workspace:*",
     "@destyler/dropdown": "workspace:*",
     "@destyler/dynamic": "workspace:*",
+    "@destyler/ellipsis": "workspace:0.0.1-beta.6",
     "@destyler/focus-scope": "workspace:*",
     "@destyler/hover-card": "workspace:*",
     "@destyler/icon": "workspace:*",

@@ -117,7 +117,9 @@
       "@destyler/demo/qrCode/*": ["./packages/components/qrCode/*"],
       "@destyler/qrCode": ["./packages/components/qrCode/src/index.ts"],
       "@destyler/demo/splitter/*": ["./packages/components/splitter/*"],
-      "@destyler/splitter": ["./packages/components/splitter/src/index.ts"]
+      "@destyler/splitter": ["./packages/components/splitter/src/index.ts"],
+      "@destyler/demo/ellipsis/*": ["./packages/components/ellipsis/*"],
+      "@destyler/ellipsis": ["./packages/components/ellipsis/src/index.ts"]
     }
   }
 }

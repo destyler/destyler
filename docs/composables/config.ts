@@ -34,6 +34,7 @@ export const asideItems = [
       { text: 'Draggable', link: '/components/draggable' },
       { text: 'Dropdown', link: '/components/dropdown' },
       { text: 'Dynamic', link: '/components/dynamic' },
+      { text: 'Ellipsis', link: '/components/ellipsis' },
       { text: 'Hover Card', link: '/components/hover-card' },
       { text: 'Icon', link: '/components/icon' },
       { text: 'Image', link: '/components/image' },

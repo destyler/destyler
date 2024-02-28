@@ -540,6 +540,33 @@ importers:
         specifier: '>=3.3.4'
         version: 3.4.15(typescript@5.3.3)
 
+  packages/components/ellipsis:
+    dependencies:
+      '@destyler/composition':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../../composition
+      '@destyler/dismissable-layer':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../dismissableLayer
+      '@destyler/popper':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../popper
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
+      '@destyler/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@destyler/teleport':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../teleport
+      '@destyler/visually-hidden':
+        specifier: workspace:0.0.1-beta.22
+        version: link:../visuallyHidden
+      vue:
+        specifier: '>=3.3.4'
+        version: 3.4.15(typescript@5.3.3)
+
   packages/components/focusScope:
     dependencies:
       '@destyler/composition':
@@ -1313,6 +1340,9 @@ importers:
       '@destyler/dynamic':
         specifier: workspace:*
         version: link:../components/dynamic
+      '@destyler/ellipsis':
+        specifier: workspace:0.0.1-beta.6
+        version: link:../components/ellipsis
       '@destyler/focus-scope':
         specifier: workspace:*
         version: link:../components/focusScope
