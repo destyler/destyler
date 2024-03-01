@@ -38,9 +38,9 @@ const route = useRoute()
                   }"
                 >
                   {{ item.text }}
-                  <AphanTag v-if="item.aphan">
+                  <AlphaTag v-if="item.alpha">
                     New
-                  </AphanTag>
+                  </AlphaTag>
                 </NuxtLink>
               </div>
             </div>

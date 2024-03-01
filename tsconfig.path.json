@@ -119,7 +119,9 @@
       "@destyler/demo/splitter/*": ["./packages/components/splitter/*"],
       "@destyler/splitter": ["./packages/components/splitter/src/index.ts"],
       "@destyler/demo/ellipsis/*": ["./packages/components/ellipsis/*"],
-      "@destyler/ellipsis": ["./packages/components/ellipsis/src/index.ts"]
+      "@destyler/ellipsis": ["./packages/components/ellipsis/src/index.ts"],
+      "@destyler/demo/calendar/*": ["./packages/components/calendar/*"],
+      "@destyler/calendar": ["./packages/components/calendar/src/index.ts"]
     }
   }
 }

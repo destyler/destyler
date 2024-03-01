@@ -15,6 +15,7 @@
     "destyler": "workspace:*"
   },
   "devDependencies": {
+    "@internationalized/date": "^3.5.2",
     "@nuxt/devtools": "^1.0.8",
     "@nuxtjs/color-mode": "^3.3.2",
     "@unocss/nuxt": "^0.58.3",

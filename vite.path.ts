@@ -120,4 +120,6 @@ export const alias = {
   '@destyler/demo/splitter/': `${path.resolve(__dirname, 'packages/components/splitter')}/`,
   '@destyler/ellipsis': `${path.resolve(__dirname, 'packages/components/ellipsis')}/src/index.ts`,
   '@destyler/demo/ellipsis/': `${path.resolve(__dirname, 'packages/components/ellipsis')}/`,
+  '@destyler/calendar': `${path.resolve(__dirname, 'packages/components/calendar')}/src/index.ts`,
+  '@destyler/demo/calendar/': `${path.resolve(__dirname, 'packages/components/calendar')}/`,
 }

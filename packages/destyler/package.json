@@ -48,6 +48,7 @@
     "@destyler/back-top": "workspace:*",
     "@destyler/breadcrumbs": "workspace:*",
     "@destyler/button": "workspace:*",
+    "@destyler/calendar": "workspace:0.0.1-beta.6",
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",

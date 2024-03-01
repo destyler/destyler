@@ -1,7 +1,7 @@
 {
-  "name": "@destyler/composition",
-  "version": "0.0.1-beta.22",
-  "description": "",
+  "name": "@destyler/calendar",
+  "version": "0.0.1-beta.6",
+  "description": "unstyled calendar component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
@@ -9,6 +9,16 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "import": "./dist/resolver.mjs",
+      "require": "./dist/resolver.cjs"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.mjs",
+      "require": "./dist/component.cjs"
     },
     "./*": "./*"
   },
@@ -25,11 +35,12 @@
     "build": "pnpm run clear && unbuild"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": ">=3.3.4"
   },
   "dependencies": {
+    "@destyler/composition": "workspace:0.0.1-beta.22",
+    "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@internationalized/date": "^3.5.2",
-    "aria-hidden": "^1.2.3"
+    "@internationalized/date": "^3.5.2"
   }
 }
