@@ -3,8 +3,8 @@ import { computed, defineComponent, h, nextTick, withKeys } from 'vue'
 import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { DateValue } from '@internationalized/date'
-import { getLocalTimeZone, isSameDay, isSameMonth, isSameYear, isToday, today } from '@internationalized/date'
-import { endOfDecade, isBetweenInclusive, parseStringToDateValue, startOfDecade, toDate } from '@destyler/shared'
+import { getLocalTimeZone, isSameDay, isSameMonth, isToday } from '@internationalized/date'
+import { parseStringToDateValue, toDate } from '@destyler/shared'
 import { useForwardExpose, useKbd } from '@destyler/composition'
 
 import { injectCalendarRootContext } from './root'
@@ -55,23 +55,9 @@ export const DestylerCalendarCellTrigger = defineComponent({
       rootContext.isDateUnavailable?.(props.day),
     )
     const isDateToday = computed(() => {
-      if (rootContext.calendarView.value === 'decade')
-        return isSameYear(props.day, today(getLocalTimeZone()))
-      if (rootContext.calendarView.value === 'year')
-        return isSameMonth(props.day, today(getLocalTimeZone()))
       return isToday(props.day, getLocalTimeZone())
     })
     const isOutsideView = computed(() => {
-      if (rootContext.calendarView.value === 'decade') {
-        return !isBetweenInclusive(
-          props.day,
-          startOfDecade(props.month),
-          endOfDecade(props.month),
-        )
-      }
-
-      if (rootContext.calendarView.value === 'year')
-        return !isSameYear(props.day, props.month)
       return !isSameMonth(props.day, props.month)
     })
     const isOutsideVisibleView = computed(() =>
@@ -79,13 +65,10 @@ export const DestylerCalendarCellTrigger = defineComponent({
     )
 
     const isFocusedDate = computed(() => {
-      if (rootContext.calendarView.value === 'decade')
-        return isSameYear(props.day, rootContext.placeholder.value)
-      if (rootContext.calendarView.value === 'year')
-        return isSameMonth(props.day, rootContext.placeholder.value)
-      return isSameDay(props.day, rootContext.placeholder.value)
+      return isSameDay(props.day, rootContext.defaultDate)
     })
-    const isSelectedDate = computed(() => rootContext.calendarView.value === 'month' && rootContext.isDateSelected(props.day))
+
+    const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 
     const SELECTOR = '[data-destyler-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
@@ -94,12 +77,7 @@ export const DestylerCalendarCellTrigger = defineComponent({
         return
       if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
         return
-      if (rootContext.calendarView.value !== 'month') {
-        rootContext.onPlaceholderChange(date)
-        rootContext.calendarView.value
-      = rootContext.calendarView.value === 'decade' ? 'year' : 'month'
-        return
-      }
+
       rootContext.onDateChange(date)
     }
 
@@ -107,7 +85,7 @@ export const DestylerCalendarCellTrigger = defineComponent({
       changeDate(
         parseStringToDateValue(
           (e.target as HTMLDivElement).getAttribute('data-value')!,
-          rootContext.placeholder.value,
+          rootContext.defaultDate,
         ),
       )
     }
@@ -122,8 +100,7 @@ export const DestylerCalendarCellTrigger = defineComponent({
         : []
       const index = allCollectionItems.indexOf(currentElement.value)
       let newIndex = index
-      const indexIncrementation
-    = rootContext.calendarView.value === 'month' ? 7 : rootContext.columns.value
+      const indexIncrementation = 7
       switch (e.code) {
         case kbd.ARROW_RIGHT:
           newIndex++
@@ -142,7 +119,7 @@ export const DestylerCalendarCellTrigger = defineComponent({
           changeDate(
             parseStringToDateValue(
               currentCell!.getAttribute('data-value')!,
-              rootContext.placeholder.value,
+              rootContext.defaultDate,
             ),
           )
           return
@@ -183,29 +160,9 @@ export const DestylerCalendarCellTrigger = defineComponent({
       }
     }
     const formattedTriggerText = computed(() => {
-      if (rootContext.calendarView.value === 'month')
-        return props.day.day
-
-      if (rootContext.calendarView.value === 'year') {
-        if (rootContext.numberOfMonths.value > 1) {
-          const firstMonth = rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
-            month: 'short',
-          })
-          const result = [firstMonth]
-
-          for (let i = 0; i < rootContext.numberOfMonths.value - 1; i++) {
-            result.push(rootContext.formatter.custom(props.day.add({ months: i + 1 }).toDate(getLocalTimeZone()), {
-              month: 'short',
-            }))
-          }
-          return result.join('-')
-        }
-        return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
-          month: 'short',
-        })
-      }
-
-      return props.day.year
+      return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
+        day: 'numeric',
+      })
     })
 
     return {

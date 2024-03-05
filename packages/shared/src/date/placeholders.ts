@@ -2,7 +2,7 @@
  * Implementation ported from from from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/internal/helpers/date/placeholders.ts
 */
 
-const supportedLocales = [
+export const supportedLocales = [
   'ach',
   'af',
   'am',
@@ -80,10 +80,10 @@ const supportedLocales = [
   'zh-TW',
 ] as const
 
-const placeholderFields = ['year', 'month', 'day'] as const
+export const placeholderFields = ['year', 'month', 'day'] as const
 
-type SupportedLocale = (typeof supportedLocales)[number]
-type PlaceholderField = (typeof placeholderFields)[number]
+export type SupportedLocale = (typeof supportedLocales)[number]
+export type PlaceholderField = (typeof placeholderFields)[number]
 export type PlaceholderMap = Record<SupportedLocale, Record<PlaceholderField, string>>
 
 const placeholders: PlaceholderMap = {

@@ -53,6 +53,7 @@ export const asideItems = [
       { text: 'Progress', link: '/components/progress' },
       { text: 'QR Code', link: '/components/qr-code', alpha: true },
       { text: 'Radio', link: '/components/radio' },
+      { text: 'Range Calendar', link: '/components/range-calendar', alpha: true },
       { text: 'ScrollArea', link: '/components/scroll-area' },
       { text: 'Select', link: '/components/select' },
       { text: 'Slider', link: '/components/slider' },

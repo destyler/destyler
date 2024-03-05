@@ -7,7 +7,6 @@ export { DestylerCalendarGridRow, type DestylerCalendarGridRowProps } from './co
 export { DestylerCalendarHeadCell, type DestylerCalendarHeadCellProps } from './components/headCell'
 export { DestylerCalendarHeader, type DestylerCalendarHeaderProps } from './components/header'
 export { DestylerCalendarHeading, type DestylerCalendarHeadingProps } from './components/heading'
-export { DestylerCalendarHeadingSegment, type DestylerCalendarHeadingSegmentProps } from './components/headingSegment'
 export { DestylerCalendarNext, type DestylerCalendarNextProps } from './components/next'
 export { DestylerCalendarPrev, type DestylerCalendarPrevProps } from './components/prev'
 export { DestylerCalendarRoot, type DestylerCalendarRootProps } from './components/root'

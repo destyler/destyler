@@ -29,6 +29,7 @@ import QrCodeDemo from '@destyler/demo/qrCode/demos/QrCode.demo.vue'
 import SplitterDemo from '@destyler/demo/splitter/demos/Splitter.demo.vue'
 import EllipsisDemo from '@destyler/demo/ellipsis/demos/Ellipsis.demo.vue'
 import CalendarDemo from '@destyler/demo/calendar/demos/Calendar.demo.vue'
+import RangeCalendarDemo from '@destyler/demo/rangeCalendar/demos/RangeCalendar.demo.vue'
 
 // import { DestylerPrimitive } from '@destyler/primitive'
 // import { useCustomElement, useForwardExpose } from '@destyler/composition'
@@ -55,6 +56,11 @@ import CalendarDemo from '@destyler/demo/calendar/demos/Calendar.demo.vue'
       <MenuDemo />
     </div>
   </div> -->
+  <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
+    <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
+      <RangeCalendarDemo />
+    </div>
+  </div>
   <div class="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 relative rounded-md border">
     <div class="preview flex min-h-[350px] w-full justify-center p-10 items-center">
       <CalendarDemo />

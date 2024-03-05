@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import { DestylerPaginationEllipsis, DestylerPaginationFirst, DestylerPaginationLast, DestylerPaginationList, DestylerPaginationListItem, DestylerPaginationNext, DestylerPaginationPrev, DestylerPaginationRoot } from '../src'
 </script>
 

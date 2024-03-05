@@ -1,11 +1,10 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive } from '@destyler/primitive'
+import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { injectCalendarRootContext } from './root'
-
-export const destylerCalendarGridRowProps = {
+export const destylerRangeCalendarGridRowProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -18,18 +17,11 @@ export const destylerCalendarGridRowProps = {
   },
 } as const
 
-export type DestylerCalendarGridRowProps = ExtractPublicPropTypes<typeof destylerCalendarGridRowProps>
+export type DestylerRangeCalendarGridRowProps = ExtractPublicPropTypes<typeof destylerRangeCalendarGridRowProps>
 
-export const DestylerCalendarGridRow = defineComponent({
-  name: 'DestylerCalendarGridRow',
-  props: destylerCalendarGridRowProps,
-  setup(_) {
-    const rootContext = injectCalendarRootContext()
-
-    return {
-      rootContext,
-    }
-  },
+export const DestylerRangeCalendarGridRow = defineComponent({
+  name: 'DestylerRangeCalendarGridRow',
+  props: destylerRangeCalendarGridRowProps,
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props), {
       default: () => this.$slots.default?.(),

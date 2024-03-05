@@ -33,7 +33,7 @@ export const DestylerCalendarHeading = defineComponent({
     return h(DestylerPrimitive, mergeProps(this.$props, {
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
     }), {
-      default: () => this.$slots.default?.({ headingValue: this.rootContext.headingValue.value }),
+      default: () => this.$slots.default ? this.$slots.default?.({ headingValue: this.rootContext.headingValue.value }) : this.rootContext.headingValue.value,
     })
   },
 })

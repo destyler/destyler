@@ -30,6 +30,9 @@
   "dependencies": {
     "@destyler/shared": "workspace:*",
     "@internationalized/date": "^3.5.2",
-    "aria-hidden": "^1.2.3"
+    "@vueuse/core": "^10.7.2",
+    "@vueuse/shared": "^10.7.2",
+    "aria-hidden": "^1.2.3",
+    "defu": "^6.1.4"
   }
 }

@@ -1,17 +1,17 @@
 import type { Component, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, onMounted, toRefs, watch } from 'vue'
+import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
-import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@destyler/shared'
-import { useForwardExpose, useVModel } from '@destyler/composition'
 import type { Formatter } from '@destyler/composition'
-import { isSameDay } from '@internationalized/date'
+import { useForwardExpose, useVModel } from '@destyler/composition'
 import type { DateValue } from '@internationalized/date'
+import { isSameDay } from '@internationalized/date'
+import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@destyler/shared'
+import { useCalendar } from '@destyler/calendar/dist/composition'
+import { useRangeCalendarState } from '../composition/use-range-calendar-state'
 
-import { useCalendar, useCalendarState } from '../composition/use-calendar'
-
-export const destylerCalendarRootProps = {
+export const destylerRangeCalendarRootProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -22,13 +22,17 @@ export const destylerCalendarRootProps = {
     required: false,
     default: false,
   },
-  defaultValue: {
+  defaultPlaceholder: {
     type: Object as PropType<DateValue>,
+    required: false,
+  },
+  defaultValue: {
+    type: Object as PropType<{ start: DateValue, end: DateValue }>,
     required: false,
     default: undefined,
   },
-  defaultPlaceholder: {
-    type: Object as PropType<DateValue>,
+  modelValue: {
+    type: Object as PropType<{ start: DateValue | undefined, end: DateValue | undefined }>,
     required: false,
   },
   placeholder: {
@@ -108,34 +112,24 @@ export const destylerCalendarRootProps = {
     required: false,
     default: undefined,
   },
-  modelValue: {
-    type: [Object, Array] as PropType<DateValue | DateValue[] | undefined>,
-    required: false,
-  },
-  multiple: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
 } as const
 
-export type DestylerCalendarRootProps = ExtractPublicPropTypes<typeof destylerCalendarRootProps>
+export type DestylerRangeCalendarRootProps = ExtractPublicPropTypes<typeof destylerRangeCalendarRootProps>
 
-export interface CalendarRootContext {
-  locale: Ref<SupportedLocale>
-  modelValue: Ref<DateValue | DateValue[] | undefined>
+export interface RangeCalendarRootContext {
+  modelValue: Ref<{ start: DateValue | undefined, end: DateValue | undefined }>
+  startValue: Ref<DateValue | undefined>
+  endValue: Ref<DateValue | undefined>
   placeholder: Ref<DateValue>
   pagedNavigation: Ref<boolean>
   preventDeselect: Ref<boolean>
   weekStartsOn: Ref<0 | 1 | 2 | 3 | 4 | 5 | 6>
   weekdayFormat: Ref<WeekDayFormat>
   fixedWeeks: Ref<boolean>
-  multiple: Ref<boolean>
   numberOfMonths: Ref<number>
   disabled: Ref<boolean>
   readonly: Ref<boolean>
   initialFocus: Ref<boolean>
-  onDateChange: (date: DateValue) => void
   onPlaceholderChange: (date: DateValue) => void
   fullCalendarLabel: Ref<string>
   parentElement: Ref<HTMLElement | undefined>
@@ -144,25 +138,28 @@ export interface CalendarRootContext {
   nextPage: () => void
   prevPage: () => void
   isDateDisabled: Matcher
-  isDateSelected: Matcher
   isDateUnavailable?: Matcher
   isOutsideVisibleView: (date: DateValue) => boolean
+  highlightedRange: Ref<{ start: DateValue, end: DateValue } | null>
+  focusedValue: Ref<DateValue | undefined>
+  lastPressedDateValue: Ref<DateValue | undefined>
+  isSelected: (date: DateValue) => boolean
+  isSelectionEnd: (date: DateValue) => boolean
+  isSelectionStart: (date: DateValue) => boolean
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
   defaultDate: DateValue
 }
 
-export const [injectCalendarRootContext, provideCalendarRootContext]
-  = createContext<CalendarRootContext>('DestylerCalendarRoot')
+export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext] = createContext<RangeCalendarRootContext>('DestylerRangeCalendarRoot')
 
-export const DestylerCalendarRoot = defineComponent({
-  name: 'DestylerCalendarRoot',
-  props: destylerCalendarRootProps,
+export const DestylerRangeCalendarRoot = defineComponent({
+  name: 'DestylerRangeCalendarRoot',
+  props: destylerRangeCalendarRootProps,
   emits: ['update:modelValue', 'update:placeholder'],
   setup(props, { emit }) {
     const {
-      locale,
       disabled,
       readonly,
       initialFocus,
@@ -170,27 +167,32 @@ export const DestylerCalendarRoot = defineComponent({
       weekStartsOn,
       weekdayFormat,
       fixedWeeks,
-      multiple,
-      minValue,
-      maxValue,
       numberOfMonths,
       preventDeselect,
-      isDateDisabled: propsIsDateDisabled,
       isDateUnavailable: propsIsDateUnavailable,
+      isDateDisabled: propsIsDateDisabled,
       calendarLabel,
+      maxValue,
+      minValue,
     } = toRefs(props)
 
     const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
+    const lastPressedDateValue = ref() as Ref<DateValue | undefined>
+    const focusedValue = ref() as Ref<DateValue | undefined>
+
     const modelValue = useVModel(props, 'modelValue', emit, {
-      defaultValue: props.defaultValue ?? undefined,
+      defaultValue: props.defaultValue ?? { start: undefined, end: undefined },
       passive: (props.modelValue === undefined) as false,
-    }) as Ref<DateValue | DateValue[] | undefined>
+    }) as Ref<{ start: DateValue | undefined, end: DateValue | undefined }>
 
     const defaultDate = getDefaultDate({
       defaultPlaceholder: props.placeholder,
-      defaultValue: modelValue.value,
+      defaultValue: modelValue.value.start,
     })
+
+    const startValue = ref(modelValue.value.start) as Ref<DateValue | undefined>
+    const endValue = ref(modelValue.value.end) as Ref<DateValue | undefined>
 
     const placeholder = useVModel(props, 'placeholder', emit, {
       defaultValue: props.defaultPlaceholder ?? defaultDate.copy(),
@@ -198,8 +200,7 @@ export const DestylerCalendarRoot = defineComponent({
     }) as Ref<DateValue>
 
     function onPlaceholderChange(value: DateValue) {
-      const dateRef = defaultDate.set({ ...placeholder.value })
-      placeholder.value = dateRef.set({ ...value })
+      placeholder.value = defaultDate.set({ ...value })
     }
 
     const {
@@ -209,12 +210,12 @@ export const DestylerCalendarRoot = defineComponent({
       isDateUnavailable,
       isNextButtonDisabled,
       isPrevButtonDisabled,
+      grid,
       weekdays,
       isOutsideVisibleView,
       nextPage,
       prevPage,
       formatter,
-      grid,
     } = useCalendar({
       locale: props.locale,
       placeholder,
@@ -233,66 +234,61 @@ export const DestylerCalendarRoot = defineComponent({
 
     const {
       isInvalid,
-      isDateSelected,
-    } = useCalendarState({
-      date: modelValue,
+      isSelected,
+      highlightedRange,
+      isSelectionStart,
+      isSelectionEnd,
+    } = useRangeCalendarState({
+      start: startValue,
+      end: endValue,
       grid,
       isDateDisabled,
       isDateUnavailable,
+      focusedValue,
     })
 
-    watch(modelValue, (value) => {
-      if (Array.isArray(value) && value.length) {
-        const lastValue = value[value.length - 1]
-        if (lastValue && placeholder.value.toString() !== lastValue.toString())
-          onPlaceholderChange(lastValue)
+    watch(modelValue, () => {
+      if (modelValue.value.start && modelValue.value.end) {
+        if (modelValue.value.start.toString() !== startValue.value?.toString())
+          startValue.value = defaultDate.set({ ...modelValue.value.start })
+
+        if (modelValue.value.end.toString() !== endValue.value?.toString())
+          endValue.value = defaultDate.set({ ...modelValue.value.end })
       }
-      else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
+    })
+
+    watch(startValue, (value) => {
+      if (value && !isSameDay(value, placeholder.value))
         onPlaceholderChange(value)
-      }
     })
 
-    function onDateChange(value: DateValue) {
-      const dateRef = defaultDate
-      if (!multiple.value) {
-        if (!modelValue.value) {
-          modelValue.value = dateRef.set({ ...value })
-          return
-        }
+    watch([startValue, endValue], () => {
+      if (modelValue.value && modelValue.value.start?.toString() === startValue.value?.toString() && modelValue.value.end?.toString() === endValue.value?.toString())
+        return
 
-        if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, value))
-          modelValue.value = undefined
-        else
-          modelValue.value = dateRef.set({ ...value })
-      }
-      else if (Array.isArray(modelValue.value)) {
-        if (!modelValue.value) {
-          modelValue.value = [dateRef.set({ ...value })]
-
-          return
-        }
-
-        const index = modelValue.value.findIndex(date => isSameDay(date, value))
-        if (index === -1) {
-          modelValue.value = [...modelValue.value, value]
-        }
-        else if (!preventDeselect.value) {
-          const next = modelValue.value.filter(date => !isSameDay(date, value))
-          if (!next.length) {
-            modelValue.value = []
-            return
+      if (startValue.value && endValue.value) {
+        if (isBefore(endValue.value, startValue.value)) {
+          modelValue.value = {
+            start: defaultDate.set({ ...endValue.value }),
+            end: defaultDate.set({ ...startValue.value }),
           }
-          modelValue.value = next.map(date => dateRef.set({ ...date }))
+        }
+
+        else {
+          modelValue.value = {
+            start: defaultDate.set({ ...startValue.value }),
+            end: defaultDate.set({ ...endValue.value }),
+          }
         }
       }
-    }
+    })
 
     const getMonths = computed(() => {
       const dateObj = defaultDate.set({ ...placeholder.value })
       return createYear({
         dateObj,
-        maxValue: defaultDate.set({ ...minValue.value }),
-        minValue: defaultDate.set({ ...maxValue.value }),
+        minValue: minValue.value,
+        maxValue: maxValue.value,
         numberOfMonths: numberOfMonths.value,
         pagedNavigation: pagedNavigation.value,
       })
@@ -304,20 +300,15 @@ export const DestylerCalendarRoot = defineComponent({
         dateObj,
         startIndex,
         endIndex,
-        maxValue: defaultDate.set({ ...minValue.value }),
-        minValue: defaultDate.set({ ...maxValue.value }),
+        minValue: minValue.value,
+        maxValue: maxValue.value,
       })
     }
 
-    onMounted(() => {
-      if (initialFocus.value)
-        handleCalendarInitialFocus(parentElement.value)
-    })
-
-    provideCalendarRootContext({
+    provideRangeCalendarRootContext({
       isDateUnavailable,
-      isDateDisabled,
-      locale,
+      startValue,
+      endValue,
       formatter,
       modelValue,
       placeholder,
@@ -327,37 +318,47 @@ export const DestylerCalendarRoot = defineComponent({
       weekStartsOn,
       weekdayFormat,
       fixedWeeks,
-      multiple,
       numberOfMonths,
       readonly,
       preventDeselect,
       fullCalendarLabel,
       headingValue,
       isInvalid,
-      isDateSelected,
+      isDateDisabled,
+      highlightedRange,
+      focusedValue,
+      lastPressedDateValue,
+      isSelected,
+      isSelectionEnd,
+      isSelectionStart,
       isNextButtonDisabled,
       isPrevButtonDisabled,
       isOutsideVisibleView,
       nextPage,
       prevPage,
       parentElement,
-      onPlaceholderChange,
-      onDateChange,
       defaultDate,
+      onPlaceholderChange,
+    })
+
+    onMounted(() => {
+      if (initialFocus.value)
+        handleCalendarInitialFocus(parentElement.value)
     })
 
     return {
-      forwardRef,
-      getYears,
-      getMonths,
-      weekdays,
       fullCalendarLabel,
       readonly,
       disabled,
       isInvalid,
-      grid,
+      defaultDate,
       placeholder,
+      grid,
+      weekdays,
       formatter,
+      getMonths,
+      forwardRef,
+      getYears,
     }
   },
   render() {
@@ -397,7 +398,7 @@ export const DestylerCalendarRoot = defineComponent({
             },
           }),
           this.$slots.default?.({
-            date: this.placeholder,
+            date: this.defaultDate.set({ ...this.placeholder }),
             grid: this.grid,
             weekDays: this.weekdays,
             formatter: this.formatter,
