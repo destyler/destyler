@@ -38,13 +38,13 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.22",
-    "@destyler/dismissable-layer": "workspace:0.0.1-beta.22",
-    "@destyler/popper": "workspace:0.0.1-beta.22",
+    "@destyler/composition": "workspace:*",
+    "@destyler/dismissable-layer": "workspace:*",
+    "@destyler/popper": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@destyler/teleport": "workspace:0.0.1-beta.22",
-    "@destyler/visually-hidden": "workspace:0.0.1-beta.22",
+    "@destyler/teleport": "workspace:*",
+    "@destyler/visually-hidden": "workspace:*",
     "@vueuse/core": "^10.7.2"
   }
 }

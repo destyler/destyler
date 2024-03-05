@@ -43,7 +43,7 @@
     "vue": ">=3.3.4"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:0.0.1-beta.22",
+    "@destyler/composition": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
     "@internationalized/date": "^3.5.2"
