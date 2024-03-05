@@ -44,6 +44,6 @@
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
     "@destyler/visually-hidden": "workspace:*",
-    "@vueuse/core": "^10.7.2"
+    "@vueuse/core": "^10.9.0"
   }
 }

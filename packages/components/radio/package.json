@@ -43,6 +43,6 @@
     "@destyler/primitive": "workspace:*",
     "@destyler/roving-focus": "workspace:*",
     "@destyler/shared": "workspace:*",
-    "@vueuse/core": "^10.7.2"
+    "@vueuse/core": "^10.9.0"
   }
 }
