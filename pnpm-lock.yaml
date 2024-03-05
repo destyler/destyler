@@ -276,7 +276,7 @@ importers:
   packages/components/calendar:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
@@ -564,13 +564,13 @@ importers:
   packages/components/ellipsis:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/dismissable-layer':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../dismissableLayer
       '@destyler/popper':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../popper
       '@destyler/primitive':
         specifier: workspace:*
@@ -579,10 +579,10 @@ importers:
         specifier: workspace:*
         version: link:../../shared
       '@destyler/teleport':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../teleport
       '@destyler/visually-hidden':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../visuallyHidden
       '@vueuse/core':
         specifier: ^10.7.2
@@ -984,7 +984,7 @@ importers:
   packages/components/qrCode:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
@@ -1128,10 +1128,10 @@ importers:
   packages/components/splitter:
     dependencies:
       '@destyler/composition':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../../composition
       '@destyler/directives':
-        specifier: workspace:0.0.1-beta.22
+        specifier: workspace:*
         version: link:../../directives
       '@destyler/primitive':
         specifier: workspace:*
@@ -1359,7 +1359,7 @@ importers:
         specifier: workspace:*
         version: link:../components/button
       '@destyler/calendar':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/calendar
       '@destyler/checkbox':
         specifier: workspace:*
@@ -1401,7 +1401,7 @@ importers:
         specifier: workspace:*
         version: link:../components/dynamic
       '@destyler/ellipsis':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/ellipsis
       '@destyler/focus-scope':
         specifier: workspace:*
@@ -1464,13 +1464,13 @@ importers:
         specifier: workspace:*
         version: link:../components/progress
       '@destyler/qr-code':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/qrCode
       '@destyler/radio':
         specifier: workspace:*
         version: link:../components/radio
       '@destyler/range-calendar':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/rangeCalendar
       '@destyler/roving-focus':
         specifier: workspace:*
@@ -1485,7 +1485,7 @@ importers:
         specifier: workspace:*
         version: link:../components/slider
       '@destyler/splitter':
-        specifier: workspace:0.0.1-beta.6
+        specifier: workspace:*
         version: link:../components/splitter
       '@destyler/switch':
         specifier: workspace:*
