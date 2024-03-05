@@ -54,7 +54,7 @@ export const DestylerNavigationLink = defineComponent({
     return h(DestylerPrimitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
-      'data-radix-vue-collection-item': '',
+      'data-destyler-collection-item': '',
       'data-active': this.$props.active ? '' : undefined,
       'aria-current': this.$props.active ? 'page' : undefined,
       'onClick': (event: any) => {

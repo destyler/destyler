@@ -13,7 +13,7 @@ interface ArrowNavigationOptions {
   /**
    * The attribute name to find the collection items in the parent element.
    *
-   * @defaultValue "data-radix-vue-collection-item"
+   * @defaultValue "data-destyler-collection-item"
    */
   attributeName?: string
 
@@ -75,7 +75,7 @@ export function useArrowNavigation(
 
   const {
     arrowKeyOptions = 'both',
-    attributeName = '[data-radix-vue-collection-item]',
+    attributeName = '[data-destyler-collection-item]',
     itemsArray = [],
     loop = true,
     dir = 'ltr',

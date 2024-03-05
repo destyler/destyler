@@ -147,7 +147,7 @@ export const DestylerNavigationTrigger = defineComponent({
         'aria-controls': this.contentId,
         'asChild': this.$props.asChild,
         'as': this.$props.as,
-        'data-radix-vue-collection-item': '',
+        'data-destyler-collection-item': '',
         'onPointerenter': () => {
           this.handlePointerEnter()
         },

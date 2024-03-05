@@ -35,7 +35,7 @@ export interface SerializedPanelGroupState {
 }
 
 function getPanelGroupKey(autoSaveId: string): string {
-  return `radix-vue:${autoSaveId}`
+  return `destyler:${autoSaveId}`
 }
 
 // Note that Panel ids might be user-provided (stable) or useId generated (non-deterministic)

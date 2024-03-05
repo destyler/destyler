@@ -105,8 +105,17 @@
     <CraftBox>
       <TooltipDemo />
     </CraftBox>
+    <CraftBox style="height: 28rem;">
+      <CalendarDemo />
+    </CraftBox>
+    <CraftBox style="height: 28rem;">
+      <RangeCalendarDemo />
+    </CraftBox>
   </Box>
   <div class="grid sm:grid-cols-1 gap-1 mt-4 sm:gap-6">
+    <CraftBox>
+      <EllipsisDemo />
+    </CraftBox>
     <CraftBox>
       <DynamicDemo />
     </CraftBox>
