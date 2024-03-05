@@ -1,6 +1,6 @@
 {
   "name": "@destyler/dynamic",
-  "version": "0.0.1-beta.22",
+  "version": "0.0.1",
   "description": "unstyled dynamic component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

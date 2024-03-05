@@ -1,6 +1,6 @@
 {
   "name": "@destyler/navigation",
-  "version": "0.0.1-beta.22",
+  "version": "0.0.1",
   "description": "unstyled navigation component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

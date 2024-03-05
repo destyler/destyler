@@ -1,6 +1,6 @@
 {
   "name": "@destyler/splitter",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1",
   "description": "unstyled splitter component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
