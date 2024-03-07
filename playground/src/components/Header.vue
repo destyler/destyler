@@ -7,9 +7,6 @@ import {
 import type { Ref } from 'vue'
 import type { ReplStore, VersionKey } from '@/composables/store'
 import {
-  DestylerInfoRoot,
-  DestylerButton,
-  DestylerIcon,
   DestylerSelectContent,
   DestylerSelectGroup,
   DestylerSelectIcon,
@@ -22,11 +19,10 @@ import {
   DestylerSelectTrigger,
   DestylerSelectValue,
   DestylerSelectViewport,
-  DestylerPopoverContent,
-  DestylerPopoverPortal,
-  DestylerPopoverRoot,
-  DestylerPopoverTrigger,
-} from 'destyler'
+} from '../../../packages/components/select'
+import {DestylerInfoRoot,} from '../../../packages/components/info'
+import {DestylerButton,} from '../../../packages/components/button'
+import {DestylerIcon} from '../../../packages/components/icon'
 
 const appVersion = import.meta.env.APP_VERSION
 const replVersion = import.meta.env.REPL_VERSION
