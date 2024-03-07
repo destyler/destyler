@@ -29,10 +29,10 @@ interface Version {
 }
 
 const versions = reactive<Record<VersionKey, Version>>({
-  elementPlus: {
+  destyler: {
     text: 'Destyler',
     published: getSupportedEpVersions(nightly),
-    active: store.versions.elementPlus,
+    active: store.versions.destyler,
   },
   vue: {
     text: 'Vue',
@@ -54,7 +54,7 @@ async function setVersion(key: VersionKey, v: string) {
 
 const toggleNightly = () => {
   store.toggleNightly(nightly.value)
-  setVersion('elementPlus', 'latest')
+  setVersion('destyler', 'latest')
 }
 
 async function copyLink() {
@@ -151,7 +151,7 @@ nav {
 
   height: var(--nav-height);
   background-color: var(--bg);
-  box-shadow: 0 0 6px var(--el-color-primary);
+  border-bottom: 1px solid var(--border);
 
   .el-select {
     width: 140px;

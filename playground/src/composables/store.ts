@@ -72,7 +72,6 @@ export const useStore = (initial: Initial) => {
   )
   const userImportMap = computed<ImportMap>(() => {
     const code = state.files[IMPORT_MAP]?.code.trim()
-    console.info(state.files[IMPORT_MAP]?.code)
     if (!code) return {}
     let map: ImportMap = {}
     try {

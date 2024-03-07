@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Repl, type SFCOptions } from '@vue/repl'
 import Monaco from '@vue/repl/monaco-editor'
-import type { ImportMap } from '@/utils/import-map'
 import type { UserOptions } from '@/composables/store'
 
 const loading = ref(true)
@@ -18,10 +17,6 @@ const sfcOptions: SFCOptions = {
 const initialUserOptions: UserOptions = {}
 
 const pr = new URLSearchParams(location.search).get('pr')
-if (pr) {
-  initialUserOptions.showHidden = true
-  initialUserOptions.styleSource = `https://preview-${pr}-element-plus.surge.sh/bundle/index.css`
-}
 
 const store = useStore({
   serializedState: location.hash.slice(1),
@@ -29,23 +24,6 @@ const store = useStore({
   pr,
 })
 
-if (pr) {
-  const map: ImportMap = {
-    imports: {
-      'element-plus': `https://preview-${pr}-element-plus.surge.sh/bundle/index.full.min.mjs`,
-      'element-plus/': 'unsupported',
-    },
-  }
-  store.state.files[IMPORT_MAP].code = JSON.stringify(map, undefined, 2)
-  const url = `${location.origin}${location.pathname}#${store.serialize()}`
-  history.replaceState({}, '', url)
-}
-
-if (store.pr) {
-  if (!store.userOptions.styleSource)
-    store.userOptions.styleSource = `https://preview-${store.pr}-element-plus.surge.sh/bundle/index.css`
-  store.versions.elementPlus = 'preview'
-}
 // eslint-disable-next-line unicorn/prefer-top-level-await
 store.init().then(() => (loading.value = false))
 if (!store.pr && store.userOptions.styleSource) {
@@ -86,9 +64,6 @@ const refreshPreview = () => {
       @keydown="handleKeydown"
     />
   </div>
-  <template v-else>
-    <div v-loading="{ text: 'Loading...' }" h-100vh />
-  </template>
 </template>
 
 <style>
@@ -104,9 +79,11 @@ body {
   height: calc(100vh - var(--nav-height)) !important;
 }
 
-.dark .vue-repl,
+.dark .vue-repl{
+  --color-branding: #FAFAFA !important;
+}
 .vue-repl {
-  --color-branding: var(--el-color-primary) !important;
+  --color-branding: #18181B !important;
 }
 
 .dark body {
