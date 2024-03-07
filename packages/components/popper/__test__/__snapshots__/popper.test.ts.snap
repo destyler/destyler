@@ -18,21 +18,6 @@ exports[`give default Popper > should render correctly and match snapshot 1`] = 
       style="animation: none;"
     >
        Content 
-      <span
-        style="position: absolute; top: 0px; transform-origin: center 0; transform: rotate(180deg); visibility: hidden;"
-      >
-        <svg
-          height="10"
-          preserveAspectRatio="none"
-          style="display: block;"
-          viewBox="0 0 30 10"
-          width="5"
-        >
-          <polygon
-            points="0,0 30,0 15,10"
-          />
-        </svg>
-      </span>
     </div>
   </div>
   
