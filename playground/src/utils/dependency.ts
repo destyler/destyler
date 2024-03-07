@@ -60,16 +60,6 @@ export const genImportMap = (
       version: vue,
       path: '/dist/shared.esm-bundler.js',
     },
-    'destyler': {
-      pkg: nightly ? 'destyler' : 'destyler',
-      version: destyler,
-      path: '/dist/index.mjs',
-    },
-    'destyler/': {
-      pkg: 'destyler',
-      version: destyler,
-      path: '/',
-    },
     '@destyler/aspect-radio': {
       pkg: '@destyler/aspect-radio',
       version: destyler,

@@ -5,7 +5,7 @@ import { type ImportMap, mergeImportMap } from '@/utils/import-map'
 import { IS_DEV } from '@/constants'
 import mainCode from '../template/main.vue?raw'
 import welcomeCode from '../template/welcome.vue?raw'
-import elementPlusCode from '../template/destyler.js?raw'
+import destylerCode from '../template/destyler.js?raw'
 import tsconfigCode from '../template/tsconfig.json?raw'
 import type { UnwrapNestedRefs } from 'vue'
 
@@ -108,7 +108,7 @@ export const useStore = (initial: Initial) => {
     (version) => {
       const file = new File(
         ELEMENT_PLUS_FILE,
-        generateElementPlusCode(version, userOptions.value.styleSource).trim(),
+        generateDestylerCode(version, userOptions.value.styleSource).trim(),
         hideFile.value
       )
       state.files[ELEMENT_PLUS_FILE] = file
@@ -117,7 +117,7 @@ export const useStore = (initial: Initial) => {
     { immediate: true }
   )
 
-  function generateElementPlusCode(version: string, styleSource?: string) {
+  function generateDestylerCode(version: string, styleSource?: string) {
     const style = styleSource
       ? styleSource.replace('#VERSION#', version)
       : genCdnLink(
@@ -129,7 +129,7 @@ export const useStore = (initial: Initial) => {
       '/dist/index.css',
       '/theme-chalk/dark/css-vars.css'
     )
-    return elementPlusCode
+    return destylerCode
       .replace('#STYLE#', style)
       .replace('#DARKSTYLE#', darkStyle)
   }

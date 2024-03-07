@@ -5,8 +5,7 @@ import Unocss from 'unocss/vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import pkg from './package.json'
+import pkg from '../package.json'
 import replPkg from '@vue/repl/package.json' assert { type: 'json' }
 
 const pathSrc = path.resolve(__dirname, 'src')
@@ -48,17 +47,11 @@ export default defineConfig({
         'vue',
         '@vueuse/core'
       ],
-      resolvers: [
-        ElementPlusResolver()
-      ],
       dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
     Components({
       dirs: [
         path.resolve(pathSrc, 'components')
-      ],
-      resolvers: [
-        ElementPlusResolver()
       ],
       dts: path.resolve(pathSrc, 'components.d.ts'),
     }),
