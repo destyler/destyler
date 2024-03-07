@@ -383,7 +383,7 @@ export const genImportMap = (
     '@internationalized/date': {
       pkg: '@internationalized/date',
       version: '3.5.2',
-      path: '/dist/main.min.js',
+      path: '/+esm',
     },
     'aria-hidden': {
       pkg: 'aria-hidden',
@@ -393,12 +393,12 @@ export const genImportMap = (
     '@vueuse/core': {
       pkg: '@vueuse/core',
       version: '10.9.0',
-      path: '/index.iife.min.js',
+      path: '/+esm',
     },
     '@vueuse/shared': {
       pkg: '@vueuse/shared',
       version: '10.9.0',
-      path: '/index.iife.min.js',
+      path: '/+esm',
     },
     'defu': {
       pkg: 'defu',
