@@ -1,0 +1,33 @@
+name: Docs Preview Deploy
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PLAYGROUND_PROJECT_ID }}
+on:
+  push:
+    paths:
+      - 'playground/**'
+    branches:
+      - main
+
+jobs:
+  Deploy-Preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Prod Deploy
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
