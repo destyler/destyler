@@ -19,10 +19,10 @@ import {
   DestylerSelectTrigger,
   DestylerSelectValue,
   DestylerSelectViewport,
-} from '../../../packages/components/select/src'
-import {DestylerInfoRoot,} from '../../../packages/components/info/src'
-import {DestylerButton,} from '../../../packages/components/button/src'
-import {DestylerIcon} from '../../../packages/components/icon/src'
+  DestylerInfoRoot,
+  DestylerButton,
+  DestylerIcon
+} from 'destyler'
 
 const appVersion = import.meta.env.APP_VERSION
 const replVersion = import.meta.env.REPL_VERSION
