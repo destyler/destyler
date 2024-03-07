@@ -1,9 +1,13 @@
 import { createApp } from 'vue'
-import 'splitpanes/dist/splitpanes.css'
-import 'virtual:windi.css'
-import './styles/main.css'
-import App from './App.vue'
+import '@unocss/reset/tailwind.css'
+import '@vue/repl/style.css'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+import 'uno.css'
+import App from '@/App.vue'
 
-const app = createApp(App)
+// @ts-expect-error Custom window property
+window.VUE_DEVTOOLS_CONFIG = {
+  defaultSelectedAppId: 'repl',
+}
 
-app.mount('#app')
+createApp(App).mount('#app')
