@@ -197,11 +197,8 @@ nav {
 
   height: var(--nav-height);
   background-color: var(--bg);
+  color: #000;
   border-bottom: 1px solid var(--border);
-
-  .el-select {
-    width: 140px;
-  }
 }
 
 .dark nav {
@@ -210,6 +207,7 @@ nav {
   --border: #383838;
 
   --at-apply: 'shadow-none';
+  color: #FFF;
   border-bottom: 1px solid var(--border);
 }
 </style>
