@@ -1,62 +1,63 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import AutoImport from 'unplugin-auto-import/vite'
+import Unocss from 'unocss/vite'
+import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
-import WindiCSS from 'vite-plugin-windicss'
-import Icons from 'unplugin-icons/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import pkg from '../package.json'
+import replPkg from '@vue/repl/package.json' assert { type: 'json' }
 
-import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
-import IconsResolver from 'unplugin-icons/resolver'
+const pathSrc = path.resolve(__dirname, 'src')
 
-import { copyVuePlugin } from './plugins/copy-vue'
-
-const prefix = 'monaco-editor/esm/vs'
-
-// https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
-      '@vue/compiler-sfc': '@vue/compiler-sfc/dist/compiler-sfc.esm-browser.js',
-      '@destyler/components': `${path.resolve(__dirname, '../packages/components')}/`,
+      '@': pathSrc,
     },
+  },
+  define: {
+    'import.meta.env.APP_VERSION': JSON.stringify(pkg.version),
+    'import.meta.env.REPL_VERSION': JSON.stringify(replPkg.version),
   },
   build: {
     rollupOptions: {
-      output: {
-        manualChunks: {
-          htmlWorker: ['./src/monaco/languages/html/html.worker'],
-          tsWorker: [`${prefix}/language/typescript/ts.worker`],
-          editorWorker: [`${prefix}/editor/editor.worker`],
-        },
-      },
+      external: ['typescript'],
     },
   },
-  optimizeDeps: {
-    exclude: ['consolidate', 'velocityjs', 'dustjs-linkedin', 'atpl', 'liquor', 'twig', 'ejs', 'eco', 'jazz', 'hamljs', 'hamlet', 'jqtpl', 'whiskers', 'haml-coffee', 'hogan.js', 'templayed', 'handlebars', 'underscore', 'lodash', 'walrus', 'mustache', 'just', 'ect', 'mote', 'toffee', 'dot', 'bracket-template', 'ractive', 'htmling', 'babel-core', 'plates', 'react-dom/server', 'react', 'vash', 'slm', 'marko', 'teacup/lib/express', 'coffee-script', 'squirrelly', 'twing'],
+  server: {
+    host: true,
   },
   plugins: [
-    Vue(),
-    Icons(),
-    copyVuePlugin(),
-    WindiCSS({
-      scan: {
-        include: ['src/**/*.{vue,html,jsx,tsx}', 'index.html'],
+    vue({
+      script: {
+        defineModel: true,
+        propsDestructure: true,
+        fs: {
+          fileExists: fs.existsSync,
+          readFile: (file) => fs.readFileSync(file, 'utf-8'),
+        },
       },
     }),
     AutoImport({
+      dirs: [
+        path.resolve(pathSrc, 'composables')
+      ],
       imports: [
         'vue',
-        '@vueuse/core',
+        '@vueuse/core'
       ],
+      dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
     Components({
-      dirs: ['src/components'],
-      resolvers: [
-        IconsResolver(),
-        HeadlessUiResolver(),
+      dirs: [
+        path.resolve(pathSrc, 'components')
       ],
+      dts: path.resolve(pathSrc, 'components.d.ts'),
     }),
+    Unocss(),
   ],
+  optimizeDeps: {
+    exclude: ['@vue/repl'],
+  },
 })
