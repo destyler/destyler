@@ -21,7 +21,7 @@
     "@types/semver": "^7.5.8",
     "@unocss/transformer-directives": "^0.58.5",
     "@vue/tsconfig": "^0.5.1",
-    "destyler": "workspace:*",
+    "destyler": "latest",
     "sass": "^1.71.1",
     "unocss": "^0.58.5",
     "unplugin-auto-import": "^0.17.5",
