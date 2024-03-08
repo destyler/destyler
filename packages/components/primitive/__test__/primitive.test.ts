@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, h, markRaw } from 'vue'
-import { DestylerPrimitive } from '../src/primitive'
+import { DestylerPrimitive } from '../src'
 
 describe('test Primitive functionalities', () => {
   it('should render div element correctly', () => {
@@ -96,8 +96,8 @@ describe('test Primitive functionalities', () => {
 
     it('should render the Component that passed in as', () => {
       const Button = markRaw(defineComponent({
-        setup(props, { slots }) {
-          return () => h('button', { id: 'custom-button' }, slots)
+        setup() {
+          return () => h('button', { id: 'custom-button' })
         },
       }))
 

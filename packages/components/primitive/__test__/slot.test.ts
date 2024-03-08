@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h } from 'vue'
-import { DestylerSlot } from '../src/slot'
+import { DestylerSlot } from '../src'
 
 describe('test DestylerSlot functionalities', () => {
   it('should work with import on demand', () => {

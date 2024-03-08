@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { DestylerLabel } from '../src/label'
+import { DestylerLabel } from '../src'
 
 describe('basic', () => {
   it('should work with import on demand', () => {

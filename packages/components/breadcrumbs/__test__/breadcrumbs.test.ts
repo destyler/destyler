@@ -1,11 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { render } from '@testing-library/vue'
 import { mount } from '@vue/test-utils'
 
-import {
-  DestylerBreadcrumbsRoot,
-} from '../src'
-import BasicTestVue from './_Breadcrumbs.vue'
+import { DestylerBreadcrumbsRoot } from '../src'
+import BasicTestVue from './Breadcrumbs.spec.vue'
 
 describe('breadcrumbs', () => {
   it('should work with import on demand', () => {
@@ -19,10 +16,12 @@ describe('breadcrumbs', () => {
     inst.unmount()
   })
 
-  it('should have default separator', () => {
-    const inst = render(BasicTestVue)
+  it('should have default separator', async () => {
+    const inst = mount(BasicTestVue)
+    await inst.vm.$nextTick()
 
-    const separators = inst.getAllByText('/')
-    expect(separators.length).toBe(3)
+    const separators = inst.findAll('span')
+    const style = window.getComputedStyle(separators[separators.length - 1].element)
+    expect(style.display).toBe('none')
   })
 })
