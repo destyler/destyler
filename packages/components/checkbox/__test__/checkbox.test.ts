@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 import { findByTestId } from '@testing-library/vue'
-import Checkbox from '../demos/Checkbox.demo.vue'
 import { handleSubmit } from '../../../../test/utils'
+import Checkbox from './Checkbox.spec.vue'
 
 globalThis.ResizeObserver = class ResizeObserver {
   cb: any

@@ -10,7 +10,7 @@ describe('given a default AspectRatio', async () => {
   beforeEach(() => {
     wrapper = mount(DestylerAspectRadio, {
       slots: {
-        default: `<img src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">`,
+        default: `<img src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" class="h-full w-full object-cover" alt="Destyler Image">`,
       },
     })
   })
