@@ -1,5 +1,6 @@
 {
   "name": "@destyler/focus-scope",
+  "type": "module",
   "version": "0.0.2",
   "description": "unstyled focusScope component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",

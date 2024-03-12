@@ -1,5 +1,6 @@
 {
   "name": "@destyler/navigation",
+  "type": "module",
   "version": "0.0.2",
   "description": "unstyled navigation component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",

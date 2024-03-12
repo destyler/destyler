@@ -1,5 +1,6 @@
 {
   "name": "@destyler/icon",
+  "type": "module",
   "version": "0.0.2",
   "description": "unstyled icon component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
