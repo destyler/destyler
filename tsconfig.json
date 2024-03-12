@@ -3,8 +3,12 @@
     "target": "es2016",
     "jsx": "preserve",
     "lib": ["DOM", "ESNext"],
+    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
+    "paths": {
+      "~/*": ["./"]
+    },
     "resolveJsonModule": true,
     "types": [
       "vite/client",
@@ -18,6 +22,11 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
+  "references": [
+    {
+      "path": "./tsconfig.test.json"
+    }
+  ],
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }

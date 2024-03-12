@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import Slider from '../demos/Slider.demo.vue'
-import { handleSubmit } from '../../../../test/utils'
+import { handleSubmit } from '~/test/utils'
 
 describe('given default Slider', () => {
   globalThis.ResizeObserver = class ResizeObserver {
