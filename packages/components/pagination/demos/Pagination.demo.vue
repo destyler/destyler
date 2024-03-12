@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerPaginationEllipsis, DestylerPaginationFirst, DestylerPaginationLast, DestylerPaginationList, DestylerPaginationListItem, DestylerPaginationNext, DestylerPaginationPrev, DestylerPaginationRoot } from '../src'
+import { DestylerPaginationEllipsis, DestylerPaginationList, DestylerPaginationListItem, DestylerPaginationNext, DestylerPaginationPrev, DestylerPaginationRoot } from '../src'
 </script>
 
 <template>

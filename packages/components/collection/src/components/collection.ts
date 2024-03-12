@@ -3,6 +3,7 @@ import { createContext } from '@destyler/shared'
 import { DestylerSlot } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 
+// eslint-disable-next-line ts/ban-types
 interface CollectionContext<ItemData = {}> {
   collectionRef: Ref<HTMLElement | undefined>
   itemMap: Ref<Map<HTMLElement, { ref: HTMLElement } & ItemData>>
@@ -13,6 +14,7 @@ const ITEM_DATA_ATTR = 'data-destyler-collection-item'
 
 export const [injectCollectionContext, provideCollectionContext] = createContext<CollectionContext>('CollectionProvider')
 
+// eslint-disable-next-line ts/ban-types
 export function createCollection<ItemData = {}>(attrName = ITEM_DATA_ATTR) {
   const itemMap = ref<Map<HTMLElement, { ref: HTMLElement } & ItemData>>(new Map())
   const collectionRef = ref<HTMLElement>()
@@ -59,6 +61,7 @@ export const DestylerCollectionItem = defineComponent({
   },
 })
 
+// eslint-disable-next-line ts/ban-types
 export function useCollection<ItemData = {}>(fallback?: CollectionContext<ItemData>) {
   const context = fallback ?? injectCollectionContext() as CollectionContext<ItemData>
 

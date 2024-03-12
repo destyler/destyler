@@ -33,8 +33,8 @@ export const DestylerRangeCalendarGrid = defineComponent({
   },
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props, {
-      "tabindex": '-1',
-      "role": 'grid',
+      'tabindex': '-1',
+      'role': 'grid',
       'aria-readonly': this.rootContext.readonly ? true : undefined,
       'aria-disabled': this.rootContext.disabled ? true : undefined,
       'data-readonly': this.rootContext.readonly ? '' : undefined,

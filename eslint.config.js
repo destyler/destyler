@@ -2,6 +2,8 @@ import antfu from '@antfu/eslint-config'
 
 export default antfu({
   ignores: [
-    'playground',
+    'examples/**',
+    '**/demos/**',
+    '**/qrcodegen.ts',
   ],
 })

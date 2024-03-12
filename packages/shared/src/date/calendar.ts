@@ -5,7 +5,7 @@
 import { type DateValue, endOfMonth, endOfYear, startOfMonth, startOfYear } from '@internationalized/date'
 import { chunk } from '../naive/chunk'
 import type { Grid } from './types'
-import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek,isAfter,isBefore } from './index'
+import { getDaysInMonth, getLastFirstDayOfWeek, getNextLastDayOfWeek, isAfter, isBefore } from './index'
 
 export type WeekDayFormat = 'narrow' | 'short' | 'long'
 

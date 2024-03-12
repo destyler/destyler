@@ -16,6 +16,7 @@ const ITEM_DATA_ATTR = 'data-destyler-collection-item'
 type ContextValue = Ref<HTMLElement[]>
 
 export function useCollection(key?: string, name = ITEM_DATA_ATTR) {
+  // eslint-disable-next-line symbol-description
   const COLLECTION_SYMBOL = key ?? (Symbol() as InjectionKey<ContextValue>)
 
   const createCollection = (sourceRef?: Ref<HTMLElement | undefined>) => {

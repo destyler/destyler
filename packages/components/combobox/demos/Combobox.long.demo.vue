@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import {
-  DestylerComboboxAnchor,
   DestylerComboboxContent,
   DestylerComboboxEmpty,
   DestylerComboboxGroup,
   DestylerComboboxInput,
   DestylerComboboxItem,
-  DestylerComboboxItemIndicator,
-  DestylerComboboxLabel,
   DestylerComboboxRoot,
-  DestylerComboboxSeparator,
-  DestylerComboboxTrigger,
   DestylerComboboxViewport,
 } from '../src'
 

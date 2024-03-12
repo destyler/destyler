@@ -1,5 +1,6 @@
 {
   "name": "@destyler/hover-card",
+  "type": "module",
   "version": "0.0.2",
   "description": "unstyled hover card component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",

@@ -5,7 +5,6 @@ import {
   DestylerBreadcrumbsLabel,
   DestylerBreadcrumbsRoot,
   DestylerBreadcrumbsSeparator,
-  DestylerIcon,
 } from 'destyler'
 
 const props = defineProps<{

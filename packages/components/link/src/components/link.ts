@@ -20,11 +20,13 @@ export const destylerLinkProps = {
     default: false,
   },
   target: {
+    // eslint-disable-next-line ts/ban-types
     type: String as PropType<'_blank' | '_parent' | '_self' | '_top' | (string & {}) | null>,
     required: false,
     default: undefined,
   },
   rel: {
+    // eslint-disable-next-line ts/ban-types
     type: String as PropType<'noopener' | 'noreferrer' | 'nofollow' | 'sponsored' | 'ugc' | (string & {}) | null>,
     required: false,
     default: undefined,

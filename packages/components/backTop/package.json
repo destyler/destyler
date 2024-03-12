@@ -1,5 +1,6 @@
 {
   "name": "@destyler/back-top",
+  "type": "module",
   "version": "0.0.2",
   "description": "unstyled backTop component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",

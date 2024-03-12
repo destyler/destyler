@@ -1,16 +1,20 @@
+import path from 'node:path'
 import { defineConfig } from 'vitest/config'
 import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname)}/`,
+    },
+  },
   plugins: [
     Vue(),
   ],
   test: {
-    setupFiles: './vitest.setup.ts',
+    setupFiles: path.resolve(__dirname, './vitest.setup.ts'),
     globals: true,
     environment: 'jsdom',
-    exclude: ['**/node_modules/**'],
-    include: ['./**/*.test.{ts,js}'],
     coverage: {
       provider: 'istanbul', // or 'v8'
     },

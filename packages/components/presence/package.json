@@ -1,5 +1,6 @@
 {
   "name": "@destyler/presence",
+  "type": "module",
   "version": "0.0.2",
   "description": "unstyled presence component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
