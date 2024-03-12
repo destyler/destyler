@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerPopperAnchor, DestylerPopperArrow, DestylerPopperContent, DestylerPopperRoot } from '../src'
+import { DestylerPopperAnchor, DestylerPopperContent, DestylerPopperRoot } from '../src'
 </script>
 
 <template>

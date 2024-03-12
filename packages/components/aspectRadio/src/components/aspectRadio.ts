@@ -39,7 +39,7 @@ export const DestylerAspectRadio = defineComponent({
   },
   render() {
     return h('div', {
-      "style": {
+      'style': {
         position: 'relative',
         width: '100%',
         paddingBottom: `${this.aspect}%`,

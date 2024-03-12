@@ -164,6 +164,7 @@ const placeholders: PlaceholderMap = {
   'zh-TW': { year: '年', month: '月', day: '日' },
 }
 
+// eslint-disable-next-line ts/ban-types
 function getPlaceholderObj(locale: SupportedLocale | (string & {})) {
   if (!isSupportedLocale(locale)) {
     const localeLanguage = getLocaleLanguage(locale)
@@ -183,6 +184,7 @@ type Field = 'era' | 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | '
 export function getPlaceholder(
   field: Field,
   value: string,
+  // eslint-disable-next-line ts/ban-types
   locale: SupportedLocale | (string & {}),
 ) {
   if (isPlaceholderField(field))

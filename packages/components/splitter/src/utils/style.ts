@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'vue'
-import type { DragState,PanelData   } from '../types'
+import type { DragState, PanelData } from '../types'
 import {
   EXCEEDED_HORIZONTAL_MAX,
   EXCEEDED_HORIZONTAL_MIN,

@@ -10,7 +10,7 @@ export default defineBuildConfig({
     ...externals,
     '@vue/runtime-core',
     '@vue/reactivity',
-    '@vue/shared'
+    '@vue/shared',
   ],
   clean: true,
   declaration: true,

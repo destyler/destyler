@@ -67,7 +67,7 @@ export const DestylerDialogContentImpl = defineComponent({
       'aria-describedby': this.rootContext.descriptionId,
       'aria-labelledby': this.rootContext.titleId,
       'data-state': getOpenState(this.rootContext.open.value),
-      "isDismissable": true,
+      'isDismissable': true,
       'onDismiss': () => {
         this.rootContext.onOpenChange(false)
       },

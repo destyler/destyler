@@ -13,7 +13,7 @@ async function run() {
     {
       stdio: 'inherit',
       cwd: rootPath,
-    }
+    },
   )
 }
 

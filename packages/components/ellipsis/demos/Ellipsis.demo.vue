@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { DestylerEllipsisArrow, DestylerEllipsisContent, DestylerEllipsisPortal, DestylerEllipsisProvider, DestylerEllipsisRoot, DestylerEllipsisTrigger } from '../src'
+import { DestylerEllipsisContent, DestylerEllipsisPortal, DestylerEllipsisProvider, DestylerEllipsisRoot, DestylerEllipsisTrigger } from '../src'
 </script>
 
 <template>

@@ -1,3 +1,6 @@
+/* eslint-disable  */
+/* prettier-ignore */
+// @ts-nocheck
 /*
  * QR Code generator library (TypeScript)
  *
