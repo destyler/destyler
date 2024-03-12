@@ -34,7 +34,32 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
