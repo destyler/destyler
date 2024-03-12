@@ -22,11 +22,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.test.json"
-    }
-  ],
   "include": ["src/**/*.ts"],
   "exclude": ["dist", "node_modules"]
 }
