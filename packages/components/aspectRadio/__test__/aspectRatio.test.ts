@@ -4,7 +4,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { DestylerAspectRadio } from '../src'
 
-describe('given a default AspectRatio', async () => {
+describe('aspectRatio', async () => {
   let wrapper: VueWrapper<InstanceType<typeof DestylerAspectRadio>>
 
   beforeEach(() => {
@@ -15,11 +15,11 @@ describe('given a default AspectRatio', async () => {
     })
   })
 
-  it('should pass axe accessibility tests', async () => {
+  it('axe accessibility', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
-  it('should render as snapshot', () => {
+  it('render as snapshot', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 })
