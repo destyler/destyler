@@ -54,7 +54,9 @@ export const DestylerCollapseTrigger = defineComponent({
       'data-orientation': this.rootContext.orientation,
       'data-state': this.itemContext.dataState.value,
       'disabled': this.itemContext.disabled.value,
-      'onClick': this.changeItem,
+      'onClick': () => {
+        this.changeItem()
+      },
     }, {
       default: () => this.$slots.default?.(),
     }), [
