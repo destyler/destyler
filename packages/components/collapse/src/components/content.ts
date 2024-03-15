@@ -1,7 +1,6 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, withDirectives } from 'vue'
+import { defineComponent, h } from 'vue'
 import { DestylerCollapsibleContent } from '@destyler/collapsible'
-import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCollapseRootContext } from './root'
@@ -29,7 +28,7 @@ export const DestylerCollapseContent = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerCollapsibleContent, {
+    return h(DestylerCollapsibleContent, {
       'role': 'region',
       'open': this.itemContext.open.value,
       'hidden': !this.itemContext.open.value,
@@ -41,8 +40,6 @@ export const DestylerCollapseContent = defineComponent({
       'style': '--destyler_collapse_content_width: var(--destyler_collapsible_content_width);--destyler_collapse_content_height: var(--destyler_collapsible_content_height);',
     }, {
       default: () => this.$slots.default?.(),
-    }), [
-      [BindOnceDirective, { id: this.itemContext.triggerId }],
-    ])
+    })
   },
 })

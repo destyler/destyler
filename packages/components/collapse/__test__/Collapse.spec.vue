@@ -12,7 +12,11 @@ import {
   DestylerCollapseTrigger,
 } from '../src'
 
-withDefaults(defineProps<{ type?: DestylerCollapseRootProps['type'] }>(), { type: 'single' })
+withDefaults(defineProps<{
+  type?: DestylerCollapseRootProps['type']
+}>(), {
+  type: 'single',
+})
 const emits = defineEmits(['update:modelValue'])
 const values = ['One', 'Two', 'Three', 'Four']
 const count = ref(1)
