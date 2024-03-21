@@ -21,6 +21,4 @@ describe('given default Toolbar', () => {
     const selected = triggers.filter(i => i.attributes('data-state') === 'on').map(i => i.element)
     expect(selected.includes(triggers[4].element)).toBeTruthy()
   })
-
-  // Since Toolbar is just a collection of ToggleGroup, so would exclude the test here
 })
