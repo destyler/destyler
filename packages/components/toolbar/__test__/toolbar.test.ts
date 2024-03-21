@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 import Toolbar from './Toolbar.spec.vue'
 
-describe('given default Toolbar', () => {
+describe('toolbar', () => {
   let wrapper: VueWrapper<InstanceType<typeof Toolbar>>
   let triggers: DOMWrapper<HTMLElement>[]
 
