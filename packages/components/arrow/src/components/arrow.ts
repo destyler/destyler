@@ -42,14 +42,12 @@ export const DestylerArrow = defineComponent({
       height: this.$props.height,
       viewBox: this.asChild ? undefined : '0 0 30 10',
       preserveAspectRatio: this.asChild ? undefined : 'none',
-    }), {
-      default: () => {
-        return this.$slots.default
-          ? this.$slots.default?.()
-          : h('polygon', {
-            points: '0,0 30,0 15,10',
-          })
-      },
+    }), () => {
+      return this.$slots.default
+        ? this.$slots.default?.()
+        : h('polygon', {
+          points: '0,0 30,0 15,10',
+        })
     })
   },
 })

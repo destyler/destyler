@@ -47,6 +47,7 @@ export const DestylerCollapseTrigger = defineComponent({
       'ref': this.itemContext.currentRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
+      'data-destyler-collection-item': '',
       'aria-controls': this.itemContext.triggerId,
       'aria-disabled': this.itemContext.disabled.value || undefined,
       'aria-expanded': this.itemContext.open.value || false,

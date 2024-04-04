@@ -8,7 +8,7 @@ const handleComplete = (e: string[]) => alert(e.join(''))
 
 <template>
   <div>
-    <Label for="pin-input" class="text-white">Pin Input</Label>
+    <label for="pin-input" class="text-white">Pin Input</label>
     <DestylerOtpInputRoot
       id="pin-input"
       v-model="value"

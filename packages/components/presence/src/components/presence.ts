@@ -69,7 +69,7 @@ export const DestylerPresence = defineComponent({
 
     return () => {
       if (forceMount.value || present.value || isPresent.value) {
-        return h(slots.default({ present: isPresent })[0] as VNode, {
+        return h(slots.default?.({ present: isPresent })[0] as VNode, {
           ref: (v) => {
             const el = unrefElement(v as HTMLElement)
             if (typeof el?.hasAttribute === 'undefined')

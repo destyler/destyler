@@ -8,7 +8,9 @@ import { DestylerPaginationEllipsis, DestylerPaginationList, DestylerPaginationL
       <DestylerPaginationPrev
         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-#F4F4F5 dark:hover:bg-#27272A hover:text-#18181B dark:hover:text-#FAFAFA h-9 px-4 py-2 gap-1 pr-2.5"
       >
-        <Icon icon="radix-icons:chevron-left" class="w-4 h-4" />
+        <svg>
+          <path/>
+        </svg>
         <label>Previous</label>
       </DestylerPaginationPrev>
       <template v-for="(page, index) in items">
@@ -26,7 +28,9 @@ import { DestylerPaginationEllipsis, DestylerPaginationList, DestylerPaginationL
           :index="index"
           class="flex h-9 w-9 items-center justify-center"
         >
-          <Icon icon="radix-icons:dots-horizontal" class="w-4 h-4" />
+        <svg>
+          <path/>
+        </svg>
           <span class="absolute w-px h-px overflow-hidden whitespace-nowrap -m-px p-0 border-0" style="clip: rect(0, 0, 0, 0)">More pages</span>
         </DestylerPaginationEllipsis>
       </template>
@@ -34,7 +38,9 @@ import { DestylerPaginationEllipsis, DestylerPaginationList, DestylerPaginationL
         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-#F4F4F5 dark:hover:bg-#27272A hover:text-#18181B dark:hover:text-#FAFAFA h-9 px-4 py-2 gap-1 pr-2.5"
       >
         <label>Next</label>
-        <Icon icon="radix-icons:chevron-right" class="w-4 h-4" />
+        <svg>
+          <path/>
+        </svg>
       </DestylerPaginationNext>
     </DestylerPaginationList>
   </DestylerPaginationRoot>
