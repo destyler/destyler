@@ -33,8 +33,6 @@ export const DestylerEllipsisArrow = defineComponent({
   name: 'DestylerEllipsisArrow',
   props: destylerEllipsisArrowProps,
   render() {
-    return h(DestylerPopperArrow, mergeProps(this.$props), {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })
