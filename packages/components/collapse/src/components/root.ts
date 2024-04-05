@@ -1,5 +1,5 @@
 import type { Component, ComputedRef, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { computed, defineComponent, h, renderSlot, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
 import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
@@ -100,6 +100,6 @@ export const DestylerCollapseRoot = defineComponent({
       ref: (el: any) => this.forwardRef(el),
       asChild: this.$props.asChild,
       as: this.$props.as,
-    }, this.$slots.default?.({ modelValue: this.modelValue }))
+    }, renderSlot(this.$slots, 'default', { modelValue: this.modelValue }))
   },
 })

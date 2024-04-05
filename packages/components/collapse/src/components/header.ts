@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, renderSlot } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -40,8 +40,6 @@ export const DestylerCollapseHeader = defineComponent({
       'data-orientation': this.rootContext.orientation,
       'data-state': this.itemContext.dataState.value,
       'data-disabled': this.itemContext.dataDisabled.value,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, renderSlot(this.$slots, 'default'))
   },
 })

@@ -11,22 +11,22 @@ import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 
 <template>
   <Box>
-    <CraftBox>
+    <CraftBox name="AspectRatioDemo">
       <AspectRatioDemo />
     </CraftBox>
-    <CraftBox>
+    <CraftBox name="BackTopDemo">
       <BackTopDemo />
     </CraftBox>
-    <CraftBox>
+    <CraftBox name="BreadcrumbsDemo">
       <BreadcrumbsDemo />
     </CraftBox>
-    <CraftBox>
+    <CraftBox name="ButtonDemo">
       <ButtonDemo />
     </CraftBox>
-    <CraftBox >
+    <CraftBox name="CheckboxDemo" >
       <CheckboxDemo />
     </CraftBox>
-    <CraftBox>
+    <CraftBox v-if="false" name="CollapseDemo">
       <CollapseDemo />
     </CraftBox>
   </Box>

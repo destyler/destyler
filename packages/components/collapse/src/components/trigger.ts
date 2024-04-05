@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h, withDirectives } from 'vue'
+import { defineComponent, h, renderSlot, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerCollapsibleTrigger } from '@destyler/collapsible'
 import { BindOnceDirective } from '@destyler/directives'
@@ -58,9 +58,7 @@ export const DestylerCollapseTrigger = defineComponent({
       'onClick': () => {
         this.changeItem()
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, renderSlot(this.$slots, 'default')), [
       [BindOnceDirective, { id: this.itemContext.triggerId }],
     ])
   },
