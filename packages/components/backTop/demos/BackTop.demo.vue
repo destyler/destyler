@@ -13,7 +13,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="text-dark dark:text-light">
     <div v-if="show">
       <DestylerBackTop :listen="scrollContainerRef">
         back top

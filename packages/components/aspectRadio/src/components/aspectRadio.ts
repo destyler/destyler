@@ -45,7 +45,7 @@ export const DestylerAspectRadio = defineComponent({
         paddingBottom: `${this.aspect}%`,
       },
       'data-destyler-aspect-ratio-wrapper': '',
-    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, h(DestylerPrimitive, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       style: {
