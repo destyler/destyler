@@ -45,8 +45,6 @@ export const DestylerComboboxCancel = defineComponent({
       onClick: () => {
         this.handleClick()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

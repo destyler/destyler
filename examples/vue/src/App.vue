@@ -8,6 +8,7 @@ import ButtonDemo from '@destyler/demo/button/demos/Button.demo.vue'
 import CheckboxDemo from '@destyler/demo/checkbox/demos/Checkbox.demo.vue'
 import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 import CollapsibleDemo from '@destyler/demo/collapsible/demos/Collapsible.demo.vue'
+import ComboboxDemo from '@destyler/demo/combobox/demos/Combobox.demo.vue'
 </script>
 
 <template>
@@ -27,11 +28,14 @@ import CollapsibleDemo from '@destyler/demo/collapsible/demos/Collapsible.demo.v
     <CraftBox name="CheckboxDemo" >
       <CheckboxDemo />
     </CraftBox>
+    <CraftBox v-if="false" name="CollapseDemo">
+      <CollapseDemo />
+    </CraftBox>
     <CraftBox name="CollapsibleDemo" >
       <CollapsibleDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="CollapseDemo">
-      <CollapseDemo />
+    <CraftBox name="ComboboxDemo" >
+      <ComboboxDemo />
     </CraftBox>
   </Box>
 </template>

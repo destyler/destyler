@@ -23,7 +23,7 @@ const vegetables = ref(['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek'])
 <template>
   <div>{{ v }}</div>
   <DestylerComboboxRoot v-model="v" class="relative">
-    <DestylerComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-#71D083 shadow-[0_2px_10px] shadow-black/10 hover:bg-#232225 hover:bg-op-5 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-#46A758 outline-none">
+    <DestylerComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-#71D083 shadow-[0_2px_10px] shadow-black/10 hover:bg-white hover:bg-op-5 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-#46A758 outline-none">
       <DestylerComboboxInput class="!bg-transparent outline-none text-#71D083 h-full selection:bg-#25482D placeholder-#625F69" placeholder="Placeholder..." />
       <DestylerComboboxTrigger>
         <svg>
