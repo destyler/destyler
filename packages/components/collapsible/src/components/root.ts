@@ -76,6 +76,6 @@ export const DestylerCollapsibleRoot = defineComponent({
       'asChild': this.$props.asChild,
       'data-state': this.$props.open ? 'open' : 'closed',
       'data-disabled': this.$props.disabled ? '' : undefined,
-    }, this.$slots.default?.({ open: this.open }))
+    }, () => this.$slots.default?.({ open: this.open }))
   },
 })
