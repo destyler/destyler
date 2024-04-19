@@ -27,8 +27,6 @@ export const DestylerContextMenuSeparator = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuSeparator, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuSeparator, this.$props, () => this.$slots.default?.())
   },
 })

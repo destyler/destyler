@@ -27,8 +27,6 @@ export const DestylerContextMenuPortal = defineComponent({
   name: 'DestylerContextMenuPortal',
   props: destylerContextMenuPortalProps,
   render() {
-    return h(DestylerMenuPortal, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuPortal, this.$props, () => this.$slots.default?.())
   },
 })

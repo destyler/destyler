@@ -66,8 +66,6 @@ export const DestylerContextMenuRoot = defineComponent({
       'onUpdate:open': (value: boolean) => {
         this.open = value
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

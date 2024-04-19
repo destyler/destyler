@@ -9,6 +9,7 @@ import CheckboxDemo from '@destyler/demo/checkbox/demos/Checkbox.demo.vue'
 import CollapseDemo from '@destyler/demo/collapse/demos/Collapse.demo.vue'
 import CollapsibleDemo from '@destyler/demo/collapsible/demos/Collapsible.demo.vue'
 import ComboboxDemo from '@destyler/demo/combobox/demos/Combobox.demo.vue'
+import ContentMenuDemo from '@destyler/demo/contextMenu/demos/ContentMenu.demo.vue'
 </script>
 
 <template>
@@ -36,6 +37,9 @@ import ComboboxDemo from '@destyler/demo/combobox/demos/Combobox.demo.vue'
     </CraftBox>
     <CraftBox name="ComboboxDemo" >
       <ComboboxDemo />
+    </CraftBox>
+    <CraftBox v-if="false" name="ContentMenuDemo" >
+      <ContentMenuDemo />
     </CraftBox>
   </Box>
 </template>
