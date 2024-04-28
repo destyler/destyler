@@ -59,8 +59,8 @@ const foodGroups: Array<{
         {{ foodGroup.label }}
       </DestylerMenuLabel>
       <DestylerMenuItem
-        v-for="(food, index) in foodGroup.foods"
-        :key="index"
+        v-for="(food) in foodGroup.foods"
+        :key="food.value"
         @select="handleSelect(); emits('select', $event)"
       >
         {{ food.label }}

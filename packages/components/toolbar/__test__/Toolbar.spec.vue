@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import path from 'node:path'
 import { ref } from 'vue'
 import {
   DestylerToolbarButton,
