@@ -31,10 +31,10 @@ export type DestylerHoverCardRootProps = ExtractPublicPropTypes<typeof destylerH
 
 export interface HoverCardRootContext {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
-  onOpen(): void
-  onClose(): void
-  onDismiss(): void
+  onOpenChange: (open: boolean) => void
+  onOpen: () => void
+  onClose: () => void
+  onDismiss: () => void
   hasSelectionRef: Ref<boolean>
   isPointerDownOnContentRef: Ref<boolean>
 }
@@ -87,8 +87,6 @@ export const DestylerHoverCardRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, {}, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPopperRoot, {}, () => this.$slots.default?.())
   },
 })

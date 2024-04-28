@@ -55,9 +55,7 @@ export const DestylerImageFallback = defineComponent({
       ? h(DestylerPrimitive, {
         as: 'span',
         asChild: this.$props.asChild,
-      }, {
-        default: () => this.$slots.default?.(),
-      })
+      }, () => this.$slots.default?.())
       : null
   },
 })

@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { DestylerAvatarFallback, DestylerAvatarImage, DestylerAvatarRoot } from '../src'
+import { DestylerImage, DestylerImageFallback, DestylerImageRoot } from '../src'
 
-const props = defineProps<{
-  src: string
-}>()
 </script>
 
 <template>
-  <DestylerAvatarRoot>
-    <DestylerAvatarImage
-      :src="props.src"
-      alt="Elone Hoo"
-    />
-    <DestylerAvatarFallback
-      :delay-ms="350"
-    >
-      EH
-    </DestylerAvatarFallback>
-  </DestylerAvatarRoot>
+  <DestylerImageRoot class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+      <DestylerImage class="aspect-square h-full w-full" src="https://elonehoo.me/avatar.png" />
+      <DestylerImageFallback class="flex h-full w-full items-center justify-center rounded-full bg-#F4F4F5 dark:bg-#27272A">
+        EH
+      </DestylerImageFallback>
+    </DestylerImageRoot>
 </template>

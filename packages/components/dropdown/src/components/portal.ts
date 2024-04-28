@@ -27,8 +27,6 @@ export const DestylerDropdownPortal = defineComponent({
   name: 'DestylerDropdownPortal',
   props: destylerDropdownPortalProps,
   render() {
-    return h(DestylerMenuPortal, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuPortal, this.$props, () => this.$slots.default?.())
   },
 })

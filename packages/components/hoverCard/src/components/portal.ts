@@ -26,8 +26,6 @@ export const DestylerHoverCardPortal = defineComponent({
   name: 'DestylerHoverCardPortal',
   props: destylerHoverCardPortalProps,
   render() {
-    return h(DestylerTeleport, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerTeleport, this.$props, () => this.$slots.default?.())
   },
 })

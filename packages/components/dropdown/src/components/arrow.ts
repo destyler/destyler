@@ -37,8 +37,6 @@ export const DestylerDropdownArrow = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuArrow, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuArrow, this.$props, () => this.$slots.default?.())
   },
 })

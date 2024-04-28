@@ -41,9 +41,7 @@ const DestylerLabel = defineComponent({
       for: this.$props.for,
       asChild: this.$props.asChild,
       onMousedown: this.handleMousedown,
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })
 

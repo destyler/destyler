@@ -37,20 +37,14 @@ export const DestylerHoverCardContent = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.forceMount || this.rootContext.open.value,
-    }, {
-      default: () => {
-        return h(DestylerHoverCardContentImpl, mergeProps(this.forwarded, {
-          ref: (el: any) => this.forwardRef(el),
-          onPointerenter: (event: any) => {
-            excludeTouch(this.rootContext.onOpen)(event)
-          },
-          onPointerleave: (event: any) => {
-            excludeTouch(this.rootContext.onClose)(event)
-          },
-        }), {
-          default: () => this.$slots.default?.(),
-        })
+    }, () => h(DestylerHoverCardContentImpl, mergeProps(this.forwarded, {
+      ref: (el: any) => this.forwardRef(el),
+      onPointerenter: (event: any) => {
+        excludeTouch(this.rootContext.onOpen)(event)
       },
-    })
+      onPointerleave: (event: any) => {
+        excludeTouch(this.rootContext.onClose)(event)
+      },
+    }), () => this.$slots.default?.()))
   },
 })

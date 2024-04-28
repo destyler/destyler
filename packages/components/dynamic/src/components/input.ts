@@ -137,9 +137,7 @@ export const DestylerDynamicInput = defineComponent({
           this.context.onInputKeydown(event)
       },
 
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.context.id?.value }],
     ])
   },

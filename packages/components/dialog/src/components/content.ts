@@ -54,20 +54,15 @@ export const DestylerDialogContent = defineComponent({
     const useVShow = this.rootContext.modal.value
     return h(DestylerPresence, {
       present: this.$props.forceMount || this.rootContext.open.value,
-    }, [
+    }, () => [
       useVShow
         ? h(DestylerDialogContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
           ref: (el: any) => this.forwardRef(el),
           onOpenAutoFocus: (event: any) => {
             this.$emit('openAutoFocus', event)
           },
-        }), {
-          default: () => this.$slots.default?.(),
-        })
-        : h(DestylerDialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs), {
-          ref: (el: any) => this.forwardRef(el),
-          default: () => this.$slots.default?.(),
-        }),
+        }), () => this.$slots.default?.())
+        : h(DestylerDialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, { ref: (el: any) => this.forwardRef(el) }), () => this.$slots.default?.()),
     ])
   },
 })

@@ -45,9 +45,7 @@ export const DestylerDynamicClear = defineComponent({
       'onClick': () => {
         this.handleCancel()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 
 })

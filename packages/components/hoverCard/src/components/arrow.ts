@@ -37,8 +37,6 @@ export const DestylerHoverCardArrow = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerPopperArrow, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPopperArrow, this.$props, () => this.$slots.default?.())
   },
 })

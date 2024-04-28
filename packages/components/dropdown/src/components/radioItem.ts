@@ -45,8 +45,6 @@ export const DestylerDropdownRadioItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuRadioItem, this.forwarded, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuRadioItem, this.forwarded, () => this.$slots.default?.())
   },
 })

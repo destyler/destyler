@@ -33,9 +33,7 @@ export const DestylerDynamicItemText = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, this.$props, {
-      default: () => this.$slots.default ? this.$slots.default?.() : this.itemContext.value.value,
-    }), [
+    return withDirectives(h(DestylerPrimitive, this.$props, () => this.$slots.default ? this.$slots.default?.() : this.itemContext.value.value), [
       [BindOnceDirective, { id: this.itemContext.textId }],
     ])
   },

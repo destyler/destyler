@@ -70,20 +70,14 @@ export const DestylerDynamicItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollectionItem, {}, {
-      default: () => {
-        return h(DestylerPrimitive, {
-          'ref': (el: any) => this.forwardRef(el),
-          'as': this.$props.as,
-          'asChild': this.$props.asChild,
-          'aria-labelledby': this.textId,
-          'aria-current': this.isSelected,
-          'data-disabled': this.disabled ? '' : undefined,
-          'data-state': this.isSelected ? 'active' : 'inactive',
-        }, {
-          default: () => this.$slots.default?.(),
-        })
-      },
-    })
+    return h(DestylerCollectionItem, {}, () => h(DestylerPrimitive, {
+      'ref': (el: any) => this.forwardRef(el),
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'aria-labelledby': this.textId,
+      'aria-current': this.isSelected,
+      'data-disabled': this.disabled ? '' : undefined,
+      'data-state': this.isSelected ? 'active' : 'inactive',
+    }, () => this.$slots.default?.()))
   },
 })

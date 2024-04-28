@@ -37,8 +37,6 @@ export const DestylerDialogClose = defineComponent({
       onClick: () => {
         this.rootContext.onOpenChange(false)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

@@ -59,7 +59,7 @@ export const DestylerDialogContentImpl = defineComponent({
       onUnmountAutoFocus: (event) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, withDirectives(h(DestylerDismissableLayer, mergeProps(this.$attrs, {
+    }, () => withDirectives(h(DestylerDismissableLayer, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
@@ -83,9 +83,7 @@ export const DestylerDialogContentImpl = defineComponent({
       'onPointerDownOutside': (event: any) => {
         this.$emit('pointerDownOutside', event)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ]))
   },

@@ -170,9 +170,7 @@ export const DestylerDropdownContent = defineComponent({
         if (this.rootContext.triggerElement.value?.contains(event.target as HTMLElement))
           event.preventDefault()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ])
   },

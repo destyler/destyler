@@ -44,13 +44,11 @@ export const DestylerDialogOverlay = defineComponent({
     return useVShow
       ? h(DestylerPresence, {
         present: this.$props.forceMount || this.rootContext.open.value,
-      }, h(DestylerDialogOverlayImpl, mergeProps(this.$attrs, {
+      }, () => h(DestylerDialogOverlayImpl, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,
-      }), {
-        default: () => this.$slots.default?.(),
-      }))
+      }), () => this.$slots.default?.()))
       : null
   },
 })

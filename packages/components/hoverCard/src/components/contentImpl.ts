@@ -169,31 +169,25 @@ export const DestylerHoverCardContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onDismiss()
       },
-    }, {
-      default: () => {
-        return h(DestylerPopperContent, mergeProps(this.forwarded, this.$attrs, {
-          ref: (el: any) => this.forwardRef(el),
-          data_state: this.rootContext.open.value ? 'open' : 'closed',
-          style: {
-            'userSelect': this.containSelection ? 'text' : undefined,
-            'WebkitUserSelect': this.containSelection ? 'text' : undefined,
-            '--destyler_hover_card_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-            '--destyler_hover_card_content_available_width': 'var(--destyler_popper_available_width)',
-            '--destyler_hover_card_content_available_height': 'var(--destyler_popper_available_height)',
-            '--destyler_hover_card_trigger_width': 'var(--destyler_popper_anchor_width)',
-            '--destyler_hover_card_trigger_height': 'var(--destyler_popper_anchor_height)',
-          },
-          onPointerdown: (event: any) => {
-            if (event.currentTarget.contains(event.target as HTMLElement))
-              this.containSelection = true
-
-            this.rootContext.hasSelectionRef.value = false
-            this.rootContext.isPointerDownOnContentRef.value = true
-          },
-        }), {
-          default: () => this.$slots.default?.(),
-        })
+    }, () => h(DestylerPopperContent, mergeProps(this.forwarded, this.$attrs, {
+      ref: (el: any) => this.forwardRef(el),
+      data_state: this.rootContext.open.value ? 'open' : 'closed',
+      style: {
+        'userSelect': this.containSelection ? 'text' : undefined,
+        'WebkitUserSelect': this.containSelection ? 'text' : undefined,
+        '--destyler_hover_card_content_transform_origin': 'var(--destyler_popper_transform_origin)',
+        '--destyler_hover_card_content_available_width': 'var(--destyler_popper_available_width)',
+        '--destyler_hover_card_content_available_height': 'var(--destyler_popper_available_height)',
+        '--destyler_hover_card_trigger_width': 'var(--destyler_popper_anchor_width)',
+        '--destyler_hover_card_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    })
+      onPointerdown: (event: any) => {
+        if (event.currentTarget.contains(event.target as HTMLElement))
+          this.containSelection = true
+
+        this.rootContext.hasSelectionRef.value = false
+        this.rootContext.isPointerDownOnContentRef.value = true
+      },
+    }), () => this.$slots.default?.()))
   },
 })
