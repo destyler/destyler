@@ -48,12 +48,10 @@ export const DestylerMenuItemIndicator = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || isIndeterminate(this.indicatorContext.checked.value) || this.indicatorContext.checked.value === true,
-    }, h(DestylerPrimitive, {
+    }, () => h(DestylerPrimitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-state': getCheckedState(this.indicatorContext.checked.value),
-    }, {
-      default: () => this.$slots.default?.(),
-    }))
+    }, () => this.$slots.default?.()))
   },
 })

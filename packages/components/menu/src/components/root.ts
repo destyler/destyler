@@ -26,13 +26,13 @@ export type DestylerMenuRootProps = ExtractPublicPropTypes<typeof destylerMenuRo
 
 export interface MenuContext {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
+  onOpenChange: (open: boolean) => void
   content: Ref<HTMLElement | undefined>
-  onContentChange(content: HTMLElement | undefined): void
+  onContentChange: (content: HTMLElement | undefined) => void
 }
 
 export interface MenuRootContext {
-  onClose(): void
+  onClose: () => void
   dir: Ref<Direction>
   isUsingKeyboardRef: Ref<boolean>
   modal: Ref<boolean>
@@ -104,8 +104,6 @@ export const DestylerMenuRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, null, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
   },
 })

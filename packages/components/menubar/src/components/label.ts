@@ -27,8 +27,6 @@ export const DestylerMenubarLabel = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuLabel, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuLabel, this.$props, () => this.$slots.default?.())
   },
 })

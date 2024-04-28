@@ -119,7 +119,7 @@ export const DestylerMenuSubContent = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.forceMount || this.menuContext.open.value,
-    }, withDirectives(h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
+    }, () => withDirectives(h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
       'ref': (el: any) => this.forwardRef(el),
       'align': 'start',
       'side': this.rootContext.dir.value === 'rtl' ? 'left' : 'right',
@@ -149,9 +149,7 @@ export const DestylerMenuSubContent = defineComponent({
           event.preventDefault()
         }
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.menuSubContext.contentId }],
     ]))
   },

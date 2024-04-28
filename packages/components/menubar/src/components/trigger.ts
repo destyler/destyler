@@ -60,9 +60,9 @@ export const DestylerMenubarTrigger = defineComponent({
       asChild: true,
       focusable: !this.$props.disabled,
       tabStopId: this.menuContext.value,
-    }, h(DestylerMenuAnchor, {
+    }, () => h(DestylerMenuAnchor, {
       asChild: true,
-    }, withDirectives(h(DestylerPrimitive, {
+    }, () => withDirectives(h(DestylerPrimitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
@@ -109,9 +109,7 @@ export const DestylerMenubarTrigger = defineComponent({
           event.preventDefault()
         }
       }, ['enter', 'space', 'arrow-down']),
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.menuContext.triggerId }],
     ])))
   },

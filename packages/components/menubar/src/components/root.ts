@@ -97,9 +97,7 @@ export const DestylerMenubarRoot = defineComponent({
         return h(DestylerPrimitive, {
           role: 'menubar',
           ref: (el: any) => this.forwardRef(el),
-        }, {
-          default: () => this.$slots.default?.(),
-        })
+        }, () => this.$slots.default?.())
       },
     })
   },

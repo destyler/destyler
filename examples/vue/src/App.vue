@@ -22,6 +22,8 @@ import ImageDemo from '@destyler/demo/image/demos/AvatarBasic.demo.vue'
 import InfoDemo from '@destyler/demo/info/demos/Info.demo.vue'
 import LabelDemo from '@destyler/demo/label/demos/Label.demo.vue'
 import LinkDemo from '@destyler/demo/link/demos/Link.demo.vue'
+import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
+import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
 </script>
 
 <template>
@@ -88,6 +90,12 @@ import LinkDemo from '@destyler/demo/link/demos/Link.demo.vue'
     </CraftBox>
     <CraftBox name="LinkDemo" >
       <LinkDemo />
+    </CraftBox>
+    <CraftBox name="MenuDemo" >
+      <MenuDemo />
+    </CraftBox>
+    <CraftBox name="MenubarDemo" >
+      <MenubarDemo />
     </CraftBox>
   </Box>
 </template>

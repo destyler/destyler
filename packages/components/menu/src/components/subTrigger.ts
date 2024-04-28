@@ -116,7 +116,7 @@ export const DestylerMenuSubTrigger = defineComponent({
   render() {
     return h(DestylerMenuAnchor, {
       asChild: true,
-    }, withDirectives(h(DestylerMenuItemImpl, mergeProps(this.$props, {
+    }, () => withDirectives(h(DestylerMenuItemImpl, mergeProps(this.$props, {
       'ref': (vnode: any) => {
         this.subContext?.onTriggerChange(vnode?.$el)
         return undefined
@@ -141,9 +141,7 @@ export const DestylerMenuSubTrigger = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeyDown(event)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.subContext.contentId }],
     ]))
   },

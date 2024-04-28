@@ -118,12 +118,12 @@ export const destylerMenuContentImplProps = {
 export type DestylerMenuContentImplProps = ExtractPublicPropTypes<typeof destylerMenuContentImplProps>
 
 export interface MenuContentContext {
-  onItemEnter(event: PointerEvent): boolean
-  onItemLeave(event: PointerEvent): void
-  onTriggerLeave(event: PointerEvent): boolean
+  onItemEnter: (event: PointerEvent) => boolean
+  onItemLeave: (event: PointerEvent) => void
+  onTriggerLeave: (event: PointerEvent) => boolean
   searchRef: Ref<string>
   pointerGraceTimerRef: Ref<number>
-  onPointerGraceIntentChange(intent: GraceIntent | null): void
+  onPointerGraceIntentChange: (intent: GraceIntent | null) => void
 }
 
 export const [injectMenuContentContext, provideMenuContentContext] = createContext<MenuContentContext>('DestylerMenuContent')
@@ -298,7 +298,7 @@ export const DestylerMenuContentImpl = defineComponent({
       onUnmountAutoFocus: (event) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, h(DestylerDismissableLayer, {
+    }, () => h(DestylerDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: this.disableOutsidePointerEvents,
       onEscapeKeyDown: (event) => {
@@ -316,7 +316,7 @@ export const DestylerMenuContentImpl = defineComponent({
       onDismiss: () => {
         this.$emit('dismiss')
       },
-    }, h(DestylerRovingFocusGroup, {
+    }, () => h(DestylerRovingFocusGroup, {
       'asChild': true,
       'currentTabStopId': this.currentItemId!,
       'onUpdate:currentTabStopId': (value: string) => {
@@ -330,7 +330,7 @@ export const DestylerMenuContentImpl = defineComponent({
         if (!this.rootContext.isUsingKeyboardRef.value)
           event.preventDefault()
       },
-    }, h(DestylerPopperContent, {
+    }, () => h(DestylerPopperContent, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'menu',
       'as': this.$props.as,
@@ -359,8 +359,6 @@ export const DestylerMenuContentImpl = defineComponent({
       'onPointermove': (event: any) => {
         this.handlePointerMove(event)
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    }))))
+    }, () => this.$slots.default?.()))))
   },
 })

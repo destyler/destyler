@@ -101,8 +101,6 @@ export const DestylerMenuItemImpl = defineComponent({
           return
         this.isFocused = false
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })
