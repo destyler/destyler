@@ -41,10 +41,6 @@ export const DestylerPaginationLast = defineComponent({
       'onClick': () => {
         this.rootContext.onPageChange(this.rootContext.pageCount.value)
       },
-    }), {
-      default: () => {
-        return this.$slots.default ? this.$slots.default?.() : 'Last page'
-      },
-    })
+    }), () => this.$slots.default ? this.$slots.default?.() : 'Last page')
   },
 })

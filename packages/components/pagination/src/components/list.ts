@@ -46,10 +46,6 @@ export const DestylerPaginationList = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, this.$props, {
-      default: () => {
-        return this.$slots.default?.({ items: this.transformedRange })
-      },
-    })
+    return h(DestylerPrimitive, this.$props, () => this.$slots.default?.({ items: this.transformedRange }))
   },
 })

@@ -41,10 +41,6 @@ export const DestylerPaginationNext = defineComponent({
       'onClick': () => {
         this.rootContext.onPageChange(this.rootContext.page.value + 1)
       },
-    }), {
-      default: () => {
-        return this.$slots.default ? this.$slots.default?.() : 'Next Page'
-      },
-    })
+    }), () => this.$slots.default ? this.$slots.default?.() : 'Next Page')
   },
 })

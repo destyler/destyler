@@ -26,6 +26,8 @@ import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
 import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
 import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
 import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
+import OtpInputDemo from '@destyler/demo/otpInput/demos/OtpInput.demo.vue'
+import PaginationDemo from '@destyler/demo/pagination/demos/Pagination.demo.vue'
 </script>
 
 <template>
@@ -104,6 +106,12 @@ import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
     </CraftBox>
     <CraftBox v-if="false" name="NavigationDemo" >
       <NavigationDemo />
+    </CraftBox>
+    <CraftBox name="OtpInputDemo" >
+      <OtpInputDemo />
+    </CraftBox>
+    <CraftBox name="PaginationDemo" >
+      <PaginationDemo />
     </CraftBox>
   </Box>
 </template>

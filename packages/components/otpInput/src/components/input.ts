@@ -193,8 +193,6 @@ export const DestylerOtpInput = defineComponent({
       'onPaste': (event: any) => {
         this.handlePaste(event)
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })
