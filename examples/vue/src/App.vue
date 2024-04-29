@@ -30,6 +30,7 @@ import OtpInputDemo from '@destyler/demo/otpInput/demos/OtpInput.demo.vue'
 import PaginationDemo from '@destyler/demo/pagination/demos/Pagination.demo.vue'
 import PopoverDemo from '@destyler/demo/popover/demos/Popover.unocss.demo.vue'
 import ProgressDemo from '@destyler/demo/progress/demos/Progress.demo.vue'
+import RadioDemo from '@destyler/demo/radio/demos/Radio.demo.vue'
 </script>
 
 <template>
@@ -120,6 +121,9 @@ import ProgressDemo from '@destyler/demo/progress/demos/Progress.demo.vue'
     </CraftBox>
     <CraftBox name="ProgressDemo" >
       <ProgressDemo />
+    </CraftBox>
+    <CraftBox name="RadioDemo" >
+      <RadioDemo />
     </CraftBox>
   </Box>
 </template>

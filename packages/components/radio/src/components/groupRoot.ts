@@ -108,15 +108,13 @@ export const DestylerRadioGroupRoot = defineComponent({
       orientation: this.orientation,
       dir: this.dir,
       loop: this.loop,
-    }, h(DestylerPrimitive, {
+    }, () => h(DestylerPrimitive, {
       'role': 'radiogroup',
       'data-disabled': this.disabled ? '' : undefined,
       'asChild': this.$props.asChild,
       'aria-required': this.required,
       'dir': this.dir,
       'name': this.name,
-    }, {
-      default: () => this.$slots.default?.(),
-    }))
+    }, () => this.$slots.default?.()))
   },
 })

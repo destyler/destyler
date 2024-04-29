@@ -95,7 +95,7 @@ export const DestylerRadio = defineComponent({
       'onClick': withModifiers((event: any) => {
         this.handleClick(event)
       }, ['stop']),
-    }), [
+    }), () => [
       this.$slots.default?.(),
       this.isFormControl
         ? h('input', {
