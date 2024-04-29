@@ -28,6 +28,8 @@ import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
 import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
 import OtpInputDemo from '@destyler/demo/otpInput/demos/OtpInput.demo.vue'
 import PaginationDemo from '@destyler/demo/pagination/demos/Pagination.demo.vue'
+import PopoverDemo from '@destyler/demo/popover/demos/Popover.unocss.demo.vue'
+import ProgressDemo from '@destyler/demo/progress/demos/Progress.demo.vue'
 </script>
 
 <template>
@@ -112,6 +114,12 @@ import PaginationDemo from '@destyler/demo/pagination/demos/Pagination.demo.vue'
     </CraftBox>
     <CraftBox name="PaginationDemo" >
       <PaginationDemo />
+    </CraftBox>
+    <CraftBox v-if="false" name="PopoverDemo" >
+      <PopoverDemo />
+    </CraftBox>
+    <CraftBox name="ProgressDemo" >
+      <ProgressDemo />
     </CraftBox>
   </Box>
 </template>

@@ -34,8 +34,6 @@ export const DestylerPopoverArrow = defineComponent({
   props: destylerPopoverArrowProps,
   render() {
     return h(DestylerPopperArrow, mergeProps(this.$props, {
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

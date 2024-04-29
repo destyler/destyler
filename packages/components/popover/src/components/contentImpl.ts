@@ -132,7 +132,7 @@ export const DestylerPopoverContentImpl = defineComponent({
       onUnmountAutoFocus: (event) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, h(DestylerDismissableLayer, {
+    }, () => h(DestylerDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: this.$props.disableOutsidePointerEvents,
       onPointerDownOutside: (event) => {
@@ -160,9 +160,7 @@ export const DestylerPopoverContentImpl = defineComponent({
         '--destyler_popover_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_popover_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ])))
   },

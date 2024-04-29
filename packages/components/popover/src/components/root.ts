@@ -78,8 +78,6 @@ export const DestylerPopoverRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperRoot, null, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
   },
 })
