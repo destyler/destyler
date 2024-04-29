@@ -24,6 +24,8 @@ import LabelDemo from '@destyler/demo/label/demos/Label.demo.vue'
 import LinkDemo from '@destyler/demo/link/demos/Link.demo.vue'
 import MenuDemo from '@destyler/demo/menu/demos/Menu.unocss.demo.vue'
 import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
+import ModalDemo from '@destyler/demo/modal/demos/Modal.demo.vue'
+import NavigationDemo from '@destyler/demo/navigation/demos/Navigation.demo.vue'
 </script>
 
 <template>
@@ -52,13 +54,13 @@ import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
     <CraftBox name="ComboboxDemo" >
       <ComboboxDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="ContentMenuDemo" >
+    <CraftBox name="ContentMenuDemo" >
       <ContentMenuDemo />
     </CraftBox>
     <CraftBox name="CountdownDemo" >
       <CountdownDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="DialogDemo" >
+    <CraftBox name="DialogDemo" >
       <DialogDemo />
     </CraftBox>
     <CraftBox name="DividerDemo" >
@@ -67,7 +69,7 @@ import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
     <CraftBox name="DraggableDemo" >
       <DraggableDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="DropdownDemo" >
+    <CraftBox name="DropdownDemo" >
       <DropdownDemo />
     </CraftBox>
     <CraftBox name="DynamicDemo" >
@@ -96,6 +98,12 @@ import MenubarDemo from '@destyler/demo/menubar/demos/Menubar.unocss.demo.vue'
     </CraftBox>
     <CraftBox name="MenubarDemo" >
       <MenubarDemo />
+    </CraftBox>
+    <CraftBox name="ModalDemo" >
+      <ModalDemo />
+    </CraftBox>
+    <CraftBox v-if="false" name="NavigationDemo" >
+      <NavigationDemo />
     </CraftBox>
   </Box>
 </template>

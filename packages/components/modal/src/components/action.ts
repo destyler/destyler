@@ -13,8 +13,6 @@ export const DestylerModalAction = defineComponent({
   name: 'DestylerModalAction',
   props: destylerModalActionProps,
   render() {
-    return h(DestylerModalCancel, mergeProps(this.$props), {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerModalCancel, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

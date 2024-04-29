@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.6.3",
+    "@destyler/icon": "workspace:^",
+    "@destyler/link": "workspace:^",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/user-event": "^14.5.2",
     "@testing-library/vue": "^8.0.2",

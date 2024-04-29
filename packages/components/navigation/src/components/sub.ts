@@ -100,9 +100,7 @@ export const DestylerNavigationSub = defineComponent({
       'data-orientation': this.$props.orientation,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 
 })

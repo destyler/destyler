@@ -39,11 +39,9 @@ export const DestylerModalOverlay = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || this.rootContext.open.value,
-    }, h(DestylerModalOverlayImpl, mergeProps(this.$attrs, {
+    }, () => h(DestylerModalOverlayImpl, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => this.$slots.default?.()))
   },
 })

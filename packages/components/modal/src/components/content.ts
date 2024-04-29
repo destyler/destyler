@@ -35,12 +35,10 @@ export const DestylerModalContent = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || this.rootContext.open.value,
-    }, h(DestylerModalContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
+    }, () => h(DestylerModalContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
       onOpenAutoFocus: (event: any) => {
         this.$emit('openAutoFocus', event)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => this.$slots.default?.()))
   },
 })

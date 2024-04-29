@@ -11,6 +11,12 @@ importers:
       '@antfu/eslint-config':
         specifier: 2.6.3
         version: 2.6.3(@vue/compiler-sfc@3.4.21)(eslint@8.57.0)(typescript@5.3.3)(vitest@1.3.1)
+      '@destyler/icon':
+        specifier: workspace:^
+        version: link:packages/components/icon
+      '@destyler/link':
+        specifier: workspace:^
+        version: link:packages/components/link
       '@testing-library/jest-dom':
         specifier: ^6.4.2
         version: 6.4.2(vitest@1.3.1)

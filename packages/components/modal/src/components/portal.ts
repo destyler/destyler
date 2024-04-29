@@ -1,16 +1,20 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import { DestylerTeleport } from '@destyler/teleport'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerModalPortalProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
+  to: {
+    type: [String, Object] as PropType<string | HTMLElement>,
     required: false,
-    default: 'div',
+    default: 'body',
   },
-  asChild: {
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
@@ -23,11 +27,6 @@ export const DestylerModalPortal = defineComponent({
   name: 'DestylerModalPortal',
   props: destylerModalPortalProps,
   render() {
-    return h(DestylerTeleport, {
-      as: this.$props.as,
-      asChild: this.$props.asChild,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerTeleport, this.$props, () => this.$slots.default?.())
   },
 })
