@@ -27,6 +27,6 @@ export const DestylerSelectIcon = defineComponent({
       'aria-hidden': '',
       'as': this.$props.as,
       'asChild': this.$props.asChild,
-    }, this.$slots.default ? this.$slots.default?.() : '▼')
+    }, () => this.$slots.default ? this.$slots.default?.() : '▼')
   },
 })

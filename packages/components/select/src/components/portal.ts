@@ -27,8 +27,6 @@ export const DestylerSelectPortal = defineComponent({
   name: 'DestylerSelectPortal',
   props: destylerSelectPortalProps,
   render() {
-    return h(DestylerTeleport, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerTeleport, this.$props, () => this.$slots.default?.())
   },
 })

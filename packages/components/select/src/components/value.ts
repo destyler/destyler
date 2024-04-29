@@ -58,7 +58,7 @@ export const DestylerSelectValue = defineComponent({
       style: {
         pointerEvents: 'none',
       },
-    }, [
+    }, () => [
       shouldShowPlaceholder(this.rootContext.modelValue?.value)
         ? this.$props.placeholder
         : this.$slots.default?.(),

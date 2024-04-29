@@ -31,6 +31,9 @@ import PaginationDemo from '@destyler/demo/pagination/demos/Pagination.demo.vue'
 import PopoverDemo from '@destyler/demo/popover/demos/Popover.unocss.demo.vue'
 import ProgressDemo from '@destyler/demo/progress/demos/Progress.demo.vue'
 import RadioDemo from '@destyler/demo/radio/demos/Radio.demo.vue'
+import RangeCalendarDemo from '@destyler/demo/rangeCalendar/demos/RangeCalendar.demo.vue'
+import ScrollAreaDemo from '@destyler/demo/scrollArea/demos/ScrollArea.demo.vue'
+import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
 </script>
 
 <template>
@@ -125,5 +128,16 @@ import RadioDemo from '@destyler/demo/radio/demos/Radio.demo.vue'
     <CraftBox name="RadioDemo" >
       <RadioDemo />
     </CraftBox>
+    <CraftBox name="ScrollAreaDemo" >
+      <ScrollAreaDemo />
+    </CraftBox>
+    <CraftBox name="SelectDemo" >
+      <SelectDemo />
+    </CraftBox>
   </Box>
+  <div class="mt-4">
+    <CraftBox class="h-100!" name="RangeCalendarDemo" >
+      <RangeCalendarDemo />
+    </CraftBox>
+  </div>
 </template>

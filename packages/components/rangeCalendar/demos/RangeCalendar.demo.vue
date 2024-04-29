@@ -1,66 +1,59 @@
 <script setup lang="ts">
-import type { DateValue } from '@internationalized/date'
+import { DestylerIcon } from '@destyler/icon'
 import { DestylerRangeCalendarCell, DestylerRangeCalendarCellTrigger, DestylerRangeCalendarGrid, DestylerRangeCalendarGridBody, DestylerRangeCalendarGridHead, DestylerRangeCalendarGridRow, DestylerRangeCalendarHeadCell, DestylerRangeCalendarHeader, DestylerRangeCalendarHeading, DestylerRangeCalendarNext, DestylerRangeCalendarPrev, DestylerRangeCalendarRoot } from '../src'
 
-function isDateUnavailable(date: DateValue) {
-  return date.day === 17 || date.day === 18
-}
 </script>
 
 <template>
   <DestylerRangeCalendarRoot
     v-slot="{ weekDays, grid }"
-    :is-date-unavailable="isDateUnavailable"
-    class="rounded-xl bg-white p-4 shadow-xl"
+    class="p-3 rounded-md border border-#E4E4E7 dark:border-#27272A shadow"
     fixed-weeks
   >
-    <DestylerRangeCalendarHeader class="flex items-center justify-between">
-      <DestylerRangeCalendarPrev
-        class="inline-flex items-center cursor-pointer text-black justify-center rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
-      >
-        <svg>
-          <path/>
-        </svg>
-      </DestylerRangeCalendarPrev>
-      <DestylerRangeCalendarHeading class="text-[15px] text-black font-medium" />
-      <DestylerRangeCalendarNext
-        class="inline-flex items-center cursor-pointer justify-center text-black rounded-[9px] bg-transparent w-8 h-8 hover:bg-black hover:text-white active:scale-98 active:transition-all focus:shadow-[0_0_0_2px] focus:shadow-black"
-      >
-        <svg>
-          <path/>
-        </svg>
-      </DestylerRangeCalendarNext>
-    </DestylerRangeCalendarHeader>
-    <div
-      class="flex flex-col space-y-4 pt-4 sm:flex-row sm:space-x-4 sm:space-y-0"
-    >
-      <DestylerRangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse select-none space-y-1">
-        <DestylerRangeCalendarGridHead>
-          <DestylerRangeCalendarGridRow class="mb-1 grid w-full grid-cols-7">
-            <DestylerRangeCalendarHeadCell
-              v-for="day in weekDays" :key="day"
-              class="rounded-md text-xs text-green8"
-            >
-              {{ day }}
-            </DestylerRangeCalendarHeadCell>
-          </DestylerRangeCalendarGridRow>
-        </DestylerRangeCalendarGridHead>
-        <DestylerRangeCalendarGridBody class="grid">
-          <DestylerRangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="grid grid-cols-7">
-            <DestylerRangeCalendarCell
-              v-for="weekDate in weekDates"
-              :key="weekDate.toString()"
-              :date="weekDate"
-            >
-              <DestylerRangeCalendarCellTrigger
-                :day="weekDate"
-                :month="month.value"
-                class="relative flex items-center justify-center rounded-full whitespace-nowrap text-sm font-normal text-black w-8 h-8 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black data-[disabled]:text-black/30 data-[selected]:!bg-green10 data-[selected]:text-white hover:bg-green5 data-[highlighted]:bg-green5 data-[unavailable]:pointer-events-none data-[unavailable]:text-black/30 data-[unavailable]:line-through before:absolute before:top-[5px] before:hidden before:rounded-full before:w-1 before:h-1 before:bg-white data-[today]:before:block data-[today]:before:bg-green9 "
-              />
-            </DestylerRangeCalendarCell>
-          </DestylerRangeCalendarGridRow>
-        </DestylerRangeCalendarGridBody>
-      </DestylerRangeCalendarGrid>
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0">
+      <div class="space-y-4 rdp-caption_start rdp-caption_end">
+        <DestylerRangeCalendarHeader class="flex justify-center pt-1 relative items-center">
+          <DestylerRangeCalendarPrev
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium dark:ring-offset-#09090B ring-offset-#FFFFFF transition-colors focus-visible:outline-none focus-visible:ring-2 dark:focus-visible:ring-#D4D4D8 focus-visible:ring-#A1A1AA focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border dark:border-#27272A border-#E4E4E7 dark:hover:bg-#27272A hover:bg-#F4F4F5 dark:hover:text-#FAFAFA hover:text-#18181B h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
+          >
+            <DestylerIcon name="radix-icons:chevron-left" class="w-4 h-4" />
+          </DestylerRangeCalendarPrev>
+          <DestylerRangeCalendarHeading class="text-sm font-medium" />
+          <DestylerRangeCalendarNext
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium dark:ring-offset-#09090B ring-offset-#FFFFFF transition-colors focus-visible:outline-none focus-visible:ring-2 dark:focus-visible:ring-#D4D4D8 focus-visible:ring-#A1A1AA focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border dark:border-#27272A border-#E4E4E7 dark:hover:bg-#27272A hover:bg-#F4F4F5 dark:hover:text-#FAFAFA hover:text-#18181B h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
+          >
+            <DestylerIcon name="radix-icons:chevron-right" class="w-4 h-4" />
+          </DestylerRangeCalendarNext>
+        </DestylerRangeCalendarHeader>
+        <DestylerRangeCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse space-y-1">
+          <DestylerRangeCalendarGridHead>
+            <DestylerRangeCalendarGridRow class="flex">
+              <DestylerRangeCalendarHeadCell
+                v-for="day in weekDays" :key="day"
+                class="dark:text-#A1A1AA mx-1px text-#71717A rounded-md w-8 font-normal text-[0.8rem]"
+              >
+                {{ day }}
+              </DestylerRangeCalendarHeadCell>
+            </DestylerRangeCalendarGridRow>
+          </DestylerRangeCalendarGridHead>
+          <DestylerRangeCalendarGridBody>
+            <DestylerRangeCalendarGridRow v-for="(weekDates, index) in month.rows" :key="`weekDate-${index}`" class="flex w-full mt-2">
+              <DestylerRangeCalendarCell
+                v-for="weekDate in weekDates"
+                :key="weekDate.toString()"
+                :date="weekDate"
+                class="relative p-0 text-center text-sm focus-within:relative focus-within:z-20 "
+              >
+                <DestylerRangeCalendarCellTrigger
+                  :day="weekDate"
+                  :month="month.value"
+                  class="inline-flex mx-1px items-center justify-center whitespace-nowrap rounded-md text-sm dark:ring-offset-#09090B ring-offset-#FFFFFF transition-colors focus-visible:outline-none focus-visible:ring-2 dark:focus-visible:ring-#D4D4D8 focus-visible:ring-#A1A1AA focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:hover:bg-#27272A hover:bg-#F4F4F5 dark:hover:text-#FAFAFA hover:text-#18181B h-8 w-8 p-0 font-normal data-[disabled]:text-op-30 dark:text-#FFFFFF text-#09090b data-[selected]:bg-#27272A dark:data-[selected]:bg-#F4F4F5 data-[selected]:text-#FAFAFA dark:data-[selected]:text-#18181B data-[highlighted]:bg-#27272A/80 dark:data-[highlighted]:bg-#F4F4F5/80 data-[highlighted]:text-#FAFAFA dark:data-[highlighted]:text-#18181B data-[unavailable]:pointer-events-none data-[unavailable]:text-black/30 data-[unavailable]:line-through"
+                />
+              </DestylerRangeCalendarCell>
+            </DestylerRangeCalendarGridRow>
+          </DestylerRangeCalendarGridBody>
+        </DestylerRangeCalendarGrid>
+      </div>
     </div>
   </DestylerRangeCalendarRoot>
 </template>

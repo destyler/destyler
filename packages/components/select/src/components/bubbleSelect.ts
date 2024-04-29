@@ -54,15 +54,13 @@ export const DestylerBubbleSelect = defineComponent({
   render() {
     return h(DestylerVisuallyhidden, {
       asChild: true,
-    }, h('select', mergeProps(this.$props, {
+    }, () => h('select', mergeProps(this.$props, {
       'ref': 'selectElement',
       'modelValue': this.value,
       'onUpdate:modelValue': (value: any) => {
         this.$emit('update:value', value)
       },
       'defaultValue': this.value,
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), this.$slots.default?.()))
   },
 })

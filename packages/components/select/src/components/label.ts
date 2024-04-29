@@ -37,9 +37,7 @@ export const DestylerSelectLabel = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, this.$props, {
-      default: () => this.$slots.default?.(),
-    }), [
+    return withDirectives(h(DestylerPrimitive, this.$props, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.groupContext.id }],
     ])
   },

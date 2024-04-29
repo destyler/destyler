@@ -42,8 +42,6 @@ export const DestylerSelectGroup = defineComponent({
     return h(DestylerPrimitive, mergeProps(this.$props, {
       'role': 'group',
       'aria-labelledby': this.id,
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })
