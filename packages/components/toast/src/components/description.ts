@@ -25,8 +25,6 @@ export const DestylerToastDescription = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPrimitive, this.$props, () => this.$slots.default?.())
   },
 })

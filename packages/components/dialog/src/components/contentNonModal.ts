@@ -53,8 +53,6 @@ export const DestylerDialogContentNonModal = defineComponent({
         if (event.detail.originalEvent.type === 'focusin' && this.hasPointerDownOutsideRef)
           event.preventDefault()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

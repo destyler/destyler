@@ -226,32 +226,24 @@ export const DestylerDynamicRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollectionSlot, {}, {
-      default: () => {
-        return h(DestylerPrimitive, {
-          'ref': (el: any) => this.forwardRef(el),
-          'dir': this.dir,
-          'as': this.$props.as,
-          'asChild': this.$props.asChild,
-          'data-invalid': this.isInvalidInput ? '' : undefined,
-          'data-disabled': this.disabled ? '' : undefined,
-          'data-focused': this.focused ? '' : undefined,
-        }, {
-          default: () => {
-            return [
-              this.$slots.default?.({ modelValue: this.modelValue }),
-              this.isFormControl && this.$props.name
-                ? h(DestylerVisuallyhiddenInput, {
-                  name: this.$props.name,
-                  value: this.modelValue,
-                  required: this.required,
-                  disabled: this.disabled,
-                })
-                : null,
-            ]
-          },
+    return h(DestylerCollectionSlot, {}, () => h(DestylerPrimitive, {
+      'ref': (el: any) => this.forwardRef(el),
+      'dir': this.dir,
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'data-invalid': this.isInvalidInput ? '' : undefined,
+      'data-disabled': this.disabled ? '' : undefined,
+      'data-focused': this.focused ? '' : undefined,
+    }, () => [
+      this.$slots.default?.({ modelValue: this.modelValue }),
+      this.isFormControl && this.$props.name
+        ? h(DestylerVisuallyhiddenInput, {
+          name: this.$props.name,
+          value: this.modelValue,
+          required: this.required,
+          disabled: this.disabled,
         })
-      },
-    })
+        : null,
+    ]))
   },
 })

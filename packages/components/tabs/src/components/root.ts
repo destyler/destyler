@@ -94,8 +94,6 @@ export const DestylerTabsRoot = defineComponent({
       'asChild': this.$props.asChild,
       'dir': this.dir,
       'data-orientation': this.orientation,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

@@ -37,8 +37,6 @@ export const DestylerModalCancel = defineComponent({
       onClick: () => {
         this.rootContext.onOpenChange(false)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

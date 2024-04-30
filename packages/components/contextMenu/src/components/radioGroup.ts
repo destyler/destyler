@@ -38,8 +38,6 @@ export const DestylerContextMenuRadioGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuRadioGroup, mergeProps(this.$props, this.emitsAsProps), {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuRadioGroup, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
   },
 })

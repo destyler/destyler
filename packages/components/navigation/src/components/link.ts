@@ -60,8 +60,6 @@ export const DestylerNavigationLink = defineComponent({
       'onClick': (event: any) => {
         this.handleClick(event)
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

@@ -26,8 +26,6 @@ export const DestylerMenuSeparator = defineComponent({
     return h(DestylerPrimitive, mergeProps(this.$props, {
       'role': 'separator',
       'aria-orientation': 'horizontal',
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

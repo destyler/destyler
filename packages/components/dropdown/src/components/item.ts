@@ -41,8 +41,6 @@ export const DestylerDropdownItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuItem, mergeProps(this.$props, this.emitsAsProps), {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuItem, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
   },
 })

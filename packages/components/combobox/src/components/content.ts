@@ -35,14 +35,8 @@ export const DestylerComboboxContent = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || this.rootContext.open.value,
-    }, {
-      default: () => {
-        return h(DestylerComboboxContentImpl, mergeProps(this.$attrs, this.forwarded, {
-          ref: (el: any) => this.forwardRef(el),
-        }), {
-          default: () => this.$slots.default?.(),
-        })
-      },
-    })
+    }, () => h(DestylerComboboxContentImpl, mergeProps(this.$attrs, this.forwarded, {
+      ref: (el: any) => this.forwardRef(el),
+    }), () => this.$slots.default?.()))
   },
 })

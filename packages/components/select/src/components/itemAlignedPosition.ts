@@ -228,14 +228,12 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
         position: 'fixed',
         zIndex: this.contentZIndex,
       },
-    }, h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
+    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
       ref: (el: any) => this.forwardRef(el),
       style: {
         boxSizing: 'border-box',
         maxHeight: '100%',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => this.$slots.default?.()))
   },
 })

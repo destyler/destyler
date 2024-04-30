@@ -13,7 +13,7 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v0.0.1-beta.${a.length
 <template>
   <DestylerScrollAreaRoot
     style="--scrollbar-size: 10px"
-    class="relative overflow-hidden h-72 w-48 rounded-md border dark:border-#27272A border-#E4E4E7"
+    class="relative overflow-hidden h-64 w-48 rounded-md border dark:border-#27272A border-#E4E4E7"
   >
     <DestylerScrollAreaViewport class="h-full w-full rounded">
       <div class="p-4">

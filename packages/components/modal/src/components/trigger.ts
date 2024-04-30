@@ -49,8 +49,6 @@ export const DestylerModalTrigger = defineComponent({
       'onClick': () => {
         this.rootContext.onOpenToggle()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

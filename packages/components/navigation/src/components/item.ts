@@ -144,8 +144,6 @@ export const DestylerNavigationItem = defineComponent({
       'onKeydown': withModifiers((event: any) => {
         this.handleKeydown(event)
       }, ['up', 'down', 'left', 'right', 'home', 'end', 'space']),
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

@@ -24,14 +24,10 @@ export const DestylerToastAnnounce = defineComponent({
   render() {
     return [
       this.isAnnounced || this.renderAnnounceText
-        ? h(DestylerVisuallyhidden, {}, {
-          default: () => {
-            return [
-              h('template', {}, this.providerContext.label.value),
-              this.$slots.default?.(),
-            ]
-          },
-        })
+        ? h(DestylerVisuallyhidden, null, () => [
+          h('template', null, () => this.providerContext.label.value),
+          this.$slots.default?.(),
+        ])
         : null,
     ]
   },

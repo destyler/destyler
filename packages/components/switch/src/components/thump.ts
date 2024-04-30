@@ -40,6 +40,6 @@ export const DestylerSwitchThump = defineComponent({
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
       'asChild': this.$props.asChild,
       'as': this.$props.as,
-    }, this.$slots.default?.())
+    }, () => this.$slots.default?.())
   },
 })

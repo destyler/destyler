@@ -57,8 +57,6 @@ export const DestylerDynamicItemDelete = defineComponent({
       'onClick': () => {
         this.handleDelete()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

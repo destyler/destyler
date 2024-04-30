@@ -32,9 +32,7 @@ export const DestylerEllipsisContent = defineComponent({
     return useVShow
       ? h(this.rootContext.disableHoverableContent.value ? DestylerEllipsisContentImpl : DestylerEllipsisContentHoverable, {
         ...this.forwarded,
-      }, {
-        default: () => this.$slots.default ? this.$slots.default?.({ text: this.rootContext.text.value }) : this.rootContext.text.value,
-      })
+      }, () => this.$slots.default ? this.$slots.default?.({ text: this.rootContext.text.value }) : this.rootContext.text.value)
       : null
   },
 })

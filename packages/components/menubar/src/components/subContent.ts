@@ -146,8 +146,6 @@ export const DestylerMenubarSubContent = defineComponent({
       'onKeydown': withModifiers((event: any) => {
         this.handleArrowNavigation(event)
       }, ['arrow-right']),
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

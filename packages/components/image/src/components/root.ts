@@ -33,8 +33,6 @@ export const DestylerImageRoot = defineComponent({
     return h(DestylerPrimitive, {
       as: 'span',
       asChild: this.$props.asChild,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

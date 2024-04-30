@@ -136,9 +136,7 @@ export const DestylerContextMenuTrigger = defineComponent({
         'onPointerup': (event: any) => {
           this.handlePointerEvent(event)
         },
-      }), {
-        default: () => this.$slots.default?.(),
-      }),
+      }), () => this.$slots.default?.()),
     ]
   },
 })

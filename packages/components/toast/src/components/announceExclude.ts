@@ -30,8 +30,6 @@ export const DestylerToastAnnounceExclude = defineComponent({
       'asChild': this.asChild,
       'data-destyler-toast-announce-exclude': '',
       'data-destyler-toast-announce-alt': this.$props.altText || undefined,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

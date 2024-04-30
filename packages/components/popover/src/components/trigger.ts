@@ -43,7 +43,7 @@ export const DestylerPopoverTrigger = defineComponent({
   render() {
     return h(this.rootContext.hasCustomAnchor.value ? DestylerPrimitive : DestylerPopperAnchor, {
       asChild: true,
-    }, h(DestylerPrimitive, {
+    }, () => h(DestylerPrimitive, {
       'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
@@ -55,8 +55,6 @@ export const DestylerPopoverTrigger = defineComponent({
       'onClick': () => {
         this.rootContext.onOpenToggle()
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    }))
+    }, () => this.$slots.default?.()))
   },
 })

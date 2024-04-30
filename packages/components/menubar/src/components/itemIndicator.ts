@@ -31,8 +31,6 @@ export const DestylerMenubarItemIndicator = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuItemIndicator, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuItemIndicator, this.$props, () => this.$slots.default?.())
   },
 })

@@ -54,8 +54,6 @@ export const DestylerSliderRange = defineComponent({
         [this.orientation!.startEdge]: `${this.offsetStart}%`,
         [this.orientation!.endEdge]: `${this.offsetEnd}%`,
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

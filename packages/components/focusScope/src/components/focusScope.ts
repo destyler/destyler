@@ -1,5 +1,5 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h, nextTick, reactive, ref, renderSlot, watchEffect } from 'vue'
+import { defineComponent, h, nextTick, reactive, ref, watchEffect } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -191,6 +191,6 @@ export const DestylerFocusScope = defineComponent({
       as: this.$props.as,
       asChild: this.$props.asChild,
       onKeydown: this.handleKeyDown,
-    }, renderSlot(this.$slots, 'default'))
+    }, () => this.$slots.default?.())
   },
 })

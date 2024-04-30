@@ -146,8 +146,6 @@ export const DestylerProgressRoot = defineComponent({
       'data-state': this.progressState,
       'data-value': this.modelValue ?? undefined,
       'data-max': this.max,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

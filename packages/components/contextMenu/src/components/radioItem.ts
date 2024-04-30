@@ -47,8 +47,6 @@ export const DestylerContextMenuRadioItem = defineComponent({
     return h(DestylerMenuRadioItem, {
       ...this.$props,
       ...this.emitsAsProps,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

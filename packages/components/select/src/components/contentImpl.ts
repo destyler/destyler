@@ -297,7 +297,7 @@ export const DestylerSelectContentImpl = defineComponent({
         this.rootContext.triggerElement.value?.focus({ preventScroll: true })
         event.preventDefault()
       },
-    }, h(DestylerDismissableLayer, {
+    }, () => h(DestylerDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: true,
       onDismiss: () => {
@@ -309,7 +309,7 @@ export const DestylerSelectContentImpl = defineComponent({
       onPointerDownOutside: (event) => {
         this.$emit('pointerDownOutside', event)
       },
-    }, withDirectives(h(this.$props.position === 'popper' ? DestylerSelectPopperPosition : DestylerSelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {
+    }, () => withDirectives(h(this.$props.position === 'popper' ? DestylerSelectPopperPosition : DestylerSelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {
       'role': 'listbox',
       'ref': (vnode: any) => {
         this.content = unrefElement(vnode) as HTMLElement
@@ -328,9 +328,7 @@ export const DestylerSelectContentImpl = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeyDown(event)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ])))
   },

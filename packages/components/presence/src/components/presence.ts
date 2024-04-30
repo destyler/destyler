@@ -34,7 +34,7 @@ export const DestylerPresence = defineComponent({
   slots: {} as SlotsType<{
     default: (opts: { present: Ref<boolean> }) => any
   }>,
-  setup(props, { slots, expose }) {
+  setup(props, { expose }) {
     const { present, forceMount } = toRefs(props)
 
     const node = ref<HTMLElement>()
@@ -42,7 +42,15 @@ export const DestylerPresence = defineComponent({
     const { isPresent } = usePresence(present, node)
     expose({ present: isPresent })
 
-    let children = slots.default({ present: isPresent })
+    return {
+      forceMount,
+      present,
+      isPresent,
+      node,
+    }
+  },
+  render() {
+    let children = this.$slots.default ? this.$slots.default({ present: ref(this.isPresent) }) : []
     children = renderSlotFragments(children || [])
     const instance = getCurrentInstance()
 
@@ -66,26 +74,22 @@ export const DestylerPresence = defineComponent({
         ].join('\n'),
       )
     }
-
-    return () => {
-      if (forceMount.value || present.value || isPresent.value) {
-        return h(slots.default({ present: isPresent })[0] as VNode, {
-          ref: (v) => {
-            const el = unrefElement(v as HTMLElement)
-            if (typeof el?.hasAttribute === 'undefined')
-              return el
-
-            // special case to handle animation for PopperContent
-            if (el?.hasAttribute('data-radix-popper-content-wrapper'))
-              node.value = el.firstElementChild as HTMLElement
-            else
-              node.value = el
-
+    if (this.forceMount || this.present || this.isPresent) {
+      return h(this.$slots.default?.({ present: ref(this.isPresent) })[0] as VNode, {
+        ref: (v) => {
+          const el = unrefElement(v as HTMLElement)
+          if (typeof el?.hasAttribute === 'undefined')
             return el
-          },
-        })
-      }
-      else { return null }
+
+          // special case to handle animation for PopperContent
+          if (el?.hasAttribute('data-destyler-popper-content-wrapper'))
+            this.node = el.firstElementChild as HTMLElement
+          else
+            this.node = el
+
+          return el
+        },
+      })
     }
   },
 })

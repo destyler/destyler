@@ -114,9 +114,7 @@ export const DestylerCheckboxRoot = defineComponent({
         'onClick': () => {
           this.checked = !this.checked
         },
-      }), {
-        default: () => this.$slots.default?.(),
-      }), [
+      }), () => this.$slots.default?.()), [
         [BindOnceDirective, { id: this.$props.id }],
       ]),
       useVShow

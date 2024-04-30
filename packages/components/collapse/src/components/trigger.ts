@@ -47,6 +47,7 @@ export const DestylerCollapseTrigger = defineComponent({
       'ref': this.itemContext.currentRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
+      'data-destyler-collection-item': '',
       'aria-controls': this.itemContext.triggerId,
       'aria-disabled': this.itemContext.disabled.value || undefined,
       'aria-expanded': this.itemContext.open.value || false,
@@ -54,10 +55,10 @@ export const DestylerCollapseTrigger = defineComponent({
       'data-orientation': this.rootContext.orientation,
       'data-state': this.itemContext.dataState.value,
       'disabled': this.itemContext.disabled.value,
-      'onClick': this.changeItem,
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+      'onClick': () => {
+        this.changeItem()
+      },
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.itemContext.triggerId }],
     ])
   },

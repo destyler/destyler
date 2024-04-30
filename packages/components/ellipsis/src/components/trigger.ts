@@ -70,7 +70,7 @@ export const DestylerEllipsisTrigger = defineComponent({
   render() {
     return h(DestylerPopperAnchor, {
       asChild: true,
-    }, h(DestylerPrimitive, {
+    }, () => h(DestylerPrimitive, {
       'ref': (el: any) => this.forwardRef(el),
       'aria-describedby': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.stateAttribute.value,
@@ -109,8 +109,6 @@ export const DestylerEllipsisTrigger = defineComponent({
         if (!this.rootContext.disableClosingTrigger.value)
           this.rootContext.onClose()
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    }))
+    }, () => this.$slots.default?.()))
   },
 })

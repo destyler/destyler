@@ -154,8 +154,6 @@ export const DestylerDraggable = defineComponent({
         left: `${this.position.x}px`,
         top: `${this.position.y}px`,
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

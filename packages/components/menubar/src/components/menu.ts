@@ -70,8 +70,6 @@ export const DestylerMenubarMenu = defineComponent({
         if (!value)
           this.rootContext.onMenuClose()
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

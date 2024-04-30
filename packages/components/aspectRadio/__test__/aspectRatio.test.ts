@@ -2,24 +2,20 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { DestylerAspectRadio } from '../src'
+import AspectRadio from '../demos/AspectRadio.space.vue'
 
-describe('given a default AspectRatio', async () => {
-  let wrapper: VueWrapper<InstanceType<typeof DestylerAspectRadio>>
+describe('aspectRatio', async () => {
+  let wrapper: VueWrapper<InstanceType<typeof AspectRadio>>
 
   beforeEach(() => {
-    wrapper = mount(DestylerAspectRadio, {
-      slots: {
-        default: `<img src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" class="h-full w-full object-cover" alt="Destyler Image">`,
-      },
-    })
+    wrapper = mount(AspectRadio)
   })
 
-  it('should pass axe accessibility tests', async () => {
+  it('axe accessibility', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 
-  it('should render as snapshot', () => {
+  it('render as snapshot', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 })

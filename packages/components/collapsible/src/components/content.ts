@@ -33,7 +33,7 @@ export const DestylerCollapsibleContent = defineComponent({
   name: 'DestylerCollapsibleContent',
   inheritAttrs: false,
   props: destylerPrimitivePropsProps,
-  setup(_, { attrs }) {
+  setup(_) {
     const rootContext = injectCollapsibleRootContext()
 
     const presentRef = ref<InstanceType<typeof DestylerPresence>>()
@@ -92,8 +92,6 @@ export const DestylerCollapsibleContent = defineComponent({
       forwardRef,
       width,
       height,
-      attrStyle: attrs.style,
-      attrClass: attrs.class,
     }
   },
   render() {
@@ -101,19 +99,15 @@ export const DestylerCollapsibleContent = defineComponent({
       ref: 'presentRef',
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
-    }, withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, () => withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
       'data-disabled': this.rootContext.disabled?.value ? 'true' : undefined,
       'hidden': !this.presentRef?.present,
-      'style': `--destyler_collapsible_content_width:${this.width}px;--destyler_collapsible_content_height:${this.height}px;`,
-    }), {
-      default: () => {
-        return this.presentRef?.present ? this.$slots.default?.() : null
-      },
-    }), [
+      'style': `--destyler-collapsible-content-width:${this.width}px;--destyler-collapsible-content-height:${this.height}px;`,
+    }), () => this.presentRef?.present ? this.$slots.default?.() : null), [
       [BindOnceDirective, { id: this.rootContext.contentId }],
     ]))
   },

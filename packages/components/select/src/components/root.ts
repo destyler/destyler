@@ -165,7 +165,7 @@ export const DestylerSelectRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperRoot, {}, [
+    return h(DestylerPopperRoot, {}, () => [
       this.$slots.default?.(),
       this.isFormControl
         ? h(DestylerBubbleSelect, mergeProps(this.$attrs, {

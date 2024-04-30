@@ -28,10 +28,6 @@ export const DestylerPaginationEllipsis = defineComponent({
   render() {
     return h(DestylerPrimitive, mergeProps(this.$props, {
       'data-type': 'ellipsis',
-    }), {
-      default: () => {
-        return this.$slots.default ? this.$slots.default?.() : '…'
-      },
-    })
+    }), () => this.$slots.default ? this.$slots.default?.() : '…')
   },
 })

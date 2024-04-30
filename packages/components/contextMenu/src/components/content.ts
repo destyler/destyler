@@ -123,8 +123,6 @@ export const DestylerContextMenuContent = defineComponent({
         if (!event.defaultPrevented && !this.rootContext.modal.value)
           this.hasInteractedOutside = true
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

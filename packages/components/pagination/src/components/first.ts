@@ -41,10 +41,6 @@ export const DestylerPaginationFirst = defineComponent({
       'onClick': () => {
         this.rootContext.onPageChange(1)
       },
-    }), {
-      default: () => {
-        return this.$slots.default ? this.$slots.default?.() : 'First Page'
-      },
-    })
+    }), () => this.$slots.default ? this.$slots.default?.() : 'First Page')
   },
 })

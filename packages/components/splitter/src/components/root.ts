@@ -30,8 +30,6 @@ export const DestylerSplitterRoot = defineComponent({
     return h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

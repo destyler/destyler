@@ -163,9 +163,7 @@ export const DestylerNavigationTrigger = defineComponent({
         'onKeydown': (ev: KeyboardEvent) => {
           this.handleKeydown(ev)
         },
-      }), {
-        default: () => this.$slots.default?.(),
-      }), [
+      }), () => this.$slots.default?.()), [
         [BindOnceDirective, { id: this.triggerId }],
       ]),
       this.open
@@ -176,14 +174,12 @@ export const DestylerNavigationTrigger = defineComponent({
           'onFocus': (ev: FocusEvent) => {
             this.handleVisuallyHiddenFocus(ev)
           },
-        }, {
-          default: () => {
-            return this.menuContext.viewport
-              ? h('span', {
-                'aria-owns': this.contentId,
-              })
-              : null
-          },
+        }, () => {
+          return this.menuContext.viewport
+            ? h('span', {
+              'aria-owns': this.contentId,
+            })
+            : null
         })
         : null,
     ]

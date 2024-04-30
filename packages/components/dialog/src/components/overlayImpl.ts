@@ -41,8 +41,6 @@ export const DestylerDialogOverlayImpl = defineComponent({
       'style': {
         'pointer-events': 'auto',
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

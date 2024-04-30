@@ -90,12 +90,10 @@ export const DestylerSelectViewport = defineComponent({
         'onScroll': (event: any) => {
           this.handleScroll(event)
         },
-      }), {
-        default: () => this.$slots.default?.(),
-      }),
+      }), () => this.$slots.default?.()),
       h(DestylerPrimitive, {
         as: 'style',
-      }, `/* Hide scrollbars cross-browser and enable momentum scroll for touch
+      }, () => `/* Hide scrollbars cross-browser and enable momentum scroll for touch
       devices */ [data-destyler-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
       -webkit-overflow-scrolling: touch; }
       [data-destyler-select-viewport]::-webkit-scrollbar { display: none; }`),

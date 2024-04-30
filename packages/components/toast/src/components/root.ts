@@ -73,60 +73,54 @@ export const DestylerToastRoot = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || this.open,
-    }, {
-      default: () => {
-        return h(DestylerToastRootImpl, {
-          ref: (el: any) => this.forwardRef(el),
-          open: this.open,
-          type: this.$props.type,
-          as: this.$props.as,
-          asChild: this.$props.asChild,
-          duration: this.$props.duration,
-          onClose: () => {
-            this.open = false
-          },
-          onPause: () => {
-            this.$emit('pause')
-          },
-          onResume: () => {
-            this.$emit('resume')
-          },
-          onEscapeKeyDown: (event: any) => {
-            this.$emit('escapeKeyDown', event)
-          },
-          onSwipeStart: (event: any) => {
-            this.$emit('swipeStart', event);
-            (event.currentTarget as HTMLElement).setAttribute('data-swipe', 'start')
-          },
-          onSwipeMove: (event: any) => {
-            const { x, y } = event.detail.delta
-            const target = event.currentTarget as HTMLElement
-            target.setAttribute('data-swipe', 'move')
-            target.style.setProperty('--destyler_toast_swipe_move_x', `${x}px`)
-            target.style.setProperty('--destyler_toast_swipe_move_y', `${y}px`)
-          },
-          onSwipeCancel: (event) => {
-            const target = event.currentTarget as HTMLElement
-            target.setAttribute('data-swipe', 'cancel')
-            target.style.removeProperty('--destyler_toast_swipe_move_x')
-            target.style.removeProperty('--destyler_toast_swipe_move_y')
-            target.style.removeProperty('--destyler_toast_swipe_end_x')
-            target.style.removeProperty('--destyler_toast_swipe_end_y')
-          },
-          onSwipeEnd: (event) => {
-            const { x, y } = event.detail.delta
-            const target = event.currentTarget as HTMLElement
-            target.setAttribute('data-swipe', 'end')
-            target.style.removeProperty('--destyler_toast_swipe_move_x')
-            target.style.removeProperty('--destyler_toast_swipe_move_y')
-            target.style.setProperty('--destyler_toast_swipe_end_x', `${x}px`)
-            target.style.setProperty('--destyler_toast_swipe_end_y', `${y}px`)
-            this.open = false
-          },
-        }, {
-          default: () => this.$slots.default?.(),
-        })
+    }, () => h(DestylerToastRootImpl, {
+      ref: (el: any) => this.forwardRef(el),
+      open: this.open,
+      type: this.$props.type,
+      as: this.$props.as,
+      asChild: this.$props.asChild,
+      duration: this.$props.duration,
+      onClose: () => {
+        this.open = false
       },
-    })
+      onPause: () => {
+        this.$emit('pause')
+      },
+      onResume: () => {
+        this.$emit('resume')
+      },
+      onEscapeKeyDown: (event: any) => {
+        this.$emit('escapeKeyDown', event)
+      },
+      onSwipeStart: (event: any) => {
+        this.$emit('swipeStart', event);
+        (event.currentTarget as HTMLElement).setAttribute('data-swipe', 'start')
+      },
+      onSwipeMove: (event: any) => {
+        const { x, y } = event.detail.delta
+        const target = event.currentTarget as HTMLElement
+        target.setAttribute('data-swipe', 'move')
+        target.style.setProperty('--destyler_toast_swipe_move_x', `${x}px`)
+        target.style.setProperty('--destyler_toast_swipe_move_y', `${y}px`)
+      },
+      onSwipeCancel: (event) => {
+        const target = event.currentTarget as HTMLElement
+        target.setAttribute('data-swipe', 'cancel')
+        target.style.removeProperty('--destyler_toast_swipe_move_x')
+        target.style.removeProperty('--destyler_toast_swipe_move_y')
+        target.style.removeProperty('--destyler_toast_swipe_end_x')
+        target.style.removeProperty('--destyler_toast_swipe_end_y')
+      },
+      onSwipeEnd: (event) => {
+        const { x, y } = event.detail.delta
+        const target = event.currentTarget as HTMLElement
+        target.setAttribute('data-swipe', 'end')
+        target.style.removeProperty('--destyler_toast_swipe_move_x')
+        target.style.removeProperty('--destyler_toast_swipe_move_y')
+        target.style.setProperty('--destyler_toast_swipe_end_x', `${x}px`)
+        target.style.setProperty('--destyler_toast_swipe_end_y', `${y}px`)
+        this.open = false
+      },
+    }, () => this.$slots.default?.()))
   },
 })

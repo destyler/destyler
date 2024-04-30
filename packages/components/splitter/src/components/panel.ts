@@ -118,9 +118,7 @@ export const DestylerSplitterPanel = defineComponent({
       'data-panel-group-id': this.groupId,
       'data-panel-id': this.panelId,
       'data-panel-size': Number.parseFloat(`${this.style.flexGrow}`).toFixed(1),
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.panelId }],
     ])
   },

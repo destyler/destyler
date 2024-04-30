@@ -37,18 +37,12 @@ export const DestylerToastClose = defineComponent({
   render() {
     return h(DestylerToastAnnounceExclude, {
       asChild: true,
-    }, {
-      default: () => {
-        return h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
-          ref: (el: any) => this.forwardRef(el),
-          type: this.$props.as === 'button' ? 'button' : undefined,
-          onClick: () => {
-            this.rootContext.onClose()
-          },
-        }), {
-          default: () => this.$slots.default?.(),
-        })
+    }, () => h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+      ref: (el: any) => this.forwardRef(el),
+      type: this.$props.as === 'button' ? 'button' : undefined,
+      onClick: () => {
+        this.rootContext.onClose()
       },
-    })
+    }), () => this.$slots.default?.()))
   },
 })

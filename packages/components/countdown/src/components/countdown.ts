@@ -186,7 +186,7 @@ export const DestylerCountdown = defineComponent({
       as: this.$props.as,
       asChild: this.$props.asChild,
       role: 'countdown',
-    }), [
+    }), () => [
       this.render ? this.render(timeInfo) : this.getDisplayValue(timeInfo),
     ])
   },

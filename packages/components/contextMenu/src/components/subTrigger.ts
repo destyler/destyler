@@ -35,8 +35,6 @@ export const DestylerContextMenuSubTrigger = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuSubTrigger, this.$props, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuSubTrigger, this.$props, () => this.$slots.default?.())
   },
 })

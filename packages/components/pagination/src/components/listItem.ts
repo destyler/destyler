@@ -50,10 +50,6 @@ export const DestylerPaginationListItem = defineComponent({
       'onClick': () => {
         this.rootContext.onPageChange(this.$props.value)
       },
-    }), {
-      default: () => {
-        return this.$slots.default ? this.$slots.default?.() : this.$props.value
-      },
-    })
+    }), () => this.$slots.default ? this.$slots.default?.() : this.$props.value)
   },
 })

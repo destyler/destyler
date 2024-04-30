@@ -144,9 +144,7 @@ export const DestylerOtpInputRoot = defineComponent({
         'data-disabled': this.disabled ? '' : undefined,
         'as': this.$props.as,
         'asChild': this.$props.asChild,
-      }), {
-        default: () => this.$slots.default?.({ modelValue: this.modelValue }),
-      }),
+      }), () => this.$slots.default?.({ modelValue: this.modelValue })),
       withDirectives(h('input', {
         'type': 'text',
         'tabindex': '-1',

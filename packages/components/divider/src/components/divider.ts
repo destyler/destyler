@@ -61,8 +61,6 @@ export const DestylerDivider = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-orientation': this.computedOrientation,
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

@@ -50,8 +50,6 @@ export const DestylerModalContentModal = defineComponent({
       'onOpenAutoFocus': (event: any) => {
         this.$emit('openAutoFocus', event)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useId, useVModel } from '@destyler/composition'
+import { useForwardExpose, useId, useVModel } from '@destyler/composition'
 
 export interface CollapsibleRootContext {
   contentId: string
@@ -65,6 +65,8 @@ export const DestylerCollapsibleRoot = defineComponent({
       },
     })
 
+    useForwardExpose()
+
     return {
       open,
       disabled,
@@ -76,6 +78,6 @@ export const DestylerCollapsibleRoot = defineComponent({
       'asChild': this.$props.asChild,
       'data-state': this.$props.open ? 'open' : 'closed',
       'data-disabled': this.$props.disabled ? '' : undefined,
-    }, this.$slots.default?.({ open: this.open }))
+    }, () => this.$slots.default?.({ open: this.open }))
   },
 })

@@ -39,8 +39,6 @@ export const DestylerModalOverlayImpl = defineComponent({
       'style': {
         'pointer-events': 'auto',
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

@@ -3,24 +3,21 @@ import { ref } from 'vue'
 import { DestylerOtpInput, DestylerOtpInputRoot } from '../src'
 
 const value = ref<string[]>([])
-const handleComplete = (e: string[]) => alert(e.join(''))
 </script>
 
 <template>
   <div>
-    <Label for="pin-input" class="text-white">Pin Input</Label>
     <DestylerOtpInputRoot
       id="pin-input"
       v-model="value"
       placeholder="○"
       class="flex gap-2 items-center mt-1"
-      @complete="handleComplete"
     >
       <DestylerOtpInput
         v-for="(id, index) in 5"
         :key="id"
         :index="index"
-        class="w-10 h-10 bg-white rounded text-center shadow-lg text-#33B074 placeholder:text-#625F69 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white"
+        class="w-10 h-10 bg-white dark:bg-#09090B border border-#E4E4E7 dark:border-#27272A rounded text-center shadow-lg text-#09090B dark:text-#FAFAFA focus:outline focus:outline-2 focus:outline-offset-2 dark:focus:outline-#27272A focus:outline-#E4E4E7"
       />
     </DestylerOtpInputRoot>
   </div>

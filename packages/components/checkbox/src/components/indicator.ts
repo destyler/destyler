@@ -1,9 +1,10 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h, mergeProps, renderSlot } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import { DestylerPresence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { getState, isIndeterminate } from '../utils'
 import { injectCheckboxRootContext } from './root'
@@ -17,7 +18,7 @@ export const destylerCheckboxIndicatorProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
-    default: 'button',
+    default: 'span',
   },
   forceMount: {
     type: Boolean as PropType<boolean>,
@@ -34,14 +35,18 @@ export const DestylerCheckboxIndicator = defineComponent({
   setup() {
     const rootContext = injectCheckboxRootContext()
 
+    const { forwardRef } = useForwardExpose()
+
     return {
       rootContext,
+      forwardRef,
     }
   },
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || isIndeterminate(this.rootContext.state.value) || this.rootContext.state.value === true,
-    }, h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+      'ref': el => this.forwardRef(el),
       'data-state': getState(this.rootContext.state.value),
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
       'asChild': this.$props.asChild,
@@ -49,8 +54,6 @@ export const DestylerCheckboxIndicator = defineComponent({
       'style': {
         pointerEvents: 'none',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => renderSlot(this.$slots, 'default')))
   },
 })

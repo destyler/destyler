@@ -63,8 +63,6 @@ export const DestylerLink = defineComponent({
       'tabindex': this.$props.disabled ? undefined : 0,
       'aria-disabled': this.$props.disabled ? true : undefined,
       'data-disabled': this.$props.disabled ? '' : undefined,
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

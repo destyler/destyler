@@ -61,40 +61,30 @@ export const DestylerNavigationContent = defineComponent({
       return h(DestylerTeleport, {
         to: this.menuContext.viewport.value,
         disabled: !this.menuContext.viewport.value,
-      }, {
-        default: () => {
-          return h(DestylerPresence, {
-            present: this.$props.forceMount || this.open || this.isLastActiveValue,
-          }, {
-            default: () => {
-              return h(DestylerNavigationContentImpl, mergeProps(this.$attrs, this.$props, this.emitsAsProps, {
-                'ref': (el: any) => this.forwardRef(el),
-                'data-state': getOpenState(this.open),
-                'style': {
-                  pointerEvents: !this.open && this.menuContext.isRootMenu ? 'none' : undefined,
-                },
-                'onPointerenter': () => {
-                  this.menuContext.onContentEnter(this.itemContext.value)
-                },
-                'onPointerleave': () => {
-                  this.menuContext.onContentLeave()
-                },
-                'onPointerdown': (event: any) => {
-                  this.handlePointerDown(event)
-                },
-                'onFocusOutside': (event: any) => {
-                  this.$emit('focusOutside', event)
-                },
-                'onInteractOutside': (event: any) => {
-                  this.$emit('interactOutside', event)
-                },
-              }), {
-                default: () => this.$slots.default?.(),
-              })
-            },
-          })
+      }, () => h(DestylerPresence, {
+        present: this.$props.forceMount || this.open || this.isLastActiveValue,
+      }, () => h(DestylerNavigationContentImpl, mergeProps(this.$attrs, this.$props, this.emitsAsProps, {
+        'ref': (el: any) => this.forwardRef(el),
+        'data-state': getOpenState(this.open),
+        'style': {
+          pointerEvents: !this.open && this.menuContext.isRootMenu ? 'none' : undefined,
         },
-      })
+        'onPointerenter': () => {
+          this.menuContext.onContentEnter(this.itemContext.value)
+        },
+        'onPointerleave': () => {
+          this.menuContext.onContentLeave()
+        },
+        'onPointerdown': (event: any) => {
+          this.handlePointerDown(event)
+        },
+        'onFocusOutside': (event: any) => {
+          this.$emit('focusOutside', event)
+        },
+        'onInteractOutside': (event: any) => {
+          this.$emit('interactOutside', event)
+        },
+      }), () => this.$slots.default?.())))
     }
   },
 })

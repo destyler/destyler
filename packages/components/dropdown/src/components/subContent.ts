@@ -109,8 +109,6 @@ export const DestylerDropdownSubContent = defineComponent({
         '--destyler_dropdown_menu_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_dropdown_menu_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

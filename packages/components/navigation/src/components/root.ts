@@ -157,8 +157,6 @@ export const DestylerNavigationRoot = defineComponent({
       'asChild': this.$props.asChild,
       'data-orientation': this.$props.orientation,
       'dir': this.$props.dir,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

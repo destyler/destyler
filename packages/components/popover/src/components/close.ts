@@ -39,8 +39,6 @@ export const DestylerPopoverClose = defineComponent({
       onClick: () => {
         this.rootContext.onOpenChange(false)
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

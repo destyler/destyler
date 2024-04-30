@@ -57,8 +57,8 @@ export const DestylerPrimitive = defineComponent({
       })
     }
     else {
-      return h(DestylerSlot, this.$attrs, {
-        default: () => this.$slots.default?.(),
+      return h(DestylerSlot, this.$attrs, () => {
+        return this.$slots.default?.()
       })
     }
   },

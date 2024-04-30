@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`given a default AspectRatio > should render as snapshot 1`] = `
+exports[`aspectRatio > render as snapshot 1`] = `
 "<div style="position: relative; width: 100%; padding-bottom: 100%;" data-destyler-aspect-ratio-wrapper="">
   <div style="position: absolute; inset: 0px;"><img src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" class="h-full w-full object-cover" alt="Destyler Image"></div>
 </div>"

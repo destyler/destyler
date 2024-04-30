@@ -38,29 +38,23 @@ export const DestylerHoverCardTrigger = defineComponent({
   render() {
     return h(DestylerPopperAnchor, {
       asChild: true,
-    }, {
-      default: () => {
-        return h(DestylerPrimitive, {
-          'ref': (el: any) => this.forwardRef(el),
-          'as': this.$props.as,
-          'asChild': this.$props.asChild,
-          'data-state': this.rootContext.open.value ? 'open' : 'closed',
-          'onPointerenter': (event: any) => {
-            excludeTouch(this.rootContext.onOpen)(event)
-          },
-          'onPointerleave': (event: any) => {
-            excludeTouch(this.rootContext.onClose)(event)
-          },
-          'onFocus': () => {
-            this.rootContext.onOpen()
-          },
-          'onBlur': () => {
-            this.rootContext.onClose()
-          },
-        }, {
-          default: () => this.$slots.default?.(),
-        })
+    }, () => h(DestylerPrimitive, {
+      'ref': (el: any) => this.forwardRef(el),
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'data-state': this.rootContext.open.value ? 'open' : 'closed',
+      'onPointerenter': (event: any) => {
+        excludeTouch(this.rootContext.onOpen)(event)
       },
-    })
+      'onPointerleave': (event: any) => {
+        excludeTouch(this.rootContext.onClose)(event)
+      },
+      'onFocus': () => {
+        this.rootContext.onOpen()
+      },
+      'onBlur': () => {
+        this.rootContext.onClose()
+      },
+    }, () => this.$slots.default?.()))
   },
 })

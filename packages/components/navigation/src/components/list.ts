@@ -43,16 +43,12 @@ export const DestylerNavigationList = defineComponent({
       style: {
         position: 'relative',
       },
-    }, {
-      default: () => {
-        return h(DestylerPrimitive, mergeProps(this.$attrs, {
-          'asChild': this.$props.asChild,
-          'as': this.$props.as,
-          'data-orientation': this.rootContext.orientation,
-        }), {
-          default: () => this.$slots.default?.(),
-        })
-      },
-    })
+    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+      'asChild': this.$props.asChild,
+      'as': this.$props.as,
+      'data-orientation': this.rootContext.orientation,
+    }), {
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

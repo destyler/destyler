@@ -178,8 +178,6 @@ export const DestylerSelectItem = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeyDown(event)
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

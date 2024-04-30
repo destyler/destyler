@@ -555,8 +555,6 @@ export const DestylerSplitterGroup = defineComponent({
       'data-panel-group': '',
       'data-orientation': this.$props.direction,
       'data-panel-group-id': this.groupId,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

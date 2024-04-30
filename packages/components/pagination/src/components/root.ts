@@ -100,8 +100,6 @@ export const DestylerPaginationRoot = defineComponent({
     return h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }, {
-      default: () => this.$slots.default?.({ page: this.page, pageCount: this.pageCount }),
-    })
+    }, () => this.$slots.default?.({ page: this.page, pageCount: this.pageCount }))
   },
 })

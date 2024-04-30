@@ -100,6 +100,6 @@ export const DestylerCollapseRoot = defineComponent({
       ref: (el: any) => this.forwardRef(el),
       asChild: this.$props.asChild,
       as: this.$props.as,
-    }, this.$slots.default?.({ modelValue: this.modelValue }))
+    }, () => this.$slots.default?.({ modelValue: this.modelValue }))
   },
 })

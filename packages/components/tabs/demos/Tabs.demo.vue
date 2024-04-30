@@ -3,96 +3,102 @@ import { DestylerTabsContent, DestylerTabsIndicator, DestylerTabsList, DestylerT
 </script>
 
 <template>
-  <DestylerTabsRoot class="flex flex-col w-full sm:w-[300px] shadow-[0_2px_10px] shadow-#000000" default-value="tab1">
-    <DestylerTabsList class="relative shrink-0 flex border-b border-#3C393F" aria-label="Manage your account">
-      <DestylerTabsIndicator class="absolute px-8 left-0 h-[2px] bottom-0 w-[--radix-tabs-indicator-size] translate-x-[--radix-tabs-indicator-position] rounded-full transition-[width,transform] duration-300">
-        <div class="bg-#3E7949 w-full h-full" />
-      </DestylerTabsIndicator>
+  <DestylerTabsRoot class="w-[400px]" default-value="account">
+    <DestylerTabsList class="h-9 items-center justify-center rounded-lg p-1 grid w-full grid-cols-2 bg-#F4F4F5 dark:bg-#27272A p-1 text-#71717A dark:text-#A1A1AA">
       <DestylerTabsTrigger
-        class="bg-white px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-#B5B2BC select-none  rounded-tl-md  hover:text-#71D083 data-[state=active]:text-#71D083 outline-none cursor-default"
-        value="tab1"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-#FFFFFF dark:ring-offset-#09090B transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-#FFFFFF dark:data-[state=active]:bg-#09090B data-[state=active]:text-#09090B dark:data-[state=active]:text-#FAFAFA data-[state=active]:shadow"
+        value="account"
       >
         Account
       </DestylerTabsTrigger>
-      <DestylerTabsTrigger
-        class="bg-white px-5 h-[45px] flex-1 flex items-center justify-center text-[15px] leading-none text-#B5B2BC select-none  rounded-tr-md hover:text-#71D083 data-[state=active]:text-#71D083 outline-none cursor-default"
-        value="tab2"
-      >
+      <DestylerTabsTrigger class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-#FFFFFF dark:ring-offset-#09090B transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-#FFFFFF dark:data-[state=active]:bg-#09090B data-[state=active]:text-#09090B dark:data-[state=active]:text-#FAFAFA data-[state=active]:shadow" value="password">
         Password
       </DestylerTabsTrigger>
     </DestylerTabsList>
-    <DestylerTabsContent
-      class="grow p-5 bg-white rounded-b-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
-      value="tab1"
-    >
-      <p class="mb-5 !mt-0 text-#B5B2BC text-[15px] !leading-normal">
-        Make changes to your account here. Click save when you're done.
-      </p>
-      <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-#B1F1CB block" for="name"> Name </label>
-        <input
-          id="name"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-#71D083 shadow-[0_0_0_1px] shadow-#28684A h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
-          value="Pedro Duarte"
-        >
-      </fieldset>
-      <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-#B1F1CB block" for="username"> Username </label>
-        <input
-          id="username"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-#71D083 shadow-[0_0_0_1px] shadow-#28684A h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
-          value="@peduarte"
-        >
-      </fieldset>
-      <div class="flex justify-end mt-5">
-        <button
-          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-green4 text-green11 hover:bg-green5 focus:shadow-[0_0_0_2px] focus:shadow-#28684A outline-none cursor-default"
-        >
-          Save changes
-        </button>
+    <DestylerTabsContent class="mt-2 ring-offset-#FFFFFF dark:ring-offset-#09090B focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2" value="account">
+      <div class="rounded-xl border border-black border-op-9 dark:border-white dark:border-op-9 dark:bg-#09090B bg-#FFFFFF dark:text-#FAFAFA text-#09090B shadow">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <h3 class="font-semibold leading-none tracking-tight">
+            Account
+          </h3>
+          <p class="text-sm dark:text-#A1A1AA text-#71717A">
+            Make changes to your account here. Click save when you're done.
+          </p>
+        </div>
+        <div class="p-6 pt-0 space-y-2">
+          <div class="space-y-1">
+            <label
+              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              html-for="name"
+            >
+              Name
+            </label>
+            <input
+              id="name"
+              class="flex h-9 w-full rounded-md border dark:border-#27272A border-#E4E4E7 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium dark:placeholder:text-#A1A1AA placeholder:text-#71717A focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            >
+          </div>
+          <div class="space-y-1">
+            <label
+              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              html-for="username"
+            >
+              Username
+            </label>
+            <input
+              id="username"
+              class="flex h-9 w-full rounded-md border dark:border-#27272A border-#E4E4E7 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium dark:placeholder:text-#A1A1AA placeholder:text-#71717A focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            >
+          </div>
+        </div>
+        <div class="flex items-center p-6 pt-0 justify-end">
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 dark:bg-#FAFAFA dark:hover:bg-#FAFAFA/90 bg-#18181B hover:bg-#18181B/90 dark:text-#18181B text-#FAFAFA shadow h-9 px-4 py-2 cursor-pointer">
+            Save Change
+          </button>
+        </div>
       </div>
     </DestylerTabsContent>
-    <DestylerTabsContent
-      class="grow p-5 bg-white rounded-b-md outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
-      value="tab2"
-    >
-      <p class="mb-5 !mt-0 text-#B5B2BC text-[15px] !leading-normal">
-        Change your password here. After saving, you'll be logged out.
-      </p>
-      <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-#B1F1CB block" for="currentPassword">
-          Current password
-        </label>
-        <input
-          id="currentPassword"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-#71D083 shadow-[0_0_0_1px] shadow-#28684A h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
-          type="password"
-        >
-      </fieldset>
-      <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-#B1F1CB block" for="newPassword"> New password </label>
-        <input
-          id="newPassword"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-#71D083 shadow-[0_0_0_1px] shadow-#28684A h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
-          type="password"
-        >
-      </fieldset>
-      <fieldset class="mb-[15px] w-full flex flex-col justify-start">
-        <label class="text-[13px] leading-none mb-2.5 text-#B1F1CB block" for="confirmPassword">
-          Confirm password
-        </label>
-        <input
-          id="confirmPassword"
-          class="grow shrink-0 rounded px-2.5 text-[15px] leading-none text-#71D083 shadow-[0_0_0_1px] shadow-#28684A h-[35px] focus:shadow-[0_0_0_2px] focus:shadow-green8 outline-none"
-          type="password"
-        >
-      </fieldset>
-      <div class="flex justify-end mt-5">
-        <button
-          class="inline-flex items-center justify-center rounded px-[15px] text-[15px] leading-none font-medium h-[35px] bg-green4 text-#3DD68C hover:bg-#174933 focus:shadow-[0_0_0_2px] focus:shadow-#28684A outline-none cursor-default"
-        >
-          Change password
-        </button>
+    <DestylerTabsContent class="mt-2 ring-offset-#FFFFFF dark:ring-offset-#09090B focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2" value="password">
+      <div class="rounded-xl border border-black border-op-9 dark:border-white dark:border-op-9 dark:bg-#09090B bg-#FFFFFF dark:text-#FAFAFA text-#09090B shadow">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <h3 class="font-semibold leading-none tracking-tight">
+            Password
+          </h3>
+          <p class="text-sm dark:text-#A1A1AA text-#71717A">
+            Change your password here. After saving, you'll be logged out.
+          </p>
+        </div>
+        <div class="p-6 pt-0 space-y-2">
+          <div class="space-y-1">
+            <label
+              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              html-for="name"
+            >
+              Current password
+            </label>
+            <input
+              id="current-password"
+              class="flex h-9 w-full rounded-md border dark:border-#27272A border-#E4E4E7 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium dark:placeholder:text-#A1A1AA placeholder:text-#71717A focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            >
+          </div>
+          <div class="space-y-1">
+            <label
+              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              html-for="username"
+            >
+              New password
+            </label>
+            <input
+              id="new-password"
+              class="flex h-9 w-full rounded-md border dark:border-#27272A border-#E4E4E7 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium dark:placeholder:text-#A1A1AA placeholder:text-#71717A focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            >
+          </div>
+        </div>
+        <div class="flex items-center p-6 pt-0 justify-end">
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 dark:bg-#FAFAFA dark:hover:bg-#FAFAFA/90 bg-#18181B hover:bg-#18181B/90 dark:text-#18181B text-#FAFAFA shadow h-9 px-4 py-2 cursor-pointer">
+            Save Password
+          </button>
+        </div>
       </div>
     </DestylerTabsContent>
   </DestylerTabsRoot>

@@ -71,8 +71,6 @@ export const DestylerMenuItem = defineComponent({
           event.preventDefault()
         }
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

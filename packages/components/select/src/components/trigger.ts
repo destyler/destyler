@@ -65,7 +65,7 @@ export const DestylerSelectTrigger = defineComponent({
   render() {
     return h(DestylerPopperAnchor, {
       asChild: true,
-    }, h(DestylerPrimitive, {
+    }, () => h(DestylerPrimitive, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'combobox',
       'type': this.$props.as === 'button' ? 'button' : undefined,
@@ -110,8 +110,6 @@ export const DestylerSelectTrigger = defineComponent({
           event.preventDefault()
         }
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    }))
+    }, () => this.$slots.default?.()))
   },
 })

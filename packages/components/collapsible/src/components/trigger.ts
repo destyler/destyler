@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectCollapsibleRootContext } from './root'
 
@@ -27,6 +28,8 @@ export const DestylerCollapsibleTrigger = defineComponent({
   setup() {
     const rootContext = injectCollapsibleRootContext()
 
+    useForwardExpose()
+
     return {
       rootContext,
     }
@@ -42,8 +45,6 @@ export const DestylerCollapsibleTrigger = defineComponent({
       'data-disabled': this.rootContext.disabled?.value ? '' : undefined,
       'disabled': this.rootContext.disabled?.value,
       'onClick': this.rootContext.onOpenToggle,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

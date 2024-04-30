@@ -109,8 +109,6 @@ export const DestylerContextMenuSubContent = defineComponent({
         '--destyler_context_menu_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_context_menu_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

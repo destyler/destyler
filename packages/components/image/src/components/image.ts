@@ -53,9 +53,7 @@ export const DestylerImage = defineComponent({
         role: 'img',
         asChild: this.$props.asChild,
         src: this.src,
-      }, {
-        default: () => this.$slots.default?.(),
-      })
+      }, () => this.$slots.default?.())
       : null
   },
 })

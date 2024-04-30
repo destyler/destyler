@@ -33,16 +33,14 @@ export const DestylerComboboxAnchor = defineComponent({
   render() {
     return h(DestylerPopperAnchor, {
       asChild: true,
-    }, {
-      default: () => {
-        return h(DestylerPrimitive, mergeProps(this.$attrs, {
-          ref: (el: any) => this.forwardRef(el),
-          as: this.$props.as,
-          asChild: this.$props.asChild,
-        }), {
-          default: () => this.$slots.default?.(),
-        })
-      },
+    }, () => {
+      return h(DestylerPrimitive, mergeProps(this.$attrs, {
+        ref: (el: any) => this.forwardRef(el),
+        as: this.$props.as,
+        asChild: this.$props.asChild,
+      }), {
+        default: () => this.$slots.default?.(),
+      })
     })
   },
 })

@@ -36,9 +36,7 @@ export const DestylerModalTitle = defineComponent({
     return withDirectives(h(DestylerPrimitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.titleId }],
     ])
   },

@@ -39,8 +39,6 @@ export const DestylerPopoverAnchor = defineComponent({
   },
   render() {
     return h(DestylerPopperAnchor, mergeProps(this.$props, {
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

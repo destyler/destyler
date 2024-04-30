@@ -13,7 +13,7 @@ import { DestylerCheckboxIndicator, DestylerCheckboxRoot } from '../src'
     </DestylerCheckboxRoot>
     <label
       htmlFor="terms"
-      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-dark dark:text-light"
     >
       Accept terms and conditions
     </label>

@@ -37,8 +37,6 @@ export const DestylerMenubarSubTrigger = defineComponent({
   render() {
     return h(DestylerMenuSubTrigger, mergeProps(this.$props, {
       'data-destyler-menubar-subtrigger': '',
-    }), {
-      default: () => this.$slots.default,
-    })
+    }), () => this.$slots.default?.())
   },
 })

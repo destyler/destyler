@@ -45,8 +45,6 @@ export const DestylerContextMenuCheckboxItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuCheckboxItem, mergeProps(this.$props, this.emitsAsProps), {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerMenuCheckboxItem, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
   },
 })

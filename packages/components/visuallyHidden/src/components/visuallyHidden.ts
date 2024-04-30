@@ -42,8 +42,6 @@ export const DestylerVisuallyhidden = defineComponent({
         whiteSpace: 'nowrap',
         wordWrap: 'normal',
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

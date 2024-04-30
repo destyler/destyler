@@ -8,7 +8,7 @@ import { useVModel } from '@destyler/composition'
 
 export interface InfoRootContext {
   open: Readonly<Ref<boolean>>
-  onToggle(): void
+  onToggle: () => void
 }
 
 export const [injectInfoRootContext, provideInfoRootContext] = createContext<InfoRootContext>('DestylerInfoRoot')
@@ -66,9 +66,7 @@ export const DestylerInfoRoot = defineComponent({
       ? h(DestylerPrimitive, mergeProps(this.$attrs, {
         as: this.$props.as,
         asChild: this.$props.asChild,
-      }), {
-        default: () => this.$slots.default?.(),
-      })
+      }), () => this.$slots.default?.())
       : null
   },
 })

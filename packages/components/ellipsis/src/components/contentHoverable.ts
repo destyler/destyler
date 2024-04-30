@@ -81,8 +81,6 @@ export const DestylerEllipsisContentHoverable = defineComponent({
     return h(DestylerEllipsisContentImpl, {
       ref: (el: any) => this.forwardRef(el),
       ...mergeProps(this.$props),
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

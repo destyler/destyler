@@ -38,13 +38,17 @@ const isDateUnavailable: DestylerCalendarRootProps['isDateUnavailable'] = (date)
           <DestylerCalendarPrev
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium dark:ring-offset-#09090B ring-offset-#FFFFFF transition-colors focus-visible:outline-none focus-visible:ring-2 dark:focus-visible:ring-#D4D4D8 focus-visible:ring-#A1A1AA focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border dark:border-#27272A border-#E4E4E7 dark:hover:bg-#27272A hover:bg-#F4F4F5 dark:hover:text-#FAFAFA hover:text-#18181B h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
           >
-            <Icon icon="radix-icons:chevron-left" class="w-4 h-4" />
+          <svg>
+          <path/>
+        </svg>
           </DestylerCalendarPrev>
           <DestylerCalendarHeading class="text-sm font-medium" />
           <DestylerCalendarNext
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium dark:ring-offset-#09090B ring-offset-#FFFFFF transition-colors focus-visible:outline-none focus-visible:ring-2 dark:focus-visible:ring-#D4D4D8 focus-visible:ring-#A1A1AA focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border dark:border-#27272A border-#E4E4E7 dark:hover:bg-#27272A hover:bg-#F4F4F5 dark:hover:text-#FAFAFA hover:text-#18181B h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
           >
-            <Icon icon="radix-icons:chevron-right" class="w-4 h-4" />
+          <svg>
+          <path/>
+        </svg>
           </DestylerCalendarNext>
         </DestylerCalendarHeader>
         <DestylerCalendarGrid v-for="month in grid" :key="month.value.toString()" class="w-full border-collapse space-y-1">

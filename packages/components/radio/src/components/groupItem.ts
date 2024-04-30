@@ -102,7 +102,7 @@ export const DestylerRadioGroupItem = defineComponent({
       disabled: this.disabled,
       focusable: !this.disabled,
       active: this.checked,
-    }, h(DestylerRadio, mergeProps(this.$attrs, this.$props, {
+    }, () => h(DestylerRadio, mergeProps(this.$attrs, this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'checked': this.checked,
       'required': this.required,
@@ -112,8 +112,6 @@ export const DestylerRadioGroupItem = defineComponent({
       'onFocus': () => {
         this.handleFocus()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => this.$slots.default?.()))
   },
 })

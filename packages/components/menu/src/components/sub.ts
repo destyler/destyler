@@ -22,7 +22,7 @@ export interface MenuSubContext {
   contentId: string
   triggerId: string
   trigger: Ref<HTMLElement | undefined>
-  onTriggerChange(trigger: HTMLElement | undefined): void
+  onTriggerChange: (trigger: HTMLElement | undefined) => void
   parentMenuContext?: MenuContext
 }
 
@@ -69,8 +69,6 @@ export const DestylerMenuSub = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, null, {
-      default: () => this.$slots.default?.(),
-    })
+    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
   },
 })

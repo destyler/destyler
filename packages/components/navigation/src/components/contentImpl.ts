@@ -220,9 +220,7 @@ export const DestylerNavigationContentImpl = defineComponent({
       'onDismiss': () => {
         this.handleDismiss()
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }), [
+    }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.contentId }],
     ])
   },
