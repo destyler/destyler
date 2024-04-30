@@ -1,5 +1,5 @@
 import type { Component, ComputedRef, PropType, VNodeRef } from 'vue'
-import { computed, defineComponent, h, renderSlot, withKeys } from 'vue'
+import { computed, defineComponent, h, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useArrowNavigation, useForwardExpose, useId } from '@destyler/composition'
@@ -123,6 +123,6 @@ export const DestylerCollapseItem = defineComponent({
       'onKeydown': withKeys((event: any) => {
         this.handleArrowKey(event)
       }, ['up', 'down', 'left', 'right', 'home', 'end']),
-    }, renderSlot(this.$slots, 'default', { open: this.open }))
+    }, () => this.$slots.default?.({ open: this.open }))
   },
 })

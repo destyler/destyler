@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DestylerIcon } from '@destyler/icon'
 import { DestylerCollapseContent, DestylerCollapseHeader, DestylerCollapseItem, DestylerCollapseRoot, DestylerCollapseTrigger } from '../src'
 
 const items = [
@@ -20,6 +21,7 @@ const items = [
 ]
 </script>
 
+
 <template>
   <div class="flex min-h-[350px] w-full justify-center p-10 items-center">
     <DestylerCollapseRoot
@@ -33,6 +35,10 @@ const items = [
           <DestylerCollapseHeader class="flex">
             <DestylerCollapseTrigger class="cursor-pointer flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180">
               <span>{{ item.title }}</span>
+              <DestylerIcon
+                name="radix-icons:chevron-down"
+                class="h-4 w-4 shrink-0 dark:text-#A1A1AA transition-transform duration-200"
+              />
             </DestylerCollapseTrigger>
           </DestylerCollapseHeader>
           <DestylerCollapseContent class="overflow-hidden text-sm data-[state=closed]:animate-collapse-up data-[state=open]:animate-collapse-down">

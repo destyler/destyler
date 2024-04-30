@@ -61,7 +61,7 @@ import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
     <CraftBox name="CheckboxDemo" >
       <CheckboxDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="CollapseDemo">
+    <CraftBox name="CollapseDemo">
       <CollapseDemo />
     </CraftBox>
     <CraftBox name="CollapsibleDemo" >

@@ -1,5 +1,5 @@
 import type { PropType } from 'vue'
-import { defineComponent, h, renderSlot } from 'vue'
+import { defineComponent, h } from 'vue'
 import { DestylerCollapsibleContent } from '@destyler/collapsible'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -38,6 +38,6 @@ export const DestylerCollapseContent = defineComponent({
       'data-disabled': this.itemContext.dataDisabled.value,
       'data-orientation': this.rootContext.orientation,
       'style': '--destyler_collapse_content_width: var(--destyler_collapsible_content_width);--destyler_collapse_content_height: var(--destyler_collapsible_content_height);',
-    }, renderSlot(this.$slots, 'default'))
+    }, () => this.$slots.default?.())
   },
 })
