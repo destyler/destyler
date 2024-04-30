@@ -61,6 +61,6 @@ export const DestylerBubbleSelect = defineComponent({
         this.$emit('update:value', value)
       },
       'defaultValue': this.value,
-    }), this.$slots.default?.()))
+    }), () => this.$slots.default?.()))
   },
 })

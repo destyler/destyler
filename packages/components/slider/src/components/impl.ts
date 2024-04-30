@@ -70,8 +70,6 @@ export const DestylerSliderImpl = defineComponent({
           this.$emit('slideEnd', event)
         }
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

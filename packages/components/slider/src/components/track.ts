@@ -35,8 +35,6 @@ export const DestylerSliderTrack = defineComponent({
     return h(DestylerPrimitive, {
       asChild: this.$props.asChild,
       as: this.$props.as,
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

@@ -216,7 +216,7 @@ export const DestylerSliderRoot = defineComponent({
             this.updateValues(value + stepInDirection, atIndex, { commit: true })
           }
         },
-      }), this.$slots.default?.({ modelValue: this.modelValue })),
+      }), () => this.$slots.default?.({ modelValue: this.modelValue })),
       this.isFormControl
         ? [
             this.modelValue.map((value, index) => h('input', {

@@ -34,6 +34,7 @@ import RadioDemo from '@destyler/demo/radio/demos/Radio.demo.vue'
 import RangeCalendarDemo from '@destyler/demo/rangeCalendar/demos/RangeCalendar.demo.vue'
 import ScrollAreaDemo from '@destyler/demo/scrollArea/demos/ScrollArea.demo.vue'
 import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
+import SliderDemo from '@destyler/demo/slider/demos/Slider.demo.vue'
 </script>
 
 <template>
@@ -131,8 +132,11 @@ import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
     <CraftBox name="ScrollAreaDemo" >
       <ScrollAreaDemo />
     </CraftBox>
-    <CraftBox name="SelectDemo" >
+    <CraftBox v-if="false" name="SelectDemo" >
       <SelectDemo />
+    </CraftBox>
+    <CraftBox name="SliderDemo" >
+      <SliderDemo />
     </CraftBox>
   </Box>
   <div class="mt-4">

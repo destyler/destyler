@@ -90,8 +90,6 @@ export const DestylerSliderThumbImpl = defineComponent({
       'onFocus': () => {
         this.rootContext.valueIndexToChangeRef.value = this.index!
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })
