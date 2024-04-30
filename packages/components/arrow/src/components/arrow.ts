@@ -19,12 +19,12 @@ export const destylerArrowProps = {
   width: {
     type: Number as PropType<number>,
     required: false,
-    default: 5,
+    default: 10,
   },
   height: {
     type: Number as PropType<number>,
     required: false,
-    default: 10,
+    default: 5,
   },
 } as const
 

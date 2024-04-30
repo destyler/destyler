@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
-import Collapse from './Collapse.spec.vue'
+import Collapse from '../demos/Collapse.spec.vue'
 
 describe.skip('collapse', () => {
   let wrapper: VueWrapper<InstanceType<typeof Collapse>>
@@ -12,7 +12,7 @@ describe.skip('collapse', () => {
     wrapper = mount(Collapse, { attachTo: document.body })
   })
 
-  it.skip('should pass axe accessibility tests', async () => {
+  it('should pass axe accessibility tests', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
 

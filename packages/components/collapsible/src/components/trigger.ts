@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectCollapsibleRootContext } from './root'
 
@@ -26,6 +27,8 @@ export const DestylerCollapsibleTrigger = defineComponent({
   props: destylerCollapsibleTriggerProps,
   setup() {
     const rootContext = injectCollapsibleRootContext()
+
+    useForwardExpose()
 
     return {
       rootContext,

@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectCollapseRootContext } from './root'
 import { injectCollapseItemContext } from './item'
@@ -28,6 +29,7 @@ export const DestylerCollapseHeader = defineComponent({
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()
+    useForwardExpose()
     return {
       rootContext,
       itemContext,

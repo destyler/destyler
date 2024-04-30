@@ -2,6 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { DestylerCollapsibleContent } from '@destyler/collapsible'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectCollapseRootContext } from './root'
 import { injectCollapseItemContext } from './item'
@@ -22,6 +23,7 @@ export const DestylerCollapseContent = defineComponent({
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()
+    useForwardExpose()
     return {
       rootContext,
       itemContext,
@@ -37,7 +39,7 @@ export const DestylerCollapseContent = defineComponent({
       'data-state': this.itemContext.dataState.value,
       'data-disabled': this.itemContext.dataDisabled.value,
       'data-orientation': this.rootContext.orientation,
-      'style': '--destyler_collapse_content_width: var(--destyler_collapsible_content_width);--destyler_collapse_content_height: var(--destyler_collapsible_content_height);',
+      'style': '--destyler-collapse-content-width: var(--destyler-collapsible-content-width);--destyler-collapse-content-height: var(--destyler-collapsible-content-height);',
     }, () => this.$slots.default?.())
   },
 })

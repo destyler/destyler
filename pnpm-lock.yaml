@@ -227,6 +227,9 @@ importers:
 
   packages/components/aspectRadio:
     dependencies:
+      '@destyler/composition':
+        specifier: workspace:^
+        version: link:../../composition
       '@destyler/primitive':
         specifier: workspace:*
         version: link:../primitive
