@@ -170,47 +170,43 @@ export const DestylerToastViewport = defineComponent({
       'style': {
         pointerEvents: this.hasToasts ? undefined : 'none',
       },
-    }, {
-      default: () => {
-        return [
-          this.hasToasts
-            ? h(DestylerToastFocusProxy, {
-              ref: (node: any) => {
-                this.headFocusProxyRef = unrefElement(node) as HTMLElement
-                return undefined
-              },
-              onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = this.getSortedTabbableCandidates({
-                  tabbingDirection: 'backwards',
-                })
-                focusFirst(tabbableCandidates)
-              },
+    }, () => [
+      this.hasToasts
+        ? h(DestylerToastFocusProxy, {
+          ref: (node: any) => {
+            this.headFocusProxyRef = unrefElement(node) as HTMLElement
+            return undefined
+          },
+          onFocusFromOutsideViewport: () => {
+            const tabbableCandidates = this.getSortedTabbableCandidates({
+              tabbingDirection: 'backwards',
             })
-            : null,
-          h(DestylerPrimitive, mergeProps(this.$attrs, {
-            ref: (el: any) => this.forwardRef(el),
-            tabindex: '-1',
-            as: this.$props.as,
-            asChild: this.$props.asChild,
-          }), {
-            default: () => this.$slots.default?.(),
-          }),
-          this.hasToasts
-            ? h(DestylerToastFocusProxy, {
-              ref: (node: any) => {
-                this.tailFocusProxyRef = unrefElement(node) as HTMLElement
-                return undefined
-              },
-              onFocusFromOutsideViewport: () => {
-                const tabbableCandidates = this.getSortedTabbableCandidates({
-                  tabbingDirection: 'backwards',
-                })
-                focusFirst(tabbableCandidates)
-              },
+            focusFirst(tabbableCandidates)
+          },
+        })
+        : null,
+      h(DestylerPrimitive, mergeProps(this.$attrs, {
+        ref: (el: any) => this.forwardRef(el),
+        tabindex: '-1',
+        as: this.$props.as,
+        asChild: this.$props.asChild,
+      }), {
+        default: () => this.$slots.default?.(),
+      }),
+      this.hasToasts
+        ? h(DestylerToastFocusProxy, {
+          ref: (node: any) => {
+            this.tailFocusProxyRef = unrefElement(node) as HTMLElement
+            return undefined
+          },
+          onFocusFromOutsideViewport: () => {
+            const tabbableCandidates = this.getSortedTabbableCandidates({
+              tabbingDirection: 'backwards',
             })
-            : null,
-        ]
-      },
-    })
+            focusFirst(tabbableCandidates)
+          },
+        })
+        : null,
+    ])
   },
 })

@@ -108,17 +108,11 @@ export const DestylerToggleGroupRoot = defineComponent({
       orientation: this.rovingFocus ? this.$props.orientation : undefined,
       dir: this.dir,
       loop: this.rovingFocus ? this.loop : undefined,
-    }, {
-      default: () => {
-        return h(DestylerPrimitive, {
-          ref: (el: any) => this.forwardRef(el),
-          role: 'group',
-          as: this.$props.as,
-          asChild: this.$props.asChild,
-        }, {
-          default: () => this.$slots.default?.(),
-        })
-      },
-    })
+    }, () => h(DestylerPrimitive, {
+      ref: (el: any) => this.forwardRef(el),
+      role: 'group',
+      as: this.$props.as,
+      asChild: this.$props.asChild,
+    }, () => this.$slots.default?.()))
   },
 })

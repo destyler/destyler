@@ -35,6 +35,13 @@ import RangeCalendarDemo from '@destyler/demo/rangeCalendar/demos/RangeCalendar.
 import ScrollAreaDemo from '@destyler/demo/scrollArea/demos/ScrollArea.demo.vue'
 import SelectDemo from '@destyler/demo/select/demos/Select.demo.vue'
 import SliderDemo from '@destyler/demo/slider/demos/Slider.demo.vue'
+import SplitterDemo from '@destyler/demo/splitter/demos/Splitter.demo.vue'
+import SwitchDemo from '@destyler/demo/switch/demos/Switch.unocss.demo.vue'
+import TabsDemo from '@destyler/demo/tabs/demos/Tabs.demo.vue'
+import ToastDemo from '@destyler/demo/toast/demos/Toast.demo.vue'
+import ToggleDemo from '@destyler/demo/toggle/demos/Toggle.demo.vue'
+import ToolbarDemo from '@destyler/demo/toolbar/demos/Toolbar.unocss.demo.vue'
+import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
 </script>
 
 <template>
@@ -138,10 +145,32 @@ import SliderDemo from '@destyler/demo/slider/demos/Slider.demo.vue'
     <CraftBox name="SliderDemo" >
       <SliderDemo />
     </CraftBox>
+    <CraftBox name="SplitterDemo" >
+      <SplitterDemo />
+    </CraftBox>
+    <CraftBox name="SwitchDemo" >
+      <SwitchDemo />
+    </CraftBox>
+    <CraftBox v-if="false" name="ToastDemo" >
+      <ToastDemo />
+    </CraftBox>
+    <CraftBox name="ToggleDemo" >
+      <ToggleDemo />
+    </CraftBox>
+    <CraftBox name="ToolbarDemo" >
+      <ToolbarDemo />
+    </CraftBox>
+    <CraftBox name="TooltipDemo" >
+      <TooltipDemo />
+    </CraftBox>
+
   </Box>
   <div class="mt-4">
     <CraftBox class="h-100!" name="RangeCalendarDemo" >
       <RangeCalendarDemo />
+    </CraftBox>
+    <CraftBox class="h-120!" name="TabsDemo" >
+      <TabsDemo />
     </CraftBox>
   </div>
 </template>

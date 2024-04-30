@@ -80,13 +80,9 @@ export const DestylerTabsContent = defineComponent({
             'style': {
               animationDuration: this.isMountAnimationPreventedRef ? '0s' : undefined,
             },
-          }, {
-            default: () => {
-              return [
-                this.$props.forceMount || this.isSelected ? this.$slots.default?.() : null,
-              ]
-            },
-          }), [
+          }, () => [
+            this.$props.forceMount || this.isSelected ? this.$slots.default?.() : null,
+          ]), [
             [BindOnceDirective, { id: this.contentId }],
           ]),
         ]

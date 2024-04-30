@@ -25,8 +25,6 @@ export const DestylerToastFocusProxy = defineComponent({
         if (isFocusFromOutsideViewport)
           this.$emit('focusFromOutsideViewport')
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

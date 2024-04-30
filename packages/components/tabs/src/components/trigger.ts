@@ -58,40 +58,34 @@ export const DestylerTabsTrigger = defineComponent({
       asChild: true,
       focusable: !this.$props.disabled,
       active: this.isSelected,
-    }, {
-      default: () => {
-        return withDirectives(h(DestylerPrimitive, {
-          'ref': (el: any) => this.forwardRef(el),
-          'role': 'tab',
-          'type': this.$props.as === 'button' ? 'button' : undefined,
-          'as': this.$props.as,
-          'asChild': this.$props.asChild,
-          'aria-selected': this.isSelected ? 'true' : 'false',
-          'aria-controls': this.contentId,
-          'data-state': this.isSelected ? 'active' : 'inactive',
-          'disabled': this.$props.disabled,
-          'data-disabled': this.$props.disabled ? '' : undefined,
-          'data-orientation': this.rootContext.orientation.value,
-          'onMousedown': withModifiers((event: any) => {
-            if (!this.$props.disabled && event.ctrlKey === false)
-              this.rootContext.changeModelValue(this.$props.value)
-            else
-              event.preventDefault()
-          }, ['left']),
-          'onKeydown': withModifiers(() => {
-            this.rootContext.changeModelValue(this.$props.value)
-          }, ['enter', 'space']),
-          'onFocus': () => {
-            const isAutomaticActivation = this.rootContext.activationMode !== 'manual'
-            if (!this.isSelected && !this.$props.disabled && isAutomaticActivation)
-              this.rootContext.changeModelValue(this.$props.value)
-          },
-        }, {
-          default: () => this.$slots.default?.(),
-        }), [
-          [BindOnceDirective, { id: this.triggerId }],
-        ])
+    }, () => withDirectives(h(DestylerPrimitive, {
+      'ref': (el: any) => this.forwardRef(el),
+      'role': 'tab',
+      'type': this.$props.as === 'button' ? 'button' : undefined,
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'aria-selected': this.isSelected ? 'true' : 'false',
+      'aria-controls': this.contentId,
+      'data-state': this.isSelected ? 'active' : 'inactive',
+      'disabled': this.$props.disabled,
+      'data-disabled': this.$props.disabled ? '' : undefined,
+      'data-orientation': this.rootContext.orientation.value,
+      'onMousedown': withModifiers((event: any) => {
+        if (!this.$props.disabled && event.ctrlKey === false)
+          this.rootContext.changeModelValue(this.$props.value)
+        else
+          event.preventDefault()
+      }, ['left']),
+      'onKeydown': withModifiers(() => {
+        this.rootContext.changeModelValue(this.$props.value)
+      }, ['enter', 'space']),
+      'onFocus': () => {
+        const isAutomaticActivation = this.rootContext.activationMode !== 'manual'
+        if (!this.isSelected && !this.$props.disabled && isAutomaticActivation)
+          this.rootContext.changeModelValue(this.$props.value)
       },
-    })
+    }, () => this.$slots.default?.()), [
+      [BindOnceDirective, { id: this.triggerId }],
+    ]))
   },
 })

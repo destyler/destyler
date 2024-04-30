@@ -184,9 +184,7 @@ export const DestylerSplitterResizeHandle = defineComponent({
       'onFocus': () => {
         this.isFocused = false
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.resizeHandleId }],
     ])
   },

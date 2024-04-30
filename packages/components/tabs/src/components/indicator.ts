@@ -77,9 +77,7 @@ export const DestylerTabsIndicator = defineComponent({
             '--destyler_tabs_indicator_size': `${this.indicatorStyle.size}px`,
             '--destyler_tabs_indicator_position': `${this.indicatorStyle.position}px`,
           },
-        }), {
-          default: () => this.$slots.default?.(),
-        })
+        }), () => this.$slots.default?.())
         : null,
     ]
   },

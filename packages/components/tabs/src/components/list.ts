@@ -51,18 +51,14 @@ export const DestylerTabsList = defineComponent({
       loop: this.loop,
       dir: this.context.dir.value,
       orientation: this.context.orientation.value,
+    }, () => h(DestylerPrimitive, {
+      'ref': (el: any) => this.forwardRef(el),
+      'role': 'tablist',
+      'asChild': this.$props.asChild,
+      'as': this.$props.as,
+      'aria-orientation': this.context.orientation.value,
     }, {
-      default: () => {
-        return h(DestylerPrimitive, {
-          'ref': (el: any) => this.forwardRef(el),
-          'role': 'tablist',
-          'asChild': this.$props.asChild,
-          'as': this.$props.as,
-          'aria-orientation': this.context.orientation.value,
-        }, {
-          default: () => this.$slots.default?.(),
-        })
-      },
-    })
+      default: () => this.$slots.default?.(),
+    }))
   },
 })

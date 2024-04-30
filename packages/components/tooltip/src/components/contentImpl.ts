@@ -151,7 +151,7 @@ export const DestylerTooltipContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onClose()
       },
-    }, h(DestylerPopperContent, mergeProps(this.$attrs, this.popperContentProps, {
+    }, () => h(DestylerPopperContent, mergeProps(this.$attrs, this.popperContentProps, {
       'ref': 'contentElement',
       'data-state': this.rootContext.stateAttribute.value,
       'style': {
@@ -161,11 +161,11 @@ export const DestylerTooltipContentImpl = defineComponent({
         '--destyler_tooltip_trigger_width': 'var(--destyler_popper_anchor_width)',
         '--destyler_tooltip_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
-    }), [
+    }), () => [
       this.$slots.default?.(),
       h(DestylerVisuallyhidden, {
         role: 'tooltip',
-      }, this.ariaLabel),
+      }, () => this.ariaLabel),
     ]))
   },
 })

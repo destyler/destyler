@@ -35,17 +35,11 @@ export const DestylerToastAction = defineComponent({
         ? h(DestylerToastAnnounceExclude, {
           altText: this.$props.altText,
           asChild: true,
-        }, {
-          default: () => {
-            return h(DestylerToastClose, mergeProps(this.$attrs, {
-              ref: (el: any) => this.forwardRef(el),
-              as: this.$props.as,
-              asChild: this.$props.asChild,
-            }), {
-              default: () => this.$slots.default?.(),
-            })
-          },
-        })
+        }, () => h(DestylerToastClose, mergeProps(this.$attrs, {
+          ref: (el: any) => this.forwardRef(el),
+          as: this.$props.as,
+          asChild: this.$props.asChild,
+        }), () => this.$slots.default?.()))
         : null,
     ]
   },

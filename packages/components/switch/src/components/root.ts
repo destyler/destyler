@@ -119,9 +119,7 @@ export const DestylerSwitchRoot = defineComponent({
         'onKeydown': withModifiers(() => {
           this.toggleCheck()
         }, ['enter', 'prevent']),
-      }), {
-        default: () => this.$slots.default?.(),
-      }), [
+      }), () => this.$slots.default?.()), [
         [BindOnceDirective, { id: this.$props.id }],
       ]),
       this.isFormControl

@@ -73,8 +73,6 @@ export const DestylerToggle = defineComponent({
       'onClick': () => {
         this.togglePressed()
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })
