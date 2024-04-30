@@ -4,7 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useForwardExpose, useId,useVModel } from '@destyler/composition'
+import { useForwardExpose, useId, useVModel } from '@destyler/composition'
 
 export interface CollapsibleRootContext {
   contentId: string
