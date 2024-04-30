@@ -1,4 +1,4 @@
-import { type Component, type PropType, computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withDefaults } from 'vue'
+import { type Component, type PropType, computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
 import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -165,7 +165,7 @@ export const DestylerToastRootImpl = defineComponent({
           userSelect: 'none',
           touchAction: 'none',
         },
-        'onPointerdown': withDefaults((event: any) => {
+        'onPointerdown': withModifiers((event: any) => {
           this.pointerStartRef = { x: event.clientX, y: event.clientY }
         }, ['left']),
         'onPointermove': (event: PointerEvent) => {

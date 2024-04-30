@@ -25,7 +25,7 @@ export const DestylerToastAnnounce = defineComponent({
     return [
       this.isAnnounced || this.renderAnnounceText
         ? h(DestylerVisuallyhidden, null, () => [
-          h('template', {}, this.providerContext.label.value),
+          h('template', null, () => this.providerContext.label.value),
           this.$slots.default?.(),
         ])
         : null,

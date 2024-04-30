@@ -150,7 +150,7 @@ export const DestylerPopoverContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onOpenChange(false)
       },
-    }, withDirectives(h(DestylerPopperContent, mergeProps(this.forwarded, {
+    }, () => withDirectives(h(DestylerPopperContent, mergeProps(this.forwarded, {
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
       'role': 'dialog',
       'style': {

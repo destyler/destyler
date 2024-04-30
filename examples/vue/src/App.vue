@@ -127,7 +127,7 @@ import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
     <CraftBox name="PaginationDemo" >
       <PaginationDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="PopoverDemo" >
+    <CraftBox name="PopoverDemo" >
       <PopoverDemo />
     </CraftBox>
     <CraftBox name="ProgressDemo" >
@@ -139,7 +139,7 @@ import TooltipDemo from '@destyler/demo/tooltip/demos/Tooltip.demo.vue'
     <CraftBox name="ScrollAreaDemo" >
       <ScrollAreaDemo />
     </CraftBox>
-    <CraftBox v-if="false" name="SelectDemo" >
+    <CraftBox name="SelectDemo" >
       <SelectDemo />
     </CraftBox>
     <CraftBox name="SliderDemo" >

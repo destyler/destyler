@@ -190,9 +190,7 @@ export const DestylerToastViewport = defineComponent({
         tabindex: '-1',
         as: this.$props.as,
         asChild: this.$props.asChild,
-      }), {
-        default: () => this.$slots.default?.(),
-      }),
+      }), () => this.$slots.default?.()),
       this.hasToasts
         ? h(DestylerToastFocusProxy, {
           ref: (node: any) => {
