@@ -12,7 +12,7 @@ export const destylerCollapseTriggerProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
-    default: 'div',
+    default: 'button',
   },
   asChild: {
     type: Boolean as PropType<boolean>,

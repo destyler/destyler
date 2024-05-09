@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import { DestylerBreadcrumbsRoot } from '../src'
-import BasicTestVue from './Breadcrumbs.spec.vue'
+import BasicTestVue from '../demos/Breadcrumbs.spec.vue'
 
 describe('breadcrumbs', () => {
   it('should work with import on demand', () => {

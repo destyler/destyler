@@ -26,7 +26,7 @@ const items = [
   <div class="flex min-h-[350px] w-full justify-center p-10 items-center">
     <DestylerCollapseRoot
       class="w-full"
-      default-value="'item-1'"
+      default-value="item-1"
       type="single"
       :collapsible="true"
     >

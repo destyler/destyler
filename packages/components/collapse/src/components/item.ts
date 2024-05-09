@@ -1,9 +1,8 @@
-import type { Component, ComputedRef, PropType, VNodeRef } from 'vue'
-import { computed, defineComponent, h, withModifiers } from 'vue'
+import type { ComputedRef, PropType, VNodeRef } from 'vue'
+import { computed, defineComponent, h, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useArrowNavigation, useForwardExpose, useId } from '@destyler/composition'
-import type { AsTag } from '@destyler/primitive'
 import { DestylerCollapsibleRoot } from '@destyler/collapsible'
 
 import { injectCollapseRootContext } from './root'
@@ -27,11 +26,6 @@ export interface CollapseItemContext {
 export const [injectCollapseItemContext, provideCollapseItemContext] = createContext<CollapseItemContext>('DestylerCollapseItem')
 
 export const destylerCollapseItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
   asChild: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -56,12 +50,12 @@ export const DestylerCollapseItem = defineComponent({
   setup(props) {
     const rootContext = injectCollapseRootContext()
 
-    const open = computed(() =>
-      rootContext.isSingle.value
+    const open = computed(() => {
+      return rootContext.isSingle.value
         ? props.value === rootContext.modelValue.value
         : Array.isArray(rootContext.modelValue.value)
-        && rootContext.modelValue.value.includes(props.value!),
-    )
+        && rootContext.modelValue.value.includes(props.value!)
+    })
 
     const disabled = computed(() => {
       return (
@@ -120,7 +114,7 @@ export const DestylerCollapseItem = defineComponent({
       'disabled': this.disabled,
       'open': this.open,
       'asChild': this.$props.asChild,
-      'onKeydown': withModifiers((event: any) => {
+      'onKeydown': withKeys((event: any) => {
         this.handleArrowKey(event)
       }, ['up', 'down', 'left', 'right', 'home', 'end']),
     }, () => this.$slots.default?.({ open: this.open }))

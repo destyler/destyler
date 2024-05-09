@@ -5,7 +5,7 @@ import { mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
 import Collapse from '../demos/Collapse.spec.vue'
 
-describe.skip('collapse', () => {
+describe('collapse', () => {
   let wrapper: VueWrapper<InstanceType<typeof Collapse>>
   beforeEach(() => {
     document.body.innerHTML = ''
