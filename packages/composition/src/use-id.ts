@@ -15,10 +15,13 @@ const useGlobalState = createGlobalState(() => {
  * @returns either the provided deterministicId if it exists, or a string in the format "destyler-"
  * followed by the value of the count variable from the global state.
  */
-export function useId(deterministicId?: string) {
+export function useId(deterministicId?: string | null | undefined, prefix = 'destyler') {
+  if (deterministicId)
+    return deterministicId
+
   const { count } = useGlobalState()
   if (!deterministicId)
     count.value++
 
-  return deterministicId || `destyler-${count.value}`
+  return `${prefix}-${count.value}`
 }

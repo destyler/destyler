@@ -3,6 +3,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 
@@ -26,6 +27,8 @@ export const DestylerDialogClose = defineComponent({
   props: destylerDialogCloseProps,
   setup() {
     const rootContext = injectDialogRootContext()
+
+    useForwardExpose()
 
     return {
       rootContext,

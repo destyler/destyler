@@ -4,6 +4,7 @@ import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 
@@ -28,6 +29,7 @@ export const DestylerDialogDescription = defineComponent({
   setup() {
     const rootContext = injectDialogRootContext()
 
+    useForwardExpose()
     return {
       rootContext,
     }

@@ -2,7 +2,7 @@ import type { PropType, Ref } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useId, useVModel } from '@destyler/composition'
+import { useVModel } from '@destyler/composition'
 
 export const destylerDialogRootProps = {
   open: {
@@ -65,9 +65,9 @@ export const DestylerDialogRoot = defineComponent({
       onOpenToggle: () => {
         open.value = !open.value
       },
-      contentId: useId(),
-      titleId: useId(),
-      descriptionId: useId(),
+      contentId: '',
+      titleId: '',
+      descriptionId: '',
       triggerElement,
       contentElement,
     })

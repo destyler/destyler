@@ -1,7 +1,7 @@
 import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, withDirectives } from 'vue'
 import type { AsTag } from '@destyler/primitive'
-import { useForwardExpose } from '@destyler/composition'
+import { useForwardExpose, useId } from '@destyler/composition'
 import { DestylerFocusScope } from '@destyler/focus-scope'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
@@ -16,6 +16,11 @@ export const destylerDialogContentImplProps = {
     default: 'div',
   },
   asChild: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
@@ -38,6 +43,9 @@ export const DestylerDialogContentImpl = defineComponent({
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()
+
+    rootContext.titleId ||= useId(undefined, 'destyler-dialog-title')
+    rootContext.descriptionId ||= useId(undefined, 'destyler-dialog-description')
 
     onMounted(() => {
       rootContext.contentElement = contentElement
@@ -63,6 +71,7 @@ export const DestylerDialogContentImpl = defineComponent({
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
+      "disableOutsidePointerEvents": this.$props.disableOutsidePointerEvents,
       'role': 'dialog',
       'aria-describedby': this.rootContext.descriptionId,
       'aria-labelledby': this.rootContext.titleId,

@@ -179,6 +179,6 @@ const uwu = ref(false)
     </div>
   </div>
   <div v-else>
-    <CollapseDemo />
+    <DialogDemo />
   </div>
 </template>

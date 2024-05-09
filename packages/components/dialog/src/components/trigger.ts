@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
-import { useForwardExpose } from '@destyler/composition'
+import { useForwardExpose, useId } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDialogRootContext } from './root'
@@ -29,6 +29,7 @@ export const DestylerDialogTrigger = defineComponent({
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement } = useForwardExpose()
 
+    rootContext.contentId ||= useId(undefined, 'destyler-dialog-content')
     onMounted(() => {
       rootContext.triggerElement = currentElement
     })
@@ -39,14 +40,12 @@ export const DestylerDialogTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
-      'as': this.$props.as,
-      'asChild': this.$props.asChild,
+    return h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-haspopup': 'dialog',
       'aria-expanded': this.rootContext.open.value || false,
-      'aria-controls': this.rootContext.contentId,
+      'aria-controls': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
       'onClick': () => {
         this.rootContext.onOpenToggle()
