@@ -51,15 +51,13 @@ export const DestylerPrimitive = defineComponent({
     }
   },
   render() {
-    if (this.asTag !== 'template') {
-      return h(this.$props.as, this.$attrs, {
-        default: () => this.$slots.default?.(),
-      })
-    }
-    else {
-      return h(DestylerSlot, this.$attrs, () => {
-        return this.$slots.default?.()
-      })
-    }
+    const SELT_CLOSING_TAGS = ['area', 'img', 'input']
+    if (typeof this.asTag === 'string' && SELT_CLOSING_TAGS.includes(this.asTag))
+      return h(this.asTag, this.$attrs)
+
+    if (this.asTag !== 'template')
+      return h(this.$props.as, this.$attrs, { default: this.$slots.default })
+
+    return h(DestylerSlot, this.$attrs, { default: this.$slots.default })
   },
 })

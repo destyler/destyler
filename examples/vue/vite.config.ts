@@ -6,6 +6,10 @@ import { alias } from '../../vite.path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server:{
+    port: 51201
+  },
+  base:'/__destyler_play_vue__',
   resolve: {
     alias,
   },

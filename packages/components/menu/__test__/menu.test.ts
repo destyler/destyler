@@ -6,7 +6,7 @@ import { findAllByRole } from '@testing-library/vue'
 import { nextTick } from 'vue'
 import Menu from './Menu.spec.vue'
 
-describe('menu', () => {
+describe('given a default Menu', () => {
   globalThis.ResizeObserver = class ResizeObserver {
     observe() {}
     unobserve() {}

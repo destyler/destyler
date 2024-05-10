@@ -9,32 +9,38 @@ export const DestylerSlot = defineComponent({
   render() {
     if (!this.$slots.default)
       return null
-    const childrens = renderSlotFragments(this.$slots.default?.())
+    const childrens = renderSlotFragments(this.$slots.default())
+    const firstNonCommentChildrenIndex = childrens.findIndex(child => child.type !== Comment)
+    if (firstNonCommentChildrenIndex === -1)
+      return childrens
 
-    const [firstChildren, ...otherChildren] = childrens
+    const firstNonCommentChildren = childrens[firstNonCommentChildrenIndex]
 
-    if (Object.keys(this.$attrs).length > 0) {
     // remove props ref from being inferred
-      delete firstChildren.props?.ref
-      const mergedProps = mergeProps(this.$attrs, firstChildren.props ?? {})
+    delete firstNonCommentChildren.props?.ref
+
+    const mergedProps = firstNonCommentChildren.props
+      ? mergeProps(this.$attrs, firstNonCommentChildren.props)
+      : this.$attrs
       // remove class to prevent duplicated
-      if (this.$attrs.class && firstChildren.props?.class)
-        delete firstChildren.props.class
+    if (this.$attrs.class && firstNonCommentChildren.props?.class)
+      delete firstNonCommentChildren.props.class
+    const cloned = cloneVNode(firstNonCommentChildren, mergedProps)
 
-      const cloned = cloneVNode(firstChildren, mergedProps)
-      // Explicitly override props starting with `on`.
-      // It seems cloneVNode from Vue doesn't like overriding `onXXX` props. So
-      // we have to do it manually.
-      for (const prop in mergedProps) {
-        if (prop.startsWith('on')) {
-          cloned.props ||= {}
-          cloned.props[prop] = mergedProps[prop]
-        }
+    // Explicitly override props starting with `on`.
+    // It seems cloneVNode from Vue doesn't like overriding `onXXX` props.
+    // So we have to do it manually.
+    for (const prop in mergedProps) {
+      if (prop.startsWith('on')) {
+        cloned.props ||= {}
+        cloned.props[prop] = mergedProps[prop]
       }
-
-      return childrens.length === 1 ? cloned : [cloned, ...otherChildren]
     }
 
+    if (childrens.length === 1)
+      return cloned
+
+    childrens[firstNonCommentChildrenIndex] = cloned
     return childrens
   },
 })

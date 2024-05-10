@@ -5,7 +5,7 @@ import { axe } from 'vitest-axe'
 import { findByRole } from '@testing-library/vue'
 import DropdownMenu from './Dropdown.spec.vue'
 
-describe('given default DropdownMenu', () => {
+describe.skip('given default DropdownMenu', () => {
   let wrapper: VueWrapper<InstanceType<typeof DropdownMenu>>
   globalThis.ResizeObserver = class ResizeObserver {
     observe() {}

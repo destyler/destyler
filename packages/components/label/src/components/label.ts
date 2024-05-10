@@ -18,11 +18,10 @@ const destylerLabelProps = {
 
 export type DestylerLabelProps = ExtractPublicPropTypes<typeof destylerLabelProps>
 
-const DestylerLabel = defineComponent({
+export const DestylerLabel = defineComponent({
   name: 'DestylerLabel',
   inheritAttrs: false,
   props: destylerLabelProps,
-
   setup() {
     useForwardRef()
 
@@ -44,7 +43,3 @@ const DestylerLabel = defineComponent({
     }), () => this.$slots.default?.())
   },
 })
-
-export {
-  DestylerLabel,
-}

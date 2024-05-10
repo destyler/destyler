@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { defineComponent, h, markRaw } from 'vue'
 import { DestylerPrimitive } from '../src'
 
-describe('test Primitive functionalities', () => {
+describe('test DestylerPrimitive functionalities', () => {
   it('should render div element correctly', () => {
     const wrapper = mount(DestylerPrimitive)
     expect(wrapper.find('div').exists()).toBe(true)
@@ -96,8 +96,8 @@ describe('test Primitive functionalities', () => {
 
     it('should render the Component that passed in as', () => {
       const Button = markRaw(defineComponent({
-        setup() {
-          return () => h('button', { id: 'custom-button' })
+        setup(props, { slots }) {
+          return () => h('button', { id: 'custom-button' }, slots)
         },
       }))
 
@@ -136,7 +136,7 @@ describe('test Primitive functionalities', () => {
       }
       const RootComponent = {
         components: { ChildComponent, DestylerPrimitive },
-        template: '<Primitive><ChildComponent /></Primitive>',
+        template: '<DestylerPrimitive><ChildComponent /></DestylerPrimitive>',
       }
 
       const wrapper = mount(RootComponent, {
