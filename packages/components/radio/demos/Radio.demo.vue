@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {DestylerIcon} from '@destyler/icon'
-import { DestylerRadioGroupIndicator, DestylerRadioGroupItem, DestylerRadioGroupRoot } from '../src/component'
+import { DestylerRadioGroupIndicator, DestylerRadioGroupItem, DestylerRadioGroupRoot,DestylerRadio } from '../src/component'
 </script>
 
 <template>
@@ -36,4 +36,15 @@ import { DestylerRadioGroupIndicator, DestylerRadioGroupItem, DestylerRadioGroup
       </label>
     </div>
   </DestylerRadioGroupRoot>
+  <div>
+    <DestylerRadio
+      id="r1"
+      aria-label="Default"
+      value="true"
+      name="test"
+    />
+    <label for="r1">
+      Default
+    </label>
+  </div>
 </template>

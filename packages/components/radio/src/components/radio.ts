@@ -99,12 +99,15 @@ export const DestylerRadio = defineComponent({
       this.$slots.default?.(),
       this.isFormControl
         ? h('input', {
-          role: 'radio',
-          checked: this.checkedRef,
-          name: this.$props.name,
-          disabled: this.disabled,
-          required: this.required,
-          style: {
+          'type': 'radio',
+          'tabindex': -1,
+          'aria-hidden': '',
+          'value': this.value,
+          'checked': this.checkedRef,
+          'name': this.$props.name,
+          'disabled': this.disabled,
+          'required': this.required,
+          'style': {
             transform: 'translateX(-100%)',
             position: 'absolute',
             pointerEvents: 'none',

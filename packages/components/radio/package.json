@@ -41,6 +41,7 @@
   "dependencies": {
     "@destyler/composition": "workspace:*",
     "@destyler/directives": "workspace:*",
+    "@destyler/presence": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/roving-focus": "workspace:*",
     "@destyler/shared": "workspace:*",

@@ -1,8 +1,10 @@
 import type { Component, PropType } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPresence } from '@destyler/presence'
+import { useForwardExpose } from '@destyler/composition'
 
 import { injectRadioGroupItemContext } from './groupItem'
 
@@ -17,6 +19,10 @@ export const destylerRadioGroupIndicatorProps = {
     required: false,
     default: false,
   },
+  forceMount: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+  },
 } as const
 
 export type DestylerRadioGroupIndicatorProps = ExtractPublicPropTypes<typeof destylerRadioGroupIndicatorProps>
@@ -27,18 +33,21 @@ export const DestylerRadioGroupIndicator = defineComponent({
   setup() {
     const itemContext = injectRadioGroupItemContext()
 
+    const { forwardRef } = useForwardExpose()
     return {
+      forwardRef,
       itemContext,
     }
   },
   render() {
-    return this.itemContext.checked.value
-      ? h(DestylerPrimitive, {
-        'data-state': this.itemContext.checked.value ? 'checked' : 'unchecked',
-        'data-disabled': this.itemContext.disabled.value ? '' : undefined,
-        'as': this.$props.as,
-        'asChild': this.$props.asChild,
-      }, () => this.$slots.default?.())
-      : null
+    return h(DestylerPresence, {
+      present: this.$props.forceMount || this.itemContext.checked.value,
+    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+      'ref': (el: any) => this.forwardRef(el),
+      'data-state': this.itemContext.checked.value ? 'checked' : 'unchecked',
+      'data-disabled': this.itemContext.disabled.value ? '' : undefined,
+      'asChild': this.$props.asChild,
+      "as": this.$props.as,
+    }), () => this.$slots.default?.()))
   },
 })

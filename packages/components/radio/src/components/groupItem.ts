@@ -1,5 +1,5 @@
 import type { Component, ComputedRef, PropType } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, withKeys } from 'vue'
 import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -109,6 +109,9 @@ export const DestylerRadioGroupItem = defineComponent({
       'onUpdate:checked': () => {
         this.rootContext.changeModelValue(this.$props.value)
       },
+      'onKeydown': withKeys((event) => {
+        event.preventDefault()
+      }, ['enter']),
       'onFocus': () => {
         this.handleFocus()
       },
