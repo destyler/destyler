@@ -1,0 +1,22 @@
+{
+  "name": "@destyler/test",
+  "version": "0.0.1",
+  "private": "true",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    "./*": "./*"
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "files": [
+    "*.d.ts",
+    "src"
+  ],
+  "scripts": {
+  },
+  "peerDependencies": {
+  },
+  "dependencies": {
+  }
+}
