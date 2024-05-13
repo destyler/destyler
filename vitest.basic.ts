@@ -12,7 +12,6 @@ export default defineConfig({
     Vue(),
   ],
   test: {
-    setupFiles: path.resolve(__dirname, './vitest.setup.ts'),
     globals: true,
     environment: 'jsdom',
     coverage: {

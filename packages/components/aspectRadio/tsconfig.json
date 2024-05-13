@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "types": [
       "vite/client",
+      "vitest-axe",
       "node"
     ],
     "strict": true,
