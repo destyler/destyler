@@ -71,7 +71,7 @@ export const DestylerDialogContentImpl = defineComponent({
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
-      "disableOutsidePointerEvents": this.$props.disableOutsidePointerEvents,
+      'disableOutsidePointerEvents': this.$props.disableOutsidePointerEvents,
       'role': 'dialog',
       'aria-describedby': this.rootContext.descriptionId,
       'aria-labelledby': this.rootContext.titleId,

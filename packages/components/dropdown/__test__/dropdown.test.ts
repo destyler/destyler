@@ -3,7 +3,7 @@ import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 import { findByRole } from '@testing-library/vue'
-import DropdownMenu from './Dropdown.spec.vue'
+import DropdownMenu from '../demos/Dropdown.spec.vue'
 
 describe.skip('given default DropdownMenu', () => {
   let wrapper: VueWrapper<InstanceType<typeof DropdownMenu>>

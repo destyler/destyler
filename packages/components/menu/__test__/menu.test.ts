@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
 import { findAllByRole } from '@testing-library/vue'
 import { nextTick } from 'vue'
-import Menu from './Menu.spec.vue'
+import Menu from '../demos/Menu.spec.vue'
 
 describe('given a default Menu', () => {
   globalThis.ResizeObserver = class ResizeObserver {

@@ -1,4 +1,4 @@
-import { type Ref, computed, ref,watch } from 'vue'
+import { type Ref, computed, ref, watch } from 'vue'
 import type { SingleOrMultipleProps } from '@destyler/shared'
 import { useVModel } from './use-v-model'
 

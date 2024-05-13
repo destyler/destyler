@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import { mount } from '@vue/test-utils'
-import Divider from './Divider.spec.vue'
+import Divider from '../demos/Divider.spec.vue'
 
 it('should pass axe accessibility tests', async () => {
   const wrapper = mount(Divider)

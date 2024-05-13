@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { findByText } from '@testing-library/vue'
-import Collapsible from './Collapsible.spec.vue'
+import Collapsible from '../demos/Collapsible.spec.vue'
 
 const CONTENT_TEXT = 'Content'
 

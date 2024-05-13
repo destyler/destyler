@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
-import Toolbar from './Toolbar.spec.vue'
+import Toolbar from '../demos/Toolbar.spec.vue'
 
 describe('toolbar', () => {
   let wrapper: VueWrapper<InstanceType<typeof Toolbar>>

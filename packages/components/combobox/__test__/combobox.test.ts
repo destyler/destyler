@@ -3,9 +3,9 @@ import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import ComboboxObject from './ComboboxObject.spec.vue'
-import Combobox from './Combobox.spec.vue'
-import { handleSubmit } from '~/test/utils'
+import { handleSubmit } from '@destyler/test/utils'
+import ComboboxObject from '../demos/ComboboxObject.spec.vue'
+import Combobox from '../demos/Combobox.spec.vue'
 
 describe('combobox', () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>

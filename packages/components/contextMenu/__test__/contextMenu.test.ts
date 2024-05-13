@@ -2,7 +2,7 @@ import { type VueWrapper, mount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import { findByRole } from '@testing-library/vue'
-import ContextMenu from './ContextMenu.spec.vue'
+import ContextMenu from '../demos/ContextMenu.spec.vue'
 
 describe('given default ContextMenu', () => {
   let wrapper: VueWrapper<InstanceType<typeof ContextMenu>>

@@ -3,9 +3,9 @@ import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { fireEvent } from '@testing-library/vue'
-import Radio from './Radio.spec.vue'
-import RadioGroup from './RadioGroup.spec.vue'
-import { handleSubmit, sleep } from '~/test/utils'
+import { handleSubmit, sleep } from '@destyler/test/utils'
+import Radio from '../demos/Radio.spec.vue'
+import RadioGroup from '../demos/RadioGroup.spec.vue'
 
 describe('given a default RadioGroup', () => {
   let wrapper: VueWrapper<InstanceType<typeof RadioGroup>>
