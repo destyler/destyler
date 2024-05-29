@@ -10,17 +10,6 @@ const OPEN_TEXT = 'Open'
 const CLOSE_TEXT = 'Close'
 const TITLE_TEXT = 'Title'
 
-const NoLabelDialogTest = defineComponent({
-  components: { DestylerDialogRoot, DestylerDialogTrigger, DestylerDialogOverlay, DestylerDialogContent, DestylerDialogClose },
-  template: `<DestylerDialogRoot>
-  <DestylerDialogTrigger>${OPEN_TEXT}</DestylerDialogTrigger>
-  <DestylerDialogOverlay />
-  <DestylerDialogContent>
-    <DestylerDialogClose>${CLOSE_TEXT}</DestylerDialogClose>
-  </DestylerDialogContent>
-</DestylerDialogRoot>`,
-})
-
 const UndefinedDescribedByDialog = defineComponent({
   components: { DestylerDialogRoot, DestylerDialogTrigger, DestylerDialogOverlay, DestylerDialogContent, DestylerDialogClose, DestylerDialogTitle },
   template: `  <DestylerDialogRoot>
