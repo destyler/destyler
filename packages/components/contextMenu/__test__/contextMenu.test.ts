@@ -4,7 +4,7 @@ import { axe } from 'vitest-axe'
 import { findByRole } from '@testing-library/vue'
 import ContextMenu from '../demos/ContextMenu.spec.vue'
 
-describe('given default ContextMenu', () => {
+describe('given default context menu', () => {
   let wrapper: VueWrapper<InstanceType<typeof ContextMenu>>
   globalThis.ResizeObserver = class ResizeObserver {
     observe() {}
