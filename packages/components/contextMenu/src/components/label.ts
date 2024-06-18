@@ -26,6 +26,6 @@ export const DestylerContextMenuLabel = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h(this.as, this.$props, () => this.$slots.default?.())
+    return h('div', this.$props, () => this.$slots.default?.())
   },
 })

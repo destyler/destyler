@@ -292,25 +292,25 @@ export const DestylerMenuContentImpl = defineComponent({
     return h(DestylerFocusScope, {
       asChild: true,
       trapped: this.trapFocus,
-      onMountAutoFocus: (event) => {
+      onMountAutoFocus: (event: any) => {
         this.handleMountAutoFocus(event)
       },
-      onUnmountAutoFocus: (event) => {
+      onUnmountAutoFocus: (event: any) => {
         this.$emit('closeAutoFocus', event)
       },
     }, () => h(DestylerDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: this.disableOutsidePointerEvents,
-      onEscapeKeyDown: (event) => {
+      onEscapeKeyDown: (event: any) => {
         this.$emit('escapeKeyDown', event)
       },
-      onPointerDownOutside: (event) => {
+      onPointerDownOutside: (event: any) => {
         this.$emit('pointerDownOutside', event)
       },
-      onFocusOutside: (event) => {
+      onFocusOutside: (event: any) => {
         this.$emit('focusOutside', event)
       },
-      onInteractOutside: (event) => {
+      onInteractOutside: (event: any) => {
         this.$emit('interactOutside', event)
       },
       onDismiss: () => {
