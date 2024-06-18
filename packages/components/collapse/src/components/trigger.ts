@@ -1,6 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { DestylerCollapsibleTrigger } from '@destyler/collapsible'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,15 +8,10 @@ import { injectCollapseItemContext } from './item'
 import { injectCollapseRootContext } from './root'
 
 export const destylerCollapseTriggerProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
