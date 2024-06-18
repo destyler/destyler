@@ -25,7 +25,7 @@
     "component:count": "tsx scripts/component-count-number.ts"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "2.6.3",
+    "@antfu/eslint-config": "2.21.1",
     "@destyler/icon": "workspace:*",
     "@destyler/link": "workspace:*",
     "@destyler/test": "workspace:*",
@@ -43,7 +43,7 @@
     "@vue/test-utils": "^2.4.4",
     "bumpp": "^9.4.0",
     "consola": "^3.2.3",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "export-size": "^0.7.0",
     "filesize": "^10.1.0",
     "fs-extra": "^11.2.0",
