@@ -27,9 +27,9 @@ export type DestylerDialogRootProps = ExtractPublicPropTypes<typeof destylerDial
 export interface DialogRootContext {
   open: Readonly<Ref<boolean>>
   modal: Ref<boolean | undefined>
-  openModal(): void
-  onOpenChange(value: boolean): void
-  onOpenToggle(): void
+  openModal: () => void
+  onOpenChange: (value: boolean) => void
+  onOpenToggle: () => void
   triggerElement: Ref<HTMLElement | undefined>
   contentElement: Ref<HTMLElement | undefined>
   contentId: string

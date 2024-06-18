@@ -2,7 +2,7 @@ export const AUTOFOCUS_ON_MOUNT = 'focusScope.autoFocusOnMount'
 export const AUTOFOCUS_ON_UNMOUNT = 'focusScope.autoFocusOnUnmount'
 export const EVENT_OPTIONS = { bubbles: false, cancelable: true }
 
-type FocusableTarget = HTMLElement | { focus(): void }
+type FocusableTarget = HTMLElement | { focus: () => void }
 
 export function focusFirst(candidates: HTMLElement[], { select = false } = {}) {
   const previouslyFocusedElement = document.activeElement
@@ -73,7 +73,8 @@ export function focus(
       element !== previouslyFocusedElement
       && isSelectableInput(element)
       && select
-    )
+    ) {
       element.select()
+    }
   }
 }

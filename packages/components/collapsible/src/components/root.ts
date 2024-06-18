@@ -10,7 +10,7 @@ export interface CollapsibleRootContext {
   contentId: string
   disabled: Ref<boolean | undefined>
   open: Ref<boolean>
-  onOpenToggle(): void
+  onOpenToggle: () => void
 }
 
 export const [injectCollapsibleRootContext, provideCollapsibleRootContext]

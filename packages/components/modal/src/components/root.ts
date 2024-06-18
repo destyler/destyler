@@ -21,9 +21,9 @@ export type DestylerModalRootProps = ExtractPublicPropTypes<typeof destylerModal
 
 export interface ModalRootContext {
   open: Readonly<Ref<boolean>>
-  openModal(): void
-  onOpenChange(value: boolean): void
-  onOpenToggle(): void
+  openModal: () => void
+  onOpenChange: (value: boolean) => void
+  onOpenToggle: () => void
   triggerElement: Ref<HTMLElement | undefined>
   contentElement: Ref<HTMLElement | undefined>
   contentId: string

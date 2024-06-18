@@ -25,7 +25,7 @@ export function getScrollParent(node: Node | null): HTMLElement | null {
     const { overflow, overflowX, overflowY } = getComputedStyle(
       parentNode as HTMLElement,
     )
-    if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX))
+    if (/auto|scroll|overlay/.test(overflow + overflowY + overflowX))
       return parentNode as HTMLElement
   }
 

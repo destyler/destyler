@@ -38,10 +38,10 @@ export interface NavigationItemContext {
   triggerRef: Ref<HTMLElement | undefined>
   focusProxyRef: Ref<HTMLElement | undefined>
   wasEscapeCloseRef: Ref<boolean>
-  onEntryKeyDown(): void
-  onFocusProxyEnter(side: 'start' | 'end'): void
-  onContentFocusOutside(): void
-  onRootContentClose(): void
+  onEntryKeyDown: () => void
+  onFocusProxyEnter: (side: 'start' | 'end') => void
+  onContentFocusOutside: () => void
+  onRootContentClose: () => void
 }
 
 export const [injectNavigationItemContext, provideNavigationItemContext] = createContext<NavigationItemContext>('NavigationItem')

@@ -11,7 +11,7 @@ export interface CollapseRootContext {
   direction: Ref<Direction>
   orientation: DataOrientation
   parentElement: Ref<HTMLElement | undefined>
-  changeModelValue(value: string): void
+  changeModelValue: (value: string) => void
   isSingle: ComputedRef<boolean>
   modelValue: Ref<string | undefined | string[]>
   collapsible: boolean

@@ -7,7 +7,7 @@ export type Orientation = 'horizontal' | 'vertical'
 export type ScrollType = 'auto' | 'always' | 'scroll' | 'hover'
 
 export interface Measurable {
-  getBoundingClientRect(): DOMRect
+  getBoundingClientRect: () => DOMRect
 }
 
 export interface SingleOrMultipleProps<ValidValue = string | string[], ExplicitType = SingleOrMultipleType> {

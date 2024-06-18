@@ -41,7 +41,7 @@ export interface SelectItemContext {
   textId: string
   disabled: Ref<boolean | undefined> | undefined
   isSelected: Ref<boolean>
-  onItemTextChange(node: HTMLElement | undefined): void
+  onItemTextChange: (node: HTMLElement | undefined) => void
 }
 
 export const [injectSelectItemContext, provideSelectItemContext] = createContext<SelectItemContext>('DestylerSelectItem')
