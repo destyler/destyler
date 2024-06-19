@@ -41,7 +41,7 @@ export const DestylerBackTop = defineComponent({
       if (scrollListenerRegistered)
         return
       scrollListenerRegistered = true
-      const scrollEl = unwrapElement(props.listen) || getScrollParent(currentElement.value)
+      const scrollEl = unwrapElement(props.listen) || (currentElement.value ? getScrollParent(currentElement.value) : null)
       if (!scrollEl)
         return
 
