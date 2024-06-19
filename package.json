@@ -21,6 +21,7 @@
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "pnpm run build",
     "remove:branch": "git branch | grep -v \"main\" | xargs git branch -D",
+    "remove:catch": "tsx scripts/remove-catch.ts",
     "release": "tsx scripts/release.ts",
     "component:count": "tsx scripts/component-count-number.ts"
   },
@@ -40,7 +41,7 @@
     "@vitest/ui": "^1.6.0",
     "@vue/runtime-core": "^3.3.4",
     "@vue/shared": "^3.3.4",
-    "@vue/test-utils": "^2.4.4",
+    "@vue/test-utils": "^2.4.0",
     "bumpp": "^9.4.1",
     "consola": "^3.2.3",
     "eslint": "^9.5.0",

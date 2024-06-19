@@ -1,21 +1,15 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { isButton } from '../utils'
 
 export const destylerButtonProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -45,9 +39,16 @@ export const DestylerButton = defineComponent({
     const isNativeLink = ref<boolean>()
 
     onMounted(() => {
-      isNativeButton.value = currentElement.value.tagName === null ? false : isButton(currentElement.value)
-      isNativeInput.value = currentElement.value.tagName.toLowerCase() === 'input'
-      isNativeLink.value = currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
+      if (!currentElement.value) {
+        isNativeButton.value = false
+        isNativeInput.value = false
+        isNativeLink.value = false
+      }
+      else {
+        isNativeButton.value = isButton(currentElement.value)
+        isNativeInput.value = currentElement.value.tagName.toLowerCase() === 'input'
+        isNativeLink.value = currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
+      }
     })
 
     return {

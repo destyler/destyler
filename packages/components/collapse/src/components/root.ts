@@ -1,8 +1,7 @@
-import type { Component, ComputedRef, PropType, Ref } from 'vue'
+import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
 import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
 import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useSingleOrMultipleValue } from '@destyler/composition'
 
