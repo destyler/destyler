@@ -39,16 +39,9 @@ export const DestylerButton = defineComponent({
     const isNativeLink = ref<boolean>()
 
     onMounted(() => {
-      if (!currentElement.value) {
-        isNativeButton.value = false
-        isNativeInput.value = false
-        isNativeLink.value = false
-      }
-      else {
-        isNativeButton.value = isButton(currentElement.value)
-        isNativeInput.value = currentElement.value.tagName.toLowerCase() === 'input'
-        isNativeLink.value = currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
-      }
+      isNativeButton.value = !currentElement.value ? false : isButton(currentElement.value)
+      isNativeInput.value = !currentElement.value ? false : currentElement.value.tagName.toLowerCase() === 'input'
+      isNativeLink.value = !currentElement.value ? false : currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
     })
 
     return {
@@ -65,8 +58,8 @@ export const DestylerButton = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'disabled': this.isNativeButton || this.isNativeInput ? this.$props.disabled : undefined,
-      'role': !this.isNativeButton && !this.isNativeLink ? 'button' : undefined,
-      'tabindex': !this.isNativeButton && !this.isNativeLink && !this.$props.disabled ? 0 : undefined,
+      'role': !this.isNativeButton || !this.isNativeLink ? 'button' : undefined,
+      'tabindex': (!this.isNativeButton || !this.isNativeLink) && !this.$props.disabled ? 0 : undefined,
       'aria-disabled': !this.isNativeButton && !this.isNativeInput && this.$props.disabled ? true : undefined,
       'data-disabled': this.$props.disabled ? '' : undefined,
       'onClick': (e: any) => {
