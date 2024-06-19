@@ -44,7 +44,7 @@ import ToggleDemo from '@destyler/toggle/demos/Toggle.demo.vue'
 import ToolbarDemo from '@destyler/toolbar/demos/Toolbar.unocss.demo.vue'
 import TooltipDemo from '@destyler/tooltip/demos/Tooltip.demo.vue'
 
-const uwu = ref(false)
+const uwu = ref(true)
 </script>
 
 <template>
