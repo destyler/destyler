@@ -1,6 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { DestylerMenuContent } from '@destyler/menu'
@@ -12,16 +12,7 @@ const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 
 export const destylerContextMenuContentProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   alignOffset: {
     type: Number as PropType<number>,
     required: false,
