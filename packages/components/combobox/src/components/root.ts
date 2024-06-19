@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, toRefs, watch } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { computedWithControl, createContext } from '@destyler/shared'
 import isEqual from 'fast-deep-equal'
@@ -13,16 +12,7 @@ import { DestylerVisuallyhiddenInput } from '@destyler/visually-hidden/dist/comp
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 export const destylerComboboxRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   modelValue: {
     type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
     required: false,

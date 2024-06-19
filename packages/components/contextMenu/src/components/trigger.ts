@@ -1,7 +1,7 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import { DestylerMenuAnchor } from '@destyler/menu'
 
@@ -14,15 +14,10 @@ export interface Point {
 }
 
 export const destylerContextMenuTriggerPRops = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'span',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   disabled: {
     type: Boolean as PropType<boolean>,

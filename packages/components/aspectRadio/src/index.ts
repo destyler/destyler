@@ -1,1 +1,2 @@
-export { DestylerAspectRadio, type DestylerAspectRadioProps } from './components/aspectRadio'
+export { DestylerAspectRadio, destylerAspectRadioProps } from './components/aspectRadio'
+export type { DestylerAspectRadioProps } from './components/aspectRadio'

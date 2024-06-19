@@ -5,7 +5,7 @@ import { createContext } from '@destyler/shared'
 
 interface PopperRootContext {
   anchor: Ref<Measurable | HTMLElement | undefined>
-  onAnchorChange(element: Measurable | HTMLElement | undefined): void
+  onAnchorChange: (element: Measurable | HTMLElement | undefined) => void
 }
 
 export const [injectPopperRootContext, providePopperRootContext] = createContext<PopperRootContext>('DestylerPopperRoot')

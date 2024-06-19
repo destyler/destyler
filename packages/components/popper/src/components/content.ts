@@ -14,7 +14,7 @@ import { injectPopperRootContext } from './root'
 
 export interface PopperContentContext {
   placedSide: Ref<Side>
-  onArrowChange(arrow: HTMLElement | undefined): void
+  onArrowChange: (arrow: HTMLElement | undefined) => void
   arrowX?: Ref<number>
   arrowY?: Ref<number>
   shouldHideArrow: Ref<boolean>

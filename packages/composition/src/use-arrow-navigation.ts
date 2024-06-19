@@ -99,8 +99,9 @@ export function useArrowNavigation(
     && ((!goingVertical && !goingHorizontal)
     || (arrowKeyOptions === 'vertical' && goingHorizontal)
     || (arrowKeyOptions === 'horizontal' && goingVertical))
-  )
+  ) {
     return null
+  }
 
   const allCollectionItems: HTMLElement[] = parentElement
     ? Array.from(parentElement.querySelectorAll(attributeName))

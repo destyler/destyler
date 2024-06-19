@@ -139,10 +139,10 @@ export const DestylerEllipsisContentImpl = defineComponent({
     return h(DestylerDismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
-      onEscapeKeyDown: (event) => {
+      onEscapeKeyDown: (event: any) => {
         this.$emit('escapeKeyDown', event)
       },
-      onPointerDownOutside: (event) => {
+      onPointerDownOutside: (event: any) => {
         if (this.rootContext.disableClosingTrigger.value && this.rootContext.trigger.value?.contains(event.target as HTMLElement))
           event.preventDefault()
 

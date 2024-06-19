@@ -37,9 +37,9 @@ export interface ToastProviderContext {
   swipeThreshold: Ref<number>
   toastCount: Ref<number>
   viewport: Ref<HTMLElement | undefined>
-  onViewportChange(viewport: HTMLElement): void
-  onToastAdd(): void
-  onToastRemove(): void
+  onViewportChange: (viewport: HTMLElement) => void
+  onToastAdd: () => void
+  onToastRemove: () => void
   isFocusedToastEscapeKeyDownRef: Ref<boolean>
   isClosePausedRef: Ref<boolean>
 }

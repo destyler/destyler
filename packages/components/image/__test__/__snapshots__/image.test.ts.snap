@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`basic > should render as snapshot 1`] = `"<span class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full" src="https://github.com/elonehoo.png"><!----><span class="flex h-full w-full items-center justify-center rounded-full bg-#F4F4F5 dark:bg-#27272A"> EH </span></span>"`;

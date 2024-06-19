@@ -5,6 +5,7 @@ import { createContext } from '@destyler/shared'
 import { useArrowNavigation, useForwardExpose, useId } from '@destyler/composition'
 import { DestylerCollapsibleRoot } from '@destyler/collapsible'
 
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { injectCollapseRootContext } from './root'
 
 enum CollapseItemState {
@@ -27,9 +28,7 @@ export const [injectCollapseItemContext, provideCollapseItemContext] = createCon
 
 export const destylerCollapseItemProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerPrimitiveProps.asChild,
   },
   value: {
     type: String as PropType<string>,

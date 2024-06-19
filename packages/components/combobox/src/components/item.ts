@@ -1,6 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, ref, toRefs } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, handleAndDispatchCustomEvent } from '@destyler/shared'
 import { useForwardExpose, useId } from '@destyler/composition'
@@ -15,16 +15,7 @@ const COMBOBOX_SELECT = 'combobox.select'
 export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent, value?: string | number | boolean | Record<string, any> }>
 
 export const destylerComboboxItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   value: {
     type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
     required: true,

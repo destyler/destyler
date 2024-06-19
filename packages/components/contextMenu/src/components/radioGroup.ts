@@ -1,21 +1,12 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { DestylerMenuRadioGroup } from '@destyler/menu'
 
 export const destylerContextMenuRadioGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   modelValue: {
     type: String as PropType<string>,
     required: false,

@@ -1,21 +1,12 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { DestylerMenuCheckboxItem } from '@destyler/menu'
 
 export const destylerContextMenuCheckboxItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,

@@ -58,15 +58,15 @@ export interface NavigationContext {
   orientation: Orientation
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
-  onIndicatorTrackChange(indicatorTrack: HTMLElement | undefined): void
+  onIndicatorTrackChange: (indicatorTrack: HTMLElement | undefined) => void
   viewport: Ref<HTMLElement | undefined>
-  onViewportChange(viewport: HTMLElement | undefined): void
-  onTriggerEnter(itemValue: string): void
-  onTriggerLeave(): void
-  onContentEnter(itemValue: string): void
-  onContentLeave(): void
-  onItemSelect(itemValue: string): void
-  onItemDismiss(): void
+  onViewportChange: (viewport: HTMLElement | undefined) => void
+  onTriggerEnter: (itemValue: string) => void
+  onTriggerLeave: () => void
+  onContentEnter: (itemValue: string) => void
+  onContentLeave: () => void
+  onItemSelect: (itemValue: string) => void
+  onItemDismiss: () => void
 }
 
 export const [injectNavigationContext, provideNavigationContext] = createContext<NavigationContext>(['DestylerNavigationRoot', 'DestylerNavigationSub'], 'DestylerNavigationContext')

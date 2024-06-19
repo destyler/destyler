@@ -1,6 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose, useId, useMutationObserver } from '@destyler/composition'
@@ -8,16 +7,7 @@ import { useForwardExpose, useId, useMutationObserver } from '@destyler/composit
 import { injectComboboxRootContext } from './root'
 
 export const destylerComboboxGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
 } as const
 
 export type DestylerComboboxGroupProps = ExtractPublicPropTypes<typeof destylerComboboxGroupProps>

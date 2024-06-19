@@ -32,9 +32,9 @@ export type DestylerTooltipProviderProps = ExtractPublicPropTypes<typeof destyle
 export interface TooltipProviderContext {
   isOpenDelayed: Ref<boolean>
   delayDuration: Ref<number>
-  onOpen(): void
-  onClose(): void
-  onPointerInTransitChange(inTransit: boolean): void
+  onOpen: () => void
+  onClose: () => void
+  onPointerInTransitChange: (inTransit: boolean) => void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>

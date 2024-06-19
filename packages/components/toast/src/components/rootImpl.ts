@@ -39,7 +39,7 @@ export const destylerToastRootImplProps = {
 
 export type DestylerToastRootImplProps = ExtractPublicPropTypes<typeof destylerToastRootImplProps>
 
-export const [injectToastRootContext, provideToastRootContext] = createContext<{ onClose(): void }>('DestylerToastRoot')
+export const [injectToastRootContext, provideToastRootContext] = createContext<{ onClose: () => void }>('DestylerToastRoot')
 
 export const DestylerToastRootImpl = defineComponent({
   name: 'DestylerToastRootImpl',

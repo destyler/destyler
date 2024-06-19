@@ -88,8 +88,9 @@ export const DestylerSplitterPanel = defineComponent({
         || prevConstraints.collapsible !== constraints.collapsible
         || prevConstraints.maxSize !== constraints.maxSize
         || prevConstraints.minSize !== constraints.minSize
-      )
+      ) {
         reevaluatePanelConstraints(panelDataRef.value, prevConstraints)
+      }
     }, { deep: true })
 
     onMounted(() => {

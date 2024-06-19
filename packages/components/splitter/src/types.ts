@@ -1,6 +1,6 @@
 export interface PanelGroupStorage {
-  getItem(name: string): string | null
-  setItem(name: string, value: string): void
+  getItem: (name: string) => string | null
+  setItem: (name: string, value: string) => void
 }
 
 export type PanelResizeHandleOnDragging = (isDragging: boolean) => void

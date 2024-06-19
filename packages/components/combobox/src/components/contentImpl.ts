@@ -1,6 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, toRefs, withDirectives } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { DestylerCollectionSlot } from '@destyler/collection'
@@ -18,16 +18,7 @@ export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const destylerComboboxContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,

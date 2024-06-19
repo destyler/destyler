@@ -303,10 +303,10 @@ export const DestylerSelectContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onOpenChange(false)
       },
-      onEscapeKeyDown: (event) => {
+      onEscapeKeyDown: (event: any) => {
         this.$emit('escapeKeyDown', event)
       },
-      onPointerDownOutside: (event) => {
+      onPointerDownOutside: (event: any) => {
         this.$emit('pointerDownOutside', event)
       },
     }, () => withDirectives(h(this.$props.position === 'popper' ? DestylerSelectPopperPosition : DestylerSelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {

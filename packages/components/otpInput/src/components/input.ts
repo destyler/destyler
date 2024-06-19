@@ -33,7 +33,7 @@ export const DestylerOtpInput = defineComponent({
     const inputRef = ref()
     function handleInput(event: Event) {
       const target = event.target as HTMLInputElement
-      if (isNumbericMode.value && !/^[0-9]*$/.test(target.value)) {
+      if (isNumbericMode.value && !/^\d*$/.test(target.value)) {
         target.value = target.value.replace(/\D/g, '')
         return
       }
@@ -109,7 +109,7 @@ export const DestylerOtpInput = defineComponent({
       for (let i = initialIndex; i < lastIndex; i++) {
         const input = inputElements.value[i]
         const value = values[i - initialIndex]
-        if (isNumbericMode.value && !/^[0-9]*$/.test(value))
+        if (isNumbericMode.value && !/^\d*$/.test(value))
           continue
 
         tempModelValue[i] = value

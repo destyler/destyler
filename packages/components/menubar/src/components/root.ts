@@ -32,9 +32,9 @@ export interface MenubarRootContext {
   modelValue: Ref<string>
   dir: Ref<Direction>
   loop: Ref<boolean>
-  onMenuOpen(value: string): void
-  onMenuClose(): void
-  onMenuToggle(value: string): void
+  onMenuOpen: (value: string) => void
+  onMenuClose: () => void
+  onMenuToggle: (value: string) => void
 }
 
 export const [injectMenubarRootContext, provideMenubarRootContext] = createContext<MenubarRootContext>('DestylerMenubarRoot')

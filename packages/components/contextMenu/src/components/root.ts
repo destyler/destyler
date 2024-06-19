@@ -21,7 +21,7 @@ export type DestylerContextMenuRootProps = ExtractPublicPropTypes<typeof destyle
 
 export interface ContextMenuRootContext {
   open: Ref<boolean>
-  onOpenChange(open: boolean): void
+  onOpenChange: (open: boolean) => void
   modal: Ref<boolean>
   dir: Ref<Direction>
 }

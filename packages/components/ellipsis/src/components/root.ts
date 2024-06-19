@@ -44,12 +44,12 @@ export interface EllipsisContext {
   open: Ref<boolean>
   stateAttribute: Ref<'closed' | 'delayed-open' | 'instant-open'>
   trigger: Ref<HTMLElement | undefined>
-  onTriggerChange(trigger: HTMLElement | undefined): void
-  onTriggerEnter(): void
-  onTriggerLeave(): void
-  onOpen(): void
-  onClose(): void
-  onSetText(text: string): void
+  onTriggerChange: (trigger: HTMLElement | undefined) => void
+  onTriggerEnter: () => void
+  onTriggerLeave: () => void
+  onOpen: () => void
+  onClose: () => void
+  onSetText: (text: string) => void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
 }
