@@ -39,9 +39,9 @@ export const DestylerButton = defineComponent({
     const isNativeLink = ref<boolean>()
 
     onMounted(() => {
-      isNativeButton.value = !currentElement.value ? false : isButton(currentElement.value)
-      isNativeInput.value = !currentElement.value ? false : currentElement.value.tagName.toLowerCase() === 'input'
-      isNativeLink.value = !currentElement.value ? false : currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
+      isNativeButton.value = currentElement.value.tagName === null ? false : isButton(currentElement.value)
+      isNativeInput.value = currentElement.value.tagName.toLowerCase() === 'input'
+      isNativeLink.value = currentElement.value.tagName.toLowerCase() === 'a' || currentElement.value.getAttribute('href') != null
     })
 
     return {
