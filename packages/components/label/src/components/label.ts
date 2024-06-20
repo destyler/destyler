@@ -1,14 +1,12 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardRef } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 const destylerLabelProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerPrimitiveProps.asChild,
   },
   for: {
     type: String as PropType<string>,
