@@ -1,6 +1,5 @@
-import type { Component, ComputedRef, PropType } from 'vue'
+import type { ComputedRef } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, withKeys } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -8,39 +7,29 @@ import { useEventListener } from '@vueuse/core'
 import { DestylerRovingFocusItem } from '@destyler/roving-focus'
 
 import { injectRadioGroupRootContext } from './groupRoot'
-import { DestylerRadio } from './radio'
+import { DestylerRadio, destylerRadioProps } from './radio'
 
 export const destylerRadioGroupItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'button',
-  },
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerRadioProps.asChild,
+  },
+  as: {
+    ...destylerRadioProps.as,
   },
   id: {
-    type: String as PropType<string>,
-    required: false,
+    ...destylerRadioProps.id,
   },
   value: {
-    type: String as PropType<string>,
-    required: false,
+    ...destylerRadioProps.value,
   },
   disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerRadioProps.disabled,
   },
   required: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerRadioProps.required,
   },
   name: {
-    type: String as PropType<string>,
-    required: false,
+    ...destylerRadioProps.name,
   },
 } as const
 
