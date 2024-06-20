@@ -1,7 +1,7 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { DestylerPopperContent } from '@destyler/popper'
@@ -16,16 +16,7 @@ export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const destylerHoverCardContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,
