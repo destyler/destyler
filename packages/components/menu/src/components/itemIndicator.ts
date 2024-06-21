@@ -1,23 +1,17 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, isIndeterminate } from '@destyler/shared'
 import { DestylerPresence } from '@destyler/presence'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 
 import { getCheckedState } from '../utils'
 
 export const destylerMenuItemIndicatorProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'span',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   forceMount: {
     type: Boolean as PropType<boolean>,

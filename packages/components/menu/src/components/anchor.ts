@@ -1,23 +1,9 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import type { ExtractPublicPropTypes, Measurable } from '@destyler/shared'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { DestylerPopperAnchor, destylerPopperAnchorProps } from '@destyler/popper'
 
 export const destylerMenuAnchorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  element: {
-    type: Object as PropType<Measurable>,
-  },
+  ...destylerPopperAnchorProps,
 } as const
 
 export type DestylerMenuAnchorProps = ExtractPublicPropTypes<typeof destylerMenuAnchorProps>
