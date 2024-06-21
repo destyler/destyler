@@ -1,15 +1,13 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, watch } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectImageRootContext } from './root'
 
 export const destylerImageFallbackProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerPrimitiveProps.asChild,
   },
   delayMs: {
     type: Number as PropType<number>,

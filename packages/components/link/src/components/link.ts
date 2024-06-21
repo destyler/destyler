@@ -1,13 +1,11 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerLinkProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerPrimitiveProps.asChild,
   },
   to: {
     type: String as PropType<string>,

@@ -1,15 +1,13 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watch } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useImageLoadingStatus } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { injectImageRootContext } from './root'
 
 export const destylerImageProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerPrimitiveProps.asChild,
   },
   src: {
     type: String as PropType<string>,
