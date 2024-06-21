@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { createContext, focusFirst } from '@destyler/shared'
 import { useCollection, useDirection, useForwardExpose, useVModel } from '@destyler/composition'
@@ -9,16 +8,7 @@ import { useCollection, useDirection, useForwardExpose, useVModel } from '@desty
 import { ENTRY_FOCUS, EVENT_OPTIONS } from '../utils'
 
 export const destylerRovingFocusGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   orientation: {
     type: String as PropType<Orientation>,
     required: false,

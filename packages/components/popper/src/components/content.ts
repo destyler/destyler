@@ -1,11 +1,10 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import type { Middleware, Placement } from '@floating-ui/vue'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { computedEager, createContext } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useSize } from '@destyler/composition'
 
 import type { Align, Side } from '../utils'
@@ -23,16 +22,7 @@ export interface PopperContentContext {
 export const [injectPopperContentContext, providePopperContentContext] = createContext<PopperContentContext>('DestylerPopperContent')
 
 export const destylerPopperContentProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,

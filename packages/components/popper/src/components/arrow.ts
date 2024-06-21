@@ -1,6 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { DestylerArrow } from '@destyler/arrow'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -15,11 +15,7 @@ export const OPPOSITE_SIDE: Record<Side, Side> = {
 }
 
 export const destylerPopperArrowProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   width: {
     type: Number as PropType<number>,
     required: false,
@@ -31,8 +27,7 @@ export const destylerPopperArrowProps = {
     default: 10,
   },
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'svg',
   },
 } as const
