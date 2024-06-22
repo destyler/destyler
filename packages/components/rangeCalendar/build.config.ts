@@ -5,7 +5,7 @@ import { buildEndHook } from '../../../scripts/export-size'
 export default defineBuildConfig({
   entries: [
     ...entries,
-    'src/composition',
+    'src/composition.ts',
   ],
   externals: [
     ...externals,
