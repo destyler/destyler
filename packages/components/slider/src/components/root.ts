@@ -1,8 +1,8 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { useCollection, useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from '../utils'
@@ -22,16 +22,7 @@ export interface SliderRootContext {
 export const [injectSliderRootContext, provideSliderRootContext] = createContext<SliderRootContext>('DestylerSliderRoot')
 
 export const destylerSliderRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   name: {
     type: String as PropType<string>,
     required: false,
