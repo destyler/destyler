@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { DestylerTeleport } from '@destyler/teleport'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, refAutoReset } from '@destyler/shared'
@@ -9,16 +8,7 @@ import { useForwardExpose } from '@destyler/composition'
 import { useWindowSize } from '@vueuse/core'
 
 export const destylerPreviewRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   duration: {
     type: Number as PropType<number>,
     required: false,
