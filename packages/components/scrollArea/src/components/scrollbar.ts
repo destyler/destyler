@@ -1,7 +1,7 @@
 import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onUnmounted, toRefs, watch } from 'vue'
 import { type ExtractPublicPropTypes, createContext } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
+import { type AsTag, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectScrollAreaRootContext } from './root'
@@ -11,16 +11,7 @@ import { DestylerScrollAreaScrollbarAuto } from './scrollbarAuto'
 import { DestylerScrollAreaScrollbarVisible } from './scrollbarVisible'
 
 export const destylerScrollAreaScrollbarProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   orientation: {
     type: String as PropType<'vertical' | 'horizontal'>,
     required: false,

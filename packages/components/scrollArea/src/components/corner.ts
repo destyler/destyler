@@ -1,6 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
@@ -8,16 +7,7 @@ import { injectScrollAreaRootContext } from './root'
 import { DestylerScrollAreaCornerImpl } from './cornerImpl'
 
 export const destylerScrollAreaCorner = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
 } as const
 
 export type DestylerScrollAreaCornerProps = ExtractPublicPropTypes<typeof destylerScrollAreaCorner>

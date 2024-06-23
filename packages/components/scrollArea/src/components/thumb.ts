@@ -1,8 +1,7 @@
-import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, onUnmounted, ref } from 'vue'
 import { watchOnce } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 
 import { addUnlinkedScrollListener } from '../utils'
@@ -10,16 +9,7 @@ import { injectScrollAreaRootContext } from './root'
 import { injectScrollAreaScrollbarVisibleContext } from './scrollbarVisible'
 
 export const destylerScrollAreaThumbProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
 } as const
 
 export type DestylerScrollAreaThumbProps = ExtractPublicPropTypes<typeof destylerScrollAreaThumbProps>
