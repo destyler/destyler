@@ -1,7 +1,6 @@
-import type { Component, PropType, VNodeChild } from 'vue'
+import type { PropType, VNodeChild } from 'vue'
 import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export interface CountdownTimeInfo {
@@ -16,15 +15,10 @@ export interface CountdownInst {
 }
 
 export const destylerCountdownProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'template',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
   },
   duration: {
     type: Number as PropType<number>,
