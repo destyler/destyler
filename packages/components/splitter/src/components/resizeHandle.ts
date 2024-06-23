@@ -1,6 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, ref, toRefs, watch, watchEffect, withDirectives } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isBrowser } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -15,16 +15,7 @@ import type { ResizeEvent, ResizeHandler, ResizeHandlerState } from '../types'
 import { injectPanelGroupContext } from './group'
 
 export const destylerSplitterResizeHandleProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   id: {
     type: String as PropType<string>,
     required: false,

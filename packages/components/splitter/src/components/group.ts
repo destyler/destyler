@@ -1,10 +1,9 @@
-import type { CSSProperties, Component, PropType, Ref } from 'vue'
+import type { CSSProperties, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watch, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { areEqual, createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 
 import { assert } from '../utils/assert'
 import debounce from '../utils/debounce'
@@ -34,16 +33,7 @@ const defaultStorage: PanelGroupStorage = {
 }
 
 export const destylerSplitterGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   id: {
     type: String as PropType<string>,
     required: false,
