@@ -1,22 +1,16 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withModifiers } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { createContext } from '@destyler/shared'
 import { BindOnceDirective } from '@destyler/directives'
 
 export const destylerSwitchRootProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   defaultChecked: {
     type: Boolean as PropType<boolean>,
