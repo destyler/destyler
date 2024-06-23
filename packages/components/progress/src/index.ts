@@ -1,2 +1,2 @@
-export { DestylerProgressRoot, type DestylerProgressRootProps } from './components/root'
-export { DestylerProgressIndicator, type DestylerProgressIndicatorProps } from './components/indicator'
+export { DestylerProgressRoot, destylerProgressRootProps, type DestylerProgressRootProps } from './components/root'
+export { DestylerProgressIndicator, destylerProgressIndicatorProps, type DestylerProgressIndicatorProps } from './components/indicator'

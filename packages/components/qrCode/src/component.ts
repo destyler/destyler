@@ -1,2 +1,2 @@
-export { DestylerQrCodeItem, type DestylerQrCodeItemProps } from './components/item'
-export { DestylerQrCodeRoot, type DestylerQrCodeRootProps } from './components/root'
+export { DestylerQrCodeItem, destylerQrCodeItemProps, type DestylerQrCodeItemProps } from './components/item'
+export { DestylerQrCodeRoot, destylerQrCodeRootProps, type DestylerQrCodeRootProps } from './components/root'
