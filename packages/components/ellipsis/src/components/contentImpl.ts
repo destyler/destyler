@@ -1,6 +1,6 @@
-import type { Component, PropType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
 import { DestylerPopperContent } from '@destyler/popper'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
@@ -17,16 +17,7 @@ type Side = (typeof SIDE_OPTIONS)[number]
 type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const destylerEllipsisContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,
