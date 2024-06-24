@@ -1,61 +1,14 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerToggleGroupRoot } from '@destyler/toggle'
+import { DestylerToggleGroupRoot, destylerToggleGroupRootProps } from '@destyler/toggle'
 
 import { injectToolbarRootContext } from './root'
 
 export type TypeEnum = 'single' | 'multiple'
 
 export const destylerToolbarToggleGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  type: {
-    type: String as PropType<TypeEnum>,
-    required: false,
-    default: 'single',
-  },
-  defaultValue: {
-    type: [String, Array] as PropType<string | string[]>,
-    required: false,
-  },
-  modelValue: {
-    type: [String, Array] as PropType<string | string[]>,
-    required: false,
-  },
-  rovingFocus: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  orientation: {
-    type: String as PropType<DataOrientation>,
-    required: false,
-  },
-  dir: {
-    type: String as PropType<Direction>,
-    required: false,
-  },
-  loop: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
+  ...destylerToggleGroupRootProps,
 } as const
 
 export type DestylerToolbarToggleGroupProps = ExtractPublicPropTypes<typeof destylerToolbarToggleGroupProps>
