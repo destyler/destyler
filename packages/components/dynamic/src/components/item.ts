@@ -1,7 +1,6 @@
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { Component, PropType, Ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import type { PropType, Ref } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useId } from '@destyler/composition'
 import { createContext } from '@destyler/shared'
@@ -10,16 +9,7 @@ import { DestylerCollectionItem } from '@destyler/collection'
 import { injectDynamicRootContext } from './root'
 
 export const destylerDynamicItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   value: {
     type: String as PropType<string>,
     required: true,

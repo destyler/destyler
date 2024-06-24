@@ -1,5 +1,5 @@
-import { type Component, type PropType, defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { type PropType, defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
@@ -7,15 +7,10 @@ import { BindOnceDirective } from '@destyler/directives'
 import { injectDynamicRootContext } from './root'
 
 export const destylerDynamicInputProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'input',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   placeholder: {
     type: String as PropType<string>,

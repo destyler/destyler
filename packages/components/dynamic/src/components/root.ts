@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { createContext } from '@destyler/shared'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useFocusWithin } from '@vueuse/core'
@@ -10,16 +9,7 @@ import { DestylerCollectionSlot, createCollection } from '@destyler/collection'
 import { DestylerVisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
 
 export const destylerDynamicRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   modelValue: {
     type: Array as PropType<Array<string>>,
     required: false,
