@@ -1,18 +1,9 @@
-import { type Component, type PropType, defineComponent, h } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { type PropType, defineComponent, h } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerToastAnnounceExcludeProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   altText: {
     type: String as PropType<string>,
     required: false,

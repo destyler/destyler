@@ -1,6 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, toRefs, watchEffect } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose } from '@destyler/composition'
 import { onKeyStroke } from '@vueuse/core'
@@ -13,15 +13,10 @@ import { injectToastProviderContext } from './provider'
 import { DestylerToastFocusProxy } from './focusProxy'
 
 export const destylerToastViewportProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'ol',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   hotkey: {
     type: Array as PropType<string[]>,

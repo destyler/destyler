@@ -1,37 +1,13 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
 
-import { DestylerToastRootImpl } from './rootImpl'
+import { DestylerToastRootImpl, destylerToastRootImplProps } from './rootImpl'
 
 export const destylerToastRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'li',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  type: {
-    type: String as PropType<'foreground' | 'background'>,
-    required: false,
-    default: 'foreground',
-  },
-  open: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: undefined,
-  },
-  duration: {
-    type: Number as PropType<number>,
-    required: false,
-  },
+  ...destylerToastRootImplProps,
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,

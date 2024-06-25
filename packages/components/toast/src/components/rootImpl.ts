@@ -1,5 +1,5 @@
-import { type Component, type PropType, computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { type PropType, computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -12,15 +12,10 @@ import { injectToastProviderContext } from './provider'
 import { DestylerToastAnnounce } from './announce'
 
 export const destylerToastRootImplProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'li',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   type: {
     type: String as PropType<'foreground' | 'background'>,

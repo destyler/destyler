@@ -1,5 +1,5 @@
-import { type Component, type PropType, defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { defineComponent, h, mergeProps } from 'vue'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
@@ -7,15 +7,10 @@ import { injectToastRootContext } from './rootImpl'
 import { DestylerToastAnnounceExclude } from './announceExclude'
 
 export const destylerToastCloseProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
