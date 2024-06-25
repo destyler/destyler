@@ -1,8 +1,8 @@
-import type { Component, PropType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
-import { DestylerPopperContent } from '@destyler/popper'
+import { DestylerPopperContent, destylerPopperContentProps } from '@destyler/popper'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -10,72 +10,38 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { TOOLTIP_OPEN } from '../utils'
 import { injectTooltipRootContext } from './root'
 
-const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
-const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
-
-type Side = (typeof SIDE_OPTIONS)[number]
-type Align = (typeof ALIGN_OPTIONS)[number]
-
 export const destylerTooltipContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   side: {
-    type: String as PropType<Side>,
-    required: false,
+    ...destylerPopperContentProps.side,
     default: 'top',
   },
   sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...destylerPopperContentProps.sideOffset,
   },
   align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
+    ...destylerPopperContentProps.align,
   },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...destylerPopperContentProps.alignOffset,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...destylerPopperContentProps.avoidCollisions,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
+    ...destylerPopperContentProps.collisionBoundary,
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
+    ...destylerPopperContentProps.collisionPadding,
   },
   arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...destylerPopperContentProps.arrowPadding,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
+    ...destylerPopperContentProps.sticky,
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...destylerPopperContentProps.hideWhenDetached,
   },
   ariaLabel: {
     type: String as PropType<string>,

@@ -1,7 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import { DestylerPopperAnchor } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,14 +10,9 @@ import { injectTooltipProviderContext } from './provider'
 export type TooltipTriggerDataState = | 'closed' | 'delayed-open' | 'instant-open'
 
 export const destylerTooltipTriggerProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'button',
   },
 } as const
