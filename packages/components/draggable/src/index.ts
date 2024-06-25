@@ -1,1 +1,1 @@
-export { DestylerDraggable, type DestylerDraggableProps } from './components/draggable'
+export { DestylerDraggable, destylerDraggableProps, type DestylerDraggableProps } from './components/draggable'
