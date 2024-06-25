@@ -1,6 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { DestylerPresence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -8,16 +8,7 @@ import { injectModalRootContext } from './root'
 import { DestylerModalOverlayImpl } from './overlayImpl'
 
 export const destylerModalOverlayProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
