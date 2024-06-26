@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { Ref } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onMounted, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { clamp, createContext } from '@destyler/shared'
 import { useCollection, useForwardExpose } from '@destyler/composition'
@@ -11,16 +10,7 @@ import { injectSelectRootContext } from './root'
 import { injectSelectContentContext } from './contentImpl'
 
 export const destylerSelectItemAlignedPositionProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
 } as const
 
 export type DestylerSelectItemAlignedPositionProps = ExtractPublicPropTypes<typeof destylerSelectItemAlignedPositionProps>

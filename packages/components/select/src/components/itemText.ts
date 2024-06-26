@@ -1,7 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -11,14 +9,9 @@ import { SelectContentDefaultContextValue, injectSelectContentContext } from './
 import { injectSelectItemContext } from './item'
 
 export const destylerSelectItemTextProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'span',
   },
 } as const

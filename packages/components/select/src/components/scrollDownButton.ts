@@ -1,6 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, ref, watch, watchEffect } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -9,16 +8,7 @@ import { DestylerScrollSelectButtonImpl } from './scrollButtonImpl'
 import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
 export const destylerSelectScrollDownButtonProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
 } as const
 
 export type DestylerSelectScrollDownButtonProps = ExtractPublicPropTypes<typeof destylerSelectScrollDownButtonProps>

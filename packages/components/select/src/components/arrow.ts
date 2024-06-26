@@ -1,33 +1,12 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { DestylerPopperArrow } from '@destyler/popper'
-import type { AsTag } from '@destyler/primitive'
+import { DestylerPopperArrow, destylerPopperArrowProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSelectRootContext } from './root'
 import { injectSelectContentContext } from './contentImpl'
 
 export const destylerSelectArrowProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'svg',
-  },
+  ...destylerPopperArrowProps,
 } as const
 
 export type DestylerSelectArrowProps = ExtractPublicPropTypes<typeof destylerSelectArrowProps>
