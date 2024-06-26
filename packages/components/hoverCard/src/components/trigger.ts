@@ -1,23 +1,17 @@
-import { type Component, type PropType, defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { DestylerPopperAnchor } from '@destyler/popper'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 
 import { excludeTouch } from '../utils'
 import { injectHoverCardRootContext } from './root'
 
 export const destylerHoverCardTriggerProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'a',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
