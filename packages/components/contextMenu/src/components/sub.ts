@@ -2,14 +2,10 @@ import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
-import { DestylerMenuSub } from '@destyler/menu'
+import { DestylerMenuSub, destylerMenuSubProps } from '@destyler/menu'
 
 export const destylerContextMenuSubProps = {
-  open: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: undefined,
-  },
+  ...destylerMenuSubProps,
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,

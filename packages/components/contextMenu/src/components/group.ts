@@ -1,11 +1,10 @@
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuGroup } from '@destyler/menu'
+import { DestylerMenuGroup, destylerMenuGroupProps } from '@destyler/menu'
 
 export const destylerContextMenuGroupProps = {
-  ...destylerPrimitiveProps,
+  ...destylerMenuGroupProps,
 } as const
 
 export type DestylerContextMenuGroupProps = ExtractPublicPropTypes<typeof destylerContextMenuGroupProps>

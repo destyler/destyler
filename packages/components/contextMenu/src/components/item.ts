@@ -1,20 +1,10 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuItem } from '@destyler/menu'
+import { DestylerMenuItem, destylerMenuItemProps } from '@destyler/menu'
 
 export const destylerContextMenuItemProps = {
-  ...destylerPrimitiveProps,
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  textValue: {
-    type: String as PropType<string>,
-    required: false,
-  },
+  ...destylerMenuItemProps,
 } as const
 
 export type DestylerContextMenuItemProps = ExtractPublicPropTypes<typeof destylerContextMenuItemProps>

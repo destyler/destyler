@@ -1,19 +1,16 @@
-import type { PropType, Ref } from 'vue'
+import type { Ref } from 'vue'
 import { defineComponent, h, ref, toRefs, watch } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuRoot } from '@destyler/menu'
+import { DestylerMenuRoot, destylerMenuRootProps } from '@destyler/menu'
 
 export const destylerContextMenuRootProps = {
   dir: {
-    type: String as PropType<Direction>,
-    required: false,
+    ...destylerMenuRootProps.dir,
   },
   modal: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...destylerMenuRootProps.modal,
   },
 } as const
 

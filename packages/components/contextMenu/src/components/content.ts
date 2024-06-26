@@ -1,9 +1,7 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, ref } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerMenuContent } from '@destyler/menu'
+import { DestylerMenuContent, destylerMenuContentProps } from '@destyler/menu'
 
 import { injectContextMenuRootContext } from './root'
 
@@ -12,65 +10,57 @@ const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 
 export const destylerContextMenuContentProps = {
-  ...destylerPrimitiveProps,
+  as: {
+    ...destylerMenuContentProps.as,
+  },
+  asChild: {
+    ...destylerMenuContentProps.asChild,
+  },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
+    ...destylerMenuContentProps.alignOffset,
     default: 0,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.avoidCollisions,
     default: true,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
+    ...destylerMenuContentProps.collisionBoundary,
     default: () => [],
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
+    ...destylerMenuContentProps.collisionPadding,
     default: 0,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
+    ...destylerMenuContentProps.sticky,
     default: 'partial',
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.hideWhenDetached,
     default: false,
   },
   onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
+    ...destylerMenuContentProps.onPlaced,
   },
   prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.prioritizePosition,
     default: false,
   },
   disableOutsidePointerEvents: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.disableOutsidePointerEvents,
   },
   disableOutsideScroll: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.disableOutsideScroll,
   },
   trapFocus: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.trapFocus,
   },
   loop: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.loop,
   },
   forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...destylerMenuContentProps.forceMount,
   },
 } as const
 
