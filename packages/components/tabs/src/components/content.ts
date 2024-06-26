@@ -1,26 +1,16 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { makeContentId, makeTriggerId } from '../utils'
 import { injectTabsRootContext } from './root'
 
 export const destylerTabsContentProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   value: {
     type: String as PropType<string>,
     required: true,
