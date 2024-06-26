@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onMounted, toRefs, watch } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
 import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
@@ -12,16 +11,7 @@ import type { DateValue } from '@internationalized/date'
 import { useCalendar, useCalendarState } from '../composition/use-calendar'
 
 export const destylerCalendarRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   defaultValue: {
     type: Object as PropType<DateValue>,
     required: false,

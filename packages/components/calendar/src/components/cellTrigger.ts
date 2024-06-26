@@ -1,6 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, withKeys } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { DateValue } from '@internationalized/date'
 import { getLocalTimeZone, isSameDay, isSameMonth, isToday } from '@internationalized/date'
@@ -10,16 +10,7 @@ import { useForwardExpose, useKbd } from '@destyler/composition'
 import { injectCalendarRootContext } from './root'
 
 export const destylerCalendarCellTriggerProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   day: {
     type: Object as PropType<DateValue>,
     required: true,
