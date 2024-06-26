@@ -1,23 +1,13 @@
-import type { Component, ComputedRef, PropType, Ref } from 'vue'
+import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, watch, withDirectives } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose, useVModel } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 
 export const destylerOtpInputRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   modelValue: {
     type: Array as PropType<string[]>,
     required: false,
