@@ -4,7 +4,7 @@ import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerArrowProps = {
+export const arrowProps = {
   ...destylerPrimitiveProps,
   as: {
     ...destylerPrimitiveProps.as,
@@ -22,11 +22,11 @@ export const destylerArrowProps = {
   },
 } as const
 
-export type DestylerArrowProps = ExtractPublicPropTypes<typeof destylerArrowProps>
+export type ArrowProps = ExtractPublicPropTypes<typeof arrowProps>
 
-export const DestylerArrow = defineComponent({
+export const Arrow = defineComponent({
   name: 'DestylerArrow',
-  props: destylerArrowProps,
+  props: arrowProps,
   setup(_) {
     useForwardExpose()
   },
