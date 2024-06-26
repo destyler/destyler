@@ -1,19 +1,12 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const destylerRangeCalendarGridRowProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'tr',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 

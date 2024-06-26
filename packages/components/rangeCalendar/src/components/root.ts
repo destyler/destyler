@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
 import type { Formatter } from '@destyler/composition'
 import { useForwardExpose, useVModel } from '@destyler/composition'
@@ -12,16 +11,7 @@ import { useCalendar } from '@destyler/calendar/dist/composition'
 import { useRangeCalendarState } from '../composition/use-range-calendar-state'
 
 export const destylerRangeCalendarRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   defaultPlaceholder: {
     type: Object as PropType<DateValue>,
     required: false,
