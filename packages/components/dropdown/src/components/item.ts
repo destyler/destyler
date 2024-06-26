@@ -1,29 +1,10 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuItem } from '@destyler/menu'
+import { DestylerMenuItem, destylerMenuItemProps } from '@destyler/menu'
 
 export const destylerDropdownItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  textValue: {
-    type: String as PropType<string>,
-    required: false,
-  },
+  ...destylerMenuItemProps,
 } as const
 
 export type DestylerDropdownItemProps = ExtractPublicPropTypes<typeof destylerDropdownItemProps>
