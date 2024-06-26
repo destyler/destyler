@@ -1,7 +1,7 @@
-import type { Component, PropType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { refAutoReset, unrefElement } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
@@ -12,15 +12,10 @@ import { injectNavigationContext } from './root'
 import { injectNavigationItemContext } from './item'
 
 export const destylerNavigationTriggerProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   disabled: {
     type: Boolean as PropType<boolean>,

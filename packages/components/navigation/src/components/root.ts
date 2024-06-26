@@ -1,21 +1,15 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { createContext, refAutoReset } from '@destyler/shared'
 import { useCollection, useDebounceFn, useDirection, useForwardExpose, useId, useVModel } from '@destyler/composition'
 
 export const destylerNavigationRootProps = {
+  ...destylerPrimitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...destylerPrimitiveProps.as,
     default: 'nav',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   modelValue: {
     type: String as PropType<string>,

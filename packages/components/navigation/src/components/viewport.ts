@@ -1,7 +1,7 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
 import { DestylerPresence } from '@destyler/presence'
 
@@ -9,16 +9,7 @@ import { getOpenState } from '../utils'
 import { injectNavigationContext } from './root'
 
 export const destylerNavigationViewportProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...destylerPrimitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
