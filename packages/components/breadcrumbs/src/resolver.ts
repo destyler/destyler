@@ -3,15 +3,19 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const componentName = [
+  'BreadcrumbsContent',
+  'BreadcrumbsItem',
+  'BreadcrumbsLabel',
+  'BreadcrumbsRoot',
+  'BreadcrumbsSeparator',
 ]
 
 export function DestylerTemplateResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (componentName.includes(name))
         return { name, from: packageName }
     },
   }

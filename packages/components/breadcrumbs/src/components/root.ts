@@ -1,26 +1,26 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerBreadcrumbsRootProps = {
-  ...destylerPrimitiveProps,
+export const breadcrumbsRootProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'nav',
   },
 } as const
 
-export type DestylerBreadcrumbsRootProps = ExtractPublicPropTypes<typeof destylerBreadcrumbsRootProps>
+export type BreadcrumbsRootProps = ExtractPublicPropTypes<typeof breadcrumbsRootProps>
 
-export const DestylerBreadcrumbsRoot = defineComponent({
+export const BreadcrumbsRoot = defineComponent({
   name: 'DestylerBreadcrumbsRoot',
-  props: destylerBreadcrumbsRootProps,
+  props: breadcrumbsRootProps,
   setup(_) {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'aria-label': 'breadcrumbs',

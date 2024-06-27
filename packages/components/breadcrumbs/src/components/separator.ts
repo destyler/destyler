@@ -1,24 +1,24 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectContextBreadcrumbsContext } from './content'
 import { injectContextBreadcrumbsItemContext } from './item'
 
-export const destylerBreadcrumbsSeparatorProps = {
-  ...destylerPrimitiveProps,
+export const breadcrumbsSeparatorProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerBreadcrumbsSeparatorProps = ExtractPublicPropTypes<typeof destylerBreadcrumbsSeparatorProps>
+export type BreadcrumbsSeparatorProps = ExtractPublicPropTypes<typeof breadcrumbsSeparatorProps>
 
-export const DestylerBreadcrumbsSeparator = defineComponent({
+export const BreadcrumbsSeparator = defineComponent({
   name: 'DestylerBreadcrumbsSeparator',
-  props: destylerBreadcrumbsSeparatorProps,
+  props: breadcrumbsSeparatorProps,
   setup() {
     useForwardExpose()
     const content = injectContextBreadcrumbsContext()
@@ -30,7 +30,7 @@ export const DestylerBreadcrumbsSeparator = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       ...this.content.lastItemId.value === this.itemContent.itemId ? { style: { display: 'none' } } : {},

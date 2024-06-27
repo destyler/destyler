@@ -1,19 +1,19 @@
 import type { Ref } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useCollection, useForwardExpose } from '@destyler/composition'
 
-export const destylerBreadcrumbsContentProps = {
-  ...destylerPrimitiveProps,
+export const breadcrumbsContentProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'ul',
   },
 } as const
 
-export type DestylerBreadcrumbsContentProps = ExtractPublicPropTypes<typeof destylerBreadcrumbsContentProps>
+export type BreadcrumbsContentProps = ExtractPublicPropTypes<typeof breadcrumbsContentProps>
 
 export interface ContextBreadcrumbsContext {
   lastItemId: Ref<string>
@@ -21,9 +21,9 @@ export interface ContextBreadcrumbsContext {
 
 export const [injectContextBreadcrumbsContext, provideContextBreadcrumbsContext] = createContext<ContextBreadcrumbsContext>('DestylerContextBreadcrumbsContent')
 
-export const DestylerBreadcrumbsContent = defineComponent({
+export const BreadcrumbsContent = defineComponent({
   name: 'DestylerBreadcrumbsContent',
-  props: destylerBreadcrumbsContentProps,
+  props: breadcrumbsContentProps,
   setup(_) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('li', 'data-destyler-breadcrumb-item')
@@ -41,7 +41,7 @@ export const DestylerBreadcrumbsContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,
