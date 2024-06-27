@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, renderSlot } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { DestylerPresence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -8,10 +8,10 @@ import { useForwardExpose } from '@destyler/composition'
 import { getState, isIndeterminate } from '../utils'
 import { injectCheckboxRootContext } from './root'
 
-export const destylerCheckboxIndicatorProps = {
-  ...destylerPrimitiveProps,
+export const checkboxIndicatorProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
   forceMount: {
@@ -21,11 +21,11 @@ export const destylerCheckboxIndicatorProps = {
   },
 } as const
 
-export type DestylerCheckboxIndicatorProps = ExtractPublicPropTypes<typeof destylerCheckboxIndicatorProps>
+export type CheckboxIndicatorProps = ExtractPublicPropTypes<typeof checkboxIndicatorProps>
 
-export const DestylerCheckboxIndicator = defineComponent({
+export const CheckboxIndicator = defineComponent({
   name: 'DestylerCheckboxIndicator',
-  props: destylerCheckboxIndicatorProps,
+  props: checkboxIndicatorProps,
   setup() {
     const rootContext = injectCheckboxRootContext()
 
@@ -39,7 +39,7 @@ export const DestylerCheckboxIndicator = defineComponent({
   render() {
     return h(DestylerPresence, {
       present: this.$props.forceMount || isIndeterminate(this.rootContext.state.value) || this.rootContext.state.value === true,
-    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, () => h(Primitive, mergeProps(this.$attrs, {
       'ref': el => this.forwardRef(el),
       'data-state': getState(this.rootContext.state.value),
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
