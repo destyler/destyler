@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCalendarRootContext } from './root'
 
-export const destylerCalendarPrevProps = {
-  ...destylerPrimitiveProps,
+export const calendarPrevProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerCalendarPrevProps = ExtractPublicPropTypes<typeof destylerCalendarPrevProps>
+export type CalendarPrevProps = ExtractPublicPropTypes<typeof calendarPrevProps>
 
-export const DestylerCalendarPrev = defineComponent({
+export const CalendarPrev = defineComponent({
   name: 'DestylerCalendarPrev',
-  props: destylerCalendarPrevProps,
+  props: calendarPrevProps,
   setup(_) {
     const rootContext = injectCalendarRootContext()
 
@@ -25,7 +25,7 @@ export const DestylerCalendarPrev = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'aria-label': 'Previous page',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-disabled': this.rootContext.isPrevButtonDisabled.value || undefined,

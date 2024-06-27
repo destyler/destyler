@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onMounted, toRefs, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
 import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
@@ -10,8 +10,8 @@ import type { DateValue } from '@internationalized/date'
 
 import { useCalendar, useCalendarState } from '../composition/use-calendar'
 
-export const destylerCalendarRootProps = {
-  ...destylerPrimitiveProps,
+export const calendarRootProps = {
+  ...primitiveProps,
   defaultValue: {
     type: Object as PropType<DateValue>,
     required: false,
@@ -109,7 +109,7 @@ export const destylerCalendarRootProps = {
   },
 } as const
 
-export type DestylerCalendarRootProps = ExtractPublicPropTypes<typeof destylerCalendarRootProps>
+export type CalendarRootProps = ExtractPublicPropTypes<typeof calendarRootProps>
 
 export interface CalendarRootContext {
   locale: Ref<SupportedLocale>
@@ -146,9 +146,9 @@ export interface CalendarRootContext {
 export const [injectCalendarRootContext, provideCalendarRootContext]
   = createContext<CalendarRootContext>('DestylerCalendarRoot')
 
-export const DestylerCalendarRoot = defineComponent({
+export const CalendarRoot = defineComponent({
   name: 'DestylerCalendarRoot',
-  props: destylerCalendarRootProps,
+  props: calendarRootProps,
   emits: ['update:modelValue', 'update:placeholder'],
   setup(props, { emit }) {
     const {
@@ -351,7 +351,7 @@ export const DestylerCalendarRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

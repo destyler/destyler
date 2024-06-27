@@ -1,25 +1,25 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerCalendarHeadCellProps = {
-  ...destylerPrimitiveProps,
+export const calendarHeadCellProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'th',
   },
 } as const
 
-export type DestylerCalendarHeadCellProps = ExtractPublicPropTypes<typeof destylerCalendarHeadCellProps>
+export type CalendarHeadCellProps = ExtractPublicPropTypes<typeof calendarHeadCellProps>
 
-export const DestylerCalendarHeadCell = defineComponent({
+export const CalendarHeadCell = defineComponent({
   name: 'DestylerCalendarHeadCell',
-  props: destylerCalendarHeadCellProps,
+  props: calendarHeadCellProps,
   setup(_) {
 
   },
   render() {
-    return h(DestylerPrimitive, this.$props, {
+    return h(Primitive, this.$props, {
       default: () => this.$slots.default?.(),
     })
   },

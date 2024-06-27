@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, withKeys } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { DateValue } from '@internationalized/date'
 import { getLocalTimeZone, isSameDay, isSameMonth, isToday } from '@internationalized/date'
@@ -9,8 +9,8 @@ import { useForwardExpose, useKbd } from '@destyler/composition'
 
 import { injectCalendarRootContext } from './root'
 
-export const destylerCalendarCellTriggerProps = {
-  ...destylerPrimitiveProps,
+export const calendarCellTriggerProps = {
+  ...primitiveProps,
   day: {
     type: Object as PropType<DateValue>,
     required: true,
@@ -21,11 +21,11 @@ export const destylerCalendarCellTriggerProps = {
   },
 } as const
 
-export type DestylerCalendarCellTriggerProps = ExtractPublicPropTypes<typeof destylerCalendarCellTriggerProps>
+export type CalendarCellTriggerProps = ExtractPublicPropTypes<typeof calendarCellTriggerProps>
 
-export const DestylerCalendarCellTrigger = defineComponent({
+export const CalendarCellTrigger = defineComponent({
   name: 'DestylerCalendarCellTrigger',
-  props: destylerCalendarCellTriggerProps,
+  props: calendarCellTriggerProps,
   setup(props) {
     const kbd = useKbd()
     const rootContext = injectCalendarRootContext()
@@ -172,7 +172,7 @@ export const DestylerCalendarCellTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'data-destyler-calendar-cell-trigger': '',
       'role': 'button',
