@@ -1,14 +1,14 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getScrollParent, isDocument, unwrapElement } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerBackTopProps = {
-  ...destylerPrimitiveProps,
+export const backTopProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   listen: {
@@ -18,11 +18,11 @@ export const destylerBackTopProps = {
   },
 } as const
 
-export type DestylerbackTopProps = ExtractPublicPropTypes<typeof destylerBackTopProps>
+export type BackTopProps = ExtractPublicPropTypes<typeof backTopProps>
 
-export const DestylerBackTop = defineComponent({
+export const BackTop = defineComponent({
   name: 'DestylerBackTop',
-  props: destylerBackTopProps,
+  props: backTopProps,
   setup(props) {
     const scrollTop = ref<number | null>(null)
     const DomInfoReady = ref<boolean>(false)
@@ -79,7 +79,7 @@ export const DestylerBackTop = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+    return h(Primitive, mergeProps(this.$props, this.$attrs, {
       ref: (el: any) => this.forwardRef(el),
       onClick: () => {
         this.handleClick()
