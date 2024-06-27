@@ -1,3 +1,3 @@
-export { DestylerCollapsibleRoot, destylerCollapsibleRootProps, type DestylerCollapsibleRootProps } from './components/root'
-export { DestylerCollapsibleTrigger, destylerCollapsibleTriggerProps, type DestylerCollapsibleTriggerProps } from './components/trigger'
-export { DestylerCollapsibleContent, destylerPrimitivePropsProps, type DestylerPrimitivePropsProps } from './components/content'
+export { CollapsibleRoot, collapsibleRootProps, type CollapsibleRootProps } from './components/root'
+export { CollapsibleTrigger, collapsibleTriggerProps, type CollapsibleTriggerProps } from './components/trigger'
+export { CollapsibleContent, collapsibleContent, type CollapsibleContentProps } from './components/content'

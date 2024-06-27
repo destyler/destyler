@@ -1,25 +1,25 @@
 import { defineComponent, h, withDirectives } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
-import { DestylerCollapsibleTrigger } from '@destyler/collapsible'
+import { primitiveProps } from '@destyler/primitive'
+import { CollapsibleTrigger } from '@destyler/collapsible'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCollapseItemContext } from './item'
 import { injectCollapseRootContext } from './root'
 
-export const destylerCollapseTriggerProps = {
-  ...destylerPrimitiveProps,
+export const collapseTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerCollapseTriggerProps = ExtractPublicPropTypes<typeof destylerCollapseTriggerProps>
+export type CollapseTriggerProps = ExtractPublicPropTypes<typeof collapseTriggerProps>
 
-export const DestylerCollapseTrigger = defineComponent({
+export const CollapseTrigger = defineComponent({
   name: 'DestylerCollapseTrigger',
-  props: destylerCollapseTriggerProps,
+  props: collapseTriggerProps,
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()
@@ -37,7 +37,7 @@ export const DestylerCollapseTrigger = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerCollapsibleTrigger, {
+    return withDirectives(h(CollapsibleTrigger, {
       'ref': this.itemContext.currentRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
