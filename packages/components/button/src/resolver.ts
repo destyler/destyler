@@ -4,7 +4,7 @@ import { name } from '../package.json'
 const packageName = name
 
 export const buttonComponentName = [
-  'DestylerButton',
+  'Button',
 ]
 
 export function DestylerButtonResolver(): ComponentResolver {

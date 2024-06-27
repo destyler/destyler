@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { isButton } from '../utils'
 
-export const destylerButtonProps = {
-  ...destylerPrimitiveProps,
+export const buttonProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -19,12 +19,12 @@ export const destylerButtonProps = {
   },
 } as const
 
-export type DestylerButtonProps = ExtractPublicPropTypes<typeof destylerButtonProps>
+export type ButtonProps = ExtractPublicPropTypes<typeof buttonProps>
 
-export const DestylerButton = defineComponent({
+export const Button = defineComponent({
   name: 'DestylerButton',
   inheritAttrs: false,
-  props: destylerButtonProps,
+  props: buttonProps,
   emits: ['click'],
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
@@ -53,7 +53,7 @@ export const DestylerButton = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
