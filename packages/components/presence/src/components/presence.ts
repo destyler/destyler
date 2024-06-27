@@ -15,7 +15,7 @@ import { usePresence } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { renderSlotFragments, unrefElement } from '@destyler/shared'
 
-export const destylerPresenceProps = {
+export const presenceProps = {
   present: {
     type: Boolean as PropType<boolean>,
     required: true,
@@ -26,11 +26,11 @@ export const destylerPresenceProps = {
   },
 } as const
 
-export type DestylerPresenceProps = ExtractPublicPropTypes<typeof destylerPresenceProps>
+export type PresenceProps = ExtractPublicPropTypes<typeof presenceProps>
 
-export const DestylerPresence = defineComponent({
+export const Presence = defineComponent({
   name: 'DestylerPresence',
-  props: destylerPresenceProps,
+  props: presenceProps,
   slots: {} as SlotsType<{
     default: (opts: { present: Ref<boolean> }) => any
   }>,

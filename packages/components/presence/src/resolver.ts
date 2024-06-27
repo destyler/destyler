@@ -4,7 +4,7 @@ import { name } from '../package.json'
 const packageName = name
 
 export const presenceComponentName = [
-  'DestylerPresence',
+  'Presence',
 ]
 
 export function DestylerPresenceResolver(): ComponentResolver {
