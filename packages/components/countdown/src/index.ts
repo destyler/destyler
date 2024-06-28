@@ -1,1 +1,1 @@
-export { DestylerCountdown, destylerCountdownProps, type DestylerCountdownProps } from './components/countdown'
+export { Countdown, countdownProps, type CountdownProps } from './components/countdown'
