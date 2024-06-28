@@ -21,6 +21,11 @@
       "import": "./dist/component.mjs",
       "require": "./dist/component.cjs"
     },
+    "./composition": {
+      "types": "./dist/composition.d.ts",
+      "import": "./dist/composition.mjs",
+      "require": "./dist/composition.cjs"
+    },
     "./*": "./*"
   },
   "main": "dist/index.cjs",
