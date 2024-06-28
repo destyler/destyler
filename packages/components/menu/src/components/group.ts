@@ -1,18 +1,18 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerMenuGroupProps = {
-  ...destylerPrimitiveProps,
+export const menuGroupProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerMenuGroupProps = ExtractPublicPropTypes<typeof destylerMenuGroupProps>
+export type MenuGroupProps = ExtractPublicPropTypes<typeof menuGroupProps>
 
-export const DestylerMenuGroup = defineComponent({
+export const MenuGroup = defineComponent({
   name: 'DestylerMenuGroup',
-  props: destylerMenuGroupProps,
+  props: menuGroupProps,
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       role: 'group',
     }), () => this.$slots.default?.())
   },

@@ -1,14 +1,14 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, withDirectives, withModifiers } from 'vue'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { SUB_CLOSE_KEYS } from '../utils'
 import { injectMenuContext, injectMenuRootContext } from './root'
 import { injectMenuSubContext } from './sub'
-import { DestylerMenuContentImpl, destylerMenuContentImplProps } from './contentImpl'
+import { MenuContentImpl, menuContentImplProps } from './contentImpl'
 
 const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
@@ -16,48 +16,48 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenuSubContentProps = {
+export const menuSubContentProps = {
   as: {
-    ...destylerMenuContentImplProps.as,
+    ...menuContentImplProps.as,
   },
   asChild: {
-    ...destylerMenuContentImplProps.asChild,
+    ...menuContentImplProps.asChild,
   },
   sideOffset: {
-    ...destylerMenuContentImplProps.sideOffset,
+    ...menuContentImplProps.sideOffset,
   },
   alignOffset: {
-    ...destylerMenuContentImplProps.alignOffset,
+    ...menuContentImplProps.alignOffset,
   },
   avoidCollisions: {
-    ...destylerMenuContentImplProps.avoidCollisions,
+    ...menuContentImplProps.avoidCollisions,
   },
   collisionBoundary: {
-    ...destylerMenuContentImplProps.collisionBoundary,
+    ...menuContentImplProps.collisionBoundary,
   },
   collisionPadding: {
-    ...destylerMenuContentImplProps.collisionPadding,
+    ...menuContentImplProps.collisionPadding,
   },
   arrowPadding: {
-    ...destylerMenuContentImplProps.arrowPadding,
+    ...menuContentImplProps.arrowPadding,
   },
   sticky: {
-    ...destylerMenuContentImplProps.sticky,
+    ...menuContentImplProps.sticky,
   },
   hideWhenDetached: {
-    ...destylerMenuContentImplProps.hideWhenDetached,
+    ...menuContentImplProps.hideWhenDetached,
   },
   updatePositionStrategy: {
-    ...destylerMenuContentImplProps.updatePositionStrategy,
+    ...menuContentImplProps.updatePositionStrategy,
   },
   onPlaced: {
-    ...destylerMenuContentImplProps.onPlaced,
+    ...menuContentImplProps.onPlaced,
   },
   prioritizePosition: {
-    ...destylerMenuContentImplProps.prioritizePosition,
+    ...menuContentImplProps.prioritizePosition,
   },
   loop: {
-    ...destylerMenuContentImplProps.loop,
+    ...menuContentImplProps.loop,
   },
   forceMount: {
     type: Boolean as PropType<boolean>,
@@ -65,11 +65,11 @@ export const destylerMenuSubContentProps = {
   },
 } as const
 
-export type DestylerMenuSubContentProps = ExtractPublicPropTypes<typeof destylerMenuSubContentProps>
+export type MenuSubContentProps = ExtractPublicPropTypes<typeof menuSubContentProps>
 
-export const DestylerMenuSubContent = defineComponent({
+export const MenuSubContent = defineComponent({
   name: 'DestylerMenuSubContent',
-  props: destylerMenuSubContentProps,
+  props: menuSubContentProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -90,9 +90,9 @@ export const DestylerMenuSubContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.forceMount || this.menuContext.open.value,
-    }, () => withDirectives(h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
+    }, () => withDirectives(h(MenuContentImpl, mergeProps(this.forwarded, {
       'ref': (el: any) => this.forwardRef(el),
       'align': 'start',
       'side': this.rootContext.dir.value === 'rtl' ? 'left' : 'right',

@@ -1,19 +1,19 @@
 import { defineComponent, h, mergeProps, onMounted, onUnmounted } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { context } from './dismissableLayer'
 
-export const destylerDismissableLayerBranchProps = {
-  ...destylerPrimitiveProps,
+export const dismissableLayerBranchProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerDismissableLayerBranchProps = ExtractPublicPropTypes<typeof destylerDismissableLayerBranchProps>
+export type DismissableLayerBranchProps = ExtractPublicPropTypes<typeof dismissableLayerBranchProps>
 
-export const DestylerDismissableLayerBranch = defineComponent({
+export const DismissableLayerBranch = defineComponent({
   name: 'DestylerDismissableLayerBranch',
-  props: destylerDismissableLayerBranchProps,
+  props: dismissableLayerBranchProps,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
     onMounted(() => {
@@ -28,7 +28,7 @@ export const DestylerDismissableLayerBranch = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       ref: (el: any) => this.forwardRef(el),
     }), () => this.$slots.default?.())
   },

@@ -4,21 +4,21 @@ import { getOpenState, isMouseEvent } from '@destyler/shared'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { SUB_OPEN_KEYS } from '../utils'
-import { DestylerMenuItemImpl, destylerMenuItemImplProps } from './itemImpl'
+import { MenuItemImpl, menuItemImplProps } from './itemImpl'
 import { injectMenuContext, injectMenuRootContext } from './root'
 import { injectMenuSubContext } from './sub'
 import { injectMenuContentContext } from './contentImpl'
-import { DestylerMenuAnchor } from './anchor'
+import { MenuAnchor } from './anchor'
 
-export const destylerMenuSubTriggerProps = {
-  ...destylerMenuItemImplProps,
+export const menuSubTriggerProps = {
+  ...menuItemImplProps,
 } as const
 
-export type DestylerMenuSubTriggerProps = ExtractPublicPropTypes<typeof destylerMenuSubTriggerProps>
+export type MenuSubTriggerProps = ExtractPublicPropTypes<typeof menuSubTriggerProps>
 
-export const DestylerMenuSubTrigger = defineComponent({
+export const MenuSubTrigger = defineComponent({
   name: 'DestylerMenuSubTrigger',
-  props: destylerMenuSubTriggerProps,
+  props: menuSubTriggerProps,
   setup(props) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()
@@ -114,9 +114,9 @@ export const DestylerMenuSubTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuAnchor, {
+    return h(MenuAnchor, {
       asChild: true,
-    }, () => withDirectives(h(DestylerMenuItemImpl, mergeProps(this.$props, {
+    }, () => withDirectives(h(MenuItemImpl, mergeProps(this.$props, {
       'ref': (vnode: any) => {
         this.subContext?.onTriggerChange(vnode?.$el)
         return undefined

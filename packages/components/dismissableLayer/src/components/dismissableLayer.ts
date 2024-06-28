@@ -1,14 +1,14 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, reactive, watchEffect, withModifiers } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { useFocusOutside, usePointerDownOutside } from '../utils'
 
-export const destylerDismissableLayerProps = {
-  ...destylerPrimitiveProps,
+export const dismissableLayerProps = {
+  ...primitiveProps,
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,9 +21,9 @@ export const destylerDismissableLayerProps = {
   },
 } as const
 
-export type DestylerDismissableLayerProps = ExtractPublicPropTypes<typeof destylerDismissableLayerProps>
+export type DismissableLayerProps = ExtractPublicPropTypes<typeof dismissableLayerProps>
 
-export const destylerDismissableLayerEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss']
+export const dismissableLayerEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss']
 
 export const context: any = reactive({
   layersRoot: new Set<HTMLElement>(),
@@ -31,9 +31,9 @@ export const context: any = reactive({
   branches: new Set<HTMLElement>(),
 })
 
-export const DestylerDismissableLayer = defineComponent({
+export const DismissableLayer = defineComponent({
   name: 'DestylerDismissableLayer',
-  props: destylerDismissableLayerProps,
+  props: dismissableLayerProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
@@ -136,7 +136,7 @@ export const DestylerDismissableLayer = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

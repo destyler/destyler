@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerPopperArrow, destylerPopperArrowProps } from '@destyler/popper'
+import { PopperArrow, popperArrowProps } from '@destyler/popper'
 
-export const destylerMenuArrowProps = {
-  ...destylerPopperArrowProps,
+export const menuArrowProps = {
+  ...popperArrowProps,
 } as const
 
-export type DestylerMenuArrowProps = ExtractPublicPropTypes<typeof destylerMenuArrowProps>
+export type MenuArrowProps = ExtractPublicPropTypes<typeof menuArrowProps>
 
-export const DestylerMenuArrow = defineComponent({
+export const MenuArrow = defineComponent({
   name: 'DestylerMenuArrow',
-  props: destylerMenuArrowProps,
+  props: menuArrowProps,
   render() {
-    return h(DestylerPopperArrow, this.$props, () => this.$slots.default?.())
+    return h(PopperArrow, this.$props, () => this.$slots.default?.())
   },
 })

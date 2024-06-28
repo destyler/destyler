@@ -4,11 +4,11 @@ import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 import { getCheckedState, isIndeterminate } from '@destyler/shared'
 
-import { DestylerMenuItem, destylerMenuItemProps } from './item'
+import { MenuItem, menuItemProps } from './item'
 import { provideMenuItemIndicatorContext } from './itemIndicator'
 
-export const destylerMenuCheckboxItemProps = {
-  ...destylerMenuItemProps,
+export const menuCheckboxItemProps = {
+  ...menuItemProps,
   checked: {
     type: [Boolean, String] as PropType<CheckedState>,
     required: false,
@@ -16,11 +16,11 @@ export const destylerMenuCheckboxItemProps = {
   },
 } as const
 
-export type DestylerMenuCheckboxItemProps = ExtractPublicPropTypes<typeof destylerMenuCheckboxItemProps>
+export type MenuCheckboxItemProps = ExtractPublicPropTypes<typeof menuCheckboxItemProps>
 
-export const DestylerMenuCheckboxItem = defineComponent({
+export const MenuCheckboxItem = defineComponent({
   name: 'DestylerMenuCheckboxItem',
-  props: destylerMenuCheckboxItemProps,
+  props: menuCheckboxItemProps,
   emits: ['update:checked', 'select'],
   setup(props, { emit }) {
     const checked = useVModel(props, 'checked', emit)
@@ -32,7 +32,7 @@ export const DestylerMenuCheckboxItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuItem, mergeProps(this.$props, {
+    return h(MenuItem, mergeProps(this.$props, {
       'role': 'menuitemcheckbox',
       'aria-checked': isIndeterminate(this.checked) ? 'mixed' : this.checked,
       'data-state': getCheckedState(this.checked),

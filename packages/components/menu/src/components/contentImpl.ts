@@ -5,9 +5,9 @@ import type { ExtractPublicPropTypes, GraceIntent } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, useTypeahead } from '@destyler/composition'
 import { createContext, focusFirst, isMouseEvent, isPointerInGraceArea } from '@destyler/shared'
 import { DestylerFocusScope } from '@destyler/focus-scope'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
+import { DismissableLayer } from '@destyler/dismissable-layer'
 import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
-import { DestylerPopperContent } from '@destyler/popper'
+import { PopperContent } from '@destyler/popper'
 
 import {
   FIRST_LAST_KEYS,
@@ -22,7 +22,7 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenuContentImplProps = {
+export const menuContentImplProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -115,7 +115,7 @@ export const destylerMenuContentImplProps = {
   },
 } as const
 
-export type DestylerMenuContentImplProps = ExtractPublicPropTypes<typeof destylerMenuContentImplProps>
+export type MenuContentImplProps = ExtractPublicPropTypes<typeof menuContentImplProps>
 
 export interface MenuContentContext {
   onItemEnter: (event: PointerEvent) => boolean
@@ -128,9 +128,9 @@ export interface MenuContentContext {
 
 export const [injectMenuContentContext, provideMenuContentContext] = createContext<MenuContentContext>('DestylerMenuContent')
 
-export const DestylerMenuContentImpl = defineComponent({
+export const MenuContentImpl = defineComponent({
   name: 'DestylerMenuContentImpl',
-  props: destylerMenuContentImplProps,
+  props: menuContentImplProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
   setup(props, { emit }) {
     const menuContext = injectMenuContext()
@@ -298,7 +298,7 @@ export const DestylerMenuContentImpl = defineComponent({
       onUnmountAutoFocus: (event: any) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, () => h(DestylerDismissableLayer, {
+    }, () => h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: this.disableOutsidePointerEvents,
       onEscapeKeyDown: (event: any) => {
@@ -330,7 +330,7 @@ export const DestylerMenuContentImpl = defineComponent({
         if (!this.rootContext.isUsingKeyboardRef.value)
           event.preventDefault()
       },
-    }, () => h(DestylerPopperContent, {
+    }, () => h(PopperContent, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'menu',
       'as': this.$props.as,

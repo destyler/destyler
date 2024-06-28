@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerPopperAnchor, destylerPopperAnchorProps } from '@destyler/popper'
+import { PopperAnchor, popperAnchorProps } from '@destyler/popper'
 
-export const destylerMenuAnchorProps = {
-  ...destylerPopperAnchorProps,
+export const menuAnchorProps = {
+  ...popperAnchorProps,
 } as const
 
-export type DestylerMenuAnchorProps = ExtractPublicPropTypes<typeof destylerMenuAnchorProps>
+export type MenuAnchorProps = ExtractPublicPropTypes<typeof menuAnchorProps>
 
-export const DestylerMenuAnchor = defineComponent({
+export const MenuAnchor = defineComponent({
   name: 'DestylerMenuAnchor',
-  props: destylerMenuAnchorProps,
+  props: menuAnchorProps,
   render() {
-    return h(DestylerPopperAnchor, this.$props, () => this.$slots.default?.())
+    return h(PopperAnchor, this.$props, () => this.$slots.default?.())
   },
 })

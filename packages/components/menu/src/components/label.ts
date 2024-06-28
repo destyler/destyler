@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerMenuLabelProps = {
-  ...destylerPrimitiveProps,
+export const menuLabelProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerMenuLabelProps = ExtractPublicPropTypes<typeof destylerMenuLabelProps>
+export type MenuLabelProps = ExtractPublicPropTypes<typeof menuLabelProps>
 
-export const DestylerMenuLabel = defineComponent({
+export const MenuLabel = defineComponent({
   name: 'DestylerMenuLabel',
-  props: destylerMenuLabelProps,
+  props: menuLabelProps,
   render() {
-    return h(DestylerPrimitive, this.$props, () => this.$slots.default?.())
+    return h(Primitive, this.$props, () => this.$slots.default?.())
   },
 })

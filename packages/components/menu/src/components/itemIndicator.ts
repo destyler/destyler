@@ -2,15 +2,15 @@ import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, isIndeterminate } from '@destyler/shared'
-import { DestylerPresence } from '@destyler/presence'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Presence } from '@destyler/presence'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { getCheckedState } from '../utils'
 
-export const destylerMenuItemIndicatorProps = {
-  ...destylerPrimitiveProps,
+export const menuItemIndicatorProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
   forceMount: {
@@ -19,7 +19,7 @@ export const destylerMenuItemIndicatorProps = {
   },
 } as const
 
-export type DestylerMenuItemIndicatorProps = ExtractPublicPropTypes<typeof destylerMenuItemIndicatorProps>
+export type MenuItemIndicatorProps = ExtractPublicPropTypes<typeof menuItemIndicatorProps>
 
 export interface MenuItemIndicatorContext {
   checked: Ref<CheckedState>
@@ -27,9 +27,9 @@ export interface MenuItemIndicatorContext {
 
 export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext] = createContext<MenuItemIndicatorContext>(['DestylerMenuCheckboxItem', 'DestylerMenuRadioItem'], 'DestylerMenuItemIndicatorContext')
 
-export const DestylerMenuItemIndicator = defineComponent({
+export const MenuItemIndicator = defineComponent({
   name: 'DestylerMenuItemIndicator',
-  props: destylerMenuItemIndicatorProps,
+  props: menuItemIndicatorProps,
   setup() {
     const indicatorContext = injectMenuItemIndicatorContext({
       checked: ref(false),
@@ -40,9 +40,9 @@ export const DestylerMenuItemIndicator = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.$props.forceMount || isIndeterminate(this.indicatorContext.checked.value) || this.indicatorContext.checked.value === true,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-state': getCheckedState(this.indicatorContext.checked.value),

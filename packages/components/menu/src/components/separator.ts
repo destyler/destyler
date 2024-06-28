@@ -1,18 +1,18 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerMenuSeparatorProps = {
-  ...destylerPrimitiveProps,
+export const menuSeparatorProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerMenuSeparatorProps = ExtractPublicPropTypes<typeof destylerMenuSeparatorProps>
+export type MenuSeparatorProps = ExtractPublicPropTypes<typeof menuSeparatorProps>
 
-export const DestylerMenuSeparator = defineComponent({
+export const MenuSeparator = defineComponent({
   name: 'DestylerMenuSeparator',
-  props: destylerMenuSeparatorProps,
+  props: menuSeparatorProps,
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'role': 'separator',
       'aria-orientation': 'horizontal',
     }), () => this.$slots.default?.())

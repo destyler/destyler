@@ -2,26 +2,26 @@ import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardPropsEmits } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 
-import { destylerMenuContentImplProps } from './contentImpl'
+import { menuContentImplProps } from './contentImpl'
 import { injectMenuContext, injectMenuRootContext } from './root'
-import { DestylerMenuRootContentModal } from './rootContentModal'
-import { DestylerMenuRootContentNonModal } from './rootContentNonModal'
+import { MenuRootContentModal } from './rootContentModal'
+import { MenuRootContentNonModal } from './rootContentNonModal'
 
-export const destylerMenuContentProps = {
-  ...destylerMenuContentImplProps,
+export const menuContentProps = {
+  ...menuContentImplProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerMenuContentProps = ExtractPublicPropTypes<typeof destylerMenuContentProps>
+export type MenuContentProps = ExtractPublicPropTypes<typeof menuContentProps>
 
-export const DestylerMenuContent = defineComponent({
+export const MenuContent = defineComponent({
   name: 'DestylerMenuContent',
-  props: destylerMenuContentProps,
+  props: menuContentProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -36,13 +36,13 @@ export const DestylerMenuContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.forceMount || this.menuContext.open.value,
     }, () => {
       if (this.rootContext.modal.value)
-        return h(DestylerMenuRootContentModal, mergeProps(this.$attrs, this.forwarded), () => this.$slots.default?.())
+        return h(MenuRootContentModal, mergeProps(this.$attrs, this.forwarded), () => this.$slots.default?.())
       else
-        return h(DestylerMenuRootContentNonModal, mergeProps(this.$attrs, this.forwarded), () => this.$slots.default?.())
+        return h(MenuRootContentNonModal, mergeProps(this.$attrs, this.forwarded), () => this.$slots.default?.())
     })
   },
 })

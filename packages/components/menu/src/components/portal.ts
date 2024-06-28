@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerTeleport, destylerTeleportProps } from '@destyler/teleport'
+import { TeleportPrimitive, teleportPrimitiveProps } from '@destyler/teleport'
 
-export const destylerMenuPortalProps = {
-  ...destylerTeleportProps,
+export const menuPortalProps = {
+  ...teleportPrimitiveProps,
 } as const
 
-export type DestylerMenuPortalProps = ExtractPublicPropTypes<typeof destylerMenuPortalProps>
+export type MenuPortalProps = ExtractPublicPropTypes<typeof menuPortalProps>
 
-export const DestylerMenuPortal = defineComponent({
+export const MenuPortal = defineComponent({
   name: 'DestylerMenuPortal',
-  props: destylerMenuPortalProps,
+  props: menuPortalProps,
   render() {
-    return h(DestylerTeleport, this.$props, () => this.$slots.default?.())
+    return h(TeleportPrimitive, this.$props, () => this.$slots.default?.())
   },
 })

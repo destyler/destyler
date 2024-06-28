@@ -3,23 +3,23 @@ import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getCheckedState } from '@destyler/shared'
 
-import { DestylerMenuItem, destylerMenuItemProps } from './item'
+import { MenuItem, menuItemProps } from './item'
 import { injectMenuRadioGroupContext } from './radioGroup'
 import { provideMenuItemIndicatorContext } from './itemIndicator'
 
-export const destylerMenuRadioItemProps = {
-  ...destylerMenuItemProps,
+export const menuRadioItemProps = {
+  ...menuItemProps,
   value: {
     type: String as PropType<string>,
     required: true,
   },
 } as const
 
-export type DestylerMenuRadioItemProps = ExtractPublicPropTypes<typeof destylerMenuRadioItemProps>
+export type MenuRadioItemProps = ExtractPublicPropTypes<typeof menuRadioItemProps>
 
-export const DestylerMenuRadioItem = defineComponent({
+export const MenuRadioItem = defineComponent({
   name: 'DestylerMenuRadioItem',
-  props: destylerMenuRadioItemProps,
+  props: menuRadioItemProps,
   emits: ['select'],
   setup(props) {
     const { value } = toRefs(props)
@@ -37,7 +37,7 @@ export const DestylerMenuRadioItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuItem, mergeProps(this.$props, {
+    return h(MenuItem, mergeProps(this.$props, {
       'role': 'menuitemradio',
       'aria-checked': this.checked,
       'data-state': getCheckedState(this.checked),
