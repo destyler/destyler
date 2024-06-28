@@ -1,21 +1,21 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuItemIndicator, destylerMenuItemIndicatorProps } from '@destyler/menu'
+import { MenuItemIndicator, menuItemIndicatorProps } from '@destyler/menu'
 
-export const destylerContextMenuItemIndicatorProps = {
-  ...destylerMenuItemIndicatorProps,
+export const contextMenuItemIndicatorProps = {
+  ...menuItemIndicatorProps,
 } as const
 
-export type DestylerContextMenuItemIndicatorProps = ExtractPublicPropTypes<typeof destylerContextMenuItemIndicatorProps>
+export type ContextMenuItemIndicatorProps = ExtractPublicPropTypes<typeof contextMenuItemIndicatorProps>
 
-export const DestylerContextMenuItemIndicator = defineComponent({
+export const ContextMenuItemIndicator = defineComponent({
   name: 'DestylerContextMenuItemIndicator',
-  props: destylerContextMenuItemIndicatorProps,
+  props: contextMenuItemIndicatorProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuItemIndicator, this.$props, () => this.$slots.default?.())
+    return h(MenuItemIndicator, this.$props, () => this.$slots.default?.())
   },
 })

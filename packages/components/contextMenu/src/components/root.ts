@@ -3,18 +3,18 @@ import { defineComponent, h, ref, toRefs, watch } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuRoot, destylerMenuRootProps } from '@destyler/menu'
+import { MenuRoot, menuRootProps } from '@destyler/menu'
 
-export const destylerContextMenuRootProps = {
+export const contextMenuRootProps = {
   dir: {
-    ...destylerMenuRootProps.dir,
+    ...menuRootProps.dir,
   },
   modal: {
-    ...destylerMenuRootProps.modal,
+    ...menuRootProps.modal,
   },
 } as const
 
-export type DestylerContextMenuRootProps = ExtractPublicPropTypes<typeof destylerContextMenuRootProps>
+export type ContextMenuRootProps = ExtractPublicPropTypes<typeof contextMenuRootProps>
 
 export interface ContextMenuRootContext {
   open: Ref<boolean>
@@ -25,9 +25,9 @@ export interface ContextMenuRootContext {
 
 export const [injectContextMenuRootContext, provideContextMenuRootContext] = createContext<ContextMenuRootContext>('DestylerContextMenuRoot')
 
-export const DestylerContextMenuRoot = defineComponent({
+export const ContextMenuRoot = defineComponent({
   name: 'DestylerContextMenuRoot',
-  props: destylerContextMenuRootProps,
+  props: contextMenuRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const { dir: propDir, modal } = toRefs(props)
@@ -56,7 +56,7 @@ export const DestylerContextMenuRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuRoot, {
+    return h(MenuRoot, {
       'open': this.open,
       'modal': this.modal,
       'dir': this.dir,

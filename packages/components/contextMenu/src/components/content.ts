@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerMenuContent, destylerMenuContentProps } from '@destyler/menu'
+import { MenuContent, menuContentProps } from '@destyler/menu'
 
 import { injectContextMenuRootContext } from './root'
 
@@ -9,66 +9,66 @@ const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 
 export type Side = (typeof SIDE_OPTIONS)[number]
 
-export const destylerContextMenuContentProps = {
+export const contextMenuContentProps = {
   as: {
-    ...destylerMenuContentProps.as,
+    ...menuContentProps.as,
   },
   asChild: {
-    ...destylerMenuContentProps.asChild,
+    ...menuContentProps.asChild,
   },
   alignOffset: {
-    ...destylerMenuContentProps.alignOffset,
+    ...menuContentProps.alignOffset,
     default: 0,
   },
   avoidCollisions: {
-    ...destylerMenuContentProps.avoidCollisions,
+    ...menuContentProps.avoidCollisions,
     default: true,
   },
   collisionBoundary: {
-    ...destylerMenuContentProps.collisionBoundary,
+    ...menuContentProps.collisionBoundary,
     default: () => [],
   },
   collisionPadding: {
-    ...destylerMenuContentProps.collisionPadding,
+    ...menuContentProps.collisionPadding,
     default: 0,
   },
   sticky: {
-    ...destylerMenuContentProps.sticky,
+    ...menuContentProps.sticky,
     default: 'partial',
   },
   hideWhenDetached: {
-    ...destylerMenuContentProps.hideWhenDetached,
+    ...menuContentProps.hideWhenDetached,
     default: false,
   },
   onPlaced: {
-    ...destylerMenuContentProps.onPlaced,
+    ...menuContentProps.onPlaced,
   },
   prioritizePosition: {
-    ...destylerMenuContentProps.prioritizePosition,
+    ...menuContentProps.prioritizePosition,
     default: false,
   },
   disableOutsidePointerEvents: {
-    ...destylerMenuContentProps.disableOutsidePointerEvents,
+    ...menuContentProps.disableOutsidePointerEvents,
   },
   disableOutsideScroll: {
-    ...destylerMenuContentProps.disableOutsideScroll,
+    ...menuContentProps.disableOutsideScroll,
   },
   trapFocus: {
-    ...destylerMenuContentProps.trapFocus,
+    ...menuContentProps.trapFocus,
   },
   loop: {
-    ...destylerMenuContentProps.loop,
+    ...menuContentProps.loop,
   },
   forceMount: {
-    ...destylerMenuContentProps.forceMount,
+    ...menuContentProps.forceMount,
   },
 } as const
 
-export type DestylerContextMenuContentProps = ExtractPublicPropTypes<typeof destylerContextMenuContentProps>
+export type ContextMenuContentProps = ExtractPublicPropTypes<typeof contextMenuContentProps>
 
-export const DestylerContextMenuContent = defineComponent({
+export const ContextMenuContent = defineComponent({
   name: 'DestylerContextMenuContent',
-  props: destylerContextMenuContentProps,
+  props: contextMenuContentProps,
   emits: ['update:checked', 'select'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -84,7 +84,7 @@ export const DestylerContextMenuContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuContent, mergeProps(this.forwarded, {
+    return h(MenuContent, mergeProps(this.forwarded, {
       side: 'right',
       sideOffset: 2,
       align: 'start',

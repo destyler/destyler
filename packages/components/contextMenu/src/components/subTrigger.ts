@@ -1,21 +1,21 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuSubTrigger, destylerMenuSubTriggerProps } from '@destyler/menu'
+import { MenuSubTrigger, menuSubTriggerProps } from '@destyler/menu'
 
-export const destylerContextMenuSubTriggerProps = {
-  ...destylerMenuSubTriggerProps,
+export const contextMenuSubTriggerProps = {
+  ...menuSubTriggerProps,
 } as const
 
-export type DestylerContextMenuSubTriggerProps = ExtractPublicPropTypes<typeof destylerContextMenuSubTriggerProps>
+export type ContextMenuSubTriggerProps = ExtractPublicPropTypes<typeof contextMenuSubTriggerProps>
 
-export const DestylerContextMenuSubTrigger = defineComponent({
+export const ContextMenuSubTrigger = defineComponent({
   name: 'DestylerContextMenuSubTrigger',
-  props: destylerContextMenuSubTriggerProps,
+  props: contextMenuSubTriggerProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuSubTrigger, this.$props, () => this.$slots.default?.())
+    return h(MenuSubTrigger, this.$props, () => this.$slots.default?.())
   },
 })
