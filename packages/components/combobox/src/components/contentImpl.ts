@@ -1,10 +1,10 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, toRefs, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { DestylerCollectionSlot } from '@destyler/collection'
-import { DestylerPopperContent } from '@destyler/popper'
+import { CollectionSlot } from '@destyler/collection'
+import { PopperContent } from '@destyler/popper'
 import { useBodyScrollLock, useForwardExpose, useForwardProps, useHideOthers } from '@destyler/composition'
 import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
 
@@ -17,8 +17,8 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerComboboxContentImplProps = {
-  ...destylerPrimitiveProps,
+export const comboboxContentImplProps = {
+  ...primitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,
@@ -109,13 +109,13 @@ export const destylerComboboxContentImplProps = {
   },
 } as const
 
-export type DestylerComboboxContentImplProps = ExtractPublicPropTypes<typeof destylerComboboxContentImplProps>
+export type ComboboxContentImplProps = ExtractPublicPropTypes<typeof comboboxContentImplProps>
 
 export const [injectComboboxContentContext, provideComboboxContentContext] = createContext<{ position: Ref<'inline' | 'popper'> }>('DestylerComboboxContent')
 
-export const DestylerComboboxContentImpl = defineComponent({
+export const ComboboxContentImpl = defineComponent({
   name: 'DestylerComboboxContentImpl',
-  props: destylerComboboxContentImplProps,
+  props: comboboxContentImplProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props) {
     const { position } = toRefs(props)
@@ -162,7 +162,7 @@ export const DestylerComboboxContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollectionSlot, null, {
+    return h(CollectionSlot, null, {
       default: () => {
         return [
           this.$props.dismissable
@@ -190,7 +190,7 @@ export const DestylerComboboxContentImpl = defineComponent({
               },
             }), {
               default: () => {
-                return withDirectives(h(this.$props.position === 'popper' ? DestylerPopperContent : DestylerPrimitive, {
+                return withDirectives(h(this.$props.position === 'popper' ? PopperContent : Primitive, {
                   'ref': (el: any) => this.forwardRef(el),
                   'role': 'listbox',
                   'data-state': this.rootContext.open.value ? 'open' : 'closed',
@@ -210,7 +210,7 @@ export const DestylerComboboxContentImpl = defineComponent({
                 ])
               },
             })
-            : withDirectives(h(this.$props.position === 'popper' ? DestylerPopperContent : DestylerPrimitive, {
+            : withDirectives(h(this.$props.position === 'popper' ? PopperContent : Primitive, {
               'ref': (el: any) => this.forwardRef(el),
               'role': 'listbox',
               'data-state': this.rootContext.open.value ? 'open' : 'closed',

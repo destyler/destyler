@@ -1,16 +1,16 @@
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose, useId, useMutationObserver } from '@destyler/composition'
 
 import { injectComboboxRootContext } from './root'
 
-export const destylerComboboxGroupProps = {
-  ...destylerPrimitiveProps,
+export const comboboxGroupProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerComboboxGroupProps = ExtractPublicPropTypes<typeof destylerComboboxGroupProps>
+export type ComboboxGroupProps = ExtractPublicPropTypes<typeof comboboxGroupProps>
 
 export interface ComboboxGroupContext {
   id: string
@@ -18,9 +18,9 @@ export interface ComboboxGroupContext {
 
 export const [injectComboboxGroupContext, provideComboboxGroupContext] = createContext<ComboboxGroupContext>('DestylerComboboxGroup')
 
-export const DestylerComboboxGroup = defineComponent({
+export const ComboboxGroup = defineComponent({
   name: 'DestylerComboboxGroup',
-  props: destylerComboboxGroupProps,
+  props: comboboxGroupProps,
   setup() {
     const { currentRef, currentElement } = useForwardExpose()
     const id = useId()
@@ -57,7 +57,7 @@ export const DestylerComboboxGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'ref': 'currentRef',
       'role': 'group',
       'aria-labelledby': this.id,

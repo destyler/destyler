@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerComboboxSeparatorProps = {
-  ...destylerPrimitiveProps,
+export const comboboxSeparatorProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerComboboxSeparatorProps = ExtractPublicPropTypes<typeof destylerComboboxSeparatorProps>
+export type ComboboxSeparatorProps = ExtractPublicPropTypes<typeof comboboxSeparatorProps>
 
-export const DestylerComboboxSeparator = defineComponent({
+export const ComboboxSeparator = defineComponent({
   name: 'DestylerComboboxSeparator',
-  props: destylerComboboxSeparatorProps,
+  props: comboboxSeparatorProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'aria-hidden': '',
     }))
   },

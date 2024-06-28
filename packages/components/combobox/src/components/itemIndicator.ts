@@ -1,23 +1,23 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectComboboxItemContext } from './item'
 
-export const destylerComboboxItemIndicatorProps = {
-  ...destylerPrimitiveProps,
+export const comboboxItemIndicatorProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerComboboxItemIndicatorProps = ExtractPublicPropTypes<typeof destylerComboboxItemIndicatorProps>
+export type ComboboxItemIndicatorProps = ExtractPublicPropTypes<typeof comboboxItemIndicatorProps>
 
-export const DestylerComboboxItemIndicator = defineComponent({
+export const ComboboxItemIndicator = defineComponent({
   name: 'DestylerComboboxItemIndicator',
-  props: destylerComboboxItemIndicatorProps,
+  props: comboboxItemIndicatorProps,
   setup() {
     useForwardExpose()
     const itemContext = injectComboboxItemContext()
@@ -28,7 +28,7 @@ export const DestylerComboboxItemIndicator = defineComponent({
   },
   render() {
     if (this.itemContext.isSelected.value) {
-      return h(DestylerPrimitive, mergeProps(this.$props, {
+      return h(Primitive, mergeProps(this.$props, {
         'aria-hidden': '',
       }), {
         default: () => this.$slots.default?.(),

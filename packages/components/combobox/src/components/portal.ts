@@ -1,32 +1,18 @@
-import { type PropType, defineComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerTeleport } from '@destyler/teleport'
+import { TeleportPrimitive, teleportPrimitiveProps } from '@destyler/teleport'
 
-export const destylerComboboxPortalProps = {
-  to: {
-    type: [String, Object] as PropType<string | HTMLElement>,
-    required: false,
-    default: 'body',
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const comboboxPortalProps = {
+  ...teleportPrimitiveProps,
 } as const
 
-export type DestylerComboboxPortalProps = ExtractPublicPropTypes<typeof destylerComboboxPortalProps>
+export type ComboboxPortalProps = ExtractPublicPropTypes<typeof comboboxPortalProps>
 
-export const DestylerComboboxPortal = defineComponent({
+export const ComboboxPortal = defineComponent({
   name: 'DestylerComboboxPortal',
-  props: destylerComboboxPortalProps,
+  props: comboboxPortalProps,
   render() {
-    return h(DestylerTeleport, this.$props, {
+    return h(TeleportPrimitive, this.$props, {
       default: () => this.$slots.default?.(),
     })
   },

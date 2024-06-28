@@ -1,1 +1,1 @@
-export { useCollection } from './components/collection'
+export { useCollection, createCollection } from './components/collection'

@@ -1,17 +1,17 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerComboboxViewportProps = {
-  ...destylerPrimitiveProps,
+export const comboboxViewportProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerComboboxViewportProps = ExtractPublicPropTypes<typeof destylerComboboxViewportProps>
+export type ComboboxViewportProps = ExtractPublicPropTypes<typeof comboboxViewportProps>
 
-export const DestylerComboboxViewport = defineComponent({
+export const ComboboxViewport = defineComponent({
   name: 'DestylerComboboxViewport',
-  props: destylerComboboxViewportProps,
+  props: comboboxViewportProps,
   inheritAttrs: false,
   setup() {
     const { forwardRef } = useForwardExpose()
@@ -22,7 +22,7 @@ export const DestylerComboboxViewport = defineComponent({
   },
   render() {
     return [
-      h(DestylerPrimitive, mergeProps(this.$attrs, {
+      h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'data-destyler-combobox-viewport': '',
         'role': 'presentation',
@@ -32,7 +32,7 @@ export const DestylerComboboxViewport = defineComponent({
           overflow: 'auto',
         },
       }), () => this.$slots.default?.()),
-      h(DestylerPrimitive, {
+      h(Primitive, {
         as: 'style',
       }, () => `
       /* Hide scrollbars cross-browser and enable momentum scroll for touch devices */

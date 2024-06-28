@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectComboboxRootContext } from './root'
 
-export const destylerComboboxTriggerProps = {
-  ...destylerPrimitiveProps,
+export const comboboxTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -18,11 +18,11 @@ export const destylerComboboxTriggerProps = {
   },
 } as const
 
-export type DestylerComboboxTriggerProps = ExtractPublicPropTypes<typeof destylerComboboxTriggerProps>
+export type ComboboxTriggerProps = ExtractPublicPropTypes<typeof comboboxTriggerProps>
 
-export const DestylerComboboxTrigger = defineComponent({
+export const ComboboxTrigger = defineComponent({
   name: 'DestylerComboboxTrigger',
-  props: destylerComboboxTriggerProps,
+  props: comboboxTriggerProps,
   setup(props) {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()
@@ -34,7 +34,7 @@ export const DestylerComboboxTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'tabindex': '-1',
       'aria-label': 'Show popup',
