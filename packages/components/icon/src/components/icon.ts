@@ -3,18 +3,18 @@ import { computed, defineComponent, h } from 'vue'
 import { Icon as Iconify } from '@iconify/vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerIconProps = {
+export const iconProps = {
   name: {
     type: String as PropType<string>,
     required: true,
   },
 } as const
 
-export type DestylerIconProps = ExtractPublicPropTypes<typeof destylerIconProps>
+export type IconProps = ExtractPublicPropTypes<typeof iconProps>
 
-export const DestylerIcon = defineComponent({
+export const Icon = defineComponent({
   name: 'DestylerIcon',
-  props: destylerIconProps,
+  props: iconProps,
   setup(props) {
     const iconName = computed(() => props.name.replace(/^i-/, ''))
     return {
