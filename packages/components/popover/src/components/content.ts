@@ -1,16 +1,16 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { destylerPopoverContentImplEmits, destylerPopoverContentImplProps } from './contentImpl'
+import { popoverContentImplEmits, popoverContentImplProps } from './contentImpl'
 import { injectPopoverRootContext } from './root'
-import { DestylerPopoverContentModal } from './contentModal'
-import { DestylerPopoverContentNonModal } from './contentNonModal'
+import { PopoverContentModal } from './contentModal'
+import { PopoverContentNonModal } from './contentNonModal'
 
-export const destylerPopoverContentProps = {
-  ...destylerPopoverContentImplProps,
+export const popoverContentProps = {
+  ...popoverContentImplProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -18,14 +18,14 @@ export const destylerPopoverContentProps = {
   },
 } as const
 
-export type DestylerPopoverContentProps = ExtractPublicPropTypes<typeof destylerPopoverContentProps>
+export type PopoverContentProps = ExtractPublicPropTypes<typeof popoverContentProps>
 
-export const destylerPopoverContentEmits = [...destylerPopoverContentImplEmits]
+export const popoverContentEmits = [...popoverContentImplEmits]
 
-export const DestylerPopoverContent = defineComponent({
+export const PopoverContent = defineComponent({
   name: 'DestylerPopoverContent',
-  props: destylerPopoverContentProps,
-  emits: destylerPopoverContentEmits,
+  props: popoverContentProps,
+  emits: popoverContentEmits,
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
 
@@ -39,13 +39,13 @@ export const DestylerPopoverContent = defineComponent({
   render() {
     const useVShow = this.rootContext.modal.value
 
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.forceMount || this.rootContext.open.value,
     }, () => useVShow
-      ? h(DestylerPopoverContentModal, {
+      ? h(PopoverContentModal, {
         ...this.forwarded,
       }, () => this.$slots.default?.())
-      : h(DestylerPopoverContentNonModal, {
+      : h(PopoverContentNonModal, {
         ...this.forwarded,
       }, () => this.$slots.default?.()))
   },

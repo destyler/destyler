@@ -1,32 +1,18 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onBeforeMount, onUnmounted } from 'vue'
-import { DestylerPopperAnchor } from '@destyler/popper'
-import type { AsTag } from '@destyler/primitive'
-import type { ExtractPublicPropTypes, Measurable } from '@destyler/shared'
+import { PopperAnchor, popperAnchorProps } from '@destyler/popper'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectPopoverRootContext } from './root'
 
-export const destylerPopoverAnchorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  element: {
-    type: Object as PropType<Measurable>,
-  },
+export const popoverAnchorProps = {
+  ...popperAnchorProps,
 } as const
 
-export type DestylerPopoverAnchorProps = ExtractPublicPropTypes<typeof destylerPopoverAnchorProps>
+export type PopoverAnchorProps = ExtractPublicPropTypes<typeof popoverAnchorProps>
 
-export const DestylerPopoverAnchor = defineComponent({
+export const PopoverAnchor = defineComponent({
   name: 'DestylerPopoverAnchor',
-  props: destylerPopoverAnchorProps,
+  props: popoverAnchorProps,
   setup() {
     const rootContext = injectPopoverRootContext()
 
@@ -38,7 +24,7 @@ export const DestylerPopoverAnchor = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperAnchor, mergeProps(this.$props, {
+    return h(PopperAnchor, mergeProps(this.$props, {
     }), () => this.$slots.default?.())
   },
 })
