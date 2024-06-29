@@ -1,22 +1,22 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerSplitterRootProps = {
-  ...destylerPrimitiveProps,
+export const splitterRootProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSplitterRootProps = ExtractPublicPropTypes<typeof destylerSplitterRootProps>
+export type SplitterRootProps = ExtractPublicPropTypes<typeof splitterRootProps>
 
-export const DestylerSplitterRoot = defineComponent({
+export const SplitterRoot = defineComponent({
   name: 'DestylerSplitterRoot',
-  props: destylerSplitterRootProps,
+  props: splitterRootProps,
   setup(_) {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
     }, () => this.$slots.default?.())

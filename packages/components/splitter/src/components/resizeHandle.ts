@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, toRefs, watch, watchEffect, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isBrowser } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -14,8 +14,8 @@ import type { PointerHitAreaMargins, ResizeHandlerAction } from '../utils/regist
 import type { ResizeEvent, ResizeHandler, ResizeHandlerState } from '../types'
 import { injectPanelGroupContext } from './group'
 
-export const destylerSplitterResizeHandleProps = {
-  ...destylerPrimitiveProps,
+export const splitterResizeHandleProps = {
+  ...primitiveProps,
   id: {
     type: String as PropType<string>,
     required: false,
@@ -35,11 +35,11 @@ export const destylerSplitterResizeHandleProps = {
   },
 } as const
 
-export type DestylerSplitterResizeHandleProps = ExtractPublicPropTypes<typeof destylerSplitterResizeHandleProps>
+export type SplitterResizeHandleProps = ExtractPublicPropTypes<typeof splitterResizeHandleProps>
 
-export const DestylerSplitterResizeHandle = defineComponent({
+export const SplitterResizeHandle = defineComponent({
   name: 'DestylerSplitterResizeHandle',
-  props: destylerSplitterResizeHandleProps,
+  props: splitterResizeHandleProps,
   emits: ['dragging'],
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
@@ -152,7 +152,7 @@ export const DestylerSplitterResizeHandle = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, {
+    return withDirectives(h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'style': {
         touchAction: 'none',
