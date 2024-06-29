@@ -1,5 +1,5 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPopperContent, destylerPopperContentProps } from '@destyler/popper'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardProps } from '@destyler/composition'
 
@@ -9,15 +9,15 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerSelectPopperPositionProps = {
-  ...destylerPopperContentProps,
+export const selectPopperPositionProps = {
+  ...popperContentProps,
 } as const
 
-export type DestylerSelectPopperPositionProps = ExtractPublicPropTypes<typeof destylerSelectPopperPositionProps>
+export type SelectPopperPositionProps = ExtractPublicPropTypes<typeof selectPopperPositionProps>
 
-export const DestylerSelectPopperPosition = defineComponent({
+export const SelectPopperPosition = defineComponent({
   name: 'DestylerSelectPopperPosition',
-  props: destylerSelectPopperPositionProps,
+  props: selectPopperPositionProps,
   setup(props) {
     const forwarded = useForwardProps(props)
     return {
@@ -25,7 +25,7 @@ export const DestylerSelectPopperPosition = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperContent, mergeProps(this.forwarded, {
+    return h(PopperContent, mergeProps(this.forwarded, {
       style: {
         'boxSizing': 'border_box',
         '--destyler_select_content_transform_origin':

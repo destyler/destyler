@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSelectItemContext } from './item'
 
-export const destylerSelectInDicatorProps = {
-  ...destylerPrimitiveProps,
+export const selectInDicatorProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSelectInDicatorProps = ExtractPublicPropTypes<typeof destylerSelectInDicatorProps>
+export type SelectInDicatorProps = ExtractPublicPropTypes<typeof selectInDicatorProps>
 
-export const DestylerSelectItemIndicator = defineComponent({
+export const SelectItemIndicator = defineComponent({
   name: 'DestylerSelectItemIndicator',
-  props: destylerSelectInDicatorProps,
+  props: selectInDicatorProps,
   setup() {
     const itemContext = injectSelectItemContext()
 
@@ -26,7 +26,7 @@ export const DestylerSelectItemIndicator = defineComponent({
   },
   render() {
     return this.itemContext.isSelected.value
-      ? h(DestylerPrimitive, mergeProps(this.$props, {
+      ? h(Primitive, mergeProps(this.$props, {
         'aria-hidden': '',
       }), () => this.$slots.default?.())
       : null

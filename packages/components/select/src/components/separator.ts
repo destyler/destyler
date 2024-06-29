@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerSelectSeparatorProps = {
-  ...destylerPrimitiveProps,
+export const selectSeparatorProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSelectSeparatorProps = ExtractPublicPropTypes<typeof destylerSelectSeparatorProps>
+export type SelectSeparatorProps = ExtractPublicPropTypes<typeof selectSeparatorProps>
 
-export const DestylerSelectSeparator = defineComponent({
+export const SelectSeparator = defineComponent({
   name: 'DestylerSelectSeparator',
-  props: destylerSelectSeparatorProps,
+  props: selectSeparatorProps,
   render() {
-    return h(DestylerPrimitive, this.$props, () => this.$slots.default?.())
+    return h(Primitive, this.$props, () => this.$slots.default?.())
   },
 })

@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onMounted, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { clamp, createContext } from '@destyler/shared'
 import { useCollection, useForwardExpose } from '@destyler/composition'
@@ -9,11 +9,11 @@ import { CONTENT_MARGIN } from '../utils'
 import { injectSelectRootContext } from './root'
 import { injectSelectContentContext } from './contentImpl'
 
-export const destylerSelectItemAlignedPositionProps = {
-  ...destylerPrimitiveProps,
+export const selectItemAlignedPositionProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSelectItemAlignedPositionProps = ExtractPublicPropTypes<typeof destylerSelectItemAlignedPositionProps>
+export type SelectItemAlignedPositionProps = ExtractPublicPropTypes<typeof selectItemAlignedPositionProps>
 
 export interface SelectItemAlignedPositionContext {
   contentWrapper?: Ref<HTMLElement | undefined>
@@ -24,10 +24,10 @@ export interface SelectItemAlignedPositionContext {
 export const [injectSelectItemAlignedPositionContext, provideSelectItemAlignedPositionContext]
   = createContext<SelectItemAlignedPositionContext>('DestylerSelectItemAlignedPosition')
 
-export const DestylerSelectItemAlignedPosition = defineComponent({
+export const SelectItemAlignedPosition = defineComponent({
   name: 'DestylerSelectItemAlignedPosition',
   inheritAttrs: false,
-  props: destylerSelectItemAlignedPositionProps,
+  props: selectItemAlignedPositionProps,
   emits: ['placed'],
   setup(_, { emit }) {
     const { injectCollection } = useCollection()
@@ -218,7 +218,7 @@ export const DestylerSelectItemAlignedPosition = defineComponent({
         position: 'fixed',
         zIndex: this.contentZIndex,
       },
-    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
+    }, () => h(Primitive, mergeProps(this.$attrs, this.$props, {
       ref: (el: any) => this.forwardRef(el),
       style: {
         boxSizing: 'border-box',

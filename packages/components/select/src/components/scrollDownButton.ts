@@ -1,21 +1,21 @@
 import { defineComponent, h, ref, watch, watchEffect } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
-import { DestylerScrollSelectButtonImpl } from './scrollButtonImpl'
+import { ScrollSelectButtonImpl } from './scrollButtonImpl'
 import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
-export const destylerSelectScrollDownButtonProps = {
-  ...destylerPrimitiveProps,
+export const selectScrollDownButtonProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSelectScrollDownButtonProps = ExtractPublicPropTypes<typeof destylerSelectScrollDownButtonProps>
+export type SelectScrollDownButtonProps = ExtractPublicPropTypes<typeof selectScrollDownButtonProps>
 
-export const DestylerSelectScrollDownButton = defineComponent({
+export const SelectScrollDownButton = defineComponent({
   name: 'DestylerSelectScrollDownButton',
-  props: destylerSelectScrollDownButtonProps,
+  props: selectScrollDownButtonProps,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext
@@ -57,7 +57,7 @@ export const DestylerSelectScrollDownButton = defineComponent({
   },
   render() {
     return this.canScrollDown
-      ? h(DestylerScrollSelectButtonImpl, {
+      ? h(ScrollSelectButtonImpl, {
         ref: (el: any) => this.forwardRef(el),
         onAutoScroll: () => {
           const { viewport, selectedItem } = this.contentContext

@@ -1,5 +1,5 @@
 import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,20 +8,20 @@ import { injectSelectNativeOptionsContext, injectSelectRootContext } from './roo
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
 import { injectSelectItemContext } from './item'
 
-export const destylerSelectItemTextProps = {
-  ...destylerPrimitiveProps,
+export const selectItemTextProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSelectItemTextProps = ExtractPublicPropTypes<typeof destylerSelectItemTextProps>
+export type SelectItemTextProps = ExtractPublicPropTypes<typeof selectItemTextProps>
 
-export const DestylerSelectItemText = defineComponent({
+export const SelectItemText = defineComponent({
   name: 'DestylerSelectItemText',
   inheritAttrs: false,
-  props: destylerSelectItemTextProps,
+  props: selectItemTextProps,
   setup() {
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
@@ -63,7 +63,7 @@ export const DestylerSelectItemText = defineComponent({
   },
   render() {
     return [
-      withDirectives(h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+      withDirectives(h(Primitive, mergeProps(this.$props, this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
       }), () => this.$slots.default?.()), [
         [BindOnceDirective, { id: this.itemContext.textId }],

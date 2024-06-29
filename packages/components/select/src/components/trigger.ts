@@ -1,17 +1,17 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useTypeahead } from '@destyler/composition'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import { PopperAnchor } from '@destyler/popper'
 
 import { OPEN_KEYS, shouldShowPlaceholder } from '../utils'
 import { injectSelectRootContext } from './root'
 
-export const destylerSelectTriggerProps = {
-  ...destylerPrimitiveProps,
+export const selectTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -20,11 +20,11 @@ export const destylerSelectTriggerProps = {
   },
 } as const
 
-export type DestylerSelectTriggerProps = ExtractPublicPropTypes<typeof destylerSelectTriggerProps>
+export type SelectTriggerProps = ExtractPublicPropTypes<typeof selectTriggerProps>
 
-export const DestylerSelectTrigger = defineComponent({
+export const SelectTrigger = defineComponent({
   name: 'DestylerSelectTrigger',
-  props: destylerSelectTriggerProps,
+  props: selectTriggerProps,
   setup(props) {
     const rootContext = injectSelectRootContext()
     const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
@@ -57,9 +57,9 @@ export const DestylerSelectTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperAnchor, {
+    return h(PopperAnchor, {
       asChild: true,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'combobox',
       'type': this.$props.as === 'button' ? 'button' : undefined,
