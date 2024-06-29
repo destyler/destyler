@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, reactive, ref, watchEffect } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isClient } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -8,8 +8,8 @@ import { useForwardExpose } from '@destyler/composition'
 import { AUTOFOCUS_ON_MOUNT, AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS, focus, focusFirst, getTabbableCandidates, getTabbableEdges } from '../utils'
 import { createFocusScopesStack, removeLinks } from './stack'
 
-export const destylerFocusScopeProps = {
-  ...destylerPrimitiveProps,
+export const focusScopeProps = {
+  ...primitiveProps,
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,11 +22,11 @@ export const destylerFocusScopeProps = {
   },
 } as const
 
-export type DestylerFocusScopeProps = ExtractPublicPropTypes<typeof destylerFocusScopeProps>
+export type FocusScopeProps = ExtractPublicPropTypes<typeof focusScopeProps>
 
-export const DestylerFocusScope = defineComponent({
+export const FocusScope = defineComponent({
   name: 'DestylerFocusScope',
-  props: destylerFocusScopeProps,
+  props: focusScopeProps,
   emits: ['mountAutoFocus', 'unmountAutoFocus'],
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
@@ -175,7 +175,7 @@ export const DestylerFocusScope = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       tabindex: '-1',
       as: this.$props.as,
