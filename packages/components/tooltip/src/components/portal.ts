@@ -1,17 +1,17 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerTeleport, destylerTeleportProps } from '@destyler/teleport'
+import { TeleportPrimitive, teleportPrimitiveProps } from '@destyler/teleport'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerTooltipPortalProps = {
-  ...destylerTeleportProps,
+export const tooltipPortalProps = {
+  ...teleportPrimitiveProps,
 } as const
 
-export type DestylerTooltipPortalProps = ExtractPublicPropTypes<typeof destylerTooltipPortalProps>
+export type TooltipPortalProps = ExtractPublicPropTypes<typeof tooltipPortalProps>
 
-export const DestylerTooltipPortal = defineComponent({
+export const TooltipPortal = defineComponent({
   name: 'DestylerTooltipPortal',
-  props: destylerTooltipPortalProps,
+  props: tooltipPortalProps,
   render() {
-    return h(DestylerTeleport, mergeProps(this.$props), () => this.$slots.default?.())
+    return h(TeleportPrimitive, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

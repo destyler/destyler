@@ -1,17 +1,17 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPopperArrow, destylerPopperArrowProps } from '@destyler/popper'
+import { PopperArrow, popperArrowProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerTooltipArrowProps = {
-  ...destylerPopperArrowProps,
+export const tooltipArrowProps = {
+  ...popperArrowProps,
 } as const
 
-export type DestylerTooltipArrowProps = ExtractPublicPropTypes<typeof destylerTooltipArrowProps>
+export type TooltipArrowProps = ExtractPublicPropTypes<typeof tooltipArrowProps>
 
-export const DestylerTooltipArrow = defineComponent({
+export const TooltipArrow = defineComponent({
   name: 'DestylerTooltipArrow',
-  props: destylerTooltipArrowProps,
+  props: tooltipArrowProps,
   render() {
-    return h(DestylerPopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
+    return h(PopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

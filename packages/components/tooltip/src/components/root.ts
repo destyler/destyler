@@ -3,12 +3,12 @@ import { computed, defineComponent, h, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId, useTimeoutFn, useVModel } from '@destyler/composition'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 
 import { TOOLTIP_OPEN } from '../utils'
 import { injectTooltipProviderContext } from './provider'
 
-export const destylerTooltipRootProps = {
+export const tooltipRootProps = {
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -36,7 +36,7 @@ export const destylerTooltipRootProps = {
   },
 } as const
 
-export type DestylerTooltipRootProps = ExtractPublicPropTypes<typeof destylerTooltipRootProps>
+export type TooltipRootProps = ExtractPublicPropTypes<typeof tooltipRootProps>
 
 export interface TooltipContext {
   contentId: string
@@ -54,9 +54,9 @@ export interface TooltipContext {
 
 export const [injectTooltipRootContext, provideTooltipRootContext] = createContext<TooltipContext>('DestylerTooltipRoot')
 
-export const DestylerTooltipRoot = defineComponent({
+export const TooltipRoot = defineComponent({
   name: 'DestylerTooltipRoot',
-  props: destylerTooltipRootProps,
+  props: tooltipRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const providerContext = injectTooltipProviderContext()
@@ -140,6 +140,6 @@ export const DestylerTooltipRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
+    return h(PopperRoot, null, () => this.$slots.default?.())
   },
 })

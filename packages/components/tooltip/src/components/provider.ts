@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useTimeoutFn } from '@destyler/composition'
 
-export const destylerTooltipProviderProps = {
+export const tooltipProviderProps = {
   delayDuration: {
     type: Number as PropType<number>,
     required: false,
@@ -27,7 +27,7 @@ export const destylerTooltipProviderProps = {
   },
 } as const
 
-export type DestylerTooltipProviderProps = ExtractPublicPropTypes<typeof destylerTooltipProviderProps>
+export type TooltipProviderProps = ExtractPublicPropTypes<typeof tooltipProviderProps>
 
 export interface TooltipProviderContext {
   isOpenDelayed: Ref<boolean>
@@ -43,9 +43,9 @@ export interface TooltipProviderContext {
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
   = createContext<TooltipProviderContext>('DestylerTooltipProvider')
 
-export const DestylerTooltipProvider = defineComponent({
+export const TooltipProvider = defineComponent({
   name: 'DestylerTooltipProvider',
-  props: destylerTooltipProviderProps,
+  props: tooltipProviderProps,
   setup(props) {
     const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
 
