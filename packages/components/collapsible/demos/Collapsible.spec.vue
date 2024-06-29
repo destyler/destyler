@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useEmitAsProps } from '@destyler/composition'
-import { DestylerCollapsibleContent, DestylerCollapsibleRoot, DestylerCollapsibleTrigger } from '../src'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '../src'
 
 const props = withDefaults(defineProps<{
   open?: boolean
@@ -13,8 +13,8 @@ const emits = defineEmits(['update:open'])
 </script>
 
 <template>
-  <DestylerCollapsibleRoot v-bind="{ ...props, ...useEmitAsProps(emits) }">
-    <DestylerCollapsibleTrigger>Trigger</DestylerCollapsibleTrigger>
-    <DestylerCollapsibleContent>Content</DestylerCollapsibleContent>
-  </DestylerCollapsibleRoot>
+  <CollapsibleRoot v-bind="{ ...props, ...useEmitAsProps(emits) }">
+    <CollapsibleTrigger>Trigger</CollapsibleTrigger>
+    <CollapsibleContent>Content</CollapsibleContent>
+  </CollapsibleRoot>
 </template>

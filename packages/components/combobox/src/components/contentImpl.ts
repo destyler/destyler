@@ -6,7 +6,7 @@ import { createContext } from '@destyler/shared'
 import { CollectionSlot } from '@destyler/collection'
 import { PopperContent } from '@destyler/popper'
 import { useBodyScrollLock, useForwardExpose, useForwardProps, useHideOthers } from '@destyler/composition'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
+import { DismissableLayer } from '@destyler/dismissable-layer'
 
 import { BindOnceDirective } from '@destyler/directives'
 import { injectComboboxRootContext } from './root'
@@ -166,7 +166,7 @@ export const ComboboxContentImpl = defineComponent({
       default: () => {
         return [
           this.$props.dismissable
-            ? h(DestylerDismissableLayer, mergeProps(this.$attrs, this.forwardedProps, {
+            ? h(DismissableLayer, mergeProps(this.$attrs, this.forwardedProps, {
               asChild: true,
               disableOutsidePointerEvents: this.$props.disableOutsidePointerEvents,
               onDismiss: () => {

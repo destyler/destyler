@@ -2,7 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, withDirectives } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useId } from '@destyler/composition'
-import { DestylerFocusScope } from '@destyler/focus-scope'
+import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
 import { getOpenState } from '@destyler/shared'
@@ -48,7 +48,7 @@ export const DialogContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerFocusScope, {
+    return h(FocusScope, {
       asChild: true,
       loop: true,
       trapped: this.$props.trapFocus,

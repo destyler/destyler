@@ -4,9 +4,9 @@ import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, GraceIntent } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, useTypeahead } from '@destyler/composition'
 import { createContext, focusFirst, isMouseEvent, isPointerInGraceArea } from '@destyler/shared'
-import { DestylerFocusScope } from '@destyler/focus-scope'
+import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
+import { RovingFocusGroup } from '@destyler/roving-focus'
 import { PopperContent } from '@destyler/popper'
 
 import {
@@ -289,7 +289,7 @@ export const MenuContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerFocusScope, {
+    return h(FocusScope, {
       asChild: true,
       trapped: this.trapFocus,
       onMountAutoFocus: (event: any) => {
@@ -316,7 +316,7 @@ export const MenuContentImpl = defineComponent({
       onDismiss: () => {
         this.$emit('dismiss')
       },
-    }, () => h(DestylerRovingFocusGroup, {
+    }, () => h(RovingFocusGroup, {
       'asChild': true,
       'currentTabStopId': this.currentItemId!,
       'onUpdate:currentTabStopId': (value: string) => {

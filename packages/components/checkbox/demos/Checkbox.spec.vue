@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerCheckboxIndicator, DestylerCheckboxRoot } from '../src'
+import { CheckboxIndicator, CheckboxRoot } from '../src'
 
 const props = withDefaults(defineProps<{
   checked?: boolean | 'indeterminate' | undefined
@@ -22,14 +22,14 @@ const checked = ref(props.checked)
   >
     Test
   </label>
-  <DestylerCheckboxRoot
+  <CheckboxRoot
     v-bind="props"
     v-model:checked="checked"
     name="test"
     aria-label="Test"
   >
-    <DestylerCheckboxIndicator
+    <CheckboxIndicator
       data-testid="test-indicator"
     />
-  </DestylerCheckboxRoot>
+  </CheckboxRoot>
 </template>

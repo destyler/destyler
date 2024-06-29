@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, h, markRaw } from 'vue'
-import { DestylerPrimitive } from '../src'
+import { Primitive } from '../src'
 
-describe('test DestylerPrimitive functionalities', () => {
+describe('test Primitive functionalities', () => {
   it('should render div element correctly', () => {
-    const wrapper = mount(DestylerPrimitive)
+    const wrapper = mount(Primitive)
     expect(wrapper.find('div').exists()).toBe(true)
   })
 
   it('should render button element correctly', () => {
-    const wrapper = mount(DestylerPrimitive, {
+    const wrapper = mount(Primitive, {
       props: {
         as: 'button',
       },
@@ -19,7 +19,7 @@ describe('test DestylerPrimitive functionalities', () => {
   })
 
   it('should renders div element with custom attribute', () => {
-    const wrapper = mount(DestylerPrimitive, {
+    const wrapper = mount(Primitive, {
       attrs: {
         type: 'button',
       },
@@ -31,7 +31,7 @@ describe('test DestylerPrimitive functionalities', () => {
   })
 
   it('should renders multiple child elements', () => {
-    const wrapper = mount(DestylerPrimitive, {
+    const wrapper = mount(Primitive, {
       slots: {
         default: '<div>1</div><div>2</div><div>3</div>',
       },
@@ -44,7 +44,7 @@ describe('test DestylerPrimitive functionalities', () => {
   // ref: https://vitest.dev/api/expect.html#tothrowerror
   describe('render as template (asChild)', () => {
     it('should not throw error when multiple child elements exists', () => {
-      const wrapper = () => mount(DestylerPrimitive, {
+      const wrapper = () => mount(Primitive, {
         props: {
           as: 'template',
         },
@@ -58,7 +58,7 @@ describe('test DestylerPrimitive functionalities', () => {
     })
 
     it('should pass custom attribute to first element', () => {
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           as: 'template',
           type: 'button',
@@ -75,7 +75,7 @@ describe('test DestylerPrimitive functionalities', () => {
     })
 
     it('should merge child\'s class together', () => {
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           as: 'template',
         },
@@ -101,7 +101,7 @@ describe('test DestylerPrimitive functionalities', () => {
         },
       }))
 
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           as: Button,
         },
@@ -116,7 +116,7 @@ describe('test DestylerPrimitive functionalities', () => {
     })
 
     it('should render the child class element tag', () => {
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           as: 'template',
         },
@@ -135,8 +135,8 @@ describe('test DestylerPrimitive functionalities', () => {
         template: '<div id="child">Hello world</div>',
       }
       const RootComponent = {
-        components: { ChildComponent, DestylerPrimitive },
-        template: '<DestylerPrimitive><ChildComponent /></DestylerPrimitive>',
+        components: { ChildComponent, Primitive },
+        template: '<Primitive><ChildComponent /></Primitive>',
       }
 
       const wrapper = mount(RootComponent, {
@@ -150,7 +150,7 @@ describe('test DestylerPrimitive functionalities', () => {
     })
 
     it('should inherit parent attributes and the child attributes', () => {
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           as: 'template',
         },
@@ -168,7 +168,7 @@ describe('test DestylerPrimitive functionalities', () => {
     })
 
     it('should replace parent attributes with child\'s attributes', () => {
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           as: 'template',
         },
@@ -187,7 +187,7 @@ describe('test DestylerPrimitive functionalities', () => {
     })
 
     it('\'asChild=true\' should work the same as \'as=template\'', () => {
-      const wrapper = mount(DestylerPrimitive, {
+      const wrapper = mount(Primitive, {
         props: {
           asChild: true,
         },
