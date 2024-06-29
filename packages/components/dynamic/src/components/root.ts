@@ -1,15 +1,16 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { createContext } from '@destyler/shared'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useFocusWithin } from '@vueuse/core'
 import { useArrowNavigation, useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
-import { DestylerCollectionSlot, createCollection } from '@destyler/collection'
-import { DestylerVisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
+import { CollectionSlot } from '@destyler/collection'
+import { createCollection } from '@destyler/collection/dist/composition'
+import { VisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
 
-export const destylerDynamicRootProps = {
-  ...destylerPrimitiveProps,
+export const dynamicRootProps = {
+  ...primitiveProps,
   modelValue: {
     type: Array as PropType<Array<string>>,
     required: false,
@@ -59,7 +60,7 @@ export const destylerDynamicRootProps = {
   },
 } as const
 
-export type DestylerDynamicRootProps = ExtractPublicPropTypes<typeof destylerDynamicRootProps>
+export type DynamicRootProps = ExtractPublicPropTypes<typeof dynamicRootProps>
 
 export interface DynamicRootContext {
   modelValue: Ref<Array<string>>
@@ -79,9 +80,9 @@ export interface DynamicRootContext {
 export const [injectDynamicRootContext, provideDynamicRootContext]
   = createContext<DynamicRootContext>('DestylerDynamicRoot')
 
-export const DestylerDynamicRoot = defineComponent({
+export const DynamicRoot = defineComponent({
   name: 'DestylerDynamicRoot',
-  props: destylerDynamicRootProps,
+  props: dynamicRootProps,
   emits: ['update:modelValue', 'invalid'],
   setup(props, { emit }) {
     const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
@@ -216,7 +217,7 @@ export const DestylerDynamicRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollectionSlot, {}, () => h(DestylerPrimitive, {
+    return h(CollectionSlot, {}, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'dir': this.dir,
       'as': this.$props.as,
@@ -227,7 +228,7 @@ export const DestylerDynamicRoot = defineComponent({
     }, () => [
       this.$slots.default?.({ modelValue: this.modelValue }),
       this.isFormControl && this.$props.name
-        ? h(DestylerVisuallyhiddenInput, {
+        ? h(VisuallyhiddenInput, {
           name: this.$props.name,
           value: this.modelValue,
           required: this.required,

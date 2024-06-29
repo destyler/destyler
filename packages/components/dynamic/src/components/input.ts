@@ -1,15 +1,15 @@
 import { type PropType, defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectDynamicRootContext } from './root'
 
-export const destylerDynamicInputProps = {
-  ...destylerPrimitiveProps,
+export const dynamicInputProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'input',
   },
   placeholder: {
@@ -26,11 +26,11 @@ export const destylerDynamicInputProps = {
   },
 } as const
 
-export type DestylerDynamicInputProps = ExtractPublicPropTypes<typeof destylerDynamicInputProps>
+export type DynamicInputProps = ExtractPublicPropTypes<typeof dynamicInputProps>
 
-export const DestylerDynamicInput = defineComponent({
+export const DynamicInput = defineComponent({
   name: 'DestylerDynamicInput',
-  props: destylerDynamicInputProps,
+  props: dynamicInputProps,
   setup(props) {
     const context = injectDynamicRootContext()
     const { forwardRef, currentElement } = useForwardExpose()
@@ -107,7 +107,7 @@ export const DestylerDynamicInput = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, {
+    return withDirectives(h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'type': 'text',
       'autocomplete': 'off',

@@ -1,23 +1,23 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectDynamicRootContext } from './root'
 
-export const destylerDynamicClearProps = {
-  ...destylerPrimitiveProps,
+export const dynamicClearProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerDynamicClearProps = ExtractPublicPropTypes<typeof destylerDynamicClearProps>
+export type DynamicClearProps = ExtractPublicPropTypes<typeof dynamicClearProps>
 
-export const DestylerDynamicClear = defineComponent({
+export const DynamicClear = defineComponent({
   name: 'DestylerDynamicClear',
-  props: destylerDynamicClearProps,
+  props: dynamicClearProps,
   setup() {
     useForwardExpose()
     const context = injectDynamicRootContext()
@@ -34,7 +34,7 @@ export const DestylerDynamicClear = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'data-disabled': this.context.disabled.value ? '' : undefined,
       'onClick': () => {
