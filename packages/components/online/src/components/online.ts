@@ -1,12 +1,12 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { Ping } from '../ping'
 
-export const destylerOnlineProps = {
-  ...destylerPrimitiveProps,
+export const onlineProps = {
+  ...primitiveProps,
   url: {
     type: String as PropType<string>,
     required: false,
@@ -29,12 +29,12 @@ export const destylerOnlineProps = {
   },
 } as const
 
-export type DestylerOnlineProps = ExtractPublicPropTypes<typeof destylerOnlineProps>
+export type OnlineProps = ExtractPublicPropTypes<typeof onlineProps>
 
-const DestylerOnline = defineComponent({
+export const Online = defineComponent({
   name: 'DestylerOnline',
   inheritAttrs: false,
-  props: destylerOnlineProps,
+  props: onlineProps,
   emits: ['networkStatus'],
   setup(props, { emit }) {
     onMounted(() => {
@@ -76,7 +76,7 @@ const DestylerOnline = defineComponent({
     })
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
     }), {
@@ -84,7 +84,3 @@ const DestylerOnline = defineComponent({
     })
   },
 })
-
-export {
-  DestylerOnline,
-}
