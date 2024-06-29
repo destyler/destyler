@@ -1,23 +1,23 @@
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { injectTabsRootContext } from './root'
 
-export const destylerTabsIndicatorProps = {
-  ...destylerPrimitiveProps,
+export const tabsIndicatorProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerTabsIndicatorProps = ExtractPublicPropTypes<typeof destylerTabsIndicatorProps>
+export type TabsIndicatorProps = ExtractPublicPropTypes<typeof tabsIndicatorProps>
 
-export const DestylerTabsIndicator = defineComponent({
+export const TabsIndicator = defineComponent({
   name: 'DestylerTabsIndicator',
-  props: destylerTabsIndicatorProps,
+  props: tabsIndicatorProps,
   setup() {
     const context = injectTabsRootContext()
     useForwardExpose()
@@ -65,7 +65,7 @@ export const DestylerTabsIndicator = defineComponent({
   render() {
     return [
       typeof this.indicatorStyle.size === 'number'
-        ? h(DestylerPrimitive, mergeProps(this.$props, {
+        ? h(Primitive, mergeProps(this.$props, {
           style: {
             '--destyler_tabs_indicator_size': `${this.indicatorStyle.size}px`,
             '--destyler_tabs_indicator_position': `${this.indicatorStyle.position}px`,
