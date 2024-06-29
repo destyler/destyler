@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectInfoRootContext } from './root'
 
-export const destylerInfoCloseProps = {
-  ...destylerPrimitiveProps,
+export const infoCloseProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerInfoCloseProps = ExtractPublicPropTypes<typeof destylerInfoCloseProps>
+export type InfoCloseProps = ExtractPublicPropTypes<typeof infoCloseProps>
 
-export const DestylerInfoClose = defineComponent({
+export const InfoClose = defineComponent({
   name: 'DestylerInfoClose',
-  props: destylerInfoCloseProps,
+  props: infoCloseProps,
   inheritAttrs: false,
   setup() {
     const rootContent = injectInfoRootContext()
@@ -26,7 +26,7 @@ export const DestylerInfoClose = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+    return h(Primitive, mergeProps(this.$props, this.$attrs, {
       onClick: () => {
         this.rootContent.onToggle()
       },
