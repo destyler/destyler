@@ -1,23 +1,23 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 
-export const destylerDialogCloseProps = {
-  ...destylerPrimitiveProps,
+export const dialogCloseProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerDialogCloseProps = ExtractPublicPropTypes<typeof destylerDialogCloseProps>
+export type DialogCloseProps = ExtractPublicPropTypes<typeof dialogCloseProps>
 
-export const DestylerDialogClose = defineComponent({
+export const DialogClose = defineComponent({
   name: 'DestylerDialogClose',
-  props: destylerDialogCloseProps,
+  props: dialogCloseProps,
   setup() {
     const rootContext = injectDialogRootContext()
 
@@ -28,7 +28,7 @@ export const DestylerDialogClose = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       type: this.$props.as === 'button' ? 'button' : undefined,
       onClick: () => {
         this.rootContext.onOpenChange(false)

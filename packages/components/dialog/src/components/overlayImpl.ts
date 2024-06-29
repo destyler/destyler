@@ -1,19 +1,19 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 
-export const destylerDialogOverlayImplProps = {
-  ...destylerPrimitiveProps,
+export const dialogOverlayImplProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerDialogOverlayImplProps = ExtractPublicPropTypes<typeof destylerDialogOverlayImplProps>
+export type DialogOverlayImplProps = ExtractPublicPropTypes<typeof dialogOverlayImplProps>
 
-export const DestylerDialogOverlayImpl = defineComponent({
+export const DialogOverlayImpl = defineComponent({
   name: 'DestylerDialogOverlayImpl',
-  props: destylerDialogOverlayImplProps,
+  props: dialogOverlayImplProps,
   setup() {
     const rootContext = injectDialogRootContext()
     useForwardExpose()
@@ -23,7 +23,7 @@ export const DestylerDialogOverlayImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
