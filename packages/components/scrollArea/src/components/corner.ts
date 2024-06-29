@@ -1,20 +1,20 @@
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectScrollAreaRootContext } from './root'
-import { DestylerScrollAreaCornerImpl } from './cornerImpl'
+import { ScrollAreaCornerImpl } from './cornerImpl'
 
-export const destylerScrollAreaCorner = {
-  ...destylerPrimitiveProps,
+export const scrollAreaCorner = {
+  ...primitiveProps,
 } as const
 
-export type DestylerScrollAreaCornerProps = ExtractPublicPropTypes<typeof destylerScrollAreaCorner>
+export type ScrollAreaCornerProps = ExtractPublicPropTypes<typeof scrollAreaCorner>
 
-export const DestylerScrollAreaCorner = defineComponent({
+export const ScrollAreaCorner = defineComponent({
   name: 'DestylerScrollAreaCorner',
-  props: destylerScrollAreaCorner,
+  props: scrollAreaCorner,
   setup() {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectScrollAreaRootContext()
@@ -33,7 +33,7 @@ export const DestylerScrollAreaCorner = defineComponent({
   },
   render() {
     return this.hasCorner
-      ? h(DestylerScrollAreaCornerImpl, mergeProps(this.$props, {
+      ? h(ScrollAreaCornerImpl, mergeProps(this.$props, {
         ref: (el: any) => this.forwardRef(el),
       }), {
         default: () => this.$slots.default?.(),

@@ -1,25 +1,25 @@
 import { type PropType, defineComponent, h, onMounted, onUnmounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive } from '@destyler/primitive'
 
 import { toInt } from '../utils'
 import { injectScrollAreaRootContext } from './root'
 import { injectScrollAreaScrollbarVisibleContext } from './scrollbarVisible'
 import { injectScrollAreaScrollbarContext } from './scrollbar'
 
-export const destylerScrollAreaScrollbarImplProps = {
+export const scrollAreaScrollbarImplProps = {
   isHorizontal: {
     type: Boolean as PropType<boolean>,
     required: true,
   },
 } as const
 
-export type DestylerScrollAreaScrollbarImplProps = ExtractPublicPropTypes<typeof destylerScrollAreaScrollbarImplProps>
+export type ScrollAreaScrollbarImplProps = ExtractPublicPropTypes<typeof scrollAreaScrollbarImplProps>
 
-export const DestylerScrollAreaScrollbarImpl = defineComponent({
+export const ScrollAreaScrollbarImpl = defineComponent({
   name: 'DestylerScrollAreaScrollbarImpl',
-  props: destylerScrollAreaScrollbarImplProps,
+  props: scrollAreaScrollbarImplProps,
   emits: ['onDragScroll', 'onWheelScroll', 'onThumbPointerDown'],
   setup(props, { emit }) {
     const rootContext = injectScrollAreaRootContext()
@@ -124,7 +124,7 @@ export const DestylerScrollAreaScrollbarImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'style': {
         position: 'absolute',

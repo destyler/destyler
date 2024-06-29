@@ -4,9 +4,9 @@ import { useForwardExpose } from '@destyler/composition'
 import { getThumbSize } from '../utils'
 import { injectScrollAreaRootContext } from './root'
 import { injectScrollAreaScrollbarVisibleContext } from './scrollbarVisible'
-import { DestylerScrollAreaScrollbarImpl } from './scrollbarImpl'
+import { ScrollAreaScrollbarImpl } from './scrollbarImpl'
 
-export const DestylerScrollAreaScrollbarX = defineComponent({
+export const ScrollAreaScrollbarX = defineComponent({
   name: 'DestylerScrollAreaScrollbarX',
   setup() {
     const rootContext = injectScrollAreaRootContext()
@@ -27,7 +27,7 @@ export const DestylerScrollAreaScrollbarX = defineComponent({
     }
   },
   render() {
-    return h(DestylerScrollAreaScrollbarImpl, {
+    return h(ScrollAreaScrollbarImpl, {
       'ref': (el: any) => this.forwardRef(el),
       'isHorizontal': true,
       'data-orientation': 'horizontal',
