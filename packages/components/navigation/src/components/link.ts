@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, nextTick } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { EVENT_ROOT_CONTENT_DISMISS } from '../utils'
 
-export const destylerNavigationLinkProps = {
-  ...destylerPrimitiveProps,
+export const navigationLinkProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'a',
   },
   active: {
@@ -18,11 +18,11 @@ export const destylerNavigationLinkProps = {
   },
 } as const
 
-export type DestylerNavigationLinkProps = ExtractPublicPropTypes<typeof destylerNavigationLinkProps>
+export type NavigationLinkProps = ExtractPublicPropTypes<typeof navigationLinkProps>
 
-export const DestylerNavigationLink = defineComponent({
+export const NavigationLink = defineComponent({
   name: 'DestylerNavigationLink',
-  props: destylerNavigationLinkProps,
+  props: navigationLinkProps,
   emits: ['select'],
   setup(_, { emit }) {
     useForwardExpose()
@@ -46,7 +46,7 @@ export const DestylerNavigationLink = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-destyler-collection-item': '',

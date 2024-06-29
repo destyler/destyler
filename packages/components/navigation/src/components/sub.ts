@@ -1,13 +1,13 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { ExtractPublicPropTypes, Orientation } from '@destyler/shared'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useCollection, useForwardExpose, useVModel } from '@destyler/composition'
 
 import { injectNavigationContext, provideNavigationContext } from './root'
 
-export const destylerNavigationSubProps = {
-  ...destylerPrimitiveProps,
+export const navigationSubProps = {
+  ...primitiveProps,
   modelValue: {
     type: String as PropType<string>,
     required: false,
@@ -23,11 +23,11 @@ export const destylerNavigationSubProps = {
   },
 } as const
 
-export type DestylerNavigationSubProps = ExtractPublicPropTypes<typeof destylerNavigationSubProps>
+export type NavigationSubProps = ExtractPublicPropTypes<typeof navigationSubProps>
 
-export const DestylerNavigationSub = defineComponent({
+export const NavigationSub = defineComponent({
   name: 'DestylerNavigationSub',
-  props: destylerNavigationSubProps,
+  props: navigationSubProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
@@ -86,7 +86,7 @@ export const DestylerNavigationSub = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'data-orientation': this.$props.orientation,
       'as': this.$props.as,

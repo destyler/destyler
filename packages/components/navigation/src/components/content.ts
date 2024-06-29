@@ -1,17 +1,17 @@
 import { type PropType, computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose, useMounted } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
-import { DestylerTeleport } from '@destyler/teleport'
+import { Presence } from '@destyler/presence'
+import { TeleportPrimitive } from '@destyler/teleport'
 
 import { getOpenState } from '../utils'
 import type { PointerDownOutsideEvent } from './contentImpl'
-import { DestylerNavigationContentImpl, destylerNavigationContentImplProps } from './contentImpl'
+import { NavigationContentImpl, navigationContentImplProps } from './contentImpl'
 import { injectNavigationContext } from './root'
 import { injectNavigationItemContext } from './item'
 
-export const destylerNavigationContentProps = {
-  ...destylerNavigationContentImplProps,
+export const navigationContentProps = {
+  ...navigationContentImplProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -19,11 +19,11 @@ export const destylerNavigationContentProps = {
   },
 } as const
 
-export type DestylerNavigationContentProps = ExtractPublicPropTypes<typeof destylerNavigationContentProps>
+export type NavigationContentProps = ExtractPublicPropTypes<typeof navigationContentProps>
 
-export const DestylerNavigationContent = defineComponent({
+export const NavigationContent = defineComponent({
   name: 'DestylerNavigationContent',
-  props: destylerNavigationContentProps,
+  props: navigationContentProps,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     const { forwardRef } = useForwardExpose()
@@ -58,12 +58,12 @@ export const DestylerNavigationContent = defineComponent({
   },
   render() {
     if (this.isClientMounted) {
-      return h(DestylerTeleport, {
+      return h(TeleportPrimitive, {
         to: this.menuContext.viewport.value,
         disabled: !this.menuContext.viewport.value,
-      }, () => h(DestylerPresence, {
+      }, () => h(Presence, {
         present: this.$props.forceMount || this.open || this.isLastActiveValue,
-      }, () => h(DestylerNavigationContentImpl, mergeProps(this.$attrs, this.$props, this.emitsAsProps, {
+      }, () => h(NavigationContentImpl, mergeProps(this.$attrs, this.$props, this.emitsAsProps, {
         'ref': (el: any) => this.forwardRef(el),
         'data-state': getOpenState(this.open),
         'style': {

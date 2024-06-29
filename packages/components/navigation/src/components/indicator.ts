@@ -1,25 +1,25 @@
 import type { PropType } from 'vue'
 import { Teleport, computed, defineComponent, h, ref, watchEffect } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useResizeObserver } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 
 import { injectNavigationContext } from './root'
 
-export const destylerNavigationIndicatorProps = {
-  ...destylerPrimitiveProps,
+export const navigationIndicatorProps = {
+  ...primitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerNavigationIndicatorProps = ExtractPublicPropTypes<typeof destylerNavigationIndicatorProps>
+export type NavigationIndicatorProps = ExtractPublicPropTypes<typeof navigationIndicatorProps>
 
-export const DestylerNavigationIndicator = defineComponent({
+export const NavigationIndicator = defineComponent({
   name: 'DestylerNavigationIndicator',
-  props: destylerNavigationIndicatorProps,
+  props: navigationIndicatorProps,
   setup() {
     const { forwardRef } = useForwardExpose()
     const { injectCollection } = useCollection('nav')
@@ -72,9 +72,9 @@ export const DestylerNavigationIndicator = defineComponent({
     return this.menuContext.indicatorTrack.value
       ? h(Teleport, {
         to: this.menuContext.indicatorTrack.value,
-      }, () => h(DestylerPresence, {
+      }, () => h(Presence, {
         present: this.$props.forceMount || this.isVisible,
-      }, () => h(DestylerPrimitive, {
+      }, () => h(Primitive, {
         'ref': (el: any) => this.forwardRef(el),
         'aria-hidden': '',
         'data-state': this.isVisible ? 'visible' : 'hidden',

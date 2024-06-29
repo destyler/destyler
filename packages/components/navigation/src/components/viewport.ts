@@ -1,27 +1,27 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 
 import { getOpenState } from '../utils'
 import { injectNavigationContext } from './root'
 
-export const destylerNavigationViewportProps = {
-  ...destylerPrimitiveProps,
+export const navigationViewportProps = {
+  ...primitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerNavigationViewPortprops = ExtractPublicPropTypes<typeof destylerNavigationViewportProps>
+export type NavigationViewPortprops = ExtractPublicPropTypes<typeof navigationViewportProps>
 
-export const DestylerNavigationViewport = defineComponent({
+export const NavigationViewport = defineComponent({
   name: 'DestylerNavigationViewPort',
   inheritAttrs: false,
-  props: destylerNavigationViewportProps,
+  props: navigationViewportProps,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -65,9 +65,9 @@ export const DestylerNavigationViewport = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.$props.forceMount || this.open,
-    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, () => h(Primitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

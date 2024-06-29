@@ -1,20 +1,20 @@
 import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { refAutoReset, unrefElement } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import { Visuallyhidden } from '@destyler/visually-hidden'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { getOpenState, makeContentId, makeTriggerId } from '../utils'
 import { injectNavigationContext } from './root'
 import { injectNavigationItemContext } from './item'
 
-export const destylerNavigationTriggerProps = {
-  ...destylerPrimitiveProps,
+export const navigationTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -23,12 +23,12 @@ export const destylerNavigationTriggerProps = {
   },
 } as const
 
-export type DestylerNavigationTriggerProps = ExtractPublicPropTypes<typeof destylerNavigationTriggerProps>
+export type NavigationTriggerProps = ExtractPublicPropTypes<typeof navigationTriggerProps>
 
-export const DestylerNavigationTrigger = defineComponent({
+export const NavigationTrigger = defineComponent({
   name: 'DestylerNavigationTrigger',
   inheritAttrs: false,
-  props: destylerNavigationTriggerProps,
+  props: navigationTriggerProps,
   setup(props) {
     const menuContext = injectNavigationContext()
     const itemContext = injectNavigationItemContext()
@@ -134,7 +134,7 @@ export const DestylerNavigationTrigger = defineComponent({
   },
   render() {
     return [
-      withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+      withDirectives(h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'disabled': this.$props.disabled,
         'data-disabled': this.$props.disabled ? '' : undefined,
@@ -163,7 +163,7 @@ export const DestylerNavigationTrigger = defineComponent({
         [BindOnceDirective, { id: this.triggerId }],
       ]),
       this.open
-        ? h(DestylerVisuallyhidden, {
+        ? h(Visuallyhidden, {
           'ref': (el: any) => this.setFocusProxyRef(el),
           'aria-hidden': '',
           'tabindex': 0,
