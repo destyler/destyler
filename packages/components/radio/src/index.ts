@@ -1,3 +1,3 @@
-export { DestylerRadioGroupRoot, destylerRadioGroupRootProps, type DestylerRadioGroupRootProps } from './components/groupRoot'
-export { DestylerRadioGroupItem, destylerRadioGroupItemProps, type DestylerRadioGroupItemProps } from './components/groupItem'
-export { DestylerRadioGroupIndicator, destylerRadioGroupIndicatorProps, type DestylerRadioGroupIndicatorProps } from './components/groupIndicator'
+export { RadioGroupRoot, radioGroupRootProps, type RadioGroupRootProps } from './components/groupRoot'
+export { RadioGroupItem, radioGroupItemProps, type RadioGroupItemProps } from './components/groupItem'
+export { RadioGroupIndicator, radioGroupIndicatorProps, type RadioGroupIndicatorProps } from './components/groupIndicator'

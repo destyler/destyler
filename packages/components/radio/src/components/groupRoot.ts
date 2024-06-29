@@ -1,13 +1,13 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useVModel } from '@destyler/composition'
-import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
+import { RovingFocusGroup } from '@destyler/roving-focus'
 
-export const destylerRadioGroupRootProps = {
-  ...destylerPrimitiveProps,
+export const radioGroupRootProps = {
+  ...primitiveProps,
   modelValue: {
     type: String as PropType<string>,
     required: false,
@@ -46,7 +46,7 @@ export const destylerRadioGroupRootProps = {
   },
 } as const
 
-export type DestylerRadioGroupRootProps = ExtractPublicPropTypes<typeof destylerRadioGroupRootProps>
+export type RadioGroupRootProps = ExtractPublicPropTypes<typeof radioGroupRootProps>
 
 export interface RadioGroupRootContext {
   modelValue?: Readonly<Ref<string | undefined>>
@@ -60,9 +60,9 @@ export interface RadioGroupRootContext {
 
 export const [injectRadioGroupRootContext, provideRadioGroupRootContext] = createContext<RadioGroupRootContext>('DestylerRadioGroupRoot')
 
-export const DestylerRadioGroupRoot = defineComponent({
+export const RadioGroupRoot = defineComponent({
   name: 'DestylerRadioGroupRoot',
-  props: destylerRadioGroupRootProps,
+  props: radioGroupRootProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
@@ -93,12 +93,12 @@ export const DestylerRadioGroupRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusGroup, {
+    return h(RovingFocusGroup, {
       asChild: true,
       orientation: this.orientation,
       dir: this.dir,
       loop: this.loop,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'role': 'radiogroup',
       'data-disabled': this.disabled ? '' : undefined,
       'asChild': this.$props.asChild,

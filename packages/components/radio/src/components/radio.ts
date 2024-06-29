@@ -1,14 +1,14 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withModifiers } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 
-export const destylerRadioProps = {
-  ...destylerPrimitiveProps,
+export const radioProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   id: {
@@ -39,11 +39,11 @@ export const destylerRadioProps = {
   },
 } as const
 
-export type DestylerRadioProps = ExtractPublicPropTypes<typeof destylerRadioProps>
+export type RadioProps = ExtractPublicPropTypes<typeof radioProps>
 
-export const DestylerRadio = defineComponent({
+export const Radio = defineComponent({
   name: 'DestylerRadio',
-  props: destylerRadioProps,
+  props: radioProps,
   emits: ['update:checked'],
   setup(props, { emit }) {
     const checkedRef = useVModel(props, 'checked', emit, {
@@ -72,7 +72,7 @@ export const DestylerRadio = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return withDirectives(h(Primitive, mergeProps(this.$attrs, {
       'role': 'radio',
       'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
