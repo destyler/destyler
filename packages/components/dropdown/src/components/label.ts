@@ -1,21 +1,21 @@
 import { defineComponent, h } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerMenuLabel, destylerMenuLabelProps } from '@destyler/menu'
+import { MenuLabel, menuLabelProps } from '@destyler/menu'
 
-export const destylerDropdownLabelProps = {
-  ...destylerMenuLabelProps,
+export const dropdownLabelProps = {
+  ...menuLabelProps,
 } as const
 
-export type DestylerDropdownLabelProps = ExtractPublicPropTypes<typeof destylerDropdownLabelProps>
+export type DropdownLabelProps = ExtractPublicPropTypes<typeof dropdownLabelProps>
 
-export const DestylerDropdownLabel = defineComponent({
+export const DropdownLabel = defineComponent({
   name: 'DestylerDropdownLabel',
-  props: destylerDropdownLabelProps,
+  props: dropdownLabelProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuLabel, this.$props, () => this.$slots.default?.())
+    return h(MenuLabel, this.$props, () => this.$slots.default?.())
   },
 })

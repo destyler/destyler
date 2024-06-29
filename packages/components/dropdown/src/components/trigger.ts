@@ -1,17 +1,17 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, onMounted, withDirectives, withModifiers } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuAnchor } from '@destyler/menu'
+import { MenuAnchor } from '@destyler/menu'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectDropdownMenuRootContext } from './root'
 
-export const destylerDropdownTriggerProps = {
-  ...destylerPrimitiveProps,
+export const dropdownTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -20,11 +20,11 @@ export const destylerDropdownTriggerProps = {
   },
 } as const
 
-export type DestylerDropdownTriggerProps = ExtractPublicPropTypes<typeof destylerDropdownTriggerProps>
+export type DropdownTriggerProps = ExtractPublicPropTypes<typeof dropdownTriggerProps>
 
-export const DestylerDropdownTrigger = defineComponent({
+export const DropdownTrigger = defineComponent({
   name: 'DestylerDropdownTrigger',
-  props: destylerDropdownTriggerProps,
+  props: dropdownTriggerProps,
   setup() {
     const rootContext = injectDropdownMenuRootContext()
 
@@ -40,9 +40,9 @@ export const DestylerDropdownTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuAnchor, {
+    return h(MenuAnchor, {
       asChild: true,
-    }, () => withDirectives(h(DestylerPrimitive, {
+    }, () => withDirectives(h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'asChild': this.$props.asChild,

@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerMenuPortal, destylerMenuPortalProps } from '@destyler/menu'
+import { MenuPortal, menuPortalProps } from '@destyler/menu'
 
-export const destylerDropdownPortalProps = {
-  ...destylerMenuPortalProps,
+export const dropdownPortalProps = {
+  ...menuPortalProps,
 } as const
 
-export type DestylerDropdownPortalProps = ExtractPublicPropTypes<typeof destylerDropdownPortalProps>
+export type DropdownPortalProps = ExtractPublicPropTypes<typeof dropdownPortalProps>
 
-export const DestylerDropdownPortal = defineComponent({
+export const DropdownPortal = defineComponent({
   name: 'DestylerDropdownPortal',
-  props: destylerDropdownPortalProps,
+  props: dropdownPortalProps,
   render() {
-    return h(DestylerMenuPortal, this.$props, () => this.$slots.default?.())
+    return h(MenuPortal, this.$props, () => this.$slots.default?.())
   },
 })

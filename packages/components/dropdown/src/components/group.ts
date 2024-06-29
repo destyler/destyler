@@ -1,22 +1,22 @@
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuGroup } from '@destyler/menu'
+import { MenuGroup } from '@destyler/menu'
 
-export const destylerDropdownGroupProps = {
-  ...destylerPrimitiveProps,
+export const dropdownGroupProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerDropdownGroupProps = ExtractPublicPropTypes<typeof destylerDropdownGroupProps>
+export type DropdownGroupProps = ExtractPublicPropTypes<typeof dropdownGroupProps>
 
-export const DestylerDropdownGroup = defineComponent({
+export const DropdownGroup = defineComponent({
   name: 'DestylerDropdownGroup',
-  props: destylerDropdownGroupProps,
+  props: dropdownGroupProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuGroup, this.$props, () => this.$slots.default?.())
+    return h(MenuGroup, this.$props, () => this.$slots.default?.())
   },
 })
