@@ -1,7 +1,7 @@
 import { defineComponent, h, onMounted, ref } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import { PopperAnchor } from '@destyler/popper'
 import { type ExtractPublicPropTypes, createContext } from '@destyler/shared'
 
 import { injectEllipsisRootContext } from './root'
@@ -9,15 +9,15 @@ import { injectEllipsisProviderContext } from './provider'
 
 export type EllipsisTriggerDataState = | 'closed' | 'delayed-open' | 'instant-open'
 
-export const destylerEllipsisTriggerProps = {
-  ...destylerPrimitiveProps,
+export const ellipsisTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerEllipsisTriggerProps = ExtractPublicPropTypes<typeof destylerEllipsisTriggerProps>
+export type EllipsisTriggerProps = ExtractPublicPropTypes<typeof ellipsisTriggerProps>
 
 export interface EllipsisTriggerContent {
   text: string
@@ -25,9 +25,9 @@ export interface EllipsisTriggerContent {
 
 export const [injectEllipsisTriggerContext, provideEllipsisTriggerContext] = createContext<EllipsisTriggerContent>('DestylerEllipsisTriggerContent')
 
-export const DestylerEllipsisTrigger = defineComponent({
+export const EllipsisTrigger = defineComponent({
   name: 'DestylerEllipsisTrigger',
-  props: destylerEllipsisTriggerProps,
+  props: ellipsisTriggerProps,
   setup(_) {
     const rootContext = injectEllipsisRootContext()
     const providerContext = injectEllipsisProviderContext()
@@ -61,9 +61,9 @@ export const DestylerEllipsisTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperAnchor, {
+    return h(PopperAnchor, {
       asChild: true,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'aria-describedby': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.stateAttribute.value,
