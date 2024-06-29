@@ -1,14 +1,14 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPopperArrow } from '@destyler/popper'
+import { PopperArrow } from '@destyler/popper'
 
-export const destylerHoverCardArrowProps = {
-  ...destylerPrimitiveProps,
+export const hoverCardArrowProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'svg',
   },
   width: {
@@ -23,15 +23,15 @@ export const destylerHoverCardArrowProps = {
   },
 } as const
 
-export type DestylerHoverCardArrowProps = ExtractPublicPropTypes<typeof destylerHoverCardArrowProps>
+export type HoverCardArrowProps = ExtractPublicPropTypes<typeof hoverCardArrowProps>
 
-export const DestylerHoverCardArrow = defineComponent({
+export const HoverCardArrow = defineComponent({
   name: 'DestylerHoverCardArrow',
-  props: destylerHoverCardArrowProps,
+  props: hoverCardArrowProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPopperArrow, this.$props, () => this.$slots.default?.())
+    return h(PopperArrow, this.$props, () => this.$slots.default?.())
   },
 })

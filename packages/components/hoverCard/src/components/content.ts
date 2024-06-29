@@ -2,25 +2,25 @@ import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 
 import { excludeTouch } from '../utils'
-import { DestylerHoverCardContentImpl, destylerHoverCardContentImplProps } from './contentImpl'
+import { HoverCardContentImpl, hoverCardContentImplProps } from './contentImpl'
 import { injectHoverCardRootContext } from './root'
 
-export const destylerHoverCardContentProps = {
-  ...destylerHoverCardContentImplProps,
+export const hoverCardContentProps = {
+  ...hoverCardContentImplProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerHoverCardContentProps = ExtractPublicPropTypes<typeof destylerHoverCardContentProps>
+export type HoverCardContentProps = ExtractPublicPropTypes<typeof hoverCardContentProps>
 
-export const DestylerHoverCardContent = defineComponent({
+export const HoverCardContent = defineComponent({
   name: 'DestylerHoverCardContent',
-  props: destylerHoverCardContentProps,
+  props: hoverCardContentProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -35,9 +35,9 @@ export const DestylerHoverCardContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.forceMount || this.rootContext.open.value,
-    }, () => h(DestylerHoverCardContentImpl, mergeProps(this.forwarded, {
+    }, () => h(HoverCardContentImpl, mergeProps(this.forwarded, {
       ref: (el: any) => this.forwardRef(el),
       onPointerenter: (event: any) => {
         excludeTouch(this.rootContext.onOpen)(event)

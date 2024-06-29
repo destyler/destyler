@@ -1,25 +1,25 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPopperAnchor } from '@destyler/popper'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { PopperAnchor } from '@destyler/popper'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { excludeTouch } from '../utils'
 import { injectHoverCardRootContext } from './root'
 
-export const destylerHoverCardTriggerProps = {
-  ...destylerPrimitiveProps,
+export const hoverCardTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'a',
   },
 } as const
 
-export type DestylerHoverCardTriggerProps = ExtractPublicPropTypes<typeof destylerHoverCardTriggerProps>
+export type HoverCardTriggerProps = ExtractPublicPropTypes<typeof hoverCardTriggerProps>
 
-export const DestylerHoverCardTrigger = defineComponent({
+export const HoverCardTrigger = defineComponent({
   name: 'DestylerHoverCardTrigger',
-  props: destylerHoverCardTriggerProps,
+  props: hoverCardTriggerProps,
   setup() {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectHoverCardRootContext()
@@ -30,9 +30,9 @@ export const DestylerHoverCardTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperAnchor, {
+    return h(PopperAnchor, {
       asChild: true,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

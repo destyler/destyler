@@ -1,8 +1,8 @@
 import { defineComponent, h, mergeProps, nextTick, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
-import { DestylerPopperContent, destylerPopperContentProps } from '@destyler/popper'
+import { DismissableLayer } from '@destyler/dismissable-layer'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import { getTabbableNodes } from '../utils'
 import { injectHoverCardRootContext } from './root'
@@ -13,15 +13,15 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerHoverCardContentImplProps = {
-  ...destylerPopperContentProps,
+export const hoverCardContentImplProps = {
+  ...popperContentProps,
 } as const
 
-export type DestylerHoverCardContentImplProps = ExtractPublicPropTypes<typeof destylerHoverCardContentImplProps>
+export type HoverCardContentImplProps = ExtractPublicPropTypes<typeof hoverCardContentImplProps>
 
-export const DestylerHoverCardContentImpl = defineComponent({
+export const HoverCardContentImpl = defineComponent({
   name: 'DestylerHoverCardContentImpl',
-  props: destylerHoverCardContentImplProps,
+  props: hoverCardContentImplProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props) {
     const forwarded = useForwardProps(props)
@@ -79,7 +79,7 @@ export const DestylerHoverCardContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerDismissableLayer, {
+    return h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
       onEscapeKeyDown: (event: any) => {
@@ -94,7 +94,7 @@ export const DestylerHoverCardContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onDismiss()
       },
-    }, () => h(DestylerPopperContent, mergeProps(this.forwarded, this.$attrs, {
+    }, () => h(PopperContent, mergeProps(this.forwarded, this.$attrs, {
       ref: (el: any) => this.forwardRef(el),
       data_state: this.rootContext.open.value ? 'open' : 'closed',
       style: {
