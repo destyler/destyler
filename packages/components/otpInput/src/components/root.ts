@@ -1,13 +1,13 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, watch, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose, useVModel } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
 
-export const destylerOtpInputRootProps = {
-  ...destylerPrimitiveProps,
+export const otpInputRootProps = {
+  ...primitiveProps,
   modelValue: {
     type: Array as PropType<string[]>,
     required: false,
@@ -56,7 +56,7 @@ export const destylerOtpInputRootProps = {
   },
 } as const
 
-export type DestylerOtpInputRootProps = ExtractPublicPropTypes<typeof destylerOtpInputRootProps>
+export type OtpInputRootProps = ExtractPublicPropTypes<typeof otpInputRootProps>
 
 export interface OtpInputRootContext {
   modelValue: Ref<string[]>
@@ -73,10 +73,10 @@ export interface OtpInputRootContext {
 
 export const [injectOtpInputRootContext, provideOtpInputRootContext] = createContext<OtpInputRootContext>('DestylerOtpInputRoot')
 
-export const DestylerOtpInputRoot = defineComponent({
+export const OtpInputRoot = defineComponent({
   name: 'DestylerOtpInputRoot',
   inheritAttrs: false,
-  props: destylerOtpInputRootProps,
+  props: otpInputRootProps,
   emits: ['update:modelValue', 'complete'],
   setup(props, { emit }) {
     const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
@@ -127,7 +127,7 @@ export const DestylerOtpInputRoot = defineComponent({
   },
   render() {
     return [
-      h(DestylerPrimitive, mergeProps(this.$attrs, {
+      h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'dir': this.dir,
         'data-complete': this.isCompleted ? '' : undefined,

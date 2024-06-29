@@ -1,2 +1,2 @@
-export { DestylerOtpInput, destylerOtpInputProps, type DestylerOtpInputProps } from './components/input'
-export { DestylerOtpInputRoot, destylerOtpInputRootProps, type DestylerOtpInputRootProps } from './components/root'
+export { OtpInput, otpInputProps, type OtpInputProps } from './components/input'
+export { OtpInputRoot, otpInputRootProps, type OtpInputRootProps } from './components/root'
