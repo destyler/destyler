@@ -1,20 +1,20 @@
 import { type PropType, computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { onKeyStroke } from '@vueuse/core'
-import { DestylerTeleport } from '@destyler/teleport'
+import { TeleportPrimitive } from '@destyler/teleport'
 
 import type { SwipeEvent } from '../utils'
 import { TOAST_SWIPE_CANCEL, TOAST_SWIPE_END, TOAST_SWIPE_MOVE, TOAST_SWIPE_START, VIEWPORT_PAUSE, VIEWPORT_RESUME, getAnnounceTextContent, handleAndDispatchCustomEvent, isDeltaInDirection } from '../utils'
 import { injectToastProviderContext } from './provider'
-import { DestylerToastAnnounce } from './announce'
+import { ToastAnnounce } from './announce'
 
-export const destylerToastRootImplProps = {
-  ...destylerPrimitiveProps,
+export const toastRootImplProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'li',
   },
   type: {
@@ -32,14 +32,14 @@ export const destylerToastRootImplProps = {
   },
 } as const
 
-export type DestylerToastRootImplProps = ExtractPublicPropTypes<typeof destylerToastRootImplProps>
+export type ToastRootImplProps = ExtractPublicPropTypes<typeof toastRootImplProps>
 
 export const [injectToastRootContext, provideToastRootContext] = createContext<{ onClose: () => void }>('DestylerToastRoot')
 
-export const DestylerToastRootImpl = defineComponent({
+export const ToastRootImpl = defineComponent({
   name: 'DestylerToastRootImpl',
   inheritAttrs: false,
-  props: destylerToastRootImplProps,
+  props: toastRootImplProps,
   emits: [
     'close',
     'escapeKeyDown',
@@ -137,15 +137,15 @@ export const DestylerToastRootImpl = defineComponent({
   render() {
     return [
       this.announceTextContent
-        ? h(DestylerToastAnnounce, {
+        ? h(ToastAnnounce, {
           'role': 'status',
           'aria-live': this.$props.type === 'foreground' ? 'assertive' : 'polite',
           'aria-atomic': '',
         }, () => this.announceTextContent)
         : null,
-      h(DestylerTeleport, {
+      h(TeleportPrimitive, {
         to: this.providerContext.viewport.value,
-      }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+      }, () => h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'role': 'status',
         'aria-live': 'off',
