@@ -1,2 +1,2 @@
-export { DestylerSwitchRoot, destylerSwitchRootProps, type DestylerSwitchRootProps } from './components/root'
-export { DestylerSwitchThump, destylerSwitchThumpProps, type DestylerSwitchThumpProps } from './components/thump'
+export { SwitchRoot, switchRootProps, type SwitchRootProps } from './components/root'
+export { SwitchThump, switchThumpProps, type SwitchThumpProps } from './components/thump'

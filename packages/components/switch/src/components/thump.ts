@@ -1,23 +1,23 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { injectSwitchRootContext } from './root'
 
-export const destylerSwitchThumpProps = {
-  ...destylerPrimitiveProps,
+export const switchThumpProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSwitchThumpProps = ExtractPublicPropTypes<typeof destylerSwitchThumpProps>
+export type SwitchThumpProps = ExtractPublicPropTypes<typeof switchThumpProps>
 
-export const DestylerSwitchThump = defineComponent({
+export const SwitchThump = defineComponent({
   name: 'DestylerSwitchThump',
-  props: destylerSwitchThumpProps,
+  props: switchThumpProps,
   setup(_) {
     const rootContext = injectSwitchRootContext()
 
@@ -28,7 +28,7 @@ export const DestylerSwitchThump = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'data-state': this.rootContext.checked?.value ? 'checked' : 'unchecked',
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
       'asChild': this.$props.asChild,

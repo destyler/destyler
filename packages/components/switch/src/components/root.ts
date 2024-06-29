@@ -1,15 +1,15 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withModifiers } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { createContext } from '@destyler/shared'
 import { BindOnceDirective } from '@destyler/directives'
 
-export const destylerSwitchRootProps = {
-  ...destylerPrimitiveProps,
+export const switchRootProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   defaultChecked: {
@@ -44,7 +44,7 @@ export const destylerSwitchRootProps = {
   },
 } as const
 
-export type DestylerSwitchRootProps = ExtractPublicPropTypes<typeof destylerSwitchRootProps>
+export type SwitchRootProps = ExtractPublicPropTypes<typeof switchRootProps>
 
 export interface SwitchRootContext {
   checked?: Ref<boolean>
@@ -54,9 +54,9 @@ export interface SwitchRootContext {
 
 export const [injectSwitchRootContext, provideSwitchRootContext] = createContext<SwitchRootContext>('DestylerSwitchRoot')
 
-export const DestylerSwitchRoot = defineComponent({
+export const SwitchRoot = defineComponent({
   name: 'DestylerSwitchRoot',
-  props: destylerSwitchRootProps,
+  props: switchRootProps,
   emits: ['update:checked'],
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
@@ -94,7 +94,7 @@ export const DestylerSwitchRoot = defineComponent({
   },
   render() {
     return [
-      withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+      withDirectives(h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'role': 'switch',
         'type': this.$props.as === 'button' ? 'button' : undefined,
