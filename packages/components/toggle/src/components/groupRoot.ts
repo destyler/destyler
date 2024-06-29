@@ -3,13 +3,13 @@ import { defineComponent, h, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose, useSingleOrMultipleValue } from '@destyler/composition'
-import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { RovingFocusGroup } from '@destyler/roving-focus'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 export type TypeEnum = 'single' | 'multiple'
 
-export const destylerToggleGroupRootProps = {
-  ...destylerPrimitiveProps,
+export const toggleGroupRootProps = {
+  ...primitiveProps,
   type: {
     type: String as PropType<TypeEnum>,
     required: false,
@@ -48,7 +48,7 @@ export const destylerToggleGroupRootProps = {
   },
 } as const
 
-export type DestylerToggleGroupRootProps = ExtractPublicPropTypes<typeof destylerToggleGroupRootProps>
+export type ToggleGroupRootProps = ExtractPublicPropTypes<typeof toggleGroupRootProps>
 
 export interface ToggleGroupRootContext {
   type: TypeEnum
@@ -63,9 +63,9 @@ export interface ToggleGroupRootContext {
 
 export const [injectToggleGroupRootContext, provideToggleGroupRootContext] = createContext<ToggleGroupRootContext>('DestylerToggleGroupRoot')
 
-export const DestylerToggleGroupRoot = defineComponent({
+export const ToggleGroupRoot = defineComponent({
   name: 'DestylerToggleGroupRoot',
-  props: destylerToggleGroupRootProps,
+  props: toggleGroupRootProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
@@ -93,12 +93,12 @@ export const DestylerToggleGroupRoot = defineComponent({
     }
   },
   render() {
-    return h(this.rovingFocus ? DestylerRovingFocusGroup : DestylerPrimitive, {
+    return h(this.rovingFocus ? RovingFocusGroup : Primitive, {
       asChild: true,
       orientation: this.rovingFocus ? this.$props.orientation : undefined,
       dir: this.dir,
       loop: this.rovingFocus ? this.loop : undefined,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       role: 'group',
       as: this.$props.as,
