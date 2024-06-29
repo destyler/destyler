@@ -1,11 +1,11 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, toValue } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerDraggableProps = {
-  ...destylerPrimitiveProps,
+export const draggableProps = {
+  ...primitiveProps,
   x: {
     type: Number as PropType<number>,
     required: false,
@@ -23,7 +23,7 @@ export const destylerDraggableProps = {
   },
 } as const
 
-export type DestylerDraggableProps = ExtractPublicPropTypes<typeof destylerDraggableProps>
+export type DraggableProps = ExtractPublicPropTypes<typeof draggableProps>
 
 export interface Position {
   x: number
@@ -32,9 +32,9 @@ export interface Position {
 
 export type PointerType = 'mouse' | 'touch' | 'pen'
 
-export const DestylerDraggable = defineComponent({
+export const Draggable = defineComponent({
   name: 'DestylerDraggable',
-  props: destylerDraggableProps,
+  props: draggableProps,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -126,7 +126,7 @@ export const DestylerDraggable = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       ref: (el: any) => this.forwardRef(el),
