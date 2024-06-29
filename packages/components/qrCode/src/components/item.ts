@@ -1,13 +1,13 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, watchEffect } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import qrcodegen from '../qrcodegen'
 import { injectQrCodeRootContext } from './root'
 
-export const destylerQrCodeItemProps = {
+export const qrCodeItemProps = {
   size: {
     type: Number as PropType<number>,
     default: 100,
@@ -22,7 +22,7 @@ export const destylerQrCodeItemProps = {
   },
 } as const
 
-export type DestylerQrCodeItemProps = ExtractPublicPropTypes<typeof destylerQrCodeItemProps>
+export type QrCodeItemProps = ExtractPublicPropTypes<typeof qrCodeItemProps>
 
 const ERROR_CORRECTION_LEVEL: Record<string, qrcodegen.QrCode.Ecc> = {
   L: qrcodegen.QrCode.Ecc.LOW,
@@ -31,9 +31,9 @@ const ERROR_CORRECTION_LEVEL: Record<string, qrcodegen.QrCode.Ecc> = {
   H: qrcodegen.QrCode.Ecc.HIGH,
 }
 
-export const DestylerQrCodeItem = defineComponent({
+export const QrCodeItem = defineComponent({
   name: 'DestylerQrCodeItem',
-  props: destylerQrCodeItemProps,
+  props: qrCodeItemProps,
   setup(props) {
     // For retina display
     const UPSCALE_RATIO = 2
@@ -99,7 +99,7 @@ export const DestylerQrCodeItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: 'canvas',
       asChild: false,
       ref: (el: any) => this.forwardRef(el),
