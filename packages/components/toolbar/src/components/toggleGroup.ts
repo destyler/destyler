@@ -1,21 +1,21 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerToggleGroupRoot, destylerToggleGroupRootProps } from '@destyler/toggle'
+import { ToggleGroupRoot, toggleGroupRootProps } from '@destyler/toggle'
 
 import { injectToolbarRootContext } from './root'
 
 export type TypeEnum = 'single' | 'multiple'
 
-export const destylerToolbarToggleGroupProps = {
-  ...destylerToggleGroupRootProps,
+export const toolbarToggleGroupProps = {
+  ...toggleGroupRootProps,
 } as const
 
-export type DestylerToolbarToggleGroupProps = ExtractPublicPropTypes<typeof destylerToolbarToggleGroupProps>
+export type ToolbarToggleGroupProps = ExtractPublicPropTypes<typeof toolbarToggleGroupProps>
 
-export const DestylerToolbarToggleGroup = defineComponent({
+export const ToolbarToggleGroup = defineComponent({
   name: 'DestylerToolbarToggleGroup',
-  props: destylerToolbarToggleGroupProps,
+  props: toolbarToggleGroupProps,
   emits: ['update:modelValue'],
   setup(_, { emit }) {
     const rootContext = injectToolbarRootContext()
@@ -29,7 +29,7 @@ export const DestylerToolbarToggleGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerToggleGroupRoot, mergeProps(this.$props, this.emitsAsProps, {
+    return h(ToggleGroupRoot, mergeProps(this.$props, this.emitsAsProps, {
       'rovingFocus': false,
       'dir': this.rootContext.dir.value,
       'data-orientation': this.rootContext.orientation.value,

@@ -1,19 +1,19 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerToggleGroupItem, destylerToggleGroupItemProps } from '@destyler/toggle'
+import { ToggleGroupItem, toggleGroupItemProps } from '@destyler/toggle'
 
-import { DestylerToolbarButton } from './button'
+import { ToolbarButton } from './button'
 
-export const destylerToolbarToggleItemProps = {
-  ...destylerToggleGroupItemProps,
+export const toolbarToggleItemProps = {
+  ...toggleGroupItemProps,
 } as const
 
-export type DestylerToolbarToggleItemProps = ExtractPublicPropTypes<typeof destylerToolbarToggleItemProps>
+export type ToolbarToggleItemProps = ExtractPublicPropTypes<typeof toolbarToggleItemProps>
 
-export const DestylerToolbarToggleItem = defineComponent({
+export const ToolbarToggleItem = defineComponent({
   name: 'DestylerToolbarToggleItem',
-  props: destylerToolbarToggleItemProps,
+  props: toolbarToggleItemProps,
   setup() {
     const { forwardRef } = useForwardExpose()
 
@@ -22,11 +22,11 @@ export const DestylerToolbarToggleItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerToolbarButton, {
+    return h(ToolbarButton, {
       asChild: true,
     }, {
       default: () => {
-        return h(DestylerToggleGroupItem, {
+        return h(ToggleGroupItem, {
           ...this.$props,
           ref: (el: any) => this.forwardRef(el),
         }, {
