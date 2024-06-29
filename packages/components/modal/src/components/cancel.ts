@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectModalRootContext } from './root'
 
-export const destylerModalCancelProps = {
-  ...destylerPrimitiveProps,
+export const modalCancelProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerModalCancelProps = ExtractPublicPropTypes<typeof destylerModalCancelProps>
+export type ModalCancelProps = ExtractPublicPropTypes<typeof modalCancelProps>
 
-export const DestylerModalCancel = defineComponent({
+export const ModalCancel = defineComponent({
   name: 'DestylerModalCancel',
-  props: destylerModalCancelProps,
+  props: modalCancelProps,
   setup() {
     const rootContext = injectModalRootContext()
 
@@ -25,7 +25,7 @@ export const DestylerModalCancel = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       type: this.$props.as === 'button' ? 'button' : undefined,
       onClick: () => {
         this.rootContext.onOpenChange(false)

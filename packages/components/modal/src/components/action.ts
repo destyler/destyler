@@ -1,18 +1,18 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { DestylerModalCancel, destylerModalCancelProps } from './cancel'
+import { ModalCancel, modalCancelProps } from './cancel'
 
-export const destylerModalActionProps = {
-  ...destylerModalCancelProps,
+export const modalActionProps = {
+  ...modalCancelProps,
 } as const
 
-export type DestylerModalActionProps = ExtractPublicPropTypes<typeof destylerModalActionProps>
+export type ModalActionProps = ExtractPublicPropTypes<typeof modalActionProps>
 
-export const DestylerModalAction = defineComponent({
+export const ModalAction = defineComponent({
   name: 'DestylerModalAction',
-  props: destylerModalActionProps,
+  props: modalActionProps,
   render() {
-    return h(DestylerModalCancel, mergeProps(this.$props), () => this.$slots.default?.())
+    return h(ModalCancel, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })
