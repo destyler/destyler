@@ -5,10 +5,10 @@ import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, Combobox
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 const props = defineProps<{
-  open: boolean
-  multiple: boolean
-  displayValue: (val: string | number | boolean | Record<string, any>) => string
-  filterFunction: (val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>
+  open?: boolean
+  multiple?: boolean
+  displayValue?: (val: string | number | boolean | Record<string, any>) => string
+  filterFunction?: (val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>
 }>()
 const people = [
   { id: 1, name: 'Durward Reynolds' },
