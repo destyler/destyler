@@ -1,22 +1,22 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSliderRootContext } from './root'
 
-export const destylerSliderTrackProps = {
-  ...destylerPrimitiveProps,
+export const sliderTrackProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSliderTrackProps = ExtractPublicPropTypes<typeof destylerSliderTrackProps>
+export type SliderTrackProps = ExtractPublicPropTypes<typeof sliderTrackProps>
 
-export const DestylerSliderTrack = defineComponent({
+export const SliderTrack = defineComponent({
   name: 'DestylerSliderTrack',
-  props: destylerSliderTrackProps,
+  props: sliderTrackProps,
   setup() {
     const rootContext = injectSliderRootContext()
 
@@ -25,7 +25,7 @@ export const DestylerSliderTrack = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       asChild: this.$props.asChild,
       as: this.$props.as,
     }, () => this.$slots.default?.())
