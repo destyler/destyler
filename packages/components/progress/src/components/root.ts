@@ -1,14 +1,14 @@
 import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, isNumber } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
 export const DEFAULT_MAX = 100
 
-export const destylerProgressRootProps = {
-  ...destylerPrimitiveProps,
+export const progressRootProps = {
+  ...primitiveProps,
   modelValue: {
     type: Number as PropType<number>,
     required: false,
@@ -26,7 +26,7 @@ export const destylerProgressRootProps = {
   },
 } as const
 
-export type DestylerProgressRootProps = ExtractPublicPropTypes<typeof destylerProgressRootProps>
+export type ProgressRootProps = ExtractPublicPropTypes<typeof progressRootProps>
 
 export interface ProgressRootContext {
   modelValue?: Readonly<Ref<number | null>>
@@ -39,9 +39,9 @@ export const [injectProgressRootContext, provideProgressRootContext]
 
 export type ProgressState = 'indeterminate' | 'loading' | 'complete'
 
-export const DestylerProgressRoot = defineComponent({
+export const ProgressRoot = defineComponent({
   name: 'DestylerProgressRoot',
-  props: destylerProgressRootProps,
+  props: progressRootProps,
   emits: ['update:modelValue', 'update:max'],
   setup(props, { emit }) {
     function validateValue(value: any, max: number): number | null {
@@ -124,7 +124,7 @@ export const DestylerProgressRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'role': 'progressbar',
