@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectPaginationRootContext } from './root'
 
-export const destylerPaginationListItemProps = {
-  ...destylerPrimitiveProps,
+export const paginationListItemProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   value: {
@@ -18,11 +18,11 @@ export const destylerPaginationListItemProps = {
   },
 } as const
 
-export type DestylerPaginationListItemProps = ExtractPublicPropTypes<typeof destylerPaginationListItemProps>
+export type PaginationListItemProps = ExtractPublicPropTypes<typeof paginationListItemProps>
 
-export const DestylerPaginationListItem = defineComponent({
+export const PaginationListItem = defineComponent({
   name: 'DestylerPaginationListItem',
-  props: destylerPaginationListItemProps,
+  props: paginationListItemProps,
   setup(props) {
     useForwardExpose()
 
@@ -35,7 +35,7 @@ export const DestylerPaginationListItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'data-type': 'page',
       'aria-label': `Page ${this.$props.value}`,
       'aria-current': this.isSelected ? 'page' : undefined,

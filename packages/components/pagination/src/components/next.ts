@@ -1,23 +1,23 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectPaginationRootContext } from './root'
 
-export const destylerPaginationNextProps = {
-  ...destylerPrimitiveProps,
+export const paginationNextProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerPaginationNextProps = ExtractPublicPropTypes<typeof destylerPaginationNextProps>
+export type PaginationNextProps = ExtractPublicPropTypes<typeof paginationNextProps>
 
-export const DestylerPaginationNext = defineComponent({
+export const PaginationNext = defineComponent({
   name: 'DestylerPaginationNext',
-  props: destylerPaginationNextProps,
+  props: paginationNextProps,
   setup() {
     useForwardExpose()
 
@@ -28,7 +28,7 @@ export const DestylerPaginationNext = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'aria-label': 'Next Page',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'disabled': this.rootContext.page.value === this.rootContext.pageCount.value || this.rootContext.disabled.value,

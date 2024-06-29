@@ -1,22 +1,22 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerPaginationEllipsisProps = {
-  ...destylerPrimitiveProps,
+export const paginationEllipsisProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerPaginationEllipsisProps = ExtractPublicPropTypes<typeof destylerPaginationEllipsisProps>
+export type PaginationEllipsisProps = ExtractPublicPropTypes<typeof paginationEllipsisProps>
 
-export const DestylerPaginationEllipsis = defineComponent({
+export const PaginationEllipsis = defineComponent({
   name: 'DestylerPaginationEllipsis',
-  props: destylerPaginationEllipsisProps,
+  props: paginationEllipsisProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'data-type': 'ellipsis',
     }), () => this.$slots.default ? this.$slots.default?.() : '…')
   },
