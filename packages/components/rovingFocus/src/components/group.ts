@@ -1,14 +1,14 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { createContext, focusFirst } from '@destyler/shared'
 import { useCollection, useDirection, useForwardExpose, useVModel } from '@destyler/composition'
 
 import { ENTRY_FOCUS, EVENT_OPTIONS } from '../utils'
 
-export const destylerRovingFocusGroupProps = {
-  ...destylerPrimitiveProps,
+export const rovingFocusGroupProps = {
+  ...primitiveProps,
   orientation: {
     type: String as PropType<Orientation>,
     required: false,
@@ -33,7 +33,7 @@ export const destylerRovingFocusGroupProps = {
   },
 } as const
 
-export type DestylerRovingFocusGroupProps = ExtractPublicPropTypes<typeof destylerRovingFocusGroupProps>
+export type RovingFocusGroupProps = ExtractPublicPropTypes<typeof rovingFocusGroupProps>
 
 export interface RovingContext {
   orientation: Ref<Orientation | undefined>
@@ -48,9 +48,9 @@ export interface RovingContext {
 
 export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext] = createContext<RovingContext>('DestylerRovingFocusGroup')
 
-export const DestylerRovingFocusGroup = defineComponent({
+export const RovingFocusGroup = defineComponent({
   name: 'DestylerRovingFocusGroup',
-  props: destylerRovingFocusGroupProps,
+  props: rovingFocusGroupProps,
   emits: ['entryFocus', 'update:currentTabStopId'],
   setup(props, { emit }) {
     const { loop, orientation, dir: propDir } = toRefs(props)
@@ -124,7 +124,7 @@ export const DestylerRovingFocusGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,

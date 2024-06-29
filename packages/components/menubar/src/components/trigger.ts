@@ -1,19 +1,19 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, withDirectives, withModifiers } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerRovingFocusItem } from '@destyler/roving-focus'
-import { DestylerMenuAnchor } from '@destyler/menu'
+import { RovingFocusItem } from '@destyler/roving-focus'
+import { MenuAnchor } from '@destyler/menu'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectMenubarRootContext } from './root'
 import { injectMenubarMenuContext } from './menu'
 
-export const destylerMenubarTriggerProps = {
-  ...destylerPrimitiveProps,
+export const menubarTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   disabled: {
@@ -22,11 +22,11 @@ export const destylerMenubarTriggerProps = {
   },
 } as const
 
-export type DestylerMenubarTriggerProps = ExtractPublicPropTypes<typeof destylerMenubarTriggerProps>
+export type MenubarTriggerProps = ExtractPublicPropTypes<typeof menubarTriggerProps>
 
-export const DestylerMenubarTrigger = defineComponent({
+export const MenubarTrigger = defineComponent({
   name: 'DestylerMenubarTrigger',
-  props: destylerMenubarTriggerProps,
+  props: menubarTriggerProps,
   setup() {
     const rootContext = injectMenubarRootContext()
     const menuContext = injectMenubarMenuContext()
@@ -51,13 +51,13 @@ export const DestylerMenubarTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusItem, {
+    return h(RovingFocusItem, {
       asChild: true,
       focusable: !this.$props.disabled,
       tabStopId: this.menuContext.value,
-    }, () => h(DestylerMenuAnchor, {
+    }, () => h(MenuAnchor, {
       asChild: true,
-    }, () => withDirectives(h(DestylerPrimitive, {
+    }, () => withDirectives(h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

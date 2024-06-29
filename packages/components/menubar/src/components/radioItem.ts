@@ -1,17 +1,17 @@
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerMenuRadioItem, destylerMenuRadioItemProps } from '@destyler/menu'
+import { MenuRadioItem, menuRadioItemProps } from '@destyler/menu'
 
-export const destylerMenubarRadioItemProps = {
-  ...destylerMenuRadioItemProps,
+export const menubarRadioItemProps = {
+  ...menuRadioItemProps,
 } as const
 
-export type DestylerMenubarRadioItemProps = ExtractPublicPropTypes<typeof destylerMenubarRadioItemProps>
+export type MenubarRadioItemProps = ExtractPublicPropTypes<typeof menubarRadioItemProps>
 
-export const DestylerMenubarRadioItem = defineComponent({
+export const MenubarRadioItem = defineComponent({
   name: 'DestylerMenubarRadioItem',
-  props: destylerMenubarRadioItemProps,
+  props: menubarRadioItemProps,
   emits: ['select'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -22,6 +22,6 @@ export const DestylerMenubarRadioItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuRadioItem, this.forwarded, () => this.$slots.default?.())
+    return h(MenuRadioItem, this.forwarded, () => this.$slots.default?.())
   },
 })

@@ -2,21 +2,21 @@ import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
-import { DestylerMenuSub, destylerMenuSubProps } from '@destyler/menu'
+import { MenuSub, menuSubProps } from '@destyler/menu'
 
-export const destylerMenubarSubProps = {
-  ...destylerMenuSubProps,
+export const menubarSubProps = {
+  ...menuSubProps,
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerMenubarSubProps = ExtractPublicPropTypes<typeof destylerMenubarSubProps>
+export type MenubarSubProps = ExtractPublicPropTypes<typeof menubarSubProps>
 
-export const DestylerMenubarSub = defineComponent({
+export const MenubarSub = defineComponent({
   name: 'DestylerMenubarSub',
-  props: destylerMenubarSubProps,
+  props: menubarSubProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     useForwardExpose()
@@ -30,7 +30,7 @@ export const DestylerMenubarSub = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuSub, {
+    return h(MenuSub, {
       'open': this.open,
       'onUpdate:open': (value: boolean) => {
         this.open = value

@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps, ref, withDirectives, withModifiers } fr
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
-import { DestylerMenuContent, destylerMenuContentProps } from '@destyler/menu'
+import { MenuContent, menuContentProps } from '@destyler/menu'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectMenubarRootContext } from './root'
@@ -14,15 +14,15 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenubarContentProps = {
-  ...destylerMenuContentProps,
+export const menubarContentProps = {
+  ...menuContentProps,
 } as const
 
-export type DestylerMenubarContentProps = ExtractPublicPropTypes<typeof destylerMenubarContentProps>
+export type MenubarContentProps = ExtractPublicPropTypes<typeof menubarContentProps>
 
-export const DestylerMenubarContent = defineComponent({
+export const MenubarContent = defineComponent({
   name: 'DestylerMenubarContent',
-  props: destylerMenubarContentProps,
+  props: menubarContentProps,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()
@@ -74,7 +74,7 @@ export const DestylerMenubarContent = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerMenuContent, mergeProps(this.forwarded, {
+    return withDirectives(h(MenuContent, mergeProps(this.forwarded, {
       'aria-labelledby': this.menuContext.triggerId,
       'data-destyler-menubar-content': '',
       'style': {

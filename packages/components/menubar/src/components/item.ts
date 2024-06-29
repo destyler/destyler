@@ -1,17 +1,17 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuItem, destylerMenuItemProps } from '@destyler/menu'
+import { MenuItem, menuItemProps } from '@destyler/menu'
 
-export const destylerMenubarItemProps = {
-  ...destylerMenuItemProps,
+export const menubarItemProps = {
+  ...menuItemProps,
 } as const
 
-export type DestylerMenubarItemProps = ExtractPublicPropTypes<typeof destylerMenubarItemProps>
+export type MenubarItemProps = ExtractPublicPropTypes<typeof menubarItemProps>
 
-export const DestylerMenubarItem = defineComponent({
+export const MenubarItem = defineComponent({
   name: 'DestylerMenubarItem',
-  props: destylerMenubarItemProps,
+  props: menubarItemProps,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()
@@ -21,6 +21,6 @@ export const DestylerMenubarItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuItem, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
+    return h(MenuItem, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
   },
 })

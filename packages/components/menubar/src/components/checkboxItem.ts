@@ -1,17 +1,17 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuCheckboxItem, destylerMenuCheckboxItemProps } from '@destyler/menu'
+import { MenuCheckboxItem, menuCheckboxItemProps } from '@destyler/menu'
 
-export const destylerMenubarCheckboxItemProps = {
-  ...destylerMenuCheckboxItemProps,
+export const menubarCheckboxItemProps = {
+  ...menuCheckboxItemProps,
 } as const
 
-export type DestylerMenubarCheckboxItemProps = ExtractPublicPropTypes<typeof destylerMenubarCheckboxItemProps>
+export type MenubarCheckboxItemProps = ExtractPublicPropTypes<typeof menubarCheckboxItemProps>
 
-export const DestylerMenubarCheckboxItem = defineComponent({
+export const MenubarCheckboxItem = defineComponent({
   name: 'DestylerMenubarCheckboxItem',
-  props: destylerMenubarCheckboxItemProps,
+  props: menubarCheckboxItemProps,
   emits: ['update:checked', 'select'],
   setup(props, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
@@ -22,6 +22,6 @@ export const DestylerMenubarCheckboxItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuCheckboxItem, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
+    return h(MenuCheckboxItem, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
   },
 })

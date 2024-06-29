@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
-import { DestylerMenuSubContent, destylerMenuSubContentProps } from '@destyler/menu'
+import { MenuSubContent, menuSubContentProps } from '@destyler/menu'
 
 import { injectMenubarRootContext } from './root'
 import { injectMenubarMenuContext } from './menu'
@@ -13,15 +13,15 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenubarSubContentProps = {
-  ...destylerMenuSubContentProps,
+export const menubarSubContentProps = {
+  ...menuSubContentProps,
 } as const
 
-export type DestylerMenubarSubContentProps = ExtractPublicPropTypes<typeof destylerMenubarSubContentProps>
+export type MenubarSubContentProps = ExtractPublicPropTypes<typeof menubarSubContentProps>
 
-export const DestylerMenubarSubContent = defineComponent({
+export const MenubarSubContent = defineComponent({
   name: 'DestylerMenubarSubContent',
-  props: destylerMenubarSubContentProps,
+  props: menubarSubContentProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -61,7 +61,7 @@ export const DestylerMenubarSubContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuSubContent, mergeProps(this.forwarded, {
+    return h(MenuSubContent, mergeProps(this.forwarded, {
       'data-destyler-menubar-content': '',
       'style': {
         '--destyler_menubar_content_transform_origin': 'var(--destyler_popper_transform_origin)',
