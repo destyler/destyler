@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, withKeys } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useKbd } from '@destyler/composition'
 import { isBetweenInclusive, parseStringToDateValue, toDate } from '@destyler/shared'
@@ -8,8 +8,8 @@ import { type DateValue, getLocalTimeZone, isSameDay, isSameMonth, isToday } fro
 
 import { injectRangeCalendarRootContext } from './root'
 
-export const destylerRangeCalendarCellTriggerProps = {
-  ...destylerPrimitiveProps,
+export const rangeCalendarCellTriggerProps = {
+  ...primitiveProps,
   day: {
     type: Object as PropType<DateValue>,
     required: true,
@@ -20,11 +20,11 @@ export const destylerRangeCalendarCellTriggerProps = {
   },
 } as const
 
-export type DestylerRangeCalendarCellTriggerProps = ExtractPublicPropTypes<typeof destylerRangeCalendarCellTriggerProps>
+export type RangeCalendarCellTriggerProps = ExtractPublicPropTypes<typeof rangeCalendarCellTriggerProps>
 
-export const DestylerRangeCalendarCellTrigger = defineComponent({
+export const RangeCalendarCellTrigger = defineComponent({
   name: 'DestylerRangeCalendarCellTrigger',
-  props: destylerRangeCalendarCellTriggerProps,
+  props: rangeCalendarCellTriggerProps,
   setup(props) {
     const rootContext = injectRangeCalendarRootContext()
 
@@ -48,8 +48,7 @@ export const DestylerRangeCalendarCellTrigger = defineComponent({
       ? isBetweenInclusive(props.day, rootContext.highlightedRange.value.start, rootContext.highlightedRange.value.end)
       : false)
 
-    const SELECTOR
-  = '[data-destyler-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+    const SELECTOR = '[data-destyler-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
     const isDateToday = computed(() => {
       return isToday(props.day, getLocalTimeZone())
@@ -203,7 +202,7 @@ export const DestylerRangeCalendarCellTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'button',
       'aria-label': this.labelText,
