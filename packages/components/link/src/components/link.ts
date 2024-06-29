@@ -1,11 +1,11 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerLinkProps = {
+export const linkProps = {
   asChild: {
-    ...destylerPrimitiveProps.asChild,
+    ...primitiveProps.asChild,
   },
   to: {
     type: String as PropType<string>,
@@ -36,12 +36,12 @@ export const destylerLinkProps = {
   },
 } as const
 
-export type DestylerLinkProps = ExtractPublicPropTypes<typeof destylerLinkProps>
+export type LinkProps = ExtractPublicPropTypes<typeof linkProps>
 
-export const DestylerLink = defineComponent({
+export const Link = defineComponent({
   name: 'DestylerLink',
   inheritAttrs: false,
-  props: destylerLinkProps,
+  props: linkProps,
   setup(props) {
     const hasTarget = computed(() => props.target && props.target !== '_self')
 
@@ -50,7 +50,7 @@ export const DestylerLink = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
       'as': 'a',
       'asChild': this.$props.asChild,
       'role': 'link',
