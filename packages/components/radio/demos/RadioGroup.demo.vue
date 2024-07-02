@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerRadioGroupIndicator, DestylerRadioGroupItem, DestylerRadioGroupRoot } from '../src'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../src'
 
 const radioStateSingle = ref('default')
 </script>
 
 <template>
-  <DestylerRadioGroupRoot
+  <RadioGroupRoot
     v-model="radioStateSingle"
     :loop="false"
     class="flex flex-col gap-2.5"
@@ -14,37 +14,37 @@ const radioStateSingle = ref('default')
     orientation="vertical"
   >
     <div class="flex items-center">
-      <DestylerRadioGroupItem
+      <RadioGroupItem
         id="r1"
         aria-label="Default"
         class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-dark focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default data-[disabled]:bg-red-500"
         value="default"
       >
-        <DestylerRadioGroupIndicator
+        <RadioGroupIndicator
           class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-green"
         />
-      </DestylerRadioGroupItem>
+      </RadioGroupItem>
       <label class="text-black text-[15px] leading-none pl-[15px]" for="r1">
         Default
       </label>
     </div>
     <div class="flex items-center">
-      <DestylerRadioGroupItem
+      <RadioGroupItem
         id="r2"
         aria-label="Comfortable"
         class="bg-white w-[25px] h-[25px] rounded-full shadow-[0_2px_10px] shadow-blackA7 hover:bg-dark focus:shadow-[0_0_0_2px] focus:shadow-black outline-none cursor-default data-[disabled]:bg-red-500"
         value="comfortable"
       >
-        <DestylerRadioGroupIndicator
+        <RadioGroupIndicator
           class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-green"
         />
-      </DestylerRadioGroupItem>
+      </RadioGroupItem>
       <label class="text-black text-[15px] leading-none pl-[15px]" for="r2">
         Comfortable
       </label>
     </div>
     <div class="flex items-center">
-      <DestylerRadioGroupItem
+      <RadioGroupItem
         id="r3"
         aria-label="Compact"
         as-child
@@ -52,14 +52,14 @@ const radioStateSingle = ref('default')
         value="compact"
       >
         <button>
-          <DestylerRadioGroupIndicator
+          <RadioGroupIndicator
             class="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[11px] after:h-[11px] after:rounded-[50%] after:bg-green"
           />
         </button>
-      </DestylerRadioGroupItem>
+      </RadioGroupItem>
       <label class="text-black text-[15px] leading-none pl-[15px]" for="r3">
         Compact
       </label>
     </div>
-  </DestylerRadioGroupRoot>
+  </RadioGroupRoot>
 </template>

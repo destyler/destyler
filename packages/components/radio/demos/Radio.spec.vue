@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { DestylerRadio } from '../src/component'
+import { Radio } from '../src/component'
 </script>
 
 <template>
   <div>
-    <DestylerRadio
+    <Radio
       id="r1"
       aria-label="Default"
       value="true"

@@ -1,34 +1,34 @@
 <script setup lang="ts">
 import {
-  DestylerBreadcrumbsContent,
-  DestylerBreadcrumbsItem,
-  DestylerBreadcrumbsLabel,
-  DestylerBreadcrumbsRoot,
-  DestylerBreadcrumbsSeparator,
+  BreadcrumbsContent,
+  BreadcrumbsItem,
+  BreadcrumbsLabel,
+  BreadcrumbsRoot,
+  BreadcrumbsSeparator,
 } from '../src'
 </script>
 
 <template>
-  <DestylerBreadcrumbsRoot>
-    <DestylerBreadcrumbsContent>
-      <DestylerBreadcrumbsItem>
-        <DestylerBreadcrumbsLabel>
+  <BreadcrumbsRoot>
+    <BreadcrumbsContent>
+      <BreadcrumbsItem>
+        <BreadcrumbsLabel>
           Home
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator />
-      </DestylerBreadcrumbsItem>
-      <DestylerBreadcrumbsItem>
-        <DestylerBreadcrumbsLabel>
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator />
+      </BreadcrumbsItem>
+      <BreadcrumbsItem>
+        <BreadcrumbsLabel>
           Components
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator />
-      </DestylerBreadcrumbsItem>
-      <DestylerBreadcrumbsItem>
-        <DestylerBreadcrumbsLabel>
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator />
+      </BreadcrumbsItem>
+      <BreadcrumbsItem>
+        <BreadcrumbsLabel>
           Breadcrumbs
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator />
-      </DestylerBreadcrumbsItem>
-    </DestylerBreadcrumbsContent>
-  </DestylerBreadcrumbsRoot>
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator />
+      </BreadcrumbsItem>
+    </BreadcrumbsContent>
+  </BreadcrumbsRoot>
 </template>

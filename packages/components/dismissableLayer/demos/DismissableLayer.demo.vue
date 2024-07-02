@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
-import { DestylerDismissableLayer } from '../src'
+import { DismissableLayer } from '../src'
 
 withDefaults(defineProps<{
   openLabel?: string
@@ -29,7 +29,7 @@ function handleDismiss() {
       {{ openLabel }}
     </button>
 
-    <DestylerDismissableLayer
+    <DismissableLayer
       v-if="open"
       v-bind="useEmitAsProps(emits)"
       @dismiss="handleDismiss"
@@ -38,7 +38,7 @@ function handleDismiss() {
       <button type="button" @click="open = false">
         {{ closeLabel }}
       </button>
-    </DestylerDismissableLayer>
+    </DismissableLayer>
 
     <button>
       {{ outsideLabel }}

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  DestylerToolbarButton,
-  DestylerToolbarLink,
-  DestylerToolbarRoot,
-  DestylerToolbarSeparator,
-  DestylerToolbarToggleGroup,
-  DestylerToolbarToggleItem,
+  ToolbarButton,
+  ToolbarLink,
+  ToolbarRoot,
+  ToolbarSeparator,
+  ToolbarToggleGroup,
+  ToolbarToggleItem,
 } from '../dist'
 
 const toggleStateSingle = ref('center')
@@ -14,16 +14,16 @@ const toggleStateMultiple = ref([])
 </script>
 
 <template>
-  <DestylerToolbarRoot
+  <ToolbarRoot
     class="flex p-[10px] w-full min-w-max rounded-md bg-white shadow-[0_2px_10px] shadow-blackA7"
     aria-label="Formatting options"
   >
-    <DestylerToolbarToggleGroup
+    <ToolbarToggleGroup
       v-model="toggleStateMultiple"
       type="multiple"
       aria-label="Text formatting"
     >
-      <DestylerToolbarToggleItem
+      <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="bold"
         aria-label="Bold"
@@ -31,8 +31,8 @@ const toggleStateMultiple = ref([])
         <svg>
           <path />
         </svg>
-      </DestylerToolbarToggleItem>
-      <DestylerToolbarToggleItem
+      </ToolbarToggleItem>
+      <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="italic"
         aria-label="Italic"
@@ -40,8 +40,8 @@ const toggleStateMultiple = ref([])
         <svg>
           <path />
         </svg>
-      </DestylerToolbarToggleItem>
-      <DestylerToolbarToggleItem
+      </ToolbarToggleItem>
+      <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="strikethrough"
         aria-label="Strike through"
@@ -49,15 +49,15 @@ const toggleStateMultiple = ref([])
         <svg>
           <path />
         </svg>
-      </DestylerToolbarToggleItem>
-    </DestylerToolbarToggleGroup>
-    <DestylerToolbarSeparator class="w-[1px] bg-mauve6 mx-[10px]" />
-    <DestylerToolbarToggleGroup
+      </ToolbarToggleItem>
+    </ToolbarToggleGroup>
+    <ToolbarSeparator class="w-[1px] bg-mauve6 mx-[10px]" />
+    <ToolbarToggleGroup
       v-model="toggleStateSingle"
       type="single"
       aria-label="Text Alignment"
     >
-      <DestylerToolbarToggleItem
+      <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="left"
         aria-label="Left Aligned"
@@ -65,8 +65,8 @@ const toggleStateMultiple = ref([])
         <svg>
           <path />
         </svg>
-      </DestylerToolbarToggleItem>
-      <DestylerToolbarToggleItem
+      </ToolbarToggleItem>
+      <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="center"
         aria-label="Center Aligned"
@@ -74,8 +74,8 @@ const toggleStateMultiple = ref([])
         <svg>
           <path />
         </svg>
-      </DestylerToolbarToggleItem>
-      <DestylerToolbarToggleItem
+      </ToolbarToggleItem>
+      <ToolbarToggleItem
         class="flex-shrink-0 flex-grow-0 basis-auto text-mauve11 h-[25px] px-[5px] rounded inline-flex text-[13px] leading-none items-center justify-center bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
         value="right"
         aria-label="Right Aligned"
@@ -83,22 +83,22 @@ const toggleStateMultiple = ref([])
         <svg>
           <path />
         </svg>
-      </DestylerToolbarToggleItem>
-    </DestylerToolbarToggleGroup>
-    <DestylerToolbarSeparator class="w-[1px] bg-mauve6 mx-[10px]" />
-    <DestylerToolbarLink
+      </ToolbarToggleItem>
+    </ToolbarToggleGroup>
+    <ToolbarSeparator class="w-[1px] bg-mauve6 mx-[10px]" />
+    <ToolbarLink
       class="bg-transparent text-mauve11 inline-flex justify-center items-center hover:bg-transparent hover:cursor-pointer flex-shrink-0 flex-grow-0 basis-auto h-[25px] px-[5px] rounded text-[13px] leading-none bg-white ml-0.5 outline-none hover:bg-violet3 hover:text-violet11 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7 first:ml-0 data-[state=on]:bg-violet5 data-[state=on]:text-violet11"
       href="#"
       target="_blank"
       style="margin-right: 10"
     >
       Edited 2 hours ago
-    </DestylerToolbarLink>
-    <DestylerToolbarButton
+    </ToolbarLink>
+    <ToolbarButton
       class="px-[10px] text-white bg-violet9 flex-shrink-0 flex-grow-0 basis-auto h-[25px] rounded inline-flex text-[13px] leading-none items-center justify-center outline-none hover:bg-violet10 focus:relative focus:shadow-[0_0_0_2px] focus:shadow-violet7"
       style="margin-left: auto"
     >
       Share
-    </DestylerToolbarButton>
-  </DestylerToolbarRoot>
+    </ToolbarButton>
+  </ToolbarRoot>
 </template>

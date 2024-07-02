@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { DestylerLink } from '../src'
+import { Link } from '../src'
 </script>
 
 <template>
-  <DestylerLink disabled to="https://github.com" target="_blank">
+  <Link disabled to="https://github.com" target="_blank">
     GitHub
-  </DestylerLink>
+  </Link>
 </template>

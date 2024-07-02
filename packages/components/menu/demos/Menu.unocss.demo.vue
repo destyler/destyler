@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  DestylerMenuAnchor,
-  DestylerMenuContent,
-  DestylerMenuGroup,
-  DestylerMenuItem,
-  DestylerMenuLabel,
-  DestylerMenuPortal,
-  DestylerMenuRoot,
-  DestylerMenuSeparator,
+  MenuAnchor,
+  MenuContent,
+  MenuGroup,
+  MenuItem,
+  MenuLabel,
+  MenuPortal,
+  MenuRoot,
+  MenuSeparator,
 } from '../src'
 
 const open = ref<boolean>(false)
@@ -62,30 +62,30 @@ function handleToggle(value: boolean) {
   <button @click="open = true">
     open
   </button>
-  <DestylerMenuRoot :open="open" :modal="false" @update:open="handleToggle">
-    <DestylerMenuAnchor :style="{ display: 'inline-block' }" />
-    <DestylerMenuPortal>
-      <DestylerMenuContent
+  <MenuRoot :open="open" :modal="false" @update:open="handleToggle">
+    <MenuAnchor :style="{ display: 'inline-block' }" />
+    <MenuPortal>
+      <MenuContent
         class="inline-block box-border min-w-[130px] bg-white border border-gray-100 rounded-[6px] p-[5px] shadow-md font-sans text-[13px] focus-within:border-black"
         align="start"
       >
-        <DestylerMenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
-          <DestylerMenuLabel
+        <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
+          <MenuLabel
             v-if="foodGroup.label"
             class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3] text-gray-400 my-2"
           >
             {{ foodGroup.label }}
-          </DestylerMenuLabel>
-          <DestylerMenuItem
+          </MenuLabel>
+          <MenuItem
             v-for="(food, index) in foodGroup.foods"
             :key="index"
             class="flex items-center justify-between leading-[1] cursor-default select-none whitespace-nowrap h-[25px] px-[10px] text-black rounded-[3px] outline-none data-[highlighted]:bg-black data-[highlighted]:text-white data-[disabled]:text-gray-100"
           >
             {{ food.label }}
-          </DestylerMenuItem>
-          <DestylerMenuSeparator v-if="index < foodGroups.length - 1" />
-        </DestylerMenuGroup>
-      </DestylerMenuContent>
-    </DestylerMenuPortal>
-  </DestylerMenuRoot>
+          </MenuItem>
+          <MenuSeparator v-if="index < foodGroups.length - 1" />
+        </MenuGroup>
+      </MenuContent>
+    </MenuPortal>
+  </MenuRoot>
 </template>

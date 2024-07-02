@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { DestylerBackTop } from '../src'
+import { BackTop } from '../src'
 
 const scrollContainerRef = ref()
 
@@ -15,9 +15,9 @@ onMounted(() => {
 <template>
   <div class="text-dark dark:text-light">
     <div v-if="show">
-      <DestylerBackTop :listen="scrollContainerRef">
+      <BackTop :listen="scrollContainerRef">
         back top
-      </DestylerBackTop>
+      </BackTop>
     </div>
     <div id="scrollContainerRef" style="overflow: auto; height: 72px; line-height: 1.5">
       <div v-for="i in 100" :key="i">
