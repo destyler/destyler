@@ -2,7 +2,7 @@ import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
 import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useSingleOrMultipleValue } from '@destyler/composition'
 
 export interface CollapseRootContext {
@@ -18,8 +18,8 @@ export interface CollapseRootContext {
 
 export const [injectCollapseRootContext, provideCollapseRootContext] = createContext<CollapseRootContext>('DestylerCollapseRoot')
 
-export const destylerCollapseRootProps = {
-  ...destylerPrimitiveProps,
+export const collapseRootProps = {
+  ...primitiveProps,
   type: {
     type: String as PropType<Type>,
     required: true,
@@ -56,11 +56,11 @@ export const destylerCollapseRootProps = {
   },
 } as const
 
-export type DestylerCollapseRootProps = ExtractPublicPropTypes<typeof destylerCollapseRootProps>
+export type CollapseRootProps = ExtractPublicPropTypes<typeof collapseRootProps>
 
-export const DestylerCollapseRoot = defineComponent({
+export const CollapseRoot = defineComponent({
   name: 'DestylerCollapseRoot',
-  props: destylerCollapseRootProps,
+  props: collapseRootProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const { dir, disabled } = toRefs(props)
@@ -86,7 +86,7 @@ export const DestylerCollapseRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       asChild: this.$props.asChild,
       as: this.$props.as,

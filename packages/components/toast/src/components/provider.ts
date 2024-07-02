@@ -5,7 +5,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import type { SwipeDirection } from '../utils'
 
-export const destylerToastProviderProps = {
+export const toastProviderProps = {
   label: {
     type: String as PropType<string>,
     required: false,
@@ -28,7 +28,7 @@ export const destylerToastProviderProps = {
   },
 } as const
 
-export type DestylerToastProviderProps = ExtractPublicPropTypes<typeof destylerToastProviderProps>
+export type ToastProviderProps = ExtractPublicPropTypes<typeof toastProviderProps>
 
 export interface ToastProviderContext {
   label: Ref<string>
@@ -46,9 +46,9 @@ export interface ToastProviderContext {
 
 export const [injectToastProviderContext, provideToastProviderContext] = createContext<ToastProviderContext>('DestylerToastProvider')
 
-export const DestylerToastProvider = defineComponent({
+export const ToastProvider = defineComponent({
   name: 'DestylerToastProvider',
-  props: destylerToastProviderProps,
+  props: toastProviderProps,
   setup(props) {
     const { label, duration, swipeDirection, swipeThreshold } = toRefs(props)
 

@@ -1,37 +1,13 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 
-import { DestylerToastRootImpl } from './rootImpl'
+import { ToastRootImpl, toastRootImplProps } from './rootImpl'
 
-export const destylerToastRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'li',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  type: {
-    type: String as PropType<'foreground' | 'background'>,
-    required: false,
-    default: 'foreground',
-  },
-  open: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: undefined,
-  },
-  duration: {
-    type: Number as PropType<number>,
-    required: false,
-  },
+export const toastRootProps = {
+  ...toastRootImplProps,
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -43,11 +19,11 @@ export const destylerToastRootProps = {
   },
 } as const
 
-export type DestylerToastRootProps = ExtractPublicPropTypes<typeof destylerToastRootProps>
+export type ToastRootProps = ExtractPublicPropTypes<typeof toastRootProps>
 
-export const DestylerToastRoot = defineComponent({
+export const ToastRoot = defineComponent({
   name: 'DestylerToastRoot',
-  props: destylerToastRootProps,
+  props: toastRootProps,
   emits: [
     'escapeKeyDown',
     'pause',
@@ -71,9 +47,9 @@ export const DestylerToastRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.$props.forceMount || this.open,
-    }, () => h(DestylerToastRootImpl, {
+    }, () => h(ToastRootImpl, {
       ref: (el: any) => this.forwardRef(el),
       open: this.open,
       type: this.$props.type,
@@ -103,7 +79,7 @@ export const DestylerToastRoot = defineComponent({
         target.style.setProperty('--destyler_toast_swipe_move_x', `${x}px`)
         target.style.setProperty('--destyler_toast_swipe_move_y', `${y}px`)
       },
-      onSwipeCancel: (event) => {
+      onSwipeCancel: (event: any) => {
         const target = event.currentTarget as HTMLElement
         target.setAttribute('data-swipe', 'cancel')
         target.style.removeProperty('--destyler_toast_swipe_move_x')
@@ -111,7 +87,7 @@ export const DestylerToastRoot = defineComponent({
         target.style.removeProperty('--destyler_toast_swipe_end_x')
         target.style.removeProperty('--destyler_toast_swipe_end_y')
       },
-      onSwipeEnd: (event) => {
+      onSwipeEnd: (event: any) => {
         const { x, y } = event.detail.delta
         const target = event.currentTarget as HTMLElement
         target.setAttribute('data-swipe', 'end')

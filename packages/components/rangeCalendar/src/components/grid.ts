@@ -1,29 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectRangeCalendarRootContext } from './root'
 
-export const destylerRangeCalendarGridProps = {
+export const rangeCalendarGridProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'table',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerRangeCalendarGridProps = ExtractPublicPropTypes<typeof destylerRangeCalendarGridProps>
+export type RangeCalendarGridProps = ExtractPublicPropTypes<typeof rangeCalendarGridProps>
 
-export const DestylerRangeCalendarGrid = defineComponent({
+export const RangeCalendarGrid = defineComponent({
   name: 'DestylerRangeCalendarGrid',
-  props: destylerRangeCalendarGridProps,
+  props: rangeCalendarGridProps,
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 
@@ -32,7 +25,7 @@ export const DestylerRangeCalendarGrid = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'tabindex': '-1',
       'role': 'grid',
       'aria-readonly': this.rootContext.readonly ? true : undefined,

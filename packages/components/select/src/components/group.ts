@@ -1,25 +1,14 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId } from '@destyler/composition'
 
-export const destylerSelectGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectGroupProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSelectGroupProps = ExtractPublicPropTypes<typeof destylerSelectGroupProps>
+export type SelectGroupProps = ExtractPublicPropTypes<typeof selectGroupProps>
 
 export interface SelectGroupContext {
   id: string
@@ -27,9 +16,9 @@ export interface SelectGroupContext {
 
 export const [injectSelectGroupContext, provideSelectGroupContext] = createContext<SelectGroupContext>('DestylerSelectGroup')
 
-export const DestylerSelectGroup = defineComponent({
+export const SelectGroup = defineComponent({
   name: 'DestylerSelectGroup',
-  props: destylerSelectGroupProps,
+  props: selectGroupProps,
   setup() {
     const id = useId()
     provideSelectGroupContext({ id })
@@ -39,7 +28,7 @@ export const DestylerSelectGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'role': 'group',
       'aria-labelledby': this.id,
     }), () => this.$slots.default?.())

@@ -1,29 +1,19 @@
-import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import { useCollection, useForwardExpose } from '@destyler/composition'
-import type { AsTag } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { DestylerSliderThumbImpl } from './thumbImpl'
+import { SliderThumbImpl } from './thumbImpl'
 
-export const destylerSliderThumbProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const sliderThumbProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSliderThumbProps = ExtractPublicPropTypes<typeof destylerSliderThumbProps>
+export type SliderThumbProps = ExtractPublicPropTypes<typeof sliderThumbProps>
 
-export const DestylerSliderThumb = defineComponent({
+export const SliderThumb = defineComponent({
   name: 'DestylerSliderThumb',
-  props: destylerSliderThumbProps,
+  props: sliderThumbProps,
   setup() {
     const { injectCollection } = useCollection('sliderThumb')
     const collections = injectCollection()
@@ -38,7 +28,7 @@ export const DestylerSliderThumb = defineComponent({
     }
   },
   render() {
-    return h(DestylerSliderThumbImpl, {
+    return h(SliderThumbImpl, {
       ...this.$attrs,
       ref: (el: any) => this.forwardRef(el),
       index: this.index,

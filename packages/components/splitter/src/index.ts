@@ -1,4 +1,4 @@
-export { DestylerSplitterResizeHandle, type DestylerSplitterResizeHandleProps } from './components/resizeHandle'
-export { DestylerSplitterGroup, type DestylerSplitterGroupProps } from './components/group'
-export { DestylerSplitterPanel, type DestylerSplitterPanelProps } from './components/panel'
-export { DestylerSplitterRoot, type DestylerSplitterRootProps } from './components/root'
+export { SplitterResizeHandle, splitterResizeHandleProps, type SplitterResizeHandleProps } from './components/resizeHandle'
+export { SplitterGroup, splitterGroupProps, type SplitterGroupProps } from './components/group'
+export { SplitterPanel, splitterPanelProps, type SplitterPanelProps } from './components/panel'
+export { SplitterRoot, splitterRootProps, type SplitterRootProps } from './components/root'

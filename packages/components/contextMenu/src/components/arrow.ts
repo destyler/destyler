@@ -1,37 +1,21 @@
-import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuArrow } from '@destyler/menu'
+import { MenuArrow, menuArrowProps } from '@destyler/menu'
 
-export const destylerContextMenuArrowProps = {
-  ...destylerPrimitiveProps,
-  as: {
-    ...destylerPrimitiveProps.as,
-    default: 'svg',
-  },
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
+export const contextMenuArrowProps = {
+  ...menuArrowProps,
 } as const
 
-export type DestylerContextMenuArrowProps = ExtractPublicPropTypes<typeof destylerContextMenuArrowProps>
+export type ContextMenuArrowProps = ExtractPublicPropTypes<typeof contextMenuArrowProps>
 
-export const DestylerContextMenuArrow = defineComponent({
+export const ContextMenuArrow = defineComponent({
   name: 'DestylerContextMenuArrow',
-  props: destylerContextMenuArrowProps,
+  props: contextMenuArrowProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuArrow, this.$props, () => this.$slots.default?.())
+    return h(MenuArrow, this.$props, () => this.$slots.default?.())
   },
 })

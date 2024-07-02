@@ -6,11 +6,11 @@ import { isPointInPolygon } from '@destyler/shared'
 import { getExitSideFromRect, getHull, getPaddedExitPoints, getPointsFromRect } from '../utils'
 import { injectEllipsisRootContext } from './root'
 import { injectEllipsisProviderContext } from './provider'
-import { DestylerEllipsisContentImpl, destylerEllipsisContentImplProps } from './contentImpl'
+import { EllipsisContentImpl, ellipsisContentImplProps } from './contentImpl'
 
-export const DestylerEllipsisContentHoverable = defineComponent({
+export const EllipsisContentHoverable = defineComponent({
   name: 'DestylerEllipsisContentHoverable',
-  props: destylerEllipsisContentImplProps,
+  props: ellipsisContentImplProps,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -78,7 +78,7 @@ export const DestylerEllipsisContentHoverable = defineComponent({
     }
   },
   render() {
-    return h(DestylerEllipsisContentImpl, {
+    return h(EllipsisContentImpl, {
       ref: (el: any) => this.forwardRef(el),
       ...mergeProps(this.$props),
     }, () => this.$slots.default?.())

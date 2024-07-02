@@ -1,35 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerCollapsibleContent, DestylerCollapsibleRoot, DestylerCollapsibleTrigger } from '../src'
+import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '../src'
 
 const isOpen = ref<boolean>(false)
 </script>
 
 <template>
-  <DestylerCollapsibleRoot v-model:open="isOpen" class="w-[350px] space-y-2">
+  <CollapsibleRoot v-model:open="isOpen" class="w-[350px] space-y-2">
     <div class="flex items-center justify-between space-x-4 px-4">
       <h4 class="text-sm font-semibold">
         The best framework
       </h4>
-      <DestylerCollapsibleTrigger as-child>
+      <CollapsibleTrigger as-child>
         <button class="w-9! p-0! hover:bg-#F4F4F5 hover:text-#18181B dark:hover:bg-#27272A dark:hover:text-#FAFAFA inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 cursor-pointer">
           >
           <span class="sr-only">Toggle</span>
         </button>
-      </DestylerCollapsibleTrigger>
+      </CollapsibleTrigger>
     </div>
     <div class="rounded-md border px-4 py-3 font-mono text-sm border-#E4E4E7 dark:border-#27272A">
       vue
     </div>
-    <DestylerCollapsibleContent class="space-y-2 overflow-hidden transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+    <CollapsibleContent class="space-y-2 overflow-hidden transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
       <div class="rounded-md border px-4 py-3 font-mono text-sm border-#E4E4E7 dark:border-#27272A">
         nuxt
       </div>
       <div class="rounded-md border px-4 py-3 font-mono text-sm border-#E4E4E7 dark:border-#27272A">
         destyler
       </div>
-    </DestylerCollapsibleContent>
-  </DestylerCollapsibleRoot>
+    </CollapsibleContent>
+  </CollapsibleRoot>
 </template>
 
 <style scoped>

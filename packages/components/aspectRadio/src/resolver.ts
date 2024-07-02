@@ -4,7 +4,7 @@ import { name } from '../package.json'
 const packageName = name
 
 export const aspectRadioComponentName = [
-  'DestylerAspectRadio',
+  'AspectRadio',
 ]
 
 export function DestylerAspectRadioResolver(): ComponentResolver {

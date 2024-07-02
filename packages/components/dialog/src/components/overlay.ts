@@ -1,35 +1,26 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPresence } from '@destyler/presence'
+import { primitiveProps } from '@destyler/primitive'
+import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
-import { DestylerDialogOverlayImpl } from './overlayImpl'
+import { DialogOverlayImpl } from './overlayImpl'
 
-export const destylerDialogOverlayProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dialogOverlayProps = {
+  ...primitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerDialogOverlayProps = ExtractPublicPropTypes<typeof destylerDialogOverlayProps>
+export type DialogOverlayProps = ExtractPublicPropTypes<typeof dialogOverlayProps>
 
-export const DestylerDialogOverlay = defineComponent({
+export const DialogOverlay = defineComponent({
   name: 'DestylerDialogOverlay',
-  props: destylerDialogOverlayProps,
+  props: dialogOverlayProps,
   setup() {
     const rootContext = injectDialogRootContext()
 
@@ -42,9 +33,9 @@ export const DestylerDialogOverlay = defineComponent({
   render() {
     const useVShow = this.rootContext?.modal.value
     return useVShow
-      ? h(DestylerPresence, {
+      ? h(Presence, {
         present: this.$props.forceMount || this.rootContext.open.value,
-      }, () => h(DestylerDialogOverlayImpl, mergeProps(this.$attrs, {
+      }, () => h(DialogOverlayImpl, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,

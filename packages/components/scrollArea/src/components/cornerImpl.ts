@@ -1,10 +1,10 @@
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import { useResizeObserver } from '@destyler/composition'
 
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive } from '@destyler/primitive'
 import { injectScrollAreaRootContext } from './root'
 
-export const DestylerScrollAreaCornerImpl = defineComponent({
+export const ScrollAreaCornerImpl = defineComponent({
   name: 'DestylerScrollAreaCornerImpl',
   setup() {
     const rootContext = injectScrollAreaRootContext()
@@ -40,7 +40,7 @@ export const DestylerScrollAreaCornerImpl = defineComponent({
   },
   render() {
     return this.hasSize
-      ? h(DestylerPrimitive, {
+      ? h(Primitive, {
         ...this.$parent?.$props,
         style: {
           width: `${this.width}px`,

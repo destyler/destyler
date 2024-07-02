@@ -1,31 +1,17 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import type { ExtractPublicPropTypes, Measurable } from '@destyler/shared'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { PopperAnchor, popperAnchorProps } from '@destyler/popper'
 
-export const destylerMenuAnchorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  element: {
-    type: Object as PropType<Measurable>,
-  },
+export const menuAnchorProps = {
+  ...popperAnchorProps,
 } as const
 
-export type DestylerMenuAnchorProps = ExtractPublicPropTypes<typeof destylerMenuAnchorProps>
+export type MenuAnchorProps = ExtractPublicPropTypes<typeof menuAnchorProps>
 
-export const DestylerMenuAnchor = defineComponent({
+export const MenuAnchor = defineComponent({
   name: 'DestylerMenuAnchor',
-  props: destylerMenuAnchorProps,
+  props: menuAnchorProps,
   render() {
-    return h(DestylerPopperAnchor, this.$props, () => this.$slots.default?.())
+    return h(PopperAnchor, this.$props, () => this.$slots.default?.())
   },
 })

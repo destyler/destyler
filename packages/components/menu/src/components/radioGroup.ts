@@ -4,10 +4,10 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
-import { DestylerMenuGroup, destylerMenuGroupProps } from './group'
+import { MenuGroup, menuGroupProps } from './group'
 
-export const destylerMenuRadioGroupProps = {
-  ...destylerMenuGroupProps,
+export const menuRadioGroupProps = {
+  ...menuGroupProps,
   modelValue: {
     type: String as PropType<string>,
     required: false,
@@ -15,7 +15,7 @@ export const destylerMenuRadioGroupProps = {
   },
 } as const
 
-export type DestylerMenuRadioGroupProps = ExtractPublicPropTypes<typeof destylerMenuRadioGroupProps>
+export type MenuRadioGroupProps = ExtractPublicPropTypes<typeof menuRadioGroupProps>
 
 export interface MenuRadioGroupContext {
   modelValue: Ref<string>
@@ -24,9 +24,9 @@ export interface MenuRadioGroupContext {
 
 export const [injectMenuRadioGroupContext, provideMenuRadioGroupContext] = createContext<MenuRadioGroupContext>('DestylerMenuRadioGroup')
 
-export const DestylerMenuRadioGroup = defineComponent({
+export const MenuRadioGroup = defineComponent({
   name: 'DestylerMenuRadioGroup',
-  props: destylerMenuRadioGroupProps,
+  props: menuRadioGroupProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit)
@@ -39,6 +39,6 @@ export const DestylerMenuRadioGroup = defineComponent({
     })
   },
   render() {
-    return h(DestylerMenuGroup, this.$props, () => this.$slots.default?.())
+    return h(MenuGroup, this.$props, () => this.$slots.default?.())
   },
 })

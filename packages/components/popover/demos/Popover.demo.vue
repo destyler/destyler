@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import {
-  DestylerPopoverContent,
-  DestylerPopoverPortal,
-  DestylerPopoverRoot,
-  DestylerPopoverTrigger,
+  PopoverContent,
+  PopoverPortal,
+  PopoverRoot,
+  PopoverTrigger,
 } from '../src'
 </script>
 
 <template>
-  <DestylerPopoverRoot>
-    <DestylerPopoverTrigger
+  <PopoverRoot>
+    <PopoverTrigger
       aria-label="Update dimensions"
     >
       Open
-    </DestylerPopoverTrigger>
-    <DestylerPopoverPortal>
-      <DestylerPopoverContent
+    </PopoverTrigger>
+    <PopoverPortal>
+      <PopoverContent
         side="bottom"
         :side-offset="5"
       >
@@ -27,7 +27,7 @@ import {
         <div>
           11
         </div>
-      </DestylerPopoverContent>
-    </DestylerPopoverPortal>
-  </DestylerPopoverRoot>
+      </PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>

@@ -1,10 +1,10 @@
 import { defineComponent, h, onBeforeUnmount, ref, watchEffect } from 'vue'
 import { useCollection } from '@destyler/composition'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive } from '@destyler/primitive'
 
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
 
-export const DestylerScrollSelectButtonImpl = defineComponent({
+export const ScrollSelectButtonImpl = defineComponent({
   name: 'DestylerSelectButtonImpl',
   emits: ['autoScroll'],
   setup(_, { emit }) {
@@ -54,7 +54,7 @@ export const DestylerScrollSelectButtonImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ...this.$parent?.$props,
       'aria-hidden': '',
       'style': {

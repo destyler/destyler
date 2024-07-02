@@ -1,11 +1,10 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import type { Middleware, Placement } from '@floating-ui/vue'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { computedEager, createContext } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useSize } from '@destyler/composition'
 
 import type { Align, Side } from '../utils'
@@ -22,17 +21,8 @@ export interface PopperContentContext {
 
 export const [injectPopperContentContext, providePopperContentContext] = createContext<PopperContentContext>('DestylerPopperContent')
 
-export const destylerPopperContentProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const popperContentProps = {
+  ...primitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,
@@ -99,12 +89,12 @@ export const destylerPopperContentProps = {
   },
 } as const
 
-export type DestylerPopperContentProps = ExtractPublicPropTypes<typeof destylerPopperContentProps>
+export type PopperContentProps = ExtractPublicPropTypes<typeof popperContentProps>
 
-export const DestylerPopperContent = defineComponent({
+export const PopperContent = defineComponent({
   name: 'DestylerPopperContent',
   inheritAttrs: false,
-  props: destylerPopperContentProps,
+  props: popperContentProps,
   setup(props, { attrs }) {
     const rootContext = injectPopperRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()
@@ -262,7 +252,7 @@ export const DestylerPopperContent = defineComponent({
           this.middlewareData.transformOrigin?.y,
         ].join(' '),
       },
-    }, h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, h(Primitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

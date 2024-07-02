@@ -1,97 +1,18 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watch, watchEffect, withDirectives } from 'vue'
 import { createContext, focusFirst, unrefElement } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
 import { useCollection, useFocusGuards, useForwardProps, useHideOthers, useTypeahead } from '@destyler/composition'
-import { DestylerFocusScope } from '@destyler/focus-scope'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
+import { FocusScope } from '@destyler/focus-scope'
+import { DismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
 
+import { popperContentProps } from '@destyler/popper'
 import { injectSelectRootContext } from './root'
-import { DestylerSelectPopperPosition } from './popperPosition'
-import { DestylerSelectItemAlignedPosition } from './itemAlignedPosition'
+import { SelectPopperPosition } from './popperPosition'
+import { SelectItemAlignedPosition } from './itemAlignedPosition'
 
-const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
-const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
-
-type Side = (typeof SIDE_OPTIONS)[number]
-type Align = (typeof ALIGN_OPTIONS)[number]
-
-export const destylerSelectContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  side: {
-    type: String as PropType<Side>,
-    required: false,
-    default: 'bottom',
-  },
-  sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'start',
-  },
-  alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
-  collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
-  },
-  collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
-  },
-  arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
-  },
-  hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectContentImplProps = {
+  ...popperContentProps,
   position: {
     type: String as PropType<'item-aligned' | 'popper'>,
     required: false,
@@ -130,9 +51,9 @@ export const SelectContentDefaultContextValue: SelectContentContext = {
 
 export const [injectSelectContentContext, provideSelectContentContext] = createContext<SelectContentContext>('DestylerSelectContent')
 
-export const DestylerSelectContentImpl = defineComponent({
+export const SelectContentImpl = defineComponent({
   name: 'DestylerSelectContentImpl',
-  props: destylerSelectContentImplProps,
+  props: selectContentImplProps,
   emits: ['closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside'],
   setup(props) {
     const rootContext = injectSelectRootContext()
@@ -288,7 +209,7 @@ export const DestylerSelectContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerFocusScope, {
+    return h(FocusScope, {
       asChild: true,
       onUnmountAutoFocus: (event: any) => {
         this.$emit('closeAutoFocus', event)
@@ -297,7 +218,7 @@ export const DestylerSelectContentImpl = defineComponent({
         this.rootContext.triggerElement.value?.focus({ preventScroll: true })
         event.preventDefault()
       },
-    }, () => h(DestylerDismissableLayer, {
+    }, () => h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: true,
       onDismiss: () => {
@@ -309,7 +230,7 @@ export const DestylerSelectContentImpl = defineComponent({
       onPointerDownOutside: (event: any) => {
         this.$emit('pointerDownOutside', event)
       },
-    }, () => withDirectives(h(this.$props.position === 'popper' ? DestylerSelectPopperPosition : DestylerSelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {
+    }, () => withDirectives(h(this.$props.position === 'popper' ? SelectPopperPosition : SelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {
       'role': 'listbox',
       'ref': (vnode: any) => {
         this.content = unrefElement(vnode) as HTMLElement

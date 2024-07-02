@@ -1,56 +1,56 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerRadioGroupIndicator, DestylerRadioGroupItem, DestylerRadioGroupRoot } from '../src'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../src'
 
 const radioStateSingle = ref('default')
 </script>
 
 <template>
-  <DestylerRadioGroupRoot
+  <RadioGroupRoot
     v-model="radioStateSingle"
     :loop="false"
     aria-label="View density"
     orientation="vertical"
   >
     <div>
-      <DestylerRadioGroupItem
+      <RadioGroupItem
         id="r1"
         aria-label="Default"
         value="default"
       >
-        <DestylerRadioGroupIndicator />
-      </DestylerRadioGroupItem>
+        <RadioGroupIndicator />
+      </RadioGroupItem>
       <label for="r1">
         Default
       </label>
     </div>
     <div>
-      <DestylerRadioGroupItem
+      <RadioGroupItem
         id="r2"
         aria-label="Comfortable"
         disabled
         value="comfortable"
       >
-        <DestylerRadioGroupIndicator />
-      </DestylerRadioGroupItem>
+        <RadioGroupIndicator />
+      </RadioGroupItem>
       <label for="r2">
         Comfortable
       </label>
     </div>
     <div>
-      <DestylerRadioGroupItem
+      <RadioGroupItem
         id="r3"
         aria-label="Compact"
         as-child
         value="compact"
       >
         <button>
-          <DestylerRadioGroupIndicator />
+          <RadioGroupIndicator />
         </button>
-      </DestylerRadioGroupItem>
+      </RadioGroupItem>
       <label for="r3">
         Compact
       </label>
     </div>
-  </DestylerRadioGroupRoot>
+  </RadioGroupRoot>
 </template>

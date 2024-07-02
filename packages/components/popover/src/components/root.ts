@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRef } from 'vue'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
@@ -17,7 +17,7 @@ export interface PopoverRootContext {
 
 export const [injectPopoverRootContext, providePopoverRootContext] = createContext<PopoverRootContext>('DestylerPopoverRoot')
 
-export const destylerPopoverRootProps = {
+export const popoverRootProps = {
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -35,11 +35,11 @@ export const destylerPopoverRootProps = {
   },
 } as const
 
-export type DestylerPopoverRootProps = ExtractPublicPropTypes<typeof destylerPopoverRootProps>
+export type PopoverRootProps = ExtractPublicPropTypes<typeof popoverRootProps>
 
-export const DestylerPopoverRoot = defineComponent({
+export const PopoverRoot = defineComponent({
   name: 'DestylerPopoverRoot',
-  props: destylerPopoverRootProps,
+  props: popoverRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const modalRef = toRef(props.modal)
@@ -78,6 +78,6 @@ export const DestylerPopoverRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
+    return h(PopperRoot, null, () => this.$slots.default?.())
   },
 })

@@ -1,22 +1,12 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerQrCodeRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const qrCodeRootProps = {
+  ...primitiveProps,
   value: {
     type: String as PropType<string>,
     required: true,
@@ -28,7 +18,7 @@ export const destylerQrCodeRootProps = {
   },
 } as const
 
-export type DestylerQrCodeRootProps = ExtractPublicPropTypes<typeof destylerQrCodeRootProps>
+export type QrCodeRootProps = ExtractPublicPropTypes<typeof qrCodeRootProps>
 
 export interface QrCodeRootContext {
   value: Ref<string>
@@ -37,9 +27,9 @@ export interface QrCodeRootContext {
 
 export const [injectQrCodeRootContext, provideQrCodeRootContext] = createContext<QrCodeRootContext>('DestylerQrCodeRootContext')
 
-export const DestylerQrCodeRoot = defineComponent({
+export const QrCodeRoot = defineComponent({
   name: 'DestylerQrCodeRoot',
-  props: destylerQrCodeRootProps,
+  props: qrCodeRootProps,
   setup(props) {
     useForwardExpose()
 
@@ -51,7 +41,7 @@ export const DestylerQrCodeRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'aria-label': 'QR Code',

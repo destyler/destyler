@@ -1,40 +1,19 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { DestylerPopperArrow } from '@destyler/popper'
-import type { AsTag } from '@destyler/primitive'
+import { PopperArrow, popperArrowProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSelectRootContext } from './root'
 import { injectSelectContentContext } from './contentImpl'
 
-export const destylerSelectArrowProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'svg',
-  },
+export const selectArrowProps = {
+  ...popperArrowProps,
 } as const
 
-export type DestylerSelectArrowProps = ExtractPublicPropTypes<typeof destylerSelectArrowProps>
+export type SelectArrowProps = ExtractPublicPropTypes<typeof selectArrowProps>
 
-export const DestylerSelectArrow = defineComponent({
+export const SelectArrow = defineComponent({
   name: 'DestylerSelectArrow',
-  props: destylerSelectArrowProps,
+  props: selectArrowProps,
   setup() {
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext()
@@ -45,7 +24,7 @@ export const DestylerSelectArrow = defineComponent({
   },
   render() {
     return this.rootContext.open.value && this.contentContext.position === 'popper'
-      ? h(DestylerPopperArrow, this.$props, () => this.$slots.default?.())
+      ? h(PopperArrow, this.$props, () => this.$slots.default?.())
       : null
   },
 })

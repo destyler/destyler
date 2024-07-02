@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerComboboxAnchor, DestylerComboboxContent, DestylerComboboxEmpty, DestylerComboboxGroup, DestylerComboboxInput, DestylerComboboxItem, DestylerComboboxItemIndicator, DestylerComboboxLabel, DestylerComboboxRoot, DestylerComboboxTrigger, DestylerComboboxViewport } from '../src'
+import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../src'
 
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 const props = defineProps<{
-  open: boolean
-  multiple: boolean
-  displayValue: (val: string | number | boolean | Record<string, any>) => string
-  filterFunction: (val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>
+  open?: boolean
+  multiple?: boolean
+  displayValue?: (val: string | number | boolean | Record<string, any>) => string
+  filterFunction?: (val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>
 }>()
 const people = [
   { id: 1, name: 'Durward Reynolds' },
@@ -22,35 +22,35 @@ const open = ref(props.open)
 </script>
 
 <template>
-  <DestylerComboboxRoot v-bind="props" v-model="v" v-model:open="open" name="test">
-    <DestylerComboboxAnchor>
-      <DestylerComboboxInput placeholder="Placeholder..." />
-      <DestylerComboboxTrigger>
+  <ComboboxRoot v-bind="props" v-model="v" v-model:open="open" name="test">
+    <ComboboxAnchor>
+      <ComboboxInput placeholder="Placeholder..." />
+      <ComboboxTrigger>
         down
-      </DestylerComboboxTrigger>
-    </DestylerComboboxAnchor>
-    <DestylerComboboxContent>
-      <DestylerComboboxViewport>
-        <DestylerComboboxEmpty />
+      </ComboboxTrigger>
+    </ComboboxAnchor>
+    <ComboboxContent>
+      <ComboboxViewport>
+        <ComboboxEmpty />
 
-        <DestylerComboboxGroup>
-          <DestylerComboboxLabel>
+        <ComboboxGroup>
+          <ComboboxLabel>
             People
-          </DestylerComboboxLabel>
+          </ComboboxLabel>
 
-          <DestylerComboboxItem
+          <ComboboxItem
             v-for="(option, index) in people" :key="index"
             :value="option"
           >
-            <DestylerComboboxItemIndicator>
+            <ComboboxItemIndicator>
               check
-            </DestylerComboboxItemIndicator>
+            </ComboboxItemIndicator>
             <span>
               {{ option.name }}
             </span>
-          </DestylerComboboxItem>
-        </DestylerComboboxGroup>
-      </DestylerComboboxViewport>
-    </DestylerComboboxContent>
-  </DestylerComboboxRoot>
+          </ComboboxItem>
+        </ComboboxGroup>
+      </ComboboxViewport>
+    </ComboboxContent>
+  </ComboboxRoot>
 </template>

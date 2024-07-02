@@ -1,28 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerRovingFocusItem } from '@destyler/roving-focus'
+import { RovingFocusItem } from '@destyler/roving-focus'
 
-export const destylerToolbarLinkProps = {
+export const toolbarLinkProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'a',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerToolbarLinkProps = ExtractPublicPropTypes<typeof destylerToolbarLinkProps>
+export type ToolbarLinkProps = ExtractPublicPropTypes<typeof toolbarLinkProps>
 
-export const DestylerToolbarLink = defineComponent({
+export const ToolbarLink = defineComponent({
   name: 'DestylerToolbarLink',
-  props: destylerToolbarLinkProps,
+  props: toolbarLinkProps,
   setup() {
     const { forwardRef } = useForwardExpose()
 
@@ -31,12 +25,12 @@ export const DestylerToolbarLink = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusItem, {
+    return h(RovingFocusItem, {
       asChild: true,
       focusable: true,
     }, {
       default: () => {
-        return h(DestylerPrimitive, mergeProps(this.$props, {
+        return h(Primitive, mergeProps(this.$props, {
           ref: (el: any) => this.forwardRef(el),
           onKeydown: (event: KeyboardEvent) => {
             if (event.key === ' ')

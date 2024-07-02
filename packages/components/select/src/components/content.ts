@@ -1,27 +1,27 @@
 import type { PropType } from 'vue'
 import { Teleport, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { DestylerSelectContentImpl, destylerSelectContentImplProps } from './contentImpl'
-import { DestylerSelectProvider } from './provider'
+import { SelectContentImpl, selectContentImplProps } from './contentImpl'
+import { SelectProvider } from './provider'
 import { injectSelectRootContext } from './root'
 
-export const destylerSelectContentProps = {
-  ...destylerSelectContentImplProps,
+export const selectContentProps = {
+  ...selectContentImplProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerSelectContentProps = ExtractPublicPropTypes<typeof destylerSelectContentProps>
+export type SelectContentProps = ExtractPublicPropTypes<typeof selectContentProps>
 
-export const DestylerSelectContent = defineComponent({
+export const SelectContent = defineComponent({
   name: 'DestylerSelectContent',
   inheritAttrs: false,
-  props: destylerSelectContentProps,
+  props: selectContentProps,
   emits: ['closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
@@ -33,7 +33,7 @@ export const DestylerSelectContent = defineComponent({
       fragment.value = new DocumentFragment()
     })
 
-    const presenceRef = ref<InstanceType<typeof DestylerPresence>>()
+    const presenceRef = ref<InstanceType<typeof Presence>>()
 
     return {
       presenceRef,
@@ -44,14 +44,14 @@ export const DestylerSelectContent = defineComponent({
   },
   render() {
     return [
-      h(DestylerPresence, {
+      h(Presence, {
         ref: 'presenceRef',
         present: this.$props.forceMount || this.rootContext.open.value,
-      }, () => h(DestylerSelectContentImpl, mergeProps(this.forwarded, this.$attrs), () => this.$slots.default?.())),
+      }, () => h(SelectContentImpl, mergeProps(this.forwarded, this.$attrs), () => this.$slots.default?.())),
       !this.presenceRef?.present && this.fragment
         ? h(Teleport, {
           to: this.fragment,
-        }, () => h(DestylerSelectProvider, {
+        }, () => h(SelectProvider, {
           context: this.rootContext,
         }, h('div', null, () => this.$slots.default?.())))
         : null,

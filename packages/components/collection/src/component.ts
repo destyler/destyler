@@ -1,1 +1,1 @@
-export * from './components/collection'
+export { CollectionItem, CollectionSlot } from './components/collection'

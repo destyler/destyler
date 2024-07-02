@@ -1,29 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSelectItemContext } from './item'
 
-export const destylerSelectInDicatorProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectInDicatorProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSelectInDicatorProps = ExtractPublicPropTypes<typeof destylerSelectInDicatorProps>
+export type SelectInDicatorProps = ExtractPublicPropTypes<typeof selectInDicatorProps>
 
-export const DestylerSelectItemIndicator = defineComponent({
+export const SelectItemIndicator = defineComponent({
   name: 'DestylerSelectItemIndicator',
-  props: destylerSelectInDicatorProps,
+  props: selectInDicatorProps,
   setup() {
     const itemContext = injectSelectItemContext()
 
@@ -33,7 +26,7 @@ export const DestylerSelectItemIndicator = defineComponent({
   },
   render() {
     return this.itemContext.isSelected.value
-      ? h(DestylerPrimitive, mergeProps(this.$props, {
+      ? h(Primitive, mergeProps(this.$props, {
         'aria-hidden': '',
       }), () => this.$slots.default?.())
       : null

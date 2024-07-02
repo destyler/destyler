@@ -1,81 +1,47 @@
-import type { Component, PropType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
-import { DestylerPopperContent } from '@destyler/popper'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
-import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import { PopperContent, popperContentProps } from '@destyler/popper'
+import { DismissableLayer } from '@destyler/dismissable-layer'
+import { Visuallyhidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { TOOLTIP_OPEN } from '../utils'
 import { injectTooltipRootContext } from './root'
 
-const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
-const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
-
-type Side = (typeof SIDE_OPTIONS)[number]
-type Align = (typeof ALIGN_OPTIONS)[number]
-
-export const destylerTooltipContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const tooltipContentImplProps = {
+  ...primitiveProps,
   side: {
-    type: String as PropType<Side>,
-    required: false,
+    ...popperContentProps.side,
     default: 'top',
   },
   sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.sideOffset,
   },
   align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
+    ...popperContentProps.align,
   },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.alignOffset,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...popperContentProps.avoidCollisions,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
+    ...popperContentProps.collisionBoundary,
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
+    ...popperContentProps.collisionPadding,
   },
   arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.arrowPadding,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
+    ...popperContentProps.sticky,
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.hideWhenDetached,
   },
   ariaLabel: {
     type: String as PropType<string>,
@@ -83,13 +49,13 @@ export const destylerTooltipContentImplProps = {
   },
 } as const
 
-export type DestylerTooltipContentImplProps = ExtractPublicPropTypes<typeof destylerTooltipContentImplProps>
+export type TooltipContentImplProps = ExtractPublicPropTypes<typeof tooltipContentImplProps>
 
-export const destylerTooltipContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
-export const DestylerTooltipContentImpl = defineComponent({
+export const tooltipContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
+export const TooltipContentImpl = defineComponent({
   name: 'DestylerTooltipContentImpl',
-  props: destylerTooltipContentImplProps,
-  emits: destylerTooltipContentImplEmits,
+  props: tooltipContentImplProps,
+  emits: tooltipContentImplEmits,
   setup(props) {
     const contentElement = ref<HTMLElement>()
     const rootContext = injectTooltipRootContext()
@@ -136,7 +102,7 @@ export const DestylerTooltipContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerDismissableLayer, {
+    return h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
       onEscapeKeyDown: (event) => {
@@ -151,7 +117,7 @@ export const DestylerTooltipContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onClose()
       },
-    }, () => h(DestylerPopperContent, mergeProps(this.$attrs, this.popperContentProps, {
+    }, () => h(PopperContent, mergeProps(this.$attrs, this.popperContentProps, {
       'ref': 'contentElement',
       'data-state': this.rootContext.stateAttribute.value,
       'style': {
@@ -163,7 +129,7 @@ export const DestylerTooltipContentImpl = defineComponent({
       },
     }), () => [
       this.$slots.default?.(),
-      h(DestylerVisuallyhidden, {
+      h(Visuallyhidden, {
         role: 'tooltip',
       }, () => this.ariaLabel),
     ]))

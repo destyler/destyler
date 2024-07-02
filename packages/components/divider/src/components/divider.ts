@@ -1,20 +1,10 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerDividerProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dividerProps = {
+  ...primitiveProps,
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
@@ -26,11 +16,11 @@ export const destylerDividerProps = {
   },
 } as const
 
-export type DestylerDividerProps = ExtractPublicPropTypes<typeof destylerDividerProps>
+export type DividerProps = ExtractPublicPropTypes<typeof dividerProps>
 
-export const DestylerDivider = defineComponent({
+export const Divider = defineComponent({
   name: 'DestylerDivider',
-  props: destylerDividerProps,
+  props: dividerProps,
   setup(props) {
     const ORIENTATIONS = ['horizontal', 'vertical'] as const
     function isValidOrientation(orientation: any): orientation is DataOrientation {
@@ -57,7 +47,7 @@ export const DestylerDivider = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.semanticProps, {
+    return h(Primitive, mergeProps(this.semanticProps, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-orientation': this.computedOrientation,

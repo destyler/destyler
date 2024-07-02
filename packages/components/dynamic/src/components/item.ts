@@ -1,25 +1,15 @@
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { Component, PropType, Ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import type { PropType, Ref } from 'vue'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useId } from '@destyler/composition'
 import { createContext } from '@destyler/shared'
-import { DestylerCollectionItem } from '@destyler/collection'
+import { CollectionItem } from '@destyler/collection'
 
 import { injectDynamicRootContext } from './root'
 
-export const destylerDynamicItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dynamicItemProps = {
+  ...primitiveProps,
   value: {
     type: String as PropType<string>,
     required: true,
@@ -30,7 +20,7 @@ export const destylerDynamicItemProps = {
   },
 } as const
 
-export type DestylerDynamicItemProops = ExtractPublicPropTypes<typeof destylerDynamicItemProps>
+export type DynamicItemProops = ExtractPublicPropTypes<typeof dynamicItemProps>
 
 export interface DynamicItemContext {
   value: Ref<string>
@@ -42,9 +32,9 @@ export interface DynamicItemContext {
 export const [injectDynamicItemContext, provideDynamicItemContext]
   = createContext<DynamicItemContext>('DestylerDynamicItem')
 
-export const DestylerDynamicItem = defineComponent({
+export const DynamicItem = defineComponent({
   name: 'DestylerDynamicItem',
-  props: destylerDynamicItemProps,
+  props: dynamicItemProps,
   setup(props) {
     const { value } = toRefs(props)
 
@@ -70,7 +60,7 @@ export const DestylerDynamicItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollectionItem, {}, () => h(DestylerPrimitive, {
+    return h(CollectionItem, {}, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

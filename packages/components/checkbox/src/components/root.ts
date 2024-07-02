@@ -1,6 +1,6 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRef, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -9,10 +9,10 @@ import { BindOnceDirective } from '@destyler/directives'
 import { getState, isIndeterminate } from '../utils'
 import type { CheckedState } from '../types'
 
-export const destylerCheckboxRootProps = {
-  ...destylerPrimitiveProps,
+export const checkboxRootProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
   defaultChecked: {
@@ -48,7 +48,7 @@ export const destylerCheckboxRootProps = {
   },
 } as const
 
-export type DestylerCheckboxRootProps = ExtractPublicPropTypes<typeof destylerCheckboxRootProps>
+export type CheckboxRootProps = ExtractPublicPropTypes<typeof checkboxRootProps>
 
 export interface CheckboxRootContext {
   disabled: Ref<boolean>
@@ -58,9 +58,9 @@ export interface CheckboxRootContext {
 export const [injectCheckboxRootContext, provideCheckboxRootContext]
   = createContext<CheckboxRootContext>('DestylerCheckboxRoot')
 
-export const DestylerCheckboxRoot = defineComponent({
+export const CheckboxRoot = defineComponent({
   name: 'DestylerCheckboxRoot',
-  props: destylerCheckboxRootProps,
+  props: checkboxRootProps,
   emits: ['update:checked'],
   setup(props, { emit }) {
     const disabledRef = toRef(props.disabled)
@@ -93,7 +93,7 @@ export const DestylerCheckboxRoot = defineComponent({
   render() {
     const useVShow = this.isFormControl
     return [
-      withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+      withDirectives(h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'role': 'checkbox',
         'asChild': this.$props.asChild,

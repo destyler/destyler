@@ -1,30 +1,23 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useId } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDialogRootContext } from './root'
 
-export const destylerDialogTriggerProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dialogTriggerProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerDialogTriggerProps = ExtractPublicPropTypes<typeof destylerDialogTriggerProps>
+export type DialogTriggerProps = ExtractPublicPropTypes<typeof dialogTriggerProps>
 
-export const DestylerDialogTrigger = defineComponent({
+export const DialogTrigger = defineComponent({
   name: 'DestylerDialogTrigger',
-  props: destylerDialogTriggerProps,
+  props: dialogTriggerProps,
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement } = useForwardExpose()
@@ -40,7 +33,7 @@ export const DestylerDialogTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, this.$props, {
+    return h(Primitive, mergeProps(this.$attrs, this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-haspopup': 'dialog',

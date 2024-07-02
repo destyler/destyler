@@ -1,42 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuArrow } from '@destyler/menu'
+import { MenuArrow, menuArrowProps } from '@destyler/menu'
 
-export const destylerDropdownArrowProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'svg',
-  },
+export const dropdownArrowProps = {
+  ...menuArrowProps,
 } as const
 
-export type DestylerDropdownArrowProps = ExtractPublicPropTypes<typeof destylerDropdownArrowProps>
+export type DropdownArrowProps = ExtractPublicPropTypes<typeof dropdownArrowProps>
 
-export const DestylerDropdownArrow = defineComponent({
+export const DropdownArrow = defineComponent({
   name: 'DestylerDropdownArrow',
-  props: destylerDropdownArrowProps,
+  props: dropdownArrowProps,
   setup(_) {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuArrow, this.$props, () => this.$slots.default?.())
+    return h(MenuArrow, this.$props, () => this.$slots.default?.())
   },
 })

@@ -3,9 +3,9 @@ import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useDirection, useVModel } from '@destyler/composition'
 import { createContext, isClient } from '@destyler/shared'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 
-export const destylerMenuRootProps = {
+export const menuRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,7 +22,7 @@ export const destylerMenuRootProps = {
   },
 } as const
 
-export type DestylerMenuRootProps = ExtractPublicPropTypes<typeof destylerMenuRootProps>
+export type MenuRootProps = ExtractPublicPropTypes<typeof menuRootProps>
 
 export interface MenuContext {
   open: Ref<boolean>
@@ -42,9 +42,9 @@ export const [injectMenuContext, provideMenuContext] = createContext<MenuContext
 
 export const [injectMenuRootContext, provideMenuRootContext] = createContext<MenuRootContext>('DestylerMenuRoot')
 
-export const DestylerMenuRoot = defineComponent({
+export const MenuRoot = defineComponent({
   name: 'DestylerMenuRoot',
-  props: destylerMenuRootProps,
+  props: menuRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const { modal, dir: propDir } = toRefs(props)
@@ -104,6 +104,6 @@ export const DestylerMenuRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
+    return h(PopperRoot, null, () => this.$slots.default?.())
   },
 })

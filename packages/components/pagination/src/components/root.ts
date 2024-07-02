@@ -1,21 +1,15 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 
-export const destylerPaginationRootProps = {
+export const paginationRootProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'nav',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   page: {
     type: Number as PropType<number>,
@@ -52,7 +46,7 @@ export const destylerPaginationRootProps = {
   },
 } as const
 
-export type DestylerPaginationRootProps = ExtractPublicPropTypes<typeof destylerPaginationRootProps>
+export type PaginationRootProps = ExtractPublicPropTypes<typeof paginationRootProps>
 
 export interface PaginationRootContext {
   page: Ref<number>
@@ -65,9 +59,9 @@ export interface PaginationRootContext {
 
 export const [injectPaginationRootContext, providePaginationRootContext] = createContext<PaginationRootContext>('PaginationRoot')
 
-export const DestylerPaginationRoot = defineComponent({
+export const PaginationRoot = defineComponent({
   name: 'DestylerPaginationRoot',
-  props: destylerPaginationRootProps,
+  props: paginationRootProps,
   emits: ['update:page'],
   setup(props, { emit }) {
     const { siblingCount, disabled, showEdges } = toRefs(props)
@@ -97,7 +91,7 @@ export const DestylerPaginationRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
     }, () => this.$slots.default?.({ page: this.page, pageCount: this.pageCount }))

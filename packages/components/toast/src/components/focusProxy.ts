@@ -1,9 +1,9 @@
 import { defineComponent, h } from 'vue'
-import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import { Visuallyhidden } from '@destyler/visually-hidden'
 
 import { injectToastProviderContext } from './provider'
 
-export const DestylerToastFocusProxy = defineComponent({
+export const ToastFocusProxy = defineComponent({
   name: 'DestylerToastFocusProxy',
   emits: ['focusFromOutsideViewport'],
   setup() {
@@ -13,7 +13,7 @@ export const DestylerToastFocusProxy = defineComponent({
     }
   },
   render() {
-    return h(DestylerVisuallyhidden, {
+    return h(Visuallyhidden, {
       'aria-hidden': '',
       'tabindex': '0',
       'style': {

@@ -1,12 +1,12 @@
 import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useCollection, useDirection, useForwardExpose, useVModel } from '@destyler/composition'
-import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
+import { RovingFocusGroup } from '@destyler/roving-focus'
 
-export const destylerMenubarRootProps = {
+export const menubarRootProps = {
   modelValue: {
     type: String as PropType<string>,
     required: false,
@@ -26,7 +26,7 @@ export const destylerMenubarRootProps = {
   },
 } as const
 
-export type DestylerMenubarRootProps = ExtractPublicPropTypes<typeof destylerMenubarRootProps>
+export type MenubarRootProps = ExtractPublicPropTypes<typeof menubarRootProps>
 
 export interface MenubarRootContext {
   modelValue: Ref<string>
@@ -39,9 +39,9 @@ export interface MenubarRootContext {
 
 export const [injectMenubarRootContext, provideMenubarRootContext] = createContext<MenubarRootContext>('DestylerMenubarRoot')
 
-export const DestylerMenubarRoot = defineComponent({
+export const MenubarRoot = defineComponent({
   name: 'DestylerMenubarRoot',
-  props: destylerMenubarRootProps,
+  props: menubarRootProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
@@ -83,7 +83,7 @@ export const DestylerMenubarRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusGroup, {
+    return h(RovingFocusGroup, {
       'currentTabStopId': this.currentTabStopId!,
       'onUpdate:currentTabStopId': (event: any) => {
         this.currentTabStopId = event
@@ -94,7 +94,7 @@ export const DestylerMenubarRoot = defineComponent({
       'asChild': true,
     }, {
       default: () => {
-        return h(DestylerPrimitive, {
+        return h(Primitive, {
           role: 'menubar',
           ref: (el: any) => this.forwardRef(el),
         }, () => this.$slots.default?.())

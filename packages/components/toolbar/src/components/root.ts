@@ -1,23 +1,13 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
-import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
+import { RovingFocusGroup } from '@destyler/roving-focus'
 
-export const destylerToolbarRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const toolbarRootProps = {
+  ...primitiveProps,
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
@@ -33,7 +23,7 @@ export const destylerToolbarRootProps = {
   },
 } as const
 
-export type DestylerToolbarRootProps = ExtractPublicPropTypes<typeof destylerToolbarRootProps>
+export type ToolbarRootProps = ExtractPublicPropTypes<typeof toolbarRootProps>
 
 export interface ToolbarRootContext {
   orientation: Ref<DataOrientation>
@@ -42,9 +32,9 @@ export interface ToolbarRootContext {
 
 export const [injectToolbarRootContext, provideToolbarRootContext] = createContext<ToolbarRootContext>('DestylerToolbarRoot')
 
-export const DestylerToolbarRoot = defineComponent({
+export const ToolbarRoot = defineComponent({
   name: 'DestylerToolbarRoot',
-  props: destylerToolbarRootProps,
+  props: toolbarRootProps,
   setup(props) {
     const { orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
@@ -59,14 +49,14 @@ export const DestylerToolbarRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusGroup, {
+    return h(RovingFocusGroup, {
       asChild: true,
       orientation: this.orientation,
       dir: this.dir,
       loop: this.loop,
     }, {
       default: () => {
-        return h(DestylerPrimitive, {
+        return h(Primitive, {
           'ref': (el: any) => this.forwardRef(el),
           'role': 'toolbar',
           'aria-orientation': this.orientation,

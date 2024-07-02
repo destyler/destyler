@@ -1,30 +1,24 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectContextBreadcrumbsContext } from './content'
 import { injectContextBreadcrumbsItemContext } from './item'
 
-export const destylerBreadcrumbsLabelProps = {
+export const breadcrumbsLabelProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'a',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerBreadcrumbsLabelProps = ExtractPublicPropTypes<typeof destylerBreadcrumbsLabelProps>
+export type BreadcrumbsLabelProps = ExtractPublicPropTypes<typeof breadcrumbsLabelProps>
 
-export const DestylerBreadcrumbsLabel = defineComponent({
+export const BreadcrumbsLabel = defineComponent({
   name: 'DestylerBreadcrumbsLabel',
-  props: destylerBreadcrumbsLabelProps,
+  props: breadcrumbsLabelProps,
   setup() {
     useForwardExpose()
     const content = injectContextBreadcrumbsContext()
@@ -36,7 +30,7 @@ export const DestylerBreadcrumbsLabel = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-state': this.content.lastItemId.value === this.itemContent.itemId ? 'active' : 'inactive',

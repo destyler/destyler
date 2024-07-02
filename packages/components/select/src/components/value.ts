@@ -1,7 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, onBeforeMount, onMounted } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { renderSlotFragments } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -9,15 +8,10 @@ import { useForwardExpose } from '@destyler/composition'
 import { shouldShowPlaceholder } from '../utils'
 import { injectSelectRootContext } from './root'
 
-export const destylerSelectValueProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectValueProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
   },
   placeholder: {
@@ -26,11 +20,11 @@ export const destylerSelectValueProps = {
   },
 } as const
 
-export type DestylerSelectValueProps = ExtractPublicPropTypes<typeof destylerSelectValueProps>
+export type SelectValueProps = ExtractPublicPropTypes<typeof selectValueProps>
 
-export const DestylerSelectValue = defineComponent({
+export const SelectValue = defineComponent({
   name: 'DestylerSelectValue',
-  props: destylerSelectValueProps,
+  props: selectValueProps,
   setup(_, { slots }) {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -51,7 +45,7 @@ export const DestylerSelectValue = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,

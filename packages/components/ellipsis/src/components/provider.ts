@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useTimeoutFn } from '@destyler/composition'
 
-export const destylerEllipsisProviderProps = {
+export const ellipsisProviderProps = {
   delayDuration: {
     type: Number as PropType<number>,
     required: false,
@@ -27,7 +27,7 @@ export const destylerEllipsisProviderProps = {
   },
 } as const
 
-export type DestylerEllipsisProviderProps = ExtractPublicPropTypes<typeof destylerEllipsisProviderProps>
+export type EllipsisProviderProps = ExtractPublicPropTypes<typeof ellipsisProviderProps>
 
 export interface EllipsisProviderContext {
   isOpenDelayed: Ref<boolean>
@@ -43,9 +43,9 @@ export interface EllipsisProviderContext {
 export const [injectEllipsisProviderContext, provideEllipsisProviderContext]
   = createContext<EllipsisProviderContext>('DestylerEllipsisProvider')
 
-export const DestylerEllipsisProvider = defineComponent({
+export const EllipsisProvider = defineComponent({
   name: 'DestylerEllipsisProvider',
-  props: destylerEllipsisProviderProps,
+  props: ellipsisProviderProps,
   setup(props) {
     const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
 

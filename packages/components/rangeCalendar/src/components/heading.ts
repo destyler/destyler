@@ -1,29 +1,18 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectRangeCalendarRootContext } from './root'
 
-export const destylerRangeCalendarHeadingProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const rangeCalendarHeadingProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerRangeCalendarHeadingProps = ExtractPublicPropTypes<typeof destylerRangeCalendarHeadingProps>
+export type RangeCalendarHeadingProps = ExtractPublicPropTypes<typeof rangeCalendarHeadingProps>
 
-export const DestylerRangeCalendarHeading = defineComponent({
+export const RangeCalendarHeading = defineComponent({
   name: 'DestylerRangeCalendarHeading',
-  props: destylerRangeCalendarHeadingProps,
+  props: rangeCalendarHeadingProps,
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 
@@ -32,7 +21,7 @@ export const DestylerRangeCalendarHeading = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
     }), {
       default: () => this.$slots.default

@@ -1,13 +1,13 @@
 import { defineComponent, h, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 
-import { DestylerPopoverContentImpl, destylerPopoverContentImplEmits, destylerPopoverContentImplProps } from './contentImpl'
+import { PopoverContentImpl, popoverContentImplEmits, popoverContentImplProps } from './contentImpl'
 import { injectPopoverRootContext } from './root'
 
-export const DestylerPopoverContentNonModal = defineComponent({
+export const PopoverContentNonModal = defineComponent({
   name: 'DestylerPopoverContentNonModal',
-  props: destylerPopoverContentImplProps,
-  emits: destylerPopoverContentImplEmits,
+  props: popoverContentImplProps,
+  emits: popoverContentImplEmits,
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
     const hasInteractedOutsideRef = ref(false)
@@ -22,7 +22,7 @@ export const DestylerPopoverContentNonModal = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopoverContentImpl, {
+    return h(PopoverContentImpl, {
       ...this.forwarded,
       trapFocus: false,
       disableOutsidePointerEvents: false,

@@ -1,10 +1,10 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { usePrevious } from '@destyler/composition'
-import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import { Visuallyhidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerBubbleSelectProps = {
+export const bubbleSelectProps = {
   autocomplete: {
     type: String as PropType<string>,
   },
@@ -34,11 +34,11 @@ export const destylerBubbleSelectProps = {
   },
 } as const
 
-export type DestylerBubbleSelectProps = ExtractPublicPropTypes<typeof destylerBubbleSelectProps>
+export type BubbleSelectProps = ExtractPublicPropTypes<typeof bubbleSelectProps>
 
-export const DestylerBubbleSelect = defineComponent({
+export const BubbleSelect = defineComponent({
   name: 'DestylerBubbleSelect',
-  props: destylerBubbleSelectProps,
+  props: bubbleSelectProps,
   emits: ['update:value'],
   setup(props) {
     const { value } = toRefs(props)
@@ -52,7 +52,7 @@ export const DestylerBubbleSelect = defineComponent({
     }
   },
   render() {
-    return h(DestylerVisuallyhidden, {
+    return h(Visuallyhidden, {
       asChild: true,
     }, () => h('select', mergeProps(this.$props, {
       'ref': 'selectElement',

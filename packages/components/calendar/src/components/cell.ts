@@ -1,21 +1,16 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { DateValue } from '@internationalized/date'
 
 import { injectCalendarRootContext } from './root'
 
-export const destylerCalendarCellProps = {
+export const calendarCellProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'td',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   date: {
     type: Object as PropType<DateValue>,
@@ -23,11 +18,11 @@ export const destylerCalendarCellProps = {
   },
 } as const
 
-export type DestylerCalendarCellProps = ExtractPublicPropTypes<typeof destylerCalendarCellProps>
+export type CalendarCellProps = ExtractPublicPropTypes<typeof calendarCellProps>
 
-export const DestylerCalendarCell = defineComponent({
+export const CalendarCell = defineComponent({
   name: 'DestylerCalendarCell',
-  props: destylerCalendarCellProps,
+  props: calendarCellProps,
   setup() {
     const rootContext = injectCalendarRootContext()
     return {
@@ -35,7 +30,7 @@ export const DestylerCalendarCell = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'role': 'gridcell',
       'aria-selected': this.rootContext.isDateSelected(this.$props.date) ? true : undefined,
       'aria-disabled': this.rootContext.isDateDisabled(this.$props.date) || this.rootContext.isDateUnavailable?.(this.$props.date),

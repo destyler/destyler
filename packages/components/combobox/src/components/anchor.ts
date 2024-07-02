@@ -1,18 +1,18 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import { PopperAnchor } from '@destyler/popper'
 
-export const destylerComboboxAnchorProps = {
-  ...destylerPrimitiveProps,
+export const comboboxAnchorProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerComboboxAnchorProps = ExtractPublicPropTypes<typeof destylerComboboxAnchorProps>
+export type ComboboxAnchorProps = ExtractPublicPropTypes<typeof comboboxAnchorProps>
 
-export const DestylerComboboxAnchor = defineComponent({
+export const ComboboxAnchor = defineComponent({
   name: 'DestylerComboboxAnchor',
-  props: destylerComboboxAnchorProps,
+  props: comboboxAnchorProps,
   setup() {
     const { forwardRef } = useForwardExpose()
 
@@ -21,10 +21,10 @@ export const DestylerComboboxAnchor = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperAnchor, {
+    return h(PopperAnchor, {
       asChild: true,
     }, () => {
-      return h(DestylerPrimitive, mergeProps(this.$attrs, {
+      return h(Primitive, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,

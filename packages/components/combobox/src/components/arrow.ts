@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPopperArrow } from '@destyler/popper'
+import { PopperArrow } from '@destyler/popper'
 
 import { injectComboboxRootContext } from './root'
 import { injectComboboxContentContext } from './contentImpl'
 
-export const destylerComboboxArrowProps = {
-  ...destylerPrimitiveProps,
+export const comboboxArrowProps = {
+  ...primitiveProps,
   width: {
     type: Number as PropType<number>,
     required: false,
@@ -21,16 +21,16 @@ export const destylerComboboxArrowProps = {
     default: 5,
   },
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'svg',
   },
 } as const
 
-export type DestylerComboboxArrowProps = ExtractPublicPropTypes<typeof destylerComboboxArrowProps>
+export type ComboboxArrowProps = ExtractPublicPropTypes<typeof comboboxArrowProps>
 
-export const DestylerComboboxArrow = defineComponent({
+export const ComboboxArrow = defineComponent({
   name: 'DestylerComboboxArrow',
-  props: destylerComboboxArrowProps,
+  props: comboboxArrowProps,
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()
@@ -42,6 +42,6 @@ export const DestylerComboboxArrow = defineComponent({
   },
   render() {
     if (this.rootContext.open.value && this.contentContext.position.value === 'popper')
-      return h(DestylerPopperArrow, this.$props, () => this.$slots.default?.())
+      return h(PopperArrow, this.$props, () => this.$slots.default?.())
   },
 })

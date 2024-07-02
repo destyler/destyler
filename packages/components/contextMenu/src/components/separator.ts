@@ -1,22 +1,21 @@
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuSeparator } from '@destyler/menu'
+import { MenuSeparator, menuSeparatorProps } from '@destyler/menu'
 
-export const destylerContextMenuSeparatorProps = {
-  ...destylerPrimitiveProps,
+export const contextMenuSeparatorProps = {
+  ...menuSeparatorProps,
 } as const
 
-export type DestylerContextMenuSeparatorProps = ExtractPublicPropTypes<typeof destylerContextMenuSeparatorProps>
+export type ContextMenuSeparatorProps = ExtractPublicPropTypes<typeof contextMenuSeparatorProps>
 
-export const DestylerContextMenuSeparator = defineComponent({
+export const ContextMenuSeparator = defineComponent({
   name: 'DestylerContextMenuSeparator',
-  props: destylerContextMenuSeparatorProps,
+  props: contextMenuSeparatorProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuSeparator, this.$props, () => this.$slots.default?.())
+    return h(MenuSeparator, this.$props, () => this.$slots.default?.())
   },
 })

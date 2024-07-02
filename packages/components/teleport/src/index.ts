@@ -1,1 +1,1 @@
-export { DestylerTeleport, type DestylerTeleportProps } from './components/teleport'
+export { TeleportPrimitive, teleportPrimitiveProps, type TeleportPrimitiveProps } from './components/teleport'

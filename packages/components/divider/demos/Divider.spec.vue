@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerDivider } from '../src'
+import { Divider } from '../src'
 
 const props = withDefaults(defineProps<{
   orientation?: string
@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
 </script>
 
 <template>
-  <DestylerDivider v-bind="props">
+  <Divider v-bind="props">
     <slot />
-  </DestylerDivider>
+  </Divider>
 </template>

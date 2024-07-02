@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerDivider } from '../src'
+import { Divider } from '../src'
 </script>
 
 <template>
@@ -10,14 +10,14 @@ import { DestylerDivider } from '../src'
     <div class="text-#71717A dark:text-#A1A1AA text-[15px] leading-5">
       unstyled component for vue.
     </div>
-    <DestylerDivider
+    <Divider
       class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]"
     />
     <div class="flex h-5 items-center">
       <div class=" text-[15px] leading-5">
         Docs
       </div>
-      <DestylerDivider
+      <Divider
         class="shrink-0 bg-#E4E4E7 dark:bg-#27272A  data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
         decorative
         orientation="vertical"
@@ -25,7 +25,7 @@ import { DestylerDivider } from '../src'
       <div class=" text-[15px] leading-5">
         Playground
       </div>
-      <DestylerDivider
+      <Divider
         class="shrink-0 bg-#E4E4E7 dark:bg-#27272A  data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-[15px]"
         decorative
         orientation="vertical"

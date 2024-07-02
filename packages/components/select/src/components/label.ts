@@ -1,34 +1,24 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { BindOnceDirective } from '@destyler/directives'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSelectGroupContext } from './group'
 
-export const destylerSelectLabelProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectLabelProps = {
+  ...primitiveProps,
   for: {
     type: String as PropType<string>,
     required: false,
   },
 } as const
 
-export type DestylerSelectLabelProps = ExtractPublicPropTypes<typeof destylerSelectLabelProps>
+export type SelectLabelProps = ExtractPublicPropTypes<typeof selectLabelProps>
 
-export const DestylerSelectLabel = defineComponent({
+export const SelectLabel = defineComponent({
   name: 'DestylerSelectLabel',
-  props: destylerSelectLabelProps,
+  props: selectLabelProps,
   setup() {
     const groupContext = injectSelectGroupContext({ id: '' })
 
@@ -37,7 +27,7 @@ export const DestylerSelectLabel = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, this.$props, () => this.$slots.default?.()), [
+    return withDirectives(h(Primitive, this.$props, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.groupContext.id }],
     ])
   },

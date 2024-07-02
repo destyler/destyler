@@ -1,31 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, ref, watch, watchEffect } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
-import { DestylerScrollSelectButtonImpl } from './scrollButtonImpl'
+import { ScrollSelectButtonImpl } from './scrollButtonImpl'
 import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
-export const destylerSelectScrollUpButtonProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectScrollUpButtonProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSelectScrollUpButtonProps = ExtractPublicPropTypes<typeof destylerSelectScrollUpButtonProps>
+export type SelectScrollUpButtonProps = ExtractPublicPropTypes<typeof selectScrollUpButtonProps>
 
-export const DestylerSelectScrollUpButton = defineComponent({
+export const SelectScrollUpButton = defineComponent({
   name: 'DestylerSelectScrollUpButton',
-  props: destylerSelectScrollUpButtonProps,
+  props: selectScrollUpButtonProps,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext = contentContext.position === 'item-aligned'
@@ -62,7 +52,7 @@ export const DestylerSelectScrollUpButton = defineComponent({
   },
   render() {
     return this.canScrollUp
-      ? h(DestylerScrollSelectButtonImpl, {
+      ? h(ScrollSelectButtonImpl, {
         ref: (el: any) => this.forwardRef(el),
         onAutoScroll: () => {
           const { viewport, selectedItem } = this.contentContext

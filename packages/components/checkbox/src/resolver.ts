@@ -4,8 +4,8 @@ import { name } from '../package.json'
 const packageName = name
 
 export const checkboxComponentName = [
-  'DestylerCheckboxRoot',
-  'DestylerCheckboxIndicator',
+  'CheckboxRoot',
+  'CheckboxIndicator',
 ]
 
 export function DestylerCheckboxResolver(): ComponentResolver {

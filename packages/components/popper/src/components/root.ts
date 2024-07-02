@@ -10,8 +10,8 @@ interface PopperRootContext {
 
 export const [injectPopperRootContext, providePopperRootContext] = createContext<PopperRootContext>('DestylerPopperRoot')
 
-export const DestylerPopperRoot = defineComponent({
-  name: 'DestylerPopperRoot',
+export const PopperRoot = defineComponent({
+  name: 'PopperRoot',
   setup() {
     const anchor = ref<Measurable | HTMLElement>()
 

@@ -4,7 +4,7 @@ import { name } from '../package.json'
 const packageName = name
 
 export const backTopComponentName = [
-  'DestylerBackTop',
+  'BackTop',
 ]
 
 export function DestylerBackTopResolver(): ComponentResolver {

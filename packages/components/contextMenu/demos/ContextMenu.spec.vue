@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  DestylerContextMenuArrow,
-  DestylerContextMenuCheckboxItem,
-  DestylerContextMenuContent,
-  DestylerContextMenuItem,
-  DestylerContextMenuItemIndicator,
-  DestylerContextMenuLabel,
-  DestylerContextMenuPortal,
-  DestylerContextMenuRadioGroup,
-  DestylerContextMenuRadioItem,
-  DestylerContextMenuRoot,
-  DestylerContextMenuSeparator,
-  DestylerContextMenuSub,
-  DestylerContextMenuSubContent,
-  DestylerContextMenuSubTrigger,
-  DestylerContextMenuTrigger,
+  ContextMenuArrow,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuItemIndicator,
+  ContextMenuLabel,
+  ContextMenuPortal,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
 } from '../src'
 
 const checkboxOne = ref(false)
@@ -29,16 +29,16 @@ function handleClick() {
 </script>
 
 <template>
-  <DestylerContextMenuRoot :modal="true">
-    <DestylerContextMenuTrigger>
+  <ContextMenuRoot :modal="true">
+    <ContextMenuTrigger>
       Right click here.
-    </DestylerContextMenuTrigger>
+    </ContextMenuTrigger>
 
-    <DestylerContextMenuPortal>
-      <DestylerContextMenuContent
+    <ContextMenuPortal>
+      <ContextMenuContent
         :side-offset="5"
       >
-        <DestylerContextMenuItem
+        <ContextMenuItem
           value="New Tab"
           @click="handleClick"
         >
@@ -46,9 +46,9 @@ function handleClick() {
           <div>
             ⌘+T
           </div>
-        </DestylerContextMenuItem>
-        <DestylerContextMenuSub>
-          <DestylerContextMenuSubTrigger
+        </ContextMenuItem>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger
             value="more toolsz"
           >
             More Tools
@@ -57,42 +57,42 @@ function handleClick() {
                 <path />
               </svg>
             </div>
-          </DestylerContextMenuSubTrigger>
-          <DestylerContextMenuPortal>
-            <DestylerContextMenuSubContent
+          </ContextMenuSubTrigger>
+          <ContextMenuPortal>
+            <ContextMenuSubContent
               :side-offset="2"
               :align-offset="-5"
             >
-              <DestylerContextMenuItem>
+              <ContextMenuItem>
                 Save Page As…
                 <div>
                   ⌘+S
                 </div>
-              </DestylerContextMenuItem>
-              <DestylerContextMenuItem>
+              </ContextMenuItem>
+              <ContextMenuItem>
                 Create Shortcut…
-              </DestylerContextMenuItem>
-              <DestylerContextMenuItem>
+              </ContextMenuItem>
+              <ContextMenuItem>
                 Name Window…
-              </DestylerContextMenuItem>
-              <DestylerContextMenuSeparator />
-              <DestylerContextMenuItem>
+              </ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem>
                 Developer Tools
-              </DestylerContextMenuItem>
+              </ContextMenuItem>
 
-              <DestylerContextMenuArrow />
-            </DestylerContextMenuSubContent>
-          </DestylerContextMenuPortal>
-        </DestylerContextMenuSub>
-        <DestylerContextMenuItem
+              <ContextMenuArrow />
+            </ContextMenuSubContent>
+          </ContextMenuPortal>
+        </ContextMenuSub>
+        <ContextMenuItem
           value="New Window"
         >
           New Window
           <div>
             ⌘+N
           </div>
-        </DestylerContextMenuItem>
-        <DestylerContextMenuItem
+        </ContextMenuItem>
+        <ContextMenuItem
           value="New Private Window"
           disabled
         >
@@ -100,9 +100,9 @@ function handleClick() {
           <div>
             ⇧+⌘+N
           </div>
-        </DestylerContextMenuItem>
-        <DestylerContextMenuSub>
-          <DestylerContextMenuSubTrigger
+        </ContextMenuItem>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger
             value="more tools"
           >
             More Tools
@@ -111,30 +111,30 @@ function handleClick() {
                 <path />
               </svg>
             </div>
-          </DestylerContextMenuSubTrigger>
-          <DestylerContextMenuPortal>
-            <DestylerContextMenuSubContent
+          </ContextMenuSubTrigger>
+          <ContextMenuPortal>
+            <ContextMenuSubContent
               :side-offset="2"
               :align-offset="-5"
             >
-              <DestylerContextMenuItem>
+              <ContextMenuItem>
                 Save Page As…
                 <div>
                   ⌘+S
                 </div>
-              </DestylerContextMenuItem>
-              <DestylerContextMenuItem>
+              </ContextMenuItem>
+              <ContextMenuItem>
                 Create Shortcut…
-              </DestylerContextMenuItem>
-              <DestylerContextMenuItem>
+              </ContextMenuItem>
+              <ContextMenuItem>
                 Name Window…
-              </DestylerContextMenuItem>
-              <DestylerContextMenuSeparator />
-              <DestylerContextMenuItem>
+              </ContextMenuItem>
+              <ContextMenuSeparator />
+              <ContextMenuItem>
                 Developer Tools
-              </DestylerContextMenuItem>
-              <DestylerContextMenuSub>
-                <DestylerContextMenuSubTrigger
+              </ContextMenuItem>
+              <ContextMenuSub>
+                <ContextMenuSubTrigger
                   value="more toolsz"
                 >
                   More Tools
@@ -143,30 +143,30 @@ function handleClick() {
                       <path />
                     </svg>
                   </div>
-                </DestylerContextMenuSubTrigger>
-                <DestylerContextMenuPortal>
-                  <DestylerContextMenuSubContent
+                </ContextMenuSubTrigger>
+                <ContextMenuPortal>
+                  <ContextMenuSubContent
                     :side-offset="2"
                     :align-offset="-5"
                   >
-                    <DestylerContextMenuItem>
+                    <ContextMenuItem>
                       Save Page As…
                       <div>
                         ⌘+S
                       </div>
-                    </DestylerContextMenuItem>
-                    <DestylerContextMenuItem>
+                    </ContextMenuItem>
+                    <ContextMenuItem>
                       Create Shortcut…
-                    </DestylerContextMenuItem>
-                    <DestylerContextMenuItem>
+                    </ContextMenuItem>
+                    <ContextMenuItem>
                       Name Window…
-                    </DestylerContextMenuItem>
-                    <DestylerContextMenuSeparator />
-                    <DestylerContextMenuItem>
+                    </ContextMenuItem>
+                    <ContextMenuSeparator />
+                    <ContextMenuItem>
                       Developer Tools
-                    </DestylerContextMenuItem>
-                    <DestylerContextMenuSub>
-                      <DestylerContextMenuSubTrigger
+                    </ContextMenuItem>
+                    <ContextMenuSub>
+                      <ContextMenuSubTrigger
                         value="more toolsz"
                       >
                         More Tools
@@ -175,94 +175,94 @@ function handleClick() {
                             <path />
                           </svg>
                         </div>
-                      </DestylerContextMenuSubTrigger>
-                      <DestylerContextMenuPortal>
-                        <DestylerContextMenuSubContent
+                      </ContextMenuSubTrigger>
+                      <ContextMenuPortal>
+                        <ContextMenuSubContent
                           :side-offset="2"
                           :align-offset="-5"
                         >
-                          <DestylerContextMenuItem>
+                          <ContextMenuItem>
                             Save Page As…
                             <div>
                               ⌘+S
                             </div>
-                          </DestylerContextMenuItem>
-                          <DestylerContextMenuItem>
+                          </ContextMenuItem>
+                          <ContextMenuItem>
                             Create Shortcut…
-                          </DestylerContextMenuItem>
-                          <DestylerContextMenuItem>
+                          </ContextMenuItem>
+                          <ContextMenuItem>
                             Name Window…
-                          </DestylerContextMenuItem>
-                          <DestylerContextMenuSeparator />
-                          <DestylerContextMenuItem>
+                          </ContextMenuItem>
+                          <ContextMenuSeparator />
+                          <ContextMenuItem>
                             Developer Tools
-                          </DestylerContextMenuItem>
-                        </DestylerContextMenuSubContent>
-                      </DestylerContextMenuPortal>
-                    </DestylerContextMenuSub>
-                  </DestylerContextMenuSubContent>
-                </DestylerContextMenuPortal>
-              </DestylerContextMenuSub>
-              <DestylerContextMenuItem>
+                          </ContextMenuItem>
+                        </ContextMenuSubContent>
+                      </ContextMenuPortal>
+                    </ContextMenuSub>
+                  </ContextMenuSubContent>
+                </ContextMenuPortal>
+              </ContextMenuSub>
+              <ContextMenuItem>
                 Developer Tools
-              </DestylerContextMenuItem>
-            </DestylerContextMenuSubContent>
-          </DestylerContextMenuPortal>
-        </DestylerContextMenuSub>
-        <DestylerContextMenuSeparator />
-        <DestylerContextMenuCheckboxItem
+              </ContextMenuItem>
+            </ContextMenuSubContent>
+          </ContextMenuPortal>
+        </ContextMenuSub>
+        <ContextMenuSeparator />
+        <ContextMenuCheckboxItem
           v-model:checked="checkboxOne"
           @select.prevent
         >
-          <DestylerContextMenuItemIndicator>
+          <ContextMenuItemIndicator>
             <svg name="check">
               <path />
             </svg>
-          </DestylerContextMenuItemIndicator>
+          </ContextMenuItemIndicator>
           Show Bookmarks
           <div>
             ⌘+B
           </div>
-        </DestylerContextMenuCheckboxItem>
-        <DestylerContextMenuCheckboxItem
+        </ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem
           v-model:checked="checkboxTwo"
           @select.prevent
         >
-          <DestylerContextMenuItemIndicator>
+          <ContextMenuItemIndicator>
             <svg name="check">
               <path />
             </svg>
-          </DestylerContextMenuItemIndicator>
+          </ContextMenuItemIndicator>
           Show Full URLs
-        </DestylerContextMenuCheckboxItem>
-        <DestylerContextMenuSeparator />
+        </ContextMenuCheckboxItem>
+        <ContextMenuSeparator />
 
-        <DestylerContextMenuLabel>
+        <ContextMenuLabel>
           People
-        </DestylerContextMenuLabel>
-        <DestylerContextMenuRadioGroup v-model="person">
-          <DestylerContextMenuRadioItem
+        </ContextMenuLabel>
+        <ContextMenuRadioGroup v-model="person">
+          <ContextMenuRadioItem
             value="pedro"
           >
-            <DestylerContextMenuItemIndicator>
+            <ContextMenuItemIndicator>
               <svg name="dot">
                 <path />
               </svg>
-            </DestylerContextMenuItemIndicator>
+            </ContextMenuItemIndicator>
             Pedro Duarte
-          </DestylerContextMenuRadioItem>
-          <DestylerContextMenuRadioItem
+          </ContextMenuRadioItem>
+          <ContextMenuRadioItem
             value="colm"
           >
-            <DestylerContextMenuItemIndicator>
+            <ContextMenuItemIndicator>
               <svg name="dot">
                 <path />
               </svg>
-            </DestylerContextMenuItemIndicator>
+            </ContextMenuItemIndicator>
             Colm Tuite
-          </DestylerContextMenuRadioItem>
-        </DestylerContextMenuRadioGroup>
-      </DestylerContextMenuContent>
-    </DestylerContextMenuPortal>
-  </DestylerContextMenuRoot>
+          </ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
 </template>

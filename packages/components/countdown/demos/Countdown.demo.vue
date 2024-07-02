@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerCountdown } from '../src'
+import { Countdown } from '../src'
 
 const countdownRef = ref(null)
 
@@ -10,7 +10,7 @@ function handleReset() {
 </script>
 
 <template>
-  <DestylerCountdown ref="countdownRef" :duration="5000" />
+  <Countdown ref="countdownRef" :duration="5000" />
   <button @click="handleReset">
     Reset
   </button>

@@ -3,12 +3,12 @@ import { computed, defineComponent, h, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId, useTimeoutFn, useVModel } from '@destyler/composition'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 
 import { ELLIPSIS_OPEN } from '../utils'
 import { injectEllipsisProviderContext } from './provider'
 
-export const destylerEllipsisRootProps = {
+export const ellipsisRootProps = {
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -36,7 +36,7 @@ export const destylerEllipsisRootProps = {
   },
 } as const
 
-export type DestylerEllipsisRootProps = ExtractPublicPropTypes<typeof destylerEllipsisRootProps>
+export type EllipsisRootProps = ExtractPublicPropTypes<typeof ellipsisRootProps>
 
 export interface EllipsisContext {
   contentId: string
@@ -56,9 +56,9 @@ export interface EllipsisContext {
 
 export const [injectEllipsisRootContext, provideEllipsisRootContext] = createContext<EllipsisContext>('DestylerEllipsisRoot')
 
-export const DestylerEllipsisRoot = defineComponent({
+export const EllipsisRoot = defineComponent({
   name: 'DestylerEllipsisRoot',
-  props: destylerEllipsisRootProps,
+  props: ellipsisRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const triggerText = ref('')
@@ -145,6 +145,6 @@ export const DestylerEllipsisRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
+    return h(PopperRoot, null, () => this.$slots.default?.())
   },
 })

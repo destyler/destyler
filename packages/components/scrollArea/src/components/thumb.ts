@@ -1,32 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, onUnmounted, ref } from 'vue'
 import { watchOnce } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 
 import { addUnlinkedScrollListener } from '../utils'
 import { injectScrollAreaRootContext } from './root'
 import { injectScrollAreaScrollbarVisibleContext } from './scrollbarVisible'
 
-export const destylerScrollAreaThumbProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const scrollAreaThumbProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerScrollAreaThumbProps = ExtractPublicPropTypes<typeof destylerScrollAreaThumbProps>
+export type ScrollAreaThumbProps = ExtractPublicPropTypes<typeof scrollAreaThumbProps>
 
-export const DestylerScrollAreaThumb = defineComponent({
+export const ScrollAreaThumb = defineComponent({
   name: 'DestylerScrollAreaThumb',
-  props: destylerScrollAreaThumbProps,
+  props: scrollAreaThumbProps,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContextVisible = injectScrollAreaScrollbarVisibleContext()
@@ -81,7 +71,7 @@ export const DestylerScrollAreaThumb = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'data-state': this.scrollbarContextVisible.hasThumb ? 'visible' : 'hidden',
       'style': {

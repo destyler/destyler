@@ -3,11 +3,11 @@ import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useFormControl, useId, useVModel } from '@destyler/composition'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 
-import { DestylerBubbleSelect } from './bubbleSelect'
+import { BubbleSelect } from './bubbleSelect'
 
-export const destylerSelectRootProps = {
+export const selectRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -54,7 +54,7 @@ export const destylerSelectRootProps = {
   },
 } as const
 
-export type DestylerSelectRootProps = ExtractPublicPropTypes<typeof destylerSelectRootProps>
+export type SelectRootProps = ExtractPublicPropTypes<typeof selectRootProps>
 
 export interface SelectRootContext {
   triggerElement: Ref<HTMLElement | undefined>
@@ -85,9 +85,9 @@ export interface SelectNativeOptionsContext {
 export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContext]
   = createContext<SelectNativeOptionsContext>('DestylerSelectRoot')
 
-export const DestylerSelectRoot = defineComponent({
+export const SelectRoot = defineComponent({
   name: 'DestylerSelectRoot',
-  props: destylerSelectRootProps,
+  props: selectRootProps,
   emits: ['update:modelValue', 'update:open'],
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
@@ -165,10 +165,10 @@ export const DestylerSelectRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperRoot, {}, () => [
+    return h(PopperRoot, {}, () => [
       this.$slots.default?.(),
       this.isFormControl
-        ? h(DestylerBubbleSelect, mergeProps(this.$attrs, {
+        ? h(BubbleSelect, mergeProps(this.$attrs, {
           'key': this.nativeSelectKey,
           'aria-hidden': '',
           'tabindex': '-1',

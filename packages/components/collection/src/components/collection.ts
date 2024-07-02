@@ -1,6 +1,6 @@
 import { type Ref, computed, defineComponent, getCurrentInstance, h, markRaw, ref, watch, watchEffect } from 'vue'
 import { createContext } from '@destyler/shared'
-import { DestylerSlot } from '@destyler/primitive'
+import { Slot } from '@destyler/primitive'
 import { useCustomElement } from '@destyler/composition'
 
 // eslint-disable-next-line ts/ban-types
@@ -30,7 +30,7 @@ export function createCollection<ItemData = {}>(attrName = ITEM_DATA_ATTR) {
   return { getItems, reactiveItems, itemMapSize }
 }
 
-export const DestylerCollectionSlot = defineComponent({
+export const CollectionSlot = defineComponent({
   name: 'DestylerCollectionSlot',
   setup(_, { slots }) {
     const context = injectCollectionContext()
@@ -38,11 +38,11 @@ export const DestylerCollectionSlot = defineComponent({
     watch(currentElement, () => {
       context.collectionRef.value = currentElement.value
     })
-    return () => h(DestylerSlot, { ref: customElement }, slots)
+    return () => h(Slot, { ref: customElement }, slots)
   },
 })
 
-export const DestylerCollectionItem = defineComponent({
+export const CollectionItem = defineComponent({
   name: 'DestylerCollectionItem',
   setup(_, { slots, attrs }) {
     const context = injectCollectionContext()
@@ -57,7 +57,7 @@ export const DestylerCollectionItem = defineComponent({
       }
     })
 
-    return () => h(DestylerSlot, { ...attrs, [context.attrName]: '', ref: customElement }, slots)
+    return () => h(Slot, { ...attrs, [context.attrName]: '', ref: customElement }, slots)
   },
 })
 

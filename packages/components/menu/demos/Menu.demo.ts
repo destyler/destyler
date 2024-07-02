@@ -1,9 +1,9 @@
 import { defineComponent, h, ref } from 'vue'
 import {
-  DestylerMenuAnchor,
-  DestylerMenuContent,
-  DestylerMenuPortal,
-  DestylerMenuRoot,
+  MenuAnchor,
+  MenuContent,
+  MenuPortal,
+  MenuRoot,
 } from '../src'
 
 export const MenuDemo = defineComponent({
@@ -22,20 +22,20 @@ export const MenuDemo = defineComponent({
   },
   render() {
     return [
-      h(DestylerMenuRoot, {
+      h(MenuRoot, {
         open: this.open,
         modal: false,
       }, [
-        h(DestylerMenuAnchor, {
+        h(MenuAnchor, {
           asChild: true,
         }, () => h('button', {
           onPointerdown: () => {
             this.handleToggle(!this.open)
           },
         }, this.open)),
-        h(DestylerMenuPortal, {
+        h(MenuPortal, {
 
-        }, h(DestylerMenuContent, {
+        }, h(MenuContent, {
           align: 'start',
           alignOffset: -4,
           sideOffset: 8,

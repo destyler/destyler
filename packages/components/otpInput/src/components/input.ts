@@ -5,7 +5,7 @@ import { useArrowNavigation } from '@destyler/composition'
 
 import { injectOtpInputRootContext } from './root'
 
-export const destylerOtpInputProps = {
+export const otpInputProps = {
   index: {
     type: Number as PropType<number>,
     required: true,
@@ -16,11 +16,11 @@ export const destylerOtpInputProps = {
   },
 } as const
 
-export type DestylerOtpInputProps = ExtractPublicPropTypes<typeof destylerOtpInputProps>
+export type OtpInputProps = ExtractPublicPropTypes<typeof otpInputProps>
 
-export const DestylerOtpInput = defineComponent({
+export const OtpInput = defineComponent({
   name: 'DestylerOtpInput',
-  props: destylerOtpInputProps,
+  props: otpInputProps,
   setup(props) {
     const context = injectOtpInputRootContext()
     const inputElements = computed(() => Array.from(context.inputElements!.value))

@@ -1,22 +1,12 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose, useId, useVModel } from '@destyler/composition'
 
-export const destylerTabsRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const tabsRootProps = {
+  ...primitiveProps,
   modelValue: {
     type: String as PropType<string>,
     required: false,
@@ -41,7 +31,7 @@ export const destylerTabsRootProps = {
   },
 } as const
 
-export type DestylerTabsRootProps = ExtractPublicPropTypes<typeof destylerTabsRootProps>
+export type TabsRootProps = ExtractPublicPropTypes<typeof tabsRootProps>
 
 export interface TabsRootContext {
   modelValue: Ref<string | undefined>
@@ -55,9 +45,9 @@ export interface TabsRootContext {
 
 export const [injectTabsRootContext, provideTabsRootContext] = createContext<TabsRootContext>('DestylerTabsRoot')
 
-export const DestylerTabsRoot = defineComponent({
+export const TabsRoot = defineComponent({
   name: 'DestylerTabsRoot',
-  props: destylerTabsRootProps,
+  props: tabsRootProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const { orientation, dir: propDir } = toRefs(props)
@@ -89,7 +79,7 @@ export const DestylerTabsRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'dir': this.dir,

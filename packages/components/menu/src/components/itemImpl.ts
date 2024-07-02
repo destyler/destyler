@@ -1,23 +1,13 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isMouseEvent } from '@destyler/shared'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { injectMenuContentContext } from './contentImpl'
 
-export const destylerMenuItemImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const menuItemImplProps = {
+  ...primitiveProps,
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -28,11 +18,11 @@ export const destylerMenuItemImplProps = {
   },
 } as const
 
-export type DestylerMenuItemImplProps = ExtractPublicPropTypes<typeof destylerMenuItemImplProps>
+export type MenuItemImplProps = ExtractPublicPropTypes<typeof menuItemImplProps>
 
-export const DestylerMenuItemImpl = defineComponent({
+export const MenuItemImpl = defineComponent({
   name: 'DestylerMenuItemImpl',
-  props: destylerMenuItemImplProps,
+  props: menuItemImplProps,
   setup(props) {
     const contentContext = injectMenuContentContext()
 
@@ -74,7 +64,7 @@ export const DestylerMenuItemImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'role': 'menuitem',
       'tabindex': -1,
       'as': this.$props.as,

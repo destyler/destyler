@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { DestylerAspectRadio } from '../src'
+import { AspectRadio } from '../src'
 </script>
 
 <template>
-  <DestylerAspectRadio :aspect-ratio="16 / 9">
+  <AspectRadio :aspect-ratio="16 / 9">
     <img
       class="img"
       src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"
     >
-  </DestylerAspectRadio>
+  </AspectRadio>
 </template>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { DestylerMenuGroup, DestylerMenuItem, DestylerMenuLabel, DestylerMenuSeparator } from '../src'
-import DestylerMenuWithAnchor from './MenuWithAnchor.spec.vue'
+import { MenuGroup, MenuItem, MenuLabel, MenuSeparator } from '../src'
+import MenuWithAnchor from './MenuWithAnchor.spec.vue'
 
 const emits = defineEmits(['select'])
 
@@ -51,21 +51,21 @@ const foodGroups: Array<{
 </script>
 
 <template>
-  <DestylerMenuWithAnchor>
-    <DestylerMenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
-      <DestylerMenuLabel
+  <MenuWithAnchor>
+    <MenuGroup v-for="(foodGroup, index) in foodGroups" :key="index">
+      <MenuLabel
         v-if="foodGroup.label"
       >
         {{ foodGroup.label }}
-      </DestylerMenuLabel>
-      <DestylerMenuItem
+      </MenuLabel>
+      <MenuItem
         v-for="(food) in foodGroup.foods"
         :key="food.value"
         @select="handleSelect(); emits('select', $event)"
       >
         {{ food.label }}
-      </DestylerMenuItem>
-      <DestylerMenuSeparator v-if="index < foodGroups.length - 1" />
-    </DestylerMenuGroup>
-  </DestylerMenuWithAnchor>
+      </MenuItem>
+      <MenuSeparator v-if="index < foodGroups.length - 1" />
+    </MenuGroup>
+  </MenuWithAnchor>
 </template>

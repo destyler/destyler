@@ -1,29 +1,24 @@
-import { type Component, type PropType, defineComponent, h, withDirectives } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { defineComponent, h, withDirectives } from 'vue'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { BindOnceDirective } from '@destyler/directives'
 import { injectDynamicItemContext } from './item'
 
-export const destylerDynamicItemTextProps = {
+export const dynamicItemTextProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerDynamicItemTextProps = ExtractPublicPropTypes<typeof destylerDynamicItemTextProps>
+export type DynamicItemTextProps = ExtractPublicPropTypes<typeof dynamicItemTextProps>
 
-export const DestylerDynamicItemText = defineComponent({
+export const DynamicItemText = defineComponent({
   name: 'DestylerDynamicItemText',
-  props: destylerDynamicItemTextProps,
+  props: dynamicItemTextProps,
   setup() {
     const itemContext = injectDynamicItemContext()
     useForwardExpose()
@@ -33,7 +28,7 @@ export const DestylerDynamicItemText = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, this.$props, () => this.$slots.default ? this.$slots.default?.() : this.itemContext.value.value), [
+    return withDirectives(h(Primitive, this.$props, () => this.$slots.default ? this.$slots.default?.() : this.itemContext.value.value), [
       [BindOnceDirective, { id: this.itemContext.textId }],
     ])
   },

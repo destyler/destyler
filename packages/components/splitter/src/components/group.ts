@@ -1,10 +1,9 @@
-import type { CSSProperties, Component, PropType, Ref } from 'vue'
+import type { CSSProperties, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watch, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { areEqual, createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { assert } from '../utils/assert'
 import debounce from '../utils/debounce'
@@ -33,17 +32,8 @@ const defaultStorage: PanelGroupStorage = {
   },
 }
 
-export const destylerSplitterGroupProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const splitterGroupProps = {
+  ...primitiveProps,
   id: {
     type: String as PropType<string>,
     required: false,
@@ -69,7 +59,7 @@ export const destylerSplitterGroupProps = {
   },
 } as const
 
-export type DestylerSplitterGroupProps = ExtractPublicPropTypes<typeof destylerSplitterGroupProps>
+export type SplitterGroupProps = ExtractPublicPropTypes<typeof splitterGroupProps>
 
 export interface PanelGroupContext {
   direction: 'horizontal' | 'vertical'
@@ -88,9 +78,9 @@ export interface PanelGroupContext {
 
 export const [injectPanelGroupContext, providePanelGroupContext] = createContext<PanelGroupContext>('PanelGroup')
 
-export const DestylerSplitterGroup = defineComponent({
+export const SplitterGroup = defineComponent({
   name: 'DestylerSplitterGroup',
-  props: destylerSplitterGroupProps,
+  props: splitterGroupProps,
   emits: ['layout'],
   setup(props, { emit }) {
     const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100
@@ -541,7 +531,7 @@ export const DestylerSplitterGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'ref': (el: any) => this.forwardRef(el),

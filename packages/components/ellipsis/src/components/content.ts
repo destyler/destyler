@@ -3,21 +3,21 @@ import { useForwardPropsEmits } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectEllipsisRootContext } from './root'
-import { DestylerEllipsisContentImpl, destylerEllipsisContentImplEmits, destylerEllipsisContentImplProps } from './contentImpl'
-import { DestylerEllipsisContentHoverable } from './contentHoverable'
+import { EllipsisContentImpl, ellipsisContentImplEmits, ellipsisContentImplProps } from './contentImpl'
+import { EllipsisContentHoverable } from './contentHoverable'
 
-export const destylerEllipsisContentProps = {
-  ...destylerEllipsisContentImplProps,
+export const ellipsisContentProps = {
+  ...ellipsisContentImplProps,
 } as const
 
-export type DestylerEllipsisContentProps = ExtractPublicPropTypes<typeof destylerEllipsisContentProps>
+export type EllipsisContentProps = ExtractPublicPropTypes<typeof ellipsisContentProps>
 
-export const destylerEllipsisContentEmits = [...destylerEllipsisContentImplEmits]
+export const ellipsisContentEmits = [...ellipsisContentImplEmits]
 
-export const DestylerEllipsisContent = defineComponent({
+export const EllipsisContent = defineComponent({
   name: 'DestylerEllipsisContent',
-  props: destylerEllipsisContentProps,
-  emits: destylerEllipsisContentEmits,
+  props: ellipsisContentProps,
+  emits: ellipsisContentEmits,
   setup(props, { emit }) {
     const rootContext = injectEllipsisRootContext()
     const forwarded = useForwardPropsEmits(props, emit)
@@ -30,7 +30,7 @@ export const DestylerEllipsisContent = defineComponent({
   render() {
     const useVShow = this.rootContext.open.value
     return useVShow
-      ? h(this.rootContext.disableHoverableContent.value ? DestylerEllipsisContentImpl : DestylerEllipsisContentHoverable, {
+      ? h(this.rootContext.disableHoverableContent.value ? EllipsisContentImpl : EllipsisContentHoverable, {
         ...this.forwarded,
       }, () => this.$slots.default ? this.$slots.default?.({ text: this.rootContext.text.value }) : this.rootContext.text.value)
       : null

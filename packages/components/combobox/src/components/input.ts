@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, withKeys } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectComboboxRootContext } from './root'
 
-export const destylerComboboxInputProps = {
-  ...destylerPrimitiveProps,
+export const comboboxInputProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'input',
   },
   type: {
@@ -27,11 +27,11 @@ export const destylerComboboxInputProps = {
   },
 } as const
 
-export type DestylerComboboxInputProps = ExtractPublicPropTypes<typeof destylerComboboxInputProps>
+export type ComboboxInputProps = ExtractPublicPropTypes<typeof comboboxInputProps>
 
-export const DestylerComboboxInput = defineComponent({
+export const ComboboxInput = defineComponent({
   name: 'DestylerComboboxInput',
-  props: destylerComboboxInputProps,
+  props: comboboxInputProps,
   setup(props) {
     const rootContext = injectComboboxRootContext()
 
@@ -83,7 +83,7 @@ export const DestylerComboboxInput = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

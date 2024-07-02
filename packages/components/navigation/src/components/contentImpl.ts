@@ -1,9 +1,7 @@
-import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watchEffect, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useForwardExpose } from '@destyler/composition'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
+import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { EVENT_ROOT_CONTENT_DISMISS, focusFirst, getOpenState, getTabbableCandidates, makeContentId, makeTriggerId } from '../utils'
@@ -16,38 +14,15 @@ export type FocusOutsideEvent = CustomEvent<{ originalEvent: FocusEvent }>
 
 export type PointerDownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
 
-export const destylerNavigationContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  disableOutsidePointerEvents: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  isDismissable: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+export const navigationContentImplProps = {
+  ...dismissableLayerProps,
 } as const
 
-export type DestylerNavigationContentImplProps = ExtractPublicPropTypes<typeof destylerNavigationContentImplProps>
+export type NavigationContentImplProps = ExtractPublicPropTypes<typeof navigationContentImplProps>
 
-export const DestylerNavigationContentImpl = defineComponent({
+export const NavigationContentImpl = defineComponent({
   name: 'DestylerNavigationContentImpl',
-  props: destylerNavigationContentImplProps,
+  props: navigationContentImplProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
     const { injectCollection } = useCollection('nav')
@@ -199,7 +174,7 @@ export const DestylerNavigationContentImpl = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerDismissableLayer, mergeProps(this.$props, {
+    return withDirectives(h(DismissableLayer, mergeProps(this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'aria-labelledby': this.triggerId,
       'data-motion': this.motionAttribute,

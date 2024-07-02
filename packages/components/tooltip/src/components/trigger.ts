@@ -1,9 +1,7 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import { PopperAnchor } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectTooltipRootContext } from './root'
@@ -11,24 +9,19 @@ import { injectTooltipProviderContext } from './provider'
 
 export type TooltipTriggerDataState = | 'closed' | 'delayed-open' | 'instant-open'
 
-export const destylerTooltipTriggerProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const tooltipTriggerProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerTooltipTriggerProps = ExtractPublicPropTypes<typeof destylerTooltipTriggerProps>
+export type TooltipTriggerProps = ExtractPublicPropTypes<typeof tooltipTriggerProps>
 
-export const DestylerTooltipTrigger = defineComponent({
+export const TooltipTrigger = defineComponent({
   name: 'DestylerTooltipTrigger',
-  props: destylerTooltipTriggerProps,
+  props: tooltipTriggerProps,
   setup() {
     const rootContext = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()
@@ -61,9 +54,9 @@ export const DestylerTooltipTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperAnchor, {
+    return h(PopperAnchor, {
       asChild: true,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'aria-describedby': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.stateAttribute.value,

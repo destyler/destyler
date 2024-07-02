@@ -3,7 +3,7 @@ import { Teleport, defineComponent, h } from 'vue'
 import { useMounted } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerTeleportProps = {
+export const teleportPrimitiveProps = {
   to: {
     type: [String, Object] as PropType<string | HTMLElement>,
     required: false,
@@ -21,11 +21,11 @@ export const destylerTeleportProps = {
   },
 } as const
 
-export type DestylerTeleportProps = ExtractPublicPropTypes<typeof destylerTeleportProps>
+export type TeleportPrimitiveProps = ExtractPublicPropTypes<typeof teleportPrimitiveProps>
 
-export const DestylerTeleport = defineComponent({
-  name: 'DestylerTeleport',
-  props: destylerTeleportProps,
+export const TeleportPrimitive = defineComponent({
+  name: 'DestylerTeleportPrimitive',
+  props: teleportPrimitiveProps,
   setup() {
     const isMounted = useMounted()
 

@@ -1,2 +1,2 @@
-export { DestylerArrow, destylerArrowProps } from './components/arrow'
-export type { DestylerArrowProps } from './components/arrow'
+export { Arrow, arrowProps } from './components/arrow'
+export type { ArrowProps } from './components/arrow'

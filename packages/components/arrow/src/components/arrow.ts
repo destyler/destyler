@@ -1,13 +1,13 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerArrowProps = {
-  ...destylerPrimitiveProps,
+export const arrowProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'svg',
   },
   width: {
@@ -22,16 +22,16 @@ export const destylerArrowProps = {
   },
 } as const
 
-export type DestylerArrowProps = ExtractPublicPropTypes<typeof destylerArrowProps>
+export type ArrowProps = ExtractPublicPropTypes<typeof arrowProps>
 
-export const DestylerArrow = defineComponent({
+export const Arrow = defineComponent({
   name: 'DestylerArrow',
-  props: destylerArrowProps,
+  props: arrowProps,
   setup(_) {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       width: this.$props.width,
       height: this.$props.height,
       viewBox: this.asChild ? undefined : '0 0 30 10',

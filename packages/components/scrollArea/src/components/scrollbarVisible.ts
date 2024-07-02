@@ -8,8 +8,8 @@ import type { Sizes } from '../types'
 import { getScrollPositionFromPointer, getThumbOffsetFromScroll, getThumbRatio, isScrollingWithinScrollbarBounds } from '../utils'
 import { injectScrollAreaRootContext } from './root'
 import { injectScrollAreaScrollbarContext } from './scrollbar'
-import { DestylerScrollAreaScrollbarX } from './scrollbarX'
-import { DestylerScrollAreaScrollbarY } from './scrollbarY'
+import { ScrollAreaScrollbarX } from './scrollbarX'
+import { ScrollAreaScrollbarY } from './scrollbarY'
 
 export interface ScrollAreaScrollbarVisibleContext {
   sizes: Ref<Sizes>
@@ -28,7 +28,7 @@ export interface ScrollAreaScrollbarVisibleContext {
 
 export const [injectScrollAreaScrollbarVisibleContext, provideScrollAreaScrollbarVisibleContext] = createContext<ScrollAreaScrollbarVisibleContext>('DestylerScrollAreaScrollbarVisible')
 
-export const DestylerScrollAreaScrollbarVisible = defineComponent({
+export const ScrollAreaScrollbarVisible = defineComponent({
   name: 'DestylerScrollAreaScrollbarVisible',
   setup() {
     const rootContext = injectScrollAreaRootContext()
@@ -147,12 +147,12 @@ export const DestylerScrollAreaScrollbarVisible = defineComponent({
   },
   render() {
     return this.isShowingScrollbarX
-      ? h(DestylerScrollAreaScrollbarX, mergeProps(this.$props, {
+      ? h(ScrollAreaScrollbarX, mergeProps(this.$props, {
         ref: (el: any) => this.forwardRef(el),
       }), {
         default: () => this.$slots.default?.(),
       })
-      : h(DestylerScrollAreaScrollbarY, mergeProps(this.$props, {
+      : h(ScrollAreaScrollbarY, mergeProps(this.$props, {
         ref: (el: any) => this.forwardRef(el),
       }), {
         default: () => this.$slots.default?.(),

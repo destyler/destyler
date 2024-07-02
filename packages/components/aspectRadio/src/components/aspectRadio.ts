@@ -1,11 +1,11 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerAspectRadioProps = {
-  ...destylerPrimitiveProps,
+export const aspectRadioProps = {
+  ...primitiveProps,
   aspectRatio: {
     type: Number as PropType<number>,
     required: false,
@@ -13,12 +13,12 @@ export const destylerAspectRadioProps = {
   },
 } as const
 
-export type DestylerAspectRadioProps = ExtractPublicPropTypes<typeof destylerAspectRadioProps>
+export type AspectRadioProps = ExtractPublicPropTypes<typeof aspectRadioProps>
 
-export const DestylerAspectRadio = defineComponent({
+export const AspectRadio = defineComponent({
   name: 'DestylerAspectRadio',
   inheritAttrs: false,
-  props: destylerAspectRadioProps,
+  props: aspectRadioProps,
   setup(props) {
     const { forwardRef } = useForwardExpose()
 
@@ -39,7 +39,7 @@ export const DestylerAspectRadio = defineComponent({
         paddingBottom: `${this.aspect}%`,
       },
       'data-destyler-aspect-ratio-wrapper': '',
-    }, h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, h(Primitive, mergeProps(this.$attrs, {
       ref: (el: any) => this.forwardRef(el),
       as: this.$props.as,
       asChild: this.$props.asChild,

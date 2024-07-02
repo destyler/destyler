@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run component:count",
+    "dev": "pnpm run --filter \"./packages/**\" -r stub",
     "play": "pnpm -C playground run dev",
     "play:vue": "pnpm -C examples/vue run dev",
     "play:nuxt": "pnpm -C examples/nuxt run dev",

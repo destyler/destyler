@@ -1,7 +1,6 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
 import type { Formatter } from '@destyler/composition'
 import { useForwardExpose, useVModel } from '@destyler/composition'
@@ -11,17 +10,8 @@ import { createContext, createDecade, createYear, getDefaultDate, handleCalendar
 import { useCalendar } from '@destyler/calendar/dist/composition'
 import { useRangeCalendarState } from '../composition/use-range-calendar-state'
 
-export const destylerRangeCalendarRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const rangeCalendarRootProps = {
+  ...primitiveProps,
   defaultPlaceholder: {
     type: Object as PropType<DateValue>,
     required: false,
@@ -114,7 +104,7 @@ export const destylerRangeCalendarRootProps = {
   },
 } as const
 
-export type DestylerRangeCalendarRootProps = ExtractPublicPropTypes<typeof destylerRangeCalendarRootProps>
+export type RangeCalendarRootProps = ExtractPublicPropTypes<typeof rangeCalendarRootProps>
 
 export interface RangeCalendarRootContext {
   modelValue: Ref<{ start: DateValue | undefined, end: DateValue | undefined }>
@@ -154,9 +144,9 @@ export interface RangeCalendarRootContext {
 
 export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext] = createContext<RangeCalendarRootContext>('DestylerRangeCalendarRoot')
 
-export const DestylerRangeCalendarRoot = defineComponent({
+export const RangeCalendarRoot = defineComponent({
   name: 'DestylerRangeCalendarRoot',
-  props: destylerRangeCalendarRootProps,
+  props: rangeCalendarRootProps,
   emits: ['update:modelValue', 'update:placeholder'],
   setup(props, { emit }) {
     const {
@@ -362,7 +352,7 @@ export const DestylerRangeCalendarRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

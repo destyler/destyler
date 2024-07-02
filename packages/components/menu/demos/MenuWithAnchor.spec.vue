@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { useVModel } from '@destyler/composition'
 import {
-  DestylerMenuAnchor,
-  DestylerMenuContent,
-  DestylerMenuPortal,
-  DestylerMenuRoot,
+  MenuAnchor,
+  MenuContent,
+  MenuPortal,
+  MenuRoot,
 } from '../src'
 
-interface DestylerMenuProps {
+interface MenuProps {
   open?: boolean
   dir?: string
   modal?: boolean
 }
 
-interface Props extends DestylerMenuProps {}
+interface Props extends MenuProps {}
 const props = withDefaults(defineProps<Props>(), {
   open: true,
 })
@@ -22,15 +22,15 @@ const open = useVModel(props, 'open')
 </script>
 
 <template>
-  <DestylerMenuRoot :open="open" :modal="false">
-    <DestylerMenuAnchor :style="{ display: 'inline-block' }" />
-    <DestylerMenuPortal>
-      <DestylerMenuContent
+  <MenuRoot :open="open" :modal="false">
+    <MenuAnchor :style="{ display: 'inline-block' }" />
+    <MenuPortal>
+      <MenuContent
         align="start"
         @close-auto-focus.prevent
       >
         <slot />
-      </DestylerMenuContent>
-    </DestylerMenuPortal>
-  </DestylerMenuRoot>
+      </MenuContent>
+    </MenuPortal>
+  </MenuRoot>
 </template>

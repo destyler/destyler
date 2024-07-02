@@ -2,18 +2,18 @@
 import { ref } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 import type {
-  DestylerCollapseRootProps,
+  CollapseRootProps,
 } from '../src'
 import {
-  DestylerCollapseContent,
-  DestylerCollapseHeader,
-  DestylerCollapseItem,
-  DestylerCollapseRoot,
-  DestylerCollapseTrigger,
+  CollapseContent,
+  CollapseHeader,
+  CollapseItem,
+  CollapseRoot,
+  CollapseTrigger,
 } from '../src'
 
 withDefaults(defineProps<{
-  type?: DestylerCollapseRootProps['type']
+  type?: CollapseRootProps['type']
 }>(), {
   type: 'single',
 })
@@ -23,28 +23,28 @@ const count = ref(1)
 </script>
 
 <template>
-  <DestylerCollapseRoot
+  <CollapseRoot
     v-bind="useEmitAsProps(emits)"
     :type="type"
   >
-    <DestylerCollapseItem
+    <CollapseItem
       v-for="value in values"
       :key="value"
       :value="value"
     >
-      <DestylerCollapseHeader>
-        <DestylerCollapseTrigger>
+      <CollapseHeader>
+        <CollapseTrigger>
           {{ value }}
-        </DestylerCollapseTrigger>
-      </DestylerCollapseHeader>
-      <DestylerCollapseContent
+        </CollapseTrigger>
+      </CollapseHeader>
+      <CollapseContent
         v-for="i in count"
         :key="i"
       >
         <div>
           Content {{ value }}
         </div>
-      </DestylerCollapseContent>
-    </DestylerCollapseItem>
-  </DestylerCollapseRoot>
+      </CollapseContent>
+    </CollapseItem>
+  </CollapseRoot>
 </template>

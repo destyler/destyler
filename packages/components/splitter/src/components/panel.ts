@@ -1,7 +1,6 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, watch, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { BindOnceDirective } from '@destyler/directives'
 
@@ -9,17 +8,8 @@ import type { PanelData } from '../types'
 import { useUniqueId } from '../composables/useUniqueId'
 import { injectPanelGroupContext } from './group'
 
-export const destylerSplitterPanelProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const splitterPanelProps = {
+  ...primitiveProps,
   collapsedSize: {
     type: Number as PropType<number>,
     required: false,
@@ -50,11 +40,11 @@ export const destylerSplitterPanelProps = {
   },
 } as const
 
-export type DestylerSplitterPanelProps = ExtractPublicPropTypes<typeof destylerSplitterPanelProps>
+export type SplitterPanelProps = ExtractPublicPropTypes<typeof splitterPanelProps>
 
-export const DestylerSplitterPanel = defineComponent({
+export const SplitterPanel = defineComponent({
   name: 'DestylerSplitterPanel',
-  props: destylerSplitterPanelProps,
+  props: splitterPanelProps,
   emits: ['collapse', 'expand', 'resize'],
   setup(props, { emit }) {
     const panelGroupContext = injectPanelGroupContext()
@@ -110,7 +100,7 @@ export const DestylerSplitterPanel = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, {
+    return withDirectives(h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'style': this.style,

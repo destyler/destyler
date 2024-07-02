@@ -2,11 +2,11 @@ import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps, useForwardExpose, useHideOthers } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
-import { DestylerDialogContentImpl, destylerDialogContentImplProps } from './contentImpl'
+import { DialogContentImpl, dialogContentImplProps } from './contentImpl'
 
-export const DestylerDialogContentModal = defineComponent({
+export const DialogContentModal = defineComponent({
   name: 'DestylerDialogContentModal',
-  props: destylerDialogContentImplProps,
+  props: dialogContentImplProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
@@ -24,7 +24,7 @@ export const DestylerDialogContentModal = defineComponent({
     }
   },
   render() {
-    return h(DestylerDialogContentImpl, mergeProps(this.$props, this.emitsAsProps, {
+    return h(DialogContentImpl, mergeProps(this.$props, this.emitsAsProps, {
       'ref': (el: any) => this.forwardRef(el),
       'trap-focus': this.rootContext.open.value,
       'disableOutsidePointerEvents': true,

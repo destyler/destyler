@@ -5,17 +5,17 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { provideSelectRootContext } from './root'
 import type { SelectRootContext } from './root'
 
-export const destylerSelectProviderProps = {
+export const selectProviderProps = {
   context: {
     type: Object as PropType<SelectRootContext>,
   },
 } as const
 
-export type DestylerSelectProviderProps = ExtractPublicPropTypes<typeof destylerSelectProviderProps>
+export type SelectProviderProps = ExtractPublicPropTypes<typeof selectProviderProps>
 
-export const DestylerSelectProvider = defineComponent({
+export const SelectProvider = defineComponent({
   name: 'DestylerSelectProvider',
-  props: destylerSelectProviderProps,
+  props: selectProviderProps,
   setup(props) {
     provideSelectRootContext(props.context!)
   },

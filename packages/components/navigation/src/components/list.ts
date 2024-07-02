@@ -1,29 +1,23 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectNavigationContext } from './root'
 
-export const destylerNavigationListProps = {
+export const navigationListProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'ul',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerNavigationListProps = ExtractPublicPropTypes<typeof destylerNavigationListProps>
+export type NavigationListProps = ExtractPublicPropTypes<typeof navigationListProps>
 
-export const DestylerNavigationList = defineComponent({
+export const NavigationList = defineComponent({
   name: 'DestylerNavigationList',
-  props: destylerNavigationListProps,
+  props: navigationListProps,
   setup() {
     const rootContext = injectNavigationContext()
     const { forwardRef, currentElement } = useForwardExpose()
@@ -38,12 +32,12 @@ export const DestylerNavigationList = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       ref: (el: any) => this.forwardRef(el),
       style: {
         position: 'relative',
       },
-    }, () => h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, () => h(Primitive, mergeProps(this.$attrs, {
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-orientation': this.rootContext.orientation,

@@ -1,48 +1,19 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerToggleGroupItem } from '@destyler/toggle'
+import { ToggleGroupItem, toggleGroupItemProps } from '@destyler/toggle'
 
-import { DestylerToolbarButton } from './button'
+import { ToolbarButton } from './button'
 
-export const destylerToolbarToggleItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  defaultValue: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  pressed: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: undefined,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  value: {
-    type: String as PropType<string>,
-    required: true,
-  },
+export const toolbarToggleItemProps = {
+  ...toggleGroupItemProps,
 } as const
 
-export type DestylerToolbarToggleItemProps = ExtractPublicPropTypes<typeof destylerToolbarToggleItemProps>
+export type ToolbarToggleItemProps = ExtractPublicPropTypes<typeof toolbarToggleItemProps>
 
-export const DestylerToolbarToggleItem = defineComponent({
+export const ToolbarToggleItem = defineComponent({
   name: 'DestylerToolbarToggleItem',
-  props: destylerToolbarToggleItemProps,
+  props: toolbarToggleItemProps,
   setup() {
     const { forwardRef } = useForwardExpose()
 
@@ -51,11 +22,11 @@ export const DestylerToolbarToggleItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerToolbarButton, {
+    return h(ToolbarButton, {
       asChild: true,
     }, {
       default: () => {
-        return h(DestylerToggleGroupItem, {
+        return h(ToggleGroupItem, {
           ...this.$props,
           ref: (el: any) => this.forwardRef(el),
         }, {

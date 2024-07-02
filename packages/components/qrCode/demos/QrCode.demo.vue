@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
-  DestylerQrCodeItem,
-  DestylerQrCodeRoot,
+  QrCodeItem,
+  QrCodeRoot,
 } from '../src'
 </script>
 
 <template>
-  <DestylerQrCodeRoot value="https://elonehoo.me">
-    <DestylerQrCodeItem />
-  </DestylerQrCodeRoot>
+  <QrCodeRoot value="https://elonehoo.me">
+    <QrCodeItem />
+  </QrCodeRoot>
 </template>

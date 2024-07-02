@@ -1,31 +1,24 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
-import { DestylerPopperAnchor } from '@destyler/popper'
+import { Primitive, primitiveProps } from '@destyler/primitive'
+import { PopperAnchor } from '@destyler/popper'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectPopoverRootContext } from './root'
 
-export const destylerPopoverTriggerProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const popoverTriggerProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerPopoverTriggerProps = ExtractPublicPropTypes<typeof destylerPopoverTriggerProps>
+export type PopoverTriggerProps = ExtractPublicPropTypes<typeof popoverTriggerProps>
 
-export const DestylerPopoverTrigger = defineComponent({
+export const PopoverTrigger = defineComponent({
   name: 'DestylerPopoverTrigger',
-  props: destylerPopoverTriggerProps,
+  props: popoverTriggerProps,
   setup() {
     const rootContext = injectPopoverRootContext()
 
@@ -41,9 +34,9 @@ export const DestylerPopoverTrigger = defineComponent({
     }
   },
   render() {
-    return h(this.rootContext.hasCustomAnchor.value ? DestylerPrimitive : DestylerPopperAnchor, {
+    return h(this.rootContext.hasCustomAnchor.value ? Primitive : PopperAnchor, {
       asChild: true,
-    }, () => h(DestylerPrimitive, {
+    }, () => h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,

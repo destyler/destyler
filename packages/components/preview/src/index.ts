@@ -1,2 +1,2 @@
-export { DestylerPreviewRoot, type DestylerPreviewRootProps } from './components/root'
-export { DestylerPreviewDialog, type DestylerPreviewDialogProps } from './components/dialog'
+export { PreviewRoot, previewRootProps, type PreviewRootProps } from './components/root'
+export { PreviewDialog, previewDialogProps, type PreviewDialogProps } from './components/dialog'

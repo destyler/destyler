@@ -33,7 +33,8 @@
   "scripts": {
     "clear": "rimraf ./dist",
     "prepublishOnly": "pnpm run build",
-    "build": "pnpm run clear && unbuild"
+    "build": "pnpm run clear && unbuild",
+    "stub": "unbuild --stub"
   },
   "peerDependencies": {
     "vue": "^3.3.4"

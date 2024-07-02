@@ -1,1 +1,1 @@
-export { DestylerButton, destylerButtonProps, type DestylerButtonProps } from './components/button'
+export { Button, buttonProps, type ButtonProps } from './components/button'

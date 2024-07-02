@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
-export const destylerDialogRootProps = {
+export const dialogRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,7 +22,7 @@ export const destylerDialogRootProps = {
   },
 } as const
 
-export type DestylerDialogRootProps = ExtractPublicPropTypes<typeof destylerDialogRootProps>
+export type DialogRootProps = ExtractPublicPropTypes<typeof dialogRootProps>
 
 export interface DialogRootContext {
   open: Readonly<Ref<boolean>>
@@ -39,9 +39,9 @@ export interface DialogRootContext {
 
 export const [injectDialogRootContext, provideDialogRootContext] = createContext<DialogRootContext>('DestylerDialogRoot')
 
-export const DestylerDialogRoot = defineComponent({
+export const DialogRoot = defineComponent({
   name: 'DestylerDialogRoot',
-  props: destylerDialogRootProps,
+  props: dialogRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {

@@ -1,22 +1,12 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, ScrollType } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
 
-export const destylerScrollAreaRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const scrollAreaRootProps = {
+  ...primitiveProps,
   type: {
     type: String as PropType<ScrollType>,
     required: false,
@@ -33,7 +23,7 @@ export const destylerScrollAreaRootProps = {
   },
 } as const
 
-export type DestylerScrollAreaRootProps = ExtractPublicPropTypes<typeof destylerScrollAreaRootProps>
+export type ScrollAreaRootProps = ExtractPublicPropTypes<typeof scrollAreaRootProps>
 
 export interface ScrollAreaRootContext {
   type: Ref<ScrollType>
@@ -58,9 +48,9 @@ export interface ScrollAreaRootContext {
 
 export const [injectScrollAreaRootContext, provideScrollAreaRootContext] = createContext<ScrollAreaRootContext>('DestylerScrollAreaRoot')
 
-export const DestylerScrollAreaRoot = defineComponent({
+export const ScrollAreaRoot = defineComponent({
   name: 'DestylerScrollAreaRoot',
-  props: destylerScrollAreaRootProps,
+  props: scrollAreaRootProps,
   setup(props) {
     const { forwardRef, currentElement: scrollArea } = useForwardExpose()
 
@@ -120,7 +110,7 @@ export const DestylerScrollAreaRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       ref: (el: any) => this.forwardRef(el),

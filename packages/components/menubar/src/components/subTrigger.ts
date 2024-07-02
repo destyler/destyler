@@ -1,41 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuSubTrigger } from '@destyler/menu'
+import { MenuSubTrigger, menuSubTriggerProps } from '@destyler/menu'
 
-export const destylerMenubarSubTriggerProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  textValue: {
-    type: String as PropType<string>,
-    required: false,
-  },
+export const menubarSubTriggerProps = {
+  ...menuSubTriggerProps,
 } as const
 
-export type DestylerMenubarSubTriggerProps = ExtractPublicPropTypes<typeof destylerMenubarSubTriggerProps>
+export type MenubarSubTriggerProps = ExtractPublicPropTypes<typeof menubarSubTriggerProps>
 
-export const DestylerMenubarSubTrigger = defineComponent({
+export const MenubarSubTrigger = defineComponent({
   name: 'DestylerMenubarSubTrigger',
-  props: destylerMenubarSubTriggerProps,
+  props: menubarSubTriggerProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuSubTrigger, mergeProps(this.$props, {
+    return h(MenuSubTrigger, mergeProps(this.$props, {
       'data-destyler-menubar-subtrigger': '',
     }), () => this.$slots.default?.())
   },

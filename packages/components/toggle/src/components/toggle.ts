@@ -1,20 +1,14 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 
-export const destylerToggleProps = {
+export const toggleProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   defaultValue: {
     type: Boolean as PropType<boolean>,
@@ -32,13 +26,13 @@ export const destylerToggleProps = {
   },
 } as const
 
-export type DestylerToggleProps = ExtractPublicPropTypes<typeof destylerToggleProps>
+export type ToggleProps = ExtractPublicPropTypes<typeof toggleProps>
 
 export type DataState = 'on' | 'off'
 
-export const DestylerToggle = defineComponent({
+export const Toggle = defineComponent({
   name: 'DestylerToggle',
-  props: destylerToggleProps,
+  props: toggleProps,
   emits: ['update:pressed'],
   setup(props, { emit }) {
     useForwardExpose()
@@ -62,7 +56,7 @@ export const DestylerToggle = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'type': this.$props.as === 'button' ? 'button' : undefined,

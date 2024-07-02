@@ -1,31 +1,24 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
 
-export const destylerDialogTitleProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dialogTitleProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'h2',
   },
 } as const
 
-export type DestylerDialogTitleProps = ExtractPublicPropTypes<typeof destylerDialogTitleProps>
+export type DialogTitleProps = ExtractPublicPropTypes<typeof dialogTitleProps>
 
-export const DestylerDialogTitle = defineComponent({
+export const DialogTitle = defineComponent({
   name: 'DestylerDialogTitle',
-  props: destylerDialogTitleProps,
+  props: dialogTitleProps,
   setup() {
     useForwardExpose()
     const rootContext = injectDialogRootContext()
@@ -35,7 +28,7 @@ export const DestylerDialogTitle = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, {
+    return withDirectives(h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
     }, () => this.$slots.default?.()), [

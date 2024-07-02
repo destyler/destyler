@@ -1,7 +1,7 @@
 import { cloneVNode, defineComponent, mergeProps } from 'vue'
 import { renderSlotFragments } from '@destyler/shared'
 
-export const DestylerSlot = defineComponent({
+export const Slot = defineComponent({
   name: 'DestylerSlot',
   inheritAttrs: false,
   setup() {

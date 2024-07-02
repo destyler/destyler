@@ -1,8 +1,8 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useArrowNavigation, useCollection, useForwardExpose, useId } from '@destyler/composition'
 import {
   focusFirst,
@@ -13,16 +13,11 @@ import {
 
 import { injectNavigationContext } from './root'
 
-export const destylerNavigationItemProps = {
+export const navigationItemProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'li',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   value: {
     type: String as PropType<string>,
@@ -30,7 +25,7 @@ export const destylerNavigationItemProps = {
   },
 } as const
 
-export type DestylerNavigationItemProps = ExtractPublicPropTypes<typeof destylerNavigationItemProps>
+export type NavigationItemProps = ExtractPublicPropTypes<typeof navigationItemProps>
 
 export interface NavigationItemContext {
   value: string
@@ -46,9 +41,9 @@ export interface NavigationItemContext {
 
 export const [injectNavigationItemContext, provideNavigationItemContext] = createContext<NavigationItemContext>('NavigationItem')
 
-export const DestylerNavigationItem = defineComponent({
+export const NavigationItem = defineComponent({
   name: 'DestylerNavigationItem',
-  props: destylerNavigationItemProps,
+  props: navigationItemProps,
   setup(props) {
     useForwardExpose()
     const { injectCollection } = useCollection('nav')
@@ -137,7 +132,7 @@ export const DestylerNavigationItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-menu-item': '',

@@ -1,26 +1,17 @@
 import type { Component, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onUnmounted, toRefs, watch } from 'vue'
 import { type ExtractPublicPropTypes, createContext } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
+import { type AsTag, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectScrollAreaRootContext } from './root'
-import { DestylerScrollAreaScrollbarHover } from './scrollbarHover'
-import { DestylerScrollAreaScrollbarScroll } from './scrollbarScroll'
-import { DestylerScrollAreaScrollbarAuto } from './scrollbarAuto'
-import { DestylerScrollAreaScrollbarVisible } from './scrollbarVisible'
+import { ScrollAreaScrollbarHover } from './scrollbarHover'
+import { ScrollAreaScrollbarScroll } from './scrollbarScroll'
+import { ScrollAreaScrollbarAuto } from './scrollbarAuto'
+import { ScrollAreaScrollbarVisible } from './scrollbarVisible'
 
-export const destylerScrollAreaScrollbarProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const scrollAreaScrollbarProps = {
+  ...primitiveProps,
   orientation: {
     type: String as PropType<'vertical' | 'horizontal'>,
     required: false,
@@ -32,7 +23,7 @@ export const destylerScrollAreaScrollbarProps = {
   },
 } as const
 
-export type DestylerScrollAreaScrollbarProps = ExtractPublicPropTypes<typeof destylerScrollAreaScrollbarProps>
+export type ScrollAreaScrollbarProps = ExtractPublicPropTypes<typeof scrollAreaScrollbarProps>
 
 export interface ScrollAreaScollbarContext {
   as: Ref<AsTag | Component>
@@ -44,10 +35,10 @@ export interface ScrollAreaScollbarContext {
 
 export const [injectScrollAreaScrollbarContext, provideScrollAreaScrollbarContext] = createContext<ScrollAreaScollbarContext>('DestylerScrollAreaScrollbar')
 
-export const DestylerScrollAreaScrollbar = defineComponent({
+export const ScrollAreaScrollbar = defineComponent({
   name: 'DestylerScrollAreaScrollbar',
   inheritAttrs: false,
-  props: destylerScrollAreaScrollbarProps,
+  props: scrollAreaScrollbarProps,
   setup(props) {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectScrollAreaRootContext()
@@ -85,7 +76,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
   },
   render() {
     if (this.rootContext.type.value === 'hover') {
-      return h(DestylerScrollAreaScrollbarHover, mergeProps(this.$attrs, {
+      return h(ScrollAreaScrollbarHover, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         forceMount: this.$props.forceMount,
       }), {
@@ -93,7 +84,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
       })
     }
     else if (this.rootContext.type.value === 'scroll') {
-      return h(DestylerScrollAreaScrollbarScroll, mergeProps(this.$attrs, {
+      return h(ScrollAreaScrollbarScroll, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         forceMount: this.$props.forceMount,
       }), {
@@ -101,7 +92,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
       })
     }
     else if (this.rootContext.type.value === 'auto') {
-      return h(DestylerScrollAreaScrollbarAuto, mergeProps(this.$attrs, {
+      return h(ScrollAreaScrollbarAuto, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         forceMount: this.$props.forceMount,
       }), {
@@ -109,7 +100,7 @@ export const DestylerScrollAreaScrollbar = defineComponent({
       })
     }
     else if (this.rootContext.type.value === 'always') {
-      return h(DestylerScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
+      return h(ScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'forceMount': this.$props.forceMount,
         'data-state': 'visible',

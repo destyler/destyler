@@ -1,29 +1,23 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectPaginationRootContext } from './root'
 
-export const destylerPaginationLastProps = {
+export const paginationLastProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerPaginationLastProps = ExtractPublicPropTypes<typeof destylerPaginationLastProps>
+export type PaginationLastProps = ExtractPublicPropTypes<typeof paginationLastProps>
 
-export const DestylerPaginationLast = defineComponent({
+export const PaginationLast = defineComponent({
   name: 'DestylerPaginationLast',
-  props: destylerPaginationLastProps,
+  props: paginationLastProps,
   setup() {
     useForwardExpose()
 
@@ -34,7 +28,7 @@ export const DestylerPaginationLast = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'aria-label': 'Last Page',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'disabled': this.rootContext.page.value === this.rootContext.pageCount.value || this.rootContext.disabled.value,

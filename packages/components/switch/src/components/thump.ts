@@ -1,30 +1,23 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { injectSwitchRootContext } from './root'
 
-export const destylerSwitchThumpProps = {
+export const switchThumpProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerSwitchThumpProps = ExtractPublicPropTypes<typeof destylerSwitchThumpProps>
+export type SwitchThumpProps = ExtractPublicPropTypes<typeof switchThumpProps>
 
-export const DestylerSwitchThump = defineComponent({
+export const SwitchThump = defineComponent({
   name: 'DestylerSwitchThump',
-  props: destylerSwitchThumpProps,
+  props: switchThumpProps,
   setup(_) {
     const rootContext = injectSwitchRootContext()
 
@@ -35,7 +28,7 @@ export const DestylerSwitchThump = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'data-state': this.rootContext.checked?.value ? 'checked' : 'unchecked',
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
       'asChild': this.$props.asChild,

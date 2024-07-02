@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  DestylerComboboxAnchor,
-  DestylerComboboxContent,
-  DestylerComboboxEmpty,
-  DestylerComboboxGroup,
-  DestylerComboboxInput,
-  DestylerComboboxItem,
-  DestylerComboboxItemIndicator,
-  DestylerComboboxLabel,
-  DestylerComboboxRoot,
-  DestylerComboboxSeparator,
-  DestylerComboboxTrigger,
-  DestylerComboboxViewport,
+  ComboboxAnchor,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxLabel,
+  ComboboxRoot,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxViewport,
 } from '../src'
 
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 const props = defineProps<{
-  open: boolean
-  multiple: boolean
-  displayValue: (val: string | number | boolean | Record<string, any>) => string
-  filterFunction: (val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>
+  open?: boolean
+  multiple?: boolean
+  displayValue?: (val: string | number | boolean | Record<string, any>) => string
+  filterFunction?: (val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>
 }>()
 const v = ref<any>(props.multiple ? [] : '')
 const options = ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple']
@@ -31,57 +31,57 @@ const open = ref(props.open)
 </script>
 
 <template>
-  <DestylerComboboxRoot v-bind="props" v-model="v" v-model:open="open" name="test">
-    <DestylerComboboxAnchor>
-      <DestylerComboboxInput placeholder="Placeholder..." />
-      <DestylerComboboxTrigger>
+  <ComboboxRoot v-bind="props" v-model="v" v-model:open="open" name="test">
+    <ComboboxAnchor>
+      <ComboboxInput placeholder="Placeholder..." />
+      <ComboboxTrigger>
         <svg name="down">
           <path />
         </svg>
-      </DestylerComboboxTrigger>
-    </DestylerComboboxAnchor>
-    <DestylerComboboxContent>
-      <DestylerComboboxViewport>
-        <DestylerComboboxEmpty />
+      </ComboboxTrigger>
+    </ComboboxAnchor>
+    <ComboboxContent>
+      <ComboboxViewport>
+        <ComboboxEmpty />
 
-        <DestylerComboboxGroup>
-          <DestylerComboboxLabel>
+        <ComboboxGroup>
+          <ComboboxLabel>
             Fruits
-          </DestylerComboboxLabel>
+          </ComboboxLabel>
 
-          <DestylerComboboxItem
+          <ComboboxItem
             v-for="(option, index) in options" :key="index"
             :value="option"
           >
-            <DestylerComboboxItemIndicator>
+            <ComboboxItemIndicator>
               <svg name="check">
                 <path />
               </svg>
-            </DestylerComboboxItemIndicator>
+            </ComboboxItemIndicator>
             <span>
               {{ option }}
             </span>
-          </DestylerComboboxItem>
-          <DestylerComboboxSeparator />
-        </DestylerComboboxGroup>
+          </ComboboxItem>
+          <ComboboxSeparator />
+        </ComboboxGroup>
 
-        <DestylerComboboxGroup>
-          <DestylerComboboxLabel>
+        <ComboboxGroup>
+          <ComboboxLabel>
             Vegetables
-          </DestylerComboboxLabel>
-          <DestylerComboboxItem
+          </ComboboxLabel>
+          <ComboboxItem
             v-for="(option, index) in vegetables" :key="index"
             :value="option"
           >
-            <DestylerComboboxItemIndicator>
+            <ComboboxItemIndicator>
               check
-            </DestylerComboboxItemIndicator>
+            </ComboboxItemIndicator>
             <span>
               {{ option }}
             </span>
-          </DestylerComboboxItem>
-        </DestylerComboboxGroup>
-      </DestylerComboboxViewport>
-    </DestylerComboboxContent>
-  </DestylerComboboxRoot>
+          </ComboboxItem>
+        </ComboboxGroup>
+      </ComboboxViewport>
+    </ComboboxContent>
+  </ComboboxRoot>
 </template>

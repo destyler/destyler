@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerFocusScope } from '../src'
+import { FocusScope } from '../src'
 
 const trapped1 = ref(false)
 const trapped2 = ref(false)
@@ -12,7 +12,7 @@ const trapped2 = ref(false)
       Trap 1
     </button>
 
-    <DestylerFocusScope
+    <FocusScope
       v-if="trapped1"
       :as-child="true"
       :loop="trapped1"
@@ -36,14 +36,14 @@ const trapped2 = ref(false)
           Close
         </button>
       </form>
-    </DestylerFocusScope>
+    </FocusScope>
   </div>
   <div>
     <button type="button" @click="trapped2 = true">
       Trap 2
     </button>
 
-    <DestylerFocusScope
+    <FocusScope
       v-if="trapped2"
       as-child
       :loop="trapped2"
@@ -67,6 +67,6 @@ const trapped2 = ref(false)
           Close
         </button>
       </form>
-    </DestylerFocusScope>
+    </FocusScope>
   </div>
 </template>

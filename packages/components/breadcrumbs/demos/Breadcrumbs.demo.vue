@@ -1,40 +1,40 @@
 <script setup lang="ts">
 import {
-  DestylerBreadcrumbsContent,
-  DestylerBreadcrumbsItem,
-  DestylerBreadcrumbsLabel,
-  DestylerBreadcrumbsRoot,
-  DestylerBreadcrumbsSeparator,
+  BreadcrumbsContent,
+  BreadcrumbsItem,
+  BreadcrumbsLabel,
+  BreadcrumbsRoot,
+  BreadcrumbsSeparator,
 } from '../src'
 </script>
 
 <template>
-  <DestylerBreadcrumbsRoot>
-    <DestylerBreadcrumbsContent class="mb-4 flex items-center space-x-1 text-sm">
-      <DestylerBreadcrumbsItem class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60!">
-        <DestylerBreadcrumbsLabel
+  <BreadcrumbsRoot>
+    <BreadcrumbsContent class="mb-4 flex items-center space-x-1 text-sm">
+      <BreadcrumbsItem class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60!">
+        <BreadcrumbsLabel
           class="overflow-hidden text-ellipsis whitespace-nowrap"
         >
           Home
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator class="w-2" />
-      </DestylerBreadcrumbsItem>
-      <DestylerBreadcrumbsItem class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60!">
-        <DestylerBreadcrumbsLabel
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator class="w-2" />
+      </BreadcrumbsItem>
+      <BreadcrumbsItem class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60!">
+        <BreadcrumbsLabel
           class="overflow-hidden text-ellipsis whitespace-nowrap"
         >
           Components
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator class="w-2" />
-      </DestylerBreadcrumbsItem>
-      <DestylerBreadcrumbsItem class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60! data-[state=active]:text-op-100!">
-        <DestylerBreadcrumbsLabel
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator class="w-2" />
+      </BreadcrumbsItem>
+      <BreadcrumbsItem class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60! data-[state=active]:text-op-100!">
+        <BreadcrumbsLabel
           class="overflow-hidden text-ellipsis whitespace-nowrap"
         >
           Breadcrumbs
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator class="w-2" />
-      </DestylerBreadcrumbsItem>
-    </DestylerBreadcrumbsContent>
-  </DestylerBreadcrumbsRoot>
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator class="w-2" />
+      </BreadcrumbsItem>
+    </BreadcrumbsContent>
+  </BreadcrumbsRoot>
 </template>

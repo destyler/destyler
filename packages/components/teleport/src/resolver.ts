@@ -4,7 +4,7 @@ import { name } from '../package.json'
 const packageName = name
 
 export const teleportComponentName = [
-  'DestylerTeleport',
+  'TeleportPrimitive',
 ]
 
 export function DestylerTeleportResolver(): ComponentResolver {

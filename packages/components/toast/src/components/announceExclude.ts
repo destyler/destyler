@@ -1,31 +1,22 @@
-import { type Component, type PropType, defineComponent, h } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { type PropType, defineComponent, h } from 'vue'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerToastAnnounceExcludeProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const toastAnnounceExcludeProps = {
+  ...primitiveProps,
   altText: {
     type: String as PropType<string>,
     required: false,
   },
 } as const
 
-export type DestylerToastAnnounceExcludeProps = ExtractPublicPropTypes<typeof destylerToastAnnounceExcludeProps>
+export type ToastAnnounceExcludeProps = ExtractPublicPropTypes<typeof toastAnnounceExcludeProps>
 
-export const DestylerToastAnnounceExclude = defineComponent({
+export const ToastAnnounceExclude = defineComponent({
   name: 'DestylerToastAnnounceExclude',
-  props: destylerToastAnnounceExcludeProps,
+  props: toastAnnounceExcludeProps,
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.as,
       'asChild': this.asChild,
       'data-destyler-toast-announce-exclude': '',

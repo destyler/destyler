@@ -4,8 +4,8 @@ import { name } from '../package.json'
 const packageName = name
 
 export const primitiveComponentName = [
-  'DestylerPrimitive',
-  'DestylerSlot',
+  'Primitive',
+  'Slot',
 ]
 
 export function DestylerPrimitiveResolver(): ComponentResolver {

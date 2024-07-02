@@ -1,36 +1,26 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useMounted, useSize } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from '../utils'
 import { injectSliderRootContext } from './root'
 
-export const destylerSliderThumbImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const sliderThumbImplProps = {
+  ...primitiveProps,
   index: {
     type: Number as PropType<number>,
     required: true,
   },
 } as const
 
-export type DestylerSliderThumbImplProps = ExtractPublicPropTypes<typeof destylerSliderThumbImplProps>
+export type SliderThumbImplProps = ExtractPublicPropTypes<typeof sliderThumbImplProps>
 
-export const DestylerSliderThumbImpl = defineComponent({
+export const SliderThumbImpl = defineComponent({
   name: 'DestylerSliderThumbImpl',
   inheritAttrs: false,
-  props: destylerSliderThumbImplProps,
+  props: sliderThumbImplProps,
   setup(props) {
     const rootContext = injectSliderRootContext()
     const orientation = injectSliderOrientationContext()
@@ -67,7 +57,7 @@ export const DestylerSliderThumbImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'slider',
       'data-destyler-collection-item': '',

@@ -3,19 +3,19 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { ITEM_SELECT, SELECTION_KEYS } from '../utils'
-import { DestylerMenuItemImpl, destylerMenuItemImplProps } from './itemImpl'
+import { MenuItemImpl, menuItemImplProps } from './itemImpl'
 import { injectMenuContentContext } from './contentImpl'
 import { injectMenuRootContext } from './root'
 
-export const destylerMenuItemProps = {
-  ...destylerMenuItemImplProps,
+export const menuItemProps = {
+  ...menuItemImplProps,
 } as const
 
-export type DestylerMenuItemProps = ExtractPublicPropTypes<typeof destylerMenuItemProps>
+export type MenuItemProps = ExtractPublicPropTypes<typeof menuItemProps>
 
-export const DestylerMenuItem = defineComponent({
+export const MenuItem = defineComponent({
   name: 'DestylerMenuItem',
-  props: destylerMenuItemProps,
+  props: menuItemProps,
   emits: ['select'],
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
@@ -47,7 +47,7 @@ export const DestylerMenuItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuItemImpl, mergeProps(this.$props, {
+    return h(MenuItemImpl, mergeProps(this.$props, {
       ref: (el: any) => this.forwardRef(el),
       onClick: () => {
         this.handleSelect()

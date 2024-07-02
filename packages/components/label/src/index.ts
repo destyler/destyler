@@ -1,1 +1,1 @@
-export { DestylerLabel, type DestylerLabelProps } from './components/label'
+export { Label, labelProps, type LabelProps } from './components/label'
