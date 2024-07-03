@@ -1,12 +1,12 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, toRefs, withDirectives } from 'vue'
-import { Primitive, primitiveProps } from '@destyler/primitive'
+import { Primitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { CollectionSlot } from '@destyler/collection'
-import { PopperContent } from '@destyler/popper'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 import { useBodyScrollLock, useForwardExpose, useForwardProps, useHideOthers } from '@destyler/composition'
-import { DismissableLayer } from '@destyler/dismissable-layer'
+import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
 
 import { BindOnceDirective } from '@destyler/directives'
 import { injectComboboxRootContext } from './root'
@@ -18,81 +18,8 @@ export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const comboboxContentImplProps = {
-  ...primitiveProps,
-  side: {
-    type: String as PropType<Side>,
-    required: false,
-    default: 'bottom',
-  },
-  sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
-  },
-  alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
-  collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
-  },
-  collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
-  },
-  arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
-  },
-  hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  disableOutsidePointerEvents: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  isDismissable: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
+  ...dismissableLayerProps,
+  ...popperContentProps,
   position: {
     type: String as PropType<'inline' | 'popper'>,
     required: false,
@@ -116,7 +43,7 @@ export const [injectComboboxContentContext, provideComboboxContentContext] = cre
 export const ComboboxContentImpl = defineComponent({
   name: 'DestylerComboboxContentImpl',
   props: comboboxContentImplProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside'],
   setup(props) {
     const { position } = toRefs(props)
     const rootContext = injectComboboxRootContext()

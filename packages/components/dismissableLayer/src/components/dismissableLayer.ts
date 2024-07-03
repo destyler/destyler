@@ -23,8 +23,6 @@ export const dismissableLayerProps = {
 
 export type DismissableLayerProps = ExtractPublicPropTypes<typeof dismissableLayerProps>
 
-export const dismissableLayerEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss']
-
 export const context = reactive({
   layersRoot: new Set<HTMLElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<HTMLElement>(),

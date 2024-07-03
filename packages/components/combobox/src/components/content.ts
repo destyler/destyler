@@ -19,7 +19,7 @@ export type ComboboxContentProps = ExtractPublicPropTypes<typeof comboboxContent
 export const ComboboxContent = defineComponent({
   name: 'DestylerComboboxContent',
   props: comboboxContentProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()
