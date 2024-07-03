@@ -1,13 +1,12 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, onUnmounted, ref, toRefs, watch } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, GraceIntent } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, useTypeahead } from '@destyler/composition'
 import { createContext, focusFirst, isMouseEvent, isPointerInGraceArea } from '@destyler/shared'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
 import { RovingFocusGroup } from '@destyler/roving-focus'
-import { PopperContent } from '@destyler/popper'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import {
   FIRST_LAST_KEYS,
@@ -24,78 +23,46 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const menuContentImplProps = {
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
+    ...popperContentProps.as,
   },
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.asChild,
   },
   side: {
-    type: String as PropType<Side>,
-    required: false,
-    default: 'bottom',
+    ...popperContentProps.side,
   },
   sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.sideOffset,
   },
   align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
+    ...popperContentProps.align,
   },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.alignOffset,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...popperContentProps.avoidCollisions,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
+    ...popperContentProps.collisionBoundary,
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
+    ...popperContentProps.collisionPadding,
   },
   arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.arrowPadding,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
+    ...popperContentProps.sticky,
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.hideWhenDetached,
   },
   updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
+    ...popperContentProps.updatePositionStrategy,
   },
   prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.prioritizePosition,
   },
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
@@ -131,7 +98,7 @@ export const [injectMenuContentContext, provideMenuContentContext] = createConte
 export const MenuContentImpl = defineComponent({
   name: 'DestylerMenuContentImpl',
   props: menuContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus', 'dismiss'],
   setup(props, { emit }) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()

@@ -50,9 +50,6 @@ export const menuSubContentProps = {
   updatePositionStrategy: {
     ...menuContentImplProps.updatePositionStrategy,
   },
-  onPlaced: {
-    ...menuContentImplProps.onPlaced,
-  },
   prioritizePosition: {
     ...menuContentImplProps.prioritizePosition,
   },
@@ -70,7 +67,7 @@ export type MenuSubContentProps = ExtractPublicPropTypes<typeof menuSubContentPr
 export const MenuSubContent = defineComponent({
   name: 'DestylerMenuSubContent',
   props: menuSubContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus', 'dismiss'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

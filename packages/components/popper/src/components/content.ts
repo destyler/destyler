@@ -78,10 +78,6 @@ export const popperContentProps = {
     required: false,
     default: 'optimized',
   },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
   prioritizePosition: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -95,6 +91,7 @@ export const PopperContent = defineComponent({
   name: 'DestylerPopperContent',
   inheritAttrs: false,
   props: popperContentProps,
+  emits: ['placed'],
   setup(props, { attrs }) {
     const rootContext = injectPopperRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

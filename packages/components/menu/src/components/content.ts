@@ -22,7 +22,7 @@ export type MenuContentProps = ExtractPublicPropTypes<typeof menuContentProps>
 export const MenuContent = defineComponent({
   name: 'DestylerMenuContent',
   props: menuContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'closeAutoFocus', 'dismiss'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

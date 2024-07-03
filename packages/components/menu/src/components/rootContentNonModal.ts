@@ -7,7 +7,7 @@ import { injectMenuContext } from './root'
 export const MenuRootContentNonModal = defineComponent({
   name: 'DestylerMenuRootContentNonModal',
   props: menuContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 
