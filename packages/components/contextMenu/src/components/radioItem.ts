@@ -12,6 +12,7 @@ export type ContextMenuRadioItemProps = ExtractPublicPropTypes<typeof contextMen
 export const ContextMenuRadioItem = defineComponent({
   name: 'DestylerContextMenuRadioItem',
   props: contextMenuRadioItemProps,
+  emits: ['select'],
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

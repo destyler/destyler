@@ -18,7 +18,7 @@ export type ContextMenuSubContentProps = ExtractPublicPropTypes<typeof contextMe
 export const ContextMenuSubContent = defineComponent({
   name: 'DestylerContextMenuSubContent',
   props: contextMenuSubContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()
