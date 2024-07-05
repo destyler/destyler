@@ -1,32 +1,17 @@
-import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { DestylerMenuPortal } from '@destyler/menu'
+import { MenuPortal, menuPortalProps } from '@destyler/menu'
 
-export const destylerMenubarPortalProps = {
-  to: {
-    type: [String, Object] as PropType<string | HTMLElement>,
-    required: false,
-    default: 'body',
-  },
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const menubarPortalProps = {
+  ...menuPortalProps,
 } as const
 
-export type DestylerMenubarPortalProps = ExtractPublicPropTypes<typeof destylerMenubarPortalProps>
+export type MenubarPortalProps = ExtractPublicPropTypes<typeof menubarPortalProps>
 
-export const DestylerMenubarPortal = defineComponent({
+export const MenubarPortal = defineComponent({
   name: 'DestylerMenubarPortal',
-  props: destylerMenubarPortalProps,
+  props: menubarPortalProps,
   render() {
-    return h(DestylerMenuPortal, this.$props, () => this.$slots.default?.())
+    return h(MenuPortal, this.$props, () => this.$slots.default?.())
   },
 })

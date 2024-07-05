@@ -1,26 +1,17 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, onMounted, withDirectives } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerFocusScope } from '@destyler/focus-scope'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
+import { FocusScope } from '@destyler/focus-scope'
+import { DismissableLayer } from '@destyler/dismissable-layer'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getOpenState } from '@destyler/shared'
 
 import { injectModalRootContext } from './root'
 
-export const destylerModalContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const modalContentImplProps = {
+  ...primitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -32,11 +23,11 @@ export const destylerModalContentImplProps = {
   },
 } as const
 
-export type DestylerModalContentImplProps = ExtractPublicPropTypes<typeof destylerModalContentImplProps>
+export type ModalContentImplProps = ExtractPublicPropTypes<typeof modalContentImplProps>
 
-export const DestylerModalContentImpl = defineComponent({
+export const ModalContentImpl = defineComponent({
   name: 'DestylerModalContentImpl',
-  props: destylerModalContentImplProps,
+  props: modalContentImplProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup() {
     const rootContext = injectModalRootContext()
@@ -52,7 +43,7 @@ export const DestylerModalContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerFocusScope, {
+    return h(FocusScope, {
       asChild: true,
       loop: true,
       trapped: this.$props.trapFocus,
@@ -62,7 +53,7 @@ export const DestylerModalContentImpl = defineComponent({
       onUnmountAutoFocus: (event) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, () => withDirectives(h(DestylerDismissableLayer, {
+    }, () => withDirectives(h(DismissableLayer, {
       ...this.$attrs,
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,

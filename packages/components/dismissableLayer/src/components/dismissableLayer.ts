@@ -1,24 +1,14 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, reactive, watchEffect, withModifiers } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { useFocusOutside, usePointerDownOutside } from '../utils'
 
-export const destylerDismissableLayerProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dismissableLayerProps = {
+  ...primitiveProps,
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -31,19 +21,17 @@ export const destylerDismissableLayerProps = {
   },
 } as const
 
-export type DestylerDismissableLayerProps = ExtractPublicPropTypes<typeof destylerDismissableLayerProps>
+export type DismissableLayerProps = ExtractPublicPropTypes<typeof dismissableLayerProps>
 
-export const destylerDismissableLayerEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss']
-
-export const context: any = reactive({
+export const context = reactive({
   layersRoot: new Set<HTMLElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<HTMLElement>(),
   branches: new Set<HTMLElement>(),
 })
 
-export const DestylerDismissableLayer = defineComponent({
+export const DismissableLayer = defineComponent({
   name: 'DestylerDismissableLayer',
-  props: destylerDismissableLayerProps,
+  props: dismissableLayerProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
@@ -146,7 +134,7 @@ export const DestylerDismissableLayer = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

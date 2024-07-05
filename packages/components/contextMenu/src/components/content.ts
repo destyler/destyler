@@ -1,9 +1,7 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, ref } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerMenuContent } from '@destyler/menu'
+import { MenuContent, menuContentProps } from '@destyler/menu'
 
 import { injectContextMenuRootContext } from './root'
 
@@ -11,75 +9,64 @@ const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 
 export type Side = (typeof SIDE_OPTIONS)[number]
 
-export const destylerContextMenuContentProps = {
-  ...destylerPrimitiveProps,
+export const contextMenuContentProps = {
+  as: {
+    ...menuContentProps.as,
+  },
+  asChild: {
+    ...menuContentProps.asChild,
+  },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
+    ...menuContentProps.alignOffset,
     default: 0,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.avoidCollisions,
     default: true,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
+    ...menuContentProps.collisionBoundary,
     default: () => [],
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
+    ...menuContentProps.collisionPadding,
     default: 0,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
+    ...menuContentProps.sticky,
     default: 'partial',
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.hideWhenDetached,
     default: false,
   },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
   prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.prioritizePosition,
     default: false,
   },
   disableOutsidePointerEvents: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.disableOutsidePointerEvents,
   },
   disableOutsideScroll: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.disableOutsideScroll,
   },
   trapFocus: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.trapFocus,
   },
   loop: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.loop,
   },
   forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentProps.forceMount,
   },
 } as const
 
-export type DestylerContextMenuContentProps = ExtractPublicPropTypes<typeof destylerContextMenuContentProps>
+export type ContextMenuContentProps = ExtractPublicPropTypes<typeof contextMenuContentProps>
 
-export const DestylerContextMenuContent = defineComponent({
+export const ContextMenuContent = defineComponent({
   name: 'DestylerContextMenuContent',
-  props: destylerContextMenuContentProps,
-  emits: ['update:checked', 'select'],
+  props: contextMenuContentProps,
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'closeAutoFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 
@@ -94,7 +81,7 @@ export const DestylerContextMenuContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuContent, mergeProps(this.forwarded, {
+    return h(MenuContent, mergeProps(this.forwarded, {
       side: 'right',
       sideOffset: 2,
       align: 'start',

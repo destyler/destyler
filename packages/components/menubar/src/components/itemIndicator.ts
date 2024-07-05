@@ -1,36 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuItemIndicator } from '@destyler/menu'
+import { MenuItemIndicator, menuItemIndicatorProps } from '@destyler/menu'
 
-export const destylerMenubarItemIndicatorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'span',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+export const menubarItemIndicatorProps = {
+  ...menuItemIndicatorProps,
 } as const
 
-export type DestylerMenubarItemIndicatorProps = ExtractPublicPropTypes<typeof destylerMenubarItemIndicatorProps>
+export type MenubarItemIndicatorProps = ExtractPublicPropTypes<typeof menubarItemIndicatorProps>
 
-export const DestylerMenubarItemIndicator = defineComponent({
+export const MenubarItemIndicator = defineComponent({
   name: 'DestylerMenubarItemIndicator',
-  props: destylerMenubarItemIndicatorProps,
+  props: menubarItemIndicatorProps,
   setup() {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuItemIndicator, this.$props, () => this.$slots.default?.())
+    return h(MenuItemIndicator, this.$props, () => this.$slots.default?.())
   },
 })

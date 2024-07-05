@@ -1,21 +1,15 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { createContext, refAutoReset } from '@destyler/shared'
 import { useCollection, useDebounceFn, useDirection, useForwardExpose, useId, useVModel } from '@destyler/composition'
 
-export const destylerNavigationRootProps = {
+export const navigationRootProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'nav',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   modelValue: {
     type: String as PropType<string>,
@@ -47,7 +41,7 @@ export const destylerNavigationRootProps = {
   },
 } as const
 
-export type DestylerNavigationRootProps = ExtractPublicPropTypes<typeof destylerNavigationRootProps>
+export type NavigationRootProps = ExtractPublicPropTypes<typeof navigationRootProps>
 
 export interface NavigationContext {
   isRootMenu: boolean
@@ -71,9 +65,9 @@ export interface NavigationContext {
 
 export const [injectNavigationContext, provideNavigationContext] = createContext<NavigationContext>(['DestylerNavigationRoot', 'DestylerNavigationSub'], 'DestylerNavigationContext')
 
-export const DestylerNavigationRoot = defineComponent({
+export const NavigationRoot = defineComponent({
   name: 'DestylerNavigationRoot',
-  props: destylerNavigationRootProps,
+  props: navigationRootProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
@@ -150,7 +144,7 @@ export const DestylerNavigationRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'aria-label': 'main',
       'as': this.$props.as,

@@ -1,28 +1,18 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCalendarRootContext } from './root'
 
-export const destylerCalendarHeadingProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const calendarHeadingProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerCalendarHeadingProps = ExtractPublicPropTypes<typeof destylerCalendarHeadingProps>
+export type CalendarHeadingProps = ExtractPublicPropTypes<typeof calendarHeadingProps>
 
-export const DestylerCalendarHeading = defineComponent({
+export const CalendarHeading = defineComponent({
   name: 'DestylerCalendarHeading',
-  props: destylerCalendarHeadingProps,
+  props: calendarHeadingProps,
   setup() {
     const rootContext = injectCalendarRootContext()
     return {
@@ -30,7 +20,7 @@ export const DestylerCalendarHeading = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'data-disabled': this.rootContext.disabled.value ? '' : undefined,
     }), {
       default: () => this.$slots.default ? this.$slots.default?.({ headingValue: this.rootContext.headingValue.value }) : this.rootContext.headingValue.value,

@@ -1,15 +1,15 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCollapsibleRootContext } from './root'
 
-export const destylerPrimitivePropsProps = {
-  ...destylerPrimitiveProps,
+export const collapsibleContent = {
+  ...primitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -17,16 +17,16 @@ export const destylerPrimitivePropsProps = {
   },
 } as const
 
-export type DestylerPrimitivePropsProps = ExtractPublicPropTypes<typeof destylerPrimitivePropsProps>
+export type CollapsibleContentProps = ExtractPublicPropTypes<typeof collapsibleContent>
 
-export const DestylerCollapsibleContent = defineComponent({
+export const CollapsibleContent = defineComponent({
   name: 'DestylerCollapsibleContent',
   inheritAttrs: false,
-  props: destylerPrimitivePropsProps,
+  props: collapsibleContent,
   setup(_) {
     const rootContext = injectCollapsibleRootContext()
 
-    const presentRef = ref<InstanceType<typeof DestylerPresence>>()
+    const presentRef = ref<InstanceType<typeof Presence>>()
 
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -85,11 +85,11 @@ export const DestylerCollapsibleContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       ref: 'presentRef',
       present: this.$props.forceMount || this.rootContext.open.value,
       forceMount: true,
-    }, () => withDirectives(h(DestylerPrimitive, mergeProps(this.$attrs, {
+    }, () => withDirectives(h(Primitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
       'asChild': this.$props.asChild,
       'as': this.$props.as,

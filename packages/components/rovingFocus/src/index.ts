@@ -1,2 +1,2 @@
-export { DestylerRovingFocusGroup, type DestylerRovingFocusGroupProps } from './components/group'
-export { DestylerRovingFocusItem, type DestylerRovingFocusItemProps } from './components/item'
+export { RovingFocusGroup, rovingFocusGroupProps, type RovingFocusGroupProps } from './components/group'
+export { RovingFocusItem, rovingFocusItemProps, type RovingFocusItemProps } from './components/item'

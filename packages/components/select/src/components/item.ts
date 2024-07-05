@@ -1,25 +1,15 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { SELECTION_KEYS, createContext } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useId } from '@destyler/composition'
 
 import { injectSelectRootContext } from './root'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
 
-export const destylerSelectItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectItemProps = {
+  ...primitiveProps,
   value: {
     type: String,
     required: true,
@@ -34,7 +24,7 @@ export const destylerSelectItemProps = {
   },
 } as const
 
-export type DestylerSelectItemProps = ExtractPublicPropTypes<typeof destylerSelectItemProps>
+export type SelectItemProps = ExtractPublicPropTypes<typeof selectItemProps>
 
 export interface SelectItemContext {
   value: string | undefined
@@ -46,9 +36,9 @@ export interface SelectItemContext {
 
 export const [injectSelectItemContext, provideSelectItemContext] = createContext<SelectItemContext>('DestylerSelectItem')
 
-export const DestylerSelectItem = defineComponent({
+export const SelectItem = defineComponent({
   name: 'DestylerSelectItem',
-  props: destylerSelectItemProps,
+  props: selectItemProps,
   setup(props) {
     const { disabled } = toRefs(props)
 
@@ -147,7 +137,7 @@ export const DestylerSelectItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'option',
       'data-destyler-collection-item': '',

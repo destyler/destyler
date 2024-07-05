@@ -1,31 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerCalendarHeaderProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const calendarHeaderProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerCalendarHeaderProps = ExtractPublicPropTypes<typeof destylerCalendarHeaderProps>
+export type CalendarHeaderProps = ExtractPublicPropTypes<typeof calendarHeaderProps>
 
-export const DestylerCalendarHeader = defineComponent({
+export const CalendarHeader = defineComponent({
   name: 'DestylerCalendarHeader',
-  props: destylerCalendarHeaderProps,
+  props: calendarHeaderProps,
   setup(_) {
 
   },
   render() {
-    return h(DestylerPrimitive, this.$props, {
+    return h(Primitive, this.$props, {
       default: () => this.$slots.default?.(),
     })
   },

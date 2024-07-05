@@ -3,21 +3,21 @@ import { useForwardPropsEmits } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectTooltipRootContext } from './root'
-import { DestylerTooltipContentImpl, destylerTooltipContentImplEmits, destylerTooltipContentImplProps } from './contentImpl'
-import { DestylerTooltipContentHoverable } from './contentHoverable'
+import { TooltipContentImpl, tooltipContentImplEmits, tooltipContentImplProps } from './contentImpl'
+import { TooltipContentHoverable } from './contentHoverable'
 
-export const destylerTooltipContentProps = {
-  ...destylerTooltipContentImplProps,
+export const tooltipContentProps = {
+  ...tooltipContentImplProps,
 } as const
 
-export type DestylerTooltipContentProps = ExtractPublicPropTypes<typeof destylerTooltipContentProps>
+export type TooltipContentProps = ExtractPublicPropTypes<typeof tooltipContentProps>
 
-export const destylerTooltipContentEmits = [...destylerTooltipContentImplEmits]
+export const tooltipContentEmits = [...tooltipContentImplEmits]
 
-export const DestylerTooltipContent = defineComponent({
+export const TooltipContent = defineComponent({
   name: 'DestylerTooltipContent',
-  props: destylerTooltipContentProps,
-  emits: destylerTooltipContentEmits,
+  props: tooltipContentProps,
+  emits: tooltipContentEmits,
   setup(props, { emit }) {
     const rootContext = injectTooltipRootContext()
     const forwarded = useForwardPropsEmits(props, emit)
@@ -30,7 +30,7 @@ export const DestylerTooltipContent = defineComponent({
   render() {
     const useVShow = this.rootContext.open.value
     return useVShow
-      ? h(this.rootContext.disableHoverableContent.value ? DestylerTooltipContentImpl : DestylerTooltipContentHoverable, {
+      ? h(this.rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable, {
         ...this.forwarded,
       }, () => this.$slots.default?.())
       : null

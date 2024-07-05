@@ -3,12 +3,12 @@ import { defineComponent, h, ref, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 
 import type { MenuContext } from './root'
 import { injectMenuContext, provideMenuContext } from './root'
 
-export const destylerMenuSubProps = {
+export const menuSubProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -16,7 +16,7 @@ export const destylerMenuSubProps = {
   },
 } as const
 
-export type DestylerMenuSubProps = ExtractPublicPropTypes<typeof destylerMenuSubProps>
+export type MenuSubProps = ExtractPublicPropTypes<typeof menuSubProps>
 
 export interface MenuSubContext {
   contentId: string
@@ -28,9 +28,9 @@ export interface MenuSubContext {
 
 export const [injectMenuSubContext, provideMenuSubContext] = createContext<MenuSubContext>('DestylerMenuSub')
 
-export const DestylerMenuSub = defineComponent({
+export const MenuSub = defineComponent({
   name: 'DestylerMenuSub',
-  props: destylerMenuSubProps,
+  props: menuSubProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
@@ -69,6 +69,6 @@ export const DestylerMenuSub = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, null, () => this.$slots.default?.())
+    return h(PopperRoot, null, () => this.$slots.default?.())
   },
 })

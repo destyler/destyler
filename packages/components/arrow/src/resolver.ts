@@ -4,7 +4,7 @@ import { name } from '../package.json'
 const packageName = name
 
 export const arrowComponentName = [
-  'DestylerArrow',
+  'Arrow',
 ]
 
 export function DestylerArrowResolver(): ComponentResolver {

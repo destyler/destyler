@@ -1,20 +1,11 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPopperArrow } from '@destyler/popper'
+import { primitiveProps } from '@destyler/primitive'
+import { PopperArrow } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerEllipsisArrowProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const ellipsisArrowProps = {
+  ...primitiveProps,
   width: {
     type: Number as PropType<number>,
     required: false,
@@ -27,12 +18,12 @@ export const destylerEllipsisArrowProps = {
   },
 } as const
 
-export type DestylerEllipsisArrowProps = ExtractPublicPropTypes<typeof destylerEllipsisArrowProps>
+export type EllipsisArrowProps = ExtractPublicPropTypes<typeof ellipsisArrowProps>
 
-export const DestylerEllipsisArrow = defineComponent({
+export const EllipsisArrow = defineComponent({
   name: 'DestylerEllipsisArrow',
-  props: destylerEllipsisArrowProps,
+  props: ellipsisArrowProps,
   render() {
-    return h(DestylerPopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
+    return h(PopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

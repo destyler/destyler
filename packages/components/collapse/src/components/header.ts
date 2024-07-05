@@ -1,24 +1,24 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectCollapseRootContext } from './root'
 import { injectCollapseItemContext } from './item'
 
-export const destylerCollapseHeaderProps = {
-  ...destylerPrimitiveProps,
+export const collapseHeaderProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'h3',
   },
 } as const
 
-export type DestylerCollapseHeaderProps = ExtractPublicPropTypes<typeof destylerCollapseHeaderProps>
+export type CollapseHeaderProps = ExtractPublicPropTypes<typeof collapseHeaderProps>
 
-export const DestylerCollapseHeader = defineComponent({
+export const CollapseHeader = defineComponent({
   name: 'DestylerCollapseHeader',
-  props: destylerCollapseHeaderProps,
+  props: collapseHeaderProps,
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()
@@ -29,7 +29,7 @@ export const DestylerCollapseHeader = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-orientation': this.rootContext.orientation,

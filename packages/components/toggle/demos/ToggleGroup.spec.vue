@@ -1,35 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerToggleGroupItem, DestylerToggleGroupRoot } from '../src'
+import { ToggleGroupItem, ToggleGroupRoot } from '../src'
 
 const toggleStateSingle = ref('center')
 </script>
 
 <template>
-  <DestylerToggleGroupRoot v-model="toggleStateSingle" class="flex">
-    <DestylerToggleGroupItem
+  <ToggleGroupRoot v-model="toggleStateSingle" class="flex">
+    <ToggleGroupItem
       value="left"
       aria-label="Toggle italic"
     >
       <svg>
         <path />
       </svg>
-    </DestylerToggleGroupItem>
-    <DestylerToggleGroupItem
+    </ToggleGroupItem>
+    <ToggleGroupItem
       value="center"
       aria-label="Toggle italic"
     >
       <svg>
         <path />
       </svg>
-    </DestylerToggleGroupItem>
-    <DestylerToggleGroupItem
+    </ToggleGroupItem>
+    <ToggleGroupItem
       value="right"
       aria-label="Toggle italic"
     >
       <svg>
         <path />
       </svg>
-    </DestylerToggleGroupItem>
-  </DestylerToggleGroupRoot>
+    </ToggleGroupItem>
+  </ToggleGroupRoot>
 </template>

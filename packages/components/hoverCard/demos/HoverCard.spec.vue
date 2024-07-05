@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  DestylerHoverCardContent,
-  DestylerHoverCardPortal,
-  DestylerHoverCardRoot,
-  DestylerHoverCardTrigger,
+  HoverCardContent,
+  HoverCardPortal,
+  HoverCardRoot,
+  HoverCardTrigger,
 } from '../src'
 
 const hoverState = ref(false)
 </script>
 
 <template>
-  <DestylerHoverCardRoot v-model:open="hoverState">
-    <DestylerHoverCardTrigger>
+  <HoverCardRoot v-model:open="hoverState">
+    <HoverCardTrigger>
       <button>
         Nuxt
       </button>
-    </DestylerHoverCardTrigger>
-    <DestylerHoverCardPortal>
-      <DestylerHoverCardContent
+    </HoverCardTrigger>
+    <HoverCardPortal>
+      <HoverCardContent
         :side-offset="5"
       >
         <div>
@@ -31,7 +31,7 @@ const hoverState = ref(false)
             </p>
           </div>
         </div>
-      </DestylerHoverCardContent>
-    </DestylerHoverCardPortal>
-  </DestylerHoverCardRoot>
+      </HoverCardContent>
+    </HoverCardPortal>
+  </HoverCardRoot>
 </template>

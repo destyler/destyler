@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { DestylerArrow } from '../src'
+import { Arrow } from '../src'
 </script>
 
 <template>
-  <DestylerArrow />
+  <Arrow />
 </template>

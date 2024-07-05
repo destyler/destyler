@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h } from 'vue'
-import { DestylerSlot } from '../src'
+import { Slot } from '../src'
 
-describe('test DestylerSlot functionalities', () => {
+describe('test Slot functionalities', () => {
   it('should work with import on demand', () => {
-    mount(DestylerSlot)
+    mount(Slot)
   })
 
   it('with onClick on itself', async () => {
-    const wrapper = mount(DestylerSlot, {
+    const wrapper = mount(Slot, {
       slots: {
         default: () => h('button', {
           type: 'button',

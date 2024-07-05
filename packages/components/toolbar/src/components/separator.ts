@@ -1,30 +1,20 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerDivider } from '@destyler/divider'
+import { Divider } from '@destyler/divider'
 
 import { injectToolbarRootContext } from './root'
 
-export const destylerToolbarSeparatorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const toolbarSeparatorProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerToolbarSeparatorProps = ExtractPublicPropTypes<typeof destylerToolbarSeparatorProps>
+export type ToolbarSeparatorProps = ExtractPublicPropTypes<typeof toolbarSeparatorProps>
 
-export const DestylerToolbarSeparator = defineComponent({
+export const ToolbarSeparator = defineComponent({
   name: 'DestylerToolbarSeparator',
-  props: destylerToolbarSeparatorProps,
+  props: toolbarSeparatorProps,
   setup() {
     const rootContext = injectToolbarRootContext()
     useForwardExpose()
@@ -34,7 +24,7 @@ export const DestylerToolbarSeparator = defineComponent({
     }
   },
   render() {
-    return h(DestylerDivider, {
+    return h(Divider, {
       orientation: this.rootContext.orientation.value,
       asChild: this.$props.asChild,
       as: this.$props.as,

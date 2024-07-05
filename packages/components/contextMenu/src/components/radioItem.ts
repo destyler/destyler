@@ -1,31 +1,18 @@
-import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuRadioItem } from '@destyler/menu'
+import { MenuRadioItem, menuRadioItemProps } from '@destyler/menu'
 
-export const destylerContextMenuRadioItemProps = {
-  ...destylerPrimitiveProps,
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  textValue: {
-    type: String as PropType<string>,
-    required: false,
-  },
-  value: {
-    type: String as PropType<string>,
-    required: true,
-  },
+export const contextMenuRadioItemProps = {
+  ...menuRadioItemProps,
 } as const
 
-export type DestylerContextMenuRadioItemProps = ExtractPublicPropTypes<typeof destylerContextMenuRadioItemProps>
+export type ContextMenuRadioItemProps = ExtractPublicPropTypes<typeof contextMenuRadioItemProps>
 
-export const DestylerContextMenuRadioItem = defineComponent({
+export const ContextMenuRadioItem = defineComponent({
   name: 'DestylerContextMenuRadioItem',
-  props: destylerContextMenuRadioItemProps,
+  props: contextMenuRadioItemProps,
+  emits: ['select'],
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()
@@ -35,7 +22,7 @@ export const DestylerContextMenuRadioItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuRadioItem, {
+    return h(MenuRadioItem, {
       ...this.$props,
       ...this.emitsAsProps,
     }, () => this.$slots.default?.())

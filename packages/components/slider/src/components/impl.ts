@@ -1,30 +1,23 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { ARROW_KEYS, PAGE_KEYS } from '../utils'
 import { injectSliderRootContext } from './root'
 
-export const destylerSliderImplProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const sliderImplProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSliderImplProps = ExtractPublicPropTypes<typeof destylerSliderImplProps>
+export type SliderImplProps = ExtractPublicPropTypes<typeof sliderImplProps>
 
-export const DestylerSliderImpl = defineComponent({
+export const SliderImpl = defineComponent({
   name: 'DestylerSliderImpl',
-  props: destylerSliderImplProps,
+  props: sliderImplProps,
   emits: ['slideStart', 'slideMove', 'slideEnd', 'homeKeyDown', 'endKeyDown', 'stepKeyDown'],
   setup() {
     const rootContent = injectSliderRootContext()
@@ -33,7 +26,7 @@ export const DestylerSliderImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
       'data-slider-impl': '',
       'onKeydown': (event: any) => {
         if (event.key === 'Home') {

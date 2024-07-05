@@ -1,27 +1,22 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, toRefs, watchEffect } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose } from '@destyler/composition'
 import { onKeyStroke } from '@vueuse/core'
 import { focusFirst, getTabbableCandidates } from '@destyler/focus-scope/dist/utils'
-import { DestylerDismissableLayerBranch } from '@destyler/dismissable-layer'
+import { DismissableLayerBranch } from '@destyler/dismissable-layer'
 import { unrefElement } from '@destyler/shared'
 
 import { VIEWPORT_PAUSE, VIEWPORT_RESUME } from '../utils'
 import { injectToastProviderContext } from './provider'
-import { DestylerToastFocusProxy } from './focusProxy'
+import { ToastFocusProxy } from './focusProxy'
 
-export const destylerToastViewportProps = {
+export const toastViewportProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'ol',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   hotkey: {
     type: Array as PropType<string[]>,
@@ -35,12 +30,12 @@ export const destylerToastViewportProps = {
   },
 } as const
 
-export type DestylerToastViewportProps = ExtractPublicPropTypes<typeof destylerToastViewportProps>
+export type ToastViewportProps = ExtractPublicPropTypes<typeof toastViewportProps>
 
-export const DestylerToastViewport = defineComponent({
+export const ToastViewport = defineComponent({
   name: 'DestylerToastViewport',
   inheritAttrs: false,
-  props: destylerToastViewportProps,
+  props: toastViewportProps,
   setup(props) {
     const { hotkey, label } = toRefs(props)
 
@@ -163,7 +158,7 @@ export const DestylerToastViewport = defineComponent({
     }
   },
   render() {
-    return h(DestylerDismissableLayerBranch, {
+    return h(DismissableLayerBranch, {
       'role': 'region',
       'aria-label': this.label.replace('{hotkey}', this.hotkey.join('+').replace(/Key/g, '').replace(/Digit/g, '')),
       'tabindex': '-1',
@@ -172,7 +167,7 @@ export const DestylerToastViewport = defineComponent({
       },
     }, () => [
       this.hasToasts
-        ? h(DestylerToastFocusProxy, {
+        ? h(ToastFocusProxy, {
           ref: (node: any) => {
             this.headFocusProxyRef = unrefElement(node) as HTMLElement
             return undefined
@@ -185,14 +180,14 @@ export const DestylerToastViewport = defineComponent({
           },
         })
         : null,
-      h(DestylerPrimitive, mergeProps(this.$attrs, {
+      h(Primitive, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         tabindex: '-1',
         as: this.$props.as,
         asChild: this.$props.asChild,
       }), () => this.$slots.default?.()),
       this.hasToasts
-        ? h(DestylerToastFocusProxy, {
+        ? h(ToastFocusProxy, {
           ref: (node: any) => {
             this.tailFocusProxyRef = unrefElement(node) as HTMLElement
             return undefined

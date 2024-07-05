@@ -1,25 +1,19 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, withDirectives, withModifiers } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerRovingFocusItem } from '@destyler/roving-focus'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { RovingFocusItem } from '@destyler/roving-focus'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { makeContentId, makeTriggerId } from '../utils'
 import { injectTabsRootContext } from './root'
 
-export const destylerTabsTriggerProps = {
+export const tabsTriggerProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   value: {
     type: String as PropType<string>,
@@ -31,11 +25,11 @@ export const destylerTabsTriggerProps = {
   },
 } as const
 
-export type DestylerTabsTriggerProps = ExtractPublicPropTypes<typeof destylerTabsTriggerProps>
+export type TabsTriggerProps = ExtractPublicPropTypes<typeof tabsTriggerProps>
 
-export const DestylerTabsTrigger = defineComponent({
+export const TabsTrigger = defineComponent({
   name: 'DestylerTabsTrigger',
-  props: destylerTabsTriggerProps,
+  props: tabsTriggerProps,
   setup(props) {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectTabsRootContext()
@@ -54,11 +48,11 @@ export const DestylerTabsTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusItem, {
+    return h(RovingFocusItem, {
       asChild: true,
       focusable: !this.$props.disabled,
       active: this.isSelected,
-    }, () => withDirectives(h(DestylerPrimitive, {
+    }, () => withDirectives(h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'tab',
       'type': this.$props.as === 'button' ? 'button' : undefined,

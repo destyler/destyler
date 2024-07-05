@@ -1,23 +1,23 @@
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectComboboxRootContext } from './root'
 
-export const destylerComboboxCancelProps = {
-  ...destylerPrimitiveProps,
+export const comboboxCancelProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerComboboxCancelProps = ExtractPublicPropTypes<typeof destylerComboboxCancelProps>
+export type ComboboxCancelProps = ExtractPublicPropTypes<typeof comboboxCancelProps>
 
-export const DestylerComboboxCancel = defineComponent({
+export const ComboboxCancel = defineComponent({
   name: 'DestylerComboboxCancel',
-  props: destylerComboboxCancelProps,
+  props: comboboxCancelProps,
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()
@@ -33,7 +33,7 @@ export const DestylerComboboxCancel = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       type: this.$props.as === 'button' ? 'button' : undefined,
       tabindex: '-1',
       onClick: () => {

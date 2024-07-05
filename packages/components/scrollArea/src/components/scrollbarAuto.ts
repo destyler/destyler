@@ -2,24 +2,24 @@ import { type PropType, defineComponent, mergeProps } from 'vue'
 import { h, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useDebounceFn, useForwardExpose, useResizeObserver } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 
 import { injectScrollAreaRootContext } from './root'
 import { injectScrollAreaScrollbarContext } from './scrollbar'
-import { DestylerScrollAreaScrollbarVisible } from './scrollbarVisible'
+import { ScrollAreaScrollbarVisible } from './scrollbarVisible'
 
-export const destylerScrollAreaScrollbarAutoProps = {
+export const scrollAreaScrollbarAutoProps = {
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
 } as const
 
-export type DestylerScrollAreaScrollbarAutoProps = ExtractPublicPropTypes<typeof destylerScrollAreaScrollbarAutoProps>
+export type ScrollAreaScrollbarAutoProps = ExtractPublicPropTypes<typeof scrollAreaScrollbarAutoProps>
 
-export const DestylerScrollAreaScrollbarAuto = defineComponent({
+export const ScrollAreaScrollbarAuto = defineComponent({
   name: 'DestylerScrollAreaScrollbarAuto',
-  props: destylerScrollAreaScrollbarAutoProps,
+  props: scrollAreaScrollbarAutoProps,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()
@@ -54,11 +54,11 @@ export const DestylerScrollAreaScrollbarAuto = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.$props.forceMount || this.visible,
     }, {
       default: () => {
-        return h(DestylerScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
+        return h(ScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
           'ref': (el: any) => this.forwardRef(el),
           'data-state': this.visible ? 'visible' : 'hidden',
         }), {

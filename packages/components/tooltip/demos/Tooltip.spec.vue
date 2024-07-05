@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { DestylerTooltipArrow, DestylerTooltipContent, DestylerTooltipPortal, DestylerTooltipProvider, DestylerTooltipRoot, DestylerTooltipTrigger } from '../src'
+import { TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from '../src'
 
 const toggleState = ref(false)
 </script>
 
 <template>
-  <DestylerTooltipProvider>
-    <DestylerTooltipRoot v-model:open="toggleState">
-      <DestylerTooltipTrigger>
+  <TooltipProvider>
+    <TooltipRoot v-model:open="toggleState">
+      <TooltipTrigger>
         some info
-      </DestylerTooltipTrigger>
-      <DestylerTooltipPortal>
-        <DestylerTooltipContent
+      </TooltipTrigger>
+      <TooltipPortal>
+        <TooltipContent
           :side-offset="5"
         >
           Add to library
-          <DestylerTooltipArrow />
-        </DestylerTooltipContent>
-      </DestylerTooltipPortal>
-    </DestylerTooltipRoot>
-  </DestylerTooltipProvider>
+          <TooltipArrow />
+        </TooltipContent>
+      </TooltipPortal>
+    </TooltipRoot>
+  </TooltipProvider>
 </template>

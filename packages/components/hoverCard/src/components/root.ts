@@ -3,9 +3,9 @@ import { defineComponent, h, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
-import { DestylerPopperRoot } from '@destyler/popper'
+import { PopperRoot } from '@destyler/popper'
 
-export const destylerHoverCardRootProps = {
+export const hoverCardRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: undefined,
@@ -27,7 +27,7 @@ export const destylerHoverCardRootProps = {
   },
 } as const
 
-export type DestylerHoverCardRootProps = ExtractPublicPropTypes<typeof destylerHoverCardRootProps>
+export type HoverCardRootProps = ExtractPublicPropTypes<typeof hoverCardRootProps>
 
 export interface HoverCardRootContext {
   open: Ref<boolean>
@@ -41,9 +41,9 @@ export interface HoverCardRootContext {
 
 export const [injectHoverCardRootContext, provideHoverCardRootContext] = createContext<HoverCardRootContext>('DestylerHoverCardRoot')
 
-export const DestylerHoverCardRoot = defineComponent({
+export const HoverCardRoot = defineComponent({
   name: 'DestylerHoverCardRoot',
-  props: destylerHoverCardRootProps,
+  props: hoverCardRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const { openDelay, closeDelay } = toRefs(props)
@@ -87,6 +87,6 @@ export const DestylerHoverCardRoot = defineComponent({
     })
   },
   render() {
-    return h(DestylerPopperRoot, {}, () => this.$slots.default?.())
+    return h(PopperRoot, {}, () => this.$slots.default?.())
   },
 })

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import {DestylerPrimitive} from '@destyler/primitive'
-import {DestylerLabel} from '../src'
+import {Primitive} from '@destyler/primitive'
+import {Label} from '../src'
 </script>
 
 <template>
-  <DestylerLabel class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+  <Label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
     Accept terms and conditions
-  </DestylerLabel>
-  <DestylerLabel />
-  <DestylerLabel for="input" />
-  <DestylerPrimitive as="template" data-parent-attr="" >
+  </Label>
+  <Label />
+  <Label for="input" />
+  <Primitive as="template" data-parent-attr="" >
     <div data-child-attr>Child class</div>
-  </DestylerPrimitive>
+  </Primitive>
 </template>

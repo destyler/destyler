@@ -1,10 +1,10 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, ref, toRefs } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, handleAndDispatchCustomEvent } from '@destyler/shared'
 import { useForwardExpose, useId } from '@destyler/composition'
-import { DestylerCollectionItem } from '@destyler/collection'
+import { CollectionItem } from '@destyler/collection'
 import isEqual from 'fast-deep-equal'
 
 import { injectComboboxRootContext } from './root'
@@ -14,8 +14,8 @@ const COMBOBOX_SELECT = 'combobox.select'
 
 export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent, value?: string | number | boolean | Record<string, any> }>
 
-export const destylerComboboxItemProps = {
-  ...destylerPrimitiveProps,
+export const comboboxItemProps = {
+  ...primitiveProps,
   value: {
     type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
     required: true,
@@ -26,7 +26,7 @@ export const destylerComboboxItemProps = {
   },
 } as const
 
-export type DestylerComboboxItemProps = ExtractPublicPropTypes<typeof destylerComboboxItemProps>
+export type ComboboxItemProps = ExtractPublicPropTypes<typeof comboboxItemProps>
 
 export interface ComboboxItemContext {
   isSelected: Ref<boolean>
@@ -34,9 +34,9 @@ export interface ComboboxItemContext {
 
 export const [injectComboboxItemContext, provideComboboxItemContext] = createContext<ComboboxItemContext>('DestylerComboboxItem')
 
-export const DestylerComboboxItem = defineComponent({
+export const ComboboxItem = defineComponent({
   name: 'DestylerComboboxItem',
-  props: destylerComboboxItemProps,
+  props: comboboxItemProps,
   emits: ['select'],
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
@@ -105,9 +105,9 @@ export const DestylerComboboxItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollectionItem, null, {
+    return h(CollectionItem, null, {
       default: () => {
-        return h(DestylerPrimitive, {
+        return h(Primitive, {
           'ref': (el: any) => this.forwardRef(el),
           'role': 'option',
           'tabindex': '-1',

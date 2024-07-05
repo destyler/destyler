@@ -1,33 +1,23 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, watch } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes, Measurable } from '@destyler/shared'
 
 import { injectPopperRootContext } from './root'
 
-export const destylerPopperAnchorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const popperAnchorProps = {
+  ...primitiveProps,
   element: {
     type: Object as PropType<Measurable>,
   },
 } as const
 
-export type DestylerPopperAnchorProps = ExtractPublicPropTypes<typeof destylerPopperAnchorProps>
+export type PopperAnchorProps = ExtractPublicPropTypes<typeof popperAnchorProps>
 
-export const DestylerPopperAnchor = defineComponent({
+export const PopperAnchor = defineComponent({
   name: 'DestylerPopperAnchor',
-  props: destylerPopperAnchorProps,
+  props: popperAnchorProps,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -42,7 +32,7 @@ export const DestylerPopperAnchor = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       ref: (el: any) => this.forwardRef(el),

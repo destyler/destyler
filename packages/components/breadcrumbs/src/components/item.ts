@@ -1,6 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useId } from '@destyler/composition'
 import { BindOnceDirective } from '@destyler/directives'
@@ -8,20 +7,15 @@ import { createContext } from '@destyler/shared'
 
 import { injectContextBreadcrumbsContext } from './content'
 
-export const destylerBreadcrumbsItemProps = {
+export const breadcrumbsItemProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'li',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 }
 
-export type DestylerBreadcrumbsItemProps = ExtractPublicPropTypes<typeof destylerBreadcrumbsItemProps>
+export type BreadcrumbsItemProps = ExtractPublicPropTypes<typeof breadcrumbsItemProps>
 
 export interface ContextBreadcrumbsItemContext {
   itemId: string
@@ -29,9 +23,9 @@ export interface ContextBreadcrumbsItemContext {
 
 export const [injectContextBreadcrumbsItemContext, provideContextBreadcrumbsItemContext] = createContext<ContextBreadcrumbsItemContext>('DestylerContextBreadcrumbsItemContent')
 
-export const DestylerBreadcrumbsItem = defineComponent({
+export const BreadcrumbsItem = defineComponent({
   name: 'DestylerBreadcrumbsItem',
-  props: destylerBreadcrumbsItemProps,
+  props: breadcrumbsItemProps,
   setup() {
     const { forwardRef } = useForwardExpose()
     const id = useId()
@@ -48,7 +42,7 @@ export const DestylerBreadcrumbsItem = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerPrimitive, {
+    return withDirectives(h(Primitive, {
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,

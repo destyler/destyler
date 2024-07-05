@@ -2,25 +2,25 @@ import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerRovingFocusItem } from '@destyler/roving-focus'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { RovingFocusItem } from '@destyler/roving-focus'
+import { Primitive } from '@destyler/primitive'
 
-import { DestylerToggle, destylerToggleProps } from './toggle'
+import { Toggle, toggleProps } from './toggle'
 import { injectToggleGroupRootContext } from './groupRoot'
 
-export const destylerToggleGroupItemProps = {
-  ...destylerToggleProps,
+export const toggleGroupItemProps = {
+  ...toggleProps,
   value: {
     type: String as PropType<string>,
     required: true,
   },
 } as const
 
-export type DestylerToggleGroupItemProps = ExtractPublicPropTypes<typeof destylerToggleGroupItemProps>
+export type ToggleGroupItemProps = ExtractPublicPropTypes<typeof toggleGroupItemProps>
 
-export const DestylerToggleGroupItem = defineComponent({
-  name: 'DestylerToggleGroupItem',
-  props: destylerToggleGroupItemProps,
+export const ToggleGroupItem = defineComponent({
+  name: 'ToggleGroupItem',
+  props: toggleGroupItemProps,
   setup(props) {
     const rootContext = injectToggleGroupRootContext()
     const disabled = computed(() => rootContext.disabled?.value || props.disabled)
@@ -36,11 +36,11 @@ export const DestylerToggleGroupItem = defineComponent({
     }
   },
   render() {
-    return h(this.rootContext.rovingFocus.value ? DestylerRovingFocusItem : DestylerPrimitive, {
+    return h(this.rootContext.rovingFocus.value ? RovingFocusItem : Primitive, {
       asChild: true,
       focusable: !this.disabled,
       active: this.pressed,
-    }, () => h(DestylerToggle, mergeProps(this.$props, {
+    }, () => h(Toggle, mergeProps(this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'disabled': this.disabled,
       'pressed': this.rootContext.type === 'single' ? this.rootContext.modelValue.value === this.$props.value : this.rootContext.modelValue.value?.includes(this.$props.value),

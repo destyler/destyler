@@ -1,30 +1,25 @@
-import { type Component, type PropType, defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { defineComponent, h, mergeProps } from 'vue'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectToastRootContext } from './rootImpl'
-import { DestylerToastAnnounceExclude } from './announceExclude'
+import { ToastAnnounceExclude } from './announceExclude'
 
-export const destylerToastCloseProps = {
+export const toastCloseProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerToastCloseProps = ExtractPublicPropTypes<typeof destylerToastCloseProps>
+export type ToastCloseProps = ExtractPublicPropTypes<typeof toastCloseProps>
 
-export const DestylerToastClose = defineComponent({
+export const ToastClose = defineComponent({
   name: 'DestylerToastClose',
   inheritAttrs: false,
-  props: destylerToastCloseProps,
+  props: toastCloseProps,
   setup() {
     const rootContext = injectToastRootContext()
     const { forwardRef } = useForwardExpose()
@@ -35,9 +30,9 @@ export const DestylerToastClose = defineComponent({
     }
   },
   render() {
-    return h(DestylerToastAnnounceExclude, {
+    return h(ToastAnnounceExclude, {
       asChild: true,
-    }, () => h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+    }, () => h(Primitive, mergeProps(this.$props, this.$attrs, {
       ref: (el: any) => this.forwardRef(el),
       type: this.$props.as === 'button' ? 'button' : undefined,
       onClick: () => {

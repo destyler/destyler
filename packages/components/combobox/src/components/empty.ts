@@ -1,23 +1,23 @@
 import { computed, defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectComboboxRootContext } from './root'
 
-export const destylerComboboxEmptyProps = {
-  ...destylerPrimitiveProps,
+export const comboboxEmptyProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerComboboxEmptyProps = ExtractPublicPropTypes<typeof destylerComboboxEmptyProps>
+export type ComboboxEmptyProps = ExtractPublicPropTypes<typeof comboboxEmptyProps>
 
-export const DestylerComboboxEmpty = defineComponent({
+export const ComboboxEmpty = defineComponent({
   name: 'DestylerComboboxEmpty',
-  props: destylerComboboxEmptyProps,
+  props: comboboxEmptyProps,
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()
@@ -30,7 +30,7 @@ export const DestylerComboboxEmpty = defineComponent({
   },
   render() {
     if (this.isEmpty) {
-      return h(DestylerPrimitive, this.$props, {
+      return h(Primitive, this.$props, {
         default: () => this.$slots.default ? this.$slots.default?.() : 'No options',
       })
     }

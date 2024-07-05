@@ -1,14 +1,12 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardRef } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-const destylerLabelProps = {
+export const labelProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...primitiveProps.asChild,
   },
   for: {
     type: String as PropType<string>,
@@ -16,12 +14,12 @@ const destylerLabelProps = {
   },
 } as const
 
-export type DestylerLabelProps = ExtractPublicPropTypes<typeof destylerLabelProps>
+export type LabelProps = ExtractPublicPropTypes<typeof labelProps>
 
-export const DestylerLabel = defineComponent({
+export const Label = defineComponent({
   name: 'DestylerLabel',
   inheritAttrs: false,
-  props: destylerLabelProps,
+  props: labelProps,
   setup() {
     useForwardRef()
 
@@ -35,7 +33,7 @@ export const DestylerLabel = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
       as: 'label',
       for: this.$props.for,
       asChild: this.$props.asChild,

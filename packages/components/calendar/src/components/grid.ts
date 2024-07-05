@@ -1,28 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectCalendarRootContext } from './root'
 
-export const destylerCalendarGridProps = {
+export const calendarGridProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'table',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerCalendarGridProps = ExtractPublicPropTypes<typeof destylerCalendarGridProps>
+export type CalendarGridProps = ExtractPublicPropTypes<typeof calendarGridProps>
 
-export const DestylerCalendarGrid = defineComponent({
+export const CalendarGrid = defineComponent({
   name: 'DestylerCalendarGrid',
-  props: destylerCalendarGridProps,
+  props: calendarGridProps,
   setup(_) {
     const rootContext = injectCalendarRootContext()
 
@@ -31,7 +25,7 @@ export const DestylerCalendarGrid = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'tabindex': '-1',
       'role': 'grid',
       'aria-readonly': this.rootContext.readonly ? true : undefined,

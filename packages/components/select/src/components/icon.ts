@@ -1,29 +1,22 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const destylerSelectIconProps = {
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectIconProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
   },
 } as const
 
-export type DestylerSelectIconProps = ExtractPublicPropTypes<typeof destylerSelectIconProps>
+export type SelectIconProps = ExtractPublicPropTypes<typeof selectIconProps>
 
-export const DestylerSelectIcon = defineComponent({
+export const SelectIcon = defineComponent({
   name: 'DestylerSelectIcon',
-  props: destylerSelectIconProps,
+  props: selectIconProps,
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'aria-hidden': '',
       'as': this.$props.as,
       'asChild': this.$props.asChild,

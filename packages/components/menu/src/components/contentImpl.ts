@@ -1,13 +1,12 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, onUnmounted, ref, toRefs, watch } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes, GraceIntent } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, useTypeahead } from '@destyler/composition'
 import { createContext, focusFirst, isMouseEvent, isPointerInGraceArea } from '@destyler/shared'
-import { DestylerFocusScope } from '@destyler/focus-scope'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
-import { DestylerRovingFocusGroup } from '@destyler/roving-focus'
-import { DestylerPopperContent } from '@destyler/popper'
+import { FocusScope } from '@destyler/focus-scope'
+import { DismissableLayer } from '@destyler/dismissable-layer'
+import { RovingFocusGroup } from '@destyler/roving-focus'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import {
   FIRST_LAST_KEYS,
@@ -22,80 +21,48 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenuContentImplProps = {
+export const menuContentImplProps = {
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
+    ...popperContentProps.as,
   },
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.asChild,
   },
   side: {
-    type: String as PropType<Side>,
-    required: false,
-    default: 'bottom',
+    ...popperContentProps.side,
   },
   sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.sideOffset,
   },
   align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
+    ...popperContentProps.align,
   },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.alignOffset,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...popperContentProps.avoidCollisions,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
+    ...popperContentProps.collisionBoundary,
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
+    ...popperContentProps.collisionPadding,
   },
   arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.arrowPadding,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
+    ...popperContentProps.sticky,
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.hideWhenDetached,
   },
   updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
+    ...popperContentProps.updatePositionStrategy,
   },
   prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.prioritizePosition,
   },
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
@@ -115,7 +82,7 @@ export const destylerMenuContentImplProps = {
   },
 } as const
 
-export type DestylerMenuContentImplProps = ExtractPublicPropTypes<typeof destylerMenuContentImplProps>
+export type MenuContentImplProps = ExtractPublicPropTypes<typeof menuContentImplProps>
 
 export interface MenuContentContext {
   onItemEnter: (event: PointerEvent) => boolean
@@ -128,10 +95,10 @@ export interface MenuContentContext {
 
 export const [injectMenuContentContext, provideMenuContentContext] = createContext<MenuContentContext>('DestylerMenuContent')
 
-export const DestylerMenuContentImpl = defineComponent({
+export const MenuContentImpl = defineComponent({
   name: 'DestylerMenuContentImpl',
-  props: destylerMenuContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  props: menuContentImplProps,
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus', 'dismiss'],
   setup(props, { emit }) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()
@@ -289,7 +256,7 @@ export const DestylerMenuContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerFocusScope, {
+    return h(FocusScope, {
       asChild: true,
       trapped: this.trapFocus,
       onMountAutoFocus: (event: any) => {
@@ -298,7 +265,7 @@ export const DestylerMenuContentImpl = defineComponent({
       onUnmountAutoFocus: (event: any) => {
         this.$emit('closeAutoFocus', event)
       },
-    }, () => h(DestylerDismissableLayer, {
+    }, () => h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: this.disableOutsidePointerEvents,
       onEscapeKeyDown: (event: any) => {
@@ -316,7 +283,7 @@ export const DestylerMenuContentImpl = defineComponent({
       onDismiss: () => {
         this.$emit('dismiss')
       },
-    }, () => h(DestylerRovingFocusGroup, {
+    }, () => h(RovingFocusGroup, {
       'asChild': true,
       'currentTabStopId': this.currentItemId!,
       'onUpdate:currentTabStopId': (value: string) => {
@@ -330,7 +297,7 @@ export const DestylerMenuContentImpl = defineComponent({
         if (!this.rootContext.isUsingKeyboardRef.value)
           event.preventDefault()
       },
-    }, () => h(DestylerPopperContent, {
+    }, () => h(PopperContent, {
       'ref': (el: any) => this.forwardRef(el),
       'role': 'menu',
       'as': this.$props.as,

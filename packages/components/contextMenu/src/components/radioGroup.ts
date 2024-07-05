@@ -1,24 +1,17 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { destylerPrimitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerMenuRadioGroup } from '@destyler/menu'
+import { MenuRadioGroup, menuRadioGroupProps } from '@destyler/menu'
 
-export const destylerContextMenuRadioGroupProps = {
-  ...destylerPrimitiveProps,
-  modelValue: {
-    type: String as PropType<string>,
-    required: false,
-    default: '',
-  },
+export const contextMenuRadioGroupProps = {
+  ...menuRadioGroupProps,
 } as const
 
-export type DestylerContextMenuRadioGroupProps = ExtractPublicPropTypes<typeof destylerContextMenuRadioGroupProps>
+export type ContextMenuRadioGroupProps = ExtractPublicPropTypes<typeof contextMenuRadioGroupProps>
 
-export const DestylerContextMenuRadioGroup = defineComponent({
+export const ContextMenuRadioGroup = defineComponent({
   name: 'DestylerContextMenuRadioGroup',
-  props: destylerContextMenuRadioGroupProps,
+  props: contextMenuRadioGroupProps,
   emits: ['update:modelValue'],
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
@@ -29,6 +22,6 @@ export const DestylerContextMenuRadioGroup = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuRadioGroup, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
+    return h(MenuRadioGroup, mergeProps(this.$props, this.emitsAsProps), () => this.$slots.default?.())
   },
 })

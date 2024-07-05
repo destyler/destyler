@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerDivider, DestylerLabel } from 'destyler'
+import { Divider, Label } from 'destyler'
 
 const route = useRoute()
 
@@ -17,21 +17,21 @@ const { data } = await useAsyncData(`content-${route.path}`, () => {
             <div class="sticky top-16 -mt-10 h-[calc(100vh-3.5rem)] py-12">
               <div class="space-y-2">
                 <p class="font-medium">
-                  <DestylerLabel>On This Page</DestylerLabel>
+                  <Label>On This Page</Label>
                 </p>
                 <TocItem :toc-list="data?.body?.toc?.links" />
               </div>
-              <DestylerDivider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-2/3 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+              <Divider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-2/3 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
               <div class="space-y-2 mt-2">
                 <p class="font-medium">
-                  <DestylerLabel>Packages</DestylerLabel>
+                  <Label>Packages</Label>
                 </p>
                 <Packages />
               </div>
-              <DestylerDivider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-2/3 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+              <Divider class="shrink-0 bg-#E4E4E7 dark:bg-#27272A data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-2/3 data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
               <div class="space-y-2 mt-2">
                 <p class="font-medium">
-                  <DestylerLabel>Community</DestylerLabel>
+                  <Label>Community</Label>
                 </p>
                 <Community />
               </div>

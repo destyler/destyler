@@ -1,23 +1,23 @@
 import { defineComponent, h } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectCollapsibleRootContext } from './root'
 
-export const destylerCollapsibleTriggerProps = {
-  ...destylerPrimitiveProps,
+export const collapsibleTriggerProps = {
+  ...primitiveProps,
   as: {
-    ...destylerPrimitiveProps.as,
+    ...primitiveProps.as,
     default: 'button',
   },
 } as const
 
-export type DestylerCollapsibleTriggerProps = ExtractPublicPropTypes<typeof destylerCollapsibleTriggerProps>
+export type CollapsibleTriggerProps = ExtractPublicPropTypes<typeof collapsibleTriggerProps>
 
-export const DestylerCollapsibleTrigger = defineComponent({
+export const CollapsibleTrigger = defineComponent({
   name: 'DestylerCollapsibleTrigger',
-  props: destylerCollapsibleTriggerProps,
+  props: collapsibleTriggerProps,
   setup() {
     const rootContext = injectCollapsibleRootContext()
 
@@ -28,7 +28,7 @@ export const DestylerCollapsibleTrigger = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
       'asChild': this.$props.asChild,

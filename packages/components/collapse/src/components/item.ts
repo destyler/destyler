@@ -3,9 +3,9 @@ import { computed, defineComponent, h, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useArrowNavigation, useForwardExpose, useId } from '@destyler/composition'
-import { DestylerCollapsibleRoot } from '@destyler/collapsible'
+import { CollapsibleRoot } from '@destyler/collapsible'
 
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { injectCollapseRootContext } from './root'
 
 enum CollapseItemState {
@@ -26,9 +26,9 @@ export interface CollapseItemContext {
 
 export const [injectCollapseItemContext, provideCollapseItemContext] = createContext<CollapseItemContext>('DestylerCollapseItem')
 
-export const destylerCollapseItemProps = {
+export const collapseItemProps = {
   asChild: {
-    ...destylerPrimitiveProps.asChild,
+    ...primitiveProps.asChild,
   },
   value: {
     type: String as PropType<string>,
@@ -41,11 +41,11 @@ export const destylerCollapseItemProps = {
   },
 } as const
 
-export type DestylerCollapseItemProps = ExtractPublicPropTypes<typeof destylerCollapseItemProps>
+export type CollapseItemProps = ExtractPublicPropTypes<typeof collapseItemProps>
 
-export const DestylerCollapseItem = defineComponent({
+export const CollapseItem = defineComponent({
   name: 'DestylerCollapseItem',
-  props: destylerCollapseItemProps,
+  props: collapseItemProps,
   setup(props) {
     const rootContext = injectCollapseRootContext()
 
@@ -106,7 +106,7 @@ export const DestylerCollapseItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollapsibleRoot, {
+    return h(CollapsibleRoot, {
       'data-orientation': this.rootContext.orientation,
       'data-disabled': this.dataDisabled,
       'data-state': this.dataState,

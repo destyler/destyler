@@ -1,21 +1,15 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerRovingFocusItem } from '@destyler/roving-focus'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { RovingFocusItem } from '@destyler/roving-focus'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 
-export const destylerToolbarButtonProps = {
+export const toolbarButtonProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   disabled: {
     type: Boolean as PropType<boolean>,
@@ -24,11 +18,11 @@ export const destylerToolbarButtonProps = {
   },
 } as const
 
-export type DestylerToolbarButtonProps = ExtractPublicPropTypes<typeof destylerToolbarButtonProps>
+export type ToolbarButtonProps = ExtractPublicPropTypes<typeof toolbarButtonProps>
 
-export const DestylerToolbarButton = defineComponent({
+export const ToolbarButton = defineComponent({
   name: 'DestylerToolbarButton',
-  props: destylerToolbarButtonProps,
+  props: toolbarButtonProps,
   setup() {
     const { forwardRef } = useForwardExpose()
 
@@ -37,12 +31,12 @@ export const DestylerToolbarButton = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusItem, {
+    return h(RovingFocusItem, {
       asChild: true,
       focusable: !this.$props.disabled,
     }, {
       default: () => {
-        return h(DestylerPrimitive, mergeProps(this.$props, {
+        return h(Primitive, mergeProps(this.$props, {
           ref: (el: any) => this.forwardRef(el),
           type: this.$props.as === 'button' ? 'button' : undefined,
         }), {

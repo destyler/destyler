@@ -1,29 +1,23 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
 import { injectPaginationRootContext } from './root'
 
-export const destylerPaginationFirstProps = {
+export const paginationFirstProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerPaginationFirstProps = ExtractPublicPropTypes<typeof destylerPaginationFirstProps>
+export type PaginationFirstProps = ExtractPublicPropTypes<typeof paginationFirstProps>
 
-export const DestylerPaginationFirst = defineComponent({
+export const PaginationFirst = defineComponent({
   name: 'DestylerPaginationFirst',
-  props: destylerPaginationFirstProps,
+  props: paginationFirstProps,
   setup() {
     useForwardExpose()
 
@@ -34,7 +28,7 @@ export const DestylerPaginationFirst = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'aria-label': 'First Page',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'disabled': this.rootContext.page.value === 1 || this.rootContext.disabled.value,

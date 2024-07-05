@@ -1,2 +1,2 @@
-export { DestylerVisuallyhidden, type DestylerVisuallyhiddenProps } from './components/visuallyHidden'
-export { DestylerVisuallyhiddenInput, type DestylerVisuallyhiddenInputProps } from './components/input'
+export { Visuallyhidden, visuallyhiddenProps, type VisuallyhiddenProps } from './components/visuallyHidden'
+export { VisuallyhiddenInput, visuallyhiddenInputProps, type VisuallyhiddenInputProps } from './components/input'

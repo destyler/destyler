@@ -1,30 +1,20 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectScrollAreaRootContext } from './root'
 
-export const destylerScrollAreaViewportProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const scrollAreaViewportProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerScrollAreaViewportProps = ExtractPublicPropTypes<typeof destylerScrollAreaViewportProps>
+export type ScrollAreaViewportProps = ExtractPublicPropTypes<typeof scrollAreaViewportProps>
 
-export const DestylerScrollAreaViewport = defineComponent({
+export const ScrollAreaViewport = defineComponent({
   name: 'DestylerScrollAreaViewport',
   inheritAttrs: false,
-  props: destylerScrollAreaViewportProps,
+  props: scrollAreaViewportProps,
   setup() {
     const rootContext = injectScrollAreaRootContext()
 
@@ -53,7 +43,7 @@ export const DestylerScrollAreaViewport = defineComponent({
           overflowY: this.rootContext.scrollbarYEnabled.value ? 'scroll' : 'hidden',
         },
         'tabindex': 0,
-      }), h(DestylerPrimitive, {
+      }), h(Primitive, {
         ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,
@@ -64,7 +54,7 @@ export const DestylerScrollAreaViewport = defineComponent({
       }, {
         default: () => this.$slots.default?.(),
       })),
-      h(DestylerPrimitive, {
+      h(Primitive, {
         as: 'style',
       }, {
         default: () => {

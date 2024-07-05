@@ -1,24 +1,18 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, onUnmounted } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useCollection, useId } from '@destyler/composition'
 import { focusFirst, wrapArray } from '@destyler/shared'
 
 import { getFocusIntent } from '../utils'
 import { injectRovingFocusGroupContext } from './group'
 
-export const destylerRovingFocusItemProps = {
+export const rovingFocusItemProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'span',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
   tabStopId: {
     type: String as PropType<string>,
@@ -36,11 +30,11 @@ export const destylerRovingFocusItemProps = {
   },
 } as const
 
-export type DestylerRovingFocusItemProps = ExtractPublicPropTypes<typeof destylerRovingFocusItemProps>
+export type RovingFocusItemProps = ExtractPublicPropTypes<typeof rovingFocusItemProps>
 
-export const DestylerRovingFocusItem = defineComponent({
+export const RovingFocusItem = defineComponent({
   name: 'DestylerRovingFocusItem',
-  props: destylerRovingFocusItemProps,
+  props: rovingFocusItemProps,
   setup(props) {
     const context = injectRovingFocusGroupContext()
     const autoId = useId()
@@ -107,7 +101,7 @@ export const DestylerRovingFocusItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, {
+    return h(Primitive, {
       'data-destyler-collection-item': '',
       'tabindex': this.isCurrentTabStop ? 0 : -1,
       'data-orientation': this.context.orientation.value,

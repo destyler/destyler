@@ -1,24 +1,14 @@
-import type { Component, PropType, Ref } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
-import { DestylerTeleport } from '@destyler/teleport'
+import { Primitive, primitiveProps } from '@destyler/primitive'
+import { TeleportPrimitive } from '@destyler/teleport'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, refAutoReset } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { useWindowSize } from '@vueuse/core'
 
-export const destylerPreviewRootProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const previewRootProps = {
+  ...primitiveProps,
   duration: {
     type: Number as PropType<number>,
     required: false,
@@ -31,7 +21,7 @@ export const destylerPreviewRootProps = {
   },
 } as const
 
-export type DestylerPreviewRootProps = ExtractPublicPropTypes<typeof destylerPreviewRootProps>
+export type PreviewRootProps = ExtractPublicPropTypes<typeof previewRootProps>
 
 export interface PreviewRootContext {
   isPreviewActive: Ref<boolean>
@@ -40,10 +30,10 @@ export interface PreviewRootContext {
 export const [injectPreviewRootContext, providePreviewRootContext]
   = createContext<PreviewRootContext>('PreviewRoot')
 
-export const DestylerPreviewRoot = defineComponent({
+export const PreviewRoot = defineComponent({
   name: 'DestylerPreviewRoot',
   inheritAttrs: false,
-  props: destylerPreviewRootProps,
+  props: previewRootProps,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -123,7 +113,7 @@ export const DestylerPreviewRoot = defineComponent({
   render() {
     const useVShow = this.isPreviewActive || this.isTransitioning
     return [
-      h(DestylerPrimitive, mergeProps(this.$attrs, {
+      h(Primitive, mergeProps(this.$attrs, {
         ref: (el: any) => this.forwardRef(el),
         as: this.$props.as,
         asChild: this.$props.asChild,
@@ -139,7 +129,7 @@ export const DestylerPreviewRoot = defineComponent({
       }),
       [
         useVShow
-          ? h(DestylerTeleport, h(DestylerPrimitive, mergeProps(this.$attrs, {
+          ? h(TeleportPrimitive, h(Primitive, mergeProps(this.$attrs, {
             as: this.$props.as,
             asChild: this.$props.asChild,
             role: 'preview-dialog',

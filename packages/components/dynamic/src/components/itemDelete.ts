@@ -1,30 +1,24 @@
-import type { Component, PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { type AsTag, DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDynamicRootContext } from './root'
 import { injectDynamicItemContext } from './item'
 
-export const destylerDynamicItemDeleteProps = {
+export const dynamicItemDeleteProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerDynamicItemDeleteProps = ExtractPublicPropTypes<typeof destylerDynamicItemDeleteProps>
+export type DynamicItemDeleteProps = ExtractPublicPropTypes<typeof dynamicItemDeleteProps>
 
-export const DestylerDynamicItemDelete = defineComponent({
+export const DynamicItemDelete = defineComponent({
   name: 'DestylerDynamicItemDelete',
-  props: destylerDynamicItemDeleteProps,
+  props: dynamicItemDeleteProps,
   setup() {
     useForwardExpose()
     const context = injectDynamicRootContext()
@@ -47,7 +41,7 @@ export const DestylerDynamicItemDelete = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'tabindex': '-1',
       'aria-labelledby': this.itemContext.textId,
       'aria-current': this.itemContext.isSelected.value,

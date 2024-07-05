@@ -1,25 +1,16 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
-import type { AsTag } from '@destyler/primitive'
+import { Presence } from '@destyler/presence'
+import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDialogRootContext } from './root'
-import { DestylerDialogContentModal } from './contentModal'
-import { DestylerDialogContentNonModal } from './contentNonModal'
+import { DialogContentModal } from './contentModal'
+import { DialogContentNonModal } from './contentNonModal'
 
-export const destylerDialogContentProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const dialogContentProps = {
+  ...primitiveProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -31,11 +22,11 @@ export const destylerDialogContentProps = {
   },
 } as const
 
-export type DestylerDialogContentProps = ExtractPublicPropTypes<typeof destylerDialogContentProps>
+export type DialogContentProps = ExtractPublicPropTypes<typeof dialogContentProps>
 
-export const DestylerDialogContent = defineComponent({
+export const DialogContent = defineComponent({
   name: 'DestylerDialogContent',
-  props: destylerDialogContentProps,
+  props: dialogContentProps,
   emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
@@ -52,17 +43,17 @@ export const DestylerDialogContent = defineComponent({
   },
   render() {
     const useVShow = this.$props.forceMount || this.rootContext.modal.value
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.$props.forceMount || this.rootContext.open.value,
     }, () => [
       useVShow
-        ? h(DestylerDialogContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
+        ? h(DialogContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
           ref: (el: any) => this.forwardRef(el),
           onOpenAutoFocus: (event: any) => {
             this.$emit('openAutoFocus', event)
           },
         }), () => this.$slots.default?.())
-        : h(DestylerDialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
+        : h(DialogContentNonModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
           ref: (el: any) => this.forwardRef(el),
         }), () => this.$slots.default?.()),
     ])

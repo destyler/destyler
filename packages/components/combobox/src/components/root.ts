@@ -1,18 +1,18 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, toRefs, watch } from 'vue'
-import { DestylerPrimitive, destylerPrimitiveProps } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { computedWithControl, createContext } from '@destyler/shared'
 import isEqual from 'fast-deep-equal'
 import { useDirection, useFormControl, useForwardExpose, useId, useVModel } from '@destyler/composition'
-import { createCollection } from '@destyler/collection'
-import { DestylerPopperRoot } from '@destyler/popper'
-import { DestylerVisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
+import { PopperRoot } from '@destyler/popper'
+import { VisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
+import { createCollection } from '@destyler/collection/dist/composition'
 
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
-export const destylerComboboxRootProps = {
-  ...destylerPrimitiveProps,
+export const comboboxRootProps = {
+  ...primitiveProps,
   modelValue: {
     type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
     required: false,
@@ -60,7 +60,7 @@ export const destylerComboboxRootProps = {
   },
 } as const
 
-export type DestylerComboboxRootProps = ExtractPublicPropTypes<typeof destylerComboboxRootProps>
+export type ComboboxRootProps = ExtractPublicPropTypes<typeof comboboxRootProps>
 
 export interface ComboboxRootContext<T> {
   modelValue: Ref<T | Array<T>>
@@ -86,9 +86,9 @@ export interface ComboboxRootContext<T> {
 
 export const [injectComboboxRootContext, provideComboboxRootContext] = createContext<ComboboxRootContext<string | number | boolean | Record<string, any>>>('DestylerComboboxRoot')
 
-export const DestylerComboboxRoot = defineComponent({
+export const ComboboxRoot = defineComponent({
   name: 'DestylerComboboxRoot',
-  props: destylerComboboxRootProps,
+  props: comboboxRootProps,
   emits: ['update:modelValue', 'update:open', 'update:searchTerm'],
   setup(props, { emit }) {
     const { multiple, disabled, dir: propDir } = toRefs(props)
@@ -252,9 +252,9 @@ export const DestylerComboboxRoot = defineComponent({
     }
   },
   render() {
-    return h(DestylerPopperRoot, {}, {
+    return h(PopperRoot, {}, {
       default: () => {
-        return h(DestylerPrimitive, mergeProps(this.$attrs, {
+        return h(Primitive, mergeProps(this.$attrs, {
           ref: (el: any) => this.forwardRef(el),
           style: {
             pointerEvents: this.open ? 'auto' : undefined,
@@ -267,7 +267,7 @@ export const DestylerComboboxRoot = defineComponent({
             return [
               this.$slots.default?.({ open: this.open, modelValue: this.modelValue }),
               this.isFormControl && this.$props.name
-                ? h(DestylerVisuallyhiddenInput, {
+                ? h(VisuallyhiddenInput, {
                   name: this.$props.name,
                   value: this.modelValue,
                 })

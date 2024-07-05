@@ -1,7 +1,5 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -9,24 +7,15 @@ import { CONTENT_MARGIN } from '../utils'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
 import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
-export const destylerSelectViewportProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const selectViewportProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerSelectViewportProps = ExtractPublicPropTypes<typeof destylerSelectViewportProps>
+export type SelectViewportProps = ExtractPublicPropTypes<typeof selectViewportProps>
 
-export const DestylerSelectViewport = defineComponent({
+export const SelectViewport = defineComponent({
   name: 'DestylerSelectViewport',
-  props: destylerSelectViewportProps,
+  props: selectViewportProps,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext = contentContext.position === 'item-aligned'
@@ -78,7 +67,7 @@ export const DestylerSelectViewport = defineComponent({
   },
   render() {
     return [
-      h(DestylerPrimitive, mergeProps(this.$props, this.$attrs, {
+      h(Primitive, mergeProps(this.$props, this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'data-destyler-select-viewport': '',
         'role': 'presentation',
@@ -91,7 +80,7 @@ export const DestylerSelectViewport = defineComponent({
           this.handleScroll(event)
         },
       }), () => this.$slots.default?.()),
-      h(DestylerPrimitive, {
+      h(Primitive, {
         as: 'style',
       }, () => `/* Hide scrollbars cross-browser and enable momentum scroll for touch
       devices */ [data-destyler-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;

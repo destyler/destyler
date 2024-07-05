@@ -1,15 +1,14 @@
-import type { Component, PropType } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, withDirectives, withModifiers } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
-import { DestylerPresence } from '@destyler/presence'
+import { Presence } from '@destyler/presence'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { SUB_CLOSE_KEYS } from '../utils'
 import { injectMenuContext, injectMenuRootContext } from './root'
 import { injectMenuSubContext } from './sub'
-import { DestylerMenuContentImpl } from './contentImpl'
+import { MenuContentImpl, menuContentImplProps } from './contentImpl'
 
 const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
@@ -17,74 +16,45 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenuSubContentProps = {
+export const menuSubContentProps = {
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
+    ...menuContentImplProps.as,
   },
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...menuContentImplProps.asChild,
   },
   sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...menuContentImplProps.sideOffset,
   },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...menuContentImplProps.alignOffset,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...menuContentImplProps.avoidCollisions,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
+    ...menuContentImplProps.collisionBoundary,
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
+    ...menuContentImplProps.collisionPadding,
   },
   arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...menuContentImplProps.arrowPadding,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
+    ...menuContentImplProps.sticky,
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...menuContentImplProps.hideWhenDetached,
   },
   updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
+    ...menuContentImplProps.updatePositionStrategy,
   },
   prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...menuContentImplProps.prioritizePosition,
   },
   loop: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...menuContentImplProps.loop,
   },
   forceMount: {
     type: Boolean as PropType<boolean>,
@@ -92,12 +62,12 @@ export const destylerMenuSubContentProps = {
   },
 } as const
 
-export type DestylerMenuSubContentProps = ExtractPublicPropTypes<typeof destylerMenuSubContentProps>
+export type MenuSubContentProps = ExtractPublicPropTypes<typeof menuSubContentProps>
 
-export const DestylerMenuSubContent = defineComponent({
+export const MenuSubContent = defineComponent({
   name: 'DestylerMenuSubContent',
-  props: destylerMenuSubContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  props: menuSubContentProps,
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus', 'dismiss'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 
@@ -117,9 +87,9 @@ export const DestylerMenuSubContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerPresence, {
+    return h(Presence, {
       present: this.forceMount || this.menuContext.open.value,
-    }, () => withDirectives(h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
+    }, () => withDirectives(h(MenuContentImpl, mergeProps(this.forwarded, {
       'ref': (el: any) => this.forwardRef(el),
       'align': 'start',
       'side': this.rootContext.dir.value === 'rtl' ? 'left' : 'right',

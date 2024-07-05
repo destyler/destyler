@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useId, useVModel } from '@destyler/composition'
 
-export const destylerModalRootProps = {
+export const modalRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -17,7 +17,7 @@ export const destylerModalRootProps = {
   },
 } as const
 
-export type DestylerModalRootProps = ExtractPublicPropTypes<typeof destylerModalRootProps>
+export type ModalRootProps = ExtractPublicPropTypes<typeof modalRootProps>
 
 export interface ModalRootContext {
   open: Readonly<Ref<boolean>>
@@ -34,9 +34,9 @@ export interface ModalRootContext {
 export const [injectModalRootContext, provideModalRootContext]
   = createContext<ModalRootContext>('DestylerModalRoot')
 
-export const DestylerModalRoot = defineComponent({
+export const ModalRoot = defineComponent({
   name: 'DestylerModalRoot',
-  props: destylerModalRootProps,
+  props: modalRootProps,
   emits: ['update:open'],
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {

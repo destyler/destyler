@@ -1,13 +1,13 @@
 import { defineComponent, h, mergeProps, withModifiers } from 'vue'
 import { useForwardExpose, useForwardPropsEmits, useHideOthers } from '@destyler/composition'
 
-import { DestylerMenuContentImpl, destylerMenuContentImplProps } from './contentImpl'
+import { MenuContentImpl, menuContentImplProps } from './contentImpl'
 import { injectMenuContext } from './root'
 
-export const DestylerMenuRootContentModal = defineComponent({
+export const MenuRootContentModal = defineComponent({
   name: 'DestylerMenuRootContentModal',
-  props: destylerMenuContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  props: menuContentImplProps,
+  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus'],
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 
@@ -23,7 +23,7 @@ export const DestylerMenuRootContentModal = defineComponent({
     }
   },
   render() {
-    return h(DestylerMenuContentImpl, mergeProps(this.forwarded, {
+    return h(MenuContentImpl, mergeProps(this.forwarded, {
       'ref': (el: any) => this.forwardRef(el),
       'trap-focus': this.menuContext.open.value,
       'disableOutsidePointerEvents': this.menuContext.open.value,

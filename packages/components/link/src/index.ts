@@ -1,1 +1,1 @@
-export { DestylerLink, type DestylerLinkProps } from './components/link'
+export { Link, linkProps, type LinkProps } from './components/link'

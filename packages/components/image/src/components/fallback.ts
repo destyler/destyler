@@ -1,15 +1,13 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, ref, watch } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectImageRootContext } from './root'
 
-export const destylerImageFallbackProps = {
+export const imageFallbackProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...primitiveProps.asChild,
   },
   delayMs: {
     type: Number as PropType<number>,
@@ -18,11 +16,11 @@ export const destylerImageFallbackProps = {
   },
 } as const
 
-export type DestylerImageFallbackProps = ExtractPublicPropTypes<typeof destylerImageFallbackProps>
+export type ImageFallbackProps = ExtractPublicPropTypes<typeof imageFallbackProps>
 
-export const DestylerImageFallback = defineComponent({
+export const ImageFallback = defineComponent({
   name: 'DestylerImageFallback',
-  props: destylerImageFallbackProps,
+  props: imageFallbackProps,
   setup(props) {
     const rootContext = injectImageRootContext()
 
@@ -52,7 +50,7 @@ export const DestylerImageFallback = defineComponent({
   render() {
     const useVShow = this.rootContext.imageLoadingStatus.value !== 'loaded' && this.canRender
     return useVShow
-      ? h(DestylerPrimitive, {
+      ? h(Primitive, {
         as: 'span',
         asChild: this.$props.asChild,
       }, () => this.$slots.default?.())

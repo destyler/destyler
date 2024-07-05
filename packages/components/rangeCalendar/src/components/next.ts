@@ -1,28 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { DestylerPrimitive } from '@destyler/primitive'
-import type { AsTag } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { injectRangeCalendarRootContext } from './root'
 
-export const destylerRangeCalendarNextProps = {
+export const rangeCalendarNextProps = {
+  ...primitiveProps,
   as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
+    ...primitiveProps.as,
     default: 'button',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
   },
 } as const
 
-export type DestylerRangeCalendarNextProps = ExtractPublicPropTypes<typeof destylerRangeCalendarNextProps>
+export type RangeCalendarNextProps = ExtractPublicPropTypes<typeof rangeCalendarNextProps>
 
-export const DestylerRangeCalendarNext = defineComponent({
+export const RangeCalendarNext = defineComponent({
   name: 'DestylerRangeCalendarNext',
-  props: destylerRangeCalendarNextProps,
+  props: rangeCalendarNextProps,
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 
@@ -31,7 +24,7 @@ export const DestylerRangeCalendarNext = defineComponent({
     }
   },
   render() {
-    return h(DestylerPrimitive, mergeProps(this.$props, {
+    return h(Primitive, mergeProps(this.$props, {
       'aria-label': 'Next page',
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'aria-disabled': this.rootContext.isNextButtonDisabled.value || undefined,

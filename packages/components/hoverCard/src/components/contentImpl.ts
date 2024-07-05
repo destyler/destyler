@@ -1,10 +1,8 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
-import { DestylerPopperContent } from '@destyler/popper'
+import { DismissableLayer } from '@destyler/dismissable-layer'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import { getTabbableNodes } from '../utils'
 import { injectHoverCardRootContext } from './root'
@@ -15,88 +13,15 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerHoverCardContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  side: {
-    type: String as PropType<Side>,
-    required: false,
-    default: 'bottom',
-  },
-  sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
-  },
-  alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
-  collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
-  },
-  collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
-  },
-  arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
-  },
-  hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const hoverCardContentImplProps = {
+  ...popperContentProps,
 } as const
 
-export type DestylerHoverCardContentImplProps = ExtractPublicPropTypes<typeof destylerHoverCardContentImplProps>
+export type HoverCardContentImplProps = ExtractPublicPropTypes<typeof hoverCardContentImplProps>
 
-export const DestylerHoverCardContentImpl = defineComponent({
+export const HoverCardContentImpl = defineComponent({
   name: 'DestylerHoverCardContentImpl',
-  props: destylerHoverCardContentImplProps,
+  props: hoverCardContentImplProps,
   emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
   setup(props) {
     const forwarded = useForwardProps(props)
@@ -154,7 +79,7 @@ export const DestylerHoverCardContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerDismissableLayer, {
+    return h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
       onEscapeKeyDown: (event: any) => {
@@ -169,7 +94,7 @@ export const DestylerHoverCardContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onDismiss()
       },
-    }, () => h(DestylerPopperContent, mergeProps(this.forwarded, this.$attrs, {
+    }, () => h(PopperContent, mergeProps(this.forwarded, this.$attrs, {
       ref: (el: any) => this.forwardRef(el),
       data_state: this.rootContext.open.value ? 'open' : 'closed',
       style: {

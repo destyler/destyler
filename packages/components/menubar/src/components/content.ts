@@ -1,10 +1,8 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h, mergeProps, ref, withDirectives, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
-import { DestylerMenuContent } from '@destyler/menu'
+import { MenuContent, menuContentProps } from '@destyler/menu'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectMenubarRootContext } from './root'
@@ -16,108 +14,15 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 export type Side = (typeof SIDE_OPTIONS)[number]
 export type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerMenubarContentProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  side: {
-    type: String as PropType<Side>,
-    required: false,
-    default: 'bottom',
-  },
-  sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'start',
-  },
-  alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
-  },
-  collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
-  },
-  collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
-  },
-  arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
-  },
-  sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
-  },
-  hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  updatePositionStrategy: {
-    type: String as PropType<'optimized' | 'always'>,
-    required: false,
-    default: 'optimized',
-  },
-  onPlaced: {
-    type: Function as PropType<() => void>,
-    required: false,
-  },
-  prioritizePosition: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
-  disableOutsidePointerEvents: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  disableOutsideScroll: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  trapFocus: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  loop: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+export const menubarContentProps = {
+  ...menuContentProps,
 } as const
 
-export type DestylerMenubarContentProps = ExtractPublicPropTypes<typeof destylerMenubarContentProps>
+export type MenubarContentProps = ExtractPublicPropTypes<typeof menubarContentProps>
 
-export const DestylerMenubarContent = defineComponent({
+export const MenubarContent = defineComponent({
   name: 'DestylerMenubarContent',
-  props: destylerMenubarContentProps,
+  props: menubarContentProps,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()
@@ -169,7 +74,7 @@ export const DestylerMenubarContent = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DestylerMenuContent, mergeProps(this.forwarded, {
+    return withDirectives(h(MenuContent, mergeProps(this.forwarded, {
       'aria-labelledby': this.menuContext.triggerId,
       'data-destyler-menubar-content': '',
       'style': {

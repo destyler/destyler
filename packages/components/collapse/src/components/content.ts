@@ -1,21 +1,21 @@
 import { defineComponent, h } from 'vue'
-import { DestylerCollapsibleContent } from '@destyler/collapsible'
+import { CollapsibleContent } from '@destyler/collapsible'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-import { destylerPrimitiveProps } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { injectCollapseRootContext } from './root'
 import { injectCollapseItemContext } from './item'
 
-export const destylerCollapseContentProps = {
-  asChild: destylerPrimitiveProps.asChild,
+export const collapseContentProps = {
+  asChild: primitiveProps.asChild,
 } as const
 
-export type DestylerCollapseContentProps = ExtractPublicPropTypes<typeof destylerCollapseContentProps>
+export type CollapseContentProps = ExtractPublicPropTypes<typeof collapseContentProps>
 
-export const DestylerCollapseContent = defineComponent({
+export const CollapseContent = defineComponent({
   name: 'DestylerCollapseContent',
-  props: destylerCollapseContentProps,
+  props: collapseContentProps,
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()
@@ -26,7 +26,7 @@ export const DestylerCollapseContent = defineComponent({
     }
   },
   render() {
-    return h(DestylerCollapsibleContent, {
+    return h(CollapsibleContent, {
       'role': 'region',
       'open': this.itemContext.open.value,
       'hidden': !this.itemContext.open.value,

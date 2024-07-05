@@ -2,7 +2,7 @@ import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { DestylerSlot } from './slot'
+import { Slot } from './slot'
 
 export type AsTag =
   | 'a'
@@ -25,7 +25,7 @@ export type AsTag =
   // eslint-disable-next-line ts/ban-types
   | ({} & string) // any other string
 
-export const destylerPrimitiveProps = {
+export const primitiveProps = {
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
@@ -38,11 +38,11 @@ export const destylerPrimitiveProps = {
   },
 } as const
 
-export type DestylerPrimitiveProps = ExtractPublicPropTypes<typeof destylerPrimitiveProps>
+export type PrimitiveProps = ExtractPublicPropTypes<typeof primitiveProps>
 
-export const DestylerPrimitive = defineComponent({
+export const Primitive = defineComponent({
   name: 'DestylerPrimitive',
-  props: destylerPrimitiveProps,
+  props: primitiveProps,
   setup(props) {
     const asTag = props.asChild ? 'template' : props.as
 
@@ -58,6 +58,6 @@ export const DestylerPrimitive = defineComponent({
     if (this.asTag !== 'template')
       return h(this.$props.as, this.$attrs, { default: this.$slots.default })
 
-    return h(DestylerSlot, this.$attrs, { default: this.$slots.default })
+    return h(Slot, this.$attrs, { default: this.$slots.default })
   },
 })

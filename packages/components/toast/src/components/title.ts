@@ -1,32 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
-import type { AsTag } from '@destyler/primitive'
-import { DestylerPrimitive } from '@destyler/primitive'
+import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-export const destylerToastTitleProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const toastTitleProps = {
+  ...primitiveProps,
 } as const
 
-export type DestylerToastTitleProps = ExtractPublicPropTypes<typeof destylerToastTitleProps>
+export type ToastTitleProps = ExtractPublicPropTypes<typeof toastTitleProps>
 
-export const DestylerToastTitle = defineComponent({
+export const ToastTitle = defineComponent({
   name: 'DestylerToastTitle',
-  props: destylerToastTitleProps,
+  props: toastTitleProps,
   setup(_) {
     useForwardExpose()
   },
   render() {
-    return h(DestylerPrimitive, this.$props, () => this.$slots.default?.())
+    return h(Primitive, this.$props, () => this.$slots.default?.())
   },
 })

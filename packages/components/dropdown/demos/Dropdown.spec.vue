@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { DestylerIcon } from '@destyler/icon'
+import { Icon } from '@destyler/icon'
 import { ref } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 import {
-  DestylerDropdownArrow,
-  DestylerDropdownCheckboxItem,
-  DestylerDropdownContent,
-  DestylerDropdownItem,
-  DestylerDropdownItemIndicator,
-  DestylerDropdownLabel,
-  DestylerDropdownPortal,
-  DestylerDropdownRadioGroup,
-  DestylerDropdownRadioItem,
-  DestylerDropdownRoot,
-  DestylerDropdownSeparator,
-  DestylerDropdownTrigger,
+  DropdownArrow,
+  DropdownCheckboxItem,
+  DropdownContent,
+  DropdownItem,
+  DropdownItemIndicator,
+  DropdownLabel,
+  DropdownPortal,
+  DropdownRadioGroup,
+  DropdownRadioItem,
+  DropdownRoot,
+  DropdownSeparator,
+  DropdownTrigger,
 } from '../src'
 
 const props = defineProps<{ defaultOpen?: boolean }>()
@@ -37,16 +37,16 @@ function handleCheck(ev: any) {
 
 <template>
   <div>
-    <DestylerDropdownRoot v-model:open="toggleState">
-      <DestylerDropdownTrigger
+    <DropdownRoot v-model:open="toggleState">
+      <DropdownTrigger
         aria-label="Customise options"
       >
-        <DestylerIcon name="radix-icons:hamburger-menu" />
-      </DestylerDropdownTrigger>
+        <Icon name="radix-icons:hamburger-menu" />
+      </DropdownTrigger>
 
-      <DestylerDropdownPortal to="#here">
-        <DestylerDropdownContent>
-          <DestylerDropdownItem
+      <DropdownPortal to="#here">
+        <DropdownContent>
+          <DropdownItem
             value="New Tab"
             v-bind="useEmitAsProps(emits)"
             @click="handleClick"
@@ -55,55 +55,55 @@ function handleCheck(ev: any) {
             <div>
               ⌘+T
             </div>
-          </DestylerDropdownItem>
-          <!-- <DestylerDropdownSub>
-            <DestylerDropdownSubTrigger
+          </DropdownItem>
+          <!-- <DropdownSub>
+            <DropdownSubTrigger
               value="more toolsz"
             >
               More Tools
               <div
               >
-                <DestylerIcon name="radix-icons:chevron-right" />
+                <Icon name="radix-icons:chevron-right" />
               </div>
-            </DestylerDropdownSubTrigger>
-            <DestylerDropdownPortal>
-              <DestylerDropdownSubContent
+            </DropdownSubTrigger>
+            <DropdownPortal>
+              <DropdownSubContent
                 :side-offset="2"
                 :align-offset="-5"
               >
-                <DestylerDropdownItem
+                <DropdownItem
                 >
                   Save Page As…
                   <div
                   >
                     ⌘+S
                   </div>
-                </DestylerDropdownItem>
-                <DestylerDropdownItem
+                </DropdownItem>
+                <DropdownItem
                 >
                   Create Shortcut…
-                </DestylerDropdownItem>
-                <DestylerDropdownItem
+                </DropdownItem>
+                <DropdownItem
                 >
                   Name Window…
-                </DestylerDropdownItem>
-                <DestylerDropdownSeparator />
-                <DestylerDropdownItem
+                </DropdownItem>
+                <DropdownSeparator />
+                <DropdownItem
                 >
                   Developer Tools
-                </DestylerDropdownItem>
-              </DestylerDropdownSubContent>
-            </DestylerDropdownPortal>
-          </DestylerDropdownSub> -->
-          <DestylerDropdownItem
+                </DropdownItem>
+              </DropdownSubContent>
+            </DropdownPortal>
+          </DropdownSub> -->
+          <DropdownItem
             value="New Window"
           >
             New Window
             <div>
               ⌘+N
             </div>
-          </DestylerDropdownItem>
-          <DestylerDropdownItem
+          </DropdownItem>
+          <DropdownItem
             value="New Private Window"
             disabled
           >
@@ -111,178 +111,178 @@ function handleCheck(ev: any) {
             <div>
               ⇧+⌘+N
             </div>
-          </DestylerDropdownItem>
-          <!-- <DestylerDropdownSub>
-            <DestylerDropdownSubTrigger
+          </DropdownItem>
+          <!-- <DropdownSub>
+            <DropdownSubTrigger
               value="more tools"
             >
               More Tools
               <div
               >
-                <DestylerIcon name="radix-icons:chevron-right" />
+                <Icon name="radix-icons:chevron-right" />
               </div>
-            </DestylerDropdownSubTrigger>
-            <DestylerDropdownPortal>
-              <DestylerDropdownSubContent
+            </DropdownSubTrigger>
+            <DropdownPortal>
+              <DropdownSubContent
                 :side-offset="2"
                 :align-offset="-5"
               >
-                <DestylerDropdownItem
+                <DropdownItem
                 >
                   Save Page As…
                   <div
                   >
                     ⌘+S
                   </div>
-                </DestylerDropdownItem>
-                <DestylerDropdownItem
+                </DropdownItem>
+                <DropdownItem
                 >
                   Create Shortcut…
-                </DestylerDropdownItem>
-                <DestylerDropdownItem
+                </DropdownItem>
+                <DropdownItem
                 >
                   Name Window…
-                </DestylerDropdownItem>
-                <DestylerDropdownSeparator />
-                <DestylerDropdownItem
+                </DropdownItem>
+                <DropdownSeparator />
+                <DropdownItem
                 >
                   Developer Tools
-                </DestylerDropdownItem>
-                <DestylerDropdownSub>
-                  <DestylerDropdownSubTrigger
+                </DropdownItem>
+                <DropdownSub>
+                  <DropdownSubTrigger
                     value="more toolsz"
                   >
                     More Tools
                     <div
                     >
-                      <DestylerIcon name="radix-icons:chevron-right" />
+                      <Icon name="radix-icons:chevron-right" />
                     </div>
-                  </DestylerDropdownSubTrigger>
-                  <DestylerDropdownPortal>
-                    <DestylerDropdownSubContent
+                  </DropdownSubTrigger>
+                  <DropdownPortal>
+                    <DropdownSubContent
                       :side-offset="2"
                       :align-offset="-5"
                     >
-                      <DestylerDropdownItem
+                      <DropdownItem
                       >
                         Save Page As…
                         <div
                         >
                           ⌘+S
                         </div>
-                      </DestylerDropdownItem>
-                      <DestylerDropdownItem
+                      </DropdownItem>
+                      <DropdownItem
                       >
                         Create Shortcut…
-                      </DestylerDropdownItem>
-                      <DestylerDropdownItem
+                      </DropdownItem>
+                      <DropdownItem
                       >
                         Name Window…
-                      </DestylerDropdownItem>
-                      <DestylerDropdownSeparator
+                      </DropdownItem>
+                      <DropdownSeparator
                       />
-                      <DestylerDropdownItem
+                      <DropdownItem
                       >
                         Developer Tools
-                      </DestylerDropdownItem>
-                      <DestylerDropdownSub>
-                        <DestylerDropdownSubTrigger
+                      </DropdownItem>
+                      <DropdownSub>
+                        <DropdownSubTrigger
                           value="more toolsz"
                         >
                           More Tools
                           <div
                           >
-                            <DestylerIcon name="radix-icons:chevron-right" />
+                            <Icon name="radix-icons:chevron-right" />
                           </div>
-                        </DestylerDropdownSubTrigger>
-                        <DestylerDropdownPortal>
-                          <DestylerDropdownSubContent
+                        </DropdownSubTrigger>
+                        <DropdownPortal>
+                          <DropdownSubContent
                             :side-offset="2"
                             :align-offset="-5"
                           >
-                            <DestylerDropdownItem
+                            <DropdownItem
                             >
                               Save Page As…
                               <div
                               >
                                 ⌘+S
                               </div>
-                            </DestylerDropdownItem>
-                            <DestylerDropdownItem
+                            </DropdownItem>
+                            <DropdownItem
                             >
                               Create Shortcut…
-                            </DestylerDropdownItem>
-                            <DestylerDropdownItem
+                            </DropdownItem>
+                            <DropdownItem
                             >
                               Name Window…
-                            </DestylerDropdownItem>
-                            <DestylerDropdownSeparator
+                            </DropdownItem>
+                            <DropdownSeparator
                             />
-                            <DestylerDropdownItem
+                            <DropdownItem
                             >
                               Developer Tools
-                            </DestylerDropdownItem>
-                          </DestylerDropdownSubContent>
-                        </DestylerDropdownPortal>
-                      </DestylerDropdownSub>
-                    </DestylerDropdownSubContent>
-                  </DestylerDropdownPortal>
-                </DestylerDropdownSub>
-                <DestylerDropdownItem
+                            </DropdownItem>
+                          </DropdownSubContent>
+                        </DropdownPortal>
+                      </DropdownSub>
+                    </DropdownSubContent>
+                  </DropdownPortal>
+                </DropdownSub>
+                <DropdownItem
                 >
                   Developer Tools
-                </DestylerDropdownItem>
-              </DestylerDropdownSubContent>
-            </DestylerDropdownPortal>
-          </DestylerDropdownSub> -->
-          <DestylerDropdownSeparator />
-          <DestylerDropdownCheckboxItem
+                </DropdownItem>
+              </DropdownSubContent>
+            </DropdownPortal>
+          </DropdownSub> -->
+          <DropdownSeparator />
+          <DropdownCheckboxItem
             v-model:checked="checkboxOne"
             @select="handleCheck"
           >
-            <DestylerDropdownItemIndicator>
-              <DestylerIcon name="radix-icons:check" />
-            </DestylerDropdownItemIndicator>
+            <DropdownItemIndicator>
+              <Icon name="radix-icons:check" />
+            </DropdownItemIndicator>
             Show Bookmarks
             <div>
               ⌘+B
             </div>
-          </DestylerDropdownCheckboxItem>
-          <DestylerDropdownCheckboxItem
+          </DropdownCheckboxItem>
+          <DropdownCheckboxItem
             v-model:checked="checkboxTwo"
           >
-            <DestylerDropdownItemIndicator>
-              <DestylerIcon name="radix-icons:check" />
-            </DestylerDropdownItemIndicator>
+            <DropdownItemIndicator>
+              <Icon name="radix-icons:check" />
+            </DropdownItemIndicator>
             Show Full URLs
-          </DestylerDropdownCheckboxItem>
-          <DestylerDropdownSeparator />
+          </DropdownCheckboxItem>
+          <DropdownSeparator />
 
-          <DestylerDropdownLabel>
+          <DropdownLabel>
             People
-          </DestylerDropdownLabel>
-          <DestylerDropdownRadioGroup v-model="person">
-            <DestylerDropdownRadioItem
+          </DropdownLabel>
+          <DropdownRadioGroup v-model="person">
+            <DropdownRadioItem
               value="pedro"
             >
-              <DestylerDropdownItemIndicator>
-                <DestylerIcon name="radix-icons:dot-filled" />
-              </DestylerDropdownItemIndicator>
+              <DropdownItemIndicator>
+                <Icon name="radix-icons:dot-filled" />
+              </DropdownItemIndicator>
               Pedro Duarte
-            </DestylerDropdownRadioItem>
-            <DestylerDropdownRadioItem
+            </DropdownRadioItem>
+            <DropdownRadioItem
               value="colm"
             >
-              <DestylerDropdownItemIndicator>
-                <DestylerIcon name="radix-icons:dot-filled" />
-              </DestylerDropdownItemIndicator>
+              <DropdownItemIndicator>
+                <Icon name="radix-icons:dot-filled" />
+              </DropdownItemIndicator>
               Colm Tuite
-            </DestylerDropdownRadioItem>
-          </DestylerDropdownRadioGroup>
-          <DestylerDropdownArrow />
-        </DestylerDropdownContent>
-      </DestylerDropdownPortal>
-    </DestylerDropdownRoot>
+            </DropdownRadioItem>
+          </DropdownRadioGroup>
+          <DropdownArrow />
+        </DropdownContent>
+      </DropdownPortal>
+    </DropdownRoot>
 
     <div id="here" />
   </div>

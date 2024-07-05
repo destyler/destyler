@@ -4,9 +4,9 @@ import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { BACK_KEYS, linearScale, provideSliderOrientationContext } from '../utils'
-import { DestylerSliderImpl } from './impl'
+import { SliderImpl } from './impl'
 
-export const destylerSliderVerticalProps = {
+export const sliderVerticalProps = {
   min: {
     type: Number as PropType<number>,
     required: false,
@@ -21,11 +21,11 @@ export const destylerSliderVerticalProps = {
   },
 } as const
 
-export type DestylerSliderVerticalProps = ExtractPublicPropTypes<typeof destylerSliderVerticalProps>
+export type SliderVerticalProps = ExtractPublicPropTypes<typeof sliderVerticalProps>
 
-export const DestylerSliderVertical = defineComponent({
+export const SliderVertical = defineComponent({
   name: 'DestylerSliderVertical',
-  props: destylerSliderVerticalProps,
+  props: sliderVerticalProps,
   emits: ['slideEnd', 'slideStart', 'slideMove', 'homeKeyDown', 'endKeyDown', 'stepKeyDown'],
   setup(props) {
     const { max, min, inverted } = toRefs(props)
@@ -63,7 +63,7 @@ export const DestylerSliderVertical = defineComponent({
     }
   },
   render() {
-    return h(DestylerSliderImpl, {
+    return h(SliderImpl, {
       'ref': (el: any) => this.forwardRef(el),
       'data-orientation': 'vertical',
       'style': {

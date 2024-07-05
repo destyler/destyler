@@ -1,62 +1,51 @@
-import type { Component, ComputedRef, PropType } from 'vue'
+import type { ComputedRef } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, withKeys } from 'vue'
-import type { AsTag } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { useEventListener } from '@vueuse/core'
-import { DestylerRovingFocusItem } from '@destyler/roving-focus'
+import { RovingFocusItem } from '@destyler/roving-focus'
 
 import { injectRadioGroupRootContext } from './groupRoot'
-import { DestylerRadio } from './radio'
+import { Radio, radioProps } from './radio'
 
-export const destylerRadioGroupItemProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'button',
-  },
+export const radioGroupItemProps = {
   asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...radioProps.asChild,
+  },
+  as: {
+    ...radioProps.as,
   },
   id: {
-    type: String as PropType<string>,
-    required: false,
+    ...radioProps.id,
   },
   value: {
-    type: String as PropType<string>,
-    required: false,
+    ...radioProps.value,
   },
   disabled: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...radioProps.disabled,
   },
   required: {
-    type: Boolean as PropType<boolean>,
-    required: false,
+    ...radioProps.required,
   },
   name: {
-    type: String as PropType<string>,
-    required: false,
+    ...radioProps.name,
   },
 } as const
 
-export type DestylerRadioGroupItemProps = ExtractPublicPropTypes<typeof destylerRadioGroupItemProps>
+export type RadioGroupItemProps = ExtractPublicPropTypes<typeof radioGroupItemProps>
 
 export interface RadioGroupItemContext {
   disabled: ComputedRef<boolean>
   checked: ComputedRef<boolean>
 }
 
-export const [injectRadioGroupItemContext, provideRadiogroupItemContext] = createContext<RadioGroupItemContext>('DestylerRadioGroupItem')
+export const [injectRadioGroupItemContext, provideRadiogroupItemContext] = createContext<RadioGroupItemContext>('RadioGroupItem')
 
-export const DestylerRadioGroupItem = defineComponent({
-  name: 'DestylerRadioGroupItem',
+export const RadioGroupItem = defineComponent({
+  name: 'RadioGroupItem',
   inheritAttrs: false,
-  props: destylerRadioGroupItemProps,
+  props: radioGroupItemProps,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -96,13 +85,13 @@ export const DestylerRadioGroupItem = defineComponent({
     }
   },
   render() {
-    return h(DestylerRovingFocusItem, {
+    return h(RovingFocusItem, {
       asChild: true,
       checked: this.checked,
       disabled: this.disabled,
       focusable: !this.disabled,
       active: this.checked,
-    }, () => h(DestylerRadio, mergeProps(this.$attrs, this.$props, {
+    }, () => h(Radio, mergeProps(this.$attrs, this.$props, {
       'ref': (el: any) => this.forwardRef(el),
       'checked': this.checked,
       'required': this.required,

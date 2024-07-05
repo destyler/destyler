@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerIcon } from 'destyler'
+import { Icon } from 'destyler'
 
 const edits = ref([
   {
@@ -33,7 +33,7 @@ const router = useRouter()
         :to="edit.type === 'static' ? edit.href : `${edit.href + router.currentRoute.value.fullPath}`"
         target="_blank"
       >
-        <DestylerIcon class="w-4 h-4 mr-2" :name="edit.icon" />
+        <Icon class="w-4 h-4 mr-2" :name="edit.icon" />
         {{ edit.title }}
       </NuxtLink>
     </li>

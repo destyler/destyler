@@ -1,10 +1,10 @@
-import type { Component, PropType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
-import type { AsTag } from '@destyler/primitive'
+import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
-import { DestylerPopperContent } from '@destyler/popper'
-import { DestylerDismissableLayer } from '@destyler/dismissable-layer'
-import { DestylerVisuallyhidden } from '@destyler/visually-hidden'
+import { PopperContent } from '@destyler/popper'
+import { DismissableLayer } from '@destyler/dismissable-layer'
+import { Visuallyhidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { ELLIPSIS_OPEN } from '../utils'
@@ -16,17 +16,8 @@ const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
 type Side = (typeof SIDE_OPTIONS)[number]
 type Align = (typeof ALIGN_OPTIONS)[number]
 
-export const destylerEllipsisContentImplProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const ellipsisContentImplProps = {
+  ...primitiveProps,
   side: {
     type: String as PropType<Side>,
     required: false,
@@ -83,13 +74,14 @@ export const destylerEllipsisContentImplProps = {
   },
 } as const
 
-export type DestylerEllipsisContentImplProps = ExtractPublicPropTypes<typeof destylerEllipsisContentImplProps>
+export type EllipsisContentImplProps = ExtractPublicPropTypes<typeof ellipsisContentImplProps>
 
-export const destylerEllipsisContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
-export const DestylerEllipsisContentImpl = defineComponent({
+export const ellipsisContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
+
+export const EllipsisContentImpl = defineComponent({
   name: 'DestylerEllipsisContentImpl',
-  props: destylerEllipsisContentImplProps,
-  emits: destylerEllipsisContentImplEmits,
+  props: ellipsisContentImplProps,
+  emits: ellipsisContentImplEmits,
   setup(props) {
     const contentElement = ref<HTMLElement>()
     const rootContext = injectEllipsisRootContext()
@@ -136,7 +128,7 @@ export const DestylerEllipsisContentImpl = defineComponent({
     }
   },
   render() {
-    return h(DestylerDismissableLayer, {
+    return h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
       onEscapeKeyDown: (event: any) => {
@@ -151,7 +143,7 @@ export const DestylerEllipsisContentImpl = defineComponent({
       onDismiss: () => {
         this.rootContext.onClose()
       },
-    }, () => h(DestylerPopperContent, mergeProps(this.$attrs, this.popperContentProps, {
+    }, () => h(PopperContent, mergeProps(this.$attrs, this.popperContentProps, {
       'ref': 'contentElement',
       'data-state': this.rootContext.stateAttribute.value,
       'style': {
@@ -163,7 +155,7 @@ export const DestylerEllipsisContentImpl = defineComponent({
       },
     }), () => [
       this.$slots.default?.(),
-      h(DestylerVisuallyhidden, {
+      h(Visuallyhidden, {
         role: 'tooltip',
       }, () => this.ariaLabel),
     ]))

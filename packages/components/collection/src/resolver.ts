@@ -4,7 +4,8 @@ import { name } from '../package.json'
 const packageName = name
 
 export const destylerComponentName = [
-  'DestylerTemplate',
+  'CollectionItem',
+  'CollectionSlot',
 ]
 
 export function DestylerTemplateResolver(): ComponentResolver {

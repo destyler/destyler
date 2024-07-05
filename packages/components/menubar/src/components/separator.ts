@@ -1,32 +1,21 @@
-import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import type { AsTag } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
-import { DestylerMenuSeparator } from '@destyler/menu'
+import { MenuSeparator, menuSeparatorProps } from '@destyler/menu'
 
-export const destylerMenubarSeparatorProps = {
-  as: {
-    type: [String, Object] as PropType<AsTag | Component>,
-    required: false,
-    default: 'div',
-  },
-  asChild: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+export const menubarSeparatorProps = {
+  ...menuSeparatorProps,
 } as const
 
-export type DestylerMenubarSeparatorProps = ExtractPublicPropTypes<typeof destylerMenubarSeparatorProps>
+export type MenubarSeparatorProps = ExtractPublicPropTypes<typeof menubarSeparatorProps>
 
-export const DestylerMenubarSeparator = defineComponent({
+export const MenubarSeparator = defineComponent({
   name: 'DestylerMenubarSeparator',
-  props: destylerMenubarSeparatorProps,
+  props: menubarSeparatorProps,
   setup(_) {
     useForwardExpose()
   },
   render() {
-    return h(DestylerMenuSeparator, this.$props, () => this.$slots.default?.())
+    return h(MenuSeparator, this.$props, () => this.$slots.default?.())
   },
 })

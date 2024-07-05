@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import {
-  DestylerIcon,
-  DestylerLink,
-  DestylerNavigationContent,
-  DestylerNavigationItem,
-  DestylerNavigationLink,
-  DestylerNavigationList,
-  DestylerNavigationRoot,
-  DestylerNavigationTrigger,
-  DestylerNavigationViewport,
+  Icon,
+  Link,
+  NavigationContent,
+  NavigationItem,
+  NavigationLink,
+  NavigationList,
+  NavigationRoot,
+  NavigationTrigger,
+  NavigationViewport,
 } from 'destyler'
 
 const gattings = ref([
   {
     link: '/guide/introduction',
     title: 'Introduction',
-    description: 'Re-usable components built using Destyler.',
+    description: 'Re-usable components built using .',
   },
   {
     link: '/guide/install',
@@ -66,24 +66,24 @@ const currentTrigger = ref('')
 </script>
 
 <template>
-  <DestylerNavigationRoot
+  <NavigationRoot
     v-model="currentTrigger"
     class="relative z-10 flex max-w-max flex-1 items-center justify-center"
   >
-    <DestylerNavigationList class="group flex flex-1 list-none items-center justify-center space-x-1">
-      <DestylerNavigationItem>
-        <DestylerNavigationTrigger class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-#FFFFFF dark:bg-#1C1C1C px-4 py-2 text-sm font-medium transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:data-[active]:bg-#18181B/50 data-[active]:bg-#27272A/50 data-[state=open]:bg-#F4F4F5/50 dark:data-[state=open]:bg-#27272A/50">
+    <NavigationList class="group flex flex-1 list-none items-center justify-center space-x-1">
+      <NavigationItem>
+        <NavigationTrigger class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-#FFFFFF dark:bg-#1C1C1C px-4 py-2 text-sm font-medium transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:data-[active]:bg-#18181B/50 data-[active]:bg-#27272A/50 data-[state=open]:bg-#F4F4F5/50 dark:data-[state=open]:bg-#27272A/50">
           Getting started
-          <DestylerIcon
+          <Icon
             name="radix-icons:chevron-down"
             class="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
             aria-hidden="true"
           />
-        </DestylerNavigationTrigger>
-        <DestylerNavigationContent class="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ">
+        </NavigationTrigger>
+        <NavigationContent class="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ">
           <ul class="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
             <li class="row-span-3">
-              <DestylerNavigationLink as-child>
+              <NavigationLink as-child>
                 <a
                   class="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                   href="/"
@@ -95,10 +95,10 @@ const currentTrigger = ref('')
                     unstyled component for vue.
                   </p>
                 </a>
-              </DestylerNavigationLink>
+              </NavigationLink>
             </li>
             <li v-for="data in gattings" :key="data.link">
-              <DestylerNavigationLink as-child>
+              <NavigationLink as-child>
                 <a
                   :href="data.link"
                   class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B"
@@ -108,24 +108,24 @@ const currentTrigger = ref('')
                     {{ data.description }}
                   </p>
                 </a>
-              </DestylerNavigationLink>
+              </NavigationLink>
             </li>
           </ul>
-        </DestylerNavigationContent>
-      </DestylerNavigationItem>
-      <DestylerNavigationItem>
-        <DestylerNavigationTrigger class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-#FFFFFF dark:bg-#1C1C1C px-4 py-2 text-sm font-medium transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:data-[active]:bg-#18181B/50 data-[active]:bg-#27272A/50 data-[state=open]:bg-#F4F4F5/50 dark:data-[state=open]:bg-#27272A/50">
+        </NavigationContent>
+      </NavigationItem>
+      <NavigationItem>
+        <NavigationTrigger class="group inline-flex h-9 w-max items-center justify-center rounded-md bg-#FFFFFF dark:bg-#1C1C1C px-4 py-2 text-sm font-medium transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:data-[active]:bg-#18181B/50 data-[active]:bg-#27272A/50 data-[state=open]:bg-#F4F4F5/50 dark:data-[state=open]:bg-#27272A/50">
           Components
-          <DestylerIcon
+          <Icon
             name="radix-icons:chevron-down"
             class="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
             aria-hidden="true"
           />
-        </DestylerNavigationTrigger>
-        <DestylerNavigationContent class="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ">
+        </NavigationTrigger>
+        <NavigationContent class="left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ">
           <ul class="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
             <li v-for="data in components" :key="data.href">
-              <DestylerNavigationLink as-child>
+              <NavigationLink as-child>
                 <a
                   :href="data.href"
                   class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B"
@@ -135,19 +135,19 @@ const currentTrigger = ref('')
                     {{ data.description }}
                   </p>
                 </a>
-              </DestylerNavigationLink>
+              </NavigationLink>
             </li>
           </ul>
-        </DestylerNavigationContent>
-      </DestylerNavigationItem>
-      <DestylerNavigationItem>
-        <DestylerLink class="group cursor-pointer inline-flex h-9 w-max items-center justify-center rounded-md bg-#FFFFFF dark:bg-#1C1C1C px-4 py-2 text-sm font-medium transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:data-[active]:bg-#18181B/50 data-[active]:bg-#27272A/50 data-[state=open]:bg-#F4F4F5/50 dark:data-[state=open]:bg-#27272A/50">
+        </NavigationContent>
+      </NavigationItem>
+      <NavigationItem>
+        <Link class="group cursor-pointer inline-flex h-9 w-max items-center justify-center rounded-md bg-#FFFFFF dark:bg-#1C1C1C px-4 py-2 text-sm font-medium transition-colors hover:bg-#F4F4F5 dark:hover:bg-#27272A dark:hover:text-#FAFAFA hover:text-#18181B dark:focus:bg-#1C1C1C focus:bg-#F4F4F5 dark:focus:text-#FAFAFA focus:text-#18181B focus:outline-none disabled:pointer-events-none disabled:opacity-50 dark:data-[active]:bg-#18181B/50 data-[active]:bg-#27272A/50 data-[state=open]:bg-#F4F4F5/50 dark:data-[state=open]:bg-#27272A/50">
           Documentation
-        </DestylerLink>
-      </DestylerNavigationItem>
-    </DestylerNavigationList>
+        </Link>
+      </NavigationItem>
+    </NavigationList>
     <div class="absolute left-0 top-full flex justify-center">
-      <DestylerNavigationViewport class="origin-top-center! mt-1.5 h-[var(--destyler\_navigation\_menu\_viewport\_height)] w-full overflow-hidden rounded-md border border-black border-op-9 dark:border-white dark:border-op-9 dark:bg-#09090B bg-#FFFFFF text-#09090B dark:text-#FAFAFA shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--destyler\_navigation\_menu\_viewport\_width)]" />
+      <NavigationViewport class="origin-top-center! mt-1.5 h-[var(--destyler\_navigation\_menu\_viewport\_height)] w-full overflow-hidden rounded-md border border-black border-op-9 dark:border-white dark:border-op-9 dark:bg-#09090B bg-#FFFFFF text-#09090B dark:text-#FAFAFA shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--destyler\_navigation\_menu\_viewport\_width)]" />
     </div>
-  </DestylerNavigationRoot>
+  </NavigationRoot>
 </template>

@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {
-  DestylerButton,
-  DestylerPopoverContent,
-  DestylerPopoverPortal,
-  DestylerPopoverRoot,
-  DestylerPopoverTrigger,
+  Button,
+  PopoverContent,
+  PopoverPortal,
+  PopoverRoot,
+  PopoverTrigger,
 } from 'destyler'
 
 const openStatus = ref(false)
 </script>
 
 <template>
-  <DestylerPopoverRoot v-model:open="openStatus">
-    <DestylerPopoverTrigger
+  <PopoverRoot v-model:open="openStatus">
+    <PopoverTrigger
       aria-label="Update dimensions"
     >
-      <DestylerButton class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 border border-#E4E4E7 dark:border-#27272A bg-white dark:bg-#09090B shadow-sm hover:bg-#F4F4F5 dark:hover:bg-#27272A hover:text-#18181B dark:hover:text-#FAFAFA h-9 px-4 py-2">
+      <Button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 border border-#E4E4E7 dark:border-#27272A bg-white dark:bg-#09090B shadow-sm hover:bg-#F4F4F5 dark:hover:bg-#27272A hover:text-#18181B dark:hover:text-#FAFAFA h-9 px-4 py-2">
         Click
-      </DestylerButton>
-    </DestylerPopoverTrigger>
-    <DestylerPopoverPortal>
-      <DestylerPopoverContent
+      </Button>
+    </PopoverTrigger>
+    <PopoverPortal>
+      <PopoverContent
         side="bottom"
         :side-offset="5"
       >
@@ -35,7 +35,7 @@ const openStatus = ref(false)
             </p>
           </div>
         </div>
-      </DestylerPopoverContent>
-    </DestylerPopoverPortal>
-  </DestylerPopoverRoot>
+      </PopoverContent>
+    </PopoverPortal>
+  </PopoverRoot>
 </template>
