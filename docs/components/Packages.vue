@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerIcon } from 'destyler'
+import { Icon } from 'destyler'
 import size from '~/public/export-size.json'
 
 const router = useRouter()
@@ -48,7 +48,7 @@ onMounted(() => {
         :to="item.href"
         target="_blank"
       >
-        <DestylerIcon class="w-4 h-4 mr-2" :name="item.icon" />
+        <Icon class="w-4 h-4 mr-2" :name="item.icon" />
         {{ item.title }}
       </NuxtLink>
     </li>

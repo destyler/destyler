@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerCollapseContent, DestylerCollapseHeader, DestylerCollapseItem, DestylerCollapseRoot, DestylerCollapseTrigger, DestylerIcon } from 'destyler'
+import { CollapseContent, CollapseHeader, CollapseItem, CollapseRoot, CollapseTrigger, Icon } from 'destyler'
 
 const items = [
   {
@@ -22,31 +22,31 @@ const items = [
 
 <template>
   <div class="flex min-h-[350px] w-full justify-center p-10 items-center">
-    <DestylerCollapseRoot
+    <CollapseRoot
       class="w-full"
       default-value="'item-1'"
       type="single"
       :collapsible="true"
     >
       <template v-for="item in items" :key="item.value">
-        <DestylerCollapseItem class="border-b border-#E4E4E7 dark:border-#27272A" :value="item.value">
-          <DestylerCollapseHeader class="flex">
-            <DestylerCollapseTrigger class="cursor-pointer flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180">
+        <CollapseItem class="border-b border-#E4E4E7 dark:border-#27272A" :value="item.value">
+          <CollapseHeader class="flex">
+            <CollapseTrigger class="cursor-pointer flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180">
               <span>{{ item.title }}</span>
-              <DestylerIcon
+              <Icon
                 name="radix-icons:chevron-down"
                 class="h-4 w-4 shrink-0 dark:text-#A1A1AA transition-transform duration-200"
               />
-            </DestylerCollapseTrigger>
-          </DestylerCollapseHeader>
-          <DestylerCollapseContent class="overflow-hidden text-sm data-[state=closed]:animate-collapse-up data-[state=open]:animate-collapse-down">
+            </CollapseTrigger>
+          </CollapseHeader>
+          <CollapseContent class="overflow-hidden text-sm data-[state=closed]:animate-collapse-up data-[state=open]:animate-collapse-down">
             <div class="pb-4 pt-0">
               {{ item.content }}
             </div>
-          </DestylerCollapseContent>
-        </DestylerCollapseItem>
+          </CollapseContent>
+        </CollapseItem>
       </template>
-    </DestylerCollapseRoot>
+    </CollapseRoot>
   </div>
 </template>
 

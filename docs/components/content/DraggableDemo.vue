@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { DestylerDraggable, DestylerIcon } from 'destyler'
+import { Draggable, Icon } from 'destyler'
 </script>
 
 <template>
-  <DestylerDraggable :x="1000" :y="375" class="cursor-move">
-    <DestylerIcon name="devicon:vuejs" class="w-8 h-8" />
-  </DestylerDraggable>
+  <Draggable :x="1000" :y="375" class="cursor-move">
+    <Icon name="devicon:vuejs" class="w-8 h-8" />
+  </Draggable>
 </template>

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { DestylerEllipsisContent, DestylerEllipsisPortal, DestylerEllipsisProvider, DestylerEllipsisRoot, DestylerEllipsisTrigger } from 'destyler'
+import { EllipsisContent, EllipsisPortal, EllipsisProvider, EllipsisRoot, EllipsisTrigger } from 'destyler'
 </script>
 
 <template>
-  <DestylerEllipsisProvider>
-    <DestylerEllipsisRoot>
-      <DestylerEllipsisTrigger class="max-w-240px cursor-default">
+  <EllipsisProvider>
+    <EllipsisRoot>
+      <EllipsisTrigger class="max-w-240px cursor-default">
         Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam
-      </DestylerEllipsisTrigger>
-      <DestylerEllipsisPortal>
-        <DestylerEllipsisContent
+      </EllipsisTrigger>
+      <EllipsisPortal>
+        <EllipsisContent
           v-slot="{ text }"
           as-child
           :side-offset="5"
@@ -18,8 +18,8 @@ import { DestylerEllipsisContent, DestylerEllipsisPortal, DestylerEllipsisProvid
           <p>
             {{ text }}
           </p>
-        </DestylerEllipsisContent>
-      </DestylerEllipsisPortal>
-    </DestylerEllipsisRoot>
-  </DestylerEllipsisProvider>
+        </EllipsisContent>
+      </EllipsisPortal>
+    </EllipsisRoot>
+  </EllipsisProvider>
 </template>

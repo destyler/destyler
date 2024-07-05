@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {
-  DestylerBreadcrumbsContent,
-  DestylerBreadcrumbsItem,
-  DestylerBreadcrumbsLabel,
-  DestylerBreadcrumbsRoot,
-  DestylerBreadcrumbsSeparator,
+  BreadcrumbsContent,
+  BreadcrumbsItem,
+  BreadcrumbsLabel,
+  BreadcrumbsRoot,
+  BreadcrumbsSeparator,
 } from 'destyler'
 
 const props = defineProps<{
@@ -21,22 +21,22 @@ function upperCase(str: string) {
 </script>
 
 <template>
-  <DestylerBreadcrumbsRoot>
-    <DestylerBreadcrumbsContent class="mb-4 flex items-center space-x-1 text-sm">
-      <DestylerBreadcrumbsItem
+  <BreadcrumbsRoot>
+    <BreadcrumbsContent class="mb-4 flex items-center space-x-1 text-sm">
+      <BreadcrumbsItem
         v-for="item in breadcrumbItems"
         :key="item"
         class="mb-4 flex items-center space-x-1 text-sm text-#09090b dark:text-#fafafa data-[state=inactive]:text-op-60"
       >
-        <DestylerBreadcrumbsLabel
+        <BreadcrumbsLabel
           class="overflow-hidden text-ellipsis whitespace-nowrap cursor-pointer"
         >
           {{ upperCase(item) }}
-        </DestylerBreadcrumbsLabel>
-        <DestylerBreadcrumbsSeparator class="w-2">
+        </BreadcrumbsLabel>
+        <BreadcrumbsSeparator class="w-2">
           >
-        </DestylerBreadcrumbsSeparator>
-      </DestylerBreadcrumbsItem>
-    </DestylerBreadcrumbsContent>
-  </DestylerBreadcrumbsRoot>
+        </BreadcrumbsSeparator>
+      </BreadcrumbsItem>
+    </BreadcrumbsContent>
+  </BreadcrumbsRoot>
 </template>

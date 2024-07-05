@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { DestylerQrCodeItem, DestylerQrCodeRoot } from 'destyler'
+import { QrCodeItem, QrCodeRoot } from 'destyler'
 </script>
 
 <template>
-  <DestylerQrCodeRoot
+  <QrCodeRoot
     class="bg-white p-4 rounded-md shadow-md"
     value="https://destyler-dev.vercel.app/"
   >
-    <DestylerQrCodeItem background-color="transparent" foreground-color="#000" />
-  </DestylerQrCodeRoot>
+    <QrCodeItem background-color="transparent" foreground-color="#000" />
+  </QrCodeRoot>
 </template>

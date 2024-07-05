@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerLabel } from 'destyler'
+import { Label } from 'destyler'
 </script>
 
 <template>
@@ -8,10 +8,10 @@ import { DestylerLabel } from 'destyler'
       <div class="mr-4 hidden md:flex">
         <NuxtLink to="/" class="cursor-pointer flex items-center mr-6">
           <Logo class="mr-3 " />
-          <DestylerLabel class="cursor-pointer">
-            <span>Destyler</span>
+          <Label class="cursor-pointer">
+            <span/>
             <sup>{{ lastVersion }}</sup>
-          </DestylerLabel>
+          </Label>
         </NuxtLink>
         <nav class="flex items-center gap-6 text-sm">
           <NavItem v-for="item in headNavItems" :key="item.link" :link="item.link" :title="item.text" />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DestylerOnline } from 'destyler'
+import { Online } from 'destyler'
 
 const status = ref<boolean>(false)
 
@@ -9,7 +9,7 @@ function handleStatusChange(value: boolean) {
 </script>
 
 <template>
-  <DestylerOnline class="content " @network-status="handleStatusChange">
+  <Online class="content " @network-status="handleStatusChange">
     {{ status ? 'Online' : 'Offline' }}
-  </DestylerOnline>
+  </Online>
 </template>
