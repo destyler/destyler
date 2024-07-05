@@ -40,9 +40,6 @@ export const contextMenuContentProps = {
     ...menuContentProps.hideWhenDetached,
     default: false,
   },
-  onPlaced: {
-    ...menuContentProps.onPlaced,
-  },
   prioritizePosition: {
     ...menuContentProps.prioritizePosition,
     default: false,

@@ -92,7 +92,7 @@ export const PopperContent = defineComponent({
   inheritAttrs: false,
   props: popperContentProps,
   emits: ['placed'],
-  setup(props, { attrs }) {
+  setup(props, { attrs, emit }) {
     const rootContext = injectPopperRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()
     const floatingRef = ref<HTMLElement>()
@@ -199,7 +199,7 @@ export const PopperContent = defineComponent({
 
     watchEffect(() => {
       if (isPositioned.value)
-        props.onPlaced?.()
+        emit('placed')
     })
 
     const cannotCenterArrow = computed(
