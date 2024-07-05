@@ -21,11 +21,15 @@ export const buttonProps = {
 
 export type ButtonProps = ExtractPublicPropTypes<typeof buttonProps>
 
+export const butttonEmit = {
+  click: (_event: MouseEvent) => true,
+}
+
 export const Button = defineComponent({
   name: 'DestylerButton',
   inheritAttrs: false,
   props: buttonProps,
-  emits: ['click'],
+  emits: butttonEmit,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
 
