@@ -51,7 +51,11 @@ export const tooltipContentImplProps = {
 
 export type TooltipContentImplProps = ExtractPublicPropTypes<typeof tooltipContentImplProps>
 
-export const tooltipContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
+export const tooltipContentImplEmits = {
+  escapeKeyDown: (_event: KeyboardEvent) => true,
+  pointerDownOutside: (_event: Event) => true,
+}
+
 export const TooltipContentImpl = defineComponent({
   name: 'DestylerTooltipContentImpl',
   props: tooltipContentImplProps,
