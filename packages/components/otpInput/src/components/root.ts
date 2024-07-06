@@ -73,11 +73,16 @@ export interface OtpInputRootContext {
 
 export const [injectOtpInputRootContext, provideOtpInputRootContext] = createContext<OtpInputRootContext>('DestylerOtpInputRoot')
 
+export const otpInputRootEmits = {
+  'update:modelValue': (_value: string[]) => true,
+  'complete': (_value: string[]) => true,
+}
+
 export const OtpInputRoot = defineComponent({
   name: 'DestylerOtpInputRoot',
   inheritAttrs: false,
   props: otpInputRootProps,
-  emits: ['update:modelValue', 'complete'],
+  emits: otpInputRootEmits,
   setup(props, { emit }) {
     const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
     const { forwardRef } = useForwardExpose()

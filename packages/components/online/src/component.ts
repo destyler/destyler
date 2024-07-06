@@ -1,1 +1,1 @@
-export { Online, onlineProps, type OnlineProps } from './components/online'
+export { Online, onlineProps, onlineEmits, type OnlineProps } from './components/online'

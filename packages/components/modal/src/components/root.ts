@@ -34,10 +34,14 @@ export interface ModalRootContext {
 export const [injectModalRootContext, provideModalRootContext]
   = createContext<ModalRootContext>('DestylerModalRoot')
 
+export const modalRootEmits = {
+  'update:open': (_value: boolean) => true,
+}
+
 export const ModalRoot = defineComponent({
   name: 'DestylerModalRoot',
   props: modalRootProps,
-  emits: ['update:open'],
+  emits: modalRootEmits,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

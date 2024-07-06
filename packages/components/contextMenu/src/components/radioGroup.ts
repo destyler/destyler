@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuRadioGroup, menuRadioGroupProps } from '@destyler/menu'
+import { menuRadioGroupEmits } from '@destyler/menu/dist/component'
 
 export const contextMenuRadioGroupProps = {
   ...menuRadioGroupProps,
@@ -9,10 +10,14 @@ export const contextMenuRadioGroupProps = {
 
 export type ContextMenuRadioGroupProps = ExtractPublicPropTypes<typeof contextMenuRadioGroupProps>
 
+export const contextMenuRadioGroupEmits = {
+  ...menuRadioGroupEmits,
+}
+
 export const ContextMenuRadioGroup = defineComponent({
   name: 'DestylerContextMenuRadioGroup',
   props: contextMenuRadioGroupProps,
-  emits: ['update:modelValue'],
+  emits: contextMenuRadioGroupEmits,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

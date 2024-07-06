@@ -12,7 +12,9 @@ export const ellipsisContentProps = {
 
 export type EllipsisContentProps = ExtractPublicPropTypes<typeof ellipsisContentProps>
 
-export const ellipsisContentEmits = [...ellipsisContentImplEmits]
+export const ellipsisContentEmits = {
+  ...ellipsisContentImplEmits,
+}
 
 export const EllipsisContent = defineComponent({
   name: 'DestylerEllipsisContent',

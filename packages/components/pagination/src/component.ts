@@ -5,4 +5,4 @@ export { PaginationList, paginationListProps, type PaginationListProps } from '.
 export { PaginationListItem, paginationListItemProps, type PaginationListItemProps } from './components/listItem'
 export { PaginationNext, paginationNextProps, type PaginationNextProps } from './components/next'
 export { PaginationPrev, paginationPrevProps, type PaginationPrevProps } from './components/prev'
-export { PaginationRoot, paginationRootProps, type PaginationRootProps } from './components/root'
+export { PaginationRoot, paginationRootProps, paginationRootEmits, type PaginationRootProps } from './components/root'

@@ -27,10 +27,19 @@ export const sliderHorizontalProps = {
 
 export type SliderHorizontalProps = ExtractPublicPropTypes<typeof sliderHorizontalProps>
 
+export const sliderHorizontalEmits = {
+  slideEnd: () => true,
+  slideStart: (_value: number) => true,
+  slideMove: (_value: number) => true,
+  homeKeyDown: (_event: KeyboardEvent) => true,
+  endKeyDown: (_event: KeyboardEvent) => true,
+  stepKeyDown: (_event: KeyboardEvent, _direction: number) => true,
+}
+
 export const SliderHorizontal = defineComponent({
   name: 'DestylerSliderHorizontal',
   props: sliderHorizontalProps,
-  emits: ['slideEnd', 'slideStart', 'slideMove', 'homeKeyDown', 'endKeyDown', 'stepKeyDown'],
+  emits: sliderHorizontalEmits,
   setup(props) {
     const { max, min, dir, inverted } = toRefs(props)
 

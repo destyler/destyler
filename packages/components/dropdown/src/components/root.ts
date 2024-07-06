@@ -4,16 +4,31 @@ import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose, useId, useVModel } from '@destyler/composition'
 import { MenuRoot, menuRootProps } from '@destyler/menu'
+import { menuRootEmits } from '@destyler/menu/dist/component'
 
 export const dropdownRootProps = {
-  ...menuRootProps,
+  dir: {
+    ...menuRootProps.dir,
+  },
+  modal: {
+    ...menuRootProps.modal,
+  },
+  open: {
+    ...menuRootProps.open,
+    default: undefined,
+  },
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: undefined,
   },
 } as const
 
 export type DropdownRootProps = ExtractPublicPropTypes<typeof dropdownRootProps>
+
+export const dropdownRootEmits = {
+  ...menuRootEmits,
+}
 
 export interface DropdownMenuRootContext {
   open: Readonly<Ref<boolean>>
@@ -31,7 +46,7 @@ export const [injectDropdownMenuRootContext, provideDropdownMenuRootContext] = c
 export const DropdownRoot = defineComponent({
   name: 'DestylerDropdownRoot',
   props: dropdownRootProps,
-  emits: ['update:open'],
+  emits: dropdownRootEmits,
   setup(props, { emit }) {
     useForwardExpose()
     const open = useVModel(props, 'open', emit, {
@@ -69,7 +84,7 @@ export const DropdownRoot = defineComponent({
       'modal': this.modal,
       'dir': this.dir,
       'open': this.open,
-      'onUpdate:open': (value: any) => {
+      'onUpdate:open': (value) => {
         this.open = value
       },
     }, () => this.$slots.default?.())

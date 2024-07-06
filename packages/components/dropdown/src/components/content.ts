@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { MenuContent, menuContentProps } from '@destyler/menu'
+import { menuContentEmits } from '@destyler/menu/dist/component'
 
 import { BindOnceDirective } from '@destyler/directives'
 import { injectDropdownMenuRootContext } from './root'
@@ -18,10 +19,14 @@ export const dropdownContentProps = {
 
 export type DropdownContentProps = ExtractPublicPropTypes<typeof dropdownContentProps>
 
+export const dropdownContentEmits = {
+  ...menuContentEmits,
+}
+
 export const DropdownContent = defineComponent({
   name: 'DestylerDropdownContent',
   props: dropdownContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: dropdownContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

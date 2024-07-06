@@ -4,7 +4,7 @@ import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
 import { injectComboboxRootContext } from './root'
-import { ComboboxContentImpl, comboboxContentImplProps } from './contentImpl'
+import { ComboboxContentImpl, comboboxCOntentImplEmits, comboboxContentImplProps } from './contentImpl'
 
 export const comboboxContentProps = {
   ...comboboxContentImplProps,
@@ -16,10 +16,14 @@ export const comboboxContentProps = {
 
 export type ComboboxContentProps = ExtractPublicPropTypes<typeof comboboxContentProps>
 
+export const comboboxContentEmits = {
+  ...comboboxCOntentImplEmits,
+}
+
 export const ComboboxContent = defineComponent({
   name: 'DestylerComboboxContent',
   props: comboboxContentProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside'],
+  emits: comboboxContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()

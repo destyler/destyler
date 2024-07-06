@@ -15,10 +15,19 @@ export const sliderImplProps = {
 
 export type SliderImplProps = ExtractPublicPropTypes<typeof sliderImplProps>
 
+export const sliderImplEmits = {
+  slideStart: (_event: PointerEvent) => true,
+  slideMove: (_event: PointerEvent) => true,
+  slideEnd: (_event: PointerEvent) => true,
+  homeKeyDown: (_event: KeyboardEvent) => true,
+  endKeyDown: (_event: KeyboardEvent) => true,
+  stepKeyDown: (_event: KeyboardEvent) => true,
+}
+
 export const SliderImpl = defineComponent({
   name: 'DestylerSliderImpl',
   props: sliderImplProps,
-  emits: ['slideStart', 'slideMove', 'slideEnd', 'homeKeyDown', 'endKeyDown', 'stepKeyDown'],
+  emits: sliderImplEmits,
   setup() {
     const rootContent = injectSliderRootContext()
     return {

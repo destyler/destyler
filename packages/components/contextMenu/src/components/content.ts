@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { MenuContent, menuContentProps } from '@destyler/menu'
+import { menuContentEmits } from '@destyler/menu/dist/component'
 
 import { injectContextMenuRootContext } from './root'
 
@@ -63,10 +64,14 @@ export const contextMenuContentProps = {
 
 export type ContextMenuContentProps = ExtractPublicPropTypes<typeof contextMenuContentProps>
 
+export const contextMenuContentEmits = {
+  ...menuContentEmits,
+}
+
 export const ContextMenuContent = defineComponent({
   name: 'DestylerContextMenuContent',
   props: contextMenuContentProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'closeAutoFocus'],
+  emits: contextMenuContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

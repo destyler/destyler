@@ -4,7 +4,7 @@ export { ScrollAreaRoot, scrollAreaRootProps, type ScrollAreaRootProps } from '.
 export { ScrollAreaScrollbar, scrollAreaScrollbarProps, type ScrollAreaScrollbarProps } from './components/scrollbar'
 export { ScrollAreaScrollbarAuto, scrollAreaScrollbarAutoProps, type ScrollAreaScrollbarAutoProps } from './components/scrollbarAuto'
 export { ScrollAreaScrollbarHover, scrollAreaScrollbarHoverProps, type ScrollAreaScrollbarHoverProps } from './components/scrollbarHover'
-export { ScrollAreaScrollbarImpl, scrollAreaScrollbarImplProps, type ScrollAreaScrollbarImplProps } from './components/scrollbarImpl'
+export { ScrollAreaScrollbarImpl, scrollAreaScrollbarImplProps, scrollAreaScrollbarImplEmits, type ScrollAreaScrollbarImplProps } from './components/scrollbarImpl'
 export { ScrollAreaScrollbarScroll, scrollAreaScrollbarScrollProps, type ScrollAreaScrollbarScrollProps } from './components/scrollbarScroll'
 export { ScrollAreaScrollbarVisible } from './components/scrollbarVisible'
 export { ScrollAreaScrollbarX } from './components/scrollbarX'

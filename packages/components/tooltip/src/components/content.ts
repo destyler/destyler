@@ -12,7 +12,9 @@ export const tooltipContentProps = {
 
 export type TooltipContentProps = ExtractPublicPropTypes<typeof tooltipContentProps>
 
-export const tooltipContentEmits = [...tooltipContentImplEmits]
+export const tooltipContentEmits = {
+  ...tooltipContentImplEmits,
+}
 
 export const TooltipContent = defineComponent({
   name: 'DestylerTooltipContent',

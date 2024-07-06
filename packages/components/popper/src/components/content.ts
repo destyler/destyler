@@ -87,11 +87,15 @@ export const popperContentProps = {
 
 export type PopperContentProps = ExtractPublicPropTypes<typeof popperContentProps>
 
+export const popperContentEmits = {
+  placed: () => true,
+}
+
 export const PopperContent = defineComponent({
   name: 'DestylerPopperContent',
   inheritAttrs: false,
   props: popperContentProps,
-  emits: ['placed'],
+  emits: popperContentEmits,
   setup(props, { attrs, emit }) {
     const rootContext = injectPopperRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

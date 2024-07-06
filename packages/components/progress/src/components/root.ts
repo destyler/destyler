@@ -28,6 +28,11 @@ export const progressRootProps = {
 
 export type ProgressRootProps = ExtractPublicPropTypes<typeof progressRootProps>
 
+export const progressRootEmits = {
+  'update:modelValue': (_value: string[] | undefined) => true,
+  'update:max': (_value: number) => true,
+}
+
 export interface ProgressRootContext {
   modelValue?: Readonly<Ref<number | null>>
   max: Readonly<Ref<number>>
@@ -42,7 +47,7 @@ export type ProgressState = 'indeterminate' | 'loading' | 'complete'
 export const ProgressRoot = defineComponent({
   name: 'DestylerProgressRoot',
   props: progressRootProps,
-  emits: ['update:modelValue', 'update:max'],
+  emits: progressRootEmits,
   setup(props, { emit }) {
     function validateValue(value: any, max: number): number | null {
       const isValidValueError

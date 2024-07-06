@@ -31,11 +31,15 @@ export const onlineProps = {
 
 export type OnlineProps = ExtractPublicPropTypes<typeof onlineProps>
 
+export const onlineEmits = {
+  networkStatus: (_value: boolean) => true,
+}
+
 export const Online = defineComponent({
   name: 'DestylerOnline',
   inheritAttrs: false,
   props: onlineProps,
-  emits: ['networkStatus'],
+  emits: onlineEmits,
   setup(props, { emit }) {
     onMounted(() => {
       const isOnline = ref<boolean>(navigator.onLine || false)

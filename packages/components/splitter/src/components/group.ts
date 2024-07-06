@@ -61,6 +61,10 @@ export const splitterGroupProps = {
 
 export type SplitterGroupProps = ExtractPublicPropTypes<typeof splitterGroupProps>
 
+export const splitterGroupEmits = {
+  layout: (_layout: number[]) => true,
+}
+
 export interface PanelGroupContext {
   direction: 'horizontal' | 'vertical'
   dragState: DragState | null
@@ -81,7 +85,7 @@ export const [injectPanelGroupContext, providePanelGroupContext] = createContext
 export const SplitterGroup = defineComponent({
   name: 'DestylerSplitterGroup',
   props: splitterGroupProps,
-  emits: ['layout'],
+  emits: splitterGroupEmits,
   setup(props, { emit }) {
     const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100
 

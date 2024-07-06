@@ -50,6 +50,10 @@ export const toggleGroupRootProps = {
 
 export type ToggleGroupRootProps = ExtractPublicPropTypes<typeof toggleGroupRootProps>
 
+export const toggleGroupRootEmits = {
+  'update:modelValue': (_value: string) => true,
+}
+
 export interface ToggleGroupRootContext {
   type: TypeEnum
   modelValue: Ref<string | string[] | undefined>
@@ -66,7 +70,7 @@ export const [injectToggleGroupRootContext, provideToggleGroupRootContext] = cre
 export const ToggleGroupRoot = defineComponent({
   name: 'DestylerToggleGroupRoot',
   props: toggleGroupRootProps,
-  emits: ['update:modelValue'],
+  emits: toggleGroupRootEmits,
   setup(props, { emit }) {
     const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

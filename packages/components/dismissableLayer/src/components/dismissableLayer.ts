@@ -5,7 +5,7 @@ import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { useFocusOutside, usePointerDownOutside } from '../utils'
+import { type FocusOutsideEvent, type PointerDownOutsideEvent, useFocusOutside, usePointerDownOutside } from '../utils'
 
 export const dismissableLayerProps = {
   ...primitiveProps,
@@ -23,6 +23,13 @@ export const dismissableLayerProps = {
 
 export type DismissableLayerProps = ExtractPublicPropTypes<typeof dismissableLayerProps>
 
+export const dismissableLayerEmits = {
+  escapeKeyDown: (_event: KeyboardEvent) => true,
+  pointerDownOutside: (_event: PointerDownOutsideEvent) => true,
+  focusOutside: (_event: FocusOutsideEvent) => true,
+  interactOutside: (_event: PointerDownOutsideEvent | FocusOutsideEvent) => true,
+}
+
 export const context = reactive({
   layersRoot: new Set<HTMLElement>(),
   layersWithOutsidePointerEventsDisabled: new Set<HTMLElement>(),
@@ -32,7 +39,10 @@ export const context = reactive({
 export const DismissableLayer = defineComponent({
   name: 'DestylerDismissableLayer',
   props: dismissableLayerProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: {
+    ...dismissableLayerEmits,
+    dismiss: () => true,
+  },
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
     const ownerDocument = computed(

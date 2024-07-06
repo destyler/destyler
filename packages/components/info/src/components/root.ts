@@ -28,11 +28,15 @@ export const infoRootProps = {
 
 export type InfoRootProps = ExtractPublicPropTypes<typeof infoRootProps>
 
+export const infoRootEmits = {
+  'update:open': (_value: boolean) => true,
+}
+
 export const InfoRoot = defineComponent({
   name: 'DestylerInfoRoot',
   inheritAttrs: false,
   props: infoRootProps,
-  emits: ['update:open'],
+  emits: infoRootEmits,
   setup(props, { emit }) {
     const openRef = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

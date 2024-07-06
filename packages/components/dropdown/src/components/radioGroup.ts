@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuRadioGroup, menuRadioGroupProps } from '@destyler/menu'
+import { menuRadioGroupEmits } from '@destyler/menu/dist/component'
 
 export const dropdownRadioGroupProps = {
   ...menuRadioGroupProps,
@@ -9,10 +10,14 @@ export const dropdownRadioGroupProps = {
 
 export type DropdownRadioGroupProps = ExtractPublicPropTypes<typeof dropdownRadioGroupProps>
 
+export const dropdownRadioGroupEmits = {
+  ...menuRadioGroupEmits,
+}
+
 export const DropdownRadioGroup = defineComponent({
   name: 'DestylerDropdownRadioGroup',
   props: dropdownRadioGroupProps,
-  emits: ['update:modelValue'],
+  emits: dropdownRadioGroupEmits,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

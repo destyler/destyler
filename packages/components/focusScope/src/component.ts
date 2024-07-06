@@ -1,1 +1,1 @@
-export { FocusScope, focusScopeProps, type FocusScopeProps } from './components/focusScope'
+export { FocusScope, focusScopeProps, focusScopeEmits, type FocusScopeProps } from './components/focusScope'

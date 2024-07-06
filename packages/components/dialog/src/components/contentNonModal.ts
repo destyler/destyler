@@ -2,12 +2,12 @@ import { defineComponent, h, mergeProps, ref } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 
 import { injectDialogRootContext } from './root'
-import { DialogContentImpl, dialogContentImplProps } from './contentImpl'
+import { DialogContentImpl, dialogContentImplEmtis, dialogContentImplProps } from './contentImpl'
 
 export const DialogContentNonModal = defineComponent({
   name: 'DestylerDialogContentNonModal',
   props: dialogContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: dialogContentImplEmtis,
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
     const hasInteractedOutsideRef = ref(false)

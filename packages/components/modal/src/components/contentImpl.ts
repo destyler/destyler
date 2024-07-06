@@ -4,6 +4,7 @@ import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getOpenState } from '@destyler/shared'
@@ -25,10 +26,16 @@ export const modalContentImplProps = {
 
 export type ModalContentImplProps = ExtractPublicPropTypes<typeof modalContentImplProps>
 
+export const modalContentImplEmits = {
+  ...dismissableLayerEmits,
+  openAutoFocus: (_event: Event) => true,
+  closeAutoFocus: (_event: Event) => true,
+}
+
 export const ModalContentImpl = defineComponent({
   name: 'DestylerModalContentImpl',
   props: modalContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: modalContentImplEmits,
   setup() {
     const rootContext = injectModalRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

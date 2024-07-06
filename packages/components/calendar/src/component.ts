@@ -9,4 +9,4 @@ export { CalendarHeader, calendarHeaderProps, type CalendarHeaderProps } from '.
 export { CalendarHeading, calendarHeadingProps, type CalendarHeadingProps } from './components/heading'
 export { CalendarNext, calendarNextProps, type CalendarNextProps } from './components/next'
 export { CalendarPrev, calendarPrevProps, type CalendarPrevProps } from './components/prev'
-export { CalendarRoot, calendarRootProps, type CalendarRootProps } from './components/root'
+export { CalendarRoot, calendarRootProps, calendarRootEmits, type CalendarRootProps } from './components/root'

@@ -2,6 +2,7 @@ import { computed, defineComponent, h, mergeProps, ref, watchEffect, withDirecti
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useForwardExpose } from '@destyler/composition'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { EVENT_ROOT_CONTENT_DISMISS, focusFirst, getOpenState, getTabbableCandidates, makeContentId, makeTriggerId } from '../utils'
@@ -20,11 +21,15 @@ export const navigationContentImplProps = {
 
 export type NavigationContentImplProps = ExtractPublicPropTypes<typeof navigationContentImplProps>
 
+export const navigationContentImplEmits = {
+  ...dismissableLayerEmits,
+}
+
 export const NavigationContentImpl = defineComponent({
   name: 'DestylerNavigationContentImpl',
   props: navigationContentImplProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
-  setup(props, { emit }) {
+  emits: navigationContentImplEmits,
+  setup(_, { emit }) {
     const { injectCollection } = useCollection('nav')
     const collectionItems = injectCollection()
     const { forwardRef, currentElement } = useForwardExpose()

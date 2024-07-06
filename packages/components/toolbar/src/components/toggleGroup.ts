@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { ToggleGroupRoot, toggleGroupRootProps } from '@destyler/toggle'
+import { toggleGroupRootEmits } from '@destyler/toggle/dist/component'
 
 import { injectToolbarRootContext } from './root'
 
@@ -13,10 +14,14 @@ export const toolbarToggleGroupProps = {
 
 export type ToolbarToggleGroupProps = ExtractPublicPropTypes<typeof toolbarToggleGroupProps>
 
+export const toolbarToggleGroupEmits = {
+  ...toggleGroupRootEmits,
+}
+
 export const ToolbarToggleGroup = defineComponent({
   name: 'DestylerToolbarToggleGroup',
   props: toolbarToggleGroupProps,
-  emits: ['update:modelValue'],
+  emits: toolbarToggleGroupEmits,
   setup(_, { emit }) {
     const rootContext = injectToolbarRootContext()
 

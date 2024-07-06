@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
-import { menuContentImplProps } from './contentImpl'
+import { menuContentImplEmits, menuContentImplProps } from './contentImpl'
 import { injectMenuContext, injectMenuRootContext } from './root'
 import { MenuRootContentModal } from './rootContentModal'
 import { MenuRootContentNonModal } from './rootContentNonModal'
@@ -18,6 +18,14 @@ export const menuContentProps = {
 } as const
 
 export type MenuContentProps = ExtractPublicPropTypes<typeof menuContentProps>
+
+export const menuContentEmits = {
+  closeAutoFocus: menuContentImplEmits.closeAutoFocus,
+  escapeKeyDown: menuContentImplEmits.escapeKeyDown,
+  pointerDownOutside: menuContentImplEmits.pointerDownOutside,
+  focusOutside: menuContentImplEmits.focusOutside,
+  interactOutside: menuContentImplEmits.interactOutside,
+}
 
 export const MenuContent = defineComponent({
   name: 'DestylerMenuContent',

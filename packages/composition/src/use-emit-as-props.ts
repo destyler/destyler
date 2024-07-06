@@ -5,13 +5,22 @@ export function useEmitAsProps<Name extends string>(
 ) {
   const vm = getCurrentInstance()
 
-  const events = vm?.type.emits as Name[]
+  const emits = vm?.type.emits
+  let events: Name[] = []
   const result: Record<string, any> = {}
 
-  if (!events?.length) {
-    console.warn(
-      `No emitted event found. Please check component: ${vm?.type.__name}`,
-    )
+  if (!emits?.length) {
+    if (typeof emits === 'object') {
+      events = Object.keys(emits) as Name[]
+    }
+    else {
+      console.warn(
+        `No emitted event found. Please check component: ${vm?.type.name}`,
+      )
+    }
+  }
+  else {
+    events = emits
   }
 
   events?.forEach((ev) => {

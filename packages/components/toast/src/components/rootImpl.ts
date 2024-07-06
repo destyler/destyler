@@ -34,22 +34,24 @@ export const toastRootImplProps = {
 
 export type ToastRootImplProps = ExtractPublicPropTypes<typeof toastRootImplProps>
 
+export const toastRootImplEmits = {
+  close: () => true,
+  escapeKeyDown: (_event: KeyboardEvent) => true,
+  pause: () => true,
+  resume: () => true,
+  swipeStart: (_event: SwipeEvent) => true,
+  swipeMove: (_event: SwipeEvent) => true,
+  swipeCancel: (_event: SwipeEvent) => true,
+  swipeEnd: (_event: SwipeEvent) => true,
+}
+
 export const [injectToastRootContext, provideToastRootContext] = createContext<{ onClose: () => void }>('DestylerToastRoot')
 
 export const ToastRootImpl = defineComponent({
   name: 'DestylerToastRootImpl',
   inheritAttrs: false,
   props: toastRootImplProps,
-  emits: [
-    'close',
-    'escapeKeyDown',
-    'pause',
-    'resume',
-    'swipeStart',
-    'swipeMove',
-    'swipeCancel',
-    'swipeEnd',
-  ],
+  emits: toastRootImplEmits,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const providerContext = injectToastProviderContext()

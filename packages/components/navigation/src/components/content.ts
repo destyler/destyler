@@ -6,7 +6,7 @@ import { TeleportPrimitive } from '@destyler/teleport'
 
 import { getOpenState } from '../utils'
 import type { PointerDownOutsideEvent } from './contentImpl'
-import { NavigationContentImpl, navigationContentImplProps } from './contentImpl'
+import { NavigationContentImpl, navigationContentImplEmits, navigationContentImplProps } from './contentImpl'
 import { injectNavigationContext } from './root'
 import { injectNavigationItemContext } from './item'
 
@@ -20,6 +20,10 @@ export const navigationContentProps = {
 } as const
 
 export type NavigationContentProps = ExtractPublicPropTypes<typeof navigationContentProps>
+
+export const navigationContentEmits = {
+  ...navigationContentImplEmits,
+}
 
 export const NavigationContent = defineComponent({
   name: 'DestylerNavigationContent',

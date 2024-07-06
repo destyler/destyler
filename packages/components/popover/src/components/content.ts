@@ -20,7 +20,9 @@ export const popoverContentProps = {
 
 export type PopoverContentProps = ExtractPublicPropTypes<typeof popoverContentProps>
 
-export const popoverContentEmits = [...popoverContentImplEmits]
+export const popoverContentEmits = {
+  ...popoverContentImplEmits,
+}
 
 export const PopoverContent = defineComponent({
   name: 'DestylerPopoverContent',

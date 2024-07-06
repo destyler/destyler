@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {ref} from 'vue'
 import {
   DropdownContent,
   DropdownGroup,
@@ -12,6 +13,8 @@ import {
   DropdownSubTrigger,
   DropdownTrigger,
 } from '../src'
+
+const status = ref(false)
 </script>
 
 <template>
@@ -72,5 +75,5 @@ import {
         </DropdownGroup>
       </DropdownContent>
     </DropdownPortal>
-  </DropdownRoot>
+  </DropdownRoot :open="true">
 </template>

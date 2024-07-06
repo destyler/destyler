@@ -10,6 +10,7 @@ export const menubarRootProps = {
   modelValue: {
     type: String as PropType<string>,
     required: false,
+    default: undefined,
   },
   defaultValue: {
     type: String as PropType<string>,
@@ -28,6 +29,10 @@ export const menubarRootProps = {
 
 export type MenubarRootProps = ExtractPublicPropTypes<typeof menubarRootProps>
 
+export const menubarRootEmits = {
+  'update:modelValue': (_value: string) => true,
+}
+
 export interface MenubarRootContext {
   modelValue: Ref<string>
   dir: Ref<Direction>
@@ -42,7 +47,7 @@ export const [injectMenubarRootContext, provideMenubarRootContext] = createConte
 export const MenubarRoot = defineComponent({
   name: 'DestylerMenubarRoot',
   props: menubarRootProps,
-  emits: ['update:modelValue'],
+  emits: menubarRootEmits,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('menubar')

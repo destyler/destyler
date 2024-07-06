@@ -1,33 +1,27 @@
-import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
-import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectDialogRootContext } from './root'
 import { DialogContentModal } from './contentModal'
 import { DialogContentNonModal } from './contentNonModal'
+import { dialogContentImplEmtis, dialogContentImplProps } from './contentImpl'
 
 export const dialogContentProps = {
-  ...primitiveProps,
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
-  trapFocus: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...dialogContentImplProps,
 } as const
 
 export type DialogContentProps = ExtractPublicPropTypes<typeof dialogContentProps>
 
+export const dialogContentEmits = {
+  ...dialogContentImplEmtis,
+}
+
 export const DialogContent = defineComponent({
   name: 'DestylerDialogContent',
   props: dialogContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: dialogContentEmits,
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
 

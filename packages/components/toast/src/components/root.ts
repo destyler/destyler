@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
-import { ToastRootImpl, toastRootImplProps } from './rootImpl'
+import { ToastRootImpl, toastRootImplEmits, toastRootImplProps } from './rootImpl'
 
 export const toastRootProps = {
   ...toastRootImplProps,
@@ -21,19 +21,21 @@ export const toastRootProps = {
 
 export type ToastRootProps = ExtractPublicPropTypes<typeof toastRootProps>
 
+export const toastRootEmits = {
+  'escapeKeyDown': toastRootImplEmits.escapeKeyDown,
+  'pause': toastRootImplEmits.pause,
+  'resume': toastRootImplEmits.resume,
+  'swipeStart': toastRootImplEmits.swipeStart,
+  'swipeMove': toastRootImplEmits.swipeMove,
+  'swipeCancel': toastRootImplEmits.swipeCancel,
+  'swipeEnd': toastRootImplEmits.swipeEnd,
+  'update:open': (_value: boolean) => true,
+}
+
 export const ToastRoot = defineComponent({
   name: 'DestylerToastRoot',
   props: toastRootProps,
-  emits: [
-    'escapeKeyDown',
-    'pause',
-    'resume',
-    'swipeStart',
-    'swipeMove',
-    'swipeCancel',
-    'swipeEnd',
-    'update:open',
-  ],
+  emits: toastRootEmits,
   setup(props, { emit }) {
     const { forwardRef } = useForwardExpose()
     const open = useVModel(props, 'open', emit, {

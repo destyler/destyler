@@ -38,6 +38,10 @@ export const tooltipRootProps = {
 
 export type TooltipRootProps = ExtractPublicPropTypes<typeof tooltipRootProps>
 
+export const tooltipRootEmits = {
+  'update:open': (_value: boolean) => true,
+}
+
 export interface TooltipContext {
   contentId: string
   open: Ref<boolean>
@@ -57,7 +61,7 @@ export const [injectTooltipRootContext, provideTooltipRootContext] = createConte
 export const TooltipRoot = defineComponent({
   name: 'DestylerTooltipRoot',
   props: tooltipRootProps,
-  emits: ['update:open'],
+  emits: tooltipRootEmits,
   setup(props, { emit }) {
     const providerContext = injectTooltipProviderContext()
 

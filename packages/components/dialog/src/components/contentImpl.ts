@@ -1,21 +1,16 @@
 import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, withDirectives } from 'vue'
-import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useId } from '@destyler/composition'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits, dismissableLayerProps } from '@destyler/dismissable-layer/dist/component'
 import { BindOnceDirective } from '@destyler/directives'
 import { getOpenState } from '@destyler/shared'
 
 import { injectDialogRootContext } from './root'
 
 export const dialogContentImplProps = {
-  ...primitiveProps,
-  disableOutsidePointerEvents: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
-  },
+  ...dismissableLayerProps,
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -27,10 +22,16 @@ export const dialogContentImplProps = {
   },
 } as const
 
+export const dialogContentImplEmtis = {
+  ...dismissableLayerEmits,
+  openAutoFocus: (_event: Event) => true,
+  closeAutoFocus: (_event: Event) => true,
+}
+
 export const DialogContentImpl = defineComponent({
   name: 'DestylerDialogContentImpl',
   props: dialogContentImplProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: dialogContentImplEmtis,
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

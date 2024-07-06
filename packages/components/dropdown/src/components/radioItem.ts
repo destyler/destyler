@@ -2,6 +2,7 @@ import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { MenuRadioItem, menuRadioItemProps } from '@destyler/menu'
+import { menuRadioItemEmits } from '@destyler/menu/dist/component'
 
 export const dropdownRadioItemProps = {
   ...menuRadioItemProps,
@@ -9,10 +10,14 @@ export const dropdownRadioItemProps = {
 
 export type DropdownRadioItemProps = ExtractPublicPropTypes<typeof dropdownRadioItemProps>
 
+export const dropdownRadioItemEmits = {
+  ...menuRadioItemEmits,
+}
+
 export const DropdownRadioItem = defineComponent({
   name: 'DestylerDropdownRadioItem',
   props: dropdownRadioItemProps,
-  emits: ['select'],
+  emits: dropdownRadioItemEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

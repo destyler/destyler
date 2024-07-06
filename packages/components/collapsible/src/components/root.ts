@@ -34,10 +34,14 @@ export const collapsibleRootProps = {
 
 export type CollapsibleRootProps = ExtractPublicPropTypes<typeof collapsibleRootProps>
 
+export const collapsibleRootEmits = {
+  'update:open': (_open: boolean) => true,
+}
+
 export const CollapsibleRoot = defineComponent({
   name: 'DestylerCollapsibleRoot',
   props: collapsibleRootProps,
-  emits: ['update:open'],
+  emits: collapsibleRootEmits,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

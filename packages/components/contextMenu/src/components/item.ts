@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuItem, menuItemProps } from '@destyler/menu'
+import { menuItemEmits } from '@destyler/menu/dist/component'
 
 export const contextMenuItemProps = {
   ...menuItemProps,
@@ -9,10 +10,14 @@ export const contextMenuItemProps = {
 
 export type ContextMenuItemProps = ExtractPublicPropTypes<typeof contextMenuItemProps>
 
+export const contextMenuItemEmits = {
+  ...menuItemEmits,
+}
+
 export const ContextMenuItem = defineComponent({
   name: 'DestylerContextMenuItem',
   props: contextMenuItemProps,
-  emits: ['select'],
+  emits: contextMenuItemEmits,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

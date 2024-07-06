@@ -20,6 +20,14 @@ export const selectContentImplProps = {
   },
 } as const
 
+export type PointerDownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent }>
+
+export const selectContentImplEmits = {
+  closeAutoFocus: (_event: Event) => true,
+  escapeKeyDown: (_event: KeyboardEvent) => true,
+  pointerDownOutside: (_event: PointerDownOutsideEvent) => true,
+}
+
 export interface SelectContentContext {
   content?: Ref<HTMLElement | undefined>
   viewport?: Ref<HTMLElement | undefined>
@@ -54,7 +62,7 @@ export const [injectSelectContentContext, provideSelectContentContext] = createC
 export const SelectContentImpl = defineComponent({
   name: 'DestylerSelectContentImpl',
   props: selectContentImplProps,
-  emits: ['closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside'],
+  emits: selectContentImplEmits,
   setup(props) {
     const rootContext = injectSelectRootContext()
 

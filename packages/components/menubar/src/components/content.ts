@@ -3,6 +3,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
 import { MenuContent, menuContentProps } from '@destyler/menu'
+import { menuContentEmits } from '@destyler/menu/dist/component'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectMenubarRootContext } from './root'
@@ -20,9 +21,14 @@ export const menubarContentProps = {
 
 export type MenubarContentProps = ExtractPublicPropTypes<typeof menubarContentProps>
 
+export const menubarContentEmits = {
+  ...menuContentEmits,
+}
+
 export const MenubarContent = defineComponent({
   name: 'DestylerMenubarContent',
   props: menubarContentProps,
+  emits: menubarContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

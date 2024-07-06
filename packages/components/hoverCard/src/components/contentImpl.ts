@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps, nextTick, onMounted, onUnmounted, ref, 
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
 import { DismissableLayer } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import { getTabbableNodes } from '../utils'
@@ -19,10 +20,14 @@ export const hoverCardContentImplProps = {
 
 export type HoverCardContentImplProps = ExtractPublicPropTypes<typeof hoverCardContentImplProps>
 
+export const hoverCardContentImplEmits = {
+  ...dismissableLayerEmits,
+}
+
 export const HoverCardContentImpl = defineComponent({
   name: 'DestylerHoverCardContentImpl',
   props: hoverCardContentImplProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: hoverCardContentImplEmits,
   setup(props) {
     const forwarded = useForwardProps(props)
 

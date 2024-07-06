@@ -4,9 +4,13 @@ import { Primitive } from '@destyler/primitive'
 
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
 
+export const scrollSelectButtonImplEmits = {
+  autoScroll: () => true,
+}
+
 export const ScrollSelectButtonImpl = defineComponent({
   name: 'DestylerSelectButtonImpl',
-  emits: ['autoScroll'],
+  emits: scrollSelectButtonImplEmits,
   setup(_, { emit }) {
     const { injectCollection } = useCollection()
 

@@ -58,10 +58,14 @@ export const collapseRootProps = {
 
 export type CollapseRootProps = ExtractPublicPropTypes<typeof collapseRootProps>
 
+export const collapseRootEmits = {
+  'update:modelValue': (_value: string | string[]) => true,
+}
+
 export const CollapseRoot = defineComponent({
   name: 'DestylerCollapseRoot',
   props: collapseRootProps,
-  emits: ['update:modelValue'],
+  emits: collapseRootEmits,
   setup(props, { emit }) {
     const { dir, disabled } = toRefs(props)
     const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emit)

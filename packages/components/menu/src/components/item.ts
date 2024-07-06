@@ -13,10 +13,14 @@ export const menuItemProps = {
 
 export type MenuItemProps = ExtractPublicPropTypes<typeof menuItemProps>
 
+export const menuItemEmits = {
+  select: (_event: Event) => true,
+}
+
 export const MenuItem = defineComponent({
   name: 'DestylerMenuItem',
   props: menuItemProps,
-  emits: ['select'],
+  emits: menuItemEmits,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const rootContext = injectMenuRootContext()

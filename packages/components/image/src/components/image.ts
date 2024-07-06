@@ -2,6 +2,7 @@ import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useImageLoadingStatus } from '@destyler/composition'
+import type { ImageLoadingStatus } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { injectImageRootContext } from './root'
 
@@ -18,10 +19,14 @@ export const imageProps = {
 
 export type ImageProps = ExtractPublicPropTypes<typeof imageProps>
 
+export const imageEmits = {
+  loadingStatusChange: (_status: ImageLoadingStatus) => true,
+}
+
 export const Image = defineComponent({
   name: 'DestylerImage',
   props: imageProps,
-  emits: ['loadingStatusChange'],
+  emits: imageEmits,
   setup(props, { emit }) {
     const { src } = toRefs(props)
     const rootContext = injectImageRootContext()
