@@ -3,6 +3,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
 import { MenuSubContent, menuSubContentProps } from '@destyler/menu'
+import { menuSubContentEmits } from '@destyler/menu/dist/component'
 
 import { injectMenubarRootContext } from './root'
 import { injectMenubarMenuContext } from './menu'
@@ -19,10 +20,14 @@ export const menubarSubContentProps = {
 
 export type MenubarSubContentProps = ExtractPublicPropTypes<typeof menubarSubContentProps>
 
+export const menubarSubContentEmits = {
+  ...menuSubContentEmits,
+}
+
 export const MenubarSubContent = defineComponent({
   name: 'DestylerMenubarSubContent',
   props: menubarSubContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'entryFocus'],
+  emits: menubarSubContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()
