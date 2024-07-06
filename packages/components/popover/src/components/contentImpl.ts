@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps, withDirectives } from 'vue'
 import { useFocusGuards, useForwardProps } from '@destyler/composition'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 import { FocusScope, focusScopeProps } from '@destyler/focus-scope'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,7 +19,12 @@ export const popoverContentImplProps = {
 
 export type PopoverContentImplProps = ExtractPublicPropTypes<typeof popoverContentImplProps>
 
-export const popoverContentImplEmits = ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'openAutoFocus', 'closeAutoFocus']
+// ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'openAutoFocus', 'closeAutoFocus']
+export const popoverContentImplEmits = {
+  ...dismissableLayerEmits,
+  openAutoFocus: (_event: Event) => true,
+  closeAutoFocus: (_event: Event) => true,
+}
 
 export const PopoverContentImpl = defineComponent({
   name: 'DestylerPopoverContentImpl',

@@ -37,10 +37,14 @@ export const popoverRootProps = {
 
 export type PopoverRootProps = ExtractPublicPropTypes<typeof popoverRootProps>
 
+export const popoverRootEmits = {
+  'update:open': (_value: boolean) => true,
+}
+
 export const PopoverRoot = defineComponent({
   name: 'DestylerPopoverRoot',
   props: popoverRootProps,
-  emits: ['update:open'],
+  emits: popoverRootEmits,
   setup(props, { emit }) {
     const modalRef = toRef(props.modal)
 
