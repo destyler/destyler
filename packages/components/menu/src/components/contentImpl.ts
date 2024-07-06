@@ -5,7 +5,9 @@ import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, us
 import { createContext, focusFirst, isMouseEvent, isPointerInGraceArea } from '@destyler/shared'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 import { RovingFocusGroup } from '@destyler/roving-focus'
+import { rovingFocusGroupEmits } from '@destyler/roving-focus/dist/component'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import {
@@ -84,6 +86,13 @@ export const menuContentImplProps = {
 
 export type MenuContentImplProps = ExtractPublicPropTypes<typeof menuContentImplProps>
 
+export const menuContentImplEmits = {
+  ...dismissableLayerEmits,
+  entryFocus: rovingFocusGroupEmits.entryFocus,
+  openAutoFocus: (_event: Event) => true,
+  closeAutoFocus: (_event: Event) => true,
+}
+
 export interface MenuContentContext {
   onItemEnter: (event: PointerEvent) => boolean
   onItemLeave: (event: PointerEvent) => void
@@ -98,7 +107,10 @@ export const [injectMenuContentContext, provideMenuContentContext] = createConte
 export const MenuContentImpl = defineComponent({
   name: 'DestylerMenuContentImpl',
   props: menuContentImplProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus', 'dismiss'],
+  emits: {
+    ...menuContentImplEmits,
+    dismiss: () => true,
+  },
   setup(props, { emit }) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()
@@ -286,8 +298,8 @@ export const MenuContentImpl = defineComponent({
     }, () => h(RovingFocusGroup, {
       'asChild': true,
       'currentTabStopId': this.currentItemId!,
-      'onUpdate:currentTabStopId': (value: string) => {
-        this.currentItemId = value
+      'onUpdate:currentTabStopId': (value: string | null | undefined) => {
+        this.currentItemId = value || ''
       },
       'orientation': 'vertical',
       'dir': this.rootContext.dir.value,

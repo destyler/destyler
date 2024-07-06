@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getCheckedState } from '@destyler/shared'
 
-import { MenuItem, menuItemProps } from './item'
+import { MenuItem, menuItemEmits, menuItemProps } from './item'
 import { injectMenuRadioGroupContext } from './radioGroup'
 import { provideMenuItemIndicatorContext } from './itemIndicator'
 
@@ -17,10 +17,14 @@ export const menuRadioItemProps = {
 
 export type MenuRadioItemProps = ExtractPublicPropTypes<typeof menuRadioItemProps>
 
+export const menuRadioItemEmits = {
+  ...menuItemEmits,
+}
+
 export const MenuRadioItem = defineComponent({
   name: 'DestylerMenuRadioItem',
   props: menuRadioItemProps,
-  emits: ['select'],
+  emits: menuRadioItemEmits,
   setup(props) {
     const { value } = toRefs(props)
     const radioGroupContext = injectMenuRadioGroupContext()

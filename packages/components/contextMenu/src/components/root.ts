@@ -4,6 +4,7 @@ import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
 import { MenuRoot, menuRootProps } from '@destyler/menu'
+import { menuRootEmits } from '@destyler/menu/dist/component'
 
 export const contextMenuRootProps = {
   dir: {
@@ -15,6 +16,10 @@ export const contextMenuRootProps = {
 } as const
 
 export type ContextMenuRootProps = ExtractPublicPropTypes<typeof contextMenuRootProps>
+
+export const contextMenuRootEmits = {
+  ...menuRootEmits,
+}
 
 export interface ContextMenuRootContext {
   open: Ref<boolean>
@@ -28,7 +33,7 @@ export const [injectContextMenuRootContext, provideContextMenuRootContext] = cre
 export const ContextMenuRoot = defineComponent({
   name: 'DestylerContextMenuRoot',
   props: contextMenuRootProps,
-  emits: ['update:open'],
+  emits: contextMenuRootEmits,
   setup(props, { emit }) {
     const { dir: propDir, modal } = toRefs(props)
     useForwardExpose()

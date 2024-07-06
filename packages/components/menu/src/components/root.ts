@@ -24,6 +24,10 @@ export const menuRootProps = {
 
 export type MenuRootProps = ExtractPublicPropTypes<typeof menuRootProps>
 
+export const menuRootEmits = {
+  'update:open': (_open: boolean) => true,
+}
+
 export interface MenuContext {
   open: Ref<boolean>
   onOpenChange: (open: boolean) => void
@@ -45,7 +49,7 @@ export const [injectMenuRootContext, provideMenuRootContext] = createContext<Men
 export const MenuRoot = defineComponent({
   name: 'DestylerMenuRoot',
   props: menuRootProps,
-  emits: ['update:open'],
+  emits: menuRootEmits,
   setup(props, { emit }) {
     const { modal, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

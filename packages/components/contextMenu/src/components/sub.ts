@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import { MenuSub, menuSubProps } from '@destyler/menu'
+import { menuSubEmits } from '@destyler/menu/dist/component'
 
 export const contextMenuSubProps = {
   ...menuSubProps,
@@ -14,10 +15,14 @@ export const contextMenuSubProps = {
 
 export type ContextMenuSubProps = ExtractPublicPropTypes<typeof contextMenuSubProps>
 
+export const contextMenuSubEmits = {
+  ...menuSubEmits,
+}
+
 export const ContextMenuSub = defineComponent({
   name: 'DestylerContextMenuSub',
   props: contextMenuSubProps,
-  emits: ['update:open'],
+  emits: contextMenuSubEmits,
   setup(props, { emit }) {
     useForwardExpose()
 

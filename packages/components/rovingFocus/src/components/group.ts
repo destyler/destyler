@@ -35,6 +35,11 @@ export const rovingFocusGroupProps = {
 
 export type RovingFocusGroupProps = ExtractPublicPropTypes<typeof rovingFocusGroupProps>
 
+export const rovingFocusGroupEmits = {
+  'entryFocus': (_event: Event) => true,
+  'update:currentTabStopId': (_value: string | null | undefined) => true,
+}
+
 export interface RovingContext {
   orientation: Ref<Orientation | undefined>
   dir: Ref<Direction>
@@ -51,7 +56,7 @@ export const [injectRovingFocusGroupContext, provideRovingFocusGroupContext] = c
 export const RovingFocusGroup = defineComponent({
   name: 'DestylerRovingFocusGroup',
   props: rovingFocusGroupProps,
-  emits: ['entryFocus', 'update:currentTabStopId'],
+  emits: rovingFocusGroupEmits,
   setup(props, { emit }) {
     const { loop, orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

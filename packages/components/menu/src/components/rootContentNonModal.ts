@@ -1,13 +1,13 @@
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 
-import { MenuContentImpl, menuContentImplProps } from './contentImpl'
+import { MenuContentImpl, menuContentImplEmits, menuContentImplProps } from './contentImpl'
 import { injectMenuContext } from './root'
 
 export const MenuRootContentNonModal = defineComponent({
   name: 'DestylerMenuRootContentNonModal',
   props: menuContentImplProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus'],
+  emits: menuContentImplEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

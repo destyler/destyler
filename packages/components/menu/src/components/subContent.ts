@@ -8,7 +8,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { SUB_CLOSE_KEYS } from '../utils'
 import { injectMenuContext, injectMenuRootContext } from './root'
 import { injectMenuSubContext } from './sub'
-import { MenuContentImpl, menuContentImplProps } from './contentImpl'
+import { MenuContentImpl, menuContentImplEmits, menuContentImplProps } from './contentImpl'
 
 const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
@@ -64,10 +64,14 @@ export const menuSubContentProps = {
 
 export type MenuSubContentProps = ExtractPublicPropTypes<typeof menuSubContentProps>
 
+export const menuSubContentEmits = {
+  ...menuContentImplEmits,
+}
+
 export const MenuSubContent = defineComponent({
   name: 'DestylerMenuSubContent',
   props: menuSubContentProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'entryFocus', 'openAutoFocus', 'closeAutoFocus', 'dismiss'],
+  emits: menuSubContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

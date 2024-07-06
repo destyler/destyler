@@ -17,6 +17,10 @@ export const menuRadioGroupProps = {
 
 export type MenuRadioGroupProps = ExtractPublicPropTypes<typeof menuRadioGroupProps>
 
+export const menuRadioGroupEmits = {
+  'update:modelValue': (_payload: string) => true,
+}
+
 export interface MenuRadioGroupContext {
   modelValue: Ref<string>
   onValueChange: (payload: string) => void
@@ -27,7 +31,7 @@ export const [injectMenuRadioGroupContext, provideMenuRadioGroupContext] = creat
 export const MenuRadioGroup = defineComponent({
   name: 'DestylerMenuRadioGroup',
   props: menuRadioGroupProps,
-  emits: ['update:modelValue'],
+  emits: menuRadioGroupEmits,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit)
 

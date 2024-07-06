@@ -18,6 +18,10 @@ export const menuSubProps = {
 
 export type MenuSubProps = ExtractPublicPropTypes<typeof menuSubProps>
 
+export const menuSubEmits = {
+  'update:open': (_open: boolean) => true,
+}
+
 export interface MenuSubContext {
   contentId: string
   triggerId: string
@@ -31,7 +35,7 @@ export const [injectMenuSubContext, provideMenuSubContext] = createContext<MenuS
 export const MenuSub = defineComponent({
   name: 'DestylerMenuSub',
   props: menuSubProps,
-  emits: ['update:open'],
+  emits: menuSubEmits,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: false,
