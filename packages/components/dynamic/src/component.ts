@@ -3,4 +3,4 @@ export { DynamicInput, dynamicInputProps, type DynamicInputProps } from './compo
 export { DynamicItem, dynamicItemProps, type DynamicItemProops } from './components/item'
 export { DynamicItemDelete, dynamicItemDeleteProps, type DynamicItemDeleteProps } from './components/itemDelete'
 export { DynamicItemText, dynamicItemTextProps, type DynamicItemTextProps } from './components/itemText'
-export { DynamicRoot, dynamicRootProps, type DynamicRootProps } from './components/root'
+export { DynamicRoot, dynamicRootProps, dynamicRootEmits, type DynamicRootProps } from './components/root'

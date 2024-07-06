@@ -24,10 +24,15 @@ export const focusScopeProps = {
 
 export type FocusScopeProps = ExtractPublicPropTypes<typeof focusScopeProps>
 
+export const focusScopeEmits = {
+  mountAutoFocus: (_event: Event) => true,
+  unmountAutoFocus: (_event: Event) => true,
+}
+
 export const FocusScope = defineComponent({
   name: 'DestylerFocusScope',
   props: focusScopeProps,
-  emits: ['mountAutoFocus', 'unmountAutoFocus'],
+  emits: focusScopeEmits,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const lastFocusedElementRef = ref<HTMLElement | null>(null)
