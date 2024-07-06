@@ -37,10 +37,14 @@ export const splitterResizeHandleProps = {
 
 export type SplitterResizeHandleProps = ExtractPublicPropTypes<typeof splitterResizeHandleProps>
 
+export const splitterResizeHandleEmits = {
+  dragging: (_isDragging: boolean) => true,
+}
+
 export const SplitterResizeHandle = defineComponent({
   name: 'DestylerSplitterResizeHandle',
   props: splitterResizeHandleProps,
-  emits: ['dragging'],
+  emits: splitterResizeHandleEmits,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { disabled } = toRefs(props)

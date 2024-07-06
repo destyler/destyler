@@ -42,10 +42,17 @@ export const splitterPanelProps = {
 
 export type SplitterPanelProps = ExtractPublicPropTypes<typeof splitterPanelProps>
 
+export const splitterPanelEmits = {
+  collapse: () => true,
+  expand: () => true,
+  resize: (_size: number, _prevSize: number | undefined) => true,
+
+}
+
 export const SplitterPanel = defineComponent({
   name: 'DestylerSplitterPanel',
   props: splitterPanelProps,
-  emits: ['collapse', 'expand', 'resize'],
+  emits: splitterPanelEmits,
   setup(props, { emit }) {
     const panelGroupContext = injectPanelGroupContext()
     if (panelGroupContext === null)
