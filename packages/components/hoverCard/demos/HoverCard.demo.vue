@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import {
   HoverCardContent,
   HoverCardPortal,
@@ -7,11 +6,10 @@ import {
   HoverCardTrigger,
 } from '../src'
 
-const hoverState = ref(false)
 </script>
 
 <template>
-  <HoverCardRoot v-model:open="hoverState">
+  <HoverCardRoot>
     <HoverCardTrigger :as-child="true">
       <button
         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-#18181B dark:text-#FAFAFA underline-offset-4 hover:underline h-9 px-4 py-2"

@@ -5,7 +5,7 @@ import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
 import { excludeTouch } from '../utils'
-import { HoverCardContentImpl, hoverCardContentImplProps } from './contentImpl'
+import { HoverCardContentImpl, hoverCardContentImplEmits, hoverCardContentImplProps } from './contentImpl'
 import { injectHoverCardRootContext } from './root'
 
 export const hoverCardContentProps = {
@@ -18,10 +18,14 @@ export const hoverCardContentProps = {
 
 export type HoverCardContentProps = ExtractPublicPropTypes<typeof hoverCardContentProps>
 
+export const hoverCardContentEmits = {
+  ...hoverCardContentImplEmits,
+}
+
 export const HoverCardContent = defineComponent({
   name: 'DestylerHoverCardContent',
   props: hoverCardContentProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: hoverCardContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()

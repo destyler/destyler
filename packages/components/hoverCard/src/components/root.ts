@@ -8,7 +8,8 @@ import { PopperRoot } from '@destyler/popper'
 export const hoverCardRootProps = {
   open: {
     type: Boolean as PropType<boolean>,
-    required: undefined,
+    required: false,
+    default: undefined,
   },
   defaultOpen: {
     type: Boolean as PropType<boolean>,
@@ -29,6 +30,10 @@ export const hoverCardRootProps = {
 
 export type HoverCardRootProps = ExtractPublicPropTypes<typeof hoverCardRootProps>
 
+export const hoverCardRootEmits = {
+  'update:open': (_value: boolean) => true,
+}
+
 export interface HoverCardRootContext {
   open: Ref<boolean>
   onOpenChange: (open: boolean) => void
@@ -44,7 +49,7 @@ export const [injectHoverCardRootContext, provideHoverCardRootContext] = createC
 export const HoverCardRoot = defineComponent({
   name: 'DestylerHoverCardRoot',
   props: hoverCardRootProps,
-  emits: ['update:open'],
+  emits: hoverCardRootEmits,
   setup(props, { emit }) {
     const { openDelay, closeDelay } = toRefs(props)
 
