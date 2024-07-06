@@ -111,6 +111,11 @@ export const calendarRootProps = {
 
 export type CalendarRootProps = ExtractPublicPropTypes<typeof calendarRootProps>
 
+export const calendarRootEmits = {
+  'update:modelValue': (_value: DateValue | undefined) => true,
+  'update:placeholder': (_value: DateValue) => true,
+}
+
 export interface CalendarRootContext {
   locale: Ref<SupportedLocale>
   modelValue: Ref<DateValue | DateValue[] | undefined>
@@ -149,7 +154,7 @@ export const [injectCalendarRootContext, provideCalendarRootContext]
 export const CalendarRoot = defineComponent({
   name: 'DestylerCalendarRoot',
   props: calendarRootProps,
-  emits: ['update:modelValue', 'update:placeholder'],
+  emits: calendarRootEmits,
   setup(props, { emit }) {
     const {
       locale,

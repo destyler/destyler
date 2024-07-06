@@ -2,9 +2,10 @@
 import {ref} from 'vue'
 import Box from './components/Box.vue'
 import CraftBox from './components/CraftBox.vue'
-import AspectRatioDemo from '@destyler/aspect-radio/demos/AspectRadio.unocss.demo.vue'
+import AspectRatioDemo from '~/components/aspectRadio/demos/AspectRadio.unocss.demo.vue'
 import BackTopDemo from '@destyler/back-top/demos/BackTop.demo.vue'
 import BreadcrumbsDemo from '@destyler/breadcrumbs/demos/Breadcrumbs.demo.vue'
+import CalendarDemo from '~/components/calendar/demos/Calendar.demo.vue'
 import ButtonDemo from '@destyler/button/demos/Button.demo.vue'
 import CheckboxDemo from '@destyler/checkbox/demos/Checkbox.demo.vue'
 import CollapseDemo from '@destyler/collapse/demos/Collapse.demo.vue'
@@ -61,6 +62,9 @@ const uwu = ref(true)
       </CraftBox>
       <CraftBox name="ButtonDemo">
         <ButtonDemo />
+      </CraftBox>
+      <CraftBox name="CalendarDemo">
+        <CalendarDemo />
       </CraftBox>
       <CraftBox name="CheckboxDemo" >
         <CheckboxDemo />

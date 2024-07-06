@@ -25,6 +25,7 @@ const isDateUnavailable: CalendarRootProps['isDateUnavailable'] = (date) => {
 </script>
 
 <template>
+  {{ date }}
   <CalendarRoot
     v-slot="{ weekDays, grid }"
     v-model="date"
