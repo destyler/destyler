@@ -50,6 +50,10 @@ export const checkboxRootProps = {
 
 export type CheckboxRootProps = ExtractPublicPropTypes<typeof checkboxRootProps>
 
+export const checkboxRootEmits = {
+  'update:checked': (_checked: boolean) => true,
+}
+
 export interface CheckboxRootContext {
   disabled: Ref<boolean>
   state: Ref<CheckedState>
@@ -61,7 +65,7 @@ export const [injectCheckboxRootContext, provideCheckboxRootContext]
 export const CheckboxRoot = defineComponent({
   name: 'DestylerCheckboxRoot',
   props: checkboxRootProps,
-  emits: ['update:checked'],
+  emits: checkboxRootEmits,
   setup(props, { emit }) {
     const disabledRef = toRef(props.disabled)
 

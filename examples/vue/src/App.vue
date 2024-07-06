@@ -3,12 +3,12 @@ import {ref} from 'vue'
 import Box from './components/Box.vue'
 import CraftBox from './components/CraftBox.vue'
 import AspectRatioDemo from '~/components/aspectRadio/demos/AspectRadio.unocss.demo.vue'
-import BackTopDemo from '@destyler/back-top/demos/BackTop.demo.vue'
-import BreadcrumbsDemo from '@destyler/breadcrumbs/demos/Breadcrumbs.demo.vue'
+import BackTopDemo from '~/components/backTop/demos/BackTop.demo.vue'
+import BreadcrumbsDemo from '~/components/breadcrumbs/demos/Breadcrumbs.demo.vue'
 import CalendarDemo from '~/components/calendar/demos/Calendar.demo.vue'
-import ButtonDemo from '@destyler/button/demos/Button.demo.vue'
-import CheckboxDemo from '@destyler/checkbox/demos/Checkbox.demo.vue'
-import CollapseDemo from '@destyler/collapse/demos/Collapse.demo.vue'
+import ButtonDemo from '~/components/button/demos/Button.demo.vue'
+import CheckboxDemo from '~/components/checkbox/demos/Checkbox.demo.vue'
+import CollapseDemo from '~/components/collapse/demos/Collapse.demo.vue'
 import CollapsibleDemo from '@destyler/collapsible/demos/Collapsible.demo.vue'
 import ComboboxDemo from '@destyler/combobox/demos/Combobox.demo.vue'
 import ContentMenuDemo from '@destyler/context-menu/demos/ContentMenu.demo.vue'
@@ -62,9 +62,6 @@ const uwu = ref(true)
       </CraftBox>
       <CraftBox name="ButtonDemo">
         <ButtonDemo />
-      </CraftBox>
-      <CraftBox name="CalendarDemo">
-        <CalendarDemo />
       </CraftBox>
       <CraftBox name="CheckboxDemo" >
         <CheckboxDemo />
@@ -171,9 +168,11 @@ const uwu = ref(true)
       <CraftBox name="TooltipDemo" >
         <TooltipDemo />
       </CraftBox>
-
     </Box>
     <div class="mt-4">
+      <CraftBox class="h-100!" name="CalendarDemo" >
+        <CalendarDemo />
+      </CraftBox>
       <CraftBox class="h-100!" name="RangeCalendarDemo" >
         <RangeCalendarDemo />
       </CraftBox>
