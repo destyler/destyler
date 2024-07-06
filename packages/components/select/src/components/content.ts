@@ -4,7 +4,7 @@ import { useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { SelectContentImpl, selectContentImplProps } from './contentImpl'
+import { SelectContentImpl, selectContentImplEmits, selectContentImplProps } from './contentImpl'
 import { SelectProvider } from './provider'
 import { injectSelectRootContext } from './root'
 
@@ -18,11 +18,15 @@ export const selectContentProps = {
 
 export type SelectContentProps = ExtractPublicPropTypes<typeof selectContentProps>
 
+export const selectContentEmits = {
+  ...selectContentImplEmits,
+}
+
 export const SelectContent = defineComponent({
   name: 'DestylerSelectContent',
   inheritAttrs: false,
   props: selectContentProps,
-  emits: ['closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside'],
+  emits: selectContentEmits,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

@@ -28,7 +28,9 @@ export const SelectItemAlignedPosition = defineComponent({
   name: 'DestylerSelectItemAlignedPosition',
   inheritAttrs: false,
   props: selectItemAlignedPositionProps,
-  emits: ['placed'],
+  emits: {
+    placed: () => true,
+  },
   setup(_, { emit }) {
     const { injectCollection } = useCollection()
     const rootContext = injectSelectRootContext()

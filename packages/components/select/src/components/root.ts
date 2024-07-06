@@ -56,6 +56,11 @@ export const selectRootProps = {
 
 export type SelectRootProps = ExtractPublicPropTypes<typeof selectRootProps>
 
+export const selectRootEmits = {
+  'update:modelValue': (_value: string) => true,
+  'update:open': (_open: boolean) => true,
+}
+
 export interface SelectRootContext {
   triggerElement: Ref<HTMLElement | undefined>
   onTriggerChange: (node: HTMLElement | undefined) => void
@@ -88,7 +93,7 @@ export const [injectSelectNativeOptionsContext, provideSelectNativeOptionsContex
 export const SelectRoot = defineComponent({
   name: 'DestylerSelectRoot',
   props: selectRootProps,
-  emits: ['update:modelValue', 'update:open'],
+  emits: selectRootEmits,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue,

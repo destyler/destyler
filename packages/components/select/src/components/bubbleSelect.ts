@@ -36,6 +36,10 @@ export const bubbleSelectProps = {
 
 export type BubbleSelectProps = ExtractPublicPropTypes<typeof bubbleSelectProps>
 
+export const bubbleSelectEmits = {
+  'update:value': (_value: any) => true,
+}
+
 export const BubbleSelect = defineComponent({
   name: 'DestylerBubbleSelect',
   props: bubbleSelectProps,

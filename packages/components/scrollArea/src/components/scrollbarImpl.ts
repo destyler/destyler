@@ -17,10 +17,16 @@ export const scrollAreaScrollbarImplProps = {
 
 export type ScrollAreaScrollbarImplProps = ExtractPublicPropTypes<typeof scrollAreaScrollbarImplProps>
 
+export const scrollAreaScrollbarImplEmits = {
+  onDragScroll: (_payload: { x: number, y: number }) => true,
+  onWheelScroll: (_payload: { x: number, y: number }) => true,
+  onThumbPointerDown: (_payload: { x: number, y: number }) => true,
+}
+
 export const ScrollAreaScrollbarImpl = defineComponent({
   name: 'DestylerScrollAreaScrollbarImpl',
   props: scrollAreaScrollbarImplProps,
-  emits: ['onDragScroll', 'onWheelScroll', 'onThumbPointerDown'],
+  emits: scrollAreaScrollbarImplEmits,
   setup(props, { emit }) {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()
