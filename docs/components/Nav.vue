@@ -9,7 +9,7 @@ import { Label } from 'destyler'
         <NuxtLink to="/" class="cursor-pointer flex items-center mr-6">
           <Logo class="mr-3 " />
           <Label class="cursor-pointer">
-            <span/>
+            <span />
             <sup>{{ lastVersion }}</sup>
           </Label>
         </NuxtLink>

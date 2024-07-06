@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps, useForwardExpose, useHideOthers } from '@destyler/composition'
 
 import { injectModalRootContext } from './root'
-import { ModalContentImpl, modalContentImplEmits,modalContentImplProps } from './contentImpl'
+import { ModalContentImpl, modalContentImplEmits, modalContentImplProps } from './contentImpl'
 
 export const ModalContentModal = defineComponent({
   name: 'DestylerModalContentModal',
