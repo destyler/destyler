@@ -3,6 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import { MenuSub, menuSubProps } from '@destyler/menu'
+import { menuSubEmits } from '@destyler/menu/dist/component'
 
 export const dropdownSubProps = {
   ...menuSubProps,
@@ -14,10 +15,14 @@ export const dropdownSubProps = {
 
 export type DropdownSubProps = ExtractPublicPropTypes<typeof dropdownSubProps>
 
+export const dropdownSubEmits = {
+  ...menuSubEmits,
+}
+
 export const DropdownSub = defineComponent({
   name: 'DestylerDropdownSub',
   props: dropdownSubProps,
-  emits: ['update:open'],
+  emits: dropdownSubEmits,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       passive: (props.open === undefined) as false,

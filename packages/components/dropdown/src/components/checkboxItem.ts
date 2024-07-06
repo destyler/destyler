@@ -2,6 +2,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuCheckboxItem, menuCheckboxItemProps } from '@destyler/menu'
+import { menuCheckboxItemEmits } from '@destyler/menu/dist/component'
 
 export const dropdownCheckboxItemProps = {
   ...menuCheckboxItemProps,
@@ -9,10 +10,14 @@ export const dropdownCheckboxItemProps = {
 
 export type DropdownCheckboxItemProps = ExtractPublicPropTypes<typeof dropdownCheckboxItemProps>
 
+export const dropdownCheckboxItemEmits = {
+  ...menuCheckboxItemEmits,
+}
+
 export const DropdownCheckboxItem = defineComponent({
   name: 'DestylerDropdownCheckboxItem',
   props: dropdownCheckboxItemProps,
-  emits: ['update:checked', 'select'],
+  emits: dropdownCheckboxItemEmits,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

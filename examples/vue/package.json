@@ -12,6 +12,7 @@
     "@destyler/back-top": "workspace:*",
     "@destyler/breadcrumbs": "workspace:*",
     "@destyler/button": "workspace:*",
+    "@destyler/calendar": "workspace:*",
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
@@ -51,14 +52,13 @@
     "destyler": "workspace:*"
   },
   "devDependencies": {
-    "@destyler/calendar": "^0.0.3",
     "@iconify-json/carbon": "^1.1.31",
     "@unocss/reset": "^0.58.5",
     "@vitejs/plugin-vue": "^5.0.4",
     "typescript": "^5.3.3",
     "unocss": "^0.58.5",
     "vite": "^5.1.5",
-    "vite-plugin-vue-devtools": "^7.1.3",
+    "vite-plugin-vue-devtools": "^7.3.5",
     "vue": "^3.4.21",
     "vue-tsc": "^2.0.4"
   }

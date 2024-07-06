@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {ref} from 'vue'
 import {
   DropdownContent,
   DropdownGroup,
@@ -12,10 +13,12 @@ import {
   DropdownSubTrigger,
   DropdownTrigger,
 } from '../src'
+
+const status = ref(false)
 </script>
 
 <template>
-  <DropdownRoot>
+  <DropdownRoot v-model:open="status">
     <DropdownTrigger class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border dark:border-#27272A border-#E4E4E7 dark:bg-#09090B bg-#FFFFFF shadow-sm dark:hover:bg-#27272A hover:bg-#F4F4F5 dark:hover:text-#FAFAFA hover:text-#18181B h-9 px-4 py-2">
       Open Dropdown
     </DropdownTrigger>
@@ -72,5 +75,5 @@ import {
         </DropdownGroup>
       </DropdownContent>
     </DropdownPortal>
-  </DropdownRoot>
+  </DropdownRoot :open="true">
 </template>
