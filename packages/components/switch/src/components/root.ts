@@ -46,6 +46,10 @@ export const switchRootProps = {
 
 export type SwitchRootProps = ExtractPublicPropTypes<typeof switchRootProps>
 
+export const switchRootEmits = {
+  'update:checked': (_checked: boolean) => true,
+}
+
 export interface SwitchRootContext {
   checked?: Ref<boolean>
   toggleCheck: () => void
@@ -57,7 +61,7 @@ export const [injectSwitchRootContext, provideSwitchRootContext] = createContext
 export const SwitchRoot = defineComponent({
   name: 'DestylerSwitchRoot',
   props: switchRootProps,
-  emits: ['update:checked'],
+  emits: switchRootEmits,
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
 
