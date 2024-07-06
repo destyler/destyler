@@ -33,6 +33,10 @@ export const tabsRootProps = {
 
 export type TabsRootProps = ExtractPublicPropTypes<typeof tabsRootProps>
 
+export const tabsRootEmits = {
+  'update:modelValue': (_value: string | number) => true,
+}
+
 export interface TabsRootContext {
   modelValue: Ref<string | undefined>
   changeModelValue: (value: string) => void
@@ -48,7 +52,7 @@ export const [injectTabsRootContext, provideTabsRootContext] = createContext<Tab
 export const TabsRoot = defineComponent({
   name: 'DestylerTabsRoot',
   props: tabsRootProps,
-  emits: ['update:modelValue'],
+  emits: tabsRootEmits,
   setup(props, { emit }) {
     const { orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
