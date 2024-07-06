@@ -28,12 +28,16 @@ export const toggleProps = {
 
 export type ToggleProps = ExtractPublicPropTypes<typeof toggleProps>
 
+export const toggleEmits = {
+  'update:pressed': (_value: boolean) => true,
+}
+
 export type DataState = 'on' | 'off'
 
 export const Toggle = defineComponent({
   name: 'DestylerToggle',
   props: toggleProps,
-  emits: ['update:pressed'],
+  emits: toggleEmits,
   setup(props, { emit }) {
     useForwardExpose()
     const pressed = useVModel(props, 'pressed', emit, {
