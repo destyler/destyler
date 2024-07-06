@@ -1,12 +1,12 @@
 import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import type { ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
+import type { DateRange, ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
+import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@destyler/shared'
 import type { Formatter } from '@destyler/composition'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import type { DateValue } from '@internationalized/date'
 import { isSameDay } from '@internationalized/date'
-import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@destyler/shared'
 import { useCalendar } from '@destyler/calendar/dist/composition'
 import { useRangeCalendarState } from '../composition/use-range-calendar-state'
 
@@ -144,10 +144,16 @@ export interface RangeCalendarRootContext {
 
 export const [injectRangeCalendarRootContext, provideRangeCalendarRootContext] = createContext<RangeCalendarRootContext>('DestylerRangeCalendarRoot')
 
+export const rangeCalendarRootEmits = {
+  'update:modelValue': (_date: DateRange) => true,
+  'update:placeholder': (_date: DateValue) => true,
+  'update:startValue': (_date: DateValue | undefined) => true,
+}
+
 export const RangeCalendarRoot = defineComponent({
   name: 'DestylerRangeCalendarRoot',
   props: rangeCalendarRootProps,
-  emits: ['update:modelValue', 'update:placeholder'],
+  emits: rangeCalendarRootEmits,
   setup(props, { emit }) {
     const {
       disabled,

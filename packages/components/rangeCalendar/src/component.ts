@@ -9,4 +9,4 @@ export { RangeCalendarHeader, rangeCalendarHeaderProps, type RangeCalendarHeader
 export { RangeCalendarHeading, rangeCalendarHeadingProps, type RangeCalendarHeadingProps } from './components/heading'
 export { RangeCalendarNext, rangeCalendarNextProps, type RangeCalendarNextProps } from './components/next'
 export { RangeCalendarPrev, rangeCalendarPrevProps, type RangeCalendarPrevProps } from './components/prev'
-export { RangeCalendarRoot, rangeCalendarRootProps, type RangeCalendarRootProps } from './components/root'
+export { RangeCalendarRoot, rangeCalendarRootProps, rangeCalendarRootEmits, type RangeCalendarRootProps } from './components/root'
