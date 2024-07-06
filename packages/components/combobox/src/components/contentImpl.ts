@@ -7,6 +7,7 @@ import { CollectionSlot } from '@destyler/collection'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { useBodyScrollLock, useForwardExpose, useForwardProps, useHideOthers } from '@destyler/composition'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 
 import { BindOnceDirective } from '@destyler/directives'
 import { injectComboboxRootContext } from './root'
@@ -38,12 +39,16 @@ export const comboboxContentImplProps = {
 
 export type ComboboxContentImplProps = ExtractPublicPropTypes<typeof comboboxContentImplProps>
 
+export const comboboxCOntentImplEmits = {
+  ...dismissableLayerEmits,
+}
+
 export const [injectComboboxContentContext, provideComboboxContentContext] = createContext<{ position: Ref<'inline' | 'popper'> }>('DestylerComboboxContent')
 
 export const ComboboxContentImpl = defineComponent({
   name: 'DestylerComboboxContentImpl',
   props: comboboxContentImplProps,
-  emits: ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside'],
+  emits: comboboxCOntentImplEmits,
   setup(props) {
     const { position } = toRefs(props)
     const rootContext = injectComboboxRootContext()

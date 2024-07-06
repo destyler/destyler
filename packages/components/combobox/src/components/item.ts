@@ -28,6 +28,10 @@ export const comboboxItemProps = {
 
 export type ComboboxItemProps = ExtractPublicPropTypes<typeof comboboxItemProps>
 
+export const comboboxItemEmits = {
+  select: (_ev: SelectEvent) => true,
+}
+
 export interface ComboboxItemContext {
   isSelected: Ref<boolean>
 }
@@ -37,7 +41,7 @@ export const [injectComboboxItemContext, provideComboboxItemContext] = createCon
 export const ComboboxItem = defineComponent({
   name: 'DestylerComboboxItem',
   props: comboboxItemProps,
-  emits: ['select'],
+  emits: comboboxItemEmits,
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
 

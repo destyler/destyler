@@ -62,6 +62,12 @@ export const comboboxRootProps = {
 
 export type ComboboxRootProps = ExtractPublicPropTypes<typeof comboboxRootProps>
 
+export const comboboxRootEmits = {
+  'update:modelValue': (_value: string | number | boolean | Record<string, any>) => true,
+  'update:open': (_open: boolean) => true,
+  'update:searchTerm': (_searchTerm: string) => true,
+}
+
 export interface ComboboxRootContext<T> {
   modelValue: Ref<T | Array<T>>
   onValueChange: (val: T) => void
@@ -89,7 +95,7 @@ export const [injectComboboxRootContext, provideComboboxRootContext] = createCon
 export const ComboboxRoot = defineComponent({
   name: 'DestylerComboboxRoot',
   props: comboboxRootProps,
-  emits: ['update:modelValue', 'update:open', 'update:searchTerm'],
+  emits: comboboxRootEmits,
   setup(props, { emit }) {
     const { multiple, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
