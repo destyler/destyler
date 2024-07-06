@@ -48,6 +48,10 @@ export const paginationRootProps = {
 
 export type PaginationRootProps = ExtractPublicPropTypes<typeof paginationRootProps>
 
+export const paginationRootEmits = {
+  'update:page': (_value: number) => true,
+}
+
 export interface PaginationRootContext {
   page: Ref<number>
   onPageChange: (value: number) => void
@@ -62,7 +66,7 @@ export const [injectPaginationRootContext, providePaginationRootContext] = creat
 export const PaginationRoot = defineComponent({
   name: 'DestylerPaginationRoot',
   props: paginationRootProps,
-  emits: ['update:page'],
+  emits: paginationRootEmits,
   setup(props, { emit }) {
     const { siblingCount, disabled, showEdges } = toRefs(props)
 
