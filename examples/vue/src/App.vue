@@ -144,7 +144,7 @@ const uwu = ref(true)
       <CraftBox name="ScrollAreaDemo" >
         <ScrollAreaDemo />
       </CraftBox>
-      <CraftBox name="SelectDemo" >
+      <CraftBox v-if="false" name="SelectDemo" >
         <SelectDemo />
       </CraftBox>
       <CraftBox name="SliderDemo" >

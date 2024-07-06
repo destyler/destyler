@@ -79,11 +79,16 @@ export const sliderRootProps = {
 
 export type SliderRootProps = ExtractPublicPropTypes<typeof sliderRootProps>
 
+export const sliderRootEmits = {
+  'update:modelValue': (_payload: number[] | undefined) => true,
+  'valueCommit': (_payload: number[]) => true,
+}
+
 export const SliderRoot = defineComponent({
   name: 'DestylerSliderRoot',
   inheritAttrs: false,
   props: sliderRootProps,
-  emits: ['update:modelValue', 'valueCommit'],
+  emits: sliderRootEmits,
   setup(props, { emit }) {
     const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

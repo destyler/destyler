@@ -23,10 +23,19 @@ export const sliderVerticalProps = {
 
 export type SliderVerticalProps = ExtractPublicPropTypes<typeof sliderVerticalProps>
 
+export const sliderVerticalEmits = {
+  slideEnd: () => true,
+  slideStart: (_value: number) => true,
+  slideMove: (_value: number) => true,
+  homeKeyDown: (_event: KeyboardEvent) => true,
+  endKeyDown: (_event: KeyboardEvent) => true,
+  stepKeyDown: (_event: KeyboardEvent, _direction: number) => true,
+}
+
 export const SliderVertical = defineComponent({
   name: 'DestylerSliderVertical',
   props: sliderVerticalProps,
-  emits: ['slideEnd', 'slideStart', 'slideMove', 'homeKeyDown', 'endKeyDown', 'stepKeyDown'],
+  emits: sliderVerticalEmits,
   setup(props) {
     const { max, min, inverted } = toRefs(props)
 
