@@ -5,7 +5,7 @@ import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectModalRootContext } from './root'
-import { modalContentImplProps } from './contentImpl'
+import { modalContentImplEmits, modalContentImplProps } from './contentImpl'
 import { ModalContentModal } from './contentModal'
 
 export const modalContentProps = {
@@ -18,10 +18,14 @@ export const modalContentProps = {
 
 export type ModalContentProps = ExtractPublicPropTypes<typeof modalContentProps>
 
+export const modalContentEmits = {
+  ...modalContentImplEmits,
+}
+
 export const ModalContent = defineComponent({
   name: 'DestylerModalContent',
   props: modalContentProps,
-  emits: ['openAutoFocus', 'closeAutoFocus', 'escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss'],
+  emits: modalContentEmits,
   setup(_, { emit }) {
     const rootContext = injectModalRootContext()
 
