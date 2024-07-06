@@ -3,9 +3,13 @@ import { Visuallyhidden } from '@destyler/visually-hidden'
 
 import { injectToastProviderContext } from './provider'
 
+export const toastFocusProxyEmits = {
+  focusFromOutsideViewport: () => true,
+}
+
 export const ToastFocusProxy = defineComponent({
   name: 'DestylerToastFocusProxy',
-  emits: ['focusFromOutsideViewport'],
+  emits: toastFocusProxyEmits,
   setup() {
     const providerContext = injectToastProviderContext()
     return {
