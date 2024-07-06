@@ -1,72 +1,52 @@
 import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
-import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
-import { PopperContent } from '@destyler/popper'
+import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer } from '@destyler/dismissable-layer'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
 import { Visuallyhidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { ELLIPSIS_OPEN } from '../utils'
 import { injectEllipsisRootContext } from './root'
 
-const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
-const ALIGN_OPTIONS = ['start', 'center', 'end'] as const
-
-type Side = (typeof SIDE_OPTIONS)[number]
-type Align = (typeof ALIGN_OPTIONS)[number]
-
 export const ellipsisContentImplProps = {
-  ...primitiveProps,
+  as: {
+    ...popperContentProps.as,
+  },
+  asChild: {
+    ...popperContentProps.asChild,
+  },
   side: {
-    type: String as PropType<Side>,
-    required: false,
+    ...popperContentProps.side,
     default: 'top',
   },
   sideOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.sideOffset,
   },
   align: {
-    type: String as PropType<Align>,
-    required: false,
-    default: 'center',
+    ...popperContentProps.align,
   },
   alignOffset: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.alignOffset,
   },
   avoidCollisions: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: true,
+    ...popperContentProps.avoidCollisions,
   },
   collisionBoundary: {
-    type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
-    required: false,
-    default: () => [],
+    ...popperContentProps.collisionBoundary,
   },
   collisionPadding: {
-    type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
-    required: false,
-    default: 0,
+    ...popperContentProps.collisionPadding,
   },
   arrowPadding: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 0,
+    ...popperContentProps.arrowPadding,
   },
   sticky: {
-    type: String as PropType<'partial' | 'always'>,
-    required: false,
-    default: 'partial',
+    ...popperContentProps.sticky,
   },
   hideWhenDetached: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...popperContentProps.hideWhenDetached,
   },
   ariaLabel: {
     type: String as PropType<string>,
@@ -76,7 +56,11 @@ export const ellipsisContentImplProps = {
 
 export type EllipsisContentImplProps = ExtractPublicPropTypes<typeof ellipsisContentImplProps>
 
-export const ellipsisContentImplEmits = ['escapeKeyDown', 'pointerDownOutside']
+// ['escapeKeyDown', 'pointerDownOutside']
+export const ellipsisContentImplEmits = {
+  escapeKeyDown: dismissableLayerEmits.escapeKeyDown,
+  pointerDownOutside: dismissableLayerEmits.pointerDownOutside,
+}
 
 export const EllipsisContentImpl = defineComponent({
   name: 'DestylerEllipsisContentImpl',
@@ -131,7 +115,7 @@ export const EllipsisContentImpl = defineComponent({
     return h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: false,
-      onEscapeKeyDown: (event: any) => {
+      onEscapeKeyDown: (event) => {
         this.$emit('escapeKeyDown', event)
       },
       onPointerDownOutside: (event: any) => {

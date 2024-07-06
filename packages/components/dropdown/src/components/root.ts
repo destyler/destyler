@@ -7,7 +7,16 @@ import { MenuRoot, menuRootProps } from '@destyler/menu'
 import { menuRootEmits } from '@destyler/menu/dist/component'
 
 export const dropdownRootProps = {
-  ...menuRootProps,
+  dir: {
+    ...menuRootProps.dir,
+  },
+  modal: {
+    ...menuRootProps.modal,
+  },
+  open: {
+    ...menuRootProps.open,
+    default: undefined,
+  },
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,

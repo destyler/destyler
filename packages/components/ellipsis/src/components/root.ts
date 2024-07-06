@@ -38,6 +38,10 @@ export const ellipsisRootProps = {
 
 export type EllipsisRootProps = ExtractPublicPropTypes<typeof ellipsisRootProps>
 
+export const ellipsisRootEmits = {
+  'update:open': (_open: boolean) => true,
+}
+
 export interface EllipsisContext {
   contentId: string
   text: Ref<string>
@@ -59,7 +63,7 @@ export const [injectEllipsisRootContext, provideEllipsisRootContext] = createCon
 export const EllipsisRoot = defineComponent({
   name: 'DestylerEllipsisRoot',
   props: ellipsisRootProps,
-  emits: ['update:open'],
+  emits: ellipsisRootEmits,
   setup(props, { emit }) {
     const triggerText = ref('')
     const providerContext = injectEllipsisProviderContext()
