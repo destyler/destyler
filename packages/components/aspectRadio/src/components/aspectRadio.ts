@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -19,6 +19,9 @@ export const AspectRadio = defineComponent({
   name: 'DestylerAspectRadio',
   inheritAttrs: false,
   props: aspectRadioProps,
+  slots: Object as SlotsType<{
+    default: { aspect: number }
+  }>,
   setup(props) {
     const { forwardRef } = useForwardExpose()
 
@@ -47,6 +50,6 @@ export const AspectRadio = defineComponent({
         position: 'absolute',
         inset: '0px',
       },
-    }), () => this.$slots.default?.({ aspect: this.aspect })))
+    }), () => this.$slots.default({ aspect: this.aspect })))
   },
 })
