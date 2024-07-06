@@ -62,6 +62,12 @@ export const dynamicRootProps = {
 
 export type DynamicRootProps = ExtractPublicPropTypes<typeof dynamicRootProps>
 
+export const dynamicRootEmits = {
+  'invalid': (_payload: string) => true,
+  'update:modelValue': (_value: Array<string>) => true,
+
+}
+
 export interface DynamicRootContext {
   modelValue: Ref<Array<string>>
   onAddValue: (payload: string) => boolean
@@ -83,7 +89,7 @@ export const [injectDynamicRootContext, provideDynamicRootContext]
 export const DynamicRoot = defineComponent({
   name: 'DestylerDynamicRoot',
   props: dynamicRootProps,
-  emits: ['update:modelValue', 'invalid'],
+  emits: dynamicRootEmits,
   setup(props, { emit }) {
     const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
