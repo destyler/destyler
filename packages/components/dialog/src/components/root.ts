@@ -39,10 +39,14 @@ export interface DialogRootContext {
 
 export const [injectDialogRootContext, provideDialogRootContext] = createContext<DialogRootContext>('DestylerDialogRoot')
 
+export const dialogRootEmits = {
+  'update:open': (_value: boolean) => true,
+}
+
 export const DialogRoot = defineComponent({
   name: 'DestylerDialogRoot',
   props: dialogRootProps,
-  emits: ['update:open'],
+  emits: dialogRootEmits,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
