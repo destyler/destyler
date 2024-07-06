@@ -48,6 +48,10 @@ export const radioGroupRootProps = {
 
 export type RadioGroupRootProps = ExtractPublicPropTypes<typeof radioGroupRootProps>
 
+export const radioGroupRootEmits = {
+  'update:modelValue': (_value: string) => true,
+}
+
 export interface RadioGroupRootContext {
   modelValue?: Readonly<Ref<string | undefined>>
   changeModelValue: (value?: string) => void
@@ -63,7 +67,7 @@ export const [injectRadioGroupRootContext, provideRadioGroupRootContext] = creat
 export const RadioGroupRoot = defineComponent({
   name: 'DestylerRadioGroupRoot',
   props: radioGroupRootProps,
-  emits: ['update:modelValue'],
+  emits: radioGroupRootEmits,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue,

@@ -41,10 +41,14 @@ export const radioProps = {
 
 export type RadioProps = ExtractPublicPropTypes<typeof radioProps>
 
+export const radioEmits = {
+  'update:checked': (_value: boolean) => true,
+}
+
 export const Radio = defineComponent({
   name: 'DestylerRadio',
   props: radioProps,
-  emits: ['update:checked'],
+  emits: radioEmits,
   setup(props, { emit }) {
     const checkedRef = useVModel(props, 'checked', emit, {
       passive: (props.checked === undefined) as false,
