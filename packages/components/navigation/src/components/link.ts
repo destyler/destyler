@@ -20,10 +20,15 @@ export const navigationLinkProps = {
 
 export type NavigationLinkProps = ExtractPublicPropTypes<typeof navigationLinkProps>
 
+export const navigationLinkEmits = {
+  select: (_ev: MouseEvent) => true,
+
+}
+
 export const NavigationLink = defineComponent({
   name: 'DestylerNavigationLink',
   props: navigationLinkProps,
-  emits: ['select'],
+  emits: navigationLinkEmits,
   setup(_, { emit }) {
     useForwardExpose()
     async function handleClick(ev: MouseEvent) {

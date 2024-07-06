@@ -25,10 +25,14 @@ export const navigationSubProps = {
 
 export type NavigationSubProps = ExtractPublicPropTypes<typeof navigationSubProps>
 
+export const navigationSubEmits = {
+  'update:modelValue': (_value: string) => true,
+}
+
 export const NavigationSub = defineComponent({
   name: 'DestylerNavigationSub',
   props: navigationSubProps,
-  emits: ['update:modelValue'],
+  emits: navigationSubEmits,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',

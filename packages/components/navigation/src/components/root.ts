@@ -65,10 +65,14 @@ export interface NavigationContext {
 
 export const [injectNavigationContext, provideNavigationContext] = createContext<NavigationContext>(['DestylerNavigationRoot', 'DestylerNavigationSub'], 'DestylerNavigationContext')
 
+export const navigationRootEmits = {
+  updateModelValue: (_value: string) => true,
+}
+
 export const NavigationRoot = defineComponent({
   name: 'DestylerNavigationRoot',
   props: navigationRootProps,
-  emits: ['update:modelValue'],
+  emits: navigationRootEmits,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',
