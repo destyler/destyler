@@ -19,14 +19,14 @@ const isOpen = ref<boolean>(false)
       </CollapsibleTrigger>
     </div>
     <div class="rounded-md border px-4 py-3 font-mono text-sm border-#E4E4E7 dark:border-#27272A">
-      vue
+      destyler
     </div>
     <CollapsibleContent class="space-y-2 overflow-hidden transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
       <div class="rounded-md border px-4 py-3 font-mono text-sm border-#E4E4E7 dark:border-#27272A">
         nuxt
       </div>
       <div class="rounded-md border px-4 py-3 font-mono text-sm border-#E4E4E7 dark:border-#27272A">
-        destyler
+        vue
       </div>
     </CollapsibleContent>
   </CollapsibleRoot>
@@ -41,7 +41,7 @@ const isOpen = ref<boolean>(false)
 }
 @keyframes collapsible-up {
   0% {
-    height: var(--destyler_collapsible_content_height)
+    height: var(--destyler-collapsible-content-height)
   }
   to {
     height: 0
@@ -53,7 +53,7 @@ const isOpen = ref<boolean>(false)
     height: 0
   }
   to {
-    height: var(--destyler_collapsible_content_height)
+    height: var(--destyler-collapsible-content-height)
   }
 }
 </style>
