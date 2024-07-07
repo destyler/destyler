@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 
@@ -8,6 +9,9 @@ export const PopoverContentNonModal = defineComponent({
   name: 'DestylerPopoverContentNonModal',
   props: popoverContentImplProps,
   emits: popoverContentImplEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
     const hasInteractedOutsideRef = ref(false)
