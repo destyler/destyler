@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -28,6 +28,9 @@ export type HoverCardArrowProps = ExtractPublicPropTypes<typeof hoverCardArrowPr
 export const HoverCardArrow = defineComponent({
   name: 'DestylerHoverCardArrow',
   props: hoverCardArrowProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },
