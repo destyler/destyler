@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, toRefs, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -36,6 +36,9 @@ export const ToastViewport = defineComponent({
   name: 'DestylerToastViewport',
   inheritAttrs: false,
   props: toastViewportProps,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup(props) {
     const { hotkey, label } = toRefs(props)
 

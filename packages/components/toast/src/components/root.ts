@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
@@ -36,6 +36,9 @@ export const ToastRoot = defineComponent({
   name: 'DestylerToastRoot',
   props: toastRootProps,
   emits: toastRootEmits,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup(props, { emit }) {
     const { forwardRef } = useForwardExpose()
     const open = useVModel(props, 'open', emit, {
