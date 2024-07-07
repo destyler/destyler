@@ -1,4 +1,4 @@
-type Pages = Array<{ type: 'ellipsis' } | { type: 'page', value: number }>
+export type Pages = Array<{ type: 'ellipsis' } | { type: 'page', value: number }>
 
 function range(start: number, end: number) {
   const length = end - start + 1

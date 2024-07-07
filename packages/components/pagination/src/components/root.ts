@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -67,6 +67,9 @@ export const PaginationRoot = defineComponent({
   name: 'DestylerPaginationRoot',
   props: paginationRootProps,
   emits: paginationRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: { page: number, pageCount: number }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const { siblingCount, disabled, showEdges } = toRefs(props)
 
