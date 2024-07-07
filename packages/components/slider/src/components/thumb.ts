@@ -1,3 +1,4 @@
+import type { SlotsType } from 'vue';
 import { computed, defineComponent, h } from 'vue'
 import { useCollection, useForwardExpose } from '@destyler/composition'
 import { primitiveProps } from '@destyler/primitive'
@@ -14,6 +15,9 @@ export type SliderThumbProps = ExtractPublicPropTypes<typeof sliderThumbProps>
 export const SliderThumb = defineComponent({
   name: 'DestylerSliderThumb',
   props: sliderThumbProps,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup() {
     const { injectCollection } = useCollection('sliderThumb')
     const collections = injectCollection()

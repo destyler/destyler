@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -36,6 +36,9 @@ export const SliderVertical = defineComponent({
   name: 'DestylerSliderVertical',
   props: sliderVerticalProps,
   emits: sliderVerticalEmits,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup(props) {
     const { max, min, inverted } = toRefs(props)
 
