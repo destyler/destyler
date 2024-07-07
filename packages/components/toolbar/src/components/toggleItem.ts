@@ -1,3 +1,4 @@
+import type { SlotsType } from 'vue';
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -14,6 +15,9 @@ export type ToolbarToggleItemProps = ExtractPublicPropTypes<typeof toolbarToggle
 export const ToolbarToggleItem = defineComponent({
   name: 'DestylerToolbarToggleItem',
   props: toolbarToggleItemProps,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
 
