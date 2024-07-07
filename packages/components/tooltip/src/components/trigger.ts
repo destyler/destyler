@@ -1,3 +1,4 @@
+import type { SlotsType } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -22,6 +23,9 @@ export type TooltipTriggerProps = ExtractPublicPropTypes<typeof tooltipTriggerPr
 export const TooltipTrigger = defineComponent({
   name: 'DestylerTooltipTrigger',
   props: tooltipTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup() {
     const rootContext = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()
@@ -88,6 +92,6 @@ export const TooltipTrigger = defineComponent({
         if (!this.rootContext.disableClosingTrigger.value)
           this.rootContext.onClose()
       },
-    }, () => this.$slots.default?.()))
+    }, () => this.$slots.default()))
   },
 })
