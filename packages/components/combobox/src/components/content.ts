@@ -1,4 +1,5 @@
-import { type PropType, defineComponent, h, mergeProps } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -24,6 +25,9 @@ export const ComboboxContent = defineComponent({
   name: 'DestylerComboboxContent',
   props: comboboxContentProps,
   emits: comboboxContentEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()

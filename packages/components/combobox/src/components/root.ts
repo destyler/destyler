@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
@@ -96,6 +96,9 @@ export const ComboboxRoot = defineComponent({
   name: 'DestylerComboboxRoot',
   props: comboboxRootProps,
   emits: comboboxRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: { open: boolean, modelValue: string | number | boolean | Record<string, any> }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const { multiple, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
