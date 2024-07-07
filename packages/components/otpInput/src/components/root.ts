@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { ComputedRef, PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs, watch, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
@@ -83,6 +83,9 @@ export const OtpInputRoot = defineComponent({
   inheritAttrs: false,
   props: otpInputRootProps,
   emits: otpInputRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: { modelValue: string[] }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)
     const { forwardRef } = useForwardExpose()
