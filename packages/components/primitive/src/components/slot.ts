@@ -1,9 +1,13 @@
+import type { SlotsType, VNode } from 'vue'
 import { cloneVNode, defineComponent, mergeProps } from 'vue'
 import { renderSlotFragments } from '@destyler/shared'
 
 export const Slot = defineComponent({
   name: 'DestylerSlot',
   inheritAttrs: false,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
   },
   render() {

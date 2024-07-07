@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, nextTick, withKeys } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -26,6 +26,9 @@ export type CalendarCellTriggerProps = ExtractPublicPropTypes<typeof calendarCel
 export const CalendarCellTrigger = defineComponent({
   name: 'DestylerCalendarCellTrigger',
   props: calendarCellTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const kbd = useKbd()
     const rootContext = injectCalendarRootContext()

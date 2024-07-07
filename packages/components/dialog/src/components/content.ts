@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -22,6 +23,9 @@ export const DialogContent = defineComponent({
   name: 'DestylerDialogContent',
   props: dialogContentProps,
   emits: dialogContentEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
 

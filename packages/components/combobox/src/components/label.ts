@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -20,6 +20,9 @@ export type ComboboxLabelProps = ExtractPublicPropTypes<typeof comboboxLabelProp
 export const ComboboxLabel = defineComponent({
   name: 'DestylerComboboxLabel',
   props: comboboxLabelProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
     const groupContext = injectComboboxGroupContext({ id: '' })

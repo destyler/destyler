@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
@@ -27,6 +27,9 @@ export const MenuCheckboxItem = defineComponent({
   name: 'DestylerMenuCheckboxItem',
   props: menuCheckboxItemProps,
   emits: menuCheckboxItemEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const checked = useVModel(props, 'checked', emit)
 

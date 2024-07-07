@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -24,6 +24,9 @@ export type RadioGroupIndicatorProps = ExtractPublicPropTypes<typeof radioGroupI
 export const RadioGroupIndicator = defineComponent({
   name: 'DestylerRadioGroupindicator',
   props: radioGroupIndicatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const itemContext = injectRadioGroupItemContext()
 

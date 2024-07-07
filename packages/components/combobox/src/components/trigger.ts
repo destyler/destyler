@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -23,6 +23,9 @@ export type ComboboxTriggerProps = ExtractPublicPropTypes<typeof comboboxTrigger
 export const ComboboxTrigger = defineComponent({
   name: 'DestylerComboboxTrigger',
   props: comboboxTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

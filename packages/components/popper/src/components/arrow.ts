@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { Arrow } from '@destyler/arrow'
@@ -38,6 +38,9 @@ export const PopperArrow = defineComponent({
   name: 'DestylerPopperArrow',
   inheritAttrs: false,
   props: popperArrowProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const contentContext = injectPopperContentContext()
 

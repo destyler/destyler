@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,6 +19,9 @@ export type DynamicClearProps = ExtractPublicPropTypes<typeof dynamicClearProps>
 export const DynamicClear = defineComponent({
   name: 'DestylerDynamicClear',
   props: dynamicClearProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
     const context = injectDynamicRootContext()

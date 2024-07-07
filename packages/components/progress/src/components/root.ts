@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { ComputedRef, PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, nextTick, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -48,6 +48,9 @@ export const ProgressRoot = defineComponent({
   name: 'DestylerProgressRoot',
   props: progressRootProps,
   emits: progressRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     function validateValue(value: any, max: number): number | null {
       const isValidValueError

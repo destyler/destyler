@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRef, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
@@ -66,6 +66,9 @@ export const CheckboxRoot = defineComponent({
   name: 'DestylerCheckboxRoot',
   props: checkboxRootProps,
   emits: checkboxRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const disabledRef = toRef(props.disabled)
 

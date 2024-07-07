@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -12,6 +13,9 @@ export type MenubarSubTriggerProps = ExtractPublicPropTypes<typeof menubarSubTri
 export const MenubarSubTrigger = defineComponent({
   name: 'DestylerMenubarSubTrigger',
   props: menubarSubTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },

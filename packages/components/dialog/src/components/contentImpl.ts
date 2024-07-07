@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, withDirectives } from 'vue'
 import { useForwardExpose, useId } from '@destyler/composition'
 import { FocusScope } from '@destyler/focus-scope'
@@ -32,6 +32,9 @@ export const DialogContentImpl = defineComponent({
   name: 'DestylerDialogContentImpl',
   props: dialogContentImplProps,
   emits: dialogContentImplEmtis,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

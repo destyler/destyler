@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, nextTick, reactive, watchEffect, withModifiers } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -43,6 +43,9 @@ export const DismissableLayer = defineComponent({
     ...dismissableLayerEmits,
     dismiss: () => true,
   },
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
     const ownerDocument = computed(

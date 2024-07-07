@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getCheckedState } from '@destyler/shared'
@@ -25,6 +25,9 @@ export const MenuRadioItem = defineComponent({
   name: 'DestylerMenuRadioItem',
   props: menuRadioItemProps,
   emits: menuRadioItemEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const { value } = toRefs(props)
     const radioGroupContext = injectMenuRadioGroupContext()

@@ -1,4 +1,4 @@
-import type { PropType, VNode } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -29,6 +29,9 @@ export const NavigationTrigger = defineComponent({
   name: 'DestylerNavigationTrigger',
   inheritAttrs: false,
   props: navigationTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const menuContext = injectNavigationContext()
     const itemContext = injectNavigationItemContext()

@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { Teleport, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -27,6 +27,9 @@ export const SelectContent = defineComponent({
   inheritAttrs: false,
   props: selectContentProps,
   emits: selectContentEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

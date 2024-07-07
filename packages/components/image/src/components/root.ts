@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -22,6 +22,9 @@ export type ImageRootProps = ExtractPublicPropTypes<typeof imageRootProps>
 export const ImageRoot = defineComponent({
   name: 'DestylerImageRoot',
   props: imageRootProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     provideImageRootContext({
       imageLoadingStatus: ref<ImageLoadingStatus>('loading'),

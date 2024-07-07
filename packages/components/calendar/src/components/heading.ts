@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -13,6 +14,9 @@ export type CalendarHeadingProps = ExtractPublicPropTypes<typeof calendarHeading
 export const CalendarHeading = defineComponent({
   name: 'DestylerCalendarHeading',
   props: calendarHeadingProps,
+  slots: Object as SlotsType<{
+    default: (opts: { headingValue: string }) => VNode[]
+  }>,
   setup() {
     const rootContext = injectCalendarRootContext()
     return {

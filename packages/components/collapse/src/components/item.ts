@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType, VNodeRef } from 'vue'
+import type { ComputedRef, PropType, SlotsType, VNode, VNodeRef } from 'vue'
 import { computed, defineComponent, h, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -46,6 +46,9 @@ export type CollapseItemProps = ExtractPublicPropTypes<typeof collapseItemProps>
 export const CollapseItem = defineComponent({
   name: 'DestylerCollapseItem',
   props: collapseItemProps,
+  slots: Object as SlotsType<{
+    default: (opts: { open: boolean }) => VNode[]
+  }>,
   setup(props) {
     const rootContext = injectCollapseRootContext()
 

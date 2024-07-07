@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import { useResizeObserver } from '@destyler/composition'
 
@@ -6,6 +7,9 @@ import { injectScrollAreaRootContext } from './root'
 
 export const ScrollAreaCornerImpl = defineComponent({
   name: 'DestylerScrollAreaCornerImpl',
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
 
@@ -40,19 +44,23 @@ export const ScrollAreaCornerImpl = defineComponent({
   },
   render() {
     return this.hasSize
-      ? h(Primitive, {
-        ...this.$parent?.$props,
-        style: {
-          width: `${this.width}px`,
-          height: `${this.height}px`,
-          position: 'absolute',
-          right: this.rootContext.dir.value === 'ltr' ? 0 : undefined,
-          left: this.rootContext.dir.value === 'rtl' ? 0 : undefined,
-          bottom: 0,
+      ? h(
+        Primitive,
+        {
+          ...this.$parent?.$props,
+          style: {
+            width: `${this.width}px`,
+            height: `${this.height}px`,
+            position: 'absolute',
+            right: this.rootContext.dir.value === 'ltr' ? 0 : undefined,
+            left: this.rootContext.dir.value === 'rtl' ? 0 : undefined,
+            bottom: 0,
+          },
         },
-      }, {
-        default: () => this.$slots.default?.(),
-      })
+        {
+          default: () => this.$slots.default?.(),
+        },
+      )
       : null
   },
 })

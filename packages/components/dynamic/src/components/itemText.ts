@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -19,6 +20,9 @@ export type DynamicItemTextProps = ExtractPublicPropTypes<typeof dynamicItemText
 export const DynamicItemText = defineComponent({
   name: 'DestylerDynamicItemText',
   props: dynamicItemTextProps,
+  slots: Object as SlotsType<{
+    default: (opts: { text: string }) => VNode[]
+  }>,
   setup() {
     const itemContext = injectDynamicItemContext()
     useForwardExpose()
@@ -28,7 +32,7 @@ export const DynamicItemText = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(Primitive, this.$props, () => this.$slots.default ? this.$slots.default?.() : this.itemContext.value.value), [
+    return withDirectives(h(Primitive, this.$props, () => this.$slots.default ? this.$slots.default?.({ text: this.itemContext.value.value }) : this.itemContext.value.value), [
       [BindOnceDirective, { id: this.itemContext.textId }],
     ])
   },

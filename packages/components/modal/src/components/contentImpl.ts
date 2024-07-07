@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, onMounted, withDirectives } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -36,6 +36,9 @@ export const ModalContentImpl = defineComponent({
   name: 'DestylerModalContentImpl',
   props: modalContentImplProps,
   emits: modalContentImplEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectModalRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

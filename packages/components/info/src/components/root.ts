@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -37,6 +37,9 @@ export const InfoRoot = defineComponent({
   inheritAttrs: false,
   props: infoRootProps,
   emits: infoRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const openRef = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

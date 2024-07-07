@@ -1,11 +1,11 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import type { DateRange, ExtractPublicPropTypes, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
+import type { DateRange, ExtractPublicPropTypes, Grid, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
 import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus, isBefore } from '@destyler/shared'
 import type { Formatter } from '@destyler/composition'
 import { useForwardExpose, useVModel } from '@destyler/composition'
-import type { DateValue } from '@internationalized/date'
+import type { CalendarDate, CalendarDateTime, DateValue, ZonedDateTime } from '@internationalized/date'
 import { isSameDay } from '@internationalized/date'
 import { useCalendar } from '@destyler/calendar/dist/composition'
 import { useRangeCalendarState } from '../composition/use-range-calendar-state'
@@ -154,6 +154,16 @@ export const RangeCalendarRoot = defineComponent({
   name: 'DestylerRangeCalendarRoot',
   props: rangeCalendarRootProps,
   emits: rangeCalendarRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: {
+      date: CalendarDate | CalendarDateTime | ZonedDateTime
+      grid: Grid<DateValue>[]
+      weekDays: string[]
+      formatter: Formatter
+      getMonths: DateValue[]
+      getYears: ({ startIndex, endIndex }: { startIndex?: number | undefined, endIndex: number }) => DateValue[]
+    }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const {
       disabled,

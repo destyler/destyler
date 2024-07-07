@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -13,6 +14,9 @@ export type ProgressIndicatorProps = ExtractPublicPropTypes<typeof progressIndic
 export const ProgressIndicator = defineComponent({
   name: 'DestylerProgressIndicator',
   props: progressIndicatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectProgressRootContext()
 

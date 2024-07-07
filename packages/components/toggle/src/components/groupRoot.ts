@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -71,6 +71,9 @@ export const ToggleGroupRoot = defineComponent({
   name: 'DestylerToggleGroupRoot',
   props: toggleGroupRootProps,
   emits: toggleGroupRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
@@ -18,6 +19,9 @@ export const MenubarRadioItem = defineComponent({
   name: 'DestylerMenubarRadioItem',
   props: menubarRadioItemProps,
   emits: menubarRadioItemEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

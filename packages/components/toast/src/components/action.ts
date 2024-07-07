@@ -1,4 +1,5 @@
-import { type PropType, defineComponent, h, mergeProps } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
@@ -19,6 +20,9 @@ export const ToastAction = defineComponent({
   name: 'DestylerToastAction',
   inheritAttrs: false,
   props: toastActionProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     if (!props.altText)
       throw new Error('Missing prop `altText` expected on `DestylerToastAction`')

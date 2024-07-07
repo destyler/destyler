@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,6 +13,9 @@ export type SplitterRootProps = ExtractPublicPropTypes<typeof splitterRootProps>
 export const SplitterRoot = defineComponent({
   name: 'DestylerSplitterRoot',
   props: splitterRootProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_) {
     useForwardExpose()
   },

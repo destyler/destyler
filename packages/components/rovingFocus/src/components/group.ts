@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
@@ -57,6 +57,9 @@ export const RovingFocusGroup = defineComponent({
   name: 'DestylerRovingFocusGroup',
   props: rovingFocusGroupProps,
   emits: rovingFocusGroupEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { loop, orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

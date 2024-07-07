@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useDebounceFn, useForwardExpose, useStateMachine } from '@destyler/composition'
@@ -19,6 +20,9 @@ export type ScrollAreaScrollbarScrollProps = ExtractPublicPropTypes<typeof scrol
 export const ScrollAreaScrollbarScroll = defineComponent({
   name: 'DestylerScrollAreaScrollbarScroll',
   props: scrollAreaScrollbarScrollProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()

@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
@@ -27,6 +28,9 @@ export const DropdownContent = defineComponent({
   name: 'DestylerDropdownContent',
   props: dropdownContentProps,
   emits: dropdownContentEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

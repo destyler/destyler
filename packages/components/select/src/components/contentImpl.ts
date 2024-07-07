@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watch, watchEffect, withDirectives } from 'vue'
 import { createContext, focusFirst, unrefElement } from '@destyler/shared'
 import { useCollection, useFocusGuards, useForwardProps, useHideOthers, useTypeahead } from '@destyler/composition'
@@ -63,6 +63,9 @@ export const SelectContentImpl = defineComponent({
   name: 'DestylerSelectContentImpl',
   props: selectContentImplProps,
   emits: selectContentImplEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const rootContext = injectSelectRootContext()
 

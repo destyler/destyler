@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import type { Middleware, Placement } from '@floating-ui/vue'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
@@ -96,6 +96,9 @@ export const PopperContent = defineComponent({
   inheritAttrs: false,
   props: popperContentProps,
   emits: popperContentEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { attrs, emit }) {
     const rootContext = injectPopperRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

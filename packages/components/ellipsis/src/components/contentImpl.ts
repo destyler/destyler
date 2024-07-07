@@ -1,4 +1,4 @@
-import type { PropType, VNode } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { PopperContent, popperContentProps } from '@destyler/popper'
@@ -66,6 +66,9 @@ export const EllipsisContentImpl = defineComponent({
   name: 'DestylerEllipsisContentImpl',
   props: ellipsisContentImplProps,
   emits: ellipsisContentImplEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const contentElement = ref<HTMLElement>()
     const rootContext = injectEllipsisRootContext()

@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import type { Polygon } from '@destyler/shared'
@@ -11,6 +12,9 @@ import { TooltipContentImpl, tooltipContentImplProps } from './contentImpl'
 export const TooltipContentHoverable = defineComponent({
   name: 'DestylerTooltipContentHoverable',
   props: tooltipContentImplProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 

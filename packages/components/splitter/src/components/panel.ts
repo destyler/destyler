@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, onMounted, onUnmounted, watch, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -53,6 +53,9 @@ export const SplitterPanel = defineComponent({
   name: 'DestylerSplitterPanel',
   props: splitterPanelProps,
   emits: splitterPanelEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const panelGroupContext = injectPanelGroupContext()
     if (panelGroupContext === null)

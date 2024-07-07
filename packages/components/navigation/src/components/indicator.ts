@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { Teleport, computed, defineComponent, h, ref, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -20,6 +20,9 @@ export type NavigationIndicatorProps = ExtractPublicPropTypes<typeof navigationI
 export const NavigationIndicator = defineComponent({
   name: 'DestylerNavigationIndicator',
   props: navigationIndicatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
     const { injectCollection } = useCollection('nav')

@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -50,6 +50,9 @@ export const HoverCardRoot = defineComponent({
   name: 'DestylerHoverCardRoot',
   props: hoverCardRootProps,
   emits: hoverCardRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { openDelay, closeDelay } = toRefs(props)
 

@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -28,6 +28,9 @@ export const SelectItemAlignedPosition = defineComponent({
   name: 'DestylerSelectItemAlignedPosition',
   inheritAttrs: false,
   props: selectItemAlignedPositionProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   emits: {
     placed: () => true,
   },

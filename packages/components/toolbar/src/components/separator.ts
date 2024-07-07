@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -15,6 +16,9 @@ export type ToolbarSeparatorProps = ExtractPublicPropTypes<typeof toolbarSeparat
 export const ToolbarSeparator = defineComponent({
   name: 'DestylerToolbarSeparator',
   props: toolbarSeparatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectToolbarRootContext()
     useForwardExpose()

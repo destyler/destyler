@@ -1,4 +1,5 @@
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, onUnmounted, ref } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -16,6 +17,9 @@ export const ScrollAreaScrollbarHover = defineComponent({
   name: 'DestylerScrollAreaScrollbarHover',
   inheritAttrs: false,
   props: scrollAreaScrollbarHoverProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
 

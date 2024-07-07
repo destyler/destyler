@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -15,6 +16,9 @@ export type VisuallyhiddenProps = ExtractPublicPropTypes<typeof visuallyhiddenPr
 export const Visuallyhidden = defineComponent({
   name: 'DestylerVisuallyhidden',
   props: visuallyhiddenProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
 
   },

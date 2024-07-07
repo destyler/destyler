@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, nextTick, reactive, ref, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -33,6 +33,9 @@ export const FocusScope = defineComponent({
   name: 'DestylerFocusScope',
   props: focusScopeProps,
   emits: focusScopeEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const lastFocusedElementRef = ref<HTMLElement | null>(null)

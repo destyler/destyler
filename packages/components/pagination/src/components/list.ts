@@ -1,9 +1,10 @@
+import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-import { getRange, transform } from '../utils'
+import { type Pages, getRange, transform } from '../utils'
 import { injectPaginationRootContext } from './root'
 
 export const paginationListProps = {
@@ -15,6 +16,9 @@ export type PaginationListProps = ExtractPublicPropTypes<typeof paginationListPr
 export const PaginationList = defineComponent({
   name: 'DestylerPaginationList',
   props: paginationListProps,
+  slots: Object as SlotsType<{
+    default: (opts: { items: Pages }) => VNode[]
+  }>,
   setup() {
     useForwardExpose()
     const rootContext = injectPaginationRootContext()

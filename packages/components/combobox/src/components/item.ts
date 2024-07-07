@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, nextTick, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -42,6 +42,9 @@ export const ComboboxItem = defineComponent({
   name: 'DestylerComboboxItem',
   props: comboboxItemProps,
   emits: comboboxItemEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
 

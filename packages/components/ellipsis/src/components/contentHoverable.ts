@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import type { Polygon } from '@destyler/shared'
@@ -11,6 +12,9 @@ import { EllipsisContentImpl, ellipsisContentImplProps } from './contentImpl'
 export const EllipsisContentHoverable = defineComponent({
   name: 'DestylerEllipsisContentHoverable',
   props: ellipsisContentImplProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 

@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
@@ -18,6 +19,9 @@ export type ModalDescriptionProps = ExtractPublicPropTypes<typeof modalDescripti
 export const ModalDescription = defineComponent({
   name: 'DestylerModalDescription',
   props: modalDescriptionProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectModalRootContext()
 

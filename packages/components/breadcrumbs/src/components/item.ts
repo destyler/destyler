@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -26,6 +27,9 @@ export const [injectContextBreadcrumbsItemContext, provideContextBreadcrumbsItem
 export const BreadcrumbsItem = defineComponent({
   name: 'DestylerBreadcrumbsItem',
   props: breadcrumbsItemProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
     const id = useId()
@@ -49,9 +53,7 @@ export const BreadcrumbsItem = defineComponent({
       'aria-label': 'breadcrumb item',
       'data-destyler-breadcrumb-item': '',
       'data-state': this.content.lastItemId.value === this.id ? 'active' : 'inactive',
-    }, {
-      default: () => this.$slots.default?.(),
-    }), [
+    }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.id }],
     ])
   },

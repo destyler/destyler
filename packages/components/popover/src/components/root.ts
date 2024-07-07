@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRef } from 'vue'
 import { PopperRoot } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -45,6 +45,9 @@ export const PopoverRoot = defineComponent({
   name: 'DestylerPopoverRoot',
   props: popoverRootProps,
   emits: popoverRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const modalRef = toRef(props.modal)
 

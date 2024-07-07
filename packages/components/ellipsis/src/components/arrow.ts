@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { PopperArrow } from '@destyler/popper'
@@ -23,6 +23,9 @@ export type EllipsisArrowProps = ExtractPublicPropTypes<typeof ellipsisArrowProp
 export const EllipsisArrow = defineComponent({
   name: 'DestylerEllipsisArrow',
   props: ellipsisArrowProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   render() {
     return h(PopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
   },

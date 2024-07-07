@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -28,6 +29,9 @@ export const [injectEllipsisTriggerContext, provideEllipsisTriggerContext] = cre
 export const EllipsisTrigger = defineComponent({
   name: 'DestylerEllipsisTrigger',
   props: ellipsisTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_) {
     const rootContext = injectEllipsisRootContext()
     const providerContext = injectEllipsisProviderContext()

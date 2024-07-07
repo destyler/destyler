@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,6 +13,9 @@ export type ToastDescriptionProps = ExtractPublicPropTypes<typeof toastDescripti
 export const ToastDescription = defineComponent({
   name: 'DestylerToastDescription',
   props: toastDescriptionProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },

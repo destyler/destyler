@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -12,6 +13,9 @@ export type DropdownSubTriggerProps = ExtractPublicPropTypes<typeof dropdownSubT
 export const DropdownSubTrigger = defineComponent({
   name: 'DestylerDropdownSubTrigger',
   props: dropdownSubTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },

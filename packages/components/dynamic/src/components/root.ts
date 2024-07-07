@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { createContext } from '@destyler/shared'
@@ -90,6 +90,9 @@ export const DynamicRoot = defineComponent({
   name: 'DestylerDynamicRoot',
   props: dynamicRootProps,
   emits: dynamicRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: { modelValue: string[] }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

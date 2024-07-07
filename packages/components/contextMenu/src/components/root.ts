@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRefs, watch } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -34,6 +34,9 @@ export const ContextMenuRoot = defineComponent({
   name: 'DestylerContextMenuRoot',
   props: contextMenuRootProps,
   emits: contextMenuRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { dir: propDir, modal } = toRefs(props)
     useForwardExpose()

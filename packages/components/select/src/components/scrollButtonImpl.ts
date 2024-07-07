@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, onBeforeUnmount, ref, watchEffect } from 'vue'
 import { useCollection } from '@destyler/composition'
 import { Primitive } from '@destyler/primitive'
@@ -11,6 +12,9 @@ export const scrollSelectButtonImplEmits = {
 export const ScrollSelectButtonImpl = defineComponent({
   name: 'DestylerSelectButtonImpl',
   emits: scrollSelectButtonImplEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_, { emit }) {
     const { injectCollection } = useCollection()
 

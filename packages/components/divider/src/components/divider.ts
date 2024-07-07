@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, ExtractPublicPropTypes } from '@destyler/shared'
@@ -21,6 +21,9 @@ export type DividerProps = ExtractPublicPropTypes<typeof dividerProps>
 export const Divider = defineComponent({
   name: 'DestylerDivider',
   props: dividerProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const ORIENTATIONS = ['horizontal', 'vertical'] as const
     function isValidOrientation(orientation: any): orientation is DataOrientation {

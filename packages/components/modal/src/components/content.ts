@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -26,6 +26,9 @@ export const ModalContent = defineComponent({
   name: 'DestylerModalContent',
   props: modalContentProps,
   emits: modalContentEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_, { emit }) {
     const rootContext = injectModalRootContext()
 
