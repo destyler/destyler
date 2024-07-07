@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -38,6 +38,9 @@ export const Toggle = defineComponent({
   name: 'DestylerToggle',
   props: toggleProps,
   emits: toggleEmits,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup(props, { emit }) {
     useForwardExpose()
     const pressed = useVModel(props, 'pressed', emit, {
