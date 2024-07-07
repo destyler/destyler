@@ -1,4 +1,4 @@
-import { type PropType, defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
+import type { type PropType, SlotsType, VNode, defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -31,6 +31,9 @@ export type DynamicInputProps = ExtractPublicPropTypes<typeof dynamicInputProps>
 export const DynamicInput = defineComponent({
   name: 'DestylerDynamicInput',
   props: dynamicInputProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const context = injectDynamicRootContext()
     const { forwardRef, currentElement } = useForwardExpose()
