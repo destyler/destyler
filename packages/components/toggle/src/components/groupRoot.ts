@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -72,7 +72,7 @@ export const ToggleGroupRoot = defineComponent({
   props: toggleGroupRootProps,
   emits: toggleGroupRootEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props, { emit }) {
     const { loop, rovingFocus, disabled, dir: propDir } = toRefs(props)

@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
@@ -36,7 +36,7 @@ export const ToolbarRoot = defineComponent({
   name: 'DestylerToolbarRoot',
   props: toolbarRootProps,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props) {
     const { orientation, dir: propDir } = toRefs(props)

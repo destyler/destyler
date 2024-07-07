@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { BindOnceDirective } from '@destyler/directives'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -19,6 +19,9 @@ export type SelectLabelProps = ExtractPublicPropTypes<typeof selectLabelProps>
 export const SelectLabel = defineComponent({
   name: 'DestylerSelectLabel',
   props: selectLabelProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const groupContext = injectSelectGroupContext({ id: '' })
 

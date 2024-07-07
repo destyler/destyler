@@ -1,4 +1,4 @@
-import type { SlotsType } from 'vue';
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
@@ -24,7 +24,7 @@ export const ToolbarToggleGroup = defineComponent({
   props: toolbarToggleGroupProps,
   emits: toolbarToggleGroupEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(_, { emit }) {
     const rootContext = injectToolbarRootContext()

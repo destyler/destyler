@@ -1,4 +1,4 @@
-import type { PropType, SlotsType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -54,7 +54,7 @@ export const ToastRootImpl = defineComponent({
   props: toastRootImplProps,
   emits: toastRootImplEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()

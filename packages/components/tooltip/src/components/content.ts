@@ -1,4 +1,4 @@
-import type { SlotsType } from 'vue';
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -22,7 +22,7 @@ export const TooltipContent = defineComponent({
   props: tooltipContentProps,
   emits: tooltipContentEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props, { emit }) {
     const rootContext = injectTooltipRootContext()

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { Teleport, defineComponent, h } from 'vue'
 import { useMounted } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -27,7 +27,7 @@ export const TeleportPrimitive = defineComponent({
   name: 'DestylerTeleportPrimitive',
   props: teleportPrimitiveProps,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup() {
     const isMounted = useMounted()

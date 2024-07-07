@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -17,6 +18,9 @@ export type SelectInDicatorProps = ExtractPublicPropTypes<typeof selectInDicator
 export const SelectItemIndicator = defineComponent({
   name: 'DestylerSelectItemIndicator',
   props: selectInDicatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const itemContext = injectSelectItemContext()
 

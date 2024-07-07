@@ -1,4 +1,4 @@
-import type { SlotsType} from 'vue';
+import type { SlotsType, VNode,  } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
@@ -20,7 +20,7 @@ export const TabsIndicator = defineComponent({
   name: 'DestylerTabsIndicator',
   props: tabsIndicatorProps,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup() {
     const context = injectTabsRootContext()

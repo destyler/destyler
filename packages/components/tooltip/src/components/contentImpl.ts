@@ -61,7 +61,7 @@ export const TooltipContentImpl = defineComponent({
   props: tooltipContentImplProps,
   emits: tooltipContentImplEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props) {
     const contentElement = ref<HTMLElement>()

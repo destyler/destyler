@@ -1,4 +1,4 @@
-import type { SlotsType } from 'vue';
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -30,7 +30,7 @@ export const SliderImpl = defineComponent({
   props: sliderImplProps,
   emits: sliderImplEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup() {
     const rootContent = injectSliderRootContext()

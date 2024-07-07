@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,6 +19,9 @@ export type SelectPopperPositionProps = ExtractPublicPropTypes<typeof selectPopp
 export const SelectPopperPosition = defineComponent({
   name: 'DestylerSelectPopperPosition',
   props: selectPopperPositionProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const forwarded = useForwardProps(props)
     return {

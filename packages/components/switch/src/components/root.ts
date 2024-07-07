@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -63,7 +63,7 @@ export const SwitchRoot = defineComponent({
   props: switchRootProps,
   emits: switchRootEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props, { emit }) {
     const { disabled } = toRefs(props)

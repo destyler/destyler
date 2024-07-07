@@ -1,4 +1,4 @@
-import type { SlotsType } from 'vue';
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -22,7 +22,7 @@ export const ToastClose = defineComponent({
   inheritAttrs: false,
   props: toastCloseProps,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup() {
     const rootContext = injectToastRootContext()

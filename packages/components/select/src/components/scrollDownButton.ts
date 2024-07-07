@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, watch, watchEffect } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -16,6 +17,9 @@ export type SelectScrollDownButtonProps = ExtractPublicPropTypes<typeof selectSc
 export const SelectScrollDownButton = defineComponent({
   name: 'DestylerSelectScrollDownButton',
   props: selectScrollDownButtonProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext

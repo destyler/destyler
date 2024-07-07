@@ -1,4 +1,4 @@
-import type { SlotsType } from 'vue';
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -20,7 +20,7 @@ export const SwitchThump = defineComponent({
   name: 'DestylerSwitchThump',
   props: switchThumpProps,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(_) {
     const rootContext = injectSwitchRootContext()

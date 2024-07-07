@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -22,6 +23,9 @@ export const SelectItemText = defineComponent({
   name: 'DestylerSelectItemText',
   inheritAttrs: false,
   props: selectItemTextProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)

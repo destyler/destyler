@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { usePrevious } from '@destyler/composition'
 import { Visuallyhidden } from '@destyler/visually-hidden'
@@ -43,7 +43,10 @@ export const bubbleSelectEmits = {
 export const BubbleSelect = defineComponent({
   name: 'DestylerBubbleSelect',
   props: bubbleSelectProps,
-  emits: ['update:value'],
+  emits: bubbleSelectEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const { value } = toRefs(props)
     const prevValue = usePrevious(value)

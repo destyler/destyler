@@ -1,4 +1,4 @@
-import type { CSSProperties, PropType, Ref, SlotsType } from 'vue'
+import type { CSSProperties, PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, ref, watch, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { areEqual, createContext } from '@destyler/shared'
@@ -87,7 +87,7 @@ export const SplitterGroup = defineComponent({
   props: splitterGroupProps,
   emits: splitterGroupEmits,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props, { emit }) {
     const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100

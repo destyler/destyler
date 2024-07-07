@@ -1,4 +1,4 @@
-import type { PropType, SlotsType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useMounted, useSize } from '@destyler/composition'
@@ -22,7 +22,7 @@ export const SliderThumbImpl = defineComponent({
   inheritAttrs: false,
   props: sliderThumbImplProps,
   slots: Object as SlotsType<{
-    default: () => void
+    default: () => VNode[]
   }>,
   setup(props) {
     const rootContext = injectSliderRootContext()
