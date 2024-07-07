@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -49,6 +49,9 @@ export const Radio = defineComponent({
   name: 'DestylerRadio',
   props: radioProps,
   emits: radioEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const checkedRef = useVModel(props, 'checked', emit, {
       passive: (props.checked === undefined) as false,

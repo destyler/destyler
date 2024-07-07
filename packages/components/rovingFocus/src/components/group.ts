@@ -58,8 +58,8 @@ export const RovingFocusGroup = defineComponent({
   props: rovingFocusGroupProps,
   emits: rovingFocusGroupEmits,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { loop, orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

@@ -1,4 +1,5 @@
-import { defineComponent, h, mergeProps, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -18,8 +19,8 @@ export const RangeCalendarGrid = defineComponent({
   name: 'DestylerRangeCalendarGrid',
   props: rangeCalendarGridProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 

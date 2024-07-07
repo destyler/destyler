@@ -17,7 +17,7 @@ export const ScrollAreaViewport = defineComponent({
   inheritAttrs: false,
   props: scrollAreaViewportProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
+    default: () => VNode[]
   }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()

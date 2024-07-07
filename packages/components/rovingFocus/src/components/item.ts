@@ -36,8 +36,8 @@ export const RovingFocusItem = defineComponent({
   name: 'DestylerRovingFocusItem',
   props: rovingFocusItemProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props) {
     const context = injectRovingFocusGroupContext()
     const autoId = useId()

@@ -26,8 +26,8 @@ export const RangeCalendarCellTrigger = defineComponent({
   name: 'DestylerRangeCalendarCellTrigger',
   props: rangeCalendarCellTriggerProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props) {
     const rootContext = injectRangeCalendarRootContext()
 

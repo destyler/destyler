@@ -156,12 +156,12 @@ export const RangeCalendarRoot = defineComponent({
   emits: rangeCalendarRootEmits,
   slots: Object as SlotsType<{
     default: (opts: {
-      date: CalendarDate | CalendarDateTime | ZonedDateTime,
+      date: CalendarDate | CalendarDateTime | ZonedDateTime
       grid: Grid<DateValue>[]
       weekDays: string[]
       formatter: Formatter
       getMonths: DateValue[]
-      getYears: ({ startIndex, endIndex }: { startIndex?: number | undefined; endIndex: number; }) => DateValue[]
+      getYears: ({ startIndex, endIndex }: { startIndex?: number | undefined, endIndex: number }) => DateValue[]
     }) => VNode[]
   }>,
   setup(props, { emit }) {

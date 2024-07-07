@@ -17,8 +17,8 @@ export const RangeCalendarGridBody = defineComponent({
   name: 'DestylerRangeCalendarGridBody',
   props: rangeCalendarGridBodyProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   render() {
     return h(Primitive, mergeProps(this.$props), {
       default: () => this.$slots.default?.(),

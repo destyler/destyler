@@ -1,4 +1,4 @@
-import type { ComputedRef } from 'vue'
+import type { ComputedRef, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -46,6 +46,9 @@ export const RadioGroupItem = defineComponent({
   name: 'RadioGroupItem',
   inheritAttrs: false,
   props: radioGroupItemProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 

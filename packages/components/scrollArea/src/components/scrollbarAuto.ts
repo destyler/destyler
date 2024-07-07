@@ -1,4 +1,4 @@
-import type { PropType,SlotsType,VNode } from 'vue';
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import {
