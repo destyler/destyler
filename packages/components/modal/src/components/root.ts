@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -42,6 +42,9 @@ export const ModalRoot = defineComponent({
   name: 'DestylerModalRoot',
   props: modalRootProps,
   emits: modalRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

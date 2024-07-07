@@ -30,8 +30,8 @@ export const NavigationTrigger = defineComponent({
   inheritAttrs: false,
   props: navigationTriggerProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props) {
     const menuContext = injectNavigationContext()
     const itemContext = injectNavigationItemContext()

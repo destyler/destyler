@@ -1,9 +1,10 @@
-import { computed, defineComponent, h, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-import { getRange, transform, type Pages } from '../utils'
+import { type Pages, getRange, transform } from '../utils'
 import { injectPaginationRootContext } from './root'
 
 export const paginationListProps = {

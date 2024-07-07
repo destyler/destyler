@@ -74,8 +74,8 @@ export const NavigationRoot = defineComponent({
   props: navigationRootProps,
   emits: navigationRootEmits,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',

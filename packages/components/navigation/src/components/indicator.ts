@@ -21,8 +21,8 @@ export const NavigationIndicator = defineComponent({
   name: 'DestylerNavigationIndicator',
   props: navigationIndicatorProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
     const { injectCollection } = useCollection('nav')

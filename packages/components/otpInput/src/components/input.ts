@@ -22,8 +22,8 @@ export const OtpInput = defineComponent({
   name: 'DestylerOtpInput',
   props: otpInputProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props) {
     const context = injectOtpInputRootContext()
     const inputElements = computed(() => Array.from(context.inputElements!.value))

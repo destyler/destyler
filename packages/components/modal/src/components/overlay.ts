@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { Presence } from '@destyler/presence'
@@ -20,6 +20,9 @@ export type ModalOverlayProps = ExtractPublicPropTypes<typeof modalOverlayProps>
 export const ModalOverlay = defineComponent({
   name: 'DestylerModalOverlay',
   props: modalOverlayProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectModalRootContext()
 

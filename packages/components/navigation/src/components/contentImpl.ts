@@ -1,4 +1,5 @@
-import { computed, defineComponent, h, mergeProps, ref, SlotsType, VNode, watchEffect, withDirectives } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, watchEffect, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useForwardExpose } from '@destyler/composition'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
@@ -30,8 +31,8 @@ export const NavigationContentImpl = defineComponent({
   props: navigationContentImplProps,
   emits: navigationContentImplEmits,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(_, { emit }) {
     const { injectCollection } = useCollection('nav')
     const collectionItems = injectCollection()

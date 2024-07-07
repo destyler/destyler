@@ -30,8 +30,8 @@ export const NavigationLink = defineComponent({
   props: navigationLinkProps,
   emits: navigationLinkEmits,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(_, { emit }) {
     useForwardExpose()
     async function handleClick(ev: MouseEvent) {

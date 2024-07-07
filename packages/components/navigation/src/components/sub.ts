@@ -34,8 +34,8 @@ export const NavigationSub = defineComponent({
   props: navigationSubProps,
   emits: navigationSubEmits,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',

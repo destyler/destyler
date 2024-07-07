@@ -24,8 +24,8 @@ export const PaginationListItem = defineComponent({
   name: 'DestylerPaginationListItem',
   props: paginationListItemProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props) {
     useForwardExpose()
 

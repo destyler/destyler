@@ -45,8 +45,8 @@ export const NavigationItem = defineComponent({
   name: 'DestylerNavigationItem',
   props: navigationItemProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props) {
     useForwardExpose()
     const { injectCollection } = useCollection('nav')

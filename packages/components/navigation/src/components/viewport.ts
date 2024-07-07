@@ -23,8 +23,8 @@ export const NavigationViewport = defineComponent({
   inheritAttrs: false,
   props: navigationViewportProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 

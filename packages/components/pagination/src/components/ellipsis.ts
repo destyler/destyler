@@ -1,4 +1,5 @@
-import { defineComponent, h, mergeProps, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -13,8 +14,8 @@ export const PaginationEllipsis = defineComponent({
   name: 'DestylerPaginationEllipsis',
   props: paginationEllipsisProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },
