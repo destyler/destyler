@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -32,6 +32,9 @@ export const ContextMenuTrigger = defineComponent({
   name: 'DestylerContextMenuTrigger',
   inheritAttrs: false,
   props: contextMenuTriggerPRops,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const { disabled } = toRefs(props)
     const { forwardRef } = useForwardExpose()
