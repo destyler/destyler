@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps, onMounted } from 'vue'
+import { defineComponent, h, mergeProps, onMounted, SlotsType, VNode } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -18,6 +18,9 @@ export type NavigationListProps = ExtractPublicPropTypes<typeof navigationListPr
 export const NavigationList = defineComponent({
   name: 'DestylerNavigationList',
   props: navigationListProps,
+  slots: Object as SlotsType<{
+      default: () => VNode[]
+    }>,
   setup() {
     const rootContext = injectNavigationContext()
     const { forwardRef, currentElement } = useForwardExpose()

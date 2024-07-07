@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { ExtractPublicPropTypes, Orientation } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -33,6 +33,9 @@ export const NavigationSub = defineComponent({
   name: 'DestylerNavigationSub',
   props: navigationSubProps,
   emits: navigationSubEmits,
+  slots: Object as SlotsType<{
+      default: () => VNode[]
+    }>,
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',
