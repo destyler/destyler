@@ -22,7 +22,7 @@ export const EllipsisContent = defineComponent({
   props: ellipsisContentProps,
   emits: ellipsisContentEmits,
   slots: Object as SlotsType<{
-    default: () => VNode[]
+    default: (opts: { text: string }) => VNode[]
   }>,
   setup(props, { emit }) {
     const rootContext = injectEllipsisRootContext()
