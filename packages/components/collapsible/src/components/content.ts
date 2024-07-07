@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -23,6 +23,9 @@ export const CollapsibleContent = defineComponent({
   name: 'DestylerCollapsibleContent',
   inheritAttrs: false,
   props: collapsibleContent,
+  slots: Object as SlotsType<{
+      default: () => VNode[]
+    }>,
   setup(_) {
     const rootContext = injectCollapsibleRootContext()
 

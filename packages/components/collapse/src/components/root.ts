@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType, Ref } from 'vue'
+import type { ComputedRef, PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
 import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
@@ -66,6 +66,9 @@ export const CollapseRoot = defineComponent({
   name: 'DestylerCollapseRoot',
   props: collapseRootProps,
   emits: collapseRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: { modelValue: string | string[] | undefined }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const { dir, disabled } = toRefs(props)
     const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emit)

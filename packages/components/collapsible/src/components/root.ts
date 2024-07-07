@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -42,6 +42,9 @@ export const CollapsibleRoot = defineComponent({
   name: 'DestylerCollapsibleRoot',
   props: collapsibleRootProps,
   emits: collapsibleRootEmits,
+  slots: Object as SlotsType<{
+    default: (opts: { open: boolean }) => VNode[]
+  }>,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
