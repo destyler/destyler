@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
@@ -53,6 +53,9 @@ export const TabsRoot = defineComponent({
   name: 'DestylerTabsRoot',
   props: tabsRootProps,
   emits: tabsRootEmits,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup(props, { emit }) {
     const { orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

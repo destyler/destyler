@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType } from 'vue'
 import { computed, defineComponent, h, withDirectives, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -30,6 +30,9 @@ export type TabsTriggerProps = ExtractPublicPropTypes<typeof tabsTriggerProps>
 export const TabsTrigger = defineComponent({
   name: 'DestylerTabsTrigger',
   props: tabsTriggerProps,
+  slots: Object as SlotsType<{
+    default: () => void
+  }>,
   setup(props) {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectTabsRootContext()
