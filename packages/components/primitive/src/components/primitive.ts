@@ -1,4 +1,4 @@
-import type { Component, PropType } from 'vue'
+import type { Component, PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -43,6 +43,9 @@ export type PrimitiveProps = ExtractPublicPropTypes<typeof primitiveProps>
 export const Primitive = defineComponent({
   name: 'DestylerPrimitive',
   props: primitiveProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const asTag = props.asChild ? 'template' : props.as
 

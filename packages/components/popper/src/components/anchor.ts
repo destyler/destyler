@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -18,6 +18,9 @@ export type PopperAnchorProps = ExtractPublicPropTypes<typeof popperAnchorProps>
 export const PopperAnchor = defineComponent({
   name: 'DestylerPopperAnchor',
   props: popperAnchorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 

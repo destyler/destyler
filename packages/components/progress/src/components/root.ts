@@ -49,8 +49,8 @@ export const ProgressRoot = defineComponent({
   props: progressRootProps,
   emits: progressRootEmits,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     function validateValue(value: any, max: number): number | null {
       const isValidValueError
