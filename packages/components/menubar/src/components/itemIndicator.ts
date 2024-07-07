@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -12,6 +13,9 @@ export type MenubarItemIndicatorProps = ExtractPublicPropTypes<typeof menubarIte
 export const MenubarItemIndicator = defineComponent({
   name: 'DestylerMenubarItemIndicator',
   props: menubarItemIndicatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },

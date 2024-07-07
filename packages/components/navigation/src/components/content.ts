@@ -1,4 +1,5 @@
-import type { type PropType, SlotsType, VNode, computed, defineComponent, h, mergeProps } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
+import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose, useMounted } from '@destyler/composition'
 import { Presence } from '@destyler/presence'

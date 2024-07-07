@@ -1,4 +1,4 @@
-import type { PropType, Ref } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRefs, watchEffect } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useDirection, useVModel } from '@destyler/composition'
@@ -50,6 +50,9 @@ export const MenuRoot = defineComponent({
   name: 'DestylerMenuRoot',
   props: menuRootProps,
   emits: menuRootEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const { modal, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
