@@ -32,7 +32,7 @@ export const Presence = defineComponent({
   name: 'DestylerPresence',
   props: presenceProps,
   slots: {} as SlotsType<{
-    default: (opts: { present: Ref<boolean> }) => any
+    default: (opts: { present: Ref<boolean> }) => VNode[]
   }>,
   setup(props, { expose }) {
     const { present, forceMount } = toRefs(props)
@@ -75,7 +75,7 @@ export const Presence = defineComponent({
       )
     }
     if (this.forceMount || this.present || this.isPresent) {
-      return h(this.$slots.default?.({ present: ref(this.isPresent) })[0] as VNode, {
+      return h(this.$slots.default?.({ present: ref(this.isPresent) })[0], {
         ref: (v) => {
           const el = unrefElement(v as HTMLElement)
           if (typeof el?.hasAttribute === 'undefined')

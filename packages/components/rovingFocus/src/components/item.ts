@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, onUnmounted } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -35,6 +35,9 @@ export type RovingFocusItemProps = ExtractPublicPropTypes<typeof rovingFocusItem
 export const RovingFocusItem = defineComponent({
   name: 'DestylerRovingFocusItem',
   props: rovingFocusItemProps,
+  slots: Object as SlotsType<{
+      default: () => VNode[]
+    }>,
   setup(props) {
     const context = injectRovingFocusGroupContext()
     const autoId = useId()
