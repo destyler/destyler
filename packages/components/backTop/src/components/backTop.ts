@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -23,6 +23,9 @@ export type BackTopProps = ExtractPublicPropTypes<typeof backTopProps>
 export const BackTop = defineComponent({
   name: 'DestylerBackTop',
   props: backTopProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const scrollTop = ref<number | null>(null)
     const DomInfoReady = ref<boolean>(false)

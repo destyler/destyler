@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -24,6 +24,9 @@ export const [injectContextBreadcrumbsContext, provideContextBreadcrumbsContext]
 export const BreadcrumbsContent = defineComponent({
   name: 'DestylerBreadcrumbsContent',
   props: breadcrumbsContentProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('li', 'data-destyler-breadcrumb-item')

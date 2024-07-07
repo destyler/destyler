@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -19,6 +20,9 @@ export type BreadcrumbsSeparatorProps = ExtractPublicPropTypes<typeof breadcrumb
 export const BreadcrumbsSeparator = defineComponent({
   name: 'DestylerBreadcrumbsSeparator',
   props: breadcrumbsSeparatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
     const content = injectContextBreadcrumbsContext()
@@ -34,8 +38,6 @@ export const BreadcrumbsSeparator = defineComponent({
       as: this.$props.as,
       asChild: this.$props.asChild,
       ...this.content.lastItemId.value === this.itemContent.itemId ? { style: { display: 'none' } } : {},
-    }, {
-      default: () => this.$slots.default ? this.$slots.default?.() : '/',
-    })
+    }, () => this.$slots.default ? this.$slots.default?.() : '/')
   },
 })

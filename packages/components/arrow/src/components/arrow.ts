@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -27,6 +27,9 @@ export type ArrowProps = ExtractPublicPropTypes<typeof arrowProps>
 export const Arrow = defineComponent({
   name: 'DestylerArrow',
   props: arrowProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(_) {
     useForwardExpose()
   },
