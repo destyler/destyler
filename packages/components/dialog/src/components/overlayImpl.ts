@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -14,6 +15,9 @@ export type DialogOverlayImplProps = ExtractPublicPropTypes<typeof dialogOverlay
 export const DialogOverlayImpl = defineComponent({
   name: 'DestylerDialogOverlayImpl',
   props: dialogOverlayImplProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectDialogRootContext()
     useForwardExpose()

@@ -1,4 +1,5 @@
-import type { type PropType, SlotsType, VNode, defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
+import { defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'

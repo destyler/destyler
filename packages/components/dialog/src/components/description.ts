@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
@@ -19,6 +20,9 @@ export type DialogDescriptionProps = ExtractPublicPropTypes<typeof dialogDescrip
 export const DialogDescription = defineComponent({
   name: 'DestylerDialogDescription',
   props: dialogDescriptionProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectDialogRootContext()
 

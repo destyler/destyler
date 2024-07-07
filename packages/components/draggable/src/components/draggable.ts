@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toValue } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -35,6 +35,9 @@ export type PointerType = 'mouse' | 'touch' | 'pen'
 export const Draggable = defineComponent({
   name: 'DestylerDraggable',
   props: draggableProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 
