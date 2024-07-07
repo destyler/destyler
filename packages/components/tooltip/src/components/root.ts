@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -62,9 +62,6 @@ export const TooltipRoot = defineComponent({
   name: 'DestylerTooltipRoot',
   props: tooltipRootProps,
   emits: tooltipRootEmits,
-  slots: Object as SlotsType<{
-    default: () => void
-  }>,
   setup(props, { emit }) {
     const providerContext = injectTooltipProviderContext()
 
@@ -147,6 +144,6 @@ export const TooltipRoot = defineComponent({
     })
   },
   render() {
-    return h(PopperRoot, null, () => this.$slots.default())
+    return h(PopperRoot, null, () => this.$slots.default?.())
   },
 })

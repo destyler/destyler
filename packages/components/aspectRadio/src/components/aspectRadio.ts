@@ -50,6 +50,6 @@ export const AspectRadio = defineComponent({
         position: 'absolute',
         inset: '0px',
       },
-    }), () => this.$slots.default({ aspect: this.aspect })))
+    }), () => this.$slots.default?.({ aspect: this.aspect })))
   },
 })

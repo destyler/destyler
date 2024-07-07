@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
@@ -60,9 +60,6 @@ export const TooltipContentImpl = defineComponent({
   name: 'DestylerTooltipContentImpl',
   props: tooltipContentImplProps,
   emits: tooltipContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => void
-  }>,
   setup(props) {
     const contentElement = ref<HTMLElement>()
     const rootContext = injectTooltipRootContext()
@@ -135,7 +132,7 @@ export const TooltipContentImpl = defineComponent({
         '--destyler_tooltip_trigger_height': 'var(--destyler_popper_anchor_height)',
       },
     }), () => [
-      this.$slots.default(),
+      this.$slots.default?.(),
       h(Visuallyhidden, {
         role: 'tooltip',
       }, () => this.ariaLabel),
