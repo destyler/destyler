@@ -1,4 +1,5 @@
-import { defineComponent, h, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h } from 'vue'
 import { CollapsibleContent } from '@destyler/collapsible'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -17,8 +18,8 @@ export const CollapseContent = defineComponent({
   name: 'DestylerCollapseContent',
   props: collapseContentProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()

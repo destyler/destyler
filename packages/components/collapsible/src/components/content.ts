@@ -24,8 +24,8 @@ export const CollapsibleContent = defineComponent({
   inheritAttrs: false,
   props: collapsibleContent,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup(_) {
     const rootContext = injectCollapsibleRootContext()
 

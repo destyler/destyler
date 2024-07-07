@@ -1,4 +1,5 @@
-import { defineComponent, h, SlotsType, VNode, withDirectives } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h, withDirectives } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { CollapsibleTrigger } from '@destyler/collapsible'
 import { BindOnceDirective } from '@destyler/directives'
@@ -21,8 +22,8 @@ export const CollapseTrigger = defineComponent({
   name: 'DestylerCollapseTrigger',
   props: collapseTriggerProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()

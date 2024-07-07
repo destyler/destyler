@@ -1,5 +1,5 @@
-import type { PropType } from 'vue'
-import { defineComponent, h, mergeProps, renderSlot } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -26,6 +26,9 @@ export type CheckboxIndicatorProps = ExtractPublicPropTypes<typeof checkboxIndic
 export const CheckboxIndicator = defineComponent({
   name: 'DestylerCheckboxIndicator',
   props: checkboxIndicatorProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectCheckboxRootContext()
 
@@ -48,6 +51,6 @@ export const CheckboxIndicator = defineComponent({
       'style': {
         pointerEvents: 'none',
       },
-    }), () => renderSlot(this.$slots, 'default')))
+    }), () => this.$slots.default?.()))
   },
 })

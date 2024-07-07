@@ -1,4 +1,5 @@
-import { defineComponent, h, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -19,8 +20,8 @@ export const CollapsibleTrigger = defineComponent({
   name: 'DestylerCollapsibleTrigger',
   props: collapsibleTriggerProps,
   slots: Object as SlotsType<{
-      default: () => VNode[]
-    }>,
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectCollapsibleRootContext()
 
