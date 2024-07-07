@@ -1,5 +1,13 @@
 import type { Component, PropType, Ref } from 'vue'
-import { computed, defineComponent, h, mergeProps, onUnmounted, toRefs, watch } from 'vue'
+import {
+  computed,
+  defineComponent,
+  h,
+  mergeProps,
+  onUnmounted,
+  toRefs,
+  watch,
+} from 'vue'
 import { type ExtractPublicPropTypes, createContext } from '@destyler/shared'
 import { type AsTag, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -23,7 +31,9 @@ export const scrollAreaScrollbarProps = {
   },
 } as const
 
-export type ScrollAreaScrollbarProps = ExtractPublicPropTypes<typeof scrollAreaScrollbarProps>
+export type ScrollAreaScrollbarProps = ExtractPublicPropTypes<
+  typeof scrollAreaScrollbarProps
+>
 
 export interface ScrollAreaScollbarContext {
   as: Ref<AsTag | Component>
@@ -33,7 +43,10 @@ export interface ScrollAreaScollbarContext {
   asChild: Ref<boolean>
 }
 
-export const [injectScrollAreaScrollbarContext, provideScrollAreaScrollbarContext] = createContext<ScrollAreaScollbarContext>('DestylerScrollAreaScrollbar')
+export const [
+  injectScrollAreaScrollbarContext,
+  provideScrollAreaScrollbarContext,
+] = createContext<ScrollAreaScollbarContext>('DestylerScrollAreaScrollbar')
 
 export const ScrollAreaScrollbar = defineComponent({
   name: 'DestylerScrollAreaScrollbar',
@@ -76,37 +89,53 @@ export const ScrollAreaScrollbar = defineComponent({
   },
   render() {
     if (this.rootContext.type.value === 'hover') {
-      return h(ScrollAreaScrollbarHover, mergeProps(this.$attrs, {
-        ref: (el: any) => this.forwardRef(el),
-        forceMount: this.$props.forceMount,
-      }), {
-        default: () => this.$slots.default?.(),
-      })
+      return h(
+        ScrollAreaScrollbarHover,
+        mergeProps(this.$attrs, {
+          ref: (el: any) => this.forwardRef(el),
+          forceMount: this.$props.forceMount,
+        }),
+        {
+          default: () => this.$slots.default?.(),
+        },
+      )
     }
     else if (this.rootContext.type.value === 'scroll') {
-      return h(ScrollAreaScrollbarScroll, mergeProps(this.$attrs, {
-        ref: (el: any) => this.forwardRef(el),
-        forceMount: this.$props.forceMount,
-      }), {
-        default: () => this.$slots.default?.(),
-      })
+      return h(
+        ScrollAreaScrollbarScroll,
+        mergeProps(this.$attrs, {
+          ref: (el: any) => this.forwardRef(el),
+          forceMount: this.$props.forceMount,
+        }),
+        {
+          default: () => this.$slots.default?.(),
+        },
+      )
     }
     else if (this.rootContext.type.value === 'auto') {
-      return h(ScrollAreaScrollbarAuto, mergeProps(this.$attrs, {
-        ref: (el: any) => this.forwardRef(el),
-        forceMount: this.$props.forceMount,
-      }), {
-        default: () => this.$slots.default?.(),
-      })
+      return h(
+        ScrollAreaScrollbarAuto,
+        mergeProps(this.$attrs, {
+          ref: (el: any) => this.forwardRef(el),
+          forceMount: this.$props.forceMount,
+        }),
+        {
+          default: () => this.$slots.default?.(),
+        },
+      )
     }
     else if (this.rootContext.type.value === 'always') {
-      return h(ScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
-        'ref': (el: any) => this.forwardRef(el),
-        'forceMount': this.$props.forceMount,
-        'data-state': 'visible',
-      }), {
-        default: () => this.$slots.default?.(),
-      })
+      return h(
+        ScrollAreaScrollbarVisible,
+        mergeProps(this.$attrs, {
+          'ref': (el: any) => this.forwardRef(el),
+          'forceMount': this.$props.forceMount,
+          'data-state': 'visible',
+        }),
+        {
+          default: () => this.$slots.default?.(),
+        },
+      )
     }
   },
 })

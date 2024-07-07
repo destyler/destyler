@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref } from 'vue'
 import type { Direction } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -30,6 +30,9 @@ export const [injectScrollAreaScrollbarVisibleContext, provideScrollAreaScrollba
 
 export const ScrollAreaScrollbarVisible = defineComponent({
   name: 'DestylerScrollAreaScrollbarVisible',
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()

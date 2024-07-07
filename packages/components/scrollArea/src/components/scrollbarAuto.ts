@@ -1,7 +1,11 @@
-import { type PropType, defineComponent, mergeProps } from 'vue'
-import { h, onMounted, ref } from 'vue'
+import type { PropType,SlotsType,VNode } from 'vue';
+import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { useDebounceFn, useForwardExpose, useResizeObserver } from '@destyler/composition'
+import {
+  useDebounceFn,
+  useForwardExpose,
+  useResizeObserver,
+} from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
 import { injectScrollAreaRootContext } from './root'
@@ -15,11 +19,16 @@ export const scrollAreaScrollbarAutoProps = {
   },
 } as const
 
-export type ScrollAreaScrollbarAutoProps = ExtractPublicPropTypes<typeof scrollAreaScrollbarAutoProps>
+export type ScrollAreaScrollbarAutoProps = ExtractPublicPropTypes<
+  typeof scrollAreaScrollbarAutoProps
+>
 
 export const ScrollAreaScrollbarAuto = defineComponent({
   name: 'DestylerScrollAreaScrollbarAuto',
   props: scrollAreaScrollbarAutoProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()
@@ -31,11 +40,11 @@ export const ScrollAreaScrollbarAuto = defineComponent({
     const handleResize = useDebounceFn(() => {
       if (rootContext.viewport.value) {
         const isOverflowX
-      = rootContext.viewport.value.offsetWidth
-      < rootContext.viewport.value.scrollWidth
+          = rootContext.viewport.value.offsetWidth
+          < rootContext.viewport.value.scrollWidth
         const isOverflowY
-      = rootContext.viewport.value.offsetHeight
-      < rootContext.viewport.value.scrollHeight
+          = rootContext.viewport.value.offsetHeight
+          < rootContext.viewport.value.scrollHeight
 
         visible.value = scrollbarContext.isHorizontal.value
           ? isOverflowX
@@ -54,17 +63,25 @@ export const ScrollAreaScrollbarAuto = defineComponent({
     }
   },
   render() {
-    return h(Presence, {
-      present: this.$props.forceMount || this.visible,
-    }, {
-      default: () => {
-        return h(ScrollAreaScrollbarVisible, mergeProps(this.$attrs, {
-          'ref': (el: any) => this.forwardRef(el),
-          'data-state': this.visible ? 'visible' : 'hidden',
-        }), {
-          default: () => this.$slots.default?.(),
-        })
+    return h(
+      Presence,
+      {
+        present: this.$props.forceMount || this.visible,
       },
-    })
+      {
+        default: () => {
+          return h(
+            ScrollAreaScrollbarVisible,
+            mergeProps(this.$attrs, {
+              'ref': (el: any) => this.forwardRef(el),
+              'data-state': this.visible ? 'visible' : 'hidden',
+            }),
+            {
+              default: () => this.$slots.default?.(),
+            },
+          )
+        },
+      },
+    )
   },
 })

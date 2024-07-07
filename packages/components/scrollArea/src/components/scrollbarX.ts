@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, onMounted } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 
@@ -8,6 +9,9 @@ import { ScrollAreaScrollbarImpl } from './scrollbarImpl'
 
 export const ScrollAreaScrollbarX = defineComponent({
   name: 'DestylerScrollAreaScrollbarX',
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()

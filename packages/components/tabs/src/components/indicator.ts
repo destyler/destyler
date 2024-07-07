@@ -1,4 +1,4 @@
-import type { SlotsType, VNode,  } from 'vue'
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useResizeObserver } from '@destyler/composition'
