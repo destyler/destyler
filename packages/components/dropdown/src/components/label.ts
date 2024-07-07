@@ -1,3 +1,4 @@
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,6 +13,9 @@ export type DropdownLabelProps = ExtractPublicPropTypes<typeof dropdownLabelProp
 export const DropdownLabel = defineComponent({
   name: 'DestylerDropdownLabel',
   props: dropdownLabelProps,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup() {
     useForwardExpose()
   },

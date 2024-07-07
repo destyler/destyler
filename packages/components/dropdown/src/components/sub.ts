@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
@@ -23,6 +23,9 @@ export const DropdownSub = defineComponent({
   name: 'DestylerDropdownSub',
   props: dropdownSubProps,
   emits: dropdownSubEmits,
+  slots: Object as SlotsType<{
+    default: () => VNode[]
+  }>,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       passive: (props.open === undefined) as false,
