@@ -10,6 +10,7 @@
     "unstyle"
   ],
   "scripts": {
+    "histoire:dev": "pnpm -C histoire run dev",
     "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run component:count",
     "dev": "pnpm run --filter \"./packages/**\" -r stub",
     "play": "pnpm -C playground run dev",
