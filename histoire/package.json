@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@histoire/plugin-vue": "^0.17.17",
+    "@radix-ui/colors": "^3.0.0",
     "autoprefixer": "^10.4.19",
     "histoire": "^0.17.17",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.4",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@destyler/aspect-radio": "workspace:*",

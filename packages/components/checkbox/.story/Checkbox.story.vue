@@ -3,36 +3,62 @@ import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
 import { CheckboxIndicator, CheckboxRoot } from '../src'
 
-const state = ref(true)
+const checkboxOne = ref<boolean | 'indeterminate'>('indeterminate')
+const checkboxThree = ref(false)
 </script>
 
 <template>
   <Story title="Checkbox/Demo">
-    <Variant title="Unstyle">
-      <CheckboxRoot v-model:checked="state">
-        <CheckboxIndicator>
-          <Icon name="i-ri-check-line" />
-        </CheckboxIndicator>
-      </CheckboxRoot>
-      <label htmlFor="terms">
-        Accept terms and conditions
-      </label>
-    </Variant>
-    <Variant title="Default">
-      <CheckboxRoot
-        v-model:checked="state"
-        class="peer h-4 w-4 shrink-0 rounded-sm border border-[#18181B] dark:border-[#FAFAFA] shadow focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-[#18181B] dark:data-[state=checked]:bg-[#FAFAFA] data-[state=checked]:text-[#FAFAFA] dark:data-[state=checked]:text-[#18181B]"
-      >
-        <CheckboxIndicator class="flex items-center justify-center text-current">
-          <Icon name="i-ri-check-line" class="w-4 h-4" />
-        </CheckboxIndicator>
-      </CheckboxRoot>
-      <label
-        htmlFor="terms"
-        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-dark dark:text-light"
-      >
-        Accept terms and conditions
-      </label>
+    <Variant title="default">
+      <div class="flex flex-col gap-2.5">
+        <label
+          class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100"
+        >
+          <CheckboxRoot
+            v-model:checked="checkboxOne"
+            class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
+          >
+            <CheckboxIndicator
+              class="bg-white h-full w-full rounded flex items-center justify-center"
+            >
+              <Icon v-if="checkboxOne === 'indeterminate'" name="radix-icons:divider-horizontal" class="h-4 w-4 text-black" />
+              <Icon v-else-if="checkboxOne" name="radix-icons:check" class="h-4 w-4 text-black" />
+            </CheckboxIndicator>
+          </CheckboxRoot>
+          <span class="select-none">Checkbox</span>
+        </label>
+        <label
+          class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100"
+        >
+          <CheckboxRoot
+            disabled
+            class="data-[disabled]:bg-mauve9 bg-white shadow h-6 aspect-square rounded flex items-center justify-center focus-within-within:outline focus-within-within:outline-2 focus-within-within:outline-[#00000066]"
+          >
+            <CheckboxIndicator
+              class="bg-white h-full w-full rounded flex items-center justify-center"
+            >
+              <Icon name="radix-icons:check" class="h-3 w-3 text-black" />
+            </CheckboxIndicator>
+          </CheckboxRoot>
+          <span class="select-none">Disabled Checkbox</span>
+        </label>
+        <label
+          class="flex flex-row gap-4 items-center [&>.checkbox]:hover:bg-neutral-100"
+        >
+          <CheckboxRoot
+            v-model:checked="checkboxThree"
+            required
+            class="shadow-blackA7 hover:bg-violet3 flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-[4px] bg-white shadow-[0_2px_10px] outline-none focus-within:shadow-[0_0_0_2px_black]"
+          >
+            <CheckboxIndicator
+              class="bg-white h-full w-full rounded flex items-center justify-center"
+            >
+              <Icon name="radix-icons:check" class="h-3 w-3 text-black" />
+            </CheckboxIndicator>
+          </CheckboxRoot>
+          <span class="select-none">Required Checkbox</span>
+        </label>
+      </div>
     </Variant>
   </Story>
 </template>
