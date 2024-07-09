@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [
     HstVue(),
   ],
+  setupFile: './style.css',
   storyMatch: [
     path.resolve(__dirname, '../packages/components/*/.story/**.story.vue'),
   ],
