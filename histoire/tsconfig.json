@@ -6,9 +6,6 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "paths": {
-      "~/components/*": ["../../packages/components/*"]
-    },
     "resolveJsonModule": true,
     "types": [
       "vite/client"
@@ -27,6 +24,6 @@
     "eslint.config.js",
     "vite.config.ts",
     "postcss.config.js",
-    "../packages/components/*/.story/**.story.vue"
+    "tailwind.config.js"
   ]
 }

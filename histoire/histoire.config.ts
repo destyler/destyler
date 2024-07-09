@@ -10,4 +10,9 @@ export default defineConfig({
   storyMatch: [
     path.resolve(__dirname, '../packages/components/*/.story/**.story.vue'),
   ],
+  vite: {
+    server: {
+      port: 53403,
+    },
+  },
 })
