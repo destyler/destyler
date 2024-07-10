@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Button } from '../src'
 
+const count = ref(0)
+
 function handle() {
-  console.log('click')
+  count.value++
 }
 </script>
 
@@ -11,6 +14,7 @@ function handle() {
     title="Button/Default"
   >
     <Variant title="unstyle">
+      {{ count }}
       <Button @click="handle">
         Button
       </Button>
