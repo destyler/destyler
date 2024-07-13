@@ -8,16 +8,17 @@ import { CollectionItem } from '@destyler/collection'
 import isEqual from 'fast-deep-equal'
 
 import { injectComboboxRootContext } from './root'
+import type { AcceptableValue } from './root'
 import { injectComboboxGroupContext } from './group'
 
 const COMBOBOX_SELECT = 'combobox.select'
 
-export type SelectEvent = CustomEvent<{ originalEvent: PointerEvent, value?: string | number | boolean | Record<string, any> }>
+export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: T }>
 
 export const comboboxItemProps = {
   ...primitiveProps,
   value: {
-    type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
+    type: [String, Number, Boolean, Object] as PropType<AcceptableValue>,
     required: true,
   },
   disabled: {
@@ -29,7 +30,7 @@ export const comboboxItemProps = {
 export type ComboboxItemProps = ExtractPublicPropTypes<typeof comboboxItemProps>
 
 export const comboboxItemEmits = {
-  select: (_ev: SelectEvent) => true,
+  select: (_ev: SelectEvent<AcceptableValue>) => true,
 }
 
 export interface ComboboxItemContext {
@@ -54,12 +55,12 @@ export const ComboboxItem = defineComponent({
 
     const isSelected = computed(() =>
       rootContext.multiple.value && Array.isArray(rootContext.modelValue.value)
-        ? rootContext.modelValue.value?.includes(props.value as never)
+        ? rootContext.modelValue.value?.some(val => isEqual(val, props.value))
         : isEqual(rootContext.modelValue?.value, props.value),
     )
 
     const isFocused = computed(() => isEqual(rootContext.selectedValue.value, props.value))
-    const textId = useId()
+    const textId = useId(undefined, 'destyler-combobox-item')
 
     const isInOption = computed(() =>
       rootContext.isUserInputted.value
@@ -67,7 +68,7 @@ export const ComboboxItem = defineComponent({
         || !!rootContext.filteredOptions.value.find(i => isEqual(i, props.value))
         : true)
 
-    async function handleSelect(ev: SelectEvent) {
+    async function handleSelect(ev: SelectEvent<AcceptableValue>) {
       emit('select', ev)
       if (ev?.defaultPrevented)
         return

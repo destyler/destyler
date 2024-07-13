@@ -9,7 +9,7 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 </script>
 
 <template>
-  <Story title="Combobox/Unstyle" :layout="{ type: 'single', iframe: false }">
+  <Story title="Combobox/Unstyle" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="unstyle">
       <ComboboxRoot v-model="v">
         <ComboboxAnchor>

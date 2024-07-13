@@ -6,7 +6,7 @@ const selectedValue = ref('item-2')
 </script>
 
 <template>
-  <Story title="Collapse/Single">
+  <Story title="Collapse/Single" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="uncontrolled">
       <CollapseRoot
         v-model="selectedValue"

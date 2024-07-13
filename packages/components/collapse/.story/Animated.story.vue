@@ -13,6 +13,7 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
 <template>
   <Story
     title="Collapse/Animated"
+    :layout="{ type: 'grid', width: '50%' }"
   >
     <Variant title="close by default">
       <template #controls>

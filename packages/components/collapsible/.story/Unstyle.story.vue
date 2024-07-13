@@ -8,7 +8,7 @@ const rootDisabled = ref(false)
 </script>
 
 <template>
-  <Story title="Collapsible/Unstyle">
+  <Story title="Collapsible/Unstyle" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="unstyle">
       <CollapsibleRoot
         v-model:open="rootOpen"

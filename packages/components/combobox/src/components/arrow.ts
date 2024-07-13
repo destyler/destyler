@@ -1,29 +1,15 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
-import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { PopperArrow } from '@destyler/popper'
+import { popperArrowProps } from '@destyler/popper/component'
 
 import { injectComboboxRootContext } from './root'
 import { injectComboboxContentContext } from './contentImpl'
 
 export const comboboxArrowProps = {
-  ...primitiveProps,
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
-  as: {
-    ...primitiveProps.as,
-    default: 'svg',
-  },
+  ...popperArrowProps,
 } as const
 
 export type ComboboxArrowProps = ExtractPublicPropTypes<typeof comboboxArrowProps>
@@ -46,5 +32,7 @@ export const ComboboxArrow = defineComponent({
   render() {
     if (this.rootContext.open.value && this.contentContext.position.value === 'popper')
       return h(PopperArrow, this.$props, () => this.$slots.default?.())
+    else
+      return null
   },
 })

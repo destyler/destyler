@@ -4,11 +4,11 @@ import { Icon } from '@destyler/icon'
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxTrigger, ComboboxViewport } from '../src'
 
 const people = [
-  { id: 1, name: 'Durward Reynolds' },
-  { id: 2, name: 'Kenton Towne' },
-  { id: 3, name: 'Therese Wunsch' },
-  { id: 4, name: 'Benedict Kessler' },
-  { id: 5, name: 'Katelyn Rohan' },
+  { id: 1, name: 'One' },
+  { id: 2, name: 'Two' },
+  { id: 3, name: 'Three' },
+  { id: 4, name: 'Four' },
+  { id: 5, name: 'Five' },
 ]
 
 const searchTerm = ref('')
@@ -22,7 +22,7 @@ function handleUpdate(ev: any) {
 </script>
 
 <template>
-  <Story title="Combobox/Multiple">
+  <Story title="Combobox/Multiple" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="string" auto-props-disabled>
       <ComboboxRoot multiple>
         <ComboboxAnchor class="min-w-[160px] inline-flex items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-grass9 outline-none">

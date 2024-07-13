@@ -6,7 +6,7 @@ const selectedValue = ref(['item-1', 'item-2'])
 </script>
 
 <template>
-  <Story title="Collapse/Multiple">
+  <Story title="Collapse/Multiple" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="uncontrolled">
       <CollapseRoot
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"

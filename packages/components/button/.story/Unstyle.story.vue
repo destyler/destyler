@@ -12,6 +12,7 @@ function handle() {
 <template>
   <Story
     title="Button/Default"
+    :layout="{ type: 'grid', width: '50%' }"
   >
     <Variant title="unstyle">
       {{ count }}

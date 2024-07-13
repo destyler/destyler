@@ -11,6 +11,7 @@ const count = ref(1)
 <template>
   <Story
     title="Collapse/Default"
+    :layout="{ type: 'grid', width: '50%' }"
   >
     <Variant title="unstyle">
       <template #controls>

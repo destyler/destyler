@@ -8,7 +8,7 @@ const checkboxThree = ref(false)
 </script>
 
 <template>
-  <Story title="Checkbox/Demo">
+  <Story title="Checkbox/Demo" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <div class="flex flex-col gap-2.5">
         <label

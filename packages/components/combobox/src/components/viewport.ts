@@ -1,4 +1,4 @@
-import type { SlotsType, VNode } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -6,6 +6,10 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const comboboxViewportProps = {
   ...primitiveProps,
+  nonce: {
+    type: String as PropType<string>,
+    required: false,
+  },
 } as const
 
 export type ComboboxViewportProps = ExtractPublicPropTypes<typeof comboboxViewportProps>
@@ -26,7 +30,7 @@ export const ComboboxViewport = defineComponent({
   },
   render() {
     return [
-      h(Primitive, mergeProps(this.$attrs, {
+      h(Primitive, mergeProps(this.$attrs, this.$props, {
         'ref': (el: any) => this.forwardRef(el),
         'data-destyler-combobox-viewport': '',
         'role': 'presentation',
@@ -38,6 +42,7 @@ export const ComboboxViewport = defineComponent({
       }), () => this.$slots.default?.()),
       h(Primitive, {
         as: 'style',
+        nonce: this.$props.nonce,
       }, () => `
       /* Hide scrollbars cross-browser and enable momentum scroll for touch devices */
       [data-destyler-combobox-viewport] {

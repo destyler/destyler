@@ -11,6 +11,7 @@ import {
 <template>
   <Story
     title="Collapse/Horizontal"
+    :layout="{ type: 'grid', width: '50%' }"
     auto-props-disabled
   >
     <Variant title="horizontal orientation">

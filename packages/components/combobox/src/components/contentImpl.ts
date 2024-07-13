@@ -79,11 +79,11 @@ export const ComboboxContentImpl = defineComponent({
 
     const popperStyle = {
       'boxSizing': 'border-box',
-      '--destyler_combobox_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-      '--destyler_combobox_content_available_width': 'var(--destyler_popper_available_width)',
-      '--destyler_combobox_content_available_height': 'var(--destyler_popper_available_height)',
-      '--destyler_combobox_trigger_width': 'var(--destyler_popper_anchor_width)',
-      '--destyler_combobox_trigger_height': 'var(--destyler_popper_anchor_height)',
+      '--destyler-combobox-content-transform-origin': 'var(--destyler_popper_transform_origin)',
+      '--destyler-combobox-content-available-width': 'var(--destyler_popper_available_width)',
+      '--destyler-combobox-content-available-height': 'var(--destyler_popper_available_height)',
+      '--destyler-combobox-trigger-width': 'var(--destyler_popper_anchor_width)',
+      '--destyler-combobox-trigger-height': 'var(--destyler_popper_anchor_height)',
     }
 
     provideComboboxContentContext({ position })
@@ -92,6 +92,7 @@ export const ComboboxContentImpl = defineComponent({
       rootContext,
       popperStyle,
       forwardedProps,
+      pickedProps,
       forwardRef,
       handleLeave,
     }
@@ -101,7 +102,7 @@ export const ComboboxContentImpl = defineComponent({
       default: () => {
         return [
           this.$props.dismissable
-            ? h(DismissableLayer, mergeProps(this.$attrs, this.forwardedProps, {
+            ? h(DismissableLayer, {
               asChild: true,
               disableOutsidePointerEvents: this.$props.disableOutsidePointerEvents,
               onDismiss: () => {
@@ -123,9 +124,9 @@ export const ComboboxContentImpl = defineComponent({
                   event.preventDefault()
                 this.$emit('pointerDownOutside', event)
               },
-            }), {
+            }, {
               default: () => {
-                return withDirectives(h(this.$props.position === 'popper' ? PopperContent : Primitive, {
+                return withDirectives(h(this.$props.position === 'popper' ? PopperContent : Primitive, mergeProps(this.$attrs, this.forwardedProps, {
                   'ref': (el: any) => this.forwardRef(el),
                   'role': 'listbox',
                   'data-state': this.rootContext.open.value ? 'open' : 'closed',
@@ -138,14 +139,14 @@ export const ComboboxContentImpl = defineComponent({
                   'onPointerleave': () => {
                     this.handleLeave()
                   },
-                }, {
+                }), {
                   default: () => this.$slots.default?.(),
                 }), [
                   [BindOnceDirective, { id: this.rootContext.contentId }],
                 ])
               },
             })
-            : withDirectives(h(this.$props.position === 'popper' ? PopperContent : Primitive, {
+            : withDirectives(h(this.$props.position === 'popper' ? PopperContent : Primitive, mergeProps(this.$attrs, this.pickedProps, {
               'ref': (el: any) => this.forwardRef(el),
               'role': 'listbox',
               'data-state': this.rootContext.open.value ? 'open' : 'closed',
@@ -158,7 +159,7 @@ export const ComboboxContentImpl = defineComponent({
               'onPointerleave': () => {
                 this.handleLeave()
               },
-            }, {
+            }), {
               default: () => this.$slots.default?.(),
             }), [
               [BindOnceDirective, { id: this.rootContext.contentId }],

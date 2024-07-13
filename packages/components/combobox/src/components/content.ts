@@ -1,7 +1,7 @@
 import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
+import { useForwardExpose, useForwardPropsEmits, useId } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
 import { injectComboboxRootContext } from './root'
@@ -33,6 +33,8 @@ export const ComboboxContent = defineComponent({
     const { forwardRef } = useForwardExpose()
 
     const rootContext = injectComboboxRootContext()
+
+    rootContext.contentId ||= useId(undefined, 'destyler-combobox-content')
 
     return {
       forwardRef,

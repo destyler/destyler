@@ -2,25 +2,27 @@ import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
-import { computedWithControl, createContext } from '@destyler/shared'
+import { createContext } from '@destyler/shared'
 import isEqual from 'fast-deep-equal'
-import { useDirection, useFormControl, useForwardExpose, useId, useVModel } from '@destyler/composition'
+import { useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { PopperRoot } from '@destyler/popper'
 import { VisuallyhiddenInput } from '@destyler/visually-hidden/component'
 import { createCollection } from '@destyler/collection/composition'
 
 export type AcceptableValue = string | number | boolean | Record<string, any>
-type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
+export type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 export const comboboxRootProps = {
   ...primitiveProps,
   modelValue: {
     type: [String, Number, Boolean, Object, Array] as PropType<AcceptableValue | Array<AcceptableValue>>,
     required: false,
+    default: undefined,
   },
   defaultValue: {
     type: [String, Number, Boolean, Object, Array] as PropType<AcceptableValue | Array<AcceptableValue>>,
     required: false,
+    default: undefined,
   },
   open: {
     type: Boolean as PropType<boolean>,
@@ -38,10 +40,12 @@ export const comboboxRootProps = {
   multiple: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
   name: {
     type: String as PropType<string>,
@@ -65,16 +69,16 @@ export type ComboboxRootProps = ExtractPublicPropTypes<typeof comboboxRootProps>
 
 export const comboboxRootEmits = {
   'update:modelValue': (_value: AcceptableValue) => true,
-  'update:open': (_open: boolean) => true,
-  'update:searchTerm': (_searchTerm: string) => true,
+  'update:open': (_value: boolean) => true,
+  'update:searchTerm': (_value: string) => true,
 }
 
 export interface ComboboxRootContext<T> {
   modelValue: Ref<T | Array<T>>
   onValueChange: (val: T) => void
   searchTerm: Ref<string>
-  multiple: Ref<boolean | undefined>
-  disabled: Ref<boolean | undefined>
+  multiple: Ref<boolean>
+  disabled: Ref<boolean>
   open: Ref<boolean>
   onOpenChange: (value: boolean) => void
   isUserInputted: Ref<boolean>
@@ -91,7 +95,7 @@ export interface ComboboxRootContext<T> {
   parentElement: Ref<HTMLElement | undefined>
 }
 
-export const [injectComboboxRootContext, provideComboboxRootContext] = createContext<ComboboxRootContext<string | number | boolean | Record<string, any>>>('DestylerComboboxRoot')
+export const [injectComboboxRootContext, provideComboboxRootContext] = createContext<ComboboxRootContext<AcceptableValue>>('DestylerComboboxRoot')
 
 export const ComboboxRoot = defineComponent({
   name: 'DestylerComboboxRoot',
@@ -113,7 +117,7 @@ export const ComboboxRoot = defineComponent({
       defaultValue: props.defaultValue ?? multiple.value ? [] : undefined,
       passive: (props.modelValue === undefined) as false,
       deep: true,
-    }) as Ref<string | number | boolean | Record<string, any>>
+    }) as Ref<AcceptableValue | AcceptableValue[]>
 
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
@@ -122,12 +126,12 @@ export const ComboboxRoot = defineComponent({
 
     const selectedValue = ref<AcceptableValue>()
 
-    const isUserInputted = ref(false)
-
     const inputElement = ref<HTMLInputElement>()
     const contentElement = ref<HTMLElement>()
     const { forwardRef, currentElement: parentElement } = useForwardExpose()
     const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: AcceptableValue }>('data-destyler-combobox-item')
+
+    const isUserInputted = ref(false)
 
     async function onOpenChange(val: boolean) {
       open.value = val
@@ -137,7 +141,7 @@ export const ComboboxRoot = defineComponent({
           if (Array.isArray(modelValue.value) && multiple.value)
             selectedValue.value = (getItems().find(i => (i.ref)?.dataset?.state === 'checked'))?.value
           else
-            selectedValue.value = modelValue.value as string | number | boolean | Record<string, any>
+            selectedValue.value = modelValue.value as AcceptableValue
         }
         inputElement.value?.focus()
         scrollSelectedValueIntoView()
@@ -159,23 +163,26 @@ export const ComboboxRoot = defineComponent({
       }
     }
 
-    const options = computedWithControl(() => itemMapSize.value, () => {
-      return getItems().map(i => i.value)
-    })
+    const options = ref<AcceptableValue[]>([]) as Ref<AcceptableValue[]>
+
+    watch(() => itemMapSize.value, () => {
+      options.value = getItems().map(i => i.value)
+    }, { immediate: true })
 
     const filteredOptions = computed(() => {
       if (isUserInputted.value) {
         if (props.filterFunction)
-          return props.filterFunction(options.value as ArrayOrWrapped<AcceptableValue>, searchTerm.value)
+          return props.filterFunction(options.value as ArrayOrWrapped<AcceptableValue>, searchTerm.value) as AcceptableValue[]
 
-        else if (typeof options.value[0] === 'string')
-          return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
+        const optionsWithTypeString = options.value.filter(i => typeof i === 'string') as string[]
+        if (optionsWithTypeString.length)
+          return optionsWithTypeString.filter(i => i.toLowerCase().includes(searchTerm.value?.toLowerCase())) as AcceptableValue[]
       }
       return options.value
     })
 
     function resetSearchTerm() {
-      if (!multiple.value && modelValue.value) {
+      if (!multiple.value && modelValue.value && !Array.isArray(modelValue.value)) {
         if (props.displayValue)
           searchTerm.value = props.displayValue(modelValue.value)
         else if (typeof modelValue.value !== 'object')
@@ -193,7 +200,10 @@ export const ComboboxRoot = defineComponent({
       return reactiveItems.value.find(i => i.value === selectedValue.value)?.ref
     })
 
-    watch(modelValue, async () => {
+    const stringifiedModelValue = computed(() => JSON.stringify(modelValue.value))
+
+    watch(stringifiedModelValue, async () => {
+      await nextTick()
       await nextTick()
       resetSearchTerm()
     }, { immediate: true })
@@ -222,7 +232,7 @@ export const ComboboxRoot = defineComponent({
       open,
       onOpenChange,
       filteredOptions,
-      contentId: useId(),
+      contentId: '',
       inputElement,
       onInputElementChange: val => inputElement.value = val,
       onInputNavigation: async (val) => {
@@ -262,7 +272,7 @@ export const ComboboxRoot = defineComponent({
     }
   },
   render() {
-    return h(PopperRoot, {}, {
+    return h(PopperRoot, null, {
       default: () => {
         return h(Primitive, mergeProps(this.$attrs, {
           ref: (el: any) => this.forwardRef(el),

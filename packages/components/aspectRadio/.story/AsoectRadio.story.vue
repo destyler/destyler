@@ -3,7 +3,7 @@ import { AspectRadio } from '../src'
 </script>
 
 <template>
-  <Story title="Aspect Radio/Demo" :layout="{ type: 'single', iframe: true }">
+  <Story title="Aspect Radio/Demo" :layout="{ type: 'grid', width: '50%' }">
     <Variant title="default">
       <div class=" w-full sm:w-[300px] overflow-hidden rounded-md">
         <AspectRadio class="bg-#27272A" :aspect-ratio="16 / 9">
