@@ -6,8 +6,8 @@ import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useFocusWithin } from '@vueuse/core'
 import { useArrowNavigation, useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { CollectionSlot } from '@destyler/collection'
-import { createCollection } from '@destyler/collection/dist/composition'
-import { VisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
+import { createCollection } from '@destyler/collection/composition'
+import { VisuallyhiddenInput } from '@destyler/visually-hidden/component'
 
 export const dynamicRootProps = {
   ...primitiveProps,
