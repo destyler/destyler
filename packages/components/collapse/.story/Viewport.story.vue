@@ -22,7 +22,7 @@ import {
         keyboard, the page should not scroll unless the next tab is entering the
         viewport.
       </p>
-      <CollapseRoot type="single" class="">
+      <CollapseRoot type="single">
         <CollapseItem class="collapse-item" value="one">
           <CollapseHeader class="flex">
             <CollapseTrigger class="collapse-trigger">

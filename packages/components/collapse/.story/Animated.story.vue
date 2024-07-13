@@ -136,7 +136,6 @@ const selectedValue = ref(['One', 'Two', 'Three', 'Four'])
       <CollapseRoot
         v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
-        type="multiple"
       >
         <CollapseItem class="collapse-item" value="One">
           <CollapseHeader class="flex">

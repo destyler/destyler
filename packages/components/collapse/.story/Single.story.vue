@@ -10,7 +10,6 @@ const selectedValue = ref('item-2')
     <Variant title="uncontrolled">
       <CollapseRoot
         v-model="selectedValue"
-        type="single"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
       >
         <CollapseItem class="collapse-item" value="item-1">
@@ -76,7 +75,6 @@ const selectedValue = ref('item-2')
 
       <CollapseRoot
         v-model="selectedValue"
-        type="single"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
       >
         <CollapseItem class="collapse-item" value="item-1">
@@ -137,10 +135,10 @@ const selectedValue = ref('item-2')
 
     <Variant title="collapsible">
       <CollapseRoot
-        v-model="selectedValue"
         class="w-[300px] rounded-md bg-[--line-color] shadow-lg"
         type="single"
         :collapsible="true"
+        model-value="item-2"
       >
         <CollapseItem class="collapse-item" value="item-1">
           <CollapseHeader class="flex">

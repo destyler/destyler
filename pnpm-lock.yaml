@@ -123,6 +123,157 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4(typescript@5.3.3)
 
+  .histoire:
+    dependencies:
+      '@histoire/plugin-vue':
+        specifier: ^0.17.17
+        version: 0.17.17(histoire@0.17.17(@types/node@20.14.5)(terser@5.28.1)(vite@5.3.3(@types/node@20.14.5)(terser@5.28.1)))(vite@5.3.3(@types/node@20.14.5)(terser@5.28.1))(vue@3.4.21(typescript@5.4.5))
+      '@radix-ui/colors':
+        specifier: ^3.0.0
+        version: 3.0.0
+      '@vueuse/core':
+        specifier: ^10.9.0
+        version: 10.9.0(vue@3.4.21(typescript@5.4.5))
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.39)
+      histoire:
+        specifier: ^0.17.17
+        version: 0.17.17(@types/node@20.14.5)(terser@5.28.1)(vite@5.3.3(@types/node@20.14.5)(terser@5.28.1))
+      tailwindcss:
+        specifier: ^3.4.4
+        version: 3.4.4
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.4)
+    devDependencies:
+      '@destyler/aspect-radio':
+        specifier: workspace:*
+        version: link:../packages/components/aspectRadio
+      '@destyler/back-top':
+        specifier: workspace:*
+        version: link:../packages/components/backTop
+      '@destyler/breadcrumbs':
+        specifier: workspace:*
+        version: link:../packages/components/breadcrumbs
+      '@destyler/button':
+        specifier: workspace:*
+        version: link:../packages/components/button
+      '@destyler/calendar':
+        specifier: workspace:*
+        version: link:../packages/components/calendar
+      '@destyler/checkbox':
+        specifier: workspace:*
+        version: link:../packages/components/checkbox
+      '@destyler/collapse':
+        specifier: workspace:*
+        version: link:../packages/components/collapse
+      '@destyler/collapsible':
+        specifier: workspace:*
+        version: link:../packages/components/collapsible
+      '@destyler/combobox':
+        specifier: workspace:*
+        version: link:../packages/components/combobox
+      '@destyler/context-menu':
+        specifier: workspace:*
+        version: link:../packages/components/contextMenu
+      '@destyler/countdown':
+        specifier: workspace:*
+        version: link:../packages/components/countdown
+      '@destyler/dialog':
+        specifier: workspace:*
+        version: link:../packages/components/dialog
+      '@destyler/divider':
+        specifier: workspace:*
+        version: link:../packages/components/divider
+      '@destyler/draggable':
+        specifier: workspace:*
+        version: link:../packages/components/draggable
+      '@destyler/dropdown':
+        specifier: workspace:*
+        version: link:../packages/components/dropdown
+      '@destyler/dynamic':
+        specifier: workspace:*
+        version: link:../packages/components/dynamic
+      '@destyler/ellipsis':
+        specifier: workspace:*
+        version: link:../packages/components/ellipsis
+      '@destyler/hover-card':
+        specifier: workspace:*
+        version: link:../packages/components/hoverCard
+      '@destyler/image':
+        specifier: workspace:*
+        version: link:../packages/components/image
+      '@destyler/info':
+        specifier: workspace:*
+        version: link:../packages/components/info
+      '@destyler/label':
+        specifier: workspace:*
+        version: link:../packages/components/label
+      '@destyler/menu':
+        specifier: workspace:*
+        version: link:../packages/components/menu
+      '@destyler/menubar':
+        specifier: workspace:*
+        version: link:../packages/components/menubar
+      '@destyler/modal':
+        specifier: workspace:*
+        version: link:../packages/components/modal
+      '@destyler/navigation':
+        specifier: workspace:*
+        version: link:../packages/components/navigation
+      '@destyler/otp-input':
+        specifier: workspace:*
+        version: link:../packages/components/otpInput
+      '@destyler/pagination':
+        specifier: workspace:*
+        version: link:../packages/components/pagination
+      '@destyler/popover':
+        specifier: workspace:*
+        version: link:../packages/components/popover
+      '@destyler/progress':
+        specifier: workspace:*
+        version: link:../packages/components/progress
+      '@destyler/radio':
+        specifier: workspace:*
+        version: link:../packages/components/radio
+      '@destyler/range-calendar':
+        specifier: workspace:*
+        version: link:../packages/components/rangeCalendar
+      '@destyler/scroll-area':
+        specifier: workspace:*
+        version: link:../packages/components/scrollArea
+      '@destyler/select':
+        specifier: workspace:*
+        version: link:../packages/components/select
+      '@destyler/slider':
+        specifier: workspace:*
+        version: link:../packages/components/slider
+      '@destyler/splitter':
+        specifier: workspace:*
+        version: link:../packages/components/splitter
+      '@destyler/switch':
+        specifier: workspace:*
+        version: link:../packages/components/switch
+      '@destyler/tabs':
+        specifier: workspace:*
+        version: link:../packages/components/tabs
+      '@destyler/toast':
+        specifier: workspace:*
+        version: link:../packages/components/toast
+      '@destyler/toggle':
+        specifier: workspace:*
+        version: link:../packages/components/toggle
+      '@destyler/toolbar':
+        specifier: workspace:*
+        version: link:../packages/components/toolbar
+      '@destyler/tooltip':
+        specifier: workspace:*
+        version: link:../packages/components/tooltip
+      destyler:
+        specifier: workspace:*
+        version: link:../packages/destyler
+
   docs:
     dependencies:
       '@nuxt/content':
@@ -12329,7 +12480,7 @@ snapshots:
 
   browserslist@4.23.0:
     dependencies:
-      caniuse-lite: 1.0.30001593
+      caniuse-lite: 1.0.30001640
       electron-to-chromium: 1.4.690
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
@@ -13767,7 +13918,7 @@ snapshots:
     dependencies:
       foreground-child: 3.1.1
       jackspeak: 2.3.6
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       minipass: 7.0.4
       path-scurry: 1.10.1
 
@@ -14486,7 +14637,7 @@ snapshots:
 
   launch-editor@2.6.1:
     dependencies:
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       shell-quote: 1.8.1
 
   lazystream@1.0.1:
@@ -17605,7 +17756,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.0
       escalade: 3.1.2
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   upper-case-first@2.0.2:
     dependencies:
@@ -17668,7 +17819,7 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.3.1(@types/node@20.14.5)(terser@5.28.1)
+      vite: 5.3.3(@types/node@20.14.5)(terser@5.28.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
