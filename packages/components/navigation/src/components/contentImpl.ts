@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, ref, watchEffect, withDirecti
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useForwardExpose } from '@destyler/composition'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { EVENT_ROOT_CONTENT_DISMISS, focusFirst, getOpenState, getTabbableCandidates, makeContentId, makeTriggerId } from '../utils'

@@ -6,8 +6,8 @@ import { computedWithControl, createContext } from '@destyler/shared'
 import isEqual from 'fast-deep-equal'
 import { useDirection, useFormControl, useForwardExpose, useId, useVModel } from '@destyler/composition'
 import { PopperRoot } from '@destyler/popper'
-import { VisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
-import { createCollection } from '@destyler/collection/dist/composition'
+import { VisuallyhiddenInput } from '@destyler/visually-hidden/component'
+import { createCollection } from '@destyler/collection/composition'
 
 export type AcceptableValue = string | number | boolean | Record<string, any>
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>

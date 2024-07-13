@@ -7,7 +7,7 @@ import type { Formatter } from '@destyler/composition'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import type { CalendarDate, CalendarDateTime, DateValue, ZonedDateTime } from '@internationalized/date'
 import { isSameDay } from '@internationalized/date'
-import { useCalendar } from '@destyler/calendar/dist/composition'
+import { useCalendar } from '@destyler/calendar/composition'
 import { useRangeCalendarState } from '../composition/use-range-calendar-state'
 
 export const rangeCalendarRootProps = {

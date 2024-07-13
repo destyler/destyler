@@ -3,7 +3,7 @@ import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } fr
 import { useEventListener } from '@vueuse/core'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 import { Visuallyhidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 

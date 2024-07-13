@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { MenuSubContent, menuSubContentProps } from '@destyler/menu'
-import { menuSubContentEmits } from '@destyler/menu/dist/component'
+import { menuSubContentEmits } from '@destyler/menu/component'
 
 const SIDE_OPTIONS = ['top', 'right', 'bottom', 'left'] as const
 const ALIGN_OPTIONS = ['start', 'center', 'end'] as const

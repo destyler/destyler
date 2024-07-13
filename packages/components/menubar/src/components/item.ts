@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuItem, menuItemProps } from '@destyler/menu'
-import { menuItemEmits } from '@destyler/menu/dist/component'
+import { menuItemEmits } from '@destyler/menu/component'
 
 export const menubarItemProps = {
   ...menuItemProps,

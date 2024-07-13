@@ -5,9 +5,9 @@ import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, us
 import { createContext, focusFirst, isMouseEvent, isPointerInGraceArea } from '@destyler/shared'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 import { RovingFocusGroup } from '@destyler/roving-focus'
-import { rovingFocusGroupEmits } from '@destyler/roving-focus/dist/component'
+import { rovingFocusGroupEmits } from '@destyler/roving-focus/component'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import {

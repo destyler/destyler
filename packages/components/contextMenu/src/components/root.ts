@@ -4,7 +4,7 @@ import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useDirection, useForwardExpose } from '@destyler/composition'
 import { MenuRoot, menuRootProps } from '@destyler/menu'
-import { menuRootEmits } from '@destyler/menu/dist/component'
+import { menuRootEmits } from '@destyler/menu/component'
 
 export const contextMenuRootProps = {
   dir: {

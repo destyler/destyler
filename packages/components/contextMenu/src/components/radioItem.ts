@@ -3,7 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuRadioItem, menuRadioItemProps } from '@destyler/menu'
-import { menuItemEmits } from '@destyler/menu/dist/component'
+import { menuItemEmits } from '@destyler/menu/component'
 
 export const contextMenuRadioItemProps = {
   ...menuRadioItemProps,

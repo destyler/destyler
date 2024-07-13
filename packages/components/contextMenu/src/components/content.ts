@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { MenuContent, menuContentProps } from '@destyler/menu'
-import { menuContentEmits } from '@destyler/menu/dist/component'
+import { menuContentEmits } from '@destyler/menu/component'
 
 import { injectContextMenuRootContext } from './root'
 

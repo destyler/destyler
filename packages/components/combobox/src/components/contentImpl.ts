@@ -7,7 +7,7 @@ import { CollectionSlot } from '@destyler/collection'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { useBodyScrollLock, useForwardExpose, useForwardProps, useHideOthers } from '@destyler/composition'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 
 import { BindOnceDirective } from '@destyler/directives'
 import { injectComboboxRootContext } from './root'

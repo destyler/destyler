@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
 import { MenuSubContent, menuSubContentProps } from '@destyler/menu'
-import { menuSubContentEmits } from '@destyler/menu/dist/component'
+import { menuSubContentEmits } from '@destyler/menu/component'
 
 import { injectMenubarRootContext } from './root'
 import { injectMenubarMenuContext } from './menu'

@@ -4,7 +4,7 @@ import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose } from '@destyler/composition'
 import { onKeyStroke } from '@vueuse/core'
-import { focusFirst, getTabbableCandidates } from '@destyler/focus-scope/dist/utils'
+import { focusFirst, getTabbableCandidates } from '@destyler/focus-scope/utils'
 import { DismissableLayerBranch } from '@destyler/dismissable-layer'
 import { unrefElement } from '@destyler/shared'
 

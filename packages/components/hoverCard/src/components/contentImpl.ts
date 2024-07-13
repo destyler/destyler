@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, nextTick, onMounted, onUnmounted, ref, 
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import { getTabbableNodes } from '../utils'
