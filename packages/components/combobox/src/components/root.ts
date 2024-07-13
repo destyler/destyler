@@ -9,16 +9,17 @@ import { PopperRoot } from '@destyler/popper'
 import { VisuallyhiddenInput } from '@destyler/visually-hidden/dist/component'
 import { createCollection } from '@destyler/collection/dist/composition'
 
+export type AcceptableValue = string | number | boolean | Record<string, any>
 type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 export const comboboxRootProps = {
   ...primitiveProps,
   modelValue: {
-    type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
+    type: [String, Number, Boolean, Object, Array] as PropType<AcceptableValue | Array<AcceptableValue>>,
     required: false,
   },
   defaultValue: {
-    type: [String, Number, Boolean, Object] as PropType<string | number | boolean | Record<string, any>>,
+    type: [String, Number, Boolean, Object, Array] as PropType<AcceptableValue | Array<AcceptableValue>>,
     required: false,
   },
   open: {
@@ -51,11 +52,11 @@ export const comboboxRootProps = {
     required: false,
   },
   filterFunction: {
-    type: Function as PropType<(val: ArrayOrWrapped<string | number | boolean | Record<string, any>>, term: string) => ArrayOrWrapped<string | number | boolean | Record<string, any>>>,
+    type: Function as PropType<(val: ArrayOrWrapped<AcceptableValue>, term: string) => ArrayOrWrapped<AcceptableValue>>,
     required: false,
   },
   displayValue: {
-    type: Function as PropType<(val: string | number | boolean | Record<string, any>) => string>,
+    type: Function as PropType<(val: AcceptableValue) => string>,
     required: false,
   },
 } as const
@@ -63,7 +64,7 @@ export const comboboxRootProps = {
 export type ComboboxRootProps = ExtractPublicPropTypes<typeof comboboxRootProps>
 
 export const comboboxRootEmits = {
-  'update:modelValue': (_value: string | number | boolean | Record<string, any>) => true,
+  'update:modelValue': (_value: AcceptableValue) => true,
   'update:open': (_open: boolean) => true,
   'update:searchTerm': (_searchTerm: string) => true,
 }
@@ -97,7 +98,7 @@ export const ComboboxRoot = defineComponent({
   props: comboboxRootProps,
   emits: comboboxRootEmits,
   slots: Object as SlotsType<{
-    default: (opts: { open: boolean, modelValue: string | number | boolean | Record<string, any> }) => VNode[]
+    default: (opts: { open: boolean, modelValue: AcceptableValue }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { multiple, disabled, dir: propDir } = toRefs(props)
@@ -119,14 +120,14 @@ export const ComboboxRoot = defineComponent({
       passive: (props.open === undefined) as false,
     }) as Ref<boolean>
 
-    const selectedValue = ref<string | number | boolean | Record<string, any>>()
+    const selectedValue = ref<AcceptableValue>()
 
     const isUserInputted = ref(false)
 
     const inputElement = ref<HTMLInputElement>()
     const contentElement = ref<HTMLElement>()
     const { forwardRef, currentElement: parentElement } = useForwardExpose()
-    const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: string | number | boolean | Record<string, any> }>('data-destyler-combobox-item')
+    const { getItems, reactiveItems, itemMapSize } = createCollection<{ value: AcceptableValue }>('data-destyler-combobox-item')
 
     async function onOpenChange(val: boolean) {
       open.value = val
@@ -147,7 +148,7 @@ export const ComboboxRoot = defineComponent({
       }
     }
 
-    function onValueChange(val: string | number | boolean | Record<string, any>) {
+    function onValueChange(val: AcceptableValue) {
       if (Array.isArray(modelValue.value) && multiple.value) {
         const index = modelValue.value.findIndex(i => isEqual(i, val))
         index === -1 ? modelValue.value.push(val) : modelValue.value.splice(index, 1)
@@ -165,7 +166,7 @@ export const ComboboxRoot = defineComponent({
     const filteredOptions = computed(() => {
       if (isUserInputted.value) {
         if (props.filterFunction)
-          return props.filterFunction(options.value as ArrayOrWrapped<string | number | boolean | Record<string, any>>, searchTerm.value)
+          return props.filterFunction(options.value as ArrayOrWrapped<AcceptableValue>, searchTerm.value)
 
         else if (typeof options.value[0] === 'string')
           return options.value.filter(i => (i as string).toLowerCase().includes(searchTerm.value?.toLowerCase()))
@@ -246,7 +247,7 @@ export const ComboboxRoot = defineComponent({
           selectedElement.value?.click()
       },
       selectedValue,
-      onSelectedValueChange: val => selectedValue.value = val as string | number | boolean | Record<string, any>,
+      onSelectedValueChange: val => selectedValue.value = val as AcceptableValue,
       parentElement,
       contentElement,
       onContentElementChange: val => contentElement.value = val,
