@@ -134,11 +134,11 @@ export const EllipsisContentImpl = defineComponent({
       'ref': 'contentElement',
       'data-state': this.rootContext.stateAttribute.value,
       'style': {
-        '--destyler_tooltip_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-        '--destyler_tooltip_content_available_width': 'var(--destyler_popper_available_width)',
-        '--destyler_tooltip_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_tooltip_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_tooltip_trigger_height': 'var(--destyler_popper_anchor_height)',
+        '--destyler-tooltip-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-tooltip-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-tooltip-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-tooltip-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-tooltip-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
     }), () => [
       this.$slots.default?.(),

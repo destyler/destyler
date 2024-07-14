@@ -10,6 +10,7 @@ export const popperAnchorProps = {
   ...primitiveProps,
   element: {
     type: Object as PropType<Measurable>,
+    required: false,
   },
 } as const
 

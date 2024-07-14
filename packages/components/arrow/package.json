@@ -15,8 +15,8 @@
       "default": "./dist/resolver.mjs"
     },
     "./component": {
-      "types": "./dist/resolver.d.mts",
-      "default": "./dist/resolver.mjs"
+      "types": "./dist/component.d.mts",
+      "default": "./dist/component.mjs"
     },
     "./*": "./*"
   },

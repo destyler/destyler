@@ -157,19 +157,19 @@ export const PopperContent = defineComponent({
               maxHeight: `${availableHeight}px`,
             })
             contentStyle.setProperty(
-              '--destyler_popper_available_width',
+              '--destyler-popper-available-width',
               `${availableWidth}px`,
             )
             contentStyle.setProperty(
-              '--destyler_popper_available_height',
+              '--destyler-popper-available-height',
               `${availableHeight}px`,
             )
             contentStyle.setProperty(
-              '--destyler_popper_anchor_width',
+              '--destyler-popper-anchor-width',
               `${anchorWidth}px`,
             )
             contentStyle.setProperty(
-              '--destyler_popper_anchor_height',
+              '--destyler-popper-anchor-height',
               `${anchorHeight}px`,
             )
           },
@@ -251,10 +251,14 @@ export const PopperContent = defineComponent({
         transform: this.isPositioned ? this.floatingStyles.transform : 'translate(0, -200%)',
         minWidth: 'max-content',
         zIndex: this.contentZIndex,
-        ['--destyler_popper_transform_origin' as any]: [
+        ['--destyler-popper-transform-origin' as any]: [
           this.middlewareData.transformOrigin?.x,
           this.middlewareData.transformOrigin?.y,
         ].join(' '),
+        ...(this.middlewareData.hide?.referenceHidden && {
+          visibility: 'hidden',
+          pointerEvents: 'none',
+        }),
       },
     }, h(Primitive, mergeProps(this.$attrs, {
       'ref': (el: any) => this.forwardRef(el),
@@ -264,7 +268,6 @@ export const PopperContent = defineComponent({
       'data-align': this.placedAlign,
       'style': {
         animation: !this.isPositioned ? 'none' : undefined,
-        opacity: this.middlewareData.hide?.referenceHidden ? 0 : undefined,
       },
     }), {
       default: () => this.$slots.default?.(),

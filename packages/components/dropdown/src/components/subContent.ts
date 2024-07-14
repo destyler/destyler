@@ -39,11 +39,11 @@ export const DropdownSubContent = defineComponent({
   render() {
     return h(MenuSubContent, mergeProps(this.forwarded, {
       style: {
-        '--destyler_dropdown_menu_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-        '--destyler_dropdown_menu_content_available_width': 'var(--destyler_popper_available_width)',
-        '--destyler_dropdown_menu_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_dropdown_menu_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_dropdown_menu_trigger_height': 'var(--destyler_popper_anchor_height)',
+        '--destyler-dropdown-menu-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-dropdown-menu-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-dropdown-menu-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-dropdown-menu-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-dropdown-menu-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
     }), () => this.$slots.default?.())
   },

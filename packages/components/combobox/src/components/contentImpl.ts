@@ -79,11 +79,11 @@ export const ComboboxContentImpl = defineComponent({
 
     const popperStyle = {
       'boxSizing': 'border-box',
-      '--destyler-combobox-content-transform-origin': 'var(--destyler_popper_transform_origin)',
-      '--destyler-combobox-content-available-width': 'var(--destyler_popper_available_width)',
-      '--destyler-combobox-content-available-height': 'var(--destyler_popper_available_height)',
-      '--destyler-combobox-trigger-width': 'var(--destyler_popper_anchor_width)',
-      '--destyler-combobox-trigger-height': 'var(--destyler_popper_anchor_height)',
+      '--destyler-combobox-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+      '--destyler-combobox-content-available-width': 'var(--destyler-popper-available-width)',
+      '--destyler-combobox-content-available-height': 'var(--destyler-popper-available-height)',
+      '--destyler-combobox-trigger-width': 'var(--destyler-popper-anchor-width)',
+      '--destyler-combobox-trigger-height': 'var(--destyler-popper-anchor-height)',
     }
 
     provideComboboxContentContext({ position })
