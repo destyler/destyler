@@ -38,18 +38,3 @@ const isSelected = computed(() => context.value.value === props.value)
     </button>
   </RovingFocusItem>
 </template>
-
-<style scoped>
-.border-blue-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(37 99 235 / var(--tw-border-opacity)) /* #2563eb */;
-}
-.bg-gray-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity)) /* #111827 */;
-}
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
-}
-</style>

@@ -4,7 +4,10 @@ import animate from 'tailwindcss-animate'
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
-  content: ['../packages/components/*/.story/**.story.{html,js,vue}'],
+  content: [
+    '../packages/components/*/.story/**.story.{html,js,vue}',
+    '../packages/components/*/.story/*/**.{html,js,vue}',
+  ],
   theme: {
     extend: {
       colors: {

@@ -30,25 +30,3 @@ provide('rovingFocusDemo', {
     <slot />
   </RovingFocusGroup>
 </template>
-
-<style scoped>
-.inline-flex {
-  display: inline-flex;
-}
-
-.gap-4 {
-  gap: 1rem; /* 16px */
-}
-
-.p-2 {
-  padding: 0.5rem; /* 8px */
-}
-
-.flex-col{
-  flex-direction: column;
-}
-
-.flex-row{
-  flex-direction: row;
-}
-</style>
