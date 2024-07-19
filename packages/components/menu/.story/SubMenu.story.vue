@@ -5,6 +5,7 @@ import MenuWithAnchor from './components/MenuWithAnchor.vue'
 import Submenu from './components/Submenu.vue'
 
 function handleSelect(text: string) {
+  // eslint-disable-next-line no-console
   console.log({ text })
 }
 
