@@ -4,7 +4,6 @@ import MenuWithAnchor from './components/MenuWithAnchor.vue'
 
 function handleSelect(text: string) {
   console.log({ text })
-  window.alert(text)
 }
 </script>
 
