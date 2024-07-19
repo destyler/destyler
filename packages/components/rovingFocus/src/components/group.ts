@@ -1,7 +1,7 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { ExtractPropTypes, PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
+import type { Direction, Orientation } from '@destyler/shared'
 import { createContext, focusFirst } from '@destyler/shared'
 import { useCollection, useDirection, useForwardExpose, useVModel } from '@destyler/composition'
 
@@ -33,7 +33,7 @@ export const rovingFocusGroupProps = {
   },
 } as const
 
-export type RovingFocusGroupProps = ExtractPublicPropTypes<typeof rovingFocusGroupProps>
+export type RovingFocusGroupProps = ExtractPropTypes<typeof rovingFocusGroupProps>
 
 export const rovingFocusGroupEmits = {
   'entryFocus': (_event: Event) => true,
