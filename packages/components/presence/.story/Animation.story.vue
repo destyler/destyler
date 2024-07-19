@@ -22,6 +22,7 @@ watchEffect(() => {
 
 <template>
   <Story
+    group="private"
     title="Presence/Animation"
     :layout="{ type: 'grid', width: '33%' }"
     auto-props-disabled

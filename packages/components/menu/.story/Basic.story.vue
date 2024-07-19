@@ -9,6 +9,7 @@ function handleSelect(text: string) {
 
 <template>
   <Story
+    group="private"
     title="Menu/Basic"
     :layout="{ type: 'single', iframe: false }"
   >

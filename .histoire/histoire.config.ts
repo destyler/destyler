@@ -13,6 +13,7 @@ export default defineConfig({
   tree: {
     groups: [
       { title: 'Components', include: _file => true },
+      { id: 'private', title: 'Private Components' },
     ],
   },
   theme: {

@@ -17,6 +17,7 @@ function handleSelectAll() {
 
 <template>
   <Story
+    group="private"
     title="Menu/CheckboxItems"
   >
     <Variant title="default">

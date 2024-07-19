@@ -15,6 +15,7 @@ const open2 = ref(false)
 
 <template>
   <Story
+    group="private"
     title="Menu/SubMenu"
   >
     <Variant title="default">

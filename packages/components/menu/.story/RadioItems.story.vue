@@ -21,7 +21,7 @@ function handleSelect(text: string) {
 </script>
 
 <template>
-  <Story title="Menu/RadioItems">
+  <Story group="private" title="Menu/RadioItems">
     <Variant title="default">
       <MenuWithAnchor>
         <MenuItem

@@ -8,7 +8,7 @@ const trapped2 = ref(false)
 
 <template>
   <Story
-    group="utilities"
+    group="private"
     title="FocusScope/Multiple"
     :layout="{ type: 'single' }"
   >

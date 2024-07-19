@@ -52,6 +52,7 @@ const foodGroups: Array<{
 
 <template>
   <Story
+    group="private"
     title="Menu/WithLabels"
   >
     <Variant title="default">
