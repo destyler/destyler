@@ -31,6 +31,7 @@ function handleClick() {
 
 function handleCheck(ev: any) {
   // checkboxOne.value = ev;
+  /* eslint-disable-next-line no-console */
   console.log(ev)
 }
 </script>

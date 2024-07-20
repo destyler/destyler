@@ -6,6 +6,7 @@ import DummyDialog from './components/DummyDialog.vue'
 import DummyPopover from './components/DummyPopover.vue'
 
 function handleAlert() {
+  /* eslint-disable-next-line no-alert */
   window.alert('Alert')
 }
 

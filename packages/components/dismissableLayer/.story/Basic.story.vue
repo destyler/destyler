@@ -7,6 +7,7 @@ import DismissableBox from './components/DismissableBox.vue'
 const open = ref(false)
 
 function handleClick() {
+  /* eslint-disable-next-line no-console */
   console.log('click')
 }
 
