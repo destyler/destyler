@@ -32,6 +32,7 @@
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
     "@destyler/popper": "workspace:*",
+    "@destyler/combobox": "workspace:*",
     "@destyler/link": "workspace:*",
     "@destyler/test": "workspace:*",
     "@testing-library/jest-dom": "^6.4.6",
