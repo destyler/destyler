@@ -41,9 +41,7 @@ const hoverState = ref(false)
               >
               <div class="flex flex-col gap-[15px]">
                 <div>
-                  <div
-                    class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]"
-                  >
+                  <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
                     Destyler
                   </div>
                   <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
@@ -55,9 +53,7 @@ const hoverState = ref(false)
                 </div>
                 <div class="flex gap-[15px]">
                   <div class="flex gap-[5px]">
-                    <div
-                      class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]"
-                    >
+                    <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
                       0
                     </div>
                     <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
@@ -65,9 +61,7 @@ const hoverState = ref(false)
                     </div>
                   </div>
                   <div class="flex gap-[5px]">
-                    <div
-                      class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]"
-                    >
+                    <div class="text-mauve12 m-0 text-[15px] font-medium leading-[1.5]">
                       8,900
                     </div>
                     <div class="text-mauve10 m-0 text-[15px] leading-[1.5]">
