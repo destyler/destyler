@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { OtpInput, OtpInputRoot } from '..'
+import { OtpInput, OtpInputRoot } from '../src'
 
 const value = ref<string[]>([])
 </script>
