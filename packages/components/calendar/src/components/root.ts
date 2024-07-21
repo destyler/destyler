@@ -1,11 +1,11 @@
 import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, onMounted, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import type { ExtractPublicPropTypes, Grid, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
+import type { Direction, ExtractPublicPropTypes, Grid, Matcher, SupportedLocale, WeekDayFormat } from '@destyler/shared'
 import { createContext, createDecade, createYear, getDefaultDate, handleCalendarInitialFocus } from '@destyler/shared'
-import { useForwardExpose, useVModel } from '@destyler/composition'
+import { useDirection, useForwardExpose, useVModel } from '@destyler/composition'
 import type { Formatter } from '@destyler/composition'
-import { isSameDay } from '@internationalized/date'
+import { isEqualDay, isSameDay } from '@internationalized/date'
 import type { CalendarDate, CalendarDateTime, DateValue, ZonedDateTime } from '@internationalized/date'
 
 import { useCalendar, useCalendarState } from '../composition/use-calendar'
@@ -107,6 +107,11 @@ export const calendarRootProps = {
     required: false,
     default: false,
   },
+  dir: {
+    type: String as PropType<Direction>,
+    required: false,
+    default: 'ltr',
+  },
 } as const
 
 export type CalendarRootProps = ExtractPublicPropTypes<typeof calendarRootProps>
@@ -117,7 +122,7 @@ export const calendarRootEmits = {
 }
 
 export interface CalendarRootContext {
-  locale: Ref<SupportedLocale>
+  locale: Ref<string>
   modelValue: Ref<DateValue | DateValue[] | undefined>
   placeholder: Ref<DateValue>
   pagedNavigation: Ref<boolean>
@@ -145,7 +150,7 @@ export interface CalendarRootContext {
   isNextButtonDisabled: Ref<boolean>
   isPrevButtonDisabled: Ref<boolean>
   formatter: Formatter
-  defaultDate: DateValue
+  dir: Ref<Direction>
 }
 
 export const [injectCalendarRootContext, provideCalendarRootContext]
@@ -157,12 +162,9 @@ export const CalendarRoot = defineComponent({
   emits: calendarRootEmits,
   slots: Object as SlotsType<{
     default: (opts: {
-      date: CalendarDate | CalendarDateTime | ZonedDateTime
+      date: DateValue
       grid: Grid<DateValue>[]
       weekDays: string[]
-      formatter: Formatter
-      getMonths: DateValue[]
-      getYears: ({ startIndex, endIndex }: { startIndex?: number | undefined, endIndex: number }) => DateValue[]
     }) => VNode[]
   }>,
   setup(props, { emit }) {
@@ -183,12 +185,16 @@ export const CalendarRoot = defineComponent({
       isDateDisabled: propsIsDateDisabled,
       isDateUnavailable: propsIsDateUnavailable,
       calendarLabel,
+      defaultValue,
+      dir: propDir,
     } = toRefs(props)
 
     const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
+    const dir = useDirection(propDir)
+
     const modelValue = useVModel(props, 'modelValue', emit, {
-      defaultValue: props.defaultValue ?? undefined,
+      defaultValue: defaultValue.value,
       passive: (props.modelValue === undefined) as false,
     }) as Ref<DateValue | DateValue[] | undefined>
 
@@ -203,8 +209,7 @@ export const CalendarRoot = defineComponent({
     }) as Ref<DateValue>
 
     function onPlaceholderChange(value: DateValue) {
-      const dateRef = defaultDate.set({ ...placeholder.value })
-      placeholder.value = dateRef.set({ ...value })
+      placeholder.value = value.copy()
     }
 
     const {
@@ -221,19 +226,19 @@ export const CalendarRoot = defineComponent({
       formatter,
       grid,
     } = useCalendar({
-      locale: props.locale,
+      locale,
       placeholder,
-      weekStartsOn: props.weekStartsOn,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
+      weekStartsOn,
+      fixedWeeks,
+      numberOfMonths,
       minValue,
       maxValue,
       disabled,
-      weekdayFormat: props.weekdayFormat,
-      pagedNavigation: props.pagedNavigation,
+      weekdayFormat,
+      pagedNavigation,
       isDateDisabled: propsIsDateDisabled.value,
       isDateUnavailable: propsIsDateUnavailable.value,
-      calendarLabel: calendarLabel.value,
+      calendarLabel,
     })
 
     const {
@@ -241,38 +246,37 @@ export const CalendarRoot = defineComponent({
       isDateSelected,
     } = useCalendarState({
       date: modelValue,
-      grid,
       isDateDisabled,
       isDateUnavailable,
     })
 
-    watch(modelValue, (value) => {
-      if (Array.isArray(value) && value.length) {
-        const lastValue = value[value.length - 1]
-        if (lastValue && placeholder.value.toString() !== lastValue.toString())
+    watch(modelValue, (_modelValue) => {
+      if (Array.isArray(_modelValue) && _modelValue.length) {
+        const lastValue = _modelValue[_modelValue.length - 1]
+        if (lastValue && !isEqualDay(placeholder.value, lastValue))
           onPlaceholderChange(lastValue)
       }
-      else if (!Array.isArray(value) && value && placeholder.toString() !== value.toString()) {
-        onPlaceholderChange(value)
+      else if (!Array.isArray(_modelValue) && _modelValue && !isEqualDay(placeholder.value, _modelValue)) {
+        onPlaceholderChange(_modelValue)
       }
     })
 
     function onDateChange(value: DateValue) {
-      const dateRef = defaultDate
       if (!multiple.value) {
         if (!modelValue.value) {
-          modelValue.value = dateRef.set({ ...value })
+          modelValue.value = value.copy()
           return
         }
 
-        if (!preventDeselect.value && isSameDay(modelValue.value as DateValue, value))
+        if (!preventDeselect.value && isEqualDay(modelValue.value as DateValue, value)) {
+          placeholder.value = value.copy()
           modelValue.value = undefined
-        else
-          modelValue.value = dateRef.set({ ...value })
+        }
+        else { modelValue.value = value.copy() }
       }
       else if (Array.isArray(modelValue.value)) {
         if (!modelValue.value) {
-          modelValue.value = [dateRef.set({ ...value })]
+          modelValue.value = [value.copy()]
 
           return
         }
@@ -284,34 +288,13 @@ export const CalendarRoot = defineComponent({
         else if (!preventDeselect.value) {
           const next = modelValue.value.filter(date => !isSameDay(date, value))
           if (!next.length) {
-            modelValue.value = []
+            placeholder.value = value.copy()
+            modelValue.value = undefined
             return
           }
-          modelValue.value = next.map(date => dateRef.set({ ...date }))
+          modelValue.value = next.map(date => date.copy())
         }
       }
-    }
-
-    const getMonths = computed(() => {
-      const dateObj = defaultDate.set({ ...placeholder.value })
-      return createYear({
-        dateObj,
-        maxValue: defaultDate.set({ ...minValue.value }),
-        minValue: defaultDate.set({ ...maxValue.value }),
-        numberOfMonths: numberOfMonths.value,
-        pagedNavigation: pagedNavigation.value,
-      })
-    })
-
-    function getYears({ startIndex, endIndex }: { startIndex?: number, endIndex: number }) {
-      const dateObj = defaultDate
-      return createDecade({
-        dateObj,
-        startIndex,
-        endIndex,
-        maxValue: defaultDate.set({ ...minValue.value }),
-        minValue: defaultDate.set({ ...maxValue.value }),
-      })
     }
 
     onMounted(() => {
@@ -321,6 +304,7 @@ export const CalendarRoot = defineComponent({
 
     provideCalendarRootContext({
       isDateUnavailable,
+      dir,
       isDateDisabled,
       locale,
       formatter,
@@ -348,13 +332,11 @@ export const CalendarRoot = defineComponent({
       parentElement,
       onPlaceholderChange,
       onDateChange,
-      defaultDate,
     })
 
     return {
+      dir,
       forwardRef,
-      getYears,
-      getMonths,
       weekdays,
       fullCalendarLabel,
       readonly,
@@ -375,9 +357,15 @@ export const CalendarRoot = defineComponent({
       'data-readonly': this.readonly ? '' : undefined,
       'data-disabled': this.disabled ? '' : undefined,
       'data-invalid': this.isInvalid ? '' : undefined,
+      'dir': this.dir,
     }, {
       default: () => {
         return [
+          this.$slots.default?.({
+            date: this.placeholder,
+            grid: this.grid,
+            weekDays: this.weekdays,
+          }),
           h('div', {
             style: {
               'border': '0px',
@@ -401,14 +389,7 @@ export const CalendarRoot = defineComponent({
               })
             },
           }),
-          this.$slots.default?.({
-            date: this.placeholder,
-            grid: this.grid,
-            weekDays: this.weekdays,
-            formatter: this.formatter,
-            getMonths: this.getMonths,
-            getYears: this.getYears,
-          }),
+
         ]
       },
     })

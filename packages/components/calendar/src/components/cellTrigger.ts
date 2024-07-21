@@ -1,5 +1,5 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, nextTick, withKeys } from 'vue'
+import { computed, defineComponent, h, mergeProps, nextTick, withKeys } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { DateValue } from '@internationalized/date'
@@ -59,12 +59,12 @@ export const CalendarCellTrigger = defineComponent({
     )
 
     const isFocusedDate = computed(() => {
-      return isSameDay(props.day, rootContext.defaultDate)
+      return isSameDay(props.day, rootContext.placeholder.value)
     })
-
     const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 
-    const SELECTOR = '[data-destyler-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+    const SELECTOR
+      = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
     function changeDate(date: DateValue) {
       if (rootContext.readonly.value)
@@ -79,7 +79,7 @@ export const CalendarCellTrigger = defineComponent({
       changeDate(
         parseStringToDateValue(
           (e.target as HTMLDivElement).getAttribute('data-value')!,
-          rootContext.defaultDate,
+          rootContext.placeholder.value,
         ),
       )
     }
@@ -95,12 +95,13 @@ export const CalendarCellTrigger = defineComponent({
       const index = allCollectionItems.indexOf(currentElement.value)
       let newIndex = index
       const indexIncrementation = 7
+      const sign = rootContext.dir.value === 'rtl' ? -1 : 1
       switch (e.code) {
         case kbd.ARROW_RIGHT:
-          newIndex++
+          newIndex += sign
           break
         case kbd.ARROW_LEFT:
-          newIndex--
+          newIndex -= sign
           break
         case kbd.ARROW_UP:
           newIndex -= indexIncrementation
@@ -113,7 +114,7 @@ export const CalendarCellTrigger = defineComponent({
           changeDate(
             parseStringToDateValue(
               currentCell!.getAttribute('data-value')!,
-              rootContext.defaultDate,
+              rootContext.placeholder.value,
             ),
           )
           return
@@ -153,11 +154,6 @@ export const CalendarCellTrigger = defineComponent({
         })
       }
     }
-    const formattedTriggerText = computed(() => {
-      return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
-        day: 'numeric',
-      })
-    })
 
     return {
       handleClick,
@@ -171,15 +167,15 @@ export const CalendarCellTrigger = defineComponent({
       isDateToday,
       isOutsideVisibleView,
       isFocusedDate,
-      formattedTriggerText,
+      rootContext,
     }
   },
   render() {
-    return h(Primitive, {
+    return h(Primitive, mergeProps(this.$props, {
       'ref': (el: any) => this.forwardRef(el),
-      'data-destyler-calendar-cell-trigger': '',
       'role': 'button',
       'aria-label': this.labelText,
+      'data-destyler-calendar-cell-trigger': '',
       'aria-disabled': this.isOutsideView || this.isDisabled || this.isUnavailable ? true : undefined,
       'data-selected': this.isSelectedDate ? true : undefined,
       'data-value': this.$props.day.toString(),
@@ -199,8 +195,8 @@ export const CalendarCellTrigger = defineComponent({
 
         this.handleArrowKey(event)
       }, ['up', 'down', 'left', 'right', 'space', 'enter']),
-    }, {
-      default: () => this.$slots.default ? this.$slots.default?.() : this.formattedTriggerText,
+    }), {
+      default: () => this.$slots.default ? this.$slots.default?.() : this.$props.day.day.toLocaleString(this.rootContext.locale.value),
     })
   },
 })
