@@ -5,8 +5,7 @@ import { useEmitAsProps, useForwardExpose, useMounted } from '@destyler/composit
 import { Presence } from '@destyler/presence'
 import { TeleportPrimitive } from '@destyler/teleport'
 
-import { getOpenState } from '../utils'
-import type { PointerDownOutsideEvent } from './contentImpl'
+import { getOpenState, whenMouse } from '../utils'
 import { NavigationContentImpl, navigationContentImplEmits, navigationContentImplProps } from './contentImpl'
 import { injectNavigationContext } from './root'
 import { injectNavigationItemContext } from './item'
@@ -28,6 +27,7 @@ export const navigationContentEmits = {
 
 export const NavigationContent = defineComponent({
   name: 'DestylerNavigationContent',
+  inheritAttrs: false,
   props: navigationContentProps,
   emits: navigationContentEmits,
   slots: Object as SlotsType<{
@@ -44,16 +44,12 @@ export const NavigationContent = defineComponent({
     const open = computed(() => itemContext.value === menuContext.modelValue.value)
 
     const isLastActiveValue = computed(() => {
-      if (!menuContext.modelValue.value && menuContext.previousValue.value)
-        return (menuContext.previousValue.value === itemContext.value)
+      if (menuContext.viewport.value) {
+        if (!menuContext.modelValue.value && menuContext.previousValue.value)
+          return (menuContext.previousValue.value === itemContext.value)
+      }
       return false
     })
-
-    function handlePointerDown(ev: PointerDownOutsideEvent) {
-      emit('pointerDownOutside', ev)
-      if (!ev.preventDefault)
-        menuContext.onContentLeave()
-    }
     return {
       menuContext,
       isClientMounted,
@@ -62,7 +58,6 @@ export const NavigationContent = defineComponent({
       emitsAsProps,
       itemContext,
       forwardRef,
-      handlePointerDown,
     }
   },
   render() {
@@ -81,11 +76,11 @@ export const NavigationContent = defineComponent({
         'onPointerenter': () => {
           this.menuContext.onContentEnter(this.itemContext.value)
         },
-        'onPointerleave': () => {
-          this.menuContext.onContentLeave()
+        'onPointerleave': (event: any) => {
+          whenMouse(() => this.menuContext.onContentLeave())(event)
         },
-        'onPointerdown': (event: any) => {
-          this.handlePointerDown(event)
+        'onPointerDownOutside': (event: any) => {
+          this.$emit('pointerDownOutside', event)
         },
         'onFocusOutside': (event: any) => {
           this.$emit('focusOutside', event)

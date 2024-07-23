@@ -4,4 +4,4 @@ packages:
   - 'packages/*/*'
   - docs
   - test
-  - histoire
+  - .histoire

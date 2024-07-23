@@ -18,6 +18,7 @@ export type NavigationListProps = ExtractPublicPropTypes<typeof navigationListPr
 
 export const NavigationList = defineComponent({
   name: 'DestylerNavigationList',
+  inheritAttrs: false,
   props: navigationListProps,
   slots: Object as SlotsType<{
     default: () => VNode[]

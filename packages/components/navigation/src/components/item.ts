@@ -1,5 +1,5 @@
 import type { PropType, Ref, SlotsType, VNode } from 'vue'
-import { defineComponent, h, ref, withModifiers } from 'vue'
+import { defineComponent, h, ref, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -54,7 +54,7 @@ export const NavigationItem = defineComponent({
 
     const context = injectNavigationContext()
 
-    const value = props.value || useId()
+    const value = useId(props.value)
     const triggerRef = ref<HTMLElement>()
     const focusProxyRef = ref<HTMLElement>()
 
@@ -139,7 +139,7 @@ export const NavigationItem = defineComponent({
       'asChild': this.$props.asChild,
       'as': this.$props.as,
       'data-menu-item': '',
-      'onKeydown': withModifiers((event: any) => {
+      'onKeydown': withKeys((event: any) => {
         this.handleKeydown(event)
       }, ['up', 'down', 'left', 'right', 'home', 'end', 'space']),
     }, () => this.$slots.default?.())

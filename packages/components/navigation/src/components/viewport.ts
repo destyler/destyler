@@ -78,8 +78,8 @@ export const NavigationViewport = defineComponent({
       'data-orientation': this.menuContext.orientation,
       'style': {
         pointerEvents: !this.open && this.menuContext.isRootMenu ? 'none' : undefined,
-        ['--destyler_navigation_menu_viewport_width' as any]: this.size ? `${this.size?.width}px` : undefined,
-        ['--destyler_navigation_menu_viewport_height' as any]: this.size ? `${this.size?.height}px` : undefined,
+        ['--destyler-navigation-menu-viewport-width' as any]: this.size ? `${this.size?.width}px` : undefined,
+        ['--destyler-navigation-menu-viewport-height' as any]: this.size ? `${this.size?.height}px` : undefined,
       },
       'onPointerenter': () => {
         this.menuContext.onContentEnter(this.menuContext.modelValue.value)

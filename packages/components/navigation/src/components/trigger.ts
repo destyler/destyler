@@ -1,11 +1,10 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, onMounted, ref, withDirectives } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { refAutoReset, unrefElement } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 import { Visuallyhidden } from '@destyler/visually-hidden'
-import { BindOnceDirective } from '@destyler/directives'
 
 import { getOpenState, makeContentId, makeTriggerId } from '../utils'
 import { injectNavigationContext } from './root'
@@ -52,11 +51,17 @@ export const NavigationTrigger = defineComponent({
     })
 
     function handlePointerEnter() {
+      if (menuContext.disableHoverTrigger.value)
+        return
+
       wasClickCloseRef.value = false
       itemContext.wasEscapeCloseRef.value = false
     }
 
     function handlePointerMove(ev: PointerEvent) {
+      if (menuContext.disableHoverTrigger.value)
+        return
+
       if (ev.pointerType === 'mouse') {
         if (
           props.disabled
@@ -66,12 +71,16 @@ export const NavigationTrigger = defineComponent({
         ) {
           return
         }
+
         menuContext.onTriggerEnter(itemContext.value)
         hasPointerMoveOpenedRef.value = true
       }
     }
 
     function handlePointerLeave(ev: PointerEvent) {
+      if (menuContext.disableHoverTrigger.value)
+        return
+
       if (ev.pointerType === 'mouse') {
         if (props.disabled)
           return
@@ -80,7 +89,10 @@ export const NavigationTrigger = defineComponent({
       }
     }
 
-    function handleClick() {
+    function handleClick(event: PointerEvent) {
+      if (event.pointerType === 'mouse' && menuContext.disableClickTrigger.value)
+        return
+
       if (hasPointerMoveOpenedRef.value)
         return
 
@@ -137,7 +149,8 @@ export const NavigationTrigger = defineComponent({
   },
   render() {
     return [
-      withDirectives(h(Primitive, mergeProps(this.$attrs, {
+      h(Primitive, mergeProps(this.$attrs, {
+        'id': this.triggerId,
         'ref': (el: any) => this.forwardRef(el),
         'disabled': this.$props.disabled,
         'data-disabled': this.$props.disabled ? '' : undefined,
@@ -156,15 +169,13 @@ export const NavigationTrigger = defineComponent({
         'onPointerleave': (ev: PointerEvent) => {
           this.handlePointerLeave(ev)
         },
-        'onClick': () => {
-          this.handleClick()
+        'onClick': (event: PointerEvent) => {
+          this.handleClick(event)
         },
         'onKeydown': (ev: KeyboardEvent) => {
           this.handleKeydown(ev)
         },
-      }), () => this.$slots.default?.()), [
-        [BindOnceDirective, { id: this.triggerId }],
-      ]),
+      }), () => this.$slots.default?.()),
       this.open
         ? h(Visuallyhidden, {
           'ref': (el: any) => this.setFocusProxyRef(el),

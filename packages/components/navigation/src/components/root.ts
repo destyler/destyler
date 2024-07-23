@@ -39,6 +39,16 @@ export const navigationRootProps = {
     required: false,
     default: 300,
   },
+  disableClickTrigger: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  disableHoverTrigger: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
 } as const
 
 export type NavigationRootProps = ExtractPublicPropTypes<typeof navigationRootProps>
@@ -50,6 +60,8 @@ export interface NavigationContext {
   baseId: string
   dir: Ref<Direction>
   orientation: Orientation
+  disableClickTrigger: Ref<boolean>
+  disableHoverTrigger: Ref<boolean>
   rootNavigationMenu: Ref<HTMLElement | undefined>
   indicatorTrack: Ref<HTMLElement | undefined>
   onIndicatorTrackChange: (indicatorTrack: HTMLElement | undefined) => void
@@ -91,14 +103,14 @@ export const NavigationRoot = defineComponent({
     const { createCollection } = useCollection('nav')
     createCollection(indicatorTrack)
 
-    const { delayDuration, skipDelayDuration, dir: propDir } = toRefs(props)
+    const { delayDuration, skipDelayDuration, dir: propDir, disableClickTrigger, disableHoverTrigger } = toRefs(props)
     const dir = useDirection(propDir)
 
     const isDelaySkipped = refAutoReset(false, skipDelayDuration)
     const computedDelay = computed(() => {
       const isOpen = modelValue.value !== ''
       if (isOpen || isDelaySkipped.value)
-        return 150
+        return 150 // 150ms for user to switch trigger or move into content view
       else return delayDuration.value
     })
 
@@ -111,7 +123,9 @@ export const NavigationRoot = defineComponent({
       isRootMenu: true,
       modelValue,
       previousValue,
-      baseId: useId(),
+      baseId: useId(undefined, 'destyler-navigation'),
+      disableClickTrigger,
+      disableHoverTrigger,
       dir,
       orientation: props.orientation,
       rootNavigationMenu,
@@ -147,6 +161,7 @@ export const NavigationRoot = defineComponent({
     })
 
     return {
+      dir,
       forwardRef,
     }
   },
@@ -157,7 +172,7 @@ export const NavigationRoot = defineComponent({
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'data-orientation': this.$props.orientation,
-      'dir': this.$props.dir,
+      'dir': this.dir,
     }, () => this.$slots.default?.())
   },
 })
