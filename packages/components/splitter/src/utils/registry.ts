@@ -101,15 +101,11 @@ function handlePointerMove(event: ResizeEvent) {
   if (!isPointerDown) {
     const { target } = event
 
-    // Recalculate intersecting handles whenever the pointer moves, except if it has already been pressed
-    // at that point, the handles may not move with the pointer (depending on constraints)
-    // but the same set of active handles should be locked until the pointer is released
     recalculateIntersectingHandles({ target, x, y })
   }
 
   updateResizeHandlerStates('move', event)
 
-  // Update cursor based on return value(s) from active handles
   updateCursor()
 
   if (intersectingHandles.length > 0)
@@ -165,28 +161,13 @@ function recalculateIntersectingHandles({
       && y <= bottom + margin
 
     if (eventIntersects) {
-      // TRICKY
-      // We listen for pointers events at the root in order to support hit area margins
-      // (determining when the pointer is close enough to an element to be considered a "hit")
-      // Clicking on an element "above" a handle (e.g. a modal) should prevent a hit though
-      // so at this point we need to compare stacking order of a potentially intersecting drag handle,
-      // and the element that was actually clicked/touched
       if (
         targetElement !== null
         && dragHandleElement !== targetElement
         && !dragHandleElement.contains(targetElement)
         && !targetElement.contains(dragHandleElement)
-        // Calculating stacking order has a cost, so we should avoid it if possible
-        // That is why we only check potentially intersecting handles,
-        // and why we skip if the event target is within the handle's DOM
         && compare(targetElement, dragHandleElement) > 0
       ) {
-        // If the target is above the drag handle, then we also need to confirm they overlap
-        // If they are beside each other (e.g. a panel and its drag handle) then the handle is still interactive
-        //
-        // It's not enough to compare only the target
-        // The target might be a small element inside of a larger container
-        // (For example, a SPAN or a DIV inside of a larger modal dialog)
         let currentElement: HTMLElement | null = targetElement
         let didIntersect = false
         while (currentElement) {

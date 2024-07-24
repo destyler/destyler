@@ -1,11 +1,10 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, onMounted, onUnmounted, watch, withDirectives } from 'vue'
+import { computed, defineComponent, h, onMounted, onUnmounted, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
+import { useId } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { BindOnceDirective } from '@destyler/directives'
 
 import type { PanelData } from '../types'
-import { useUniqueId } from '../composables/useUniqueId'
 import { injectPanelGroupContext } from './group'
 
 export const splitterPanelProps = {
@@ -54,15 +53,19 @@ export const SplitterPanel = defineComponent({
   props: splitterPanelProps,
   emits: splitterPanelEmits,
   slots: Object as SlotsType<{
-    default: () => VNode[]
+    default: (props: { isCollapsed: boolean, isExpanded: boolean }) => VNode[]
   }>,
+  expose: ['collapse', 'expand', 'getSize', 'resize', 'isCollapsed', 'isExpanded'],
   setup(props, { emit }) {
     const panelGroupContext = injectPanelGroupContext()
-    if (panelGroupContext === null)
-      throw new Error('DestylerSplitterPanel components must be rendered within a SplitterGroup container')
+    if (panelGroupContext === null) {
+      throw new Error(
+        'SplitterPanel components must be rendered within a SplitterGroup container',
+      )
+    }
 
-    const { getPanelStyle, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
-    const panelId = useUniqueId(props.id)
+    const { collapsePanel, expandPanel, getPanelSize, getPanelStyle, isPanelCollapsed, resizePanel, groupId, reevaluatePanelConstraints, registerPanel, unregisterPanel } = panelGroupContext
+    const panelId = useId(props.id, 'destyler-splitter-panel')
 
     const panelDataRef = computed(() => ({
       callbacks: {
@@ -103,14 +106,32 @@ export const SplitterPanel = defineComponent({
 
     const style = computed(() => getPanelStyle(panelDataRef.value, props.defaultSize))
 
+    const isCollapsed = computed(() => isPanelCollapsed(panelDataRef.value))
+    const isExpanded = computed(() => !isCollapsed.value)
+
     return {
       groupId,
       panelId,
       style,
+      isCollapsed,
+      isExpanded,
+      collapse: () => {
+        collapsePanel(panelDataRef.value)
+      },
+      expand: () => {
+        expandPanel(panelDataRef.value)
+      },
+      getSize() {
+        return getPanelSize(panelDataRef.value)
+      },
+      resize: (size: number) => {
+        resizePanel(panelDataRef.value, size)
+      },
     }
   },
   render() {
-    return withDirectives(h(Primitive, {
+    return h(Primitive, {
+      'id': this.groupId,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'style': this.style,
@@ -119,8 +140,6 @@ export const SplitterPanel = defineComponent({
       'data-panel-group-id': this.groupId,
       'data-panel-id': this.panelId,
       'data-panel-size': Number.parseFloat(`${this.style.flexGrow}`).toFixed(1),
-    }, () => this.$slots.default?.()), [
-      [BindOnceDirective, { id: this.panelId }],
-    ])
+    }, () => this.$slots.default?.({ isCollapsed: this.isCollapsed, isExpanded: this.isExpanded }))
   },
 })

@@ -1,12 +1,10 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { defineComponent, h, ref, toRefs, watch, watchEffect, withDirectives } from 'vue'
+import { defineComponent, h, ref, toRefs, watch, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isBrowser } from '@destyler/shared'
-import { useForwardExpose } from '@destyler/composition'
+import { useForwardExpose, useId } from '@destyler/composition'
 
-import { BindOnceDirective } from '@destyler/directives'
-import { useUniqueId } from '../composables/useUniqueId'
 import { useWindowSplitterResizeHandlerBehavior } from '../composables/useWindowSplitterBehavior'
 import { registerResizeHandle } from '../utils/registry'
 import { assert } from '../utils/assert'
@@ -55,7 +53,7 @@ export const SplitterResizeHandle = defineComponent({
     const panelGroupContext = injectPanelGroupContext()
     if (panelGroupContext === null) {
       throw new Error(
-        'DestylerPanelResizeHandle components must be rendered within a PanelGroup container',
+        'DestylerSplitterResizeHandle components must be rendered within a PanelGroup container',
       )
     }
 
@@ -68,7 +66,7 @@ export const SplitterResizeHandle = defineComponent({
       panelGroupElement,
     } = panelGroupContext
 
-    const resizeHandleId = useUniqueId(props.id)
+    const resizeHandleId = useId(props.id, 'destyler-splitter-resize-handle')
     const state = ref<ResizeHandlerState>('inactive')
     const isFocused = ref(false)
     const resizeHandler = ref<ResizeHandler | null>(null)
@@ -132,9 +130,7 @@ export const SplitterResizeHandle = defineComponent({
         element,
         direction,
         {
-          // Coarse inputs (e.g. finger/touch)
           coarse: props.hitAreaMargins?.coarse ?? 15,
-          // Fine inputs (e.g. mouse)
           fine: props.hitAreaMargins?.fine ?? 5,
         },
         setResizeHandlerState,
@@ -159,7 +155,8 @@ export const SplitterResizeHandle = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(Primitive, {
+    return h(Primitive, {
+      'id': this.resizeHandleId,
       'ref': (el: any) => this.forwardRef(el),
       'style': {
         touchAction: 'none',
@@ -182,8 +179,6 @@ export const SplitterResizeHandle = defineComponent({
       'onFocus': () => {
         this.isFocused = false
       },
-    }, () => this.$slots.default?.()), [
-      [BindOnceDirective, { id: this.resizeHandleId }],
-    ])
+    }, () => this.$slots.default?.())
   },
 })
