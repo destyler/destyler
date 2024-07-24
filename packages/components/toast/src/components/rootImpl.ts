@@ -1,9 +1,9 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watchEffect, withModifiers } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted, ref, watch, watchEffect, withKeys } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useForwardExpose } from '@destyler/composition'
+import { useForwardExpose, useRafFn } from '@destyler/composition'
 import { onKeyStroke } from '@vueuse/core'
 import { TeleportPrimitive } from '@destyler/teleport'
 
@@ -54,7 +54,7 @@ export const ToastRootImpl = defineComponent({
   props: toastRootImplProps,
   emits: toastRootImplEmits,
   slots: Object as SlotsType<{
-    default: () => VNode[]
+    default: (props: { remaining: number }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
@@ -66,6 +66,12 @@ export const ToastRootImpl = defineComponent({
     const closeTimerStartTimeRef = ref(0)
     const closeTimerRemainingTimeRef = ref(duration.value)
     const closeTimerRef = ref(0)
+    const remainingTime = ref(duration.value)
+
+    const remainingRaf = useRafFn(() => {
+      const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.value
+      remainingTime.value = Math.max(closeTimerRemainingTimeRef.value - elapsedTime, 0)
+    }, { fpsLimit: 30 })
 
     function startTimer(duration: number) {
       if (!duration || duration === Number.POSITIVE_INFINITY)
@@ -79,6 +85,8 @@ export const ToastRootImpl = defineComponent({
       const isFocusInToast = currentElement.value?.contains(document.activeElement)
       if (isFocusInToast)
         providerContext.viewport.value?.focus()
+
+      providerContext.isClosePausedRef.value = false
       emit('close')
     }
 
@@ -89,17 +97,19 @@ export const ToastRootImpl = defineComponent({
       throw new Error(error)
     }
 
-    watchEffect(() => {
+    watchEffect((_) => {
       const viewport = providerContext.viewport.value
       if (viewport) {
         const handleResume = () => {
           startTimer(closeTimerRemainingTimeRef.value)
+          remainingRaf.resume()
           emit('resume')
         }
         const handlePause = () => {
           const elapsedTime = new Date().getTime() - closeTimerStartTimeRef.value
           closeTimerRemainingTimeRef.value = closeTimerRemainingTimeRef.value - elapsedTime
           window.clearTimeout(closeTimerRef.value)
+          remainingRaf.pause()
           emit('pause')
         }
         viewport.addEventListener(VIEWPORT_PAUSE, handlePause)
@@ -111,10 +121,16 @@ export const ToastRootImpl = defineComponent({
       }
     })
 
-    watchEffect(() => {
+    // start timer when toast opens or duration changes.
+    // we include `open` in deps because closed !== unmounted when animating
+    // so it could reopen before being completely unmounted
+    watch(() => [props.open, duration.value], () => {
+      // Reset the timer when the toast is rerendered with the new duration
+      closeTimerRemainingTimeRef.value = duration.value
+
       if (props.open && !providerContext.isClosePausedRef.value)
         startTimer(duration.value)
-    })
+    }, { immediate: true })
 
     onKeyStroke('Escape', (event) => {
       emit('escapeKeyDown', event)
@@ -132,7 +148,9 @@ export const ToastRootImpl = defineComponent({
     })
 
     provideToastRootContext({ onClose: handleClose })
+
     return {
+      remainingTime,
       announceTextContent,
       providerContext,
       forwardRef,
@@ -166,7 +184,7 @@ export const ToastRootImpl = defineComponent({
           userSelect: 'none',
           touchAction: 'none',
         },
-        'onPointerdown': withModifiers((event: any) => {
+        'onPointerdown': withKeys((event: any) => {
           this.pointerStartRef = { x: event.clientX, y: event.clientY }
         }, ['left']),
         'onPointermove': (event: PointerEvent) => {
@@ -221,7 +239,7 @@ export const ToastRootImpl = defineComponent({
             })
           }
         },
-      }), () => this.$slots.default?.())),
+      }), () => this.$slots.default?.({ remaining: this.remainingTime }))),
     ]
   },
 })

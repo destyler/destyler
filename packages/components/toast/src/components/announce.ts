@@ -29,7 +29,7 @@ export const ToastAnnounce = defineComponent({
     return [
       this.isAnnounced || this.renderAnnounceText
         ? h(Visuallyhidden, null, () => [
-          h('template', null, () => this.providerContext.label.value),
+          this.providerContext.label.value,
           this.$slots.default?.(),
         ])
         : null,
