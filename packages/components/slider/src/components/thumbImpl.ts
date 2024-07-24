@@ -3,6 +3,7 @@ import { computed, defineComponent, h, mergeProps, onMounted, onUnmounted } from
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useMounted, useSize } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { CollectionItem } from '@destyler/collection'
 
 import { convertValueToPercentage, getLabel, getThumbInBoundsOffset, injectSliderOrientationContext } from '../utils'
 import { injectSliderRootContext } from './root'
@@ -30,9 +31,9 @@ export const SliderThumbImpl = defineComponent({
 
     const { forwardRef, currentElement: thumbElement } = useForwardExpose()
 
-    const value = computed(() => rootContext.modelValue?.value?.[props.index!])
+    const value = computed(() => rootContext.modelValue?.value?.[props.index])
     const percent = computed(() => value.value === undefined ? 0 : convertValueToPercentage(value.value, rootContext.min.value ?? 0, rootContext.max.value ?? 100))
-    const label = computed(() => getLabel(props.index!, rootContext.modelValue?.value?.length ?? 0))
+    const label = computed(() => getLabel(props.index, rootContext.modelValue?.value?.length ?? 0))
     const size = useSize(thumbElement)
     const orientationSize = computed(() => size[orientation!.size].value)
     const thumbInBoundsOffset = computed(() => orientationSize.value
@@ -60,29 +61,31 @@ export const SliderThumbImpl = defineComponent({
     }
   },
   render() {
-    return h(Primitive, mergeProps(this.$attrs, {
-      'ref': (el: any) => this.forwardRef(el),
-      'role': 'slider',
-      'data-destyler-collection-item': '',
-      'tabindex': this.rootContext.disabled.value ? undefined : 0,
-      'aria-label': this.$attrs['aria-label'] || this.label,
-      'data-disabled': this.rootContext.disabled.value,
-      'data-orientation': this.rootContext.orientation.value,
-      'aria-valuenow': this.value,
-      'aria-valuemin': this.rootContext.min.value,
-      'aria-valuemax': this.rootContext.max.value,
-      'aria-orientation': this.rootContext.orientation.value,
-      'asChild': this.$props.asChild,
-      'as': this.$props.as,
-      'style': {
-        transform: 'var(--destyler_slider_thumb_transform)',
-        position: 'absolute',
-        [this.orientation!.startEdge]: `calc(${this.percent}% + ${this.thumbInBoundsOffset}px)`,
-        display: !this.isMounted && this.value === undefined ? 'none' : undefined,
-      },
-      'onFocus': () => {
-        this.rootContext.valueIndexToChangeRef.value = this.index!
-      },
-    }), () => this.$slots.default?.())
+    return h(CollectionItem, null, {
+      default: () => h(Primitive, mergeProps(this.$attrs, {
+        'ref': (el: any) => this.forwardRef(el),
+        'role': 'slider',
+        'data-destyler-collection-item': '',
+        'tabindex': this.rootContext.disabled.value ? undefined : 0,
+        'aria-label': this.$attrs['aria-label'] || this.label,
+        'data-disabled': this.rootContext.disabled.value ? '' : undefined,
+        'data-orientation': this.rootContext.orientation.value,
+        'aria-valuenow': this.value,
+        'aria-valuemin': this.rootContext.min.value,
+        'aria-valuemax': this.rootContext.max.value,
+        'aria-orientation': this.rootContext.orientation.value,
+        'asChild': this.$props.asChild,
+        'as': this.$props.as,
+        'style': {
+          transform: 'var(--destyler-slider-thumb-transform)',
+          position: 'absolute',
+          [this.orientation!.startEdge]: `calc(${this.percent}% + ${this.thumbInBoundsOffset}px)`,
+          display: !this.isMounted && this.value === undefined ? 'none' : undefined,
+        },
+        'onFocus': () => {
+          this.rootContext.valueIndexToChangeRef.value = this.index
+        },
+      }), () => this.$slots.default?.()),
+    })
   },
 })

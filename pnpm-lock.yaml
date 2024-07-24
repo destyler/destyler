@@ -1536,6 +1536,9 @@ importers:
 
   packages/components/slider:
     dependencies:
+      '@destyler/collection':
+        specifier: workspace:*
+        version: link:../collection
       '@destyler/composition':
         specifier: workspace:*
         version: link:../../composition

@@ -3,22 +3,11 @@ import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
 
-import { BACK_KEYS, linearScale, provideSliderOrientationContext } from '../utils'
+import { BACK_KEYS, linearScale, provideSliderOrientationContext, sliderOrientationPrivateEmits, sliderOrientationPrivateProps } from '../utils'
 import { SliderImpl } from './impl'
 
 export const sliderHorizontalProps = {
-  min: {
-    type: Number as PropType<number>,
-    required: false,
-  },
-  max: {
-    type: Number as PropType<number>,
-    required: false,
-  },
-  inverted: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+  ...sliderOrientationPrivateProps,
   dir: {
     type: String as PropType<Direction>,
     required: false,
@@ -28,12 +17,7 @@ export const sliderHorizontalProps = {
 export type SliderHorizontalProps = ExtractPublicPropTypes<typeof sliderHorizontalProps>
 
 export const sliderHorizontalEmits = {
-  slideEnd: () => true,
-  slideStart: (_value: number) => true,
-  slideMove: (_value: number) => true,
-  homeKeyDown: (_event: KeyboardEvent) => true,
-  endKeyDown: (_event: KeyboardEvent) => true,
-  stepKeyDown: (_event: KeyboardEvent, _direction: number) => true,
+  ...sliderOrientationPrivateEmits,
 }
 
 export const SliderHorizontal = defineComponent({
@@ -85,7 +69,7 @@ export const SliderHorizontal = defineComponent({
       'dir': this.dir,
       'data-orientation': 'horizontal',
       'style': {
-        '--destyler_slider_thumb_transform': 'translateX(-50%)',
+        ['--destyler-slider-thumb-transform' as any]: 'translateX(-50%)',
       },
       'onSlideStart': (event: any) => {
         const value = this.getValueFromPointer(event.clientX)

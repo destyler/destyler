@@ -1,35 +1,19 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-import { BACK_KEYS, linearScale, provideSliderOrientationContext } from '../utils'
+import { BACK_KEYS, linearScale, provideSliderOrientationContext, sliderOrientationPrivateEmits, sliderOrientationPrivateProps } from '../utils'
 import { SliderImpl } from './impl'
 
 export const sliderVerticalProps = {
-  min: {
-    type: Number as PropType<number>,
-    required: false,
-  },
-  max: {
-    type: Number as PropType<number>,
-    required: false,
-  },
-  inverted: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+  ...sliderOrientationPrivateProps,
 } as const
 
 export type SliderVerticalProps = ExtractPublicPropTypes<typeof sliderVerticalProps>
 
 export const sliderVerticalEmits = {
-  slideEnd: () => true,
-  slideStart: (_value: number) => true,
-  slideMove: (_value: number) => true,
-  homeKeyDown: (_event: KeyboardEvent) => true,
-  endKeyDown: (_event: KeyboardEvent) => true,
-  stepKeyDown: (_event: KeyboardEvent, _direction: number) => true,
+  ...sliderOrientationPrivateEmits,
 }
 
 export const SliderVertical = defineComponent({
@@ -50,7 +34,7 @@ export const SliderVertical = defineComponent({
     function getValueFromPointer(pointerPosition: number) {
       const rect = rectRef.value || sliderElement.value!.getBoundingClientRect()
       const input: [number, number] = [0, rect.height]
-      const output: [number, number] = isSlidingFromBottom.value ? [max.value!, min.value!] : [min.value!, max.value!]
+      const output: [number, number] = isSlidingFromBottom.value ? [max.value, min.value] : [min.value, max.value]
       const value = linearScale(input, output)
 
       rectRef.value = rect
@@ -79,14 +63,14 @@ export const SliderVertical = defineComponent({
       'ref': (el: any) => this.forwardRef(el),
       'data-orientation': 'vertical',
       'style': {
-        '--destyler_slider_thumb_transform': 'translateY(50%)',
+        ['--destyler-slider-thumb-transform' as any]: 'translateY(50%)',
       },
       'onSlideStart': (event: any) => {
-        const value = this.getValueFromPointer(event.clientX)
+        const value = this.getValueFromPointer(event.clientY)
         this.$emit('slideStart', value)
       },
       'onSlideMove': (event) => {
-        const value = this.getValueFromPointer(event.clientX)
+        const value = this.getValueFromPointer(event.clientY)
         this.$emit('slideMove', value)
       },
       'onSlideEnd': () => {

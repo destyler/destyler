@@ -1,25 +1,15 @@
 import type { PropType, Ref, SlotsType } from 'vue'
-import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
+import { defineComponent, h, ref, toRaw, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { primitiveProps } from '@destyler/primitive'
-import { useCollection, useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
+import { createCollection } from '@destyler/collection/composition'
+import { CollectionSlot } from '@destyler/collection'
+import { useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 
 import { ARROW_KEYS, PAGE_KEYS, clamp, getClosestValueIndex, getDecimalCount, getNextSortedValues, hasMinStepsBetweenValues, roundValue } from '../utils'
 import { SliderVertical } from './vertical'
 import { SliderHorizontal } from './horizontal'
-
-export interface SliderRootContext {
-  orientation: Ref<DataOrientation>
-  disabled: Ref<boolean>
-  min: Ref<number>
-  max: Ref<number>
-  modelValue?: Readonly<Ref<number[] | undefined>>
-  valueIndexToChangeRef: Ref<number>
-  thumbElements: Ref<HTMLElement[]>
-}
-
-export const [injectSliderRootContext, provideSliderRootContext] = createContext<SliderRootContext>('DestylerSliderRoot')
 
 export const sliderRootProps = {
   ...primitiveProps,
@@ -30,11 +20,12 @@ export const sliderRootProps = {
   defaultValue: {
     type: Array as PropType<number[]>,
     required: false,
+    default: () => [0],
   },
   modelValue: {
     type: Array as PropType<number[]>,
     required: false,
-    default: () => [0],
+    default: undefined,
   },
   disabled: {
     type: Boolean as PropType<boolean>,
@@ -79,6 +70,18 @@ export const sliderRootProps = {
 
 export type SliderRootProps = ExtractPublicPropTypes<typeof sliderRootProps>
 
+export interface SliderRootContext {
+  orientation: Ref<DataOrientation>
+  disabled: Ref<boolean>
+  min: Ref<number>
+  max: Ref<number>
+  modelValue?: Readonly<Ref<number[] | undefined>>
+  valueIndexToChangeRef: Ref<number>
+  thumbElements: Ref<HTMLElement[]>
+}
+
+export const [injectSliderRootContext, provideSliderRootContext] = createContext<SliderRootContext>('DestylerSliderRoot')
+
 export const sliderRootEmits = {
   'update:modelValue': (_payload: number[] | undefined) => true,
   'valueCommit': (_payload: number[]) => true,
@@ -88,19 +91,17 @@ export const SliderRoot = defineComponent({
   name: 'DestylerSliderRoot',
   inheritAttrs: false,
   props: sliderRootProps,
-  emits: sliderRootEmits,
+  emit: sliderRootEmits,
   slots: Object as SlotsType<{
     default: { modelValue: number[] }
   }>,
   setup(props, { emit }) {
     const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)
-    const { createCollection } = useCollection('sliderThumb')
     const { forwardRef, currentElement } = useForwardExpose()
-    createCollection(currentElement)
     const isFormControl = useFormControl(currentElement)
 
-    const thumbElements = ref<HTMLElement[]>([])
+    createCollection()
 
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue,
@@ -124,15 +125,19 @@ export const SliderRoot = defineComponent({
       const nextValue = modelValue.value[valueIndexToChangeRef.value]
       const hasChanged = nextValue !== prevValue
       if (hasChanged)
-        emit('valueCommit', modelValue.value)
+        emit('valueCommit', toRaw(modelValue.value))
     }
 
+    const thumbElements = ref<HTMLElement[]>([])
+
     function updateValues(value: number, atIndex: number, { commit } = { commit: false }) {
-      const decimalCount = getDecimalCount(step.value!)
-      const snapToStep = roundValue(Math.round((value - min.value) / step.value!) * step.value! + min.value, decimalCount)
+      const decimalCount = getDecimalCount(step.value)
+      const snapToStep = roundValue(Math.round((value - min.value) / step.value) * step.value + min.value, decimalCount)
       const nextValue = clamp(snapToStep, [min.value, max.value])
+
       const nextValues = getNextSortedValues(modelValue.value, nextValue, atIndex)
-      if (hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs.value * step.value!)) {
+
+      if (hasMinStepsBetweenValues(nextValues, minStepsBetweenThumbs.value * step.value)) {
         valueIndexToChangeRef.value = nextValues.indexOf(nextValue)
         const hasChanged = String(nextValues) !== String(modelValue.value)
         if (hasChanged && commit)
@@ -174,8 +179,9 @@ export const SliderRoot = defineComponent({
     }
   },
   render() {
-    return [
-      h(this.orientation === 'horizontal' ? SliderHorizontal : SliderVertical, mergeProps(this.$attrs, {
+    return h(CollectionSlot, [
+      h(this.orientation === 'horizontal' ? SliderHorizontal : SliderVertical, {
+        ...this.$attrs,
         'ref': (el: any) => this.forwardRef(el),
         'asChild': this.$props.asChild,
         'as': this.$props.as,
@@ -184,7 +190,7 @@ export const SliderRoot = defineComponent({
         'dir': this.dir,
         'inverted': this.$props.inverted,
         'aria-disabled': this.disabled,
-        'data-disabled': this.disabled,
+        'data-disabled': this.disabled ? '' : undefined,
         'onPointerdown': () => {
           if (!this.disabled)
             this.valuesBeforeSlideStartRef = this.modelValue
@@ -215,21 +221,20 @@ export const SliderRoot = defineComponent({
             this.updateValues(value + stepInDirection, atIndex, { commit: true })
           }
         },
-      }), () => this.$slots.default?.({ modelValue: this.modelValue })),
+      }, () => this.$slots.default?.({ modelValue: this.modelValue })),
       this.isFormControl
-        ? [
-            this.modelValue.map((value, index) => h('input', {
-              key: index,
-              value,
-              type: 'number',
-              style: {
-                display: 'none',
-              },
-              disabled: this.disabled,
-              name: this.name ? this.name + (this.modelValue.length > 1 ? '[]' : '') : undefined,
-            })),
-          ]
+        ? [this.modelValue.map((value, index) => h('input', {
+            key: index,
+            value,
+            type: 'number',
+            style: {
+              display: 'none',
+            },
+            name: this.name ? this.name + (this.modelValue.length > 1 ? '[]' : '') : undefined,
+            disabled: this.disabled,
+            step: this.step,
+          }))]
         : null,
-    ]
+    ])
   },
 })

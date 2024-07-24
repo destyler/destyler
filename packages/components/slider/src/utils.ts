@@ -1,18 +1,28 @@
+import type { PropType } from 'vue'
 import { createContext } from '@destyler/shared'
 
-export interface SliderOrientationPrivateProps {
-  min: number
-  max: number
-  inverted: boolean
-}
+export const sliderOrientationPrivateProps = {
+  min: {
+    type: Number as PropType<number>,
+    required: true,
+  },
+  max: {
+    type: Number as PropType<number>,
+    required: true,
+  },
+  inverted: {
+    type: Boolean as PropType<boolean>,
+    required: true,
+  },
+} as const
 
-export interface SliderOrientationPrivateEmits {
-  slideEnd: []
-  slideStart: [value: number]
-  slideMove: [value: number]
-  homeKeyDown: [event: KeyboardEvent]
-  endKeyDown: [event: KeyboardEvent]
-  stepKeyDown: [event: KeyboardEvent, direction: number]
+export const sliderOrientationPrivateEmits = {
+  slideEnd: () => true,
+  slideStart: (_value: number) => true,
+  slideMove: (_value: number) => true,
+  homeKeyDown: (_event: KeyboardEvent) => true,
+  endKeyDown: (_event: KeyboardEvent) => true,
+  stepKeyDown: (_event: KeyboardEvent, _direction: number) => true,
 }
 
 /**

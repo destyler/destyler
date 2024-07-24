@@ -1,8 +1,9 @@
 import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h } from 'vue'
-import { useCollection, useForwardExpose } from '@destyler/composition'
+import { useForwardExpose } from '@destyler/composition'
 import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useCollection } from '@destyler/collection/composition'
 
 import { SliderThumbImpl } from './thumbImpl'
 
@@ -19,12 +20,11 @@ export const SliderThumb = defineComponent({
     default: () => VNode[]
   }>,
   setup() {
-    const { injectCollection } = useCollection('sliderThumb')
-    const collections = injectCollection()
+    const { getItems } = useCollection()
 
     const { forwardRef, currentElement: thumbElement } = useForwardExpose()
 
-    const index = computed(() => thumbElement.value ? collections.value.findIndex(i => i === thumbElement.value) : -1)
+    const index = computed(() => thumbElement.value ? getItems().findIndex(i => i.ref === thumbElement.value) : -1)
 
     return {
       index,
@@ -33,7 +33,7 @@ export const SliderThumb = defineComponent({
   },
   render() {
     return h(SliderThumbImpl, {
-      ...this.$attrs,
+      ...this.$props,
       ref: (el: any) => this.forwardRef(el),
       index: this.index,
     }, () => this.$slots.default?.())

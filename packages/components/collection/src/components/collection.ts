@@ -32,19 +32,26 @@ export function createCollection<ItemData = {}>(attrName = ITEM_DATA_ATTR) {
 
 export const CollectionSlot = defineComponent({
   name: 'DestylerCollectionSlot',
-  setup(_, { slots }) {
+  setup(_) {
     const context = injectCollectionContext()
     const { customElement, currentElement } = useCustomElement()
     watch(currentElement, () => {
       context.collectionRef.value = currentElement.value
     })
-    return () => h(Slot, { ref: customElement }, slots)
+    return {
+      customElement,
+    }
+  },
+  render() {
+    return h(Slot, {
+      ref: 'customElement',
+    }, () => this.$slots.default?.())
   },
 })
 
 export const CollectionItem = defineComponent({
   name: 'DestylerCollectionItem',
-  setup(_, { slots, attrs }) {
+  setup(_) {
     const context = injectCollectionContext()
     const { customElement, currentElement } = useCustomElement()
     const vm = getCurrentInstance()
@@ -57,7 +64,17 @@ export const CollectionItem = defineComponent({
       }
     })
 
-    return () => h(Slot, { ...attrs, [context.attrName]: '', ref: customElement }, slots)
+    return {
+      customElement,
+      context,
+    }
+  },
+  render() {
+    return h(Slot, {
+      ref: 'customElement',
+      [this.context.attrName]: '',
+      ...this.$attrs,
+    }, () => this.$slots.default?.())
   },
 })
 
