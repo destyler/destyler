@@ -1,5 +1,5 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
+import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DateValue } from '@internationalized/date'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -34,12 +34,14 @@ export const RangeCalendarCell = defineComponent({
     }
   },
   render() {
-    return h(Primitive, mergeProps(this.$props, {
+    return h(Primitive, {
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
       'role': 'gridcell',
       'aria-selected': this.rootContext.isSelected(this.$props.date) ? true : undefined,
       'aria-disabled': this.rootContext.isDateDisabled(this.$props.date) || this.rootContext.isDateUnavailable?.(this.$props.date),
       'data-disabled': this.rootContext.isDateDisabled(this.$props.date) ? '' : undefined,
-    }), {
+    }, {
       default: () => this.$slots.default?.(),
     })
   },

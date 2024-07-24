@@ -26,7 +26,7 @@ export const RangeCalendarCellTrigger = defineComponent({
   name: 'DestylerRangeCalendarCellTrigger',
   props: rangeCalendarCellTriggerProps,
   slots: Object as SlotsType<{
-    default: (opt: { text: string }) => VNode[]
+    default: () => VNode[]
   }>,
   setup(props) {
     const rootContext = injectRangeCalendarRootContext()
@@ -64,7 +64,7 @@ export const RangeCalendarCellTrigger = defineComponent({
     )
 
     const isFocusedDate = computed(() => {
-      return isSameDay(props.day, rootContext.defaultDate)
+      return isSameDay(props.day, rootContext.placeholder.value)
     })
 
     function changeDate(date: DateValue) {
@@ -73,7 +73,7 @@ export const RangeCalendarCellTrigger = defineComponent({
       if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
         return
 
-      rootContext.lastPressedDateValue.value = rootContext.defaultDate.set({ ...date })
+      rootContext.lastPressedDateValue.value = date.copy()
 
       if (rootContext.startValue.value && rootContext.highlightedRange.value === null) {
         if (isSameDay(date, rootContext.startValue.value) && !rootContext.preventDeselect.value && !rootContext.endValue.value) {
@@ -83,7 +83,7 @@ export const RangeCalendarCellTrigger = defineComponent({
         }
         else if (!rootContext.endValue.value) {
           if (rootContext.lastPressedDateValue.value && isSameDay(rootContext.lastPressedDateValue.value, date))
-            rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+            rootContext.startValue.value = date.copy()
           return
         }
       }
@@ -95,24 +95,32 @@ export const RangeCalendarCellTrigger = defineComponent({
       }
 
       if (!rootContext.startValue.value) {
-        rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+        rootContext.startValue.value = date.copy()
       }
       else if (!rootContext.endValue.value) {
-        rootContext.endValue.value = rootContext.defaultDate.set({ ...date })
+        rootContext.endValue.value = date.copy()
       }
       else if (rootContext.endValue.value && rootContext.startValue.value) {
         rootContext.endValue.value = undefined
-        rootContext.startValue.value = rootContext.defaultDate.set({ ...date })
+        rootContext.startValue.value = date.copy()
       }
     }
 
     function handleClick(e: Event) {
-      e.preventDefault()
-      changeDate(parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.defaultDate))
+      const date = parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value)
+
+      if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
+        return
+
+      changeDate(date)
     }
 
-    function handleFocus(date: DateValue) {
-      rootContext.focusedValue.value = rootContext.defaultDate.set({ ...date })
+    function handleFocus(e: Event) {
+      const date = parseStringToDateValue((e.target as HTMLDivElement).getAttribute('data-value')!, rootContext.placeholder.value)
+
+      if (rootContext.isDateDisabled(date) || rootContext.isDateUnavailable?.(date))
+        return
+      rootContext.focusedValue.value = date.copy()
     }
 
     function handleArrowKey(e: KeyboardEvent) {
@@ -123,16 +131,17 @@ export const RangeCalendarCellTrigger = defineComponent({
       const allCollectionItems: HTMLElement[] = parentElement
         ? Array.from(parentElement.querySelectorAll(SELECTOR))
         : []
+
       const index = allCollectionItems.indexOf(currentElement.value)
       let newIndex = index
       const indexIncrementation = 7
-
+      const sign = rootContext.dir.value === 'rtl' ? -1 : 1
       switch (e.code) {
         case kbd.ARROW_RIGHT:
-          newIndex++
+          newIndex += sign
           break
         case kbd.ARROW_LEFT:
-          newIndex--
+          newIndex -= sign
           break
         case kbd.ARROW_UP:
           newIndex -= indexIncrementation
@@ -142,7 +151,7 @@ export const RangeCalendarCellTrigger = defineComponent({
           break
         case kbd.ENTER:
         case kbd.SPACE_CODE:
-          changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.defaultDate))
+          changeDate(parseStringToDateValue(currentCell!.getAttribute('data-value')!, rootContext.placeholder.value))
           return
         default:
           return
@@ -179,15 +188,8 @@ export const RangeCalendarCellTrigger = defineComponent({
       }
     }
 
-    const formattedTriggerText = computed(() => {
-      return rootContext.formatter.custom(props.day.toDate(getLocalTimeZone()), {
-        day: 'numeric',
-      })
-    })
-
     return {
-      forwardRef,
-      formattedTriggerText,
+      rootContext,
       labelText,
       isOutsideVisibleView,
       isSelectedDate,
@@ -199,6 +201,7 @@ export const RangeCalendarCellTrigger = defineComponent({
       isSelectionEnd,
       isDateToday,
       isFocusedDate,
+      forwardRef,
       handleClick,
       handleFocus,
       handleArrowKey,
@@ -227,11 +230,11 @@ export const RangeCalendarCellTrigger = defineComponent({
       'onClick': (event: any) => {
         this.handleClick(event)
       },
-      'onFocus': () => {
-        this.handleFocus(this.$props.day)
+      'onFocus': (event: any) => {
+        this.handleFocus(event)
       },
-      'onMouseenter': () => {
-        this.handleFocus(this.$props.day)
+      'onMouseenter': (event: any) => {
+        this.handleFocus(event)
       },
       'onKeydown': withKeys((event: any) => {
         this.handleArrowKey(event)
@@ -239,10 +242,8 @@ export const RangeCalendarCellTrigger = defineComponent({
     }), {
       default: () => {
         return this.$slots.default
-          ? this.$slots.default?.({
-            text: this.formattedTriggerText,
-          })
-          : this.formattedTriggerText
+          ? this.$slots.default?.()
+          : this.$props.day.day.toLocaleString(this.rootContext.locale.value)
       },
     })
   },

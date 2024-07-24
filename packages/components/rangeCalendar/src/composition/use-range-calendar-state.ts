@@ -1,16 +1,14 @@
 /*
-  * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/range-calendar/create.ts
+ * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/range-calendar/create.ts
 */
-
 import { type DateValue, isSameDay } from '@internationalized/date'
 import { type Ref, computed } from 'vue'
 import { areAllDaysBetweenValid, isBefore, isBetween } from '@destyler/shared'
-import type { Grid, Matcher } from '@destyler/shared'
+import type { Matcher } from '@destyler/shared'
 
 export interface UseRangeCalendarProps {
   start: Ref<DateValue | undefined>
   end: Ref<DateValue | undefined>
-  grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
   focusedValue: Ref<DateValue | undefined>
@@ -44,13 +42,13 @@ export function useRangeCalendarState(props: UseRangeCalendarProps) {
   )
 
   const isSelectionStart = (date: DateValue) => {
-    if (!props.start.value || !props.end.value)
+    if (!props.start.value)
       return false
     return isSameDay(props.start.value, date)
   }
 
   const isSelectionEnd = (date: DateValue) => {
-    if (!props.end.value || !props.start.value)
+    if (!props.end.value)
       return false
     return isSameDay(props.end.value, date)
   }
