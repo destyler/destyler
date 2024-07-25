@@ -55,8 +55,7 @@ export const SplitterPanel = defineComponent({
   slots: Object as SlotsType<{
     default: (props: { isCollapsed: boolean, isExpanded: boolean }) => VNode[]
   }>,
-  expose: ['collapse', 'expand', 'getSize', 'resize', 'isCollapsed', 'isExpanded'],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const panelGroupContext = injectPanelGroupContext()
     if (panelGroupContext === null) {
       throw new Error(
@@ -109,12 +108,7 @@ export const SplitterPanel = defineComponent({
     const isCollapsed = computed(() => isPanelCollapsed(panelDataRef.value))
     const isExpanded = computed(() => !isCollapsed.value)
 
-    return {
-      groupId,
-      panelId,
-      style,
-      isCollapsed,
-      isExpanded,
+    expose({
       collapse: () => {
         collapsePanel(panelDataRef.value)
       },
@@ -127,6 +121,16 @@ export const SplitterPanel = defineComponent({
       resize: (size: number) => {
         resizePanel(panelDataRef.value, size)
       },
+      isCollapsed,
+      isExpanded,
+    })
+
+    return {
+      groupId,
+      panelId,
+      style,
+      isCollapsed,
+      isExpanded,
     }
   },
   render() {
