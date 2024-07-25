@@ -62,7 +62,7 @@ export const PopperArrow = defineComponent({
         }[this.contentContext.placedSide.value],
         visibility: this.contentContext.shouldHideArrow.value ? 'hidden' : undefined,
       },
-    }, h(Arrow, mergeProps(this.$attrs, {
+    }, () => h(Arrow, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       width: this.$props.width,
@@ -70,8 +70,6 @@ export const PopperArrow = defineComponent({
       style: {
         display: 'block',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => this.$slots.default?.()))
   },
 })

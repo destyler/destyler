@@ -3,7 +3,7 @@ import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
-export const visuallyhiddenProps = {
+export const visuallyHiddenProps = {
   ...primitiveProps,
   as: {
     ...Primitive.as,
@@ -11,11 +11,11 @@ export const visuallyhiddenProps = {
   },
 } as const
 
-export type VisuallyhiddenProps = ExtractPublicPropTypes<typeof visuallyhiddenProps>
+export type VisuallyHiddenProps = ExtractPublicPropTypes<typeof visuallyHiddenProps>
 
-export const Visuallyhidden = defineComponent({
-  name: 'DestylerVisuallyhidden',
-  props: visuallyhiddenProps,
+export const VisuallyHidden = defineComponent({
+  name: 'DestylerVisuallyHidden',
+  props: visuallyHiddenProps,
   slots: Object as SlotsType<{
     default: () => VNode[]
   }>,

@@ -40,8 +40,6 @@ export const PopperAnchor = defineComponent({
       as: this.$props.as,
       asChild: this.$props.asChild,
       ref: (el: any) => this.forwardRef(el),
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

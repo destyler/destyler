@@ -1,7 +1,7 @@
 import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import { usePrevious } from '@destyler/composition'
-import { Visuallyhidden } from '@destyler/visually-hidden'
+import { VisuallyHidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const bubbleSelectProps = {
@@ -59,7 +59,7 @@ export const BubbleSelect = defineComponent({
     }
   },
   render() {
-    return h(Visuallyhidden, {
+    return h(VisuallyHidden, {
       asChild: true,
     }, () => h('select', mergeProps(this.$props, {
       'ref': 'selectElement',

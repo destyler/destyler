@@ -1,5 +1,5 @@
 import type { PropType, Ref, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, ref, watchEffect } from 'vue'
 import type { Middleware, Placement } from '@floating-ui/vue'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -260,7 +260,8 @@ export const PopperContent = defineComponent({
           pointerEvents: 'none',
         }),
       },
-    }, h(Primitive, mergeProps(this.$attrs, {
+    }, () => h(Primitive, {
+      ...this.$attrs,
       'ref': (el: any) => this.forwardRef(el),
       'as': this.$props.as,
       'asChild': this.$props.asChild,
@@ -269,8 +270,6 @@ export const PopperContent = defineComponent({
       'style': {
         animation: !this.isPositioned ? 'none' : undefined,
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }, () => this.$slots.default?.()))
   },
 })
