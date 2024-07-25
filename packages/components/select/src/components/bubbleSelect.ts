@@ -7,30 +7,38 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 export const bubbleSelectProps = {
   autocomplete: {
     type: String as PropType<string>,
+    required: false,
   },
   autofocus: {
     type: Boolean as PropType<boolean>,
+    required: false,
   },
   disabled: {
     type: Boolean as PropType<boolean>,
+    required: false,
   },
   form: {
     type: String as PropType<string>,
+    required: false,
   },
   multiple: {
     type: Boolean as PropType<boolean>,
+    required: false,
   },
   name: {
     type: String as PropType<string>,
+    required: false,
   },
   required: {
     type: Boolean as PropType<boolean>,
+    required: false,
   },
   size: {
     type: Number as PropType<number>,
+    required: false,
   },
   value: {
-    type: Object as PropType<any>,
+    required: false,
   },
 } as const
 
