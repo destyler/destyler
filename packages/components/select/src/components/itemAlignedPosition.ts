@@ -223,8 +223,8 @@ export const SelectItemAlignedPosition = defineComponent({
         position: 'fixed',
         zIndex: this.contentZIndex,
       },
-    }, () => h(Primitive, mergeProps(this.$attrs, this.$props, {
-      ref: (el: any) => this.forwardRef(el),
+    }, h(Primitive, mergeProps({ ...this.$attrs, ...this.$props }, {
+      ref: this.forwardRef,
       style: {
         boxSizing: 'border-box',
         maxHeight: '100%',

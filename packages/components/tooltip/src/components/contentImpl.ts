@@ -4,7 +4,7 @@ import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { Visuallyhidden } from '@destyler/visually-hidden'
+import { VisuallyHidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { TOOLTIP_OPEN } from '../utils'
@@ -136,7 +136,7 @@ export const TooltipContentImpl = defineComponent({
       },
     }), () => [
       this.$slots.default?.(),
-      h(Visuallyhidden, {
+      h(VisuallyHidden, {
         role: 'tooltip',
       }, () => this.ariaLabel),
     ]))

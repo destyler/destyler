@@ -1,6 +1,5 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { defineComponent, h, withDirectives } from 'vue'
-import { BindOnceDirective } from '@destyler/directives'
+import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -30,8 +29,6 @@ export const SelectLabel = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(Primitive, this.$props, () => this.$slots.default?.()), [
-      [BindOnceDirective, { id: this.groupContext.id }],
-    ])
+    return h(Primitive, mergeProps(this.$props, { id: this.groupContext.id }), () => this.$slots.default?.())
   },
 })

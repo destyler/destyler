@@ -1,5 +1,5 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h, onBeforeUnmount, ref, watchEffect } from 'vue'
+import { defineComponent, h, mergeProps, onBeforeUnmount, ref, watchEffect } from 'vue'
 import { useCollection } from '@destyler/composition'
 import { Primitive } from '@destyler/primitive'
 
@@ -62,21 +62,23 @@ export const ScrollSelectButtonImpl = defineComponent({
     }
   },
   render() {
-    return h(Primitive, {
-      ...this.$parent?.$props,
-      'aria-hidden': '',
-      'style': {
-        flexShrink: 0,
+    return h(Primitive, mergeProps(
+      { ...this.$parent?.$props },
+      {
+        'aria-hidden': '',
+        'style': {
+          flexShrink: 0,
+        },
+        'onPointerdown': () => {
+          this.handlePointerDown()
+        },
+        'onPointermove': () => {
+          this.handlePointerMove()
+        },
+        'onPointerleave': () => {
+          this.clearAutoScrollTimer()
+        },
       },
-      'onPointerdown': () => {
-        this.handlePointerDown()
-      },
-      'onPointermove': () => {
-        this.handlePointerMove()
-      },
-      'onPointerleave': () => {
-        this.clearAutoScrollTimer()
-      },
-    }, () => this.$slots.default?.())
+    ), () => this.$slots.default?.())
   },
 })

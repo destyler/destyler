@@ -12,6 +12,14 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const selectPopperPositionProps = {
   ...popperContentProps,
+  align: {
+    ...popperContentProps.align,
+    default: 'start',
+  },
+  collisionPadding: {
+    ...popperContentProps.collisionPadding,
+    default: 10,
+  },
 } as const
 
 export type SelectPopperPositionProps = ExtractPublicPropTypes<typeof selectPopperPositionProps>
@@ -31,7 +39,7 @@ export const SelectPopperPosition = defineComponent({
   render() {
     return h(PopperContent, mergeProps(this.forwarded, {
       style: {
-        'boxSizing': 'border_box',
+        'boxSizing': 'border-box',
         '--destyler-select-content-transform-origin':
         'var(--destyler-popper-transform-origin)',
         '--destyler-select-content-available-width':

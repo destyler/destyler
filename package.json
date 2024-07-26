@@ -11,6 +11,8 @@
   ],
   "scripts": {
     "histoire:dev": "pnpm -C .histoire run dev",
+    "histoire:build": "pnpm -C .histoire run build",
+    "histoire:preview": "pnpm -C .histoire run preview",
     "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run component:count",
     "dev": "pnpm run --filter \"./packages/**\" -r stub",
     "play": "pnpm -C playground run dev",

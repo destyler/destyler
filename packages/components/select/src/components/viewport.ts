@@ -1,4 +1,4 @@
-import type { SlotsType, VNode } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -10,6 +10,10 @@ import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
 export const selectViewportProps = {
   ...primitiveProps,
+  nonce: {
+    type: String as PropType<string>,
+    required: false,
+  },
 } as const
 
 export type SelectViewportProps = ExtractPublicPropTypes<typeof selectViewportProps>
@@ -63,7 +67,6 @@ export const SelectViewport = defineComponent({
       }
       prevScrollTopRef.value = viewport.scrollTop
     }
-
     return {
       forwardRef,
       handleScroll,
@@ -71,21 +74,28 @@ export const SelectViewport = defineComponent({
   },
   render() {
     return [
-      h(Primitive, mergeProps(this.$props, this.$attrs, {
-        'ref': (el: any) => this.forwardRef(el),
-        'data-destyler-select-viewport': '',
-        'role': 'presentation',
-        'style': {
-          position: 'relative',
-          flex: 1,
-          overflow: 'auto',
+      h(Primitive, mergeProps(
+        {
+          ...this.$props,
+          ...this.$attrs,
         },
-        'onScroll': (event: any) => {
-          this.handleScroll(event)
+        {
+          'ref': this.forwardRef,
+          'data-destyler-select-viewport': '',
+          'role': 'presentation',
+          'style': {
+            position: 'relative',
+            flex: 1,
+            overflow: 'auto',
+          },
+          'onScroll': (event: any) => {
+            this.handleScroll(event)
+          },
         },
-      }), () => this.$slots.default?.()),
+      ), () => this.$slots.default?.()),
       h(Primitive, {
         as: 'style',
+        nonce: this.$props.nonce,
       }, () => `/* Hide scrollbars cross-browser and enable momentum scroll for touch
       devices */ [data-destyler-select-viewport] { scrollbar-width:none; -ms-overflow-style: none;
       -webkit-overflow-scrolling: touch; }

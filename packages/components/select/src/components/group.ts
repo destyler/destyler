@@ -24,7 +24,7 @@ export const SelectGroup = defineComponent({
     default: () => VNode[]
   }>,
   setup() {
-    const id = useId()
+    const id = useId(undefined, 'destyler-select-group')
     provideSelectGroupContext({ id })
 
     return {

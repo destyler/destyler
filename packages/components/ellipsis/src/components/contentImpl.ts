@@ -4,7 +4,7 @@ import { useEventListener } from '@vueuse/core'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer } from '@destyler/dismissable-layer'
 import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
-import { Visuallyhidden } from '@destyler/visually-hidden'
+import { VisuallyHidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { ELLIPSIS_OPEN } from '../utils'
@@ -142,7 +142,7 @@ export const EllipsisContentImpl = defineComponent({
       },
     }), () => [
       this.$slots.default?.(),
-      h(Visuallyhidden, {
+      h(VisuallyHidden, {
         role: 'tooltip',
       }, () => this.ariaLabel),
     ]))

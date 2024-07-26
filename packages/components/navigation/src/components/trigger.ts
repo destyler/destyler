@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { refAutoReset, unrefElement } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { Visuallyhidden } from '@destyler/visually-hidden'
+import { VisuallyHidden } from '@destyler/visually-hidden'
 
 import { getOpenState, makeContentId, makeTriggerId } from '../utils'
 import { injectNavigationContext } from './root'
@@ -177,7 +177,7 @@ export const NavigationTrigger = defineComponent({
         },
       }), () => this.$slots.default?.()),
       this.open
-        ? h(Visuallyhidden, {
+        ? h(VisuallyHidden, {
           'ref': (el: any) => this.setFocusProxyRef(el),
           'aria-hidden': '',
           'tabindex': 0,

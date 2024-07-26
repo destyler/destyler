@@ -1,6 +1,6 @@
 import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
-import { Visuallyhidden } from '@destyler/visually-hidden'
+import { VisuallyHidden } from '@destyler/visually-hidden'
 
 import { injectToastProviderContext } from './provider'
 
@@ -21,7 +21,7 @@ export const ToastFocusProxy = defineComponent({
     }
   },
   render() {
-    return h(Visuallyhidden, {
+    return h(VisuallyHidden, {
       'aria-hidden': '',
       'tabindex': '0',
       'style': {

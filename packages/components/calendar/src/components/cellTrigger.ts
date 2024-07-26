@@ -64,7 +64,7 @@ export const CalendarCellTrigger = defineComponent({
     const isSelectedDate = computed(() => rootContext.isDateSelected(props.day))
 
     const SELECTOR
-      = '[data-radix-vue-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
+      = '[data-destyler-calendar-cell-trigger]:not([data-disabled]):not([data-outside-month]):not([data-outside-visible-months])'
 
     function changeDate(date: DateValue) {
       if (rootContext.readonly.value)

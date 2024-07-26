@@ -7,7 +7,7 @@ import { useFocusWithin } from '@vueuse/core'
 import { useArrowNavigation, useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { CollectionSlot } from '@destyler/collection'
 import { createCollection } from '@destyler/collection/composition'
-import { VisuallyhiddenInput } from '@destyler/visually-hidden/component'
+import { VisuallyHiddenInput } from '@destyler/visually-hidden/component'
 
 export const dynamicRootProps = {
   ...primitiveProps,
@@ -237,7 +237,7 @@ export const DynamicRoot = defineComponent({
     }, () => [
       this.$slots.default?.({ modelValue: this.modelValue }),
       this.isFormControl && this.$props.name
-        ? h(VisuallyhiddenInput, {
+        ? h(VisuallyHiddenInput, {
           name: this.$props.name,
           value: this.modelValue,
           required: this.required,

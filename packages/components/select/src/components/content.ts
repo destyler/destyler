@@ -1,5 +1,5 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { Teleport, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
+import { Teleport, computed, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -42,26 +42,31 @@ export const SelectContent = defineComponent({
 
     const presenceRef = ref<InstanceType<typeof Presence>>()
 
+    const renderPresence = computed(() => props.forceMount || rootContext.open.value)
+
     return {
       presenceRef,
       rootContext,
       forwarded,
       fragment,
+      renderPresence,
     }
   },
   render() {
-    return [
-      h(Presence, {
+    if (this.renderPresence) {
+      return h(Presence, {
         ref: 'presenceRef',
-        present: this.$props.forceMount || this.rootContext.open.value,
-      }, () => h(SelectContentImpl, mergeProps(this.forwarded, this.$attrs), () => this.$slots.default?.())),
-      !this.presenceRef?.present && this.fragment
-        ? h(Teleport, {
-          to: this.fragment,
-        }, () => h(SelectProvider, {
-          context: this.rootContext,
-        }, h('div', null, () => this.$slots.default?.())))
-        : null,
-    ]
+        present: true,
+      }, () => h(SelectContentImpl, mergeProps(
+        { ...this.forwarded, ...this.$attrs },
+      ), () => this.$slots.default?.()))
+    }
+    else if (!this.presenceRef?.present && this.fragment) {
+      return h('div', {}, h(Teleport, {
+        to: this.fragment,
+      }, h(SelectProvider, {
+        context: this.rootContext,
+      }, () => this.$slots.default?.())))
+    }
   },
 })

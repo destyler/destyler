@@ -6,7 +6,7 @@ import { createContext } from '@destyler/shared'
 import isEqual from 'fast-deep-equal'
 import { useDirection, useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
 import { PopperRoot } from '@destyler/popper'
-import { VisuallyhiddenInput } from '@destyler/visually-hidden/component'
+import { VisuallyHiddenInput } from '@destyler/visually-hidden/component'
 import { createCollection } from '@destyler/collection/composition'
 
 export type AcceptableValue = string | number | boolean | Record<string, any>
@@ -287,7 +287,7 @@ export const ComboboxRoot = defineComponent({
             return [
               this.$slots.default?.({ open: this.open, modelValue: this.modelValue }),
               this.isFormControl && this.$props.name
-                ? h(VisuallyhiddenInput, {
+                ? h(VisuallyHiddenInput, {
                   name: this.$props.name,
                   value: this.modelValue,
                 })
