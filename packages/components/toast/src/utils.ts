@@ -60,11 +60,11 @@ export function getAnnounceTextContent(container: HTMLElement) {
       textContent.push(node.textContent)
     if (isHTMLElement(node)) {
       const isHidden = node.ariaHidden || node.hidden || node.style.display === 'none'
-      const isExcluded = node.dataset.radixToastAnnounceExclude === ''
+      const isExcluded = node.dataset.destylerToastAnnounceExclude === ''
 
       if (!isHidden) {
         if (isExcluded) {
-          const altText = node.dataset.radixToastAnnounceAlt
+          const altText = node.dataset.destylerToastAnnounceAlt
           if (altText)
             textContent.push(altText)
         }
