@@ -1,5 +1,5 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { PopperArrow, popperArrowProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -28,7 +28,7 @@ export const SelectArrow = defineComponent({
   },
   render() {
     return this.rootContext.open.value && this.contentContext.position === 'popper'
-      ? h(PopperArrow, this.$props, () => this.$slots.default?.())
+      ? h(PopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
       : null
   },
 })

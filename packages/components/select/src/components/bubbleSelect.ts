@@ -1,5 +1,5 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { defineComponent, h, mergeProps, ref, toRefs } from 'vue'
+import { defineComponent, h, mergeProps, ref, toRefs, vModelSelect, withDirectives } from 'vue'
 import { usePrevious } from '@destyler/composition'
 import { VisuallyHidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -44,14 +44,9 @@ export const bubbleSelectProps = {
 
 export type BubbleSelectProps = ExtractPublicPropTypes<typeof bubbleSelectProps>
 
-export const bubbleSelectEmits = {
-  'update:value': (_value: any) => true,
-}
-
 export const BubbleSelect = defineComponent({
   name: 'DestylerBubbleSelect',
   props: bubbleSelectProps,
-  emits: bubbleSelectEmits,
   slots: Object as SlotsType<{
     default: () => VNode[]
   }>,
@@ -69,13 +64,14 @@ export const BubbleSelect = defineComponent({
   render() {
     return h(VisuallyHidden, {
       asChild: true,
-    }, () => h('select', mergeProps(this.$props, {
+    }, () => withDirectives(h('select', mergeProps(this.$props, {
       'ref': 'selectElement',
-      'modelValue': this.value,
       'onUpdate:modelValue': (value: any) => {
-        this.$emit('update:value', value)
+        this.value = value
       },
       'defaultValue': this.value,
-    }), () => this.$slots.default?.()))
+    }), () => this.$slots.default?.()), [
+      [vModelSelect, this.value],
+    ]))
   },
 })

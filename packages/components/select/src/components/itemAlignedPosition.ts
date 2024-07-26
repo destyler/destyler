@@ -215,7 +215,7 @@ export const SelectItemAlignedPosition = defineComponent({
     }
   },
   render() {
-    return h('dvi', {
+    return h('div', {
       ref: 'contentWrapperElement',
       style: {
         display: 'flex',
