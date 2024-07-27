@@ -8,10 +8,12 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname)}/`,
     },
   },
+
   plugins: [
     Vue(),
   ],
   test: {
+    reporters: ['html'],
     globals: true,
     environment: 'jsdom',
     coverage: {

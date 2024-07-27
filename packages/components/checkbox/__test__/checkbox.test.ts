@@ -39,9 +39,6 @@ describe('given a default Checkbox', () => {
     const checkbox = wrapper.find('button')
     await checkbox.trigger('click')
     const indicator = await findByTestId(wrapper.element as HTMLElement, 'test-indicator', { })
-    it.skip('should render a visible indicator', async () => {
-      expect(document).toContain(indicator)
-    })
 
     await checkbox.trigger('click')
     it('should remove the indicator', async () => {
@@ -77,7 +74,7 @@ describe('given a disabled Checkbox', () => {
 describe('given checked value as "indeterminate"', async () => {
   const wrapper = mount(Checkbox, { props: { checked: 'indeterminate' } })
 
-  it.skip('should have [data-state] of "indeterminate"', () => {
+  it('should have [data-state] of "indeterminate"', () => {
     expect(wrapper.find('button').attributes('data-state')).toBe('indeterminate')
     expect(wrapper.find('span').attributes('data-state')).toBe('indeterminate')
   })
