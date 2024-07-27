@@ -26,13 +26,11 @@ export const ToastAnnounce = defineComponent({
     }
   },
   render() {
-    return [
-      this.isAnnounced || this.renderAnnounceText
-        ? h(VisuallyHidden, null, () => [
-          this.providerContext.label.value,
-          this.$slots.default?.(),
-        ])
-        : null,
-    ]
+    if (this.isAnnounced || this.renderAnnounceText) {
+      return h(VisuallyHidden, null, () => [
+        this.providerContext.label.value,
+        this.$slots.default?.(),
+      ])
+    }
   },
 })

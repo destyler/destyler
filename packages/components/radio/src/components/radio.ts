@@ -1,9 +1,8 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, toRefs, withDirectives, withModifiers } from 'vue'
+import { computed, defineComponent, h, mergeProps, toRefs, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
-import { BindOnceDirective } from '@destyler/directives'
 
 export const radioProps = {
   ...primitiveProps,
@@ -79,9 +78,10 @@ export const Radio = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(Primitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$attrs, {
+      'id': this.$props.id,
       'role': 'radio',
-      'ref': (el: any) => this.forwardRef(el),
+      'ref': this.forwardRef,
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'as': this.$props.as,
       'aria-checked': this.checkedRef,
@@ -117,8 +117,6 @@ export const Radio = defineComponent({
           },
         })
         : null,
-    ]), [
-      [BindOnceDirective, { id: this.$props.id }],
     ])
   },
 })

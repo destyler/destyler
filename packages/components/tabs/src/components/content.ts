@@ -67,37 +67,35 @@ export const TabsContent = defineComponent({
         forceMount: false,
       },
       {
-        default: ({ present }: any) => {
-          return [
-            withDirectives(
-              h(
-                Primitive,
-                {
-                  'ref': (el: any) => this.forwardRef(el),
-                  'as': this.$props.as,
-                  'asChild': this.$props.asChild,
-                  'role': 'tabpanel',
-                  'data-state': this.isSelected ? 'active' : 'inactive',
-                  'data-orientation': this.rootContext.orientation.value,
-                  'aria-labelledby': this.triggerId,
-                  'hidden': !present.value,
-                  'tabindex': '0',
-                  'style': {
-                    animationDuration: this.isMountAnimationPreventedRef
-                      ? '0s'
-                      : undefined,
-                  },
+        default: ({ present }: any) => [
+          withDirectives(
+            h(
+              Primitive,
+              {
+                'ref': (el: any) => this.forwardRef(el),
+                'as': this.$props.as,
+                'asChild': this.$props.asChild,
+                'role': 'tabpanel',
+                'data-state': this.isSelected ? 'active' : 'inactive',
+                'data-orientation': this.rootContext.orientation.value,
+                'aria-labelledby': this.triggerId,
+                'hidden': !present.value,
+                'tabindex': '0',
+                'style': {
+                  animationDuration: this.isMountAnimationPreventedRef
+                    ? '0s'
+                    : undefined,
                 },
-                () => [
-                  this.$props.forceMount || this.isSelected
-                    ? this.$slots.default?.()
-                    : null,
-                ],
-              ),
-              [[BindOnceDirective, { id: this.contentId }]],
+              },
+              () => [
+                this.$props.forceMount || this.isSelected
+                  ? this.$slots.default?.()
+                  : null,
+              ],
             ),
-          ]
-        },
+            [[BindOnceDirective, { id: this.contentId }]],
+          ),
+        ],
       },
     )
   },

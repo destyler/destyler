@@ -179,7 +179,7 @@ export const SliderRoot = defineComponent({
     }
   },
   render() {
-    return h(CollectionSlot, [
+    return h(CollectionSlot, () => [
       h(this.orientation === 'horizontal' ? SliderHorizontal : SliderVertical, {
         ...this.$attrs,
         'ref': (el: any) => this.forwardRef(el),

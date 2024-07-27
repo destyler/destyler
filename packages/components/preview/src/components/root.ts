@@ -129,7 +129,7 @@ export const PreviewRoot = defineComponent({
       }),
       [
         useVShow
-          ? h(TeleportPrimitive, h(Primitive, mergeProps(this.$attrs, {
+          ? h(TeleportPrimitive, null, () => h(Primitive, mergeProps(this.$attrs, {
             as: this.$props.as,
             asChild: this.$props.asChild,
             role: 'preview-dialog',
