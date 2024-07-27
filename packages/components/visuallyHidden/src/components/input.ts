@@ -9,7 +9,6 @@ export const visuallyHiddenInputProps = {
     required: true,
   },
   value: {
-    type: Object as PropType<any>,
     required: true,
   },
   required: {
