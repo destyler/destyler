@@ -1,4 +1,4 @@
-export { BubbleSelect, bubbleSelectProps, bubbleSelectEmits, type BubbleSelectProps } from './components/bubbleSelect'
+export { BubbleSelect, bubbleSelectProps, type BubbleSelectProps } from './components/bubbleSelect'
 export { SelectArrow, selectArrowProps, type SelectArrowProps } from './components/arrow'
 export { SelectContent, selectContentProps, selectContentEmits, type SelectContentProps } from './components/content'
 export { SelectContentImpl, selectContentImplEmits, selectContentImplProps } from './components/contentImpl'

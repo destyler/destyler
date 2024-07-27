@@ -69,14 +69,8 @@ function isFlexItem(node: HTMLElement) {
 function createsStackingContext(node: HTMLElement) {
   const style = getComputedStyle(node)
 
-  // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
   if (style.position === 'fixed')
     return true
-  // Forked to fix upstream bug https://github.com/Rich-Harris/stacking-order/issues/3
-  // if (
-  //   (style.zIndex !== "auto" && style.position !== "static") ||
-  //   isFlexItem(node)
-  // )
   if (
     style.zIndex !== 'auto'
     && (style.position !== 'static' || isFlexItem(node))

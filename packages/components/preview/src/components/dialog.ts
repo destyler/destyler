@@ -23,7 +23,7 @@ export const PreviewDialog = defineComponent({
     }
   },
   render() {
-    return h(TeleportPrimitive, [
+    return h(TeleportPrimitive, null, () => [
       this.rootContent.isPreviewActive.value
         ? h(Primitive, mergeProps(this.$attrs, {
           as: this.$props.as,

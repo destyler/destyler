@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { MenuCheckboxItem, menuCheckboxItemProps } from '@destyler/menu'
-import { menuCheckboxItemEmits } from '@destyler/menu/dist/component'
+import { menuCheckboxItemEmits } from '@destyler/menu/component'
 
 export const menubarCheckboxItemProps = {
   ...menuCheckboxItemProps,

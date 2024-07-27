@@ -22,10 +22,7 @@ export const SelectScrollDownButton = defineComponent({
   }>,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
-    const alignedPositionContext
-  = contentContext.position === 'item-aligned'
-    ? injectSelectItemAlignedPositionContext()
-    : undefined
+    const alignedPositionContext = contentContext.position === 'item-aligned' ? injectSelectItemAlignedPositionContext() : undefined
 
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -52,7 +49,6 @@ export const SelectScrollDownButton = defineComponent({
       if (currentElement.value)
         alignedPositionContext?.onScrollButtonChange(currentElement.value)
     })
-
     return {
       canScrollDown,
       forwardRef,
@@ -60,15 +56,16 @@ export const SelectScrollDownButton = defineComponent({
     }
   },
   render() {
-    return this.canScrollDown
-      ? h(ScrollSelectButtonImpl, {
-        ref: (el: any) => this.forwardRef(el),
+    if (this.canScrollDown) {
+      return h(ScrollSelectButtonImpl, {
+        ref: this.forwardRef,
         onAutoScroll: () => {
           const { viewport, selectedItem } = this.contentContext
-          if (viewport?.value && selectedItem?.value)
+          if (viewport?.value && selectedItem?.value) {
             viewport.value.scrollTop = viewport.value.scrollTop + selectedItem.value.offsetHeight
+          }
         },
       }, () => this.$slots.default?.())
-      : null
+    }
   },
 })

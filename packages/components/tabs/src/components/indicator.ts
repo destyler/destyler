@@ -67,15 +67,13 @@ export const TabsIndicator = defineComponent({
     }
   },
   render() {
-    return [
-      typeof this.indicatorStyle.size === 'number'
-        ? h(Primitive, mergeProps(this.$props, {
-          style: {
-            '--destyler_tabs_indicator_size': `${this.indicatorStyle.size}px`,
-            '--destyler_tabs_indicator_position': `${this.indicatorStyle.position}px`,
-          },
-        }), () => this.$slots.default?.())
-        : null,
-    ]
+    if (typeof this.indicatorStyle.size === 'number') {
+      return h(Primitive, mergeProps(this.$props, this.$attrs, {
+        style: {
+          '--destyler-tabs-indicator-size': `${this.indicatorStyle.size}px`,
+          '--destyler-tabs-indicator-position': `${this.indicatorStyle.position}px`,
+        },
+      }), () => this.$slots.default?.())
+    }
   },
 })

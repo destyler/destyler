@@ -34,11 +34,10 @@ export const TooltipContent = defineComponent({
     }
   },
   render() {
-    const useVShow = this.rootContext.open.value
-    return useVShow
-      ? h(this.rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable, {
+    if (this.rootContext.open.value) {
+      return h(this.rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable, {
         ...this.forwarded,
       }, () => this.$slots.default?.())
-      : null
+    }
   },
 })

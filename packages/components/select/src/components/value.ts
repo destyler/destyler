@@ -17,6 +17,7 @@ export const selectValueProps = {
   placeholder: {
     type: String as PropType<string>,
     required: false,
+    default: '',
   },
 } as const
 
@@ -49,16 +50,12 @@ export const SelectValue = defineComponent({
   },
   render() {
     return h(Primitive, {
-      ref: (el: any) => this.forwardRef(el),
+      ref: this.forwardRef,
       as: this.$props.as,
       asChild: this.$props.asChild,
       style: {
         pointerEvents: 'none',
       },
-    }, () => [
-      shouldShowPlaceholder(this.rootContext.modelValue?.value)
-        ? this.$props.placeholder
-        : this.$slots.default?.(),
-    ])
+    }, () => [shouldShowPlaceholder(this.rootContext.modelValue?.value) ? this.$props.placeholder : this.$slots.default?.()])
   },
 })

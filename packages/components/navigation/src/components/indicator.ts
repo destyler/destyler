@@ -1,9 +1,10 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { Teleport, computed, defineComponent, h, ref, watchEffect } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useResizeObserver } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
+import { TeleportPrimitive } from '@destyler/teleport'
 
 import { injectNavigationContext } from './root'
 
@@ -19,6 +20,7 @@ export type NavigationIndicatorProps = ExtractPublicPropTypes<typeof navigationI
 
 export const NavigationIndicator = defineComponent({
   name: 'DestylerNavigationIndicator',
+  inheritAttrs: false,
   props: navigationIndicatorProps,
   slots: Object as SlotsType<{
     default: () => VNode[]
@@ -27,11 +29,11 @@ export const NavigationIndicator = defineComponent({
     const { forwardRef } = useForwardExpose()
     const { injectCollection } = useCollection('nav')
     const collectionItems = injectCollection()
-    const menuContext = injectNavigationContext()
+    const navigationContext = injectNavigationContext()
 
     const position = ref<{ size: number, offset: number }>()
-    const isHorizontal = computed(() => menuContext.orientation === 'horizontal')
-    const isVisible = computed(() => !!menuContext.modelValue.value)
+    const isHorizontal = computed(() => navigationContext.orientation === 'horizontal')
+    const isVisible = computed(() => !!navigationContext.modelValue.value)
 
     const activeTrigger = ref<HTMLElement>()
 
@@ -49,22 +51,22 @@ export const NavigationIndicator = defineComponent({
     }
 
     watchEffect(() => {
-      if (!menuContext.modelValue.value) {
+      if (!navigationContext.modelValue.value) {
         position.value = undefined
         return
       }
       const items = collectionItems.value
       activeTrigger.value = items.find(item =>
-        item.id.includes(menuContext.modelValue.value),
+        item.id.includes(navigationContext.modelValue.value),
       )
       handlePositionChange()
     })
 
     useResizeObserver(activeTrigger, handlePositionChange)
-    useResizeObserver(menuContext.indicatorTrack, handlePositionChange)
+    useResizeObserver(navigationContext.indicatorTrack, handlePositionChange)
 
     return {
-      menuContext,
+      navigationContext,
       isVisible,
       forwardRef,
       isHorizontal,
@@ -72,16 +74,16 @@ export const NavigationIndicator = defineComponent({
     }
   },
   render() {
-    return this.menuContext.indicatorTrack.value
-      ? h(Teleport, {
-        to: this.menuContext.indicatorTrack.value,
+    return this.navigationContext.indicatorTrack.value
+      ? h(TeleportPrimitive, {
+        to: this.navigationContext.indicatorTrack.value,
       }, () => h(Presence, {
         present: this.$props.forceMount || this.isVisible,
-      }, () => h(Primitive, {
+      }, () => h(Primitive, mergeProps(this.$attrs, {
         'ref': (el: any) => this.forwardRef(el),
         'aria-hidden': '',
         'data-state': this.isVisible ? 'visible' : 'hidden',
-        'data-orientation': this.menuContext.orientation,
+        'data-orientation': this.navigationContext.orientation,
         'asChild': this.$props.asChild,
         'as': this.$props.as,
         'style': {
@@ -98,8 +100,7 @@ export const NavigationIndicator = defineComponent({
                 transform: `translateY(${this.position?.offset}px)`,
               }),
         },
-
-      }, () => this.$slots.default?.())))
+      }), () => this.$slots.default?.())))
       : null
   },
 })

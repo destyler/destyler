@@ -4,7 +4,7 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useCollection, useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { wrapArray } from '@destyler/shared'
 import { MenuContent, menuContentProps } from '@destyler/menu'
-import { menuContentEmits } from '@destyler/menu/dist/component'
+import { menuContentEmits } from '@destyler/menu/component'
 import { BindOnceDirective } from '@destyler/directives'
 
 import { injectMenubarRootContext } from './root'
@@ -88,11 +88,11 @@ export const MenubarContent = defineComponent({
       'aria-labelledby': this.menuContext.triggerId,
       'data-destyler-menubar-content': '',
       'style': {
-        '--destyler_menubar_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-        '--destyler_menubar_content_available_width': 'var(--destyler_popper_available_width)',
-        '--destyler_menubar_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_menubar_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_menubar_trigger_height': 'var(--destyler_popper_anchor_height)',
+        '--destyler-menubar-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-menubar-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-menubar-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-menubar-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-menubar-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
       'onCloseAutoFocus': (event: any) => {
         const menubarOpen = Boolean(this.rootContext.modelValue.value)

@@ -29,10 +29,10 @@ export const SelectItemIndicator = defineComponent({
     }
   },
   render() {
-    return this.itemContext.isSelected.value
-      ? h(Primitive, mergeProps(this.$props, {
+    if (this.itemContext.isSelected.value) {
+      return h(Primitive, mergeProps(this.$props, {
         'aria-hidden': '',
       }), () => this.$slots.default?.())
-      : null
+    }
   },
 })

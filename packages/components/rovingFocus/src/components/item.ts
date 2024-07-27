@@ -1,6 +1,5 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { ExtractPropTypes, PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, onUnmounted } from 'vue'
-import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useCollection, useId } from '@destyler/composition'
 import { focusFirst, wrapArray } from '@destyler/shared'
@@ -30,7 +29,7 @@ export const rovingFocusItemProps = {
   },
 } as const
 
-export type RovingFocusItemProps = ExtractPublicPropTypes<typeof rovingFocusItemProps>
+export type RovingFocusItemProps = ExtractPropTypes<typeof rovingFocusItemProps>
 
 export const RovingFocusItem = defineComponent({
   name: 'DestylerRovingFocusItem',

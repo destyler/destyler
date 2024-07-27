@@ -2,6 +2,7 @@ import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { convertValueToPercentage, injectSliderOrientationContext } from '../utils'
 import { injectSliderRootContext } from './root'
@@ -26,6 +27,8 @@ export const SliderRange = defineComponent({
     const rootContext = injectSliderRootContext()
     const orientation = injectSliderOrientationContext()
 
+    useForwardExpose()
+
     const percentages = computed(() => rootContext.modelValue?.value?.map(value =>
       convertValueToPercentage(value, rootContext.min.value, rootContext.max.value),
     ))
@@ -43,7 +46,7 @@ export const SliderRange = defineComponent({
   },
   render() {
     return h(Primitive, {
-      'data-disabled': this.rootContext.disabled.value,
+      'data-disabled': this.rootContext.disabled.value ? '' : undefined,
       'data-orientation': this.rootContext.orientation.value,
       'as': this.$props.as,
       'asChild': this.$props.asChild,

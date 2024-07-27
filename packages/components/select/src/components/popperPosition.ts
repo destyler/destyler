@@ -12,6 +12,14 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const selectPopperPositionProps = {
   ...popperContentProps,
+  align: {
+    ...popperContentProps.align,
+    default: 'start',
+  },
+  collisionPadding: {
+    ...popperContentProps.collisionPadding,
+    default: 10,
+  },
 } as const
 
 export type SelectPopperPositionProps = ExtractPublicPropTypes<typeof selectPopperPositionProps>
@@ -31,15 +39,15 @@ export const SelectPopperPosition = defineComponent({
   render() {
     return h(PopperContent, mergeProps(this.forwarded, {
       style: {
-        'boxSizing': 'border_box',
-        '--destyler_select_content_transform_origin':
-        'var(--destyler_popper_transform_origin)',
-        '--destyler_select_content_available_width':
-        'var(--destyler_popper_available_width)',
-        '--destyler_select_content_available_height':
-        'var(--destyler_popper_available_height)',
-        '--destyler_select_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_select_trigger_height': 'var(--destyler_popper_anchor_height)',
+        'boxSizing': 'border-box',
+        '--destyler-select-content-transform-origin':
+        'var(--destyler-popper-transform-origin)',
+        '--destyler-select-content-available-width':
+        'var(--destyler-popper-available-width)',
+        '--destyler-select-content-available-height':
+        'var(--destyler-popper-available-height)',
+        '--destyler-select-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-select-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
     }), () => this.$slots.default?.())
   },

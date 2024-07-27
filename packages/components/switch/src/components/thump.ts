@@ -6,7 +6,7 @@ import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { injectSwitchRootContext } from './root'
 
-export const switchThumpProps = {
+export const switchThumbProps = {
   ...primitiveProps,
   as: {
     ...primitiveProps.as,
@@ -14,11 +14,11 @@ export const switchThumpProps = {
   },
 } as const
 
-export type SwitchThumpProps = ExtractPublicPropTypes<typeof switchThumpProps>
+export type SwitchThumbProps = ExtractPublicPropTypes<typeof switchThumbProps>
 
-export const SwitchThump = defineComponent({
-  name: 'DestylerSwitchThump',
-  props: switchThumpProps,
+export const SwitchThumb = defineComponent({
+  name: 'DestylerSwitchThumb',
+  props: switchThumbProps,
   slots: Object as SlotsType<{
     default: () => VNode[]
   }>,

@@ -81,7 +81,7 @@ export function parseStringToDateValue(dateStr: string, referenceVal: DateValue)
  * If no timezone is provided, the date will be converted to the local timezone.
  */
 export function toDate(dateValue: DateValue, tz: string = getLocalTimeZone()) {
-  if (dateValue instanceof ZonedDateTime)
+  if (isZonedDateTime(dateValue))
     return dateValue.toDate()
   else
     return dateValue.toDate(tz)

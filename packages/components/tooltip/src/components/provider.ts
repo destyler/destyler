@@ -45,6 +45,7 @@ export const [injectTooltipProviderContext, provideTooltipProviderContext]
 
 export const TooltipProvider = defineComponent({
   name: 'DestylerTooltipProvider',
+  inheritAttrs: false,
   props: tooltipProviderProps,
   slots: Object as SlotsType<{
     default: () => VNode[]

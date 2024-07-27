@@ -34,17 +34,15 @@ export const ToastAction = defineComponent({
     }
   },
   render() {
-    return [
-      this.$props.altText
-        ? h(ToastAnnounceExclude, {
-          altText: this.$props.altText,
-          asChild: true,
-        }, () => h(ToastClose, mergeProps(this.$attrs, {
-          ref: (el: any) => this.forwardRef(el),
-          as: this.$props.as,
-          asChild: this.$props.asChild,
-        }), () => this.$slots.default?.()))
-        : null,
-    ]
+    if (this.$props.altText) {
+      return h(ToastAnnounceExclude, {
+        altText: this.$props.altText,
+        asChild: true,
+      }, () => h(ToastClose, mergeProps(this.$attrs, {
+        ref: (el: any) => this.forwardRef(el),
+        as: this.$props.as,
+        asChild: this.$props.asChild,
+      }), () => this.$slots.default?.()))
+    }
   },
 })

@@ -27,8 +27,7 @@ export const SelectArrow = defineComponent({
     }
   },
   render() {
-    return this.rootContext.open.value && this.contentContext.position === 'popper'
-      ? h(PopperArrow, this.$props, () => this.$slots.default?.())
-      : null
+    if (this.rootContext.open.value && this.contentContext.position === 'popper')
+      return h(PopperArrow, { ...this.$props }, () => this.$slots.default?.())
   },
 })

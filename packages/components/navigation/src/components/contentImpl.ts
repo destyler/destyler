@@ -1,10 +1,9 @@
 import type { SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, watchEffect, withDirectives } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useForwardExpose } from '@destyler/composition'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
-import { BindOnceDirective } from '@destyler/directives'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 
 import { EVENT_ROOT_CONTENT_DISMISS, focusFirst, getOpenState, getTabbableCandidates, makeContentId, makeTriggerId } from '../utils'
 import { injectNavigationContext } from './root'
@@ -29,7 +28,7 @@ export const navigationContentImplEmits = {
 export const NavigationContentImpl = defineComponent({
   name: 'DestylerNavigationContentImpl',
   props: navigationContentImplProps,
-  emits: navigationContentImplEmits,
+  emit: navigationContentImplEmits,
   slots: Object as SlotsType<{
     default: () => VNode[]
   }>,
@@ -38,21 +37,21 @@ export const NavigationContentImpl = defineComponent({
     const collectionItems = injectCollection()
     const { forwardRef, currentElement } = useForwardExpose()
 
-    const menuContext = injectNavigationContext()
+    const navigationContext = injectNavigationContext()
     const itemContext = injectNavigationItemContext()
 
-    const triggerId = makeTriggerId(menuContext.baseId, itemContext.value)
-    const contentId = makeContentId(menuContext.baseId, itemContext.value)
+    const triggerId = makeTriggerId(navigationContext.baseId, itemContext.value)
+    const contentId = makeContentId(navigationContext.baseId, itemContext.value)
 
     const prevMotionAttributeRef = ref<MotionAttribute | null>(null)
     const motionAttribute = computed(() => {
       const items = collectionItems.value
       const values = items.map(item => item.id.split('trigger-')[1])
-      if (menuContext.dir.value === 'rtl')
+      if (navigationContext.dir.value === 'rtl')
         values.reverse()
-      const index = values.indexOf(menuContext.modelValue.value)
-      const prevIndex = values.indexOf(menuContext.previousValue.value)
-      const isSelected = itemContext.value === menuContext.modelValue.value
+      const index = values.indexOf(navigationContext.modelValue.value)
+      const prevIndex = values.indexOf(navigationContext.previousValue.value)
+      const isSelected = itemContext.value === navigationContext.modelValue.value
       const wasSelected = prevIndex === values.indexOf(itemContext.value)
 
       if (!isSelected && !wasSelected)
@@ -80,7 +79,7 @@ export const NavigationContentImpl = defineComponent({
         itemContext.onContentFocusOutside()
 
         const target = ev.target as HTMLElement
-        if (menuContext.rootNavigationMenu?.value?.contains(target))
+        if (navigationContext.rootNavigationMenu?.value?.contains(target))
           ev.preventDefault()
       }
     }
@@ -94,17 +93,18 @@ export const NavigationContentImpl = defineComponent({
           item.contains(target),
         )
         const isRootViewport
-          = menuContext.isRootMenu && menuContext.viewport.value?.contains(target)
+    = navigationContext.isRootMenu && navigationContext.viewport.value?.contains(target)
 
-        if (isTrigger || isRootViewport || !menuContext.isRootMenu)
+        if (isTrigger || isRootViewport || !navigationContext.isRootMenu)
           ev.preventDefault()
       }
     }
 
     watchEffect((cleanupFn) => {
       const content = currentElement.value
-      if (menuContext.isRootMenu && content) {
+      if (navigationContext.isRootMenu && content) {
         const handleClose = () => {
+          navigationContext.onItemDismiss()
           itemContext.onRootContentClose()
           if (content.contains(document.activeElement))
             itemContext.triggerRef.value?.focus()
@@ -121,7 +121,7 @@ export const NavigationContentImpl = defineComponent({
       emit('escapeKeyDown', ev)
 
       if (!ev.defaultPrevented) {
-        menuContext.onItemDismiss()
+        navigationContext.onItemDismiss()
         itemContext.triggerRef?.value?.focus()
         itemContext.wasEscapeCloseRef.value = true
       }
@@ -173,7 +173,7 @@ export const NavigationContentImpl = defineComponent({
       triggerId,
       forwardRef,
       motionAttribute,
-      menuContext,
+      navigationContext,
       itemContext,
       handleKeydown,
       handleEscapeKeyDown,
@@ -183,12 +183,13 @@ export const NavigationContentImpl = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(DismissableLayer, mergeProps(this.$props, {
+    return h(DismissableLayer, mergeProps(this.$props, {
       'ref': (el: any) => this.forwardRef(el),
+      'id': this.contentId,
       'aria-labelledby': this.triggerId,
       'data-motion': this.motionAttribute,
-      'data-state': getOpenState(this.menuContext.modelValue.value === this.itemContext.value),
-      'data-orientation': this.menuContext.orientation,
+      'data-state': getOpenState(this.navigationContext.modelValue.value === this.itemContext.value),
+      'data-orientation': this.navigationContext.orientation,
       'onKeydown': (event: any) => {
         this.handleKeydown(event)
       },
@@ -204,8 +205,6 @@ export const NavigationContentImpl = defineComponent({
       'onDismiss': () => {
         this.handleDismiss()
       },
-    }), () => this.$slots.default?.()), [
-      [BindOnceDirective, { id: this.contentId }],
-    ])
+    }), () => this.$slots.default?.())
   },
 })

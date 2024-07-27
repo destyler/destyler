@@ -1,7 +1,7 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
-import { primitiveProps } from '@destyler/primitive'
 import { Arrow } from '@destyler/arrow'
+import { arrowProps } from '@destyler/arrow/component'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import type { Side } from '../utils'
@@ -15,21 +15,7 @@ export const OPPOSITE_SIDE: Record<Side, Side> = {
 }
 
 export const popperArrowProps = {
-  ...primitiveProps,
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  as: {
-    ...primitiveProps.as,
-    default: 'svg',
-  },
+  ...arrowProps,
 } as const
 
 export type PopperArrowProps = ExtractPublicPropTypes<typeof popperArrowProps>
@@ -76,7 +62,7 @@ export const PopperArrow = defineComponent({
         }[this.contentContext.placedSide.value],
         visibility: this.contentContext.shouldHideArrow.value ? 'hidden' : undefined,
       },
-    }, h(Arrow, mergeProps(this.$attrs, {
+    }, () => h(Arrow, mergeProps(this.$attrs, {
       as: this.$props.as,
       asChild: this.$props.asChild,
       width: this.$props.width,
@@ -84,8 +70,6 @@ export const PopperArrow = defineComponent({
       style: {
         display: 'block',
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    }))
+    }), () => this.$slots.default?.()))
   },
 })

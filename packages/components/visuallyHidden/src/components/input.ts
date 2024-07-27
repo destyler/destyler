@@ -1,9 +1,9 @@
 import type { PropType } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { Visuallyhidden } from './visuallyHidden'
+import { VisuallyHidden } from './visuallyHidden'
 
-export const visuallyhiddenInputProps = {
+export const visuallyHiddenInputProps = {
   name: {
     type: String as PropType<string>,
     required: true,
@@ -22,11 +22,11 @@ export const visuallyhiddenInputProps = {
   },
 } as const
 
-export type VisuallyhiddenInputProps = ExtractPublicPropTypes<typeof visuallyhiddenInputProps>
+export type VisuallyHiddenInputProps = ExtractPublicPropTypes<typeof visuallyHiddenInputProps>
 
-export const VisuallyhiddenInput = defineComponent({
-  name: 'DestylerVisuallyhiddenInput',
-  props: visuallyhiddenInputProps,
+export const VisuallyHiddenInput = defineComponent({
+  name: 'DestylerVisuallyHiddenInput',
+  props: visuallyHiddenInputProps,
   setup(props) {
     const parsedValue = computed(() => {
       if (typeof props.value === 'string' || typeof props.value === 'number' || typeof props.value === 'boolean') {
@@ -52,7 +52,7 @@ export const VisuallyhiddenInput = defineComponent({
   },
   render() {
     return this.parsedValue.map(({ name, value }) => {
-      return h(Visuallyhidden, {
+      return h(VisuallyHidden, {
         as: 'input',
         type: 'hidden',
         key: name,

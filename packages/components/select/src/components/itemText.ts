@@ -1,8 +1,7 @@
 import type { SlotsType, VNode } from 'vue'
-import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted, withDirectives } from 'vue'
+import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
-import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectSelectNativeOptionsContext, injectSelectRootContext } from './root'
@@ -38,7 +37,7 @@ export const SelectItemText = defineComponent({
       return h('option', {
         key: itemContext.value,
         value: itemContext.value,
-        disabled: itemContext.disabled!.value,
+        disabled: itemContext.disabled.value,
         innerHTML: itemTextElement.value?.textContent,
       })
     })
@@ -49,8 +48,8 @@ export const SelectItemText = defineComponent({
       itemContext.onItemTextChange(itemTextElement.value)
       contentContext.itemTextRefCallback(
         itemTextElement.value,
-        itemContext.value!,
-        itemContext.disabled!.value!,
+        itemContext.value,
+        itemContext.disabled.value,
       )
       nativeOptionContext.onNativeOptionAdd(nativeOption.value)
     })
@@ -67,19 +66,20 @@ export const SelectItemText = defineComponent({
   },
   render() {
     return [
-      withDirectives(h(Primitive, mergeProps(this.$props, this.$attrs, {
-        ref: (el: any) => this.forwardRef(el),
-      }), () => this.$slots.default?.()), [
-        [BindOnceDirective, { id: this.itemContext.textId }],
-      ]),
+      h(Primitive, mergeProps(
+        {
+          ...this.$props,
+          ...this.$attrs,
+        },
+        {
+          ref: this.forwardRef,
+          id: this.itemContext.textId,
+        },
+      ), () => this.$slots.default?.()),
       this.itemContext.isSelected.value && this.rootContext.valueElement.value && !this.rootContext.valueElementHasChildren.value
         ? h(Teleport, {
           to: this.rootContext.valueElement.value,
-        }, {
-          default: () => {
-            return this.$slots.default?.()
-          },
-        })
+        }, this.$slots.default?.())
         : null,
     ]
   },

@@ -1,36 +1,23 @@
 import type { ComputedRef, PropType, Ref, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, toRefs } from 'vue'
+import { defineComponent, h, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
-import type { DataOrientation, Direction, ExtractPublicPropTypes, Type } from '@destyler/shared'
+import type { DataOrientation, Direction, ExtractPublicPropTypes, SingleOrMultipleProps, SingleOrMultipleType } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import { useForwardExpose, useSingleOrMultipleValue } from '@destyler/composition'
-
-export interface CollapseRootContext {
-  disabled: Ref<boolean>
-  direction: Ref<Direction>
-  orientation: DataOrientation
-  parentElement: Ref<HTMLElement | undefined>
-  changeModelValue: (value: string) => void
-  isSingle: ComputedRef<boolean>
-  modelValue: Ref<string | undefined | string[]>
-  collapsible: boolean
-}
-
-export const [injectCollapseRootContext, provideCollapseRootContext] = createContext<CollapseRootContext>('DestylerCollapseRoot')
+import { useDirection, useForwardExpose, useSingleOrMultipleValue } from '@destyler/composition'
 
 export const collapseRootProps = {
   ...primitiveProps,
   type: {
-    type: String as PropType<Type>,
-    required: true,
+    type: String as PropType<SingleOrMultipleProps<string | string[], SingleOrMultipleType>['type']>,
+    required: false,
   },
   modelValue: {
-    type: [String, Array] as PropType<string | string[]>,
+    type: [String, Array] as PropType<SingleOrMultipleProps<string | string[], SingleOrMultipleType>['modelValue']>,
     required: false,
     default: undefined,
   },
   defaultValue: {
-    type: [String, Array] as PropType<string | string[]>,
+    type: [String, Array] as PropType<SingleOrMultipleProps<string | string[], SingleOrMultipleType>['defaultValue']>,
     required: false,
     default: undefined,
   },
@@ -62,6 +49,19 @@ export const collapseRootEmits = {
   'update:modelValue': (_value: string | string[]) => true,
 }
 
+export interface CollapseRootContext {
+  disabled: Ref<boolean>
+  direction: Ref<Direction>
+  orientation: DataOrientation
+  parentElement: Ref<HTMLElement | undefined>
+  changeModelValue: (value: string) => void
+  isSingle: ComputedRef<boolean>
+  modelValue: Ref<string | undefined | string[]>
+  collapsible: boolean
+}
+
+export const [injectCollapseRootContext, provideCollapseRootContext] = createContext<CollapseRootContext>('DestylerCollapseRoot')
+
 export const CollapseRoot = defineComponent({
   name: 'DestylerCollapseRoot',
   props: collapseRootProps,
@@ -71,16 +71,18 @@ export const CollapseRoot = defineComponent({
   }>,
   setup(props, { emit }) {
     const { dir, disabled } = toRefs(props)
-    const { modelValue, changeModelValue } = useSingleOrMultipleValue(props, emit)
+    const direction = useDirection(dir)
+
+    const { modelValue, changeModelValue, isSingle } = useSingleOrMultipleValue(props, emit)
 
     const { forwardRef, currentElement: parentElement } = useForwardExpose()
 
     provideCollapseRootContext({
       disabled,
-      direction: dir,
+      direction,
       orientation: props.orientation,
       parentElement,
-      isSingle: computed(() => props.type === 'single'),
+      isSingle,
       collapsible: props.collapsible,
       modelValue,
       changeModelValue,

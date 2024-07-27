@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, withDirectives } from 'vue'
 import { useFocusGuards, useForwardProps } from '@destyler/composition'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer, dismissableLayerProps } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 import { FocusScope, focusScopeProps } from '@destyler/focus-scope'
 import { BindOnceDirective } from '@destyler/directives'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -77,11 +77,11 @@ export const PopoverContentImpl = defineComponent({
       'data-state': this.rootContext.open.value ? 'open' : 'closed',
       'role': 'dialog',
       'style': {
-        '--destyler_popover_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-        '--destyler_popover_content_available_width': 'var(--destyler_popper_available_width)',
-        '--destyler_popover_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_popover_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_popover_trigger_height': 'var(--destyler_popper_anchor_height)',
+        '--destyler-popover-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-popover-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-popover-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-popover-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-popover-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
     }), () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.rootContext.contentId }],

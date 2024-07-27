@@ -7,24 +7,20 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./resolver": {
-      "types": "./dist/resolver.d.ts",
-      "import": "./dist/resolver.mjs",
-      "require": "./dist/resolver.cjs"
+      "types": "./dist/resolver.d.mts",
+      "default": "./dist/resolver.mjs"
     },
     "./component": {
-      "types": "./dist/component.d.ts",
-      "import": "./dist/component.mjs",
-      "require": "./dist/component.cjs"
+      "types": "./dist/component.d.mts",
+      "default": "./dist/component.mjs"
     },
     "./utils": {
-      "types": "./dist/utils.d.ts",
-      "import": "./dist/utils.mjs",
-      "require": "./dist/utils.cjs"
+      "types": "./dist/utils.d.mts",
+      "default": "./dist/utils.mjs"
     },
     "./*": "./*"
   },

@@ -27,7 +27,7 @@ export const ComboboxGroup = defineComponent({
   }>,
   setup() {
     const { currentRef, currentElement } = useForwardExpose()
-    const id = useId()
+    const id = useId(undefined, 'destyler-combobox-group')
 
     const rootContext = injectComboboxRootContext()
     const hasOptions = ref(false)
@@ -42,13 +42,17 @@ export const ComboboxGroup = defineComponent({
 
     useMutationObserver(currentElement, () => {
       checkCollectionItem()
-    }, { childList: true })
+    }, {
+      childList: true,
+    })
 
     watch(() => rootContext.searchTerm.value, () => {
       nextTick(() => {
         checkCollectionItem()
       })
-    }, { immediate: true })
+    }, {
+      immediate: true,
+    })
 
     provideComboboxGroupContext({
       id,

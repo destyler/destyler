@@ -2,14 +2,13 @@ import type { CSSProperties, PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, ref, watch, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { areEqual, createContext } from '@destyler/shared'
-import { useDirection, useForwardExpose } from '@destyler/composition'
+import { useDirection, useForwardExpose, useId } from '@destyler/composition'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 
 import { assert } from '../utils/assert'
 import debounce from '../utils/debounce'
 import { getResizeHandleElement } from '../utils/dom'
 import { determinePivotIndices } from '../utils/pivot'
-import { useUniqueId } from '../composables/useUniqueId'
 import { computePanelFlexBoxStyle } from '../utils/style'
 import { validatePanelGroupLayout } from '../utils/validation'
 import { callPanelCallbacks } from '../utils/callPanelCallbacks'
@@ -68,7 +67,6 @@ export const splitterGroupEmits = {
 export interface PanelGroupContext {
   direction: 'horizontal' | 'vertical'
   dragState: DragState | null
-  getPanelStyle: (panelData: PanelData, defaultSize: number | undefined) => CSSProperties
   groupId: string
   reevaluatePanelConstraints: (panelData: PanelData, prevConstraints: PanelConstraints) => void
   registerPanel: (panelData: PanelData) => void
@@ -78,6 +76,12 @@ export interface PanelGroupContext {
   stopDragging: () => void
   unregisterPanel: (panelData: PanelData) => void
   panelGroupElement: Ref<ParentNode | null>
+  collapsePanel: (panelData: PanelData) => void
+  expandPanel: (panelData: PanelData) => void
+  isPanelCollapsed: (panelData: PanelData) => boolean
+  isPanelExpanded: (panelData: PanelData) => boolean
+  getPanelSize: (panelData: PanelData) => number
+  getPanelStyle: (panelData: PanelData, defaultSize: number | undefined) => CSSProperties
 }
 
 export const [injectPanelGroupContext, providePanelGroupContext] = createContext<PanelGroupContext>('PanelGroup')
@@ -87,7 +91,7 @@ export const SplitterGroup = defineComponent({
   props: splitterGroupProps,
   emits: splitterGroupEmits,
   slots: Object as SlotsType<{
-    default: () => VNode[]
+    default: (props: { layout: number[] }) => VNode[]
   }>,
   setup(props, { emit }) {
     const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100
@@ -96,7 +100,7 @@ export const SplitterGroup = defineComponent({
       [key: string]: typeof savePanelGroupState
     } = {}
 
-    const groupId = useUniqueId(props.id)
+    const groupId = useId(props.id, 'destyler-splitter-group')
     const dir = useDirection()
     const { forwardRef, currentElement: panelGroupElementRef } = useForwardExpose()
 
@@ -153,7 +157,6 @@ export const SplitterGroup = defineComponent({
 
         let debouncedSave = debounceMap[autoSaveId]
 
-        // Limit the frequency of localStorage updates.
         if (!debouncedSave) {
           debouncedSave = debounce(
             savePanelGroupState,
@@ -163,8 +166,6 @@ export const SplitterGroup = defineComponent({
           debounceMap[autoSaveId] = debouncedSave
         }
 
-        // Clone mutable data before passing to the debounced function,
-        // else we run the risk of saving an incorrect combination of mutable and immutable values to state.
         const clonedPanelDataArray = [...panelDataArray]
         const clonedPanelSizesBeforeCollapse = new Map(
           panelSizeBeforeCollapseRef.value,
@@ -214,8 +215,6 @@ export const SplitterGroup = defineComponent({
       eagerValuesRef.value.panelDataArrayChanged = true
     }
 
-    // (Re)calculate group layout whenever panels are registered or unregistered.
-    // useIsomorphicLayoutEffect
     watch(() => eagerValuesRef.value.panelDataArrayChanged, () => {
       if (eagerValuesRef.value.panelDataArrayChanged) {
         eagerValuesRef.value.panelDataArrayChanged = false
@@ -223,8 +222,6 @@ export const SplitterGroup = defineComponent({
         const { autoSaveId, storage } = committedValuesRef.value
         const { layout: prevLayout, panelDataArray } = eagerValuesRef.value
 
-        // If this panel has been configured to persist sizing information,
-        // default size should be restored from local storage if possible.
         let unsafeLayout: number[] | null = null
         if (autoSaveId) {
           const state = loadPanelGroupState(autoSaveId, panelDataArray, storage)
@@ -242,8 +239,6 @@ export const SplitterGroup = defineComponent({
           })
         }
 
-        // Validate even saved layouts in case something has changed since last render
-        // e.g. for pixel groups, this could be the size of the window
         const nextLayout = validatePanelGroupLayout({
           layout: unsafeLayout,
           panelConstraints: panelDataArray.map(
@@ -295,7 +290,6 @@ export const SplitterGroup = defineComponent({
         if (delta === 0)
           return
 
-        // Support RTL layouts
         const isHorizontal = direction === 'horizontal'
         if (dir.value === 'rtl' && isHorizontal)
           delta = -delta
@@ -312,18 +306,11 @@ export const SplitterGroup = defineComponent({
 
         const layoutChanged = !compareLayouts(prevLayout, nextLayout)
 
-        // Only update the cursor for layout changes triggered by touch/mouse events (not keyboard)
-        // Update the cursor even if the layout hasn't changed (we may need to show an invalid cursor state)
         if (isMouseEvent(event) || isTouchEvent(event)) {
-          // Watch for multiple subsequent deltas; this might occur for tiny cursor movements.
-          // In this case, Panel sizes might not change–
-          // but updating cursor in this scenario would cause a flicker.
           if (prevDeltaRef.value !== delta) {
             prevDeltaRef.value = delta
 
             if (!layoutChanged) {
-              // If the pointer has moved too far to resize the panel any further, note this so we can update the cursor.
-              // This mimics VS Code behavior.
               if (isHorizontal) {
                 reportConstraintsViolation(
                   dragHandleId,
@@ -358,7 +345,6 @@ export const SplitterGroup = defineComponent({
       }
     }
 
-    // External APIs are safe to memoize via committed values ref
     function resizePanel(panelData: PanelData, unsafePanelSize: number) {
       const { layout: prevLayout, panelDataArray } = eagerValuesRef.value
 
@@ -479,20 +465,166 @@ export const SplitterGroup = defineComponent({
       if (index >= 0) {
         panelDataArray.splice(index, 1)
 
-        // TRICKY
-        // When a panel is removed from the group, we should delete the most recent prev-size entry for it.
-        // If we don't do this, then a conditionally rendered panel might not call onResize when it's re-mounted.
-        // Strict effects mode makes this tricky though because all panels will be registered, unregistered, then re-registered on mount.
         delete panelIdToLastNotifiedSizeMapRef.value[panelData.id]
 
         eagerValuesRef.value.panelDataArrayChanged = true
       }
     }
 
+    function collapsePanel(panelData: PanelData) {
+      const { layout: prevLayout, panelDataArray } = eagerValuesRef.value
+
+      if (panelData.constraints.collapsible) {
+        const panelConstraintsArray = panelDataArray.map(
+          panelData => panelData.constraints,
+        )
+
+        const {
+          collapsedSize = 0,
+          panelSize,
+          pivotIndices,
+        } = panelDataHelper(panelDataArray, panelData, prevLayout)
+
+        assert(
+          panelSize != null,
+            `Panel size not found for panel "${panelData.id}"`,
+        )
+
+        if (panelSize !== collapsedSize) {
+          panelSizeBeforeCollapseRef.value.set(panelData.id, panelSize)
+
+          const isLastPanel
+              = findPanelDataIndex(panelDataArray, panelData)
+              === panelDataArray.length - 1
+          const delta = isLastPanel
+            ? panelSize - collapsedSize
+            : collapsedSize - panelSize
+
+          const nextLayout = adjustLayoutByDelta({
+            delta,
+            layout: prevLayout,
+            panelConstraints: panelConstraintsArray,
+            pivotIndices,
+            trigger: 'imperative-api',
+          })
+
+          if (!compareLayouts(prevLayout, nextLayout)) {
+            setLayout(nextLayout)
+
+            eagerValuesRef.value.layout = nextLayout
+
+            emit('layout', nextLayout)
+
+            callPanelCallbacks(
+              panelDataArray,
+              nextLayout,
+              panelIdToLastNotifiedSizeMapRef.value,
+            )
+          }
+        }
+      }
+    }
+
+    function expandPanel(panelData: PanelData) {
+      const { layout: prevLayout, panelDataArray } = eagerValuesRef.value
+
+      if (panelData.constraints.collapsible) {
+        const panelConstraintsArray = panelDataArray.map(
+          panelData => panelData.constraints,
+        )
+
+        const {
+          collapsedSize = 0,
+          panelSize,
+          minSize = 0,
+          pivotIndices,
+        } = panelDataHelper(panelDataArray, panelData, prevLayout)
+
+        if (panelSize === collapsedSize) {
+          const prevPanelSize = panelSizeBeforeCollapseRef.value.get(
+            panelData.id,
+          )
+
+          const baseSize
+              = prevPanelSize != null && prevPanelSize >= minSize
+                ? prevPanelSize
+                : minSize
+
+          const isLastPanel
+              = findPanelDataIndex(panelDataArray, panelData)
+              === panelDataArray.length - 1
+          const delta = isLastPanel ? panelSize - baseSize : baseSize - panelSize
+
+          const nextLayout = adjustLayoutByDelta({
+            delta,
+            layout: prevLayout,
+            panelConstraints: panelConstraintsArray,
+            pivotIndices,
+            trigger: 'imperative-api',
+          })
+
+          if (!compareLayouts(prevLayout, nextLayout)) {
+            setLayout(nextLayout)
+
+            eagerValuesRef.value.layout = nextLayout
+
+            emit('layout', nextLayout)
+
+            callPanelCallbacks(
+              panelDataArray,
+              nextLayout,
+              panelIdToLastNotifiedSizeMapRef.value,
+            )
+          }
+        }
+      }
+    }
+
+    function getPanelSize(panelData: PanelData) {
+      const { layout, panelDataArray } = eagerValuesRef.value
+
+      const { panelSize } = panelDataHelper(panelDataArray, panelData, layout)
+
+      assert(
+        panelSize != null,
+          `Panel size not found for panel "${panelData.id}"`,
+      )
+
+      return panelSize
+    }
+
+    function isPanelCollapsed(panelData: PanelData) {
+      const { layout, panelDataArray } = eagerValuesRef.value
+
+      const {
+        collapsedSize = 0,
+        collapsible,
+        panelSize,
+      } = panelDataHelper(panelDataArray, panelData, layout)
+
+      return collapsible === true && panelSize === collapsedSize
+    }
+
+    function isPanelExpanded(panelData: PanelData) {
+      const { layout, panelDataArray } = eagerValuesRef.value
+
+      const {
+        collapsedSize = 0,
+        collapsible,
+        panelSize,
+      } = panelDataHelper(panelDataArray, panelData, layout)
+
+      assert(
+        panelSize != null,
+          `Panel size not found for panel "${panelData.id}"`,
+      )
+
+      return !collapsible || panelSize > collapsedSize
+    }
+
     providePanelGroupContext({
       direction: props.direction,
       dragState: dragState.value,
-      getPanelStyle,
       groupId,
       reevaluatePanelConstraints,
       registerPanel,
@@ -502,6 +634,13 @@ export const SplitterGroup = defineComponent({
       stopDragging,
       unregisterPanel,
       panelGroupElement: panelGroupElementRef,
+
+      collapsePanel,
+      expandPanel,
+      isPanelCollapsed,
+      isPanelExpanded,
+      getPanelSize,
+      getPanelStyle,
     })
 
     function findPanelDataIndex(panelDataArray: PanelData[], panelData: PanelData) {
@@ -535,6 +674,7 @@ export const SplitterGroup = defineComponent({
     return {
       forwardRef,
       groupId,
+      layout,
     }
   },
   render() {
@@ -552,6 +692,6 @@ export const SplitterGroup = defineComponent({
       'data-panel-group': '',
       'data-orientation': this.$props.direction,
       'data-panel-group-id': this.groupId,
-    }, () => this.$slots.default?.())
+    }, () => this.$slots.default?.({ layout: this.layout }))
   },
 })

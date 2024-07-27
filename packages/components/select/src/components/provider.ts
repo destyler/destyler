@@ -8,6 +8,7 @@ import type { SelectRootContext } from './root'
 export const selectProviderProps = {
   context: {
     type: Object as PropType<SelectRootContext>,
+    required: true,
   },
 } as const
 
@@ -20,7 +21,7 @@ export const SelectProvider = defineComponent({
     default: () => VNode[]
   }>,
   setup(props) {
-    provideSelectRootContext(props.context!)
+    provideSelectRootContext(props.context)
   },
   render() {
     return this.$slots.default?.()

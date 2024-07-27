@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, onMounted, withDirectives } from 'vue'
 import { useForwardExpose, useId } from '@destyler/composition'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits, dismissableLayerProps } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits, dismissableLayerProps } from '@destyler/dismissable-layer/component'
 import { BindOnceDirective } from '@destyler/directives'
 import { getOpenState } from '@destyler/shared'
 

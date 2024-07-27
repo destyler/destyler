@@ -1,10 +1,9 @@
 import type { PropType, Ref, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, ref, watch, watchEffect, withDirectives } from 'vue'
+import { computed, defineComponent, h, mergeProps, ref, watch, watchEffect, withModifiers } from 'vue'
 import { createContext, focusFirst, unrefElement } from '@destyler/shared'
-import { useCollection, useFocusGuards, useForwardProps, useHideOthers, useTypeahead } from '@destyler/composition'
+import { useBodyScrollLock, useCollection, useFocusGuards, useForwardProps, useHideOthers, useTypeahead } from '@destyler/composition'
 import { FocusScope } from '@destyler/focus-scope'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { BindOnceDirective } from '@destyler/directives'
 
 import { popperContentProps } from '@destyler/popper'
 import { injectSelectRootContext } from './root'
@@ -13,6 +12,10 @@ import { SelectItemAlignedPosition } from './itemAlignedPosition'
 
 export const selectContentImplProps = {
   ...popperContentProps,
+  align: {
+    ...popperContentProps.align,
+    default: 'start',
+  },
   position: {
     type: String as PropType<'item-aligned' | 'popper'>,
     required: false,
@@ -70,6 +73,7 @@ export const SelectContentImpl = defineComponent({
     const rootContext = injectSelectRootContext()
 
     useFocusGuards()
+    useBodyScrollLock(true)
     const { createCollection } = useCollection()
 
     const content = ref<HTMLElement>()
@@ -93,8 +97,6 @@ export const SelectContentImpl = defineComponent({
       focusSelectedItem()
     })
 
-    // prevent selecting items on `pointerup` in some cases after opening from `pointerdown`
-    // and close on `pointerup` outside.
     const { onOpenChange, triggerPointerDownPosRef } = rootContext
     watchEffect((cleanupFn) => {
       if (!content.value)
@@ -112,12 +114,13 @@ export const SelectContentImpl = defineComponent({
         }
       }
       const handlePointerUp = (event: PointerEvent) => {
-        // If the pointer hasn't moved by a certain threshold then we prevent selecting item on `pointerup`.
+        if (event.pointerType === 'touch')
+          return
+
         if (pointerMoveDelta.x <= 10 && pointerMoveDelta.y <= 10) {
           event.preventDefault()
         }
         else {
-          // otherwise, if the event was outside the content, close.
           if (!content.value?.contains(event.target as HTMLElement))
             onOpenChange(false)
         }
@@ -144,7 +147,6 @@ export const SelectContentImpl = defineComponent({
     function handleKeyDown(event: KeyboardEvent) {
       const isModifierKey = event.ctrlKey || event.altKey || event.metaKey
 
-      // select should not be navigated using tab key so we prevent it
       if (event.key === 'Tab')
         event.preventDefault()
 
@@ -222,6 +224,7 @@ export const SelectContentImpl = defineComponent({
   render() {
     return h(FocusScope, {
       asChild: true,
+      onMountAutoFocus: withModifiers(() => {}, ['prevent']),
       onUnmountAutoFocus: (event: any) => {
         this.$emit('closeAutoFocus', event)
         if (event.defaultPrevented)
@@ -232,6 +235,7 @@ export const SelectContentImpl = defineComponent({
     }, () => h(DismissableLayer, {
       asChild: true,
       disableOutsidePointerEvents: true,
+      onFocusOutside: withModifiers(() => {}, ['prevent']),
       onDismiss: () => {
         this.rootContext.onOpenChange(false)
       },
@@ -241,27 +245,35 @@ export const SelectContentImpl = defineComponent({
       onPointerDownOutside: (event: any) => {
         this.$emit('pointerDownOutside', event)
       },
-    }, () => withDirectives(h(this.$props.position === 'popper' ? SelectPopperPosition : SelectItemAlignedPosition, mergeProps(this.$attrs, this.forwardedProps, {
-      'role': 'listbox',
-      'ref': (vnode: any) => {
-        this.content = unrefElement(vnode) as HTMLElement
-        return undefined
+    }, () => h(this.$props.position === 'popper'
+      ? SelectPopperPosition
+      : SelectItemAlignedPosition, mergeProps(
+      {
+        ...this.$attrs,
+        ...this.forwardedProps,
       },
-      'data-state': this.rootContext.open.value ? 'open' : 'closed',
-      'dir': this.rootContext.dir.value,
-      'style': {
-        display: 'flex',
-        flexDirection: 'column',
-        outline: 'none',
+      {
+        'id': this.rootContext.contentId,
+        'role': 'listbox',
+        'ref': (vnode: any) => {
+          this.content = unrefElement(vnode) as HTMLElement
+          return undefined
+        },
+        'data-state': this.rootContext.open.value ? 'open' : 'closed',
+        'dir': this.rootContext.dir.value,
+        'style': {
+          display: 'flex',
+          flexDirection: 'column',
+          outline: 'none',
+        },
+        'onContextmenu': withModifiers(() => {}, ['prevent']),
+        'onPlaced': () => {
+          this.isPositioned = true
+        },
+        'onKeydown': (event: any) => {
+          this.handleKeyDown(event)
+        },
       },
-      'onPlaced': () => {
-        this.isPositioned = true
-      },
-      'onKeydown': (event: any) => {
-        this.handleKeyDown(event)
-      },
-    }), () => this.$slots.default?.()), [
-      [BindOnceDirective, { id: this.rootContext.contentId }],
-    ])))
+    ), () => this.$slots.default?.())))
   },
 })

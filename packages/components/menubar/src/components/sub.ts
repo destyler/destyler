@@ -3,7 +3,7 @@ import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useVModel } from '@destyler/composition'
 import { MenuSub, menuSubProps } from '@destyler/menu'
-import { menuSubEmits } from '@destyler/menu/dist/component'
+import { menuSubEmits } from '@destyler/menu/component'
 
 export const menubarSubProps = {
   ...menuSubProps,

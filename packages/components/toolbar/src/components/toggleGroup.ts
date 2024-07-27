@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { ToggleGroupRoot, toggleGroupRootProps } from '@destyler/toggle'
-import { toggleGroupRootEmits } from '@destyler/toggle/dist/component'
+import { toggleGroupRootEmits } from '@destyler/toggle/component'
 
 import { injectToolbarRootContext } from './root'
 

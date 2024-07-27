@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { MenuContent, menuContentProps } from '@destyler/menu'
-import { menuContentEmits } from '@destyler/menu/dist/component'
+import { menuContentEmits } from '@destyler/menu/component'
 
 import { injectContextMenuRootContext } from './root'
 
@@ -95,11 +95,11 @@ export const ContextMenuContent = defineComponent({
       sideOffset: 2,
       align: 'start',
       style: {
-        '--destyler_context_menu_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-        '--destyler_context_menu_content_available_width': 'var(--destyler_popper_available_width)',
-        '--destyler_context_menu_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_context_menu_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_context_menu_trigger_height': 'var(--destyler_popper_anchor_height)',
+        '--destyler-context-menu-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-context-menu-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-context-menu-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-context-menu-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-context-menu-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
       onCloseAutoFocus: (event: any) => {
         if (!event.defaultPrevented && this.hasInteractedOutside)

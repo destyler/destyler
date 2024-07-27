@@ -2,7 +2,7 @@ import type { PropType, Ref, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useDirection, useFormControl, useId, useVModel } from '@destyler/composition'
+import { useDirection, useFormControl, useVModel } from '@destyler/composition'
 import { PopperRoot } from '@destyler/popper'
 
 import { BubbleSelect } from './bubbleSelect'
@@ -16,7 +16,6 @@ export const selectRootProps = {
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
-    default: '',
   },
   modelValue: {
     type: String as PropType<string>,
@@ -26,6 +25,7 @@ export const selectRootProps = {
   defaultValue: {
     type: String as PropType<string>,
     required: false,
+    default: '',
   },
   orientation: {
     type: String as PropType<DataOrientation>,
@@ -47,10 +47,12 @@ export const selectRootProps = {
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
 } as const
 
@@ -72,11 +74,11 @@ export interface SelectRootContext {
   modelValue?: Ref<string>
   onValueChange: (value: string) => void
   open: Ref<boolean>
-  required?: Ref<boolean | undefined>
+  required?: Ref<boolean>
   onOpenChange: (open: boolean) => void
   dir: Ref<Direction>
   triggerPointerDownPosRef: Ref<{ x: number, y: number } | null>
-  disabled?: Ref<boolean | undefined>
+  disabled?: Ref<boolean>
 }
 
 export const [injectSelectRootContext, provideSelectRootContext]
@@ -128,7 +130,7 @@ export const SelectRoot = defineComponent({
       onValueElementHasChildrenChange: (hasChildren) => {
         valueElementHasChildren.value = hasChildren
       },
-      contentId: useId(),
+      contentId: '',
       modelValue,
       onValueChange: (value) => {
         modelValue.value = value
@@ -160,7 +162,6 @@ export const SelectRoot = defineComponent({
         nativeOptionsSet.value.delete(option)
       },
     })
-
     return {
       isFormControl,
       nativeSelectKey,
@@ -170,7 +171,7 @@ export const SelectRoot = defineComponent({
     }
   },
   render() {
-    return h(PopperRoot, {}, () => [
+    return h(PopperRoot, null, () => [
       this.$slots.default?.(),
       this.isFormControl
         ? h(BubbleSelect, mergeProps(this.$attrs, {
@@ -184,7 +185,7 @@ export const SelectRoot = defineComponent({
           'onChange': (event: any) => {
             this.modelValue = event.target.value
           },
-        }), [
+        }), () => [
           this.modelValue === undefined ? h('option', { value: '' }) : null,
           Array.from(this.nativeOptionsSet).map((option) => {
             return h(option, mergeProps(option.props!, {

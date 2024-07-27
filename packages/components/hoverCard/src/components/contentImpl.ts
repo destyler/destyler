@@ -3,7 +3,7 @@ import { defineComponent, h, mergeProps, nextTick, onMounted, onUnmounted, ref, 
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
 import { DismissableLayer } from '@destyler/dismissable-layer'
-import { dismissableLayerEmits } from '@destyler/dismissable-layer/dist/component'
+import { dismissableLayerEmits } from '@destyler/dismissable-layer/component'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 
 import { getTabbableNodes } from '../utils'
@@ -71,7 +71,7 @@ export const HoverCardContentImpl = defineComponent({
         document.addEventListener('pointerup', handlePointerUp)
 
         const tabbables = getTabbableNodes(contentElement.value)
-        tabbables.forEach(tabbable => tabbable.setAttribute('tabindex', '_1'))
+        tabbables.forEach(tabbable => tabbable.setAttribute('tabindex', '-1'))
       }
     })
 
@@ -104,18 +104,18 @@ export const HoverCardContentImpl = defineComponent({
         this.rootContext.onDismiss()
       },
     }, () => h(PopperContent, mergeProps(this.forwarded, this.$attrs, {
-      ref: (el: any) => this.forwardRef(el),
-      data_state: this.rootContext.open.value ? 'open' : 'closed',
-      style: {
+      'ref': (el: any) => this.forwardRef(el),
+      'data-state': this.rootContext.open.value ? 'open' : 'closed',
+      'style': {
         'userSelect': this.containSelection ? 'text' : undefined,
         'WebkitUserSelect': this.containSelection ? 'text' : undefined,
-        '--destyler_hover_card_content_transform_origin': 'var(--destyler_popper_transform_origin)',
-        '--destyler_hover_card_content_available_width': 'var(--destyler_popper_available_width)',
-        '--destyler_hover_card_content_available_height': 'var(--destyler_popper_available_height)',
-        '--destyler_hover_card_trigger_width': 'var(--destyler_popper_anchor_width)',
-        '--destyler_hover_card_trigger_height': 'var(--destyler_popper_anchor_height)',
+        '--destyler-hover-card-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-hover-card-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-hover-card-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-hover-card-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-hover-card-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
-      onPointerdown: (event: any) => {
+      'onPointerdown': (event: any) => {
         if (event.currentTarget.contains(event.target as HTMLElement))
           this.containSelection = true
 

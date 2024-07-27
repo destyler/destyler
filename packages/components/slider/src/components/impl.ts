@@ -39,7 +39,7 @@ export const SliderImpl = defineComponent({
     }
   },
   render() {
-    return h(Primitive, mergeProps(this.$attrs, {
+    return h(Primitive, mergeProps(this.$props, {
       'data-slider-impl': '',
       'onKeydown': (event: any) => {
         if (event.key === 'Home') {
@@ -76,6 +76,8 @@ export const SliderImpl = defineComponent({
           this.$emit('slideEnd', event)
         }
       },
-    }), () => this.$slots.default?.())
+    }), {
+      default: () => this.$slots.default?.(),
+    })
   },
 })

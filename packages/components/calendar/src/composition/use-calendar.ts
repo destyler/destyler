@@ -1,6 +1,6 @@
 /*
-  * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
-*/
+ * Adapted from https://github.com/melt-ui/melt-ui/blob/develop/src/lib/builders/calendar/create.ts
+ */
 
 import { type DateValue, isSameDay, isSameMonth } from '@internationalized/date'
 import { type Ref, computed, ref, watch } from 'vue'
@@ -8,23 +8,22 @@ import { useDateFormatter } from '@destyler/composition'
 import { type Grid, type Matcher, type WeekDayFormat, createMonths, isAfter, isBefore, toDate } from '@destyler/shared'
 
 export interface UseCalendarProps {
-  locale: string
+  locale: Ref<string>
   placeholder: Ref<DateValue>
-  weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6
-  fixedWeeks: boolean
-  numberOfMonths: number
+  weekStartsOn: Ref<0 | 1 | 2 | 3 | 4 | 5 | 6>
+  fixedWeeks: Ref<boolean>
+  numberOfMonths: Ref<number>
   minValue: Ref<DateValue | undefined>
   maxValue: Ref<DateValue | undefined>
   disabled: Ref<boolean>
-  weekdayFormat: WeekDayFormat
-  pagedNavigation: boolean
+  weekdayFormat: Ref<WeekDayFormat>
+  pagedNavigation: Ref<boolean>
   isDateDisabled?: Matcher
   isDateUnavailable?: Matcher
-  calendarLabel?: string
+  calendarLabel: Ref<string | undefined>
 }
 
 export interface UseCalendarStateProps {
-  grid: Ref<Grid<DateValue>[]>
   isDateDisabled: Matcher
   isDateUnavailable: Matcher
   date: Ref<DateValue | DateValue[] | undefined>
@@ -73,17 +72,14 @@ export function useCalendarState(props: UseCalendarStateProps) {
 }
 
 export function useCalendar(props: UseCalendarProps) {
-  const formatter = useDateFormatter(props.locale)
-  const placeholder = props.placeholder.value.copy()
-  const minValue = props.minValue?.value ? placeholder.set({ ...props.minValue.value }) : undefined
-  const maxValue = props.maxValue?.value ? placeholder.set({ ...props.maxValue.value }) : undefined
+  const formatter = useDateFormatter(props.locale.value)
 
   const grid = ref<Grid<DateValue>[]>(createMonths({
-    dateObj: placeholder,
-    weekStartsOn: props.weekStartsOn,
-    locale: props.locale,
-    fixedWeeks: props.fixedWeeks,
-    numberOfMonths: props.numberOfMonths,
+    dateObj: props.placeholder.value,
+    weekStartsOn: props.weekStartsOn.value,
+    locale: props.locale.value,
+    fixedWeeks: props.fixedWeeks.value,
+    numberOfMonths: props.numberOfMonths.value,
   })) as Ref<Grid<DateValue>[]>
 
   const visibleView = computed(() => {
@@ -95,32 +91,32 @@ export function useCalendar(props: UseCalendarProps) {
   }
 
   const isNextButtonDisabled = computed(() => {
-    if (!maxValue || !grid.value.length)
+    if (!props.maxValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const lastPeriodInView = grid.value[grid.value.length - 1].value
 
     const firstPeriodOfNextPage = lastPeriodInView.add({ months: 1 }).set({ day: 1 })
-    return isAfter(firstPeriodOfNextPage, maxValue)
+    return isAfter(firstPeriodOfNextPage, props.maxValue.value)
   })
 
   const isPrevButtonDisabled = computed(() => {
-    if (!minValue || !grid.value.length)
+    if (!props.minValue.value || !grid.value.length)
       return false
     if (props.disabled.value)
       return true
     const firstPeriodInView = grid.value[0].value
     const lastPeriodOfPrevPage = firstPeriodInView.subtract({ months: 1 }).set({ day: 35 })
-    return isBefore(lastPeriodOfPrevPage, minValue)
+    return isBefore(lastPeriodOfPrevPage, props.minValue.value)
   })
 
   function isDateDisabled(dateObj: DateValue) {
     if (props.isDateDisabled?.(dateObj) || props.disabled.value)
       return true
-    if (maxValue && isAfter(dateObj, maxValue))
+    if (props.maxValue.value && isAfter(dateObj, props.maxValue.value))
       return true
-    if (minValue && isBefore(dateObj, minValue))
+    if (props.minValue.value && isBefore(dateObj, props.minValue.value))
       return true
     return false
   }
@@ -135,7 +131,7 @@ export function useCalendar(props: UseCalendarProps) {
     if (!grid.value.length)
       return []
     return grid.value[0].rows[0].map((date) => {
-      return formatter.dayOfWeek(toDate(date), props.weekdayFormat)
+      return formatter.dayOfWeek(toDate(date), props.weekdayFormat.value)
     })
   })
 
@@ -143,11 +139,11 @@ export function useCalendar(props: UseCalendarProps) {
     const firstDate = grid.value[0].value
 
     const newGrid = createMonths({
-      dateObj: firstDate.add({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
+      dateObj: firstDate.add({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      weekStartsOn: props.weekStartsOn.value,
+      locale: props.locale.value,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
     })
 
     grid.value = newGrid
@@ -159,42 +155,52 @@ export function useCalendar(props: UseCalendarProps) {
     const firstDate = grid.value[0].value
 
     const newGrid = createMonths({
-      dateObj: firstDate.subtract({ months: props.pagedNavigation ? props.numberOfMonths : 1 }),
-      weekStartsOn: props.weekStartsOn,
-      locale: props.locale,
-      fixedWeeks: props.fixedWeeks,
-      numberOfMonths: props.numberOfMonths,
+      dateObj: firstDate.subtract({ months: props.pagedNavigation.value ? props.numberOfMonths.value : 1 }),
+      weekStartsOn: props.weekStartsOn.value,
+      locale: props.locale.value,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
     })
 
     props.placeholder.value = newGrid[0].value.set({ day: 1 })
   }
 
-  watch(props.placeholder, (value, oldValue) => {
-    if (!isSameMonth(placeholder.set({ ...value }), placeholder.set({ ...oldValue }))) {
-      grid.value = createMonths({
-        dateObj: placeholder.set({ ...value }),
-        weekStartsOn: props.weekStartsOn,
-        locale: props.locale,
-        fixedWeeks: props.fixedWeeks,
-        numberOfMonths: props.numberOfMonths,
-      })
-    }
+  watch(props.placeholder, (value) => {
+    if (visibleView.value.some(month => isSameMonth(month, value)))
+      return
+    grid.value = createMonths({
+      dateObj: value,
+      weekStartsOn: props.weekStartsOn.value,
+      locale: props.locale.value,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
+    })
+  })
+
+  watch([props.locale, props.weekStartsOn, props.fixedWeeks, props.numberOfMonths], () => {
+    grid.value = createMonths({
+      dateObj: props.placeholder.value,
+      weekStartsOn: props.weekStartsOn.value,
+      locale: props.locale.value,
+      fixedWeeks: props.fixedWeeks.value,
+      numberOfMonths: props.numberOfMonths.value,
+    })
   })
 
   const headingValue = computed(() => {
     if (!grid.value.length)
       return ''
 
-    if (props.locale !== formatter.getLocale())
-      formatter.setLocale(props.locale)
+    if (props.locale.value !== formatter.getLocale())
+      formatter.setLocale(props.locale.value)
 
     if (grid.value.length === 1) {
-      const month = toDate(grid.value[0].value)
-      return `${formatter.fullMonthAndYear(month)}`
+      const month = grid.value[0].value
+      return `${formatter.fullMonthAndYear(toDate(month))}`
     }
 
-    const startMonth = toDate(grid.value[0].value as DateValue)
-    const endMonth = toDate(grid.value[grid.value.length - 1].value as DateValue)
+    const startMonth = toDate(grid.value[0].value)
+    const endMonth = toDate(grid.value[grid.value.length - 1].value)
 
     const startMonthName = formatter.fullMonth(startMonth)
     const endMonthName = formatter.fullMonth(endMonth)
@@ -209,7 +215,7 @@ export function useCalendar(props: UseCalendarProps) {
     return content
   })
 
-  const fullCalendarLabel = computed(() => `${props.calendarLabel ?? 'Event Date'}, ${headingValue.value}`)
+  const fullCalendarLabel = computed(() => `${props.calendarLabel.value ?? 'Event Date'}, ${headingValue.value}`)
 
   return {
     isDateDisabled,

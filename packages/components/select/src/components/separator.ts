@@ -1,5 +1,5 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -16,6 +16,8 @@ export const SelectSeparator = defineComponent({
     default: () => VNode[]
   }>,
   render() {
-    return h(Primitive, this.$props, () => this.$slots.default?.())
+    return h(Primitive, mergeProps(this.$props, {
+      'aria-hidden': '',
+    }), () => this.$slots.default?.())
   },
 })

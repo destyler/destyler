@@ -1,7 +1,7 @@
 import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import { useRafFn, useTimeout } from '@destyler/composition'
-import { Visuallyhidden } from '@destyler/visually-hidden'
+import { VisuallyHidden } from '@destyler/visually-hidden'
 
 import { injectToastProviderContext } from './provider'
 
@@ -26,13 +26,11 @@ export const ToastAnnounce = defineComponent({
     }
   },
   render() {
-    return [
-      this.isAnnounced || this.renderAnnounceText
-        ? h(Visuallyhidden, null, () => [
-          h('template', null, () => this.providerContext.label.value),
-          this.$slots.default?.(),
-        ])
-        : null,
-    ]
+    if (this.isAnnounced || this.renderAnnounceText) {
+      return h(VisuallyHidden, null, () => [
+        this.providerContext.label.value,
+        this.$slots.default?.(),
+      ])
+    }
   },
 })
