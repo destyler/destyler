@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Icon } from '@destyler/icon'
 import { ref } from 'vue'
 import {
   NavigationContent,

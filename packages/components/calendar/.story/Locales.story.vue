@@ -2,8 +2,7 @@
 import { BuddhistCalendar, CalendarDate, HebrewCalendar, JapaneseCalendar, PersianCalendar, TaiwanCalendar } from '@internationalized/date'
 import Calendar from './components/DummyCalendar.vue'
 
-const gregorian = new CalendarDate(2024,  2,
-  20,)
+const gregorian = new CalendarDate(2024, 2, 20)
 
 const persian = new CalendarDate(
   new PersianCalendar(),
