@@ -11,10 +11,9 @@
     "*.d.ts",
     "src"
   ],
-  "scripts": {
-  },
-  "peerDependencies": {
-  },
+  "scripts": {},
   "dependencies": {
+    "@destyler/composition": "workspace:*",
+    "@destyler/shared": "workspace:*"
   }
 }

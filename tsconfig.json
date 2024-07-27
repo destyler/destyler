@@ -12,7 +12,11 @@
     "resolveJsonModule": true,
     "types": [
       "vite/client",
-      "node"
+      "node",
+      "@vitest/browser/providers/wbdriverio"
+    ],
+    "include": [
+      "./vitest-setup.ts"
     ],
     "strict": true,
     "strictNullChecks": true,
