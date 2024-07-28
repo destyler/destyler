@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { Arrow } from '../src'
-import DestylerArrowDemo from '../demos/Arrow.demo.vue'
+import DestylerArrowDemo from './Arrow.spec.vue'
 
 describe('arrow', () => {
   it('should work with import on demand', () => {
