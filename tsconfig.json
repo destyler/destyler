@@ -15,9 +15,6 @@
       "node",
       "@vitest/browser/providers/wbdriverio"
     ],
-    "include": [
-      "./vitest-setup.ts"
-    ],
     "strict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
@@ -25,5 +22,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "./vitest.setup.ts"
+  ]
 }
