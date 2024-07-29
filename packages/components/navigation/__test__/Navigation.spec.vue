@@ -131,12 +131,12 @@ const currentTrigger = ref('')
         </NavigationItem>
 
         <NavigationIndicator>
-          <div/>
+          <div />
         </NavigationIndicator>
       </NavigationList>
 
       <div>
-        <NavigationViewport/>
+        <NavigationViewport />
       </div>
     </NavigationRoot>
   </div>

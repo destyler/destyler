@@ -4,7 +4,7 @@ import MenuWithAnchor from './MenuWithAnchor.spec.vue'
 
 const emits = defineEmits(['select'])
 
-function handleSelect(text: string) {
+function handleSelect(_text: string) {
 
   // console.log({ text })
 }

@@ -1,5 +1,5 @@
-import type { KbdKeys} from '@destyler/composition';
-import {useKbd } from '@destyler/composition'
+import type { KbdKeys } from '@destyler/composition'
+import { useKbd } from '@destyler/composition'
 
 export function useTestKbd() {
   const kbd = useKbd()

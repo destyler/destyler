@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { findByAltText, findByText, queryByText, waitForElementToBeRemoved } from '@testing-library/vue'
+import { findByAltText, findByText } from '@testing-library/vue'
 import Avatar from './Image.spec.vue'
 
 const FALLBACK = 'EH'

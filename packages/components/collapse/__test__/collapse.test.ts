@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { axe } from 'vitest-axe'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { findByText, fireEvent, render } from '@testing-library/vue'
+import { findByText, fireEvent } from '@testing-library/vue'
 import Collapse from './Collapse.spec.vue'
 
 describe('single collapse', () => {

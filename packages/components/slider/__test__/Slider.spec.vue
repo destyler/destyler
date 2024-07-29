@@ -35,6 +35,6 @@ const forwarded = useForwardPropsEmits(props, emits)
     <SliderTrack>
       <SliderRange />
     </SliderTrack>
-    <SliderThumb/>
+    <SliderThumb />
   </SliderRoot>
 </template>
