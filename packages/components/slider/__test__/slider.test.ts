@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { handleSubmit } from '@destyler/test/utils'
-import Slider from '../demos/Slider.spec.vue'
+import { handleSubmit } from '@destyler/test/utils.js'
+import Slider from './Slider.spec.vue'
 
 describe('given default Slider', () => {
   globalThis.ResizeObserver = class ResizeObserver {

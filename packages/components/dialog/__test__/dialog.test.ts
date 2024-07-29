@@ -10,17 +10,6 @@ const OPEN_TEXT = 'Open'
 const CLOSE_TEXT = 'Close'
 const TITLE_TEXT = 'Title'
 
-const NoLabelDialogTest = defineComponent({
-  components: { DialogRoot, DialogTrigger, DialogOverlay, DialogContent, DialogClose },
-  template: `<DialogRoot>
-  <DialogTrigger>${OPEN_TEXT}</DialogTrigger>
-  <DialogOverlay />
-  <DialogContent>
-    <DialogClose>${CLOSE_TEXT}</DialogClose>
-  </DialogContent>
-</DialogRoot>`,
-})
-
 const UndefinedDescribedByDialog = defineComponent({
   components: { DialogRoot, DialogTrigger, DialogOverlay, DialogContent, DialogClose, DialogTitle },
   template: `  <DialogRoot>
