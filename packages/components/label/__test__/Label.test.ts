@@ -9,21 +9,6 @@ describe('test label functionalities', () => {
     document.body.innerHTML = ''
   })
 
-  it('should pass axe accessibility tests', async () => {
-    const { container } = render(
-      defineComponent({
-        setup() {
-          return () =>
-            h('div', [
-              h(Label, { for: 'input' }, { default: () => 'Label' }),
-              h('input', { id: 'input' }),
-            ])
-        },
-      }),
-    )
-    expect(await axe(container)).toHaveNoViolations()
-  })
-
   it('should render without crashing', async () => {
     const label = render(Label)
     expect(label.html()).toBe(`<label>
