@@ -48,7 +48,7 @@ function setup(props: { calendarProps?: RangeCalendarRootProps, emits?: { 'onUpd
   return { ...returned, user, calendar }
 }
 
-describe('should pass axe accessibility tests', async () => {
+it('should pass axe accessibility tests', async () => {
   const { calendar } = setup()
   expect(await axe(calendar)).toHaveNoViolations()
 })
