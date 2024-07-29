@@ -120,8 +120,8 @@ export const ScrollAreaRoot = defineComponent({
       dir: this.dir,
       style: {
         'position': 'relative',
-        '--destyler_scroll_area_corner_width': `${this.cornerWidth}px`,
-        '--destyler_scroll_area_corner_height': `${this.cornerHeight}px`,
+        '--destyler-scroll-area-corner-width': `${this.cornerWidth}px`,
+        '--destyler-scroll-area-corner-height': `${this.cornerHeight}px`,
       },
     }, {
       default: () => this.$slots.default?.(),
