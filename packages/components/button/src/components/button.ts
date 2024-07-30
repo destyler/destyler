@@ -64,7 +64,7 @@ export const Button = defineComponent({
       'ref': this.forwardRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
-      'type': this.$props.as === 'button' && !this.isNativeInput ? 'button' : undefined,
+      'type': this.isNativeButton && !this.isNativeInput ? 'button' : undefined,
       'disabled': this.isNativeButton || this.isNativeInput ? this.$props.disabled : undefined,
       'role': !this.isNativeButton || !this.isNativeLink ? 'button' : undefined,
       'tabindex': (!this.isNativeButton || !this.isNativeLink) && !this.$props.disabled ? 0 : undefined,
