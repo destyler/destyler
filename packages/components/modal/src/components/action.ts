@@ -1,11 +1,10 @@
 import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-
-import { ModalCancel, modalCancelProps } from './cancel'
+import { DialogClose, dialogCloseProps } from '@destyler/dialog'
 
 export const modalActionProps = {
-  ...modalCancelProps,
+  ...dialogCloseProps,
 } as const
 
 export type ModalActionProps = ExtractPublicPropTypes<typeof modalActionProps>
@@ -17,6 +16,6 @@ export const ModalAction = defineComponent({
     default: () => VNode[]
   }>,
   render() {
-    return h(ModalCancel, mergeProps(this.$props), () => this.$slots.default?.())
+    return h(DialogClose, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

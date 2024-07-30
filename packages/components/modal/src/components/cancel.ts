@@ -1,16 +1,13 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
-import { Primitive, primitiveProps } from '@destyler/primitive'
+import { defineComponent, h, mergeProps, onMounted } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
+import { DialogClose, dialogCloseProps } from '@destyler/dialog'
 
-import { injectModalRootContext } from './root'
+import { injectModalContentContext } from './content'
 
 export const modalCancelProps = {
-  ...primitiveProps,
-  as: {
-    ...primitiveProps.as,
-    default: 'button',
-  },
+  ...dialogCloseProps,
 } as const
 
 export type ModalCancelProps = ExtractPublicPropTypes<typeof modalCancelProps>
@@ -22,18 +19,20 @@ export const ModalCancel = defineComponent({
     default: () => VNode[]
   }>,
   setup() {
-    const rootContext = injectModalRootContext()
+    const contentContext = injectModalContentContext()
+    const { forwardRef, currentElement } = useForwardExpose()
+
+    onMounted(() => {
+      contentContext.onCancelElementChange(currentElement.value)
+    })
 
     return {
-      rootContext,
+      forwardRef,
     }
   },
   render() {
-    return h(Primitive, mergeProps(this.$props, {
-      type: this.$props.as === 'button' ? 'button' : undefined,
-      onClick: () => {
-        this.rootContext.onOpenChange(false)
-      },
+    return h(DialogClose, mergeProps(this.$props, {
+      ref: this.forwardRef,
     }), () => this.$slots.default?.())
   },
 })

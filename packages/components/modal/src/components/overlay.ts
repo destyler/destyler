@@ -1,18 +1,11 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { primitiveProps } from '@destyler/primitive'
-import { Presence } from '@destyler/presence'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-
-import { injectModalRootContext } from './root'
-import { ModalOverlayImpl } from './overlayImpl'
+import { useForwardExpose } from '@destyler/composition'
+import { DialogOverlay, dialogOverlayProps } from '@destyler/dialog'
 
 export const modalOverlayProps = {
-  ...primitiveProps,
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+  ...dialogOverlayProps,
 } as const
 
 export type ModalOverlayProps = ExtractPublicPropTypes<typeof modalOverlayProps>
@@ -24,18 +17,9 @@ export const ModalOverlay = defineComponent({
     default: () => VNode[]
   }>,
   setup() {
-    const rootContext = injectModalRootContext()
-
-    return {
-      rootContext,
-    }
+    useForwardExpose()
   },
   render() {
-    return h(Presence, {
-      present: this.$props.forceMount || this.rootContext.open.value,
-    }, () => h(ModalOverlayImpl, mergeProps(this.$attrs, {
-      as: this.$props.as,
-      asChild: this.$props.asChild,
-    }), () => this.$slots.default?.()))
+    return h(DialogOverlay, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })
