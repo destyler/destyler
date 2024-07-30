@@ -2,6 +2,7 @@ import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { PopperArrow, popperArrowProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 export const tooltipArrowProps = {
   ...popperArrowProps,
@@ -15,6 +16,9 @@ export const TooltipArrow = defineComponent({
   slots: Object as SlotsType<{
     default: () => VNode[]
   }>,
+  setup() {
+    useForwardExpose()
+  },
   render() {
     return h(PopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
   },

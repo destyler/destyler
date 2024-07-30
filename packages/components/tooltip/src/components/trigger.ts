@@ -1,7 +1,7 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h, onMounted, ref } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import { useForwardExpose } from '@destyler/composition'
+import { useForwardExpose, useId } from '@destyler/composition'
 import { PopperAnchor } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -30,10 +30,30 @@ export const TooltipTrigger = defineComponent({
     const rootContext = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()
 
+    rootContext.contentId ||= useId(undefined, 'destyler-tooltip-content')
+
     const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
     const isPointerDown = ref(false)
     const hasPointerMoveOpened = ref(false)
+
+    const tooltipListeners = computed(() => {
+      if (rootContext.disabled.value)
+        return {}
+
+      return {
+        onclick: handleClick,
+        onfocus: handleFocus,
+        onpointermove: handlePointerMove,
+        onpointerleave: handlePointerLeave,
+        onpointerdown: handlePointerDown,
+        onblur: handleBlur,
+      }
+    })
+
+    onMounted(() => {
+      rootContext.onTriggerChange(triggerElement.value)
+    })
 
     function handlePointerUp() {
       isPointerDown.value = false
@@ -44,9 +64,40 @@ export const TooltipTrigger = defineComponent({
       document.addEventListener('pointerup', handlePointerUp, { once: true })
     }
 
-    onMounted(() => {
-      rootContext.onTriggerChange(triggerElement.value)
-    })
+    function handlePointerMove(event: PointerEvent) {
+      if (event.pointerType === 'touch')
+        return
+      if (
+        !hasPointerMoveOpened.value && !providerContext.isPointerInTransitRef.value
+      ) {
+        rootContext.onTriggerEnter()
+        hasPointerMoveOpened.value = true
+      }
+    }
+
+    function handlePointerLeave() {
+      rootContext.onTriggerLeave()
+      hasPointerMoveOpened.value = false
+    }
+
+    function handleFocus(event: FocusEvent) {
+      if (isPointerDown.value)
+        return
+
+      if (rootContext.ignoreNonKeyboardFocus.value && !(event.target as HTMLElement).matches?.(':focus-visible'))
+        return
+
+      rootContext.onOpen()
+    }
+
+    function handleBlur() {
+      rootContext.onClose()
+    }
+
+    function handleClick() {
+      if (!rootContext.disableClosingTrigger.value)
+        rootContext.onClose()
+    }
 
     return {
       rootContext,
@@ -55,43 +106,18 @@ export const TooltipTrigger = defineComponent({
       isPointerDown,
       hasPointerMoveOpened,
       handlePointerDown,
+      tooltipListeners,
     }
   },
   render() {
     return h(PopperAnchor, {
       asChild: true,
-    }, () => h(Primitive, {
-      'ref': (el: any) => this.forwardRef(el),
+    }, () => h(Primitive, mergeProps(this.tooltipListeners, {
+      'ref': this.forwardRef,
       'aria-describedby': this.rootContext.open.value ? this.rootContext.contentId : undefined,
       'data-state': this.rootContext.stateAttribute.value,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
-      'onPointermove': (event: any) => {
-        if (event.pointerType === 'touch')
-          return
-        if (!this.hasPointerMoveOpened && !this.providerContext.isPointerInTransitRef.value) {
-          this.rootContext.onTriggerEnter()
-          this.hasPointerMoveOpened = true
-        }
-      },
-      'onPointerleave': () => {
-        this.rootContext.onTriggerLeave()
-        this.hasPointerMoveOpened = false
-      },
-      'onPointerdown': () => {
-        this.handlePointerDown()
-      },
-      'onFocus': () => {
-        if (!this.isPointerDown)
-          this.rootContext.onOpen()
-      },
-      'onBlur': () => {
-        this.rootContext.onClose()
-      },
-      'onClick': () => {
-        if (!this.rootContext.disableClosingTrigger.value)
-          this.rootContext.onClose()
-      },
-    }, () => this.$slots.default?.()))
+    }), () => this.$slots.default?.()))
   },
 })

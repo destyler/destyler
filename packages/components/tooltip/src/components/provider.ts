@@ -2,7 +2,7 @@ import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useTimeoutFn } from '@destyler/composition'
+import { useForwardExpose,useTimeoutFn } from '@destyler/composition'
 
 export const tooltipProviderProps = {
   delayDuration: {
@@ -25,6 +25,16 @@ export const tooltipProviderProps = {
     required: false,
     default: false,
   },
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  ignoreNonKeyboardFocus: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
 } as const
 
 export type TooltipProviderProps = ExtractPublicPropTypes<typeof tooltipProviderProps>
@@ -34,10 +44,11 @@ export interface TooltipProviderContext {
   delayDuration: Ref<number>
   onOpen: () => void
   onClose: () => void
-  onPointerInTransitChange: (inTransit: boolean) => void
   isPointerInTransitRef: Ref<boolean>
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  disabled: Ref<boolean>
+  ignoreNonKeyboardFocus: Ref<boolean>
 }
 
 export const [injectTooltipProviderContext, provideTooltipProviderContext]
@@ -51,7 +62,8 @@ export const TooltipProvider = defineComponent({
     default: () => VNode[]
   }>,
   setup(props) {
-    const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger } = toRefs(props)
+    const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger, ignoreNonKeyboardFocus, disabled } = toRefs(props)
+    useForwardExpose()
 
     const isOpenDelayed = ref(true)
     const isPointerInTransitRef = ref(false)
@@ -71,11 +83,10 @@ export const TooltipProvider = defineComponent({
         startTimer()
       },
       isPointerInTransitRef,
-      onPointerInTransitChange(inTransit) {
-        isPointerInTransitRef.value = inTransit
-      },
       disableHoverableContent,
       disableClosingTrigger,
+      disabled,
+      ignoreNonKeyboardFocus,
     })
   },
   render() {
