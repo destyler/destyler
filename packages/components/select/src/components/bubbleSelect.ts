@@ -70,7 +70,7 @@ export const BubbleSelect = defineComponent({
         this.value = value
       },
       'defaultValue': this.value,
-    }), () => this.$slots.default?.()), [
+    }), this.$slots.default?.()), [
       [vModelSelect, this.value],
     ]))
   },
