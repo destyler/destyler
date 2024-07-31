@@ -7,3 +7,11 @@ export const handleSubmit = vi.fn((e) => {
 })
 
 export const sleep = (duration: number) => new Promise(resolve => setTimeout(resolve, duration))
+
+export function nextTwoTick() {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      setTimeout(resolve)
+    })
+  })
+}
