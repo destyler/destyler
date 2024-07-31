@@ -48,12 +48,12 @@ function setup(props: { calendarProps?: RangeCalendarRootProps, emits?: { 'onUpd
   return { ...returned, user, calendar }
 }
 
-it('should pass axe accessibility tests', async () => {
-  const { calendar } = setup()
-  expect(await axe(calendar)).toHaveNoViolations()
-})
-
 describe('rangeCalendar', () => {
+  it('should pass axe accessibility tests', async () => {
+    const { calendar } = setup()
+    expect(await axe(calendar)).toHaveNoViolations()
+  })
+
   it('respects a default value if provided - `CalendarDate`', async () => {
     const { calendar, getByTestId } = setup({ calendarProps: { modelValue: calendarDateRange } })
 

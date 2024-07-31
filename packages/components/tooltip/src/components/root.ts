@@ -148,7 +148,9 @@ export const TooltipRoot = defineComponent({
         else handleOpen()
       },
       onTriggerLeave() {
-        if (disableHoverableContent.value) { handleClose() }
+        if (disableHoverableContent.value) {
+          handleClose()
+        }
         else {
           // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
           clearTimer()

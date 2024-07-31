@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@destyler/icon'
 import { useForwardPropsEmits } from '@destyler/composition'
-import type { ToggleGroupRootProps } from '../src/component'
 import { ToggleGroupItem, ToggleGroupRoot } from '../src'
 
 const props = defineProps<{

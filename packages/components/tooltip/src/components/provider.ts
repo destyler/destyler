@@ -2,7 +2,7 @@ import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useForwardExpose,useTimeoutFn } from '@destyler/composition'
+import { useForwardExpose, useTimeoutFn } from '@destyler/composition'
 
 export const tooltipProviderProps = {
   delayDuration: {

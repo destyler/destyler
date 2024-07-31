@@ -23,6 +23,7 @@ describe('default dismissableLayer', () => {
   })
 
   describe('after clicking a trigger', () => {
+    // eslint-disable-next-line unused-imports/no-unused-vars
     let outsideButton: DOMWrapper<HTMLButtonElement>
     beforeEach(async () => {
       await fireEvent.click(trigger.element)

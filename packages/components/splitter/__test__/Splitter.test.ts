@@ -1,7 +1,5 @@
-import { beforeEach, describe, expect, it } from 'vitest'
-import { axe } from 'vitest-axe'
+import { beforeEach, describe, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
 import Splitter from './Splitter.spec.vue'
 
 describe('test splitter functionalities', () => {
