@@ -128,29 +128,30 @@ export const RovingFocusGroup = defineComponent({
       dir,
       isClickFocus,
       isTabbingBackOut,
+      focusableItemsCount,
       handleFocus,
     }
   },
   render() {
     return h(Primitive, {
-      ref: (el: any) => this.forwardRef(el),
-      as: this.$props.as,
-      asChild: this.$props.asChild,
-      dir: this.dir,
-      style: {
+      'ref': this.forwardRef,
+      'tabindex': this.isTabbingBackOut || this.focusableItemsCount === 0 ? -1 : 0,
+      'data-orientation': this.$props.orientation,
+      'as': this.$props.as,
+      'asChild': this.$props.asChild,
+      'dir': this.dir,
+      'style': {
         outline: 'none',
       },
-      onMousedown: () => {
+      'onMousedown': () => {
         this.isClickFocus = true
       },
-      onFocus: (event: any) => {
+      'onFocus': (event: any) => {
         this.handleFocus(event)
       },
-      onBlur: () => {
+      'onBlur': () => {
         this.isTabbingBackOut = false
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })
