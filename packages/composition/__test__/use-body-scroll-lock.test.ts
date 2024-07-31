@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, ref } from 'vue'
+import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import { useBodyScrollLock } from '../src'
 

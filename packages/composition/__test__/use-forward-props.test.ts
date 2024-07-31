@@ -34,7 +34,7 @@ describe('useForwardProps', () => {
     const props = { id: 'new-test', number: 0, enabled: false }
     const wrapper = mount(setupTestComponent(
       { id: { type: String, default: 'test' }, number: Number, enabled: Boolean },
-    ), { props } )
+    ), { props })
     expect(wrapper.emitted('log')?.[0][0]).toStrictEqual(props)
   })
 
