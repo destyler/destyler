@@ -43,6 +43,7 @@
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*",
     "@destyler/teleport": "workspace:*",
+    "@destyler/tooltip": "workspace:*",
     "@destyler/visually-hidden": "workspace:*",
     "@vueuse/core": "^10.9.0"
   }
