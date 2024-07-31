@@ -31,7 +31,9 @@ export const InfoClose = defineComponent({
   },
   render() {
     return h(Primitive, mergeProps(this.$props, this.$attrs, {
-      onClick: () => {
+      'aria-label': 'Close',
+      'role': 'Info Close',
+      'onClick': () => {
         this.rootContent.onToggle()
       },
     }), () => this.$slots.default?.())

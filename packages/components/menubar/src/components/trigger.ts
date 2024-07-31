@@ -67,7 +67,7 @@ export const MenubarTrigger = defineComponent({
       'type': this.$props.as === 'button' ? 'button' : undefined,
       'role': 'menuitem',
       'aria-haspopup': 'menu',
-      'aria-expanded': 'open',
+      'aria-expanded': this.open,
       'aria-controls': this.open ? this.menuContext.contentId : undefined,
       'data-highlighted': this.isFocused ? '' : undefined,
       'data-state': this.open ? 'open' : 'closed',

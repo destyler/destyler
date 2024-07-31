@@ -52,8 +52,7 @@ export const ScrollAreaViewport = defineComponent({
         as: this.$props.as,
         asChild: this.$props.asChild,
         style: {
-          minWidth: '100%',
-          display: 'table',
+          minWidth: this.rootContext.scrollbarXEnabled.value ? 'fit-content' : undefined,
         },
       }, {
         default: () => this.$slots.default?.(),

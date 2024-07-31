@@ -1,29 +1,31 @@
-<script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { BackTop } from '../src'
+<script lang="ts">
+import {BackTop} from '../src'
+import { defineComponent, ref } from 'vue'
 
-const scrollContainerRef = ref()
-
-const show = ref<boolean>(false)
-
-onMounted(() => {
-  scrollContainerRef.value = document.getElementById('scrollContainerRef')
-  show.value = true
+export default defineComponent({
+  components:{
+    BackTop
+  },
+  setup() {
+    const scrollContainerRef = ref<HTMLElement | undefined>(undefined)
+    return {
+      scrollContainer: scrollContainerRef,
+      target: () => scrollContainerRef.value
+    }
+  }
 })
 </script>
 
 <template>
   <Story title="Back Top/Default">
-    <Variant title="default">
+    <Variant title="listen">
       <div class="text-dark dark:text-light">
-        <div v-if="show">
-          <BackTop :listen="scrollContainerRef">
-            <button class="w-sm h-sm p-3 cursor-pointer bg-green8 hover:bg-green3 rounded-md">
-              back top
-            </button>
+        <div>
+          <BackTop class="w-sm h-sm p-3 cursor-pointer bg-green8 hover:bg-green3 rounded-md">
+            back top
           </BackTop>
         </div>
-        <div id="scrollContainerRef" class="mt-2" style="overflow: auto; height: 72px; line-height: 1.5">
+        <div ref="scrollContainer" class="mt-2" style="overflow: auto; height: 72px; line-height: 1.5">
           <div v-for="i in 100" :key="i">
             {{ i }}
           </div>

@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
-import { handleSubmit } from '@destyler/test/utils'
-import Slider from '../demos/Slider.spec.vue'
+import { handleSubmit } from '@destyler/test/utils.js'
+import Slider from './Slider.spec.vue'
 
-describe('given default Slider', () => {
+describe('default Slider', () => {
   globalThis.ResizeObserver = class ResizeObserver {
     observe() {}
     unobserve() {}
@@ -47,7 +47,7 @@ describe('given default Slider', () => {
   })
 
   describe('after pointerdown event on slider-impl', () => {
-    let sliderImpl: VueWrapper<InstanceType<any>>
+    let sliderImpl: VueWrapper<InstanceType<typeof SliderImpl>>
     beforeEach(async () => {
       sliderImpl = wrapper.findComponent('[data-slider-impl]') as any
       await sliderImpl.trigger('pointerdown', { clientX: 10, pointerId: 1 })
@@ -138,7 +138,7 @@ describe('given default Slider', () => {
   })
 })
 
-describe('given slider in a form', async () => {
+describe('slider in a form', async () => {
   const wrapper = mount({
     props: ['handleSubmit'],
     components: { Slider },

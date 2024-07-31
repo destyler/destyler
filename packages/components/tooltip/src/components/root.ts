@@ -2,7 +2,7 @@ import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
-import { useId, useTimeoutFn, useVModel } from '@destyler/composition'
+import { useForwardExpose, useTimeoutFn, useVModel } from '@destyler/composition'
 import { PopperRoot } from '@destyler/popper'
 
 import { TOOLTIP_OPEN } from '../utils'
@@ -34,6 +34,16 @@ export const tooltipRootProps = {
     required: false,
     default: undefined,
   },
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: undefined,
+  },
+  ignoreNonKeyboardFocus: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: undefined,
+  },
 } as const
 
 export type TooltipRootProps = ExtractPublicPropTypes<typeof tooltipRootProps>
@@ -54,6 +64,8 @@ export interface TooltipContext {
   onClose: () => void
   disableHoverableContent: Ref<boolean>
   disableClosingTrigger: Ref<boolean>
+  disabled: Ref<boolean>
+  ignoreNonKeyboardFocus: Ref<boolean>
 }
 
 export const [injectTooltipRootContext, provideTooltipRootContext] = createContext<TooltipContext>('DestylerTooltipRoot')
@@ -66,20 +78,22 @@ export const TooltipRoot = defineComponent({
     default: () => VNode[]
   }>,
   setup(props, { emit }) {
+    useForwardExpose()
     const providerContext = injectTooltipProviderContext()
 
-    const disableHoverableContent = computed(() => {
-      return props.disableHoverableContent ?? providerContext.disableHoverableContent.value
-    })
+    const disableHoverableContent = computed(() => props.disableHoverableContent ?? providerContext.disableHoverableContent.value)
     const disableClosingTrigger = computed(() => props.disableClosingTrigger ?? providerContext.disableClosingTrigger.value)
-    const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
+    const disableTooltip = computed(() => props.disabled ?? providerContext.disabled.value)
 
-    const openRef = useVModel(props, 'open', emit, {
+    const delayDuration = computed(() => props.delayDuration ?? providerContext.delayDuration.value)
+    const ignoreNonKeyboardFocus = computed(() => props.ignoreNonKeyboardFocus ?? providerContext.ignoreNonKeyboardFocus.value)
+
+    const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,
       passive: (props.open === undefined) as false,
     }) as Ref<boolean>
 
-    watch(openRef, (isOpen) => {
+    watch(open, (isOpen) => {
       if (!providerContext.onClose)
         return
       if (isOpen) {
@@ -97,32 +111,32 @@ export const TooltipRoot = defineComponent({
     const trigger = ref<HTMLElement>()
 
     const stateAttribute = computed(() => {
-      if (!openRef.value)
+      if (!open.value)
         return 'closed'
       return wasOpenDelayedRef.value ? 'delayed-open' : 'instant-open'
     })
 
     const { start: startTimer, stop: clearTimer } = useTimeoutFn(() => {
       wasOpenDelayedRef.value = true
-      openRef.value = true
+      open.value = true
     }, delayDuration, { immediate: false })
 
     function handleOpen() {
       clearTimer()
       wasOpenDelayedRef.value = false
-      openRef.value = true
+      open.value = true
     }
     function handleClose() {
       clearTimer()
-      openRef.value = false
+      open.value = false
     }
     function handleDelayedOpen() {
       startTimer()
     }
 
     provideTooltipRootContext({
-      contentId: useId(),
-      open: openRef,
+      contentId: '',
+      open,
       stateAttribute,
       trigger,
       onTriggerChange(el) {
@@ -131,19 +145,23 @@ export const TooltipRoot = defineComponent({
       onTriggerEnter() {
         if (providerContext.isOpenDelayed.value)
           handleDelayedOpen()
-        else
-          handleOpen()
+        else handleOpen()
       },
       onTriggerLeave() {
-        if (disableHoverableContent.value)
+        if (disableHoverableContent.value) {
           handleClose()
-        else
+        }
+        else {
+          // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
           clearTimer()
+        }
       },
       onOpen: handleOpen,
       onClose: handleClose,
       disableHoverableContent,
       disableClosingTrigger,
+      disabled: disableTooltip,
+      ignoreNonKeyboardFocus,
     })
   },
   render() {

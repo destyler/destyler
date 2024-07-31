@@ -1,7 +1,7 @@
 import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
-import { useForwardExpose } from '@destyler/composition'
+import { useForwardExpose, useId } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { BindOnceDirective } from '@destyler/directives'
@@ -26,6 +26,8 @@ export const DynamicItemText = defineComponent({
   setup() {
     const itemContext = injectDynamicItemContext()
     useForwardExpose()
+
+    itemContext.textId ||= useId(undefined, 'destyler-tags-input-item-text')
 
     return {
       itemContext,

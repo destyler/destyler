@@ -1,26 +1,26 @@
-import type { PropType, SlotsType, VNode } from 'vue'
-import { defineComponent, h, mergeProps } from 'vue'
-import { useEmitAsProps } from '@destyler/composition'
-import { Presence } from '@destyler/presence'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps, nextTick, ref, withModifiers } from 'vue'
+import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
+import { createContext } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-
-import { injectModalRootContext } from './root'
-import { modalContentImplEmits, modalContentImplProps } from './contentImpl'
-import { ModalContentModal } from './contentModal'
+import { DialogContent, dialogContentProps } from '@destyler/dialog'
+import { dialogContentEmits } from '@destyler/dialog/component'
 
 export const modalContentProps = {
-  ...modalContentImplProps,
-  forceMount: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-  },
+  ...dialogContentProps,
 } as const
 
 export type ModalContentProps = ExtractPublicPropTypes<typeof modalContentProps>
 
 export const modalContentEmits = {
-  ...modalContentImplEmits,
+  ...dialogContentEmits,
 }
+
+interface ModalContentContext {
+  onCancelElementChange: (el: HTMLElement | undefined) => void
+}
+
+export const [injectModalContentContext, provideModalContentContext] = createContext<ModalContentContext>('ModalContent')
 
 export const ModalContent = defineComponent({
   name: 'DestylerModalContent',
@@ -30,22 +30,37 @@ export const ModalContent = defineComponent({
     default: () => VNode[]
   }>,
   setup(_, { emit }) {
-    const rootContext = injectModalRootContext()
-
     const emitsAsProps = useEmitAsProps(emit)
+    useForwardExpose()
+
+    const cancelElement = ref<HTMLElement | undefined>()
+
+    provideModalContentContext({
+      onCancelElementChange: (el) => {
+        cancelElement.value = el
+      },
+    })
 
     return {
-      rootContext,
       emitsAsProps,
+      cancelElement,
     }
   },
   render() {
-    return h(Presence, {
-      present: this.$props.forceMount || this.rootContext.open.value,
-    }, () => h(ModalContentModal, mergeProps(this.$props, this.emitsAsProps, this.$attrs, {
-      onOpenAutoFocus: (event: any) => {
-        this.$emit('openAutoFocus', event)
+    return h(DialogContent, mergeProps(
+      { ...this.$props, ...this.emitsAsProps },
+      {
+        role: 'modal',
+        onPointerDownOutside: withModifiers(() => {}, ['prevent']),
+        onInteractOutside: withModifiers(() => {}, ['prevent']),
+        onOpenAutoFocus: () => {
+          nextTick(() => {
+            this.cancelElement?.focus({
+              preventScroll: true,
+            })
+          })
+        },
       },
-    }), () => this.$slots.default?.()))
+    ), () => this.$slots.default?.())
   },
 })

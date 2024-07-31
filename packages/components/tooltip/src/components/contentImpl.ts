@@ -1,11 +1,12 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { computed, defineComponent, h, mergeProps, onMounted, ref, useSlots } from 'vue'
+import { computed, defineComponent, h, mergeProps, onMounted, useSlots, withModifiers } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import { DismissableLayer } from '@destyler/dismissable-layer'
 import { VisuallyHidden } from '@destyler/visually-hidden'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
 
 import { TOOLTIP_OPEN } from '../utils'
 import { injectTooltipRootContext } from './root'
@@ -64,9 +65,9 @@ export const TooltipContentImpl = defineComponent({
     default: () => VNode[]
   }>,
   setup(props) {
-    const contentElement = ref<HTMLElement>()
     const rootContext = injectTooltipRootContext()
 
+    const { forwardRef } = useForwardExpose()
     const slot = useSlots()
     const defaultSlot = computed(() => slot.default?.())
     const ariaLabel = computed(() => {
@@ -102,10 +103,10 @@ export const TooltipContentImpl = defineComponent({
     })
 
     return {
-      contentElement,
       rootContext,
       popperContentProps,
       ariaLabel,
+      forwardRef,
     }
   },
   render() {
@@ -121,23 +122,31 @@ export const TooltipContentImpl = defineComponent({
 
         this.$emit('pointerDownOutside', event)
       },
+      onFocusOutside: withModifiers(() => {}, ['prevent']),
       onDismiss: () => {
         this.rootContext.onClose()
       },
-    }, () => h(PopperContent, mergeProps(this.$attrs, this.popperContentProps, {
-      'ref': 'contentElement',
-      'data-state': this.rootContext.stateAttribute.value,
-      'style': {
-        '--destyler-tooltip-content-transform-origin': 'var(--destyler-popper-transform-origin)',
-        '--destyler-tooltip-content-available-width': 'var(--destyler-popper-available-width)',
-        '--destyler-tooltip-content-available-height': 'var(--destyler-popper-available-height)',
-        '--destyler-tooltip-trigger-width': 'var(--destyler-popper-anchor-width)',
-        '--destyler-tooltip-trigger-height': 'var(--destyler-popper-anchor-height)',
+    }, () => h(PopperContent, mergeProps(
+      {
+        ...this.$attrs,
+        ...this.popperContentProps,
       },
-    }), () => [
+      {
+        'ref': this.forwardRef,
+        'data-state': this.rootContext.stateAttribute.value,
+        'style': {
+          '--destyler-tooltip-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+          '--destyler-tooltip-content-available-width': 'var(--destyler-popper-available-width)',
+          '--destyler-tooltip-content-available-height': 'var(--destyler-popper-available-height)',
+          '--destyler-tooltip-trigger-width': 'var(--destyler-popper-anchor-width)',
+          '--destyler-tooltip-trigger-height': 'var(--destyler-popper-anchor-height)',
+        },
+      },
+    ), () => [
       this.$slots.default?.(),
       h(VisuallyHidden, {
         role: 'tooltip',
+        id: this.rootContext.contentId,
       }, () => this.ariaLabel),
     ]))
   },

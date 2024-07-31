@@ -1,6 +1,6 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h } from 'vue'
-import { useForwardPropsEmits } from '@destyler/composition'
+import { defineComponent, h, mergeProps } from 'vue'
+import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 import { injectTooltipRootContext } from './root'
@@ -27,17 +27,19 @@ export const TooltipContent = defineComponent({
   setup(props, { emit }) {
     const rootContext = injectTooltipRootContext()
     const forwarded = useForwardPropsEmits(props, emit)
+    const { forwardRef } = useForwardExpose()
 
     return {
       rootContext,
       forwarded,
+      forwardRef,
     }
   },
   render() {
     if (this.rootContext.open.value) {
-      return h(this.rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable, {
-        ...this.forwarded,
-      }, () => this.$slots.default?.())
+      return h(this.rootContext.disableHoverableContent.value ? TooltipContentImpl : TooltipContentHoverable, mergeProps(this.forwarded, {
+        ref: this.forwardRef,
+      }), () => this.$slots.default?.())
     }
   },
 })

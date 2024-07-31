@@ -34,10 +34,11 @@ export const BreadcrumbsSeparator = defineComponent({
     }
   },
   render() {
-    return h(Primitive, {
-      as: this.$props.as,
-      asChild: this.$props.asChild,
-      ...this.content.lastItemId.value === this.itemContent.itemId ? { style: { display: 'none' } } : {},
-    }, () => this.$slots.default ? this.$slots.default?.() : '/')
+    if (this.content.lastItemId.value !== this.itemContent.itemId) {
+      return h(Primitive, {
+        as: this.$props.as,
+        asChild: this.$props.asChild,
+      }, () => this.$slots.default ? this.$slots.default?.() : '/')
+    }
   },
 })

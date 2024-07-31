@@ -39,8 +39,7 @@ export const RovingFocusItem = defineComponent({
   }>,
   setup(props) {
     const context = injectRovingFocusGroupContext()
-    const autoId = useId()
-    const id = computed(() => props.tabStopId || autoId)
+    const id = computed(() => props.tabStopId || useId())
     const isCurrentTabStop = computed(
       () => context.currentTabStopId.value === id.value,
     )
@@ -73,6 +72,8 @@ export const RovingFocusItem = defineComponent({
       )
 
       if (focusIntent !== undefined) {
+        if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey)
+          return
         event.preventDefault()
         let candidateNodes = [...collections.value]
 
@@ -114,7 +115,8 @@ export const RovingFocusItem = defineComponent({
       'onMousedown': (event: any) => {
         if (!this.$props.focusable)
           event.preventDefault()
-        else this.context.onItemFocus(this.id)
+        else
+          this.context.onItemFocus(this.id)
       },
       'onFocus': () => {
         this.context.onItemFocus(this.id)
@@ -122,8 +124,6 @@ export const RovingFocusItem = defineComponent({
       'onKeydown': (event: any) => {
         this.handleKeydown(event)
       },
-    }, {
-      default: () => this.$slots.default?.(),
-    })
+    }, () => this.$slots.default?.())
   },
 })

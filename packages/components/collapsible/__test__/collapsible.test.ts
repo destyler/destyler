@@ -3,18 +3,17 @@ import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { findByText } from '@testing-library/vue'
-import Collapsible from '../demos/Collapsible.spec.vue'
+import Collapsible from './Collapsible.spec.vue'
 
 const CONTENT_TEXT = 'Content'
 
-describe('collapsible', async () => {
+describe('default collapsible', async () => {
   let wrapper: VueWrapper<InstanceType<typeof Collapsible>>
   let trigger: DOMWrapper<HTMLButtonElement>
   beforeEach(() => {
     wrapper = mount(Collapsible)
     trigger = wrapper.find('button')
   })
-
   it('should pass axe accessibility tests', async () => {
     expect(await axe(wrapper.element)).toHaveNoViolations()
   })
@@ -42,7 +41,7 @@ describe('collapsible', async () => {
   })
 })
 
-describe('given an open uncontrolled Collapsible', () => {
+describe('open uncontrolled collapsible', () => {
   let content: HTMLElement
   describe('when clicking the trigger', async () => {
     let wrapper: VueWrapper<InstanceType<typeof Collapsible>>

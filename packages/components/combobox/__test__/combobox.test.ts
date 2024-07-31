@@ -3,11 +3,11 @@ import { axe } from 'vitest-axe'
 import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { handleSubmit } from '@destyler/test/utils'
-import ComboboxObject from '../demos/ComboboxObject.spec.vue'
-import Combobox from '../demos/Combobox.spec.vue'
+import { handleSubmit } from '@destyler/test/utils.js'
+import ComboboxObject from './ComboboxObject.spec.vue'
+import Combobox from './Combobox.spec.vue'
 
-describe('combobox', () => {
+describe('default combobox', () => {
   let wrapper: VueWrapper<InstanceType<typeof Combobox>>
   let valueBox: DOMWrapper<HTMLInputElement>
   window.HTMLElement.prototype.releasePointerCapture = vi.fn()
@@ -135,6 +135,7 @@ describe('given a Combobox with object', async () => {
   beforeEach(() => {
     document.body.innerHTML = ''
     wrapper = mount(ComboboxObject, {
+      props: { },
       attachTo: document.body,
     })
     valueBox = wrapper.find('input')

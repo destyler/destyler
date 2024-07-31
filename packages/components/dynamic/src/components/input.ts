@@ -1,5 +1,5 @@
 import type { PropType, SlotsType, VNode } from 'vue'
-import { defineComponent, h, nextTick, onMounted, withDirectives } from 'vue'
+import { defineComponent, h, nextTick, onMounted, withDirectives, withKeys } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -39,7 +39,27 @@ export const DynamicInput = defineComponent({
     const context = injectDynamicRootContext()
     const { forwardRef, currentElement } = useForwardExpose()
 
-    async function handleEnter(event: Event) {
+    function handleBlur(event: Event) {
+      if (!context.addOnBlur.value)
+        return
+
+      const target = event.target as HTMLInputElement
+      if (!target.value)
+        return
+
+      const isAdded = context.onAddValue(target.value)
+      if (isAdded)
+        target.value = ''
+    }
+
+    function handleTab(event: Event) {
+      if (!context.addOnTab.value)
+        return
+
+      handleCustomKeydown(event)
+    }
+
+    async function handleCustomKeydown(event: Event) {
       await nextTick()
       if (event.defaultPrevented)
         return
@@ -97,6 +117,7 @@ export const DynamicInput = defineComponent({
         return
 
       setTimeout(() => {
+        // make sure all DOM was flush then only capture the focus
         if (props.autoFocus)
           inputEl?.focus()
       }, 1)
@@ -107,7 +128,9 @@ export const DynamicInput = defineComponent({
       context,
       handleInput,
       handlePaste,
-      handleEnter,
+      handleCustomKeydown,
+      handleBlur,
+      handleTab,
     }
   },
   render() {
@@ -126,16 +149,17 @@ export const DynamicInput = defineComponent({
       'onInput': (event: any) => {
         this.handleInput(event)
       },
+      'onKeydown': [
+        withKeys(this.handleCustomKeydown, ['enter']),
+        withKeys(this.handleTab, ['tab']),
+        this.context.onInputKeydown,
+      ],
+      'onBlur': (event: any) => {
+        this.handleBlur(event)
+      },
       'onPaste': (event: any) => {
         this.handlePaste(event)
       },
-      'onKeydown': (event: any) => {
-        if (event.key === 'Enter')
-          this.handleEnter(event)
-        else
-          this.context.onInputKeydown(event)
-      },
-
     }, () => this.$slots.default?.()), [
       [BindOnceDirective, { id: this.context.id?.value }],
     ])

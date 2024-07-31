@@ -1,41 +1,23 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
-import { defineComponent, ref } from 'vue'
+import type { SlotsType, VNode } from 'vue'
+import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-import { createContext } from '@destyler/shared'
-import { useId, useVModel } from '@destyler/composition'
+import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
+import { DialogRoot, dialogRootProps } from '@destyler/dialog'
+import { dialogRootEmits } from '@destyler/dialog/component'
 
 export const modalRootProps = {
   open: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: undefined,
+    ...dialogRootProps.open,
   },
   defaultOpen: {
-    type: Boolean as PropType<boolean>,
-    required: false,
-    default: false,
+    ...dialogRootProps.defaultOpen,
   },
 } as const
 
 export type ModalRootProps = ExtractPublicPropTypes<typeof modalRootProps>
 
-export interface ModalRootContext {
-  open: Readonly<Ref<boolean>>
-  openModal: () => void
-  onOpenChange: (value: boolean) => void
-  onOpenToggle: () => void
-  triggerElement: Ref<HTMLElement | undefined>
-  contentElement: Ref<HTMLElement | undefined>
-  contentId: string
-  titleId: string
-  descriptionId: string
-}
-
-export const [injectModalRootContext, provideModalRootContext]
-  = createContext<ModalRootContext>('DestylerModalRoot')
-
 export const modalRootEmits = {
-  'update:open': (_value: boolean) => true,
+  ...dialogRootEmits,
 }
 
 export const ModalRoot = defineComponent({
@@ -46,33 +28,16 @@ export const ModalRoot = defineComponent({
     default: () => VNode[]
   }>,
   setup(props, { emit }) {
-    const open = useVModel(props, 'open', emit, {
-      defaultValue: props.defaultOpen,
-      passive: (props.open === undefined) as false,
-    }) as Ref<boolean>
+    const forwarded = useForwardPropsEmits(props, emit)
+    useForwardExpose()
 
-    const triggerElement = ref<HTMLElement>()
-    const contentElement = ref<HTMLElement>()
-
-    provideModalRootContext({
-      open,
-      openModal: () => {
-        open.value = true
-      },
-      onOpenChange: (value) => {
-        open.value = value
-      },
-      onOpenToggle: () => {
-        open.value = !open.value
-      },
-      contentId: useId(),
-      titleId: useId(),
-      descriptionId: useId(),
-      triggerElement,
-      contentElement,
-    })
+    return {
+      forwarded,
+    }
   },
   render() {
-    return this.$slots.default?.()
+    return h(DialogRoot, mergeProps(this.forwarded, {
+      modal: true,
+    }), () => this.$slots.default?.())
   },
 })

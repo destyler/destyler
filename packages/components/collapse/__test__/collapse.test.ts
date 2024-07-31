@@ -3,7 +3,7 @@ import { axe } from 'vitest-axe'
 import type { VueWrapper } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import { findByText, fireEvent } from '@testing-library/vue'
-import Collapse from '../demos/Collapse.spec.vue'
+import Collapse from './Collapse.spec.vue'
 
 describe('single collapse', () => {
   let wrapper: VueWrapper<InstanceType<typeof Collapse>>

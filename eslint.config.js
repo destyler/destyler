@@ -6,5 +6,6 @@ export default antfu({
     '**/demos/**',
     '**/.story/**',
     '**/qrcodegen.ts',
+    '**/__test__/**.spec.vue',
   ],
 })

@@ -1,17 +1,11 @@
 import type { SlotsType, VNode } from 'vue'
-import { defineComponent, h, withDirectives } from 'vue'
-import { Primitive, primitiveProps } from '@destyler/primitive'
-import { BindOnceDirective } from '@destyler/directives'
+import { defineComponent, h, mergeProps } from 'vue'
+import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
-
-import { injectModalRootContext } from './root'
+import { DialogTitle, dialogTitleProps } from '@destyler/dialog'
 
 export const modalTitleProps = {
-  ...primitiveProps,
-  as: {
-    ...primitiveProps.as,
-    default: 'h2',
-  },
+  ...dialogTitleProps,
 } as const
 
 export type ModalTitleProps = ExtractPublicPropTypes<typeof modalTitleProps>
@@ -23,18 +17,9 @@ export const ModalTitle = defineComponent({
     default: () => VNode[]
   }>,
   setup() {
-    const rootContext = injectModalRootContext()
-
-    return {
-      rootContext,
-    }
+    useForwardExpose()
   },
   render() {
-    return withDirectives(h(Primitive, {
-      as: this.$props.as,
-      asChild: this.$props.asChild,
-    }, () => this.$slots.default?.()), [
-      [BindOnceDirective, { id: this.rootContext.titleId }],
-    ])
+    return h(DialogTitle, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

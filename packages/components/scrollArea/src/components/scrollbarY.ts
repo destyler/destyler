@@ -40,7 +40,7 @@ export const ScrollAreaScrollbarY = defineComponent({
         'top': 0,
         'right': this.rootContext.dir.value === 'ltr' ? 0 : undefined,
         'left': this.rootContext.dir.value === 'rtl' ? 0 : undefined,
-        'bottom': 'var(--destyler_scroll_area_corner_height)',
+        'bottom': 'var(--destyler-scroll-area-corner-height)',
         '--destyler_scroll_area_thumb_height': this.sizes ? `${getThumbSize(this.sizes)}px` : undefined,
       },
       'onOnDragScroll': (event: any) => {

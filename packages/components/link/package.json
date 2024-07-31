@@ -37,6 +37,7 @@
     "vue": ">=3.4.21"
   },
   "dependencies": {
+    "@destyler/composition": "workspace:*",
     "@destyler/primitive": "workspace:*",
     "@destyler/shared": "workspace:*"
   }

@@ -1,21 +1,11 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
-import { primitiveProps } from '@destyler/primitive'
-import { PopperArrow } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { useForwardExpose } from '@destyler/composition'
+import { TooltipArrow, tooltipArrowProps } from '@destyler/tooltip'
 
 export const ellipsisArrowProps = {
-  ...primitiveProps,
-  width: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 10,
-  },
-  height: {
-    type: Number as PropType<number>,
-    required: false,
-    default: 5,
-  },
+  ...tooltipArrowProps,
 } as const
 
 export type EllipsisArrowProps = ExtractPublicPropTypes<typeof ellipsisArrowProps>
@@ -26,7 +16,10 @@ export const EllipsisArrow = defineComponent({
   slots: Object as SlotsType<{
     default: () => VNode[]
   }>,
+  setup() {
+    useForwardExpose()
+  },
   render() {
-    return h(PopperArrow, mergeProps(this.$props), () => this.$slots.default?.())
+    return h(TooltipArrow, mergeProps(this.$props), () => this.$slots.default?.())
   },
 })

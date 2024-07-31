@@ -37,9 +37,9 @@ export const ScrollAreaScrollbarX = defineComponent({
       'data-orientation': 'horizontal',
       'style': {
         'top': 0,
-        'right': this.rootContext.dir.value === 'rtl' ? 'var(--destyler_scroll_area_corner_width)' : 0,
-        'left': this.rootContext.dir.value === 'ltr' ? 'var(--destyler_scroll_area_corner_width)' : 0,
-        'bottom': 'var(--destyler_scroll_area_corner_height)',
+        'right': this.rootContext.dir.value === 'rtl' ? 'var(--destyler-scroll-area-corner-width)' : 0,
+        'left': this.rootContext.dir.value === 'ltr' ? 'var(--destyler-scroll-area-corner-width)' : 0,
+        'bottom': 'var(--destyler-scroll-area-corner-height)',
         '--destyler_scroll_area_thumb_width': this.sizes ? `${getThumbSize(this.sizes)}px` : undefined,
       },
       'onOnDragScroll': (event: any) => {

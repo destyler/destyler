@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { axe } from 'vitest-axe'
-import { findByTestId } from '@testing-library/vue'
-import { handleSubmit } from '@destyler/test/utils'
-import Checkbox from '../demos/Checkbox.spec.vue'
+import type { DOMWrapper, VueWrapper } from '@vue/test-utils'
+import { handleSubmit } from '@destyler/test/utils.js'
+import Checkbox from './Checkbox.spec.vue'
 
 globalThis.ResizeObserver = class ResizeObserver {
   cb: any
@@ -35,24 +35,33 @@ describe('given a default Checkbox', () => {
   })
 
   describe('when clicking the checkbox', async () => {
-    const wrapper = mount(Checkbox)
-    const checkbox = wrapper.find('button')
-    await checkbox.trigger('click')
-    const indicator = await findByTestId(wrapper.element as HTMLElement, 'test-indicator', { })
+    let wrapper: VueWrapper<InstanceType<typeof Checkbox>>
+    let checkbox: DOMWrapper<HTMLButtonElement>
 
-    await checkbox.trigger('click')
-    it('should remove the indicator', async () => {
-      expect(document).not.toContain(indicator)
+    beforeEach(async () => {
+      wrapper = mount(Checkbox)
+      checkbox = wrapper.find('button')
+      checkbox.trigger('click')
+    })
+
+    it('should render a visible indicator', async () => {
+      const span = wrapper.find('span')
+      expect(span.exists()).toBe(true)
+    })
+
+    describe('when clicking the checkbox again', async () => {
+      beforeEach(async () => {
+        await checkbox.trigger('click')
+      })
+      it('should remove the indicator', async () => {
+        expect(wrapper.find('span').exists()).toBe(false)
+      })
     })
   })
 })
 
 describe('given a disabled Checkbox', () => {
-  const wrapper = mount(Checkbox, {
-    props: {
-      disabled: true,
-    },
-  })
+  const wrapper = mount(Checkbox, { props: { disabled: true } })
 
   it('should have no accessibility violations', async () => {
     expect(await axe(wrapper.element, {

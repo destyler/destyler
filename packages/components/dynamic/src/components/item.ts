@@ -64,7 +64,7 @@ export const DynamicItem = defineComponent({
   },
   render() {
     return h(CollectionItem, {}, () => h(Primitive, {
-      'ref': (el: any) => this.forwardRef(el),
+      'ref': this.forwardRef,
       'as': this.$props.as,
       'asChild': this.$props.asChild,
       'aria-labelledby': this.textId,

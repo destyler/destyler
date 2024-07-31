@@ -23,14 +23,27 @@ export const dynamicRootProps = {
   addOnPaste: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
+  },
+  addOnTab: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
+  addOnBlur: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
   },
   duplicate: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
   delimiter: {
     type: String as PropType<string>,
@@ -49,6 +62,7 @@ export const dynamicRootProps = {
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
+    default: false,
   },
   name: {
     type: String as PropType<string>,
@@ -75,8 +89,10 @@ export interface DynamicRootContext {
   onInputKeydown: (event: KeyboardEvent) => void
   selectedElement: Ref<HTMLElement | undefined>
   isInvalidInput: Ref<boolean>
-  addOnPaste: Ref<boolean | undefined>
-  disabled: Ref<boolean | undefined>
+  addOnPaste: Ref<boolean>
+  addOnTab: Ref<boolean>
+  addOnBlur: Ref<boolean>
+  disabled: Ref<boolean>
   delimiter: Ref<string>
   dir: Ref<Direction>
   max: Ref<number>
@@ -94,7 +110,7 @@ export const DynamicRoot = defineComponent({
     default: (opts: { modelValue: string[] }) => VNode[]
   }>,
   setup(props, { emit }) {
-    const { addOnPaste, disabled, delimiter, max, id, dir: propDir } = toRefs(props)
+    const { addOnPaste, disabled, delimiter, max, id, dir: propDir, addOnBlur, addOnTab } = toRefs(props)
     const dir = useDirection(propDir)
 
     const modelValue = useVModel(props, 'modelValue', emit, {
@@ -171,13 +187,16 @@ export const DynamicRoot = defineComponent({
           case 'ArrowLeft': {
             const isArrowRight = (event.key === 'ArrowRight' && dir.value === 'ltr') || (event.key === 'ArrowLeft' && dir.value === 'rtl')
             const isArrowLeft = !isArrowRight
+            // only focus on tags when cursor is at the first position
             if (target.selectionStart !== 0 || target.selectionEnd !== 0)
               break
 
+            // if you press ArrowLeft, then we last tag
             if (isArrowLeft && !selectedElement.value) {
               selectedElement.value = lastTag
               event.preventDefault()
             }
+            // if you press ArrowRight on last tag, you deselect
             else if (isArrowRight && lastTag && selectedElement.value === lastTag) {
               selectedElement.value = undefined
               event.preventDefault()
@@ -208,6 +227,8 @@ export const DynamicRoot = defineComponent({
       selectedElement,
       isInvalidInput,
       addOnPaste,
+      addOnBlur,
+      addOnTab,
       dir,
       disabled,
       delimiter,

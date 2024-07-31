@@ -58,12 +58,14 @@ export const InfoRoot = defineComponent({
     }
   },
   render() {
-    const useVShow = this.openRef
-    return useVShow
-      ? h(Primitive, mergeProps(this.$attrs, {
-        as: this.$props.as,
-        asChild: this.$props.asChild,
+    if (this.openRef) {
+      return h(Primitive, mergeProps(this.$attrs, {
+        'as': this.$props.as,
+        'asChild': this.$props.asChild,
+        'role': 'info',
+        'aria-label': 'Info',
+        'aria-expanded': this.openRef,
       }), () => this.$slots.default?.())
-      : null
+    }
   },
 })
