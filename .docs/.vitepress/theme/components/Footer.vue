@@ -26,10 +26,6 @@ const footers = [
 
 const icons = [
   {
-    icon: 'carbon:logo-vue',
-    link: 'https://vuejs.org/',
-  },
-  {
     icon: 'carbon:logo-discord',
     link: 'https://discord.gg/SwgESrV7HY',
   },

@@ -142,15 +142,9 @@ html.dark .article {
 
 /* code */
 .article code {
-  color: var(--at-deep);
+  color: hsl(var(--primary) / 1);
   font-weight: 600;
   font-size: 0.875em;
-}
-.article code::before {
-  content: "`";
-}
-.article code::after {
-  content: "`";
 }
 
 /* code by shiki */
@@ -207,70 +201,15 @@ html.dark .shiki span {
 .article div[class*='language-'] {
   position: relative;
   overflow-x: auto;
-  margin: 16px 0;
 }
 
 .article [class*='language-'] > button.copy {
-  /*rtl:ignore*/
-  direction: ltr;
-  position: absolute;
-  top: 12px;
-  /*rtl:ignore*/
-  right: 12px;
-  z-index: 3;
-  border: 1px solid var(--at-copy-border);
-  border-radius: 4px;
-  width: 32px;
-  height: 32px;
-  background-color: var(--at-copy-bg);
-  opacity: 0 !important;
-  cursor: pointer;
-  background-image: var(--at-icon-copy);
-  background-position: 50%;
-  background-size: 20px;
-  background-repeat: no-repeat;
-  transition:
-    border-color 0.3s,
-    background-color 0.3s,
-    opacity 0.3s;
+  display: none;
 }
 
-.article [class*='language-']:hover > button.copy,
-.article [class*='language-'] > button.copy:focus {
-  opacity: 1 !important;
-}
-
-.article [class*='language-'] > button.copy:hover,
-.article [class*='language-'] > button.copy.copied {
-  /* border-color: var(--at-copy-bg); */
-  background-color: var(--at-code-bg);
-}
-
-.article [class*='language-'] > button.copy.copied,
-.article [class*='language-'] > button.copy:hover.copied {
-  /*rtl:ignore*/
-  background-color: var(--at-code-bg);
-  background-image: var(--at-icon-copied);
-}
 
 .article [class*='language-'] > span.lang {
-  position: absolute;
-  top: 8px;
-  /*rtl:ignore*/
-  right: 8px;
-  z-index: 2;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--at);
-  opacity: 0.5;
-  transition:
-    color 0.3s,
-    opacity 0.3s;
-}
-
-.article [class*='language-']:hover > button.copy + span.lang,
-.article [class*='language-'] > button.copy:focus + span.lang {
-  opacity: 0 !important;
+  display: none;
 }
 
 /* blockquote */

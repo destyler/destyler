@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { slugify } from './scripts/slugify'
+import PreviewPlugin from './plugins/preview'
+import { preWrapperPlugin } from './plugins/preWrapper'
 
 export default defineConfig({
   title: 'Destyler',
@@ -11,6 +13,12 @@ export default defineConfig({
   outDir: './dist',
   markdown: {
     theme: 'vitesse-dark',
+    preConfig(md) {
+      md.use(PreviewPlugin)
+    },
+    config(md) {
+      md.use(preWrapperPlugin)
+    },
     toc: {
       slugify,
       level: [1, 2, 3, 4],
@@ -51,6 +59,7 @@ export default defineConfig({
         text: 'Getting Started',
         items: [
           { text: 'Introduction', link: '/guide/introduction' },
+          { text: 'Install', link: '/guide/install' },
         ],
       },
       {
@@ -64,6 +73,6 @@ export default defineConfig({
   vite: {
     ssr: {
       noExternal: ['p5i'],
-    }
+    },
   },
 })
