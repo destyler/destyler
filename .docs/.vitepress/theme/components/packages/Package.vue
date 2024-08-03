@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useData } from 'vitepress'
 import { Icon, Link } from 'destyler'
 import size from '../../../../public/export-size.json'
@@ -10,7 +10,7 @@ const packages = ref()
 
 const githubSource = ref('')
 
-onMounted(() => {
+watch(frontmatter, () => {
   let value = size.destyler
   let componentName = 'destyler'
   if (frontmatter.value.component) {
@@ -39,6 +39,9 @@ onMounted(() => {
       href: `https://github.com/destyler/destyler/tree/main/packages/${componentName}`,
     },
   ]
+}, {
+  deep: true,
+  immediate: true,
 })
 </script>
 

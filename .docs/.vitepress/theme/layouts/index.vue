@@ -3,7 +3,7 @@ import { useData } from 'vitepress'
 import HomePage from '~/theme/pages/home.vue'
 import DocsPage from '~/theme/pages/docs.vue'
 
-const { page, frontmatter } = useData()
+const { frontmatter } = useData()
 
 const components = computed(() => {
   if (frontmatter.value.layout === 'home') {
@@ -18,7 +18,7 @@ const components = computed(() => {
 
 <template>
   <Header />
-  <ArtDot v-if="page.frontmatter.art" />
+  <ArtDot v-if="frontmatter.art" />
   <component :is="components" />
   <Footer />
 </template>

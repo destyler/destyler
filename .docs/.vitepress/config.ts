@@ -61,4 +61,9 @@ export default defineConfig({
       },
     ],
   },
+  vite: {
+    ssr: {
+      noExternal: ['p5i'],
+    }
+  },
 })

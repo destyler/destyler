@@ -65,7 +65,7 @@ function toggleDark(e: MouseEvent) {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 w-full -mb-px border-solid border-b border-black border-op-9 bg-white dark:border-white dark:border-op-9 dark:bg-#000000 text-[--accent]">
+  <header class="sticky top-0 z-40 w-full -mb-px border-solid border-b border-black border-op-9 bg-white dark:border-white dark:border-op-9 dark:bg-#000000 text-[--accent] overscroll-none">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl flex items-center justify-between gap-3 h-[var(--header-height)]">
       <!-- logo -->
       <div class="lg:flex-1 flex items-center gap-1.5">
@@ -91,13 +91,15 @@ function toggleDark(e: MouseEvent) {
       <div class="flex items-center justify-end lg:flex-1 gap-1.5">
         <!-- color -->
         <div class="relative">
-          <ColorPick>
-            <Button
-              class="head-btn"
-            >
-              <Icon name="carbon:color-palette" class="w-5 h-5" />
-            </Button>
-          </ColorPick>
+          <ClientOnly>
+            <ColorPick>
+              <Button
+                class="head-btn"
+              >
+                <Icon name="carbon:color-palette" class="w-5 h-5" />
+              </Button>
+            </ColorPick>
+          </ClientOnly>
         </div>
         <!-- search -->
         <div class="relative inline-flex">
