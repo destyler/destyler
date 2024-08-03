@@ -12,21 +12,23 @@ const parsedFiles = computed(() => JSON.parse(decodeURIComponent(props.files ?? 
 </script>
 
 <template>
-  <Container
-    :folder="name"
-    :css-framework="cssFramework"
-    :files="parsedFiles"
-  >
-    <template #default>
-      <slot />
-    </template>
+  <ClientOnly>
+    <Container
+      :folder="name"
+      :css-framework="cssFramework"
+      :files="parsedFiles"
+    >
+      <template #default>
+        <slot />
+      </template>
 
-    <template #code>
-      <CodeGroup v-model="cssFramework">
-        <slot name="unocss" />
-        <slot name="tailwind" />
-        <slot name="css" />
-      </CodeGroup>
-    </template>
-  </Container>
+      <template #code>
+        <CodeGroup v-model="cssFramework">
+          <slot name="unocss" />
+          <slot name="tailwind" />
+          <slot name="css" />
+        </CodeGroup>
+      </template>
+    </Container>
+  </ClientOnly>
 </template>

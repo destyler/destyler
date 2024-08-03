@@ -3,12 +3,11 @@ import { AspectRadio } from '@destyler/aspect-radio'
 </script>
 
 <template>
-  <div class="shadow-blackA7 w-full sm:w-[300px] overflow-hidden rounded-md shadow-[0_2px_10px]">
+  <div class="shadow-primary w-full sm:w-75 overflow-hidden rounded-md shadow-[0_2px_10px]">
     <AspectRadio :ratio="16 / 9">
       <img
         class="h-full w-full object-cover"
-        src="https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=300&dpr=2&q=80"
-        alt="Landscape photograph by Tobias Tullius"
+        src="https://elonehoo.me/gallery/20_sun.jpg"
       >
     </AspectRadio>
   </div>
