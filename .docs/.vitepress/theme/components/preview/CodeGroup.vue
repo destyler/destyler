@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type VNode, capitalize, computed, ref, useSlots, watch } from 'vue'
-import { Icon, SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectTrigger, SelectValue, SelectViewport, TabsContent, TabsList, TabsRoot, TabsTrigger } from 'destyler'
-import { useVModel } from '@vueuse/core'
+import { Icon, SelectContent, SelectItem, SelectItemIndicator, SelectItemText, SelectPortal, SelectRoot, SelectTrigger, SelectValue, SelectViewport, TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'destyler'
+import { useElementSize, useVModel } from '@vueuse/core'
 
 defineOptions({
   inheritAttrs: false,
@@ -12,6 +12,11 @@ const props = defineProps<{
 const emits = defineEmits<{
   'update:modelValue': [payload: 'css' | 'tailwind' | 'pinceau' | 'unocss']
 }>()
+
+const tabList = ref()
+
+const { height: tabListHeight } = useElementSize(tabList)
+
 const cssFramework = useVModel(props, 'modelValue', emits)
 
 const slots = useSlots()
@@ -63,13 +68,17 @@ watch(open, () => {
   >
     <div class="bg-[var(--at-code-bg)] border-b-2 border-#e4e4e7 dark:border-#272727 flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
-        <TabsList class="flex">
+        <TabsList ref="tabList" class="flex relative">
+          <TabsIndicator
+            class="absolute bg-primary left-0 h-[2px] top-1 w-[--destyler-tabs-indicator-size] translate-x-[--destyler-tabs-indicator-position] rounded-full  transition-[width,transform] duration-300"
+            :style="{ top: `${tabListHeight}px` }"
+          />
           <TabsTrigger
             v-for="(tab, index) in tabs"
             :key="index"
             :value="tab.label"
             tabindex="-1"
-            class="flex justify-center items-center text-black/70 dark:text-white/70 py-2.5 px-4 border-box data-[state=active]:shadow-[0_1px_0_hsl(var(--primary))] data-[state=active]:font-medium data-[state=active]:text-black dark:data-[state=active]:text-white"
+            class="flex justify-center items-center text-black/70 dark:text-white/70 py-2.5 px-4 border-box data-[state=active]:font-medium data-[state=active]:text-black dark:data-[state=active]:text-white"
           >
             <FileIcones :name="tab.label" class="mr-2 w-5 h-5" />
             {{ tab.label }}

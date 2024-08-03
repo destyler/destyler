@@ -11,7 +11,7 @@ withDefaults(
 </script>
 
 <template>
-  <div class="relative text-[15px] text-black">
+  <div class="relative text-[15px] text-black mt-8">
     <div
       class="vp-raw border-solid border-#ededed dark:border-[#282828] [background:#f8f8f8] dark:[background:#1c1c1c] p-4 rounded-t-lg w-full relative items-center justify-center flex"
       :class="{ 'overflow-x-auto': overflow }"
