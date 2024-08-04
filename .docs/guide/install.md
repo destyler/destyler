@@ -8,33 +8,7 @@ layout: docs
 
 ## Install Destyler
 
-<CodeGroupPackage
-  npm="npm install destyler"
-  yarn="yarn add destyler"
-  pnpm="pnpm add destyler"
->
-  <template #npm>
-
-  ```bash
-  npm install destyler
-  ```
-
-  </template>
-  <template #yarn>
-
-  ```bash
-  yarn add destyler
-  ```
-
-  </template>
-  <template #pnpm>
-
-  ```bash
-  pnpm add destyler
-  ```
-
-  </template>
-</CodeGroupPackage>
+<CodeGroupPackage name="destyler" />
 
 ## Frameworks
 

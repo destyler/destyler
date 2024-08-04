@@ -44,7 +44,7 @@ function handleSelectColor(color: any) {
     <HoverCardPortal>
       <Transition name="fade">
         <HoverCardContent
-          class="z-90 w-[156px] rounded-md bg-light border border-solid border-dark border-op-9 dark:bg-black dark:border dark:border-solid dark:border-white dark:border-op-9 py-2 px-4"
+          class="z-90 w-[156px] rounded-md bg-light border border-solid border-dark border-op-9 dark:bg-#0e0e0e dark:border dark:border-solid dark:border-white dark:border-op-9 py-2 px-4"
           :side-offset="5"
           :as-child="true"
         >

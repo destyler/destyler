@@ -66,7 +66,7 @@ watch(open, () => {
     class="bg-[var(--at-code-bg)] border-solid border-#ededed dark:border-[#282828] rounded-b-lg overflow-hidden"
     @update:model-value="open = true"
   >
-    <div class="bg-[var(--at-code-bg)] border-b-2 border-#e4e4e7 dark:border-#272727 flex pr-2">
+    <div class="bg-#F4F4F5 dark:bg-#27272A border-b-2 border-#e4e4e7 dark:border-#272727 flex pr-2">
       <div class="flex justify-between items-center w-full text-[13px]">
         <TabsList ref="tabList" class="flex relative">
           <TabsIndicator
@@ -86,7 +86,7 @@ watch(open, () => {
         </TabsList>
         <div>
           <SelectRoot v-model="cssFramework" @update:model-value="currentTab = 'index.vue'">
-            <SelectTrigger class="text-black dark:text-white flex items-center justify-between bg-#f4f4f5 dark:bg-#27272a rounded-md w-[115px] text-xs py-1 pl-2 pr-1">
+            <SelectTrigger class="text-black dark:text-white flex items-center justify-between bg-light dark:bg-dark border border-black border-op-20 dark:border-white dark:border-op-20 rounded-md w-[115px] text-xs py-1 pl-2 pr-1">
               <SelectValue />
               <Icon name="radix-icons:chevron-down" class="h-3.5 w-3.5" />
             </SelectTrigger>

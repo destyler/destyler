@@ -20,8 +20,8 @@ export default defineConfig({
       include: [/\.vue/, /\.md/],
       dirs: [
         '.vitepress/theme/components',
+        '.vitepress/theme/global',
         '.vitepress/components',
-        '../packages/components/*/.docs',
       ],
       dts: '.vitepress/components.d.ts',
     }),
