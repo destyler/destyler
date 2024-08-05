@@ -286,55 +286,6 @@ html.dark .shiki span {
   @apply font-normal op-60 hover:op-100 active:op-100 transition-opacity ease transition-300;
 }
 
-/* Table */
-.article table {
-  width: 100%;
-  table-layout: auto;
-  text-align: left;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  font-size: .875em;
-  line-height: 1.7142857;
-}
-
-table {
-  text-indent: 0;
-  border-color: inherit;
-  border-collapse: collapse;
-}
-
-.article thead {
-  color: var(--at-deep);
-  font-weight: 600;
-  border-bottom-width: 1px;
-  border-bottom-color: #8882;
-}
-
-.article thead th:first-child {
-  padding-left: 0;
-}
-
-.article thead th {
-  vertical-align: bottom;
-  padding-right: .5714286em;
-  padding-bottom: .5714286em;
-  padding-left: .5714286em;
-}
-
-.article tbody tr {
-  border-bottom-width: 1px;
-  border-bottom-color: #8882;
-}
-
-.article tbody td:first-child {
-  padding-left: 0;
-}
-
-.article tbody td {
-  vertical-align: top;
-  padding: .5714286em;
-}
-
 .alt :where(p,pre,li,img,div,h2,h1,h3,h4,h5,h6) {
   opacity: .6;
   filter: blur(2px);

@@ -4,9 +4,7 @@ import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'dest
 
 <template>
   <PopoverRoot :modal="false">
-    <PopoverTrigger
-      class="w-4 h-4"
-    >
+    <PopoverTrigger>
       <slot name="trigger" />
     </PopoverTrigger>
     <PopoverPortal>
