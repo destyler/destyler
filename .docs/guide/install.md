@@ -1,5 +1,6 @@
 ---
 layout: docs
+desc: A quick tutorial to get you up and running with Destyler.
 ---
 
 # Getting Started

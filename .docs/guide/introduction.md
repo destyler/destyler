@@ -1,5 +1,6 @@
 ---
 layout: docs
+desc: unstyled component for vue.
 ---
 
 # Introduction

@@ -18,7 +18,7 @@ const value = ref(props.tabs[0].value)
         <TabsTrigger
           v-for="tab in props.tabs"
           :key="tab.value"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-#FFFFFF dark:ring-offset-#09090B transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 "
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-#FFFFFF dark:ring-offset-#09090B transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-default"
           :value="tab.value"
         >
           <Icon :name="tab.icon" class="w-4 h-4" />

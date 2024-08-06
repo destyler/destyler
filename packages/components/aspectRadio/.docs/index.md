@@ -1,4 +1,5 @@
-<Props :value="[
+<Props
+  :value="[
     {
       name: 'as',
       type: 'AsTag | Component',
@@ -16,6 +17,16 @@
       type: 'number',
       default: '1',
       description: 'The desired ratio',
+    }
+  ]"
+/>
+
+<Slots
+  :value="[
+    {
+      name: 'aspect',
+      type: 'number',
+      description: 'Current aspect ratio (in <code>%</code>)',
     }
   ]"
 />

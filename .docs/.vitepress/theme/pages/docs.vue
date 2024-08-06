@@ -14,6 +14,8 @@
               <article class="article prose mt-4">
                 <Breadcrumb />
                 <Content class="prose Doc m-auto" />
+                <Line class="my-12!" />
+                <Page />
               </article>
             </div>
             <div class="lg:col-span-2 order-first lg:order-last overscroll-none">
