@@ -10,6 +10,7 @@
   "dependencies": {
     "@destyler/aspect-radio": "workspace:*",
     "@destyler/checkbox": "workspace:*",
+    "@destyler/collapse": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {

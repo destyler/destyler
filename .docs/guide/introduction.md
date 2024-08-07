@@ -28,5 +28,3 @@ A collection of components that can be used to build your own design system.
 ## Acknowledgment
 
 > Destyler would not have been possible without the prior art done by other meaningful projects from the frontend community including:
-
-<Acknowledgment />

@@ -11,6 +11,7 @@ import Props from '~/theme/global/api/Props.vue'
 import Slots from '~/theme/global/api/Slots.vue'
 import Event from '~/theme/global/api/Event.vue'
 import Attribute from '~/theme/global/api/Attribute.vue'
+import Variable from '~/theme/global/api/Variable.vue'
 
 import './styles/main.css'
 import './styles/theme.css'
@@ -28,5 +29,6 @@ export default {
     app.component('Slots', Slots)
     app.component('Event', Event)
     app.component('Attribute', Attribute)
+    app.component('Variable', Variable)
   },
 }

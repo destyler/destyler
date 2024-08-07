@@ -143,6 +143,9 @@ importers:
       '@destyler/checkbox':
         specifier: workspace:*
         version: link:../packages/components/checkbox
+      '@destyler/collapse':
+        specifier: workspace:*
+        version: link:../packages/components/collapse
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler

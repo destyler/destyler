@@ -67,6 +67,7 @@ export default defineConfig({
         items: [
           { text: 'AspectRadio', link: '/components/aspectRadio' },
           { text: 'Checkbox', link: '/components/checkbox' },
+          { text: 'Collapse', link: '/components/collapse' },
         ],
       },
     ],
