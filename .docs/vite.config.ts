@@ -21,7 +21,6 @@ export default defineConfig({
       dirs: [
         '.vitepress/theme/components',
         '.vitepress/theme/global',
-        '.vitepress/components',
       ],
       dts: '.vitepress/components.d.ts',
     }),

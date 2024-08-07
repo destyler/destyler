@@ -48,3 +48,9 @@ import { CheckboxIndicator, CheckboxRoot } from '@destyler/checkbox'
 ## API Reference
 
 ### Root
+
+<!--@include: ../../packages/components/checkbox/.docs/root.md-->
+
+### Indicator
+
+<!--@include: ../../packages/components/checkbox/.docs/indicator.md-->

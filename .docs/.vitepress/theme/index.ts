@@ -9,6 +9,8 @@ import CodeGroupPackage from '~/theme/global/CodeGroupPackage.vue'
 import CodePreview from '~/theme/global/code/CodePreview.vue'
 import Props from '~/theme/global/api/Props.vue'
 import Slots from '~/theme/global/api/Slots.vue'
+import Event from '~/theme/global/api/Event.vue'
+import Attribute from '~/theme/global/api/Attribute.vue'
 
 import './styles/main.css'
 import './styles/theme.css'
@@ -24,5 +26,7 @@ export default {
     app.component('CodePreview', CodePreview)
     app.component('Props', Props)
     app.component('Slots', Slots)
+    app.component('Event', Event)
+    app.component('Attribute', Attribute)
   },
 }

@@ -47,4 +47,4 @@ import { AspectRadio } from '@destyler/aspect-radio'
 
 Contains the content you want to constrain to a given ratio.
 
-<!--@include: ../../packages/components/aspectRadio/.docs/index.md-->
+<!--@include: ../../packages/components/aspectRadio/.docs/aspectRadio.md-->
