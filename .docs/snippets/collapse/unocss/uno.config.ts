@@ -5,20 +5,20 @@ export default defineConfig({
     [
       'animate-collapse-down',
       {
-        animation: 'shadcn-down 0.2s ease-out',
+        animation: 'collapse-down 0.2s ease-out',
       },
     ],
     [
       'animate-collapse-up',
       {
-        animation: 'shadcn-up 0.2s ease-out',
+        animation: 'collapse-up 0.2s ease-out',
       },
     ],
   ],
   preflights: [
     {
       getCSS: () => `
-        @keyframes shadcn-down {
+        @keyframes collapse-down {
           from{
             height: 0
           }
@@ -26,7 +26,7 @@ export default defineConfig({
             height: var(--destyler-collapse-content-height)
           }
         }
-        @keyframes shadcn-up {
+        @keyframes collapse-up {
           from{
             height:
               var(--destyler-collapse-content-height)

@@ -40,7 +40,7 @@ export default function (md: MarkdownRenderer) {
 
     // Iterate through the Markdown content and replace the pattern
     state.src = state.src.replace(regex, (match, componentName) => {
-      const pathName = `../../.docs/.vitepress/components/${componentName}`
+      const pathName = `../../.docs/snippets/${componentName}`
       insertComponentImport(`import ${componentName} from '${pathName}/index.vue'`)
 
       const index = state.tokens.findIndex(i => i.content.match(regex))
@@ -71,12 +71,12 @@ export default function (md: MarkdownRenderer) {
         tokenArray.push(templateStart)
 
         value.forEach((file) => {
-          const { filepath, extension, lines, lang, title } = rawPathToToken(`${pathName}/${file}`)
-          const resolvedPath = resolve(dirname(realPath ?? _path), filepath)
+          const { filepath, extension, lines, lang, title } = rawPathToToken(`@/snippets/${componentName}/${file}`)
+          const resolvedPath = resolve(dirname(realPath ?? _path), `${pathName}/${file}`)
 
           // Add code tokens for each line
           const token = new state.Token('fence', 'code', 0)
-          token.info = `${lang || extension}${lines ? `{${lines}}` : ''}${
+          token.info = `${lang || extension} twoslash ${lines ? `{${lines}}` : ''}${
             title ? `[${title}]` : ''
           }`
           token.content = `<<< ${filepath}`

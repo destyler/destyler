@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { slugify } from './scripts/slugify'
 import PreviewPlugin from './plugins/preview'
 import { preWrapperPlugin } from './plugins/preWrapper'
+import { snippetPlugin } from './plugins/snippet'
 
 export default defineConfig({
   title: 'Destyler',
@@ -13,8 +15,12 @@ export default defineConfig({
   outDir: './dist',
   markdown: {
     theme: 'vitesse-dark',
+    codeTransformers: [
+      transformerTwoslash(),
+    ],
     preConfig(md) {
       md.use(PreviewPlugin)
+      md.use(snippetPlugin)
     },
     config(md) {
       md.use(preWrapperPlugin)
@@ -68,6 +74,7 @@ export default defineConfig({
           { text: 'AspectRadio', link: '/components/aspectRadio' },
           { text: 'Checkbox', link: '/components/checkbox' },
           { text: 'Collapse', link: '/components/collapse' },
+          { text: 'Collapsible', link: '/components/collapsible' },
         ],
       },
     ],

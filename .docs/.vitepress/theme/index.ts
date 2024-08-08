@@ -1,4 +1,10 @@
 import type { EnhanceAppContext } from 'vitepress'
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+
+import '@shikijs/twoslash/style-rich.css'
+import '@shikijs/vitepress-twoslash/style.css'
+import 'floating-vue/dist/style.css'
+
 import '@unocss/reset/tailwind.css'
 import 'uno.css'
 
@@ -17,6 +23,7 @@ import './styles/main.css'
 import './styles/theme.css'
 import './styles/variable.css'
 import './styles/docs.css'
+import './styles/twoslash.css'
 
 export default {
   Layout,
@@ -30,5 +37,6 @@ export default {
     app.component('Event', Event)
     app.component('Attribute', Attribute)
     app.component('Variable', Variable)
+    app.use(TwoslashFloatingVue)
   },
 }

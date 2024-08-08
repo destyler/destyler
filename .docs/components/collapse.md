@@ -31,14 +31,14 @@ component: collapse
 
 <template #vue>
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 import { CollapseContent, CollapseHeader, CollapseItem, CollapseRoot, CollapseTrigger } from '@destyler/collapse'
 </script>
 
 <template>
   <CollapseRoot>
-    <CollapseItem>
+    <CollapseItem value="string">
       <CollapseHeader>
         <CollapseTrigger />
       </CollapseHeader>

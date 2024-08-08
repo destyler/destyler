@@ -27,7 +27,7 @@ component: aspectRadio
 
 <template #vue>
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 import { AspectRadio } from '@destyler/aspect-radio'
 </script>

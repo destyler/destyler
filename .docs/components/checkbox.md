@@ -29,7 +29,7 @@ component: checkbox
 
 <template #vue>
 
-```vue
+```vue twoslash
 <script setup lang="ts">
 import { CheckboxIndicator, CheckboxRoot } from '@destyler/checkbox'
 </script>
