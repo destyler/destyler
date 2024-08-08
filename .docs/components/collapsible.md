@@ -9,6 +9,13 @@ component: collapsible
 
 <Preview name="collapsible" />
 
+## Features
+
+<Features :lists="[
+'Full keyboard navigation.',
+'Can be controlled or uncontrolled.'
+]" />
+
 ## Install
 
 <CodeGroupPackage name="@destyler/collapse" />
@@ -37,3 +44,17 @@ import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '@destyl
 </template>
 
 </CodePreview>
+
+## API
+
+### Root
+
+<!--@include: ../../packages/components/collapsible/.docs/root.md-->
+
+### Trigger
+
+<!--@include: ../../packages/components/collapsible/.docs/trigger.md-->
+
+### Content
+
+<!--@include: ../../packages/components/collapsible/.docs/content.md-->
