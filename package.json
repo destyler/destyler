@@ -18,7 +18,7 @@
     "play": "pnpm -C playground run dev",
     "play:vue": "pnpm -C examples/vue run dev",
     "play:nuxt": "pnpm -C examples/nuxt run dev",
-    "docs:dev": "pnpm -C docs run dev",
+    "docs:dev": "pnpm -C .docs run dev",
     "test": "vitest",
     "test:ui": "vitest --ui --open false",
     "lint": "eslint .",
