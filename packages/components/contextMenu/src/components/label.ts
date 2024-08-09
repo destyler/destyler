@@ -2,7 +2,7 @@ import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
-import { menuLabelProps } from '@destyler/menu'
+import { MenuLabel,menuLabelProps } from '@destyler/menu'
 
 export const contextMenuLabelProps = {
   ...menuLabelProps,
@@ -20,6 +20,6 @@ export const ContextMenuLabel = defineComponent({
     useForwardExpose()
   },
   render() {
-    return h('div', this.$props, () => this.$slots.default?.())
+    return h(MenuLabel, this.$props, () => this.$slots.default?.())
   },
 })

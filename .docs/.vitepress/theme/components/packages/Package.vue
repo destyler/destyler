@@ -28,7 +28,7 @@ watch(frontmatter, () => {
     },
     {
       icon: 'carbon:export',
-      title: `Export Size ${value.size}`,
+      title: `Size ${value.size}`,
       type: 'dynamic',
       href: `https://bundlephobia.com/package/${value.name}`,
     },

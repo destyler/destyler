@@ -34,7 +34,19 @@ const tabs = computed(
     const currentFramework = slots.default?.().find((slot) => {
       return slot.props?.key?.toString() === `_${cssFramework.value}`
     })
-    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => a?.props?.title?.localeCompare(b?.props?.title))
+
+    const typeOrder = ['vue', 'ts', 'js', 'css']
+
+    const childSlots = (currentFramework?.children as VNode[]).sort((a, b) => {
+      const aType = a?.props?.title.split('.').pop()
+      const bType = b?.props?.title.split('.').pop()
+      const typeComparison = typeOrder.indexOf(aType) - typeOrder.indexOf(bType)
+
+      if (typeComparison !== 0) {
+        return typeComparison
+      }
+      return a?.props?.title.localeCompare(b?.props?.title)
+    })
 
     return childSlots?.map((slot, index) => {
       return {

@@ -32,13 +32,14 @@ component: collapse
 <template #vue>
 
 ```vue twoslash
+// @noErrors
 <script setup lang="ts">
 import { CollapseContent, CollapseHeader, CollapseItem, CollapseRoot, CollapseTrigger } from '@destyler/collapse'
 </script>
 
 <template>
   <CollapseRoot>
-    <CollapseItem value="string">
+    <CollapseItem>
       <CollapseHeader>
         <CollapseTrigger />
       </CollapseHeader>

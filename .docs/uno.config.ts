@@ -7,6 +7,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { presetAnimations } from 'unocss-preset-animations'
 
 import { generateCSSVars, generateGlobalStyles } from './.vitepress/colors/generate'
 import { themes } from './.vitepress/colors/themes'
@@ -107,6 +108,7 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
+    presetAnimations() as any,
     presetWebFonts({
       fonts: {
         sans: 'Inter:400,600,800',
