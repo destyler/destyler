@@ -1,4 +1,4 @@
-import { defineConfig } from 'unocss'
+import { defineConfig, presetAttributify } from 'unocss'
 import { presetAnimations } from 'unocss-preset-animations'
 
 export default defineConfig({
@@ -14,5 +14,6 @@ export default defineConfig({
   },
   presets: [
     presetAnimations() as any,
+    presetAttributify(),
   ],
 })

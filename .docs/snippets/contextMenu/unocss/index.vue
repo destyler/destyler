@@ -101,32 +101,54 @@ const radioValue = ref('pedro')
 
 <template>
   <ContextMenuRoot>
-    <ContextMenuTrigger class="flex h-37 w-75 items-center justify-center rounded-md border border-dashed border-primary/40 text-sm">
-      <span class="text-primary/70 font-bold">Right click me</span>
+    <ContextMenuTrigger
+      flex="~"
+      h="37"
+      w="75"
+      items="center"
+      justify="center"
+      rounded="md"
+      border="~ dashed primary/40"
+      text="sm"
+    >
+      <span text="primary/70" font="bold">Right click me</span>
     </ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent
         class="
-        z-50 w-64 min-w-32 overflow-hidden rounded-md
-        bg-popover text-popover-foreground
-        border p-1 shadow-md
         data-[state=open]:animate-in data-[state=closed]:animate-out
         data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
         data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
         data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2
         data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2
         "
+        z="50"
+        w="58"
+        min-w="32"
+        overflow="hidden"
+        rounded="md"
+        border="~"
+        bg="popover"
+        p="1"
+        text="popover-foreground"
+        shadow="lg"
         :side-offset="5"
       >
         <template v-for="item in menu" :key="item.label">
           <ContextMenuItem
             v-if="item.type === 'item'"
-            class="
-            relative flex cursor-default select-none items-center
-            rounded-sm px-2 py-1.5 pl-8 text-sm outline-none
-            focus:bg-accent focus:text-accent-foreground
-            data-[disabled]:pointer-events-none data-[disabled]:opacity-50
-            "
+            relative="~"
+            flex="~"
+            cursor="default"
+            select="none"
+            items="center"
+            rounded="sm"
+            p="x-2 y-1.5 l-4"
+            text="sm"
+            outline="none"
+            focus="bg-accent text-accent-foreground"
+            pointer="data-[disabled]:events-none"
+            op="data-[disabled]:50"
             :disabled="item.disabled"
           >
             <span>{{ item.label }}</span>
@@ -135,16 +157,22 @@ const radioValue = ref('pedro')
           <ContextMenuCheckboxItem
             v-else-if="item.type === 'check'"
             :checked="item.checked"
-            class="
-            relative flex cursor-default select-none items-center
-            rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none
-            focus:bg-accent focus:text-accent-foreground
-            data-[disabled]:pointer-events-none data-[disabled]:opacity-50
-            "
+            relative="~"
+            flex="~"
+            cursor="default"
+            select="none"
+            items="center"
+            rounded="sm"
+            p="x-2 y-1.5 l-4"
+            text="sm"
+            outline="none"
+            focus="bg-accent text-accent-foreground"
+            pointer="data-[disabled]:events-none"
+            op="data-[disabled]:50"
           >
             <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
               <ContextMenuItemIndicator>
-                <Icon name="carbon:checkmark" class="w-4 h-4 text-primary" />
+                <Icon name="carbon:checkmark" w="4" h="4" text="primary" />
               </ContextMenuItemIndicator>
             </span>
             <span>{{ item.label }}</span>
@@ -159,21 +187,35 @@ const radioValue = ref('pedro')
             >
               {{ item.label }}
             </ContextMenuLabel>
-            <ContextMenuSeparator class="-mx-1 my-1 h-px bg-border" />
+            <ContextMenuSeparator m="x--1 y-1 " h="px" bg="border" />
             <ContextMenuRadioItem
               v-for="radioItem in item.items"
               :key="radioItem.label"
               :value="radioItem.value"
-              class="
-              relative flex cursor-default select-none items-center
-              rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none
-              focus:bg-accent focus:text-accent-foreground
-              data-[disabled]:pointer-events-none data-[disabled]:opacity-50
-              "
+              relative="~"
+              flex="~"
+              cursor="default"
+              select="none"
+              items="center"
+              rounded="sm"
+              p="x-2 y-1.5 l-4"
+              text="sm"
+              outline="none"
+              focus="bg-accent text-accent-foreground"
+              pointer="data-[disabled]:events-none"
+              op="data-[disabled]:50"
             >
-              <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+              <span
+                absolute="~"
+                left="2"
+                flex="~"
+                h="3.5"
+                w="3.5"
+                items="center"
+                justify="center"
+              >
                 <ContextMenuItemIndicator>
-                  <Icon name="carbon:dot-mark" class="h-4 w-4 fill-current text-primary" />
+                  <Icon name="carbon:dot-mark" w="4" h="4" fill="current" text="primary" />
                 </ContextMenuItemIndicator>
               </span>
               {{ radioItem.label }}
@@ -183,11 +225,11 @@ const radioValue = ref('pedro')
           <SubItemIng
             v-else-if="item.type === 'sub'"
             :item="item"
-            class="pl-8"
+            p="l-8"
           />
           <ContextMenuSeparator
             v-else-if="item.type === 'separator'"
-            class="-mx-1 my-1 h-px bg-border"
+            m="x--1 y-1 " h="px" bg="border"
           />
         </template>
       </ContextMenuContent>

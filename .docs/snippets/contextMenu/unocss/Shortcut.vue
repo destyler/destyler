@@ -2,7 +2,11 @@
 </script>
 
 <template>
-  <span class="ml-auto text-xs tracking-widest text-muted-foreground">
+  <span
+    ml="auto"
+    text="xs muted-foreground"
+    tracking="widest"
+  >
     <slot />
   </span>
 </template>

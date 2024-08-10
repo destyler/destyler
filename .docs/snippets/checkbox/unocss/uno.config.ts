@@ -1,4 +1,4 @@
-import { defineConfig } from 'unocss'
+import { defineConfig, presetAttributify } from 'unocss'
 
 export default defineConfig({
   theme: {
@@ -7,4 +7,7 @@ export default defineConfig({
       'primary-foreground': '#FFFFFF',
     },
   },
+  presets: [
+    presetAttributify(),
+  ],
 })

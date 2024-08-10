@@ -1,4 +1,4 @@
-import { defineConfig } from 'unocss'
+import { defineConfig, presetAttributify } from 'unocss'
 
 export default defineConfig({
   rules: [
@@ -42,4 +42,7 @@ export default defineConfig({
       primary: '#27272A',
     },
   },
+  presets: [
+    presetAttributify(),
+  ],
 })

@@ -23,7 +23,12 @@ const items = ref([
 </script>
 
 <template>
-  <div class="flex w-full justify-center items-center">
+  <div
+    flex="~"
+    w="full"
+    justify="center"
+    items="center"
+  >
     <CollapseRoot
       class="w-full"
       default-value="'item-1'"
@@ -31,18 +36,41 @@ const items = ref([
       :collapsible="true"
     >
       <template v-for="item in items" :key="item.value">
-        <CollapseItem class="border-b border-primary/15" :value="item.value">
-          <CollapseHeader class="flex">
-            <CollapseTrigger class="cursor-pointer text-primary/80 flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180">
+        <CollapseItem
+          border="b primary/15"
+          :value="item.value"
+        >
+          <CollapseHeader flex="~">
+            <CollapseTrigger
+              cursor="pointer"
+              text="primary/80 sm"
+              flex="~ 1"
+              items="center"
+              justify="between"
+              py="4"
+              font="medium"
+              transition="all"
+              hover="underline"
+              rotate="[&[data-state=open]>svg]:180"
+            >
               <span>{{ item.title }}</span>
               <Icon
                 name="radix-icons:chevron-down"
-                class="h-4 w-4 shrink-0 text-accent-foreground transition-transform duration-200"
+                h="4"
+                w="4"
+                shrink="0"
+                text="accent-foreground"
+                transition="transform"
+                duration="200"
               />
             </CollapseTrigger>
           </CollapseHeader>
-          <CollapseContent class="overflow-hidden text-black dark:text-white text-sm data-[state=closed]:animate-collapse-up data-[state=open]:animate-collapse-down">
-            <div class="pb-4 pt-0">
+          <CollapseContent
+            overflow="hidden"
+            text="black dark:white sm"
+            animate="data-[state=closed]:collapse-up data-[state=open]:collapse-down"
+          >
+            <div p="b-4 t-0">
               {{ item.content }}
             </div>
           </CollapseContent>
