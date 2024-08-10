@@ -35,7 +35,7 @@ const props = defineProps<{
             <Popover>
               <template #trigger>
                 <div class="w-5 h-5 flex justify-center items-center hover:bg-white dark:hover:bg-black rounded-sm">
-                  <Icon name="carbon:information-square" />
+                  <Icon name="carbon:information-square" class="w-4 h-4" />
                 </div>
               </template>
               <span v-html="prop.description" />
@@ -44,7 +44,7 @@ const props = defineProps<{
         </td>
         <td>
           <div class="px-3 py-1">
-            <code class="text-black! dark:text-white!">{{ prop.type }}</code>
+            <code>{{ prop.type }}</code>
           </div>
         </td>
       </tr>

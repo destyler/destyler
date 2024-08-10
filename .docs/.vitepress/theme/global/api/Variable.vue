@@ -33,7 +33,7 @@ const props = defineProps<{
         </td>
         <td>
           <div class="px-3 py-1">
-            <code class="text-black! dark:text-white!">{{ prop.description }}</code>
+            <span class="font-bold">{{ prop.description }}</span>
           </div>
         </td>
       </tr>
