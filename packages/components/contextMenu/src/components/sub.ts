@@ -24,7 +24,7 @@ export const ContextMenuSub = defineComponent({
   props: contextMenuSubProps,
   emits: contextMenuSubEmits,
   slots: Object as SlotsType<{
-    default: () => VNode[]
+    default: (props: { open?: boolean }) => VNode[]
   }>,
   setup(props, { emit }) {
     useForwardExpose()
@@ -43,6 +43,6 @@ export const ContextMenuSub = defineComponent({
       'onUpdate:open': (value: boolean) => {
         this.open = value
       },
-    }, () => this.$slots.default?.())
+    }, () => this.$slots.default?.({ open: this.open }))
   },
 })

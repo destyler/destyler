@@ -46,15 +46,6 @@ export const contextMenuContentProps = {
     ...menuContentProps.prioritizePosition,
     default: false,
   },
-  disableOutsidePointerEvents: {
-    ...menuContentProps.disableOutsidePointerEvents,
-  },
-  disableOutsideScroll: {
-    ...menuContentProps.disableOutsideScroll,
-  },
-  trapFocus: {
-    ...menuContentProps.trapFocus,
-  },
   loop: {
     ...menuContentProps.loop,
   },

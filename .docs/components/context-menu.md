@@ -84,3 +84,67 @@ import { ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextM
 </CodePreview>
 
 ## API
+
+### Root
+
+<!--@include: ../../packages/components/contextMenu/.docs/root.md-->
+
+### Trigger
+
+<!--@include: ../../packages/components/contextMenu/.docs/trigger.md-->
+
+### Arrow
+
+<!--@include: ../../packages/components/contextMenu/.docs/arrow.md-->
+
+### Portal
+
+<!--@include: ../../packages/components/contextMenu/.docs/portal.md-->
+
+### Content
+
+<!--@include: ../../packages/components/contextMenu/.docs/content.md-->
+
+### Group
+
+<!--@include: ../../packages/components/contextMenu/.docs/group.md-->
+
+### RadioGroup
+
+<!--@include: ../../packages/components/contextMenu/.docs/radioGroup.md-->
+
+### Label
+
+<!--@include: ../../packages/components/contextMenu/.docs/label.md-->
+
+### Item
+
+<!--@include: ../../packages/components/contextMenu/.docs/item.md-->
+
+### CheckboxItem
+
+<!--@include: ../../packages/components/contextMenu/.docs/checkboxItem.md-->
+
+### RadioItem
+
+<!--@include: ../../packages/components/contextMenu/.docs/radioItem.md-->
+
+### ItemIndicator
+
+<!--@include: ../../packages/components/contextMenu/.docs/itemIndicator.md-->
+
+### Separator
+
+<!--@include: ../../packages/components/contextMenu/.docs/separator.md-->
+
+### Sub
+
+<!--@include: ../../packages/components/contextMenu/.docs/sub.md-->
+
+### SubTrigger
+
+<!--@include: ../../packages/components/contextMenu/.docs/subTrigger.md-->
+
+### SubContent
+
+<!--@include: ../../packages/components/contextMenu/.docs/subContent.md-->
