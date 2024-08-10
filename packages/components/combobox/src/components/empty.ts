@@ -8,10 +8,6 @@ import { injectComboboxRootContext } from './root'
 
 export const comboboxEmptyProps = {
   ...primitiveProps,
-  as: {
-    ...primitiveProps.as,
-    default: 'button',
-  },
 } as const
 
 export type ComboboxEmptyProps = ExtractPublicPropTypes<typeof comboboxEmptyProps>

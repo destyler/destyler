@@ -152,6 +152,9 @@ importers:
       '@destyler/collapsible':
         specifier: workspace:*
         version: link:../packages/components/collapsible
+      '@destyler/combobox':
+        specifier: workspace:*
+        version: link:../packages/components/combobox
       '@destyler/context-menu':
         specifier: workspace:*
         version: link:../packages/components/contextMenu

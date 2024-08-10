@@ -76,6 +76,7 @@ export default defineConfig({
           { text: 'Collapse', link: '/components/collapse' },
           { text: 'Collapsible', link: '/components/collapsible' },
           { text: 'Context Menu', link: '/components/context-menu' },
+          { text: 'Combobox', link: '/components/combobox' },
         ],
       },
     ],
