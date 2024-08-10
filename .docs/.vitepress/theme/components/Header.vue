@@ -91,15 +91,13 @@ function toggleDark(e: MouseEvent) {
       <div class="flex items-center justify-end lg:flex-1 gap-1.5">
         <!-- color -->
         <div class="relative">
-          <ClientOnly>
-            <ColorPick>
-              <Button
-                class="head-btn"
-              >
-                <Icon name="carbon:color-palette" class="w-5 h-5" />
-              </Button>
-            </ColorPick>
-          </ClientOnly>
+          <ColorPick>
+            <Button
+              class="head-btn"
+            >
+              <Icon name="carbon:color-palette" class="w-5 h-5" />
+            </Button>
+          </ColorPick>
         </div>
         <!-- search -->
         <div class="relative inline-flex">
