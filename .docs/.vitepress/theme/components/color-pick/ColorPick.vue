@@ -37,22 +37,24 @@ function handleSelectColor(color: any) {
 </script>
 
 <template>
-  <HoverCardRoot :open-delay="100">
-    <HoverCardTrigger>
-      <slot />
-    </HoverCardTrigger>
-    <HoverCardPortal>
-      <Transition name="fade">
-        <HoverCardContent
-          class="z-90 w-[156px] rounded-md bg-light border border-solid border-dark border-op-9 dark:bg-#0e0e0e dark:border dark:border-solid dark:border-white dark:border-op-9 py-2 px-4"
-          :side-offset="5"
-          :as-child="true"
-        >
-          <div class="grid grid-cols-5 gap-px">
-            <ColorPickerPill v-for="color in primarys" :key="color.value" :color="color" :selected="primary" @select="handleSelectColor" />
-          </div>
-        </HoverCardContent>
-      </Transition>
-    </HoverCardPortal>
-  </HoverCardRoot>
+  <ClientOnly>
+    <HoverCardRoot :open-delay="100">
+      <HoverCardTrigger>
+        <slot />
+      </HoverCardTrigger>
+      <HoverCardPortal>
+        <Transition name="fade">
+          <HoverCardContent
+            class="z-90 w-[156px] rounded-md bg-light border border-solid border-dark border-op-9 dark:bg-#0e0e0e dark:border dark:border-solid dark:border-white dark:border-op-9 py-2 px-4"
+            :side-offset="5"
+            :as-child="true"
+          >
+            <div class="grid grid-cols-5 gap-px">
+              <ColorPickerPill v-for="color in primarys" :key="color.value" :color="color" :selected="primary" @select="handleSelectColor" />
+            </div>
+          </HoverCardContent>
+        </Transition>
+      </HoverCardPortal>
+    </HoverCardRoot>
+  </ClientOnly>
 </template>
