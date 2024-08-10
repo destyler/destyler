@@ -17,7 +17,7 @@ export function preWrapperPlugin(md: MarkdownRenderer) {
 
     return (
       `<div title=${title} class="language-${lang}${active}">`
-      + `<span class="lang">${lang}</span>${
+      + `<span id=${title} class="lang">${lang}</span>${
       fence(...args)
       }</div>`
     )

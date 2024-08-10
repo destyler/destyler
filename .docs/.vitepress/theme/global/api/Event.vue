@@ -17,12 +17,12 @@ const props = defineProps<{
     bg-#f8f8f8 dark:bg-#1c1c1c
      rounded-md w-full mt-8"
   >
-    <thead class="bg-#F4F4F5 dark:bg-#27272A">
+    <thead class="bg-#F4F4F5 dark:bg-#27272A rounded-t-md">
       <tr>
         <th class="text-start px-3 py-1 rounded-lt-md">
           Event
         </th>
-        <th class="text-start px-3 py-1">
+        <th class="text-start px-3 py-1 rounded-rt-md">
           Type
         </th>
       </tr>
