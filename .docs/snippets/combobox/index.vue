@@ -13,7 +13,7 @@ const options = ref([
   },
   {
     label: 'backend',
-    items: ['nitro', 'express', 'nest', 'koa', 'adonis'],
+    items: ['nitro', 'express', 'hono', 'koa', 'adonis'],
   },
 ])
 </script>
@@ -66,39 +66,42 @@ const options = ref([
     >
       <ComboboxViewport>
         <ComboboxEmpty class="py-3 text-center text-sm" />
-        <ComboboxGroup
+        <template
           v-for="(option, index) of options"
           :key="option.label"
-          class="overflow-hidden p-1"
         >
-          <ComboboxLabel
-            class="
+          <ComboboxGroup
+            class="overflow-hidden p-1"
+          >
+            <ComboboxLabel
+              class="
             overflow-hidden text-foreground/50
             flex justify-start items-center
             w-full px-2 py-1
             "
-          >
-            {{ option.label }}
-          </ComboboxLabel>
-          <ComboboxItem
-            v-for="item in option.items"
-            :key="item"
-            :value="item"
-            class="
+            >
+              {{ option.label }}
+            </ComboboxLabel>
+            <ComboboxItem
+              v-for="item in option.items"
+              :key="item"
+              :value="item"
+              class="
             overflow-hidden text-foreground
             flex justify-start items-center
             w-full px-2 py-1
             data-[highlighted]:bg-accent
             data-[highlighted]:rounded
             "
-          >
-            <span>{{ item }}</span>
-            <ComboboxItemIndicator class="ml-auto h-4 w-4">
-              <Icon name="carbon:checkmark" />
-            </ComboboxItemIndicator>
-          </ComboboxItem>
-          <ComboboxSeparator v-show="index !== options.length - 1" class="h-0.25 bg-foreground/60 m-1" />
-        </ComboboxGroup>
+            >
+              <span>{{ item }}</span>
+              <ComboboxItemIndicator class="ml-auto h-4 w-4">
+                <Icon name="carbon:checkmark" />
+              </ComboboxItemIndicator>
+            </ComboboxItem>
+          </ComboboxGroup>
+          <ComboboxSeparator v-show="index !== options.length - 1" class="h-0.25 bg-foreground/10 m-1" />
+        </template>
       </ComboboxViewport>
     </ComboboxContent>
   </ComboboxRoot>
