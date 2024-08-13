@@ -16,10 +16,10 @@ const props = defineProps<{
   >
     <thead class="bg-#F4F4F5 dark:bg-#27272A rounded-t-md">
       <tr>
-        <th class="text-start px-3 py-1 rounded-lt-md">
+        <th class="text-start px-3 py-1 rounded-lt-md w-55%">
           CSS Variable
         </th>
-        <th class="text-start px-3 py-1 rounded-rt-md">
+        <th class="text-start px-3 py-1 rounded-rt-md w-55%">
           Description
         </th>
       </tr>
@@ -33,7 +33,7 @@ const props = defineProps<{
         </td>
         <td>
           <div class="px-3 py-1">
-            <span class="font-bold">{{ prop.description }}</span>
+            <span class="font-bold" v-html="prop.description" />
           </div>
         </td>
       </tr>
