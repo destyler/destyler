@@ -72,11 +72,12 @@ export default defineConfig({
         text: 'Components',
         items: [
           { text: 'AspectRadio', link: '/components/aspectRadio' },
+          { text: 'Button', link: '/components/button' },
           { text: 'Checkbox', link: '/components/checkbox' },
           { text: 'Collapse', link: '/components/collapse' },
           { text: 'Collapsible', link: '/components/collapsible' },
-          { text: 'Context Menu', link: '/components/context-menu' },
           { text: 'Combobox', link: '/components/combobox' },
+          { text: 'Context Menu', link: '/components/context-menu' },
         ],
       },
     ],

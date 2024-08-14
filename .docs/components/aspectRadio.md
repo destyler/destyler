@@ -41,7 +41,7 @@ import { AspectRadio } from '@destyler/aspect-radio'
 
 </CodePreview>
 
-## API Reference
+## API
 
 ### Root
 

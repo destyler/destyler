@@ -73,8 +73,6 @@ export const Button = defineComponent({
       'onClick': (e: any) => {
         this.handleClick(e)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })
