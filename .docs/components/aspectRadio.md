@@ -43,7 +43,7 @@ import { AspectRadio } from '@destyler/aspect-radio'
 
 ## API
 
-### Root
+### AspectRadio
 
 Contains the content you want to constrain to a given ratio.
 

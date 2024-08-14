@@ -140,6 +140,9 @@ importers:
       '@destyler/aspect-radio':
         specifier: workspace:*
         version: link:../packages/components/aspectRadio
+      '@destyler/breadcrumbs':
+        specifier: workspace:*
+        version: link:../packages/components/breadcrumbs
       '@destyler/button':
         specifier: workspace:*
         version: link:../packages/components/button
