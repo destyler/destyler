@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@destyler/icon'
 import { BreadcrumbsContent, BreadcrumbsItem, BreadcrumbsLabel, BreadcrumbsRoot, BreadcrumbsSeparator } from '@destyler/breadcrumbs'
 
 const lists = ref([
@@ -42,7 +43,7 @@ const lists = ref([
           {{ item.label }}
         </BreadcrumbsLabel>
         <BreadcrumbsSeparator class="w-2 text-muted-foreground!">
-          >
+          <Icon name="carbon:chevron-right" />
         </BreadcrumbsSeparator>
       </BreadcrumbsItem>
     </BreadcrumbsContent>
