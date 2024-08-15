@@ -161,6 +161,12 @@ importers:
       '@destyler/context-menu':
         specifier: workspace:*
         version: link:../packages/components/contextMenu
+      '@destyler/countdown':
+        specifier: workspace:*
+        version: link:../packages/components/countdown
+      '@destyler/dialog':
+        specifier: workspace:*
+        version: link:../packages/components/dialog
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler

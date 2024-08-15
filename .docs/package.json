@@ -16,6 +16,8 @@
     "@destyler/collapsible": "workspace:*",
     "@destyler/combobox": "workspace:*",
     "@destyler/context-menu": "workspace:*",
+    "@destyler/countdown": "workspace:*",
+    "@destyler/dialog": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
