@@ -1,17 +1,55 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Countdown } from '@destyler/countdown'
-import './style.css'
-
-const countdownRef = ref<any>(null)
-
-function handleReset() {
-  countdownRef.value?.reset()
-}
+// @noErrors
+import { Icon } from '@destyler/icon'
+import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogOverlay,
+  DialogPortal,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from '@destyler/dialog'
 </script>
 
 <template>
-  <div class="box" @click="handleReset">
-    <Countdown ref="countdownRef" :duration="50000" />
-  </div>
+  <DialogRoot>
+    <DialogTrigger
+      class="button"
+    >
+      Open Dialog
+    </DialogTrigger>
+    <DialogPortal>
+      <DialogOverlay
+        class="
+        dialogOverlay
+        "
+      />
+      <DialogContent
+        class="
+        dialogContent
+        "
+      >
+        <div class="box">
+          <DialogTitle class="dialogTitle">
+            Dialog
+          </DialogTitle>
+          <DialogDescription class="dialogDescription">
+            Are you sure?
+          </DialogDescription>
+        </div>
+        <DialogClose class="dialogClose">
+          <Icon name="i-ri-close-line" class="icon" />
+        </DialogClose>
+        <div class="action">
+          <DialogClose
+            class="button"
+          >
+            Sure
+          </DialogClose>
+        </div>
+      </DialogContent>
+    </DialogPortal>
+  </DialogRoot>
 </template>
