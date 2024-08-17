@@ -167,6 +167,9 @@ importers:
       '@destyler/dialog':
         specifier: workspace:*
         version: link:../packages/components/dialog
+      '@destyler/divider':
+        specifier: workspace:*
+        version: link:../packages/components/divider
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler
