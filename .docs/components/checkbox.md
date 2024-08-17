@@ -45,7 +45,7 @@ import { CheckboxIndicator, CheckboxRoot } from '@destyler/checkbox'
 
 </CodePreview>
 
-## API Reference
+## API
 
 ### Root
 
