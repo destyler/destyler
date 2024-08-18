@@ -82,6 +82,7 @@ export default defineConfig({
           { text: 'Countdown', link: '/components/countdown' },
           { text: 'Dialog', link: '/components/dialog' },
           { text: 'Divider', link: '/components/divider' },
+          { text: 'Dropdown', link: '/components/dropdown' },
         ],
       },
     ],

@@ -1,5 +1,5 @@
-<script setup lang="ts">
 // @noErrors
+<script setup lang="ts">
 import { Icon } from '@destyler/icon'
 import {
   DialogClose,
