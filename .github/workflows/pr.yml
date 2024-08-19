@@ -1,13 +1,14 @@
-name: Build
+name: PR CI
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'pending review') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,6 +31,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'pending review') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
