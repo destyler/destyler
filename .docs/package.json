@@ -19,6 +19,7 @@
     "@destyler/countdown": "workspace:*",
     "@destyler/dialog": "workspace:*",
     "@destyler/divider": "workspace:*",
+    "@destyler/dropdown": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {

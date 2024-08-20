@@ -170,6 +170,9 @@ importers:
       '@destyler/divider':
         specifier: workspace:*
         version: link:../packages/components/divider
+      '@destyler/dropdown':
+        specifier: workspace:*
+        version: link:../packages/components/dropdown
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler
