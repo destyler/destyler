@@ -63,11 +63,11 @@ export const DropdownContent = defineComponent({
     return withDirectives(h(MenuContent, mergeProps(this.$props, {
       'aria-labelledby': this.rootContext?.triggerId,
       'style': {
-        '--destyler-dropdown-menu-content-transform-origin': 'var(--destyler-popper-transform-origin)',
-        '--destyler-dropdown-menu-content-available-width': 'var(--destyler-popper-available-width)',
-        '--destyler-dropdown-menu-content-available-height': 'var(--destyler-popper-available-height)',
-        '--destyler-dropdown-menu-trigger-width': 'var(--destyler-popper-anchor-width)',
-        '--destyler-dropdown-menu-trigger-height': 'var(--destyler-popper-anchor-height)',
+        '--destyler-dropdown-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-dropdown-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-dropdown-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-dropdown-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-dropdown-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
       'onCloseAutoFocus': (event: any) => {
         this.handleCloseAutoFocus(event)

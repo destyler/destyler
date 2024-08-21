@@ -84,15 +84,15 @@ import {
           </DropdownRadioItem>
         </DropdownRadioGroup>
 
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger />
-          <DropdownMenuPortal>
-            <DropdownMenuSubContent />
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
+        <DropdownSub>
+          <DropdownSubTrigger />
+          <DropdownPortal>
+            <DropdownSubContent />
+          </DropdownPortal>
+        </DropdownSub>
 
-        <DropdownMenuSeparator />
-        <DropdownMenuArrow />
+        <DropdownSeparator />
+        <DropdownArrow />
       </DropdownContent>
     </DropdownPortal>
   </DropdownRoot>
@@ -106,3 +106,65 @@ import {
 ## API
 
 ### Root
+
+<!--@include: ../../packages/components/dropdown/.docs/root.md-->
+
+### Trigger
+
+<!--@include: ../../packages/components/dropdown/.docs/trigger.md-->
+
+### Portal
+
+<!--@include: ../../packages/components/dropdown/.docs/portal.md-->
+
+### Content
+
+<!--@include: ../../packages/components/dropdown/.docs/content.md-->
+
+### Label
+
+<!--@include: ../../packages/components/dropdown/.docs/label.md-->
+
+### Group
+
+<!--@include: ../../packages/components/dropdown/.docs/group.md-->
+
+### Item
+
+<!--@include: ../../packages/components/dropdown/.docs/item.md-->
+
+### ItemIndicator
+
+<!--@include: ../../packages/components/dropdown/.docs/itemIndicator.md-->
+
+### CheckboxItem
+
+<!--@include: ../../packages/components/dropdown/.docs/checkboxItem.md-->
+
+### RadioGroup
+
+<!--@include: ../../packages/components/dropdown/.docs/radioGroup.md-->
+
+### RadioItem
+
+<!--@include: ../../packages/components/dropdown/.docs/radioItem.md-->
+
+### Sub
+
+<!--@include: ../../packages/components/dropdown/.docs/sub.md-->
+
+### SubTrigger
+
+<!--@include: ../../packages/components/dropdown/.docs/subTrigger.md-->
+
+### SubContent
+
+<!--@include: ../../packages/components/dropdown/.docs/subContent.md-->
+
+### Separator
+
+<!--@include: ../../packages/components/dropdown/.docs/separator.md-->
+
+### Arrow
+
+<!--@include: ../../packages/components/dropdown/.docs/arrow.md-->
