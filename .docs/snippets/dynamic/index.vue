@@ -4,7 +4,7 @@ import { Label } from '@destyler/label'
 import { Icon } from '@destyler/icon'
 import { DynamicInput, DynamicItem, DynamicItemDelete, DynamicItemText, DynamicRoot } from '@destyler/dynamic'
 
-const modelValue = ref(['Vue', 'Nuxt'])
+const modelValue = ref(['Vue', 'Destyler UI'])
 </script>
 
 <template>
@@ -32,10 +32,17 @@ const modelValue = ref(['Vue', 'Nuxt'])
           </DynamicItemDelete>
         </DynamicItem>
       </div>
-      <div class="w-full">
+      <div class="w-450px text-primary">
         <DynamicInput
           placeholder="Fruits..."
-          class="flex h-10 rounded-md border-solid border-b border-black border-op-2 dark:border-white dark:border-op-9 bg-white dark:bg-#09090B px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium dark:placeholder:text-#A1A1AA placeholder:text-#71717A focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-#D4D4D8 dark:focus-visible:ring-#09090B focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full sm:min-w-[450px] outline-none"
+          class="
+          flex h-10 w-full rounded-md
+          border border-input
+          bg-background px-3 py-2 text-sm
+          ring-offset-background file:border-0 file:bg-transparent
+          file:text-sm file:font-medium placeholder:text-muted-foreground
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+          focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
     </DynamicRoot>
