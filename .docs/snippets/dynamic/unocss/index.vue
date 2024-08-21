@@ -1,59 +1,82 @@
 // @noErrors
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Divider } from '@destyler/divider'
+import { Label } from '@destyler/label'
+import { Icon } from '@destyler/icon'
+import { DynamicInput, DynamicItem, DynamicItemDelete, DynamicItemText, DynamicRoot } from '@destyler/dynamic'
 
-const items = ref([
-  { label: 'Blog', value: 'blog' },
-  { label: 'Docs', value: 'docs' },
-  { label: 'Source', value: 'source' },
-])
+const modelValue = ref(['Vue', 'Destyler UI'])
 </script>
 
 <template>
   <div
-    w="full"
-    max-w="75"
-    m="x-4"
+    space="y-2"
+    flex="~ col"
+    items="start"
   >
-    <div
-      text="sm foreground"
+    <Label
+      text="sm primary left"
       font="medium"
+      leadin="none"
+      cursor="peer-disabled:not-allowed"
+      op="peer-disabled:70"
     >
-      Destyler UI
-    </div>
-    <div
-      text="sm foreground"
+      Topics
+    </Label>
+    <DynamicRoot
+      v-model="modelValue"
+      w="full"
+      flex="~ col"
+      gap="3"
     >
-      unstyled component for vue.
-    </div>
-    <Divider
-      bg="primary/50"
-      m="y-4"
-      h="data-[orientation=horizontal]:px data-[orientation=vertical]:full"
-      w="data-[orientation=horizontal]:full data-[orientation=vertical]:px"
-    />
-    <div
-      flex="~"
-      h="5"
-      items="center"
-    >
-      <template v-for="(item, index) in items" :key="item.value">
-        <div
-          text="sm foreground"
+      <div
+        rounded="md"
+        max-w="450px"
+        flex="~ wrap"
+        gap="2"
+      >
+        <DynamicItem
+          v-for="item in modelValue"
+          :key="item"
+          :value="item"
+          text="primary-foreground"
+          flex="~"
+          shadow="md"
+          items="center"
+          justify="center"
+          gap="2"
+          bg="primary"
+          rounded="~"
+          p="1"
         >
-          {{ item.label }}
-        </div>
-        <Divider
-          v-if="index < items.length - 1"
-          bg="primary/50"
-          m="x-4"
-          h="data-[orientation=horizontal]:px data-[orientation=vertical]:full"
-          w="data-[orientation=horizontal]:full data-[orientation=vertical]:px"
-          decorative
-          orientation="vertical"
+          <DynamicItemText text="sm" p="l-1" />
+          <DynamicItemDelete
+            p="0.5"
+            rounded="~"
+            bg="transparent hover:accent hover:op-10"
+          >
+            <Icon name="radix-icons:cross-2" />
+          </DynamicItemDelete>
+        </DynamicItem>
+      </div>
+      <div w="450px" text="primary">
+        <DynamicInput
+          placeholder="Fruits..."
+          flex="~"
+          h="10"
+          w="full"
+          rounded="md"
+          border="~ input"
+          bg="background"
+          p="x-3 y-2"
+          text="sm placeholder:muted-foreground"
+          ring-offset="background"
+          file="border-0 bg-transparent text-sm font-medium"
+          focus-visible="outline-none ring-2 ring-ring ring-offset-2"
+          cursor="disabled:not-allowed"
+          op="disabled:50"
         />
-      </template>
-    </div>
+      </div>
+    </DynamicRoot>
   </div>
 </template>
