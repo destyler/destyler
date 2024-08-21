@@ -20,6 +20,8 @@
     "@destyler/dialog": "workspace:*",
     "@destyler/divider": "workspace:*",
     "@destyler/dropdown": "workspace:*",
+    "@destyler/dynamic": "workspace:*",
+    "@destyler/label": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {

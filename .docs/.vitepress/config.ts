@@ -83,6 +83,7 @@ export default defineConfig({
           { text: 'Dialog', link: '/components/dialog' },
           { text: 'Divider', link: '/components/divider' },
           { text: 'Dropdown', link: '/components/dropdown' },
+          { text: 'Dynamic', link: '/components/dynamic' },
         ],
       },
     ],
