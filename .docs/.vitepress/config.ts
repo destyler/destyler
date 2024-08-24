@@ -84,6 +84,7 @@ export default defineConfig({
           { text: 'Divider', link: '/components/divider' },
           { text: 'Dropdown', link: '/components/dropdown' },
           { text: 'Dynamic', link: '/components/dynamic' },
+          { text: 'Hover Card', link: '/components/hoverCard' },
         ],
       },
     ],
