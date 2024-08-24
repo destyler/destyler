@@ -21,6 +21,8 @@
     "@destyler/divider": "workspace:*",
     "@destyler/dropdown": "workspace:*",
     "@destyler/dynamic": "workspace:*",
+    "@destyler/hover-card": "workspace:*",
+    "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",
     "destyler": "workspace:*"
   },
