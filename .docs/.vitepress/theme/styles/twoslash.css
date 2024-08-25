@@ -15,6 +15,14 @@
   background-color: var(--twoslash-popup-bg) !important;
 }
 
+.v-popper__inner {
+  scrollbar-width:none
+}
+
+.v-popper__inner ::-webkit-scrollbar{
+  display:none
+}
+
 .v-popper--theme-twoslash .v-popper__inner {
   background: var(--twoslash-popup-bg);
   color: var(--twoslash-popup-color);
