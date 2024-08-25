@@ -163,7 +163,13 @@ html.dark .article {
   padding-right: 1.1428571em;
   padding-bottom: 0.8571429em;
   padding-left: 1.1428571em;
+  scrollbar-width: none;
 }
+
+..article pre::-webkit-scrollbar {
+  display: none;
+}
+
 .article pre code {
   background-color: transparent;
   border-width: 0;

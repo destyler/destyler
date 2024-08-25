@@ -1,3 +1,7 @@
 body{
-  @apply font-sans text-gray-700 dark:text-gray-200 relative bg-white dark:bg-black
+  @apply font-sans text-gray-700 dark:text-gray-200 relative bg-white dark:bg-black scrollbar-hide;
+}
+
+html {
+  @apply scrollbar-hide;
 }

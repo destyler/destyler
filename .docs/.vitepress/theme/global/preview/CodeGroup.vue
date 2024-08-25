@@ -164,12 +164,12 @@ function handleCopy(e: any) {
       <div
         ref="codeScrollWrapper"
         :key="cssFramework"
-        class="pb-10 block custom"
+        class="pb-10 block custom scrollbar-hide"
         :class="`${open ? 'overflow-scroll h-full min-h-[150px] max-h-[80vh]' : 'overflow-hidden h-[150px]'}`"
       >
         <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
           <div class="relative text-base">
-            <component :is="tab.component" class="border-0" />
+            <component :is="tab.component" class="border-0 scrollbar-hide" />
           </div>
         </TabsContent>
         <div
