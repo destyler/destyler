@@ -1,43 +1,54 @@
-<script setup lang="ts">
 // @noErrors
-import { ref } from 'vue'
+<script setup lang="ts">
+import {
+  HoverCardContent,
+  HoverCardPortal,
+  HoverCardRoot,
+  HoverCardTrigger,
+} from '@destyler/hover-card'
 import { Icon } from '@destyler/icon'
-import { BreadcrumbsContent, BreadcrumbsItem, BreadcrumbsLabel, BreadcrumbsRoot, BreadcrumbsSeparator } from '@destyler/breadcrumbs'
-
-const lists = ref([
-  {
-    label: 'Home',
-    link: '/',
-  },
-  {
-    label: 'Components',
-    link: '/guide/components',
-  },
-  {
-    label: 'Breadcrumbs',
-    link: '/components/breadcrumbs',
-  },
-])
+import { Image, ImageFallback, ImageRoot } from '@destyler/image'
+import './style.css'
 </script>
 
 <template>
-  <BreadcrumbsRoot>
-    <BreadcrumbsContent class="breadcrumbsContent">
-      <BreadcrumbsItem
-        v-for="(item) in lists"
-        :key="item.link"
-        class="breadcrumbsItem"
+  <HoverCardRoot>
+    <HoverCardTrigger
+      as="button"
+      class="hover-card-trigger"
+    >
+      destyler ui
+    </HoverCardTrigger>
+    <HoverCardPortal>
+      <HoverCardContent
+        class="hover-card-content"
       >
-        <BreadcrumbsLabel
-          class="breadcrumbsLabel"
-          :href="item.link"
-        >
-          {{ item.label }}
-        </BreadcrumbsLabel>
-        <BreadcrumbsSeparator class="breadcrumbsSeparator">
-          <Icon name="carbon:chevron-right" />
-        </BreadcrumbsSeparator>
-      </BreadcrumbsItem>
-    </BreadcrumbsContent>
-  </BreadcrumbsRoot>
+        <div class="box">
+          <ImageRoot class="image-root{">
+            <Image
+              class="image"
+              src="https://github.com/destyler.png"
+            />
+            <ImageFallback class="image-fall-back">
+              D
+            </ImageFallback>
+          </ImageRoot>
+          <div class="space-y-1">
+            <h4 class="h4">
+              @destyler
+            </h4>
+            <p class="p">
+              The Vue UI Framework – created and Build UI by @destyler.
+            </p>
+            <div class="footer">
+              <Icon name="lucide-calendar-days" class="icon" />
+              <span class="time">
+                Joined June 2023
+              </span>
+            </div>
+          </div>
+        </div>
+      </HoverCardContent>
+    </HoverCardPortal>
+  </HoverCardRoot>
 </template>
