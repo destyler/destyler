@@ -55,3 +55,9 @@ import {
 </template>
 
 </CodePreview>
+
+## API
+
+### Root
+
+<!--@include: ../../packages/components/hoverCard/.docs/root.md-->
