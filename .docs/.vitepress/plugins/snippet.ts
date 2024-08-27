@@ -14,8 +14,8 @@ import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
  *
  * captures: ['/path/to/file.extension', 'extension', '#region', '{meta}', '[title]']
  */
-export const rawPathRegexp
-  = /^(.+?(?:\.([a-z0-9]+))?)(#[\w-]+)?(?: ?\{(\d+(?:[,-]\d+)*)? ?(\S+)? ?(\S+)?\})? ?(?:\[(.+)\])?$/
+/* eslint-disable regexp/no-super-linear-backtracking, regexp/no-misleading-capturing-group */
+export const rawPathRegexp = /^(.+?(?:\.([a-z0-9]+))?)(#[\w-]+)?(?: ?\{(\d+(?:[,-]\d+)*)? ?(\S+)? ?(\S+)?\})? ?(?:\[(.+)\])?$/
 
 export function rawPathToToken(rawPath: string) {
   const [
@@ -194,5 +194,5 @@ export function snippetPlugin(md: MarkdownRenderer, srcDir: string) {
     return fence(...args)
   }
 
-  md.block.ruler.before('fence', 'snippet', parser)
+  md.block.ruler.before('fence', 'snippet', parser as any)
 }

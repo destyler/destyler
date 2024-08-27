@@ -2,6 +2,7 @@ import { dirname, resolve } from 'node:path'
 import { readdirSync } from 'node:fs'
 import type { MarkdownEnv, MarkdownRenderer } from 'vitepress'
 
+// eslint-disable-next-line regexp/no-super-linear-backtracking
 export const rawPathRegexp = /^(.+?(?:\.([a-z0-9]+))?)(#[\w-]+)?(?: ?\{(\d+(?:[,-]\d+)*)? ?(\S+)?\})? ?(?:\[(.+)\])?$/
 
 function rawPathToToken(rawPath: string) {

@@ -86,7 +86,7 @@ export const themes = [
       },
     },
   },
-{
+  {
     name: 'red',
     label: 'Red',
     activeColor: {

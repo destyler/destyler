@@ -12,7 +12,7 @@ const theme = useStorage('destyler-ui-theme', 'dark')
 
 onMounted(() => {
   watch(theme, (v, o) => {
-    document.documentElement.classList.remove(o)
+    document.documentElement.classList.remove(o!)
     document.documentElement.classList.add(v)
     isDark.value = v === 'dark'
   }, {
@@ -20,7 +20,7 @@ onMounted(() => {
   })
 })
 
-function toggleDark(e: MouseEvent) {
+function toggleDark() {
   // @ts-expect-error experimental API
   const isAppearanceTransition = document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   if (!isAppearanceTransition) {
