@@ -61,3 +61,19 @@ import {
 ### Root
 
 <!--@include: ../../packages/components/hoverCard/.docs/root.md-->
+
+### Trigger
+
+<!--@include: ../../packages/components/hoverCard/.docs/trigger.md-->
+
+### Portal
+
+<!--@include: ../../packages/components/hoverCard/.docs/portal.md-->
+
+### Content
+
+<!--@include: ../../packages/components/hoverCard/.docs/content.md-->
+
+### Arrow
+
+<!--@include: ../../packages/components/hoverCard/.docs/arrow.md-->
