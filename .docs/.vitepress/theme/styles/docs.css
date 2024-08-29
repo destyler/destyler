@@ -166,7 +166,7 @@ html.dark .article {
   scrollbar-width: none;
 }
 
-..article pre::-webkit-scrollbar {
+.article pre::-webkit-scrollbar {
   display: none;
 }
 
