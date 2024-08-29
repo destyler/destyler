@@ -38,7 +38,7 @@ import { Image, ImageFallback, ImageRoot } from '@destyler/image'
 <template>
   <ImageRoot>
     <Image />
-    <ImageFallback/>
+    <ImageFallback />
   </ImageRoot>
 </template>
 ```
@@ -46,3 +46,17 @@ import { Image, ImageFallback, ImageRoot } from '@destyler/image'
 </template>
 
 </CodePreview>
+
+## API
+
+### Root
+
+<!--@include: ../../packages/components/image/.docs/root.md-->
+
+### Image
+
+<!--@include: ../../packages/components/image/.docs/image.md-->
+
+### Fallback
+
+<!--@include: ../../packages/components/image/.docs/fallback.md-->
