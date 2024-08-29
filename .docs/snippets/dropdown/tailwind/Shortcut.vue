@@ -1,4 +1,3 @@
-// @noErrors
 <script setup lang="ts">
 </script>
 

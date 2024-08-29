@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @noErrors
 import { ref } from 'vue'
 import { Button } from '@destyler/button'
 import { Icon } from '@destyler/icon'

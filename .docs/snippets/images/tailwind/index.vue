@@ -1,4 +1,3 @@
-// @noErrors
 <script setup lang="ts">
 import { Image, ImageFallback, ImageRoot } from '@destyler/image'
 </script>

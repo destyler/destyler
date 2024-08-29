@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @noErrors
 import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
 import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '@destyler/combobox'

@@ -1,4 +1,3 @@
-// @noErrors
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Divider } from '@destyler/divider'

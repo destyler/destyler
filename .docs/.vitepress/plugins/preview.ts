@@ -77,7 +77,7 @@ export default function (md: MarkdownRenderer) {
 
           // Add code tokens for each line
           const token = new state.Token('fence', 'code', 0)
-          token.info = `${lang || extension} twoslash ${lines ? `{${lines}}` : ''}${
+          token.info = `${lang || extension} ${lines ? `{${lines}}` : ''}${
             title ? `[${title}]` : ''
           }`
           token.content = `<<< ${filepath}`

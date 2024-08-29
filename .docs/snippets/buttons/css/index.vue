@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @noErrors
 import { Button } from '@destyler/button'
 import './styler.css'
 </script>

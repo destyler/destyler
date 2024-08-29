@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @noErrors
 import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
 import { CollapseContent, CollapseHeader, CollapseItem, CollapseRoot, CollapseTrigger } from '@destyler/collapse'

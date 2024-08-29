@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @noErrors
 import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
 import { ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuItemIndicator, ContextMenuLabel, ContextMenuPortal, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuRoot, ContextMenuSeparator, ContextMenuTrigger } from '@destyler/context-menu'
