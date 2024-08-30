@@ -24,6 +24,7 @@
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",
+    "@destyler/menubar": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {

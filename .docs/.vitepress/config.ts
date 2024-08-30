@@ -87,6 +87,7 @@ export default defineConfig({
           { text: 'Hover Card', link: '/components/hoverCard' },
           { text: 'Image', link: '/components/image' },
           { text: 'Label', link: '/components/label' },
+          { text: 'Menubar', link: '/components/menubar' },
         ],
       },
     ],
