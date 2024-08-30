@@ -23,18 +23,21 @@ const options = ref([
     label: 'File',
     items: [
       {
+        icon: 'carbon:new-tab',
         value: 'new-tab',
         label: 'New Tab',
         shortcut: '⌘T',
         type: 'item',
       },
       {
+        icon: 'carbon:airplay',
         value: 'new-window',
         label: 'New Window',
         shortcut: '⌘N',
         type: 'item',
       },
       {
+        icon: 'carbon:fingerprint-recognition',
         value: 'new-incognito-window',
         label: 'New Incognito Window',
         disabled: true,
@@ -45,21 +48,25 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:share',
         value: 'share',
         label: 'Share',
         type: 'sub',
         items: [
           {
+            icon: 'carbon:email',
             value: 'email-link',
             label: 'Email link',
             type: 'item',
           },
           {
+            icon: 'carbon:chat',
             value: 'messages',
             label: 'Messages',
             type: 'item',
           },
           {
+            icon: 'carbon:align-box-top-left',
             value: 'notes',
             label: 'Notes',
             type: 'item',
@@ -71,6 +78,7 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:printer',
         value: 'print',
         label: 'Print...',
         shortcut: '⌘P',
@@ -83,12 +91,14 @@ const options = ref([
     label: 'Edit',
     items: [
       {
+        icon: 'carbon:undo',
         value: 'undo',
         label: 'Undo',
         shortcut: '⌘Z',
         type: 'item',
       },
       {
+        icon: 'carbon:redo',
         value: 'redo',
         label: 'Redo',
         shortcut: '⇧⌘Z',
@@ -99,11 +109,13 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:search',
         value: 'find',
         label: 'Find',
         type: 'sub',
         items: [
           {
+            icon: 'carbon:application-web',
             value: 'search-the-web',
             label: 'Search the web',
             type: 'item',
@@ -113,16 +125,19 @@ const options = ref([
             type: 'separator',
           },
           {
+            icon: 'carbon:magnify',
             value: 'find...',
             label: 'Find...',
             type: 'item',
           },
           {
+            icon: 'carbon:triangle-right-outline',
             value: 'find-next',
             label: 'Find Next',
             type: 'item',
           },
           {
+            icon: 'carbon:triangle-left-outline',
             value: 'find-previous',
             label: 'Find Previous',
             type: 'item',
@@ -134,16 +149,19 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:cut',
         value: 'cut',
         label: 'Cut',
         type: 'item',
       },
       {
+        icon: 'carbon:copy-file',
         value: 'copy',
         label: 'Copy',
         type: 'item',
       },
       {
+        icon: 'carbon:paste',
         value: 'paste',
         label: 'Paste',
         type: 'item',
@@ -171,18 +189,18 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:update-now',
         value: 'reload',
         label: 'Reload',
         shortcut: '⌘R',
         type: 'item',
-        class: 'pl-8',
       },
       {
+        icon: 'carbon:rotate-360',
         value: 'force-reload',
         label: 'Force Reload',
         shortcut: '⇧⌘R',
         disabled: true,
-        class: 'pl-8',
         type: 'item',
       },
       {
@@ -190,9 +208,9 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:maximize',
         value: 'toggle-fullscreen',
         label: 'Toggle Fullscreen',
-        class: 'pl-8',
         type: 'item',
       },
       {
@@ -200,9 +218,9 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:minimize',
         value: 'hide-sidebar',
         label: 'Hide Sidebar',
-        class: 'pl-8',
         type: 'item',
       },
     ],
@@ -240,9 +258,9 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:edit',
         value: 'edit',
         label: 'Edit...',
-        class: 'pl-8',
         type: 'item',
       },
       {
@@ -250,9 +268,9 @@ const options = ref([
         type: 'separator',
       },
       {
+        icon: 'carbon:add-alt',
         value: 'add-profile',
         label: 'Add Profile...',
-        class: 'pl-8',
         type: 'item',
       },
     ],
@@ -269,7 +287,15 @@ const currentMenubar = ref('')
   >
     <MenubarMenu v-for="option in options" :key="option.value" :value="option.value">
       <MenubarTrigger
-        class="text-dark dark:text-light flex cursor-default select-none items-center rounded-sm px-3 py-1.5 text-sm font-medium outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+        class="
+        text-dark dark:text-light
+        flex select-none cursor-pointer
+        items-center rounded-sm px-3
+        py-1.5 text-sm font-medium outline-none
+        hover:bg-accent hover:text-accent-foreground
+        focus:bg-accent focus:text-accent-foreground
+        data-[state=open]:bg-accent
+        data-[state=open]:text-accent-foreground"
       >
         {{ option.label }}
       </MenubarTrigger>
@@ -288,9 +314,10 @@ const currentMenubar = ref('')
               v-if="item?.type === 'item'"
               :value="item?.value"
               :disabled="item?.disabled"
-              class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              class="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
               :class="item?.class"
             >
+              <Icon v-if="item.icon" :name="item.icon" class="mr-2 h-4 w-4" />
               {{ item?.label }}
               <Shortcut v-show="item?.shortcut">
                 {{ item.shortcut }}
@@ -301,7 +328,7 @@ const currentMenubar = ref('')
             <MenubarCheckboxItem
               v-else-if="item?.type === 'checkbox'"
               v-model:checked="item.checked"
-              class="relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              class="relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             >
               <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 <MenubarItemIndicator>
@@ -314,11 +341,11 @@ const currentMenubar = ref('')
               v-else-if="item?.type === 'radio'"
               v-model="item.value"
             >
-              <MenubarCheckboxItem
+              <MenubarRadioItem
                 v-for="radioItem in item.items"
                 :key="radioItem.value"
                 :value="radioItem.value"
-                class="relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                class="relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
               >
                 <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                   <MenubarItemIndicator>
@@ -326,7 +353,7 @@ const currentMenubar = ref('')
                   </MenubarItemIndicator>
                 </span>
                 {{ radioItem?.label }}
-              </MenubarCheckboxItem>
+              </MenubarRadioItem>
             </MenubarRadioGroup>
           </template>
         </MenubarContent>

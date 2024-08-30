@@ -18,7 +18,7 @@ const props = defineProps<{
 <template>
   <MenubarSub>
     <MenubarSubTrigger
-      class="flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+      class="flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
     >
       <Icon v-if="props.items.icon" :name="props.items.icon" class="mr-2 h-4 w-4" />
       {{ props.items.label }}
@@ -37,7 +37,7 @@ const props = defineProps<{
             v-if="item?.type === 'item'"
             :value="item?.value"
             :disabled="item?.disabled"
-            class="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+            class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             :class="item?.class"
           >
             <Icon v-if="item.icon" :name="item.icon" class="mr-2 h-4 w-4" />
