@@ -12,7 +12,6 @@ export type ContextMenuSeparatorProps = ExtractPublicPropTypes<typeof contextMen
 export const ContextMenuSeparator = defineComponent({
   name: 'DestylerContextMenuSeparator',
   props: contextMenuSeparatorProps,
-
   setup() {
     useForwardExpose()
   },

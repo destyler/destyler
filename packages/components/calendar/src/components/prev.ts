@@ -6,6 +6,9 @@ import { injectCalendarRootContext } from './root'
 
 export const calendarPrevProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -17,7 +20,6 @@ export type CalendarPrevProps = ExtractPublicPropTypes<typeof calendarPrevProps>
 export const CalendarPrev = defineComponent({
   name: 'DestylerCalendarPrev',
   props: calendarPrevProps,
-
   setup(_) {
     const rootContext = injectCalendarRootContext()
 

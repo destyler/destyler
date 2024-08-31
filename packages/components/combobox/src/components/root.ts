@@ -14,51 +14,97 @@ export type ArrayOrWrapped<T> = T extends any[] ? T : Array<T>
 
 export const comboboxRootProps = {
   ...primitiveProps,
+  /**
+   * The controlled value of the Combobox. Can be binded-with with `v-model`.
+   *
+   * @default undefined
+   */
   modelValue: {
     type: [String, Number, Boolean, Object, Array] as PropType<AcceptableValue | Array<AcceptableValue>>,
     required: false,
     default: undefined,
   },
+  /**
+   * The value of the combobox when initially rendered.
+   * Use when you do not need to control the state of the Combobox
+   *
+   * @default undefined
+   */
   defaultValue: {
     type: [String, Number, Boolean, Object, Array] as PropType<AcceptableValue | Array<AcceptableValue>>,
     required: false,
     default: undefined,
   },
+  /**
+   * The controlled open state of the Combobox. Can be binded-with with `v-model:open`.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * The open state of the combobox when it is initially rendered.
+   * Use when you do not need to control its open state.
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The controlled search term of the Combobox.
+   * Can be binded-with with `v-model:searchTerm`.
+   */
   searchTerm: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Whether multiple options can be selected or not.
+   *
+   * @default false
+   */
   multiple: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, prevents the user from interacting with Combobox.
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The name of the Combobox. Submitted with its owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * The custom filter function for filtering `ComboboxItem`.
+   */
   filterFunction: {
     type: Function as PropType<(val: ArrayOrWrapped<AcceptableValue>, term: string) => ArrayOrWrapped<AcceptableValue>>,
     required: false,
   },
+  /**
+   * The display value of input for selected item. Does not work with `multiple`.
+   */
   displayValue: {
     type: Function as PropType<(val: AcceptableValue) => string>,
     required: false,
@@ -68,8 +114,17 @@ export const comboboxRootProps = {
 export type ComboboxRootProps = ExtractPublicPropTypes<typeof comboboxRootProps>
 
 export const comboboxRootEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_value: AcceptableValue) => true,
+  /**
+   * Event handler called when the open state of the combobox changes.
+   */
   'update:open': (_value: boolean) => true,
+  /**
+   * Event handler called when the searchTerm of the combobox changes.
+   */
   'update:searchTerm': (_value: string) => true,
 }
 
@@ -102,7 +157,16 @@ export const ComboboxRoot = defineComponent({
   props: comboboxRootProps,
   emits: comboboxRootEmits,
   slots: Object as SlotsType<{
-    default: (opts: { open: boolean, modelValue: AcceptableValue }) => VNode[]
+    default: (opts: {
+      /**
+       * Current open state
+       */
+      open: boolean
+      /**
+       * Current active value
+       */
+      modelValue: AcceptableValue
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { multiple, disabled, dir: propDir } = toRefs(props)

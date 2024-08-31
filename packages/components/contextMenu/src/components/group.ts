@@ -12,7 +12,6 @@ export type ContextMenuGroupProps = ExtractPublicPropTypes<typeof contextMenuGro
 export const ContextMenuGroup = defineComponent({
   name: 'DestylerContextMenuGroup',
   props: contextMenuGroupProps,
-
   setup() {
     useForwardExpose()
   },

@@ -11,7 +11,6 @@ export type ContextMenuPortalProps = ExtractPublicPropTypes<typeof contextMenuPo
 export const ContextMenuPortal = defineComponent({
   name: 'DestylerContextMenuPortal',
   props: contextMenuPortalProps,
-
   render() {
     return h(MenuPortal, this.$props, () => this.$slots.default?.())
   },

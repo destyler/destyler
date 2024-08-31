@@ -8,10 +8,16 @@ import { injectComboboxRootContext } from './root'
 
 export const comboboxTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with item.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -23,7 +29,6 @@ export type ComboboxTriggerProps = ExtractPublicPropTypes<typeof comboboxTrigger
 export const ComboboxTrigger = defineComponent({
   name: 'DestylerComboboxTrigger',
   props: comboboxTriggerProps,
-
   setup(props) {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

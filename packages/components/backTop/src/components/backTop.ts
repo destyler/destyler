@@ -7,10 +7,19 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const backTopProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * The element to be listened to scroll event.
+   * If it is `undefined` back top will listen to the nearest scrollable parent.
+   *
+   * @default undefined
+   */
   listen: {
     type: [String, Object, Function] as PropType<string | HTMLElement | Document | (() => HTMLElement | Document)>,
     required: false,

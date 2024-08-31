@@ -19,7 +19,6 @@ export type BreadcrumbsRootProps = ExtractPublicPropTypes<typeof breadcrumbsRoot
 export const BreadcrumbsRoot = defineComponent({
   name: 'DestylerBreadcrumbsRoot',
   props: breadcrumbsRootProps,
-
   setup(_) {
     useForwardExpose()
   },

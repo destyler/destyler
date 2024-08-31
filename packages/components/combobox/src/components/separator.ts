@@ -12,7 +12,6 @@ export type ComboboxSeparatorProps = ExtractPublicPropTypes<typeof comboboxSepar
 export const ComboboxSeparator = defineComponent({
   name: 'DestylerComboboxSeparator',
   props: comboboxSeparatorProps,
-
   setup() {
     useForwardExpose()
   },

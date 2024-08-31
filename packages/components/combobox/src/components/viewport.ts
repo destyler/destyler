@@ -6,6 +6,9 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const comboboxViewportProps = {
   ...primitiveProps,
+  /**
+   * Will add `nonce` attribute to the style tag which can be used by Content Security Policy.
+   */
   nonce: {
     type: String as PropType<string>,
     required: false,
@@ -17,7 +20,6 @@ export type ComboboxViewportProps = ExtractPublicPropTypes<typeof comboboxViewpo
 export const ComboboxViewport = defineComponent({
   name: 'DestylerComboboxViewport',
   props: comboboxViewportProps,
-
   inheritAttrs: false,
   setup() {
     const { forwardRef } = useForwardExpose()

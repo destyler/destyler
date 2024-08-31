@@ -18,7 +18,6 @@ export const ContextMenuItem = defineComponent({
   name: 'DestylerContextMenuItem',
   props: contextMenuItemProps,
   emits: contextMenuItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const calendarHeadCellProps = {
   ...primitiveProps,
+  /**
+   * @default th
+   */
   as: {
     ...primitiveProps.as,
     default: 'th',
@@ -15,7 +18,6 @@ export type CalendarHeadCellProps = ExtractPublicPropTypes<typeof calendarHeadCe
 export const CalendarHeadCell = defineComponent({
   name: 'DestylerCalendarHeadCell',
   props: calendarHeadCellProps,
-
   setup(_) {
 
   },

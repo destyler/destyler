@@ -18,7 +18,6 @@ export const ContextMenuRadioGroup = defineComponent({
   name: 'DestylerContextMenuRadioGroup',
   props: contextMenuRadioGroupProps,
   emits: contextMenuRadioGroupEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

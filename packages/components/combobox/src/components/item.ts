@@ -17,10 +17,16 @@ export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: 
 
 export const comboboxItemProps = {
   ...primitiveProps,
+  /**
+   * The value given as data when submitted with a `name`.
+   */
   value: {
     type: [String, Number, Boolean, Object] as PropType<AcceptableValue>,
     required: true,
   },
+  /**
+   * When true, prevents the user from interacting with the `item`.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,

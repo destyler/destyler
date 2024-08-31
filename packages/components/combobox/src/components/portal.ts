@@ -11,7 +11,6 @@ export type ComboboxPortalProps = ExtractPublicPropTypes<typeof comboboxPortalPr
 export const ComboboxPortal = defineComponent({
   name: 'DestylerComboboxPortal',
   props: comboboxPortalProps,
-
   render() {
     return h(TeleportPrimitive, this.$props, {
       default: () => this.$slots.default?.(),

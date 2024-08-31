@@ -21,7 +21,6 @@ export const [injectComboboxGroupContext, provideComboboxGroupContext] = createC
 export const ComboboxGroup = defineComponent({
   name: 'DestylerComboboxGroup',
   props: comboboxGroupProps,
-
   setup() {
     const { currentRef, currentElement } = useForwardExpose()
     const id = useId(undefined, 'destyler-combobox-group')

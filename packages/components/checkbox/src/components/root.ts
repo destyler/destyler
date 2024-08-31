@@ -21,8 +21,6 @@ export const checkboxRootProps = {
   /**
    * The checked state of the checkbox when it is initially rendered.
    * Use when you do not need to control its checked state.
-   *
-   * @default -
    */
   defaultChecked: {
     type: Boolean as PropType<boolean>,
@@ -50,8 +48,6 @@ export const checkboxRootProps = {
   },
   /**
    * When `true`, indicates that the user must check the checkbox before the owning form can be submitted.
-   *
-   * @default -
    */
   required: {
     type: Boolean as PropType<boolean>,
@@ -59,8 +55,6 @@ export const checkboxRootProps = {
   },
   /**
    * The name of the checkbox. Submitted with its owning form as part of a name/value pair.
-   *
-   * @default -
    */
   name: {
     type: String as PropType<string>,
@@ -78,8 +72,6 @@ export const checkboxRootProps = {
   },
   /**
    * Id of the element
-   *
-   * @default -
    */
   id: {
     type: String as PropType<string>,

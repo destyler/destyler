@@ -12,7 +12,6 @@ export type ContextMenuLabelProps = ExtractPublicPropTypes<typeof contextMenuLab
 export const ContextMenuLabel = defineComponent({
   name: 'DestylerContextMenuLabel',
   props: contextMenuLabelProps,
-
   setup() {
     useForwardExpose()
   },

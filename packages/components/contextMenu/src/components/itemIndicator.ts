@@ -12,7 +12,6 @@ export type ContextMenuItemIndicatorProps = ExtractPublicPropTypes<typeof contex
 export const ContextMenuItemIndicator = defineComponent({
   name: 'DestylerContextMenuItemIndicator',
   props: contextMenuItemIndicatorProps,
-
   setup() {
     useForwardExpose()
   },

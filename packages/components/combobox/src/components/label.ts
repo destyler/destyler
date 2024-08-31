@@ -9,6 +9,9 @@ import { injectComboboxGroupContext } from './group'
 
 export const comboboxLabelProps = {
   ...primitiveProps,
+  /**
+   * The id of the element the label is associated with.
+   */
   for: {
     type: String as PropType<string>,
     required: false,
@@ -20,7 +23,6 @@ export type ComboboxLabelProps = ExtractPublicPropTypes<typeof comboboxLabelProp
 export const ComboboxLabel = defineComponent({
   name: 'DestylerComboboxLabel',
   props: comboboxLabelProps,
-
   setup() {
     useForwardExpose()
     const groupContext = injectComboboxGroupContext({ id: '' })

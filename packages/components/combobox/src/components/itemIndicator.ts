@@ -7,6 +7,9 @@ import { injectComboboxItemContext } from './item'
 
 export const comboboxItemIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -18,7 +21,6 @@ export type ComboboxItemIndicatorProps = ExtractPublicPropTypes<typeof comboboxI
 export const ComboboxItemIndicator = defineComponent({
   name: 'DestylerComboboxItemIndicator',
   props: comboboxItemIndicatorProps,
-
   setup() {
     useForwardExpose()
     const itemContext = injectComboboxItemContext()

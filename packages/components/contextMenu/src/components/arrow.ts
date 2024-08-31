@@ -12,7 +12,6 @@ export type ContextMenuArrowProps = ExtractPublicPropTypes<typeof contextMenuArr
 export const ContextMenuArrow = defineComponent({
   name: 'DestylerContextMenuArrow',
   props: contextMenuArrowProps,
-
   setup() {
     useForwardExpose()
   },

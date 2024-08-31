@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const calendarGridHeadProps = {
   ...primitiveProps,
+  /**
+   * @default thead
+   */
   as: {
     ...primitiveProps.as,
     default: 'thead',
@@ -15,7 +18,6 @@ export type CalendarGridHeadProps = ExtractPublicPropTypes<typeof calendarGridHe
 export const CalendarGridHead = defineComponent({
   name: 'DestylerCalendarGridHead',
   props: calendarGridHeadProps,
-
   setup(_) {
   },
   render() {

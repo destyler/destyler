@@ -22,7 +22,6 @@ export type BreadcrumbsSeparatorProps = ExtractPublicPropTypes<typeof breadcrumb
 export const BreadcrumbsSeparator = defineComponent({
   name: 'DestylerBreadcrumbsSeparator',
   props: breadcrumbsSeparatorProps,
-
   setup() {
     useForwardExpose()
     const content = injectContextBreadcrumbsContext()

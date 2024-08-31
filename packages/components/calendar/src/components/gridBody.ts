@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const calendarGridBodyProps = {
   ...primitiveProps,
+  /**
+   * @default tbody
+   */
   as: {
     ...primitiveProps.as,
     default: 'tbody',
@@ -15,7 +18,6 @@ export type CalendarGridBodyProps = ExtractPublicPropTypes<typeof calendarGridBo
 export const CalendarGridBody = defineComponent({
   name: 'DestylerCalendarGridBody',
   props: calendarGridBodyProps,
-
   setup(_) {
   },
   render() {

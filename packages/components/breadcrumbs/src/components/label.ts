@@ -22,7 +22,6 @@ export type BreadcrumbsLabelProps = ExtractPublicPropTypes<typeof breadcrumbsLab
 export const BreadcrumbsLabel = defineComponent({
   name: 'DestylerBreadcrumbsLabel',
   props: breadcrumbsLabelProps,
-
   setup() {
     useForwardExpose()
     const content = injectContextBreadcrumbsContext()

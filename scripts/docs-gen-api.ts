@@ -127,7 +127,7 @@ function parseMeta(meta: ComponentMeta, comment: Map<string, string>) {
         description: md.render(description),
         type: type.replace(/\s*\|\s*undefined/g, ''),
         required,
-        default: defaultValue ?? 'undefined',
+        default: defaultValue ?? '-',
       })
     })
     .sort((a, b) => a.name.localeCompare(b.name))

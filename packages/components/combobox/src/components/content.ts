@@ -12,8 +12,6 @@ export const comboboxContentProps = {
   /**
    * Used to force mounting when more control is needed.
    * Useful when controlling animation with Vue animation libraries.
-   *
-   * @default -
    */
   forceMount: {
     type: Boolean as PropType<boolean>,

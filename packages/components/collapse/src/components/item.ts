@@ -32,8 +32,6 @@ export const collapseItemProps = {
   },
   /**
    * A string value for the accordion item. All items within an accordion should use a unique value.
-   *
-   * @default -
    */
   value: {
     type: String as PropType<string>,

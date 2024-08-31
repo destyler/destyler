@@ -15,10 +15,18 @@ export interface Point {
 
 export const contextMenuTriggerPRops = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * When `true`, the context menu would not open when right-clicking.
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -32,7 +40,6 @@ export const ContextMenuTrigger = defineComponent({
   name: 'DestylerContextMenuTrigger',
   inheritAttrs: false,
   props: contextMenuTriggerPRops,
-
   setup(props) {
     const { disabled } = toRefs(props)
     const { forwardRef } = useForwardExpose()

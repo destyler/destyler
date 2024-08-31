@@ -7,9 +7,17 @@ import { MenuRoot, menuRootProps } from '@destyler/menu'
 import { menuRootEmits } from '@destyler/menu/component'
 
 export const contextMenuRootProps = {
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     ...menuRootProps.dir,
   },
+  /**
+   * The modality of the dropdown menu.
+   *
+   * When set to `true`, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
+   */
   modal: {
     ...menuRootProps.modal,
   },
@@ -20,7 +28,6 @@ export type ContextMenuRootProps = ExtractPublicPropTypes<typeof contextMenuRoot
 export const contextMenuRootEmits = {
   ...menuRootEmits,
 }
-
 export interface ContextMenuRootContext {
   open: Ref<boolean>
   onOpenChange: (open: boolean) => void
@@ -34,7 +41,6 @@ export const ContextMenuRoot = defineComponent({
   name: 'DestylerContextMenuRoot',
   props: contextMenuRootProps,
   emits: contextMenuRootEmits,
-
   setup(props, { emit }) {
     const { dir: propDir, modal } = toRefs(props)
     useForwardExpose()

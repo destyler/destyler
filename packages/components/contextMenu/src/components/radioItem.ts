@@ -18,7 +18,6 @@ export const ContextMenuRadioItem = defineComponent({
   name: 'DestylerContextMenuRadioItem',
   props: contextMenuRadioItemProps,
   emits: contextMenuRadioItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

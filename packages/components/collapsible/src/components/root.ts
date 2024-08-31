@@ -40,8 +40,6 @@ export const collapsibleRootProps = {
   },
   /**
    * When `true`, prevents the user from interacting with the collapsible.
-   *
-   * @default -
    */
   disabled: {
     type: Boolean as PropType<boolean>,

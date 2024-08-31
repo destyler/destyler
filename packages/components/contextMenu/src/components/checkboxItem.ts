@@ -18,7 +18,6 @@ export const ContextMenuCheckboxItem = defineComponent({
   name: 'DestylerContextMenuCheckboxItem',
   props: contextMenuCheckboxItemProps,
   emits: contextMenuCheckboxItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

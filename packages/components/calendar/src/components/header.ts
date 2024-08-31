@@ -11,7 +11,6 @@ export type CalendarHeaderProps = ExtractPublicPropTypes<typeof calendarHeaderPr
 export const CalendarHeader = defineComponent({
   name: 'DestylerCalendarHeader',
   props: calendarHeaderProps,
-
   setup(_) {
 
   },

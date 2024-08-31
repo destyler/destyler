@@ -12,7 +12,6 @@ export type ContextMenuSubTriggerProps = ExtractPublicPropTypes<typeof contextMe
 export const ContextMenuSubTrigger = defineComponent({
   name: 'DestylerContextMenuSubTrigger',
   props: contextMenuSubTriggerProps,
-
   setup() {
     useForwardExpose()
   },

@@ -6,6 +6,9 @@ import { injectCalendarRootContext } from './root'
 
 export const calendarGridProps = {
   ...primitiveProps,
+  /**
+   * @default table
+   */
   as: {
     ...primitiveProps.as,
     default: 'table',
@@ -17,7 +20,6 @@ export type CalendarGridProps = ExtractPublicPropTypes<typeof calendarGridProps>
 export const CalendarGrid = defineComponent({
   name: 'DestylerCalendarGrid',
   props: calendarGridProps,
-
   setup(_) {
     const rootContext = injectCalendarRootContext()
 
