@@ -16,7 +16,6 @@ export type CollapseContentProps = ExtractPublicPropTypes<typeof collapseContent
 export const CollapseContent = defineComponent({
   name: 'DestylerCollapseContent',
   props: collapseContentProps,
-
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()

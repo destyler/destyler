@@ -24,3 +24,11 @@
     'type': '[_open: boolean]'
   }
 ]" />
+
+<Slots :value="[
+  {
+    'name': 'open',
+    'description': '',
+    'type': 'boolean | undefined'
+  }
+]" />

@@ -1,20 +1,14 @@
 import { fileURLToPath } from 'node:url'
-import { dirname, join, parse, resolve } from 'node:path'
+import { dirname, parse, resolve } from 'node:path'
 import MarkdownIt from 'markdown-it'
-import { babelParse, parse as sfcParse } from 'vue/compiler-sfc'
 import fs from 'fs-extra'
 import type { ComponentMeta, MetaCheckerOptions, PropertyMeta, PropertyMetaSchema } from 'vue-component-meta'
 import { createChecker } from 'vue-component-meta'
-import { Lang, parse as astParse } from '@ast-grep/napi'
 
 import { transformJSDocLinks } from './utils'
 
 const md = new MarkdownIt()
 md.use(transformJSDocLinks)
-
-const eventDescriptionMap = new Map<string, string>()
-const depTree = new Map<string, string[]>()
-const prevDeps: string[] = []
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -43,7 +37,7 @@ function run() {
         const checker = createChecker(tsconfigPath, checkerOptions)
         componentFiles.forEach((componentFile) => {
           const componentPath = resolve(componentDir, componentFile)
-          const comment = getFileCommend(componentPath)
+          const comment = getFileComment(componentPath)
           const name = parse(componentPath).name
           const componentName = getComponentName(checker, componentPath)
           console.log(componentName)
@@ -51,7 +45,7 @@ function run() {
             return
           const meta = parseMeta(checker.getComponentMeta(componentPath, componentName), comment)
           const docsFilePath = resolve(componentsDir, `${file}/${fixedDir.docs}/${name}.md`)
-          //
+
           let parsedString = '<!-- Generated -->\n\n'
           if (meta.props.length)
             parsedString += `<Props :value="${JSON.stringify(meta.props, null, 2).replace(/"/g, '\'')}" />\n`
@@ -70,17 +64,25 @@ function run() {
 }
 
 function run1() {
-  const tsconfigPath = '/Users/elonehoo/Documents/destyler/destyler/packages/components/checkbox/tsconfig.json'
+  const tsconfigPath = resolve(componentsDir, 'collapse', 'tsconfig.json')
   const checker = createChecker(tsconfigPath, checkerOptions)
-  const componentPath = '/Users/elonehoo/Documents/destyler/destyler/packages/components/checkbox/src/components/root.ts'
-
+  const componentPath = resolve(componentsDir, 'collapse', fixedDir.component, 'item.ts')
+  const comment = getFileComment(componentPath)
   const name = parse(componentPath).name
-  console.log(getFileCommend(componentPath))
   // parseMeta(checker.getComponentMeta(componentPath, getComponentName(checker, componentPath)))
-  // console.log(name, parseMeta(checker.getComponentMeta(componentPath, getComponentName(checker, componentPath))))
+  console.log(
+    name,
+    parseMeta(
+      checker.getComponentMeta(
+        componentPath,
+        getComponentName(checker, componentPath),
+      ),
+      comment,
+    ),
+  )
 }
 
-run1()
+run()
 
 function getComponentName(checker: any, path: string) {
   const exportList = checker.getExportNames(path)
@@ -113,6 +115,10 @@ function parseMeta(meta: ComponentMeta, comment: Map<string, string>) {
       if (defaultValue === 'undefined')
         defaultValue = 'undefined'
 
+      if (name === 'asChild') {
+        description = 'Change the default rendered element for the one passed as a child, merging their props and behavior.\n\nRead our Composition guide for more details.'
+      }
+
       if (!type.includes('AcceptableValue'))
         type = parseTypeFromSchema(prop.schema) || type
 
@@ -141,7 +147,7 @@ function parseMeta(meta: ComponentMeta, comment: Map<string, string>) {
   const slots: { name: string, description: string, type: string }[] = []
 
   if (defaultSlot && defaultSlot.type !== '{}') {
-    const schema = defaultSlot.schema.schema[0]
+    const schema = defaultSlot.schema
     if (typeof schema === 'object' && schema.schema) {
       Object.values(schema.schema).forEach((childMeta: PropertyMeta) => {
         slots.push({
@@ -153,20 +159,10 @@ function parseMeta(meta: ComponentMeta, comment: Map<string, string>) {
     }
   }
 
-  // exposed method
-  const methods = meta.exposed
-    .filter(expose => typeof expose.schema === 'object' && expose.schema.kind === 'event')
-    .map(expose => ({
-      name: expose.name,
-      description: md.render(expose.description),
-      type: expose.type,
-    }))
-
   return {
     props,
     events,
     slots,
-    methods,
   }
 }
 
@@ -193,7 +189,26 @@ function parseTypeFromSchema(schema: PropertyMetaSchema): string {
   }
 }
 
-function getFileCommend(filePath: string) {
+function getFileComment2(filePath: string) {
+  const code = fs.readFileSync(filePath, 'utf-8')
+  const regex = /\/\*\*\s*(.*?)\*\/\s*(?:'([^']+)'|\w+)\s*:\s*([^,\s;]+)/gs
+
+  let match
+  const results: any[] = []
+  while ((match = regex.exec(code)) !== null) {
+  // 去除注释中的星号和换行符
+    const cleanComment = match[1].replace(/^\s*\*\s?/gm, '').trim()
+    results.push({
+      comment: cleanComment,
+      key: match[2] || match[3], // 匹配单引号内的字符串或者无引号的单词
+      value: match[3].trim(), // 假设属性值不包含空格
+    })
+  }
+
+  return results
+}
+
+function getFileComment(filePath: string) {
   const result: Map<string, string> = new Map()
   const code = fs.readFileSync(filePath, 'utf-8')
   // 正则表达式匹配特定结构的注释和对象
@@ -216,5 +231,11 @@ function getFileCommend(filePath: string) {
   commentAndObjects.forEach((item) => {
     result.set(item.object, item.comment)
   })
+
+  const newComment = getFileComment2(filePath)
+  newComment.forEach((item) => {
+    result.set(item.key, item.comment)
+  })
+
   return result
 }

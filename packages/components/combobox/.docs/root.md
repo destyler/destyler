@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -109,5 +109,18 @@
     'name': 'update:searchTerm',
     'description': '',
     'type': '[_value: string]'
+  }
+]" />
+
+<Slots :value="[
+  {
+    'name': 'open',
+    'description': '',
+    'type': 'boolean'
+  },
+  {
+    'name': 'modelValue',
+    'description': '',
+    'type': 'string | number | false | true | Record<string, any>'
   }
 ]" />

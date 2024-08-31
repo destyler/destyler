@@ -12,7 +12,7 @@ import type { CheckedState } from '../types'
 export const checkboxRootProps = {
   ...primitiveProps,
   /**
-   * @default "button"
+   * @default button
    */
   as: {
     ...primitiveProps.as,
@@ -22,7 +22,7 @@ export const checkboxRootProps = {
    * The checked state of the checkbox when it is initially rendered.
    * Use when you do not need to control its checked state.
    *
-   * @default "-"
+   * @default -
    */
   defaultChecked: {
     type: Boolean as PropType<boolean>,
@@ -31,7 +31,7 @@ export const checkboxRootProps = {
   /**
    * The controlled checked state of the checkbox. Can be binded with `v-model`.
    *
-   * @default "undefined"
+   * @default undefined
    */
   checked: {
     type: [Boolean, String] as PropType<boolean | 'indeterminate'>,
@@ -51,7 +51,7 @@ export const checkboxRootProps = {
   /**
    * When `true`, indicates that the user must check the checkbox before the owning form can be submitted.
    *
-   * @default "-"
+   * @default -
    */
   required: {
     type: Boolean as PropType<boolean>,
@@ -60,7 +60,7 @@ export const checkboxRootProps = {
   /**
    * The name of the checkbox. Submitted with its owning form as part of a name/value pair.
    *
-   * @default "-"
+   * @default -
    */
   name: {
     type: String as PropType<string>,
@@ -69,7 +69,7 @@ export const checkboxRootProps = {
   /**
    * The value given as data when submitted with a `name`.
    *
-   * @default "on"
+   * @default on
    */
   value: {
     type: String as PropType<string>,
@@ -79,7 +79,7 @@ export const checkboxRootProps = {
   /**
    * Id of the element
    *
-   * @default "-"
+   * @default -
    */
   id: {
     type: String as PropType<string>,

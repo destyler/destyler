@@ -8,6 +8,9 @@ import { injectCollapseItemContext } from './item'
 
 export const collapseHeaderProps = {
   ...primitiveProps,
+  /**
+   * @default h3
+   */
   as: {
     ...primitiveProps.as,
     default: 'h3',

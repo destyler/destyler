@@ -29,7 +29,7 @@ export const primitiveProps = {
   /**
    * The element or component this component should render as. Can be overwrite by `asChild`
    *
-   * @default "div"
+   * @default div
    */
   as: {
     type: [String, Object] as PropType<AsTag | Component>,

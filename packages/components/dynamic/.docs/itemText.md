@@ -16,3 +16,11 @@
     'default': 'false'
   }
 ]" />
+
+<Slots :value="[
+  {
+    'name': 'text',
+    'description': '',
+    'type': 'string'
+  }
+]" />

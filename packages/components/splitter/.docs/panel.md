@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -81,5 +81,18 @@
     'name': 'resize',
     'description': '',
     'type': '[_size: number, _prevSize: number]'
+  }
+]" />
+
+<Slots :value="[
+  {
+    'name': 'isCollapsed',
+    'description': '',
+    'type': 'boolean'
+  },
+  {
+    'name': 'isExpanded',
+    'description': '',
+    'type': 'boolean'
   }
 ]" />

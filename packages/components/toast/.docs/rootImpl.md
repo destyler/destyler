@@ -80,3 +80,11 @@
     'type': '[_event: SwipeEvent]'
   }
 ]" />
+
+<Slots :value="[
+  {
+    'name': 'remaining',
+    'description': '',
+    'type': 'number'
+  }
+]" />

@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -172,5 +172,23 @@
     'name': 'update:startValue',
     'description': '',
     'type': '[_date: DateValue]'
+  }
+]" />
+
+<Slots :value="[
+  {
+    'name': 'date',
+    'description': '',
+    'type': 'DateValue'
+  },
+  {
+    'name': 'grid',
+    'description': '',
+    'type': 'Grid<DateValue>'
+  },
+  {
+    'name': 'weekDays',
+    'description': '',
+    'type': 'string[]'
   }
 ]" />

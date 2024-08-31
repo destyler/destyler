@@ -73,3 +73,16 @@
     'type': '[_value: number]'
   }
 ]" />
+
+<Slots :value="[
+  {
+    'name': 'page',
+    'description': '',
+    'type': 'number'
+  },
+  {
+    'name': 'pageCount',
+    'description': '',
+    'type': 'number'
+  }
+]" />

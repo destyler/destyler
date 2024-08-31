@@ -94,3 +94,11 @@
     'type': '[_value: boolean]'
   }
 ]" />
+
+<Slots :value="[
+  {
+    'name': 'remaining',
+    'description': '',
+    'type': 'number'
+  }
+]" />

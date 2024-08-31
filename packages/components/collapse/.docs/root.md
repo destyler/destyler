@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -17,59 +17,67 @@
   },
   {
     'name': 'collapsible',
-    'description': '',
+    'description': '<p>When type is &quot;single&quot;, allows closing content when clicking trigger for an open item.\nWhen type is &quot;multiple&quot;, this prop has no effect.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The default active value of the item(s).</p>\n<p>Use when you do not need to control the state of the item(s).</p>\n',
     'type': 'string | string[]',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the accordion when applicable.\nIf omitted, assumes LTR (left-to-right) reading mode.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'ltr'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the active item(s).</p>\n<p>Use this when you need to control the state of the items. Can be binded with <code>v-model</code></p>\n',
     'type': 'string | string[]',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the accordion.</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'vertical'
   },
   {
     'name': 'type',
-    'description': '',
+    'description': '<p>Determines whether a &quot;single&quot; or &quot;multiple&quot; items can be pressed at a time.</p>\n<p>This prop will be ignored if any of <code>v-model</code> or <code>defaultValue</code> is defined, as the type will be inferred from the value.</p>\n',
     'type': '\'single\' | \'multiple\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the expanded state of an item changes</p>\n',
     'type': '[_value: string | string[]]'
+  }
+]" />
+
+<Slots :value="[
+  {
+    'name': 'modelValue',
+    'description': '<p>Current active value</p>\n',
+    'type': 'string | string[] | undefined'
   }
 ]" />

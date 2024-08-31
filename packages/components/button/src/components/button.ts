@@ -9,7 +9,7 @@ import { isButton } from '../utils'
 export const buttonProps = {
   ...primitiveProps,
   /**
-   * @default "button"
+   * @default button
    */
   as: {
     ...primitiveProps.as,

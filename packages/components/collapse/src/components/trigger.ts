@@ -9,6 +9,9 @@ import { injectCollapseRootContext } from './root'
 
 export const collapseTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -20,7 +23,6 @@ export type CollapseTriggerProps = ExtractPublicPropTypes<typeof collapseTrigger
 export const CollapseTrigger = defineComponent({
   name: 'DestylerCollapseTrigger',
   props: collapseTriggerProps,
-
   setup() {
     const rootContext = injectCollapseRootContext()
     const itemContext = injectCollapseItemContext()

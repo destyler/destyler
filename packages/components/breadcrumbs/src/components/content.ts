@@ -8,7 +8,7 @@ import { useCollection, useForwardExpose } from '@destyler/composition'
 export const breadcrumbsContentProps = {
   ...primitiveProps,
   /**
-   * @default "ul"
+   * @default ul
    */
   as: {
     ...primitiveProps.as,

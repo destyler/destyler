@@ -9,7 +9,7 @@ import { injectContextBreadcrumbsItemContext } from './item'
 export const breadcrumbsSeparatorProps = {
   ...primitiveProps,
   /**
-   * @default "span"
+   * @default span
    */
   as: {
     ...primitiveProps.as,

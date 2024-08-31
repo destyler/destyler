@@ -30,10 +30,22 @@ export const collapseItemProps = {
   asChild: {
     ...primitiveProps.asChild,
   },
+  /**
+   * A string value for the accordion item. All items within an accordion should use a unique value.
+   *
+   * @default -
+   */
   value: {
     type: String as PropType<string>,
     required: true,
   },
+  /**
+   * Whether or not an accordion item is disabled from user interaction.
+   *
+   * When `true`, prevents the user from interacting with the item.
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -47,7 +59,12 @@ export const CollapseItem = defineComponent({
   name: 'DestylerCollapseItem',
   props: collapseItemProps,
   slots: Object as SlotsType<{
-    default: (opts: { open: boolean }) => VNode[]
+    default: (opts: {
+      /**
+       * Current open state
+       */
+      open: boolean
+    }) => VNode[]
   }>,
   setup(props) {
     const rootContext = injectCollapseRootContext()

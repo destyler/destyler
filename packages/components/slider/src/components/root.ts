@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType } from 'vue'
+import type { PropType, Ref, SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref, toRaw, toRefs } from 'vue'
 import type { DataOrientation, Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -93,7 +93,7 @@ export const SliderRoot = defineComponent({
   props: sliderRootProps,
   emit: sliderRootEmits,
   slots: Object as SlotsType<{
-    default: { modelValue: number[] }
+    default: (opts: { modelValue: number[] }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)

@@ -10,7 +10,7 @@ import { injectContextBreadcrumbsContext } from './content'
 export const breadcrumbsItemProps = {
   ...primitiveProps,
   /**
-   * @default "li"
+   * @default li
    */
   as: {
     ...primitiveProps.as,

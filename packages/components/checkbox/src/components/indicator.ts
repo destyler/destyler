@@ -11,7 +11,7 @@ import { injectCheckboxRootContext } from './root'
 export const checkboxIndicatorProps = {
   ...primitiveProps,
   /**
-   * @default "span"
+   * @default span
    */
   as: {
     ...primitiveProps.as,
@@ -20,6 +20,8 @@ export const checkboxIndicatorProps = {
   /**
    * Used to force mounting when more control is needed.
    * Useful when controlling animation with animation libraries.
+   *
+   * @default false
    */
   forceMount: {
     type: Boolean as PropType<boolean>,

@@ -16,3 +16,11 @@
     'default': 'undefined'
   }
 ]" />
+
+<Slots :value="[
+  {
+    'name': 'present',
+    'description': '',
+    'type': 'Ref<boolean>'
+  }
+]" />
