@@ -14,7 +14,6 @@ export type ComboboxEmptyProps = ExtractPublicPropTypes<typeof comboboxEmptyProp
 export const ComboboxEmpty = defineComponent({
   name: 'DestylerComboboxEmpty',
   props: comboboxEmptyProps,
-
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

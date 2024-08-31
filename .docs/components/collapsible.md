@@ -51,10 +51,62 @@ import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger } from '@destyl
 
 <!--@include: ../../packages/components/collapsible/.docs/root.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-disableds]',
+      value:`Present when disabled`
+    },
+  ]"
+/>
+
 ### Trigger
 
 <!--@include: ../../packages/components/collapsible/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-disableds]',
+      value:`Present when disabled`
+    },
+  ]"
+/>
+
 ### Content
 
 <!--@include: ../../packages/components/collapsible/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-disableds]',
+      value:`Present when disabled`
+    },
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-collapsible-content-width',
+      description:`The width of the content when it opens/closes`
+    },
+    {
+      name: '--destyler-collapsible-content-height',
+      description:`The height of the content when it opens/closes`
+    }
+  ]"
+/>

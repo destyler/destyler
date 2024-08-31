@@ -17,21 +17,21 @@
   },
   {
     'name': 'defaultOpen',
-    'description': '',
+    'description': '<p>The open state of the collapsible when it is initially rendered.\nUse when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the collapsible.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
@@ -41,7 +41,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the open state of the collapsible changes.</p>\n',
     'type': '[_open: boolean]'
   }
 ]" />
@@ -49,7 +49,7 @@
 <Slots :value="[
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>Current open state</p>\n',
     'type': 'boolean'
   }
 ]" />

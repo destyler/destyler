@@ -10,6 +10,11 @@ import { injectCollapsibleRootContext } from './root'
 
 export const collapsibleContent = {
   ...primitiveProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -23,7 +28,6 @@ export const CollapsibleContent = defineComponent({
   name: 'DestylerCollapsibleContent',
   inheritAttrs: false,
   props: collapsibleContent,
-
   setup(_) {
     const rootContext = injectCollapsibleRootContext()
 

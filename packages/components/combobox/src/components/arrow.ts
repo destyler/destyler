@@ -16,7 +16,6 @@ export type ComboboxArrowProps = ExtractPublicPropTypes<typeof comboboxArrowProp
 export const ComboboxArrow = defineComponent({
   name: 'DestylerComboboxArrow',
   props: comboboxArrowProps,
-
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

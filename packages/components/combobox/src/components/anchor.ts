@@ -13,7 +13,6 @@ export type ComboboxAnchorProps = ExtractPublicPropTypes<typeof comboboxAnchorPr
 export const ComboboxAnchor = defineComponent({
   name: 'DestylerComboboxAnchor',
   props: comboboxAnchorProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
 

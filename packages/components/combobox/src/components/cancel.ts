@@ -7,6 +7,9 @@ import { injectComboboxRootContext } from './root'
 
 export const comboboxCancelProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type ComboboxCancelProps = ExtractPublicPropTypes<typeof comboboxCancelPr
 export const ComboboxCancel = defineComponent({
   name: 'DestylerComboboxCancel',
   props: comboboxCancelProps,
-
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

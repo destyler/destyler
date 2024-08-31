@@ -21,15 +21,24 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 export const comboboxContentImplProps = {
   ...dismissableLayerProps,
   ...popperContentProps,
+  /**
+   * @default inline
+   */
   position: {
     type: String as PropType<'inline' | 'popper'>,
     required: false,
     default: 'inline',
   },
+  /**
+   * @default -
+   */
   bodyLock: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * @default true
+   */
   dismissable: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -39,7 +48,7 @@ export const comboboxContentImplProps = {
 
 export type ComboboxContentImplProps = ExtractPublicPropTypes<typeof comboboxContentImplProps>
 
-export const comboboxCOntentImplEmits = {
+export const comboboxContentImplEmits = {
   ...dismissableLayerEmits,
 }
 
@@ -48,8 +57,7 @@ export const [injectComboboxContentContext, provideComboboxContentContext] = cre
 export const ComboboxContentImpl = defineComponent({
   name: 'DestylerComboboxContentImpl',
   props: comboboxContentImplProps,
-  emits: comboboxCOntentImplEmits,
-
+  emits: comboboxContentImplEmits,
   setup(props) {
     const { position } = toRefs(props)
     const rootContext = injectComboboxRootContext()

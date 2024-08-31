@@ -7,6 +7,9 @@ import { injectCollapsibleRootContext } from './root'
 
 export const collapsibleTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type CollapsibleTriggerProps = ExtractPublicPropTypes<typeof collapsibleT
 export const CollapsibleTrigger = defineComponent({
   name: 'DestylerCollapsibleTrigger',
   props: collapsibleTriggerProps,
-
   setup() {
     const rootContext = injectCollapsibleRootContext()
 
