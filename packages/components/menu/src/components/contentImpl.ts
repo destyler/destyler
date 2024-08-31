@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, onUnmounted, ref, toRefs, watch } from 'vue'
 import type { ExtractPublicPropTypes, GraceIntent } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, useTypeahead } from '@destyler/composition'
@@ -111,9 +111,7 @@ export const MenuContentImpl = defineComponent({
     ...menuContentImplEmits,
     dismiss: () => true,
   },
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()

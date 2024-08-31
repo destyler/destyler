@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, ref, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -21,9 +21,7 @@ export type ImageFallbackProps = ExtractPublicPropTypes<typeof imageFallbackProp
 export const ImageFallback = defineComponent({
   name: 'DestylerImageFallback',
   props: imageFallbackProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const rootContext = injectImageRootContext()
 

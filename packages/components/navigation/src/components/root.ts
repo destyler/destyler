@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, Orientation } from '@destyler/shared'
@@ -85,9 +85,7 @@ export const NavigationRoot = defineComponent({
   name: 'DestylerNavigationRoot',
   props: navigationRootProps,
   emits: navigationRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',

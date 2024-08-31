@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, withModifiers } from 'vue'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
 import { createContext } from '@destyler/shared'
@@ -26,9 +25,7 @@ export const ModalContent = defineComponent({
   name: 'DestylerModalContent',
   props: modalContentProps,
   emits: modalContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

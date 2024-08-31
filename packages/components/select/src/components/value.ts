@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, onBeforeMount, onMounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { renderSlotFragments } from '@destyler/shared'
@@ -26,9 +26,7 @@ export type SelectValueProps = ExtractPublicPropTypes<typeof selectValueProps>
 export const SelectValue = defineComponent({
   name: 'DestylerSelectValue',
   props: selectValueProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(_, { slots }) {
     const { forwardRef, currentElement } = useForwardExpose()
 

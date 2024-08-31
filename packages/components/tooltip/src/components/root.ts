@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -74,9 +74,7 @@ export const TooltipRoot = defineComponent({
   name: 'DestylerTooltipRoot',
   props: tooltipRootProps,
   emits: tooltipRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     useForwardExpose()
     const providerContext = injectTooltipProviderContext()

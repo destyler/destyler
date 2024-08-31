@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -32,9 +32,7 @@ export const MenuRadioGroup = defineComponent({
   name: 'DestylerMenuRadioGroup',
   props: menuRadioGroupProps,
   emits: menuRadioGroupEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit)
 

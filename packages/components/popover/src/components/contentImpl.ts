@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, withDirectives } from 'vue'
 import { useFocusGuards, useForwardProps } from '@destyler/composition'
 import { PopperContent, popperContentProps } from '@destyler/popper'
@@ -31,9 +30,7 @@ export const PopoverContentImpl = defineComponent({
   name: 'DestylerPopoverContentImpl',
   props: popoverContentImplProps,
   emits: popoverContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const forwarded = useForwardProps(props)
     const rootContext = injectPopoverRootContext()

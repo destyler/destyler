@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -22,9 +22,7 @@ export const NavigationViewport = defineComponent({
   name: 'DestylerNavigationViewPort',
   inheritAttrs: false,
   props: navigationViewportProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -10,6 +10,9 @@ export const arrowProps = {
     ...primitiveProps.as,
     default: 'svg',
   },
+  /**
+   * The width of the arrow.
+   */
   width: {
     type: Number as PropType<number>,
     required: false,
@@ -27,9 +30,7 @@ export type ArrowProps = ExtractPublicPropTypes<typeof arrowProps>
 export const Arrow = defineComponent({
   name: 'DestylerArrow',
   props: arrowProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(_) {
     useForwardExpose()
   },

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -17,9 +16,7 @@ export type BreadcrumbsRootProps = ExtractPublicPropTypes<typeof breadcrumbsRoot
 export const BreadcrumbsRoot = defineComponent({
   name: 'DestylerBreadcrumbsRoot',
   props: breadcrumbsRootProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(_) {
     useForwardExpose()
   },

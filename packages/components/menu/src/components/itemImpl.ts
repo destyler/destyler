@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isMouseEvent } from '@destyler/shared'
@@ -23,9 +23,7 @@ export type MenuItemImplProps = ExtractPublicPropTypes<typeof menuItemImplProps>
 export const MenuItemImpl = defineComponent({
   name: 'DestylerMenuItemImpl',
   props: menuItemImplProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const contentContext = injectMenuContentContext()
 

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose, useMounted } from '@destyler/composition'
@@ -30,9 +30,7 @@ export const NavigationContent = defineComponent({
   inheritAttrs: false,
   props: navigationContentProps,
   emits: navigationContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     const { forwardRef } = useForwardExpose()

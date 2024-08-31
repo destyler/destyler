@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -20,9 +19,7 @@ export type DynamicItemDeleteProps = ExtractPublicPropTypes<typeof dynamicItemDe
 export const DynamicItemDelete = defineComponent({
   name: 'DestylerDynamicItemDelete',
   props: dynamicItemDeleteProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     useForwardExpose()
     const context = injectDynamicRootContext()

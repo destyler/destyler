@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onUnmounted, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes, Side } from '@destyler/shared'
 import { getOpenState, isMouseEvent } from '@destyler/shared'
@@ -20,9 +19,7 @@ export type MenuSubTriggerProps = ExtractPublicPropTypes<typeof menuSubTriggerPr
 export const MenuSubTrigger = defineComponent({
   name: 'DestylerMenuSubTrigger',
   props: menuSubTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()

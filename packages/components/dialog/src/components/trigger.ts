@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useId } from '@destyler/composition'
@@ -19,9 +18,7 @@ export type DialogTriggerProps = ExtractPublicPropTypes<typeof dialogTriggerProp
 export const DialogTrigger = defineComponent({
   name: 'DestylerDialogTrigger',
   props: dialogTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement } = useForwardExpose()

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, ref, toRefs, watch, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -43,9 +43,7 @@ export const SplitterResizeHandle = defineComponent({
   name: 'DestylerSplitterResizeHandle',
   props: splitterResizeHandleProps,
   emits: splitterResizeHandleEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { disabled } = toRefs(props)

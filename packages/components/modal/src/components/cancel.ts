@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -15,9 +14,7 @@ export type ModalCancelProps = ExtractPublicPropTypes<typeof modalCancelProps>
 export const ModalCancel = defineComponent({
   name: 'DestylerModalCancel',
   props: modalCancelProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const contentContext = injectModalContentContext()
     const { forwardRef, currentElement } = useForwardExpose()

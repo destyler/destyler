@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, onMounted, ref, toRefs, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { SELECTION_KEYS, createContext } from '@destyler/shared'
@@ -40,9 +40,7 @@ export const [injectSelectItemContext, provideSelectItemContext] = createContext
 export const SelectItem = defineComponent({
   name: 'DestylerSelectItem',
   props: selectItemProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const { disabled } = toRefs(props)
 

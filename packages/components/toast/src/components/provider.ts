@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
 import { createContext } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -49,9 +49,7 @@ export const [injectToastProviderContext, provideToastProviderContext] = createC
 export const ToastProvider = defineComponent({
   name: 'DestylerToastProvider',
   props: toastProviderProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const { label, duration, swipeDirection, swipeThreshold } = toRefs(props)
 

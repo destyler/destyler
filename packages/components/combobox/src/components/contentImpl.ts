@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, toRefs, withDirectives } from 'vue'
 import { Primitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -49,9 +49,7 @@ export const ComboboxContentImpl = defineComponent({
   name: 'DestylerComboboxContentImpl',
   props: comboboxContentImplProps,
   emits: comboboxCOntentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const { position } = toRefs(props)
     const rootContext = injectComboboxRootContext()

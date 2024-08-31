@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import {
@@ -26,9 +26,7 @@ export type ScrollAreaScrollbarAutoProps = ExtractPublicPropTypes<
 export const ScrollAreaScrollbarAuto = defineComponent({
   name: 'DestylerScrollAreaScrollbarAuto',
   props: scrollAreaScrollbarAutoProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()

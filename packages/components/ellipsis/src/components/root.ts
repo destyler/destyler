@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -60,9 +60,7 @@ export const EllipsisRoot = defineComponent({
   name: 'DestylerEllipsisRoot',
   props: ellipsisRootProps,
   emits: ellipsisRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const forward = useForwardPropsEmits(props, emit)
     useForwardExpose()

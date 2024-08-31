@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -21,9 +21,7 @@ export type ToggleGroupItemProps = ExtractPublicPropTypes<typeof toggleGroupItem
 export const ToggleGroupItem = defineComponent({
   name: 'ToggleGroupItem',
   props: toggleGroupItemProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const rootContext = injectToggleGroupRootContext()
     const disabled = computed(() => rootContext.disabled?.value || props.disabled)

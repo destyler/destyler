@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -25,9 +25,7 @@ export type SelectTriggerProps = ExtractPublicPropTypes<typeof selectTriggerProp
 export const SelectTrigger = defineComponent({
   name: 'DestylerSelectTrigger',
   props: selectTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const rootContext = injectSelectRootContext()
 

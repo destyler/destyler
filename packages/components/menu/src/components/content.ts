@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardPropsEmits } from '@destyler/composition'
@@ -31,9 +31,7 @@ export const MenuContent = defineComponent({
   name: 'DestylerMenuContent',
   props: menuContentProps,
   emits: menuContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

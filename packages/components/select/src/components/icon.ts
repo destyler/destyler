@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -16,9 +15,7 @@ export type SelectIconProps = ExtractPublicPropTypes<typeof selectIconProps>
 export const SelectIcon = defineComponent({
   name: 'DestylerSelectIcon',
   props: selectIconProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   render() {
     return h(Primitive, {
       'aria-hidden': '',

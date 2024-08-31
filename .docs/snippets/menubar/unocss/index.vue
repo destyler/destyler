@@ -441,7 +441,7 @@ const currentMenubar = ref('')
                 >
                   <MenubarItemIndicator>
                     <Icon
-                      name="carbon:checkmark"
+                      name="carbon:dot-mark"
                       w="4"
                       h="4"
                       text="primary"

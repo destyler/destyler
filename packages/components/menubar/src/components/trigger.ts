@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, withDirectives, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -27,9 +27,7 @@ export type MenubarTriggerProps = ExtractPublicPropTypes<typeof menubarTriggerPr
 export const MenubarTrigger = defineComponent({
   name: 'DestylerMenubarTrigger',
   props: menubarTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectMenubarRootContext()
     const menuContext = injectMenubarMenuContext()

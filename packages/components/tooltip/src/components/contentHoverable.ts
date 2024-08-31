@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardExpose, useForwardProps, useGraceArea } from '@destyler/composition'
 
@@ -9,9 +8,7 @@ import { TooltipContentImpl, tooltipContentImplProps } from './contentImpl'
 export const TooltipContentHoverable = defineComponent({
   name: 'DestylerTooltipContentHoverable',
   props: tooltipContentImplProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const forwardedProps = useForwardProps(props)
     const { forwardRef, currentElement } = useForwardExpose()

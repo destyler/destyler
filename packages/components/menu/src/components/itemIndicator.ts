@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext, isIndeterminate } from '@destyler/shared'
@@ -30,9 +30,7 @@ export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext] =
 export const MenuItemIndicator = defineComponent({
   name: 'DestylerMenuItemIndicator',
   props: menuItemIndicatorProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const indicatorContext = injectMenuItemIndicatorContext({
       checked: ref(false),

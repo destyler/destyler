@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, ref } from 'vue'
 import { useRafFn, useTimeout } from '@destyler/composition'
 import { VisuallyHidden } from '@destyler/visually-hidden'
@@ -7,9 +6,7 @@ import { injectToastProviderContext } from './provider'
 
 export const ToastAnnounce = defineComponent({
   name: 'DestylerToastAnnounce',
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const providerContext = injectToastProviderContext()
     const isAnnounced = useTimeout(1000)

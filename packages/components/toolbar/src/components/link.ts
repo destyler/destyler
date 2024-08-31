@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,9 +17,7 @@ export type ToolbarLinkProps = ExtractPublicPropTypes<typeof toolbarLinkProps>
 export const ToolbarLink = defineComponent({
   name: 'DestylerToolbarLink',
   props: toolbarLinkProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const { forwardRef } = useForwardExpose()
 

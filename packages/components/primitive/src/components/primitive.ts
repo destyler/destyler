@@ -1,4 +1,4 @@
-import type { Component, PropType, SlotsType, VNode } from 'vue'
+import type { Component, PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -26,11 +26,19 @@ export type AsTag =
   | ({} & string) // any other string
 
 export const primitiveProps = {
+  /**
+   * The element or component this component should render as. Can be overwrite by `asChild`
+   */
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
     required: false,
     default: 'div',
   },
+  /**
+   * Change the default rendered element for the one passed as a child, merging their props and behavior.
+   *
+   * Read our Composition guide for more details.
+   */
   asChild: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -43,9 +51,7 @@ export type PrimitiveProps = ExtractPublicPropTypes<typeof primitiveProps>
 export const Primitive = defineComponent({
   name: 'DestylerPrimitive',
   props: primitiveProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const asTag = props.asChild ? 'template' : props.as
 

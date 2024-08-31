@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -36,9 +36,7 @@ export const MenuSub = defineComponent({
   name: 'DestylerMenuSub',
   props: menuSubProps,
   emits: menuSubEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: false,

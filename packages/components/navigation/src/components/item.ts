@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, withKeys } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -44,9 +44,7 @@ export const [injectNavigationItemContext, provideNavigationItemContext] = creat
 export const NavigationItem = defineComponent({
   name: 'DestylerNavigationItem',
   props: navigationItemProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     useForwardExpose()
     const { injectCollection } = useCollection('nav')

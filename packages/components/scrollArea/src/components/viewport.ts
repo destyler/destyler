@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -16,9 +15,7 @@ export const ScrollAreaViewport = defineComponent({
   name: 'DestylerScrollAreaViewport',
   inheritAttrs: false,
   props: scrollAreaViewportProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectScrollAreaRootContext()
 

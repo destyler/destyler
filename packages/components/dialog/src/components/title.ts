@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { BindOnceDirective } from '@destyler/directives'
@@ -20,9 +19,7 @@ export type DialogTitleProps = ExtractPublicPropTypes<typeof dialogTitleProps>
 export const DialogTitle = defineComponent({
   name: 'DestylerDialogTitle',
   props: dialogTitleProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     useForwardExpose()
     const rootContext = injectDialogRootContext()

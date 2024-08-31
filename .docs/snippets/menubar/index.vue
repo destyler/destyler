@@ -349,7 +349,7 @@ const currentMenubar = ref('')
               >
                 <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                   <MenubarItemIndicator>
-                    <Icon name="carbon:checkmark" class="w-4 h-4 text-primary" />
+                    <Icon name="carbon:dot-mark" class="w-4 h-4 text-primary" />
                   </MenubarItemIndicator>
                 </span>
                 {{ radioItem?.label }}

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -21,9 +20,7 @@ export const TooltipContent = defineComponent({
   name: 'DestylerTooltipContent',
   props: tooltipContentProps,
   emits: tooltipContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const rootContext = injectTooltipRootContext()
     const forwarded = useForwardPropsEmits(props, emit)

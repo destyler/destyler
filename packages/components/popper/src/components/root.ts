@@ -1,4 +1,4 @@
-import type { Ref, SlotsType, VNode } from 'vue'
+import type { Ref } from 'vue'
 import { defineComponent, ref } from 'vue'
 import type { Measurable } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -12,9 +12,7 @@ export const [injectPopperRootContext, providePopperRootContext] = createContext
 
 export const PopperRoot = defineComponent({
   name: 'PopperRoot',
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const anchor = ref<Measurable | HTMLElement>()
 

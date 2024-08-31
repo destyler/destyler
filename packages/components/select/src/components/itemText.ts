@@ -1,8 +1,8 @@
-import type { SlotsType, VNode } from 'vue'
-import { Teleport, computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted } from 'vue'
+import { computed, defineComponent, h, mergeProps, onBeforeUnmount, onMounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
+import { TeleportPrimitive } from '@destyler/teleport'
 
 import { injectSelectNativeOptionsContext, injectSelectRootContext } from './root'
 import { SelectContentDefaultContextValue, injectSelectContentContext } from './contentImpl'
@@ -22,9 +22,7 @@ export const SelectItemText = defineComponent({
   name: 'DestylerSelectItemText',
   inheritAttrs: false,
   props: selectItemTextProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
@@ -77,7 +75,7 @@ export const SelectItemText = defineComponent({
         },
       ), () => this.$slots.default?.()),
       this.itemContext.isSelected.value && this.rootContext.valueElement.value && !this.rootContext.valueElementHasChildren.value
-        ? h(Teleport, {
+        ? h(TeleportPrimitive, {
           to: this.rootContext.valueElement.value,
         }, this.$slots.default?.())
         : null,

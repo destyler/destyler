@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
@@ -48,9 +48,7 @@ export const MenubarRoot = defineComponent({
   name: 'DestylerMenubarRoot',
   props: menubarRootProps,
   emits: menubarRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('menubar')

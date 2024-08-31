@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -47,9 +47,7 @@ export const DropdownRoot = defineComponent({
   name: 'DestylerDropdownRoot',
   props: dropdownRootProps,
   emits: dropdownRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     useForwardExpose()
     const open = useVModel(props, 'open', emit, {

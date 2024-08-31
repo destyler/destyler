@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -23,9 +23,7 @@ export type ToolbarButtonProps = ExtractPublicPropTypes<typeof toolbarButtonProp
 export const ToolbarButton = defineComponent({
   name: 'DestylerToolbarButton',
   props: toolbarButtonProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const { forwardRef } = useForwardExpose()
 

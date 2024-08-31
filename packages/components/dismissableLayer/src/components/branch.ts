@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, onUnmounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -15,9 +14,7 @@ export type DismissableLayerBranchProps = ExtractPublicPropTypes<typeof dismissa
 export const DismissableLayerBranch = defineComponent({
   name: 'DestylerDismissableLayerBranch',
   props: dismissableLayerBranchProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
     onMounted(() => {

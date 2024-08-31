@@ -341,7 +341,7 @@ const currentMenubar = ref('')
               >
                 <span class="select-item-span">
                   <MenubarItemIndicator>
-                    <Icon name="carbon:checkmark" class="icon text-primary" />
+                    <Icon name="carbon:dot-mark" class="icon text-primary" />
                   </MenubarItemIndicator>
                 </span>
                 {{ radioItem?.label }}

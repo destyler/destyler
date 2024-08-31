@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 
@@ -9,9 +8,7 @@ export const MenuRootContentNonModal = defineComponent({
   name: 'DestylerMenuRootContentNonModal',
   props: menuContentImplProps,
   emits: menuContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

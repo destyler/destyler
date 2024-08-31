@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, onMounted, withDirectives, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -25,9 +25,7 @@ export type DropdownTriggerProps = ExtractPublicPropTypes<typeof dropdownTrigger
 export const DropdownTrigger = defineComponent({
   name: 'DestylerDropdownTrigger',
   props: dropdownTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectDropdownMenuRootContext()
 

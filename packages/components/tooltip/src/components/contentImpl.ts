@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, useSlots, withModifiers } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
@@ -61,9 +61,7 @@ export const TooltipContentImpl = defineComponent({
   name: 'DestylerTooltipContentImpl',
   props: tooltipContentImplProps,
   emits: tooltipContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const rootContext = injectTooltipRootContext()
 

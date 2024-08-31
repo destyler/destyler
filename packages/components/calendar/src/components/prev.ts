@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,9 +17,7 @@ export type CalendarPrevProps = ExtractPublicPropTypes<typeof calendarPrevProps>
 export const CalendarPrev = defineComponent({
   name: 'DestylerCalendarPrev',
   props: calendarPrevProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(_) {
     const rootContext = injectCalendarRootContext()
 

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -16,9 +16,7 @@ export type ToastAnnounceExcludeProps = ExtractPublicPropTypes<typeof toastAnnou
 export const ToastAnnounceExclude = defineComponent({
   name: 'DestylerToastAnnounceExclude',
   props: toastAnnounceExcludeProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   render() {
     return h(Primitive, {
       'as': this.as,

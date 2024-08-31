@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes, ScrollType } from '@destyler/shared'
@@ -51,9 +51,7 @@ export const [injectScrollAreaRootContext, provideScrollAreaRootContext] = creat
 export const ScrollAreaRoot = defineComponent({
   name: 'DestylerScrollAreaRoot',
   props: scrollAreaRootProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const { forwardRef, currentElement: scrollArea } = useForwardExpose()
 

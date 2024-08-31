@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, toRefs, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useImageLoadingStatus } from '@destyler/composition'
@@ -27,9 +27,7 @@ export const Image = defineComponent({
   name: 'DestylerImage',
   props: imageProps,
   emits: imageEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const { src } = toRefs(props)
     const rootContext = injectImageRootContext()

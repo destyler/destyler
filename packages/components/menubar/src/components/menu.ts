@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -30,9 +30,7 @@ export const [injectMenubarMenuContext, provideMenubarMenuContext] = createConte
 export const MenubarMenu = defineComponent({
   name: 'DestylerMenubarMenu',
   props: menubarMenuProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const value = props.value ?? useId()
     const rootContext = injectMenubarRootContext()
