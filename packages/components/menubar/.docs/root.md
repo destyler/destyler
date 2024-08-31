@@ -1,28 +1,40 @@
-<Props
-  :value="[
-    {
-      name: 'modelValue',
-      type: 'string',
-      default: 'undefined',
-      description: '',
-    },
-    {
-      name: 'defaultValue',
-      type: 'string',
-      default: '-',
-      description: '',
-    },
-    {
-      name: 'dir',
-      type: 'Direction',
-      default: '-',
-      description: '',
-    },
-    {
-      name: 'loop',
-      type: 'boolean',
-      default: 'false',
-      description: '',
-    }
-  ]"
-/>
+<!-- Generated -->
+
+<Props :value="[
+  {
+    'name': 'defaultValue',
+    'description': '',
+    'type': 'string',
+    'required': false,
+    'default': 'undefined'
+  },
+  {
+    'name': 'dir',
+    'description': '',
+    'type': '\'ltr\' | \'rtl\'',
+    'required': false,
+    'default': 'undefined'
+  },
+  {
+    'name': 'loop',
+    'description': '',
+    'type': 'boolean',
+    'required': false,
+    'default': 'undefined'
+  },
+  {
+    'name': 'modelValue',
+    'description': '',
+    'type': 'string',
+    'required': false,
+    'default': 'undefined'
+  }
+]" />
+
+<Event :value="[
+  {
+    'name': 'update:modelValue',
+    'description': '',
+    'type': '[_value: string]'
+  }
+]" />

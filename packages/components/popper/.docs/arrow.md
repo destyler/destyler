@@ -1,0 +1,32 @@
+<!-- Generated -->
+
+<Props :value="[
+  {
+    'name': 'as',
+    'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
+    'type': 'Component<any, any, any, ComputedOptions, MethodOptions, {}, any> | AsTag',
+    'required': false,
+    'default': '\'svg\''
+  },
+  {
+    'name': 'asChild',
+    'description': '',
+    'type': 'boolean',
+    'required': false,
+    'default': 'undefined'
+  },
+  {
+    'name': 'height',
+    'description': '<p>The height of the arrow in pixels.</p>\n',
+    'type': 'number',
+    'required': false,
+    'default': '5'
+  },
+  {
+    'name': 'width',
+    'description': '<p>The width of the arrow in pixels.</p>\n',
+    'type': 'number',
+    'required': false,
+    'default': '10'
+  }
+]" />

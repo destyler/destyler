@@ -69,6 +69,15 @@ import { BreadcrumbsContent, BreadcrumbsItem, BreadcrumbsLabel, BreadcrumbsRoot,
 
 <!--@include: ../../packages/components/breadcrumbs/.docs/label.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'active\' \| \'inactive\'`
+    },
+  ]"
+/>
+
 ### Separator
 
 <!--@include: ../../packages/components/breadcrumbs/.docs/separator.md-->

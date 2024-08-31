@@ -7,6 +7,9 @@ import { useCollection, useForwardExpose } from '@destyler/composition'
 
 export const breadcrumbsContentProps = {
   ...primitiveProps,
+  /**
+   * @default "ul"
+   */
   as: {
     ...primitiveProps.as,
     default: 'ul',
@@ -24,7 +27,6 @@ export const [injectContextBreadcrumbsContext, provideContextBreadcrumbsContext]
 export const BreadcrumbsContent = defineComponent({
   name: 'DestylerBreadcrumbsContent',
   props: breadcrumbsContentProps,
-
   setup(_) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('li', 'data-destyler-breadcrumb-item')

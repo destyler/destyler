@@ -1,26 +1,26 @@
-<Props
-  :value="[
-    {
-      name: 'dir',
-      type: '\'ltr\' \| \'rtl\'',
-      default: '-',
-      description: 'The reading direction of the combobox when applicable.'
-    },
-    {
-      name: 'modal',
-      type: 'boolean',
-      default: 'true',
-      description: `The modality of the dropdown menu.<br/><br/>When set to <code>true</code>, interaction with outside elements will be disabled and only menu content will be visible to screen readers.`
-    },
-  ]"
-/>
+<!-- Generated -->
 
-<Event
-  :value="[
-    {
-      name: 'update:open',
-      type: '[_open: boolean]',
-      description:'Event handler called when the open state of the submenu changes.'
-    }
-  ]"
-/>
+<Props :value="[
+  {
+    'name': 'dir',
+    'description': '',
+    'type': '\'ltr\' | \'rtl\'',
+    'required': false,
+    'default': 'undefined'
+  },
+  {
+    'name': 'modal',
+    'description': '',
+    'type': 'boolean',
+    'required': false,
+    'default': 'undefined'
+  }
+]" />
+
+<Event :value="[
+  {
+    'name': 'update:open',
+    'description': '',
+    'type': '[_open: boolean]'
+  }
+]" />

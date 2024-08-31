@@ -6,6 +6,11 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const aspectRadioProps = {
   ...primitiveProps,
+  /**
+   * The desired ratio
+   *
+   * @default 1
+   */
   aspectRatio: {
     type: Number as PropType<number>,
     required: false,
@@ -20,7 +25,12 @@ export const AspectRadio = defineComponent({
   inheritAttrs: false,
   props: aspectRadioProps,
   slots: Object as SlotsType<{
-    default: { aspect: number }
+    default: {
+      /**
+       * Current aspect ratio (in `%`)
+       */
+      aspect: number
+    }
   }>,
   setup(props) {
     const { forwardRef } = useForwardExpose()

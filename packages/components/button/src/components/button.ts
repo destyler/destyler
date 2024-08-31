@@ -8,10 +8,17 @@ import { isButton } from '../utils'
 
 export const buttonProps = {
   ...primitiveProps,
+  /**
+   * @default "button"
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with the accordion and all its items
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,6 +29,9 @@ export const buttonProps = {
 export type ButtonProps = ExtractPublicPropTypes<typeof buttonProps>
 
 export const butttonEmit = {
+  /**
+   * click will cause something to happen.
+   */
   click: (_event: MouseEvent) => true,
 }
 
@@ -30,7 +40,6 @@ export const Button = defineComponent({
   inheritAttrs: false,
   props: buttonProps,
   emits: butttonEmit,
-
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
 

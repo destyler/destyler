@@ -28,6 +28,8 @@ export type AsTag =
 export const primitiveProps = {
   /**
    * The element or component this component should render as. Can be overwrite by `asChild`
+   *
+   * @default "div"
    */
   as: {
     type: [String, Object] as PropType<AsTag | Component>,
@@ -38,6 +40,8 @@ export const primitiveProps = {
    * Change the default rendered element for the one passed as a child, merging their props and behavior.
    *
    * Read our Composition guide for more details.
+   *
+   * @default false
    */
   asChild: {
     type: Boolean as PropType<boolean>,

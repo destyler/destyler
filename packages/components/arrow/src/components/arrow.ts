@@ -6,18 +6,27 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const arrowProps = {
   ...primitiveProps,
+  /**
+   * The element or component this component should render as. Can be overwrite by `asChild`
+   * @default "svg"
+   */
   as: {
     ...primitiveProps.as,
     default: 'svg',
   },
   /**
-   * The width of the arrow.
+   * The width of the arrow in pixels.
+   * @default 10
    */
   width: {
     type: Number as PropType<number>,
     required: false,
     default: 10,
   },
+  /**
+   * The height of the arrow in pixels.
+   * @default 5
+   */
   height: {
     type: Number as PropType<number>,
     required: false,
@@ -30,7 +39,6 @@ export type ArrowProps = ExtractPublicPropTypes<typeof arrowProps>
 export const Arrow = defineComponent({
   name: 'DestylerArrow',
   props: arrowProps,
-
   setup(_) {
     useForwardExpose()
   },

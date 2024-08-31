@@ -51,6 +51,32 @@ import { CheckboxIndicator, CheckboxRoot } from '@destyler/checkbox'
 
 <!--@include: ../../packages/components/checkbox/.docs/root.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'checked\' \| \'unchecked\' \| \'indeterminate\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    }
+  ]"
+/>
+
 ### Indicator
 
 <!--@include: ../../packages/components/checkbox/.docs/indicator.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'checked\' \| \'unchecked\' \| \'indeterminate\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    }
+  ]"
+/>

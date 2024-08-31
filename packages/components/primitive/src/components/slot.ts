@@ -4,7 +4,6 @@ import { renderSlotFragments } from '@destyler/shared'
 export const Slot = defineComponent({
   name: 'DestylerSlot',
   inheritAttrs: false,
-
   setup() {
   },
   render() {

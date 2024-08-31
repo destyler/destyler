@@ -5,6 +5,9 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const breadcrumbsRootProps = {
   ...primitiveProps,
+  /**
+   * @default "nav"
+   */
   as: {
     ...primitiveProps.as,
     default: 'nav',

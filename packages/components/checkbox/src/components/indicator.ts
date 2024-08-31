@@ -10,10 +10,17 @@ import { injectCheckboxRootContext } from './root'
 
 export const checkboxIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default "span"
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -26,7 +33,6 @@ export type CheckboxIndicatorProps = ExtractPublicPropTypes<typeof checkboxIndic
 export const CheckboxIndicator = defineComponent({
   name: 'DestylerCheckboxIndicator',
   props: checkboxIndicatorProps,
-
   setup() {
     const rootContext = injectCheckboxRootContext()
 

@@ -9,6 +9,9 @@ import { injectContextBreadcrumbsContext } from './content'
 
 export const breadcrumbsItemProps = {
   ...primitiveProps,
+  /**
+   * @default "li"
+   */
   as: {
     ...primitiveProps.as,
     default: 'li',
@@ -26,7 +29,6 @@ export const [injectContextBreadcrumbsItemContext, provideContextBreadcrumbsItem
 export const BreadcrumbsItem = defineComponent({
   name: 'DestylerBreadcrumbsItem',
   props: breadcrumbsItemProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
     const id = useId()

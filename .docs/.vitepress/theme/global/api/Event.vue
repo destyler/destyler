@@ -38,7 +38,7 @@ const props = defineProps<{
                   <Icon name="carbon:information-square" class="w-4 h-4" />
                 </div>
               </template>
-              <span v-html="prop.description" />
+              <span class="popover-content" v-html="prop.description" />
             </Popover>
           </div>
         </td>
@@ -51,3 +51,14 @@ const props = defineProps<{
     </tbody>
   </table>
 </template>
+
+<style>
+.popover-content code {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  color: hsl(var(--primary) / 1);
+  background-color: hsl(var(--primary) / 0.2);
+  font-weight: 600;
+  font-size: 0.875em;
+}
+</style>

@@ -8,6 +8,9 @@ import { injectContextBreadcrumbsItemContext } from './item'
 
 export const breadcrumbsLabelProps = {
   ...primitiveProps,
+  /**
+   * @default "a"
+   */
   as: {
     ...primitiveProps.as,
     default: 'a',

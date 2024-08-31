@@ -8,6 +8,9 @@ import { injectContextBreadcrumbsItemContext } from './item'
 
 export const breadcrumbsSeparatorProps = {
   ...primitiveProps,
+  /**
+   * @default "span"
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
