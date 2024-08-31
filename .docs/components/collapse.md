@@ -59,18 +59,108 @@ import { CollapseContent, CollapseHeader, CollapseItem, CollapseRoot, CollapseTr
 
 <!--@include: ../../packages/components/collapse/.docs/root.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' \| \'horizontal\'`
+    }
+  ]"
+/>
+
 ### Item
 
 <!--@include: ../../packages/components/collapse/.docs/item.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' \| \'horizontal\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    }
+  ]"
+/>
 
 ### Header
 
 <!--@include: ../../packages/components/collapse/.docs/header.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' \| \'horizontal\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    }
+  ]"
+/>
+
 ### Trigger
 
 <!--@include: ../../packages/components/collapse/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' \| \'horizontal\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    }
+  ]"
+/>
+
 ### Content
 
 <!--@include: ../../packages/components/collapse/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' \| \'horizontal\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    }
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-collapse-content-width',
+      description:`The width of the content when it opens/closes`
+    },
+    {
+      name: '--destyler-collapsible-content-width',
+      description:`The height of the content when it opens/closes`
+    }
+  ]"
+/>

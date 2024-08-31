@@ -16,7 +16,7 @@ const props = defineProps<{
   >
     <thead class="bg-#F4F4F5 dark:bg-#27272A rounded-t-md">
       <tr>
-        <th class="text-start px-3 py-1 rounded-lt-md w-55%">
+        <th class="text-start px-3 py-1 rounded-lt-md w-45%">
           CSS Variable
         </th>
         <th class="text-start px-3 py-1 rounded-rt-md w-55%">

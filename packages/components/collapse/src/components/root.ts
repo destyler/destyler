@@ -141,9 +141,10 @@ export const CollapseRoot = defineComponent({
   },
   render() {
     return h(Primitive, {
-      ref: (el: any) => this.forwardRef(el),
-      asChild: this.$props.asChild,
-      as: this.$props.as,
+      'ref': (el: any) => this.forwardRef(el),
+      'asChild': this.$props.asChild,
+      'as': this.$props.as,
+      'data-orientation': this.$props.orientation,
     }, () => this.$slots.default?.({ modelValue: this.modelValue }))
   },
 })
