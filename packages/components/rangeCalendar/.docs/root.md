@@ -160,7 +160,7 @@
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the progres value changes</p>\n',
+    'description': '<p>Event handler called when the radio group value changes</p>\n',
     'type': '[_date: DateRange]'
   },
   {

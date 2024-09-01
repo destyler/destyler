@@ -36,6 +36,10 @@ export const comboboxItemProps = {
 export type ComboboxItemProps = ExtractPublicPropTypes<typeof comboboxItemProps>
 
 export const comboboxItemEmits = {
+  /**
+   * Event handler called when the selecting item. <br>
+   * It can be prevented by calling `event.preventDefault`.
+   */
   select: (_ev: SelectEvent<AcceptableValue>) => true,
 }
 

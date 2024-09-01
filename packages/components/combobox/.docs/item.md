@@ -34,7 +34,7 @@
 <Event :value="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the selecting item. &lt;br&gt;\nIt can be prevented by calling <code>event.preventDefault</code>.</p>\n',
     'type': '[_ev: SelectEvent<AcceptableValue>]'
   }
 ]" />

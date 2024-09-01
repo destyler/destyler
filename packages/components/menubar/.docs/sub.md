@@ -20,7 +20,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '<p>Event handler called when the open state of the hover card changes.</p>\n',
+    'description': '<p>Event handler called when the open state of the submenu changes</p>\n',
     'type': '[_open: boolean]'
   }
 ]" />

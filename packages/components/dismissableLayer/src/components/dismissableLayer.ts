@@ -34,9 +34,26 @@ export const dismissableLayerProps = {
 export type DismissableLayerProps = ExtractPublicPropTypes<typeof dismissableLayerProps>
 
 export const dismissableLayerEmits = {
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
   escapeKeyDown: (_event: KeyboardEvent) => true,
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   pointerDownOutside: (_event: PointerDownOutsideEvent) => true,
+  /**
+   * Event handler called when the focus moves outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   focusOutside: (_event: FocusOutsideEvent) => true,
+  /**
+   * Event handler called when an interaction happens outside the `DismissableLayer`.
+   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
+   * Can be prevented.
+   */
   interactOutside: (_event: PointerDownOutsideEvent | FocusOutsideEvent) => true,
 }
 

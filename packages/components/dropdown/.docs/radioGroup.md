@@ -27,7 +27,7 @@
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called when the value changes</p>\n',
     'type': '[_payload: string]'
   }
 ]" />

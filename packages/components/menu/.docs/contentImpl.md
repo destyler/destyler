@@ -162,7 +162,7 @@
   },
   {
     'name': 'openAutoFocus',
-    'description': '<p>Event handler called when auto-focusing on open.\nCan be prevented.</p>\n',
+    'description': '<p>Event handler called when auto-focusing on open. Can be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {

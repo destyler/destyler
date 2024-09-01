@@ -97,12 +97,12 @@
 <Event :value="[
   {
     'name': 'escapeKeyDown',
-    'description': '',
+    'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[_event: KeyboardEvent]'
   },
   {
     'name': 'pointerDownOutside',
-    'description': '',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: Event]'
   }
 ]" />

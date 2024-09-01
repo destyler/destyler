@@ -41,22 +41,22 @@
 <Event :value="[
   {
     'name': 'escapeKeyDown',
-    'description': '',
+    'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[_event: KeyboardEvent]'
   },
   {
     'name': 'focusOutside',
-    'description': '',
+    'description': '<p>Event handler called when the focus moves outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: FocusOutsideEvent]'
   },
   {
     'name': 'interactOutside',
-    'description': '',
+    'description': '<p>Event handler called when an interaction happens outside the <code>DismissableLayer</code>.\nSpecifically, when a <code>pointerdown</code> event happens outside or focus moves outside of it.\nCan be prevented.</p>\n',
     'type': '[_event: PointerDownOutsideEvent | FocusOutsideEvent]'
   },
   {
     'name': 'pointerDownOutside',
-    'description': '',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: PointerDownOutsideEvent]'
   }
 ]" />

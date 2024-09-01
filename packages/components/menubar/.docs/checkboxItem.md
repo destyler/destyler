@@ -41,12 +41,12 @@
 <Event :value="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the user selects an item (via mouse or keyboard). &lt;br&gt;\nCalling <code>event.preventDefault</code> in this handler will prevent the menu from closing when selecting that item.</p>\n',
     'type': '[_event: Event]'
   },
   {
     'name': 'update:checked',
-    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
+    'description': '<p>Event handler called when the checked state changes.</p>\n',
     'type': '[_checked: CheckedState]'
   }
 ]" />
