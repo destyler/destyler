@@ -17,16 +17,16 @@
   },
   {
     'name': 'decorative',
-    'description': '',
+    'description': '<p>Whether or not the component is purely decorative.\nWhen <code>true</code>, accessibility-related attributes are updated so\nhat that the rendered element is removed from the accessibility tree.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
     'description': '',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'horizontal'
   }
 ]" />

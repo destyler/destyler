@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'td'
   },
   {
     'name': 'asChild',
@@ -17,9 +17,9 @@
   },
   {
     'name': 'date',
-    'description': '',
+    'description': '<p>The date value for the cell</p>\n',
     'type': 'DateValue',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

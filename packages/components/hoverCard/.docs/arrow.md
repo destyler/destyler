@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'svg'
   },
   {
     'name': 'asChild',
@@ -17,16 +17,16 @@
   },
   {
     'name': 'height',
-    'description': '',
+    'description': '<p>The height of the arrow in pixels.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '5'
   },
   {
     'name': 'width',
-    'description': '',
+    'description': '<p>The width of the arrow in pixels.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '10'
   }
 ]" />

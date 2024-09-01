@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'button'
   },
   {
     'name': 'asChild',
@@ -17,9 +17,9 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   }
 ]" />

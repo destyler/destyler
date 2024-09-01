@@ -17,17 +17,17 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When true, prevents the user from interacting with the <code>item</code>.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'AcceptableValue',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

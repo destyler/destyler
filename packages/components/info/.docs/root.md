@@ -17,14 +17,14 @@
   },
   {
     'name': 'defaultOpen',
-    'description': '',
+    'description': '<p>The open state of the collapsible when it is initially rendered.\nUse when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'true'
   },
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>The controlled open state of the info.\nCan be binded with <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
@@ -34,7 +34,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the\nopen state of the info changes.</p>\n',
     'type': '[_value: boolean]'
   }
 ]" />

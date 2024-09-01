@@ -17,56 +17,56 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the slider when initially rendered. Use when you do not need to control the state of the slider.</p>\n',
     'type': 'number[]',
     'required': false,
-    'default': 'undefined'
+    'default': '() => [0]'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the slider when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the slider.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'inverted',
-    'description': '',
+    'description': '<p>Whether the slider is visually inverted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'max',
-    'description': '',
+    'description': '<p>The maximum value for the range.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '100'
   },
   {
     'name': 'min',
-    'description': '',
+    'description': '<p>The minimum value for the range.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   },
   {
     'name': 'minStepsBetweenThumbs',
-    'description': '',
+    'description': '<p>The minimum permitted steps between multiple thumbs.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the slider. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'number[]',
     'required': false,
     'default': 'undefined'
@@ -76,28 +76,28 @@
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the slider.</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'horizontal'
   },
   {
     'name': 'step',
-    'description': '',
+    'description': '<p>The stepping interval.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '1'
   }
 ]" />
 
 <Slots :value="[
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>Current slider values</p>\n',
     'type': 'number[]'
   }
 ]" />

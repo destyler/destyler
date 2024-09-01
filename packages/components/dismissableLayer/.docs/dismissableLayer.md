@@ -17,17 +17,17 @@
   },
   {
     'name': 'disableOutsidePointerEvents',
-    'description': '',
+    'description': '<p>When <code>true</code>, hover/focus/click interactions will be disabled on elements outside\nthe <code>DismissableLayer</code>. Users will need to click twice on outside elements to\ninteract with them: once to close the <code>DismissableLayer</code>, and again to trigger the element.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'isDismissable',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'true'
   }
 ]" />
 

@@ -6,7 +6,7 @@
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'as',
@@ -27,13 +27,13 @@
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'tabStopId',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

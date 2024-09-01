@@ -6,21 +6,21 @@
     'description': '',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'alignOffset',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'arrowPadding',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'as',
@@ -34,112 +34,112 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'avoidCollisions',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collisionBoundary',
     'description': '',
     'type': 'Element | (Element | null)[] | null',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collisionPadding',
     'description': '',
     'type': 'number | Partial<Record<\'left\' | \'right\' | \'top\' | \'bottom\', number>>',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disableOutsidePointerEvents',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disableOutsideScroll',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'forceMount',
-    'description': '',
+    'description': '<p>Used to force mounting when more control is needed. Useful when\ncontrolling animation with Vue animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'hideWhenDetached',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'prioritizePosition',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'side',
     'description': '',
     'type': '\'left\' | \'right\' | \'top\' | \'bottom\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'sideOffset',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'sticky',
     'description': '',
     'type': '\'partial\' | \'always\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'trapFocus',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'updatePositionStrategy',
     'description': '',
     'type': '\'always\' | \'optimized\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'closeAutoFocus',
-    'description': '',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens\noutside of the <code>DismissableLayer</code>. Can be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {

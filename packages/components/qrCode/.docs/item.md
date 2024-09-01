@@ -6,20 +6,20 @@
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'foregroundColor',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'size',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

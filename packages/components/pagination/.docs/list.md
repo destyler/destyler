@@ -20,7 +20,7 @@
 <Slots :value="[
   {
     'name': 'items',
-    'description': '',
+    'description': '<p>Pages item</p>\n',
     'type': '{ type: \'ellipsis\'; } | { type: \'page\'; value: number; }'
   }
 ]" />

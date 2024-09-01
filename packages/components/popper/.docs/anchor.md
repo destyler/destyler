@@ -20,6 +20,6 @@
     'description': '',
     'type': 'Measurable',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

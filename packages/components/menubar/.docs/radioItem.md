@@ -13,28 +13,28 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'textValue',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The unique value of the item.</p>\n',
     'type': 'string',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

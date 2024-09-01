@@ -20,13 +20,13 @@
     'description': '',
     'type': '\'M\' | \'L\' | \'Q\' | \'H\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
     'description': '',
     'type': 'string',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

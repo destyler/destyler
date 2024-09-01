@@ -17,17 +17,17 @@
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The value of the selected item in the group.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[_payload: string]'
   }
 ]" />

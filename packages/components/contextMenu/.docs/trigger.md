@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'span'
   },
   {
     'name': 'asChild',
@@ -17,9 +17,9 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, the context menu would not open when right-clicking.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   }
 ]" />

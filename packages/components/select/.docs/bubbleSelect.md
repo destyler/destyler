@@ -6,62 +6,62 @@
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'autofocus',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'form',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'multiple',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'name',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'required',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'size',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
     'description': '',
     'type': 'unknown',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

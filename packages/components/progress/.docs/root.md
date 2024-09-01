@@ -17,36 +17,36 @@
   },
   {
     'name': 'getValueLabel',
-    'description': '',
+    'description': '<p>A function to get the accessible label text representing the current value in a human-readable format.</p>\n<p>If not provided, the value label will be read as the numeric value as a percentage of the max value.</p>\n',
     'type': '((value: number, max: number) => string)',
     'required': false,
-    'default': 'undefined'
+    'default': '`(value: number, max: number) => string`'
   },
   {
     'name': 'max',
-    'description': '',
+    'description': '<p>The maximum progress value.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '100'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The progress value. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:max',
-    'description': '',
+    'description': '<p>Event handler called when the max value changes</p>\n',
     'type': '[_value: number]'
   },
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the progres value changes</p>\n',
     'type': '[_value: string[]]'
   }
 ]" />

@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'nav'
   },
   {
     'name': 'asChild',
@@ -17,59 +17,59 @@
   },
   {
     'name': 'defaultPage',
-    'description': '',
+    'description': '<p>The value of the page that should be active when initially rendered.</p>\n<p>Use when you do not need to control the value state.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '1'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with item</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'itemsPerPage',
-    'description': '',
+    'description': '<p>Number of items per page</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '10'
   },
   {
     'name': 'page',
-    'description': '',
+    'description': '<p>The controlled value of the current page.\nCan be binded as <code>v-model:page</code>.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'showEdges',
-    'description': '',
+    'description': '<p>When <code>true</code>, always show first page, last page, and ellipsis</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'siblingCount',
-    'description': '',
+    'description': '<p>Number of sibling should be shown around the current page.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '2'
   },
   {
     'name': 'total',
-    'description': '',
+    'description': '<p>Number of items in your list</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:page',
-    'description': '',
+    'description': '<p>Event handler called when the page value changes</p>\n',
     'type': '[_value: number]'
   }
 ]" />
@@ -77,12 +77,12 @@
 <Slots :value="[
   {
     'name': 'page',
-    'description': '',
+    'description': '<p>Current page state</p>\n',
     'type': 'number'
   },
   {
     'name': 'pageCount',
-    'description': '',
+    'description': '<p>Number of pages</p>\n',
     'type': 'number'
   }
 ]" />

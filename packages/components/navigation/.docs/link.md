@@ -3,17 +3,17 @@
 <Props :value="[
   {
     'name': 'active',
-    'description': '',
+    'description': '<p>Used to identify the link as the currently active page.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'a'
   },
   {
     'name': 'asChild',
@@ -27,7 +27,7 @@
 <Event :value="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<p>Calling <code>event.preventDefault</code> in this handler will prevent the navigation menu from closing when selecting that link.</p>\n',
     'type': '[_ev: MouseEvent]'
   }
 ]" />

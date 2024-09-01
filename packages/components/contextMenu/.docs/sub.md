@@ -3,24 +3,24 @@
 <Props :value="[
   {
     'name': 'defaultOpen',
-    'description': '',
+    'description': '<p>The open state of the submenu when it is initially rendered. Use when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>The controlled open state of the menu.\nCan be used as <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the open state of the combobox changes.</p>\n',
     'type': '[_open: boolean]'
   }
 ]" />
@@ -28,7 +28,7 @@
 <Slots :value="[
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>Whether the submenu is open.</p>\n',
     'type': 'boolean | undefined'
   }
 ]" />

@@ -17,16 +17,16 @@
   },
   {
     'name': 'duration',
-    'description': '',
+    'description': '<p>Duration for the transition to open/close.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '500'
   },
   {
     'name': 'maxWidth',
-    'description': '',
+    'description': '<p>Max width for the element to scale.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '1000'
   }
 ]" />

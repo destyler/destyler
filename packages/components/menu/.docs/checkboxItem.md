@@ -17,36 +17,36 @@
   },
   {
     'name': 'checked',
-    'description': '',
+    'description': '<p>The controlled checked state of the item.\nCan be used as <code>v-model:checked</code>.</p>\n',
     'type': 'false | true | \'indeterminate\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the item.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'textValue',
-    'description': '',
+    'description': '<p>Optional text used for typeahead purposes. By default the typeahead behavior will use the <code>.textContent</code> of the item. &lt;br&gt;\nUse this when the content is complex, or you have non-textual content inside.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'select',
-    'description': '',
+    'description': '<p>Event handler called when the user selects a link (via mouse or keyboard).</p>\n<p>Calling <code>event.preventDefault</code> in this handler will prevent the navigation menu from closing when selecting that link.</p>\n',
     'type': '[_event: Event]'
   },
   {
     'name': 'update:checked',
-    'description': '',
+    'description': '<p>Event handler called when the checked state changes.</p>\n',
     'type': '[_checked: CheckedState]'
   }
 ]" />

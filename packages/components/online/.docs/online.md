@@ -20,28 +20,28 @@
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'logError',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'timeout',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'url',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

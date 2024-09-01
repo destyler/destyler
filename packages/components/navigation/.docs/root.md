@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'nav'
   },
   {
     'name': 'asChild',
@@ -17,66 +17,66 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the menu item that should be active when initially rendered.</p>\n<p>Use when you do not need to control the value state.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'delayDuration',
-    'description': '',
+    'description': '<p>The duration from when the pointer enters the trigger until the tooltip gets opened.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '200'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the navigation when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disableClickTrigger',
-    'description': '',
+    'description': '<p>If <code>true</code>, menu cannot be open by click on trigger</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disableHoverTrigger',
-    'description': '',
+    'description': '<p>If <code>true</code>, menu cannot be open by hover on trigger</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the menu item to activate.\nCan be used as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the menu.</p>\n',
     'type': '\'horizontal\' | \'vertical\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'horizontal'
   },
   {
     'name': 'skipDelayDuration',
-    'description': '',
+    'description': '<p>How much time a user has to enter another trigger without incurring a delay again.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[_value: string]'
   }
 ]" />

@@ -6,6 +6,6 @@
     'description': '',
     'type': 'SelectRootContext',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

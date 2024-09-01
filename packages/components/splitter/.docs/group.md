@@ -17,45 +17,45 @@
   },
   {
     'name': 'autoSaveId',
-    'description': '',
+    'description': '<p>Unique id used to auto-save group\narrangement via <code>localStorage</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': 'null'
   },
   {
     'name': 'direction',
-    'description': '',
+    'description': '<p>The group orientation of splitter.</p>\n',
     'type': '\'horizontal\' | \'vertical\'',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>Group id; falls back to <code>useId</code> when not provided.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'keyboardResizeBy',
-    'description': '',
+    'description': '<p>Step size when arrow key was pressed.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '10'
   },
   {
     'name': 'storage',
-    'description': '',
+    'description': '<p>Custom storage API; defaults to localStorage</p>\n',
     'type': 'PanelGroupStorage',
     'required': false,
-    'default': 'undefined'
+    'default': '() => defaultStorage'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'layout',
-    'description': '',
+    'description': '<p>Current size of layout</p>\n',
     'type': '[_layout: number[]]'
   }
 ]" />
@@ -63,7 +63,7 @@
 <Slots :value="[
   {
     'name': 'layout',
-    'description': '',
+    'description': '<p>Current size of layout</p>\n',
     'type': 'number[]'
   }
 ]" />

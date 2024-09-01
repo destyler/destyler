@@ -10,6 +10,8 @@ import { transformJSDocLinks } from './utils'
 const md = new MarkdownIt()
 md.use(transformJSDocLinks)
 
+const comment: Map<string, string> = new Map()
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = resolve(__dirname, '..')
@@ -37,13 +39,13 @@ function run() {
         const checker = createChecker(tsconfigPath, checkerOptions)
         componentFiles.forEach((componentFile) => {
           const componentPath = resolve(componentDir, componentFile)
-          const comment = getFileComment(componentPath)
+          getFileComment(componentPath)
           const name = parse(componentPath).name
           const componentName = getComponentName(checker, componentPath)
           console.log(componentName)
           if (!componentName)
             return
-          const meta = parseMeta(checker.getComponentMeta(componentPath, componentName), comment)
+          const meta = parseMeta(checker.getComponentMeta(componentPath, componentName))
           const docsFilePath = resolve(componentsDir, `${file}/${fixedDir.docs}/${name}.md`)
 
           let parsedString = '<!-- Generated -->\n\n'
@@ -67,7 +69,7 @@ function run1() {
   const tsconfigPath = resolve(componentsDir, 'collapse', 'tsconfig.json')
   const checker = createChecker(tsconfigPath, checkerOptions)
   const componentPath = resolve(componentsDir, 'collapse', fixedDir.component, 'item.ts')
-  const comment = getFileComment(componentPath)
+  getFileComment(componentPath)
   const name = parse(componentPath).name
   // parseMeta(checker.getComponentMeta(componentPath, getComponentName(checker, componentPath)))
   console.log(
@@ -91,7 +93,7 @@ function getComponentName(checker: any, path: string) {
   return componentName
 }
 
-function parseMeta(meta: ComponentMeta, comment: Map<string, string>) {
+function parseMeta(meta: ComponentMeta) {
   const props = meta.props
   // Exclude global props
     .filter(prop => !prop.global)
@@ -209,7 +211,6 @@ function getFileComment2(filePath: string) {
 }
 
 function getFileComment(filePath: string) {
-  const result: Map<string, string> = new Map()
   const code = fs.readFileSync(filePath, 'utf-8')
   // 正则表达式匹配特定结构的注释和对象
   const commentAndObjectRegex = /\/\*\*([\s\S]*?)\*\/\s*(\w+)\s*:/g
@@ -229,13 +230,11 @@ function getFileComment(filePath: string) {
   }
 
   commentAndObjects.forEach((item) => {
-    result.set(item.object, item.comment)
+    comment.set(item.object, item.comment)
   })
 
   const newComment = getFileComment2(filePath)
   newComment.forEach((item) => {
-    result.set(item.key, item.comment)
+    comment.set(item.key, item.comment)
   })
-
-  return result
 }

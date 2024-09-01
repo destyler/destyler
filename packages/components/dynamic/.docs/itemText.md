@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'span'
   },
   {
     'name': 'asChild',
@@ -20,7 +20,7 @@
 <Slots :value="[
   {
     'name': 'text',
-    'description': '',
+    'description': '<p>The text of the item.</p>\n',
     'type': 'string'
   }
 ]" />

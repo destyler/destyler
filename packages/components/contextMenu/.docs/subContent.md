@@ -6,14 +6,14 @@
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'arrowPadding',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'as',
@@ -27,77 +27,77 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'avoidCollisions',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collisionBoundary',
     'description': '',
     'type': 'Element | (Element | null)[] | null',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collisionPadding',
     'description': '',
     'type': 'number | Partial<Record<\'left\' | \'right\' | \'top\' | \'bottom\', number>>',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'forceMount',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'hideWhenDetached',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'prioritizePosition',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'sideOffset',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'sticky',
     'description': '',
     'type': '\'partial\' | \'always\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'updatePositionStrategy',
     'description': '',
     'type': '\'always\' | \'optimized\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

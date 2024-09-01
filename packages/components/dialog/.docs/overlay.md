@@ -17,9 +17,9 @@
   },
   {
     'name': 'forceMount',
-    'description': '',
+    'description': '<p>Used to force mounting when more control is needed.\nUseful when controlling animation with Vue animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

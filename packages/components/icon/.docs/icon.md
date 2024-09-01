@@ -3,9 +3,9 @@
 <Props :value="[
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the icon.</p>\n',
     'type': 'string',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

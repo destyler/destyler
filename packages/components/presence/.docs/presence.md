@@ -3,17 +3,17 @@
 <Props :value="[
   {
     'name': 'forceMount',
-    'description': '',
+    'description': '<p>Force the first child element to render all the time.\nUseful for programmatically render grandchild component together with the exposed <code>present</code></p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'present',
-    'description': '',
+    'description': '<p>Conditional to mount or unmount the child element. Similar to <code>v-if</code></p>\n',
     'type': 'boolean',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

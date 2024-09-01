@@ -6,28 +6,28 @@
     'description': '',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'inverted',
     'description': '',
     'type': 'boolean',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'max',
     'description': '',
     'type': 'number',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'min',
     'description': '',
     'type': 'number',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

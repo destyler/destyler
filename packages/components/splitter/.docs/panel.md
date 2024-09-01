@@ -17,69 +17,69 @@
   },
   {
     'name': 'collapsedSize',
-    'description': '',
+    'description': '<p>The size of panel when it is collapsed.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collapsible',
-    'description': '',
+    'description': '<p>Should panel collapse when resized beyond its <code>minSize</code>. When <code>true</code>, it will be collapsed to <code>collapsedSize</code>.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'defaultSize',
-    'description': '',
+    'description': '<p>Initial size of panel (numeric value between 1-100)</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'id',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'maxSize',
-    'description': '',
+    'description': '<p>The maximum allowable size of panel (numeric value between 1-100); defaults to <code>100</code></p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'minSize',
-    'description': '',
+    'description': '<p>The minimum allowable size of panel (numeric value between 1-100); defaults to <code>10</code></p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'order',
-    'description': '',
+    'description': '<p>The order of panel within group; required for groups with conditionally rendered panels</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'collapse',
-    'description': '',
+    'description': '<p>Event handler called when panel is collapsed.</p>\n',
     'type': '[]'
   },
   {
     'name': 'expand',
-    'description': '',
+    'description': '<p>Event handler called when panel is expanded.</p>\n',
     'type': '[]'
   },
   {
     'name': 'resize',
-    'description': '',
+    'description': '<p>Event handler called when panel is resized;\nsize parameter is a numeric value\nbetween 1-100.</p>\n',
     'type': '[_size: number, _prevSize: number]'
   }
 ]" />
@@ -87,12 +87,12 @@
 <Slots :value="[
   {
     'name': 'isCollapsed',
-    'description': '',
+    'description': '<p>Is the panel collapsed</p>\n',
     'type': 'boolean'
   },
   {
     'name': 'isExpanded',
-    'description': '',
+    'description': '<p>Is the panel expanded</p>\n',
     'type': 'boolean'
   }
 ]" />

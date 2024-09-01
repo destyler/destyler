@@ -3,10 +3,10 @@
 <Props :value="[
   {
     'name': 'activationMode',
-    'description': '',
+    'description': '<p>Whether a tab is activated automatically or manually.</p>\n',
     'type': '\'automatic\' | \'manual\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'automatic'
   },
   {
     'name': 'as',
@@ -24,38 +24,38 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the tab that should be active when initially rendered. Use when you do not need to control the state of the tabs</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the tab to activate. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation the tabs are layed out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes</p>\n',
     'type': '[_value: string | number]'
   }
 ]" />

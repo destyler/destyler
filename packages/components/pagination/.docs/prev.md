@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': '\'button\'',
     'required': false,
-    'default': '\'div\''
+    'default': 'button'
   },
   {
     'name': 'asChild',

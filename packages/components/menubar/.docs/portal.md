@@ -6,20 +6,20 @@
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'forceMount',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'to',
     'description': '',
     'type': 'string | HTMLElement',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

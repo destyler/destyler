@@ -17,97 +17,97 @@
   },
   {
     'name': 'defaultOpen',
-    'description': '',
+    'description': '<p>The open state of the combobox when it is initially rendered.\nUse when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the combobox when initially rendered.\nUse when you do not need to control the state of the Combobox</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with Combobox.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'displayValue',
-    'description': '',
+    'description': '<p>The display value of input for selected item. Does not work with <code>multiple</code>.</p>\n',
     'type': '((val: AcceptableValue) => string)',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'filterFunction',
-    'description': '',
+    'description': '<p>The custom filter function for filtering <code>ComboboxItem</code>.</p>\n',
     'type': '((val: string[] | number[] | false[] | true[] | Record<string, any>[], term: string) => string[] | number[] | false[] | true[] | Record<string, any>[])',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the Combobox. Can be binded-with with <code>v-model</code>.</p>\n',
     'type': 'AcceptableValue | AcceptableValue[]',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'multiple',
-    'description': '',
+    'description': '<p>Whether multiple options can be selected or not.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the Combobox. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>The controlled open state of the Combobox. Can be binded-with with <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'searchTerm',
-    'description': '',
+    'description': '<p>The controlled search term of the Combobox.\nCan be binded-with with <code>v-model:searchTerm</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[_value: AcceptableValue]'
   },
   {
     'name': 'update:open',
-    'description': '',
+    'description': '<p>Event handler called when the open state of the combobox changes.</p>\n',
     'type': '[_value: boolean]'
   },
   {
     'name': 'update:searchTerm',
-    'description': '',
+    'description': '<p>Event handler called when the searchTerm of the combobox changes.</p>\n',
     'type': '[_value: string]'
   }
 ]" />
@@ -115,12 +115,12 @@
 <Slots :value="[
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>Current open state</p>\n',
     'type': 'boolean'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>Current active value</p>\n',
     'type': 'string | number | false | true | Record<string, any>'
   }
 ]" />

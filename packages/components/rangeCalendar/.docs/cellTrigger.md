@@ -17,16 +17,16 @@
   },
   {
     'name': 'day',
-    'description': '',
+    'description': '<p>The date value provided to the cell trigger</p>\n',
     'type': 'DateValue',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'month',
-    'description': '',
+    'description': '<p>The month in which the cell is rendered</p>\n',
     'type': 'DateValue',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

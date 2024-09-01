@@ -17,31 +17,31 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the menu item that should be active when initially rendered.</p>\n<p>Use when you do not need to control the value state.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the sub menu item to activate.\nCan be used as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the menu.</p>\n',
     'type': '\'horizontal\' | \'vertical\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'horizontal'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[_value: string]'
   }
 ]" />

@@ -17,23 +17,23 @@
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last tab to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the toolbar</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'horizontal'
   }
 ]" />

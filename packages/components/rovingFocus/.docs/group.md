@@ -20,32 +20,32 @@
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'defaultCurrentTabStopId',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The direction of between items.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>Whether keyboard should loop around</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the group.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
     'type': '\'horizontal\' | \'vertical\'',
     'required': false,
     'default': 'undefined'

@@ -3,24 +3,24 @@
 <Props :value="[
   {
     'name': 'addOnBlur',
-    'description': '',
+    'description': '<p>When <code>true</code> allow adding tags blur input</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'addOnPaste',
-    'description': '',
+    'description': '<p>When <code>true</code>, allow adding tags on paste.\nWork in conjunction with delimiter prop.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'addOnTab',
-    'description': '',
+    'description': '<p>When <code>true</code> allow adding tags on tab keydown</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'as',
@@ -38,85 +38,85 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the tags that should be added.\nUse when you do not need to control the state of the tags input</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'delimiter',
-    'description': '',
+    'description': '<p>The character to trigger the addition of a new tag.\nAlso used to split tags for <code>@paste</code> event</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': ','
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>s* The reading direction of the combobox when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the tags input.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'duplicate',
-    'description': '',
+    'description': '<p>When <code>true</code>, allow duplicated tags.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>The unique identifier of the machine.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'max',
-    'description': '',
+    'description': '<p>Maximum number of tags.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the tags input. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': 'undefined'
+    'default': '() => []'
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the tags input submitted with its\nowning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must add the\ntags input before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'invalid',
-    'description': '',
+    'description': '<p>Event handler called when the value is invalid</p>\n',
     'type': '[_payload: string]'
   },
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes</p>\n',
     'type': '[_value: string[]]'
   }
 ]" />
@@ -124,7 +124,7 @@
 <Slots :value="[
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>Current input values</p>\n',
     'type': 'string[]'
   }
 ]" />

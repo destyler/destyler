@@ -17,66 +17,66 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the radio item that should be checked when initially rendered.</p>\n<p>Use when you do not need to control the state of the radio items.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the radio when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with radio items.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last item to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'true'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the radio item to check. Can be binded as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the group. Submitted with its owning form as part of a name/value pair.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'orientation',
-    'description': '',
+    'description': '<p>The orientation of the component.</p>\n',
     'type': '\'vertical\' | \'horizontal\'',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check a radio item before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the radio group value changes</p>\n',
     'type': '[_value: string]'
   }
 ]" />

@@ -20,7 +20,7 @@
 <Slots :value="[
   {
     'name': 'headingValue',
-    'description': '',
+    'description': '<p>Current month and year</p>\n',
     'type': 'string'
   }
 ]" />

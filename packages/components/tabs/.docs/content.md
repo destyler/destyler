@@ -17,16 +17,16 @@
   },
   {
     'name': 'forceMount',
-    'description': '',
+    'description': '<p>Used to force mounting when more control is needed. Useful when\ncontrolling animation with Vue animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>A unique value that associates the content with a trigger.</p>\n',
     'type': 'string',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

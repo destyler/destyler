@@ -17,23 +17,23 @@
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the scroll area when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'scrollHideDelay',
-    'description': '',
+    'description': '<p>If type is set to either <code>scroll</code> or <code>hover</code>,\nthis prop determines the length of time,\nin milliseconds, &lt;br&gt;\nbefore the scrollbars are hidden after\nthe user stops interacting with scrollbars.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '600'
   },
   {
     'name': 'type',
-    'description': '',
+    'description': '<p>Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars.</p>\n<p><code>auto</code> - means that scrollbars are visible when content is overflowing on the corresponding orientation. &lt;br&gt;\n<code>always</code> - means that scrollbars are always visible regardless of whether the content is overflowing.&lt;br&gt;\n<code>scroll</code> - means that scrollbars are visible when the user is scrolling along its corresponding orientation.&lt;br&gt;\n<code>hover</code> - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.</p>\n',
     'type': '\'auto\' | \'always\' | \'scroll\' | \'hover\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'hover'
   }
 ]" />

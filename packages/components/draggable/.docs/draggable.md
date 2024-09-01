@@ -17,23 +17,23 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>Whether or not the calendar is disabled</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'x',
-    'description': '',
+    'description': '<p>The x-axis position of the draggable element.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   },
   {
     'name': 'y',
-    'description': '',
+    'description': '<p>The y-axis position of the draggable element.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   }
 ]" />

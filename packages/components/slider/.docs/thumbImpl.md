@@ -20,6 +20,6 @@
     'description': '',
     'type': 'number',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

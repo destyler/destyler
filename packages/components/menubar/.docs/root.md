@@ -3,28 +3,28 @@
 <Props :value="[
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The value of the menu that should be open when initially rendered. Use when you do not need to control the value state.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'dir',
-    'description': '',
+    'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': '\'ltr\' | \'rtl\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, keyboard navigation will loop from last item to first, and vice versa.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'modelValue',
-    'description': '',
+    'description': '<p>The controlled value of the menu to open.\nCan be used as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
     'default': 'undefined'
@@ -34,7 +34,7 @@
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '',
+    'description': '<p>Event handler called when the value changes.</p>\n',
     'type': '[_value: string]'
   }
 ]" />

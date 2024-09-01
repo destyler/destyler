@@ -17,29 +17,29 @@
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, tabbing from last item will focus first tabbable\nand shift+tab from first item will focus last tababble.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'trapped',
-    'description': '',
+    'description': '<p>When <code>true</code>, focus cannot escape the focus scope via keyboard,\npointer, or a programmatic focus.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'mountAutoFocus',
-    'description': '',
+    'description': '<p>Event handler called when auto-focusing on mount.\nCan be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {
     'name': 'unmountAutoFocus',
-    'description': '',
+    'description': '<p>Event handler called when auto-focusing on unmount.\nCan be prevented.</p>\n',
     'type': '[_event: Event]'
   }
 ]" />

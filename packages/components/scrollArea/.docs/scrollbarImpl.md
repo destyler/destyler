@@ -6,7 +6,7 @@
     'description': '',
     'type': 'boolean',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 

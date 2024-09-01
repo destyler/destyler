@@ -13,28 +13,28 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'checked',
-    'description': '',
+    'description': '<p>The controlled checked state of the item.\nCan be used as <code>v-model:checked</code>.</p>\n',
     'type': 'false | true | \'indeterminate\'',
     'required': false,
-    'default': 'undefined'
+    'default': 'false'
   },
   {
     'name': 'disabled',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'textValue',
     'description': '',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
@@ -46,7 +46,7 @@
   },
   {
     'name': 'update:checked',
-    'description': '',
+    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
     'type': '[_checked: CheckedState]'
   }
 ]" />

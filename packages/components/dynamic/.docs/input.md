@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'input'
   },
   {
     'name': 'asChild',
@@ -17,23 +17,23 @@
   },
   {
     'name': 'autoFocus',
-    'description': '',
+    'description': '<p>Focus on element when mounted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'maxLength',
-    'description': '',
+    'description': '<p>Maximum number of character allowed.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'placeholder',
-    'description': '',
+    'description': '<p>The placeholder character to use for empty tags input.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

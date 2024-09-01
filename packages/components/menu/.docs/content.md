@@ -6,21 +6,21 @@
     'description': '',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'alignOffset',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'arrowPadding',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'as',
@@ -34,132 +34,132 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'avoidCollisions',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collisionBoundary',
     'description': '',
     'type': 'Element | (Element | null)[] | null',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'collisionPadding',
     'description': '',
     'type': 'number | Partial<Record<\'top\' | \'right\' | \'bottom\' | \'left\', number>>',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disableOutsidePointerEvents',
-    'description': '',
+    'description': '<p>When <code>true</code>, hover/focus/click interactions will be disabled on elements outside\nthe <code>DismissableLayer</code>. Users will need to click twice on outside elements to\ninteract with them: once to close the <code>DismissableLayer</code>, and again to trigger the element.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'disableOutsideScroll',
-    'description': '',
+    'description': '<p>Whether scrolling outside the <code>MenuContent</code> should be prevented</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'forceMount',
-    'description': '',
+    'description': '<p>Used to force mounting when more control is needed. Useful when\ncontrolling animation with Vue animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'hideWhenDetached',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'loop',
-    'description': '',
+    'description': '<p>When <code>true</code>, tabbing from last item will focus first tabbable\nand shift+tab from first item will focus last tababble.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'prioritizePosition',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'side',
     'description': '',
     'type': '\'top\' | \'right\' | \'bottom\' | \'left\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'sideOffset',
     'description': '',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'sticky',
     'description': '',
     'type': '\'partial\' | \'always\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'trapFocus',
-    'description': '',
+    'description': '<p>Whether focus should be trapped within the <code>MenuContent</code></p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'updatePositionStrategy',
     'description': '',
     'type': '\'always\' | \'optimized\'',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'closeAutoFocus',
-    'description': '',
+    'description': '<p>Event handler called when auto-focusing on close.\nCan be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {
     'name': 'escapeKeyDown',
-    'description': '',
+    'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[_event: KeyboardEvent]'
   },
   {
     'name': 'focusOutside',
-    'description': '',
+    'description': '<p>Event handler called when the focus moves outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: FocusOutsideEvent]'
   },
   {
     'name': 'interactOutside',
-    'description': '',
+    'description': '<p>Event handler called when an interaction happens outside the <code>DismissableLayer</code>.\nSpecifically, when a <code>pointerdown</code> event happens outside or focus moves outside of it.\nCan be prevented.</p>\n',
     'type': '[_event: PointerDownOutsideEvent | FocusOutsideEvent]'
   },
   {
     'name': 'pointerDownOutside',
-    'description': '',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: PointerDownOutsideEvent]'
   }
 ]" />

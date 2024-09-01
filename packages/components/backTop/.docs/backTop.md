@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'button'
   },
   {
     'name': 'asChild',
@@ -17,7 +17,7 @@
   },
   {
     'name': 'listen',
-    'description': '',
+    'description': '<p>The element to be listened to scroll event.\nIf it is <code>undefined</code> back top will listen to the nearest scrollable parent.</p>\n',
     'type': 'string | HTMLElement | Document | (() => HTMLElement | Document)',
     'required': false,
     'default': 'undefined'

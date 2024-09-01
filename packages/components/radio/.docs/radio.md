@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'button'
   },
   {
     'name': 'asChild',
@@ -17,52 +17,52 @@
   },
   {
     'name': 'checked',
-    'description': '',
+    'description': '<p>The controlled value of the radio item to check. Can be binded as <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the radio item.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>The name of the input fields in the radio (Useful for form submission).</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'name',
-    'description': '',
+    'description': '<p>The name of the input fields in the radio (Useful for form submission).</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'required',
-    'description': '',
+    'description': '<p>When <code>true</code>, indicates that the user must check the radio item before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'update:checked',
-    'description': '',
+    'description': '<p>Event handler called when the radio item is checked.</p>\n',
     'type': '[_value: boolean]'
   }
 ]" />

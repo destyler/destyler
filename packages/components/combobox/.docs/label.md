@@ -17,9 +17,9 @@
   },
   {
     'name': 'for',
-    'description': '',
+    'description': '<p>The id of the element the label is associated with.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

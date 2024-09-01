@@ -17,9 +17,9 @@
   },
   {
     'name': 'nonce',
-    'description': '',
+    'description': '<p>Will add <code>nonce</code> attribute to the style tag which can be used by Content Security Policy.</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

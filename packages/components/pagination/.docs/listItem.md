@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'button'
   },
   {
     'name': 'asChild',
@@ -17,9 +17,9 @@
   },
   {
     'name': 'value',
-    'description': '',
+    'description': '<p>Value for the page</p>\n',
     'type': 'number',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

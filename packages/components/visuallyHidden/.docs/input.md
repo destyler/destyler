@@ -6,27 +6,27 @@
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'name',
     'description': '',
     'type': 'string',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'required',
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'value',
     'description': '',
     'type': 'unknown',
     'required': true,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

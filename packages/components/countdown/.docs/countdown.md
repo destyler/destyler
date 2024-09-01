@@ -3,17 +3,17 @@
 <Props :value="[
   {
     'name': 'active',
-    'description': '',
+    'description': '<p>Whether countdown is active.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': 'true'
   },
   {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'template'
   },
   {
     'name': 'asChild',
@@ -24,23 +24,23 @@
   },
   {
     'name': 'duration',
-    'description': '',
+    'description': '<p>The duration of the countdown (unit is millisecond).\nNot reactive.</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   },
   {
     'name': 'precision',
-    'description': '',
+    'description': '<p>The precision of the second.</p>\n',
     'type': '0 | 1 | 2 | 3',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   },
   {
     'name': 'render',
-    'description': '',
+    'description': '<p>Time's render function</p>\n',
     'type': '((props: CountdownTimeInfo) => VNodeChild)',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   }
 ]" />

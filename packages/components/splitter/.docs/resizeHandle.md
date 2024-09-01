@@ -17,38 +17,38 @@
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>Disable drag handle</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'hitAreaMargins',
-    'description': '',
+    'description': '<p>Allow this much margin when determining resizable handle hit detection</p>\n',
     'type': 'PointerHitAreaMargins',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>Resize handle id (unique within group);\nfalls back to <code>useId</code> when not provided</p>\n',
     'type': 'string',
     'required': false,
-    'default': 'undefined'
+    'default': '-'
   },
   {
     'name': 'tabindex',
-    'description': '',
+    'description': '<p>Tabindex for the handle</p>\n',
     'type': 'number',
     'required': false,
-    'default': 'undefined'
+    'default': '0'
   }
 ]" />
 
 <Event :value="[
   {
     'name': 'dragging',
-    'description': '',
+    'description': '<p>Event handler called when dragging the handler.</p>\n',
     'type': '[_isDragging: boolean]'
   }
 ]" />
