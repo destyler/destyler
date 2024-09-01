@@ -19,7 +19,7 @@
     "play:vue": "pnpm -C examples/vue run dev",
     "play:nuxt": "pnpm -C examples/nuxt run dev",
     "docs:dev": "pnpm -C .docs run dev",
-    "docs:gen": "tsx scripts/docs-gen-api.ts",
+    "docs:gen": "tsx scripts/docs/gen.ts",
     "test": "vitest",
     "test:ui": "vitest --ui --open false",
     "lint": "eslint .",

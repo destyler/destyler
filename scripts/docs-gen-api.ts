@@ -207,12 +207,11 @@ function getFileComment2(filePath: string) {
   let match
   const results: any[] = []
   while ((match = regex.exec(code)) !== null) {
-  // 去除注释中的星号和换行符
     const cleanComment = match[1].replace(/^\s*\*\s?/gm, '').trim()
     results.push({
       comment: cleanComment,
-      key: match[2] || match[3], // 匹配单引号内的字符串或者无引号的单词
-      value: match[3].trim(), // 假设属性值不包含空格
+      key: match[2] || match[3],
+      value: match[3].trim(),
     })
   }
 
