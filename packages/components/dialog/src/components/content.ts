@@ -22,7 +22,6 @@ export const DialogContent = defineComponent({
   name: 'DestylerDialogContent',
   props: dialogContentProps,
   emits: dialogContentEmits,
-
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
 

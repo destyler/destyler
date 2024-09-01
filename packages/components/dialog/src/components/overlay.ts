@@ -10,6 +10,10 @@ import { DialogOverlayImpl } from './overlayImpl'
 
 export const dialogOverlayProps = {
   ...primitiveProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,7 +25,6 @@ export type DialogOverlayProps = ExtractPublicPropTypes<typeof dialogOverlayProp
 export const DialogOverlay = defineComponent({
   name: 'DestylerDialogOverlay',
   props: dialogOverlayProps,
-
   setup() {
     const rootContext = injectDialogRootContext()
 

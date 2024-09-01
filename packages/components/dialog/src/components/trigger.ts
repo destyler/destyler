@@ -7,6 +7,9 @@ import { injectDialogRootContext } from './root'
 
 export const dialogTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type DialogTriggerProps = ExtractPublicPropTypes<typeof dialogTriggerProp
 export const DialogTrigger = defineComponent({
   name: 'DestylerDialogTrigger',
   props: dialogTriggerProps,
-
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement } = useForwardExpose()

@@ -5,16 +5,35 @@ import { createContext } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
 
 export const dialogRootProps = {
+  /**
+   * The controlled open state of the dialog. Can be binded as `v-model:open`.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * The open state of the dialog when it is initially rendered.
+   * Use when you do not need to control its open state.
+   *
+   * @default false
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The modality of the dialog When set to true,
+   * interaction with outside elements will be
+   * disabled and only dialog content will
+   * be visible to screen readers.
+   *
+   * @default true
+   */
   modal: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -40,6 +59,9 @@ export interface DialogRootContext {
 export const [injectDialogRootContext, provideDialogRootContext] = createContext<DialogRootContext>('DestylerDialogRoot')
 
 export const dialogRootEmits = {
+  /**
+   * Event handler called when the open state of the dialog changes.
+   */
   'update:open': (_value: boolean) => true,
 }
 
@@ -47,7 +69,6 @@ export const DialogRoot = defineComponent({
   name: 'DestylerDialogRoot',
   props: dialogRootProps,
   emits: dialogRootEmits,
-
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

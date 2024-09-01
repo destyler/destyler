@@ -7,6 +7,9 @@ import { injectDialogRootContext } from './root'
 
 export const dialogCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type DialogCloseProps = ExtractPublicPropTypes<typeof dialogCloseProps>
 export const DialogClose = defineComponent({
   name: 'DestylerDialogClose',
   props: dialogCloseProps,
-
   setup() {
     const rootContext = injectDialogRootContext()
 

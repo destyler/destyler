@@ -11,7 +11,6 @@ export type DialogPortalProps = ExtractPublicPropTypes<typeof dialogPortalProps>
 export const DialogPortal = defineComponent({
   name: 'DestylerDialogPortal',
   props: dialogPortalProps,
-
   render() {
     return h(TeleportPrimitive, mergeProps(this.$props), () => this.$slots.default?.())
   },

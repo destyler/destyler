@@ -11,10 +11,22 @@ import { injectDialogRootContext } from './root'
 
 export const dialogContentImplProps = {
   ...dismissableLayerProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   *
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * When `true`, focus cannot escape the Content via keyboard,
+   * pointer, or a programmatic focus.
+   *
+   * @default false
+   */
   trapFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -24,7 +36,14 @@ export const dialogContentImplProps = {
 
 export const dialogContentImplEmtis = {
   ...dismissableLayerEmits,
+  /**
+   * Event handler called when auto-focusing on open. Can be prevented.
+   */
   openAutoFocus: (_event: Event) => true,
+  /**
+   * Event handler called when the a `pointerdown` event happens
+   * outside of the `DismissableLayer`. Can be prevented.
+   */
   closeAutoFocus: (_event: Event) => true,
 }
 
@@ -32,7 +51,6 @@ export const DialogContentImpl = defineComponent({
   name: 'DestylerDialogContentImpl',
   props: dialogContentImplProps,
   emits: dialogContentImplEmtis,
-
   setup() {
     const rootContext = injectDialogRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

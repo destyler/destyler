@@ -8,7 +8,6 @@ export const DialogContentNonModal = defineComponent({
   name: 'DestylerDialogContentNonModal',
   props: dialogContentImplProps,
   emits: dialogContentImplEmtis,
-
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
     const hasInteractedOutsideRef = ref(false)

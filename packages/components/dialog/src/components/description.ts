@@ -8,6 +8,9 @@ import { injectDialogRootContext } from './root'
 
 export const dialogDescriptionProps = {
   ...primitiveProps,
+  /**
+   * @default p
+   */
   as: {
     ...primitiveProps.as,
     default: 'p',
@@ -19,7 +22,6 @@ export type DialogDescriptionProps = ExtractPublicPropTypes<typeof dialogDescrip
 export const DialogDescription = defineComponent({
   name: 'DestylerDialogDescription',
   props: dialogDescriptionProps,
-
   setup() {
     const rootContext = injectDialogRootContext()
 

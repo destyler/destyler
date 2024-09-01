@@ -8,6 +8,9 @@ import { injectDialogRootContext } from './root'
 
 export const dialogTitleProps = {
   ...primitiveProps,
+  /**
+   * @default h2
+   */
   as: {
     ...primitiveProps.as,
     default: 'h2',
@@ -19,7 +22,6 @@ export type DialogTitleProps = ExtractPublicPropTypes<typeof dialogTitleProps>
 export const DialogTitle = defineComponent({
   name: 'DestylerDialogTitle',
   props: dialogTitleProps,
-
   setup() {
     useForwardExpose()
     const rootContext = injectDialogRootContext()

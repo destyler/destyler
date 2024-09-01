@@ -14,7 +14,6 @@ export type DialogOverlayImplProps = ExtractPublicPropTypes<typeof dialogOverlay
 export const DialogOverlayImpl = defineComponent({
   name: 'DestylerDialogOverlayImpl',
   props: dialogOverlayImplProps,
-
   setup() {
     const rootContext = injectDialogRootContext()
     useForwardExpose()
