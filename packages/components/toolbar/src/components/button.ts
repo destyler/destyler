@@ -7,10 +7,17 @@ import { Primitive, primitiveProps } from '@destyler/primitive'
 
 export const toolbarButtonProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with the accordion and all its items
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -23,7 +30,6 @@ export type ToolbarButtonProps = ExtractPublicPropTypes<typeof toolbarButtonProp
 export const ToolbarButton = defineComponent({
   name: 'DestylerToolbarButton',
   props: toolbarButtonProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
 

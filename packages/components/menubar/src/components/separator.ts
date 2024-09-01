@@ -12,7 +12,6 @@ export type MenubarSeparatorProps = ExtractPublicPropTypes<typeof menubarSeparat
 export const MenubarSeparator = defineComponent({
   name: 'DestylerMenubarSeparator',
   props: menubarSeparatorProps,
-
   setup(_) {
     useForwardExpose()
   },

@@ -20,7 +20,6 @@ export const TooltipContent = defineComponent({
   name: 'DestylerTooltipContent',
   props: tooltipContentProps,
   emits: tooltipContentEmits,
-
   setup(props, { emit }) {
     const rootContext = injectTooltipRootContext()
     const forwarded = useForwardPropsEmits(props, emit)

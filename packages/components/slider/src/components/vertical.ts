@@ -19,7 +19,6 @@ export const SliderVertical = defineComponent({
   name: 'DestylerSliderVertical',
   props: sliderVerticalProps,
   emits: sliderVerticalEmits,
-
   setup(props) {
     const { max, min, inverted } = toRefs(props)
 

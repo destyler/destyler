@@ -22,7 +22,6 @@ export const ToolbarToggleGroup = defineComponent({
   name: 'DestylerToolbarToggleGroup',
   props: toolbarToggleGroupProps,
   emits: toolbarToggleGroupEmits,
-
   setup(_, { emit }) {
     const rootContext = injectToolbarRootContext()
 

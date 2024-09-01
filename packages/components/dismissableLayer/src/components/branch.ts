@@ -14,7 +14,6 @@ export type DismissableLayerBranchProps = ExtractPublicPropTypes<typeof dismissa
 export const DismissableLayerBranch = defineComponent({
   name: 'DestylerDismissableLayerBranch',
   props: dismissableLayerBranchProps,
-
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
     onMounted(() => {

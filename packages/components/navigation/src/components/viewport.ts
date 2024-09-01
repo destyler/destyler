@@ -10,6 +10,10 @@ import { injectNavigationContext } from './root'
 
 export const navigationViewportProps = {
   ...primitiveProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,7 +26,6 @@ export const NavigationViewport = defineComponent({
   name: 'DestylerNavigationViewPort',
   inheritAttrs: false,
   props: navigationViewportProps,
-
   setup() {
     const { forwardRef, currentElement } = useForwardExpose()
 

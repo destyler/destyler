@@ -11,7 +11,6 @@ export type SelectPortalProps = ExtractPublicPropTypes<typeof selectPortalProps>
 export const SelectPortal = defineComponent({
   name: 'DestylerSelectPortal',
   props: selectPortalProps,
-
   render() {
     return h(TeleportPrimitive, this.$props, () => this.$slots.default?.())
   },

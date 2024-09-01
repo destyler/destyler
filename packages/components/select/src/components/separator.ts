@@ -11,7 +11,6 @@ export type SelectSeparatorProps = ExtractPublicPropTypes<typeof selectSeparator
 export const SelectSeparator = defineComponent({
   name: 'DestylerSelectSeparator',
   props: selectSeparatorProps,
-
   render() {
     return h(Primitive, mergeProps(this.$props, {
       'aria-hidden': '',

@@ -12,7 +12,6 @@ export type MenubarItemIndicatorProps = ExtractPublicPropTypes<typeof menubarIte
 export const MenubarItemIndicator = defineComponent({
   name: 'DestylerMenubarItemIndicator',
   props: menubarItemIndicatorProps,
-
   setup() {
     useForwardExpose()
   },

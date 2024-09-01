@@ -14,11 +14,23 @@ export const [injectInfoRootContext, provideInfoRootContext] = createContext<Inf
 
 export const infoRootProps = {
   ...primitiveProps,
+  /**
+   * The open state of the collapsible when it is initially rendered.
+   * Use when you do not need to control its open state.
+   *
+   * @default true
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: true,
   },
+  /**
+   * The controlled open state of the info.
+   * Can be binded with `v-model`.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -29,6 +41,10 @@ export const infoRootProps = {
 export type InfoRootProps = ExtractPublicPropTypes<typeof infoRootProps>
 
 export const infoRootEmits = {
+  /**
+   * Event handler called when the
+   * open state of the info changes.
+   */
   'update:open': (_value: boolean) => true,
 }
 
@@ -37,7 +53,6 @@ export const InfoRoot = defineComponent({
   inheritAttrs: false,
   props: infoRootProps,
   emits: infoRootEmits,
-
   setup(props, { emit }) {
     const openRef = useVModel(props, 'open', emit, {
       defaultValue: props.defaultOpen,

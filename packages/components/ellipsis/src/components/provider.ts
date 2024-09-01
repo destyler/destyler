@@ -12,7 +12,6 @@ export type EllipsisProviderProps = ExtractPublicPropTypes<typeof ellipsisProvid
 export const EllipsisProvider = defineComponent({
   name: 'DestylerEllipsisProvider',
   props: ellipsisProviderProps,
-
   setup(props) {
     const forward = useForwardProps(props)
     useForwardExpose()

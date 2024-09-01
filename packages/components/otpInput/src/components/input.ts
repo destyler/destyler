@@ -6,10 +6,16 @@ import { useArrowNavigation } from '@destyler/composition'
 import { injectOtpInputRootContext } from './root'
 
 export const otpInputProps = {
+  /**
+   * Position of the value this input binds to.
+   */
   index: {
     type: Number as PropType<number>,
     required: true,
   },
+  /**
+   * When `true`, prevents the user from interacting with the pin input
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,7 +27,6 @@ export type OtpInputProps = ExtractPublicPropTypes<typeof otpInputProps>
 export const OtpInput = defineComponent({
   name: 'DestylerOtpInput',
   props: otpInputProps,
-
   setup(props) {
     const context = injectOtpInputRootContext()
     const inputElements = computed(() => Array.from(context.inputElements!.value))

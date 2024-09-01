@@ -5,6 +5,9 @@ import { injectRangeCalendarRootContext } from './root'
 
 export const rangeCalendarNextProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -16,7 +19,6 @@ export type RangeCalendarNextProps = ExtractPublicPropTypes<typeof rangeCalendar
 export const RangeCalendarNext = defineComponent({
   name: 'DestylerRangeCalendarNext',
   props: rangeCalendarNextProps,
-
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 

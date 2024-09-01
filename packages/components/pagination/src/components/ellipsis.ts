@@ -12,7 +12,6 @@ export type PaginationEllipsisProps = ExtractPublicPropTypes<typeof paginationEl
 export const PaginationEllipsis = defineComponent({
   name: 'DestylerPaginationEllipsis',
   props: paginationEllipsisProps,
-
   setup() {
     useForwardExpose()
   },

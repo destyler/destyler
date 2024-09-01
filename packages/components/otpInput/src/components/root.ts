@@ -8,48 +8,84 @@ import { BindOnceDirective } from '@destyler/directives'
 
 export const otpInputRootProps = {
   ...primitiveProps,
+  /**
+   * The controlled checked state of the pin input.
+   * Can be binded as `v-model`.
+   */
   modelValue: {
     type: Array as PropType<string[]>,
     required: false,
   },
+  /**
+   * The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state.
+   */
   defaultValue: {
     type: Array as PropType<string[]>,
     required: false,
   },
+  /**
+   * The placeholder character to use for empty pin-inputs.
+   */
   placeholder: {
     type: String as PropType<string>,
     required: false,
     default: '',
   },
+  /**
+   * When `true`, pin inputs will be treated as password.
+   */
   mask: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   *  When `true`, mobile devices will autodetect the OTP from messages or clipboard, and enable the autocomplete field.
+   */
   otp: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Input type for the inputs.
+   *
+   * @default text
+   */
   type: {
     type: String as PropType<'text' | 'number'>,
     required: false,
     default: 'text',
   },
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * The name of the pin input. Submitted with its owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * When `true`, prevents the user from interacting with the pin input
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * When `true`, indicates that the user must check the pin input before the owning form can be submitted.
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Id of the element
+   */
   id: {
     type: String as PropType<string>,
     required: false,
@@ -74,7 +110,13 @@ export interface OtpInputRootContext {
 export const [injectOtpInputRootContext, provideOtpInputRootContext] = createContext<OtpInputRootContext>('DestylerOtpInputRoot')
 
 export const otpInputRootEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_value: string[]) => true,
+  /**
+   * Processing complete operations.
+   */
   'complete': (_value: string[]) => true,
 }
 
@@ -84,7 +126,12 @@ export const OtpInputRoot = defineComponent({
   props: otpInputRootProps,
   emits: otpInputRootEmits,
   slots: Object as SlotsType<{
-    default: (opts: { modelValue: string[] }) => VNode[]
+    default: (opts: {
+      /**
+       * Current input values
+       */
+      modelValue: string[]
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { mask, otp, placeholder, type, disabled, dir: propDir } = toRefs(props)

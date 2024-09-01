@@ -14,7 +14,6 @@ export type ToolbarToggleItemProps = ExtractPublicPropTypes<typeof toolbarToggle
 export const ToolbarToggleItem = defineComponent({
   name: 'DestylerToolbarToggleItem',
   props: toolbarToggleItemProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
 

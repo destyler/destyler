@@ -12,10 +12,16 @@ import { injectNavigationItemContext } from './item'
 
 export const navigationTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with item
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -28,7 +34,6 @@ export const NavigationTrigger = defineComponent({
   name: 'DestylerNavigationTrigger',
   inheritAttrs: false,
   props: navigationTriggerProps,
-
   setup(props) {
     const menuContext = injectNavigationContext()
     const itemContext = injectNavigationItemContext()

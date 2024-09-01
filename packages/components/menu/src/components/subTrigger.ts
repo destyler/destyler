@@ -19,7 +19,6 @@ export type MenuSubTriggerProps = ExtractPublicPropTypes<typeof menuSubTriggerPr
 export const MenuSubTrigger = defineComponent({
   name: 'DestylerMenuSubTrigger',
   props: menuSubTriggerProps,
-
   setup(props) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()

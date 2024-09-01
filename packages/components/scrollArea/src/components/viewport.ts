@@ -15,7 +15,6 @@ export const ScrollAreaViewport = defineComponent({
   name: 'DestylerScrollAreaViewport',
   inheritAttrs: false,
   props: scrollAreaViewportProps,
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
 

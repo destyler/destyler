@@ -8,6 +8,9 @@ import { ToastAnnounceExclude } from './announceExclude'
 
 export const toastCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -20,7 +23,6 @@ export const ToastClose = defineComponent({
   name: 'DestylerToastClose',
   inheritAttrs: false,
   props: toastCloseProps,
-
   setup() {
     const rootContext = injectToastRootContext()
     const { forwardRef } = useForwardExpose()

@@ -9,15 +9,28 @@ import { ENTRY_FOCUS, EVENT_OPTIONS } from '../utils'
 
 export const rovingFocusGroupProps = {
   ...primitiveProps,
+  /**
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   *
+   * @default undefined
+   */
   orientation: {
     type: String as PropType<Orientation>,
     required: false,
     default: undefined,
   },
+  /**
+   * The direction of between items.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * Whether keyboard should loop around
+   * @defaultValue false
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -57,7 +70,6 @@ export const RovingFocusGroup = defineComponent({
   name: 'DestylerRovingFocusGroup',
   props: rovingFocusGroupProps,
   emits: rovingFocusGroupEmits,
-
   setup(props, { emit }) {
     const { loop, orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

@@ -9,11 +9,21 @@ import { useWindowSize } from '@vueuse/core'
 
 export const previewRootProps = {
   ...primitiveProps,
+  /**
+   * Duration for the transition to open/close.
+   *
+   * @default 500
+   */
   duration: {
     type: Number as PropType<number>,
     required: false,
     default: 500,
   },
+  /**
+   * Max width for the element to scale.
+   *
+   * @default 1000
+   */
   maxWidth: {
     type: Number as PropType<number>,
     required: false,

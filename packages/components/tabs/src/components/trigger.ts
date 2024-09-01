@@ -11,14 +11,23 @@ import { injectTabsRootContext } from './root'
 
 export const tabsTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * A unique value that associates the trigger with a content.
+   */
   value: {
     type: String as PropType<string>,
     required: true,
   },
+  /**
+   * When `true`, prevents the user from interacting with the tab.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,7 +39,6 @@ export type TabsTriggerProps = ExtractPublicPropTypes<typeof tabsTriggerProps>
 export const TabsTrigger = defineComponent({
   name: 'DestylerTabsTrigger',
   props: tabsTriggerProps,
-
   setup(props) {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectTabsRootContext()

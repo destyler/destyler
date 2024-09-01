@@ -8,37 +8,69 @@ import { RovingFocusGroup } from '@destyler/roving-focus'
 
 export const radioGroupRootProps = {
   ...primitiveProps,
+  /**
+   * The controlled value of the radio item to check. Can be binded as `v-model`.
+   */
   modelValue: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The value of the radio item that should be checked when initially rendered.
+   *
+   * Use when you do not need to control the state of the radio items.
+   */
   defaultValue: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * When `true`, prevents the user from interacting with radio items.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The name of the group. Submitted with its owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * When `true`, indicates that the user must check a radio item before the owning form can be submitted.
+   *
+   * @default false
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The orientation of the component.
+   *
+   * @default undefined
+   */
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
     default: undefined,
   },
+  /**
+   * The reading direction of the radio when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * When `true`, keyboard navigation will loop from last item to first, and vice versa.
+   *
+   * @default true
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -49,6 +81,9 @@ export const radioGroupRootProps = {
 export type RadioGroupRootProps = ExtractPublicPropTypes<typeof radioGroupRootProps>
 
 export const radioGroupRootEmits = {
+  /**
+   * Event handler called when the radio group value changes
+   */
   'update:modelValue': (_value: string) => true,
 }
 
@@ -68,7 +103,6 @@ export const RadioGroupRoot = defineComponent({
   name: 'DestylerRadioGroupRoot',
   props: radioGroupRootProps,
   emits: radioGroupRootEmits,
-
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue,

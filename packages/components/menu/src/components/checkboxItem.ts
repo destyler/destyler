@@ -9,6 +9,12 @@ import { provideMenuItemIndicatorContext } from './itemIndicator'
 
 export const menuCheckboxItemProps = {
   ...menuItemProps,
+  /**
+   * The controlled checked state of the item.
+   * Can be used as `v-model:checked`.
+   *
+   * @default false
+   */
   checked: {
     type: [Boolean, String] as PropType<CheckedState>,
     required: false,
@@ -20,6 +26,9 @@ export type MenuCheckboxItemProps = ExtractPublicPropTypes<typeof menuCheckboxIt
 
 export const menuCheckboxItemEmits = {
   ...menuItemEmits,
+  /**
+   * Event handler called when the checked state changes.
+   */
   'update:checked': (_checked: CheckedState) => true,
 }
 
@@ -27,7 +36,6 @@ export const MenuCheckboxItem = defineComponent({
   name: 'DestylerMenuCheckboxItem',
   props: menuCheckboxItemProps,
   emits: menuCheckboxItemEmits,
-
   setup(props, { emit }) {
     const checked = useVModel(props, 'checked', emit)
 

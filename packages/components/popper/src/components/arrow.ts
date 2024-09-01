@@ -23,7 +23,6 @@ export const PopperArrow = defineComponent({
   name: 'DestylerPopperArrow',
   inheritAttrs: false,
   props: popperArrowProps,
-
   setup() {
     const contentContext = injectPopperContentContext()
 

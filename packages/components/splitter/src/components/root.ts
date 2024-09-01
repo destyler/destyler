@@ -12,7 +12,6 @@ export type SplitterRootProps = ExtractPublicPropTypes<typeof splitterRootProps>
 export const SplitterRoot = defineComponent({
   name: 'DestylerSplitterRoot',
   props: splitterRootProps,
-
   setup(_) {
     useForwardExpose()
   },

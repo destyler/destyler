@@ -12,7 +12,6 @@ export type MenubarGroupProps = ExtractPublicPropTypes<typeof menubarGroupProps>
 export const MenubarGroup = defineComponent({
   name: 'DestylerMenubarGroup',
   props: menubarGroupProps,
-
   setup() {
     useForwardExpose()
   },

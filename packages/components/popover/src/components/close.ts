@@ -6,6 +6,9 @@ import { injectPopoverRootContext } from './root'
 
 export const popoverCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -17,7 +20,6 @@ export type PopoverCloseProps = ExtractPublicPropTypes<typeof popoverCloseProps>
 export const PopoverClose = defineComponent({
   name: 'DestylerPopoverClose',
   props: popoverCloseProps,
-
   setup() {
     const rootContext = injectPopoverRootContext()
 

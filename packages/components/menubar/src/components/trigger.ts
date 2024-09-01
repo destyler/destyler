@@ -12,10 +12,16 @@ import { injectMenubarMenuContext } from './menu'
 
 export const menubarTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with item
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -27,7 +33,6 @@ export type MenubarTriggerProps = ExtractPublicPropTypes<typeof menubarTriggerPr
 export const MenubarTrigger = defineComponent({
   name: 'DestylerMenubarTrigger',
   props: menubarTriggerProps,
-
   setup() {
     const rootContext = injectMenubarRootContext()
     const menuContext = injectMenubarMenuContext()

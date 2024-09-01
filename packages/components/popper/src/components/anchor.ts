@@ -19,7 +19,6 @@ export type PopperAnchorProps = ExtractPublicPropTypes<typeof popperAnchorProps>
 export const PopperAnchor = defineComponent({
   name: 'DestylerPopperAnchor',
   props: popperAnchorProps,
-
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 

@@ -8,7 +8,6 @@ export const PopoverContentModal = defineComponent({
   name: 'DestylerPopoverContentModal',
   props: popoverContentImplProps,
   emits: popoverContentImplEmits,
-
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
     const isRightClickOutsideRef = ref(false)

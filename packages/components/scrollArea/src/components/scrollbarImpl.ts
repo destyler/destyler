@@ -28,7 +28,6 @@ export const ScrollAreaScrollbarImpl = defineComponent({
   name: 'DestylerScrollAreaScrollbarImpl',
   props: scrollAreaScrollbarImplProps,
   emits: scrollAreaScrollbarImplEmits,
-
   setup(props, { emit }) {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()

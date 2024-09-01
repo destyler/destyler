@@ -11,7 +11,6 @@ export type MenuGroupProps = ExtractPublicPropTypes<typeof menuGroupProps>
 export const MenuGroup = defineComponent({
   name: 'DestylerMenuGroup',
   props: menuGroupProps,
-
   render() {
     return h(Primitive, mergeProps(this.$props, {
       role: 'group',

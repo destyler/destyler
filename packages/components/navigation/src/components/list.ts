@@ -7,6 +7,9 @@ import { injectNavigationContext } from './root'
 
 export const navigationListProps = {
   ...primitiveProps,
+  /**
+   * @default ul
+   */
   as: {
     ...primitiveProps.as,
     default: 'ul',
@@ -19,7 +22,6 @@ export const NavigationList = defineComponent({
   name: 'DestylerNavigationList',
   inheritAttrs: false,
   props: navigationListProps,
-
   setup() {
     const rootContext = injectNavigationContext()
     const { forwardRef, currentElement } = useForwardExpose()

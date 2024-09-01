@@ -9,6 +9,9 @@ export type EllipsisTriggerDataState = | 'closed' | 'delayed-open' | 'instant-op
 
 export const ellipsisTriggerProps = {
   ...tooltipTriggerProps,
+  /**
+   * @default span
+   */
   as: {
     ...tooltipTriggerProps.as,
     default: 'span',
@@ -26,7 +29,6 @@ export const [injectEllipsisTriggerContext, provideEllipsisTriggerContext] = cre
 export const EllipsisTrigger = defineComponent({
   name: 'DestylerEllipsisTrigger',
   props: ellipsisTriggerProps,
-
   setup(props) {
     const rootContext = injectEllipsisRootContext()
     const { forwardRef, currentElement: triggerElement } = useForwardExpose()

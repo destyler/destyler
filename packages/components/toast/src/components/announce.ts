@@ -6,7 +6,6 @@ import { injectToastProviderContext } from './provider'
 
 export const ToastAnnounce = defineComponent({
   name: 'DestylerToastAnnounce',
-
   setup() {
     const providerContext = injectToastProviderContext()
     const isAnnounced = useTimeout(1000)

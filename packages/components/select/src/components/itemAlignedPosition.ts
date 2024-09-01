@@ -28,7 +28,6 @@ export const SelectItemAlignedPosition = defineComponent({
   name: 'DestylerSelectItemAlignedPosition',
   inheritAttrs: false,
   props: selectItemAlignedPositionProps,
-
   emits: {
     placed: () => true,
   },

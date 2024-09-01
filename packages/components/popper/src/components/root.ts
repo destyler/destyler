@@ -12,7 +12,6 @@ export const [injectPopperRootContext, providePopperRootContext] = createContext
 
 export const PopperRoot = defineComponent({
   name: 'PopperRoot',
-
   setup() {
     const anchor = ref<Measurable | HTMLElement>()
 

@@ -12,7 +12,6 @@ export type MenubarLabelProps = ExtractPublicPropTypes<typeof menubarLabelProps>
 export const MenubarLabel = defineComponent({
   name: 'DestylerMenubarLabel',
   props: menubarLabelProps,
-
   setup() {
     useForwardExpose()
   },

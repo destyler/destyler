@@ -16,7 +16,6 @@ export type SelectScrollUpButtonProps = ExtractPublicPropTypes<typeof selectScro
 export const SelectScrollUpButton = defineComponent({
   name: 'DestylerSelectScrollUpButton',
   props: selectScrollUpButtonProps,
-
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext = contentContext.position === 'item-aligned' ? injectSelectItemAlignedPositionContext() : undefined

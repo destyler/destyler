@@ -10,10 +10,18 @@ import { injectSelectRootContext } from './root'
 
 export const selectValueProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * The content that will be rendered inside the `SelectValue` when no `value` or `defaultValue` is set.
+   *
+   * @default ""
+   */
   placeholder: {
     type: String as PropType<string>,
     required: false,
@@ -26,7 +34,6 @@ export type SelectValueProps = ExtractPublicPropTypes<typeof selectValueProps>
 export const SelectValue = defineComponent({
   name: 'DestylerSelectValue',
   props: selectValueProps,
-
   setup(_, { slots }) {
     const { forwardRef, currentElement } = useForwardExpose()
 

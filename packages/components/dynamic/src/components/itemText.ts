@@ -9,6 +9,9 @@ import { injectDynamicItemContext } from './item'
 
 export const dynamicItemTextProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -21,7 +24,12 @@ export const DynamicItemText = defineComponent({
   name: 'DestylerDynamicItemText',
   props: dynamicItemTextProps,
   slots: Object as SlotsType<{
-    default: (opts: { text: string }) => VNode[]
+    default: (opts: {
+      /**
+       * The text of the item.
+       */
+      text: string
+    }) => VNode[]
   }>,
   setup() {
     const itemContext = injectDynamicItemContext()
@@ -34,7 +42,13 @@ export const DynamicItemText = defineComponent({
     }
   },
   render() {
-    return withDirectives(h(Primitive, this.$props, () => this.$slots.default ? this.$slots.default?.({ text: this.itemContext.value.value }) : this.itemContext.value.value), [
+    return withDirectives(h(
+      Primitive,
+      this.$props,
+      () => this.$slots.default
+        ? this.$slots.default?.({ text: this.itemContext.value.value })
+        : this.itemContext.value.value,
+    ), [
       [BindOnceDirective, { id: this.itemContext.textId }],
     ])
   },

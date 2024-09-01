@@ -7,16 +7,35 @@ import { MenuRoot, menuRootProps } from '@destyler/menu'
 import { menuRootEmits } from '@destyler/menu/component'
 
 export const dropdownRootProps = {
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     ...menuRootProps.dir,
   },
+  /**
+   * The modality of the dropdown menu.
+   * When set to true, interaction with
+   * outside elements will be disabled and
+   * only menu content will be visible to
+   * screen readers.
+   */
   modal: {
     ...menuRootProps.modal,
   },
+  /**
+   * @default undefined
+   */
   open: {
     ...menuRootProps.open,
     default: undefined,
   },
+  /**
+   * The open state of the dropdown menu when it is initially rendered.
+   * Use when you do not need to control its open state.
+   *
+   * @default undefined
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -47,7 +66,6 @@ export const DropdownRoot = defineComponent({
   name: 'DestylerDropdownRoot',
   props: dropdownRootProps,
   emits: dropdownRootEmits,
-
   setup(props, { emit }) {
     useForwardExpose()
     const open = useVModel(props, 'open', emit, {

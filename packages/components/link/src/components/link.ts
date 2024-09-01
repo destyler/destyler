@@ -43,7 +43,6 @@ export const Link = defineComponent({
   name: 'DestylerLink',
   inheritAttrs: false,
   props: linkProps,
-
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
     const hasTarget = computed(() => props.target && props.target !== '_self')

@@ -11,7 +11,6 @@ export type MenuLabelProps = ExtractPublicPropTypes<typeof menuLabelProps>
 export const MenuLabel = defineComponent({
   name: 'DestylerMenuLabel',
   props: menuLabelProps,
-
   render() {
     return h(Primitive, this.$props, () => this.$slots.default?.())
   },

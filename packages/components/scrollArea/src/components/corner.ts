@@ -17,7 +17,6 @@ export type ScrollAreaCornerProps = ExtractPublicPropTypes<
 export const ScrollAreaCorner = defineComponent({
   name: 'DestylerScrollAreaCorner',
   props: scrollAreaCorner,
-
   setup() {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectScrollAreaRootContext()

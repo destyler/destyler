@@ -34,7 +34,6 @@ export type RovingFocusItemProps = ExtractPropTypes<typeof rovingFocusItemProps>
 export const RovingFocusItem = defineComponent({
   name: 'DestylerRovingFocusItem',
   props: rovingFocusItemProps,
-
   setup(props) {
     const context = injectRovingFocusGroupContext()
     const id = computed(() => props.tabStopId || useId())

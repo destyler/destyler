@@ -10,6 +10,10 @@ import { injectHoverCardRootContext } from './root'
 
 export const hoverCardContentProps = {
   ...hoverCardContentImplProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -26,7 +30,6 @@ export const HoverCardContent = defineComponent({
   name: 'DestylerHoverCardContent',
   props: hoverCardContentProps,
   emits: hoverCardContentEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()

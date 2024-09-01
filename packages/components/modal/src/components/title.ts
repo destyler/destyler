@@ -12,7 +12,6 @@ export type ModalTitleProps = ExtractPublicPropTypes<typeof modalTitleProps>
 export const ModalTitle = defineComponent({
   name: 'DestylerModalTitle',
   props: modalTitleProps,
-
   setup() {
     useForwardExpose()
   },

@@ -7,6 +7,9 @@ import { injectPaginationRootContext } from './root'
 
 export const paginationNextProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type PaginationNextProps = ExtractPublicPropTypes<typeof paginationNextPr
 export const PaginationNext = defineComponent({
   name: 'DestylerPaginationNext',
   props: paginationNextProps,
-
   setup() {
     useForwardExpose()
 

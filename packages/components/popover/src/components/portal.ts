@@ -11,7 +11,6 @@ export type PopoverPortalProps = ExtractPublicPropTypes<typeof popoverPortalProp
 export const PopoverPortal = defineComponent({
   name: 'DestylerPopoverPortal',
   props: popoverPortalProps,
-
   render() {
     return h(TeleportPrimitive, mergeProps(this.$props), () => this.$slots.default?.())
   },

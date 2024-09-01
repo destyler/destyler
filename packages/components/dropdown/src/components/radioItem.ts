@@ -18,7 +18,6 @@ export const DropdownRadioItem = defineComponent({
   name: 'DestylerDropdownRadioItem',
   props: dropdownRadioItemProps,
   emits: dropdownRadioItemEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

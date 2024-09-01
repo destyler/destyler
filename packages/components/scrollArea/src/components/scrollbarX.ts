@@ -8,7 +8,6 @@ import { ScrollAreaScrollbarImpl } from './scrollbarImpl'
 
 export const ScrollAreaScrollbarX = defineComponent({
   name: 'DestylerScrollAreaScrollbarX',
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarVisibleContext = injectScrollAreaScrollbarVisibleContext()

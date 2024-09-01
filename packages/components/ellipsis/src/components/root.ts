@@ -6,11 +6,22 @@ import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { TooltipRoot } from '@destyler/tooltip'
 
 export const ellipsisRootProps = {
+  /**
+   * The open state of the dropdown menu when it is initially rendered.
+   * Use when you do not need to control its open state.
+   *
+   * @default false
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The controlled open state of the Ellipsis. Can be binded-with with `v-model:open`.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -46,6 +57,9 @@ export const ellipsisRootProps = {
 export type EllipsisRootProps = ExtractPublicPropTypes<typeof ellipsisRootProps>
 
 export const ellipsisRootEmits = {
+  /**
+   * Emitted when the open state of the Ellipsis changes.
+   */
   'update:open': (_open: boolean) => true,
 }
 
@@ -60,7 +74,6 @@ export const EllipsisRoot = defineComponent({
   name: 'DestylerEllipsisRoot',
   props: ellipsisRootProps,
   emits: ellipsisRootEmits,
-
   setup(props, { emit }) {
     const forward = useForwardPropsEmits(props, emit)
     useForwardExpose()

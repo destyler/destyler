@@ -24,7 +24,6 @@ export const SliderHorizontal = defineComponent({
   name: 'DestylerSliderHorizontal',
   props: sliderHorizontalProps,
   emits: sliderHorizontalEmits,
-
   setup(props) {
     const { max, min, dir, inverted } = toRefs(props)
 

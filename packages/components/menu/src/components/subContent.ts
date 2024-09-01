@@ -72,7 +72,6 @@ export const MenuSubContent = defineComponent({
   name: 'DestylerMenuSubContent',
   props: menuSubContentProps,
   emits: menuSubContentEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

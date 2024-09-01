@@ -12,7 +12,6 @@ export type ToastDescriptionProps = ExtractPublicPropTypes<typeof toastDescripti
 export const ToastDescription = defineComponent({
   name: 'DestylerToastDescription',
   props: toastDescriptionProps,
-
   setup() {
     useForwardExpose()
   },

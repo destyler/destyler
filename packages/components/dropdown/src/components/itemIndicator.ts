@@ -12,7 +12,6 @@ export type DropdownItemIndicatorProps = ExtractPublicPropTypes<typeof dropdownI
 export const DropdownItemIndicator = defineComponent({
   name: 'DestylerDropdownItemIndicator',
   props: dropdownItemIndicatorProps,
-
   setup() {
     useForwardExpose()
   },

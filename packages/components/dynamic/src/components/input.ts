@@ -9,18 +9,30 @@ import { injectDynamicRootContext } from './root'
 
 export const dynamicInputProps = {
   ...primitiveProps,
+  /**
+   * @default input
+   */
   as: {
     ...primitiveProps.as,
     default: 'input',
   },
+  /**
+   * The placeholder character to use for empty tags input.
+   */
   placeholder: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Focus on element when mounted.
+   */
   autoFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Maximum number of character allowed.
+   */
   maxLength: {
     type: Number as PropType<number>,
     required: false,
@@ -32,7 +44,6 @@ export type DynamicInputProps = ExtractPublicPropTypes<typeof dynamicInputProps>
 export const DynamicInput = defineComponent({
   name: 'DestylerDynamicInput',
   props: dynamicInputProps,
-
   setup(props) {
     const context = injectDynamicRootContext()
     const { forwardRef, currentElement } = useForwardExpose()

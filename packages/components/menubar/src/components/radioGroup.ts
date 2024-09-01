@@ -18,7 +18,6 @@ export const MenubarRadioGroup = defineComponent({
   name: 'DestylerMenubarRadioGroup',
   props: menubarRadioGroupProps,
   emits: menubarRadioGroupEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

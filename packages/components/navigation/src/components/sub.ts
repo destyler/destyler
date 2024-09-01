@@ -8,14 +8,28 @@ import { injectNavigationContext, provideNavigationContext } from './root'
 
 export const navigationSubProps = {
   ...primitiveProps,
+  /**
+   * The controlled value of the sub menu item to activate.
+   * Can be used as `v-model`.
+   */
   modelValue: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The value of the menu item that should be active when initially rendered.
+   *
+   * Use when you do not need to control the value state.
+   */
   defaultValue: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The orientation of the menu.
+   *
+   * @default horizontal
+   */
   orientation: {
     type: String as PropType<Orientation>,
     required: false,
@@ -26,6 +40,9 @@ export const navigationSubProps = {
 export type NavigationSubProps = ExtractPublicPropTypes<typeof navigationSubProps>
 
 export const navigationSubEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_value: string) => true,
 }
 
@@ -33,7 +50,6 @@ export const NavigationSub = defineComponent({
   name: 'DestylerNavigationSub',
   props: navigationSubProps,
   emits: navigationSubEmits,
-
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',

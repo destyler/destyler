@@ -18,7 +18,6 @@ export const MenubarCheckboxItem = defineComponent({
   name: 'DestylerMenubarCheckboxItem',
   props: menubarCheckboxItemProps,
   emits: menubarCheckboxItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

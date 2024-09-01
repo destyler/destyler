@@ -8,35 +8,61 @@ import { BindOnceDirective } from '@destyler/directives'
 
 export const switchRootProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * The state of the switch when it is initially rendered.
+   * Use when you do not need to control its state.
+   */
   defaultChecked: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The controlled state of the switch.
+   * Can be bind as `v-model:checked`.
+   */
   checked: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * When `true`, prevents the user from interacting with the switch.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * When `true`, indicates that the user must check the switch before the owning form can be submitted.
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The name of the switch. Submitted with its owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Id of the element
+   */
   id: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The value given as data when submitted with a `name`.
+   */
   value: {
     type: String as PropType<string>,
     required: false,

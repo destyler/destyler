@@ -12,7 +12,6 @@ export type ModalDescriptionProps = ExtractPublicPropTypes<typeof modalDescripti
 export const ModalDescription = defineComponent({
   name: 'DestylerModalDescription',
   props: modalDescriptionProps,
-
   setup() {
     useForwardExpose()
   },

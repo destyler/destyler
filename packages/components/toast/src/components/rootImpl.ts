@@ -14,19 +14,36 @@ import { ToastAnnounce } from './announce'
 
 export const toastRootImplProps = {
   ...primitiveProps,
+  /**
+   * @default li
+   */
   as: {
     ...primitiveProps.as,
     default: 'li',
   },
+  /**
+   * Control the sensitivity of the toast for accessibility purposes.
+   *
+   * For toasts that are the result of a user action, choose `foreground`. Toasts generated from background tasks should use `background`.
+   */
   type: {
     type: String as PropType<'foreground' | 'background'>,
     required: false,
   },
+  /**
+   * The controlled open state of the dialog. Can be bind as `v-model:open`.
+   *
+   * @default false
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * Time in milliseconds that toast should remain visible for. Overrides value
+   * given to `ToastProvider`.
+   */
   duration: {
     type: Number as PropType<number>,
     required: false,
@@ -37,12 +54,30 @@ export type ToastRootImplProps = ExtractPublicPropTypes<typeof toastRootImplProp
 
 export const toastRootImplEmits = {
   close: () => true,
+  /**
+   * Event handler called when the escape key is down. It can be prevented by calling `event.preventDefault`.
+   */
   escapeKeyDown: (_event: KeyboardEvent) => true,
+  /**
+   * Event handler called when the dismiss timer is paused. This occurs when the pointer is moved over the viewport, the viewport is focused or when the window is blurred.
+   */
   pause: () => true,
+  /**
+   * Event handler called when the dismiss timer is resumed. This occurs when the pointer is moved away from the viewport, the viewport is blurred or when the window is focused.
+   */
   resume: () => true,
+  /**
+   * Event handler called when starting a swipe interaction. It can be prevented by calling `event.preventDefault`.
+   */
   swipeStart: (_event: SwipeEvent) => true,
+  /**
+   * Event handler called during a swipe interaction. It can be prevented by calling `event.preventDefault`.
+   */
   swipeMove: (_event: SwipeEvent) => true,
   swipeCancel: (_event: SwipeEvent) => true,
+  /**
+   * Event handler called at the end of a swipe interaction. It can be prevented by calling `event.preventDefault`.
+   */
   swipeEnd: (_event: SwipeEvent) => true,
 }
 
@@ -54,7 +89,12 @@ export const ToastRootImpl = defineComponent({
   props: toastRootImplProps,
   emits: toastRootImplEmits,
   slots: Object as SlotsType<{
-    default: (props: { remaining: number }) => VNode[]
+    default: (props: {
+      /**
+       * Remaining time (in ms)
+       */
+      remaining: number
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()

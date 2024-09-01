@@ -11,6 +11,12 @@ import { PopoverContentNonModal } from './contentNonModal'
 
 export const popoverContentProps = {
   ...popoverContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   *
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -28,7 +34,6 @@ export const PopoverContent = defineComponent({
   name: 'DestylerPopoverContent',
   props: popoverContentProps,
   emits: popoverContentEmits,
-
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
 

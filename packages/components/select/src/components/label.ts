@@ -7,6 +7,9 @@ import { injectSelectGroupContext } from './group'
 
 export const selectLabelProps = {
   ...primitiveProps,
+  /**
+   * The id of the element the label is associated with.
+   */
   for: {
     type: String as PropType<string>,
     required: false,
@@ -18,7 +21,6 @@ export type SelectLabelProps = ExtractPublicPropTypes<typeof selectLabelProps>
 export const SelectLabel = defineComponent({
   name: 'DestylerSelectLabel',
   props: selectLabelProps,
-
   setup() {
     const groupContext = injectSelectGroupContext({ id: '' })
 

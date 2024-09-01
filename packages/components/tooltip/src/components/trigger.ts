@@ -11,6 +11,9 @@ export type TooltipTriggerDataState = | 'closed' | 'delayed-open' | 'instant-ope
 
 export const tooltipTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -22,7 +25,6 @@ export type TooltipTriggerProps = ExtractPublicPropTypes<typeof tooltipTriggerPr
 export const TooltipTrigger = defineComponent({
   name: 'DestylerTooltipTrigger',
   props: tooltipTriggerProps,
-
   setup() {
     const rootContext = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()

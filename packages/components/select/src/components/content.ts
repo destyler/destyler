@@ -10,6 +10,10 @@ import { injectSelectRootContext } from './root'
 
 export const selectContentProps = {
   ...selectContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -27,7 +31,6 @@ export const SelectContent = defineComponent({
   inheritAttrs: false,
   props: selectContentProps,
   emits: selectContentEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

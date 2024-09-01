@@ -11,7 +11,6 @@ export type MenuSeparatorProps = ExtractPublicPropTypes<typeof menuSeparatorProp
 export const MenuSeparator = defineComponent({
   name: 'DestylerMenuSeparator',
   props: menuSeparatorProps,
-
   render() {
     return h(Primitive, mergeProps(this.$props, {
       'role': 'separator',

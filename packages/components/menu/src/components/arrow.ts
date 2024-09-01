@@ -11,7 +11,6 @@ export type MenuArrowProps = ExtractPublicPropTypes<typeof menuArrowProps>
 export const MenuArrow = defineComponent({
   name: 'DestylerMenuArrow',
   props: menuArrowProps,
-
   render() {
     return h(PopperArrow, this.$props, () => this.$slots.default?.())
   },

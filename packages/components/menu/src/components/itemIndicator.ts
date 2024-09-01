@@ -9,10 +9,17 @@ import { getCheckedState } from '../utils'
 
 export const menuItemIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,7 +37,6 @@ export const [injectMenuItemIndicatorContext, provideMenuItemIndicatorContext] =
 export const MenuItemIndicator = defineComponent({
   name: 'DestylerMenuItemIndicator',
   props: menuItemIndicatorProps,
-
   setup() {
     const indicatorContext = injectMenuItemIndicatorContext({
       checked: ref(false),

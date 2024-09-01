@@ -9,6 +9,9 @@ import { provideMenuItemIndicatorContext } from './itemIndicator'
 
 export const menuRadioItemProps = {
   ...menuItemProps,
+  /**
+   * The unique value of the item.
+   */
   value: {
     type: String as PropType<string>,
     required: true,
@@ -25,7 +28,6 @@ export const MenuRadioItem = defineComponent({
   name: 'DestylerMenuRadioItem',
   props: menuRadioItemProps,
   emits: menuRadioItemEmits,
-
   setup(props) {
     const { value } = toRefs(props)
     const radioGroupContext = injectMenuRadioGroupContext()

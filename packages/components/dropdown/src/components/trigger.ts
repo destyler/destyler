@@ -10,10 +10,16 @@ import { injectDropdownMenuRootContext } from './root'
 
 export const dropdownTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with item
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -25,7 +31,6 @@ export type DropdownTriggerProps = ExtractPublicPropTypes<typeof dropdownTrigger
 export const DropdownTrigger = defineComponent({
   name: 'DestylerDropdownTrigger',
   props: dropdownTriggerProps,
-
   setup() {
     const rootContext = injectDropdownMenuRootContext()
 

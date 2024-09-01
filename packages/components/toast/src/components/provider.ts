@@ -6,21 +6,43 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import type { SwipeDirection } from '../utils'
 
 export const toastProviderProps = {
+  /**
+   * An author-localized label for each toast.
+   * Used to help screen reader users
+   * associate the interruption with a toast.
+   *
+   * @defaultValue Notification
+   */
   label: {
     type: String as PropType<string>,
     required: false,
     default: 'Notification',
   },
+  /**
+   * Time in milliseconds that each toast should remain visible for.
+   *
+   * @defaultValue 5000
+   */
   duration: {
     type: Number as PropType<number>,
     required: false,
     default: 5000,
   },
+  /**
+   * Direction of pointer swipe that should close the toast.
+   *
+   * @defaultValue 'right'
+   */
   swipeDirection: {
     type: String as PropType<SwipeDirection>,
     required: false,
     default: 'right',
   },
+  /**
+   * Distance in pixels that the swipe must pass before a close is triggered.
+   *
+   * @defaultValue 50
+   */
   swipeThreshold: {
     type: Number as PropType<number>,
     required: false,
@@ -49,7 +71,6 @@ export const [injectToastProviderContext, provideToastProviderContext] = createC
 export const ToastProvider = defineComponent({
   name: 'DestylerToastProvider',
   props: toastProviderProps,
-
   setup(props) {
     const { label, duration, swipeDirection, swipeThreshold } = toRefs(props)
 

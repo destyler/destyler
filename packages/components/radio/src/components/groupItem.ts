@@ -16,18 +16,33 @@ export const radioGroupItemProps = {
   as: {
     ...radioProps.as,
   },
+  /**
+   * The name of the input fields in the radio (Useful for form submission).
+   */
   id: {
     ...radioProps.id,
   },
+  /**
+   * The value given as data when submitted with a `name`.
+   */
   value: {
     ...radioProps.value,
   },
+  /**
+   * When `true`, prevents the user from interacting with the radio item.
+   */
   disabled: {
     ...radioProps.disabled,
   },
+  /**
+   * When `true`, indicates that the user must check the radio item before the owning form can be submitted.
+   */
   required: {
     ...radioProps.required,
   },
+  /**
+   * The name of the input fields in the radio (Useful for form submission).
+   */
   name: {
     ...radioProps.name,
   },
@@ -46,7 +61,6 @@ export const RadioGroupItem = defineComponent({
   name: 'RadioGroupItem',
   inheritAttrs: false,
   props: radioGroupItemProps,
-
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 

@@ -9,36 +9,74 @@ import { TOOLTIP_OPEN } from '../utils'
 import { injectTooltipProviderContext } from './provider'
 
 export const tooltipRootProps = {
+  /**
+   * The open state of the tooltip when it is initially rendered.
+   * Use when you do not need to control its open state.
+   *
+   * @default false
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The controlled open state of the tooltip.
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * Override the duration given to the `Provider` to customise
+   * the open delay for a specific tooltip.
+   *
+   * @defaultValue 400
+   */
   delayDuration: {
     type: Number as PropType<number>,
     required: false,
     default: 400,
   },
+  /**
+   * Prevents Tooltip.Content from remaining open when hovering.
+   * Disabling this has accessibility consequences. Inherits
+   * from Tooltip.Provider.
+   */
   disableHoverableContent: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * When `true`, clicking on trigger will not close the content.
+   *
+   * @defaultValue false
+   */
   disableClosingTrigger: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * When `true`, disable tooltip
+   *
+   * @defaultValue false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * Prevent the tooltip from opening if the focus did not come from
+   * the keyboard by matching against the `:focus-visible` selector.
+   * This is useful if you want to avoid opening it when switching
+   * browser tabs or closing a dialog.
+   *
+   * @defaultValue false
+   */
   ignoreNonKeyboardFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -49,6 +87,9 @@ export const tooltipRootProps = {
 export type TooltipRootProps = ExtractPublicPropTypes<typeof tooltipRootProps>
 
 export const tooltipRootEmits = {
+  /**
+   * Event handler called when the open state of the tooltip changes.
+   */
   'update:open': (_value: boolean) => true,
 }
 
@@ -74,7 +115,6 @@ export const TooltipRoot = defineComponent({
   name: 'DestylerTooltipRoot',
   props: tooltipRootProps,
   emits: tooltipRootEmits,
-
   setup(props, { emit }) {
     useForwardExpose()
     const providerContext = injectTooltipProviderContext()

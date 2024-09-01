@@ -7,6 +7,9 @@ import { injectPaginationRootContext } from './root'
 
 export const paginationLastProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type PaginationLastProps = ExtractPublicPropTypes<typeof paginationLastPr
 export const PaginationLast = defineComponent({
   name: 'DestylerPaginationLast',
   props: paginationLastProps,
-
   setup() {
     useForwardExpose()
 

@@ -8,10 +8,16 @@ import { injectRangeCalendarRootContext } from './root'
 
 export const rangeCalendarCellProps = {
   ...primitiveProps,
+  /**
+   * @default td
+   */
   as: {
     ...primitiveProps.as,
     default: 'td',
   },
+  /**
+   * The date value for the cell
+   */
   date: {
     type: Object as PropType<DateValue>,
     required: true,
@@ -23,7 +29,6 @@ export type RangeCalendarCellProps = ExtractPublicPropTypes<typeof rangeCalendar
 export const RangeCalendarCell = defineComponent({
   name: 'DestylerRangeCalendarCell',
   props: rangeCalendarCellProps,
-
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 

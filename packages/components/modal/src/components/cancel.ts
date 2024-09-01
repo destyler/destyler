@@ -14,7 +14,6 @@ export type ModalCancelProps = ExtractPublicPropTypes<typeof modalCancelProps>
 export const ModalCancel = defineComponent({
   name: 'DestylerModalCancel',
   props: modalCancelProps,
-
   setup() {
     const contentContext = injectModalContentContext()
     const { forwardRef, currentElement } = useForwardExpose()

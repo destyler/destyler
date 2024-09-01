@@ -14,7 +14,6 @@ export type SelectArrowProps = ExtractPublicPropTypes<typeof selectArrowProps>
 export const SelectArrow = defineComponent({
   name: 'DestylerSelectArrow',
   props: selectArrowProps,
-
   setup() {
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext()

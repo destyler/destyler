@@ -12,7 +12,6 @@ export type MenubarSubTriggerProps = ExtractPublicPropTypes<typeof menubarSubTri
 export const MenubarSubTrigger = defineComponent({
   name: 'DestylerMenubarSubTrigger',
   props: menubarSubTriggerProps,
-
   setup() {
     useForwardExpose()
   },

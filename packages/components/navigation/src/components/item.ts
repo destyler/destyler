@@ -15,10 +15,18 @@ import { injectNavigationContext } from './root'
 
 export const navigationItemProps = {
   ...primitiveProps,
+  /**
+   * @default li
+   */
   as: {
     ...primitiveProps.as,
     default: 'li',
   },
+  /**
+   * A unique value that associates the item with an active value when the navigation menu is controlled.
+   *
+   * This prop is managed automatically when uncontrolled.
+   */
   value: {
     type: String as PropType<string>,
     required: false,
@@ -44,7 +52,6 @@ export const [injectNavigationItemContext, provideNavigationItemContext] = creat
 export const NavigationItem = defineComponent({
   name: 'DestylerNavigationItem',
   props: navigationItemProps,
-
   setup(props) {
     useForwardExpose()
     const { injectCollection } = useCollection('nav')

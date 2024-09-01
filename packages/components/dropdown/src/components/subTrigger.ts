@@ -12,7 +12,6 @@ export type DropdownSubTriggerProps = ExtractPublicPropTypes<typeof dropdownSubT
 export const DropdownSubTrigger = defineComponent({
   name: 'DestylerDropdownSubTrigger',
   props: dropdownSubTriggerProps,
-
   setup() {
     useForwardExpose()
   },

@@ -9,10 +9,17 @@ import { injectRadioGroupItemContext } from './groupItem'
 
 export const radioGroupIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -24,7 +31,6 @@ export type RadioGroupIndicatorProps = ExtractPublicPropTypes<typeof radioGroupI
 export const RadioGroupIndicator = defineComponent({
   name: 'DestylerRadioGroupindicator',
   props: radioGroupIndicatorProps,
-
   setup() {
     const itemContext = injectRadioGroupItemContext()
 

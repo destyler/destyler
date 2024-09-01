@@ -6,16 +6,31 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const draggableProps = {
   ...primitiveProps,
+  /**
+   * The x-axis position of the draggable element.
+   *
+   * @default 0
+   */
   x: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * The y-axis position of the draggable element.
+   *
+   * @default 0
+   */
   y: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * Whether or not the calendar is disabled
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -35,7 +50,6 @@ export type PointerType = 'mouse' | 'touch' | 'pen'
 export const Draggable = defineComponent({
   name: 'DestylerDraggable',
   props: draggableProps,
-
   setup(props) {
     const { forwardRef, currentElement } = useForwardExpose()
 

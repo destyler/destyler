@@ -12,7 +12,6 @@ export type ModalOverlayProps = ExtractPublicPropTypes<typeof modalOverlayProps>
 export const ModalOverlay = defineComponent({
   name: 'DestylerModalOverlay',
   props: modalOverlayProps,
-
   setup() {
     useForwardExpose()
   },

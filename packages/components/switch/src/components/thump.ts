@@ -7,6 +7,9 @@ import { injectSwitchRootContext } from './root'
 
 export const switchThumbProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -18,7 +21,6 @@ export type SwitchThumbProps = ExtractPublicPropTypes<typeof switchThumbProps>
 export const SwitchThumb = defineComponent({
   name: 'DestylerSwitchThumb',
   props: switchThumbProps,
-
   setup(_) {
     const rootContext = injectSwitchRootContext()
 

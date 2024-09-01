@@ -12,7 +12,6 @@ export type ToastTitleProps = ExtractPublicPropTypes<typeof toastTitleProps>
 export const ToastTitle = defineComponent({
   name: 'DestylerToastTitle',
   props: toastTitleProps,
-
   setup(_) {
     useForwardExpose()
   },

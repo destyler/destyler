@@ -10,15 +10,30 @@ import { SelectContentDefaultContextValue, injectSelectContentContext } from './
 
 export const selectItemProps = {
   ...primitiveProps,
+  /**
+   * The value given as data when submitted with a `name`.
+   */
   value: {
     type: String,
     required: true,
   },
+  /**
+   * When `true`, prevents the user from interacting with the item.
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * Optional text used for typeahead purposes.
+   *
+   * By default the typeahead behavior will use the `.textContent` of the `SelectItemText` part.
+   *
+   * Use this when the content is complex, or you have non-textual content inside.
+   */
   textValue: {
     type: String as PropType<string>,
     required: false,
@@ -40,7 +55,6 @@ export const [injectSelectItemContext, provideSelectItemContext] = createContext
 export const SelectItem = defineComponent({
   name: 'DestylerSelectItem',
   props: selectItemProps,
-
   setup(props) {
     const { disabled } = toRefs(props)
 

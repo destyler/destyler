@@ -40,7 +40,6 @@ export const Online = defineComponent({
   inheritAttrs: false,
   props: onlineProps,
   emits: onlineEmits,
-
   setup(props, { emit }) {
     onMounted(() => {
       const isOnline = ref<boolean>(navigator.onLine || false)

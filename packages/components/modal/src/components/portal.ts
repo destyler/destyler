@@ -11,7 +11,6 @@ export type ModalPortalProps = ExtractPublicPropTypes<typeof modalPortalProps>
 export const ModalPortal = defineComponent({
   name: 'DestylerModalPortal',
   props: modalPortalProps,
-
   render() {
     return h(TeleportPrimitive, this.$props, () => this.$slots.default?.())
   },

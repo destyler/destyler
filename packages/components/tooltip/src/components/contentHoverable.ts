@@ -8,7 +8,6 @@ import { TooltipContentImpl, tooltipContentImplProps } from './contentImpl'
 export const TooltipContentHoverable = defineComponent({
   name: 'DestylerTooltipContentHoverable',
   props: tooltipContentImplProps,
-
   setup(props) {
     const forwardedProps = useForwardProps(props)
     const { forwardRef, currentElement } = useForwardExpose()

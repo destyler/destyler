@@ -12,6 +12,10 @@ import { injectPopoverRootContext } from './root'
 export const popoverContentImplProps = {
   ...popperContentProps,
   ...dismissableLayerProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   trapFocus: {
     ...focusScopeProps.trapped,
   },
@@ -19,10 +23,17 @@ export const popoverContentImplProps = {
 
 export type PopoverContentImplProps = ExtractPublicPropTypes<typeof popoverContentImplProps>
 
-// ['escapeKeyDown', 'pointerDownOutside', 'focusOutside', 'interactOutside', 'dismiss', 'openAutoFocus', 'closeAutoFocus']
 export const popoverContentImplEmits = {
   ...dismissableLayerEmits,
+  /**
+   * Event handler called when auto-focusing on open.
+   * Can be prevented.
+   */
   openAutoFocus: (_event: Event) => true,
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
   closeAutoFocus: (_event: Event) => true,
 }
 
@@ -30,7 +41,6 @@ export const PopoverContentImpl = defineComponent({
   name: 'DestylerPopoverContentImpl',
   props: popoverContentImplProps,
   emits: popoverContentImplEmits,
-
   setup(props) {
     const forwarded = useForwardProps(props)
     const rootContext = injectPopoverRootContext()

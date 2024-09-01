@@ -8,7 +8,6 @@ export const MenuRootContentModal = defineComponent({
   name: 'DestylerMenuRootContentModal',
   props: menuContentImplProps,
   emits: menuContentImplEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

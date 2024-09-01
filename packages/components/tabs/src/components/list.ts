@@ -9,6 +9,9 @@ import { injectTabsRootContext } from './root'
 
 export const tabsListProps = {
   ...primitiveProps,
+  /**
+   * When `true`, keyboard navigation will loop from last tab to first, and vice versa.
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,7 +24,6 @@ export type TabsListProps = ExtractPublicPropTypes<typeof tabsListProps>
 export const TabsList = defineComponent({
   name: 'DestylerTabsList',
   props: tabsListProps,
-
   setup(props) {
     const { loop } = toRefs(props)
 

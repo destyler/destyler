@@ -10,7 +10,6 @@ export const toastFocusProxyEmits = {
 export const ToastFocusProxy = defineComponent({
   name: 'DestylerToastFocusProxy',
   emits: toastFocusProxyEmits,
-
   setup() {
     const providerContext = injectToastProviderContext()
     return {

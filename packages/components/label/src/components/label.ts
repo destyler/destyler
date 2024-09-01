@@ -8,6 +8,9 @@ export const labelProps = {
   asChild: {
     ...primitiveProps.asChild,
   },
+  /**
+   * The id of the element the label is associated with.
+   */
   for: {
     type: String as PropType<string>,
     required: false,
@@ -20,7 +23,6 @@ export const Label = defineComponent({
   name: 'DestylerLabel',
   inheritAttrs: false,
   props: labelProps,
-
   setup() {
     useForwardRef()
 

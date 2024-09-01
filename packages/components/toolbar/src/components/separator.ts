@@ -15,7 +15,6 @@ export type ToolbarSeparatorProps = ExtractPublicPropTypes<typeof toolbarSeparat
 export const ToolbarSeparator = defineComponent({
   name: 'DestylerToolbarSeparator',
   props: toolbarSeparatorProps,
-
   setup() {
     const rootContext = injectToolbarRootContext()
     useForwardExpose()

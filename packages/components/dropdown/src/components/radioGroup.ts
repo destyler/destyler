@@ -18,7 +18,6 @@ export const DropdownRadioGroup = defineComponent({
   name: 'DestylerDropdownRadioGroup',
   props: dropdownRadioGroupProps,
   emits: dropdownRadioGroupEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

@@ -9,11 +9,21 @@ import { type FocusOutsideEvent, type PointerDownOutsideEvent, useFocusOutside, 
 
 export const dismissableLayerProps = {
   ...primitiveProps,
+  /**
+   * When `true`, hover/focus/click interactions will be disabled on elements outside
+   * the `DismissableLayer`. Users will need to click twice on outside elements to
+   * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
+   *
+   * @default false
+   */
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * @default true
+   */
   isDismissable: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -43,7 +53,6 @@ export const DismissableLayer = defineComponent({
     ...dismissableLayerEmits,
     dismiss: () => true,
   },
-
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
     const ownerDocument = computed(

@@ -11,10 +11,23 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const selectPopperPositionProps = {
   ...popperContentProps,
+  /**
+   * The preferred alignment against the trigger.
+   * May change when collisions occur.
+   *
+   * @defaultValue start
+   */
   align: {
     ...popperContentProps.align,
     default: 'start',
   },
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @defaultValue 10
+   */
   collisionPadding: {
     ...popperContentProps.collisionPadding,
     default: 10,
@@ -26,7 +39,6 @@ export type SelectPopperPositionProps = ExtractPublicPropTypes<typeof selectPopp
 export const SelectPopperPosition = defineComponent({
   name: 'DestylerSelectPopperPosition',
   props: selectPopperPositionProps,
-
   setup(props) {
     const forwarded = useForwardProps(props)
     return {

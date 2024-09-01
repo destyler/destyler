@@ -28,7 +28,6 @@ export const HoverCardContentImpl = defineComponent({
   name: 'DestylerHoverCardContentImpl',
   props: hoverCardContentImplProps,
   emits: hoverCardContentImplEmits,
-
   setup(props) {
     const forwarded = useForwardProps(props)
 

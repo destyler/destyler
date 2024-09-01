@@ -8,6 +8,9 @@ import { MenuGroup, menuGroupProps } from './group'
 
 export const menuRadioGroupProps = {
   ...menuGroupProps,
+  /**
+   * The value of the selected item in the group.
+   */
   modelValue: {
     type: String as PropType<string>,
     required: false,
@@ -18,6 +21,9 @@ export const menuRadioGroupProps = {
 export type MenuRadioGroupProps = ExtractPublicPropTypes<typeof menuRadioGroupProps>
 
 export const menuRadioGroupEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_payload: string) => true,
 }
 
@@ -32,7 +38,6 @@ export const MenuRadioGroup = defineComponent({
   name: 'DestylerMenuRadioGroup',
   props: menuRadioGroupProps,
   emits: menuRadioGroupEmits,
-
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit)
 

@@ -8,6 +8,9 @@ import { injectSliderRootContext } from './root'
 
 export const sliderRangeProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -19,7 +22,6 @@ export type SliderRangeProps = ExtractPublicPropTypes<typeof sliderRangeProps>
 export const SliderRange = defineComponent({
   name: 'DestylerSliderRange',
   props: sliderRangeProps,
-
   setup() {
     const rootContext = injectSliderRootContext()
     const orientation = injectSliderOrientationContext()

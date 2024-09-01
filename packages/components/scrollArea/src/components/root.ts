@@ -7,15 +7,37 @@ import { useDirection, useForwardExpose } from '@destyler/composition'
 
 export const scrollAreaRootProps = {
   ...primitiveProps,
+  /**
+   * Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars.
+   *
+   * `auto` - means that scrollbars are visible when content is overflowing on the corresponding orientation. <br>
+   * `always` - means that scrollbars are always visible regardless of whether the content is overflowing.<br>
+   * `scroll` - means that scrollbars are visible when the user is scrolling along its corresponding orientation.<br>
+   * `hover` - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.
+   *
+   * @default hover
+   */
   type: {
     type: String as PropType<ScrollType>,
     required: false,
     default: 'hover',
   },
+  /**
+   * The reading direction of the scroll area when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * If type is set to either `scroll` or `hover`,
+   * this prop determines the length of time,
+   * in milliseconds, <br>
+   * before the scrollbars are hidden after
+   * the user stops interacting with scrollbars.
+   *
+   * @default 600
+   */
   scrollHideDelay: {
     type: Number as PropType<number>,
     required: false,
@@ -51,7 +73,6 @@ export const [injectScrollAreaRootContext, provideScrollAreaRootContext] = creat
 export const ScrollAreaRoot = defineComponent({
   name: 'DestylerScrollAreaRoot',
   props: scrollAreaRootProps,
-
   setup(props) {
     const { forwardRef, currentElement: scrollArea } = useForwardExpose()
 

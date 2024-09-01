@@ -6,6 +6,9 @@ import { RovingFocusItem } from '@destyler/roving-focus'
 
 export const toolbarLinkProps = {
   ...primitiveProps,
+  /**
+   * @default a
+   */
   as: {
     ...primitiveProps.as,
     default: 'a',
@@ -17,7 +20,6 @@ export type ToolbarLinkProps = ExtractPublicPropTypes<typeof toolbarLinkProps>
 export const ToolbarLink = defineComponent({
   name: 'DestylerToolbarLink',
   props: toolbarLinkProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
 

@@ -8,6 +8,13 @@ import { MenuRoot } from '@destyler/menu'
 import { injectMenubarRootContext } from './root'
 
 export const menubarMenuProps = {
+  /**
+   * A unique value that associates the item with an active value when the navigation menu is controlled.
+   *
+   * This prop is managed automatically when uncontrolled.
+   *
+   * @default undefined
+   */
   value: {
     type: String as PropType<string>,
     required: false,
@@ -30,7 +37,6 @@ export const [injectMenubarMenuContext, provideMenubarMenuContext] = createConte
 export const MenubarMenu = defineComponent({
   name: 'DestylerMenubarMenu',
   props: menubarMenuProps,
-
   setup(props) {
     const value = props.value ?? useId()
     const rootContext = injectMenubarRootContext()

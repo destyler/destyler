@@ -9,6 +9,9 @@ import { injectHoverCardRootContext } from './root'
 
 export const hoverCardTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default a
+   */
   as: {
     ...primitiveProps.as,
     default: 'a',
@@ -20,7 +23,6 @@ export type HoverCardTriggerProps = ExtractPublicPropTypes<typeof hoverCardTrigg
 export const HoverCardTrigger = defineComponent({
   name: 'DestylerHoverCardTrigger',
   props: hoverCardTriggerProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectHoverCardRootContext()

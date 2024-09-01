@@ -8,10 +8,17 @@ import { injectMenuContentContext } from './contentImpl'
 
 export const menuItemImplProps = {
   ...primitiveProps,
+  /**
+   * When `true`, prevents the user from interacting with the item.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Optional text used for typeahead purposes. By default the typeahead behavior will use the `.textContent` of the item. <br>
+   * Use this when the content is complex, or you have non-textual content inside.
+   */
   textValue: {
     type: String as PropType<string>,
     required: false,
@@ -23,7 +30,6 @@ export type MenuItemImplProps = ExtractPublicPropTypes<typeof menuItemImplProps>
 export const MenuItemImpl = defineComponent({
   name: 'DestylerMenuItemImpl',
   props: menuItemImplProps,
-
   setup(props) {
     const contentContext = injectMenuContentContext()
 

@@ -8,6 +8,10 @@ import { injectScrollAreaScrollbarContext } from './scrollbar'
 import { ScrollAreaScrollbarVisible } from './scrollbarVisible'
 
 export const scrollAreaScrollbarScrollProps = {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean,
     required: false,
@@ -19,7 +23,6 @@ export type ScrollAreaScrollbarScrollProps = ExtractPublicPropTypes<typeof scrol
 export const ScrollAreaScrollbarScroll = defineComponent({
   name: 'DestylerScrollAreaScrollbarScroll',
   props: scrollAreaScrollbarScrollProps,
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()

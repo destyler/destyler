@@ -11,7 +11,6 @@ export const scrollSelectButtonImplEmits = {
 export const ScrollSelectButtonImpl = defineComponent({
   name: 'DestylerSelectButtonImpl',
   emits: scrollSelectButtonImplEmits,
-
   setup(_, { emit }) {
     const { injectCollection } = useCollection()
 

@@ -6,15 +6,31 @@ import { createContext, isClient } from '@destyler/shared'
 import { PopperRoot } from '@destyler/popper'
 
 export const menuRootProps = {
+  /**
+   * The controlled open state of the menu.
+   * Can be used as `v-model:open`.
+   *
+   * @default false
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * The modality of the dropdown menu.
+   *
+   * When set to `true`, interaction with outside elements will be disabled and only menu content will be visible to screen readers.
+   *
+   * @default true
+   */
   modal: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -25,6 +41,9 @@ export const menuRootProps = {
 export type MenuRootProps = ExtractPublicPropTypes<typeof menuRootProps>
 
 export const menuRootEmits = {
+  /**
+   * Event handler called when the open state of the menu changes.
+   */
   'update:open': (_open: boolean) => true,
 }
 
@@ -50,7 +69,6 @@ export const MenuRoot = defineComponent({
   name: 'DestylerMenuRoot',
   props: menuRootProps,
   emits: menuRootEmits,
-
   setup(props, { emit }) {
     const { modal, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

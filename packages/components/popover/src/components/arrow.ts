@@ -11,7 +11,6 @@ export type PopoverArrowProps = ExtractPublicPropTypes<typeof popoverArrowProps>
 export const PopoverArrow = defineComponent({
   name: 'DestylerPopoverArrow',
   props: popoverArrowProps,
-
   render() {
     return h(PopperArrow, mergeProps(this.$props, {
     }), () => this.$slots.default?.())

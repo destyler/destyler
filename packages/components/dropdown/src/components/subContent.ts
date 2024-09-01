@@ -24,7 +24,6 @@ export const DropdownSubContent = defineComponent({
   name: 'DestylerDropdownSubContent',
   props: dropdownSubContentProps,
   emits: dropdownSubContentEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

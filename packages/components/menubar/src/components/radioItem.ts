@@ -18,7 +18,6 @@ export const MenubarRadioItem = defineComponent({
   name: 'DestylerMenubarRadioItem',
   props: menubarRadioItemProps,
   emits: menubarRadioItemEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

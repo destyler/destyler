@@ -10,11 +10,23 @@ import { createFocusScopesStack, removeLinks } from './stack'
 
 export const focusScopeProps = {
   ...primitiveProps,
+  /**
+   * When `true`, tabbing from last item will focus first tabbable
+   * and shift+tab from first item will focus last tababble.
+   *
+   * @default false
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, focus cannot escape the focus scope via keyboard,
+   * pointer, or a programmatic focus.
+   *
+   * @default false
+   */
   trapped: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -25,7 +37,15 @@ export const focusScopeProps = {
 export type FocusScopeProps = ExtractPublicPropTypes<typeof focusScopeProps>
 
 export const focusScopeEmits = {
+  /**
+   * Event handler called when auto-focusing on mount.
+   * Can be prevented.
+   */
   mountAutoFocus: (_event: Event) => true,
+  /**
+   * Event handler called when auto-focusing on unmount.
+   * Can be prevented.
+   */
   unmountAutoFocus: (_event: Event) => true,
 }
 
@@ -33,7 +53,6 @@ export const FocusScope = defineComponent({
   name: 'DestylerFocusScope',
   props: focusScopeProps,
   emits: focusScopeEmits,
-
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const lastFocusedElementRef = ref<HTMLElement | null>(null)

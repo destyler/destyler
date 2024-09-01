@@ -8,15 +8,25 @@ import { RovingFocusGroup } from '@destyler/roving-focus'
 
 export const toolbarRootProps = {
   ...primitiveProps,
+  /**
+   * The orientation of the toolbar
+   * @default horizontal
+   */
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
     default: 'horizontal',
   },
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * When `true`, keyboard navigation will loop from last tab to first, and vice versa.
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -35,7 +45,6 @@ export const [injectToolbarRootContext, provideToolbarRootContext] = createConte
 export const ToolbarRoot = defineComponent({
   name: 'DestylerToolbarRoot',
   props: toolbarRootProps,
-
   setup(props) {
     const { orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

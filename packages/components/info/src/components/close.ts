@@ -6,6 +6,9 @@ import { injectInfoRootContext } from './root'
 
 export const infoCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export const InfoClose = defineComponent({
   name: 'DestylerInfoClose',
   props: infoCloseProps,
   inheritAttrs: false,
-
   setup() {
     const rootContent = injectInfoRootContext()
 

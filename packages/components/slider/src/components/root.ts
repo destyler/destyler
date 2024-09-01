@@ -13,54 +13,100 @@ import { SliderHorizontal } from './horizontal'
 
 export const sliderRootProps = {
   ...primitiveProps,
+
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The value of the slider when initially rendered. Use when you do not need to control the state of the slider.
+   * @default () => [0]
+   */
   defaultValue: {
     type: Array as PropType<number[]>,
     required: false,
     default: () => [0],
   },
+  /**
+   * The controlled value of the slider. Can be bind as `v-model`.
+   *
+   * @default undefined
+   */
   modelValue: {
     type: Array as PropType<number[]>,
     required: false,
     default: undefined,
   },
+  /**
+   * When `true`, prevents the user from interacting with the slider.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The orientation of the slider.
+   *
+   * @default horizontal
+   */
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
     default: 'horizontal',
   },
+  /**
+   * The reading direction of the slider when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * Whether the slider is visually inverted.
+   *
+   * @default false
+   */
   inverted: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The minimum value for the range.
+   *
+   * @default 0
+   */
   min: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * The maximum value for the range.
+   *
+   * @default 100
+   */
   max: {
     type: Number as PropType<number>,
     required: false,
     default: 100,
   },
+  /**
+   * The stepping interval.
+   *
+   * @default 1
+   */
   step: {
     type: Number as PropType<number>,
     required: false,
     default: 1,
   },
+  /**
+   * The minimum permitted steps between multiple thumbs.
+   *
+   * @default 0
+   */
   minStepsBetweenThumbs: {
     type: Number as PropType<number>,
     required: false,
@@ -83,7 +129,15 @@ export interface SliderRootContext {
 export const [injectSliderRootContext, provideSliderRootContext] = createContext<SliderRootContext>('DestylerSliderRoot')
 
 export const sliderRootEmits = {
+  /**
+   * Event handler called when the slider value changes
+   */
   'update:modelValue': (_payload: number[] | undefined) => true,
+  /**
+   * Event handler called when the value changes at the end of an interaction.
+   *
+   * Useful when you only need to capture a final value e.g. to update a backend service.
+   */
   'valueCommit': (_payload: number[]) => true,
 }
 
@@ -93,7 +147,12 @@ export const SliderRoot = defineComponent({
   props: sliderRootProps,
   emit: sliderRootEmits,
   slots: Object as SlotsType<{
-    default: (opts: { modelValue: number[] }) => VNode[]
+    default: (opts: {
+      /**
+       * Current slider values
+       */
+      modelValue: number[]
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { min, max, step, minStepsBetweenThumbs, orientation, disabled, dir: propDir } = toRefs(props)

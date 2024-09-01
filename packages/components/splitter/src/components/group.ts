@@ -33,24 +33,46 @@ const defaultStorage: PanelGroupStorage = {
 
 export const splitterGroupProps = {
   ...primitiveProps,
+  /**
+   * Group id; falls back to `useId` when not provided.
+   */
   id: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Unique id used to auto-save group
+   * arrangement via `localStorage`.
+   *
+   * @default null
+   */
   autoSaveId: {
     type: String as PropType<string>,
     required: false,
     default: null,
   },
+  /**
+   * The group orientation of splitter.
+   */
   direction: {
     type: String as PropType<Direction>,
     required: true,
   },
+  /**
+   * Step size when arrow key was pressed.
+   *
+   * @default 10
+   */
   keyboardResizeBy: {
     type: Number as PropType<number>,
     required: false,
     default: 10,
   },
+  /**
+   * Custom storage API; defaults to localStorage
+   *
+   * @default () => defaultStorage
+   */
   storage: {
     type: Object as PropType<PanelGroupStorage>,
     required: false,
@@ -61,6 +83,9 @@ export const splitterGroupProps = {
 export type SplitterGroupProps = ExtractPublicPropTypes<typeof splitterGroupProps>
 
 export const splitterGroupEmits = {
+  /**
+   * Event handler called when group layout changes
+   */
   layout: (_layout: number[]) => true,
 }
 
@@ -91,7 +116,12 @@ export const SplitterGroup = defineComponent({
   props: splitterGroupProps,
   emits: splitterGroupEmits,
   slots: Object as SlotsType<{
-    default: (props: { layout: number[] }) => VNode[]
+    default: (props: {
+      /**
+       * Current size of layout
+       */
+      layout: number[]
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const LOCAL_STORAGE_DEBOUNCE_INTERVAL = 100

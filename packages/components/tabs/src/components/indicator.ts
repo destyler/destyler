@@ -7,6 +7,9 @@ import { injectTabsRootContext } from './root'
 
 export const tabsIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type TabsIndicatorProps = ExtractPublicPropTypes<typeof tabsIndicatorProp
 export const TabsIndicator = defineComponent({
   name: 'DestylerTabsIndicator',
   props: tabsIndicatorProps,
-
   setup() {
     const context = injectTabsRootContext()
     useForwardExpose()

@@ -10,6 +10,9 @@ import { injectToggleGroupRootContext } from './groupRoot'
 
 export const toggleGroupItemProps = {
   ...toggleProps,
+  /**
+   * A string value for the toggle group item. All items within a toggle group should use a unique value.
+   */
   value: {
     type: String as PropType<string>,
     required: true,
@@ -21,7 +24,6 @@ export type ToggleGroupItemProps = ExtractPublicPropTypes<typeof toggleGroupItem
 export const ToggleGroupItem = defineComponent({
   name: 'ToggleGroupItem',
   props: toggleGroupItemProps,
-
   setup(props) {
     const rootContext = injectToggleGroupRootContext()
     const disabled = computed(() => rootContext.disabled?.value || props.disabled)

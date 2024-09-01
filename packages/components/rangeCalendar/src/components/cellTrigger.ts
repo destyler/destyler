@@ -10,10 +10,16 @@ import { injectRangeCalendarRootContext } from './root'
 
 export const rangeCalendarCellTriggerProps = {
   ...primitiveProps,
+  /**
+   * The date value provided to the cell trigger
+   */
   day: {
     type: Object as PropType<DateValue>,
     required: true,
   },
+  /**
+   * The month in which the cell is rendered
+   */
   month: {
     type: Object as PropType<DateValue>,
     required: true,
@@ -25,7 +31,6 @@ export type RangeCalendarCellTriggerProps = ExtractPublicPropTypes<typeof rangeC
 export const RangeCalendarCellTrigger = defineComponent({
   name: 'DestylerRangeCalendarCellTrigger',
   props: rangeCalendarCellTriggerProps,
-
   setup(props) {
     const rootContext = injectRangeCalendarRootContext()
 

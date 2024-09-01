@@ -17,7 +17,6 @@ export type SelectProviderProps = ExtractPublicPropTypes<typeof selectProviderPr
 export const SelectProvider = defineComponent({
   name: 'DestylerSelectProvider',
   props: selectProviderProps,
-
   setup(props) {
     provideSelectRootContext(props.context)
   },

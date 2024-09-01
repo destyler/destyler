@@ -7,6 +7,9 @@ import { injectDynamicRootContext } from './root'
 
 export const dynamicClearProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,7 +21,6 @@ export type DynamicClearProps = ExtractPublicPropTypes<typeof dynamicClearProps>
 export const DynamicClear = defineComponent({
   name: 'DestylerDynamicClear',
   props: dynamicClearProps,
-
   setup() {
     useForwardExpose()
     const context = injectDynamicRootContext()

@@ -14,6 +14,10 @@ export const menuItemProps = {
 export type MenuItemProps = ExtractPublicPropTypes<typeof menuItemProps>
 
 export const menuItemEmits = {
+  /**
+   * Event handler called when the user selects an item (via mouse or keyboard). <br>
+   * Calling `event.preventDefault` in this handler will prevent the menu from closing when selecting that item.
+   */
   select: (_event: Event) => true,
 }
 
@@ -21,7 +25,6 @@ export const MenuItem = defineComponent({
   name: 'DestylerMenuItem',
   props: menuItemProps,
   emits: menuItemEmits,
-
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const rootContext = injectMenuRootContext()

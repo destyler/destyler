@@ -5,6 +5,10 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const toastAnnounceExcludeProps = {
   ...primitiveProps,
+  /**
+   * A short description for an alternate way to carry out the action. For screen reader users
+   * who will not be able to navigate to the button easily/quickly.
+   */
   altText: {
     type: String as PropType<string>,
     required: false,
@@ -16,7 +20,6 @@ export type ToastAnnounceExcludeProps = ExtractPublicPropTypes<typeof toastAnnou
 export const ToastAnnounceExclude = defineComponent({
   name: 'DestylerToastAnnounceExclude',
   props: toastAnnounceExcludeProps,
-
   render() {
     return h(Primitive, {
       'as': this.as,

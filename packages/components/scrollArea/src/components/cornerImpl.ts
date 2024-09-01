@@ -6,7 +6,6 @@ import { injectScrollAreaRootContext } from './root'
 
 export const ScrollAreaCornerImpl = defineComponent({
   name: 'DestylerScrollAreaCornerImpl',
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
 

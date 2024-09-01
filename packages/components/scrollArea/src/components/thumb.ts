@@ -17,7 +17,6 @@ export type ScrollAreaThumbProps = ExtractPublicPropTypes<typeof scrollAreaThumb
 export const ScrollAreaThumb = defineComponent({
   name: 'DestylerScrollAreaThumb',
   props: scrollAreaThumbProps,
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContextVisible = injectScrollAreaScrollbarVisibleContext()

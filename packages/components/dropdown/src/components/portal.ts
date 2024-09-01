@@ -11,7 +11,6 @@ export type DropdownPortalProps = ExtractPublicPropTypes<typeof dropdownPortalPr
 export const DropdownPortal = defineComponent({
   name: 'DestylerDropdownPortal',
   props: dropdownPortalProps,
-
   render() {
     return h(MenuPortal, this.$props, () => this.$slots.default?.())
   },

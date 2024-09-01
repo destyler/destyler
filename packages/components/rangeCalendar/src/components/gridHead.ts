@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const rangeCalendarGridHeadProps = {
   ...primitiveProps,
+  /**
+   * @default thead
+   */
   as: {
     ...primitiveProps.as,
     default: 'thead',
@@ -15,7 +18,6 @@ export type RangeCalendarGridHeadProps = ExtractPublicPropTypes<typeof rangeCale
 export const RangeCalendarGridHead = defineComponent({
   name: 'DestylerRangeCalendarGridHead',
   props: rangeCalendarGridHeadProps,
-
   render() {
     return h(Primitive, mergeProps(this.$props, {
       'aria-hidden': true,

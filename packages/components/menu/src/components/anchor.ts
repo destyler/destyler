@@ -11,7 +11,6 @@ export type MenuAnchorProps = ExtractPublicPropTypes<typeof menuAnchorProps>
 export const MenuAnchor = defineComponent({
   name: 'DestylerMenuAnchor',
   props: menuAnchorProps,
-
   render() {
     return h(PopperAnchor, this.$props, () => this.$slots.default?.())
   },

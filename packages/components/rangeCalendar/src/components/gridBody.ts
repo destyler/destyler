@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const rangeCalendarGridBodyProps = {
   ...primitiveProps,
+  /**
+   * @default tbody
+   */
   as: {
     ...primitiveProps.as,
     default: 'tbody',
@@ -15,7 +18,6 @@ export type RangeCalendarGridBodyProps = ExtractPublicPropTypes<typeof rangeCale
 export const RangeCalendarGridBody = defineComponent({
   name: 'DestylerRangeCalendarGridBody',
   props: rangeCalendarGridBodyProps,
-
   render() {
     return h(Primitive, mergeProps(this.$props), {
       default: () => this.$slots.default?.(),

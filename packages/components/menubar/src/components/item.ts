@@ -18,7 +18,6 @@ export const MenubarItem = defineComponent({
   name: 'DestylerMenubarItem',
   props: menubarItemProps,
   emits: menubarItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

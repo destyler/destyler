@@ -22,7 +22,6 @@ export type ImageRootProps = ExtractPublicPropTypes<typeof imageRootProps>
 export const ImageRoot = defineComponent({
   name: 'DestylerImageRoot',
   props: imageRootProps,
-
   setup() {
     provideImageRootContext({
       imageLoadingStatus: ref<ImageLoadingStatus>('loading'),

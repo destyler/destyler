@@ -11,7 +11,6 @@ export type MenubarPortalProps = ExtractPublicPropTypes<typeof menubarPortalProp
 export const MenubarPortal = defineComponent({
   name: 'DestylerMenubarPortal',
   props: menubarPortalProps,
-
   render() {
     return h(MenuPortal, this.$props, () => this.$slots.default?.())
   },

@@ -7,15 +7,28 @@ import { PopperArrow } from '@destyler/popper'
 
 export const hoverCardArrowProps = {
   ...primitiveProps,
+  /**
+   * @default svg
+   */
   as: {
     ...primitiveProps.as,
     default: 'svg',
   },
+  /**
+   * The width of the arrow in pixels.
+   *
+   * @default 10
+   */
   width: {
     type: Number as PropType<number>,
     required: false,
     default: 10,
   },
+  /**
+   * The height of the arrow in pixels.
+   *
+   * @default 5
+   */
   height: {
     type: Number as PropType<number>,
     required: false,
@@ -28,7 +41,6 @@ export type HoverCardArrowProps = ExtractPublicPropTypes<typeof hoverCardArrowPr
 export const HoverCardArrow = defineComponent({
   name: 'DestylerHoverCardArrow',
   props: hoverCardArrowProps,
-
   setup() {
     useForwardExpose()
   },

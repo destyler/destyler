@@ -12,7 +12,6 @@ export type DropdownLabelProps = ExtractPublicPropTypes<typeof dropdownLabelProp
 export const DropdownLabel = defineComponent({
   name: 'DestylerDropdownLabel',
   props: dropdownLabelProps,
-
   setup() {
     useForwardExpose()
   },

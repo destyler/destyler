@@ -6,6 +6,9 @@ import { injectSelectItemContext } from './item'
 
 export const selectInDicatorProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -17,7 +20,6 @@ export type SelectInDicatorProps = ExtractPublicPropTypes<typeof selectInDicator
 export const SelectItemIndicator = defineComponent({
   name: 'DestylerSelectItemIndicator',
   props: selectInDicatorProps,
-
   setup() {
     const itemContext = injectSelectItemContext()
 

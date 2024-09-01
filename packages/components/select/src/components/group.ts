@@ -19,7 +19,6 @@ export const [injectSelectGroupContext, provideSelectGroupContext] = createConte
 export const SelectGroup = defineComponent({
   name: 'DestylerSelectGroup',
   props: selectGroupProps,
-
   setup() {
     const id = useId(undefined, 'destyler-select-group')
     provideSelectGroupContext({ id })

@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const selectIconProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -15,7 +18,6 @@ export type SelectIconProps = ExtractPublicPropTypes<typeof selectIconProps>
 export const SelectIcon = defineComponent({
   name: 'DestylerSelectIcon',
   props: selectIconProps,
-
   render() {
     return h(Primitive, {
       'aria-hidden': '',

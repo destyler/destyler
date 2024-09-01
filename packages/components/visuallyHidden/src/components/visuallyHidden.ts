@@ -4,6 +4,9 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const visuallyHiddenProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...Primitive.as,
     default: 'span',
@@ -15,7 +18,6 @@ export type VisuallyHiddenProps = ExtractPublicPropTypes<typeof visuallyHiddenPr
 export const VisuallyHidden = defineComponent({
   name: 'DestylerVisuallyHidden',
   props: visuallyHiddenProps,
-
   setup() {
 
   },

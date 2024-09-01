@@ -11,63 +11,125 @@ import { VisuallyHiddenInput } from '@destyler/visually-hidden/component'
 
 export const dynamicRootProps = {
   ...primitiveProps,
+  /**
+   * The controlled value of the tags input. Can be bind as `v-model`.
+   *
+   * @default () => []
+   */
   modelValue: {
     type: Array as PropType<Array<string>>,
     required: false,
     default: () => [],
   },
+  /**
+   * The value of the tags that should be added.
+   * Use when you do not need to control the state of the tags input
+   */
   defaultValue: {
     type: Array as PropType<Array<string>>,
     required: false,
   },
+  /**
+   * When `true`, allow adding tags on paste.
+   * Work in conjunction with delimiter prop.
+   *
+   * @default false
+   */
   addOnPaste: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true` allow adding tags on tab keydown
+   *
+   * @default false
+   */
   addOnTab: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true` allow adding tags blur input
+   *
+   * @default false
+   */
   addOnBlur: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, allow duplicated tags.
+   *
+   * @default false
+   */
   duplicate: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, prevents the user from interacting with the tags input.
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The character to trigger the addition of a new tag.
+   * Also used to split tags for `@paste` event
+   *
+   * @default ,
+   */
   delimiter: {
     type: String as PropType<string>,
     required: false,
     default: ',',
   },
+  /**
+   s* The reading direction of the combobox when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * Maximum number of tags.
+   *
+   * @default 0
+   */
   max: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * When `true`, indicates that the user must add the
+   * tags input before the owning form can be submitted.
+   *
+   * @default false
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The name of the tags input submitted with its
+   * owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The unique identifier of the machine.
+   */
   id: {
     type: String as PropType<string>,
     required: false,
@@ -77,9 +139,14 @@ export const dynamicRootProps = {
 export type DynamicRootProps = ExtractPublicPropTypes<typeof dynamicRootProps>
 
 export const dynamicRootEmits = {
+  /**
+   * Event handler called when the value is invalid
+   */
   'invalid': (_payload: string) => true,
+  /**
+   * Event handler called when the value changes
+   */
   'update:modelValue': (_value: Array<string>) => true,
-
 }
 
 export interface DynamicRootContext {
@@ -107,7 +174,12 @@ export const DynamicRoot = defineComponent({
   props: dynamicRootProps,
   emits: dynamicRootEmits,
   slots: Object as SlotsType<{
-    default: (opts: { modelValue: string[] }) => VNode[]
+    default: (opts: {
+      /**
+       * Current input values
+       */
+      modelValue: string[]
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const { addOnPaste, disabled, delimiter, max, id, dir: propDir, addOnBlur, addOnTab } = toRefs(props)

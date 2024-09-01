@@ -8,6 +8,9 @@ import { injectPopoverRootContext } from './root'
 
 export const popoverTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -19,7 +22,6 @@ export type PopoverTriggerProps = ExtractPublicPropTypes<typeof popoverTriggerPr
 export const PopoverTrigger = defineComponent({
   name: 'DestylerPopoverTrigger',
   props: popoverTriggerProps,
-
   setup() {
     const rootContext = injectPopoverRootContext()
 

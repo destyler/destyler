@@ -10,6 +10,9 @@ import { injectSelectItemContext } from './item'
 
 export const selectItemTextProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -22,7 +25,6 @@ export const SelectItemText = defineComponent({
   name: 'DestylerSelectItemText',
   inheritAttrs: false,
   props: selectItemTextProps,
-
   setup() {
     const rootContext = injectSelectRootContext()
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)

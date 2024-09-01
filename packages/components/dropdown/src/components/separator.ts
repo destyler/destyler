@@ -12,7 +12,6 @@ export type DropdownSeparatorProps = ExtractPublicPropTypes<typeof dropdownSepar
 export const DropdownSeparator = defineComponent({
   name: 'DestylerDropdownSeparator',
   props: dropdownSeparatorProps,
-
   setup() {
     useForwardExpose()
   },

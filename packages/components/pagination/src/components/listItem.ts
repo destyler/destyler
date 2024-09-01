@@ -8,10 +8,16 @@ import { injectPaginationRootContext } from './root'
 
 export const paginationListItemProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * Value for the page
+   */
   value: {
     type: Number as PropType<number>,
     required: true,
@@ -23,7 +29,6 @@ export type PaginationListItemProps = ExtractPublicPropTypes<typeof paginationLi
 export const PaginationListItem = defineComponent({
   name: 'DestylerPaginationListItem',
   props: paginationListItemProps,
-
   setup(props) {
     useForwardExpose()
 

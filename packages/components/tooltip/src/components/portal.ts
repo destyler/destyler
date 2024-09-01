@@ -11,7 +11,6 @@ export type TooltipPortalProps = ExtractPublicPropTypes<typeof tooltipPortalProp
 export const TooltipPortal = defineComponent({
   name: 'DestylerTooltipPortal',
   props: tooltipPortalProps,
-
   render() {
     return h(TeleportPrimitive, mergeProps(this.$props), () => this.$slots.default?.())
   },

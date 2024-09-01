@@ -11,7 +11,6 @@ export type HoverCardPortalProps = ExtractPublicPropTypes<typeof hoverCardPortal
 export const HoverCardPortal = defineComponent({
   name: 'DestylerHoverCardPortal',
   props: hoverCardPortalProps,
-
   render() {
     return h(TeleportPrimitive, this.$props, () => this.$slots.default?.())
   },

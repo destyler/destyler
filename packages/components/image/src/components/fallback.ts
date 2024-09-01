@@ -9,6 +9,11 @@ export const imageFallbackProps = {
   asChild: {
     ...primitiveProps.asChild,
   },
+  /**
+   * Useful for delaying rendering so it only appears for those with slower connections.
+   *
+   * @default 0
+   */
   delayMs: {
     type: Number as PropType<number>,
     required: false,
@@ -21,7 +26,6 @@ export type ImageFallbackProps = ExtractPublicPropTypes<typeof imageFallbackProp
 export const ImageFallback = defineComponent({
   name: 'DestylerImageFallback',
   props: imageFallbackProps,
-
   setup(props) {
     const rootContext = injectImageRootContext()
 

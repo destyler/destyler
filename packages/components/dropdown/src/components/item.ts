@@ -18,7 +18,6 @@ export const DropdownItem = defineComponent({
   name: 'DestylerDropdownItem',
   props: dropdownItemProps,
   emits: dropdownItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

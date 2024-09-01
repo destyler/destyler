@@ -12,7 +12,6 @@ export type DropdownArrowProps = ExtractPublicPropTypes<typeof dropdownArrowProp
 export const DropdownArrow = defineComponent({
   name: 'DestylerDropdownArrow',
   props: dropdownArrowProps,
-
   setup(_) {
     useForwardExpose()
   },

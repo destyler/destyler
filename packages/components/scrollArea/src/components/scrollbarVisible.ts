@@ -30,7 +30,6 @@ export const [injectScrollAreaScrollbarVisibleContext, provideScrollAreaScrollba
 
 export const ScrollAreaScrollbarVisible = defineComponent({
   name: 'DestylerScrollAreaScrollbarVisible',
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()

@@ -12,7 +12,6 @@ export type MenubarArrowProps = ExtractPublicPropTypes<typeof menubarArrowProps>
 export const MenubarArrow = defineComponent({
   name: 'DestylerMenubarArrow',
   props: menubarArrowProps,
-
   setup() {
     useForwardExpose()
   },

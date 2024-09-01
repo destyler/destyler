@@ -7,6 +7,9 @@ import { injectSliderRootContext } from './root'
 
 export const sliderImplProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',

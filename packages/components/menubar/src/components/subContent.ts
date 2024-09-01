@@ -28,7 +28,6 @@ export const MenubarSubContent = defineComponent({
   name: 'DestylerMenubarSubContent',
   props: menubarSubContentProps,
   emits: menubarSubContentEmits,
-
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()

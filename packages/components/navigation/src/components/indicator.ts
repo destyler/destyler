@@ -10,6 +10,10 @@ import { injectNavigationContext } from './root'
 
 export const navigationIndicatorProps = {
   ...primitiveProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,7 +26,6 @@ export const NavigationIndicator = defineComponent({
   name: 'DestylerNavigationIndicator',
   inheritAttrs: false,
   props: navigationIndicatorProps,
-
   setup() {
     const { forwardRef } = useForwardExpose()
     const { injectCollection } = useCollection('nav')

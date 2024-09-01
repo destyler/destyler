@@ -13,7 +13,6 @@ export type ProgressIndicatorProps = ExtractPublicPropTypes<typeof progressIndic
 export const ProgressIndicator = defineComponent({
   name: 'DestylerProgressIndicator',
   props: progressIndicatorProps,
-
   setup() {
     const rootContext = injectProgressRootContext()
 

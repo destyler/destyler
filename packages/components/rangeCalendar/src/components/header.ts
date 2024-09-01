@@ -11,7 +11,6 @@ export type RangeCalendarHeaderProps = ExtractPublicPropTypes<typeof rangeCalend
 export const RangeCalendarHeader = defineComponent({
   name: 'DestylerRangeCalendarHeader',
   props: rangeCalendarHeaderProps,
-
   render() {
     return h(Primitive, mergeProps(this.$props), {
       default: () => this.$slots.default?.(),

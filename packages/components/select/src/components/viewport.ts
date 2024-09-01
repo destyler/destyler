@@ -10,6 +10,9 @@ import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
 export const selectViewportProps = {
   ...primitiveProps,
+  /**
+   * Will add `nonce` attribute to the style tag which can be used by Content Security Policy.
+   */
   nonce: {
     type: String as PropType<string>,
     required: false,
@@ -21,7 +24,6 @@ export type SelectViewportProps = ExtractPublicPropTypes<typeof selectViewportPr
 export const SelectViewport = defineComponent({
   name: 'DestylerSelectViewport',
   props: selectViewportProps,
-
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext = contentContext.position === 'item-aligned'

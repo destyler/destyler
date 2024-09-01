@@ -7,43 +7,85 @@ import { useCollection, useDebounceFn, useDirection, useForwardExpose, useId, us
 
 export const navigationRootProps = {
   ...primitiveProps,
+  /**
+   * @default nav
+   */
   as: {
     ...primitiveProps.as,
     default: 'nav',
   },
+  /**
+   * The controlled value of the menu item to activate.
+   * Can be used as `v-model`.
+   *
+   * @default undefined
+   */
   modelValue: {
     type: String as PropType<string>,
     required: false,
     default: undefined,
   },
+  /**
+   * The value of the menu item that should be active when initially rendered.
+   *
+   * Use when you do not need to control the value state.
+   */
   defaultValue: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The reading direction of the navigation when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * The orientation of the menu.
+   *
+   * @default horizontal
+   */
   orientation: {
     type: String as PropType<Orientation>,
     required: false,
     default: 'horizontal',
   },
+  /**
+   * The duration from when the pointer enters the trigger until the tooltip gets opened.
+   *
+   * @default 200
+   */
   delayDuration: {
     type: Number as PropType<number>,
     required: false,
     default: 200,
   },
+  /**
+   * How much time a user has to enter another trigger without incurring a delay again.
+   *
+   * @defaultValue 300
+   */
   skipDelayDuration: {
     type: Number as PropType<number>,
     required: false,
     default: 300,
   },
+  /**
+   * If `true`, menu cannot be open by click on trigger
+   *
+   * @defaultValue false
+   */
   disableClickTrigger: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * If `true`, menu cannot be open by hover on trigger
+   *
+   * @defaultValue false
+   */
   disableHoverTrigger: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -78,6 +120,9 @@ export interface NavigationContext {
 export const [injectNavigationContext, provideNavigationContext] = createContext<NavigationContext>(['DestylerNavigationRoot', 'DestylerNavigationSub'], 'DestylerNavigationContext')
 
 export const navigationRootEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_value: string) => true,
 }
 
@@ -85,7 +130,6 @@ export const NavigationRoot = defineComponent({
   name: 'DestylerNavigationRoot',
   props: navigationRootProps,
   emits: navigationRootEmits,
-
   setup(props, { emit }) {
     const modelValue = useVModel(props, 'modelValue', emit, {
       defaultValue: props.defaultValue ?? '',

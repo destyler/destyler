@@ -15,7 +15,6 @@ export type SliderThumbProps = ExtractPublicPropTypes<typeof sliderThumbProps>
 export const SliderThumb = defineComponent({
   name: 'DestylerSliderThumb',
   props: sliderThumbProps,
-
   setup() {
     const { getItems } = useCollection()
 

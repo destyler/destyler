@@ -8,7 +8,6 @@ export const PopoverContentNonModal = defineComponent({
   name: 'DestylerPopoverContentNonModal',
   props: popoverContentImplProps,
   emits: popoverContentImplEmits,
-
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
     const hasInteractedOutsideRef = ref(false)

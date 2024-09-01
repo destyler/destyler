@@ -6,6 +6,9 @@ import { DialogTrigger } from '@destyler/dialog'
 
 export const modalTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -17,7 +20,6 @@ export type ModalTriggerProps = ExtractPublicPropTypes<typeof modalTriggerProps>
 export const ModalTrigger = defineComponent({
   name: 'DestylerModalTrigger',
   props: modalTriggerProps,
-
   setup() {
     useForwardExpose()
   },

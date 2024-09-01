@@ -20,11 +20,20 @@ import { ScrollAreaScrollbarVisible } from './scrollbarVisible'
 
 export const scrollAreaScrollbarProps = {
   ...primitiveProps,
+  /**
+   * The orientation of the scrollbar
+   *
+   * @default vertical
+   */
   orientation: {
     type: String as PropType<'vertical' | 'horizontal'>,
     required: false,
     default: 'vertical',
   },
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,

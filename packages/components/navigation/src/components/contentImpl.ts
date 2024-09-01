@@ -28,7 +28,6 @@ export const NavigationContentImpl = defineComponent({
   name: 'DestylerNavigationContentImpl',
   props: navigationContentImplProps,
   emit: navigationContentImplEmits,
-
   setup(_, { emit }) {
     const { injectCollection } = useCollection('nav')
     const collectionItems = injectCollection()

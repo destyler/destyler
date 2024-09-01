@@ -11,7 +11,6 @@ export type EllipsisPortalProps = ExtractPublicPropTypes<typeof ellipsisPortalPr
 export const EllipsisPortal = defineComponent({
   name: 'DestylerEllipsisPortal',
   props: ellipsisPortalProps,
-
   render() {
     return h(TeleportPrimitive, mergeProps(this.$props), () => this.$slots.default?.())
   },

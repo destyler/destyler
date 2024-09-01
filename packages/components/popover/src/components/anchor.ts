@@ -13,7 +13,6 @@ export type PopoverAnchorProps = ExtractPublicPropTypes<typeof popoverAnchorProp
 export const PopoverAnchor = defineComponent({
   name: 'DestylerPopoverAnchor',
   props: popoverAnchorProps,
-
   setup() {
     const rootContext = injectPopoverRootContext()
 

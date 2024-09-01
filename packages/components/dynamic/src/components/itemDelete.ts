@@ -8,6 +8,9 @@ import { injectDynamicItemContext } from './item'
 
 export const dynamicItemDeleteProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -19,7 +22,6 @@ export type DynamicItemDeleteProps = ExtractPublicPropTypes<typeof dynamicItemDe
 export const DynamicItemDelete = defineComponent({
   name: 'DestylerDynamicItemDelete',
   props: dynamicItemDeleteProps,
-
   setup() {
     useForwardExpose()
     const context = injectDynamicRootContext()

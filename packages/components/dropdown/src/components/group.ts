@@ -13,7 +13,6 @@ export type DropdownGroupProps = ExtractPublicPropTypes<typeof dropdownGroupProp
 export const DropdownGroup = defineComponent({
   name: 'DestylerDropdownGroup',
   props: dropdownGroupProps,
-
   setup() {
     useForwardExpose()
   },

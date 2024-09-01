@@ -6,32 +6,55 @@ import { useFormControl, useForwardExpose, useVModel } from '@destyler/compositi
 
 export const radioProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * The name of the input fields in the radio (Useful for form submission).
+   */
   id: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The value given as data when submitted with a `name`.
+   */
   value: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * When `true`, prevents the user from interacting with the radio item.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, indicates that the user must check the radio item before the owning form can be submitted.
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The controlled value of the radio item to check. Can be binded as `v-model`.
+   *
+   * @default undefined
+   */
   checked: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * The name of the input fields in the radio (Useful for form submission).
+   */
   name: {
     type: String as PropType<string>,
     required: false,
@@ -41,6 +64,9 @@ export const radioProps = {
 export type RadioProps = ExtractPublicPropTypes<typeof radioProps>
 
 export const radioEmits = {
+  /**
+   * Event handler called when the radio item is checked.
+   */
   'update:checked': (_value: boolean) => true,
 }
 
@@ -48,7 +74,6 @@ export const Radio = defineComponent({
   name: 'DestylerRadio',
   props: radioProps,
   emits: radioEmits,
-
   setup(props, { emit }) {
     const checkedRef = useVModel(props, 'checked', emit, {
       passive: (props.checked === undefined) as false,

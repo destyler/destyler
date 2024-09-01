@@ -12,6 +12,12 @@ import { injectNavigationItemContext } from './item'
 
 export const navigationContentProps = {
   ...navigationContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   *
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,7 +36,6 @@ export const NavigationContent = defineComponent({
   inheritAttrs: false,
   props: navigationContentProps,
   emits: navigationContentEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     const { forwardRef } = useForwardExpose()

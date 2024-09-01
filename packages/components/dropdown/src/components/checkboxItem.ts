@@ -18,7 +18,6 @@ export const DropdownCheckboxItem = defineComponent({
   name: 'DestylerDropdownCheckboxItem',
   props: dropdownCheckboxItemProps,
   emits: dropdownCheckboxItemEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

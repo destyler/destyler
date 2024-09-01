@@ -25,7 +25,6 @@ export const ModalContent = defineComponent({
   name: 'DestylerModalContent',
   props: modalContentProps,
   emits: modalContentEmits,
-
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

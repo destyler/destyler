@@ -8,47 +8,87 @@ import { PopperRoot } from '@destyler/popper'
 import { BubbleSelect } from './bubbleSelect'
 
 export const selectRootProps = {
+  /**
+   * The controlled open state of the Select. Can be bind as `v-model:open`.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * The open state of the select when it is initially rendered. Use when you do not need to control its open state.
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The controlled value of the Select. Can be bind as `v-model`.
+   *
+   * @default undefined
+   */
   modelValue: {
     type: String as PropType<string>,
     required: false,
     default: undefined,
   },
+  /**
+   * The value of the select when initially rendered. Use when you do not need to control the state of the Select
+   *
+   * @default ""
+   */
   defaultValue: {
     type: String as PropType<string>,
     required: false,
     default: '',
   },
+  /**
+   * The orientation of the accordion.
+   *
+   * @default vertical
+   */
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
     default: 'vertical',
   },
+  /**
+   * The reading direction of the select when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * The name of the Select. Submitted with its owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Native html input `autocomplete` attribute.
+   */
   autocomplete: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * When `true`, prevents the user from interacting with Select
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, indicates that the user must select a value before the owning form can be submitted.
+   *
+   * @default false
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -59,7 +99,13 @@ export const selectRootProps = {
 export type SelectRootProps = ExtractPublicPropTypes<typeof selectRootProps>
 
 export const selectRootEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_value: string) => true,
+  /**
+   * Event handler called when the open state of the context menu changes.
+   */
   'update:open': (_open: boolean) => true,
 }
 

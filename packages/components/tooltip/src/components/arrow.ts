@@ -12,7 +12,6 @@ export type TooltipArrowProps = ExtractPublicPropTypes<typeof tooltipArrowProps>
 export const TooltipArrow = defineComponent({
   name: 'DestylerTooltipArrow',
   props: tooltipArrowProps,
-
   setup() {
     useForwardExpose()
   },

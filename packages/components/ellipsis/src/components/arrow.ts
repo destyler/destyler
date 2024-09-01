@@ -12,7 +12,6 @@ export type EllipsisArrowProps = ExtractPublicPropTypes<typeof ellipsisArrowProp
 export const EllipsisArrow = defineComponent({
   name: 'DestylerEllipsisArrow',
   props: ellipsisArrowProps,
-
   setup() {
     useForwardExpose()
   },

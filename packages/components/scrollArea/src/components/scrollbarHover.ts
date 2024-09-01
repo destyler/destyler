@@ -16,7 +16,6 @@ export const ScrollAreaScrollbarHover = defineComponent({
   name: 'DestylerScrollAreaScrollbarHover',
   inheritAttrs: false,
   props: scrollAreaScrollbarHoverProps,
-
   setup() {
     const rootContext = injectScrollAreaRootContext()
 

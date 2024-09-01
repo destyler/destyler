@@ -22,7 +22,6 @@ export const SliderThumbImpl = defineComponent({
   name: 'DestylerSliderThumbImpl',
   inheritAttrs: false,
   props: sliderThumbImplProps,
-
   setup(props) {
     const rootContext = injectSliderRootContext()
     const orientation = injectSliderOrientationContext()

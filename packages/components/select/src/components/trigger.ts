@@ -10,10 +10,17 @@ import { injectSelectRootContext } from './root'
 
 export const selectTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with the accordion and all its items
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -25,7 +32,6 @@ export type SelectTriggerProps = ExtractPublicPropTypes<typeof selectTriggerProp
 export const SelectTrigger = defineComponent({
   name: 'DestylerSelectTrigger',
   props: selectTriggerProps,
-
   setup(props) {
     const rootContext = injectSelectRootContext()
 
