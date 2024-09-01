@@ -34,7 +34,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '<p>Event handler called when the open state of the dialog changes.</p>\n',
+    'description': '<p>Emitted when the open state of the Ellipsis changes.</p>\n',
     'type': '[_open: boolean]'
   }
 ]" />

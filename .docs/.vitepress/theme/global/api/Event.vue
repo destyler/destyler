@@ -32,7 +32,7 @@ const props = defineProps<{
         <td class="flex items-center">
           <div class="px-3 py-1 flex justify-center items-center">
             <span class="mr-2 font-bold">{{ prop.name }}</span>
-            <Popover>
+            <Popover v-if="prop.description !== ''">
               <template #trigger>
                 <div class="w-5 h-5 flex justify-center items-center hover:bg-white dark:hover:bg-black rounded-sm">
                   <Icon name="carbon:information-square" class="w-4 h-4" />

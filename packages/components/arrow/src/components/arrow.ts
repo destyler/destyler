@@ -7,7 +7,6 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 export const arrowProps = {
   ...primitiveProps,
   /**
-   * The element or component this component should render as. Can be overwrite by `asChild`
    * @default svg
    */
   as: {

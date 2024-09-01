@@ -88,6 +88,19 @@ import { ComboboxAnchor, ComboboxCancel, ComboboxContent, ComboboxEmpty, Combobo
 
 <!--@include: ../../packages/components/combobox/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-disableds]',
+      value:`Present when disabled`
+    },
+  ]"
+/>
+
 ### Cancel
 
 <!--@include: ../../packages/components/combobox/.docs/cancel.md-->
@@ -100,6 +113,48 @@ import { ComboboxAnchor, ComboboxCancel, ComboboxContent, ComboboxEmpty, Combobo
 
 <!--@include: ../../packages/components/combobox/.docs/content.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-side]',
+      value:`\'left\' \| \'right\' \| \'bottom\' \| \'top\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'start\' \| \'end\' \| \'center\'`
+    },
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-combobox-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets.<br /> Only present when <code>position=\'popper\'</code>.`
+    },
+    {
+      name: '--destyler-combobox-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge. Only present when <code>position=\'popper\'</code>.`
+    },
+    {
+      name: '--destyler-combobox-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge. Only present when <code>position=\'popper\'</code>.`
+    },
+    {
+      name: '--destyler-combobox-trigger-width',
+      description:`The width of the trigger. Only present when <code>position=\'popper\'</code>.`
+    },
+    {
+      name: '--destyler-combobox-trigger-height',
+      description:`The height of the trigger. Only present when <code>position=\'popper\'</code>.`
+    },
+  ]"
+/>
+
 ### Viewport
 
 <!--@include: ../../packages/components/combobox/.docs/viewport.md-->
@@ -111,6 +166,27 @@ import { ComboboxAnchor, ComboboxCancel, ComboboxContent, ComboboxEmpty, Combobo
 ### Item
 
 <!--@include: ../../packages/components/combobox/.docs/item.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name: '[data-state]',
+      value:`\'checked\' \| \'unchecked\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-hidden]',
+      value:`Present when hidden`
+    },
+  ]"
+/>
 
 ### ItemIndicator
 

@@ -25,7 +25,7 @@
   {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
-    'type': 'Component<any, any, any, ComputedOptions, MethodOptions, {}, any> | AsTag',
+    'type': 'AsTag | Component',
     'required': false,
     'default': '\'div\''
   },
@@ -139,7 +139,7 @@
 <Event :value="[
   {
     'name': 'closeAutoFocus',
-    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens\noutside of the <code>DismissableLayer</code>. Can be prevented.</p>\n',
+    'description': '',
     'type': '[_event: Event]'
   },
   {

@@ -4,7 +4,7 @@
   {
     'name': 'as',
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
-    'type': 'Component<any, any, any, ComputedOptions, MethodOptions, {}, any> | AsTag',
+    'type': 'AsTag | Component',
     'required': false,
     'default': '\'div\''
   },
@@ -27,7 +27,7 @@
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes.</p>\n',
+    'description': '<p>Event handler called when the value changes</p>\n',
     'type': '[_payload: string]'
   }
 ]" />

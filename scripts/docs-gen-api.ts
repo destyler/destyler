@@ -17,11 +17,13 @@ const __dirname = dirname(__filename)
 const rootDir = resolve(__dirname, '..')
 const packagesDir = resolve(rootDir, 'packages')
 const componentsDir = resolve(packagesDir, 'components')
+const docsDir = resolve(rootDir, '.docs')
 
 const fixedDir = {
   component: 'src/components',
   tsconfig: 'tsconfig.json',
   docs: '.docs',
+  public: 'public',
 }
 
 const checkerOptions: MetaCheckerOptions = {
@@ -62,13 +64,17 @@ function run() {
         })
       })
     })
+
+    // event write json file
+    console.log(comment)
+    fs.outputJSON(resolve(docsDir, fixedDir.public, 'api.json'), comment)
   })
 }
 
 function run1() {
-  const tsconfigPath = resolve(componentsDir, 'collapse', 'tsconfig.json')
+  const tsconfigPath = resolve(componentsDir, 'combobox', 'tsconfig.json')
   const checker = createChecker(tsconfigPath, checkerOptions)
-  const componentPath = resolve(componentsDir, 'collapse', fixedDir.component, 'item.ts')
+  const componentPath = resolve(componentsDir, 'combobox', fixedDir.component, 'content.ts')
   getFileComment(componentPath)
   const name = parse(componentPath).name
   // parseMeta(checker.getComponentMeta(componentPath, getComponentName(checker, componentPath)))
@@ -79,7 +85,6 @@ function run1() {
         componentPath,
         getComponentName(checker, componentPath),
       ),
-      comment,
     ),
   )
 }
@@ -111,6 +116,7 @@ function parseMeta(meta: ComponentMeta) {
 
       if (name === 'as') {
         defaultValue = defaultValue ?? '"div"'
+        type = 'AsTag | Component'
         description = 'The element or component this component should render as. Can be overwrite by `asChild`'
       }
 
@@ -124,6 +130,9 @@ function parseMeta(meta: ComponentMeta) {
       if (!type.includes('AcceptableValue'))
         type = parseTypeFromSchema(prop.schema) || type
 
+      if (name === 'as') {
+        type = 'AsTag | Component'
+      }
       return ({
         name,
         description: md.render(description),
