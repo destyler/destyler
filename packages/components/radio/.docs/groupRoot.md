@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -20,21 +20,21 @@
     'description': '<p>The value of the radio item that should be checked when initially rendered.</p>\n<p>Use when you do not need to control the state of the radio items.</p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'dir',
     'description': '<p>The reading direction of the radio when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'disabled',
     'description': '<p>When <code>true</code>, prevents the user from interacting with radio items.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'loop',

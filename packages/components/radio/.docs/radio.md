@@ -27,7 +27,7 @@
     'description': '<p>When <code>true</code>, prevents the user from interacting with the radio item.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'id',
@@ -48,14 +48,14 @@
     'description': '<p>When <code>true</code>, indicates that the user must check the radio item before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'value',
     'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'on'
   }
 ]" />
 

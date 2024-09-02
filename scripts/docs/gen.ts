@@ -185,6 +185,9 @@ function parsePrivateProps(meta: ComponentMeta) {
         if (!privateProp?.description) {
           privateProp!.description = prop.description ? prop.description : privateProp!.description
         }
+        if (privateProp?.default === '-') {
+          privateProp!.default = prop.default
+        }
       }
     })
 }
@@ -240,7 +243,7 @@ function parseMeta(meta: ComponentMeta, componentFile: string) {
       if (name === 'asChild') {
         description = 'Change the default rendered element for the one passed as a child, merging their props and behavior.\n\nRead our Composition guide for more details.'
         if (!defaultValue) {
-          defaultValue = false
+          defaultValue = 'false'
         }
       }
 
@@ -250,6 +253,11 @@ function parseMeta(meta: ComponentMeta, componentFile: string) {
         if (!defaultValue) {
           defaultValue = comment?.default ?? ''
         }
+      }
+
+      if (!defaultValue) {
+        const comment = privateProps.find(element => element.name === name)
+        defaultValue = comment?.default ?? ''
       }
 
       return ({

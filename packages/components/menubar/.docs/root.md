@@ -6,14 +6,14 @@
     'description': '<p>The value of the menu that should be open when initially rendered. Use when you do not need to control the value state.</p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'loop',

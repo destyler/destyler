@@ -20,7 +20,7 @@
     'description': '<p>Time in milliseconds that toast should remain visible for. Overrides value\ngiven to <code>ToastProvider</code>.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'open',

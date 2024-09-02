@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -20,21 +20,21 @@
     'description': '<p>The default value of the pin inputs when it is initially rendered. Use when you do not need to control its checked state.</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'disabled',
     'description': '<p>When <code>true</code>, prevents the user from interacting with the pin input</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'id',
@@ -76,14 +76,14 @@
     'description': '<p>The placeholder character to use for empty pin-inputs.</p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'required',
     'description': '<p>When <code>true</code>, indicates that the user must check the pin input before the owning form can be submitted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'type',

@@ -34,7 +34,7 @@
     'description': '<p>Prevents Tooltip.Content from remaining open when hovering.\nDisabling this has accessibility consequences. Inherits\nfrom Tooltip.Provider.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'ignoreNonKeyboardFocus',
@@ -48,7 +48,7 @@
     'description': '<p>The controlled open state of the tooltip.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   }
 ]" />
 

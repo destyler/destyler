@@ -20,14 +20,14 @@
     'description': '<p>The pressed state of the toggle when it is initially rendered. Use when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'disabled',
     'description': '<p>When <code>true</code>, prevents the user from interacting with the toggle.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'pressed',

@@ -13,7 +13,7 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': false
+    'default': 'false'
   },
   {
     'name': 'disabled',
@@ -31,7 +31,7 @@
   },
   {
     'name': 'value',
-    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
+    'description': '<p>The unique value of the item.</p>\n',
     'type': 'string',
     'required': true,
     'default': 'on'

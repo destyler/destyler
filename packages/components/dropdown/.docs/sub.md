@@ -6,11 +6,11 @@
     'description': '<p>The open state of the dropdown menu when it is initially rendered.\nUse when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'open',
-    'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled open state of the menu.\nCan be used as <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'

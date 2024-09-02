@@ -6,7 +6,7 @@
     'description': '<p>Used to identify the link as the currently active page.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'true'
   },
   {
     'name': 'as',

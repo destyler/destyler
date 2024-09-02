@@ -6,7 +6,7 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': false
+    'default': 'false'
   },
   {
     'name': 'disabled',
@@ -41,6 +41,6 @@
     'description': '<p>Vue native teleport component prop <code>:to</code></p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#basic-usage\' target=\'_blank\'>reference</a></p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'body'
   }
 ]" />

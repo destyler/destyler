@@ -27,7 +27,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -41,7 +41,7 @@
     'description': '<p>The value of the tags that should be added.\nUse when you do not need to control the state of the tags input</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'delimiter',
@@ -55,7 +55,7 @@
     'description': '<p>s* The reading direction of the combobox when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'disabled',

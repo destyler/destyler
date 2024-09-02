@@ -20,6 +20,6 @@
     'description': '<p>Value for the page</p>\n',
     'type': 'number',
     'required': true,
-    'default': '-'
+    'default': 'on'
   }
 ]" />

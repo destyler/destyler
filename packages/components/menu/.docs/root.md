@@ -6,7 +6,7 @@
     'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'modal',

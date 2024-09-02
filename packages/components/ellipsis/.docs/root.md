@@ -13,14 +13,14 @@
     'description': '<p>The duration from when the pointer enters the trigger until the tooltip gets opened.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '200'
   },
   {
     'name': 'disableClosingTrigger',
     'description': '<p>When <code>true</code>, clicking on trigger will not close the content.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'disabled',
@@ -34,14 +34,14 @@
     'description': '<p>When <code>true</code>, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'ignoreNonKeyboardFocus',
     'description': '<p>Prevent the tooltip from opening if the focus did not come from\nthe keyboard by matching against the <code>:focus-visible</code> selector.\nThis is useful if you want to avoid opening it when switching\nbrowser tabs or closing a dialog.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'open',

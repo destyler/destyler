@@ -20,6 +20,6 @@
     'description': '<p>When <code>true</code>, prevents the user from interacting with item</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   }
 ]" />

@@ -10,7 +10,7 @@
   },
   {
     'name': 'open',
-    'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
+    'description': '<p>The controlled open state of the menu.\nCan be used as <code>v-model:open</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'

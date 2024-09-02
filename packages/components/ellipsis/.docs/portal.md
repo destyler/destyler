@@ -3,14 +3,14 @@
 <Props :value="[
   {
     'name': 'disabled',
-    'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
+    'description': '<p>Disable teleport and render the component inline</p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#disabling-teleport\' target=\'_blank\'>reference</a></p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
   },
   {
     'name': 'forceMount',
-    'description': '<p>Used to force mounting when more control is needed.\nUseful when controlling animation with animation libraries.</p>\n',
+    'description': '<p>Used to force mounting when more control is needed. Useful when\ncontrolling animation with Vue animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'false'
@@ -20,6 +20,6 @@
     'description': '<p>Vue native teleport component prop <code>:to</code></p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#basic-usage\' target=\'_blank\'>reference</a></p>\n',
     'type': 'string | HTMLElement',
     'required': false,
-    'default': '-'
+    'default': 'body'
   }
 ]" />

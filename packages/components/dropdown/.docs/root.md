@@ -13,14 +13,14 @@
     'description': '<p>The reading direction of the combobox when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'modal',
     'description': '<p>The modality of the dropdown menu.\nWhen set to true, interaction with\noutside elements will be disabled and\nonly menu content will be visible to\nscreen readers.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'true'
   },
   {
     'name': 'open',

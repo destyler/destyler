@@ -115,6 +115,23 @@ import {
 
 <!--@include: ../../packages/components/menubar/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    },
+    {
+      name:'[data-highlighted]',
+      value:'Present when highlighted'
+    }
+  ]"
+/>
+
 ### Portal
 
 <!--@include: ../../packages/components/menubar/.docs/portal.md-->
@@ -122,6 +139,52 @@ import {
 ### Content
 
 <!--@include: ../../packages/components/menubar/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name:'[data-side]',
+      value:'\'left\' | \'right\' | \'bottom\' | \'top\''
+    },
+    {
+      name:'[data-align]',
+      value:'\'start\' | \'end\' | \'center\''
+    },
+    {
+      name:'[data-orientation]',
+      value:'\'vertical\' | \'horizontal\''
+    }
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-menubar-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-menubar-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-menubar-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-menubar-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-menubar-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>
 
 ### Label
 
@@ -135,13 +198,52 @@ import {
 
 <!--@include: ../../packages/components/menubar/.docs/item.md-->
 
+<Attribute
+  :value="[
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    },
+    {
+      name:'[data-highlighted]',
+      value:'Present when highlighted'
+    }
+  ]"
+/>
+
 ### ItemIndicator
 
 <!--@include: ../../packages/components/menubar/.docs/itemIndicator.md-->
 
+<Attribute
+  :value="[
+    {
+      name:'[data-state]',
+      value:'\'checked\' | \'unchecked\''
+    },
+  ]"
+/>
+
 ### CheckboxItem
 
 <!--@include: ../../packages/components/menubar/.docs/checkboxItem.md-->
+
+<Attribute
+  :value="[
+    {
+      name:'[data-state]',
+      value:'\'checked\' | \'unchecked\''
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    },
+    {
+      name:'[data-highlighted]',
+      value:'Present when highlighted'
+    }
+  ]"
+/>
 
 ### RadioGroup
 
@@ -151,6 +253,23 @@ import {
 
 <!--@include: ../../packages/components/menubar/.docs/radioItem.md-->
 
+<Attribute
+  :value="[
+    {
+      name:'[data-state]',
+      value:'\'checked\' | \'unchecked\''
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    },
+    {
+      name:'[data-highlighted]',
+      value:'Present when highlighted'
+    }
+  ]"
+/>
+
 ### Sub
 
 <!--@include: ../../packages/components/menubar/.docs/sub.md-->
@@ -159,9 +278,72 @@ import {
 
 <!--@include: ../../packages/components/menubar/.docs/subTrigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    },
+    {
+      name:'[data-highlighted]',
+      value:'Present when highlighted'
+    }
+  ]"
+/>
+
 ### SubContent
 
 <!--@include: ../../packages/components/menubar/.docs/subContent.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name:'[data-side]',
+      value:'\'left\' | \'right\' | \'bottom\' | \'top\''
+    },
+    {
+      name:'[data-align]',
+      value:'\'start\' | \'end\' | \'center\''
+    },
+    {
+      name:'[data-orientation]',
+      value:'\'vertical\' | \'horizontal\''
+    }
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-menubar-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-menubar-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-menubar-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-menubar-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-menubar-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>
 
 ### Separator
 

@@ -13,7 +13,7 @@
     'description': '<p>The open state of the select when it is initially rendered. Use when you do not need to control its open state.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'defaultValue',
@@ -27,14 +27,14 @@
     'description': '<p>The reading direction of the select when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'disabled',
     'description': '<p>When <code>true</code>, prevents the user from interacting with Select</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'modelValue',

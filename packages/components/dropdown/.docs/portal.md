@@ -20,6 +20,6 @@
     'description': '<p>Vue native teleport component prop <code>:to</code></p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#basic-usage\' target=\'_blank\'>reference</a></p>\n',
     'type': 'string | HTMLElement',
     'required': false,
-    'default': '-'
+    'default': 'body'
   }
 ]" />

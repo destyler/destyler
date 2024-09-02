@@ -20,7 +20,7 @@
     'description': '<p>The value of the menu item that should be active when initially rendered.</p>\n<p>Use when you do not need to control the value state.</p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'delayDuration',
@@ -34,7 +34,7 @@
     'description': '<p>The reading direction of the navigation when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'disableClickTrigger',

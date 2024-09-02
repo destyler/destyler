@@ -5,6 +5,12 @@ import { MenuArrow, menuArrowProps } from '@destyler/menu'
 
 export const menubarArrowProps = {
   ...menuArrowProps,
+  /**
+   * @default svg
+   */
+  as: {
+    ...menuArrowProps.as,
+  },
 } as const
 
 export type MenubarArrowProps = ExtractPublicPropTypes<typeof menubarArrowProps>

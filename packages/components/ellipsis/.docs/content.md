@@ -6,14 +6,14 @@
     'description': '<p>The preferred alignment against the trigger.\nMay change when collisions occur.</p>\n',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
-    'default': '-'
+    'default': 'center'
   },
   {
     'name': 'alignOffset',
     'description': '<p>An offset in pixels from the <code>start</code> or <code>end</code> alignment options.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'ariaLabel',
@@ -27,7 +27,7 @@
     'description': '<p>The distance in pixels from the boundary edges where collision\ndetection should occur. Accepts a number (same for all sides),\nor a partial padding object, for example: { top: 20, left: 20 }.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'as',
@@ -41,56 +41,56 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': false
+    'default': 'false'
   },
   {
     'name': 'avoidCollisions',
     'description': '<p>When <code>true</code>, overrides the side andalign preferences\nto prevent collisions with boundary edges.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'true'
   },
   {
     'name': 'collisionBoundary',
     'description': '<p>The element used as the collision boundary. By default\nthis is the viewport, though you can provide additional\nelement(s) to be included in this check.</p>\n',
     'type': 'Element | (Element | null)[] | null',
     'required': false,
-    'default': '-'
+    'default': '() => []'
   },
   {
     'name': 'collisionPadding',
     'description': '<p>The distance in pixels from the boundary edges where collision\ndetection should occur. Accepts a number (same for all sides),\nor a partial padding object, for example: { top: 20, left: 20 }.</p>\n',
     'type': 'number | Partial<Record<\'top\' | \'right\' | \'bottom\' | \'left\', number>>',
     'required': false,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'hideWhenDetached',
     'description': '<p>Whether to hide the content when the trigger becomes fully occluded.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'side',
     'description': '<p>The preferred side of the trigger to render against when open.\nWill be reversed when collisions occur and avoidCollisions\nis enabled.</p>\n',
     'type': '\'top\' | \'right\' | \'bottom\' | \'left\'',
     'required': false,
-    'default': '-'
+    'default': 'bottom'
   },
   {
     'name': 'sideOffset',
     'description': '<p>The distance in pixels from the trigger.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'sticky',
-    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary regardless.</p>\n',
+    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
     'type': '\'partial\' | \'always\'',
     'required': false,
-    'default': '-'
+    'default': 'partial'
   }
 ]" />
 

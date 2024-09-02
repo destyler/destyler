@@ -6,7 +6,7 @@
     'description': '<p>Force the first child element to render all the time.\nUseful for programmatically render grandchild component together with the exposed <code>present</code></p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'present',

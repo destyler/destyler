@@ -20,7 +20,7 @@
     'description': '<p>Focus on element when mounted.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'maxLength',
@@ -34,6 +34,6 @@
     'description': '<p>The placeholder character to use for empty tags input.</p>\n',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   }
 ]" />
