@@ -20,6 +20,7 @@ const docsDir = resolve(rootDir, '.docs')
 const fixedDir = {
   component: 'src/components',
   tsconfig: 'tsconfig.json',
+  docs: '.docs',
 }
 
 const checkerOptions: MetaCheckerOptions = {
@@ -29,33 +30,20 @@ const checkerOptions: MetaCheckerOptions = {
 
 /* ////////////////////// start handle private api //////////////////////  */
 
-const privateComponents = [
-  'arrow',
-  'collection',
-  'dismissableLayer',
-  'dismissableLayer',
-  'focusScope',
-  'menu',
-  'popover',
-  'popper',
-  'presence',
-  'primitive',
-  'rovingFocus',
-  'teleport',
-  'visuallyHidden',
-]
-
 interface More {
-  desc: string
+  name: string
+  description: string
   default?: string
   type?: string
+  required?: boolean
 }
 
-const privateProps: Map<string, More> = new Map()
-const privateEvents: Map<string, More> = new Map()
+const privateProps: More[] = []
+const privateEvents: More[] = []
 
 function handleGenPrivateAPI() {
   console.log('Start generating private API docs...')
+  const privateComponents = fs.readdirSync(componentsDir)
   privateComponents.forEach((privateComponentName) => {
     const tsconfigPath = resolve(componentsDir, `${privateComponentName}/${fixedDir.tsconfig}`)
     const componentDir = resolve(componentsDir, `${privateComponentName}/${fixedDir.component}`)
@@ -68,16 +56,14 @@ function handleGenPrivateAPI() {
         return
       const meta = checker.getComponentMeta(componentPath, componentName)
       // handle props
-      parseProps(meta)
+      parsePrivateProps(meta)
       // handle events
-      parseEvent(meta, componentPath)
+      parsePrivateEvent(meta, componentPath)
     })
   })
 }
 
-function parseEvent(meta: ComponentMeta, filePath: string) {
-  // console.log(meta.events)
-
+function parsePrivateEvent(meta: ComponentMeta, filePath: string) {
   meta.events
     .map((event) => {
       const { name, description, type } = event
@@ -91,11 +77,19 @@ function parseEvent(meta: ComponentMeta, filePath: string) {
     .forEach((event) => {
       const comments = getFileComment(filePath)
       const comment = comments.find(comment => comment.object === event.name)
-      if (!privateEvents.has(event.name)) {
-        privateEvents.set(event.name, {
-          desc: comment ? comment.comment : event.description,
+      if (!privateEvents.some(element => element.name === event.name && element.type === event.type)) {
+        privateEvents.push({
+          name: event.name,
+          description: comment ? comment.comment : event.description,
           type: event.type,
         })
+      }
+      else {
+        const privateEventComment = privateEvents.find(element => element.name === event.name && element.type === event.type)
+        // 判断 demo.description 是否存在, 如果不存在, 就在 privateEvents 中根据名字和类型查找
+        if (!privateEventComment?.description) {
+          privateEventComment!.description = comment ? comment.comment : event.description
+        }
       }
     })
 }
@@ -156,7 +150,7 @@ function getFileComment2(filePath: string) {
   return results
 }
 
-function parseProps(meta: ComponentMeta) {
+function parsePrivateProps(meta: ComponentMeta) {
   meta.props
   // Exclude global props
     .filter(prop => !prop.global)
@@ -183,12 +177,14 @@ function parseProps(meta: ComponentMeta) {
     })
     .sort((a, b) => a.name.localeCompare(b.name))
     .forEach((prop) => {
-      if (!privateProps.has(prop.name)) {
-        privateProps.set(prop.name, {
-          desc: prop.description,
-          type: prop.type,
-          default: prop.default,
-        })
+      if (!privateProps.some(element => element.name === prop.name && element.type === prop.type)) {
+        privateProps.push(prop)
+      }
+      else {
+        const privateProp = privateProps.find(element => element.name === prop.name && element.type === prop.type)
+        if (!privateProp?.description) {
+          privateProp!.description = prop.description
+        }
       }
     })
 }
@@ -197,11 +193,130 @@ function parseProps(meta: ComponentMeta) {
 
 function handleGenPublicAPI() {
   console.log('Start generating public API docs...')
-  fs.readdir(componentsDir).then((files) => {
-    files.forEach((file) => {
-      console.log(file)
+  const publicComponents = fs.readdirSync(componentsDir)
+  publicComponents.forEach((publicComponent) => {
+    const tsconfigPath = resolve(componentsDir, `${publicComponent}/${fixedDir.tsconfig}`)
+    const componentDir = resolve(componentsDir, `${publicComponent}/${fixedDir.component}`)
+    const componentList = fs.readdirSync(componentDir)
+    const checker = createChecker(tsconfigPath, checkerOptions)
+    componentList.forEach((component) => {
+      const componentPath = resolve(componentDir, component)
+      const componentName = getComponentName(checker, componentPath)
+      const name = parse(componentPath).name
+      if (!componentName)
+        return
+      const meta = parseMeta(checker.getComponentMeta(componentPath, componentName), componentPath)
+      const docsFilePath = resolve(componentsDir, `${component}/${fixedDir.docs}/${name}.md`)
+
+      writeDocsFile(docsFilePath, meta)
     })
   })
+}
+
+function parseMeta(meta: ComponentMeta, componentFile: string) {
+  // handle props
+  const props = meta.props
+    .filter(prop => !prop.global)
+    .map((prop) => {
+      let defaultValue
+      if (prop.tags.length !== 0) {
+        defaultValue = prop.tags.find(tag => tag.name === 'default')?.text
+      }
+      else {
+        defaultValue = prop.default
+      }
+      let type = prop.type
+      let { name, description, required } = prop
+
+      if (!type.includes('AcceptableValue'))
+        type = parseTypeFromSchema(prop.schema) || type
+
+      if (name === 'as') {
+        defaultValue = defaultValue ?? 'div'
+        type = 'AsTag | Component'
+        description = 'The element or component this component should render as. Can be overwrite by `asChild`'
+      }
+
+      if (defaultValue === 'undefined')
+        defaultValue = 'undefined'
+
+      if (name === 'asChild') {
+        description = 'Change the default rendered element for the one passed as a child, merging their props and behavior.\n\nRead our Composition guide for more details.'
+      }
+
+      // 如果 description 没有内容, 就在 privateProps 中根据名字和类型查找
+      if (!description) {
+        const comment = privateProps.find(element => element.name === name && element.type === type)
+        description = comment?.description ?? ''
+      }
+
+      return ({
+        name,
+        description: md.render(description),
+        type: type.replace(/\s*\|\s*undefined/g, ''),
+        required,
+        default: defaultValue ?? '-',
+      })
+    })
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  // handle events
+  const events = meta.events
+    .map((event) => {
+      const { name, description, type } = event
+      return ({
+        name,
+        type: type.replace(/\s*\|\s*undefined/g, ''),
+        description: md.render(description),
+      })
+    }).map((event) => {
+      const comments = getFileComment(componentFile)
+      const comment = comments.find(comment => comment.object === event.name)
+      if (!comment) {
+        const demo = privateEvents.find(element => element.name === event.name && element.type === event.type)
+        event.description = demo?.description ?? event.description
+      }
+      else {
+        event.description = comment.comment
+      }
+      return event
+    })
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  const defaultSlot = meta.slots?.[0]
+  const slots: { name: string, description: string, type: string }[] = []
+
+  if (defaultSlot && defaultSlot.type !== '{}') {
+    const schema = defaultSlot.schema
+    if (typeof schema === 'object' && schema.schema) {
+      Object.values(schema.schema).forEach((childMeta: PropertyMeta) => {
+        slots.push({
+          name: childMeta.name,
+          description: md.render(childMeta.description),
+          type: parseTypeFromSchema(childMeta.schema),
+        })
+      })
+    }
+  }
+  return {
+    props,
+    events,
+    slots,
+  }
+}
+
+function writeDocsFile(docsFilePath, meta) {
+  let parsedString = '<!-- Generated -->\n\n'
+  if (meta.props.length)
+    parsedString += `<Props :value="${JSON.stringify(meta.props, null, 2).replace(/"/g, '\'')}" />\n`
+
+  if (meta.events.length)
+    parsedString += `\n<Event :value="${JSON.stringify(meta.events, null, 2).replace(/"/g, '\'')}" />\n`
+
+  if (meta.slots.length)
+    parsedString += `\n<Slots :value="${JSON.stringify(meta.slots, null, 2).replace(/"/g, '\'')}" />\n`
+
+  fs.outputFile(docsFilePath, parsedString)
 }
 
 /* ////////////////////// public methods //////////////////////  */

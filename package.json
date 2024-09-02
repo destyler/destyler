@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.21.1",
-    "@ast-grep/napi": "^0.26.3",
     "@destyler/combobox": "workspace:*",
     "@destyler/focus-scope": "workspace:*",
     "@destyler/icon": "workspace:*",
