@@ -67,9 +67,39 @@ import {
 
 <!--@include: ../../packages/components/dynamic/.docs/root.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-focused]',
+      value:`Present when focus on input`
+    },
+    {
+      name: '[data-invalid]',
+      value:`Present when input value is invalid`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
+
 ### Item
 
 <!--@include: ../../packages/components/dynamic/.docs/item.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'active\' | \'inactive\'`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
 
 ### ItemText
 
@@ -79,10 +109,41 @@ import {
 
 <!--@include: ../../packages/components/dynamic/.docs/itemDelete.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'active\' | \'inactive\'`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
+
 ### Input
 
 <!--@include: ../../packages/components/dynamic/.docs/input.md-->
 
+<Attribute
+  :value="[
+    {
+      name:'[data-invalid]',
+      value:'Present when input value is invalid'
+    }
+  ]"
+/>
+
 ### Clear
 
 <!--@include: ../../packages/components/dynamic/.docs/clear.md-->
+
+<Attribute
+  :value="[
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>

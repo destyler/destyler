@@ -48,3 +48,12 @@ import { Button } from '@destyler/button'
 ### Button
 
 <!--@include: ../../packages/components/button/.docs/button.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+  ]"
+/>

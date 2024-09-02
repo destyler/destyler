@@ -93,6 +93,19 @@ import { ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextM
 
 <!--@include: ../../packages/components/contextMenu/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    }
+  ]"
+/>
+
 ### Arrow
 
 <!--@include: ../../packages/components/contextMenu/.docs/arrow.md-->
@@ -104,6 +117,48 @@ import { ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextM
 ### Content
 
 <!--@include: ../../packages/components/contextMenu/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-side]',
+      value:`\'left\' \| \'right\' \| \'bottom\' \| \'top\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'start\' \| \'end\' \| \'center\'`
+    }
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-context-menu-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-context-menu-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-context-menu-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-context-menu-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-context-menu-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>
 
 ### Group
 
@@ -121,17 +176,73 @@ import { ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextM
 
 <!--@include: ../../packages/components/contextMenu/.docs/item.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    }
+  ]"
+/>
+
 ### CheckboxItem
 
 <!--@include: ../../packages/components/contextMenu/.docs/checkboxItem.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'checked\' | \'unchecked\' | \'indeterminate\'`
+    }
+  ]"
+/>
 
 ### RadioItem
 
 <!--@include: ../../packages/components/contextMenu/.docs/radioItem.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'checked\' | \'unchecked\' | \'indeterminate\'`
+    }
+  ]"
+/>
+
 ### ItemIndicator
 
 <!--@include: ../../packages/components/contextMenu/.docs/itemIndicator.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'checked\' | \'unchecked\' | \'indeterminate\'`
+    }
+  ]"
+/>
 
 ### Separator
 
@@ -145,6 +256,65 @@ import { ContextMenuArrow, ContextMenuCheckboxItem, ContextMenuContent, ContextM
 
 <!--@include: ../../packages/components/contextMenu/.docs/subTrigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name: '[data-disabled]',
+      value:`Present when disabled`
+    },
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    }
+  ]"
+/>
+
 ### SubContent
 
 <!--@include: ../../packages/components/contextMenu/.docs/subContent.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name: '[data-side]',
+      value:`\'left\' \| \'right\' \| \'bottom\' \| \'top\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'start\' \| \'end\' \| \'center\'`
+    }
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-context-menu-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-context-menu-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-context-menu-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-context-menu-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-context-menu-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>

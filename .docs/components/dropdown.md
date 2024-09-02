@@ -113,6 +113,19 @@ import {
 
 <!--@include: ../../packages/components/dropdown/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' \| \'closed\'`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
+
 ### Portal
 
 <!--@include: ../../packages/components/dropdown/.docs/portal.md-->
@@ -120,6 +133,52 @@ import {
 ### Content
 
 <!--@include: ../../packages/components/dropdown/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name: '[data-side]',
+      value:`\'left\' | \'right\' | \'bottom\' | \'top\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'start\' | \'end\' | \'center\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'vertical\' | \'horizontal\'`
+    },
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-dropdown-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-dropdown-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-dropdown-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-dropdown-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-dropdown-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>
 
 ### Label
 
@@ -133,13 +192,56 @@ import {
 
 <!--@include: ../../packages/components/dropdown/.docs/item.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' | \'horizontal\'`
+    },
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
+
 ### ItemIndicator
 
 <!--@include: ../../packages/components/dropdown/.docs/itemIndicator.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'checked\' | \'checked\' | \'| \'indeterminate\'\'`
+    },
+  ]"
+/>
+
 ### CheckboxItem
 
 <!--@include: ../../packages/components/dropdown/.docs/checkboxItem.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'checked\' | \'checked\' | \'| \'indeterminate\'\'`
+    },
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
 
 ### RadioGroup
 
@@ -149,6 +251,23 @@ import {
 
 <!--@include: ../../packages/components/dropdown/.docs/radioItem.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'checked\' | \'checked\' | \'| \'indeterminate\'\'`
+    },
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
+
 ### Sub
 
 <!--@include: ../../packages/components/dropdown/.docs/sub.md-->
@@ -157,9 +276,72 @@ import {
 
 <!--@include: ../../packages/components/dropdown/.docs/subTrigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name: '[data-highlighted]',
+      value:`Present when highlighted`
+    },
+    {
+      name:'[data-disabled]',
+      value:'Present when disabled'
+    }
+  ]"
+/>
+
 ### SubContent
 
 <!--@include: ../../packages/components/dropdown/.docs/subContent.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    },
+    {
+      name: '[data-side]',
+      value:`\'left\' | \'right\' | \'bottom\' | \'top\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'start\' | \'end\' | \'center\'`
+    },
+    {
+      name: '[data-align]',
+      value:`\'vertical\' | \'horizontal\'`
+    },
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-dropdown-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-dropdown-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-dropdown-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-dropdown-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-dropdown-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>
 
 ### Separator
 

@@ -65,6 +65,15 @@ import { BreadcrumbsContent, BreadcrumbsItem, BreadcrumbsLabel, BreadcrumbsRoot,
 
 <!--@include: ../../packages/components/breadcrumbs/.docs/item.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'active\' \| \'inactive\'`
+    },
+  ]"
+/>
+
 ### Label
 
 <!--@include: ../../packages/components/breadcrumbs/.docs/label.md-->

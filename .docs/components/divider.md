@@ -47,3 +47,12 @@ import { Divider } from '@destyler/divider'
 ### Divider
 
 <!--@include: ../../packages/components/divider/.docs/divider.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-orientation]',
+      value:`\'vertical\' \| \'horizontal\'`
+    },
+  ]"
+/>

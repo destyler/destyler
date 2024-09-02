@@ -66,6 +66,15 @@ import {
 
 <!--@include: ../../packages/components/hoverCard/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name:'[data-state]',
+      value:'\'open\' | \'closed\''
+    }
+  ]"
+/>
+
 ### Portal
 
 <!--@include: ../../packages/components/hoverCard/.docs/portal.md-->
@@ -73,6 +82,48 @@ import {
 ### Content
 
 <!--@include: ../../packages/components/hoverCard/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name:'[data-state]',
+      value:'\'open\' | \'closed\''
+    },
+    {
+      name:'[data-side]',
+      value:'\'left\' | \'right\' | \'bottom\' | \'top\''
+    },
+    {
+      name:'[data-align]',
+      value:'\'start\' | \'end\' | \'center\''
+    }
+  ]"
+/>
+
+<Variable
+  :value="[
+    {
+      name: '--destyler-hover-card-content-transform-origin',
+      description:`The <code>transform-origin</code> computed from the content and arrow positions/offsets`
+    },
+    {
+      name: '--destyler-hover-card-content-available-width',
+      description:`The remaining width between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-hover-card-content-available-height',
+      description:`The remaining height between the trigger and the boundary edge`
+    },
+    {
+      name: '--destyler-hover-card-trigger-width',
+      description:`The width of the trigger`
+    },
+    {
+      name: '--destyler-hover-card-trigger-height',
+      description:`The height of the trigger`
+    },
+  ]"
+/>
 
 ### Arrow
 

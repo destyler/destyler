@@ -105,7 +105,11 @@ import {
 
 ### Root
 
+<!--@include: ../../packages/components/menubar/.docs/root.md-->
+
 ### Menu
+
+<!--@include: ../../packages/components/menubar/.docs/menu.md-->
 
 ### Trigger
 
