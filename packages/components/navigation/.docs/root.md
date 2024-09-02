@@ -41,14 +41,14 @@
     'description': '<p>If <code>true</code>, menu cannot be open by click on trigger</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'disableHoverTrigger',
     'description': '<p>If <code>true</code>, menu cannot be open by hover on trigger</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'modelValue',
@@ -69,7 +69,7 @@
     'description': '<p>How much time a user has to enter another trigger without incurring a delay again.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '300'
   }
 ]" />
 

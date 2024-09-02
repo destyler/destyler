@@ -8,7 +8,7 @@ export const tooltipProviderProps = {
   /**
    * The duration from when the pointer enters the trigger until the tooltip gets opened.
    *
-   * @defaultValue 700
+   * @default 700
    */
   delayDuration: {
     type: Number as PropType<number>,
@@ -18,7 +18,7 @@ export const tooltipProviderProps = {
   /**
    * How much time a user has to enter another trigger without incurring a delay again.
    *
-   * @defaultValue 300
+   * @default 300
    */
   skipDelayDuration: {
     type: Number as PropType<number>,
@@ -28,7 +28,7 @@ export const tooltipProviderProps = {
   /**
    * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
    *
-   * @defaultValue false
+   * @default false
    */
   disableHoverableContent: {
     type: Boolean as PropType<boolean>,
@@ -38,7 +38,7 @@ export const tooltipProviderProps = {
   /**
    * When `true`, clicking on trigger will not close the content.
    *
-   * @defaultValue false
+   * @default false
    */
   disableClosingTrigger: {
     type: Boolean as PropType<boolean>,
@@ -48,7 +48,7 @@ export const tooltipProviderProps = {
   /**
    * When `true`, disable tooltip
    *
-   * @defaultValue false
+   * @default false
    */
   disabled: {
     type: Boolean as PropType<boolean>,
@@ -61,7 +61,7 @@ export const tooltipProviderProps = {
    * This is useful if you want to avoid opening it when switching
    * browser tabs or closing a dialog.
    *
-   * @defaultValue false
+   * @default false
    */
   ignoreNonKeyboardFocus: {
     type: Boolean as PropType<boolean>,

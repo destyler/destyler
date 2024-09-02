@@ -6,7 +6,7 @@
     'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'name',
@@ -27,6 +27,6 @@
     'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'unknown',
     'required': true,
-    'default': '-'
+    'default': 'on'
   }
 ]" />

@@ -239,11 +239,17 @@ function parseMeta(meta: ComponentMeta, componentFile: string) {
 
       if (name === 'asChild') {
         description = 'Change the default rendered element for the one passed as a child, merging their props and behavior.\n\nRead our Composition guide for more details.'
+        if (!defaultValue) {
+          defaultValue = false
+        }
       }
 
       if (!description) {
         const comment = privateProps.find(element => element.name === name)
         description = comment?.description ?? ''
+        if (!defaultValue) {
+          defaultValue = comment?.default ?? ''
+        }
       }
 
       return ({

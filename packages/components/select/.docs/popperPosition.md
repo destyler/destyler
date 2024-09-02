@@ -6,7 +6,7 @@
     'description': '<p>The preferred alignment against the trigger.\nMay change when collisions occur.</p>\n',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
-    'default': '-'
+    'default': 'start'
   },
   {
     'name': 'alignOffset',
@@ -34,7 +34,7 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': false
   },
   {
     'name': 'avoidCollisions',
@@ -55,7 +55,7 @@
     'description': '<p>The distance in pixels from the boundary edges where collision\ndetection should occur. Accepts a number (same for all sides),\nor a partial padding object, for example: { top: 20, left: 20 }.</p>\n',
     'type': 'number | Partial<Record<\'top\' | \'right\' | \'bottom\' | \'left\', number>>',
     'required': false,
-    'default': '-'
+    'default': '10'
   },
   {
     'name': 'hideWhenDetached',

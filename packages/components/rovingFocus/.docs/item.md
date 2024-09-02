@@ -6,7 +6,7 @@
     'description': '<p>Whether countdown is active.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'true'
   },
   {
     'name': 'as',

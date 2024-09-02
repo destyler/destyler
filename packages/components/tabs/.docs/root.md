@@ -48,7 +48,7 @@
     'description': '<p>The orientation the tabs are layed out.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
     'type': 'DataOrientation',
     'required': false,
-    'default': '-'
+    'default': 'horizontal'
   }
 ]" />
 

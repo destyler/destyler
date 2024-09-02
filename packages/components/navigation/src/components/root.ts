@@ -64,7 +64,7 @@ export const navigationRootProps = {
   /**
    * How much time a user has to enter another trigger without incurring a delay again.
    *
-   * @defaultValue 300
+   * @default 300
    */
   skipDelayDuration: {
     type: Number as PropType<number>,
@@ -74,7 +74,7 @@ export const navigationRootProps = {
   /**
    * If `true`, menu cannot be open by click on trigger
    *
-   * @defaultValue false
+   * @default false
    */
   disableClickTrigger: {
     type: Boolean as PropType<boolean>,
@@ -84,7 +84,7 @@ export const navigationRootProps = {
   /**
    * If `true`, menu cannot be open by hover on trigger
    *
-   * @defaultValue false
+   * @default false
    */
   disableHoverTrigger: {
     type: Boolean as PropType<boolean>,

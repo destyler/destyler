@@ -13,28 +13,28 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': false
   },
   {
     'name': 'defaultValue',
     'description': '<p>The default value for the calendar</p>\n',
     'type': 'string | string[]',
     'required': false,
-    'default': '-'
+    'default': 'undefined'
   },
   {
     'name': 'dir',
     'description': '<p>The reading direction of the calendar when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'disabled',
     'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'loop',
@@ -55,14 +55,14 @@
     'description': '<p>The orientation of the accordion.</p>\n',
     'type': 'DataOrientation',
     'required': false,
-    'default': '-'
+    'default': 'vertical'
   },
   {
     'name': 'rovingFocus',
     'description': '<p>When <code>false</code>, navigating through the items using arrow keys will be disabled.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'true'
   },
   {
     'name': 'type',

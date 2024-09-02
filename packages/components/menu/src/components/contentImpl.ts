@@ -84,7 +84,7 @@ export const menuContentImplProps = {
   },
   /**
    * Whether focus should be trapped within the `MenuContent`
-   * @defaultValue als
+   * @default als
    */
   trapFocus: {
     type: Boolean as PropType<boolean>,

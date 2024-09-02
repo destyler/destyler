@@ -11,7 +11,7 @@ export const toastProviderProps = {
    * Used to help screen reader users
    * associate the interruption with a toast.
    *
-   * @defaultValue Notification
+   * @default Notification
    */
   label: {
     type: String as PropType<string>,
@@ -21,7 +21,7 @@ export const toastProviderProps = {
   /**
    * Time in milliseconds that each toast should remain visible for.
    *
-   * @defaultValue 5000
+   * @default 5000
    */
   duration: {
     type: Number as PropType<number>,
@@ -31,7 +31,7 @@ export const toastProviderProps = {
   /**
    * Direction of pointer swipe that should close the toast.
    *
-   * @defaultValue 'right'
+   * @default 'right'
    */
   swipeDirection: {
     type: String as PropType<SwipeDirection>,
@@ -41,7 +41,7 @@ export const toastProviderProps = {
   /**
    * Distance in pixels that the swipe must pass before a close is triggered.
    *
-   * @defaultValue 50
+   * @default 50
    */
   swipeThreshold: {
     type: Number as PropType<number>,

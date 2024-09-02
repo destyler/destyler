@@ -28,7 +28,7 @@ export const popperContentProps = {
    * Will be reversed when collisions occur and avoidCollisions
    * is enabled.
    *
-   * @defaultValue bottom
+   * @default bottom
    */
   side: {
     type: String as PropType<Side>,
@@ -59,7 +59,7 @@ export const popperContentProps = {
   /**
    * An offset in pixels from the `start` or `end` alignment options.
    *
-   * @defaultValue 0
+   * @default 0
    */
   alignOffset: {
     type: Number as PropType<number>,
@@ -70,7 +70,7 @@ export const popperContentProps = {
    * When `true`, overrides the side andalign preferences
    * to prevent collisions with boundary edges.
    *
-   * @defaultValue true
+   * @default true
    */
   avoidCollisions: {
     type: Boolean as PropType<boolean>,
@@ -82,7 +82,7 @@ export const popperContentProps = {
    * this is the viewport, though you can provide additional
    * element(s) to be included in this check.
    *
-   * @defaultValue () => []
+   * @default () => []
    */
   collisionBoundary: {
     type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
@@ -94,7 +94,7 @@ export const popperContentProps = {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @defaultValue 0
+   * @default 0
    */
   collisionPadding: {
     type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
@@ -106,7 +106,7 @@ export const popperContentProps = {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @defaultValue 0
+   * @default 0
    */
   arrowPadding: {
     type: Number as PropType<number>,
@@ -119,7 +119,7 @@ export const popperContentProps = {
    * in the boundary whilst "always" will keep the content in the boundary
    * regardless.
    *
-   * @defaultValue partial
+   * @default partial
    */
   sticky: {
     type: String as PropType<'partial' | 'always'>,
@@ -129,7 +129,7 @@ export const popperContentProps = {
   /**
    * Whether to hide the content when the trigger becomes fully occluded.
    *
-   * @defaultValue false
+   * @default false
    */
   hideWhenDetached: {
     type: Boolean as PropType<boolean>,
@@ -139,7 +139,7 @@ export const popperContentProps = {
   /**
    * Strategy to update the position of the floating element on every animation frame.
    *
-   * @defaultValue optimized
+   * @default optimized
    */
   updatePositionStrategy: {
     type: String as PropType<'optimized' | 'always'>,
@@ -152,7 +152,7 @@ export const popperContentProps = {
    *
    * Might overlap the reference element, which may not be desired.
    *
-   * @defaultValue false
+   * @default false
    */
   prioritizePosition: {
     type: Boolean as PropType<boolean>,

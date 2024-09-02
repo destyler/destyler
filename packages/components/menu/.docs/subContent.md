@@ -27,7 +27,7 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': false
   },
   {
     'name': 'avoidCollisions',
@@ -55,7 +55,7 @@
     'description': '<p>Used to force mounting when more control is needed.\nUseful when controlling animation with animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'hideWhenDetached',

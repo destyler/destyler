@@ -18,7 +18,7 @@ export const tooltipContentImplProps = {
    * Will be reversed when collisions occur and avoidCollisions
    * is enabled.
    *
-   * @defaultValue top
+   * @default top
    */
   side: {
     ...popperContentProps.side,
@@ -44,7 +44,7 @@ export const tooltipContentImplProps = {
   /**
    * An offset in pixels from the `start` or `end` alignment options.
    *
-   * @defaultValue 0
+   * @default 0
    */
   alignOffset: {
     ...popperContentProps.alignOffset,
@@ -53,7 +53,7 @@ export const tooltipContentImplProps = {
    * When `true`, overrides the side andalign preferences
    * to prevent collisions with boundary edges.
    *
-   * @defaultValue true
+   * @default true
    */
   avoidCollisions: {
     ...popperContentProps.avoidCollisions,
@@ -63,7 +63,7 @@ export const tooltipContentImplProps = {
    * this is the viewport, though you can provide additional
    * element(s) to be included in this check.
    *
-   * @defaultValue () => []
+   * @default () => []
    */
   collisionBoundary: {
     ...popperContentProps.collisionBoundary,
@@ -73,7 +73,7 @@ export const tooltipContentImplProps = {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @defaultValue 0
+   * @default 0
    */
   collisionPadding: {
     ...popperContentProps.collisionPadding,
@@ -83,7 +83,7 @@ export const tooltipContentImplProps = {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @defaultValue 0
+   * @default 0
    */
   arrowPadding: {
     ...popperContentProps.arrowPadding,
@@ -94,7 +94,7 @@ export const tooltipContentImplProps = {
    * in the boundary whilst "always" will keep the content in the boundary
    * regardless.
    *
-   * @defaultValue partial
+   * @default partial
    */
   sticky: {
     ...popperContentProps.sticky,
@@ -102,7 +102,7 @@ export const tooltipContentImplProps = {
   /**
    * Whether to hide the content when the trigger becomes fully occluded.
    *
-   * @defaultValue false
+   * @default false
    */
   hideWhenDetached: {
     ...popperContentProps.hideWhenDetached,

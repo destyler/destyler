@@ -24,7 +24,7 @@ export const toastViewportProps = {
   /**
    * The keys to use as the keyboard shortcut that will move focus to the toast viewport.
    *
-   * @defaultValue () => ['F8']
+   * @default () => ['F8']
    */
   hotkey: {
     type: Array as PropType<string[]>,
@@ -36,7 +36,7 @@ export const toastViewportProps = {
    * when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.
    * Alternatively, you can pass in a custom function to generate the label.
    *
-   * @defaultValue Notifications ({hotkey})
+   * @default Notifications ({hotkey})
    */
   label: {
     type: String as PropType<string | ((hotkey: string) => string)>,

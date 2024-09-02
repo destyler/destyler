@@ -6,14 +6,14 @@ interface ArrowNavigationOptions {
   /**
    * The arrow key options to allow navigation
    *
-   * @defaultValue "both"
+   * @default "both"
    */
   arrowKeyOptions?: ArrowKeyOptions
 
   /**
    * The attribute name to find the collection items in the parent element.
    *
-   * @defaultValue "data-destyler-collection-item"
+   * @default "data-destyler-collection-item"
    */
   attributeName?: string
 
@@ -21,21 +21,21 @@ interface ArrowNavigationOptions {
    * The parent element where contains all the collection items, this will collect every item to be used when nav
    * It will be ignored if attributeName is provided
    *
-   * @defaultValue []
+   * @default []
    */
   itemsArray?: HTMLElement[]
 
   /**
    * Allow loop navigation. If false, it will stop at the first and last element
    *
-   * @defaultValue true
+   * @default true
    */
   loop?: boolean
 
   /**
    * The orientation of the collection
    *
-   * @defaultValue "ltr"
+   * @default "ltr"
    */
   dir?: Direction
 
@@ -43,21 +43,21 @@ interface ArrowNavigationOptions {
    * Prevent the scroll when navigating. This happens when the direction of the
    * key matches the scroll direction of any ancestor scrollable elements.
    *
-   * @defaultValue true
+   * @default true
    */
   preventScroll?: boolean
 
   /**
    * By default all currentElement would trigger navigation. If `true`, currentElement nodeName in the ignore list will return null
    *
-   * @defaultValue false
+   * @default false
    */
   enableIgnoredElement?: boolean
 
   /**
    * Focus the element after navigation
    *
-   * @defaultValue false
+   * @default false
    */
   focus?: boolean
 }

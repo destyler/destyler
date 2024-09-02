@@ -29,7 +29,7 @@ export const rovingFocusGroupProps = {
   },
   /**
    * Whether keyboard should loop around
-   * @defaultValue false
+   * @default false
    */
   loop: {
     type: Boolean as PropType<boolean>,

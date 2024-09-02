@@ -13,7 +13,7 @@
     'description': '<p>Maximum number of tags.</p>\n',
     'type': 'number',
     'required': true,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'min',

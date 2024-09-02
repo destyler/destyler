@@ -6,7 +6,7 @@
     'description': '<p>The reading direction of the calendar when applicable.</p>\n',
     'type': 'Direction',
     'required': false,
-    'default': '-'
+    'default': 'ltr'
   },
   {
     'name': 'inverted',
@@ -20,7 +20,7 @@
     'description': '<p>Maximum number of tags.</p>\n',
     'type': 'number',
     'required': true,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'min',

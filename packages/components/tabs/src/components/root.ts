@@ -42,7 +42,7 @@ export const tabsRootProps = {
    * The orientation the tabs are layed out.
    * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
    *
-   * @defaultValue horizontal
+   * @default horizontal
    */
   orientation: {
     type: String as PropType<DataOrientation>,

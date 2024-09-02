@@ -20,13 +20,13 @@
     'description': '<p>The keys to use as the keyboard shortcut that will move focus to the toast viewport.</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': '-'
+    'default': '() => ['F8']'
   },
   {
     'name': 'label',
     'description': '<p>An author-localized label for the toast viewport to provide context for screen reader users\nwhen navigating page landmarks. The available <code>{hotkey}</code> placeholder will be replaced for you.\nAlternatively, you can pass in a custom function to generate the label.</p>\n',
     'type': 'string | ((hotkey: string) => string)',
     'required': false,
-    'default': '-'
+    'default': 'Notifications ({hotkey})'
   }
 ]" />

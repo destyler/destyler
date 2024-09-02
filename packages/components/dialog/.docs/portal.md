@@ -6,14 +6,14 @@
     'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'forceMount',
     'description': '<p>Used to force mounting when more control is needed.\nUseful when controlling animation with animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'to',

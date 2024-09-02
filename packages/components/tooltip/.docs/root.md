@@ -13,21 +13,21 @@
     'description': '<p>Override the duration given to the <code>Provider</code> to customise\nthe open delay for a specific tooltip.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '400'
   },
   {
     'name': 'disableClosingTrigger',
     'description': '<p>When <code>true</code>, clicking on trigger will not close the content.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'disabled',
     'description': '<p>When <code>true</code>, disable tooltip</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'disableHoverableContent',
@@ -41,7 +41,7 @@
     'description': '<p>Prevent the tooltip from opening if the focus did not come from\nthe keyboard by matching against the <code>:focus-visible</code> selector.\nThis is useful if you want to avoid opening it when switching\nbrowser tabs or closing a dialog.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'open',

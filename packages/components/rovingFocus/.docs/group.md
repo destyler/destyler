@@ -41,7 +41,7 @@
     'description': '<p>Whether keyboard should loop around</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'orientation',

@@ -32,7 +32,7 @@ export const tooltipRootProps = {
    * Override the duration given to the `Provider` to customise
    * the open delay for a specific tooltip.
    *
-   * @defaultValue 400
+   * @default 400
    */
   delayDuration: {
     type: Number as PropType<number>,
@@ -52,7 +52,7 @@ export const tooltipRootProps = {
   /**
    * When `true`, clicking on trigger will not close the content.
    *
-   * @defaultValue false
+   * @default false
    */
   disableClosingTrigger: {
     type: Boolean as PropType<boolean>,
@@ -62,7 +62,7 @@ export const tooltipRootProps = {
   /**
    * When `true`, disable tooltip
    *
-   * @defaultValue false
+   * @default false
    */
   disabled: {
     type: Boolean as PropType<boolean>,
@@ -75,7 +75,7 @@ export const tooltipRootProps = {
    * This is useful if you want to avoid opening it when switching
    * browser tabs or closing a dialog.
    *
-   * @defaultValue false
+   * @default false
    */
   ignoreNonKeyboardFocus: {
     type: Boolean as PropType<boolean>,

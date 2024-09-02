@@ -16,7 +16,7 @@ export const selectContentImplProps = {
    * The preferred alignment against the trigger.
    * May change when collisions occur.
    *
-   * @defaultValue start
+   * @default start
    */
   align: {
     ...popperContentProps.align,

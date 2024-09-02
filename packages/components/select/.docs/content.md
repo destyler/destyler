@@ -6,7 +6,7 @@
     'description': '<p>The preferred alignment against the trigger.\nMay change when collisions occur.</p>\n',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
-    'default': '-'
+    'default': 'start'
   },
   {
     'name': 'alignOffset',
@@ -34,7 +34,7 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': false
   },
   {
     'name': 'avoidCollisions',

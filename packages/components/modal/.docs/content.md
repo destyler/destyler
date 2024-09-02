@@ -13,7 +13,7 @@
     'description': '<p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': false
   },
   {
     'name': 'disableOutsidePointerEvents',
@@ -27,7 +27,7 @@
     'description': '<p>Used to force mounting when more control is needed.\nUseful when controlling animation with animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'isDismissable',
@@ -41,7 +41,7 @@
     'description': '<p>When <code>true</code>, focus cannot escape the Content via keyboard,\npointer, or a programmatic focus.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   }
 ]" />
 

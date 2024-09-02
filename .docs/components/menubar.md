@@ -113,30 +113,60 @@ import {
 
 ### Trigger
 
+<!--@include: ../../packages/components/menubar/.docs/trigger.md-->
+
 ### Portal
+
+<!--@include: ../../packages/components/menubar/.docs/portal.md-->
 
 ### Content
 
+<!--@include: ../../packages/components/menubar/.docs/content.md-->
+
 ### Label
+
+<!--@include: ../../packages/components/menubar/.docs/label.md-->
 
 ### Group
 
+<!--@include: ../../packages/components/menubar/.docs/group.md-->
+
 ### Item
+
+<!--@include: ../../packages/components/menubar/.docs/item.md-->
 
 ### ItemIndicator
 
+<!--@include: ../../packages/components/menubar/.docs/itemIndicator.md-->
+
 ### CheckboxItem
+
+<!--@include: ../../packages/components/menubar/.docs/checkboxItem.md-->
 
 ### RadioGroup
 
+<!--@include: ../../packages/components/menubar/.docs/radioGroup.md-->
+
 ### RadioItem
+
+<!--@include: ../../packages/components/menubar/.docs/radioItem.md-->
 
 ### Sub
 
+<!--@include: ../../packages/components/menubar/.docs/sub.md-->
+
 ### SubTrigger
+
+<!--@include: ../../packages/components/menubar/.docs/subTrigger.md-->
 
 ### SubContent
 
+<!--@include: ../../packages/components/menubar/.docs/subContent.md-->
+
 ### Separator
 
+<!--@include: ../../packages/components/menubar/.docs/separator.md-->
+
 ### Arrow
+
+<!--@include: ../../packages/components/menubar/.docs/arrow.md-->

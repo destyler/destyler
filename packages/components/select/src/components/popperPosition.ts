@@ -15,7 +15,7 @@ export const selectPopperPositionProps = {
    * The preferred alignment against the trigger.
    * May change when collisions occur.
    *
-   * @defaultValue start
+   * @default start
    */
   align: {
     ...popperContentProps.align,
@@ -26,7 +26,7 @@ export const selectPopperPositionProps = {
    * detection should occur. Accepts a number (same for all sides),
    * or a partial padding object, for example: { top: 20, left: 20 }.
    *
-   * @defaultValue 10
+   * @default 10
    */
   collisionPadding: {
     ...popperContentProps.collisionPadding,
