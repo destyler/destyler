@@ -3,7 +3,7 @@
 <Props :value="[
   {
     'name': 'active',
-    'description': '',
+    'description': '<p>Whether countdown is active.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
@@ -13,7 +13,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',

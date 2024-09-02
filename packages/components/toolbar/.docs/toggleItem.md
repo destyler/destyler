@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -17,28 +17,28 @@
   },
   {
     'name': 'defaultValue',
-    'description': '',
+    'description': '<p>The default value for the calendar</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'disabled',
-    'description': '',
+    'description': '<p>When <code>true</code>, prevents the user from interacting with the accordion and all its items</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'pressed',
-    'description': '',
+    'description': '<p>The controlled pressed state of the toggle. Can be bind as <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'value',
-    'description': '<p>A string value for the toggle group item. All items within a toggle group should use a unique value.</p>\n',
+    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
     'type': 'string',
     'required': true,
     'default': '-'

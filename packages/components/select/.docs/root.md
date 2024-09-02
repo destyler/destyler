@@ -25,7 +25,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the select when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -60,7 +60,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the accordion.</p>\n',
-    'type': '\'vertical\' | \'horizontal\'',
+    'type': 'DataOrientation',
     'required': false,
     'default': 'vertical'
   },

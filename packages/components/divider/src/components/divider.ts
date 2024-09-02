@@ -6,6 +6,8 @@ import type { DataOrientation, ExtractPublicPropTypes } from '@destyler/shared'
 export const dividerProps = {
   ...primitiveProps,
   /**
+   * Orientation of the component.<br \>
+   * Either `vertical` or `horizontal`.
    *
    * @default horizontal
    */

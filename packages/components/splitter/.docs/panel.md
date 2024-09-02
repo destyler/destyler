@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -38,7 +38,7 @@
   },
   {
     'name': 'id',
-    'description': '',
+    'description': '<p>Id of the element</p>\n',
     'type': 'string',
     'required': false,
     'default': '-'

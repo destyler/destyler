@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -18,7 +18,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the scroll area when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -32,7 +32,7 @@
   {
     'name': 'type',
     'description': '<p>Describes the nature of scrollbar visibility, similar to how the scrollbar preferences in MacOS control visibility of native scrollbars.</p>\n<p><code>auto</code> - means that scrollbars are visible when content is overflowing on the corresponding orientation. &lt;br&gt;\n<code>always</code> - means that scrollbars are always visible regardless of whether the content is overflowing.&lt;br&gt;\n<code>scroll</code> - means that scrollbars are visible when the user is scrolling along its corresponding orientation.&lt;br&gt;\n<code>hover</code> - when the user is scrolling along its corresponding orientation and when the user is hovering over the scroll area.</p>\n',
-    'type': '\'auto\' | \'always\' | \'scroll\' | \'hover\'',
+    'type': 'ScrollType',
     'required': false,
     'default': 'hover'
   }

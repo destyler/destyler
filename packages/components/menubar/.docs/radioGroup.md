@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -17,7 +17,7 @@
   },
   {
     'name': 'modelValue',
-    'description': '<p>The value of the selected item in the group.</p>\n',
+    'description': '<p>The controlled checked state of the calendar. Can be bound as <code>v-model</code>.</p>\n',
     'type': 'string',
     'required': false,
     'default': '-'
@@ -27,7 +27,7 @@
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the value changes</p>\n',
+    'description': '<p>Event handler called whenever the model value changes</p>\n',
     'type': '[_payload: string]'
   }
 ]" />

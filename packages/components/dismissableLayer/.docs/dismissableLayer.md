@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -34,7 +34,7 @@
 <Event :value="[
   {
     'name': 'dismiss',
-    'description': '',
+    'description': '<p>Handler called when the <code>DismissableLayer</code> should be dismissed</p>\n',
     'type': '[]'
   },
   {

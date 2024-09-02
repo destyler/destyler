@@ -8,6 +8,9 @@ import { injectCollapseRootContext } from './root'
 import { injectCollapseItemContext } from './item'
 
 export const collapseContentProps = {
+  /**
+   * @default false
+   */
   asChild: primitiveProps.asChild,
 } as const
 

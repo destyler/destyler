@@ -10,7 +10,7 @@
   },
   {
     'name': 'max',
-    'description': '',
+    'description': '<p>Maximum number of tags.</p>\n',
     'type': 'number',
     'required': true,
     'default': '-'

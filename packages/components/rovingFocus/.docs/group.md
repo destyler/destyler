@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -32,7 +32,7 @@
   {
     'name': 'dir',
     'description': '<p>The direction of between items.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -46,7 +46,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the group.\nMainly so arrow navigation is done accordingly (left &amp; right vs. up &amp; down)</p>\n',
-    'type': '\'horizontal\' | \'vertical\'',
+    'type': 'Orientation',
     'required': false,
     'default': 'undefined'
   }

@@ -4,7 +4,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },

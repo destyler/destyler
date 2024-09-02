@@ -69,8 +69,8 @@ function parsePrivateEvent(meta: ComponentMeta, filePath: string) {
       const { name, description, type } = event
       return ({
         name,
-        type: type.replace(/\s*\|\s*undefined/g, ''),
-        description: md.render(description),
+        type,
+        description,
       })
     })
     .sort((a, b) => a.name.localeCompare(b.name))
@@ -169,8 +169,8 @@ function parsePrivateProps(meta: ComponentMeta) {
 
       return ({
         name,
-        description: md.render(description),
-        type: type.replace(/\s*\|\s*undefined/g, ''),
+        description,
+        type,
         required,
         default: defaultValue ?? '-',
       })
@@ -183,7 +183,7 @@ function parsePrivateProps(meta: ComponentMeta) {
       else {
         const privateProp = privateProps.find(element => element.name === prop.name && element.type === prop.type)
         if (!privateProp?.description) {
-          privateProp!.description = prop.description
+          privateProp!.description = prop.description ? prop.description : privateProp!.description
         }
       }
     })
@@ -206,7 +206,7 @@ function handleGenPublicAPI() {
       if (!componentName)
         return
       const meta = parseMeta(checker.getComponentMeta(componentPath, componentName), componentPath)
-      const docsFilePath = resolve(componentsDir, `${component}/${fixedDir.docs}/${name}.md`)
+      const docsFilePath = resolve(componentsDir, `${publicComponent}/${fixedDir.docs}/${name}.md`)
 
       writeDocsFile(docsFilePath, meta)
     })
@@ -228,9 +228,6 @@ function parseMeta(meta: ComponentMeta, componentFile: string) {
       let type = prop.type
       let { name, description, required } = prop
 
-      if (!type.includes('AcceptableValue'))
-        type = parseTypeFromSchema(prop.schema) || type
-
       if (name === 'as') {
         defaultValue = defaultValue ?? 'div'
         type = 'AsTag | Component'
@@ -244,9 +241,8 @@ function parseMeta(meta: ComponentMeta, componentFile: string) {
         description = 'Change the default rendered element for the one passed as a child, merging their props and behavior.\n\nRead our Composition guide for more details.'
       }
 
-      // 如果 description 没有内容, 就在 privateProps 中根据名字和类型查找
       if (!description) {
-        const comment = privateProps.find(element => element.name === name && element.type === type)
+        const comment = privateProps.find(element => element.name === name)
         description = comment?.description ?? ''
       }
 
@@ -266,20 +262,24 @@ function parseMeta(meta: ComponentMeta, componentFile: string) {
       const { name, description, type } = event
       return ({
         name,
-        type: type.replace(/\s*\|\s*undefined/g, ''),
-        description: md.render(description),
+        type,
+        description,
       })
     }).map((event) => {
       const comments = getFileComment(componentFile)
       const comment = comments.find(comment => comment.object === event.name)
       if (!comment) {
-        const demo = privateEvents.find(element => element.name === event.name && element.type === event.type)
+        const demo = privateEvents.find(element => element.name === event.name)
         event.description = demo?.description ?? event.description
       }
       else {
         event.description = comment.comment
       }
-      return event
+      return {
+        name: event.name,
+        description: md.render(event.description),
+        type: event.type.replace(/\s*\|\s*undefined/g, ''),
+      }
     })
     .sort((a, b) => a.name.localeCompare(b.name))
 
@@ -357,6 +357,8 @@ export function run() {
 
   handleGenPrivateAPI()
   handleGenPublicAPI()
+
+  console.log('API docs generated successfully!')
 }
 
 run()

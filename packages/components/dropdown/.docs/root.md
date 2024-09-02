@@ -11,7 +11,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the combobox when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -24,7 +24,7 @@
   },
   {
     'name': 'open',
-    'description': '',
+    'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': 'undefined'
@@ -34,7 +34,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '<p>Emitted when the open state of the Ellipsis changes.</p>\n',
+    'description': '<p>Event handler called when the open state of the collapsible changes.</p>\n',
     'type': '[_open: boolean]'
   }
 ]" />

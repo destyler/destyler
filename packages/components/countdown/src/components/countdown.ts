@@ -52,7 +52,7 @@ export const countdownProps = {
     default: 0,
   },
   /**
-   * Time's render function
+   * Time is render function
    */
   render: {
     type: Function as PropType<(props: CountdownTimeInfo) => VNodeChild>,

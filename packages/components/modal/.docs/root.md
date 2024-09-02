@@ -20,7 +20,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '<p>Event handler called when the open state of the dialog changes.</p>\n',
+    'description': '<p>Event handler called when the open state of the collapsible changes.</p>\n',
     'type': '[_value: boolean]'
   }
 ]" />

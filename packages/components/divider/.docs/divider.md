@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -24,8 +24,8 @@
   },
   {
     'name': 'orientation',
-    'description': '',
-    'type': '\'vertical\' | \'horizontal\'',
+    'description': '<p>Orientation of the component.&lt;br &gt;\nEither <code>vertical</code> or <code>horizontal</code>.</p>\n',
+    'type': 'DataOrientation',
     'required': false,
     'default': 'horizontal'
   }

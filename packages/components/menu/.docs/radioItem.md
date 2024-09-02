@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -41,7 +41,7 @@
 <Event :value="[
   {
     'name': 'select',
-    'description': '<p>Event handler called when the user selects an item (via mouse or keyboard). &lt;br&gt;\nCalling <code>event.preventDefault</code> in this handler will prevent the menu from closing when selecting that item.</p>\n',
+    'description': '<p>Event handler called when the selecting item. &lt;br&gt;\nIt can be prevented by calling <code>event.preventDefault</code>.</p>\n',
     'type': '[_event: Event]'
   }
 ]" />

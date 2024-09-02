@@ -69,7 +69,7 @@
 <Event :value="[
   {
     'name': 'update:checked',
-    'description': '<p>Event handler called when the radio item is checked.</p>\n',
+    'description': '<p>Event handler called when the checked state of the checkbox changes.</p>\n',
     'type': '[_checked: boolean]'
   }
 ]" />

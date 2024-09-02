@@ -10,7 +10,7 @@
   },
   {
     'name': 'open',
-    'description': '<p>The controlled open state of the menu.\nCan be used as <code>v-model:open</code>.</p>\n',
+    'description': '<p>The controlled open state of the collapsible. Can be binded with <code>v-model</code>.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
@@ -20,7 +20,7 @@
 <Event :value="[
   {
     'name': 'update:open',
-    'description': '<p>Event handler called when the open state of the dialog changes.</p>\n',
+    'description': '<p>Event handler called when the open state of the collapsible changes.</p>\n',
     'type': '[_open: boolean]'
   }
 ]" />

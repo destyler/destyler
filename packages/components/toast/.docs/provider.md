@@ -18,7 +18,7 @@
   {
     'name': 'swipeDirection',
     'description': '<p>Direction of pointer swipe that should close the toast.</p>\n',
-    'type': '\'up\' | \'down\' | \'left\' | \'right\'',
+    'type': 'SwipeDirection',
     'required': false,
     'default': '-'
   },

@@ -3,8 +3,8 @@
 <Props :value="[
   {
     'name': 'dir',
-    'description': '',
-    'type': '\'ltr\' | \'rtl\'',
+    'description': '<p>The reading direction of the calendar when applicable.</p>\n',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -17,7 +17,7 @@
   },
   {
     'name': 'max',
-    'description': '',
+    'description': '<p>Maximum number of tags.</p>\n',
     'type': 'number',
     'required': true,
     'default': '-'

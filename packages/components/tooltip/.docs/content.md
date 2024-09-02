@@ -34,7 +34,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -97,7 +97,7 @@
 <Event :value="[
   {
     'name': 'escapeKeyDown',
-    'description': '<p>Event handler called when the escape key is down. It can be prevented by calling <code>event.preventDefault</code>.</p>\n',
+    'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[_event: KeyboardEvent]'
   },
   {

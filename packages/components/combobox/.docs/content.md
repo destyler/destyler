@@ -6,7 +6,7 @@
     'description': '<p>The preferred alignment against the trigger.\nMay change when collisions occur.</p>\n',
     'type': '\'start\' | \'center\' | \'end\'',
     'required': false,
-    'default': 'center'
+    'default': '-'
   },
   {
     'name': 'alignOffset',
@@ -27,7 +27,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -69,7 +69,7 @@
     'description': '<p>When <code>true</code>, hover/focus/click interactions will be disabled on elements outside\nthe <code>DismissableLayer</code>. Users will need to click twice on outside elements to\ninteract with them: once to close the <code>DismissableLayer</code>, and again to trigger the element.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'false'
+    'default': '-'
   },
   {
     'name': 'dismissable',
@@ -97,7 +97,7 @@
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'true'
+    'default': '-'
   },
   {
     'name': 'position',
@@ -125,11 +125,11 @@
     'description': '<p>The distance in pixels from the trigger.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '0'
+    'default': '-'
   },
   {
     'name': 'sticky',
-    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
+    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary regardless.</p>\n',
     'type': '\'partial\' | \'always\'',
     'required': false,
     'default': '-'
@@ -146,22 +146,22 @@
 <Event :value="[
   {
     'name': 'escapeKeyDown',
-    'description': '',
+    'description': '<p>Event handler called when the escape key is down.\nCan be prevented.</p>\n',
     'type': '[_event: KeyboardEvent]'
   },
   {
     'name': 'focusOutside',
-    'description': '',
+    'description': '<p>Event handler called when the focus moves outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: FocusOutsideEvent]'
   },
   {
     'name': 'interactOutside',
-    'description': '',
+    'description': '<p>Event handler called when an interaction happens outside the <code>DismissableLayer</code>.\nSpecifically, when a <code>pointerdown</code> event happens outside or focus moves outside of it.\nCan be prevented.</p>\n',
     'type': '[_event: PointerDownOutsideEvent | FocusOutsideEvent]'
   },
   {
     'name': 'pointerDownOutside',
-    'description': '',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens outside of the <code>DismissableLayer</code>.\nCan be prevented.</p>\n',
     'type': '[_event: PointerDownOutsideEvent]'
   }
 ]" />

@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -20,7 +20,7 @@
     'description': '<p>When <code>true</code>, hover/focus/click interactions will be disabled on elements outside\nthe <code>DismissableLayer</code>. Users will need to click twice on outside elements to\ninteract with them: once to close the <code>DismissableLayer</code>, and again to trigger the element.</p>\n',
     'type': 'boolean',
     'required': false,
-    'default': 'false'
+    'default': '-'
   },
   {
     'name': 'forceMount',
@@ -34,7 +34,7 @@
     'description': '',
     'type': 'boolean',
     'required': false,
-    'default': 'true'
+    'default': '-'
   },
   {
     'name': 'trapFocus',
@@ -48,7 +48,7 @@
 <Event :value="[
   {
     'name': 'closeAutoFocus',
-    'description': '',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens\noutside of the <code>DismissableLayer</code>. Can be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {
@@ -68,7 +68,7 @@
   },
   {
     'name': 'openAutoFocus',
-    'description': '',
+    'description': '<p>Event handler called when auto-focusing on open. Can be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {

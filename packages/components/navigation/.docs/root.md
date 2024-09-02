@@ -32,7 +32,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the navigation when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -60,7 +60,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the menu.</p>\n',
-    'type': '\'horizontal\' | \'vertical\'',
+    'type': 'Orientation',
     'required': false,
     'default': 'horizontal'
   },

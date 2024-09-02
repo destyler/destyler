@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -25,7 +25,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the radio when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': '-'
   },
@@ -60,7 +60,7 @@
   {
     'name': 'orientation',
     'description': '<p>The orientation of the component.</p>\n',
-    'type': '\'vertical\' | \'horizontal\'',
+    'type': 'DataOrientation',
     'required': false,
     'default': 'undefined'
   },

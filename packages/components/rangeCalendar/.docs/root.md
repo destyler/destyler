@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -39,7 +39,7 @@
   {
     'name': 'dir',
     'description': '<p>The reading direction of the calendar when applicable.</p>\n',
-    'type': '\'ltr\' | \'rtl\'',
+    'type': 'Direction',
     'required': false,
     'default': 'ltr'
   },
@@ -144,7 +144,7 @@
   {
     'name': 'weekdayFormat',
     'description': '<p>The format to use for the weekday strings provided via the weekdays slot prop</p>\n',
-    'type': '\'long\' | \'short\' | \'narrow\'',
+    'type': 'WeekDayFormat',
     'required': false,
     'default': 'narrow'
   },
@@ -160,7 +160,7 @@
 <Event :value="[
   {
     'name': 'update:modelValue',
-    'description': '<p>Event handler called when the progres value changes</p>\n',
+    'description': '<p>Event handler called whenever the model value changes</p>\n',
     'type': '[_date: DateRange]'
   },
   {

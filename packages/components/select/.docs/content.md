@@ -27,7 +27,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -97,11 +97,11 @@
     'description': '<p>The distance in pixels from the trigger.</p>\n',
     'type': 'number',
     'required': false,
-    'default': '0'
+    'default': '-'
   },
   {
     'name': 'sticky',
-    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary\nregardless.</p>\n',
+    'description': '<p>The sticky behavior on the align axis. <code>partial</code> will keep the\ncontent in the boundary as long as the trigger is at least partially\nin the boundary whilst &quot;always&quot; will keep the content in the boundary regardless.</p>\n',
     'type': '\'partial\' | \'always\'',
     'required': false,
     'default': '-'
@@ -118,7 +118,7 @@
 <Event :value="[
   {
     'name': 'closeAutoFocus',
-    'description': '<p>Event handler called when auto-focusing on close.\nCan be prevented.</p>\n',
+    'description': '<p>Event handler called when the a <code>pointerdown</code> event happens\noutside of the <code>DismissableLayer</code>. Can be prevented.</p>\n',
     'type': '[_event: Event]'
   },
   {

@@ -38,7 +38,7 @@
   },
   {
     'name': 'render',
-    'description': '<p>Time's render function</p>\n',
+    'description': '<p>Time is render function</p>\n',
     'type': '((props: CountdownTimeInfo) => VNodeChild)',
     'required': false,
     'default': '-'

@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': '\'div\''
+    'default': 'div'
   },
   {
     'name': 'asChild',
@@ -17,14 +17,14 @@
   },
   {
     'name': 'disableOutsidePointerEvents',
-    'description': '',
+    'description': '<p>When <code>true</code>, hover/focus/click interactions will be disabled on elements outside\nthe <code>DismissableLayer</code>. Users will need to click twice on outside elements to\ninteract with them: once to close the <code>DismissableLayer</code>, and again to trigger the element.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'forceMount',
-    'description': '',
+    'description': '<p>Used to force mounting when more control is needed.\nUseful when controlling animation with animation libraries.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'
@@ -38,7 +38,7 @@
   },
   {
     'name': 'trapFocus',
-    'description': '',
+    'description': '<p>When <code>true</code>, focus cannot escape the Content via keyboard,\npointer, or a programmatic focus.</p>\n',
     'type': 'boolean',
     'required': false,
     'default': '-'

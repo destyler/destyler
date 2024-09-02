@@ -6,7 +6,7 @@
     'description': '<p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n',
     'type': 'AsTag | Component',
     'required': false,
-    'default': 'div'
+    'default': '\'div\''
   },
   {
     'name': 'asChild',
@@ -25,7 +25,7 @@
   {
     'name': 'direction',
     'description': '<p>The group orientation of splitter.</p>\n',
-    'type': '\'horizontal\' | \'vertical\'',
+    'type': 'Direction',
     'required': true,
     'default': '-'
   },
@@ -55,7 +55,7 @@
 <Event :value="[
   {
     'name': 'layout',
-    'description': '<p>Current size of layout</p>\n',
+    'description': '<p>Event handler called when group layout changes</p>\n',
     'type': '[_layout: number[]]'
   }
 ]" />
