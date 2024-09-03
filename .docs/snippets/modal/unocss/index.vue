@@ -63,7 +63,6 @@ import {
         p="6"
         rounded="lg sm:lg"
         duration="200"
-
         class="
         data-[state=open]:animate-in
         data-[state=closed]:animate-out
@@ -77,21 +76,75 @@ import {
         data-[state=open]:slide-in-from-top-48%
       "
       >
-        <div class="flex flex-col space-y-2 text-center sm:text-left">
-          <ModalTitle class="text-lg font-semibold flex items-center">
-            <Icon name="carbon:warning" class="w-4 h-4" />
-            <span class="ml-1">Are you absolutely sure?</span>
+        <div
+          flex="~ col"
+          space="y-2"
+          text="center sm:left"
+        >
+          <ModalTitle
+            text="lg"
+            font="semibold"
+            flex="~"
+            items="center"
+          >
+            <Icon
+              name="carbon:warning"
+              w="4"
+              h="4"
+            />
+            <span m="l-1">Are you absolutely sure?</span>
           </ModalTitle>
-          <ModalDescription class="text-sm text-muted-foreground">
+          <ModalDescription
+            text="sm muted-foreground"
+          >
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
           </ModalDescription>
         </div>
-        <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
-          <ModalCancel class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mt-2 sm:mt-0">
+        <div
+          class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2"
+          flex="~ col-reverse sm:row"
+          justify="sm:end"
+          space="sm:y-2"
+        >
+          <ModalCancel
+            inline="flex"
+            items="center"
+            justify="center"
+            whitespace="nowrap"
+            rounded="md"
+            text="sm hover:accent-foreground"
+            font="medium"
+            ring-offset="background"
+            transition="colors"
+            focus-visible="outline-none ring-2 ring-ring ring-offset-2"
+            pointer-events="disabled:none"
+            op="disabled:50"
+            border="~ input"
+            bg="background hover:accent"
+            h="10"
+            p="x-4 y-2"
+            m="t-2 sm:t-0"
+          >
             Cancel
           </ModalCancel>
-          <ModalAction class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+          <ModalAction
+            inline="flex"
+            items="center"
+            justify="center"
+            whitespace="nowrap"
+            rounded="md"
+            text="sm primary-foreground"
+            font="medium"
+            ring-offset="background"
+            transition="colors"
+            focus-visible="outline-none ring-2 ring-ring ring-offset-2"
+            pointer-events="disabled:none"
+            op="disabled:50"
+            bg="primary hover:primary/90"
+            h="10"
+            p="x-4 y-2"
+          >
             Continue
           </ModalAction>
         </div>

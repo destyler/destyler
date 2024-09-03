@@ -1,355 +1,54 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
 import {
-  MenubarCheckboxItem,
-  MenubarContent,
-  MenubarItem,
-  MenubarItemIndicator,
-  MenubarMenu,
-  MenubarPortal,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarRoot,
-  MenubarSeparator,
-  MenubarTrigger,
-} from '@destyler/menubar'
-import Shortcut from './Shortcut.vue'
-import Sub from './Sub.vue'
-
-const options = ref([
-  {
-    value: 'file',
-    label: 'File',
-    items: [
-      {
-        icon: 'carbon:new-tab',
-        value: 'new-tab',
-        label: 'New Tab',
-        shortcut: '⌘T',
-        type: 'item',
-      },
-      {
-        icon: 'carbon:airplay',
-        value: 'new-window',
-        label: 'New Window',
-        shortcut: '⌘N',
-        type: 'item',
-      },
-      {
-        icon: 'carbon:fingerprint-recognition',
-        value: 'new-incognito-window',
-        label: 'New Incognito Window',
-        disabled: true,
-        type: 'item',
-      },
-      {
-        value: 'file-shortcut-1',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:share',
-        value: 'share',
-        label: 'Share',
-        type: 'sub',
-        items: [
-          {
-            icon: 'carbon:email',
-            value: 'email-link',
-            label: 'Email link',
-            type: 'item',
-          },
-          {
-            icon: 'carbon:chat',
-            value: 'messages',
-            label: 'Messages',
-            type: 'item',
-          },
-          {
-            icon: 'carbon:align-box-top-left',
-            value: 'notes',
-            label: 'Notes',
-            type: 'item',
-          },
-        ],
-      },
-      {
-        value: 'file-shortcut-1',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:printer',
-        value: 'print',
-        label: 'Print...',
-        shortcut: '⌘P',
-        type: 'item',
-      },
-    ],
-  },
-  {
-    value: 'edit',
-    label: 'Edit',
-    items: [
-      {
-        icon: 'carbon:undo',
-        value: 'undo',
-        label: 'Undo',
-        shortcut: '⌘Z',
-        type: 'item',
-      },
-      {
-        icon: 'carbon:redo',
-        value: 'redo',
-        label: 'Redo',
-        shortcut: '⇧⌘Z',
-        type: 'item',
-      },
-      {
-        value: 'edit-shortcut-1',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:search',
-        value: 'find',
-        label: 'Find',
-        type: 'sub',
-        items: [
-          {
-            icon: 'carbon:application-web',
-            value: 'search-the-web',
-            label: 'Search the web',
-            type: 'item',
-          },
-          {
-            value: 'edit-shortcut-2',
-            type: 'separator',
-          },
-          {
-            icon: 'carbon:magnify',
-            value: 'find...',
-            label: 'Find...',
-            type: 'item',
-          },
-          {
-            icon: 'carbon:triangle-right-outline',
-            value: 'find-next',
-            label: 'Find Next',
-            type: 'item',
-          },
-          {
-            icon: 'carbon:triangle-left-outline',
-            value: 'find-previous',
-            label: 'Find Previous',
-            type: 'item',
-          },
-        ],
-      },
-      {
-        value: 'edit-shortcut-2',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:cut',
-        value: 'cut',
-        label: 'Cut',
-        type: 'item',
-      },
-      {
-        icon: 'carbon:copy-file',
-        value: 'copy',
-        label: 'Copy',
-        type: 'item',
-      },
-      {
-        icon: 'carbon:paste',
-        value: 'paste',
-        label: 'Paste',
-        type: 'item',
-      },
-    ],
-  },
-  {
-    value: 'view',
-    label: 'View',
-    items: [
-      {
-        value: 'always-show-bookmarks-bar',
-        label: 'Always Show Bookmarks Bar',
-        type: 'checkbox',
-        checked: false,
-      },
-      {
-        value: 'always-show-full-urls',
-        label: 'Always Show Full URLs',
-        type: 'checkbox',
-        checked: true,
-      },
-      {
-        value: 'view-shortcut-1',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:update-now',
-        value: 'reload',
-        label: 'Reload',
-        shortcut: '⌘R',
-        type: 'item',
-      },
-      {
-        icon: 'carbon:rotate-360',
-        value: 'force-reload',
-        label: 'Force Reload',
-        shortcut: '⇧⌘R',
-        disabled: true,
-        type: 'item',
-      },
-      {
-        value: 'view-shortcut-2',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:maximize',
-        value: 'toggle-fullscreen',
-        label: 'Toggle Fullscreen',
-        type: 'item',
-      },
-      {
-        value: 'view-shortcut-3',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:minimize',
-        value: 'hide-sidebar',
-        label: 'Hide Sidebar',
-        type: 'item',
-      },
-    ],
-  },
-  {
-    value: 'profiles',
-    label: 'Profiles',
-    items: [
-      {
-        type: 'radio',
-        value: 'benoit',
-        items: [
-          {
-            value: 'andy',
-            label: 'Andy',
-            class: 'pl-8',
-            type: 'radio-item',
-          },
-          {
-            value: 'benoit',
-            label: 'Benoit',
-            class: 'pl-8',
-            type: 'radio-item',
-          },
-          {
-            value: 'luis',
-            label: 'Luis',
-            class: 'pl-8',
-            type: 'radio-item',
-          },
-        ],
-      },
-      {
-        value: 'profiles-shortcut-1',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:edit',
-        value: 'edit',
-        label: 'Edit...',
-        type: 'item',
-      },
-      {
-        value: 'profiles-shortcut-2',
-        type: 'separator',
-      },
-      {
-        icon: 'carbon:add-alt',
-        value: 'add-profile',
-        label: 'Add Profile...',
-        type: 'item',
-      },
-    ],
-  },
-])
-
-const currentMenubar = ref('')
+  ModalAction,
+  ModalCancel,
+  ModalContent,
+  ModalDescription,
+  ModalOverlay,
+  ModalPortal,
+  ModalRoot,
+  ModalTitle,
+  ModalTrigger,
+} from '@destyler/modal'
 </script>
 
 <template>
-  <MenubarRoot
-    v-model="currentMenubar"
-    class="box"
-  >
-    <MenubarMenu v-for="option in options" :key="option.value" :value="option.value">
-      <MenubarTrigger
-        class="trigger"
-      >
-        {{ option.label }}
-      </MenubarTrigger>
-      <MenubarPortal>
-        <MenubarContent
-          align="start"
-          :side-offset="8"
-          :align-offset="-4"
-          class="content"
-        >
-          <template
-            v-for="item in option.items"
-            :key="item?.value"
-          >
-            <MenubarItem
-              v-if="item?.type === 'item'"
-              :value="item?.value"
-              :disabled="item?.disabled"
-              class="item"
-              :class="item?.class"
-            >
-              <Icon v-if="item.icon" :name="item.icon" class="mr-2 icon" />
-              {{ item?.label }}
-              <Shortcut v-show="item?.shortcut">
-                {{ item.shortcut }}
-              </Shortcut>
-            </MenubarItem>
-            <MenubarSeparator v-else-if="item?.type === 'separator'" class="separator" />
-            <Sub v-else-if="item?.type === 'sub'" :items="item" />
-            <MenubarCheckboxItem
-              v-else-if="item?.type === 'checkbox'"
-              v-model:checked="item.checked"
-              class="select-item"
-            >
-              <span class="select-item-span">
-                <MenubarItemIndicator>
-                  <Icon name="carbon:checkmark" class="icon text-primary" />
-                </MenubarItemIndicator>
-              </span>
-              {{ item?.label }}
-            </MenubarCheckboxItem>
-            <MenubarRadioGroup
-              v-else-if="item?.type === 'radio'"
-              v-model="item.value"
-            >
-              <MenubarRadioItem
-                v-for="radioItem in item.items"
-                :key="radioItem.value"
-                :value="radioItem.value"
-                class="select-item"
-              >
-                <span class="select-item-span">
-                  <MenubarItemIndicator>
-                    <Icon name="carbon:dot-mark" class="icon text-primary" />
-                  </MenubarItemIndicator>
-                </span>
-                {{ radioItem?.label }}
-              </MenubarRadioItem>
-            </MenubarRadioGroup>
-          </template>
-        </MenubarContent>
-      </MenubarPortal>
-    </MenubarMenu>
-  </MenubarRoot>
+  <ModalRoot>
+    <ModalTrigger
+      class="
+      inline-flex items-center justify-center whitespace-nowrap
+      rounded-md text-sm font-medium transition-colors
+      shadow h-9 px-4 py-2
+      focus-visible:outline-none focus-visible:ring-1
+      disabled:pointer-events-none disabled:opacity-50
+      bg-primary hover:bg-primary/90 text-primary-foreground
+      "
+    >
+      Open Modal
+    </ModalTrigger>
+    <ModalPortal>
+      <ModalOverlay class="fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+      <ModalContent class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg">
+        <div class="flex flex-col space-y-2 text-center sm:text-left">
+          <ModalTitle class="text-lg font-semibold flex items-center">
+            <Icon name="carbon:warning" class="w-4 h-4" />
+            <span class="ml-1">Are you absolutely sure?</span>
+          </ModalTitle>
+          <ModalDescription class="text-sm text-muted-foreground">
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </ModalDescription>
+        </div>
+        <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+          <ModalCancel class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mt-2 sm:mt-0">
+            Cancel
+          </ModalCancel>
+          <ModalAction class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+            Continue
+          </ModalAction>
+        </div>
+      </ModalContent>
+    </ModalPortal>
+  </ModalRoot>
 </template>
