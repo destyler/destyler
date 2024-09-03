@@ -71,3 +71,35 @@ import {
 ### Root
 
 <!--@include: ../../packages/components/modal/.docs/root.md-->
+
+### Trigger
+
+<!--@include: ../../packages/components/modal/.docs/trigger.md-->
+
+### Portal
+
+<!--@include: ../../packages/components/modal/.docs/portal.md-->
+
+### Overlay
+
+<!--@include: ../../packages/components/modal/.docs/overlay.md-->
+
+### Content
+
+<!--@include: ../../packages/components/modal/.docs/content.md-->
+
+### Title
+
+<!--@include: ../../packages/components/modal/.docs/title.md-->
+
+### Description
+
+<!--@include: ../../packages/components/modal/.docs/description.md-->
+
+### Cancel
+
+<!--@include: ../../packages/components/modal/.docs/cancel.md-->
+
+### Action
+
+<!--@include: ../../packages/components/modal/.docs/action.md-->
