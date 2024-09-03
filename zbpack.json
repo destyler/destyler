@@ -1,4 +1,3 @@
 {
-  "app_dir": "/.docs",
-  "build_command": "pnpm run build"
+  "app_dir": "/.docs"
 }
