@@ -1,3 +1,4 @@
 {
-  "app_dir": "/.docs"
+  "app_dir": ".docs",
+  "cache_dependencies": false
 }
