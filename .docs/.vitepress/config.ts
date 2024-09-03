@@ -12,7 +12,6 @@ export default defineConfig({
   appearance: false,
   lastUpdated: true,
   cleanUrls: true,
-  outDir: './dist',
   markdown: {
     theme: 'vitesse-dark',
     codeTransformers: [
