@@ -4,7 +4,7 @@
   "private": "true",
   "scripts": {
     "dev": "vitepress dev --port 3333",
-    "build": "vitepress build",
+    "build": "pnpm -C ../ run build && vitepress build",
     "preview": "vitepress preview"
   },
   "dependencies": {
