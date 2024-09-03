@@ -25,6 +25,7 @@
     "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",
     "@destyler/menubar": "workspace:*",
+    "@destyler/modal": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
