@@ -88,6 +88,7 @@ export default defineConfig({
           { text: 'Label', link: '/components/label' },
           { text: 'Menubar', link: '/components/menubar' },
           { text: 'Modal', link: '/components/modal' },
+          { text: 'Navigation', link: '/components/navigation' },
         ],
       },
     ],
