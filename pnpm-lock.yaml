@@ -200,6 +200,9 @@ importers:
       '@destyler/modal':
         specifier: workspace:*
         version: link:../packages/components/modal
+      '@destyler/navigation':
+        specifier: workspace:*
+        version: link:../packages/components/navigation
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler
