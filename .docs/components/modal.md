@@ -76,6 +76,15 @@ import {
 
 <!--@include: ../../packages/components/modal/.docs/trigger.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    }
+  ]"
+/>
+
 ### Portal
 
 <!--@include: ../../packages/components/modal/.docs/portal.md-->
@@ -84,9 +93,27 @@ import {
 
 <!--@include: ../../packages/components/modal/.docs/overlay.md-->
 
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    }
+  ]"
+/>
+
 ### Content
 
 <!--@include: ../../packages/components/modal/.docs/content.md-->
+
+<Attribute
+  :value="[
+    {
+      name: '[data-state]',
+      value:`\'open\' | \'closed\'`
+    }
+  ]"
+/>
 
 ### Title
 
