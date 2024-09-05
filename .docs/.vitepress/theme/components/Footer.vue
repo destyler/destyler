@@ -41,7 +41,7 @@ const icons = [
 </script>
 
 <template>
-  <div class="w-full h-px bg-gray-200 dark:bg-gray-800 flex items-center justify-center mb-3 mt-12">
+  <div class="w-full h-px bg-border flex items-center justify-center mb-3 mt-12">
     <div class="bg-white dark:bg-black px-4">
       <Logo class="w-6 h-6" />
     </div>
