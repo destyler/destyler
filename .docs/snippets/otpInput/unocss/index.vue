@@ -12,35 +12,56 @@ const value = ref<string[]>([])
 <template>
   <OtpInputRoot
     v-model="value"
-    class="flex items-center gap-2 has-[:disabled]:opacity-50"
+    flex="~"
+    items="center"
+    gap="2"
+    op="has-[:disabled]:50"
   >
-    <div class="flex items-center">
+    <div
+      flex="~"
+      items="center"
+    >
       <OtpInput
         v-for="(id, index) in 3"
         :key="id"
         :index="index"
-        class="
-        bg-#F8F8F8 dark:bg-#1C1C1C text-dark dark:text-light
-        relative text-center focus:outline-none focus:ring-2 focus:ring-ring
-        focus:relative focus:z-10 flex h-10 w-10 items-center justify-center
-        border-y border-r border-input text-sm transition-all
-        first:rounded-l-md first:border-l last:rounded-r-md"
+        bg="#F8F8F8 dark:#1C1C1C"
+        text="dark dark:light center sm"
+        relative="~"
+        focus="outline-none ring-2 ring-ring relative z-10"
+        flex="~"
+        h="10"
+        w="10"
+        items="center"
+        justify="center"
+        border="y r input"
+        transition="all"
+        first="rounded-l-md border-l"
       />
     </div>
     <div role="separator">
-      <Icon name="carbon:dot-mark" class="text-primary" />
+      <Icon name="carbon:dot-mark" text="primary" />
     </div>
-    <div class="flex items-center">
+    <div
+      flex="~"
+      items="center"
+    >
       <OtpInput
         v-for="(id, index) in 3"
         :key="id"
         :index="index + 3"
-        class="
-        bg-#F8F8F8 dark:bg-#1C1C1C text-dark dark:text-light
-        relative text-center focus:outline-none focus:ring-2 focus:ring-ring
-        focus:relative focus:z-10 flex h-10 w-10 items-center justify-center
-        border-y border-r border-input text-sm transition-all
-        first:rounded-l-md first:border-l last:rounded-r-md"
+        bg="#F8F8F8 dark:#1C1C1C"
+        text="dark dark:light center sm"
+        relative="~"
+        focus="outline-none ring-2 ring-ring relative z-10"
+        flex="~"
+        h="10"
+        w="10"
+        items="center"
+        justify="center"
+        border="y r input"
+        transition="all"
+        first="rounded-l-md border-l"
       />
     </div>
   </OtpInputRoot>

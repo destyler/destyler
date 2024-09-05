@@ -20,7 +20,7 @@ const value = ref<string[]>([])
         :key="id"
         :index="index"
         class="
-        bg-#F8F8F8 dark:bg-#1C1C1C text-dark dark:text-light
+        bg-[#F8F8F8] dark:bg-[#1C1C1C] text-dark dark:text-light
         relative text-center focus:outline-none focus:ring-2 focus:ring-ring
         focus:relative focus:z-10 flex h-10 w-10 items-center justify-center
         border-y border-r border-input text-sm transition-all
@@ -36,7 +36,7 @@ const value = ref<string[]>([])
         :key="id"
         :index="index + 3"
         class="
-        bg-#F8F8F8 dark:bg-#1C1C1C text-dark dark:text-light
+        bg-[#F8F8F8] dark:bg-[#1C1C1C] text-dark dark:text-light
         relative text-center focus:outline-none focus:ring-2 focus:ring-ring
         focus:relative focus:z-10 flex h-10 w-10 items-center justify-center
         border-y border-r border-input text-sm transition-all
