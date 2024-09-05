@@ -203,6 +203,9 @@ importers:
       '@destyler/navigation':
         specifier: workspace:*
         version: link:../packages/components/navigation
+      '@destyler/otp-input':
+        specifier: workspace:*
+        version: link:../packages/components/otpInput
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler

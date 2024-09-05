@@ -27,6 +27,7 @@
     "@destyler/menubar": "workspace:*",
     "@destyler/modal": "workspace:*",
     "@destyler/navigation": "workspace:*",
+    "@destyler/otp-input": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
