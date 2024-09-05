@@ -90,6 +90,7 @@ export default defineConfig({
           { text: 'Modal', link: '/components/modal' },
           { text: 'Navigation', link: '/components/navigation' },
           { text: 'OTP Input', link: '/components/otpInput' },
+          { text: 'Pagination', link: '/components/pagination' },
         ],
       },
     ],

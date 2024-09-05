@@ -206,6 +206,9 @@ importers:
       '@destyler/otp-input':
         specifier: workspace:*
         version: link:../packages/components/otpInput
+      '@destyler/pagination':
+        specifier: workspace:*
+        version: link:../packages/components/pagination
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler
