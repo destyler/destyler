@@ -31,8 +31,8 @@ export default defineConfig({
   },
   head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
-    ['link', { rel: 'icon', href: 'https://elonehoo.me/logo/dark.svg', sizes: 'any', type: 'image/svg+xml' }],
-    ['link', { rel: 'icon', href: 'https://elonehoo.me/favicon.svg', sizes: '48x48' }],
+    ['link', { rel: 'icon', href: 'https://destyler-dev.zeabur.app/logo.svg', sizes: 'any', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: 'https://destyler-dev.zeabur.app/logo.svg', sizes: '48x48' }],
     ['meta', { name: 'author', content: 'Elone Hoo' }],
     ['meta', { property: 'og:title', content: 'Elone Hoo Blog' }],
     ['meta', { property: 'og:description', content: 'I hope every sunny afternoon can be wasted.' }],
@@ -40,7 +40,7 @@ export default defineConfig({
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:creator', content: '@elonehoo' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' }],
-    ['link', { rel: 'apple-touch-icon', href: 'https://elonehoo.me/avatar.png', sizes: '180x180' }],
+    ['link', { rel: 'apple-touch-icon', href: 'https://destyler-dev.zeabur.app/logo.svg', sizes: '180x180' }],
 
     ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
     ['link', { rel: 'preconnect', crossorigin: 'anonymous', href: 'https://fonts.gstatic.com' }],
