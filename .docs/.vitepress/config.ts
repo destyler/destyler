@@ -31,8 +31,8 @@ export default defineConfig({
   },
   head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
-    ['link', { rel: 'icon', href: 'https://destyler-dev.zeabur.app/logo.svg', sizes: 'any', type: 'image/svg+xml' }],
-    ['link', { rel: 'icon', href: 'https://destyler-dev.zeabur.app/logo.svg', sizes: '48x48' }],
+    ['link', { rel: 'icon', href: '/logo.svg', sizes: 'any', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: '/logo.svg', sizes: '48x48' }],
     ['meta', { name: 'author', content: 'Elone Hoo' }],
     ['meta', { property: 'og:title', content: 'Elone Hoo Blog' }],
     ['meta', { property: 'og:description', content: 'I hope every sunny afternoon can be wasted.' }],
@@ -91,6 +91,7 @@ export default defineConfig({
           { text: 'Navigation', link: '/components/navigation' },
           { text: 'OTP Input', link: '/components/otpInput' },
           { text: 'Pagination', link: '/components/pagination' },
+          { text: 'Popover', link: '/components/popover' },
         ],
       },
     ],

@@ -29,6 +29,7 @@
     "@destyler/navigation": "workspace:*",
     "@destyler/otp-input": "workspace:*",
     "@destyler/pagination": "workspace:*",
+    "@destyler/popover": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
