@@ -21,29 +21,46 @@ import {
   >
     <PaginationList
       v-slot="{ items }"
-      class="flex items-center gap-1 text-dark dark:text-light"
+      flex="~"
+      items="center"
+      gap="1"
+      text="dark dark:light"
     >
       <PaginationFirst
-        class="
-        inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground
-        "
+        inline="flex"
+        items="center"
+        justify="center"
+        whitespace="nowrap"
+        rounded="md"
+        text="sm hover:accent-foreground"
+        font="medium"
+        ring-offset="background"
+        transition="colors"
+        focus-visible="outline-none ring-2 ring-ing ring-offset-2"
+        h="10"
+        w="10"
+        bg="hover:accent"
+        op="disabled:50"
+        pointer-events="disabled:none"
       >
         <Icon name="radix-icons:double-arrow-left" />
       </PaginationFirst>
       <PaginationPrev
-        class="
-        inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground
-        "
+        inline="flex"
+        items="center"
+        justify="center"
+        whitespace="nowrap"
+        rounded="md"
+        text="sm hover:accent-foreground"
+        font="medium"
+        ring-offset="background"
+        transition="colors"
+        focus-visible="outline-none ring-2 ring-ing ring-offset-2"
+        h="10"
+        w="10"
+        bg="hover:accent"
+        op="disabled:50"
+        pointer-events="disabled:none"
       >
         <Icon name="radix-icons:chevron-left" />
       </PaginationPrev>
@@ -52,13 +69,21 @@ import {
           v-if="page.type === 'page'"
           :key="index"
           :value="page.value"
-          class="inline-flex items-center justify-center whitespace-nowrap
-          rounded-md text-sm font-medium ring-offset-background
-          transition-colors focus-visible:outline-none h-10 w-10
-          focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-          focus-visible:ring-offset-2 disabled:pointer-events-none
-          disabled:opacity-50 hover:text-accent-foreground
-          data-[selected]:border data-[selected]:border-primary"
+          inline="flex"
+          items="center"
+          justify="center"
+          whitespace="nowrap"
+          rounded="md"
+          text="sm hover:accent-foreground"
+          font="medium"
+          ring-offset="background"
+          transition="colors"
+          focus-visible="outline-none ring-2 ring-ing ring-offset-2"
+          h="10"
+          w="10"
+          bg="hover:accent"
+          op="disabled:50"
+          pointer-events="disabled:none"
         />
         <PaginationEllipsis
           v-else
@@ -67,24 +92,40 @@ import {
         />
       </template>
       <PaginationNext
-        class="
-        inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground
-        "
+        inline="flex"
+        items="center"
+        justify="center"
+        whitespace="nowrap"
+        rounded="md"
+        text="sm hover:accent-foreground"
+        font="medium"
+        ring-offset="background"
+        transition="colors"
+        focus-visible="outline-none ring-2 ring-ing ring-offset-2"
+        h="10"
+        w="10"
+        bg="hover:accent"
+        op="disabled:50"
+        pointer-events="disabled:none"
       >
         <Icon name="radix-icons:chevron-right" />
       </PaginationNext>
       <PaginationLast
-        class="inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground"
+        inline="flex"
+        items="center"
+        justify="center"
+        whitespace="nowrap"
+        rounded="md"
+        text="sm hover:accent-foreground"
+        font="medium"
+        ring-offset="background"
+        transition="colors"
+        focus-visible="outline-none ring-2 ring-ing ring-offset-2"
+        h="10"
+        w="10"
+        bg="hover:accent"
+        op="disabled:50"
+        pointer-events="disabled:none"
       >
         <Icon name="radix-icons:double-arrow-right" />
       </PaginationLast>

@@ -10,6 +10,7 @@ import {
   PaginationPrev,
   PaginationRoot,
 } from '@destyler/pagination'
+import './style.css'
 </script>
 
 <template>
@@ -21,29 +22,15 @@ import {
   >
     <PaginationList
       v-slot="{ items }"
-      class="flex items-center gap-1 text-dark dark:text-light"
+      class="pagination-list"
     >
       <PaginationFirst
-        class="
-        inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground
-        "
+        class="item"
       >
         <Icon name="radix-icons:double-arrow-left" />
       </PaginationFirst>
       <PaginationPrev
-        class="
-        inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground
-        "
+        class="item"
       >
         <Icon name="radix-icons:chevron-left" />
       </PaginationPrev>
@@ -52,13 +39,7 @@ import {
           v-if="page.type === 'page'"
           :key="index"
           :value="page.value"
-          class="inline-flex items-center justify-center whitespace-nowrap
-          rounded-md text-sm font-medium ring-offset-background
-          transition-colors focus-visible:outline-none h-10 w-10
-          focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-          focus-visible:ring-offset-2 disabled:pointer-events-none
-          disabled:opacity-50 hover:text-accent-foreground
-          data-[selected]:border data-[selected]:border-primary"
+          class="item"
         />
         <PaginationEllipsis
           v-else
@@ -67,24 +48,12 @@ import {
         />
       </template>
       <PaginationNext
-        class="
-        inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground
-        "
+        class="item"
       >
         <Icon name="radix-icons:chevron-right" />
       </PaginationNext>
       <PaginationLast
-        class="inline-flex items-center justify-center whitespace-nowrap
-        rounded-md text-sm font-medium ring-offset-background
-        transition-colors focus-visible:outline-none h-10 w-10
-        focus-visible:ring-2 focus-visible:ring-ring hover:bg-accent
-        focus-visible:ring-offset-2 disabled:pointer-events-none
-        disabled:opacity-50 hover:text-accent-foreground"
+        class="item"
       >
         <Icon name="radix-icons:double-arrow-right" />
       </PaginationLast>
