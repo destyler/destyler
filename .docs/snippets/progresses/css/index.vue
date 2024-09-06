@@ -17,7 +17,7 @@ onMounted(() => {
     class="root"
   >
     <ProgressIndicator
-      class="h-full w-full flex-1 bg-primary transition-all"
+      class="indicator"
       :style="`transform: translateX(-${100 - value}%)`"
     />
   </ProgressRoot>

@@ -21,4 +21,8 @@
   height: 100%;
   width: 100%;
   flex: 1 1 0%;
+  transition-property: all;
+  background-color: rgba(var(--primary), 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
