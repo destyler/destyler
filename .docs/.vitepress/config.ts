@@ -92,6 +92,7 @@ export default defineConfig({
           { text: 'OTP Input', link: '/components/otpInput' },
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },
+          { text: 'Progress', link: '/components/progress' },
         ],
       },
     ],
