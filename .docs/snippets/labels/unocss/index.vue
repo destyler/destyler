@@ -17,7 +17,8 @@ import { Label } from '@destyler/label'
       border="~ border-px border-primary"
       shadow="~"
       focus-visible="outline-none ring-1 ring-ring"
-      disabled="cursor-not-allowed opacity-50"
+      cursor="disabled:not-allowed"
+      op="disabled:50"
       bg="data-[state=checked]:primary"
       text="data-[state=checked]:primary-foreground"
     >
