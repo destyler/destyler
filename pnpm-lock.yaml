@@ -218,6 +218,9 @@ importers:
       '@destyler/radio':
         specifier: workspace:*
         version: link:../packages/components/radio
+      '@destyler/scroll-area':
+        specifier: workspace:*
+        version: link:../packages/components/scrollArea
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler
