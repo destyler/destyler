@@ -34,6 +34,7 @@
     "@destyler/radio": "workspace:*",
     "@destyler/scroll-area": "workspace:*",
     "@destyler/select": "workspace:*",
+    "@destyler/slider": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {

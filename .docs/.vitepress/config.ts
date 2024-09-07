@@ -96,6 +96,7 @@ export default defineConfig({
           { text: 'Radio', link: '/components/radio' },
           { text: 'Scroll Area', link: '/components/scrollArea' },
           { text: 'Select', link: '/components/select' },
+          { text: 'Slider', link: '/components/slider' },
         ],
       },
     ],
