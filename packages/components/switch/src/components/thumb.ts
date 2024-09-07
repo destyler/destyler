@@ -19,7 +19,7 @@ export const switchThumbProps = {
 export type SwitchThumbProps = ExtractPublicPropTypes<typeof switchThumbProps>
 
 export const SwitchThumb = defineComponent({
-  name: 'DestylerSwitchThumb',
+  name: 'DestylerSwitchThump',
   props: switchThumbProps,
   setup(_) {
     const rootContext = injectSwitchRootContext()

@@ -35,6 +35,7 @@
     "@destyler/scroll-area": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",
+    "@destyler/switch": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {

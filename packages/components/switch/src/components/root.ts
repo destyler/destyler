@@ -88,7 +88,6 @@ export const SwitchRoot = defineComponent({
   name: 'DestylerSwitchRoot',
   props: switchRootProps,
   emits: switchRootEmits,
-
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
 

@@ -97,6 +97,7 @@ export default defineConfig({
           { text: 'Scroll Area', link: '/components/scrollArea' },
           { text: 'Select', link: '/components/select' },
           { text: 'Slider', link: '/components/slider' },
+          { text: 'Switch', link: '/components/switch' },
         ],
       },
     ],
