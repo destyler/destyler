@@ -7,6 +7,7 @@ import {
   ScrollAreaThumb,
   ScrollAreaViewport,
 } from '@destyler/scroll-area'
+import './style.css'
 </script>
 
 <template>
