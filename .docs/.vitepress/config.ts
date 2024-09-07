@@ -95,6 +95,7 @@ export default defineConfig({
           { text: 'Progress', link: '/components/progress' },
           { text: 'Radio', link: '/components/radio' },
           { text: 'Scroll Area', link: '/components/scrollArea' },
+          { text: 'Select', link: '/components/select' },
         ],
       },
     ],

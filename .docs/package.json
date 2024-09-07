@@ -33,6 +33,7 @@
     "@destyler/progress": "workspace:*",
     "@destyler/radio": "workspace:*",
     "@destyler/scroll-area": "workspace:*",
+    "@destyler/select": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
