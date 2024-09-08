@@ -98,6 +98,7 @@ export default defineConfig({
           { text: 'Select', link: '/components/select' },
           { text: 'Slider', link: '/components/slider' },
           { text: 'Switch', link: '/components/switch' },
+          { text: 'Tabs', link: '/components/tabs' },
         ],
       },
     ],
