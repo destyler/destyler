@@ -233,6 +233,9 @@ importers:
       '@destyler/tabs':
         specifier: workspace:*
         version: link:../packages/components/tabs
+      '@destyler/toast':
+        specifier: workspace:*
+        version: link:../packages/components/toast
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler

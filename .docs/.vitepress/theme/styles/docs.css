@@ -246,7 +246,6 @@ html.dark .shiki span {
   padding-left: 1.75em;
 }
 .article ol > li::before {
-  content: counter(list-item, var(--list-counter-style, decimal)) ".";
   position: absolute;
   font-weight: 400;
   color: #6b7280;

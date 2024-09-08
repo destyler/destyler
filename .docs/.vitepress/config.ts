@@ -41,7 +41,6 @@ export default defineConfig({
     ['meta', { name: 'twitter:creator', content: '@elonehoo' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0, viewport-fit=cover' }],
     ['link', { rel: 'apple-touch-icon', href: 'https://destyler-dev.zeabur.app/logo.svg', sizes: '180x180' }],
-
     ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
     ['link', { rel: 'preconnect', crossorigin: 'anonymous', href: 'https://fonts.gstatic.com' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap' }],
@@ -99,6 +98,7 @@ export default defineConfig({
           { text: 'Slider', link: '/components/slider' },
           { text: 'Switch', link: '/components/switch' },
           { text: 'Tabs', link: '/components/tabs' },
+          { text: 'Toast', link: '/components/toast' },
         ],
       },
     ],

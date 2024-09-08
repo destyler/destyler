@@ -20,7 +20,7 @@
     'description': '<p>The keys to use as the keyboard shortcut that will move focus to the toast viewport.</p>\n',
     'type': 'string[]',
     'required': false,
-    'default': '() => ['F8']'
+    'default': '() => [\'F8\']'
   },
   {
     'name': 'label',

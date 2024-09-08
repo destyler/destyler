@@ -24,8 +24,6 @@ component: tabs
 
 ## Import
 
-## Import
-
 <CodePreview :tabs="[
   {value: 'vue', label: 'index.vue', icon: 'vscode-icons:file-type-vue'}
 ]">

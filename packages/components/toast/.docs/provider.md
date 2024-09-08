@@ -20,7 +20,7 @@
     'description': '<p>Direction of pointer swipe that should close the toast.</p>\n',
     'type': 'SwipeDirection',
     'required': false,
-    'default': ''right''
+    'default': '\'right\''
   },
   {
     'name': 'swipeThreshold',
