@@ -99,6 +99,8 @@ export default defineConfig({
           { text: 'Switch', link: '/components/switch' },
           { text: 'Tabs', link: '/components/tabs' },
           { text: 'Toast', link: '/components/toast' },
+          { text: 'Toggle', link: '/components/toggle' },
+          { text: 'Toggle Group', link: '/components/toggleGroup' },
         ],
       },
     ],

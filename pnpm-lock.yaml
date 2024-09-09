@@ -236,6 +236,9 @@ importers:
       '@destyler/toast':
         specifier: workspace:*
         version: link:../packages/components/toast
+      '@destyler/toggle':
+        specifier: workspace:*
+        version: link:../packages/components/toggle
       destyler:
         specifier: workspace:*
         version: link:../packages/destyler

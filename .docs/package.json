@@ -39,6 +39,7 @@
     "@destyler/switch": "workspace:*",
     "@destyler/tabs": "workspace:*",
     "@destyler/toast": "workspace:*",
+    "@destyler/toggle": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
@@ -51,7 +52,7 @@
     "@vueuse/core": "^10.9.0",
     "@vueuse/router": "^10.11.0",
     "@vueuse/shared": "^10.9.0",
-    "cross-env":"^7.0.3",
+    "cross-env": "^7.0.3",
     "diacritics": "^1.3.0",
     "floating-vue": "^5.2.2",
     "markdown-it": "^14.1.0",
