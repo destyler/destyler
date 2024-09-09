@@ -101,6 +101,7 @@ export default defineConfig({
           { text: 'Toast', link: '/components/toast' },
           { text: 'Toggle', link: '/components/toggle' },
           { text: 'Toggle Group', link: '/components/toggleGroup' },
+          { text: 'Toolbar', link: '/components/toolbar' },
         ],
       },
     ],
