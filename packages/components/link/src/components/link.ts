@@ -8,6 +8,11 @@ export const linkProps = {
   asChild: {
     ...primitiveProps.asChild,
   },
+  /**
+   * Any URL
+   *
+   * @default undefined
+   */
   to: {
     type: String as PropType<string>,
     required: false,
@@ -18,18 +23,34 @@ export const linkProps = {
     required: false,
     default: false,
   },
+  /**
+   * A `target` attribute value to apply on the link
+   *
+   * @default undefined
+   */
   target: {
     // eslint-disable-next-line ts/ban-types
     type: String as PropType<'_blank' | '_parent' | '_self' | '_top' | (string & {}) | null>,
     required: false,
     default: undefined,
   },
+  /**
+   * A `rel` attribute value to apply on the link.
+   * Defaults to `noopener` `noreferrer` for external links.
+   *
+   * @default undefined
+   */
   rel: {
     // eslint-disable-next-line ts/ban-types
     type: String as PropType<'noopener' | 'noreferrer' | 'nofollow' | 'sponsored' | 'ugc' | (string & {}) | null>,
     required: false,
     default: undefined,
   },
+  /**
+   * If set to `true`, no `rel` attribute will be added to the link
+   *
+   * @default undefined
+   */
   noRel: {
     type: Boolean as PropType<boolean>,
     required: false,

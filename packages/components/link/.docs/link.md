@@ -17,30 +17,30 @@
   },
   {
     'name': 'noRel',
-    'description': '',
+    'description': 'If set to <code>true</code>, no <code>rel</code> attribute will be added to the link',
     'type': 'boolean',
     'required': false,
     'default': '-'
   },
   {
     'name': 'rel',
-    'description': '',
+    'description': 'A <code>rel</code> attribute value to apply on the link. Defaults to <code>noopener</code> <code>noreferrer</code> for external links.',
     'type': '(string & {}) | \'noopener\' | \'noreferrer\' | \'nofollow\' | \'sponsored\' | \'ugc\' | null',
     'required': false,
     'default': '-'
   },
   {
     'name': 'target',
-    'description': '',
+    'description': 'A <code>target</code> attribute value to apply on the link',
     'type': '(string & {}) | \'_blank\' | \'_parent\' | \'_self\' | \'_top\' | null',
     'required': false,
     'default': '-'
   },
   {
     'name': 'to',
-    'description': '<p>Vue native teleport component prop <code>:to</code></p>\n<p><a href=\'https://vuejs.org/guide/built-ins/teleport.html#basic-usage\' target=\'_blank\'>reference</a></p>\n',
+    'description': 'Any URL',
     'type': 'string',
     'required': false,
-    'default': 'body'
+    'default': 'undefined'
   }
 ]" />
