@@ -41,6 +41,7 @@
     "@destyler/toast": "workspace:*",
     "@destyler/toggle": "workspace:*",
     "@destyler/toolbar": "workspace:*",
+    "@destyler/tooltip": "workspace:*",
     "destyler": "workspace:*"
   },
   "devDependencies": {
