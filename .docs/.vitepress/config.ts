@@ -84,6 +84,7 @@ export default defineConfig({
           { text: 'Dropdown', link: '/components/dropdown' },
           { text: 'Dynamic', link: '/components/dynamic' },
           { text: 'Hover Card', link: '/components/hoverCard' },
+          { text: 'Icon', link: '/components/icon' },
           { text: 'Image', link: '/components/image' },
           { text: 'Label', link: '/components/label' },
           { text: 'Menubar', link: '/components/menubar' },
