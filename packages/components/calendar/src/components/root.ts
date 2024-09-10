@@ -118,6 +118,8 @@ export const calendarRootProps = {
   },
   /**
    * The locale to use for formatting dates
+   *
+   * @default en
    */
   locale: {
     type: String as PropType<SupportedLocale>,
