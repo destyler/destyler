@@ -55,8 +55,8 @@ onMounted(() => {
 
     function setup() {
       createCanvas(w, h)
-      background('#ffffff')
-      stroke('#ccc')
+      background('#FFFFFF')
+      stroke('#CCC')
       noFill()
 
       noiseSeed(+new Date())
@@ -65,7 +65,7 @@ onMounted(() => {
     }
 
     function draw({ circle }) {
-      background('#ffffff')
+      background('#FFFFFF')
       const t = +new Date() / 10000
 
       for (const p of points) {
