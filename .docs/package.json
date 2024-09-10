@@ -4,8 +4,8 @@
   "private": "true",
   "scripts": {
     "dev": "vitepress dev --port 3333",
-    "build:only": "cross-env NODE_OPTIONS=--max-old-space-size=8192 vitepress build",
-    "build": "pnpm -C ../ run build && cross-env NODE_OPTIONS=--max-old-space-size=8192 vitepress build",
+    "build:only": "cross-env NODE_OPTIONS=--max-old-space-size=5120 vitepress build",
+    "build": "pnpm -C ../ run build && cross-env NODE_OPTIONS=--max-old-space-size=5120 vitepress build",
     "preview": "vitepress preview"
   },
   "dependencies": {
