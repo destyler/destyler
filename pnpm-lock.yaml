@@ -194,6 +194,9 @@ importers:
       '@destyler/image':
         specifier: workspace:*
         version: link:../packages/components/image
+      '@destyler/info':
+        specifier: workspace:*
+        version: link:../packages/components/info
       '@destyler/label':
         specifier: workspace:*
         version: link:../packages/components/label

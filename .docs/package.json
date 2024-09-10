@@ -25,6 +25,7 @@
     "@destyler/dynamic": "workspace:*",
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
+    "@destyler/info": "workspace:*",
     "@destyler/label": "workspace:*",
     "@destyler/menubar": "workspace:*",
     "@destyler/modal": "workspace:*",
