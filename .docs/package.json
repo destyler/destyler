@@ -35,6 +35,7 @@
     "@destyler/otp-input": "workspace:*",
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
+    "@destyler/preview": "workspace:*",
     "@destyler/progress": "workspace:*",
     "@destyler/qr-code": "workspace:*",
     "@destyler/radio": "workspace:*",

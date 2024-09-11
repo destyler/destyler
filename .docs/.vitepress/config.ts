@@ -96,6 +96,7 @@ export default defineConfig({
           { text: 'OTP Input', link: '/components/otpInput' },
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },
+          { text: 'Preview', link: '/components/preview' },
           { text: 'Progress', link: '/components/progress' },
           { text: 'QR Code', link: '/components/qrCode' },
           { text: 'Radio', link: '/components/radio' },
