@@ -36,6 +36,7 @@
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/progress": "workspace:*",
+    "@destyler/qr-code": "workspace:*",
     "@destyler/radio": "workspace:*",
     "@destyler/scroll-area": "workspace:*",
     "@destyler/select": "workspace:*",

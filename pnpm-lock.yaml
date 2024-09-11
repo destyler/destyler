@@ -227,6 +227,9 @@ importers:
       '@destyler/progress':
         specifier: workspace:*
         version: link:../packages/components/progress
+      '@destyler/qr-code':
+        specifier: workspace:*
+        version: link:../packages/components/qrCode
       '@destyler/radio':
         specifier: workspace:*
         version: link:../packages/components/radio

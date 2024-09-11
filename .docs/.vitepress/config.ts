@@ -97,6 +97,7 @@ export default defineConfig({
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },
           { text: 'Progress', link: '/components/progress' },
+          { text: 'QR Code', link: '/components/qrCode' },
           { text: 'Radio', link: '/components/radio' },
           { text: 'Scroll Area', link: '/components/scrollArea' },
           { text: 'Select', link: '/components/select' },

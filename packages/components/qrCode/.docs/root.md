@@ -17,16 +17,16 @@
   },
   {
     'name': 'ErrorCorrectionLevel',
-    'description': '',
+    'description': 'QR code error correction level.',
     'type': '\'M\' | \'L\' | \'Q\' | \'H\'',
     'required': false,
-    'default': '-'
+    'default': 'M'
   },
   {
     'name': 'value',
-    'description': '<p>The value given as data when submitted with a <code>name</code>.</p>\n',
+    'description': '<p>Text information.</p>\n',
     'type': 'string',
     'required': true,
-    'default': 'on'
+    'default': '-'
   }
 ]" />
