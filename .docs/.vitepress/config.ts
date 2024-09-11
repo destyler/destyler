@@ -92,6 +92,7 @@ export default defineConfig({
           { text: 'Menubar', link: '/components/menubar' },
           { text: 'Modal', link: '/components/modal' },
           { text: 'Navigation', link: '/components/navigation' },
+          { text: 'Online', link: '/components/online' },
           { text: 'OTP Input', link: '/components/otpInput' },
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },

@@ -17,31 +17,31 @@
   },
   {
     'name': 'favicon',
-    'description': '',
+    'description': 'Override the default <code>favicon.ico</code> image location.',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': '/favicon.ico'
   },
   {
     'name': 'logError',
-    'description': '',
+    'description': 'Should error messages be printed to the console.',
     'type': 'boolean',
     'required': false,
-    'default': '-'
+    'default': 'false'
   },
   {
     'name': 'timeout',
-    'description': '',
+    'description': 'Set a timeout in milliseconds.',
     'type': 'number',
     'required': false,
-    'default': '-'
+    'default': '0'
   },
   {
     'name': 'url',
-    'description': '',
+    'description': 'Pinging any url to double check if you are online or not.',
     'type': 'string',
     'required': false,
-    'default': '-'
+    'default': 'https://google.com'
   }
 ]" />
 
