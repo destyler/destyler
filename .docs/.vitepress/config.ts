@@ -61,10 +61,43 @@ export default defineConfig({
     sidebar: {
       '/guide/': [
         {
-          text: 'Getting Started',
+          text: 'Overview',
           items: [
             { text: 'Introduction', link: '/guide/introduction' },
+            { text: 'Getting started', link: '/guide/getting-started' },
             { text: 'Install', link: '/guide/install' },
+          ],
+        },
+        {
+          text: 'Installation',
+          items: [
+            { text: 'Vue.js', link: '/guide/install/vue' },
+            // { text: 'Nuxt', link: '/guide/install/nuxt' },
+            // { text: 'Astro', link: '/guide/install/astro' },
+            // { text: 'Browser', link: '/guide/install/browser' },
+            // { text: 'Electron', link: '/guide/install/electron' },
+            // { text: 'NativeScript', link: '/guide/install/native-script' },
+          ],
+        },
+        {
+          text: 'Guides',
+          items: [
+            {
+              text: 'Styling',
+              link: '/guide/styling',
+            },
+            {
+              text: 'Animation',
+              link: '/guide/animation',
+            },
+            {
+              text: 'Composition',
+              link: '/guide/composition',
+            },
+            {
+              text: 'Composition',
+              link: '/guide/composition',
+            },
           ],
         },
       ],
