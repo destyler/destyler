@@ -47,7 +47,7 @@ import {
   RangeCalendarNext,
   RangeCalendarPrev,
   RangeCalendarRoot
-} from '@destyler/range-calendar '
+} from '@destyler/range-calendar'
 </script>
 
 <template>
