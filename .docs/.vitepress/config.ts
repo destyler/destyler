@@ -100,6 +100,7 @@ export default defineConfig({
           { text: 'Progress', link: '/components/progress' },
           { text: 'QR Code', link: '/components/qrCode' },
           { text: 'Radio', link: '/components/radio' },
+          { text: 'Range Calendar', link: '/components/rangeCalendar' },
           { text: 'Scroll Area', link: '/components/scrollArea' },
           { text: 'Select', link: '/components/select' },
           { text: 'Slider', link: '/components/slider' },
