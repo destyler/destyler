@@ -39,7 +39,7 @@ import {
           </DialogDescription>
         </div>
         <DialogClose class="dialogClose">
-          <Icon name="i-ri-close-line" class="icon" />
+          <Icon name="ri:close-line" class="icon" />
         </DialogClose>
         <div class="action">
           <DialogClose

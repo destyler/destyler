@@ -38,7 +38,7 @@ const dialogOpen = ref(false)
           </DialogDescription>
         </div>
         <DialogClose class="absolute right-4 top-4 rounded-sm opacity-70 dark:ring-offset-#FFFFFF dark:ring-offset-#09090B transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none" as-child>
-          <Icon name="i-ri-close-line" class="w-4 h-4 text-#71717A dark:text-#A1A1AA cursor-pointer" />
+          <Icon name="ri:close-line" class="w-4 h-4 text-#71717A dark:text-#A1A1AA cursor-pointer" />
         </DialogClose>
 
         <div class="w-full flex justify-end">

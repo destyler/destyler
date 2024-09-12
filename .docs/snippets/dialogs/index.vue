@@ -61,7 +61,7 @@ import {
           </DialogDescription>
         </div>
         <DialogClose class="absolute right-4 top-4 rounded-sm  transition-opacity focus:outline-none focus:ring-0 focus:ring-offset-0 disabled:pointer-events-none">
-          <Icon name="i-ri-close-line" class="w-4 h-4 text-popover-foreground text-opacity-40 hover:text-opacity-100 cursor-pointer" />
+          <Icon name="ri:close-line" class="w-4 h-4 text-popover-foreground text-opacity-40 hover:text-opacity-100 cursor-pointer" />
         </DialogClose>
         <div class="w-full flex justify-end">
           <DialogClose

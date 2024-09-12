@@ -91,7 +91,7 @@ import {
           pointer-events="disabled:none"
         >
           <Icon
-            name="i-ri-close-line"
+            name="ri:close-line"
             w="4"
             h="4"
             text="popover-foreground op-40 hover:op-100"
