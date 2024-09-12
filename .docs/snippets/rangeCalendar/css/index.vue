@@ -1,90 +1,84 @@
 <script setup lang="ts">
 import {
-  CalendarCell,
-  CalendarCellTrigger,
-  CalendarGrid,
-  CalendarGridBody,
-  CalendarGridHead,
-  CalendarGridRow,
-  CalendarHeadCell,
-  CalendarHeader,
-  CalendarHeading,
-  CalendarNext,
-  CalendarPrev,
-  CalendarRoot,
-} from '@destyler/calendar'
+  RangeCalendarCell,
+  RangeCalendarCellTrigger,
+  RangeCalendarGrid,
+  RangeCalendarGridBody,
+  RangeCalendarGridHead,
+  RangeCalendarGridRow,
+  RangeCalendarHeadCell,
+  RangeCalendarHeader,
+  RangeCalendarHeading,
+  RangeCalendarNext,
+  RangeCalendarPrev,
+  RangeCalendarRoot,
+} from '@destyler/range-calendar'
 import { Icon } from '@destyler/icon'
 import './style.css'
-
-function isDateUnavailable(date) {
-  return date.day === 17 || date.day === 18
-}
 </script>
 
 <template>
-  <CalendarRoot
+  <RangeCalendarRoot
     v-slot="{ weekDays, grid }"
-    weekday-format="short"
-    :is-date-unavailable="isDateUnavailable"
     class="calendar-root"
   >
-    <CalendarHeader class="calendar-header">
-      <CalendarPrev
+    <RangeCalendarHeader class="calendar-header">
+      <RangeCalendarPrev
         class="calendar-button"
       >
         <Icon
           name="carbon:chevron-left"
           class="icon"
         />
-      </CalendarPrev>
-      <CalendarHeading class="calendar-heading" />
-      <CalendarNext
+      </RangeCalendarPrev>
+      <RangeCalendarHeading class="calendar-heading" />
+      <RangeCalendarNext
         class="calendar-button"
       >
         <Icon
           name="carbon:chevron-right"
           class="icon"
         />
-      </CalendarNext>
-    </CalendarHeader>
+      </RangeCalendarNext>
+    </RangeCalendarHeader>
     <div class="box">
-      <CalendarGrid
+      <RangeCalendarGrid
         v-for="month in grid"
         :key="month.value.toString()"
-        class="calendar-grid1"
+        class="calendar-grid"
       >
-        <CalendarGridHead>
-          <CalendarGridRow class="row">
-            <CalendarHeadCell
+        <RangeCalendarGridHead>
+          <RangeCalendarGridRow class="row">
+            <RangeCalendarHeadCell
               v-for="day in weekDays"
               :key="day"
               class="calendar-head-cell"
             >
               {{ day }}
-            </CalendarHeadCell>
-          </CalendarGridRow>
-        </CalendarGridHead>
-        <CalendarGridBody>
-          <CalendarGridRow
+            </RangeCalendarHeadCell>
+          </RangeCalendarGridRow>
+        </RangeCalendarGridHead>
+        <RangeCalendarGridBody>
+          <RangeCalendarGridRow
             v-for="(weekDates, index) in month.rows"
             :key="`weekDate-${index}`"
             class="grid-row"
           >
-            <CalendarCell
+            <RangeCalendarCell
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"
               :date="weekDate"
               class="calendar-cell"
             >
-              <CalendarCellTrigger
+              <RangeCalendarCellTrigger
                 :day="weekDate"
                 :month="month.value"
                 class="calendar-cell-trigger"
               />
-            </CalendarCell>
-          </CalendarGridRow>
-        </CalendarGridBody>
-      </CalendarGrid>
+            </RangeCalendarCell>
+          </RangeCalendarGridRow>
+        </RangeCalendarGridBody>
+      </RangeCalendarGrid>
     </div>
-  </CalendarRoot>
+  </RangeCalendarRoot>
 </template>

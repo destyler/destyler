@@ -1,30 +1,24 @@
 <script setup lang="ts">
 import {
-  CalendarCell,
-  CalendarCellTrigger,
-  CalendarGrid,
-  CalendarGridBody,
-  CalendarGridHead,
-  CalendarGridRow,
-  CalendarHeadCell,
-  CalendarHeader,
-  CalendarHeading,
-  CalendarNext,
-  CalendarPrev,
-  CalendarRoot,
-} from '@destyler/calendar'
+  RangeCalendarCell,
+  RangeCalendarCellTrigger,
+  RangeCalendarGrid,
+  RangeCalendarGridBody,
+  RangeCalendarGridHead,
+  RangeCalendarGridRow,
+  RangeCalendarHeadCell,
+  RangeCalendarHeader,
+  RangeCalendarHeading,
+  RangeCalendarNext,
+  RangeCalendarPrev,
+  RangeCalendarRoot,
+} from '@destyler/range-calendar'
 import { Icon } from '@destyler/icon'
-
-function isDateUnavailable(date) {
-  return date.day === 17 || date.day === 18
-}
 </script>
 
 <template>
-  <CalendarRoot
+  <RangeCalendarRoot
     v-slot="{ weekDays, grid }"
-    weekday-format="short"
-    :is-date-unavailable="isDateUnavailable"
     p="3"
     rounded="md"
     border="~"
@@ -32,7 +26,7 @@ function isDateUnavailable(date) {
     bg="dark:#09090B #FFFFFF"
     text="dark dark:light"
   >
-    <CalendarHeader
+    <RangeCalendarHeader
       relative="~"
       flex="~"
       w="full"
@@ -40,7 +34,7 @@ function isDateUnavailable(date) {
       justify="between"
       p="t-1"
     >
-      <CalendarPrev
+      <RangeCalendarPrev
         inline="flex"
         items="center"
         justify="center"
@@ -64,12 +58,12 @@ function isDateUnavailable(date) {
           w="4"
           h="4"
         />
-      </CalendarPrev>
-      <CalendarHeading
+      </RangeCalendarPrev>
+      <RangeCalendarHeading
         text="sm"
         font="medium"
       />
-      <CalendarNext
+      <RangeCalendarNext
         inline="flex"
         items="center"
         justify="center"
@@ -93,23 +87,23 @@ function isDateUnavailable(date) {
           w="4"
           h="4"
         />
-      </CalendarNext>
-    </CalendarHeader>
+      </RangeCalendarNext>
+    </RangeCalendarHeader>
     <div
       flex="~ col sm:row"
       gap="y-4 sm:x-4 sm:y-0"
       m="t-4"
     >
-      <CalendarGrid
+      <RangeCalendarGrid
         v-for="month in grid"
         :key="month.value.toString()"
         w="full"
         border="collapse"
         space="y-1"
       >
-        <CalendarGridHead>
-          <CalendarGridRow flex="~">
-            <CalendarHeadCell
+        <RangeCalendarGridHead>
+          <RangeCalendarGridRow flex="~">
+            <RangeCalendarHeadCell
               v-for="day in weekDays"
               :key="day"
               w="8"
@@ -118,29 +112,29 @@ function isDateUnavailable(date) {
               font="normal"
             >
               {{ day }}
-            </CalendarHeadCell>
-          </CalendarGridRow>
-        </CalendarGridHead>
-        <CalendarGridBody>
-          <CalendarGridRow
+            </RangeCalendarHeadCell>
+          </RangeCalendarGridRow>
+        </RangeCalendarGridHead>
+        <RangeCalendarGridBody>
+          <RangeCalendarGridRow
             v-for="(weekDates, index) in month.rows"
             :key="`weekDate-${index}`"
             flex="~"
             m="t-2"
             w="full"
           >
-            <CalendarCell
+            <RangeCalendarCell
               v-for="weekDate in weekDates"
               :key="weekDate.toString()"
               :date="weekDate"
               relative="~"
               p="0"
-              text="center sm"
+              text="center text-sm"
               focus-within="relative z-20"
-              rounded="[&:has([data-selected])]:md"
               bg="[&:has([data-selected])]:accent [&:has([data-selected][data-outside-view])]:accent/50"
+              rounded="first:[&:has([data-selected])]:l-md last:[&:has([data-selected])]:r-md [&:has([data-selected][data-selection-end])]:r-md [&:has([data-selected][data-selection-start])]:l-md"
             >
-              <CalendarCellTrigger
+              <RangeCalendarCellTrigger
                 :day="weekDate"
                 :month="month.value"
                 inline="flex"
@@ -151,42 +145,41 @@ function isDateUnavailable(date) {
                 text="
                 sm hover:accent-foreground
                 [&[data-today]:not([data-selected])]:accent-foreground
-                data-[selected]:primary-foreground
-                data-[selected]:hover:primary-foreground
-                data-[selected]:focus:primary-foreground
-                data-[disabled]:muted-foreground
-                data-[unavailable]:destructive-foreground
+                data-[selection-start]:primary-foreground
+                data-[selection-start]:hover:primary-foreground
+                data-[selection-start]:focus:primary-foreground
+                data-[selection-end]:primary-foreground
+                data-[selection-end]:hover:primary-foreground
+                data-[selection-end]:focus:primary-foreground
                 data-[outside-view]:muted-foreground
                 [&[data-outside-view][data-selected]]:muted-foreground
+                data-[disabled]:muted-foreground
+                data-[unavailable]:destructive-foreground
                 "
                 transition="colors"
                 focus-visible="outline-none ring-1 ring-ring"
                 pointer-events="disabled:none"
-                op="
-                disabled:50 50 hover:100
-                data-[selected]:100
-                data-[disabled]:50
-                data-[outside-view]:50
-                [&[data-outside-view][data-selected]]:30
-                "
+                op="disabled:50 data-[selected]:100 data-[outside-view]:50 [&[data-outside-view][data-selected]]:30 data-[disabled]:50"
                 bg="
                 hover:accent
                 [&[data-today]:not([data-selected])]:accent
-                data-[selected]:primary
-                data-[selected]:hover:primary
-                data-[selected]:focus:primary
-                [&[data-outside-view][data-selected]]:accent/50
+                data-[selection-start]:primary
+                data-[selection-start]:hover:primary
+                data-[selection-start]:focus:primary
+                data-[selection-end]:primary
+                data-[selection-end]:hover:primary
+                data-[selection-end]:focus:primary
                 "
-                h="8"
                 w="8"
+                h="8"
                 p="0"
                 font="normal"
                 line="data-[unavailable]:through"
               />
-            </CalendarCell>
-          </CalendarGridRow>
-        </CalendarGridBody>
-      </CalendarGrid>
+            </RangeCalendarCell>
+          </RangeCalendarGridRow>
+        </RangeCalendarGridBody>
+      </RangeCalendarGrid>
     </div>
-  </CalendarRoot>
+  </RangeCalendarRoot>
 </template>

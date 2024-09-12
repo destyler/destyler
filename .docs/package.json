@@ -39,6 +39,7 @@
     "@destyler/progress": "workspace:*",
     "@destyler/qr-code": "workspace:*",
     "@destyler/radio": "workspace:*",
+    "@destyler/range-calendar": "workspace:*",
     "@destyler/scroll-area": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",
