@@ -43,6 +43,7 @@
     "@destyler/scroll-area": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",
+    "@destyler/splitter": "workspace:*",
     "@destyler/switch": "workspace:*",
     "@destyler/tabs": "workspace:*",
     "@destyler/toast": "workspace:*",

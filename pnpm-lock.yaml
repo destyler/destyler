@@ -248,6 +248,9 @@ importers:
       '@destyler/slider':
         specifier: workspace:*
         version: link:../packages/components/slider
+      '@destyler/splitter':
+        specifier: workspace:*
+        version: link:../packages/components/splitter
       '@destyler/switch':
         specifier: workspace:*
         version: link:../packages/components/switch
