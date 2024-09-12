@@ -2,13 +2,14 @@
 import { Label, Link } from 'destyler'
 import { useData, useRoute } from 'vitepress'
 import { computed } from 'vue'
+import { getSidebar } from '../utils/sidebar'
 
 const { site } = useData()
 
 const route = useRoute()
 
 const asideItems = computed(() => {
-  return site.value.themeConfig.sidebar
+  return getSidebar(site.value.themeConfig.sidebar, route.path)
 })
 </script>
 
