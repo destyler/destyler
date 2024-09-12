@@ -9,7 +9,7 @@ desc: A quick tutorial to get you up and running with Destyler.
 
 ## Install Destyler
 
-<CodeGroupPackage name="destyler" />
+<CodeGroupPackage name="destyler @internationalized/date" />
 
 ## Frameworks
 

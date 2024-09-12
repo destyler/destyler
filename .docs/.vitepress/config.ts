@@ -94,10 +94,6 @@ export default defineConfig({
               text: 'Composition',
               link: '/guide/composition',
             },
-            {
-              text: 'Composition',
-              link: '/guide/composition',
-            },
           ],
         },
       ],
