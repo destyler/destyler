@@ -35,7 +35,7 @@ const breadcrumb = computed(() => {
     <BreadcrumbsRoot>
       <BreadcrumbsContent class="gap-1.5 flex items-center sm:gap-2.5 text-sm">
         <BreadcrumbsItem
-          v-for="item in breadcrumb"
+          v-for="(item, index) in breadcrumb"
           :key="item.link"
           class="
           before:content-none! p-none!
@@ -52,7 +52,7 @@ const breadcrumb = computed(() => {
           >
             {{ item.text }}
           </BreadcrumbsLabel>
-          <BreadcrumbsSeparator class="w-2 text-muted-foreground!">
+          <BreadcrumbsSeparator v-if="index !== breadcrumb.length - 1" class="w-2 text-muted-foreground!">
             <Icon name="carbon:chevron-right" />
           </BreadcrumbsSeparator>
         </BreadcrumbsItem>
