@@ -27,8 +27,7 @@ Import and structure the parts.
 
 <template #vue>
 
-```vue twoslash
-// @noErrors
+```vue
 <script setup lang="ts">
 import {
   PopoverArrow,
@@ -68,8 +67,7 @@ Add styles where desired.
 
 <template #vue>
 
-```vue twoslash
-// @noErrors
+```vue
 <script setup lang="ts">
 import {
   PopoverArrow,
