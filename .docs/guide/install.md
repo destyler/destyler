@@ -1,23 +1,48 @@
 ---
 layout: docs
-desc: A quick tutorial to get you up and running with Destyler.
+desc: Install and configure Destyler.
 ---
 
 # Install
 
 > How to install dependencies and structure your app.
 
-## Install Destyler
+## Installing the package
 
 <CodeGroupPackage name="destyler @internationalized/date" />
 
-## Frameworks
+## unplugin-vue-components
 
-<div class="grid sm:grid-cols-2 gap-2 mt-4 sm:gap-6">
-  <FrameworkCard link="/guide/vue" dark-icon="vscode-icons:file-type-vue" title="Vue" />
-  <!-- <FrameworkCard dark-icon="vscode-icons:file-type-nuxt" title="Nuxt" />
-  <FrameworkCard dark-icon="vscode-icons:file-type-astro" light-icon="vscode-icons:file-type-light-astro" title="Astro" />
-  <FrameworkCard dark-icon="vscode-icons:file-type-js" title="Browser" />
-  <FrameworkCard dark-icon="logos:electron" title="Electron" />
-  <FrameworkCard dark-icon="simple-icons:nativescript" title="NativeScript" /> -->
-</div>
+Destyker also has resolver for the popular [unplugin-vue-components](https://github.com/unplugin/unplugin-vue-components).
+
+In `vite.config.ts`, import `destyler/resolver`, and configure as such and it will auto-imports all the components from Destyler.
+
+<CodePreview :tabs="[
+  {value: 'vite', label: 'vite.config.ts', icon: 'vscode-icons:file-type-vite'}
+]">
+
+<template #vite>
+
+```ts twoslash
+// @noErrors
+import { defineConfig } from 'vite'
+import Vue from '@vitejs/plugin-vue'
+import Components from 'unplugin-vue-components/vite'
+import DestylerResolver from 'destyler/resolver'
+
+export default defineConfig({
+  plugins: [
+    Vue(),
+    Components({
+      dts: true,
+      resolvers: [
+        DestylerResolver()
+      ]
+    })
+  ]
+})
+```
+
+</template>
+
+</CodePreview>

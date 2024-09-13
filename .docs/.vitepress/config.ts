@@ -69,17 +69,6 @@ export default defineConfig({
           ],
         },
         {
-          text: 'Installation',
-          items: [
-            { text: 'Vue.js', link: '/guide/install/vue' },
-            // { text: 'Nuxt', link: '/guide/install/nuxt' },
-            // { text: 'Astro', link: '/guide/install/astro' },
-            // { text: 'Browser', link: '/guide/install/browser' },
-            // { text: 'Electron', link: '/guide/install/electron' },
-            // { text: 'NativeScript', link: '/guide/install/native-script' },
-          ],
-        },
-        {
           text: 'Guides',
           items: [
             {
