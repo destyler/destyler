@@ -7,7 +7,7 @@ import { snippetPlugin } from './plugins/snippet'
 
 export default defineConfig({
   title: 'Destyler',
-  description: 'i hope every sunny afternoon can be wasted.',
+  description: 'unstyled component for vue.',
   lang: 'en-US',
   appearance: false,
   lastUpdated: true,

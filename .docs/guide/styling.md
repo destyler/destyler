@@ -31,6 +31,12 @@ When components are stateful, their state will be exposed in a `data-state` attr
 
 You can style a component part by targeting the `class` that you provide.
 
+<CodePreview :tabs="[
+  {value: 'vue', label: 'index.vue', icon: 'vscode-icons:file-type-vue'}
+]">
+
+<template #vue>
+
 ```vue
 <script setup lang="ts">
 import { CollapseItem, CollapseRoot, ... } from 'destyler'
@@ -50,9 +56,19 @@ import { CollapseItem, CollapseRoot, ... } from 'destyler'
 </style>
 ```
 
+</template>
+
+</CodePreview>
+
 ### Styling a state
 
 You can style a component state by targeting its `data-state` attribute.
+
+<CodePreview :tabs="[
+  {value: 'css', label: 'style.css', icon: 'vscode-icons:file-type-css'}
+]">
+
+<template #css>
 
 ```css
 .collapse-item {
@@ -64,13 +80,23 @@ You can style a component state by targeting its `data-state` attribute.
 }
 ```
 
+</template>
+
+</CodePreview>
+
 ### Scoped style
 
 You can style a component using scoped style. Be wary of teleported elements, as they require the use of deep selectors to be targeted.
 
+<CodePreview :tabs="[
+  {value: 'vue', label: 'index.vue', icon: 'vscode-icons:file-type-vue'}
+]">
+
+<template #vue>
+
 ```vue
 <script setup lang="ts">
-import { DropdownRoot, DropdownItem, ... } from "destyler"
+import { DropdownRoot, DropdownItem, ... } from 'destyler'
 </script>
 
 <template>
@@ -95,15 +121,25 @@ import { DropdownRoot, DropdownItem, ... } from "destyler"
 </style>
 ```
 
+</template>
+
+</CodePreview>
+
 ## Styling with Atomic CSS
 
 The examples below are using [UnoCSS](https://unocss.dev/), but you can use any library of your choice.
 
 ### Styling a part
 
+<CodePreview :tabs="[
+  {value: 'vue', label: 'index.vue', icon: 'vscode-icons:file-type-vue'}
+]">
+
+<template #vue>
+
 ```vue
 <script setup lang="ts">
-import { CollapseRoot, CollapseItem, ... } from "destyler"
+import { CollapseRoot, CollapseItem, ... } from 'destyler'
 </script>
 
 <template>
@@ -114,13 +150,23 @@ import { CollapseRoot, CollapseItem, ... } from "destyler"
 </template>
 ```
 
+</template>
+
+</CodePreview>
+
 ### Styling a state
 
 With UnoCSS powerful variant selector, you can style a component state by targeting its data-state attribute.
 
+<CodePreview :tabs="[
+  {value: 'vue', label: 'index.vue', icon: 'vscode-icons:file-type-vue'}
+]">
+
+<template #vue>
+
 ```vue
 <script setup lang="ts">
-import { CollapseRoot, CollapseItem, ... } from "destyler";
+import { CollapseRoot, CollapseItem, ... } from 'destyler'
 </script>
 
 <template>
@@ -136,6 +182,10 @@ import { CollapseRoot, CollapseItem, ... } from "destyler";
   </CollapseRoot>
 </template>
 ```
+
+</template>
+
+</CodePreview>
 
 ## Summary
 
