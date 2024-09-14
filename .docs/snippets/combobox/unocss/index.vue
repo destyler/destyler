@@ -1,7 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
-import { ComboboxAnchor, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '@destyler/combobox'
+import {
+  ComboboxAnchor,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxLabel,
+  ComboboxRoot,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxViewport,
+ } from '@destyler/combobox'
 
 const value = ref('')
 

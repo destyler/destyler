@@ -36,7 +36,22 @@ component: combobox
 ```vue twoslash
 // @noErrors
 <script setup lang="ts">
-import { ComboboxAnchor, ComboboxCancel, ComboboxContent, ComboboxEmpty, ComboboxGroup, ComboboxInput, ComboboxItem, ComboboxItemIndicator, ComboboxLabel, ComboboxPortal, ComboboxRoot, ComboboxSeparator, ComboboxTrigger, ComboboxViewport } from '@destyler/combobox'
+import {
+  ComboboxAnchor,
+  ComboboxCancel,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxItemIndicator,
+  ComboboxLabel,
+  ComboboxPortal,
+  ComboboxRoot,
+  ComboboxSeparator,
+  ComboboxTrigger,
+  ComboboxViewport
+} from '@destyler/combobox'
 </script>
 
 <template>
