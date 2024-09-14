@@ -50,7 +50,7 @@ function toggleDark() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 w-full -mb-px border-solid border-b border-black border-op-9 bg-white dark:border-white dark:border-op-9 dark:bg-#000000 text-[--accent] overscroll-none">
+  <header class="sticky top-0 z-40 w-full -mb-px border-solid border-b border-border bg-background text-[--accent] overscroll-none">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl flex items-center justify-between gap-3 h-[var(--header-height)]">
       <!-- logo -->
       <div class="lg:flex-1 flex items-center gap-1.5">

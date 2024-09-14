@@ -153,7 +153,6 @@ html.dark .article {
 /* code by shiki */
 .article pre {
   color: #e5e7eb;
-  overflow-x: auto;
   font-size: 0.875em;
   line-height: 1.7142857;
   margin-top: 1.7142857em;
@@ -163,11 +162,6 @@ html.dark .article {
   padding-right: 1.1428571em;
   padding-bottom: 0.8571429em;
   padding-left: 1.1428571em;
-  scrollbar-width: none;
-}
-
-.article pre::-webkit-scrollbar {
-  display: none;
 }
 
 .article pre code {
@@ -181,6 +175,7 @@ html.dark .article {
   font-size: inherit;
   line-height: inherit;
 }
+
 .article pre:not(.shiki) {
   padding: 0;
   margin: 0;
@@ -209,7 +204,6 @@ html.dark .shiki span {
 /* code copy */
 .article div[class*='language-'] {
   position: relative;
-  overflow-x: auto;
 }
 
 .article [class*='language-'] > button.copy {

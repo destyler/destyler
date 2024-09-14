@@ -1,5 +1,5 @@
 body{
-  @apply font-sans text-gray-700 dark:text-gray-200 relative bg-white dark:bg-black scrollbar-hide;
+  @apply font-sans text-gray-700 dark:text-gray-200 relative bg-background scrollbar-hide;
 }
 
 html {
