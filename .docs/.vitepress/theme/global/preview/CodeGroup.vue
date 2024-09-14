@@ -165,7 +165,7 @@ function handleCopy(e: any) {
         ref="codeScrollWrapper"
         :key="cssFramework"
         class="pb-10 block custom"
-        :class="`${open ? 'overflow-scroll h-full min-h-[150px] max-h-[80vh]' : 'overflow-hidden h-[150px]'}`"
+        :class="`${open ? 'overflow-y-scroll h-full min-h-[150px] max-h-[80vh]' : 'overflow-hidden h-[150px]'}`"
       >
         <TabsContent v-for="tab in tabs" :key="tab.label" :value="tab.label" as-child>
           <div class="relative text-base">
