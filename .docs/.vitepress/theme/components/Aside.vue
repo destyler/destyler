@@ -14,7 +14,13 @@ const asideItems = computed(() => {
 </script>
 
 <template>
-  <aside class="hidden overflow-y-scroll lg:block lg:max-h-[calc(100vh-var(--header-height))] lg:sticky lg:top-[--header-height] py-8 lg:px-4 lg:-mx-4">
+  <aside
+    class="
+    hidden lg:-mx-4 lg:block scrollbar-hide
+    overflow-y-scroll z-11 lg:max-h-[calc(100vh-var(--header-height))]
+    lg:sticky lg:top-[--header-height] py-8 lg:px-4
+    "
+  >
     <div class="relative">
       <nav class="space-y-3">
         <div class="w-full flex flex-col space-y-3">
