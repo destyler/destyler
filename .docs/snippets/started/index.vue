@@ -23,7 +23,7 @@ import {
     <PopoverPortal>
       <PopoverContent
         class="
-          rounded p-2 w-260px
+          rounded p-2 w-260px z-33
           bg-[rgb(13_148_136)]
           text-[rgb(255_255_255)]
         "

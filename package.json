@@ -20,6 +20,7 @@
     "play:nuxt": "pnpm -C examples/nuxt run dev",
     "docs:dev": "pnpm -C .docs run dev",
     "docs:build": "pnpm run build && pnpm -C .docs run build",
+    "docs:build:only": "pnpm -C .docs run build:only",
     "docs:gen": "tsx scripts/docs/gen.ts",
     "test": "vitest",
     "test:ui": "vitest --ui --open false",
