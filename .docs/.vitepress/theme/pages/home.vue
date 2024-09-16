@@ -89,5 +89,6 @@ function handleGo(path: string) {
         </div>
       </div>
     </div>
+    <HomeDemo />
   </main>
 </template>

@@ -7,7 +7,7 @@ import {
   SliderTrack,
 } from '@destyler/slider'
 
-const value = ref([50])
+const value = ref([80])
 </script>
 
 <template>

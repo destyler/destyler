@@ -6,6 +6,12 @@ import {
 } from '@destyler/switch'
 import { Label } from '@destyler/label'
 
+const props = withDefaults(defineProps<{
+  label?: boolean
+}>(), {
+  label: true,
+})
+
 const value = ref(true)
 </script>
 
@@ -30,7 +36,7 @@ const value = ref(true)
       "
       />
     </SwitchRoot>
-    <Label class="text-sm text-black dark:text-white font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:op-70">
+    <Label v-if="props.label" class="text-sm text-black dark:text-white font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:op-70">
       Airplane Mode
     </Label>
   </div>
