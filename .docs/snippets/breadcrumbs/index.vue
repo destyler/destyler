@@ -28,7 +28,6 @@ const lists = ref([
         class="
         before:content-none! p-none!
         flex items-center text-sm gap-1.5
-
         "
       >
         <BreadcrumbsLabel

@@ -2,6 +2,8 @@
 import { useData } from 'vitepress'
 import HomePage from '~/theme/pages/home.vue'
 import DocsPage from '~/theme/pages/docs.vue'
+import BlogHomePage from '~/theme/pages/blog.vue'
+import BlogItemPage from '~/theme/pages/item.vue'
 import ErrorPage from '~/theme/pages/error.vue'
 
 const { frontmatter } = useData()
@@ -12,6 +14,12 @@ const components = computed(() => {
   }
   else if (frontmatter.value.layout === 'docs') {
     return DocsPage
+  }
+  else if (frontmatter.value.layout === 'blog-home') {
+    return BlogHomePage
+  }
+  else if (frontmatter.value.layout === 'blog-item') {
+    return BlogItemPage
   }
   return ErrorPage
 })
