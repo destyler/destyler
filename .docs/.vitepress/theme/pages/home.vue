@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { Button, Icon, InfoRoot } from 'destyler'
-import { useClipboard } from '@vueuse/core'
+import { useClipboard, useElementSize, useEventListener, useWindowSize } from '@vueuse/core'
 import { useData, useRouter } from 'vitepress'
 
 defineOptions({

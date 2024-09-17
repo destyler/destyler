@@ -27,7 +27,6 @@ const components = computed(() => {
 
 <template>
   <Header />
-  <ArtDot v-if="frontmatter.art" />
   <component :is="components" />
   <Footer />
 </template>

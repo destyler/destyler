@@ -24,20 +24,30 @@ import PreviewExample from '../../../../snippets/preview/index.vue'
 const refs = ref<any[]>([])
 
 onMounted(() => {
-  refs.value.forEach((element) => {
-    if (!element) {
-      return
-    }
+  setTimeout(() => {
+    refs.value.forEach((element) => {
+      if (!element) {
+        return
+      }
 
-    element.style.animationFillMode = 'forwards'
-    element.style.transformOrigin = 'center'
-    element.style.animationDuration = '1s'
-  })
+      element.style.animationFillMode = 'forwards'
+      element.style.transformOrigin = 'center'
+      element.style.animationDuration = '1s'
+    })
+  }, 101)
+})
+
+const show = ref<boolean>(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    show.value = true
+  }, 100)
 })
 </script>
 
 <template>
-  <div class="py-24 sm:py-32 hidden lg:block !pt-12">
+  <div v-if="show" class="py-24 sm:py-32 hidden lg:block !pt-12">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl gap-16 sm:gap-y-24 flex flex-col">
       <div class="flex flex-col lg:grid gap-8 relative lg:grid-cols-10 lg:gap-8 overflow-hidden p-px">
         <div :ref="(el) => (refs[1] = el)" class="col-span-8 flex items-center animate-top p-10px">
