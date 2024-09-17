@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import { Button, Icon, InfoRoot } from 'destyler'
-import { useClipboard, useElementSize, useEventListener, useWindowSize } from '@vueuse/core'
+import { useClipboard } from '@vueuse/core'
 import { useData, useRouter } from 'vitepress'
 
 defineOptions({
@@ -32,6 +32,7 @@ function handleGo(path: string) {
   <main class="min-h-[calc(100vh-var(--header-height))] px-7 py-10 of-x-hidden">
     <!-- hero -->
     <div class="py-24 sm:py-32 md:py-40 relative mb-[8rem]">
+      <LandingBackground />
       <div class="mx-auto px-4 sm:px-6 lg:px-8 gap-16 sm:gap-y-24 flex flex-col max-w-4xl">
         <div class="text-center relative z-[2]">
           <!-- version alert -->

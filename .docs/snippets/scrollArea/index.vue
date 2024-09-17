@@ -10,7 +10,7 @@ import {
 </script>
 
 <template>
-  <ScrollAreaRoot class="relative overflow-y-scroll z-10 h-72 w-48 rounded-md border">
+  <ScrollAreaRoot class="relative overflow-y-scroll scrollbar-hide z-10 h-72 w-48 rounded-md border">
     <ScrollAreaViewport class="h-full w-full rounded-[inherit]">
       <div class="p-4">
         <h4 class="mb-4! text-lg font-medium leading-none text-dark dark:text-light mt-0!">
