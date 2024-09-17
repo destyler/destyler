@@ -91,5 +91,6 @@ function handleGo(path: string) {
       </div>
     </div>
     <HomeDemo />
+    <HomeFeatures />
   </main>
 </template>

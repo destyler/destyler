@@ -47,7 +47,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="show" class="py-24 sm:py-32 hidden lg:block !pt-12 bg-gradient-to-b from-background/900 to-background/950/50">
+  <div v-if="show" class="py-24 sm:py-32 hidden lg:block !pt-12 bg-gradient-to-b from-background/900 to-background/950">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl gap-16 sm:gap-y-24 flex flex-col">
       <div class="flex flex-col lg:grid gap-8 relative lg:grid-cols-10 lg:gap-8 overflow-hidden p-px">
         <div :ref="(el) => (refs[1] = el)" class="col-span-8 flex items-center animate-top p-10px">
