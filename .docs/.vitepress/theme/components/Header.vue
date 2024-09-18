@@ -86,11 +86,7 @@ function toggleDark() {
         </div>
         <!-- search -->
         <div class="relative inline-flex">
-          <Button
-            class="head-btn"
-          >
-            <Icon name="carbon:search" class="w-5 h-5" />
-          </Button>
+          <Search />
         </div>
         <!-- toggle Theme -->
         <Button

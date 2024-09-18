@@ -147,6 +147,14 @@ export default defineConfig({
           ],
         },
       ],
+      '/blog/': [
+        {
+          text: 'Blog',
+          items: [
+            { text: 'Destyler v0.0.4', link: '/blog/release-0.0.4' },
+          ],
+        },
+      ],
     },
   },
   vite: {
