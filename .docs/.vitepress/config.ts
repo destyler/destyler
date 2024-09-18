@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { transformerColorHighlight } from 'shiki-transformer-color-highlight'
 import { slugify } from './scripts/slugify'
 import PreviewPlugin from './plugins/preview'
 import { preWrapperPlugin } from './plugins/preWrapper'

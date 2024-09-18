@@ -35,7 +35,7 @@ const props = withDefaults(
     background: 'transparent',
     opacitySpeed: 3,
     options: () => ({}),
-  }
+  },
 )
 
 let container: Container | undefined
