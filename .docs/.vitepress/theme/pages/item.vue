@@ -86,8 +86,10 @@ const { frontmatter } = useData()
               <nav class="sticky top-[--header-height] bg-background backdrop-blur -mx-4 sm:-mx-6 px-4 sm:px-6 lg:px-4 lg:-mx-4 overflow-y-auto max-h-[calc(100vh-var(--header-height))]">
                 <div class="py-3 lg:py-8 lg:border-0 space-y-3">
                   <Toc />
-                  <Line />
-                  <Community />
+                  <div class="hidden lg:block">
+                    <Line />
+                    <Community />
+                  </div>
                 </div>
               </nav>
             </div>
