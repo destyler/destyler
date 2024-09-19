@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitepress'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import { transformerColorHighlight } from 'shiki-transformer-color-highlight'
 import { slugify } from './scripts/slugify'
 import PreviewPlugin from './plugins/preview'
 import { preWrapperPlugin } from './plugins/preWrapper'
@@ -64,9 +63,9 @@ export default defineConfig({
         {
           text: 'Overview',
           items: [
-            { text: 'Introduction', link: '/guide/introduction' },
-            { text: 'Getting started', link: '/guide/getting-started' },
-            { text: 'Install', link: '/guide/install' },
+            { text: 'Introduction', link: '/guide/introduction', rel: 'clarity:plugin-line' },
+            { text: 'Getting started', link: '/guide/getting-started', rel: 'clarity:bolt-line' },
+            { text: 'Install', link: '/guide/install', rel: 'clarity:install-line' },
           ],
         },
         {
@@ -75,14 +74,17 @@ export default defineConfig({
             {
               text: 'Styling',
               link: '/guide/styling',
+              rel: 'clarity:color-palette-line',
             },
             {
               text: 'Animation',
               link: '/guide/animation',
+              rel: 'clarity:animation-line',
             },
             {
               text: 'Composition',
               link: '/guide/composition',
+              rel: 'clarity:grid-chart-line',
             },
           ],
         },
@@ -151,7 +153,7 @@ export default defineConfig({
         {
           text: 'Blog',
           items: [
-            { text: 'Destyler v0.0.4', link: '/blog/release-0.0.4' },
+            { text: 'Destyler v0.0.4', link: '/blog/release-0.0.4', rel: 'clarity:book-line' },
           ],
         },
       ],
