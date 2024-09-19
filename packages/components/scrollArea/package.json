@@ -2,7 +2,7 @@
   "name": "@destyler/scroll-area",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled ScrollArea component for vue",
+  "description": "augments native scroll functionality for custom, cross-browser styling.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

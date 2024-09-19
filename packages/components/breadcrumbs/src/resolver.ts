@@ -3,7 +3,7 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const componentName = [
+export const breadcrumbsComponentName = [
   'BreadcrumbsContent',
   'BreadcrumbsItem',
   'BreadcrumbsLabel',
@@ -11,11 +11,11 @@ export const componentName = [
   'BreadcrumbsSeparator',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function BreadcrumbsResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (componentName.includes(name))
+      if (breadcrumbsComponentName.includes(name))
         return { name, from: packageName }
     },
   }

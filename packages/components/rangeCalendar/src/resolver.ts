@@ -3,15 +3,26 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const rangeCalendarComponentName = [
+  'RangeCalendarCell',
+  'RangeCalendarCellTrigger',
+  'RangeCalendarGrid',
+  'RangeCalendarGridBody',
+  'RangeCalendarGridHead',
+  'RangeCalendarGridRow',
+  'RangeCalendarHeadCell',
+  'RangeCalendarHeader',
+  'RangeCalendarHeading',
+  'RangeCalendarNext',
+  'RangeCalendarPrev',
+  'RangeCalendarRoot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function RangeCalendarResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (rangeCalendarComponentName.includes(name))
         return { name, from: packageName }
     },
   }

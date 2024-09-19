@@ -3,15 +3,30 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const contextMenuComponentName = [
+  'ContextMenuArrow',
+  'ContextMenuCheckboxItem',
+  'ContextMenuContent',
+  'ContextMenuGroup',
+  'ContextMenuItem',
+  'ContextMenuItemIndicator',
+  'ContextMenuLabel',
+  'ContextMenuPortal',
+  'ContextMenuRadioGroup',
+  'ContextMenuRadioItem',
+  'ContextMenuRoot',
+  'ContextMenuSeparator',
+  'ContextMenuSub',
+  'ContextMenuSubContent',
+  'ContextMenuSubTrigger',
+  'ContextMenuTrigger',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function ContextMenuResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (contextMenuComponentName.includes(name))
         return { name, from: packageName }
     },
   }

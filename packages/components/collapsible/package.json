@@ -2,7 +2,7 @@
   "name": "@destyler/collapsible",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled collapsible component for vue",
+  "description": "an interactive component which expands/collapses a panel.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

@@ -3,7 +3,7 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const componentName = [
+export const calendarComponentName = [
   'CalendarCell',
   'CalendarCellTrigger',
   'CalendarGrid',
@@ -18,11 +18,11 @@ export const componentName = [
   'CalendarRoot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function CalendarResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (componentName.includes(name))
+      if (calendarComponentName.includes(name))
         return { name, from: packageName }
     },
   }

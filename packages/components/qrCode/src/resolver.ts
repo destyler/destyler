@@ -3,15 +3,16 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const qrCodeComponentName = [
+  'QrCodeItem',
+  'QrCodeRoot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function QrCodeResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (qrCodeComponentName.includes(name))
         return { name, from: packageName }
     },
   }

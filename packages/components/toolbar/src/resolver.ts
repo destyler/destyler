@@ -4,10 +4,15 @@ import { name } from '../package.json'
 const packageName = name
 
 export const toolbarComponentName = [
-  'DestylerTemplate',
+  'ToolbarRoot',
+  'ToolbarButton',
+  'ToolbarLink',
+  'ToolbarSeparator',
+  'ToolbarToggleGroup',
+  'ToolbarToggleItem',
 ]
 
-export function DestylerToolbarResolver(): ComponentResolver {
+export function ToolbarResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

@@ -2,7 +2,7 @@
   "name": "@destyler/aspect-radio",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled aspect-ratio component for vue",
+  "description": "displays content within a desired ratio.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

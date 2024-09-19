@@ -2,7 +2,7 @@
   "name": "@destyler/navigation",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled navigation component for vue",
+  "description": "a collection of links for navigating websites.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

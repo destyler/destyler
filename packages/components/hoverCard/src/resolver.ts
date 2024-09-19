@@ -3,15 +3,19 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const hoverCardComponentName = [
+  'HoverCardArrow',
+  'HoverCardContent',
+  'HoverCardPortal',
+  'HoverCardRoot',
+  'HoverCardTrigger',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function HoverCardResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (hoverCardComponentName.includes(name))
         return { name, from: packageName }
     },
   }

@@ -7,7 +7,7 @@ export const buttonComponentName = [
   'Button',
 ]
 
-export function DestylerButtonResolver(): ComponentResolver {
+export function ButtonResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

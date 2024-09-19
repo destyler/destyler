@@ -2,7 +2,7 @@
   "name": "@destyler/primitive",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled primitive component for vue",
+  "description": "they are the most basic elements that can be used to create more complex components.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

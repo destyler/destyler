@@ -3,15 +3,20 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const dynamicComponentName = [
+  'DynamicClear',
+  'DynamicInput',
+  'DynamicItem',
+  'DynamicItemDelete',
+  'DynamicItemText',
+  'DynamicRoot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function DynamicResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (dynamicComponentName.includes(name))
         return { name, from: packageName }
     },
   }

@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const iconComponentName = [
-  'DestylerIcon',
+  'Icon',
 ]
 
-export function DestylerIconResolver(): ComponentResolver {
+export function IconResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

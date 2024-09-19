@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const countdownComponentName = [
-  'DestylerCountdown',
+  'Countdown',
 ]
 
-export function DestylerCountdownResolver(): ComponentResolver {
+export function CountdownResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

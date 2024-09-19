@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const labelComponentName = [
-  'DestylerLabel',
+  'Label',
 ]
 
-export function DestylerLabelResolver(): ComponentResolver {
+export function LabelResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

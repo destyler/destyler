@@ -4,14 +4,14 @@ import { name } from '../package.json'
 const packageName = name
 
 export const collapseComponentName = [
-  'DestylerCollapseRoot',
-  'DestylerCollapseHeader',
-  'DestylerCollapseContent',
-  'DestylerCollapseItem',
-  'DestylerCollapseTrigger',
+  'CollapseRoot',
+  'CollapseHeader',
+  'CollapseContent',
+  'CollapseItem',
+  'CollapseTrigger',
 ]
 
-export function DestylerCollapseResolver(): ComponentResolver {
+export function CollapseResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

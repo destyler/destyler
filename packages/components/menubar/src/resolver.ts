@@ -4,10 +4,26 @@ import { name } from '../package.json'
 const packageName = name
 
 export const menubarComponentName = [
-  'DestylerTemplate',
+  'MenubarRoot',
+  'MenubarTrigger',
+  'MenubarPortal',
+  'MenubarContent',
+  'MenubarArrow',
+  'MenubarItem',
+  'MenubarGroup',
+  'MenubarSeparator',
+  'MenubarCheckboxItem',
+  'MenubarItemIndicator',
+  'MenubarLabel',
+  'MenubarRadioGroup',
+  'MenubarRadioItem',
+  'MenubarSub',
+  'MenubarSubContent',
+  'MenubarSubTrigger',
+  'MenubarMenu',
 ]
 
-export function DestylerMenubarResolver(): ComponentResolver {
+export function MenubarResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

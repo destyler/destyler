@@ -7,7 +7,7 @@ export const backTopComponentName = [
   'BackTop',
 ]
 
-export function DestylerBackTopResolver(): ComponentResolver {
+export function BackTopResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

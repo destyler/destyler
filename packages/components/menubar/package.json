@@ -2,7 +2,7 @@
   "name": "@destyler/menubar",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled menubar component for vue",
+  "description": "a visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

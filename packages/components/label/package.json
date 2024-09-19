@@ -2,7 +2,7 @@
   "name": "@destyler/label",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled label component for vue",
+  "description": "renders an accessible label associated with controls.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

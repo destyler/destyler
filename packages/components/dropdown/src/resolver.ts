@@ -4,10 +4,25 @@ import { name } from '../package.json'
 const packageName = name
 
 export const dropdownComponentName = [
-  'DestylerTemplate',
+  'DropdownArrow',
+  'DropdownCheckboxItem',
+  'DropdownContent',
+  'DropdownGroup',
+  'DropdownItem',
+  'DropdownItemIndicator',
+  'DropdownLabel',
+  'DropdownPortal',
+  'DropdownRadioGroup',
+  'DropdownRadioItem',
+  'DropdownRoot',
+  'DropdownSeparator',
+  'DropdownSub',
+  'DropdownSubContent',
+  'DropdownSubTrigger',
+  'DropdownTrigger',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function DropdownResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

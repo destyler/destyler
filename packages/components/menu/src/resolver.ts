@@ -3,15 +3,30 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const menuComponentName = [
+  'MenuAnchor',
+  'MenuArrow',
+  'MenuCheckboxItem',
+  'MenuContent',
+  'MenuGroup',
+  'MenuItem',
+  'MenuItemIndicator',
+  'MenuLabel',
+  'MenuPortal',
+  'MenuRadioGroup',
+  'MenuRadioItem',
+  'MenuRoot',
+  'MenuSeparator',
+  'MenuSub',
+  'MenuSubContent',
+  'MenuSubTrigger',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function MenuResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (menuComponentName.includes(name))
         return { name, from: packageName }
     },
   }

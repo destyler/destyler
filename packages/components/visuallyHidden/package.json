@@ -2,7 +2,7 @@
   "name": "@destyler/visually-hidden",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled visuallyHidden component for vue",
+  "description": "hides content from the screen in an accessible way.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

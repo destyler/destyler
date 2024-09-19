@@ -4,15 +4,15 @@ import { name } from '../package.json'
 const packageName = name
 
 export const popoverComponentName = [
-  'DestylerPopoverArrow',
-  'DestylerPopoverClose',
-  'DestylerPopoverContent',
-  'DestylerPopoverPortal',
-  'DestylerPopoverRoot',
-  'DestylerPopoverTrigger',
+  'PopoverArrow',
+  'PopoverClose',
+  'PopoverContent',
+  'PopoverPortal',
+  'PopoverRoot',
+  'PopoverTrigger',
 ]
 
-export function DestylerPopoverResolver(): ComponentResolver {
+export function PopoverResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

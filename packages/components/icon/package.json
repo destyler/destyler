@@ -2,7 +2,7 @@
   "name": "@destyler/icon",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled icon component for vue",
+  "description": "icon module with 200,000+ ready to use icons from Iconify.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

@@ -4,11 +4,11 @@ import { name } from '../package.json'
 const packageName = name
 
 export const rovingFocusGroupComponentName = [
-  'DestylerRovingFocusGroup',
-  'DestylerRovingFocusItem',
+  'RovingFocusGroup',
+  'RovingFocusItem',
 ]
 
-export function DestylerRovingFocusGroupResolver(): ComponentResolver {
+export function RovingFocusGroupResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

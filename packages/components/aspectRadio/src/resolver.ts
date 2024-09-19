@@ -7,7 +7,7 @@ export const aspectRadioComponentName = [
   'AspectRadio',
 ]
 
-export function DestylerAspectRadioResolver(): ComponentResolver {
+export function AspectRadioResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

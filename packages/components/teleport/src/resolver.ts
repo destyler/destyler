@@ -7,7 +7,7 @@ export const teleportComponentName = [
   'TeleportPrimitive',
 ]
 
-export function DestylerTeleportResolver(): ComponentResolver {
+export function TeleportResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

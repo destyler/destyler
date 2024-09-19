@@ -3,15 +3,19 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const scrollAreaComponentName = [
+  'ScrollAreaCorner',
+  'ScrollAreaRoot',
+  'ScrollAreaScrollbar',
+  'ScrollAreaThumb',
+  'ScrollAreaViewport',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function ScrollAreaResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (scrollAreaComponentName.includes(name))
         return { name, from: packageName }
     },
   }

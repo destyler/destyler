@@ -4,13 +4,13 @@ import { name } from '../package.json'
 const packageName = name
 
 export const popperComponentName = [
-  'DestylerPopperRoot',
-  'DestylerPopperAnchor',
-  'DestylerPopperContent',
-  'DestylerPopperArrow',
+  'PopperRoot',
+  'PopperAnchor',
+  'PopperContent',
+  'PopperArrow',
 ]
 
-export function DestylerPopperResolver(): ComponentResolver {
+export function PopperResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

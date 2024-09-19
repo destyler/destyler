@@ -2,7 +2,7 @@
   "name": "@destyler/collapse",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled collapse component for vue",
+  "description": "a vertically stacked set of interactive headings that each reveal a section of content.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

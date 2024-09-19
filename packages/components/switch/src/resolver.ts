@@ -4,10 +4,11 @@ import { name } from '../package.json'
 const packageName = name
 
 export const switchComponentName = [
-  'DestylerTemplate',
+  'SwitchRoot',
+  'SwitchThumb',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function SwitchResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

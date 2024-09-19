@@ -2,7 +2,7 @@
   "name": "@destyler/popper",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled popper component for vue",
+  "description": "popper is a component that allows you to create popups, tooltips, and dropdowns.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
