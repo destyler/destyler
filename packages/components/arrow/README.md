@@ -28,7 +28,7 @@ import { Arrow } from '@destyler/arrow'
 
 | name | description | type | required | default |
 | --- | --- | --- | --- | --- |
-| as | <p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p>\n | AsTag \| Component | false | svg |
-| asChild | <p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p>\n<p>Read our Composition guide for more details.</p>\n | boolean | false | false |
-| height | <p>The height of the arrow in pixels.</p>\n | number | false | 5 |
-| width | <p>The width of the arrow in pixels.</p>\n | number | false | 10 |
+| as | <p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p> | `AsTag` \| `Component` | false | svg |
+| asChild | <p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p><p>Read our Composition guide for more details.</p> | `boolean` | false | false |
+| height | <p>The height of the arrow in pixels.</p> | `number` | false | 5 |
+| width | <p>The width of the arrow in pixels.</p> | `number` | false | 10 |
