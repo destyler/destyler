@@ -3,15 +3,29 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const comboboxComponentName = [
+  'ComboboxAnchor',
+  'ComboboxArrow',
+  'ComboboxCancel',
+  'ComboboxContent',
+  'ComboboxEmpty',
+  'ComboboxGroup',
+  'ComboboxInput',
+  'ComboboxItem',
+  'ComboboxItemIndicator',
+  'ComboboxLabel',
+  'ComboboxPortal',
+  'ComboboxRoot',
+  'ComboboxSeparator',
+  'ComboboxTrigger',
+  'ComboboxViewport',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function ComboboxResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (comboboxComponentName.includes(name))
         return { name, from: packageName }
     },
   }
