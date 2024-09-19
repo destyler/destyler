@@ -9,7 +9,7 @@ export async function buildEndHook(ctx: BuildContext) {
   consola.info(`start ${ctx.pkg.name}`)
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
-  const filePath = path.join(__dirname, '../docs', 'public', 'export-size.json')
+  const filePath = path.join(__dirname, '../.docs', 'public', 'export-size.json')
 
   const mdJSON = <{ path: {
     name: string
