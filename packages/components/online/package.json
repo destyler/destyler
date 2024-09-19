@@ -2,7 +2,7 @@
   "name": "@destyler/online",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled menu component for vue",
+  "description": "a reactive offline indicator component",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

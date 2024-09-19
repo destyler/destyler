@@ -2,7 +2,7 @@
   "name": "@destyler/image",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled image component for vue",
+  "description": "an image element with a fallback.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

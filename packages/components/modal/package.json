@@ -2,7 +2,7 @@
   "name": "@destyler/modal",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled modal component for vue",
+  "description": "a modal dialog that interrupts the user with important content and expects a response.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

@@ -2,7 +2,7 @@
   "name": "@destyler/toggle",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled toggle component for vue",
+  "description": "a two-state button that can be either on or off.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

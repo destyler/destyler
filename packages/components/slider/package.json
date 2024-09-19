@@ -2,7 +2,7 @@
   "name": "@destyler/slider",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled slider component for vue",
+  "description": "an input where the user selects a value from within a given range.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

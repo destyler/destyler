@@ -2,7 +2,7 @@
   "name": "@destyler/progress",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled progress component for vue",
+  "description": "displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
