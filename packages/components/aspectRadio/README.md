@@ -4,7 +4,7 @@
 
 > displays content within a desired ratio.
 
-[GitHub](https://github.com/destyler/destyler) | [Documentation](https://destyler-dev.zeabur.app/components/aspectRadio)
+[GitHub](https://github.com/destyler/destyler) | [Documentation](https://destyler-dev.zeabur.app/)
 
 ## Install
 
@@ -23,17 +23,3 @@ import { AspectRadio } from '@destyler/aspect-radio'
   <AspectRadio />
 </template>
 ```
-
-## Props
-
-| name | description | type | required | default |
-| --- | --- | --- | --- | --- |
-| as | <p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p> | `AsTag` \| `Component` | false | div |
-| asChild | <p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p><p>Read our Composition guide for more details.</p> | `boolean` | false | false |
-| aspectRatio | <p>The desired ratio.</p> | `number` | false | 1 |
-
-## Slots
-
-| name | description | type |
-| --- | --- | --- |
-| aspect | <p>Current aspect ratio (in `%`)</p> | `number`

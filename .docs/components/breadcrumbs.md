@@ -32,7 +32,13 @@ component: breadcrumbs
 ```vue twoslash
 <script setup lang="ts">
 // @noErrors
-import { BreadcrumbsContent, BreadcrumbsItem, BreadcrumbsLabel, BreadcrumbsRoot, BreadcrumbsSeparator } from '@destyler/breadcrumbs'
+import {
+  BreadcrumbsContent,
+  BreadcrumbsItem,
+  BreadcrumbsLabel,
+  BreadcrumbsRoot,
+  BreadcrumbsSeparator
+} from '@destyler/breadcrumbs'
 </script>
 
 <template>

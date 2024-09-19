@@ -23,11 +23,3 @@ import { BackTop } from '@destyler/back-top'
   <BackTop />
 </template>
 ```
-
-## Props
-
-| name | description | type | required | default |
-| --- | --- | --- | --- | --- |
-| as | <p>The element or component this component should render as. Can be overwrite by <code>asChild</code></p> | `AsTag` \| `Component` | false | button |
-| asChild | <p>Change the default rendered element for the one passed as a child, merging their props and behavior.</p><p>Read our Composition guide for more details.</p> | `boolean` | false | false |
-| listen | <p>The element to be listened to scroll event.If it is <code>undefined</code> back top will listen to the nearest scrollable parent.</p> | `string \| HTMLElement \| Document \| (() => HTMLElement \| Document)` | false | undefined |
