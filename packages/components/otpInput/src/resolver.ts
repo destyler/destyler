@@ -3,15 +3,16 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const otpInputComponentName = [
+  'OtpInput',
+  'OtpInputRoot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function OtpInputRootResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (otpInputComponentName.includes(name))
         return { name, from: packageName }
     },
   }

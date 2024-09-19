@@ -4,9 +4,9 @@ import { name } from '../package.json'
 const packageName = name
 
 export const collapsibleComponentName = [
-  'DestylerCollapsibleRoot',
-  'DestylerCollapsibleTrigger',
-  'DestylerCollapsibleContent',
+  'CollapsibleRoot',
+  'CollapsibleTrigger',
+  'CollapsibleContent',
 ]
 
 export function CollapsibleResolver(): ComponentResolver {

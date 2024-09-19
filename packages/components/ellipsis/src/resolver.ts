@@ -3,15 +3,20 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const ellipsisComponentName = [
+  'EllipsisArrow',
+  'EllipsisContent',
+  'EllipsisPortal',
+  'EllipsisProvider',
+  'EllipsisRoot',
+  'EllipsisTrigger',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function EllipsisResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (ellipsisComponentName.includes(name))
         return { name, from: packageName }
     },
   }

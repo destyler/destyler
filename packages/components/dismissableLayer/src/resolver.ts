@@ -4,11 +4,11 @@ import { name } from '../package.json'
 const packageName = name
 
 export const dismissableLayerComponentName = [
-  'DestylerDismissableLayer',
-  'DestylerDismissableLayerBranch',
+  'DismissableLayer',
+  'DismissableLayerBranch',
 ]
 
-export function DestylerDismissableLayerResolver(): ComponentResolver {
+export function DismissableLayerResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

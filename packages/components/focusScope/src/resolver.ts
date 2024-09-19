@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const focusScopeComponentName = [
-  'DestylerFocusScope',
+  'FocusScope',
 ]
 
-export function DestylerFocusScopeResolver(): ComponentResolver {
+export function FocusScopeResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

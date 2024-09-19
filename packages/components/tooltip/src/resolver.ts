@@ -4,15 +4,15 @@ import { name } from '../package.json'
 const packageName = name
 
 export const tooltipComponentName = [
-  'DestylerTooltipArrow',
-  'DestylerTooltipContent',
-  'DestylerTooltipPortal',
-  'DestylerTooltipProvider',
-  'DestylerTooltipRoot',
-  'DestylerTooltipTrigger',
+  'TooltipArrow',
+  'TooltipContent',
+  'TooltipPortal',
+  'TooltipProvider',
+  'TooltipRoot',
+  'TooltipTrigger',
 ]
 
-export function DestylerTooltipResolver(): ComponentResolver {
+export function TooltipResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

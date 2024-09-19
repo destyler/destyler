@@ -8,7 +8,7 @@ export const primitiveComponentName = [
   'Slot',
 ]
 
-export function DestylerPrimitiveResolver(): ComponentResolver {
+export function PrimitiveResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

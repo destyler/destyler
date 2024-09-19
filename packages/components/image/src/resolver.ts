@@ -4,12 +4,12 @@ import { name } from '../package.json'
 const packageName = name
 
 export const imageComponentName = [
-  'DestylerImageRoot',
-  'DestylerImage',
-  'DestylerImageFallback',
+  'ImageRoot',
+  'Image',
+  'ImageFallback',
 ]
 
-export function DestylerImageResolver(): ComponentResolver {
+export function ImageResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

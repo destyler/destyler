@@ -4,11 +4,11 @@ import { name } from '../package.json'
 const packageName = name
 
 export const previewComponentName = [
-  'DestylerPreviewRoot',
-  'DestylerPreviewDialog',
+  'PreviewRoot',
+  'PreviewDialog',
 ]
 
-export function DestylerPreviewResolver(): ComponentResolver {
+export function PreviewResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

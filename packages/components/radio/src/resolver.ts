@@ -4,12 +4,12 @@ import { name } from '../package.json'
 const packageName = name
 
 export const radioComponentName = [
-  'DestylerRadioGroupRoot',
-  'DestylerRadioGroupItem',
-  'DestylerRadioGroupindicator',
+  'RadioGroupRoot',
+  'RadioGroupItem',
+  'RadioGroupindicator',
 ]
 
-export function DestylerRadioResolver(): ComponentResolver {
+export function RadioResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

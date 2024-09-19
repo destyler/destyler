@@ -4,10 +4,11 @@ import { name } from '../package.json'
 const packageName = name
 
 export const visuallyhiddenComponentName = [
-  'DestylerVisuallyhidden',
+  'VisuallyHidden',
+  'VisuallyHiddenInput',
 ]
 
-export function DestylerVisuallyhiddenResolver(): ComponentResolver {
+export function VisuallyhiddenResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

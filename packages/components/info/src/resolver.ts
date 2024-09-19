@@ -4,11 +4,11 @@ import { name } from '../package.json'
 const packageName = name
 
 export const infoComponentName = [
-  'DestylerInfoRoot',
-  'DestylerInfoClose',
+  'InfoRoot',
+  'InfoClose',
 ]
 
-export function DestylerInfoResolver(): ComponentResolver {
+export function InfoResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

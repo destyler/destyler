@@ -7,7 +7,7 @@ export const presenceComponentName = [
   'Presence',
 ]
 
-export function DestylerPresenceResolver(): ComponentResolver {
+export function PresenceResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

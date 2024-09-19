@@ -4,24 +4,24 @@ import { name } from '../package.json'
 const packageName = name
 
 export const selectComponentName = [
-  'DestylerSelectContent',
-  'DestylerSelectGroup',
-  'DestylerSelectIcon',
-  'DestylerSelectItem',
-  'DestylerSelectItemIndicator',
-  'DestylerSelectItemText',
-  'DestylerSelectLabel',
-  'DestylerSelectPortal',
-  'DestylerSelectRoot',
-  'DestylerSelectScrollDownButton',
-  'DestylerSelectScrollUpButton',
-  'DestylerSelectSeparator',
-  'DestylerSelectTrigger',
-  'DestylerSelectValue',
-  'DestylerSelectViewport',
+  'SelectContent',
+  'SelectGroup',
+  'SelectIcon',
+  'SelectItem',
+  'SelectItemIndicator',
+  'SelectItemText',
+  'SelectLabel',
+  'SelectPortal',
+  'SelectRoot',
+  'SelectScrollDownButton',
+  'SelectScrollUpButton',
+  'SelectSeparator',
+  'SelectTrigger',
+  'SelectValue',
+  'SelectViewport',
 ]
 
-export function DestylerSelectResolver(): ComponentResolver {
+export function SelectResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

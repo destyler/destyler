@@ -4,13 +4,13 @@ import { name } from '../package.json'
 const packageName = name
 
 export const sliderComponentName = [
-  'DestylerSliderRange',
-  'DestylerSliderRoot',
-  'DestylerSliderThumb',
-  'DestylerSliderTrack',
+  'SliderRange',
+  'SliderRoot',
+  'SliderThumb',
+  'SliderTrack',
 ]
 
-export function DestylerSliderResolver(): ComponentResolver {
+export function SliderResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

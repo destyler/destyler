@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const onlineComponentName = [
-  'DestylerOnline',
+  'Online',
 ]
 
-export function DestylerOnlineResolver(): ComponentResolver {
+export function OnlineResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

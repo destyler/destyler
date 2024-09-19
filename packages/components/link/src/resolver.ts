@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const linkComponentName = [
-  'DestylerLink',
+  'Link',
 ]
 
-export function DestylerLinkResolver(): ComponentResolver {
+export function LinkResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

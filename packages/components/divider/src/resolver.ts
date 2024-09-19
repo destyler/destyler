@@ -4,10 +4,10 @@ import { name } from '../package.json'
 const packageName = name
 
 export const dividerComponentName = [
-  'DestylerDivider',
+  'Divider',
 ]
 
-export function DestylerDividerResolver(): ComponentResolver {
+export function DividerResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

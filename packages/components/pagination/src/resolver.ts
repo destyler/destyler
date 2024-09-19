@@ -3,15 +3,22 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
-  'DestylerTemplate',
+export const paginationComponentName = [
+  'PaginationEllipsis',
+  'PaginationFirst',
+  'PaginationLast',
+  'PaginationList',
+  'PaginationListItem',
+  'PaginationNext',
+  'PaginationPrev',
+  'PaginationRoot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function PaginationResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (paginationComponentName.includes(name))
         return { name, from: packageName }
     },
   }
