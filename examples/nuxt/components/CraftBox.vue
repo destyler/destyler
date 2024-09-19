@@ -3,7 +3,6 @@ const props = defineProps<{
   inStyle?: string
   name: string
 }>()
-
 </script>
 
 <template>

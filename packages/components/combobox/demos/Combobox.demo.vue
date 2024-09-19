@@ -27,7 +27,7 @@ const vegetables = ref(['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek'])
       <ComboboxInput class="!bg-transparent outline-none text-#71D083 h-full selection:bg-#25482D placeholder-#625F69" placeholder="Placeholder..." />
       <ComboboxTrigger>
         <svg>
-          <path/>
+          <path />
         </svg>
       </ComboboxTrigger>
     </ComboboxAnchor>
@@ -49,9 +49,9 @@ const vegetables = ref(['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek'])
             <ComboboxItemIndicator
               class="absolute left-0 w-[25px] inline-flex items-center justify-center"
             >
-            <svg>
-              <path/>
-            </svg>
+              <svg>
+                <path />
+              </svg>
             </ComboboxItemIndicator>
             <span>
               {{ option }}

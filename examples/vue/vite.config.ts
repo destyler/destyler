@@ -4,18 +4,16 @@ import Vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import UnoCss from 'unocss/vite'
 
-console.log(path.resolve(__dirname, '../../packages/components'))
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  server:{
-    port: 51201
+  server: {
+    port: 51201,
   },
-  base:'/__destyler_play_vue__/',
-  resolve:{
-    alias:{
+  base: '/__destyler_play_vue__/',
+  resolve: {
+    alias: {
       '~/components/': `${path.resolve(__dirname, '../../packages/components')}/`,
-    }
+    },
   },
   plugins: [
     VueDevTools(),

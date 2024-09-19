@@ -11,7 +11,7 @@
     },
     "resolveJsonModule": true,
     "types": [
-      "vite/client",
+      "vite/client"
     ],
     "allowJs": true,
     "strict": true,
@@ -25,6 +25,6 @@
     "dist",
     "node_modules",
     "eslint.config.js",
-    "vite.config.ts",
+    "vite.config.ts"
   ]
 }

@@ -24,9 +24,9 @@ const vegetables = ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
 const data = ref({})
 
 function handleChange(event: any) {
-  console.log('1',event)
+  console.log('1', event)
   const formData = new FormData(event.target)
-  console.log('2',formData,Object.fromEntries((formData as any).entries()))
+  console.log('2', formData, Object.fromEntries((formData as any).entries()))
   data.value = Object.fromEntries((formData as any).entries())
 }
 </script>

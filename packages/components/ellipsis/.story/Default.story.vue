@@ -13,8 +13,7 @@ import { EllipsisContent, EllipsisPortal, EllipsisProvider, EllipsisRoot, Ellips
           <EllipsisPortal>
             <EllipsisContent
               :side-offset="5"
-            >
-            </EllipsisContent>
+            />
           </EllipsisPortal>
         </EllipsisRoot>
       </EllipsisProvider>

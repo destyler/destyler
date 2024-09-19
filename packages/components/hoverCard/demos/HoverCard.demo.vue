@@ -5,7 +5,6 @@ import {
   HoverCardRoot,
   HoverCardTrigger,
 } from '../src'
-
 </script>
 
 <template>
