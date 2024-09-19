@@ -2,7 +2,7 @@
   "name": "destyler",
   "type": "module",
   "version": "0.0.3",
-  "description": "",
+  "description": "unstyled component for vue.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
