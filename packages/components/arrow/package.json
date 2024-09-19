@@ -2,7 +2,7 @@
   "name": "@destyler/arrow",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled arrow component for vue",
+  "description": "destyler is private component arrow",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
