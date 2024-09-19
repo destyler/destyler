@@ -47,7 +47,7 @@ watch(dialogStatus, (value) => {
 
 const sidebar = computed(() => {
   const result: any[] = []
-  Object.keys(site.value.themeConfig?.sidebar).map((item: string) => {
+  Object.keys(site.value.themeConfig?.sidebar).forEach((item: string) => {
     result.push(...site.value.themeConfig?.sidebar[item])
   })
   return result

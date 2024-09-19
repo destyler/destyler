@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url'
-import { dirname, parse, relative, resolve } from 'node:path'
+import { dirname, parse, resolve } from 'node:path'
 import MarkdownIt from 'markdown-it'
 import fs from 'fs-extra'
 import type { ComponentMeta, MetaCheckerOptions, PropertyMeta, PropertyMetaSchema } from 'vue-component-meta'
@@ -15,7 +15,6 @@ const __dirname = dirname(__filename)
 const rootDir = resolve(__dirname, '../../')
 const packagesDir = resolve(rootDir, 'packages')
 const componentsDir = resolve(packagesDir, 'components')
-const docsDir = resolve(rootDir, '.docs')
 
 const fixedDir = {
   component: 'src/components',
@@ -102,6 +101,7 @@ function getFileComment(filePath: string) {
 
   const commentAndObjects: any[] = []
   let match
+  // eslint-disable-next-line no-cond-assign
   while ((match = commentAndObjectRegex.exec(code)) !== null) {
     const commentLines = match[1].split('\n')
     const commentContent = commentLines.map((line) => {
@@ -134,10 +134,12 @@ function getFileComment(filePath: string) {
 
 function getFileComment2(filePath: string) {
   const code = fs.readFileSync(filePath, 'utf-8')
+  // eslint-disable-next-line regexp/no-super-linear-backtracking
   const regex = /\/\*\*\s*(.*?)\*\/\s*(?:'([^']+)'|\w+)\s*:\s*([^,\s;]+)/gs
 
   let match
   const results: any[] = []
+  // eslint-disable-next-line no-cond-assign
   while ((match = regex.exec(code)) !== null) {
     const cleanComment = match[1].replace(/^\s*\*\s?/gm, '').trim()
     results.push({

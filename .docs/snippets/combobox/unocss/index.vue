@@ -14,7 +14,7 @@ import {
   ComboboxSeparator,
   ComboboxTrigger,
   ComboboxViewport,
- } from '@destyler/combobox'
+} from '@destyler/combobox'
 
 const value = ref('')
 

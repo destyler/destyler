@@ -8,6 +8,7 @@ export function transformJSDocLinks(md: MarkdownIt) {
         for (let i = 0; i < token.children.length; i++) {
           const child = token.children[i]
           if (child.type === 'text' && child.content.startsWith('{@link')) {
+            // eslint-disable-next-line regexp/no-super-linear-backtracking
             const matches = child.content.match(/\{@link\s+(.*?)\}/)
             if (matches) {
               const linkText = matches[1]

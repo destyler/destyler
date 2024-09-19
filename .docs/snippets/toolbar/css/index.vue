@@ -90,7 +90,7 @@ const options = ref<{
         v-model="option.value"
         :type="option.type"
       >
-        <template v-for="(item, index) in option.items">
+        <template v-for="(item, index) in option.items" :key="index">
           <ToolbarToggleItem
             v-if="item.element === 'item'"
             :key="`item-${index}`"
