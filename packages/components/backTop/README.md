@@ -5,21 +5,3 @@
 > it helps you back to where you were. However, time never goes back.
 
 [GitHub](https://github.com/destyler/destyler) | [Documentation](https://destyler-dev.zeabur.app/)
-
-## Install
-
-```bash
-npm install @destyler/back-top
-```
-
-## Usage
-
-```vue
-<script setup lang="ts">
-import { BackTop } from '@destyler/back-top'
-</script>
-
-<template>
-  <BackTop />
-</template>
-```

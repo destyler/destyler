@@ -7,7 +7,7 @@ export const arrowComponentName = [
   'Arrow',
 ]
 
-export function DestylerArrowResolver(): ComponentResolver {
+export function ArrowResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

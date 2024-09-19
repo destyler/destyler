@@ -5,21 +5,3 @@
 > displays content within a desired ratio.
 
 [GitHub](https://github.com/destyler/destyler) | [Documentation](https://destyler-dev.zeabur.app/)
-
-## Install
-
-```bash
-npm install @destyler/aspect-radio
-```
-
-## Usage
-
-```vue
-<script setup lang="ts">
-import { AspectRadio } from '@destyler/aspect-radio'
-</script>
-
-<template>
-  <AspectRadio />
-</template>
-```

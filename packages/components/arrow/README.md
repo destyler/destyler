@@ -5,21 +5,3 @@
 > destyler is private component arrow
 
 [GitHub](https://github.com/destyler/destyler) | [Documentation](https://destyler-dev.zeabur.app/)
-
-## Install
-
-```bash
-npm install @destyler/arrow
-```
-
-## Usage
-
-```vue
-<script setup lang="ts">
-import { Arrow } from '@destyler/arrow'
-</script>
-
-<template>
-  <Arrow />
-</template>
-```
