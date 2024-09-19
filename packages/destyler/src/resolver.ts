@@ -4,7 +4,7 @@ import { primitiveComponentName } from '@destyler/primitive/resolver'
 import { labelComponentName } from '@destyler/label/resolver'
 import { imageComponentName } from '@destyler/image/resolver'
 import { countdownComponentName } from '@destyler/countdown/resolver'
-import { cllapsibleComponentName } from '@destyler/collapsible/resolver'
+import { collapsibleComponentName } from '@destyler/collapsible/resolver'
 import { presenceComponentName } from '@destyler/presence/resolver'
 import { iconComponentName } from '@destyler/icon/resolver'
 import { collapseComponentName } from '@destyler/collapse/resolver'
@@ -42,7 +42,7 @@ export const destylerComponentNames = [
   ...labelComponentName,
   ...imageComponentName,
   ...countdownComponentName,
-  ...cllapsibleComponentName,
+  ...collapsibleComponentName,
   ...presenceComponentName,
   ...iconComponentName,
   ...collapseComponentName,

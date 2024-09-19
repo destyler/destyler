@@ -11,277 +11,277 @@
   },
   "components/icon": {
     "name": "@destyler/icon",
-    "size": "5.4 kB",
+    "size": "5.78 kB",
     "version": "0.0.3"
   },
   "composition": {
     "name": "@destyler/composition",
-    "size": "132.72 kB",
+    "size": "132.27 kB",
     "version": "0.0.3"
   },
   "components/presence": {
     "name": "@destyler/presence",
-    "size": "10.95 kB",
+    "size": "13.79 kB",
     "version": "0.0.3"
   },
   "components/primitive": {
     "name": "@destyler/primitive",
-    "size": "12.33 kB",
+    "size": "15.68 kB",
     "version": "0.0.3"
   },
   "components/aspectRadio": {
     "name": "@destyler/aspect-radio",
-    "size": "11.52 kB",
+    "size": "12.41 kB",
     "version": "0.0.3"
   },
   "components/backTop": {
     "name": "@destyler/back-top",
-    "size": "13.95 kB",
+    "size": "17.93 kB",
     "version": "0.0.3"
   },
   "components/breadcrumbs": {
     "name": "@destyler/breadcrumbs",
-    "size": "37.91 kB",
+    "size": "39.06 kB",
     "version": "0.0.3"
   },
   "components/arrow": {
     "name": "@destyler/arrow",
-    "size": "11.56 kB",
+    "size": "14.05 kB",
     "version": "0.0.3"
   },
   "components/button": {
     "name": "@destyler/button",
-    "size": "14.95 kB",
+    "size": "16.91 kB",
     "version": "0.0.3"
   },
   "components/checkbox": {
     "name": "@destyler/checkbox",
-    "size": "33.71 kB",
+    "size": "45.12 kB",
     "version": "0.0.3"
   },
   "components/collapsible": {
     "name": "@destyler/collapsible",
-    "size": "40.41 kB",
+    "size": "47.21 kB",
     "version": "0.0.3"
   },
   "components/calendar": {
     "name": "@destyler/calendar",
-    "size": "166.27 kB",
+    "size": "198.22 kB",
     "version": "0.0.3"
   },
   "components/collection": {
     "name": "@destyler/collection",
-    "size": "13.67 kB",
+    "size": "13.63 kB",
     "version": "0.0.3"
   },
   "components/divider": {
     "name": "@destyler/divider",
-    "size": "13.16 kB",
+    "size": "16.7 kB",
     "version": "0.0.3"
   },
   "components/countdown": {
     "name": "@destyler/countdown",
-    "size": "21.49 kB",
+    "size": "26.88 kB",
     "version": "0.0.3"
   },
   "components/dismissableLayer": {
     "name": "@destyler/dismissable-layer",
-    "size": "39.82 kB",
+    "size": "48.13 kB",
     "version": "0.0.3"
   },
   "components/draggable": {
     "name": "@destyler/draggable",
-    "size": "19.21 kB",
+    "size": "21.94 kB",
     "version": "0.0.3"
   },
   "components/image": {
     "name": "@destyler/image",
-    "size": "21.42 kB",
+    "size": "24.21 kB",
     "version": "0.0.3"
   },
   "components/info": {
     "name": "@destyler/info",
-    "size": "19.87 kB",
+    "size": "23.86 kB",
     "version": "0.0.3"
   },
   "components/focusScope": {
     "name": "@destyler/focus-scope",
-    "size": "33.15 kB",
+    "size": "38 kB",
     "version": "0.0.3"
   },
   "components/label": {
     "name": "@destyler/label",
-    "size": "7.86 kB",
+    "size": "8.36 kB",
     "version": "0.0.3"
   },
   "components/link": {
     "name": "@destyler/link",
-    "size": "17.65 kB",
+    "size": "22.23 kB",
     "version": "0.0.3"
   },
   "components/online": {
     "name": "@destyler/online",
-    "size": "22.83 kB",
+    "size": "22.51 kB",
     "version": "0.0.3"
   },
   "components/otpInput": {
     "name": "@destyler/otp-input",
-    "size": "46.06 kB",
+    "size": "60.3 kB",
     "version": "0.0.3"
   },
   "components/pagination": {
     "name": "@destyler/pagination",
-    "size": "76.02 kB",
+    "size": "87.3 kB",
     "version": "0.0.3"
   },
   "components/preview": {
     "name": "@destyler/preview",
-    "size": "24.94 kB",
+    "size": "26.76 kB",
     "version": "0.0.3"
   },
   "components/progress": {
     "name": "@destyler/progress",
-    "size": "28.44 kB",
+    "size": "34.83 kB",
     "version": "0.0.3"
   },
   "components/qrCode": {
     "name": "@destyler/qr-code",
-    "size": "92.76 kB",
+    "size": "92.43 kB",
     "version": "0.0.3"
   },
   "components/rovingFocus": {
     "name": "@destyler/roving-focus",
-    "size": "41.19 kB",
+    "size": "44.01 kB",
     "version": "0.0.3"
   },
   "components/scrollArea": {
     "name": "@destyler/scroll-area",
-    "size": "130.46 kB",
+    "size": "145.6 kB",
     "version": "0.0.3"
   },
   "components/splitter": {
     "name": "@destyler/splitter",
-    "size": "168.52 kB",
+    "size": "187.32 kB",
     "version": "0.0.3"
   },
   "components/switch": {
     "name": "@destyler/switch",
-    "size": "30.38 kB",
+    "size": "38.01 kB",
     "version": "0.0.3"
   },
   "components/slider": {
     "name": "@destyler/slider",
-    "size": "120.02 kB",
+    "size": "131.83 kB",
     "version": "0.0.3"
   },
   "components/visuallyHidden": {
     "name": "@destyler/visually-hidden",
-    "size": "16.25 kB",
+    "size": "16.38 kB",
     "version": "0.0.3"
   },
   "components/collapse": {
     "name": "@destyler/collapse",
-    "size": "56.94 kB",
+    "size": "74.36 kB",
     "version": "0.0.3"
   },
   "components/dynamic": {
     "name": "@destyler/dynamic",
-    "size": "88.72 kB",
+    "size": "110.52 kB",
     "version": "0.0.3"
   },
   "components/modal": {
     "name": "@destyler/modal",
-    "size": "75.47 kB",
+    "size": "76.41 kB",
     "version": "0.0.3"
   },
   "components/dialog": {
     "name": "@destyler/dialog",
-    "size": "136.09 kB",
+    "size": "148.88 kB",
     "version": "0.0.3"
   },
   "components/popper": {
     "name": "@destyler/popper",
-    "size": "69.7 kB",
+    "size": "92.22 kB",
     "version": "0.0.3"
   },
   "components/navigation": {
     "name": "@destyler/navigation",
-    "size": "166.22 kB",
+    "size": "192.66 kB",
     "version": "0.0.3"
   },
   "components/rangeCalendar": {
     "name": "@destyler/range-calendar",
-    "size": "164.47 kB",
+    "size": "192.12 kB",
     "version": "0.0.3"
   },
   "components/tabs": {
     "name": "@destyler/tabs",
-    "size": "60.22 kB",
+    "size": "72.77 kB",
     "version": "0.0.3"
   },
   "components/toggle": {
     "name": "@destyler/toggle",
-    "size": "49.33 kB",
+    "size": "68.89 kB",
     "version": "0.0.3"
   },
   "components/toast": {
     "name": "@destyler/toast",
-    "size": "138.94 kB",
+    "size": "182.58 kB",
     "version": "0.0.3"
   },
   "components/hoverCard": {
     "name": "@destyler/hover-card",
-    "size": "121.95 kB",
+    "size": "176.65 kB",
     "version": "0.0.3"
   },
   "components/ellipsis": {
     "name": "@destyler/ellipsis",
-    "size": "88.03 kB",
+    "size": "135.72 kB",
     "version": "0.0.3"
   },
   "components/combobox": {
     "name": "@destyler/combobox",
-    "size": "255.23 kB",
+    "size": "308.04 kB",
     "version": "0.0.3"
   },
   "components/menu": {
     "name": "@destyler/menu",
-    "size": "348.18 kB",
+    "size": "468.82 kB",
     "version": "0.0.3"
   },
   "components/popover": {
     "name": "@destyler/popover",
-    "size": "211.19 kB",
+    "size": "310.91 kB",
     "version": "0.0.3"
   },
   "components/toolbar": {
     "name": "@destyler/toolbar",
-    "size": "67.4 kB",
+    "size": "71.6 kB",
     "version": "0.0.3"
   },
   "components/select": {
     "name": "@destyler/select",
-    "size": "328.29 kB",
+    "size": "410.1 kB",
     "version": "0.0.3"
   },
   "components/tooltip": {
     "name": "@destyler/tooltip",
-    "size": "152.92 kB",
+    "size": "244.79 kB",
     "version": "0.0.3"
   },
   "components/contextMenu": {
     "name": "@destyler/context-menu",
-    "size": "194.99 kB",
+    "size": "257.5 kB",
     "version": "0.0.3"
   },
   "components/dropdown": {
     "name": "@destyler/dropdown",
-    "size": "208.27 kB",
+    "size": "281.21 kB",
     "version": "0.0.3"
   },
   "components/menubar": {
     "name": "@destyler/menubar",
-    "size": "222.72 kB",
+    "size": "298.63 kB",
     "version": "0.0.3"
   },
   "destyler": {
@@ -291,12 +291,12 @@
   },
   "components/teleport": {
     "name": "@destyler/teleport",
-    "size": "10.33 kB",
+    "size": "15.88 kB",
     "version": "0.0.3"
   },
   "components/radio": {
     "name": "@destyler/radio",
-    "size": "68.44 kB",
+    "size": "93.31 kB",
     "version": "0.0.3"
   }
 }
