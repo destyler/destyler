@@ -2,7 +2,7 @@
   "name": "@destyler/calendar",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled calendar component for vue",
+  "description": "displays dates and days of the week, facilitating date-related interactions.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
