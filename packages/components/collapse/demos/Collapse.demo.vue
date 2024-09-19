@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import { ref } from 'vue'
 import { Icon } from '@destyler/icon'
 import { CollapseContent, CollapseHeader, CollapseItem, CollapseRoot, CollapseTrigger } from '../src'
 
@@ -23,7 +23,6 @@ const items = [
 
 const selected = ref('')
 </script>
-
 
 <template>
   <div class="flex min-h-[350px] w-full justify-center p-10 items-center">

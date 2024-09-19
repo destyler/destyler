@@ -1,3 +1,4 @@
 {
-  "testing.automaticallyOpenPeekView": "never"
+  "testing.automaticallyOpenPeekView": "never",
+  "arrayIndexInlay.enabled": true
 }

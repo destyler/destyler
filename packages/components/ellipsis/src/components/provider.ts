@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardProps } from '@destyler/composition'
@@ -13,9 +12,6 @@ export type EllipsisProviderProps = ExtractPublicPropTypes<typeof ellipsisProvid
 export const EllipsisProvider = defineComponent({
   name: 'DestylerEllipsisProvider',
   props: ellipsisProviderProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const forward = useForwardProps(props)
     useForwardExpose()

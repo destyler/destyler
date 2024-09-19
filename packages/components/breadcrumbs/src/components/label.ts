@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,6 +8,9 @@ import { injectContextBreadcrumbsItemContext } from './item'
 
 export const breadcrumbsLabelProps = {
   ...primitiveProps,
+  /**
+   * @default a
+   */
   as: {
     ...primitiveProps.as,
     default: 'a',
@@ -20,9 +22,6 @@ export type BreadcrumbsLabelProps = ExtractPublicPropTypes<typeof breadcrumbsLab
 export const BreadcrumbsLabel = defineComponent({
   name: 'DestylerBreadcrumbsLabel',
   props: breadcrumbsLabelProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
     const content = injectContextBreadcrumbsContext()

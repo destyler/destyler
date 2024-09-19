@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { CheckedState, ExtractPublicPropTypes } from '@destyler/shared'
 import { useVModel } from '@destyler/composition'
@@ -9,6 +9,12 @@ import { provideMenuItemIndicatorContext } from './itemIndicator'
 
 export const menuCheckboxItemProps = {
   ...menuItemProps,
+  /**
+   * The controlled checked state of the item.
+   * Can be used as `v-model:checked`.
+   *
+   * @default false
+   */
   checked: {
     type: [Boolean, String] as PropType<CheckedState>,
     required: false,
@@ -20,6 +26,9 @@ export type MenuCheckboxItemProps = ExtractPublicPropTypes<typeof menuCheckboxIt
 
 export const menuCheckboxItemEmits = {
   ...menuItemEmits,
+  /**
+   * Event handler called when the checked state changes.
+   */
   'update:checked': (_checked: CheckedState) => true,
 }
 
@@ -27,9 +36,6 @@ export const MenuCheckboxItem = defineComponent({
   name: 'DestylerMenuCheckboxItem',
   props: menuCheckboxItemProps,
   emits: menuCheckboxItemEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const checked = useVModel(props, 'checked', emit)
 

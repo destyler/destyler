@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Icon} from '@destyler/icon'
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot,Radio } from '../src/component'
+import { Icon } from '@destyler/icon'
+import { Radio, RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from '../src/component'
 </script>
 
 <template>

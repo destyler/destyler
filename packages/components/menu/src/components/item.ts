@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -15,6 +14,10 @@ export const menuItemProps = {
 export type MenuItemProps = ExtractPublicPropTypes<typeof menuItemProps>
 
 export const menuItemEmits = {
+  /**
+   * Event handler called when the user selects an item (via mouse or keyboard). <br>
+   * Calling `event.preventDefault` in this handler will prevent the menu from closing when selecting that item.
+   */
   select: (_event: Event) => true,
 }
 
@@ -22,9 +25,6 @@ export const MenuItem = defineComponent({
   name: 'DestylerMenuItem',
   props: menuItemProps,
   emits: menuItemEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const rootContext = injectMenuRootContext()

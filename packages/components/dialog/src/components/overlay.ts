@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { Presence } from '@destyler/presence'
@@ -10,6 +10,10 @@ import { DialogOverlayImpl } from './overlayImpl'
 
 export const dialogOverlayProps = {
   ...primitiveProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,9 +25,6 @@ export type DialogOverlayProps = ExtractPublicPropTypes<typeof dialogOverlayProp
 export const DialogOverlay = defineComponent({
   name: 'DestylerDialogOverlay',
   props: dialogOverlayProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectDialogRootContext()
 

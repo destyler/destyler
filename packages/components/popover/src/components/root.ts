@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRef } from 'vue'
 import { PopperRoot } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,16 +18,31 @@ export interface PopoverRootContext {
 export const [injectPopoverRootContext, providePopoverRootContext] = createContext<PopoverRootContext>('DestylerPopoverRoot')
 
 export const popoverRootProps = {
+  /**
+   * The open state of the popover when it is initially rendered. Use when you do not need to control its open state.
+   *
+   * @default false
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The controlled open state of the popover.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean | undefined>,
     required: false,
     default: undefined,
   },
+  /**
+   * The modality of the popover. When set to true, interaction with outside elements will be disabled and only popover content will be visible to screen readers.
+   *
+   * @default false
+   */
   modal: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -38,6 +53,9 @@ export const popoverRootProps = {
 export type PopoverRootProps = ExtractPublicPropTypes<typeof popoverRootProps>
 
 export const popoverRootEmits = {
+  /**
+   * Event handler called when the open state of the popover changes.
+   */
   'update:open': (_value: boolean) => true,
 }
 
@@ -45,9 +63,6 @@ export const PopoverRoot = defineComponent({
   name: 'DestylerPopoverRoot',
   props: popoverRootProps,
   emits: popoverRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const modalRef = toRef(props.modal)
 

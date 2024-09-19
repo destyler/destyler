@@ -1,0 +1,161 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+
+.hover-card-trigger {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+white-space: nowrap;
+border-radius: 0.375rem;
+font-size: 0.875rem;
+font-weight: 500;
+
+transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+pointer-events: none;
+opacity: 0.5;
+color: var(--primary-color);
+text-decoration: underline;
+text-underline-offset: 0.25rem;
+height: 2.5rem;
+padding-left: 1rem;
+padding-top: 0.5rem;
+padding-bottom: 0.5rem;
+}
+
+.hover-card-trigger:hover {
+  text-decoration: underline;
+}
+
+.hover-card-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring-color);
+  outline-offset: 2px;
+}
+
+.hover-card-content {
+z-index: 50;
+width: 80%;
+border-radius: 0.375rem;
+border: 1px solid;
+background-color: var(--popover-background);
+padding: 1rem;
+color: var(--popover-foreground);
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+outline: none;
+transition: opacity 0.3s, transform 0.3s;
+}
+
+.hover-card-content [data-state="open"] {
+  animation: fadeIn 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+.hover-card-content[data-state="closed"] {
+  animation: fadeOut 0.3s ease-in-out;
+  transform: scale(0.95);
+}
+
+.hover-card-content[data-side="bottom"] {
+  transform: translateY(-2rem);
+}
+
+.hover-card-content[data-side="left"] {
+  transform: translateX(2rem);
+}
+
+.hover-card-content[data-side="right"] {
+  transform: translateX(-2rem);
+}
+
+.hover-card-content[data-side="top"] {
+  transform: translateY(2rem);
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.image-root{
+  position: relative;
+  display: flex;
+  height: 10vh;
+  width: 10vw;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.image {
+aspect-ratio: 1 / 1;
+height: 100%;
+width: 100%;
+}
+
+.image-fall-back{
+  display: flex;
+height: 100%;
+width: 100%;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+background-color: var(--muted);
+}
+
+.space-y-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.h4 {
+  font-size: 0.875rem;
+font-weight: 600;
+}
+.p {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+.icon {
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+  opacity: 0.7;
+}
+
+.time {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

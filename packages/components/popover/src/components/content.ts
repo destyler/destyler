@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -11,6 +11,12 @@ import { PopoverContentNonModal } from './contentNonModal'
 
 export const popoverContentProps = {
   ...popoverContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   *
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -28,9 +34,6 @@ export const PopoverContent = defineComponent({
   name: 'DestylerPopoverContent',
   props: popoverContentProps,
   emits: popoverContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
 

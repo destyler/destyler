@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose, useMounted } from '@destyler/composition'
@@ -12,6 +12,12 @@ import { injectNavigationItemContext } from './item'
 
 export const navigationContentProps = {
   ...navigationContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   *
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,9 +36,6 @@ export const NavigationContent = defineComponent({
   inheritAttrs: false,
   props: navigationContentProps,
   emits: navigationContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     const { forwardRef } = useForwardExpose()

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { getCheckedState } from '@destyler/shared'
@@ -9,6 +9,9 @@ import { provideMenuItemIndicatorContext } from './itemIndicator'
 
 export const menuRadioItemProps = {
   ...menuItemProps,
+  /**
+   * The unique value of the item.
+   */
   value: {
     type: String as PropType<string>,
     required: true,
@@ -25,9 +28,6 @@ export const MenuRadioItem = defineComponent({
   name: 'DestylerMenuRadioItem',
   props: menuRadioItemProps,
   emits: menuRadioItemEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const { value } = toRefs(props)
     const radioGroupContext = injectMenuRadioGroupContext()

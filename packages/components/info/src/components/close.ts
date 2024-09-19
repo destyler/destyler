@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -7,6 +6,9 @@ import { injectInfoRootContext } from './root'
 
 export const infoCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -19,9 +21,6 @@ export const InfoClose = defineComponent({
   name: 'DestylerInfoClose',
   props: infoCloseProps,
   inheritAttrs: false,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContent = injectInfoRootContext()
 

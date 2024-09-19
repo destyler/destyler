@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, toRefs, withDirectives } from 'vue'
 import { Primitive } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -21,15 +21,30 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 export const comboboxContentImplProps = {
   ...dismissableLayerProps,
   ...popperContentProps,
+  /**
+   * The positioning mode to use, <br>
+   * `inline` is the default and you can control the position using CSS. <br>
+   * `popper` positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`.
+   *
+   * @default inline
+   */
   position: {
     type: String as PropType<'inline' | 'popper'>,
     required: false,
     default: 'inline',
   },
+  /**
+   * The document.body will be lock, and scrolling will be disabled.
+   */
   bodyLock: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Allow component to be dismissableLayer.
+   *
+   * @default true
+   */
   dismissable: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -39,7 +54,7 @@ export const comboboxContentImplProps = {
 
 export type ComboboxContentImplProps = ExtractPublicPropTypes<typeof comboboxContentImplProps>
 
-export const comboboxCOntentImplEmits = {
+export const comboboxContentImplEmits = {
   ...dismissableLayerEmits,
 }
 
@@ -48,10 +63,7 @@ export const [injectComboboxContentContext, provideComboboxContentContext] = cre
 export const ComboboxContentImpl = defineComponent({
   name: 'DestylerComboboxContentImpl',
   props: comboboxContentImplProps,
-  emits: comboboxCOntentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+  emits: comboboxContentImplEmits,
   setup(props) {
     const { position } = toRefs(props)
     const rootContext = injectComboboxRootContext()

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, withDirectives, withModifiers } from 'vue'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -72,9 +72,6 @@ export const MenuSubContent = defineComponent({
   name: 'DestylerMenuSubContent',
   props: menuSubContentProps,
   emits: menuSubContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

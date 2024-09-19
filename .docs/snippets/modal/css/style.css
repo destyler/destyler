@@ -1,0 +1,247 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+.modal-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem; /* 通常 14px */
+  font-weight: 500;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  height: 2.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+}
+
+
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: rgb(255 255 255 / 0.5);
+}
+
+.dark .modal-overlay{
+  background-color: rgb(0 0 0 / 0.5);
+}
+
+.modal-overlay[data-state="open"] {
+  animation: una-in;
+  animation-name: una-in;
+  animation-duration: 150ms;
+  --una-enter-opacity: 0;
+  --una-enter-scale: initial;
+  --una-enter-rotate: initial;
+  --una-enter-translate-x: initial;
+  --una-enter-translate-y: initial;
+}
+
+.modal-overlay[data-state="closed"] {
+  animation: una-out;
+  animation-name: una-out;
+  animation-duration: 150ms;
+  --una-exit-opacity: 0;
+  --una-exit-scale: 0.95;
+  --una-exit-rotate: initial;
+  --una-exit-translate-x: initial;
+  --una-exit-translate-y: initial;
+}
+
+.modal-content{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 50;
+  display: grid;
+  width: 100%;
+  max-width: 32rem; /* 512px */
+  gap: 1rem; /* 16px */
+  border-width: 1px;
+  background-color: rgb(255 255 255);
+  border-color: rgb(var(--border));
+  transition-duration: 200ms;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.dark .modal-content{
+  background-color: rgb(0 0 0);
+}
+
+.modal-content[data-state="open"] {
+  animation: una-in;
+  animation-name: una-in;
+  animation-duration: 150ms;
+  --una-enter-opacity: 0;
+  --una-enter-scale: 0.95;
+  --una-enter-rotate: initial;
+  --una-enter-translate-x: 50%;
+  --una-enter-translate-y: 48%;
+}
+
+.modal-content[data-state="closed"] {
+  animation: una-out;
+  animation-name: una-out;
+  animation-duration: 150ms;
+  --una-exit-opacity: 0;
+  --una-exit-scale: 0.95;
+  --una-exit-rotate: initial;
+  --una-exit-translate-x: 50%;
+  --una-exit-translate-y: 48%;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* 相当于 space-y-2 */
+  text-align: center;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.modal-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.modal-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(var(--muted-foreground));
+}
+
+.modal-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  outline: none;
+  border: 1px solid;
+  background-color: rgb(var(--background));
+  padding: 0.5rem 1rem;
+  height: 2.5rem;
+  margin-top: 0.5rem;
+}
+
+.modal-cancel:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.modal-cancel:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.modal-cancel:hover {
+  background-color: rgb(var(--accent));
+  color: rgb(var(--accent-foreground));
+}
+
+.modal-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  background-color: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+  padding: 0.5rem 1rem;
+  height: 2.5rem;
+}
+
+.modal-action:focus-visible {
+  outline: none;
+  outline-offset: 2px;
+}
+
+.modal-action:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.modal-action:hover {
+  background-color: rgba(var(--primary), 0.9);
+}
+
+@media (min-width: 640px) {
+  .modal-cancel {
+    margin-top: 0;
+  }
+  .heading {
+    text-align: left;
+  }
+  .footer {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+
+@keyframes una-in {
+  from {
+    opacity: var(--una-enter-opacity, 1);
+    transform: translate3d(
+        var(--una-enter-translate-x, 0),
+        var(--una-enter-translate-y, 0),
+        0
+      )
+      scale3d(
+        var(--una-enter-scale, 1),
+        var(--una-enter-scale, 1),
+        var(--una-enter-scale, 1)
+      )
+      rotate(var(--una-enter-rotate, 0));
+  }
+}
+
+@keyframes una-out {
+  to {
+    opacity: var(--una-exit-opacity, 1);
+    transform: translate3d(
+        var(--una-exit-translate-x, 0),
+        var(--una-exit-translate-y, 0),
+        0
+      )
+      scale3d(
+        var(--una-exit-scale, 1),
+        var(--una-exit-scale, 1),
+        var(--una-exit-scale, 1)
+      )
+      rotate(var(--una-exit-rotate, 0));
+  }
+}

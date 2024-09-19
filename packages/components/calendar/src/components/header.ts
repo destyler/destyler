@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,9 +11,6 @@ export type CalendarHeaderProps = ExtractPublicPropTypes<typeof calendarHeaderPr
 export const CalendarHeader = defineComponent({
   name: 'DestylerCalendarHeader',
   props: calendarHeaderProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_) {
 
   },

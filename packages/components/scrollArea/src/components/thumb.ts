@@ -1,4 +1,4 @@
-import { type SlotsType, type VNode, computed, defineComponent, h, onUnmounted, ref } from 'vue'
+import { computed, defineComponent, h, onUnmounted, ref } from 'vue'
 import { watchOnce } from '@destyler/shared'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -17,9 +17,6 @@ export type ScrollAreaThumbProps = ExtractPublicPropTypes<typeof scrollAreaThumb
 export const ScrollAreaThumb = defineComponent({
   name: 'DestylerScrollAreaThumb',
   props: scrollAreaThumbProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContextVisible = injectScrollAreaScrollbarVisibleContext()

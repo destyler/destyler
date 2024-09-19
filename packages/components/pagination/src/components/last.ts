@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,6 +7,9 @@ import { injectPaginationRootContext } from './root'
 
 export const paginationLastProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -19,9 +21,6 @@ export type PaginationLastProps = ExtractPublicPropTypes<typeof paginationLastPr
 export const PaginationLast = defineComponent({
   name: 'DestylerPaginationLast',
   props: paginationLastProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
 

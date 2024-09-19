@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -17,9 +16,6 @@ export type ComboboxArrowProps = ExtractPublicPropTypes<typeof comboboxArrowProp
 export const ComboboxArrow = defineComponent({
   name: 'DestylerComboboxArrow',
   props: comboboxArrowProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

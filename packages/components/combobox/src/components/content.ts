@@ -1,14 +1,18 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits, useId } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
 
 import { injectComboboxRootContext } from './root'
-import { ComboboxContentImpl, comboboxCOntentImplEmits, comboboxContentImplProps } from './contentImpl'
+import { ComboboxContentImpl, comboboxContentImplEmits, comboboxContentImplProps } from './contentImpl'
 
 export const comboboxContentProps = {
   ...comboboxContentImplProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -18,16 +22,13 @@ export const comboboxContentProps = {
 export type ComboboxContentProps = ExtractPublicPropTypes<typeof comboboxContentProps>
 
 export const comboboxContentEmits = {
-  ...comboboxCOntentImplEmits,
+  ...comboboxContentImplEmits,
 }
 
 export const ComboboxContent = defineComponent({
   name: 'DestylerComboboxContent',
   props: comboboxContentProps,
   emits: comboboxContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, onBeforeMount, onUnmounted } from 'vue'
 import { PopperAnchor, popperAnchorProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -14,9 +13,6 @@ export type PopoverAnchorProps = ExtractPublicPropTypes<typeof popoverAnchorProp
 export const PopoverAnchor = defineComponent({
   name: 'DestylerPopoverAnchor',
   props: popoverAnchorProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectPopoverRootContext()
 

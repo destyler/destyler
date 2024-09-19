@@ -1,35 +1,68 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, ref, toRefs } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
 import { useForwardExpose, useTimeoutFn } from '@destyler/composition'
 
 export const tooltipProviderProps = {
+  /**
+   * The duration from when the pointer enters the trigger until the tooltip gets opened.
+   *
+   * @default 700
+   */
   delayDuration: {
     type: Number as PropType<number>,
     required: false,
     default: 700,
   },
+  /**
+   * How much time a user has to enter another trigger without incurring a delay again.
+   *
+   * @default 300
+   */
   skipDelayDuration: {
     type: Number as PropType<number>,
     required: false,
     default: 300,
   },
+  /**
+   * When `true`, trying to hover the content will result in the tooltip closing as the pointer leaves the trigger.
+   *
+   * @default false
+   */
   disableHoverableContent: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, clicking on trigger will not close the content.
+   *
+   * @default false
+   */
   disableClosingTrigger: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, disable tooltip
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * Prevent the tooltip from opening if the focus did not come from
+   * the keyboard by matching against the `:focus-visible` selector.
+   * This is useful if you want to avoid opening it when switching
+   * browser tabs or closing a dialog.
+   *
+   * @default false
+   */
   ignoreNonKeyboardFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -58,9 +91,6 @@ export const TooltipProvider = defineComponent({
   name: 'DestylerTooltipProvider',
   inheritAttrs: false,
   props: tooltipProviderProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const { delayDuration, skipDelayDuration, disableHoverableContent, disableClosingTrigger, ignoreNonKeyboardFocus, disabled } = toRefs(props)
     useForwardExpose()

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
@@ -10,6 +10,10 @@ import { injectHoverCardRootContext } from './root'
 
 export const hoverCardContentProps = {
   ...hoverCardContentImplProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -26,9 +30,6 @@ export const HoverCardContent = defineComponent({
   name: 'DestylerHoverCardContent',
   props: hoverCardContentProps,
   emits: hoverCardContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     const { forwardRef } = useForwardExpose()

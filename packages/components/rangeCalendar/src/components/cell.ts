@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DateValue } from '@internationalized/date'
@@ -8,10 +8,16 @@ import { injectRangeCalendarRootContext } from './root'
 
 export const rangeCalendarCellProps = {
   ...primitiveProps,
+  /**
+   * @default td
+   */
   as: {
     ...primitiveProps.as,
     default: 'td',
   },
+  /**
+   * The date value for the cell
+   */
   date: {
     type: Object as PropType<DateValue>,
     required: true,
@@ -23,9 +29,6 @@ export type RangeCalendarCellProps = ExtractPublicPropTypes<typeof rangeCalendar
 export const RangeCalendarCell = defineComponent({
   name: 'DestylerRangeCalendarCell',
   props: rangeCalendarCellProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectRangeCalendarRootContext()
 

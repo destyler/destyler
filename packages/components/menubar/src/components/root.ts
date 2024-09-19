@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive } from '@destyler/primitive'
 import type { Direction, ExtractPublicPropTypes } from '@destyler/shared'
@@ -7,19 +7,36 @@ import { useCollection, useDirection, useForwardExpose, useVModel } from '@desty
 import { RovingFocusGroup } from '@destyler/roving-focus'
 
 export const menubarRootProps = {
+  /**
+   * The controlled value of the menu to open.
+   * Can be used as `v-model`.
+   *
+   * @default undefined
+   */
   modelValue: {
     type: String as PropType<string>,
     required: false,
     default: undefined,
   },
+  /**
+   * The value of the menu that should be open when initially rendered. Use when you do not need to control the value state.
+   */
   defaultValue: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The reading direction of the combobox when applicable.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * When `true`, keyboard navigation will loop from last item to first, and vice versa.
+   *
+   * @default false
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,6 +47,9 @@ export const menubarRootProps = {
 export type MenubarRootProps = ExtractPublicPropTypes<typeof menubarRootProps>
 
 export const menubarRootEmits = {
+  /**
+   * Event handler called when the value changes.
+   */
   'update:modelValue': (_value: string) => true,
 }
 
@@ -48,9 +68,6 @@ export const MenubarRoot = defineComponent({
   name: 'DestylerMenubarRoot',
   props: menubarRootProps,
   emits: menubarRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { createCollection } = useCollection('menubar')

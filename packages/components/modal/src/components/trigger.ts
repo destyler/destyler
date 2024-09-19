@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -7,6 +6,9 @@ import { DialogTrigger } from '@destyler/dialog'
 
 export const modalTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -18,9 +20,6 @@ export type ModalTriggerProps = ExtractPublicPropTypes<typeof modalTriggerProps>
 export const ModalTrigger = defineComponent({
   name: 'DestylerModalTrigger',
   props: modalTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
   },

@@ -1,0 +1,28 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+
+.root {
+  position: relative;
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: rgba(var(--primary), 0.2);
+  width: 40%;
+  transform: translateZ(0);
+}
+
+.indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1 1 0%;
+  transition-property: all;
+  background-color: rgba(var(--primary), 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}

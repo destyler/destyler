@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, onUnmounted, ref, toRefs, watch } from 'vue'
 import type { ExtractPublicPropTypes, GraceIntent } from '@destyler/shared'
 import { useArrowNavigation, useCollection, useFocusGuards, useForwardExpose, useTypeahead } from '@destyler/composition'
@@ -66,18 +66,34 @@ export const menuContentImplProps = {
   prioritizePosition: {
     ...popperContentProps.prioritizePosition,
   },
+  /**
+   * When `true`, hover/focus/click interactions will be disabled on elements outside
+   * the `DismissableLayer`. Users will need to click twice on outside elements to
+   * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
+   */
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Whether scrolling outside the `MenuContent` should be prevented
+   */
   disableOutsideScroll: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Whether focus should be trapped within the `MenuContent`
+   * @default als
+   */
   trapFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * When `true`, tabbing from last item will focus first tabbable
+   * and shift+tab from first item will focus last tababble.
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -109,11 +125,11 @@ export const MenuContentImpl = defineComponent({
   props: menuContentImplProps,
   emits: {
     ...menuContentImplEmits,
+    /**
+     * Handler called when the `DismissableLayer` should be dismissed
+     */
     dismiss: () => true,
   },
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const menuContext = injectMenuContext()
     const rootContext = injectMenuRootContext()

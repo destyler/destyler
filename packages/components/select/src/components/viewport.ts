@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -10,6 +10,9 @@ import { injectSelectItemAlignedPositionContext } from './itemAlignedPosition'
 
 export const selectViewportProps = {
   ...primitiveProps,
+  /**
+   * Will add `nonce` attribute to the style tag which can be used by Content Security Policy.
+   */
   nonce: {
     type: String as PropType<string>,
     required: false,
@@ -21,9 +24,6 @@ export type SelectViewportProps = ExtractPublicPropTypes<typeof selectViewportPr
 export const SelectViewport = defineComponent({
   name: 'DestylerSelectViewport',
   props: selectViewportProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const contentContext = injectSelectContentContext(SelectContentDefaultContextValue)
     const alignedPositionContext = contentContext.position === 'item-aligned'

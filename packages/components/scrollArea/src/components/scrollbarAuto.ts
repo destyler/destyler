@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import {
@@ -13,6 +13,10 @@ import { injectScrollAreaScrollbarContext } from './scrollbar'
 import { ScrollAreaScrollbarVisible } from './scrollbarVisible'
 
 export const scrollAreaScrollbarAutoProps = {
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -26,9 +30,7 @@ export type ScrollAreaScrollbarAutoProps = ExtractPublicPropTypes<
 export const ScrollAreaScrollbarAuto = defineComponent({
   name: 'DestylerScrollAreaScrollbarAuto',
   props: scrollAreaScrollbarAutoProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup() {
     const rootContext = injectScrollAreaRootContext()
     const scrollbarContext = injectScrollAreaScrollbarContext()

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { VisuallyHidden } from '@destyler/visually-hidden'
 
@@ -11,9 +10,6 @@ export const toastFocusProxyEmits = {
 export const ToastFocusProxy = defineComponent({
   name: 'DestylerToastFocusProxy',
   emits: toastFocusProxyEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const providerContext = injectToastProviderContext()
     return {

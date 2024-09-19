@@ -1,0 +1,221 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+
+.boxs {
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  border-radius: 0.375rem;
+  border: 1px solid;
+  background-color: var(--background);
+  padding: 0.25rem;
+}
+
+.trigger {
+  display: flex;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.trigger:focus {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+:is(.trigger[aria-expanded="true"], .trigger[data-state="open"]) {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.icon{
+  height: 1rem; /* 16px */
+  width: 1rem; /* 16px */
+}
+
+.mr-2{
+  margin-right: 0.5rem; /* 8px */
+}
+
+.ml-auto{
+  margin-left: auto;
+}
+
+.content {
+  z-index: 50;
+  min-width: 8rem;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  border: 1px solid;
+  background-color: var(--popover);
+  padding: 0.25rem;
+  color: var(--popover-foreground);
+}
+
+.content[data-side="bottom"]{
+  --una-enter-translate-y: -0.5rem; /* -8px */
+}
+
+.content[data-side="left"]{
+  --una-enter-translate-x: 0.5rem; /* 8px */
+}
+
+.content[data-side="right"]{
+  --una-enter-translate-x: -0.5rem; /* -8px */
+}
+
+.content[data-side="top"]{
+  --una-enter-translate-y: 0.5rem; /* 8px */
+}
+
+.content[data-state="open"] {
+  animation: una-in;
+  animation-name: una-in;
+  animation-duration: 150ms;
+  --una-enter-opacity: 0;
+  --una-enter-scale: 0.95;
+  --una-enter-rotate: initial;
+  --una-enter-translate-x: initial;
+  --una-enter-translate-y: initial;
+}
+.content[data-state="closed"] {
+  animation: una-out;
+  animation-name: una-out;
+  animation-duration: 150ms;
+  --una-exit-opacity: 0;
+  --una-exit-scale: 0.95;
+  --una-exit-rotate: initial;
+  --una-exit-translate-x: initial;
+  --una-exit-translate-y: initial;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.item:focus {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.item[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.separator {
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  height: 1px;
+  background-color: rgb(var(--muted));
+}
+
+.text-primary{
+  color: rgb(var(--primary));
+}
+
+.select-item {
+  position: relative;
+  display: flex;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  padding-left: 2rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.select-item:focus {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.select-item[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.select-item-span {
+  position: absolute;
+  left: 0.5rem;
+  display: flex;
+  height: 0.875rem;
+  width: 0.875rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes una-in {
+  from {
+    opacity: var(--una-enter-opacity, 1);
+    transform: translate3d(
+        var(--una-enter-translate-x, 0),
+        var(--una-enter-translate-y, 0),
+        0
+      )
+      scale3d(
+        var(--una-enter-scale, 1),
+        var(--una-enter-scale, 1),
+        var(--una-enter-scale, 1)
+      )
+      rotate(var(--una-enter-rotate, 0));
+  }
+}
+
+@keyframes una-out {
+  to {
+    opacity: var(--una-exit-opacity, 1);
+    transform: translate3d(
+        var(--una-exit-translate-x, 0),
+        var(--una-exit-translate-y, 0),
+        0
+      )
+      scale3d(
+        var(--una-exit-scale, 1),
+        var(--una-exit-scale, 1),
+        var(--una-exit-scale, 1)
+      )
+      rotate(var(--una-exit-rotate, 0));
+  }
+}

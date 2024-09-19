@@ -2,7 +2,7 @@ export { ComboboxAnchor, comboboxAnchorProps, type ComboboxAnchorProps } from '.
 export { ComboboxArrow, comboboxArrowProps, type ComboboxArrowProps } from './components/arrow'
 export { ComboboxCancel, comboboxCancelProps, type ComboboxCancelProps } from './components/cancel'
 export { ComboboxContent, comboboxContentProps, comboboxContentEmits, type ComboboxContentProps } from './components/content'
-export { ComboboxContentImpl, comboboxContentImplProps, comboboxCOntentImplEmits, type ComboboxContentImplProps } from './components/contentImpl'
+export { ComboboxContentImpl, comboboxContentImplProps, comboboxContentImplEmits, type ComboboxContentImplProps } from './components/contentImpl'
 export { ComboboxEmpty, comboboxEmptyProps, type ComboboxEmptyProps } from './components/empty'
 export { ComboboxGroup, comboboxGroupProps, type ComboboxGroupProps } from './components/group'
 export { ComboboxInput, comboboxInputProps, type ComboboxInputProps } from './components/input'

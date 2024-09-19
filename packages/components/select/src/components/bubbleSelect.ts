@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, ref, toRefs, vModelSelect, withDirectives } from 'vue'
 import { usePrevious } from '@destyler/composition'
 import { VisuallyHidden } from '@destyler/visually-hidden'
@@ -47,9 +47,7 @@ export type BubbleSelectProps = ExtractPublicPropTypes<typeof bubbleSelectProps>
 export const BubbleSelect = defineComponent({
   name: 'DestylerBubbleSelect',
   props: bubbleSelectProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     const { value } = toRefs(props)
     const prevValue = usePrevious(value)

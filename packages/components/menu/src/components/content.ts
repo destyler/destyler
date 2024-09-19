@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardPropsEmits } from '@destyler/composition'
@@ -11,6 +11,10 @@ import { MenuRootContentNonModal } from './rootContentNonModal'
 
 export const menuContentProps = {
   ...menuContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -20,10 +24,31 @@ export const menuContentProps = {
 export type MenuContentProps = ExtractPublicPropTypes<typeof menuContentProps>
 
 export const menuContentEmits = {
+  /**
+   * Event handler called when auto-focusing on close.
+   * Can be prevented.
+   */
   closeAutoFocus: menuContentImplEmits.closeAutoFocus,
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
   escapeKeyDown: menuContentImplEmits.escapeKeyDown,
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   pointerDownOutside: menuContentImplEmits.pointerDownOutside,
+  /**
+   * Event handler called when the focus moves outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   focusOutside: menuContentImplEmits.focusOutside,
+  /**
+   * Event handler called when an interaction happens outside the `DismissableLayer`.
+   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
+   * Can be prevented.
+   */
   interactOutside: menuContentImplEmits.interactOutside,
 }
 
@@ -31,9 +56,6 @@ export const MenuContent = defineComponent({
   name: 'DestylerMenuContent',
   props: menuContentProps,
   emits: menuContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

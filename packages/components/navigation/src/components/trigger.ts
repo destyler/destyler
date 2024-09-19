@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -12,10 +12,16 @@ import { injectNavigationItemContext } from './item'
 
 export const navigationTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with item
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -28,9 +34,6 @@ export const NavigationTrigger = defineComponent({
   name: 'DestylerNavigationTrigger',
   inheritAttrs: false,
   props: navigationTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const menuContext = injectNavigationContext()
     const itemContext = injectNavigationItemContext()

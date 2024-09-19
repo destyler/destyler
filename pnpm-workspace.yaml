@@ -2,6 +2,6 @@ packages:
   - 'examples/*'
   - 'packages/*'
   - 'packages/*/*'
-  - docs
   - test
   - .histoire
+  - .docs

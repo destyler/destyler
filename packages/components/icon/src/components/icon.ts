@@ -4,6 +4,9 @@ import { Icon as Iconify } from '@iconify/vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
 export const iconProps = {
+  /**
+   * The name of the icon.
+   */
   name: {
     type: String as PropType<string>,
     required: true,

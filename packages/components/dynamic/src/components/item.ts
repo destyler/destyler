@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, toRefs } from 'vue'
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useId } from '@destyler/composition'
@@ -10,10 +10,16 @@ import { injectDynamicRootContext } from './root'
 
 export const dynamicItemProps = {
   ...primitiveProps,
+  /**
+   * Value associated with the tags
+   */
   value: {
     type: String as PropType<string>,
     required: true,
   },
+  /**
+   * When `true`, prevents the user from interacting with the tags input.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -35,9 +41,6 @@ export const [injectDynamicItemContext, provideDynamicItemContext]
 export const DynamicItem = defineComponent({
   name: 'DestylerDynamicItem',
   props: dynamicItemProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const { value } = toRefs(props)
 

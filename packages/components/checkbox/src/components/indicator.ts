@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { Presence } from '@destyler/presence'
@@ -10,10 +10,19 @@ import { injectCheckboxRootContext } from './root'
 
 export const checkboxIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with animation libraries.
+   *
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -26,9 +35,6 @@ export type CheckboxIndicatorProps = ExtractPublicPropTypes<typeof checkboxIndic
 export const CheckboxIndicator = defineComponent({
   name: 'DestylerCheckboxIndicator',
   props: checkboxIndicatorProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectCheckboxRootContext()
 

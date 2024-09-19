@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref } from 'vue'
 import { useEmitAsProps } from '@destyler/composition'
 
@@ -9,9 +8,6 @@ export const DialogContentNonModal = defineComponent({
   name: 'DestylerDialogContentNonModal',
   props: dialogContentImplProps,
   emits: dialogContentImplEmtis,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_, { emit }) {
     const rootContext = injectDialogRootContext()
     const hasInteractedOutsideRef = ref(false)

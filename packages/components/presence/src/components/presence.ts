@@ -16,10 +16,17 @@ import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { renderSlotFragments, unrefElement } from '@destyler/shared'
 
 export const presenceProps = {
+  /**
+   * Conditional to mount or unmount the child element. Similar to `v-if`
+   */
   present: {
     type: Boolean as PropType<boolean>,
     required: true,
   },
+  /**
+   * Force the first child element to render all the time.
+   * Useful for programmatically render grandchild component together with the exposed `present`
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -32,7 +39,9 @@ export const Presence = defineComponent({
   name: 'DestylerPresence',
   props: presenceProps,
   slots: {} as SlotsType<{
-    default: (opts: { present: Ref<boolean> }) => VNode[]
+    default: (opts: {
+      present: Ref<boolean>
+    }) => VNode[]
   }>,
   setup(props, { expose }) {
     const { present, forceMount } = toRefs(props)

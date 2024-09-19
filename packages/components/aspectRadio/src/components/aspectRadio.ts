@@ -1,4 +1,4 @@
-import type { PropType, SlotsType } from 'vue'
+import type { PropType, SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -6,6 +6,11 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const aspectRadioProps = {
   ...primitiveProps,
+  /**
+   * The desired ratio
+   *
+   * @default 1
+   */
   aspectRatio: {
     type: Number as PropType<number>,
     required: false,
@@ -20,7 +25,12 @@ export const AspectRadio = defineComponent({
   inheritAttrs: false,
   props: aspectRadioProps,
   slots: Object as SlotsType<{
-    default: { aspect: number }
+    default: (opts: {
+      /**
+       * Current aspect ratio (in `%`)
+       */
+      aspect: number
+    }) => VNode[]
   }>,
   setup(props) {
     const { forwardRef } = useForwardExpose()

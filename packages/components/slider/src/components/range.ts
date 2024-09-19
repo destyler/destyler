@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,6 +8,9 @@ import { injectSliderRootContext } from './root'
 
 export const sliderRangeProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
@@ -20,9 +22,6 @@ export type SliderRangeProps = ExtractPublicPropTypes<typeof sliderRangeProps>
 export const SliderRange = defineComponent({
   name: 'DestylerSliderRange',
   props: sliderRangeProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectSliderRootContext()
     const orientation = injectSliderOrientationContext()

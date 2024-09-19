@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, withDirectives, withModifiers } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,10 +12,16 @@ import { injectMenubarMenuContext } from './menu'
 
 export const menubarTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with item
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -27,9 +33,6 @@ export type MenubarTriggerProps = ExtractPublicPropTypes<typeof menubarTriggerPr
 export const MenubarTrigger = defineComponent({
   name: 'DestylerMenubarTrigger',
   props: menubarTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectMenubarRootContext()
     const menuContext = injectMenubarMenuContext()

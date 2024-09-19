@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, onMounted } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { PopperAnchor } from '@destyler/popper'
@@ -9,6 +8,9 @@ import { injectPopoverRootContext } from './root'
 
 export const popoverTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -20,9 +22,6 @@ export type PopoverTriggerProps = ExtractPublicPropTypes<typeof popoverTriggerPr
 export const PopoverTrigger = defineComponent({
   name: 'DestylerPopoverTrigger',
   props: popoverTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectPopoverRootContext()
 

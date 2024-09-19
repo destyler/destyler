@@ -12,101 +12,204 @@ import { useCalendar, useCalendarState } from '../composition/use-calendar'
 
 export const calendarRootProps = {
   ...primitiveProps,
+  /**
+   * The default value for the calendar
+   *
+   * @default undefined
+   */
   defaultValue: {
     type: Object as PropType<DateValue>,
     required: false,
     default: undefined,
   },
+  /**
+   * The default placeholder date
+   */
   defaultPlaceholder: {
     type: Object as PropType<DateValue>,
     required: false,
   },
+  /**
+   * The placeholder date, which is used to determine what month to
+   * display when no date is selected. This updates as the user navigates
+   * the calendar and can be used to programmatically control the
+   * calendar view
+   *
+   * @default undefined
+   */
   placeholder: {
     type: Object as PropType<DateValue>,
     required: false,
     default: undefined,
   },
+  /**
+   * This property causes the previous and next buttons
+   * to navigate by the number of months displayed at
+   * once, rather than one month
+   *
+   * @default false
+   */
   pagedNavigation: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * Whether or not to prevent the user from deselecting
+   * a date without selecting another date first
+   *
+   * @default false
+   */
   preventDeselect: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The day of the week to start the calendar on
+   *
+   * @default 0
+   */
   weekStartsOn: {
     type: Number as PropType<0 | 1 | 2 | 3 | 4 | 5 | 6>,
     required: false,
     default: 0,
   },
+  /**
+   * The format to use for the weekday strings provided via the weekdays slot prop
+   *
+   * @default narrow
+   */
   weekdayFormat: {
     type: String as PropType<WeekDayFormat>,
     required: false,
     default: 'narrow',
   },
+  /**
+   * The accessible label for the calendar
+   */
   calendarLabel: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Whether or not to always display 6 weeks in the calendar
+   *
+   * @default false
+   */
   fixedWeeks: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The maximum date that can be selected
+   */
   maxValue: {
     type: Object as PropType<DateValue>,
     required: false,
   },
+  /**
+   * The minimum date that can be selected
+   */
   minValue: {
     type: Object as PropType<DateValue>,
     required: false,
   },
+  /**
+   * The locale to use for formatting dates
+   *
+   * @default en
+   */
   locale: {
     type: String as PropType<SupportedLocale>,
     required: false,
     default: 'en',
   },
+  /**
+   * The number of months to display at once
+   *
+   * @default 1
+   */
   numberOfMonths: {
     type: Number as PropType<number>,
     required: false,
     default: 1,
   },
+  /**
+   * Whether or not the calendar is disabled
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * Whether or not the calendar is readonly
+   *
+   * @default false
+   */
   readonly: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * If true, the calendar will focus the selected day, today,
+   * or the first day of the month depending on what is
+   * visible when the calendar is mounted
+   *
+   * @default false
+   */
   initialFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * A function that returns whether or not a date is disabled
+   *
+   * @default undefined
+   */
   isDateDisabled: {
     type: Function as PropType<Matcher>,
     required: false,
     default: undefined,
   },
+  /**
+   * A function that returns whether or not a date is unavailable
+   *
+   * @default undefined
+   */
   isDateUnavailable: {
     type: Function as PropType<Matcher>,
     required: false,
     default: undefined,
   },
+  /**
+   * The controlled checked state of the calendar. Can be bound as `v-model`.
+   */
   modelValue: {
     type: [Object, Array] as PropType<DateValue | DateValue[] | undefined>,
     required: false,
   },
+  /**
+   * Whether or not multiple dates can be selected
+   *
+   * @default false
+   */
   multiple: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The reading direction of the calendar when applicable.
+   *
+   * @default ltr
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
@@ -117,7 +220,13 @@ export const calendarRootProps = {
 export type CalendarRootProps = ExtractPublicPropTypes<typeof calendarRootProps>
 
 export const calendarRootEmits = {
+  /**
+   * Event handler called whenever the model value changes
+   */
   'update:modelValue': (_value: DateValue | undefined) => true,
+  /**
+   * Event handler called whenever the placeholder value changes
+   */
   'update:placeholder': (_value: DateValue) => true,
 }
 
@@ -162,8 +271,17 @@ export const CalendarRoot = defineComponent({
   emits: calendarRootEmits,
   slots: Object as SlotsType<{
     default: (opts: {
+      /**
+       * The current date of the placeholder
+       */
       date: DateValue
+      /**
+       * The grid of dates
+       */
       grid: Grid<DateValue>[]
+      /**
+       * The days of the week
+       */
       weekDays: string[]
     }) => VNode[]
   }>,

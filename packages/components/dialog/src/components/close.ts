@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,6 +7,9 @@ import { injectDialogRootContext } from './root'
 
 export const dialogCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -19,9 +21,6 @@ export type DialogCloseProps = ExtractPublicPropTypes<typeof dialogCloseProps>
 export const DialogClose = defineComponent({
   name: 'DestylerDialogClose',
   props: dialogCloseProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectDialogRootContext()
 

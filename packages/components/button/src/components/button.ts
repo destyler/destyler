@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,10 +8,17 @@ import { isButton } from '../utils'
 
 export const buttonProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * When `true`, prevents the user from interacting with the accordion and all its items
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -22,6 +29,9 @@ export const buttonProps = {
 export type ButtonProps = ExtractPublicPropTypes<typeof buttonProps>
 
 export const butttonEmit = {
+  /**
+   * click will cause something to happen.
+   */
   click: (_event: MouseEvent) => true,
 }
 
@@ -30,9 +40,6 @@ export const Button = defineComponent({
   inheritAttrs: false,
   props: buttonProps,
   emits: butttonEmit,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
 
@@ -73,8 +80,6 @@ export const Button = defineComponent({
       'onClick': (e: any) => {
         this.handleClick(e)
       },
-    }), {
-      default: () => this.$slots.default?.(),
-    })
+    }), () => this.$slots.default?.())
   },
 })

@@ -1,18 +1,18 @@
 <script lang="ts">
-import {BackTop} from '../src'
 import { defineComponent, ref } from 'vue'
+import { BackTop } from '../src'
 
 export default defineComponent({
-  components:{
-    BackTop
+  components: {
+    BackTop,
   },
   setup() {
     const scrollContainerRef = ref<HTMLElement | undefined>(undefined)
     return {
       scrollContainer: scrollContainerRef,
-      target: () => scrollContainerRef.value
+      target: () => scrollContainerRef.value,
     }
-  }
+  },
 })
 </script>
 

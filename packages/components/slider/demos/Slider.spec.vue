@@ -32,9 +32,9 @@ const forwarded = useForwardPropsEmits(props, emits)
     v-model="sliderValue"
     name="slider"
   >
-    <SliderTrack >
-      <SliderRange/>
+    <SliderTrack>
+      <SliderRange />
     </SliderTrack>
-    <SliderThumb/>
+    <SliderThumb />
   </SliderRoot>
 </template>

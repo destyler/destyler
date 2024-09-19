@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -8,6 +8,10 @@ import { ToastAnnounceExclude } from './announceExclude'
 
 export const toastActionProps = {
   ...toastCloseProps,
+  /**
+   * A short description for an alternate way to carry out the action. For screen reader users
+   * who will not be able to navigate to the button easily/quickly.
+   */
   altText: {
     type: String as PropType<string>,
     required: true,
@@ -20,9 +24,6 @@ export const ToastAction = defineComponent({
   name: 'DestylerToastAction',
   inheritAttrs: false,
   props: toastActionProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     if (!props.altText)
       throw new Error('Missing prop `altText` expected on `DestylerToastAction`')

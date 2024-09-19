@@ -1,0 +1,221 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+
+.tabs-root {
+  width: 400px;
+}
+
+.tabs-list {
+  height: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+  border-radius: 0.375rem;
+  background-color: rgb(var(--muted));
+  padding: 0.25rem;
+  color: rgb(var(--muted-foreground));
+  width: 100%;
+}
+
+.tabs-indicator {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  height: 2rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  background-color: rgb(var(--background));
+  width: var(--destyler-tabs-indicator-size, 2rem);
+  transform: translateX(var(--destyler-tabs-indicator-position, 0));
+  border-radius: 0.375rem;
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+  padding-left: 0.75rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  z-index: 10;
+}
+
+.tabs-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(var(--ring), 1.0);
+  outline-offset: 2px;
+}
+
+.tabs-trigger:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.tabs-trigger[data-state="active"] {
+  color: rgb(var(--foreground));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tabs-content {
+  margin-top: 0.5rem;
+  outline: none;
+  color: #000;
+}
+
+.tabs-content:focus-visible {
+  box-shadow: 0 0 0 4px rgba(var(--ring),1.0);
+  outline-offset: 2px;
+}
+
+.card {
+  border-radius: 0.5rem;
+  border: 1px solid rgb(var(--border));
+  background-color: rgb(var(--card));
+  color: rgb(var(--card-foreground));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(var(--muted-foreground));
+}
+
+.item-box {
+  padding: 1.5rem;
+  padding-top: 0;
+  margin-top: 0.5rem;
+}
+
+.space-y-1 > :where(:not(:first-child)) {
+  margin-top: 0.25rem;
+}
+
+
+.label {
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  color: black;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.dark .label {
+  color: white;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  height: 2rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid;
+  background-color: rgb(var(--background));
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.input::file-selector-button {
+  border: 0;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(var(--muted-foreground));
+}
+
+.input::placeholder {
+  color: rgb(var(--muted-foreground));
+}
+
+.input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(var(--ring));
+  outline-offset: 2px;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  padding-top: 0;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem; /* 6px */
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  font-weight: 500;
+  transition-property: color, background-color, border-color, outline-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  height: 2.25rem; /* 36px */
+  padding-left: 1rem; /* 16px */
+  padding-right: 1rem; /* 16px */
+  padding-top: 0.5rem; /* 8px */
+  padding-bottom: 0.5rem; /* 8px */
+  background-color: rgba(var(--primary), 1);
+  color: rgba(var(--primary-foreground), 1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.button:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0 calc(1px) #000000;
+}
+.button:hover:{
+  background-color: rgba(var(--primary), 0.9);
+}
+.button:disabled{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .title {
+    color: #fff;
+  }
+  .tabs-content {
+    color: #fff;
+  }
+}

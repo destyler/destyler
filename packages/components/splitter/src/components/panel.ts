@@ -9,30 +9,54 @@ import { injectPanelGroupContext } from './group'
 
 export const splitterPanelProps = {
   ...primitiveProps,
+  /**
+   * The size of panel when it is collapsed.
+   */
   collapsedSize: {
     type: Number as PropType<number>,
     required: false,
   },
+  /**
+   * Should panel collapse when resized beyond its `minSize`. When `true`, it will be collapsed to `collapsedSize`.
+   */
   collapsible: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Initial size of panel (numeric value between 1-100)
+   *
+   * @default false
+   */
   defaultSize: {
     type: Number as PropType<number>,
     required: false,
   },
+  /*
+   * Panel id (unique within group);
+  falls back to `useId` when not provided
+   */
   id: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The maximum allowable size of panel (numeric value between 1-100); defaults to `100`
+   */
   maxSize: {
     type: Number as PropType<number>,
     required: false,
   },
+  /**
+   * The minimum allowable size of panel (numeric value between 1-100); defaults to `10`
+   */
   minSize: {
     type: Number as PropType<number>,
     required: false,
   },
+  /**
+   * The order of panel within group; required for groups with conditionally rendered panels
+   */
   order: {
     type: Number as PropType<number>,
     required: false,
@@ -42,10 +66,20 @@ export const splitterPanelProps = {
 export type SplitterPanelProps = ExtractPublicPropTypes<typeof splitterPanelProps>
 
 export const splitterPanelEmits = {
+  /**
+   * Event handler called when panel is collapsed.
+   */
   collapse: () => true,
+  /**
+   * Event handler called when panel is expanded.
+   */
   expand: () => true,
+  /**
+   * Event handler called when panel is resized;
+   * size parameter is a numeric value
+   * between 1-100.
+   */
   resize: (_size: number, _prevSize: number | undefined) => true,
-
 }
 
 export const SplitterPanel = defineComponent({
@@ -53,7 +87,16 @@ export const SplitterPanel = defineComponent({
   props: splitterPanelProps,
   emits: splitterPanelEmits,
   slots: Object as SlotsType<{
-    default: (props: { isCollapsed: boolean, isExpanded: boolean }) => VNode[]
+    default: (props: {
+      /**
+       * Is the panel collapsed
+       */
+      isCollapsed: boolean
+      /**
+       * Is the panel expanded
+       */
+      isExpanded: boolean
+    }) => VNode[]
   }>,
   setup(props, { emit, expose }) {
     const panelGroupContext = injectPanelGroupContext()

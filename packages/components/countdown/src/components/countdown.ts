@@ -16,25 +16,50 @@ export interface CountdownInst {
 
 export const countdownProps = {
   ...primitiveProps,
+  /**
+   * @default template
+   */
   as: {
     ...primitiveProps.as,
     default: 'template',
   },
+  /**
+   * The duration of the countdown (unit is millisecond).
+   * Not reactive.
+   *
+   * @default 0
+   */
   duration: {
     type: Number as PropType<number>,
     default: 0,
   },
+  /**
+   * Whether countdown is active.
+   *
+   * @default true
+   */
   active: {
     type: Boolean as PropType<boolean>,
     default: true,
   },
+  /**
+   * The precision of the second.
+   *
+   * @default 0
+   */
   precision: {
     type: Number as PropType<0 | 1 | 2 | 3>,
     default: 0,
   },
+  /**
+   * Time is render function
+   */
   render: {
     type: Function as PropType<(props: CountdownTimeInfo) => VNodeChild>,
   },
+  /**
+   * The callback on countdown is finished.
+   */
   onFinish: {
     type: Function as PropType<() => void>,
   },

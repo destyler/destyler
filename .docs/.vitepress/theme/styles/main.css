@@ -1,0 +1,7 @@
+body{
+  @apply font-sans text-gray-700 dark:text-gray-200 relative bg-background overscroll-auto;
+}
+
+html {
+  @apply scrollbar-hide;
+}

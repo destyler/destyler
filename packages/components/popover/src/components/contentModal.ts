@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, ref } from 'vue'
 import { useForwardExpose, useForwardPropsEmits, useHideOthers } from '@destyler/composition'
 
@@ -9,9 +8,6 @@ export const PopoverContentModal = defineComponent({
   name: 'DestylerPopoverContentModal',
   props: popoverContentImplProps,
   emits: popoverContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const rootContext = injectPopoverRootContext()
     const isRightClickOutsideRef = ref(false)

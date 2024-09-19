@@ -1,0 +1,62 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+
+.radio-group-root {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+}
+.space-x-2 > :where(:not(:first-child)) {
+  margin-left: 0.5rem;
+}
+
+.radio-group-item {
+  aspect-ratio: 1 / 1;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.0625rem;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--border), 1);
+  outline: none;
+  cursor: pointer;
+}
+
+.radio-group-item:focus-visible {
+  outline-offset: 2px;
+}
+
+.radio-group-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.radio-group-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check {
+  background-color: rgba(var(--primary), 1);
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+}
+
+.label {
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  color: black;
+  font-weight: 500;
+  line-height: 1;
+}

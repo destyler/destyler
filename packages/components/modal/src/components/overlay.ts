@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -13,9 +12,6 @@ export type ModalOverlayProps = ExtractPublicPropTypes<typeof modalOverlayProps>
 export const ModalOverlay = defineComponent({
   name: 'DestylerModalOverlay',
   props: modalOverlayProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
   },

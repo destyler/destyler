@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -18,9 +17,6 @@ export type ScrollAreaCornerProps = ExtractPublicPropTypes<
 export const ScrollAreaCorner = defineComponent({
   name: 'DestylerScrollAreaCorner',
   props: scrollAreaCorner,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectScrollAreaRootContext()

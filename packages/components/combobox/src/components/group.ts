@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, ref, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -22,9 +21,6 @@ export const [injectComboboxGroupContext, provideComboboxGroupContext] = createC
 export const ComboboxGroup = defineComponent({
   name: 'DestylerComboboxGroup',
   props: comboboxGroupProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const { currentRef, currentElement } = useForwardExpose()
     const id = useId(undefined, 'destyler-combobox-group')

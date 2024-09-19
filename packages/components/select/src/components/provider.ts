@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 
@@ -17,9 +17,6 @@ export type SelectProviderProps = ExtractPublicPropTypes<typeof selectProviderPr
 export const SelectProvider = defineComponent({
   name: 'DestylerSelectProvider',
   props: selectProviderProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     provideSelectRootContext(props.context)
   },

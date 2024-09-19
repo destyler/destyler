@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -13,9 +12,6 @@ export type ContextMenuSubTriggerProps = ExtractPublicPropTypes<typeof contextMe
 export const ContextMenuSubTrigger = defineComponent({
   name: 'DestylerContextMenuSubTrigger',
   props: contextMenuSubTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
   },

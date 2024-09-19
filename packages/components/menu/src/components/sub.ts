@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, ref, watchEffect } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { createContext } from '@destyler/shared'
@@ -9,6 +9,10 @@ import type { MenuContext } from './root'
 import { injectMenuContext, provideMenuContext } from './root'
 
 export const menuSubProps = {
+  /**
+   * The controlled open state of the menu.
+   * Can be used as `v-model:open`.
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -19,6 +23,9 @@ export const menuSubProps = {
 export type MenuSubProps = ExtractPublicPropTypes<typeof menuSubProps>
 
 export const menuSubEmits = {
+  /**
+   * Event handler called when the open state of the submenu changes
+   */
   'update:open': (_open: boolean) => true,
 }
 
@@ -36,9 +43,6 @@ export const MenuSub = defineComponent({
   name: 'DestylerMenuSub',
   props: menuSubProps,
   emits: menuSubEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {
       defaultValue: false,

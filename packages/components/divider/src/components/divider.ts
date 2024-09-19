@@ -1,15 +1,26 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { DataOrientation, ExtractPublicPropTypes } from '@destyler/shared'
 
 export const dividerProps = {
   ...primitiveProps,
+  /**
+   * Orientation of the component.<br \>
+   * Either `vertical` or `horizontal`.
+   *
+   * @default horizontal
+   */
   orientation: {
     type: String as PropType<DataOrientation>,
     required: false,
     default: 'horizontal',
   },
+  /**
+   * Whether or not the component is purely decorative.
+   * When `true`, accessibility-related attributes are updated so
+   * hat that the rendered element is removed from the accessibility tree.
+   */
   decorative: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,9 +32,6 @@ export type DividerProps = ExtractPublicPropTypes<typeof dividerProps>
 export const Divider = defineComponent({
   name: 'DestylerDivider',
   props: dividerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const ORIENTATIONS = ['horizontal', 'vertical'] as const
     function isValidOrientation(orientation: any): orientation is DataOrientation {

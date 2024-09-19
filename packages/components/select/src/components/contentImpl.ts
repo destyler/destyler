@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watch, watchEffect, withModifiers } from 'vue'
 import { createContext, focusFirst, unrefElement } from '@destyler/shared'
 import { useBodyScrollLock, useCollection, useFocusGuards, useForwardProps, useHideOthers, useTypeahead } from '@destyler/composition'
@@ -12,10 +12,24 @@ import { SelectItemAlignedPosition } from './itemAlignedPosition'
 
 export const selectContentImplProps = {
   ...popperContentProps,
+  /**
+   * The preferred alignment against the trigger.
+   * May change when collisions occur.
+   *
+   * @default start
+   */
   align: {
     ...popperContentProps.align,
     default: 'start',
   },
+  /**
+   *  The positioning mode to use
+   *
+   *  `item-aligned (default)` - behaves similarly to a native MacOS menu by positioning content relative to the active item. <br>
+   *  `popper` - positions content in the same way as our other primitives, for example `Popover` or `DropdownMenu`.
+   *
+   * @default item-aligned
+   */
   position: {
     type: String as PropType<'item-aligned' | 'popper'>,
     required: false,
@@ -27,7 +41,15 @@ export type PointerDownOutsideEvent = CustomEvent<{ originalEvent: PointerEvent 
 
 export const selectContentImplEmits = {
   closeAutoFocus: (_event: Event) => true,
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
   escapeKeyDown: (_event: KeyboardEvent) => true,
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   pointerDownOutside: (_event: PointerDownOutsideEvent) => true,
 }
 
@@ -66,9 +88,6 @@ export const SelectContentImpl = defineComponent({
   name: 'DestylerSelectContentImpl',
   props: selectContentImplProps,
   emits: selectContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const rootContext = injectSelectRootContext()
 

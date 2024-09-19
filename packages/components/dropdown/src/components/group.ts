@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -14,9 +13,6 @@ export type DropdownGroupProps = ExtractPublicPropTypes<typeof dropdownGroupProp
 export const DropdownGroup = defineComponent({
   name: 'DestylerDropdownGroup',
   props: dropdownGroupProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
   },

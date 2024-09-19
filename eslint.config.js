@@ -7,5 +7,11 @@ export default antfu({
     '**/.story/**',
     '**/qrcodegen.ts',
     '**/__test__/**.spec.vue',
+    '**/.docs/guide/**.md',
   ],
+
+}, {
+  rules: {
+    'vue/no-template-shadow': 'off',
+  },
 })

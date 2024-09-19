@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, useSlots, withModifiers } from 'vue'
 import { primitiveProps } from '@destyler/primitive'
 import { useEventListener } from '@vueuse/core'
@@ -13,37 +13,107 @@ import { injectTooltipRootContext } from './root'
 
 export const tooltipContentImplProps = {
   ...primitiveProps,
+  /**
+   * The preferred side of the trigger to render against when open.
+   * Will be reversed when collisions occur and avoidCollisions
+   * is enabled.
+   *
+   * @default top
+   */
   side: {
     ...popperContentProps.side,
     default: 'top',
   },
+  /**
+   * The distance in pixels from the trigger.
+   *
+   * @default 0
+   */
   sideOffset: {
     ...popperContentProps.sideOffset,
   },
+  /**
+   * The preferred alignment against the trigger.
+   * May change when collisions occur.
+   *
+   * @default center
+   */
   align: {
     ...popperContentProps.align,
   },
+  /**
+   * An offset in pixels from the `start` or `end` alignment options.
+   *
+   * @default 0
+   */
   alignOffset: {
     ...popperContentProps.alignOffset,
   },
+  /**
+   * When `true`, overrides the side andalign preferences
+   * to prevent collisions with boundary edges.
+   *
+   * @default true
+   */
   avoidCollisions: {
     ...popperContentProps.avoidCollisions,
   },
+  /**
+   * The element used as the collision boundary. By default
+   * this is the viewport, though you can provide additional
+   * element(s) to be included in this check.
+   *
+   * @default () => []
+   */
   collisionBoundary: {
     ...popperContentProps.collisionBoundary,
   },
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @default 0
+   */
   collisionPadding: {
     ...popperContentProps.collisionPadding,
   },
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @default 0
+   */
   arrowPadding: {
     ...popperContentProps.arrowPadding,
   },
+  /**
+   * The sticky behavior on the align axis. `partial` will keep the
+   * content in the boundary as long as the trigger is at least partially
+   * in the boundary whilst "always" will keep the content in the boundary
+   * regardless.
+   *
+   * @default partial
+   */
   sticky: {
     ...popperContentProps.sticky,
   },
+  /**
+   * Whether to hide the content when the trigger becomes fully occluded.
+   *
+   * @default false
+   */
   hideWhenDetached: {
     ...popperContentProps.hideWhenDetached,
   },
+  /**
+   * By default, screenreaders will announce the content inside
+   * the component. If this is not descriptive enough, or you have
+   * content that cannot be announced, use aria-label as a more
+   * descriptive label.
+   *
+   */
   ariaLabel: {
     type: String as PropType<string>,
     required: false,
@@ -53,7 +123,13 @@ export const tooltipContentImplProps = {
 export type TooltipContentImplProps = ExtractPublicPropTypes<typeof tooltipContentImplProps>
 
 export const tooltipContentImplEmits = {
+  /**
+   * Event handler called when focus moves to the destructive action after opening. It can be prevented by calling `event.preventDefault`
+   */
   escapeKeyDown: (_event: KeyboardEvent) => true,
+  /**
+   * Event handler called when a pointer event occurs outside the bounds of the component. It can be prevented by calling `event.preventDefault`.
+   */
   pointerDownOutside: (_event: Event) => true,
 }
 
@@ -61,9 +137,6 @@ export const TooltipContentImpl = defineComponent({
   name: 'DestylerTooltipContentImpl',
   props: tooltipContentImplProps,
   emits: tooltipContentImplEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const rootContext = injectTooltipRootContext()
 

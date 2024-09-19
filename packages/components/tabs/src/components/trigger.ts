@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, withDirectives, withModifiers } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -11,14 +11,23 @@ import { injectTabsRootContext } from './root'
 
 export const tabsTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * A unique value that associates the trigger with a content.
+   */
   value: {
     type: String as PropType<string>,
     required: true,
   },
+  /**
+   * When `true`, prevents the user from interacting with the tab.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,9 +39,6 @@ export type TabsTriggerProps = ExtractPublicPropTypes<typeof tabsTriggerProps>
 export const TabsTrigger = defineComponent({
   name: 'DestylerTabsTrigger',
   props: tabsTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectTabsRootContext()

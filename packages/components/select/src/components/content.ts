@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { Teleport, computed, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { useForwardPropsEmits } from '@destyler/composition'
 import { Presence } from '@destyler/presence'
@@ -10,6 +10,10 @@ import { injectSelectRootContext } from './root'
 
 export const selectContentProps = {
   ...selectContentImplProps,
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -27,9 +31,6 @@ export const SelectContent = defineComponent({
   inheritAttrs: false,
   props: selectContentProps,
   emits: selectContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
 

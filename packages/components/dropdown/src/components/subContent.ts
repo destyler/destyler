@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose, useForwardPropsEmits } from '@destyler/composition'
@@ -25,9 +24,6 @@ export const DropdownSubContent = defineComponent({
   name: 'DestylerDropdownSubContent',
   props: dropdownSubContentProps,
   emits: dropdownSubContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const forwarded = useForwardPropsEmits(props, emit)
     useForwardExpose()
@@ -39,11 +35,11 @@ export const DropdownSubContent = defineComponent({
   render() {
     return h(MenuSubContent, mergeProps(this.forwarded, {
       style: {
-        '--destyler-dropdown-menu-content-transform-origin': 'var(--destyler-popper-transform-origin)',
-        '--destyler-dropdown-menu-content-available-width': 'var(--destyler-popper-available-width)',
-        '--destyler-dropdown-menu-content-available-height': 'var(--destyler-popper-available-height)',
-        '--destyler-dropdown-menu-trigger-width': 'var(--destyler-popper-anchor-width)',
-        '--destyler-dropdown-menu-trigger-height': 'var(--destyler-popper-anchor-height)',
+        '--destyler-dropdown-content-transform-origin': 'var(--destyler-popper-transform-origin)',
+        '--destyler-dropdown-content-available-width': 'var(--destyler-popper-available-width)',
+        '--destyler-dropdown-content-available-height': 'var(--destyler-popper-available-height)',
+        '--destyler-dropdown-trigger-width': 'var(--destyler-popper-anchor-width)',
+        '--destyler-dropdown-trigger-height': 'var(--destyler-popper-anchor-height)',
       },
     }), () => this.$slots.default?.())
   },

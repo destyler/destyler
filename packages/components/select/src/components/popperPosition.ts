@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { PopperContent, popperContentProps } from '@destyler/popper'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -12,10 +11,23 @@ export type Align = (typeof ALIGN_OPTIONS)[number]
 
 export const selectPopperPositionProps = {
   ...popperContentProps,
+  /**
+   * The preferred alignment against the trigger.
+   * May change when collisions occur.
+   *
+   * @default start
+   */
   align: {
     ...popperContentProps.align,
     default: 'start',
   },
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @default 10
+   */
   collisionPadding: {
     ...popperContentProps.collisionPadding,
     default: 10,
@@ -27,9 +39,6 @@ export type SelectPopperPositionProps = ExtractPublicPropTypes<typeof selectPopp
 export const SelectPopperPosition = defineComponent({
   name: 'DestylerSelectPopperPosition',
   props: selectPopperPositionProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const forwarded = useForwardProps(props)
     return {

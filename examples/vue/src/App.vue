@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import { ref } from 'vue'
 import Box from './components/Box.vue'
 import CraftBox from './components/CraftBox.vue'
 import AspectRatioDemo from '~/components/aspectRadio/demos/AspectRadio.unocss.demo.vue'
@@ -63,125 +63,125 @@ const uwu = ref(true)
       <CraftBox name="ButtonDemo">
         <ButtonDemo />
       </CraftBox>
-      <CraftBox name="CheckboxDemo" >
+      <CraftBox name="CheckboxDemo">
         <CheckboxDemo />
       </CraftBox>
       <CraftBox name="CollapseDemo">
         <CollapseDemo />
       </CraftBox>
-      <CraftBox name="CollapsibleDemo" >
+      <CraftBox name="CollapsibleDemo">
         <CollapsibleDemo />
       </CraftBox>
-      <CraftBox name="ComboboxDemo" >
+      <CraftBox name="ComboboxDemo">
         <ComboboxDemo />
       </CraftBox>
-      <CraftBox name="ContentMenuDemo" >
+      <CraftBox name="ContentMenuDemo">
         <ContentMenuDemo />
       </CraftBox>
-      <CraftBox name="CountdownDemo" >
+      <CraftBox name="CountdownDemo">
         <CountdownDemo />
       </CraftBox>
-      <CraftBox name="DialogDemo" >
+      <CraftBox name="DialogDemo">
         <DialogDemo />
       </CraftBox>
-      <CraftBox name="DividerDemo" >
+      <CraftBox name="DividerDemo">
         <DividerDemo />
       </CraftBox>
-      <CraftBox name="DraggableDemo" >
+      <CraftBox name="DraggableDemo">
         <DraggableDemo />
       </CraftBox>
-      <CraftBox name="DropdownDemo" >
+      <CraftBox name="DropdownDemo">
         <DropdownDemo />
       </CraftBox>
-      <CraftBox name="DynamicDemo" >
+      <CraftBox name="DynamicDemo">
         <DynamicDemo />
       </CraftBox>
-      <CraftBox name="EllipsisDemo" >
+      <CraftBox name="EllipsisDemo">
         <EllipsisDemo />
       </CraftBox>
-      <CraftBox name="HoverCardDemo" >
+      <CraftBox name="HoverCardDemo">
         <HoverCardDemo />
       </CraftBox>
-      <CraftBox name="ImageDemo" >
+      <CraftBox name="ImageDemo">
         <ImageDemo />
       </CraftBox>
-      <CraftBox name="InfoDemo" >
+      <CraftBox name="InfoDemo">
         <InfoDemo />
       </CraftBox>
-      <CraftBox name="LabelDemo" >
+      <CraftBox name="LabelDemo">
         <LabelDemo />
       </CraftBox>
-      <CraftBox name="LinkDemo" >
+      <CraftBox name="LinkDemo">
         <LinkDemo />
       </CraftBox>
-      <CraftBox name="MenuDemo" >
+      <CraftBox name="MenuDemo">
         <MenuDemo />
       </CraftBox>
-      <CraftBox name="MenubarDemo" >
+      <CraftBox name="MenubarDemo">
         <MenubarDemo />
       </CraftBox>
-      <CraftBox name="ModalDemo" >
+      <CraftBox name="ModalDemo">
         <ModalDemo />
       </CraftBox>
-      <CraftBox v-if="false" name="NavigationDemo" >
+      <CraftBox v-if="false" name="NavigationDemo">
         <NavigationDemo />
       </CraftBox>
-      <CraftBox name="OtpInputDemo" >
+      <CraftBox name="OtpInputDemo">
         <OtpInputDemo />
       </CraftBox>
-      <CraftBox name="PaginationDemo" >
+      <CraftBox name="PaginationDemo">
         <PaginationDemo />
       </CraftBox>
-      <CraftBox name="PopoverDemo" >
+      <CraftBox name="PopoverDemo">
         <PopoverDemo />
       </CraftBox>
-      <CraftBox name="ProgressDemo" >
+      <CraftBox name="ProgressDemo">
         <ProgressDemo />
       </CraftBox>
-      <CraftBox name="RadioDemo" >
+      <CraftBox name="RadioDemo">
         <RadioDemo />
       </CraftBox>
-      <CraftBox name="ScrollAreaDemo" >
+      <CraftBox name="ScrollAreaDemo">
         <ScrollAreaDemo />
       </CraftBox>
-      <CraftBox v-if="false" name="SelectDemo" >
+      <CraftBox v-if="false" name="SelectDemo">
         <SelectDemo />
       </CraftBox>
-      <CraftBox name="SliderDemo" >
+      <CraftBox name="SliderDemo">
         <SliderDemo />
       </CraftBox>
-      <CraftBox name="SplitterDemo" >
+      <CraftBox name="SplitterDemo">
         <SplitterDemo />
       </CraftBox>
-      <CraftBox name="SwitchDemo" >
+      <CraftBox name="SwitchDemo">
         <SwitchDemo />
       </CraftBox>
-      <CraftBox v-if="false" name="ToastDemo" >
+      <CraftBox v-if="false" name="ToastDemo">
         <ToastDemo />
       </CraftBox>
-      <CraftBox name="ToggleDemo" >
+      <CraftBox name="ToggleDemo">
         <ToggleDemo />
       </CraftBox>
-      <CraftBox name="ToolbarDemo" >
+      <CraftBox name="ToolbarDemo">
         <ToolbarDemo />
       </CraftBox>
-      <CraftBox name="TooltipDemo" >
+      <CraftBox name="TooltipDemo">
         <TooltipDemo />
       </CraftBox>
     </Box>
     <div class="mt-4">
-      <CraftBox class="h-100!" name="CalendarDemo" >
+      <CraftBox class="h-100!" name="CalendarDemo">
         <CalendarDemo />
       </CraftBox>
-      <CraftBox class="h-100!" name="RangeCalendarDemo" >
+      <CraftBox class="h-100!" name="RangeCalendarDemo">
         <RangeCalendarDemo />
       </CraftBox>
-      <CraftBox class="h-120!" name="TabsDemo" >
+      <CraftBox class="h-120!" name="TabsDemo">
         <TabsDemo />
       </CraftBox>
     </div>
   </div>
   <div v-else>
-    <RadioDemo/>
+    <RadioDemo />
   </div>
 </template>

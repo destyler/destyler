@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, toRef, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useFormControl, useForwardExpose, useVModel } from '@destyler/composition'
@@ -11,37 +11,68 @@ import type { CheckedState } from '../types'
 
 export const checkboxRootProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * The checked state of the checkbox when it is initially rendered.
+   * Use when you do not need to control its checked state.
+   */
   defaultChecked: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The controlled checked state of the checkbox. Can be binded with `v-model`.
+   *
+   * @default undefined
+   */
   checked: {
     type: [Boolean, String] as PropType<boolean | 'indeterminate'>,
     required: false,
     default: undefined,
   },
+  /**
+   * When `true`, prevents the user from interacting with the checkbox.
+   *
+   * @default false
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * When `true`, indicates that the user must check the checkbox before the owning form can be submitted.
+   */
   required: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * The name of the checkbox. Submitted with its owning form as part of a name/value pair.
+   */
   name: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * The value given as data when submitted with a `name`.
+   *
+   * @default on
+   */
   value: {
     type: String as PropType<string>,
     required: false,
     default: 'on',
   },
+  /**
+   * Id of the element
+   */
   id: {
     type: String as PropType<string>,
     required: false,
@@ -51,6 +82,9 @@ export const checkboxRootProps = {
 export type CheckboxRootProps = ExtractPublicPropTypes<typeof checkboxRootProps>
 
 export const checkboxRootEmits = {
+  /**
+   * Event handler called when the checked state of the checkbox changes.
+   */
   'update:checked': (_checked: boolean) => true,
 }
 
@@ -66,9 +100,6 @@ export const CheckboxRoot = defineComponent({
   name: 'DestylerCheckboxRoot',
   props: checkboxRootProps,
   emits: checkboxRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const disabledRef = toRef(props.disabled)
 

@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, Ref, SlotsType, VNode } from 'vue'
+import type { ExtractPropTypes, PropType, Ref } from 'vue'
 import { defineComponent, h, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { Direction, Orientation } from '@destyler/shared'
@@ -9,15 +9,28 @@ import { ENTRY_FOCUS, EVENT_OPTIONS } from '../utils'
 
 export const rovingFocusGroupProps = {
   ...primitiveProps,
+  /**
+   * The orientation of the group.
+   * Mainly so arrow navigation is done accordingly (left & right vs. up & down)
+   *
+   * @default undefined
+   */
   orientation: {
     type: String as PropType<Orientation>,
     required: false,
     default: undefined,
   },
+  /**
+   * The direction of between items.
+   */
   dir: {
     type: String as PropType<Direction>,
     required: false,
   },
+  /**
+   * Whether keyboard should loop around
+   * @default false
+   */
   loop: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -57,9 +70,6 @@ export const RovingFocusGroup = defineComponent({
   name: 'DestylerRovingFocusGroup',
   props: rovingFocusGroupProps,
   emits: rovingFocusGroupEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const { loop, orientation, dir: propDir } = toRefs(props)
     const dir = useDirection(propDir)

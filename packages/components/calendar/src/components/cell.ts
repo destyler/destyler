@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,10 +8,16 @@ import { injectCalendarRootContext } from './root'
 
 export const calendarCellProps = {
   ...primitiveProps,
+  /**
+   * @default tds
+   */
   as: {
     ...primitiveProps.as,
     default: 'td',
   },
+  /**
+   * The date value for the cell
+   */
   date: {
     type: Object as PropType<DateValue>,
     required: true,
@@ -23,9 +29,6 @@ export type CalendarCellProps = ExtractPublicPropTypes<typeof calendarCellProps>
 export const CalendarCell = defineComponent({
   name: 'DestylerCalendarCell',
   props: calendarCellProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectCalendarRootContext()
     return {

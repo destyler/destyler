@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, ref, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -17,10 +17,16 @@ export type SelectEvent<T> = CustomEvent<{ originalEvent: PointerEvent, value?: 
 
 export const comboboxItemProps = {
   ...primitiveProps,
+  /**
+   * The value given as data when submitted with a `name`.
+   */
   value: {
     type: [String, Number, Boolean, Object] as PropType<AcceptableValue>,
     required: true,
   },
+  /**
+   * When true, prevents the user from interacting with the `item`.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -30,6 +36,10 @@ export const comboboxItemProps = {
 export type ComboboxItemProps = ExtractPublicPropTypes<typeof comboboxItemProps>
 
 export const comboboxItemEmits = {
+  /**
+   * Event handler called when the selecting item. <br>
+   * It can be prevented by calling `event.preventDefault`.
+   */
   select: (_ev: SelectEvent<AcceptableValue>) => true,
 }
 
@@ -43,9 +53,7 @@ export const ComboboxItem = defineComponent({
   name: 'DestylerComboboxItem',
   props: comboboxItemProps,
   emits: comboboxItemEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props, { emit }) {
     const { disabled } = toRefs(props)
 

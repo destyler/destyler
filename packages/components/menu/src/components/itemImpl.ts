@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, ref } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { isMouseEvent } from '@destyler/shared'
@@ -8,10 +8,17 @@ import { injectMenuContentContext } from './contentImpl'
 
 export const menuItemImplProps = {
   ...primitiveProps,
+  /**
+   * When `true`, prevents the user from interacting with the item.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Optional text used for typeahead purposes. By default the typeahead behavior will use the `.textContent` of the item. <br>
+   * Use this when the content is complex, or you have non-textual content inside.
+   */
   textValue: {
     type: String as PropType<string>,
     required: false,
@@ -23,9 +30,6 @@ export type MenuItemImplProps = ExtractPublicPropTypes<typeof menuItemImplProps>
 export const MenuItemImpl = defineComponent({
   name: 'DestylerMenuItemImpl',
   props: menuItemImplProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const contentContext = injectMenuContentContext()
 

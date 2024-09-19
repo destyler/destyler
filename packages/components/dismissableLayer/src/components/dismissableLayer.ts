@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, nextTick, reactive, watchEffect, withModifiers } from 'vue'
 import { onKeyStroke } from '@vueuse/core'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -9,11 +9,21 @@ import { type FocusOutsideEvent, type PointerDownOutsideEvent, useFocusOutside, 
 
 export const dismissableLayerProps = {
   ...primitiveProps,
+  /**
+   * When `true`, hover/focus/click interactions will be disabled on elements outside
+   * the `DismissableLayer`. Users will need to click twice on outside elements to
+   * interact with them: once to close the `DismissableLayer`, and again to trigger the element.
+   *
+   * @default false
+   */
   disableOutsidePointerEvents: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * @default true
+   */
   isDismissable: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -24,9 +34,26 @@ export const dismissableLayerProps = {
 export type DismissableLayerProps = ExtractPublicPropTypes<typeof dismissableLayerProps>
 
 export const dismissableLayerEmits = {
+  /**
+   * Event handler called when the escape key is down.
+   * Can be prevented.
+   */
   escapeKeyDown: (_event: KeyboardEvent) => true,
+  /**
+   * Event handler called when the a `pointerdown` event happens outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   pointerDownOutside: (_event: PointerDownOutsideEvent) => true,
+  /**
+   * Event handler called when the focus moves outside of the `DismissableLayer`.
+   * Can be prevented.
+   */
   focusOutside: (_event: FocusOutsideEvent) => true,
+  /**
+   * Event handler called when an interaction happens outside the `DismissableLayer`.
+   * Specifically, when a `pointerdown` event happens outside or focus moves outside of it.
+   * Can be prevented.
+   */
   interactOutside: (_event: PointerDownOutsideEvent | FocusOutsideEvent) => true,
 }
 
@@ -43,9 +70,6 @@ export const DismissableLayer = defineComponent({
     ...dismissableLayerEmits,
     dismiss: () => true,
   },
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement: layerElement } = useForwardExpose()
     const ownerDocument = computed(

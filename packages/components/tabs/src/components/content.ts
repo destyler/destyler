@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, ref, withDirectives } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -11,10 +11,17 @@ import { injectTabsRootContext } from './root'
 
 export const tabsContentProps = {
   ...primitiveProps,
+  /**
+   * A unique value that associates the content with a trigger.
+   */
   value: {
     type: String as PropType<string>,
     required: true,
   },
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -26,9 +33,6 @@ export type TabsContentProps = ExtractPublicPropTypes<typeof tabsContentProps>
 export const TabsContent = defineComponent({
   name: 'DestylerTabsContent',
   props: tabsContentProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectTabsRootContext()

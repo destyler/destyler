@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Primitive} from '@destyler/primitive'
-import {Label} from '../src'
+import { Primitive } from '@destyler/primitive'
+import { Label } from '../src'
 </script>
 
 <template>
@@ -9,7 +9,9 @@ import {Label} from '../src'
   </Label>
   <Label />
   <Label for="input" />
-  <Primitive as="template" data-parent-attr="" >
-    <div data-child-attr>Child class</div>
+  <Primitive as="template" data-parent-attr="">
+    <div data-child-attr>
+      Child class
+    </div>
   </Primitive>
 </template>

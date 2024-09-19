@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, ref, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,6 +9,11 @@ export const imageFallbackProps = {
   asChild: {
     ...primitiveProps.asChild,
   },
+  /**
+   * Useful for delaying rendering so it only appears for those with slower connections.
+   *
+   * @default 0
+   */
   delayMs: {
     type: Number as PropType<number>,
     required: false,
@@ -21,9 +26,6 @@ export type ImageFallbackProps = ExtractPublicPropTypes<typeof imageFallbackProp
 export const ImageFallback = defineComponent({
   name: 'DestylerImageFallback',
   props: imageFallbackProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const rootContext = injectImageRootContext()
 

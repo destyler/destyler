@@ -15,7 +15,12 @@ export const CalendarHeading = defineComponent({
   name: 'DestylerCalendarHeading',
   props: calendarHeadingProps,
   slots: Object as SlotsType<{
-    default: (opts: { headingValue: string }) => VNode[]
+    default: (opts: {
+      /**
+       * Current month and year
+       */
+      headingValue: string
+    }) => VNode[]
   }>,
   setup() {
     const rootContext = injectCalendarRootContext()

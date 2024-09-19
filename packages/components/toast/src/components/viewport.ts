@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref, toRefs, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -14,15 +14,30 @@ import { ToastFocusProxy } from './focusProxy'
 
 export const toastViewportProps = {
   ...primitiveProps,
+  /**
+   * @default ol
+   */
   as: {
     ...primitiveProps.as,
     default: 'ol',
   },
+  /**
+   * The keys to use as the keyboard shortcut that will move focus to the toast viewport.
+   *
+   * @default () => ['F8']
+   */
   hotkey: {
     type: Array as PropType<string[]>,
     required: false,
     default: () => ['F8'],
   },
+  /**
+   * An author-localized label for the toast viewport to provide context for screen reader users
+   * when navigating page landmarks. The available `{hotkey}` placeholder will be replaced for you.
+   * Alternatively, you can pass in a custom function to generate the label.
+   *
+   * @default Notifications ({hotkey})
+   */
   label: {
     type: String as PropType<string | ((hotkey: string) => string)>,
     required: false,
@@ -36,9 +51,6 @@ export const ToastViewport = defineComponent({
   name: 'DestylerToastViewport',
   inheritAttrs: false,
   props: toastViewportProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const { hotkey, label } = toRefs(props)
 

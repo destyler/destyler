@@ -1,4 +1,4 @@
-import type { ComputedRef, PropType, Ref, SlotsType, VNode } from 'vue'
+import type { ComputedRef, PropType, Ref } from 'vue'
 import { computed, defineComponent, h, nextTick, watch } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,16 +9,31 @@ export const DEFAULT_MAX = 100
 
 export const progressRootProps = {
   ...primitiveProps,
+  /**
+   * The progress value. Can be bind as `v-model`.
+   */
   modelValue: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * The maximum progress value.
+   *
+   * @default 100
+   */
   max: {
     type: Number as PropType<number>,
     required: false,
     default: DEFAULT_MAX,
   },
+  /**
+   * A function to get the accessible label text representing the current value in a human-readable format.
+   *
+   *  If not provided, the value label will be read as the numeric value as a percentage of the max value.
+   *
+   * @default `(value: number, max: number) => string`
+   */
   getValueLabel: {
     type: Function as PropType<(value: number, max: number) => string>,
     required: false,
@@ -29,7 +44,13 @@ export const progressRootProps = {
 export type ProgressRootProps = ExtractPublicPropTypes<typeof progressRootProps>
 
 export const progressRootEmits = {
+  /**
+   * Event handler called when the progres value changes
+   */
   'update:modelValue': (_value: string[] | undefined) => true,
+  /**
+   * Event handler called when the max value changes
+   */
   'update:max': (_value: number) => true,
 }
 
@@ -48,9 +69,6 @@ export const ProgressRoot = defineComponent({
   name: 'DestylerProgressRoot',
   props: progressRootProps,
   emits: progressRootEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     function validateValue(value: any, max: number): number | null {
       const isValidValueError

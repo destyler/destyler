@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, ref, toRefs, watch, watchEffect } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -14,19 +14,34 @@ import { injectPanelGroupContext } from './group'
 
 export const splitterResizeHandleProps = {
   ...primitiveProps,
+  /**
+   * Resize handle id (unique within group);
+   * falls back to `useId` when not provided
+   */
   id: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Allow this much margin when determining resizable handle hit detection
+   */
   hitAreaMargins: {
     type: Object as PropType<PointerHitAreaMargins>,
     required: false,
   },
+  /**
+   * Tabindex for the handle
+   *
+   * @default 0
+   */
   tabindex: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * Disable drag handle
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -36,6 +51,9 @@ export const splitterResizeHandleProps = {
 export type SplitterResizeHandleProps = ExtractPublicPropTypes<typeof splitterResizeHandleProps>
 
 export const splitterResizeHandleEmits = {
+  /**
+   * Event handler called when dragging the handler.
+   */
   dragging: (_isDragging: boolean) => true,
 }
 
@@ -43,9 +61,6 @@ export const SplitterResizeHandle = defineComponent({
   name: 'DestylerSplitterResizeHandle',
   props: splitterResizeHandleProps,
   emits: splitterResizeHandleEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     const { forwardRef, currentElement } = useForwardExpose()
     const { disabled } = toRefs(props)

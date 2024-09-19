@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,6 +7,9 @@ import { injectComboboxRootContext } from './root'
 
 export const comboboxCancelProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -19,9 +21,6 @@ export type ComboboxCancelProps = ExtractPublicPropTypes<typeof comboboxCancelPr
 export const ComboboxCancel = defineComponent({
   name: 'DestylerComboboxCancel',
   props: comboboxCancelProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
     const rootContext = injectComboboxRootContext()

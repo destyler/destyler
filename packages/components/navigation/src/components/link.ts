@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, nextTick } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,10 +8,16 @@ import { EVENT_ROOT_CONTENT_DISMISS } from '../utils'
 
 export const navigationLinkProps = {
   ...primitiveProps,
+  /**
+   * @default a
+   */
   as: {
     ...primitiveProps.as,
     default: 'a',
   },
+  /**
+   * Used to identify the link as the currently active page.
+   */
   active: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -21,17 +27,18 @@ export const navigationLinkProps = {
 export type NavigationLinkProps = ExtractPublicPropTypes<typeof navigationLinkProps>
 
 export const navigationLinkEmits = {
+  /**
+   * Event handler called when the user selects a link (via mouse or keyboard).
+   *
+   * Calling `event.preventDefault` in this handler will prevent the navigation menu from closing when selecting that link.
+   */
   select: (_ev: MouseEvent) => true,
-
 }
 
 export const NavigationLink = defineComponent({
   name: 'DestylerNavigationLink',
   props: navigationLinkProps,
   emits: navigationLinkEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_, { emit }) {
     useForwardExpose()
     async function handleClick(ev: MouseEvent) {

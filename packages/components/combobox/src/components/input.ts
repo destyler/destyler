@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, onMounted, withKeys } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -8,19 +8,35 @@ import { injectComboboxRootContext } from './root'
 
 export const comboboxInputProps = {
   ...primitiveProps,
+  /**
+   * @default input
+   */
   as: {
     ...primitiveProps.as,
     default: 'input',
   },
+  /**
+   * Native input type
+   *
+   * @default text
+   */
   type: {
     type: String as PropType<string>,
     required: false,
     default: 'text',
   },
+  /**
+   * When `true`, prevents the user from interacting with item
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Focus on element when mounted.
+   *
+   * @default false
+   */
   autoFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -32,9 +48,6 @@ export type ComboboxInputProps = ExtractPublicPropTypes<typeof comboboxInputProp
 export const ComboboxInput = defineComponent({
   name: 'DestylerComboboxInput',
   props: comboboxInputProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const rootContext = injectComboboxRootContext()
 

@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, nextTick, onMounted, withDirectives, withKeys } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,18 +9,30 @@ import { injectDynamicRootContext } from './root'
 
 export const dynamicInputProps = {
   ...primitiveProps,
+  /**
+   * @default input
+   */
   as: {
     ...primitiveProps.as,
     default: 'input',
   },
+  /**
+   * The placeholder character to use for empty tags input.
+   */
   placeholder: {
     type: String as PropType<string>,
     required: false,
   },
+  /**
+   * Focus on element when mounted.
+   */
   autoFocus: {
     type: Boolean as PropType<boolean>,
     required: false,
   },
+  /**
+   * Maximum number of character allowed.
+   */
   maxLength: {
     type: Number as PropType<number>,
     required: false,
@@ -32,9 +44,6 @@ export type DynamicInputProps = ExtractPublicPropTypes<typeof dynamicInputProps>
 export const DynamicInput = defineComponent({
   name: 'DestylerDynamicInput',
   props: dynamicInputProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const context = injectDynamicRootContext()
     const { forwardRef, currentElement } = useForwardExpose()

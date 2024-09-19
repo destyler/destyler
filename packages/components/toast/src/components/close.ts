@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -9,6 +8,9 @@ import { ToastAnnounceExclude } from './announceExclude'
 
 export const toastCloseProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -21,9 +23,6 @@ export const ToastClose = defineComponent({
   name: 'DestylerToastClose',
   inheritAttrs: false,
   props: toastCloseProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectToastRootContext()
     const { forwardRef } = useForwardExpose()

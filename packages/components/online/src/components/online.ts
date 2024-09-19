@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, onBeforeUnmount, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -40,9 +40,6 @@ export const Online = defineComponent({
   inheritAttrs: false,
   props: onlineProps,
   emits: onlineEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { emit }) {
     onMounted(() => {
       const isOnline = ref<boolean>(navigator.onLine || false)

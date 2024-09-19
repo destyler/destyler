@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { defineComponent, h, toRefs } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -30,9 +30,7 @@ export const [injectQrCodeRootContext, provideQrCodeRootContext] = createContext
 export const QrCodeRoot = defineComponent({
   name: 'DestylerQrCodeRoot',
   props: qrCodeRootProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
+
   setup(props) {
     useForwardExpose()
 

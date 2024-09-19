@@ -10,7 +10,7 @@ async function run() {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
   const filePath = join(__dirname, '..', 'packages', 'destyler', 'src', 'index.ts')
-  const svgFilePath = join(__dirname, '../docs', 'public', 'component-count-number.svg')
+  const svgFilePath = join(__dirname, '../.docs', 'public', 'component-count-number.svg')
   const rl = createInterface({
     input: fs.createReadStream(filePath),
     crlfDelay: Number.POSITIVE_INFINITY,

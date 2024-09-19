@@ -7,6 +7,11 @@ import { menuSubEmits } from '@destyler/menu/component'
 
 export const contextMenuSubProps = {
   ...menuSubProps,
+  /**
+   * The open state of the submenu when it is initially rendered. Use when you do not need to control its open state.
+   *
+   * @default false
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -24,7 +29,12 @@ export const ContextMenuSub = defineComponent({
   props: contextMenuSubProps,
   emits: contextMenuSubEmits,
   slots: Object as SlotsType<{
-    default: () => VNode[]
+    default: (props: {
+      /**
+       * Whether the submenu is open.
+       */
+      open?: boolean
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     useForwardExpose()
@@ -43,6 +53,6 @@ export const ContextMenuSub = defineComponent({
       'onUpdate:open': (value: boolean) => {
         this.open = value
       },
-    }, () => this.$slots.default?.())
+    }, () => this.$slots.default?.({ open: this.open }))
   },
 })

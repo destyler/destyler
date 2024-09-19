@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -14,9 +13,6 @@ export type ComboboxAnchorProps = ExtractPublicPropTypes<typeof comboboxAnchorPr
 export const ComboboxAnchor = defineComponent({
   name: 'DestylerComboboxAnchor',
   props: comboboxAnchorProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
 

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, mergeProps, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose, useId } from '@destyler/composition'
@@ -12,6 +11,9 @@ export type TooltipTriggerDataState = | 'closed' | 'delayed-open' | 'instant-ope
 
 export const tooltipTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
@@ -23,9 +25,6 @@ export type TooltipTriggerProps = ExtractPublicPropTypes<typeof tooltipTriggerPr
 export const TooltipTrigger = defineComponent({
   name: 'DestylerTooltipTrigger',
   props: tooltipTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectTooltipRootContext()
     const providerContext = injectTooltipProviderContext()

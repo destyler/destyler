@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Icon} from '@destyler/icon'
-import { ToggleGroupRoot, ToggleGroupItem } from '../src'
+import { Icon } from '@destyler/icon'
+import { ToggleGroupItem, ToggleGroupRoot } from '../src'
 </script>
 
 <template>

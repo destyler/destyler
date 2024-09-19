@@ -1,0 +1,42 @@
+:root {
+  --primary: 39, 39, 42;
+  --foreground: 250, 250, 250;
+  --border: 39, 39, 42;
+  --accent: 39, 39, 42;
+  --accent-foreground: 250, 250, 250;
+  --muted-foreground: 161, 161, 170;
+}
+.splitter-root {
+  width: 100%;
+  height: 16rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  background-color: #ffffff;
+  color: rgb(var(--primary));
+  border: 1px solid rgb(--var(border));
+  border-radius: 0.75rem;
+}
+
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-border {
+  background-color: rgb(var(--border));
+}
+
+.w-px {
+  width: 1px;
+}
+
+.h-px {
+  height: 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .splitter-root {
+    background-color: #09090b;
+  }
+}

@@ -1,4 +1,4 @@
-import type { PropType, Ref, SlotsType, VNode } from 'vue'
+import type { PropType, Ref } from 'vue'
 import { computed, defineComponent, h, mergeProps, ref, watchEffect } from 'vue'
 import type { Middleware, Placement } from '@floating-ui/vue'
 import { autoUpdate, flip, arrow as floatingUIarrow, hide, limitShift, offset, shift, size, useFloating } from '@floating-ui/vue'
@@ -23,61 +23,137 @@ export const [injectPopperContentContext, providePopperContentContext] = createC
 
 export const popperContentProps = {
   ...primitiveProps,
+  /**
+   * The preferred side of the trigger to render against when open.
+   * Will be reversed when collisions occur and avoidCollisions
+   * is enabled.
+   *
+   * @default bottom
+   */
   side: {
     type: String as PropType<Side>,
     required: false,
     default: 'bottom',
   },
+  /**
+   * The distance in pixels from the trigger.
+   *
+   * @default 0
+   */
   sideOffset: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * The preferred alignment against the trigger.
+   * May change when collisions occur.
+   *
+   * @default center
+   */
   align: {
     type: String as PropType<Align>,
     required: false,
     default: 'center',
   },
+  /**
+   * An offset in pixels from the `start` or `end` alignment options.
+   *
+   * @default 0
+   */
   alignOffset: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * When `true`, overrides the side andalign preferences
+   * to prevent collisions with boundary edges.
+   *
+   * @default true
+   */
   avoidCollisions: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: true,
   },
+  /**
+   * The element used as the collision boundary. By default
+   * this is the viewport, though you can provide additional
+   * element(s) to be included in this check.
+   *
+   * @default () => []
+   */
   collisionBoundary: {
     type: [Object, Array, null] as PropType<Element | null | Array<Element | null>>,
     required: false,
     default: () => [],
   },
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @default 0
+   */
   collisionPadding: {
     type: [Number, Object] as PropType<number | Partial<Record<Side, number>>>,
     required: false,
     default: 0,
   },
+  /**
+   * The distance in pixels from the boundary edges where collision
+   * detection should occur. Accepts a number (same for all sides),
+   * or a partial padding object, for example: { top: 20, left: 20 }.
+   *
+   * @default 0
+   */
   arrowPadding: {
     type: Number as PropType<number>,
     required: false,
     default: 0,
   },
+  /**
+   * The sticky behavior on the align axis. `partial` will keep the
+   * content in the boundary as long as the trigger is at least partially
+   * in the boundary whilst "always" will keep the content in the boundary
+   * regardless.
+   *
+   * @default partial
+   */
   sticky: {
     type: String as PropType<'partial' | 'always'>,
     required: false,
     default: 'partial',
   },
+  /**
+   * Whether to hide the content when the trigger becomes fully occluded.
+   *
+   * @default false
+   */
   hideWhenDetached: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * Strategy to update the position of the floating element on every animation frame.
+   *
+   * @default optimized
+   */
   updatePositionStrategy: {
     type: String as PropType<'optimized' | 'always'>,
     required: false,
     default: 'optimized',
   },
+
+  /**
+   * Force content to be position within the viewport.
+   *
+   * Might overlap the reference element, which may not be desired.
+   *
+   * @default false
+   */
   prioritizePosition: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -96,9 +172,6 @@ export const PopperContent = defineComponent({
   inheritAttrs: false,
   props: popperContentProps,
   emits: popperContentEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props, { attrs, emit }) {
     const rootContext = injectPopperRootContext()
     const { forwardRef, currentElement: contentElement } = useForwardExpose()

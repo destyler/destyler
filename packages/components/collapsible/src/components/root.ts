@@ -17,16 +17,30 @@ export const [injectCollapsibleRootContext, provideCollapsibleRootContext]
 
 export const collapsibleRootProps = {
   ...primitiveProps,
+  /**
+   * The open state of the collapsible when it is initially rendered.
+   * Use when you do not need to control its open state.
+   *
+   * @default false
+   */
   defaultOpen: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: false,
   },
+  /**
+   * The controlled open state of the collapsible. Can be binded with `v-model`.
+   *
+   * @default undefined
+   */
   open: {
     type: Boolean as PropType<boolean>,
     required: false,
     default: undefined,
   },
+  /**
+   * When `true`, prevents the user from interacting with the collapsible.
+   */
   disabled: {
     type: Boolean as PropType<boolean>,
   },
@@ -35,6 +49,9 @@ export const collapsibleRootProps = {
 export type CollapsibleRootProps = ExtractPublicPropTypes<typeof collapsibleRootProps>
 
 export const collapsibleRootEmits = {
+  /**
+   * Event handler called when the open state of the collapsible changes.
+   */
   'update:open': (_open: boolean) => true,
 }
 
@@ -43,7 +60,12 @@ export const CollapsibleRoot = defineComponent({
   props: collapsibleRootProps,
   emits: collapsibleRootEmits,
   slots: Object as SlotsType<{
-    default: (opts: { open: boolean }) => VNode[]
+    default: (opts: {
+      /**
+       * Current open state
+       */
+      open: boolean
+    }) => VNode[]
   }>,
   setup(props, { emit }) {
     const open = useVModel(props, 'open', emit, {

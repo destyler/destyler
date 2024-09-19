@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardRef } from '@destyler/composition'
@@ -8,6 +8,9 @@ export const labelProps = {
   asChild: {
     ...primitiveProps.asChild,
   },
+  /**
+   * The id of the element the label is associated with.
+   */
   for: {
     type: String as PropType<string>,
     required: false,
@@ -20,9 +23,6 @@ export const Label = defineComponent({
   name: 'DestylerLabel',
   inheritAttrs: false,
   props: labelProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardRef()
 

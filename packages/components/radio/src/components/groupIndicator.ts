@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { Primitive, primitiveProps } from '@destyler/primitive'
@@ -9,10 +9,17 @@ import { injectRadioGroupItemContext } from './groupItem'
 
 export const radioGroupIndicatorProps = {
   ...primitiveProps,
+  /**
+   * @default span
+   */
   as: {
     ...primitiveProps.as,
     default: 'span',
   },
+  /**
+   * Used to force mounting when more control is needed. Useful when
+   * controlling animation with Vue animation libraries.
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -24,9 +31,6 @@ export type RadioGroupIndicatorProps = ExtractPublicPropTypes<typeof radioGroupI
 export const RadioGroupIndicator = defineComponent({
   name: 'DestylerRadioGroupindicator',
   props: radioGroupIndicatorProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const itemContext = injectRadioGroupItemContext()
 

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useEmitAsProps, useForwardExpose } from '@destyler/composition'
@@ -19,9 +18,6 @@ export const ContextMenuItem = defineComponent({
   name: 'DestylerContextMenuItem',
   props: contextMenuItemProps,
   emits: contextMenuItemEmits,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_, { emit }) {
     const emitsAsProps = useEmitAsProps(emit)
     useForwardExpose()

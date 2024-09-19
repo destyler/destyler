@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { DialogDescription, dialogDescriptionProps } from '@destyler/dialog'
@@ -13,9 +12,6 @@ export type ModalDescriptionProps = ExtractPublicPropTypes<typeof modalDescripti
 export const ModalDescription = defineComponent({
   name: 'DestylerModalDescription',
   props: modalDescriptionProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     useForwardExpose()
   },

@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { computed, defineComponent, h, ref, watch } from 'vue'
 import { useResizeObserver } from '@destyler/composition'
 
@@ -7,9 +6,6 @@ import { injectScrollAreaRootContext } from './root'
 
 export const ScrollAreaCornerImpl = defineComponent({
   name: 'DestylerScrollAreaCornerImpl',
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const rootContext = injectScrollAreaRootContext()
 

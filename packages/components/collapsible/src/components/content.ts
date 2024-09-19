@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { computed, defineComponent, h, mergeProps, nextTick, onMounted, ref, watch, withDirectives } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import { useForwardExpose } from '@destyler/composition'
@@ -10,6 +10,11 @@ import { injectCollapsibleRootContext } from './root'
 
 export const collapsibleContent = {
   ...primitiveProps,
+  /**
+   * Used to force mounting when more control is needed.
+   * Useful when controlling animation with Vue animation libraries.
+   * @default false
+   */
   forceMount: {
     type: Boolean as PropType<boolean>,
     required: false,
@@ -23,9 +28,6 @@ export const CollapsibleContent = defineComponent({
   name: 'DestylerCollapsibleContent',
   inheritAttrs: false,
   props: collapsibleContent,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_) {
     const rootContext = injectCollapsibleRootContext()
 

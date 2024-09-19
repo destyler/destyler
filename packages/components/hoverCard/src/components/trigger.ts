@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h } from 'vue'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
 import { useForwardExpose } from '@destyler/composition'
@@ -10,6 +9,9 @@ import { injectHoverCardRootContext } from './root'
 
 export const hoverCardTriggerProps = {
   ...primitiveProps,
+  /**
+   * @default a
+   */
   as: {
     ...primitiveProps.as,
     default: 'a',
@@ -21,9 +23,6 @@ export type HoverCardTriggerProps = ExtractPublicPropTypes<typeof hoverCardTrigg
 export const HoverCardTrigger = defineComponent({
   name: 'DestylerHoverCardTrigger',
   props: hoverCardTriggerProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup() {
     const { forwardRef } = useForwardExpose()
     const rootContext = injectHoverCardRootContext()

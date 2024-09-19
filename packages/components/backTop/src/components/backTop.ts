@@ -1,4 +1,4 @@
-import type { PropType, SlotsType, VNode } from 'vue'
+import type { PropType } from 'vue'
 import { defineComponent, h, mergeProps, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -7,10 +7,19 @@ import { useForwardExpose } from '@destyler/composition'
 
 export const backTopProps = {
   ...primitiveProps,
+  /**
+   * @default button
+   */
   as: {
     ...primitiveProps.as,
     default: 'button',
   },
+  /**
+   * The element to be listened to scroll event.
+   * If it is `undefined` back top will listen to the nearest scrollable parent.
+   *
+   * @default undefined
+   */
   listen: {
     type: [String, Object, Function] as PropType<string | HTMLElement | Document | (() => HTMLElement | Document)>,
     required: false,
@@ -23,9 +32,6 @@ export type BackTopProps = ExtractPublicPropTypes<typeof backTopProps>
 export const BackTop = defineComponent({
   name: 'DestylerBackTop',
   props: backTopProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(props) {
     const scrollTop = ref<number | null>(null)
     const DomInfoReady = ref<boolean>(false)

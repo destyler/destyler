@@ -1,4 +1,3 @@
-import type { SlotsType, VNode } from 'vue'
 import { defineComponent, h, mergeProps } from 'vue'
 import { Primitive, primitiveProps } from '@destyler/primitive'
 import type { ExtractPublicPropTypes } from '@destyler/shared'
@@ -7,6 +6,9 @@ import { injectCalendarRootContext } from './root'
 
 export const calendarGridProps = {
   ...primitiveProps,
+  /**
+   * @default table
+   */
   as: {
     ...primitiveProps.as,
     default: 'table',
@@ -18,9 +20,6 @@ export type CalendarGridProps = ExtractPublicPropTypes<typeof calendarGridProps>
 export const CalendarGrid = defineComponent({
   name: 'DestylerCalendarGrid',
   props: calendarGridProps,
-  slots: Object as SlotsType<{
-    default: () => VNode[]
-  }>,
   setup(_) {
     const rootContext = injectCalendarRootContext()
 
