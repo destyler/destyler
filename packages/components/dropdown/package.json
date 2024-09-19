@@ -2,7 +2,7 @@
   "name": "@destyler/dropdown",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled dropdown component for vue",
+  "description": "when you have some functions to trigger.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

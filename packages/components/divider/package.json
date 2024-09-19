@@ -2,7 +2,7 @@
   "name": "@destyler/divider",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled template component for vue",
+  "description": "visually or semantically separates content.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

@@ -2,7 +2,7 @@
   "name": "@destyler/focus-scope",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled focusScope component for vue",
+  "description": "destyler is private component focus scope",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
