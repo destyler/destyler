@@ -1,7 +1,7 @@
 {
   "name": "@destyler/collection",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "destyler is private component collection",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

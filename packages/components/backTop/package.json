@@ -1,7 +1,7 @@
 {
   "name": "@destyler/back-top",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "it helps you back to where you were. However, time never goes back.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

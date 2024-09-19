@@ -1,7 +1,7 @@
 {
   "name": "@destyler/breadcrumbs",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "show hierarchy and navigational context for a user is location within an application.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

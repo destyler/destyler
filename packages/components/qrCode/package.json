@@ -1,7 +1,7 @@
 {
   "name": "@destyler/qr-code",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "unstyled qr code component for vue",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

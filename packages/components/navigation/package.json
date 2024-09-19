@@ -1,7 +1,7 @@
 {
   "name": "@destyler/navigation",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a collection of links for navigating websites.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
