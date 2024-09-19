@@ -3,16 +3,16 @@ import { name } from '../package.json'
 
 const packageName = name
 
-export const destylerComponentName = [
+export const collectionComponentName = [
   'CollectionItem',
   'CollectionSlot',
 ]
 
-export function DestylerTemplateResolver(): ComponentResolver {
+export function CollectionResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
-      if (destylerComponentName.includes(name))
+      if (collectionComponentName.includes(name))
         return { name, from: packageName }
     },
   }

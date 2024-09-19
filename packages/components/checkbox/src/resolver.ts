@@ -8,7 +8,7 @@ export const checkboxComponentName = [
   'CheckboxIndicator',
 ]
 
-export function DestylerCheckboxResolver(): ComponentResolver {
+export function CheckboxResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {

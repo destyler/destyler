@@ -2,7 +2,7 @@
   "name": "@destyler/collection",
   "type": "module",
   "version": "0.0.3",
-  "description": "unstyled collection component for vue",
+  "description": "destyler is private component collection",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

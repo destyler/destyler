@@ -11,7 +11,7 @@ export const collapseComponentName = [
   'DestylerCollapseTrigger',
 ]
 
-export function DestylerCollapseResolver(): ComponentResolver {
+export function CollapseResolver(): ComponentResolver {
   return {
     type: 'component',
     resolve: (name: string) => {
