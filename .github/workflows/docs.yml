@@ -30,3 +30,11 @@ jobs:
 
       - name: Zip
         run: pnpm run docs:zip
+
+      - name: Deploy
+        run: |
+          curl --location 'https://gateway.zeabur.com/projects/${{secrets.PROJECT_ID}}/services/${{secrets.SERVICE_ID}}/deploy' \
+          --header 'Content-Type: application/zip' \
+          --header 'Authorization: Bearer ${{secrets.ZEABUR_TOKEN}}' \
+          --form 'code=@"/home/runner/work/destyler/destyler/.docs/.vitepress/zip/dist.zip"' \
+          --form 'environment="${{secrets.ENVIRONMENT}}"'
