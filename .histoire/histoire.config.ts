@@ -19,9 +19,9 @@ export default defineConfig({
   theme: {
     title: 'Destyler',
     logo: {
-      square: '../docs/public/logo.svg',
-      light: '../docs/public/logo.svg',
-      dark: '../docs/public/logo.svg',
+      square: '../.docs/public/logo.svg',
+      light: '../.docs/public/logo.svg',
+      dark: '../.docs/public/logo.svg',
     },
   },
   vite: {
