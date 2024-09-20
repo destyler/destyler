@@ -4,6 +4,7 @@ import Unocss from 'unocss/vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Component from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import ZIP from 'vite-plugin-zip-pack'
 
 export default defineConfig({
   optimizeDeps: {
@@ -37,5 +38,9 @@ export default defineConfig({
     }),
     Unocss(),
     VueDevTools(),
+    ZIP({
+      inDir: '.vitepress/dist',
+      outDir: '.vitepress/zip',
+    }),
   ],
 })

@@ -31,3 +31,4 @@ typed-router.d.ts
 docs/public/export-size.json
 docs/public/component-count-number.svg
 .vercel
+.docs/.vitepress/zip

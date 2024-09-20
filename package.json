@@ -22,6 +22,7 @@
     "docs:build": "pnpm run build && pnpm -C .docs run build",
     "docs:build:only": "pnpm -C .docs run build:only",
     "docs:gen": "tsx scripts/docs/gen.ts",
+    "docs:zip": "tsx scripts/docs/zip.ts",
     "test": "vitest",
     "test:ui": "vitest --ui --open false",
     "lint": "eslint .",
@@ -54,6 +55,7 @@
     "@vue/runtime-core": "^3.4.21",
     "@vue/shared": "^3.4.21",
     "@vue/test-utils": "^2.4.5",
+    "archiver": "^7.0.1",
     "bumpp": "^9.4.1",
     "consola": "^3.2.3",
     "eslint": "^9.5.0",
@@ -78,5 +80,8 @@
     "vue": "^3.4.21",
     "vue-component-meta": "^2.1.2",
     "vue-tsc": "^2.0.4"
+  },
+  "dependencies": {
+    "@types/archiver": "^6.0.2"
   }
 }

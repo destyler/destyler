@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint:
+  docs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,3 +27,6 @@ jobs:
 
       - name: Build
         run: pnpm run docs:build
+
+      - name: Zip
+        run: pnpm run docs:zip
