@@ -107,7 +107,7 @@ const options = ref<{
       <ToolbarSeparator
         v-else-if="option.element === 'separator'"
         :key="`separator-${index}`"
-        class="w-[1px] bg-#E4E4E7 dark:bg-#27272A  mx-[10px]"
+        class="w-[1px] bg-primary/80 mx-[10px]"
       />
       <ToolbarLink
         v-if="option.element === 'link'"
@@ -119,7 +119,14 @@ const options = ref<{
       <ToolbarButton
         v-if="option.element === 'button'"
         :key="`button-${index}`"
-        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 dark:bg-#FAFAFA dark:hover:bg-#FAFAFA/90 bg-#18181B hover:bg-#18181B/90 dark:text-#18181B text-#FAFAFA shadow h-9 px-4 py-2 ml-auto"
+        class="
+        inline-flex items-center justify-center whitespace-nowrap
+        rounded-md text-sm font-medium transition-colors
+        shadow h-9 px-4 py-2
+        focus-visible:outline-none focus-visible:ring-1
+        disabled:pointer-events-none disabled:opacity-50
+        bg-primary hover:bg-primary/90 text-primary-foreground
+        "
       >
         {{ option.label }}
       </ToolbarButton>

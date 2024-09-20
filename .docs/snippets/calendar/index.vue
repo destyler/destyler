@@ -78,7 +78,23 @@ function isDateUnavailable(date) {
               <CalendarCellTrigger
                 :day="weekDate"
                 :month="month.value"
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0 font-normal [&[data-today]:not([data-selected])]:bg-accent [&[data-today]:not([data-selected])]:text-accent-foreground data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:opacity-100 data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground data-[disabled]:text-muted-foreground data-[disabled]:opacity-50 data-[unavailable]:text-destructive-foreground data-[unavailable]:line-through data-[outside-view]:text-muted-foreground data-[outside-view]:opacity-50 [&[data-outside-view][data-selected]]:bg-accent/50 [&[data-outside-view][data-selected]]:text-muted-foreground [&[data-outside-view][data-selected]]:opacity-30"
+                class="
+                inline-flex items-center justify-center whitespace-nowrap
+                rounded-md text-sm transition-colors focus-visible:outline-none
+                focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none
+                disabled:opacity-50 hover:bg-accent hover:text-accent-foreground
+                h-8 w-8 p-0 font-normal [&[data-today]:not([data-selected])]:bg-accent
+                [&[data-today]:not([data-selected])]:text-accent-foreground
+                data-[selected]:bg-primary data-[selected]:text-primary-foreground
+                data-[selected]:opacity-100 data-[selected]:hover:bg-primary
+                data-[selected]:hover:text-primary-foreground
+                data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground
+                data-[disabled]:text-muted-foreground data-[disabled]:opacity-50
+                data-[unavailable]:text-muted-foreground
+                data-[unavailable]:line-through data-[outside-view]:text-muted-foreground
+                data-[outside-view]:opacity-50 [&[data-outside-view][data-selected]]:bg-accent/50
+                [&[data-outside-view][data-selected]]:text-muted-foreground
+                [&[data-outside-view][data-selected]]:opacity-30"
               />
             </CalendarCell>
           </CalendarGridRow>
