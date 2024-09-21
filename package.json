@@ -44,6 +44,7 @@
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/user-event": "^14.5.2",
     "@testing-library/vue": "^8.1.0",
+    "@types/archiver": "^6.0.2",
     "@types/fs-extra": "^11.0.4",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.14.5",
@@ -80,8 +81,5 @@
     "vue": "^3.4.21",
     "vue-component-meta": "^2.1.2",
     "vue-tsc": "^2.0.4"
-  },
-  "dependencies": {
-    "@types/archiver": "^6.0.2"
   }
 }
