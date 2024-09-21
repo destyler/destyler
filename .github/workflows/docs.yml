@@ -31,6 +31,11 @@ jobs:
       - name: Zip
         run: pnpm run docs:zip
 
+      - name: Install dependencies (ubuntu only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y httpie
+
       - name: Deploy
         run: |
           http --ignore-stdin --form --follow --timeout 3600 POST 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66e00fe375dfa2d73010e0a0/deploy' \
