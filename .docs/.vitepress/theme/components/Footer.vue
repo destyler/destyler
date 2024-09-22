@@ -10,17 +10,17 @@ const footers = [
   {
     site: true,
     text: 'Playground',
-    link: 'https://play-destyler-dev.vercel.app',
+    link: 'https://play-destyler-dev.zeabur.app',
   },
   {
-    site: false,
+    site: true,
     text: 'Roadmap',
-    link: '/roadmap',
+    link: 'https://github.com/destyler/destyler/pulls?q=sort:updated-desc+is:pr+is:open',
   },
   {
-    site: false,
+    site: true,
     text: 'Releases',
-    link: '/releases',
+    link: 'https://github.com/destyler/destyler/releases',
   },
 ]
 
