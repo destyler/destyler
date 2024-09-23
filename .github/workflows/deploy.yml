@@ -1,0 +1,76 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build core
+        run: pnpm run build
+
+      - name: Build Histoire
+        run: pnpm run histoire:build
+
+      - name: Zip
+        run: pnpm run histoire:zip
+
+      - name: Deploy
+        run: |
+          curl --location 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66e00fe375dfa2d73010e0a0/deploy' \
+          --header 'Content-Type: multipart/form-data' \
+          --header 'Authorization: Bearer ${{secrets.ZEABUR_TOKEN}}' \
+          --form 'code=@"/home/runner/work/destyler/destyler/.docs/.vitepress/zip/dist.zip"' \
+          --form 'environment="${{secrets.ENVIRONMENT}}"'
+  histoire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build
+        run: pnpm run docs:build
+
+      - name: Zip
+        run: pnpm run docs:zip
+
+      - name: Deploy
+        run: |
+          curl --location 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66ee65451bb593d5429a2041/deploy' \
+          --header 'Content-Type: multipart/form-data' \
+          --header 'Authorization: Bearer ${{secrets.ZEABUR_TOKEN}}' \
+          --form 'code=@"/home/runner/work/destyler/destyler/.histoire/.histoire/zip/dist.zip"' \
+          --form 'environment="${{secrets.ENVIRONMENT}}"'
