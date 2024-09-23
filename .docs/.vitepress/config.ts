@@ -148,6 +148,12 @@ export default defineConfig({
             { text: 'Tooltip', link: '/components/tooltip' },
           ],
         },
+        {
+          text: 'Private',
+          items: [
+            { text: 'Primitive', link: '/components/private/primitive' },
+          ],
+        },
       ],
       '/blog/': [
         {
