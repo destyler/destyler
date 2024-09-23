@@ -149,9 +149,11 @@ export default defineConfig({
           ],
         },
         {
-          text: 'Private',
+          text: 'Utilities',
           items: [
             { text: 'Primitive', link: '/components/private/primitive' },
+            { text: 'Slot', link: '/components/private/slot' },
+            { text: 'Visually Hidden', link: '/components/private/visually-hidden' },
           ],
         },
       ],
