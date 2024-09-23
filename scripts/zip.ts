@@ -1,5 +1,3 @@
-import { fileURLToPath } from 'node:url'
-import { dirname, join } from 'node:path'
 import * as fs from 'node:fs'
 import archiver from 'archiver'
 
