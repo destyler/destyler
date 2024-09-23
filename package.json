@@ -12,6 +12,7 @@
   "scripts": {
     "histoire:dev": "pnpm -C .histoire run dev",
     "histoire:build": "pnpm -C .histoire run build",
+    "histoire:zip": "tsx scripts/histoire/zip.ts",
     "histoire:preview": "pnpm -C .histoire run preview",
     "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run component:count",
     "dev": "pnpm run --filter \"./packages/**\" -r stub",
