@@ -37,7 +37,7 @@ jobs:
 
       - name: Deploy
         run: |
-          curl --location 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66e00fe375dfa2d73010e0a0/deploy' \
+          curl --location 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66ee65451bb593d5429a2041/deploy' \
           --header 'Content-Type: multipart/form-data' \
           --header 'Authorization: Bearer ${{secrets.ZEABUR_TOKEN}}' \
           --form 'code=@"/home/runner/work/destyler/destyler/.histoire/.histoire/zip/dist.zip"' \
@@ -69,7 +69,7 @@ jobs:
 
       - name: Deploy
         run: |
-          curl --location 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66ee65451bb593d5429a2041/deploy' \
+          curl --location 'https://gateway.zeabur.com/projects/66d7177c6552069ec1cfa5e7/services/66e00fe375dfa2d73010e0a0/deploy' \
           --header 'Content-Type: multipart/form-data' \
           --header 'Authorization: Bearer ${{secrets.ZEABUR_TOKEN}}' \
           --form 'code=@"/home/runner/work/destyler/destyler/.docs/.vitepress/zip/dist.zip"' \
