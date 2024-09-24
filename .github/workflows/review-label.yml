@@ -11,34 +11,32 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-    - name: Update label on review command
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const { issue, comment } = context.payload;
-          const command = 'review';
-          const labelToRemove = 'in progress';
-          const labelToAdd = 'pending review';
+      - name: Update label on review command
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue, comment } = context.payload;
+            const command = 'review';
+            const labelToRemove = 'in progress';
+            const labelToAdd = 'pending review';
 
-          if (comment.body.includes(`/${command}`)) {
-            const issue_number = issue.number;
-            const repo = context.repo;
-            const owner = context.repo.owner;
+            if (comment.body.includes(`/${command}`)) {
+              const issue_number = issue.number;
+              const repo = context.repo;
+              const owner = context.repo.owner;
 
-            // 移除标签
-            github.rest.issues.removeLabel({
-              issue_number,
-              owner,
-              repo,
-              name: labelToRemove
-            });
+              github.rest.issues.removeLabel({
+                issue_number,
+                owner,
+                repo,
+                name: labelToRemove
+              });
 
-            // 添加标签
-            github.rest.issues.addLabels({
-              issue_number,
-              owner,
-              repo,
-              labels: [labelToAdd]
-            });
-          }
+              github.rest.issues.addLabels({
+                issue_number,
+                owner,
+                repo,
+                labels: [labelToAdd]
+              });
+            }
