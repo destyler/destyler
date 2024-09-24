@@ -151,9 +151,12 @@ export default defineConfig({
         {
           text: 'Utilities',
           items: [
-            { text: 'Primitive', link: '/components/private/primitive' },
-            { text: 'Slot', link: '/components/private/slot' },
-            { text: 'Visually Hidden', link: '/components/private/visually-hidden' },
+            { text: 'Primitive', link: '/components/private/primitive', rel: 'clarity:tools-line' },
+            { text: 'Slot', link: '/components/private/slot', rel: 'clarity:tools-line' },
+            { text: 'Visually Hidden', link: '/components/private/visually-hidden', rel: 'clarity:tools-line' },
+            { text: 'useId', link: '/components/private/use-id', rel: 'clarity:tools-line' },
+            { text: 'useDateFormatter', link: '/components/private/use-date-formatter', rel: 'clarity:tools-line' },
+            { text: 'useForwardExpose', link: '/components/private/use-forward-expose', rel: 'clarity:tools-line' },
           ],
         },
       ],
