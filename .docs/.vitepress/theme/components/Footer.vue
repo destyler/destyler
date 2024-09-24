@@ -10,7 +10,7 @@ const footers = [
   {
     site: true,
     text: 'Playground',
-    link: 'https://play-destyler-dev.zeabur.app',
+    link: 'https://play.destyler.org',
   },
   {
     site: true,

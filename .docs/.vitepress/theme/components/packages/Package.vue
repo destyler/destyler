@@ -18,6 +18,11 @@ watch(frontmatter, () => {
     githubSource.value = componentName
     value = size[`${componentName}` as keyof typeof size]
   }
+  else if (frontmatter.value.composition) {
+    componentName = `composition`
+    githubSource.value = componentName
+    value = size[`${componentName}` as keyof typeof size]
+  }
 
   packages.value = [
     {

@@ -36,6 +36,7 @@
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/preview": "workspace:*",
+    "@destyler/primitive": "^0.0.4",
     "@destyler/progress": "workspace:*",
     "@destyler/qr-code": "workspace:*",
     "@destyler/radio": "workspace:*",
