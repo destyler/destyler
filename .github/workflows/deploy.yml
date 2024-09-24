@@ -26,6 +26,9 @@ jobs:
       - name: Install
         run: pnpm install --no-frozen-lockfile
 
+      - name: Build Core
+        run: pnpm run build
+
       - name: Build Histoire
         run: pnpm run histoire:build
 
