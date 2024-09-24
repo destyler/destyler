@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  install:
+  lint:
     runs-on: ubuntu-latest
     if: ${{ ! startsWith(github.event.head_commit.message, '[skip ci]') }}
     steps:
@@ -26,42 +26,10 @@ jobs:
       - name: Install
         run: pnpm install --no-frozen-lockfile
 
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-  lint:
-    needs: install
-    runs-on: ubuntu-latest
-    if: ${{ ! startsWith(github.event.head_commit.message, '[skip ci]') }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
-      - name: Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-
       - name: Lint
         run: pnpm run lint
 
   test:
-    needs: install
     runs-on: ubuntu-latest
     if: ${{ ! startsWith(github.event.head_commit.message, '[skip ci]') }}
     steps:
@@ -78,12 +46,8 @@ jobs:
         with:
           version: latest
 
-      - name: Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         run: pnpm run build
