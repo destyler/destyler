@@ -70,3 +70,9 @@ export default defineConfig({
 - Shadcn UI - https://github.com/shadcn-ui/ui
 - nuxt-ui - https://github.com/nuxt/ui
 - nuxt-ui-pro - https://github.com/nuxt-ui-pro
+
+## License
+
+[MIT](./LICENSE)
+
+Copyright (c) 2023-present, Elone Hoo
