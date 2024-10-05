@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { Icon } from 'destyler'
-import { useData } from 'vitepress'
-
-const { isDark } = useData()
 </script>
 
 <template>
@@ -126,18 +123,8 @@ const { isDark } = useData()
           </div>
 
           <div class="w-full h-full flex justify-center items-center">
-            <ParticlesEffect
-              v-if="isDark"
-              :density="1200"
-              color="#FFFFFF"
-              class="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
-            />
-            <ParticlesEffect
-              v-else
-              :density="1200"
-              color="#000000"
-              class="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
-            />
+            <DotPattern />
+            <Lightning />
           </div>
         </div>
         <!-- granular -->

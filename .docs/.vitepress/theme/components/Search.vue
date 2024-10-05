@@ -35,6 +35,20 @@ const input = ref<any>()
 const { height: boxHeight } = useElementSize(box)
 const { height: inputHeight } = useElementSize(input)
 
+onMounted(() => {
+  const handleSearchHotKey = (e: KeyboardEvent) => {
+    if (e.key === 'k' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault()
+      dialogStatus.value = !dialogStatus.value
+    }
+  }
+  const remove = () => {
+    window.removeEventListener('keydown', handleSearchHotKey)
+  }
+  window.addEventListener('keydown', handleSearchHotKey)
+  onUnmounted(remove)
+})
+
 watch(dialogStatus, (value) => {
   if (!value) {
     model.value = ''
@@ -101,6 +115,7 @@ function handleGo(path: string) {
             <ComboboxAnchor ref="input" class="relative flex items-center">
               <Icon name="carbon:search" class="pointer-events-none absolute start-4 text-gray-400 dark:text-gray-500 h-5 w-5" />
               <ComboboxInput
+                auto-focus
                 class="w-full placeholder-gray-400 dark:placeholder-gray-500 bg-transparent border-0 text-gray-900 dark:text-white focus:ring-0 focus:outline-none sm:text-sm h-[--header-height] sm:h-12 px-4 ps-11 pe-10"
                 placeholder="Placeholder..."
               />

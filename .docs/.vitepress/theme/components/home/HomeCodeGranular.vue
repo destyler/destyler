@@ -3,10 +3,7 @@
 </script>
 
 <template>
-  <pre class="shiki vp-code rounded-lg border border-input dark:[background-color:#121212] [background-color:#f8f8f8]" tabindex="0"><code><span class="line"><span style="color:#666666;">&lt;</span><span style="color:#4D9375;">script</span><span style="color:#BD976A;"> setup</span><span style="color:#BD976A;"> lang</span><span style="color:#666666;">=</span><span style="color:#C98A7D77;">"</span><span style="color:#C98A7D;">ts</span><span style="color:#C98A7D77;">"</span><span style="color:#666666;">&gt;</span></span>
-<span class="line"><span style="color:#666666;">&lt;/</span><span style="color:#4D9375;">script</span><span style="color:#666666;">&gt;</span></span>
-<span class="line" />
-<span class="line"><span style="color:#666666;">&lt;</span><span style="color:#4D9375;">template</span><span style="color:#666666;">&gt;</span></span>
+  <pre class="shiki vp-code rounded-lg border border-input dark:[background-color:#121212] [background-color:#f8f8f8]" tabindex="0"><code><span class="line"><span style="color:#666666;">&lt;</span><span style="color:#4D9375;">template</span><span style="color:#666666;">&gt;</span></span>
 <span class="line"><span style="color:#666666;">  &lt;</span><span style="color:#4D9375;">DialogRoot</span><span style="color:#666666;">&gt;</span></span>
 <span class="line"><span style="color:#666666;">    &lt;</span><span style="color:#4D9375;">TooltipRoot</span><span style="color:#666666;">&gt;</span></span>
 <span class="line"><span style="color:#666666;">      &lt;</span><span style="color:#4D9375;">TooltipTrigger</span><span style="color:#BD976A;"> as-child</span><span style="color:#666666;">&gt;</span></span>
