@@ -104,6 +104,12 @@ export default defineConfig({
         foreground: 'hsl(var(--card-foreground))',
       },
     },
+    borderRadius: {
+      xl: 'calc(var(--radius) + 4px)',
+      lg: 'var(--radius)',
+      md: 'calc(var(--radius) - 2px)',
+      sm: 'calc(var(--radius) - 4px)',
+    },
     maxWidth: {
       main: '750px',
     },
