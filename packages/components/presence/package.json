@@ -1,7 +1,7 @@
 {
   "name": "@destyler/presence",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "presence is a component that allows you to show the presence of a user.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

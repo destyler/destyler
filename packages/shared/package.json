@@ -1,7 +1,7 @@
 {
   "name": "@destyler/shared",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "internal utility functions and constants shared across @destyler packages.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

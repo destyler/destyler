@@ -1,7 +1,7 @@
 {
   "name": "@destyler/icon",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "icon module with 200,000+ ready to use icons from Iconify.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

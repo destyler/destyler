@@ -1,7 +1,7 @@
 {
   "name": "@destyler/divider",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "visually or semantically separates content.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

@@ -1,7 +1,7 @@
 {
   "name": "@destyler/context-menu",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "displays a menu located at the pointer, triggered by a right click or a long press.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

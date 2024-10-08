@@ -1,7 +1,7 @@
 {
   "name": "@destyler/online",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "a reactive offline indicator component",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

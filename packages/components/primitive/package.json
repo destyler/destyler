@@ -1,7 +1,7 @@
 {
   "name": "@destyler/primitive",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "they are the most basic elements that can be used to create more complex components.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

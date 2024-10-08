@@ -1,7 +1,7 @@
 {
   "name": "@destyler/countdown",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "a second is passed after a second has passed.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

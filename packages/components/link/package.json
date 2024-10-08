@@ -1,7 +1,7 @@
 {
   "name": "@destyler/link",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "allows a user to navigate to another page or resource within a web page or application.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

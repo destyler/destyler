@@ -1,7 +1,7 @@
 {
   "name": "@destyler/button",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "button is used to trigger some actions.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

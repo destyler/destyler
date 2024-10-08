@@ -1,7 +1,7 @@
 {
   "name": "@destyler/aspect-radio",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "displays content within a desired ratio.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

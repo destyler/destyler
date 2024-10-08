@@ -1,7 +1,7 @@
 {
   "name": "@destyler/visually-hidden",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "hides content from the screen in an accessible way.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
