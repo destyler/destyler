@@ -1,7 +1,7 @@
 {
   "shared": {
     "name": "@destyler/shared",
-    "size": "131.83 kB",
+    "size": "134.37 kB",
     "version": "0.0.4"
   },
   "directives": {
@@ -241,7 +241,7 @@
   },
   "components/combobox": {
     "name": "@destyler/combobox",
-    "size": "308.04 kB",
+    "size": "308.46 kB",
     "version": "0.0.4"
   },
   "components/menu": {

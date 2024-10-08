@@ -5,6 +5,7 @@ export * from './naive/extract-prop-type'
 export * from './naive/clamp'
 export * from './naive/point'
 export * from './naive/chunk'
+export * from './naive/is-equal'
 
 export * from './dom/is-valid-v-node-element'
 export * from './dom/is-client'
