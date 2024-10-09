@@ -1,7 +1,7 @@
 {
   "name": "@destyler/directives",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "internal directives utility across @destyler packages.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

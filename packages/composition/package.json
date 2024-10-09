@@ -1,7 +1,7 @@
 {
   "name": "@destyler/composition",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "collection of essential Vue in destyler composition utilities",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

@@ -1,7 +1,7 @@
 {
   "name": "@destyler/teleport",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "allows us to teleport a part of a component is template into a DOM node that exists outside the DOM hierarchy of that component.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

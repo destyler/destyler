@@ -1,7 +1,7 @@
 {
   "name": "@destyler/range-calendar",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "presents a calendar view tailored for selecting date ranges.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

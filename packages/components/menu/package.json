@@ -1,7 +1,7 @@
 {
   "name": "@destyler/menu",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a top level menu item, contains a trigger with content combination.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

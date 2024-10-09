@@ -1,7 +1,7 @@
 {
   "name": "@destyler/popover",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "displays rich content in a portal, triggered by a button.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

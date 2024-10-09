@@ -1,7 +1,7 @@
 {
   "name": "@destyler/toolbar",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a container for grouping a set of controls, such as buttons, Toolbar groups or dropdown menus.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

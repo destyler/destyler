@@ -1,7 +1,7 @@
 {
   "name": "@destyler/menubar",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
