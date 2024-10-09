@@ -1,4 +1,4 @@
-import { cloneVNode, defineComponent, mergeProps } from 'vue'
+import { Comment, cloneVNode, defineComponent , mergeProps } from 'vue'
 import { renderSlotFragments } from '@destyler/shared'
 
 export const Slot = defineComponent({

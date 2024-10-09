@@ -9,7 +9,7 @@ function jumpVal(val: number) {
   return Math.random() > 0.5 ? val + (Math.random() - 0.5) / 2 : Math.random()
 }
 
-let timeout
+let timeout: NodeJS.Timeout
 function jumpPoints() {
   for (let i = 0; i < points.value.length; i++) {
     points.value[i] = [jumpVal(points.value[i][0]), jumpVal(points.value[i][1])]
