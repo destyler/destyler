@@ -35,7 +35,7 @@ describe('test Primitive functionalities', () => {
     })
 
     const element = wrapper.find('div')
-    expect(element.attributes('data-parent-attr')).toBe(undefined)
+    expect(element.attributes('data-parent-attr')).toBe('')
     expect(element.attributes('data-child-attr')).toBe('')
   })
 
