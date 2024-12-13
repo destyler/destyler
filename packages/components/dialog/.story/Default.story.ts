@@ -116,7 +116,7 @@ export const Default = () => html`
       </button>
     </dialog-trigger>
 
-    <dialog-overlay class="overlay"></dialog-overlay>
+    <dialog-overlay><div class="overlay"></div></dialog-overlay>
     <dialog-content class="content">
         <dialog-title>
           <h2 class="title">Are you absolutely sure?</h2>
