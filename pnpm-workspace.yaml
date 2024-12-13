@@ -1,7 +1,0 @@
-packages:
-  - 'examples/*'
-  - 'packages/*'
-  - 'packages/*/*'
-  - test
-  - .histoire
-  - .docs

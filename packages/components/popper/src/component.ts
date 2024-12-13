@@ -1,7 +1,0 @@
-export { PopperRoot } from './components/root'
-export { PopperAnchor, popperAnchorProps } from './components/anchor'
-export type { PopperAnchorProps } from './components/anchor'
-export { PopperContent, popperContentProps, popperContentEmits } from './components/content'
-export type { PopperContentProps } from './components/content'
-export { PopperArrow, popperArrowProps } from './components/arrow'
-export type { PopperArrowProps } from './components/arrow'
