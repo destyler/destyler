@@ -20,12 +20,10 @@ export class AlertDialogRoot extends LitElement {
 
   private _onOpen = () => {
     this.open = true;
-    this.dispatchEvent(new CustomEvent('dialog-state-changed', { detail: { open: this.open } }));
   };
 
   private _onClose = () => {
     this.open = false;
-    this.dispatchEvent(new CustomEvent('dialog-state-changed', { detail: { open: this.open } }));
   };
 
   override render() {
