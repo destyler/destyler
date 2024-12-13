@@ -1,0 +1,33 @@
+{
+  "name": "@destyler/primitive",
+  "type": "module",
+  "version": "0.0.6",
+  "description": "they are the most basic elements that can be used to create more complex components.",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./primitive.js"
+    },
+    "./dist": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/primitive.js"
+    }
+  },
+  "main": "./primitive.js",
+  "module": "./primitive.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build",
+    "build": "tsc --emitDeclarationOnly --noEmit false && vite build"
+  },
+  "dependencies": {
+    "lit": "catalog:"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@destyler/monorepo",
+  "type": "module",
+  "version": "0.0.6",
+  "private": true,
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "web component",
+    "unstyle"
+  ],
+  "scripts": {
+    "build": "pnpm run --filter \"./packages/**\" -r build",
+    "story:dev": "storybook dev -p 6006 --no-open"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@storybook/web-components": "catalog:",
+    "@storybook/web-components-vite": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "rimraf": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@destyler/visually-hidden",
+  "type": "module",
+  "version": "0.0.6",
+  "description": "hides content from the screen in an accessible way.",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./visually-hidden.js"
+    },
+    "./dist": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/visually-hidden.js"
+    }
+  },
+  "main": "./visually-hidden.js",
+  "module": "./visually-hidden.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build",
+    "build": "tsc --emitDeclarationOnly --noEmit false && vite build"
+  },
+  "dependencies": {
+    "lit": "catalog:"
+  }
+}
