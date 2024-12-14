@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 @customElement('dialog-trigger')
-export class AlertDialogTrigger extends LitElement {
+export class DialogTrigger extends LitElement {
   private _onClick() {
     const event = new CustomEvent('dialog-open', {
       bubbles: true,

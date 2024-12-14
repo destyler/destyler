@@ -7,17 +7,17 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "import": "./dialog.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/dialog.js"
     },
     "./dist": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/dialog.js"
     }
   },
-  "main": "./dialog.js",
-  "module": "./dialog.js",
-  "types": "./types/index.d.ts",
+  "main": "./dist/dialog.js",
+  "module": "./dist/dialog.js",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "*.d.ts",
     "dist"
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@lit/context": "catalog:",
-    "lit": "catalog:"
+    "lit": "catalog:",
+    "@destyler/portal": "workspace:*"
   }
 }

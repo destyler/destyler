@@ -11,7 +11,7 @@ export type DialogContext = {
 }
 
 @customElement('dialog-root')
-export class AlertDialogRoot extends LitElement {
+export class DialogRoot extends LitElement {
   @property({ type: Boolean })
   open = false;
 

@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 @customElement('dialog-cancel')
-export class AlertDialogCancel extends LitElement {
+export class DialogCancel extends LitElement {
   private _onClick() {
     const event = new CustomEvent('dialog-close', {
       bubbles: true,

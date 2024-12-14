@@ -1,13 +1,8 @@
-import { LitElement, html,nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import {consume} from '@lit/context'
-import {dialogContext, type DialogContext} from './root'
 
 @customElement('dialog-overlay')
-export class AlertDialogOverlay extends LitElement {
-
-  @consume({ context: dialogContext, subscribe: true })
-  _dialogState?: DialogContext;
+export class DialogOverlay extends LitElement {
 
   private _onClick() {
     const event = new CustomEvent('dialog-close', {
@@ -18,8 +13,6 @@ export class AlertDialogOverlay extends LitElement {
   }
 
   override render() {
-    return html`
-      ${this._dialogState?.open ? html`<slot @click="${this._onClick}"></slot>` : nothing}
-    `;
+    return html`<slot @click="${this._onClick}"></slot>`;
   }
 }

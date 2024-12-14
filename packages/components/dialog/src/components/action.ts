@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 @customElement('dialog-action')
-export class AlertDialogAction extends LitElement {
+export class DialogAction extends LitElement {
   private _onClick() {
     // Close the dialog
     const closeEvent = new CustomEvent('dialog-close', {
