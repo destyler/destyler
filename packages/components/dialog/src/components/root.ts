@@ -1,53 +1,53 @@
-import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import {createContext, provide} from '@lit/context'
+import { createContext, provide } from '@lit/context'
+import { html, LitElement } from 'lit'
+import { customElement, property } from 'lit/decorators.js'
 
 export const dialogContext = createContext<DialogContext>(
-  Symbol("dialog-context"),
-);
+  Symbol('dialog-context'),
+)
 
-export type DialogContext = {
+export interface DialogContext {
   open: boolean
 }
 
 @customElement('dialog-root')
 export class DialogRoot extends LitElement {
   @property({ type: Boolean })
-  open = false;
+  open = false
 
   @provide({ context: dialogContext })
   @property()
   _context: DialogContext = {
-    open: this.open
-  };
+    open: this.open,
+  }
 
   override connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('dialog-open', this._onOpen);
-    this.addEventListener('dialog-close', this._onClose);
+    super.connectedCallback()
+    this.addEventListener('dialog-open', this._onOpen)
+    this.addEventListener('dialog-close', this._onClose)
   }
 
   override disconnectedCallback() {
-    this.removeEventListener('dialog-open', this._onOpen);
-    this.removeEventListener('dialog-close', this._onClose);
-    super.disconnectedCallback();
+    this.removeEventListener('dialog-open', this._onOpen)
+    this.removeEventListener('dialog-close', this._onClose)
+    super.disconnectedCallback()
   }
 
   private _onOpen = () => {
-    this.open = true;
+    this.open = true
     this._context = {
-      open: this.open
+      open: this.open,
     }
-  };
+  }
 
   private _onClose = () => {
-    this.open = false;
+    this.open = false
     this._context = {
-      open: this.open
+      open: this.open,
     }
-  };
+  }
 
   override render() {
-    return html`<slot></slot>`;
+    return html`<slot></slot>`
   }
 }

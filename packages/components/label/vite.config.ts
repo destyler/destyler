@@ -6,7 +6,7 @@ export default defineConfig({
     lib: {
       entry: './src/index.ts',
       formats: ['es', 'iife', 'umd'],
-      name: 'dialog',
+      name: 'label',
     },
     copyPublicDir: false,
     emptyOutDir: false,

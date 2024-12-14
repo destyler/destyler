@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { css, html, LitElement } from 'lit'
+import { customElement } from 'lit/decorators.js'
 
 @customElement('destyler-visually-hidden')
 export class VisuallyHidden extends LitElement {
@@ -16,9 +16,9 @@ export class VisuallyHidden extends LitElement {
       clip-path: inset(100%) !important;
       white-space: nowrap !important;
     }
-  `;
+  `
 
   override render() {
-    return html`<span class="visually-hidden"><slot></slot></span>`;
+    return html`<span class="visually-hidden"><slot></slot></span>`
   }
 }

@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html, LitElement } from 'lit'
+import { customElement } from 'lit/decorators.js'
 
 @customElement('dialog-action')
 export class DialogAction extends LitElement {
@@ -8,13 +8,13 @@ export class DialogAction extends LitElement {
     const closeEvent = new CustomEvent('dialog-close', {
       bubbles: true,
       composed: true,
-    });
-    this.dispatchEvent(closeEvent);
+    })
+    this.dispatchEvent(closeEvent)
   }
 
   override render() {
     return html`
       <slot @click="${this._onClick}"></slot>
-    `;
+    `
   }
 }

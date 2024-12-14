@@ -34,10 +34,10 @@ pnpm install -D unplugin-vue-components unplugin-auto-import
 Then add the code below into your Vite config file.
 
 ```ts
+import { DestylerUIResolver } from 'destyler/resolver'
+import Components from 'unplugin-vue-components/vite'
 // vite.config.ts
 import { defineConfig } from 'vite'
-import Components from 'unplugin-vue-components/vite'
-import { DestylerUIResolver } from 'destyler/resolver'
 
 export default defineConfig({
   // ...

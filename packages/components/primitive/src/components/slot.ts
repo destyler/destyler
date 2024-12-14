@@ -1,23 +1,24 @@
-import { LitElement, PropertyValues, html} from 'lit';
-import { customElement, property, queryAssignedElements } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit'
+import { html, LitElement } from 'lit'
+import { customElement, property, queryAssignedElements } from 'lit/decorators.js'
 
 @customElement('destyler-slot')
 export class SlotComponent extends LitElement {
   @property({ type: Object })
-  props: { [key: string]: any } = {};
+  props: { [key: string]: any } = {}
 
   @property({ type: Object })
-  events: { [key: string]: EventListener } = {};
+  events: { [key: string]: EventListener } = {}
 
   @queryAssignedElements({ flatten: true })
-  private assignedElements!: HTMLElement[];
+  private assignedElements!: HTMLElement[]
 
   override updated(changedProperties: PropertyValues) {
     if (changedProperties.has('props')) {
-      this.applyProps();
+      this.applyProps()
     }
     if (changedProperties.has('events')) {
-      this.applyEvents();
+      this.applyEvents()
     }
   }
 
@@ -25,25 +26,26 @@ export class SlotComponent extends LitElement {
     this.assignedElements.forEach((el) => {
       Object.entries(this.props).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
-          el.setAttribute(key, String(value));
-        } else {
-          el.removeAttribute(key);
+          el.setAttribute(key, String(value))
         }
-      });
-    });
+        else {
+          el.removeAttribute(key)
+        }
+      })
+    })
   }
 
   private applyEvents() {
     this.assignedElements.forEach((el) => {
       Object.entries(this.events).forEach(([eventName, listener]) => {
         // Remove previous listeners if necessary
-        el.removeEventListener(eventName, listener);
-        el.addEventListener(eventName, listener);
-      });
-    });
+        el.removeEventListener(eventName, listener)
+        el.addEventListener(eventName, listener)
+      })
+    })
   }
 
   override render() {
-    return html`<slot></slot>`;
+    return html`<slot></slot>`
   }
 }

@@ -1,22 +1,22 @@
 {
-  "name": "@destyler/dialog",
+  "name": "@destyler/label",
   "type": "module",
   "version": "0.0.6",
-  "description": "before taking action, please confirm.",
+  "description": "renders an accessible label associated with controls.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/dialog.js"
+      "import": "./dist/label.js"
     },
     "./dist": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/dialog.js"
+      "import": "./dist/label.js"
     }
   },
-  "main": "./dist/dialog.js",
-  "module": "./dist/dialog.js",
+  "main": "./dist/label.js",
+  "module": "./dist/label.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "*.d.ts",
