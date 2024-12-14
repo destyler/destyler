@@ -1,0 +1,34 @@
+{
+  "name": "@destyler/aspect-ratio",
+  "type": "module",
+  "version": "0.0.6",
+  "description": "displays content within a desired ratio.",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/aspect-ratio.js"
+    },
+    "./dist": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/aspect-ratio.js"
+    }
+  },
+  "main": "./dist/aspect-ratio.js",
+  "module": "./dist/aspect-ratio.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "prepublishOnly": "pnpm run build",
+    "build": "tsc --emitDeclarationOnly --noEmit false && vite build"
+  },
+  "dependencies": {
+    "@lit/context": "catalog:",
+    "lit": "catalog:"
+  }
+}
