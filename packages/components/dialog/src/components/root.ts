@@ -1,3 +1,4 @@
+import type { PropertyValues } from 'lit'
 import { createContext, provide } from '@lit/context'
 import { html, LitElement } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -15,12 +16,6 @@ export class DialogRoot extends LitElement {
   @property({ type: Boolean })
   open = false
 
-  @provide({ context: dialogContext })
-  @property()
-  _context: DialogContext = {
-    open: this.open,
-  }
-
   override connectedCallback() {
     super.connectedCallback()
     this.addEventListener('dialog-open', this._onOpen)
@@ -35,17 +30,25 @@ export class DialogRoot extends LitElement {
 
   private _onOpen = () => {
     this.open = true
-    this._context = {
-      open: this.open,
-    }
   }
 
   private _onClose = () => {
     this.open = false
-    this._context = {
+  }
+
+  protected update(changedProperties: PropertyValues): void {
+    super.update(changedProperties)
+    this._context = this.provide()
+  }
+
+  private provide(): DialogContext {
+    return {
       open: this.open,
     }
   }
+
+  @provide({ context: dialogContext })
+  _context: DialogContext = this.provide()
 
   override render() {
     return html`<slot></slot>`
