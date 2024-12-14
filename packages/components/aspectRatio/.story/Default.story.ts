@@ -16,17 +16,13 @@ export default {
 
 export const Default = () => html`
   <destyler-aspect-ratio ratio="${16 / 9}">
-    <div style="background-color: lightblue; width: 100%; height: 100%;">
-      16:9 Aspect Ratio
-    </div>
+    <img style="width: 100%; height: 100%;" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
   </destyler-aspect-ratio>
 `;
 
 export const CustomRatio = () => html`
   <destyler-aspect-ratio ratio="${4 / 3}">
-    <div style="background-color: lightcoral; width: 100%; height: 100%;">
-      4:3 Aspect Ratio
-    </div>
+  <img style="width: 100%; height: 100%;" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
   </destyler-aspect-ratio>
 `;
 
@@ -57,9 +53,7 @@ export const DynamicRatio = () => {
       />
     </label>
     <destyler-aspect-ratio id="dynamic-destyler-aspect-ratio" .ratio="${ratio}">
-      <div style="background-color: lightgreen; width: 100%; height: 100%;">
-        Dynamic Aspect Ratio
-      </div>
+    <img style="width: 100%; height: 100%;" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
     </destyler-aspect-ratio>
   `;
 };
