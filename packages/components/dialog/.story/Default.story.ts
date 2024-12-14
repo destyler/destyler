@@ -110,35 +110,37 @@ export const Default = () => html`
   </style>
 
   <dialog-root>
-    <dialog-trigger slot="trigger">
+    <dialog-trigger>
       <button class="trigger-button">
         Delete account
       </button>
     </dialog-trigger>
 
     <dialog-overlay><div class="overlay"></div></dialog-overlay>
-    <dialog-content class="content">
+    <dialog-content>
+      <div class="content">
         <dialog-title>
-          <h2 class="title">Are you absolutely sure?</h2>
-        </dialog-title>
-        <dialog-description>
-          <p class="description">
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
-          </p>
-        </dialog-description>
-        <div class="dialog-buttons">
-          <dialog-cancel>
-            <button class="cancel-button">
-              Cancel
-            </button>
-          </dialog-cancel>
-          <dialog-action @click="${() => console.log('Confirmed')}">
-            <button class="action-button">
-              Yes, delete account
-            </button>
-          </dialog-action>
-        </div>
+            <h2 class="title">Are you absolutely sure?</h2>
+          </dialog-title>
+          <dialog-description>
+            <p class="description">
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+            </p>
+          </dialog-description>
+          <div class="dialog-buttons">
+            <dialog-cancel>
+              <button class="cancel-button">
+                Cancel
+              </button>
+            </dialog-cancel>
+            <dialog-action @click="${() => console.log('Confirmed')}">
+              <button class="action-button">
+                Yes, delete account
+              </button>
+            </dialog-action>
+          </div>
+      </div>
     </dialog-content>
   </dialog-root>
 `;

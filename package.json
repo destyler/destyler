@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
+    "@lit-labs/signals": "catalog:",
     "@storybook/web-components": "catalog:",
     "@storybook/web-components-vite": "catalog:",
     "@types/node": "catalog:",

@@ -1,23 +1,23 @@
 {
-  "name": "@destyler/dialog",
+  "name": "@destyler/portal",
   "type": "module",
   "version": "0.0.6",
-  "description": "before taking action, please confirm.",
+  "description": "Renders subtree in a different part of the DOM.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "import": "./dialog.js"
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/portal.js"
     },
     "./dist": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/dialog.js"
+      "import": "./dist/portal.js"
     }
   },
-  "main": "./dialog.js",
-  "module": "./dialog.js",
-  "types": "./types/index.d.ts",
+  "main": "./dist/portal.js",
+  "module": "./dist/portal.js",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "*.d.ts",
     "dist"
@@ -28,7 +28,6 @@
     "build": "tsc --emitDeclarationOnly --noEmit false && vite build"
   },
   "dependencies": {
-    "@lit/context": "catalog:",
     "lit": "catalog:"
   }
 }

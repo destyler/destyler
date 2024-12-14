@@ -1,10 +1,25 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import {createContext, provide} from '@lit/context'
+
+export const dialogContext = createContext<DialogContext>(
+  Symbol("dialog-context"),
+);
+
+export type DialogContext = {
+  open: boolean
+}
 
 @customElement('dialog-root')
 export class AlertDialogRoot extends LitElement {
   @property({ type: Boolean })
   open = false;
+
+  @provide({ context: dialogContext })
+  @property()
+  _context: DialogContext = {
+    open: this.open
+  };
 
   override connectedCallback() {
     super.connectedCallback();
@@ -20,18 +35,19 @@ export class AlertDialogRoot extends LitElement {
 
   private _onOpen = () => {
     this.open = true;
+    this._context = {
+      open: this.open
+    }
   };
 
   private _onClose = () => {
     this.open = false;
+    this._context = {
+      open: this.open
+    }
   };
 
   override render() {
-    return html`
-      <slot name="trigger"></slot>
-      ${this.open
-        ? html`<slot></slot>`
-        : ''}
-    `;
+    return html`<slot></slot>`;
   }
 }

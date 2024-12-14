@@ -9,7 +9,7 @@ export default {
 
 export const Unstyle = () => html`
   <dialog-root>
-    <dialog-trigger slot="trigger">
+    <dialog-trigger>
       <button>
         Delete account
       </button>
