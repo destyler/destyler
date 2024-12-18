@@ -18,22 +18,16 @@ export class CollapsibleRoot extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback()
-    this.addEventListener('destyler-collapsible-open', this._onOpen)
-    this.addEventListener('destyler-collapsible-close', this._onClose)
+    this.addEventListener('destyler-collapsible-toggle', this._onToggle)
   }
 
   override disconnectedCallback() {
-    this.removeEventListener('destyler-collapsible-open', this._onOpen)
-    this.removeEventListener('destyler-collapsible-close', this._onClose)
+    this.removeEventListener('destyler-collapsible-toggle', this._onToggle)
     super.disconnectedCallback()
   }
 
-  private _onOpen = () => {
-    this.open = true
-  }
-
-  private _onClose = () => {
-    this.open = false
+  private _onToggle = () => {
+    this.open = !this.open
   }
 
   protected update(changedProperties: PropertyValues): void {
@@ -51,6 +45,6 @@ export class CollapsibleRoot extends LitElement {
   _context: CollapsibleContext = this.provide()
 
   override render() {
-    return html`<slot></slot>`
+    return html`<slot data-state="${this.open ? 'open' : 'close'}"></slot>`
   }
 }
