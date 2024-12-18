@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js'
 @customElement('dialog-trigger')
 export class DialogTrigger extends LitElement {
   private _onClick() {
-    const event = new CustomEvent('dialog-open', {
+    const event = new CustomEvent('destyler-dialog-open', {
       bubbles: true,
       composed: true,
     })

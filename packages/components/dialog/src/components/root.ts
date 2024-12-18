@@ -18,13 +18,13 @@ export class DialogRoot extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback()
-    this.addEventListener('dialog-open', this._onOpen)
-    this.addEventListener('dialog-close', this._onClose)
+    this.addEventListener('destyler-dialog-open', this._onOpen)
+    this.addEventListener('destyler-dialog-close', this._onClose)
   }
 
   override disconnectedCallback() {
-    this.removeEventListener('dialog-open', this._onOpen)
-    this.removeEventListener('dialog-close', this._onClose)
+    this.removeEventListener('destyler-dialog-open', this._onOpen)
+    this.removeEventListener('destyler-dialog-close', this._onClose)
     super.disconnectedCallback()
   }
 

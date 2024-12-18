@@ -5,7 +5,7 @@ import { customElement } from 'lit/decorators.js'
 export class DialogAction extends LitElement {
   private _onClick() {
     // Close the dialog
-    const closeEvent = new CustomEvent('dialog-close', {
+    const closeEvent = new CustomEvent('destyler-dialog-close', {
       bubbles: true,
       composed: true,
     })
