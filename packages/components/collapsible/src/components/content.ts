@@ -14,7 +14,6 @@ export class CollapsibleContent extends LitElement {
   private height: number = 0
 
   protected update(changedProperties: PropertyValues): void {
-    // 获取 slot 内部的元素
     if (this._collapsibleState?.open) {
       const rect = this.getBoundingClientRect()
       this.width = rect.width
