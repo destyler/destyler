@@ -19,7 +19,7 @@ export const Unstyle = () => html`
   </style>
   <collapsible-root>
     <collapsible-trigger>
-      <button>
+      <button class="cursor-pointer">
         open
       </button>
     </collapsible-trigger>

@@ -7,7 +7,7 @@ export default {
   component: 'AspectRatio',
   decorators: [
     (Story) => html`
-      <div style="width: 200px; border: 1px solid #ccc; margin: auto;">
+      <div class="w-200px border border-solid border-[#ccc] m-auto">
         ${Story()}
       </div>
     `,

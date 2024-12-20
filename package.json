@@ -22,10 +22,12 @@
     "@lit-labs/signals": "catalog:",
     "@storybook/web-components": "catalog:",
     "@storybook/web-components-vite": "catalog:",
+    "@tailwindcss/vite": "4.0.0-beta.8",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "rimraf": "catalog:",
     "storybook": "catalog:",
+    "tailwindcss": "4.0.0-beta.8",
     "typescript": "catalog:",
     "vite": "catalog:"
   }
