@@ -23,7 +23,7 @@ const Template: StoryObj<SlotComponentArgs> = {
 export const Default = Template;
 
 Default.args = {
-  props: { 'aria-label': 'Accessible Button' },
+  props: { 'aria-label': 'Accessible Button','data-width':'100' },
   events: {
     click: () => alert('Button clicked!'),
   },

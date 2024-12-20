@@ -92,6 +92,9 @@ importers:
 
   packages/components/collapsible:
     dependencies:
+      '@destyler/primitive':
+        specifier: workspace:*
+        version: link:../primitive
       '@lit/context':
         specifier: 'catalog:'
         version: 1.1.3

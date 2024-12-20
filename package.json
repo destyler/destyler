@@ -12,6 +12,8 @@
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
     "story:dev": "storybook dev -p 6006 --no-open",
+    "story:build": "storybook build",
+    "story:preview": "storybook --help",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

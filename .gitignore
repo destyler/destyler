@@ -22,14 +22,6 @@ dist-ssr
 *.sln
 *.sw?
 cache
-auto-imports.d.ts
-components.d.ts
-typed-router.d.ts
-.vitepress/cache
-.nuxt
 .output
-docs/public/export-size.json
-docs/public/component-count-number.svg
 .vercel
-.docs/.vitepress/zip
-.histoire/.histoire/zip
+storybook-static

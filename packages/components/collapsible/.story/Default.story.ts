@@ -10,7 +10,7 @@ export default {
 export const Unstyle = () => html`
   <style>
     .content {
-      height: 35px;
+      height: var(--destyler-collapsible-content-height);
     }
   </style>
   <collapsible-root>
