@@ -13,7 +13,7 @@ export interface CollapsibleContext {
 
 @customElement('collapsible-root')
 export class CollapsibleRoot extends LitElement {
-  @property({ type: Boolean })
+  @property({ type: Boolean, attribute: true })
   open = false
 
   override connectedCallback() {
@@ -45,6 +45,6 @@ export class CollapsibleRoot extends LitElement {
   _context: CollapsibleContext = this.provide()
 
   override render() {
-    return html`<slot data-state="${this.open ? 'open' : 'close'}"></slot>`
+    return html`<slot></slot>`
   }
 }
