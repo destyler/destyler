@@ -18,8 +18,12 @@ export class DialogAction extends LitElement {
       click: this._onClick,
     }
 
+    const props = {
+      role: 'dialog-action',
+    }
+
     return html`
-      <destyler-slot .events="${events}">
+      <destyler-slot .props="${props}" .events="${events}">
         <slot></slot>
       </destyler-slot>
     `

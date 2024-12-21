@@ -13,11 +13,14 @@ export class DialogOverlay extends LitElement {
   }
 
   override render() {
+    const props = {
+      role: 'dialog-overlay',
+    }
     const events = {
       click: this._onClick,
     }
     return html`
-    <destyler-slot .events="${events}">
+    <destyler-slot .props="${props}" .events="${events}">
       <slot></slot>
     </destyler-slot>`
   }
