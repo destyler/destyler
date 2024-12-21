@@ -1,5 +1,6 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import '@destyler/primitive'
 
 @customElement('destyler-label')
 export class Label extends LitElement {
@@ -9,8 +10,14 @@ export class Label extends LitElement {
   }
 
   override render() {
+    const props = {
+      role: 'label',
+    }
+    const events = {
+      mousedown: this.handleMovedown,
+    }
     return html`
-      <slot @mousedown=${this.handleMovedown}></slot>
+      <destyler-slot .props="${props}" .events="${events}"><slot></slot></destyler-slot>
     `
   }
 }

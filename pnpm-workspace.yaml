@@ -1,6 +1,7 @@
 packages:
   - 'packages/*'
   - 'packages/*/*'
+  - utils
 catalog:
   '@antfu/eslint-config': ^3.12.0
   '@types/node': ^22.10.2

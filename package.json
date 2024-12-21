@@ -22,13 +22,13 @@
     "@lit-labs/signals": "catalog:",
     "@storybook/web-components": "catalog:",
     "@storybook/web-components-vite": "catalog:",
-    "@tailwindcss/vite": "4.0.0-beta.8",
     "@types/node": "catalog:",
+    "@unocss/reset": "^0.65.2",
     "eslint": "catalog:",
     "rimraf": "catalog:",
     "storybook": "catalog:",
-    "tailwindcss": "4.0.0-beta.8",
     "typescript": "catalog:",
+    "unocss": "^0.65.2",
     "vite": "catalog:"
   }
 }

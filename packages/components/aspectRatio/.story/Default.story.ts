@@ -2,11 +2,20 @@ import { html } from 'lit';
 import { Meta } from '@storybook/web-components';
 import '../src';
 
+function UnoTemplate(){
+  return html`
+  <style>
+    @unocss-placeholder
+  </style>
+  `
+}
+
 export default {
   title: 'Components/AspectRatio',
   component: 'AspectRatio',
   decorators: [
     (Story) => html`
+      ${UnoTemplate()}
       <div class="w-200px border border-solid border-[#ccc] m-auto">
         ${Story()}
       </div>
@@ -16,13 +25,13 @@ export default {
 
 export const Default = () => html`
   <destyler-aspect-ratio ratio="${16 / 9}">
-    <img style="width: 100%; height: 100%;" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
+    <img class="w-full h-full" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
   </destyler-aspect-ratio>
 `;
 
 export const CustomRatio = () => html`
   <destyler-aspect-ratio ratio="${4 / 3}">
-  <img style="width: 100%; height: 100%;" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
+  <img class="w-full h-full" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
   </destyler-aspect-ratio>
 `;
 
@@ -53,7 +62,7 @@ export const DynamicRatio = () => {
       />
     </label>
     <destyler-aspect-ratio id="dynamic-destyler-aspect-ratio" .ratio="${ratio}">
-    <img style="width: 100%; height: 100%;" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
+    <img class="w-full h-full" src="https://images.unsplash.com/photo-1535025183041-0991a977e25b" alt="Avatar" />
     </destyler-aspect-ratio>
   `;
 };

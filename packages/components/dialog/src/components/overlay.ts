@@ -1,5 +1,6 @@
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import '@destyler/primitive'
 
 @customElement('dialog-overlay')
 export class DialogOverlay extends LitElement {
@@ -12,6 +13,12 @@ export class DialogOverlay extends LitElement {
   }
 
   override render() {
-    return html`<slot @click="${this._onClick}"></slot>`
+    const events = {
+      click: this._onClick,
+    }
+    return html`
+    <destyler-slot .events="${events}">
+      <slot></slot>
+    </destyler-slot>`
   }
 }

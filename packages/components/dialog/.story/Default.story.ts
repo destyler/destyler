@@ -9,132 +9,61 @@ export default {
 
 export const Default = () => html`
   <style>
-    /* Styles for the trigger button */
-    .trigger-button {
-      display: inline-flex;
-      height: 35px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 15px;
-      font-weight: 500;
-      background-color: white;
-      color: #7c3aed; /* violet11 */
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .trigger-button:hover {
-      background-color: #f5f3ff; /* mauve3 */
-    }
-
-    /* Styles for the overlay */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    /* Styles for the dialog content */
-    .content {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      max-height: 85vh;
-      width: 90vw;
-      max-width: 500px;
-      background: white;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 10px 38px -10px rgba(0, 0, 0, 0.35),
-        0 10px 20px -15px rgba(0, 0, 0, 0.2);
-      outline: none;
-    }
-
-    /* Styles for the title */
-    .title {
-      margin: 0;
-      font-size: 17px;
-      font-weight: 500;
-      color: #1a1523; /* Adjust as needed */
-    }
-
-    /* Styles for the description */
-    .description {
-      margin-top: 15px;
-      margin-bottom: 20px;
-      font-size: 15px;
-      line-height: normal;
-      color: #6e6d7a; /* Adjust as needed */
-    }
-
-    /* Styles for the dialog buttons */
-    .dialog-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 25px;
-    }
-
-    .cancel-button,
-    .action-button {
-      display: inline-flex;
-      height: 35px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 15px;
-      font-weight: 500;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .cancel-button {
-      background-color: #e0e0e0; /* mauve4 */
-      color: #57534e; /* mauve11 */
-    }
-
-    .cancel-button:hover {
-      background-color: #d6d3d1; /* mauve5 */
-    }
-
-    .action-button {
-      background-color: #f87171; /* red4 */
-      color: #991b1b; /* red11 */
-    }
-
-    .action-button:hover {
-      background-color: #ef4444; /* red5 */
-    }
+    @unocss-placeholder
   </style>
 
   <dialog-root>
     <dialog-trigger>
-      <button class="trigger-button">
+      <button
+        class="
+        inline-flex h-[35px] items-center justify-center font-medium
+        bg-[white] text-violet-600 rounded cursor-pointer hover:bg-violet-50
+        shadow-[0_2px_10px_rgba(0,0,0,0.1)] px-[15px] py-0 border-[none]
+        "
+      >
         Delete account
       </button>
     </dialog-trigger>
     <dialog-portal>
-      <dialog-overlay><div class="overlay"></div></dialog-overlay>
-      <dialog-content class="content">
+      <dialog-overlay>
+        <div class="fixed inset-0 [background:rgba(0,0,0,0.6)]"></div>
+      </dialog-overlay>
+      <dialog-content
+        class="
+        fixed -translate-x-2/4 -translate-y-2/4 max-h-[85vh] w-[90vw] max-w-[500px]
+        shadow-[0_10px_38px_-10px_rgba(0,0,0,0.35),0_10px_20px_-15px_rgba(0,0,0,0.2)]
+        p-[25px] rounded-lg left-2/4 top-2/4 bg-white [outline:none]
+        "
+      >
         <dialog-title>
-          <h2 class="title">Are you absolutely sure?</h2>
+          <h2 class="text-[17px] font-medium text-[#1a1523] m-0">Are you absolutely sure?</h2>
         </dialog-title>
         <dialog-description>
-          <p class="description">
+          <p class="text-[15px] leading-[normal] text-[#6e6d7a] mt-[15px] mb-5">
           This action cannot be undone. This will permanently delete your
           account and remove your data from our servers.
           </p>
         </dialog-description>
-        <div class="dialog-buttons">
+        <div class="flex justify-end gap-[25px]">
           <dialog-cancel>
-            <button class="cancel-button">
+            <button
+              class="
+              inline-flex h-[35px] items-center justify-center font-medium
+              rounded cursor-pointer px-[15px] py-0 border-[none]
+              bg-[#e0e0e0] text-stone-600 hover:bg-stone-300
+              "
+            >
               Cancel
             </button>
           </dialog-cancel>
           <dialog-action @click="${() => console.log('Confirmed')}">
-            <button class="action-button">
+            <button
+              class="
+              inline-flex h-[35px] items-center justify-center font-medium
+              rounded cursor-pointer px-[15px] py-0 border-[none]
+              bg-red-400 text-red-800 hover:bg-red-500
+              "
+            >
               Yes, delete account
             </button>
           </dialog-action>

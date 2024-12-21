@@ -28,6 +28,7 @@
     "build": "tsc --emitDeclarationOnly --noEmit false && vite build"
   },
   "dependencies": {
+    "@destyler/primitive": "workspace:*",
     "@lit/context": "catalog:",
     "lit": "catalog:"
   }
