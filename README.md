@@ -70,6 +70,9 @@ export default defineConfig({
 - Shadcn UI - https://github.com/shadcn-ui/ui
 - nuxt-ui - https://github.com/nuxt/ui
 - nuxt-ui-pro - https://github.com/nuxt-ui-pro
+- zag - https://github.com/chakra-ui/zag
+- XState - https://xstate.js.org/
+- Pure UI Control - https://asolove.medium.com/pure-ui-control-ac8d1be97a8d
 
 ## License
 

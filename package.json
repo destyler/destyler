@@ -19,16 +19,9 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
-    "@lit-labs/signals": "catalog:",
-    "@storybook/web-components": "catalog:",
-    "@storybook/web-components-vite": "catalog:",
     "@types/node": "catalog:",
-    "@unocss/reset": "^0.65.2",
     "eslint": "catalog:",
     "rimraf": "catalog:",
-    "storybook": "catalog:",
-    "typescript": "catalog:",
-    "unocss": "^0.65.2",
-    "vite": "catalog:"
+    "typescript": "catalog:"
   }
 }
