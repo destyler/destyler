@@ -2,12 +2,8 @@ import { html } from 'lit';
 import { Meta } from '@storybook/web-components';
 import '../src'
 
-export default {
-  title: 'Components/Collapsible',
-  component: 'collapsible',
-} as Meta;
-
-export const Unstyle = () => html`
+function UnoTemplate(){
+  return html`
   <style>
     .content {
       max-width: 700px;
@@ -16,15 +12,26 @@ export const Unstyle = () => html`
       margin-top: 5px;
       margin-bottom: 5px;
     }
+    @unocss-placeholder
   </style>
+  `
+}
+
+export default {
+  title: 'Components/Collapsible',
+  component: 'collapsible',
+} as Meta;
+
+export const Unstyle = () => html`
+  ${UnoTemplate()}
   <collapsible-root>
     <collapsible-trigger>
-      <button class="cursor-pointer">
+      <button class="cursor-pointer text-49px">
         open
       </button>
     </collapsible-trigger>
     <collapsible-content>
-      <p class="content">wao</p>
+      <p class="content text-48px">wao</p>
     </collapsible-content>
   </collapsible-root>
 `;
