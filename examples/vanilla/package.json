@@ -9,6 +9,7 @@
   "dependencies": {
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
+    "@destyler/collapsible": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/vanilla": "workspace:*"
   },
