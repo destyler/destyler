@@ -8,22 +8,38 @@
   <body style="padding: 40px">
     <h1>Collapse</h1>
 
-    <div class="collapse">
-      <div class="collapse-item" data-value="a">
-        <button class="collapse-trigger">First Button</button>
-        <div class="collapse-content">First Content</div>
-      </div>
+    <div class="flex w-full justify-center items-center">
+      <div class="collapse w-full">
+        <div class="collapse-item border-b border-dark/15" data-value="a">
+          <button class="collapse-trigger cursor-pointer text-dark/80 flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline">First Button</button>
+          <div class="collapse-content overflow-hidden text-black dark:text-white text-sm">
+            <p class="pb-4 pt-0">
+              First Content
+            </p>
+          </div>
+        </div>
 
-      <div class="collapse-item" data-value="b">
-        <button class="collapse-trigger">Second Button</button>
-        <div class="collapse-content">Second Content</div>
-      </div>
+        <div class="collapse-item border-b border-dark/15" data-value="b">
+          <button class="collapse-trigger cursor-pointer text-dark/80 flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline">Second Button</button>
+          <div class="collapse-content overflow-hidden text-black dark:text-white text-sm">
+            <p class="pb-4 pt-0">
+              Second Content
+            </p>
+          </div>
+        </div>
 
-      <div class="collapse-item" data-value="c">
-        <button class="collapse-trigger">Third Button</button>
-        <div class="collapse-content">Third Content</div>
+        <div class="collapse-item border-b border-dark/15" data-value="c">
+          <button class="collapse-trigger cursor-pointer text-dark/80 flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline">Third Button</button>
+          <div class="collapse-content overflow-hidden text-black dark:text-white text-sm">
+            <p class="pb-4 pt-0">
+              Third Content
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
+
 
     <script type="module" src="./collapse.ts"></script>
   </body>
