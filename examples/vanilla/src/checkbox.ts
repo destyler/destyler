@@ -1,5 +1,7 @@
 import * as checkbox from '@destyler/checkbox'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import { nanoid } from 'nanoid'
+import './main'
 
 export class Checkbox extends Component<checkbox.Context, checkbox.Api> {
   initService(context: checkbox.Context) {
@@ -24,3 +26,11 @@ export class Checkbox extends Component<checkbox.Context, checkbox.Api> {
       spreadProps(inputEl, this.api.getHiddenInputProps())
   }
 }
+
+document.querySelectorAll<HTMLElement>('.checkbox').forEach((rootEl) => {
+  const checkbox = new Checkbox(rootEl, {
+    id: nanoid(),
+  })
+
+  checkbox.init()
+})

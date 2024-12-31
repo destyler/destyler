@@ -1,5 +1,7 @@
 import * as collapse from '@destyler/collapse'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import { nanoid } from 'nanoid'
+import './main'
 
 export class Collapse extends Component<collapse.Context, collapse.Api> {
   initService(context: collapse.Context) {
@@ -36,3 +38,8 @@ export class Collapse extends Component<collapse.Context, collapse.Api> {
     spreadProps(itemContentEl, this.api.getItemContentProps({ value }))
   }
 }
+
+document.querySelectorAll<HTMLElement>('.collapse').forEach((rootEl) => {
+  const collapse = new Collapse(rootEl, { id: nanoid() })
+  collapse.init()
+})
