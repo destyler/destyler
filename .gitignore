@@ -25,3 +25,5 @@ cache
 .output
 .vercel
 storybook-static
+
+*storybook.log

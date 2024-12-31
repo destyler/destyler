@@ -18,7 +18,9 @@
     "generate-machine": "plop machine",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "vanilla": "pnpm --filter \"./examples/vanilla\""
+    "vanilla": "pnpm --filter \"./examples/vanilla\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",

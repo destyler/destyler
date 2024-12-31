@@ -28,7 +28,7 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   multiple?: boolean | undefined
   /**
    * Whether an collapse item can be closed after it has been expanded.
-   * @default false
+   * @default true
    */
   collapsible?: boolean | undefined
   /**

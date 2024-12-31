@@ -39,7 +39,7 @@ export function machine(userContext: UserDefinedContext) {
       context: {
         focusedValue: null,
         value: [],
-        collapsible: false,
+        collapsible: true,
         multiple: false,
         orientation: 'vertical',
         ...ctx,
