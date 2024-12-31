@@ -11,14 +11,23 @@
   ],
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
+    "clear:node_modules": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml",
+    "clear:packages:dist": "pnpm run --filter \"./packages/**\" -r clear ",
+    "clear:packages:node_modules": "pnpm run --filter \"./packages/**\" -r clear:node_modules",
+    "clear": "pnpm run clear:packages:dist && pnpm run clear:packages:node_modules && pnpm run clear:node_modules",
+    "generate-machine": "plop machine",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "vanilla": "pnpm --filter \"./examples/vanilla\""
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
     "@types/node": "catalog:",
     "eslint": "catalog:",
+    "find-packages": "^10.0.4",
+    "plop": "catalog:",
     "rimraf": "catalog:",
+    "tsx": "^4.19.2",
     "typescript": "catalog:",
     "unbuild": "catalog:"
   }

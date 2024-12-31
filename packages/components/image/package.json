@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && unbuild",
     "stub": "unbuild --stub"

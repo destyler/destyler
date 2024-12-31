@@ -7,11 +7,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
+    "@destyler/image": "workspace:*",
     "@destyler/vanilla": "workspace:*"
   },
   "devDependencies": {
-    "nanoid": "^5.0.9",
+    "@unocss/reset": "catalog:examples",
+    "nanoid": "catalog:examples",
+    "unocss": "catalog:examples",
     "vite": "catalog:"
   }
 }
