@@ -9,6 +9,7 @@ catalog:
   '@types/node': ^22.10.2
   '@zag-js/anatomy': ^0.79.2
   '@zag-js/core': ^0.79.2
+  '@zag-js/store': ^0.79.2
   '@zag-js/dom-event': ^0.79.2
   '@zag-js/dom-query': ^0.79.2
   '@zag-js/types': ^0.79.2
@@ -25,9 +26,16 @@ catalog:
   unbuild: ^3.2.0
   vite: ^6.0.5
   plop: ^4.0.1
+  vue: ^3.5.13
 
 catalogs:
   examples:
     '@unocss/reset': ^0.65.3
+    '@vitejs/plugin-vue': ^5.2.1
+    '@vue/tsconfig': ^0.7.0
+    vite: ^6.0.5
+    vue-router: ^4.5.0
+    vue: ^3.5.13
     unocss: ^0.65.3
     nanoid: ^5.0.9
+    unplugin-vue-router: ^0.10.9

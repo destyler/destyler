@@ -1,0 +1,31 @@
+{
+  "name": "vue",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@destyler/checkbox": "workspace:*",
+    "@destyler/collapse": "workspace:*",
+    "@destyler/collapsible": "workspace:*",
+    "@destyler/combobox": "workspace:*",
+    "@destyler/image": "workspace:*",
+    "@destyler/vue": "workspace:*"
+  },
+  "devDependencies": {
+    "@unocss/reset": "catalog:examples",
+    "@vitejs/plugin-vue": "catalog:examples",
+    "@vue/tsconfig": "catalog:examples",
+    "unocss": "catalog:examples",
+    "unplugin-auto-import": "^0.19.0",
+    "unplugin-vue-components": "^0.28.0",
+    "unplugin-vue-router": "catalog:examples",
+    "vite": "catalog:examples",
+    "vue": "catalog:examples",
+    "vue-router": "catalog:examples"
+  }
+}
