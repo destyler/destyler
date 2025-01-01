@@ -16,7 +16,7 @@ const api = computed(() => dialog.connect(state.value, send, normalizeProps));
 <template>
   <button ref="ref" v-bind="api.getTriggerProps()">Open Dialog</button>
   <Teleport to="body">
-    <div v-if="api.open">
+    <div>
       <div v-bind="api.getBackdropProps()" />
       <div v-bind="api.getPositionerProps()">
         <div v-bind="api.getContentProps()">

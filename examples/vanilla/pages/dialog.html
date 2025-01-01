@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dialog</title>
+  </head>
+  <body style="padding: 40px">
+    <h1>Dialog</h1>
+
+    <div class="dialog-root">
+      <button class="trigger">open dialog</button>
+
+      <div>
+        <div class="backdrop"></div>
+        <div class="positioner">
+          <div class="content">
+            <h2 class="title">Edit profile</h2>
+            <p class="description">Make changes to your profile here. Click save when you are done.</p>
+            <button class="close-trigger">X</button>
+            <input placeholder="Enter name..." />
+            <button>Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../src/dialog.ts"></script>
+  </body>
+</html>

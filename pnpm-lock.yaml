@@ -153,6 +153,9 @@ importers:
       '@destyler/combobox':
         specifier: workspace:*
         version: link:../../packages/components/combobox
+      '@destyler/dialog':
+        specifier: workspace:*
+        version: link:../../packages/components/dialog
       '@destyler/image':
         specifier: workspace:*
         version: link:../../packages/components/image

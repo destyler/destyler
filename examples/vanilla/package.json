@@ -11,6 +11,7 @@
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
     "@destyler/combobox": "workspace:*",
+    "@destyler/dialog": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/vanilla": "workspace:*"
   },
