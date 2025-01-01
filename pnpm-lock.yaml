@@ -120,6 +120,9 @@ importers:
       '@destyler/collapsible':
         specifier: workspace:*
         version: link:../../packages/components/collapsible
+      '@destyler/combobox':
+        specifier: workspace:*
+        version: link:../../packages/components/combobox
       '@destyler/image':
         specifier: workspace:*
         version: link:../../packages/components/image

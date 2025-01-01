@@ -10,6 +10,7 @@
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
+    "@destyler/combobox": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/vanilla": "workspace:*"
   },

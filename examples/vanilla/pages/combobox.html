@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Combobox</title>
+  </head>
+  <body style="padding: 40px">
+    <h1>Combobox</h1>
+
+    <div class="combobox-root">
+      <label class="label">Select country</label>
+
+      <div class="control">
+        <input class="input" />
+        <button class="trigger">▼</button>
+      </div>
+
+      <div class="positioner">
+        <ul class="content">
+          <li class="item" data-value="ZA">Zambia</li>
+          <li class="item" data-value="BN">Benin</li>
+          <li class="item" data-value="CA">Canada</li>
+          <li class="item" data-value="JA">Japan</li>
+          <li class="item" data-value="NG">Nigeria</li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="module" src="../src/combobox.ts"></script>
+  </body>
+</html>
