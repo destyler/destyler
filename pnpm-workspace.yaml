@@ -19,6 +19,8 @@ catalog:
   '@zag-js/aria-hidden': ^0.79.2
   '@zag-js/collection': ^0.79.2
   '@zag-js/dismissable': ^0.79.2
+  '@zag-js/remove-scroll': ^0.79.2
+  '@zag-js/focus-trap': ^0.79.2
   '@zag-js/popper': ^0.79.2
   eslint: ^9.16.0
   rimraf: ^6.0.1

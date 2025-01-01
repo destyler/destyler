@@ -22,6 +22,7 @@ declare module 'vue-router/auto-routes' {
     '/collapse': RouteRecordInfo<'/collapse', '/collapse', Record<never, never>, Record<never, never>>,
     '/collapsible': RouteRecordInfo<'/collapsible', '/collapsible', Record<never, never>, Record<never, never>>,
     '/combobox': RouteRecordInfo<'/combobox', '/combobox', Record<never, never>, Record<never, never>>,
+    '/dialog': RouteRecordInfo<'/dialog', '/dialog', Record<never, never>, Record<never, never>>,
     '/image': RouteRecordInfo<'/image', '/image', Record<never, never>, Record<never, never>>,
   }
 }
