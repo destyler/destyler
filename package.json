@@ -18,6 +18,7 @@
     "generate-machine": "plop machine",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "taze": "taze",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
     "vue": "pnpm --filter \"./examples/vue\""
   },
@@ -28,6 +29,7 @@
     "find-packages": "catalog:",
     "plop": "catalog:",
     "rimraf": "catalog:",
+    "taze": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:"

@@ -7,58 +7,58 @@ settings:
 catalogs:
   default:
     '@antfu/eslint-config':
-      specifier: ^3.12.0
+      specifier: ^3.12.1
       version: 3.12.1
     '@types/node':
-      specifier: ^22.10.2
-      version: 22.10.2
+      specifier: ^22.10.3
+      version: 22.10.3
     '@zag-js/anatomy':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/aria-hidden':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/collection':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/core':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/dismissable':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/dom-event':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/dom-query':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/focus-trap':
-      specifier: ^0.79.2
-      version: 0.79.3
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/focus-visible':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/form-utils':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/popper':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/remove-scroll':
-      specifier: ^0.79.2
-      version: 0.79.3
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/store':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/types':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/utils':
-      specifier: ^0.79.2
-      version: 0.79.2
+      specifier: ^0.80.0
+      version: 0.80.0
     eslint:
-      specifier: ^9.16.0
+      specifier: ^9.17.0
       version: 9.17.0
     find-packages:
       specifier: ^10.0.4
@@ -69,6 +69,9 @@ catalogs:
     rimraf:
       specifier: ^6.0.1
       version: 6.0.1
+    taze:
+      specifier: ^0.18.0
+      version: 0.18.0
     tsx:
       specifier: ^4.19.2
       version: 4.19.2
@@ -79,7 +82,7 @@ catalogs:
       specifier: ^3.2.0
       version: 3.2.0
     vite:
-      specifier: ^6.0.5
+      specifier: ^6.0.6
       version: 6.0.6
     vue:
       specifier: ^3.5.13
@@ -110,7 +113,7 @@ catalogs:
       specifier: ^0.10.9
       version: 0.10.9
     vite:
-      specifier: ^6.0.5
+      specifier: ^6.0.6
       version: 6.0.6
     vue:
       specifier: ^3.5.13
@@ -128,7 +131,7 @@ importers:
         version: 3.12.1(@typescript-eslint/utils@8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(@vue/compiler-sfc@3.5.13)(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)
       '@types/node':
         specifier: 'catalog:'
-        version: 22.10.2
+        version: 22.10.3
       eslint:
         specifier: 'catalog:'
         version: 9.17.0(jiti@2.4.2)
@@ -141,6 +144,9 @@ importers:
       rimraf:
         specifier: 'catalog:'
         version: 6.0.1
+      taze:
+        specifier: 'catalog:'
+        version: 0.18.0
       tsx:
         specifier: 'catalog:'
         version: 4.19.2
@@ -183,10 +189,10 @@ importers:
         version: 5.0.9
       unocss:
         specifier: catalog:examples
-        version: 0.65.3(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
+        version: 0.65.3(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
       vite:
         specifier: 'catalog:'
-        version: 6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
+        version: 6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
 
   examples/vue:
     dependencies:
@@ -217,13 +223,13 @@ importers:
         version: 0.65.3
       '@vitejs/plugin-vue':
         specifier: catalog:examples
-        version: 5.2.1(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
+        version: 5.2.1(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
       '@vue/tsconfig':
         specifier: catalog:examples
         version: 0.7.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
       unocss:
         specifier: catalog:examples
-        version: 0.65.3(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
+        version: 0.65.3(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
       unplugin-auto-import:
         specifier: catalog:examples
         version: 0.19.0(rollup@4.29.1)
@@ -235,7 +241,7 @@ importers:
         version: 0.10.9(rollup@4.29.1)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
       vite:
         specifier: catalog:examples
-        version: 6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
+        version: 6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
       vue:
         specifier: catalog:examples
         version: 3.5.13(typescript@5.7.2)
@@ -247,173 +253,173 @@ importers:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-event':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-query':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/focus-visible':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/form-utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/components/collapse:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-event':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-query':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/components/collapsible:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-query':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/components/combobox:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/aria-hidden':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/collection':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dismissable':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-event':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-query':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/popper':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/components/dialog:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/aria-hidden':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dismissable':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-query':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/focus-trap':
         specifier: 'catalog:'
-        version: 0.79.3
+        version: 0.80.0
       '@zag-js/remove-scroll':
         specifier: 'catalog:'
-        version: 0.79.3
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/components/image:
     dependencies:
       '@zag-js/anatomy':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/dom-query':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/frameworks/vanilla:
     dependencies:
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
 
   packages/frameworks/vue:
     dependencies:
       '@zag-js/core':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/store':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       '@zag-js/types':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
     devDependencies:
       '@zag-js/utils':
         specifier: 'catalog:'
-        version: 0.79.2
+        version: 0.80.0
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.2)
@@ -475,6 +481,10 @@ packages:
 
   '@antfu/install-pkg@0.5.0':
     resolution: {integrity: sha512-dKnk2xlAyC7rvTkpkHmu+Qy/2Zc3Vm/l8PtNyIOGDBtXPY3kThfU4ORNEp3V7SXw5XSOb+tOJaUYpfquPzL/Tg==}
+
+  '@antfu/ni@0.23.2':
+    resolution: {integrity: sha512-FSEVWXvwroExDXUu8qV6Wqp2X3D1nJ0Li4LFymCyvCVrm7I3lNfG0zZWSWvGU1RE7891eTnFTyh31L3igOwNKQ==}
+    hasBin: true
 
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
@@ -1205,8 +1215,8 @@ packages:
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
-  '@types/node@22.10.2':
-    resolution: {integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==}
+  '@types/node@22.10.3':
+    resolution: {integrity: sha512-DifAyw4BkrufCILvD3ucnuN8eydUfc/C1GlyrnI+LK6543w5/L3VeVgf05o3B4fqSXP1dKYLOZsKfutpxPzZrw==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -1439,59 +1449,56 @@ packages:
       vue:
         optional: true
 
-  '@zag-js/anatomy@0.79.2':
-    resolution: {integrity: sha512-XiMW4E8IoW7Nzoc6d1BqRcCXWf0Gr0kxLUVDB5ajol3b2pV08o9va68jBWp/1bVxIyGT9D2casC3+YgXBR+Nww==}
+  '@zag-js/anatomy@0.80.0':
+    resolution: {integrity: sha512-C5snawQarZO8dT3n4SWroEF7EmYoac6aY9ZSg4LMSeWU4jT5tC5LqfFjKr7/tLHqeS752RFYhsp2hn+nDBe1/g==}
 
-  '@zag-js/aria-hidden@0.79.2':
-    resolution: {integrity: sha512-/AIz0aK7O7tvcrixOwqb3vMiVeceIWrIJqWGjvBts3VLODAlQnYrpWCCZOGB5I/AVBI+9uX9GM6Qpk/DPUlA0g==}
+  '@zag-js/aria-hidden@0.80.0':
+    resolution: {integrity: sha512-OIa6IrOHBiT8jNy5PRbOIW067iN5b5PYgBHQa0dRbHosiM+RzDbkb+qT7N47hDVrKLFvuJIuU1AKZdBRNqUweg==}
 
-  '@zag-js/collection@0.79.2':
-    resolution: {integrity: sha512-otdbtJk+ColEU1kWmt6oC5ri3iw6lJGsaXg8TbQpKQTVo8OCDlmiPpjvbTqELoRCqeZwVH4SGr+HrZE/rGUr4w==}
+  '@zag-js/collection@0.80.0':
+    resolution: {integrity: sha512-vshBSRT3wcfjytQZhGZvsxns+5CHvPXBw0o4iMKrXDB2bTMYwb09DIUS6tGsNd8Vj96UGc/whK5+ym+3CBam1A==}
 
-  '@zag-js/core@0.79.2':
-    resolution: {integrity: sha512-APdwKDENzWzibOOk/1lWkD7fXmyVBchJoNavRz2XEX/Yl4y3JHzqC1V063lD7rYPFIOuZYEe7od0KhvaneXD7A==}
+  '@zag-js/core@0.80.0':
+    resolution: {integrity: sha512-9tCfl7dG9Ko63/wLYBl+MkTwMrF5G2OaiNEdE7OuBjKpUwx6PGtlRLJ7ZJLm3A5LX3RthzvZOPyQmJzqBkVA0Q==}
 
-  '@zag-js/dismissable@0.79.2':
-    resolution: {integrity: sha512-pCADWc81PKrewKZkgX0T5TXUPyof+KQYIAAuOmXHKpUa5lWopAr7T5SssYic0uF3qJPp4Rvn3lGkCNkMNFXfqw==}
+  '@zag-js/dismissable@0.80.0':
+    resolution: {integrity: sha512-7qTsEzSKYH8tAAndWLiT0A09zg8TYUaaldvtpc/rtO/C/fzN2PkEkXo17IiNvRFjDo/GjjQ2IAx3E2BXRP64ow==}
 
-  '@zag-js/dom-event@0.79.2':
-    resolution: {integrity: sha512-iYyA8ZiK/Tf+usBYmPjFXifaR59In5Mx9vMHGkocswi6UEQHI2eUKCooC6Chs5vfKqkVxa+isLZ2nw4NNBCFGg==}
+  '@zag-js/dom-event@0.80.0':
+    resolution: {integrity: sha512-dWOGfsVxobT3qCjadyBfZhV0DxpbhZD23N4luPi1mEd1eSfvw0dJlkRDDare0TQnkbUL90+pTqTt2epzxJvGxw==}
 
-  '@zag-js/dom-query@0.79.2':
-    resolution: {integrity: sha512-g/80bm3YAQBj6BvMYxCO+XmuB3lSnjJ8+yg+vskBTDXx1dv/gXYoYwv3pf2t3BehplI4+eeItSD49P5OjZQNgA==}
+  '@zag-js/dom-query@0.80.0':
+    resolution: {integrity: sha512-wDIMR/KnDmUOswCnsvtN0V67quFnIE31x6LqeaQS9g0ZqMC+AkbGo6zRlIzzvxIHa5uc6ee/FFn/TBZ5Cfd1KQ==}
 
-  '@zag-js/dom-query@0.79.3':
-    resolution: {integrity: sha512-PMa5aEx71lP4i/Ip+YEtV7vDUu6QuLEyQF3UiO+tj0ijbmjZDVENERv7btVG0+ej+xhLlybdYwcTvTX6W3OvDA==}
+  '@zag-js/focus-trap@0.80.0':
+    resolution: {integrity: sha512-/t2Ee57zdPGf/EFKLMcW6A2WqdoQo6Rlt5dQyonj7GqrpZqXuL/glv+YgNeie6vT5XXV4r7bzHmS49CRwSk3wA==}
 
-  '@zag-js/focus-trap@0.79.3':
-    resolution: {integrity: sha512-QteCNXxAuPkme3/mEhM/eW2672ZU7SYNFK99y7FsTX5r9b1bMm5AwcZDhjwuq3MyABAdECoHFLItNtVCG4lnyQ==}
+  '@zag-js/focus-visible@0.80.0':
+    resolution: {integrity: sha512-lf6+G758yOmL/mnM+TiEHghT+FBd3yxDDUfS5qh+P4EuXD5lHw7GkrK0SjSpsudR2MY3SH3o9XYnsUhwl+3BHg==}
 
-  '@zag-js/focus-visible@0.79.2':
-    resolution: {integrity: sha512-B6+/PDFV6b6+mxWNgbv7pzVjV70rvKPJYTMY45BomQ4vzXXkcQv0JlOIEwSwxs0lm6pZb8vQQ0hYtz1WjlqUBg==}
+  '@zag-js/form-utils@0.80.0':
+    resolution: {integrity: sha512-j7INhx/QiI1Elo4h+VbFXhzljOFK1AcpaJj1nlItp3rm+NoHfPjugB/1wPK3wCuyq/RtAim65Jmf9pa9+7kmBg==}
 
-  '@zag-js/form-utils@0.79.2':
-    resolution: {integrity: sha512-jNv8p2ynH3NXK5cdtmvcnyVu1MVL511Kc8HwgPJK4LsnFUcYyNAltIEcpJh4tCi402UAyeMdFbunsmAugplw1Q==}
+  '@zag-js/interact-outside@0.80.0':
+    resolution: {integrity: sha512-v2FpIkx3SqrXvkaKdIVrsCpE5y8U9QU0WOdyAKp2iPMM7YeqB+dbHuA7ceOaJr2e9DqW0PQI/qllbhmkTCcQlg==}
 
-  '@zag-js/interact-outside@0.79.2':
-    resolution: {integrity: sha512-/5R3QgaWb4ar8yYMYWhXkcNtLd+dJudUdlt84zXkdleo2/KzurI0p52W2eQKsMD84MY4uNs0v+Lj2OMG2N9QXQ==}
+  '@zag-js/popper@0.80.0':
+    resolution: {integrity: sha512-6BFZ8JCwvg8EuI1tuY6xWvuzG3AUWvuw20z7/gqWlv+3sH8pEg1q9affdVJuzOrBRsZDhVoCfXLc5ZraIp30dA==}
 
-  '@zag-js/popper@0.79.2':
-    resolution: {integrity: sha512-9Xp0T80qAq1bGgOxPgYik6ya/tZpvRPuuvMlzIAWMa3FktOfMCW//iFG9pEWRqcSkzhDqFPioRE1UxKoxz6NjA==}
+  '@zag-js/remove-scroll@0.80.0':
+    resolution: {integrity: sha512-lQy509VwwB+mARMF+lm0gg8PjFlaBlTjVDwymVFpsdc9cO3b6aeznU2t8kDVRM04AAR6WzbCgIH2vs6LZP2euA==}
 
-  '@zag-js/remove-scroll@0.79.3':
-    resolution: {integrity: sha512-U1E9FYAosJyC5MXpMWR06IDwi2QhpXGlWb0cwdN0+5TfIQ3RRZePuFyg41Ohs1lueUpmuxmtVPxlUdnnfDeCEg==}
+  '@zag-js/store@0.80.0':
+    resolution: {integrity: sha512-tOVlQx5t5/0h3ErZyL0X0pwno4zPoPnrSVvK5fgomoslalaLDHZkApNJyCyKK3cHDRBqY2bSDSsSNfCQtvNv3g==}
 
-  '@zag-js/store@0.79.2':
-    resolution: {integrity: sha512-3d+0us9jlrMgmeVGcl2H1+zqjEHR3c+BZefx8OtI/K1zLixyOkL+YDe5F93pnsnJCllh4QafTv6C+VdcHqXiGg==}
+  '@zag-js/text-selection@0.80.0':
+    resolution: {integrity: sha512-W5kfPN9Pz5KzSCHCr0oUofzDWGxHQRlLq26DTQJVw5dwByEXR27UyNTDtaYFdHr+duVIFLueKlAvOieNWc1MDg==}
 
-  '@zag-js/text-selection@0.79.2':
-    resolution: {integrity: sha512-1JXeETO/chTi4uOc/FIyX7o+AHxtDVEzN8fmzzAB+ZMcGBbVIjQUY9xccUk+V5pI92J3///ECfike+eVG38ihw==}
+  '@zag-js/types@0.80.0':
+    resolution: {integrity: sha512-SpaV+uU2FV5qhtaJxfaPWuEBijzPMiElE7X3R5D9hDP0q7iHSuG0h/C0TDLGXLReV+y/YNlYVUUnZSHOv8ZNXQ==}
 
-  '@zag-js/types@0.79.2':
-    resolution: {integrity: sha512-RtG9L6R0T41DnRGMyQXtDfZvJqILJIwYxBEoN/PzAdI6m0VXQVHP9IZC8BbUVGrwXTZS9+xeL+x7xuq0YWY5Xg==}
-
-  '@zag-js/utils@0.79.2':
-    resolution: {integrity: sha512-GvWnURSMJ4jyVvAD9pCzV5z+uGE4UBWhIht0JS7D5J6A/uSveCGmjUo1zgTV2wttvrkJ8WAd2357+YXBMjhn1Q==}
+  '@zag-js/utils@0.80.0':
+    resolution: {integrity: sha512-+GXVHO0pfCENjcYz6CKI+YbMHNnSGCLsRIXrpbvU1tYeTk0L1tniAKzQ87vkZMkdYbbkg96MFvjexbq0foGwAQ==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3530,6 +3537,10 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
 
+  taze@0.18.0:
+    resolution: {integrity: sha512-aL8g+4tZvfhsn147u9dRP2eUE2MV+HfJe1sAtSJp46b0Gd8AjyqlJ2uDwnJfM1XNv301Mvh98RkXQw27sco5tQ==}
+    hasBin: true
+
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
@@ -3948,6 +3959,8 @@ snapshots:
     dependencies:
       package-manager-detector: 0.2.8
       tinyexec: 0.3.2
+
+  '@antfu/ni@0.23.2': {}
 
   '@antfu/utils@0.7.10': {}
 
@@ -4540,7 +4553,7 @@ snapshots:
   '@types/liftoff@4.0.3':
     dependencies:
       '@types/fined': 1.1.5
-      '@types/node': 22.10.2
+      '@types/node': 22.10.3
 
   '@types/mdast@4.0.4':
     dependencies:
@@ -4548,7 +4561,7 @@ snapshots:
 
   '@types/ms@0.7.34': {}
 
-  '@types/node@22.10.2':
+  '@types/node@22.10.3':
     dependencies:
       undici-types: 6.20.0
 
@@ -4558,7 +4571,7 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 22.10.2
+      '@types/node': 22.10.3
 
   '@types/unist@3.0.3': {}
 
@@ -4639,13 +4652,13 @@ snapshots:
       '@typescript-eslint/types': 8.19.0
       eslint-visitor-keys: 4.2.0
 
-  '@unocss/astro@0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))':
+  '@unocss/astro@0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       '@unocss/core': 0.65.3
       '@unocss/reset': 0.65.3
-      '@unocss/vite': 0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
+      '@unocss/vite': 0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
     optionalDependencies:
-      vite: 6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
+      vite: 6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -4774,7 +4787,7 @@ snapshots:
     dependencies:
       '@unocss/core': 0.65.3
 
-  '@unocss/vite@0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))':
+  '@unocss/vite@0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@rollup/pluginutils': 5.1.4(rollup@4.29.1)
@@ -4784,15 +4797,15 @@ snapshots:
       chokidar: 3.6.0
       magic-string: 0.30.17
       tinyglobby: 0.2.10
-      vite: 6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
+      vite: 6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
     transitivePeerDependencies:
       - rollup
       - supports-color
       - vue
 
-  '@vitejs/plugin-vue@5.2.1(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))':
+  '@vitejs/plugin-vue@5.2.1(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))':
     dependencies:
-      vite: 6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
+      vite: 6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
       vue: 3.5.13(typescript@5.7.2)
 
   '@vitest/eslint-plugin@1.1.21(@typescript-eslint/utils@8.19.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.7.2)':
@@ -4911,75 +4924,73 @@ snapshots:
       typescript: 5.7.2
       vue: 3.5.13(typescript@5.7.2)
 
-  '@zag-js/anatomy@0.79.2': {}
+  '@zag-js/anatomy@0.80.0': {}
 
-  '@zag-js/aria-hidden@0.79.2': {}
+  '@zag-js/aria-hidden@0.80.0': {}
 
-  '@zag-js/collection@0.79.2':
+  '@zag-js/collection@0.80.0':
     dependencies:
-      '@zag-js/utils': 0.79.2
+      '@zag-js/utils': 0.80.0
 
-  '@zag-js/core@0.79.2':
+  '@zag-js/core@0.80.0':
     dependencies:
-      '@zag-js/store': 0.79.2
-      '@zag-js/utils': 0.79.2
+      '@zag-js/store': 0.80.0
+      '@zag-js/utils': 0.80.0
 
-  '@zag-js/dismissable@0.79.2':
+  '@zag-js/dismissable@0.80.0':
     dependencies:
-      '@zag-js/dom-event': 0.79.2
-      '@zag-js/dom-query': 0.79.2
-      '@zag-js/interact-outside': 0.79.2
-      '@zag-js/utils': 0.79.2
+      '@zag-js/dom-event': 0.80.0
+      '@zag-js/dom-query': 0.80.0
+      '@zag-js/interact-outside': 0.80.0
+      '@zag-js/utils': 0.80.0
 
-  '@zag-js/dom-event@0.79.2':
+  '@zag-js/dom-event@0.80.0':
     dependencies:
-      '@zag-js/dom-query': 0.79.2
-      '@zag-js/text-selection': 0.79.2
-      '@zag-js/types': 0.79.2
+      '@zag-js/dom-query': 0.80.0
+      '@zag-js/text-selection': 0.80.0
+      '@zag-js/types': 0.80.0
 
-  '@zag-js/dom-query@0.79.2': {}
+  '@zag-js/dom-query@0.80.0': {}
 
-  '@zag-js/dom-query@0.79.3': {}
-
-  '@zag-js/focus-trap@0.79.3':
+  '@zag-js/focus-trap@0.80.0':
     dependencies:
-      '@zag-js/dom-query': 0.79.3
+      '@zag-js/dom-query': 0.80.0
 
-  '@zag-js/focus-visible@0.79.2':
+  '@zag-js/focus-visible@0.80.0':
     dependencies:
-      '@zag-js/dom-query': 0.79.2
+      '@zag-js/dom-query': 0.80.0
 
-  '@zag-js/form-utils@0.79.2': {}
+  '@zag-js/form-utils@0.80.0': {}
 
-  '@zag-js/interact-outside@0.79.2':
+  '@zag-js/interact-outside@0.80.0':
     dependencies:
-      '@zag-js/dom-event': 0.79.2
-      '@zag-js/dom-query': 0.79.2
-      '@zag-js/utils': 0.79.2
+      '@zag-js/dom-event': 0.80.0
+      '@zag-js/dom-query': 0.80.0
+      '@zag-js/utils': 0.80.0
 
-  '@zag-js/popper@0.79.2':
+  '@zag-js/popper@0.80.0':
     dependencies:
       '@floating-ui/dom': 1.6.12
-      '@zag-js/dom-query': 0.79.2
-      '@zag-js/utils': 0.79.2
+      '@zag-js/dom-query': 0.80.0
+      '@zag-js/utils': 0.80.0
 
-  '@zag-js/remove-scroll@0.79.3':
+  '@zag-js/remove-scroll@0.80.0':
     dependencies:
-      '@zag-js/dom-query': 0.79.3
+      '@zag-js/dom-query': 0.80.0
 
-  '@zag-js/store@0.79.2':
+  '@zag-js/store@0.80.0':
     dependencies:
       proxy-compare: 3.0.1
 
-  '@zag-js/text-selection@0.79.2':
+  '@zag-js/text-selection@0.80.0':
     dependencies:
-      '@zag-js/dom-query': 0.79.2
+      '@zag-js/dom-query': 0.80.0
 
-  '@zag-js/types@0.79.2':
+  '@zag-js/types@0.80.0':
     dependencies:
       csstype: 3.1.3
 
-  '@zag-js/utils@0.79.2': {}
+  '@zag-js/utils@0.80.0': {}
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
@@ -7323,6 +7334,18 @@ snapshots:
 
   tapable@2.2.1: {}
 
+  taze@0.18.0:
+    dependencies:
+      '@antfu/ni': 0.23.2
+      js-yaml: 4.1.0
+      ofetch: 1.4.1
+      package-manager-detector: 0.2.8
+      tinyexec: 0.3.2
+      unconfig: 0.6.0
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - supports-color
+
   tinyexec@0.3.2: {}
 
   tinyglobby@0.2.10:
@@ -7468,9 +7491,9 @@ snapshots:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 
-  unocss@0.65.3(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2)):
+  unocss@0.65.3(postcss@8.4.49)(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2)):
     dependencies:
-      '@unocss/astro': 0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
+      '@unocss/astro': 0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
       '@unocss/cli': 0.65.3(rollup@4.29.1)
       '@unocss/core': 0.65.3
       '@unocss/postcss': 0.65.3(postcss@8.4.49)
@@ -7486,9 +7509,9 @@ snapshots:
       '@unocss/transformer-compile-class': 0.65.3
       '@unocss/transformer-directives': 0.65.3
       '@unocss/transformer-variant-group': 0.65.3
-      '@unocss/vite': 0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
+      '@unocss/vite': 0.65.3(rollup@4.29.1)(vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1))(vue@3.5.13(typescript@5.7.2))
     optionalDependencies:
-      vite: 6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
+      vite: 6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1)
     transitivePeerDependencies:
       - postcss
       - rollup
@@ -7603,13 +7626,13 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite@6.0.6(@types/node@22.10.2)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1):
+  vite@6.0.6(@types/node@22.10.3)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.6.1):
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
       rollup: 4.29.1
     optionalDependencies:
-      '@types/node': 22.10.2
+      '@types/node': 22.10.3
       fsevents: 2.3.3
       jiti: 2.4.2
       tsx: 4.19.2
