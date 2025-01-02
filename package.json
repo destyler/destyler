@@ -25,10 +25,10 @@
     "@antfu/eslint-config": "catalog:",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "find-packages": "^10.0.4",
+    "find-packages": "catalog:",
     "plop": "catalog:",
     "rimraf": "catalog:",
-    "tsx": "^4.19.2",
+    "tsx": "catalog:",
     "typescript": "catalog:",
     "unbuild": "catalog:"
   }
