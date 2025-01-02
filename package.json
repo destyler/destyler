@@ -19,9 +19,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
-    "vue": "pnpm --filter \"./examples/vue\"",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "vue": "pnpm --filter \"./examples/vue\""
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
