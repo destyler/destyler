@@ -25,5 +25,6 @@ declare module 'vue-router/auto-routes' {
     '/dialog': RouteRecordInfo<'/dialog', '/dialog', Record<never, never>, Record<never, never>>,
     '/hover-card': RouteRecordInfo<'/hover-card', '/hover-card', Record<never, never>, Record<never, never>>,
     '/image': RouteRecordInfo<'/image', '/image', Record<never, never>, Record<never, never>>,
+    '/popover': RouteRecordInfo<'/popover', '/popover', Record<never, never>, Record<never, never>>,
   }
 }

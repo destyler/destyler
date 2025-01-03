@@ -180,6 +180,9 @@ importers:
       '@destyler/image':
         specifier: workspace:*
         version: link:../../packages/components/image
+      '@destyler/popover':
+        specifier: workspace:*
+        version: link:../../packages/components/popover
       '@destyler/vanilla':
         specifier: workspace:*
         version: link:../../packages/frameworks/vanilla
@@ -220,6 +223,9 @@ importers:
       '@destyler/image':
         specifier: workspace:*
         version: link:../../packages/components/image
+      '@destyler/popover':
+        specifier: workspace:*
+        version: link:../../packages/components/popover
       '@destyler/vue':
         specifier: workspace:*
         version: link:../../packages/frameworks/vue
@@ -417,6 +423,39 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/popover:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/aria-hidden':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dismissable':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/focus-trap':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/popper':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/remove-scroll':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
