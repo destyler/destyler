@@ -17,41 +17,6 @@
 - Typescript Supported - Support TypeScript & type checked & type inference.
 - Unstyled - easily customizable and great for building design system and web apps.
 
-## Install
-
-```bash
-pnpm install destyler
-```
-
-## On-demand Import
-
-You need to use an additional plugin to import components you used. First you need to install [unplugin-vue-components](https://github.com/unplugin/unplugin-vue-components) and [unplugin-auto-import](https://github.com/unplugin/unplugin-auto-import).
-
-```bash
-pnpm install -D unplugin-vue-components unplugin-auto-import
-```
-
-Then add the code below into your Vite config file.
-
-```ts
-import { DestylerUIResolver } from 'destyler/resolver'
-import Components from 'unplugin-vue-components/vite'
-// vite.config.ts
-import { defineConfig } from 'vite'
-
-export default defineConfig({
-  // ...
-  plugins: [
-
-    Components({
-      resolvers: [
-        DestylerUIResolver(),
-      ],
-    }),
-  ],
-})
-```
-
 ## Credits
 
 > All credits go to these open-source works and resources
