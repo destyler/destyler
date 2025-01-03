@@ -1,7 +1,7 @@
 import * as popover from '@destyler/popover'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class Popover extends Component<popover.Context, popover.Api> {
   initService(context: popover.Context) {

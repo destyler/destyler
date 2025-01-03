@@ -1,7 +1,7 @@
 import * as hoverCard from '@destyler/hover-card'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class HoverCard extends Component<hoverCard.Context, hoverCard.Api> {
   initService(context: hoverCard.Context) {

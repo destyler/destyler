@@ -1,7 +1,7 @@
 import * as collapse from '@destyler/collapse'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class Collapse extends Component<collapse.Context, collapse.Api> {
   initService(context: collapse.Context) {

@@ -2,7 +2,7 @@ import * as collapsible from '@destyler/collapsible'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class Collapsible extends Component<collapsible.Context, collapsible.Api> {
   initService(context: collapsible.Context) {

@@ -10,13 +10,13 @@ const router =useRouter()
       <RouterView />
     </div>
     <div class="flex gap-2 border-t border-dark mt-5">
-    <a
-      v-for="i in router.getRoutes()"
-      :key="i.path"
-      :href="i.path"
-    >
-      {{ i.name === '/' ? 'home' : i.name }}
-    </a>
+      <a
+        v-for="i in router.getRoutes()"
+        :key="i.path"
+        :href="i.path"
+      >
+        {{ i.name === '/' ? 'home' : i.name }}
+      </a>
   </div>
   </main>
 </template>

@@ -1,7 +1,7 @@
 import * as dialog from '@destyler/dialog'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class Dialog extends Component<dialog.Context, dialog.Api> {
   initService(context: dialog.Context) {

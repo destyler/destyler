@@ -1,7 +1,7 @@
 import * as image from '@destyler/image'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class Image extends Component<image.Context, image.Api> {
   initService(context: image.Context) {

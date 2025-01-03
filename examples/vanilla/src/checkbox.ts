@@ -1,7 +1,7 @@
 import * as checkbox from '@destyler/checkbox'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
-import './main'
+import '../main'
 
 export class Checkbox extends Component<checkbox.Context, checkbox.Api> {
   initService(context: checkbox.Context) {
