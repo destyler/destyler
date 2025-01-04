@@ -16,6 +16,7 @@
     "@destyler/dialog": "workspace:*",
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
+    "@destyler/menu": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/vue": "workspace:*"
   },

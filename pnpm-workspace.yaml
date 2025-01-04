@@ -21,6 +21,7 @@ catalog:
   '@zag-js/store': ^0.80.0
   '@zag-js/types': ^0.80.0
   '@zag-js/utils': ^0.80.0
+  '@zag-js/rect-utils': ^0.80.0
   eslint: ^9.17.0
   find-packages: ^10.0.4
   plop: ^4.0.1
