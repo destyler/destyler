@@ -189,6 +189,9 @@ importers:
       '@destyler/popover':
         specifier: workspace:*
         version: link:../../packages/components/popover
+      '@destyler/switch':
+        specifier: workspace:*
+        version: link:../../packages/components/switch
       '@destyler/vanilla':
         specifier: workspace:*
         version: link:../../packages/frameworks/vanilla
@@ -235,6 +238,9 @@ importers:
       '@destyler/popover':
         specifier: workspace:*
         version: link:../../packages/components/popover
+      '@destyler/switch':
+        specifier: workspace:*
+        version: link:../../packages/components/switch
       '@destyler/vue':
         specifier: workspace:*
         version: link:../../packages/frameworks/vue
@@ -495,6 +501,33 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/remove-scroll':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/switch:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/focus-visible':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/form-utils':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':

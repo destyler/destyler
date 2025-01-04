@@ -16,6 +16,7 @@
     "@destyler/image": "workspace:*",
     "@destyler/menu": "workspace:*",
     "@destyler/popover": "workspace:*",
+    "@destyler/switch": "workspace:*",
     "@destyler/vanilla": "workspace:*"
   },
   "devDependencies": {
