@@ -28,6 +28,7 @@ declare module 'vue-router/auto-routes' {
     '/menu': RouteRecordInfo<'/menu', '/menu', Record<never, never>, Record<never, never>>,
     '/popover': RouteRecordInfo<'/popover', '/popover', Record<never, never>, Record<never, never>>,
     '/switch': RouteRecordInfo<'/switch', '/switch', Record<never, never>, Record<never, never>>,
+    '/timer': RouteRecordInfo<'/timer', '/timer', Record<never, never>, Record<never, never>>,
     '/tooltip': RouteRecordInfo<'/tooltip', '/tooltip', Record<never, never>, Record<never, never>>,
   }
 }
