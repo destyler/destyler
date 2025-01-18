@@ -15,11 +15,12 @@ const api = computed(() => tabs.connect(state.value, send, normalizeProps));
 
 <template>
   <div ref="ref" v-bind="api.getRootProps()">
-    <div v-bind="api.getListProps()">
+    <div v-bind="api.getListProps()" class="flex gap-2">
       <button
         v-for="item in data"
         v-bind="api.getTriggerProps({ value: item.value })"
         :key="item.value"
+        class="border-r border-r-gray pr-2"
       >
         {{ item.label }}
       </button>
