@@ -20,6 +20,7 @@
     "@destyler/popover": "workspace:*",
     "@destyler/switch": "workspace:*",
     "@destyler/timer": "workspace:*",
+    "@destyler/toast": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/vue": "workspace:*"
   },
