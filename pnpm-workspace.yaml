@@ -22,6 +22,7 @@ catalog:
   '@zag-js/types': *zag
   '@zag-js/utils': *zag
   '@zag-js/rect-utils': *zag
+  '@zag-js/element-rect': *zag
   eslint: ^9.17.0
   find-packages: ^10.0.4
   plop: ^4.0.1
