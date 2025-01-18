@@ -17,6 +17,7 @@
     "@destyler/menu": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/switch": "workspace:*",
+    "@destyler/tooltip": "workspace:*",
     "@destyler/vanilla": "workspace:*"
   },
   "devDependencies": {

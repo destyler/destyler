@@ -19,6 +19,7 @@
     "@destyler/menu": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/switch": "workspace:*",
+    "@destyler/tooltip": "workspace:*",
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
