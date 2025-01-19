@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import * as pagination from "@destyler/pagination"
 import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed } from "vue"
+import { computed, useId } from "vue"
 
 
-const [state, send] = useMachine(pagination.machine({ id: "1", count: 1000 }))
+const [state, send] = useMachine(pagination.machine({ id: useId(), count: 1000 }))
 
 const api = computed(() => pagination.connect(state.value, send, normalizeProps))
 </script>
