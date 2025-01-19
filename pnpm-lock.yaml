@@ -51,6 +51,9 @@ catalogs:
     '@zag-js/form-utils':
       specifier: ^0.80.0
       version: 0.80.0
+    '@zag-js/number-utils':
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/popper':
       specifier: ^0.80.0
       version: 0.80.0
@@ -259,6 +262,9 @@ importers:
       '@destyler/popover':
         specifier: workspace:*
         version: link:../../packages/components/popover
+      '@destyler/splitter':
+        specifier: workspace:*
+        version: link:../../packages/components/splitter
       '@destyler/switch':
         specifier: workspace:*
         version: link:../../packages/components/switch
@@ -534,6 +540,30 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/remove-scroll':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/splitter:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/number-utils':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
@@ -1771,6 +1801,9 @@ packages:
 
   '@zag-js/interact-outside@0.80.0':
     resolution: {integrity: sha512-v2FpIkx3SqrXvkaKdIVrsCpE5y8U9QU0WOdyAKp2iPMM7YeqB+dbHuA7ceOaJr2e9DqW0PQI/qllbhmkTCcQlg==}
+
+  '@zag-js/number-utils@0.80.0':
+    resolution: {integrity: sha512-DcuLmCXNtCDUlGLbEbWRZ8UQFJ1pCJ8oFkxDU7rNzoAXMST1Yz4Vw4LU+FCzjSH/aR3n4rBFOAJyFYOzWLa2QQ==}
 
   '@zag-js/popper@0.80.0':
     resolution: {integrity: sha512-6BFZ8JCwvg8EuI1tuY6xWvuzG3AUWvuw20z7/gqWlv+3sH8pEg1q9affdVJuzOrBRsZDhVoCfXLc5ZraIp30dA==}
@@ -5229,6 +5262,8 @@ snapshots:
       '@zag-js/dom-event': 0.80.0
       '@zag-js/dom-query': 0.80.0
       '@zag-js/utils': 0.80.0
+
+  '@zag-js/number-utils@0.80.0': {}
 
   '@zag-js/popper@0.80.0':
     dependencies:

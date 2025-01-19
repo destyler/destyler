@@ -4,8 +4,6 @@ packages:
   - examples/*
   - utils
 catalog:
-  '@antfu/eslint-config': ^3.12.1
-  '@types/node': ^22.10.3
   '@zag-js/core': &zag ^0.80.0
   '@zag-js/anatomy': *zag
   '@zag-js/aria-hidden': *zag
@@ -23,6 +21,9 @@ catalog:
   '@zag-js/utils': *zag
   '@zag-js/rect-utils': *zag
   '@zag-js/element-rect': *zag
+  '@zag-js/number-utils': *zag
+  '@antfu/eslint-config': ^3.12.1
+  '@types/node': ^22.10.3
   eslint: ^9.17.0
   find-packages: ^10.0.4
   plop: ^4.0.1

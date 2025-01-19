@@ -27,6 +27,7 @@ declare module 'vue-router/auto-routes' {
     '/image': RouteRecordInfo<'/image', '/image', Record<never, never>, Record<never, never>>,
     '/menu': RouteRecordInfo<'/menu', '/menu', Record<never, never>, Record<never, never>>,
     '/popover': RouteRecordInfo<'/popover', '/popover', Record<never, never>, Record<never, never>>,
+    '/splitter': RouteRecordInfo<'/splitter', '/splitter', Record<never, never>, Record<never, never>>,
     '/switch': RouteRecordInfo<'/switch', '/switch', Record<never, never>, Record<never, never>>,
     '/tabs': RouteRecordInfo<'/tabs', '/tabs', Record<never, never>, Record<never, never>>,
     '/timer': RouteRecordInfo<'/timer', '/timer', Record<never, never>, Record<never, never>>,
