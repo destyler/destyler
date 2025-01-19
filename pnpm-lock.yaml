@@ -259,6 +259,9 @@ importers:
       '@destyler/menu':
         specifier: workspace:*
         version: link:../../packages/components/menu
+      '@destyler/pagination':
+        specifier: workspace:*
+        version: link:../../packages/components/pagination
       '@destyler/popover':
         specifier: workspace:*
         version: link:../../packages/components/popover
@@ -507,6 +510,24 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/rect-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/pagination:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':

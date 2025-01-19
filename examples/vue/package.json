@@ -17,6 +17,7 @@
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/menu": "workspace:*",
+    "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/splitter": "workspace:*",
     "@destyler/switch": "workspace:*",
