@@ -1,6 +1,0 @@
-export { PopoverArrow, popoverArrowProps, type PopoverArrowProps } from './components/arrow'
-export { PopoverClose, popoverCloseProps, type PopoverCloseProps } from './components/close'
-export { PopoverContent, popoverContentProps, type PopoverContentProps } from './components/content'
-export { PopoverPortal, popoverPortalProps, type PopoverPortalProps } from './components/portal'
-export { PopoverRoot, popoverRootProps, type PopoverRootProps } from './components/root'
-export { PopoverTrigger, popoverTriggerProps, type PopoverTriggerProps } from './components/trigger'

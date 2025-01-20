@@ -17,41 +17,6 @@
 - Typescript Supported - Support TypeScript & type checked & type inference.
 - Unstyled - easily customizable and great for building design system and web apps.
 
-## Install
-
-```bash
-pnpm install destyler
-```
-
-## On-demand Import
-
-You need to use an additional plugin to import components you used. First you need to install [unplugin-vue-components](https://github.com/unplugin/unplugin-vue-components) and [unplugin-auto-import](https://github.com/unplugin/unplugin-auto-import).
-
-```bash
-pnpm install -D unplugin-vue-components unplugin-auto-import
-```
-
-Then add the code below into your Vite config file.
-
-```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
-import Components from 'unplugin-vue-components/vite'
-import { DestylerUIResolver } from 'destyler/resolver'
-
-export default defineConfig({
-  // ...
-  plugins: [
-
-    Components({
-      resolvers: [
-        DestylerUIResolver(),
-      ],
-    }),
-  ],
-})
-```
-
 ## Credits
 
 > All credits go to these open-source works and resources
@@ -70,6 +35,9 @@ export default defineConfig({
 - Shadcn UI - https://github.com/shadcn-ui/ui
 - nuxt-ui - https://github.com/nuxt/ui
 - nuxt-ui-pro - https://github.com/nuxt-ui-pro
+- zag - https://github.com/chakra-ui/zag
+- XState - https://xstate.js.org/
+- Pure UI Control - https://asolove.medium.com/pure-ui-control-ac8d1be97a8d
 
 ## License
 

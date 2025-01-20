@@ -1,8 +1,0 @@
-export { TooltipArrow, tooltipArrowProps, type TooltipArrowProps } from './components/arrow'
-export { TooltipContent, tooltipContentEmits, tooltipContentProps, type TooltipContentProps } from './components/content'
-export { TooltipContentHoverable } from './components/contentHoverable'
-export { TooltipContentImpl, tooltipContentImplEmits, tooltipContentImplProps, type TooltipContentImplProps } from './components/contentImpl'
-export { TooltipPortal, tooltipPortalProps, type TooltipPortalProps } from './components/portal'
-export { TooltipProvider, tooltipProviderProps, type TooltipProviderProps } from './components/provider'
-export { TooltipRoot, tooltipRootProps, tooltipRootEmits, type TooltipRootProps } from './components/root'
-export { TooltipTrigger, tooltipTriggerProps, type TooltipTriggerProps } from './components/trigger'

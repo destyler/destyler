@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+  </head>
+  <body style="padding: 40px">
+    <h1>Menu</h1>
+
+    <div class="menu-root">
+      <button class="trigger">
+        Actions
+      </button>
+      <div class="positioner">
+        <ul class="content">
+          <li data-value="edit" class="item">Edit</li>
+          <li data-value="duplicate" class="item" >Duplicate</li>
+          <li data-value="delete" class="item" >Delete</li>
+          <li data-value="export" class="item" >Export...</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="app" class="flex gap-2 border-t border-dark mt-5"></div>
+    <script type="module" src="../src/menu.ts"></script>
+  </body>
+</html>

@@ -1,8 +1,0 @@
-export { DialogClose, dialogCloseProps, type DialogCloseProps } from './components/close'
-export { DialogContent, dialogContentProps, type DialogContentProps } from './components/content'
-export { DialogDescription, dialogDescriptionProps, type DialogDescriptionProps } from './components/description'
-export { DialogOverlay, dialogOverlayProps, type DialogOverlayProps } from './components/overlay'
-export { DialogPortal, dialogPortalProps, type DialogPortalProps } from './components/portal'
-export { DialogRoot, dialogRootProps, type DialogRootProps } from './components/root'
-export { DialogTitle, dialogTitleProps, type DialogTitleProps } from './components/title'
-export { DialogTrigger, dialogTriggerProps, type DialogTriggerProps } from './components/trigger'

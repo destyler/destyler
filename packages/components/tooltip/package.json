@@ -2,21 +2,12 @@
   "name": "@destyler/tooltip",
   "type": "module",
   "version": "0.0.6",
-  "description": "a popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
-    },
-    "./resolver": {
-      "types": "./dist/resolver.d.mts",
-      "default": "./dist/resolver.mjs"
-    },
-    "./component": {
-      "types": "./dist/component.d.mts",
-      "default": "./dist/component.mjs"
     },
     "./*": "./*"
   },
@@ -29,21 +20,19 @@
   ],
   "scripts": {
     "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && unbuild",
     "stub": "unbuild --stub"
   },
-  "peerDependencies": {
-    "vue": ">=3.4.21"
-  },
   "dependencies": {
-    "@destyler/composition": "workspace:*",
-    "@destyler/dismissable-layer": "workspace:*",
-    "@destyler/popper": "workspace:*",
-    "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*",
-    "@destyler/teleport": "workspace:*",
-    "@destyler/visually-hidden": "workspace:*",
-    "@vueuse/core": "^10.9.0"
+    "@zag-js/anatomy": "catalog:",
+    "@zag-js/core": "catalog:",
+    "@zag-js/dom-event": "catalog:",
+    "@zag-js/dom-query": "catalog:",
+    "@zag-js/focus-visible": "catalog:",
+    "@zag-js/popper": "catalog:",
+    "@zag-js/types": "catalog:",
+    "@zag-js/utils": "catalog:"
   }
 }

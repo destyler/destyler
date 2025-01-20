@@ -1,5 +1,0 @@
-export { ScrollAreaCorner, scrollAreaCorner, type ScrollAreaCornerProps } from './components/corner'
-export { ScrollAreaRoot, scrollAreaRootProps, type ScrollAreaRootProps } from './components/root'
-export { ScrollAreaScrollbar, scrollAreaScrollbarProps, type ScrollAreaScrollbarProps } from './components/scrollbar'
-export { ScrollAreaThumb, scrollAreaThumbProps, type ScrollAreaThumbProps } from './components/thumb'
-export { ScrollAreaViewport, scrollAreaViewportProps, type ScrollAreaViewportProps } from './components/viewport'
