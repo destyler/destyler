@@ -11,7 +11,7 @@ const api = computed(() => pagination.connect(state.value, send, normalizeProps)
 
 <template>
   <nav v-if="api.totalPages > 1" v-bind="api.getRootProps()">
-    <ul>
+    <ul class="flex gap-x-2">
       <li>
         <a href="#previous" v-bind="api.getPrevTriggerProps()">
           Previous <span class="visually-hidden">Page</span>
