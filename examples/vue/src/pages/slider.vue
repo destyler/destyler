@@ -3,7 +3,7 @@ import * as slider from "@destyler/slider";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed,useId } from "vue";
 
-const [state, send] = useMachine(slider.machine({ id: useId(), value: [0] }));
+const [state, send] = useMachine(slider.machine({ id: useId(), value: [54] }));
 const api = computed(() => slider.connect(state.value, send, normalizeProps));
 </script>
 
