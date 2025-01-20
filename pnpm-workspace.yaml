@@ -22,6 +22,8 @@ catalog:
   '@zag-js/rect-utils': *zag
   '@zag-js/element-rect': *zag
   '@zag-js/number-utils': *zag
+  '@zag-js/element-size': *zag
+  '@zag-js/numeric-range': *zag
   '@antfu/eslint-config': ^3.12.1
   '@types/node': ^22.10.3
   eslint: ^9.17.0
