@@ -21,6 +21,7 @@
     "@destyler/popover": "workspace:*",
     "@destyler/progress": "workspace:*",
     "@destyler/radio": "workspace:*",
+    "@destyler/select": "workspace:*",
     "@destyler/slider": "workspace:*",
     "@destyler/splitter": "workspace:*",
     "@destyler/switch": "workspace:*",

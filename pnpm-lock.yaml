@@ -286,6 +286,9 @@ importers:
       '@destyler/radio':
         specifier: workspace:*
         version: link:../../packages/components/radio
+      '@destyler/select':
+        specifier: workspace:*
+        version: link:../../packages/components/select
       '@destyler/slider':
         specifier: workspace:*
         version: link:../../packages/components/slider
@@ -630,6 +633,39 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/form-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/select:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/collection':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dismissable':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/form-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/popper':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
