@@ -29,6 +29,7 @@ declare module 'vue-router/auto-routes' {
     '/pagination': RouteRecordInfo<'/pagination', '/pagination', Record<never, never>, Record<never, never>>,
     '/popover': RouteRecordInfo<'/popover', '/popover', Record<never, never>, Record<never, never>>,
     '/progress': RouteRecordInfo<'/progress', '/progress', Record<never, never>, Record<never, never>>,
+    '/radio': RouteRecordInfo<'/radio', '/radio', Record<never, never>, Record<never, never>>,
     '/slider': RouteRecordInfo<'/slider', '/slider', Record<never, never>, Record<never, never>>,
     '/splitter': RouteRecordInfo<'/splitter', '/splitter', Record<never, never>, Record<never, never>>,
     '/switch': RouteRecordInfo<'/switch', '/switch', Record<never, never>, Record<never, never>>,
