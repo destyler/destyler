@@ -19,6 +19,7 @@
     "@destyler/menu": "workspace:*",
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
+    "@destyler/progress": "workspace:*",
     "@destyler/slider": "workspace:*",
     "@destyler/splitter": "workspace:*",
     "@destyler/switch": "workspace:*",

@@ -271,6 +271,9 @@ importers:
       '@destyler/popover':
         specifier: workspace:*
         version: link:../../packages/components/popover
+      '@destyler/progress':
+        specifier: workspace:*
+        version: link:../../packages/components/progress
       '@destyler/slider':
         specifier: workspace:*
         version: link:../../packages/components/slider
@@ -570,6 +573,24 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/remove-scroll':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/progress:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
