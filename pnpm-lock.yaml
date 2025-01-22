@@ -319,6 +319,9 @@ importers:
       '@destyler/toast':
         specifier: workspace:*
         version: link:../../packages/components/toast
+      '@destyler/toggle':
+        specifier: workspace:*
+        version: link:../../packages/components/toggle
       '@destyler/tooltip':
         specifier: workspace:*
         version: link:../../packages/components/tooltip
@@ -876,6 +879,27 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/dismissable':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/toggle:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/dom-event':

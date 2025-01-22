@@ -30,6 +30,7 @@
     "@destyler/tabs": "workspace:*",
     "@destyler/timer": "workspace:*",
     "@destyler/toast": "workspace:*",
+    "@destyler/toggle": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/vue": "workspace:*"
   },
