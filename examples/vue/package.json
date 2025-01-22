@@ -18,6 +18,7 @@
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/menu": "workspace:*",
+    "@destyler/otp-input": "workspace:*",
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
     "@destyler/progress": "workspace:*",

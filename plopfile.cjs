@@ -24,7 +24,7 @@ module.exports = function main(plop) {
       {
         type: 'input',
         name: 'machine',
-        message: 'Enter machine name (e.g. menu, popover):',
+        message: 'Enter machine name (e.g. menu, otp-input):',
       },
     ],
     actions(answers) {
