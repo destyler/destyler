@@ -8,6 +8,10 @@
     qrCode.machine({
       id: useId(),
       value: "https://github.com/destyler",
+      encoding:{
+        ecc:'L',
+        boostEcc: false
+      }
     }),
   )
 
