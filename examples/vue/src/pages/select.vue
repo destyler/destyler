@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import * as select from "@destyler/select"
   import { normalizeProps, useMachine } from "@destyler/vue"
-  import { computed, Teleport } from "vue"
+  import { computed } from "vue"
 
   const selectData = [
     { label: "Nigeria", value: "NG" },
