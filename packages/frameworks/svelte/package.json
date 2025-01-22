@@ -33,7 +33,6 @@
     "@zag-js/types": "catalog:"
   },
   "devDependencies": {
-    "@sveltejs/package": "catalog:",
     "@zag-js/utils": "catalog:",
     "svelte": "catalog:"
   }
