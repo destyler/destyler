@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import * as select from "@destyler/select"
   import { normalizeProps, useMachine } from "@destyler/vue"
-  import { computed } from "vue"
+  import { computed, useId } from "vue"
 
   const selectData = [
     { label: "Nigeria", value: "NG" },
@@ -11,7 +11,7 @@
 
   const [state, send] = useMachine(
     select.machine({
-      id: "1",
+      id: useId(),
       collection: select.collection({
         items: selectData,
       }),

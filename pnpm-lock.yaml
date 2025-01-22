@@ -24,6 +24,9 @@ catalogs:
     '@zag-js/aria-hidden':
       specifier: ^0.80.0
       version: 0.80.0
+    '@zag-js/auto-resize':
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/collection':
       specifier: ^0.80.0
       version: 0.80.0
@@ -52,6 +55,12 @@ catalogs:
       specifier: ^0.80.0
       version: 0.80.0
     '@zag-js/form-utils':
+      specifier: ^0.80.0
+      version: 0.80.0
+    '@zag-js/interact-outside':
+      specifier: ^0.80.0
+      version: 0.80.0
+    '@zag-js/live-region':
       specifier: ^0.80.0
       version: 0.80.0
     '@zag-js/number-utils':
@@ -262,6 +271,9 @@ importers:
       '@destyler/dialog':
         specifier: workspace:*
         version: link:../../packages/components/dialog
+      '@destyler/dynamic':
+        specifier: workspace:*
+        version: link:../../packages/components/dynamic
       '@destyler/hover-card':
         specifier: workspace:*
         version: link:../../packages/components/hover-card
@@ -462,6 +474,39 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/remove-scroll':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/dynamic:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/auto-resize':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/form-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/interact-outside':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/live-region':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
@@ -1960,6 +2005,9 @@ packages:
   '@zag-js/aria-hidden@0.80.0':
     resolution: {integrity: sha512-OIa6IrOHBiT8jNy5PRbOIW067iN5b5PYgBHQa0dRbHosiM+RzDbkb+qT7N47hDVrKLFvuJIuU1AKZdBRNqUweg==}
 
+  '@zag-js/auto-resize@0.80.0':
+    resolution: {integrity: sha512-SDSuJYx3GPbAhLwxWQwxjaXqV8kP/adAwKIisKumLwBLSUra4OLAl+FITOn8YWBHfKFh1LoNFI+ufUhpEicEVA==}
+
   '@zag-js/collection@0.80.0':
     resolution: {integrity: sha512-vshBSRT3wcfjytQZhGZvsxns+5CHvPXBw0o4iMKrXDB2bTMYwb09DIUS6tGsNd8Vj96UGc/whK5+ym+3CBam1A==}
 
@@ -1992,6 +2040,9 @@ packages:
 
   '@zag-js/interact-outside@0.80.0':
     resolution: {integrity: sha512-v2FpIkx3SqrXvkaKdIVrsCpE5y8U9QU0WOdyAKp2iPMM7YeqB+dbHuA7ceOaJr2e9DqW0PQI/qllbhmkTCcQlg==}
+
+  '@zag-js/live-region@0.80.0':
+    resolution: {integrity: sha512-H6rrhosGaoysRj94bhiE8T6J0CrxzCAGFrYKfPo/os1dm8pEB/rGeRz8i6lZ5gtd5O0PaO9mDmfqOXYLoGlZYw==}
 
   '@zag-js/number-utils@0.80.0':
     resolution: {integrity: sha512-DcuLmCXNtCDUlGLbEbWRZ8UQFJ1pCJ8oFkxDU7rNzoAXMST1Yz4Vw4LU+FCzjSH/aR3n4rBFOAJyFYOzWLa2QQ==}
@@ -5464,6 +5515,10 @@ snapshots:
 
   '@zag-js/aria-hidden@0.80.0': {}
 
+  '@zag-js/auto-resize@0.80.0':
+    dependencies:
+      '@zag-js/dom-query': 0.80.0
+
   '@zag-js/collection@0.80.0':
     dependencies:
       '@zag-js/utils': 0.80.0
@@ -5507,6 +5562,8 @@ snapshots:
       '@zag-js/dom-event': 0.80.0
       '@zag-js/dom-query': 0.80.0
       '@zag-js/utils': 0.80.0
+
+  '@zag-js/live-region@0.80.0': {}
 
   '@zag-js/number-utils@0.80.0': {}
 
