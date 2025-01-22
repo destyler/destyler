@@ -39,6 +39,7 @@ catalog:
   tsx: ^4.19.2
   typescript: ^5.7.2
   unbuild: ^3.2.0
+  uqr: ^0.1.2
 
   vite: &vite ^6.0.6
 
@@ -53,7 +54,8 @@ catalog:
   '@types/react': *react
   '@types/react-dom': *react
 
-  proxy-compare: ^3.0.1
+  proxy-compare: &proxy ^3.0.1
+  proxy-memoize: *proxy
 catalogs:
   examples:
     unocss: &unocss ^0.65.3
