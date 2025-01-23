@@ -334,6 +334,9 @@ importers:
       '@destyler/tooltip':
         specifier: workspace:*
         version: link:../../packages/components/tooltip
+      '@destyler/tour':
+        specifier: workspace:*
+        version: link:../../packages/components/tour
       '@destyler/vue':
         specifier: workspace:*
         version: link:../../packages/frameworks/vue
@@ -963,6 +966,36 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/focus-visible':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/popper':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/tour:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dismissable':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/focus-trap':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/interact-outside':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/popper':

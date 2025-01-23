@@ -93,7 +93,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getActionTriggerProps(props) {
       if (!validActions.has(props.action)) {
         throw new Error(
-          `[zag-js] Invalid action: ${props.action}. Must be one of: ${Array.from(validActions).join(', ')}`,
+          `[destyler] Invalid action: ${props.action}. Must be one of: ${Array.from(validActions).join(', ')}`,
         )
       }
 

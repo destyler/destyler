@@ -41,5 +41,6 @@ declare module 'vue-router/auto-routes' {
     '/timer': RouteRecordInfo<'/timer', '/timer', Record<never, never>, Record<never, never>>,
     '/toggle': RouteRecordInfo<'/toggle', '/toggle', Record<never, never>, Record<never, never>>,
     '/tooltip': RouteRecordInfo<'/tooltip', '/tooltip', Record<never, never>, Record<never, never>>,
+    '/tour': RouteRecordInfo<'/tour', '/tour', Record<never, never>, Record<never, never>>,
   }
 }

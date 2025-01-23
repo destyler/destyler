@@ -33,6 +33,7 @@
     "@destyler/toast": "workspace:*",
     "@destyler/toggle": "workspace:*",
     "@destyler/tooltip": "workspace:*",
+    "@destyler/tour": "workspace:*",
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
