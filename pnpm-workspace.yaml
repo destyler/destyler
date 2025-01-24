@@ -25,7 +25,9 @@ catalog:
   '@zag-js/element-size': *zag
   '@zag-js/numeric-range': *zag
   '@zag-js/auto-resize': *zag
+  '@zag-js/date-utils': *zag
   '@zag-js/interact-outside': *zag
+  '@zag-js/text-selection': *zag
   '@zag-js/live-region': *zag
 
   eslint: ^9.17.0

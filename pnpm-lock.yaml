@@ -33,6 +33,9 @@ catalogs:
     '@zag-js/core':
       specifier: ^0.80.0
       version: 0.80.0
+    '@zag-js/date-utils':
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/dismissable':
       specifier: ^0.80.0
       version: 0.80.0
@@ -79,6 +82,9 @@ catalogs:
       specifier: ^0.80.0
       version: 0.80.0
     '@zag-js/store':
+      specifier: ^0.80.0
+      version: 0.80.0
+    '@zag-js/text-selection':
       specifier: ^0.80.0
       version: 0.80.0
     '@zag-js/types':
@@ -262,6 +268,9 @@ importers:
 
   examples/vue:
     dependencies:
+      '@destyler/calendar':
+        specifier: workspace:*
+        version: link:../../packages/components/calendar
       '@destyler/checkbox':
         specifier: workspace:*
         version: link:../../packages/components/checkbox
@@ -298,6 +307,9 @@ importers:
       '@destyler/popover':
         specifier: workspace:*
         version: link:../../packages/components/popover
+      '@destyler/presence':
+        specifier: workspace:*
+        version: link:../../packages/components/presence
       '@destyler/progress':
         specifier: workspace:*
         version: link:../../packages/components/progress
@@ -341,6 +353,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/frameworks/vue
     devDependencies:
+      '@internationalized/date':
+        specifier: 3.6.0
+        version: 3.6.0
       '@unocss/reset':
         specifier: catalog:examples
         version: 0.65.3
@@ -371,6 +386,49 @@ importers:
       vue-router:
         specifier: catalog:examples
         version: 4.5.0(vue@3.5.13(typescript@5.7.2))
+
+  packages/components/calendar:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/date-utils':
+        specifier: 'catalog:'
+        version: 0.80.0(@internationalized/date@3.6.0)
+      '@zag-js/dismissable':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/form-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/live-region':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/popper':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/text-selection':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+    devDependencies:
+      '@internationalized/date':
+        specifier: 3.6.0
+        version: 3.6.0
 
   packages/components/checkbox:
     dependencies:
@@ -678,6 +736,15 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/presence:
+    dependencies:
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
         specifier: 'catalog:'
         version: 0.80.0
 
@@ -1634,6 +1701,9 @@ packages:
     resolution: {integrity: sha512-BXvGj0ehzrngHTPTDqUoDT3NXL8U0RxUk2zJm2A66RhCEIWdtU1v6GuUqNAgArW4PQ9CinqIWyHdQgdwOj06zQ==}
     engines: {node: '>=18'}
 
+  '@internationalized/date@3.6.0':
+    resolution: {integrity: sha512-+z6ti+CcJnRlLHok/emGEsWQhe7kfSmEW+/6qCzvKY67YPh7YOBfvc7+/+NXq+zJlbArg30tYpqLjNgcAYv2YQ==}
+
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
@@ -1861,6 +1931,9 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
+
+  '@swc/helpers@0.5.15':
+    resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -2130,6 +2203,11 @@ packages:
 
   '@zag-js/core@0.80.0':
     resolution: {integrity: sha512-9tCfl7dG9Ko63/wLYBl+MkTwMrF5G2OaiNEdE7OuBjKpUwx6PGtlRLJ7ZJLm3A5LX3RthzvZOPyQmJzqBkVA0Q==}
+
+  '@zag-js/date-utils@0.80.0':
+    resolution: {integrity: sha512-S4taShtp6cMhSSkUgWGvCEYzi9+z0pmPN5DiqoMlfVlCBgtW+B4wZDTrd6Nkpf33qcQhubpbjXi3UgzmwUN5Cg==}
+    peerDependencies:
+      '@internationalized/date': '>=3.0.0'
 
   '@zag-js/dismissable@0.80.0':
     resolution: {integrity: sha512-7qTsEzSKYH8tAAndWLiT0A09zg8TYUaaldvtpc/rtO/C/fzN2PkEkXo17IiNvRFjDo/GjjQ2IAx3E2BXRP64ow==}
@@ -5065,6 +5143,10 @@ snapshots:
 
   '@inquirer/figures@1.0.9': {}
 
+  '@internationalized/date@3.6.0':
+    dependencies:
+      '@swc/helpers': 0.5.15
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -5264,6 +5346,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  '@swc/helpers@0.5.15':
+    dependencies:
+      tslib: 2.8.1
 
   '@trysound/sax@0.2.0': {}
 
@@ -5650,6 +5736,10 @@ snapshots:
     dependencies:
       '@zag-js/store': 0.80.0
       '@zag-js/utils': 0.80.0
+
+  '@zag-js/date-utils@0.80.0(@internationalized/date@3.6.0)':
+    dependencies:
+      '@internationalized/date': 3.6.0
 
   '@zag-js/dismissable@0.80.0':
     dependencies:

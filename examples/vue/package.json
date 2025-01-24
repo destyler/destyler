@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@destyler/calendar": "workspace:*",
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
@@ -21,6 +22,7 @@
     "@destyler/otp-input": "workspace:*",
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
+    "@destyler/presence": "workspace:*",
     "@destyler/progress": "workspace:*",
     "@destyler/qr-code": "workspace:*",
     "@destyler/radio": "workspace:*",
@@ -37,6 +39,7 @@
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
+    "@internationalized/date": "3.6.0",
     "@unocss/reset": "catalog:examples",
     "@vitejs/plugin-vue": "catalog:examples",
     "@vue/tsconfig": "catalog:examples",
