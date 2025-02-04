@@ -390,6 +390,24 @@ importers:
         specifier: catalog:examples
         version: 4.5.0(vue@3.5.13(typescript@5.7.2))
 
+  packages/components/aspect-radio:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
   packages/components/calendar:
     dependencies:
       '@zag-js/anatomy':

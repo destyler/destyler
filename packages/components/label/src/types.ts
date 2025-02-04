@@ -27,5 +27,5 @@ export type Send = StateMachine.Send<StateMachine.AnyEventObject>
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   isHovered: boolean
-  getRootProps: () => T['element']
+  getRootProps: () => T['label']
 }
