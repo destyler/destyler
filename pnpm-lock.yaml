@@ -295,6 +295,9 @@ importers:
       '@destyler/image':
         specifier: workspace:*
         version: link:../../packages/components/image
+      '@destyler/label':
+        specifier: workspace:*
+        version: link:../../packages/components/label
       '@destyler/menu':
         specifier: workspace:*
         version: link:../../packages/components/menu
@@ -625,6 +628,21 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/label:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':

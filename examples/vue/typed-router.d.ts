@@ -27,6 +27,7 @@ declare module 'vue-router/auto-routes' {
     '/dynamic': RouteRecordInfo<'/dynamic', '/dynamic', Record<never, never>, Record<never, never>>,
     '/hover-card': RouteRecordInfo<'/hover-card', '/hover-card', Record<never, never>, Record<never, never>>,
     '/image': RouteRecordInfo<'/image', '/image', Record<never, never>, Record<never, never>>,
+    '/label': RouteRecordInfo<'/label', '/label', Record<never, never>, Record<never, never>>,
     '/menu': RouteRecordInfo<'/menu', '/menu', Record<never, never>, Record<never, never>>,
     '/otp-input': RouteRecordInfo<'/otp-input', '/otp-input', Record<never, never>, Record<never, never>>,
     '/pagination': RouteRecordInfo<'/pagination', '/pagination', Record<never, never>, Record<never, never>>,
