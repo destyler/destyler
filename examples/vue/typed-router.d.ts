@@ -21,6 +21,7 @@ declare module 'vue-router/auto-routes' {
     '/aspect-ratio': RouteRecordInfo<'/aspect-ratio', '/aspect-ratio', Record<never, never>, Record<never, never>>,
     '/breadcrumbs': RouteRecordInfo<'/breadcrumbs', '/breadcrumbs', Record<never, never>, Record<never, never>>,
     '/calendar': RouteRecordInfo<'/calendar', '/calendar', Record<never, never>, Record<never, never>>,
+    '/carousel': RouteRecordInfo<'/carousel', '/carousel', Record<never, never>, Record<never, never>>,
     '/checkbox': RouteRecordInfo<'/checkbox', '/checkbox', Record<never, never>, Record<never, never>>,
     '/collapse': RouteRecordInfo<'/collapse', '/collapse', Record<never, never>, Record<never, never>>,
     '/collapsible': RouteRecordInfo<'/collapsible', '/collapsible', Record<never, never>, Record<never, never>>,

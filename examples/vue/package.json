@@ -12,6 +12,7 @@
     "@destyler/aspect-ratio": "workspace:*",
     "@destyler/breadcrumbs": "workspace:*",
     "@destyler/calendar": "workspace:*",
+    "@destyler/carousel": "workspace:*",
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",

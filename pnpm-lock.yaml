@@ -81,6 +81,9 @@ catalogs:
     '@zag-js/remove-scroll':
       specifier: ^0.80.0
       version: 0.80.0
+    '@zag-js/scroll-snap':
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/store':
       specifier: ^0.80.0
       version: 0.80.0
@@ -277,6 +280,9 @@ importers:
       '@destyler/calendar':
         specifier: workspace:*
         version: link:../../packages/components/calendar
+      '@destyler/carousel':
+        specifier: workspace:*
+        version: link:../../packages/components/carousel
       '@destyler/checkbox':
         specifier: workspace:*
         version: link:../../packages/components/checkbox
@@ -477,6 +483,30 @@ importers:
       '@internationalized/date':
         specifier: 3.6.0
         version: 3.6.0
+
+  packages/components/carousel:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/scroll-snap':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
 
   packages/components/checkbox:
     dependencies:
@@ -2334,6 +2364,9 @@ packages:
 
   '@zag-js/remove-scroll@0.80.0':
     resolution: {integrity: sha512-lQy509VwwB+mARMF+lm0gg8PjFlaBlTjVDwymVFpsdc9cO3b6aeznU2t8kDVRM04AAR6WzbCgIH2vs6LZP2euA==}
+
+  '@zag-js/scroll-snap@0.80.0':
+    resolution: {integrity: sha512-N/LRqlytApNgxME19Ds9wBG95abWCMyHhem7A+MY8ZPGVYsWUuLT4j1wg7FPxrPSsrIzpMTuiKbRMLqrLj6UEw==}
 
   '@zag-js/store@0.80.0':
     resolution: {integrity: sha512-tOVlQx5t5/0h3ErZyL0X0pwno4zPoPnrSVvK5fgomoslalaLDHZkApNJyCyKK3cHDRBqY2bSDSsSNfCQtvNv3g==}
@@ -5872,6 +5905,10 @@ snapshots:
   '@zag-js/rect-utils@0.80.0': {}
 
   '@zag-js/remove-scroll@0.80.0':
+    dependencies:
+      '@zag-js/dom-query': 0.80.0
+
+  '@zag-js/scroll-snap@0.80.0':
     dependencies:
       '@zag-js/dom-query': 0.80.0
 
