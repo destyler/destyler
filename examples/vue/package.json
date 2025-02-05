@@ -16,6 +16,7 @@
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
+    "@destyler/color-picker": "workspace:*",
     "@destyler/combobox": "workspace:*",
     "@destyler/dialog": "workspace:*",
     "@destyler/dynamic": "workspace:*",

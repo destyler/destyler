@@ -25,6 +25,7 @@ catalog:
   '@zag-js/element-size': *zag
   '@zag-js/numeric-range': *zag
   '@zag-js/auto-resize': *zag
+  '@zag-js/color-utils': *zag
   '@zag-js/date-utils': *zag
   '@zag-js/interact-outside': *zag
   '@zag-js/text-selection': *zag
