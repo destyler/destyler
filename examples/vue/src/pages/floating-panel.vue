@@ -51,10 +51,4 @@ const api = computed(() => floatingPanel.connect(state.value, send, normalizePro
     </div>
   </main>
 
-  <Toolbar>
-    <StateVisualizer :state="state" />
-    <template #controls>
-      <Controls :control="controls" />
-    </template>
-  </Toolbar>
 </template>
