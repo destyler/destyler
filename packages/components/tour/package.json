@@ -2,6 +2,7 @@
   "name": "@destyler/tour",
   "type": "module",
   "version": "0.0.0",
+  "description": "A guided tour that helps users understand the interface.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

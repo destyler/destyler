@@ -2,6 +2,7 @@
   "name": "@destyler/combobox",
   "type": "module",
   "version": "0.0.0",
+  "description": "autocomplete input and command palette with a list of suggestions.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

@@ -2,6 +2,7 @@
   "name": "@destyler/timer",
   "type": "module",
   "version": "0.0.0",
+  "description": "Used to record the time elapsed from zero or since a specified target time.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

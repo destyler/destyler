@@ -2,6 +2,7 @@
   "name": "@destyler/select",
   "type": "module",
   "version": "0.0.0",
+  "description": "Displays a list of options for the user to pick from—triggered by a button.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

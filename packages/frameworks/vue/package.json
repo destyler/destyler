@@ -2,6 +2,7 @@
   "name": "@destyler/vue",
   "type": "module",
   "version": "0.0.6",
+  "description": "the vue wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

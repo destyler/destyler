@@ -2,6 +2,7 @@
   "name": "@destyler/label",
   "type": "module",
   "version": "0.0.0",
+  "description": "renders an accessible label associated with controls.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
