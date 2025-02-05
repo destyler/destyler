@@ -42,6 +42,7 @@
     "@destyler/toggle": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/tour": "workspace:*",
+    "@destyler/tree": "workspace:*",
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "@unocss/reset": "catalog:examples",
     "@vitejs/plugin-vue": "catalog:examples",
     "@vue/tsconfig": "catalog:examples",
+    "lucide-vue-next": "^0.474.0",
     "unocss": "catalog:examples",
     "unplugin-auto-import": "catalog:examples",
     "unplugin-vue-components": "catalog:examples",
