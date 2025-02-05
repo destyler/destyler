@@ -71,7 +71,7 @@ const uppercasePattern = /[A-Z]/g
 const msPattern = /^ms-/
 
 function toHyphenLower(match: string) {
-  return `-${ match.toLowerCase()}`
+  return `-${match.toLowerCase()}`
 }
 
 const cache: Record<string, any> = {}
@@ -80,5 +80,5 @@ function hyphenateStyleName(name: string) {
   if (cache.hasOwnProperty(name))
     return cache[name]
   const hName = name.replace(uppercasePattern, toHyphenLower)
-  return (cache[name] = msPattern.test(hName) ? `-${ hName}` : hName)
+  return (cache[name] = msPattern.test(hName) ? `-${hName}` : hName)
 }

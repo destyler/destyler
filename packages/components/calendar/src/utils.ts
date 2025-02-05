@@ -43,7 +43,7 @@ export function getInputPlaceholder(locale: string) {
 
 export function isValidCharacter(char: string | null, separator: string) {
   if (!char)
-return true
+    return true
   return /\d/.test(char) || char === separator || char.length !== 1
 }
 

@@ -108,7 +108,7 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
    */
   measureSize: () => void
 
-  getRootProps: () => T["element"]
-  getTriggerProps: () => T["button"]
-  getContentProps: () => T["element"]
+  getRootProps: () => T['element']
+  getTriggerProps: () => T['button']
+  getContentProps: () => T['element']
 }

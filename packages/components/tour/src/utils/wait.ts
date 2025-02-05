@@ -91,7 +91,7 @@ export function waitForElementValue(
     new Promise<void>((resolve) => {
       const el = target()
       if (!el)
-return
+        return
 
       const checkValue = () => {
         if (el.value === value) {

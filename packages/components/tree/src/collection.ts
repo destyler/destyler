@@ -1,7 +1,7 @@
 import { filePathToTree, type FilePathTreeNode, TreeCollection, type TreeCollectionOptions } from '@zag-js/collection'
 import { ref } from '@zag-js/core'
 
-export function collection <T>(options: TreeCollectionOptions<T>): TreeCollection<T> {
+export function collection<T>(options: TreeCollectionOptions<T>): TreeCollection<T> {
   return ref(new TreeCollection(options))
 }
 

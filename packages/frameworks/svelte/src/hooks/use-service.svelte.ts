@@ -15,8 +15,8 @@ export function useService<
   service._created()
 
   $effect(() => {
-    if (!options?.actions) 
-return
+    if (!options?.actions)
+      return
     const actionSnapshot = $state.snapshot(options.actions)
     // @ts-expect-error - svelte typing issue
     service.setOptions({ actions: actionSnapshot })

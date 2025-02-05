@@ -145,9 +145,9 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
    * Function to toggle the checked state of the checkbox
    */
   toggleChecked: () => void
-  getRootProps: () => T["label"]
-  getLabelProps: () => T["element"]
-  getControlProps: () => T["element"]
-  getHiddenInputProps: () => T["input"]
-  getIndicatorProps: () => T["element"]
+  getRootProps: () => T['label']
+  getLabelProps: () => T['element']
+  getControlProps: () => T['element']
+  getHiddenInputProps: () => T['input']
+  getIndicatorProps: () => T['element']
 }

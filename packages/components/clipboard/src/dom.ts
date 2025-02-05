@@ -27,7 +27,7 @@ function copyNode(node: HTMLElement): Promise<void> {
   const selection = win.getSelection()
 
   if (selection == null) {
-    return Promise.reject(new Error())
+    return Promise.reject(new Error('error'))
   }
 
   selection.removeAllRanges()
@@ -52,7 +52,7 @@ function copyText(doc: Document, text: string): Promise<void> {
   }
 
   if (!doc.body) {
-    return Promise.reject(new Error())
+    return Promise.reject(new Error('error'))
   }
 
   const node = createNode(doc, text)

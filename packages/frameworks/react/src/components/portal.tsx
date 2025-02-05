@@ -8,14 +8,15 @@ export interface PortalProps {
   getRootNode?: () => ShadowRoot | Document | Node
 }
 
-export function Portal (props: PropsWithChildren<PortalProps>): JSX.Element {
+export function Portal(props: PropsWithChildren<PortalProps>): JSX.Element {
   const { children, container, disabled, getRootNode } = props
 
-  const isServer = typeof window === "undefined"
-  if (isServer || disabled) return <>{children}</>
+  const isServer = typeof window === 'undefined'
+  if (isServer || disabled)
+    return <>{children}</>
 
   const doc = getRootNode?.().ownerDocument ?? document
   const mountNode = container?.current ?? doc.body
 
-  return <>{Children.map(children, (child) => createPortal(child, mountNode))}</>
+  return <>{Children.map(children, child => createPortal(child, mountNode))}</>
 }

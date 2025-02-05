@@ -11,8 +11,8 @@ interface Selection {
 }
 
 export function recordCursor(inputEl: HTMLInputElement): Selection | undefined {
-  if (inputEl.ownerDocument.activeElement !== inputEl) 
-return
+  if (inputEl.ownerDocument.activeElement !== inputEl)
+    return
   try {
     const { selectionStart: start, selectionEnd: end, value } = inputEl
     const beforeTxt = value.substring(0, start!)
@@ -25,12 +25,12 @@ return
       afterTxt,
     }
   }
- catch {}
+  catch {}
 }
 
 export function restoreCursor(inputEl: HTMLInputElement, selection: Selection | undefined) {
-  if (inputEl.ownerDocument.activeElement !== inputEl) 
-return
+  if (inputEl.ownerDocument.activeElement !== inputEl)
+    return
 
   if (!selection) {
     inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length)
@@ -46,10 +46,10 @@ return
     if (value.endsWith(afterTxt)) {
       startPos = value.length - afterTxt.length
     }
- else if (value.startsWith(beforeTxt)) {
+    else if (value.startsWith(beforeTxt)) {
       startPos = beforeTxt.length
     }
- else if (start != null) {
+    else if (start != null) {
       const beforeLastChar = beforeTxt[start - 1]
       const newIndex = value.indexOf(beforeLastChar, start - 1)
       if (newIndex !== -1) {
@@ -59,5 +59,5 @@ return
 
     inputEl.setSelectionRange(startPos, startPos)
   }
- catch {}
+  catch {}
 }

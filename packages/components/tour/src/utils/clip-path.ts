@@ -24,7 +24,7 @@ export function getClipPath(options: Options) {
   } = options
 
   if (!enabled)
-return ''
+    return ''
 
   const {
     topLeft = 0,

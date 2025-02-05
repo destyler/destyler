@@ -16,8 +16,8 @@ export abstract class Component<Context, Api> implements ComponentInterface<Api>
   api: Api
 
   constructor(rootEl: HTMLElement | null, context: Context) {
-    if (!rootEl) 
-throw new Error('Root element not found')
+    if (!rootEl)
+      throw new Error('Root element not found')
     this.rootEl = rootEl
     this.service = this.initService(context)
     this.api = this.initApi()

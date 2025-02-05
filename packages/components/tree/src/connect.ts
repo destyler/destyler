@@ -203,7 +203,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
               send({ type: isBranchNode ? 'BRANCH_NODE.CLICK' : 'NODE.CLICK', id: nodeId, src: 'keyboard' })
             },
-            '*': function(event) {
+            '*': function (event) {
               if (node.dataset.disabled)
                 return
               event.preventDefault()

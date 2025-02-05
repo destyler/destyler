@@ -8,6 +8,29 @@ import { dom } from './dom'
 
 const { not } = guards
 
+function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
+  return checked === 'indeterminate'
+}
+
+function isChecked(checked?: CheckedState): checked is boolean {
+  return isIndeterminate(checked) ? false : !!checked
+}
+
+const invoke = {
+  change: (ctx: MachineContext) => {
+    ctx.onCheckedChange?.({ checked: ctx.checked })
+  },
+}
+
+const set = {
+  checked: (ctx: MachineContext, checked: CheckedState) => {
+    if (isEqual(ctx.checked, checked))
+      return
+    ctx.checked = checked
+    invoke.change(ctx)
+  },
+}
+
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
@@ -130,27 +153,4 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
-}
-
-function isIndeterminate(checked?: CheckedState): checked is 'indeterminate' {
-  return checked === 'indeterminate'
-}
-
-function isChecked(checked?: CheckedState): checked is boolean {
-  return isIndeterminate(checked) ? false : !!checked
-}
-
-const invoke = {
-  change: (ctx: MachineContext) => {
-    ctx.onCheckedChange?.({ checked: ctx.checked })
-  },
-}
-
-const set = {
-  checked: (ctx: MachineContext, checked: CheckedState) => {
-    if (isEqual(ctx.checked, checked))
-      return
-    ctx.checked = checked
-    invoke.change(ctx)
-  },
 }

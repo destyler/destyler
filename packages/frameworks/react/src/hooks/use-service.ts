@@ -1,8 +1,8 @@
 import type { MachineSrc, StateMachine as S } from '@zag-js/core'
-import { isDev } from "@zag-js/utils"
-import { useRef } from "react"
-import { useConstant } from "./use-constant"
-import { useSafeLayoutEffect } from "./use-layout-effect"
+import { isDev } from '@zag-js/utils'
+import { useRef } from 'react'
+import { useConstant } from './use-constant'
+import { useSafeLayoutEffect } from './use-layout-effect'
 
 export function useService<
   TContext extends Record<string, any>,
@@ -13,8 +13,8 @@ export function useService<
 
   const service = useConstant(() => {
     const instance = typeof machine === 'function' ? machine() : machine
-    if (context) 
-instance.setContext(context)
+    if (context)
+      instance.setContext(context)
     instance._created()
     return instance
   })

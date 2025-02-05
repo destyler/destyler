@@ -1,7 +1,7 @@
-import type { NormalizeProps, PropTypes } from "@zag-js/types"
+import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type { MachineApi, Send, State } from './types'
-import { dataAttr, isSafari } from "@zag-js/dom-query"
-import { getPlacementStyles } from "@zag-js/popper"
+import { dataAttr, isSafari } from '@zag-js/dom-query'
+import { getPlacementStyles } from '@zag-js/popper'
 import { parts } from './anatomy'
 import { dom } from './dom'
 

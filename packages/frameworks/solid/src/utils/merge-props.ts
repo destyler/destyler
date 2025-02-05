@@ -41,11 +41,10 @@ export function mergeProps(...sources: any[]) {
               return (e as any)[key]
             }
             for (let i = sources.length - 1; i >= 0; i--) {
-              let v
-                let s = sources[i]
+              let s = sources[i]
               if (typeof s === 'function')
                 s = s()
-              v = (s || {})[key]
+              const v = (s || {})[key]
               if (v !== undefined)
                 return v
             }

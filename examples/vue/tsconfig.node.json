@@ -12,15 +12,15 @@
       "unplugin-vue-router/client"
     ],
     "allowImportingTsExtensions": true,
-    "skipLibCheck": true,
 
     /* Linting */
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true,
     "noUnusedLocals": true,
-    "noEmit": true,
     "noUnusedParameters": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
   "include": [

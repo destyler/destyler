@@ -1,6 +1,6 @@
 import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type { MachineApi, Send, State } from './types'
-import { dataAttr, getEventTarget, visuallyHiddenStyle } from "@zag-js/dom-query"
+import { dataAttr, getEventTarget, visuallyHiddenStyle } from '@zag-js/dom-query'
 import { isFocusVisible } from '@zag-js/focus-visible'
 import { parts } from './anatomy'
 import { dom } from './dom'

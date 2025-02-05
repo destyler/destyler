@@ -20,11 +20,13 @@
     "lint:fix": "eslint . --fix",
     "taze": "taze",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
-    "vue": "pnpm --filter \"./examples/vue\""
+    "vue": "pnpm --filter \"./examples/vue\"",
+    "release": "bumpp package.json packages/*/package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
     "@types/node": "catalog:",
+    "bumpp": "^10.0.2",
     "eslint": "catalog:",
     "find-packages": "catalog:",
     "plop": "catalog:",
