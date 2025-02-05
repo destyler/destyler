@@ -1,0 +1,29 @@
+{
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@destyler/checkbox": "workspace:*",
+    "@destyler/collapse": "workspace:*",
+    "@destyler/collapsible": "workspace:*",
+    "@destyler/combobox": "workspace:*",
+    "@destyler/dialog": "workspace:*",
+    "@destyler/hover-card": "workspace:*",
+    "@destyler/image": "workspace:*",
+    "@destyler/menu": "workspace:*",
+    "@destyler/popover": "workspace:*",
+    "@destyler/switch": "workspace:*",
+    "@destyler/tooltip": "workspace:*",
+    "@destyler/vanilla": "workspace:*"
+  },
+  "devDependencies": {
+    "@unocss/reset": "catalog:examples",
+    "nanoid": "catalog:examples",
+    "unocss": "catalog:examples",
+    "vite": "catalog:"
+  }
+}

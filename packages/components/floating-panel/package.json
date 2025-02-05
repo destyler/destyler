@@ -1,0 +1,41 @@
+{
+  "name": "@destyler/floating-panel",
+  "type": "module",
+  "version": "0.0.0",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && unbuild",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@zag-js/anatomy": "catalog:",
+    "@zag-js/core": "catalog:",
+    "@zag-js/dismissable": "catalog:",
+    "@zag-js/dom-event": "catalog:",
+    "@zag-js/dom-query": "catalog:",
+    "@zag-js/numeric-range": "catalog:",
+    "@zag-js/popper": "catalog:",
+    "@zag-js/rect-utils": "catalog:",
+    "@zag-js/store": "catalog:",
+    "@zag-js/types": "catalog:",
+    "@zag-js/utils": "catalog:"
+  }
+}

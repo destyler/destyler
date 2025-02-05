@@ -1,26 +1,13 @@
 {
   "name": "@destyler/calendar",
   "type": "module",
-  "version": "0.0.6",
-  "description": "displays dates and days of the week, facilitating date-related interactions.",
+  "version": "0.0.0",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
       "default": "./dist/index.mjs"
-    },
-    "./resolver": {
-      "types": "./dist/resolver.d.mts",
-      "default": "./dist/resolver.mjs"
-    },
-    "./component": {
-      "types": "./dist/component.d.mts",
-      "default": "./dist/component.mjs"
-    },
-    "./composition": {
-      "types": "./dist/composition.d.mts",
-      "default": "./dist/composition.mjs"
     },
     "./*": "./*"
   },
@@ -33,17 +20,29 @@
   ],
   "scripts": {
     "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && unbuild",
     "stub": "unbuild --stub"
   },
   "peerDependencies": {
-    "vue": ">=3.4.21"
+    "@internationalized/date": ">=3.0.0"
   },
   "dependencies": {
-    "@destyler/composition": "workspace:*",
-    "@destyler/primitive": "workspace:*",
-    "@destyler/shared": "workspace:*",
-    "@internationalized/date": "^3.5.2"
+    "@zag-js/anatomy": "catalog:",
+    "@zag-js/core": "catalog:",
+    "@zag-js/date-utils": "catalog:",
+    "@zag-js/dismissable": "catalog:",
+    "@zag-js/dom-event": "catalog:",
+    "@zag-js/dom-query": "catalog:",
+    "@zag-js/form-utils": "catalog:",
+    "@zag-js/live-region": "catalog:",
+    "@zag-js/popper": "catalog:",
+    "@zag-js/text-selection": "catalog:",
+    "@zag-js/types": "catalog:",
+    "@zag-js/utils": "catalog:"
+  },
+  "devDependencies": {
+    "@internationalized/date": "catalog:"
   }
 }

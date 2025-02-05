@@ -1,0 +1,19 @@
+import { createAnatomy } from '@zag-js/anatomy'
+
+export const anatomy = createAnatomy('tree').parts(
+  'root',
+  'label',
+  'tree',
+  'item',
+  'itemIndicator',
+  'itemText',
+  'branch',
+  'branchControl',
+  'branchTrigger',
+  'branchContent',
+  'branchText',
+  'branchIndicator',
+  'branchIndentGuide',
+)
+
+export const parts = anatomy.build()

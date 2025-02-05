@@ -6,14 +6,9 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "paths": {
-      "~/*": ["./"]
-    },
     "resolveJsonModule": true,
     "types": [
-      "vite/client",
-      "node",
-      "@vitest/browser/providers/wbdriverio"
+      "node"
     ],
     "strict": true,
     "strictNullChecks": true,
@@ -22,8 +17,5 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
-  },
-  "include": [
-    "./vitest.setup.ts"
-  ]
+  }
 }

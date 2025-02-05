@@ -1,0 +1,6 @@
+export * from './src/composition/actor'
+export * from './src/composition/machine'
+export * from './src/composition/snapshot'
+export * from './src/shared/normalize-props'
+export { mergeProps } from '@zag-js/core'
+export type { ContextFrom, EventFrom, StateFrom } from '@zag-js/core'

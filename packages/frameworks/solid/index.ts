@@ -1,0 +1,5 @@
+export * from './src/hooks/use-actor'
+export * from './src/hooks/use-machine'
+export { mergeProps } from './src/utils/merge-props'
+export * from './src/utils/normalize-props'
+export type { ContextFrom, EventFrom, StateFrom } from '@zag-js/core'

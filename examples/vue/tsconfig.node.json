@@ -1,12 +1,30 @@
 {
   "compilerOptions": {
-    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "moduleDetection": "force",
     "module": "ESNext",
+
+    /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "types": [
+      "unplugin-vue-router/client"
+    ],
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+
+    /* Linting */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "noUnusedLocals": true,
+    "noEmit": true,
+    "noUnusedParameters": true,
+    "noUncheckedSideEffectImports": true
   },
   "include": [
-    "vite.config.ts"
+    "vite.config.ts",
+    "./typed-router.d.ts"
   ]
 }

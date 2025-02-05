@@ -1,23 +1,30 @@
-import path from 'node:path'
-import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import VueDevTools from 'vite-plugin-vue-devtools'
-import UnoCss from 'unocss/vite'
+import UnoCSS from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
+import Router from 'unplugin-vue-router/vite'
+import { defineConfig } from 'vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    port: 51201,
-  },
-  base: '/__destyler_play_vue__/',
-  resolve: {
-    alias: {
-      '~/components/': `${path.resolve(__dirname, '../../packages/components')}/`,
-    },
-  },
   plugins: [
-    VueDevTools(),
+    Router(),
     Vue(),
-    UnoCss(),
+    AutoImport({
+      imports: [
+        'vue',
+        VueRouterAutoImports,
+      ],
+      dts: true,
+      dirs: [
+        './src/composables',
+      ],
+      vueTemplate: true,
+    }),
+    Components({
+      dts: true,
+    }),
+    UnoCSS(),
+
   ],
 })

@@ -1,0 +1,4 @@
+export { connect } from './src/connect'
+export { machine } from './src/machine'
+export * from './src/props'
+export type { MachineApi as Api, UserDefinedContext as Context, Service } from './src/types'
