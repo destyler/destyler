@@ -21,6 +21,7 @@
     "@destyler/dialog": "workspace:*",
     "@destyler/dynamic": "workspace:*",
     "@destyler/edit": "workspace:*",
+    "@destyler/file-upload": "workspace:*",
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",

@@ -60,6 +60,9 @@ catalogs:
     '@zag-js/element-size':
       specifier: ^0.80.0
       version: 0.80.0
+    '@zag-js/file-utils':
+      specifier: ^0.80.0
+      version: 0.80.0
     '@zag-js/focus-trap':
       specifier: ^0.80.0
       version: 0.80.0
@@ -67,6 +70,9 @@ catalogs:
       specifier: ^0.80.0
       version: 0.80.0
     '@zag-js/form-utils':
+      specifier: ^0.80.0
+      version: 0.80.0
+    '@zag-js/i18n-utils':
       specifier: ^0.80.0
       version: 0.80.0
     '@zag-js/interact-outside':
@@ -316,6 +322,9 @@ importers:
       '@destyler/edit':
         specifier: workspace:*
         version: link:../../packages/components/edit
+      '@destyler/file-upload':
+        specifier: workspace:*
+        version: link:../../packages/components/file-upload
       '@destyler/hover-card':
         specifier: workspace:*
         version: link:../../packages/components/hover-card
@@ -751,6 +760,30 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/interact-outside':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/file-upload:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/file-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/i18n-utils':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
@@ -2527,6 +2560,9 @@ packages:
   '@zag-js/element-size@0.80.0':
     resolution: {integrity: sha512-MPqkbtFy/P9jixZ/rQUFhvXn/uDlcGuolnL1w/Aum4A3uU7YuXfIGJ/c9ZDsSha0POjueWQzM48P9swzNKE4Jw==}
 
+  '@zag-js/file-utils@0.80.0':
+    resolution: {integrity: sha512-THrfN4pbG90PmqD41h8vSDdxNB1EzBGFGMkmYMsZNDuYDOCu+/90TcIMROTm7iWABgXXyiMRnI8fL8/UW5IohA==}
+
   '@zag-js/focus-trap@0.80.0':
     resolution: {integrity: sha512-/t2Ee57zdPGf/EFKLMcW6A2WqdoQo6Rlt5dQyonj7GqrpZqXuL/glv+YgNeie6vT5XXV4r7bzHmS49CRwSk3wA==}
 
@@ -2535,6 +2571,9 @@ packages:
 
   '@zag-js/form-utils@0.80.0':
     resolution: {integrity: sha512-j7INhx/QiI1Elo4h+VbFXhzljOFK1AcpaJj1nlItp3rm+NoHfPjugB/1wPK3wCuyq/RtAim65Jmf9pa9+7kmBg==}
+
+  '@zag-js/i18n-utils@0.80.0':
+    resolution: {integrity: sha512-Ph8y8GFGeAAr7yh2OrIb7Ip0SyYPdsVDyIl4NfX/aHo3yBSKIQijDi996S9bm6a0n3yYk8ATgcLUKSDGRhkTHg==}
 
   '@zag-js/interact-outside@0.80.0':
     resolution: {integrity: sha512-v2FpIkx3SqrXvkaKdIVrsCpE5y8U9QU0WOdyAKp2iPMM7YeqB+dbHuA7ceOaJr2e9DqW0PQI/qllbhmkTCcQlg==}
@@ -6078,6 +6117,10 @@ snapshots:
 
   '@zag-js/element-size@0.80.0': {}
 
+  '@zag-js/file-utils@0.80.0':
+    dependencies:
+      '@zag-js/i18n-utils': 0.80.0
+
   '@zag-js/focus-trap@0.80.0':
     dependencies:
       '@zag-js/dom-query': 0.80.0
@@ -6087,6 +6130,10 @@ snapshots:
       '@zag-js/dom-query': 0.80.0
 
   '@zag-js/form-utils@0.80.0': {}
+
+  '@zag-js/i18n-utils@0.80.0':
+    dependencies:
+      '@zag-js/dom-query': 0.80.0
 
   '@zag-js/interact-outside@0.80.0':
     dependencies:

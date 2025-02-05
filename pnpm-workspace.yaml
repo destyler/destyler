@@ -31,6 +31,8 @@ catalog:
   '@zag-js/text-selection': *zag
   '@zag-js/scroll-snap': *zag
   '@zag-js/live-region': *zag
+  '@zag-js/file-utils': *zag
+  '@zag-js/i18n-utils': *zag
 
   '@internationalized/date': &internationalized ^3.6.0
   '@internationalized/number': *internationalized
