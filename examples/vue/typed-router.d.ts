@@ -32,6 +32,7 @@ declare module 'vue-router/auto-routes' {
     '/dynamic': RouteRecordInfo<'/dynamic', '/dynamic', Record<never, never>, Record<never, never>>,
     '/edit': RouteRecordInfo<'/edit', '/edit', Record<never, never>, Record<never, never>>,
     '/file-upload': RouteRecordInfo<'/file-upload', '/file-upload', Record<never, never>, Record<never, never>>,
+    '/floating-panel': RouteRecordInfo<'/floating-panel', '/floating-panel', Record<never, never>, Record<never, never>>,
     '/hover-card': RouteRecordInfo<'/hover-card', '/hover-card', Record<never, never>, Record<never, never>>,
     '/image': RouteRecordInfo<'/image', '/image', Record<never, never>, Record<never, never>>,
     '/label': RouteRecordInfo<'/label', '/label', Record<never, never>, Record<never, never>>,

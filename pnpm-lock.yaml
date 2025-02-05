@@ -325,6 +325,9 @@ importers:
       '@destyler/file-upload':
         specifier: workspace:*
         version: link:../../packages/components/file-upload
+      '@destyler/floating-panel':
+        specifier: workspace:*
+        version: link:../../packages/components/floating-panel
       '@destyler/hover-card':
         specifier: workspace:*
         version: link:../../packages/components/hover-card
@@ -784,6 +787,42 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/i18n-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/floating-panel:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dismissable':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/numeric-range':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/popper':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/rect-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/store':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
