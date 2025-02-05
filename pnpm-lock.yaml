@@ -346,6 +346,9 @@ importers:
       '@destyler/separator':
         specifier: workspace:*
         version: link:../../packages/components/separator
+      '@destyler/signature':
+        specifier: workspace:*
+        version: link:../../packages/components/signature
       '@destyler/slider':
         specifier: workspace:*
         version: link:../../packages/components/slider
@@ -1008,6 +1011,30 @@ importers:
       '@zag-js/utils':
         specifier: 'catalog:'
         version: 0.80.0
+
+  packages/components/signature:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-event':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      perfect-freehand:
+        specifier: ^1.2.2
+        version: 1.2.2
 
   packages/components/slider:
     dependencies:
@@ -4032,6 +4059,9 @@ packages:
 
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
+
+  perfect-freehand@1.2.2:
+    resolution: {integrity: sha512-eh31l019WICQ03pkF3FSzHxB8n07ItqIQ++G5UV8JX0zVOXzgTGCqnRR0jJ2h9U8/2uW4W4mtGJELt9kEV0CFQ==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -7881,6 +7911,8 @@ snapshots:
   pathe@1.1.2: {}
 
   perfect-debounce@1.0.0: {}
+
+  perfect-freehand@1.2.2: {}
 
   picocolors@1.1.1: {}
 

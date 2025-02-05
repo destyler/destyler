@@ -33,6 +33,7 @@
     "@destyler/radio": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/separator": "workspace:*",
+    "@destyler/signature": "workspace:*",
     "@destyler/slider": "workspace:*",
     "@destyler/splitter": "workspace:*",
     "@destyler/steps": "workspace:*",

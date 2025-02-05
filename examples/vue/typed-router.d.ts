@@ -42,6 +42,7 @@ declare module 'vue-router/auto-routes' {
     '/qr-code': RouteRecordInfo<'/qr-code', '/qr-code', Record<never, never>, Record<never, never>>,
     '/radio': RouteRecordInfo<'/radio', '/radio', Record<never, never>, Record<never, never>>,
     '/select': RouteRecordInfo<'/select', '/select', Record<never, never>, Record<never, never>>,
+    '/signature': RouteRecordInfo<'/signature', '/signature', Record<never, never>, Record<never, never>>,
     '/slider': RouteRecordInfo<'/slider', '/slider', Record<never, never>, Record<never, never>>,
     '/splitter': RouteRecordInfo<'/splitter', '/splitter', Record<never, never>, Record<never, never>>,
     '/step': RouteRecordInfo<'/step', '/step', Record<never, never>, Record<never, never>>,
