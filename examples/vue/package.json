@@ -25,6 +25,7 @@
     "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",
     "@destyler/menu": "workspace:*",
+    "@destyler/number-input": "workspace:*",
     "@destyler/otp-input": "workspace:*",
     "@destyler/pagination": "workspace:*",
     "@destyler/popover": "workspace:*",
@@ -49,7 +50,7 @@
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
-    "@internationalized/date": "3.6.0",
+    "@internationalized/date": "catalog:",
     "@unocss/reset": "catalog:examples",
     "@vitejs/plugin-vue": "catalog:examples",
     "@vue/tsconfig": "catalog:examples",

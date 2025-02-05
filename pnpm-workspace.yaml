@@ -32,6 +32,9 @@ catalog:
   '@zag-js/scroll-snap': *zag
   '@zag-js/live-region': *zag
 
+  '@internationalized/date': &internationalized ^3.6.0
+  '@internationalized/number': *internationalized
+
   eslint: ^9.17.0
   '@antfu/eslint-config': ^3.12.1
 

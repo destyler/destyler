@@ -35,6 +35,7 @@ declare module 'vue-router/auto-routes' {
     '/image': RouteRecordInfo<'/image', '/image', Record<never, never>, Record<never, never>>,
     '/label': RouteRecordInfo<'/label', '/label', Record<never, never>, Record<never, never>>,
     '/menu': RouteRecordInfo<'/menu', '/menu', Record<never, never>, Record<never, never>>,
+    '/number-input': RouteRecordInfo<'/number-input', '/number-input', Record<never, never>, Record<never, never>>,
     '/otp-input': RouteRecordInfo<'/otp-input', '/otp-input', Record<never, never>, Record<never, never>>,
     '/pagination': RouteRecordInfo<'/pagination', '/pagination', Record<never, never>, Record<never, never>>,
     '/popover': RouteRecordInfo<'/popover', '/popover', Record<never, never>, Record<never, never>>,
