@@ -16,6 +16,7 @@
     "@destyler/collapsible": "workspace:*",
     "@destyler/combobox": "workspace:*",
     "@destyler/dialog": "workspace:*",
+    "@destyler/divider": "workspace:*",
     "@destyler/dynamic": "workspace:*",
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",

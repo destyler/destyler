@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import * as divider from '@destyler/divider'
+import { normalizeProps, useMachine } from "@destyler/vue"
+import { computed, useId } from "vue"
+
+const [state, send] = useMachine(divider.machine({ id: useId() }))
+const api = computed(() =>
+divider.connect(state.value, send, normalizeProps),
+)
+</script>
+
+<template>
+  <div
+    v-bind="api.getRootProps()"
+    class="
+    bg-dark/50 my-4
+    data-[orientation=horizontal]:h-px
+    data-[orientation=horizontal]:w-100px
+    data-[orientation=vertical]:h-100px
+    data-[orientation=vertical]:w-px"
+  >
+  </div>
+</template>

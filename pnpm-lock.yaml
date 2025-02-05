@@ -289,6 +289,9 @@ importers:
       '@destyler/dialog':
         specifier: workspace:*
         version: link:../../packages/components/dialog
+      '@destyler/divider':
+        specifier: workspace:*
+        version: link:../../packages/components/divider
       '@destyler/dynamic':
         specifier: workspace:*
         version: link:../../packages/components/dynamic
@@ -574,6 +577,24 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/remove-scroll':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/divider:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
