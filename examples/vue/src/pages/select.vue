@@ -1,0 +1,47 @@
+<script setup lang="ts">
+  import * as select from "@destyler/select"
+  import { normalizeProps, useMachine } from "@destyler/vue"
+  import { computed, useId } from "vue"
+
+  const selectData = [
+    { label: "Nigeria", value: "NG" },
+    { label: "Japan", value: "JP" },
+    //...
+  ]
+
+  const [state, send] = useMachine(
+    select.machine({
+      id: useId(),
+      collection: select.collection({
+        items: selectData,
+      }),
+    })
+  )
+
+  const api = computed(() => select.connect(state.value, send, normalizeProps))
+</script>
+
+<template>
+  <div>
+    <label v-bind="api.getLabelProps()">Label</label>
+    <button v-bind="api.getTriggerProps()">
+      <span>{{ api.valueAsString || "Select option" }}</span>
+      <span>▼</span>
+    </button>
+  </div>
+
+  <Teleport to="body">
+    <div v-bind="api.getPositionerProps()">
+      <ul v-bind="api.getContentProps()">
+        <li
+          v-for="item in selectData"
+          :key="item.value"
+          v-bind="api.getItemProps({ item })"
+        >
+          <span>{{ item.label }}</span>
+          <span v-bind="api.getItemIndicatorProps({ item })">✓</span>
+        </li>
+      </ul>
+    </div>
+  </Teleport>
+</template>

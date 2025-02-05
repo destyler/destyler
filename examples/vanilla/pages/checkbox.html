@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkbox</title>
+  </head>
+  <body style="padding: 40px">
+    <h1>Checkbox</h1>
+
+    <form>
+      <fieldset>
+        <label class="checkbox flex gap-2.5 justify-start items-center">
+          <div class="checkbox-control h-4 w-4 shrink-0 rounded-sm border border-dark shadow focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-dark data-[state=checked]:text-light"></div>
+          <span class="checkbox-label">Checkbox Label</span>
+          <input class="checkbox-input" type="checkbox" />
+        </label>
+      </fieldset>
+    </form>
+    <div id="app" class="flex gap-2 border-t border-dark mt-5"></div>
+
+    <script type="module" src="../src/checkbox.ts"></script>
+  </body>
+</html>

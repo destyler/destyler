@@ -1,5 +1,0 @@
-export { CollapseRoot, collapseRootProps, type CollapseRootProps } from './components/root'
-export { CollapseContent, collapseContentProps, type CollapseContentProps } from './components/content'
-export { CollapseItem, collapseItemProps, type CollapseItemProps } from './components/item'
-export { CollapseHeader, collapseHeaderProps, type CollapseHeaderProps } from './components/header'
-export { CollapseTrigger, collapseTriggerProps, type CollapseTriggerProps } from './components/trigger'

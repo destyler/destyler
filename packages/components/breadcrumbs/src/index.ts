@@ -1,5 +1,0 @@
-export { BreadcrumbsContent, breadcrumbsContentProps, type BreadcrumbsContentProps } from './components/content'
-export { BreadcrumbsItem, breadcrumbsItemProps, type BreadcrumbsItemProps } from './components/item'
-export { BreadcrumbsLabel, breadcrumbsLabelProps, type BreadcrumbsLabelProps } from './components/label'
-export { BreadcrumbsRoot, breadcrumbsRootProps, type BreadcrumbsRootProps } from './components/root'
-export { BreadcrumbsSeparator, breadcrumbsSeparatorProps, type BreadcrumbsSeparatorProps } from './components/separator'

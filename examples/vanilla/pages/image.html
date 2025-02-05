@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image</title>
+  </head>
+  <body style="padding: 40px">
+    <h1>Image</h1>
+
+    <div class="image-root relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+      <span class="image-fallback flex h-full w-full items-center justify-center rounded-full bg-dark text-white">EH</span>
+      <img
+        class="image aspect-square h-full w-full"
+        referrerpolicy="no-referrer"
+        src="https://elonehoo.me/me/avatar.png"
+      />
+    </div>
+    <div id="app" class="flex gap-2 border-t border-dark mt-5"></div>
+    <script type="module" src="../src/image.ts"></script>
+  </body>
+</html>

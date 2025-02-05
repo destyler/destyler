@@ -1,5 +1,0 @@
-export { TabsContent, tabsContentProps, type TabsContentProps } from './components/content'
-export { TabsIndicator, tabsIndicatorProps, type TabsIndicatorProps } from './components/indicator'
-export { TabsList, tabsListProps, type TabsListProps } from './components/list'
-export { TabsRoot, tabsRootProps, type TabsRootProps } from './components/root'
-export { TabsTrigger, tabsTriggerProps, type TabsTriggerProps } from './components/trigger'
