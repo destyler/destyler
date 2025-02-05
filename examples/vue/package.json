@@ -20,6 +20,7 @@
     "@destyler/combobox": "workspace:*",
     "@destyler/dialog": "workspace:*",
     "@destyler/dynamic": "workspace:*",
+    "@destyler/edit": "workspace:*",
     "@destyler/hover-card": "workspace:*",
     "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",
