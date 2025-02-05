@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@destyler/aspect-ratio": "workspace:*",
     "@destyler/calendar": "workspace:*",
     "@destyler/checkbox": "workspace:*",
     "@destyler/collapse": "workspace:*",

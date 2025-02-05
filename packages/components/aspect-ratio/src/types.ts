@@ -1,20 +1,40 @@
-import type { Machine, StateMachine } from '@zag-js/core'
+import type { StateMachine } from '@zag-js/core'
 import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
 
-interface PublicContext extends DirectionProperty, CommonProperties {}
+export type ElementIds = Partial<{
+  root: string
+  content: string
+}>
 
-interface PrivateContext extends {}
+interface PublicContext extends CommonProperties, DirectionProperty {
+  /**
+   * The aspect ratio of the container
+   */
+  ratio?: number
+  /**
+   * The ids of the elements in the aspect ratio. Useful for composition.
+   */
+  ids?: ElementIds
+}
 
-type ComputedContext = Readonly<{}>
+export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
-export type UserDefinedContext = RequiredBy<PublicContext, "id">
-
-export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
+export interface MachineContext extends PublicContext {}
 
 export interface MachineState {
-  value: "idle"
+  value: 'idle'
 }
 
 export type State = StateMachine.State<MachineContext, MachineState>
 
 export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+
+export interface MachineApi<T extends PropTypes = PropTypes> {
+  /**
+   * Function to set the aspect ratio
+   */
+  setRatio: (ratio: number) => void
+
+  getRootProps: () => T['element']
+  getContentProps: () => T['element']
+}
