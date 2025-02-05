@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FileIcon, FolderIcon, ChevronRightIcon } from "lucide-vue-next"
 import type { Api } from "@destyler/tree"
 import { defineProps, computed } from "vue"
 
@@ -29,10 +28,8 @@ const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
   <template v-if="nodeState.isBranch">
     <div v-bind="api.getBranchProps(nodeProps)">
       <div v-bind="api.getBranchControlProps(nodeProps)">
-        <FolderIcon />
         <span v-bind="api.getBranchTextProps(nodeProps)">{{ node.name }}</span>
         <span v-bind="api.getBranchIndicatorProps(nodeProps)">
-          <ChevronRightIcon />
         </span>
       </div>
       <div v-bind="api.getBranchContentProps(nodeProps)">
@@ -48,6 +45,6 @@ const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
     </div>
   </template>
   <template v-else>
-    <div v-bind="api.getItemProps(nodeProps)"><FileIcon /> {{ node.name }}</div>
+    <div v-bind="api.getItemProps(nodeProps)"> {{ node.name }}</div>
   </template>
 </template>
