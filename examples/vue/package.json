@@ -14,6 +14,7 @@
     "@destyler/calendar": "workspace:*",
     "@destyler/carousel": "workspace:*",
     "@destyler/checkbox": "workspace:*",
+    "@destyler/clipboard": "workspace:*",
     "@destyler/collapse": "workspace:*",
     "@destyler/collapsible": "workspace:*",
     "@destyler/color-picker": "workspace:*",

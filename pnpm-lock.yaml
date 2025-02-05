@@ -301,6 +301,9 @@ importers:
       '@destyler/checkbox':
         specifier: workspace:*
         version: link:../../packages/components/checkbox
+      '@destyler/clipboard':
+        specifier: workspace:*
+        version: link:../../packages/components/clipboard
       '@destyler/collapse':
         specifier: workspace:*
         version: link:../../packages/components/collapse
@@ -565,6 +568,24 @@ importers:
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/form-utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/types':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/utils':
+        specifier: 'catalog:'
+        version: 0.80.0
+
+  packages/components/clipboard:
+    dependencies:
+      '@zag-js/anatomy':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/core':
+        specifier: 'catalog:'
+        version: 0.80.0
+      '@zag-js/dom-query':
         specifier: 'catalog:'
         version: 0.80.0
       '@zag-js/types':
