@@ -1,7 +1,7 @@
 {
   "name": "@destyler/file-upload",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.7-beta.1",
   "description": "a component that is used to upload multiple files.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

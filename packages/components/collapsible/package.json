@@ -1,7 +1,7 @@
 {
   "name": "@destyler/collapsible",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.7-beta.1",
   "description": "an interactive component which expands/collapses a panel.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
