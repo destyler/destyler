@@ -5,7 +5,7 @@ import { computed, useId } from "vue";
 
 const [state, send] = useMachine(edit.machine({
   id: useId(),
-  value: "Hello, World!"
+  placeholder: 'Type something...',
 }));
 const api = computed(() => edit.connect(state.value, send, normalizeProps));
 </script>
