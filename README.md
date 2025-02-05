@@ -3,7 +3,7 @@
 <p align=center>unstyled component for web.</p>
 
 <p align="center">
-<a href="https://www.npmjs.com/package/destyler" target="__blank"><img src="https://img.shields.io/npm/v/destyler?color=a1b858&label=" alt="NPM version"></a>
+<a href="https://www.npmjs.com/package/@destyler/vue" target="__blank"><img src="https://img.shields.io/npm/v/destyler?color=a1b858&label=" alt="NPM version"></a>
 <a href="https://www.npmjs.com/package/destyler" target="__blank"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/destyler?color=50a36f&label="></a>
 <a href="https://destyler.org/" target="__blank"><img src="https://img.shields.io/static/v1?label=&message=docs%20%26%20demos&color=1e8a7a" alt="Docs & Demos"></a>
 <a href="https://destyler-dev.zeabur.app/components/checkbox" target="__blank"><img src="https://destyler.org/component-count-number.svg" alt="Components Count"></a>
