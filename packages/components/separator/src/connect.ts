@@ -12,7 +12,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getRootProps() {
       return normalize.element({
         ...parts.root.attrs,
-        'role': 'divider',
+        'role': 'separator',
         'aria-orientation': state.context.orientation,
         'data-orientation': state.context.orientation,
         'dir': state.context.dir,

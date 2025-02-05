@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import * as divider from '@destyler/divider'
+import * as separator from '@destyler/separator'
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed, useId } from "vue"
 
-const [state, send] = useMachine(divider.machine({ id: useId() }))
+const [state, send] = useMachine(separator.machine({ id: useId() }))
 const api = computed(() =>
-divider.connect(state.value, send, normalizeProps),
+  separator.connect(state.value, send, normalizeProps),
 )
 </script>
 

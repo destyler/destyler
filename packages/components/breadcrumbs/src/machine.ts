@@ -4,16 +4,16 @@ import { compact } from '@zag-js/utils'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact({
-    orientation: 'horizontal' as const,
+    separator: '/',
+    items: [],
     ...userContext,
   })
 
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'divider',
+      id: 'breadcrumbs',
       initial: 'idle',
       context: ctx,
-
       states: {
         idle: {},
       },
