@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import * as breadcrumbs from '@destyler/breadcrumbs'
 import type { BreadcrumbItem } from '@destyler/breadcrumbs'
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId, ref } from "vue"
+import * as breadcrumbs from '@destyler/breadcrumbs'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
 
 const items = ref<BreadcrumbItem[]>([
   { id: '1', label: 'one', href: '/' },
   { id: '2', label: 'two', href: '/products' },
-  { id: '3', label: 'three' }
+  { id: '3', label: 'three' },
 ])
 
 const [state, send] = useMachine(breadcrumbs.machine({
   id: useId(),
-  items: items.value
+  items: items.value,
 }))
 const api = computed(() => breadcrumbs.connect(state.value, send, normalizeProps))
 </script>

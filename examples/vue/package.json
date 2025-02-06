@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@destyler/shared": "workspace:*",
+    "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
     "@unocss/reset": "catalog:examples",
     "@vitejs/plugin-vue": "catalog:examples",
