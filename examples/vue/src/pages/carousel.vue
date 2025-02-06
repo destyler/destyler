@@ -32,7 +32,7 @@ const api = computed(() =>
 <template>
   <div
     v-bind="api.getRootProps()"
-    class="flex items-center justify-center flex-col gap-4 w-100"
+    class="flex items-center justify-center flex-col gap-4 w-100 relative"
   >
     <div v-bind="api.getItemGroupProps()" class="rounded-xl">
       <div
@@ -44,9 +44,10 @@ const api = computed(() =>
       </div>
     </div>
 
+    <!-- control -->
     <div
       v-bind="api.getControlProps()"
-      class="flex justify-center items-center bg-dark rounded-md px-2 py-1"
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
     >
       <button
         v-bind="api.getPrevTriggerProps()"
