@@ -20,3 +20,9 @@ export const checkboxControls = defineControls({
 export const clipboardControls = defineControls({
   timeout: { type: 'number', defaultValue: 3000 },
 })
+
+export const collapseControls = defineControls({
+  collapsible: { type: 'boolean', defaultValue: false },
+  multiple: { type: 'boolean', defaultValue: false },
+  orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'vertical' },
+})
