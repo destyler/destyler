@@ -16,3 +16,7 @@ export const checkboxControls = defineControls({
   value: { type: 'string', defaultValue: 'on' },
   readOnly: { type: 'boolean', defaultValue: false },
 })
+
+export const clipboardControls = defineControls({
+  timeout: { type: 'number', defaultValue: 3000 },
+})
