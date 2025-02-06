@@ -11,7 +11,7 @@ defineProps<{ control: any }>()
             :id="value.label || key"
             :data-testid="key"
             type="checkbox"
-            :checked="control.getState(key)"
+            :checked="control.getState(key).value"
             @input="
               (e) => {
                 control.setState(key, (e.target as HTMLInputElement).checked)
@@ -28,7 +28,7 @@ defineProps<{ control: any }>()
             :data-testid="key"
             type="text"
             :placeholder="value.placeholder"
-            :value="control.getState(key)"
+            :value="control.getState(key).value"
             @keydown.enter="
               (event) => {
                 control.setState(key, (event.target as HTMLInputElement).value)
@@ -45,7 +45,7 @@ defineProps<{ control: any }>()
           <select
             :id="value.label || key"
             :data-testid="key"
-            :value="control.getState(key)"
+            :value="control.getState(key).value"
             @change="
               (e) => {
                 control.setState(key, (e.target as HTMLSelectElement).value)
