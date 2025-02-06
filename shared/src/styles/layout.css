@@ -1,0 +1,72 @@
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  order: 1;
+  padding: 12px 22px;
+}
+.controls-container .text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.controls-container .text label {
+  font-weight: 500;
+}
+.controls-container .text input,
+.controls-container .text select {
+  padding: 4px;
+  border: solid 1px black;
+  border-radius: 4px;
+}
+
+.toolbar {
+  border-left: solid 1px #d7e0da;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar nav {
+  padding: 16px;
+  display: flex;
+  gap: 24px;
+  border-bottom: solid 1px #d7e0da;
+}
+
+.toolbar nav button {
+  all: unset;
+  font-weight: 500;
+}
+
+.toolbar nav button[data-active] {
+  color: green;
+}
+
+.toolbar > div {
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.toolbar [data-content] {
+  display: none;
+}
+
+.toolbar [data-content][data-active] {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.toolbar .viz {
+  font-size: 13px;
+  padding-left: 14px;
+  flex: 1;
+  overflow: auto;
+  border-bottom: solid 1px #d7e0da;
+}
+
+.toolbar .viz summary {
+  margin-bottom: 24;
+  font-weight: bold;
+}

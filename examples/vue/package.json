@@ -53,10 +53,13 @@
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/shared": "workspace:*",
     "@internationalized/date": "catalog:",
     "@unocss/reset": "catalog:examples",
     "@vitejs/plugin-vue": "catalog:examples",
     "@vue/tsconfig": "catalog:examples",
+    "@zag-js/dom-query": "catalog:",
+    "@zag-js/stringify-state": "catalog:",
     "unocss": "catalog:examples",
     "unplugin-auto-import": "catalog:examples",
     "unplugin-vue-components": "catalog:examples",

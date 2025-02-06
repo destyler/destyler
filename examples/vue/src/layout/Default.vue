@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const getRouteName = (name: string) => {
+function getRouteName(name: string) {
   if (!name)
     return ''
   return name === '/' ? null : name.replace('/', '')
@@ -30,7 +30,7 @@ const getRouteName = (name: string) => {
         </template>
       </div>
     </div>
-    <div class="flex-1 p-6 overflow-y-auto">
+    <div class="flex-1 pl-6 overflow-y-auto pr-80">
       <slot />
     </div>
   </main>
