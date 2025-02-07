@@ -37,3 +37,20 @@ export const colorPickerControls = defineControls({
   readOnly: { type: 'boolean', defaultValue: false },
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
 })
+
+export const comboboxControls = defineControls({
+  inputBehavior: {
+    type: 'select',
+    defaultValue: 'autohighlight',
+    options: ['autohighlight', 'autocomplete', 'none'] as const,
+  },
+  selectionBehavior: {
+    type: 'select',
+    defaultValue: 'replace',
+    options: ['replace', 'clear', 'preserve'] as const,
+  },
+  disabled: { type: 'boolean', defaultValue: false },
+  multiple: { type: 'boolean', defaultValue: false },
+  loopFocus: { type: 'boolean', defaultValue: true },
+  openOnClick: { type: 'boolean', defaultValue: false },
+})
