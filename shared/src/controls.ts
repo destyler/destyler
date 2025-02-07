@@ -26,3 +26,8 @@ export const collapseControls = defineControls({
   multiple: { type: 'boolean', defaultValue: false },
   orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'vertical' },
 })
+
+export const collapsibleControls = defineControls({
+  disabled: { type: 'boolean', defaultValue: false },
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+})
