@@ -38,7 +38,7 @@ const api = computed(() =>
   >
     <div
       v-for="item in data"
-      :key="item.title"6
+      :key="item.title"
       v-bind="api.getItemProps({ value: item.title })"
       class="border-b border-gray-100 last:border-none"
     >
