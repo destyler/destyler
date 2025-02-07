@@ -22,7 +22,7 @@ export const clipboardControls = defineControls({
 })
 
 export const collapseControls = defineControls({
-  collapsible: { type: 'boolean', defaultValue: false },
+  collapsible: { type: 'boolean', defaultValue: true },
   multiple: { type: 'boolean', defaultValue: false },
   orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'vertical' },
 })
