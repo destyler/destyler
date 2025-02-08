@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import * as dialog from '@destyler/dialog'
+import { dialogControls } from '@destyler/shared'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import { useControls } from '../composables/useControls'
+
+const controls = useControls(dialogControls)
 
 const [state, send] = useMachine(dialog.machine({
   id: useId(),
-  preventScroll: true,
-  closeOnEscape: true,
-  closeOnInteractOutside: false,
-  role: 'dialog',
-}))
+}), {
+  context: controls.context,
+})
 const api = computed(() => dialog.connect(state.value, send, normalizeProps))
 </script>
 
@@ -65,7 +67,7 @@ const api = computed(() => dialog.connect(state.value, send, normalizeProps))
   <Toolbar>
     <StateVisualizer :state="state" />
     <template #controls>
-      <!-- <Controls :control="controls" /> -->
+      <Controls :control="controls" />
     </template>
   </Toolbar>
 </template>

@@ -54,3 +54,14 @@ export const comboboxControls = defineControls({
   loopFocus: { type: 'boolean', defaultValue: true },
   openOnClick: { type: 'boolean', defaultValue: false },
 })
+
+export const dialogControls = defineControls({
+  preventScroll: { type: 'boolean', defaultValue: true },
+  closeOnEscape: { type: 'boolean', defaultValue: true },
+  closeOnInteractOutside: { type: 'boolean', defaultValue: false },
+  role: {
+    type: 'select',
+    defaultValue: 'dialog',
+    options: ['dialog', 'alertdialog'] as const,
+  },
+})
