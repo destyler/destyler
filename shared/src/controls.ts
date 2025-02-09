@@ -230,3 +230,9 @@ export const tabsControls = defineControls({
   orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'horizontal' },
 })
 
+export const toggleControls = defineControls({
+  disabled: { type: 'boolean', defaultValue: false },
+  loopFocus: { type: 'boolean', defaultValue: true },
+  multiple: { type: 'boolean', defaultValue: false },
+  rovingFocus: { type: 'boolean', defaultValue: true },
+})
