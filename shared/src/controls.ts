@@ -212,3 +212,7 @@ export const splitterControls = defineControls({
   orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'horizontal' },
 })
 
+export const stepsControls = defineControls({
+  linear: { type: 'boolean', defaultValue: false },
+  orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'horizontal' },
+})
