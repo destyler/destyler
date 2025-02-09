@@ -12,4 +12,7 @@ import { normalizeProps, useMachine } from "@destyler/vue"
   <label v-bind="api.getRootProps()" >
     text
   </label>
+  <Toolbar>
+    <StateVisualizer :state="state" />
+  </Toolbar>
 </template>
