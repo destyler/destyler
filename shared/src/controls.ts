@@ -162,3 +162,8 @@ export const popoverControls = defineControls({
   autoFocus: { type: 'boolean', defaultValue: true },
   closeOnEsc: { type: 'boolean', defaultValue: true },
 })
+
+export const progressControls = defineControls({
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+})
+

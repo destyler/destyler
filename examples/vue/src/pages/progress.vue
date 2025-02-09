@@ -1,20 +1,40 @@
 <script setup lang="ts">
-  import * as progress from "@destyler/progress"
-  import { normalizeProps, useMachine } from "@destyler/vue"
-  import { computed,useId } from "vue"
+import * as progress from "@destyler/progress"
+import { normalizeProps, useMachine } from "@destyler/vue"
+import { computed,useId } from "vue"
+import { progressControls } from '@destyler/shared'
+import { useControls } from '../composables/useControls'
 
-  const [state, send] = useMachine(progress.machine({ id: useId(),value: 30 }))
+const controls = useControls(progressControls)
 
-  const api = computed(() =>
-    progress.connect(state.value, send, normalizeProps),
-  )
+const [state, send] = useMachine(progress.machine({ id: useId(),value: 30 }),{
+  context: controls.context,
+})
+
+const api = computed(() =>
+  progress.connect(state.value, send, normalizeProps),
+)
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()">
-    <div v-bind="api.getLabelProps()">Upload progress</div>
-    <div v-bind="api.getTrackProps()" class="bg-gray h-10">
-      <div v-bind="api.getRangeProps()" class="bg-green h-10"/>
+  <div v-bind="api.getRootProps()" class="max-w-md p-6">
+    <div v-bind="api.getLabelProps()" class="text-lg font-semibold mb-2 text-gray-800">
+      Upload progress
+    </div>
+    <div
+      v-bind="api.getTrackProps()"
+      class="w-full h-4 bg-gray-200 rounded-full overflow-hidden"
+    >
+      <div
+        v-bind="api.getRangeProps()"
+        class="h-full bg-black transition-all duration-300 ease-out rounded-full"
+      />
     </div>
   </div>
+  <Toolbar>
+    <StateVisualizer :state="state" />
+    <template #controls>
+      <Controls :control="controls" />
+    </template>
+  </Toolbar>
 </template>
