@@ -167,3 +167,8 @@ export const progressControls = defineControls({
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
 })
 
+export const qrCodeControls = defineControls({
+  'value': { type: 'string', defaultValue: 'https://github.com/destyler' },
+  'encoding.ecc': { type: 'select', options: ['L', 'M', 'Q', 'H'] as const, defaultValue: 'H' },
+  'encoding.boostEcc': { type: 'boolean', defaultValue: false },
+})
