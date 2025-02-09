@@ -188,3 +188,9 @@ export const selectControls = defineControls({
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
 })
 
+export const signatureControls = defineControls({
+  'disabled': { type: 'boolean', defaultValue: false },
+  'readOnly': { type: 'boolean', defaultValue: false },
+  'drawing.size': { type: 'number', defaultValue: 2 },
+  'drawing.simulatePressure': { type: 'boolean', defaultValue: true },
+})
