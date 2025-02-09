@@ -109,3 +109,7 @@ export const floatingPanelControls = defineControls({
   persistRect: { type: 'boolean', defaultValue: false },
 })
 
+export const hoverCardControls = defineControls({
+  openDelay: { type: 'number', defaultValue: 700 },
+  closeDelay: { type: 'number', defaultValue: 300 },
+})
