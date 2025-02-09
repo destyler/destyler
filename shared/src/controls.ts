@@ -236,3 +236,9 @@ export const toggleControls = defineControls({
   multiple: { type: 'boolean', defaultValue: false },
   rovingFocus: { type: 'boolean', defaultValue: true },
 })
+
+export const treeControls = defineControls({
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  selectionMode: { type: 'select', options: ['single', 'multiple'] as const, defaultValue: 'single' },
+  openOnClick: { type: 'boolean', defaultValue: true },
+})
