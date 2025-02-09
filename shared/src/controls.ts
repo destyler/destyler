@@ -119,3 +119,27 @@ export const menuControls = defineControls({
   loopFocus: { type: 'boolean', defaultValue: false },
 })
 
+export const numberInputControls = defineControls({
+  disabled: { type: "boolean", defaultValue: false },
+  clampValueOnBlur: { type: "boolean", defaultValue: true },
+  allowMouseWheel: { type: "boolean", defaultValue: false },
+  spinOnPress: { type: "boolean", defaultValue: true },
+  step: { type: "number", defaultValue: 1 },
+  min: { type: "number", defaultValue: 0 },
+  max: { type: "number", defaultValue: 100 },
+  locale: {
+    type: "select",
+    options: ["en-US", "en-GB", "fr-FR", "de-DE", "ja-JP", "mk-MK", "zh-CN"] as const,
+  },
+  "formatOptions.maximumFractionDigits": { type: "number" },
+  "formatOptions.minimumFractionDigits": { type: "number" },
+  "formatOptions.style": {
+    type: "select",
+    options: ["decimal", "currency", "percent"] as const,
+  },
+  "formatOptions.currency": {
+    type: "select",
+    defaultValue: "USD",
+    options: ["USD", "EUR", "JPY", "GBP", "MXN", "CNY"] as const,
+  },
+})
