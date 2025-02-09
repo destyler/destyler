@@ -172,3 +172,9 @@ export const qrCodeControls = defineControls({
   'encoding.ecc': { type: 'select', options: ['L', 'M', 'Q', 'H'] as const, defaultValue: 'H' },
   'encoding.boostEcc': { type: 'boolean', defaultValue: false },
 })
+
+export const radioControls = defineControls({
+  disabled: { type: 'boolean', defaultValue: false },
+  readOnly: { type: 'boolean', defaultValue: false },
+})
+
