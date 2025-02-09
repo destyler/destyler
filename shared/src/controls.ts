@@ -155,3 +155,10 @@ export const paginationControls = defineControls({
   pageSize: { type: 'number', defaultValue: 10 },
   siblingCount: { type: 'number', defaultValue: 1 },
 })
+
+export const popoverControls = defineControls({
+  modal: { type: 'boolean', defaultValue: false },
+  portalled: { type: 'boolean', defaultValue: true },
+  autoFocus: { type: 'boolean', defaultValue: true },
+  closeOnEsc: { type: 'boolean', defaultValue: true },
+})
