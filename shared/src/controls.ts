@@ -178,3 +178,13 @@ export const radioControls = defineControls({
   readOnly: { type: 'boolean', defaultValue: false },
 })
 
+export const selectControls = defineControls({
+  multiple: { type: 'boolean', defaultValue: false },
+  disabled: { type: 'boolean', defaultValue: false },
+  loopFocus: { type: 'boolean', defaultValue: true },
+  readOnly: { type: 'boolean', defaultValue: false },
+  deselectable: { type: 'boolean', defaultValue: false },
+  closeOnSelect: { type: 'boolean', defaultValue: true },
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+})
+
