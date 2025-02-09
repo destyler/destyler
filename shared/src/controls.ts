@@ -65,3 +65,13 @@ export const dialogControls = defineControls({
     options: ['dialog', 'alertdialog'] as const,
   },
 })
+
+export const dynamicControls = defineControls({
+  disabled: { type: 'boolean', defaultValue: false },
+  readOnly: { type: 'boolean', defaultValue: false },
+  addOnPaste: { type: 'boolean', defaultValue: false },
+  blurBehavior: { type: 'select', options: ['add', 'clear'] as const, defaultValue: '---' },
+  max: { type: 'number', defaultValue: 6 },
+  allowOverflow: { type: 'boolean', defaultValue: false },
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+})
