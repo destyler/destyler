@@ -75,3 +75,20 @@ export const dynamicControls = defineControls({
   allowOverflow: { type: 'boolean', defaultValue: false },
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
 })
+
+export const editControls = defineControls({
+  readOnly: { type: 'boolean', defaultValue: false },
+  disabled: { type: 'boolean', defaultValue: false },
+  autoResize: { type: 'boolean', defaultValue: false },
+  maxLength: { type: 'number', defaultValue: 1000 },
+  submitMode: {
+    type: 'select',
+    options: ['enter', 'blur', 'both', 'none'] as const,
+    defaultValue: 'both',
+  },
+  activationMode: {
+    type: 'select',
+    options: ['focus', 'dblclick', 'click'] as const,
+    defaultValue: 'focus',
+  },
+})
