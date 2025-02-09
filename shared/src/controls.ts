@@ -120,14 +120,14 @@ export const menuControls = defineControls({
 })
 
 export const numberInputControls = defineControls({
-  "disabled": { type: 'boolean', defaultValue: false },
-  "clampValueOnBlur": { type: 'boolean', defaultValue: true },
-  "allowMouseWheel": { type: 'boolean', defaultValue: false },
-  "spinOnPress": { type: 'boolean', defaultValue: true },
-  "step": { type: 'number', defaultValue: 1 },
-  "min": { type: 'number', defaultValue: 0 },
-  "max": { type: 'number', defaultValue: 100 },
-  "locale": {
+  'disabled': { type: 'boolean', defaultValue: false },
+  'clampValueOnBlur': { type: 'boolean', defaultValue: true },
+  'allowMouseWheel': { type: 'boolean', defaultValue: false },
+  'spinOnPress': { type: 'boolean', defaultValue: true },
+  'step': { type: 'number', defaultValue: 1 },
+  'min': { type: 'number', defaultValue: 0 },
+  'max': { type: 'number', defaultValue: 100 },
+  'locale': {
     type: 'select',
     options: ['en-US', 'en-GB', 'fr-FR', 'de-DE', 'ja-JP', 'mk-MK', 'zh-CN'] as const,
   },
@@ -151,3 +151,7 @@ export const pinInputControls = defineControls({
   type: { type: 'select', options: ['numeric', 'alphanumeric', 'alphabetic'] as const, defaultValue: 'numeric' },
 })
 
+export const paginationControls = defineControls({
+  pageSize: { type: 'number', defaultValue: 10 },
+  siblingCount: { type: 'number', defaultValue: 1 },
+})
