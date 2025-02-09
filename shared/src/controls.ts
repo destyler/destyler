@@ -207,3 +207,8 @@ export const sliderControls = defineControls({
   step: { type: 'number', defaultValue: 1 },
 })
 
+export const splitterControls = defineControls({
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'horizontal' },
+})
+
