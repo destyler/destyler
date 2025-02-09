@@ -18,4 +18,7 @@
       class="aspect-square h-full w-full"
     />
   </div>
+  <Toolbar>
+    <StateVisualizer :state="state" />
+  </Toolbar>
 </template>

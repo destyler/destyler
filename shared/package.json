@@ -1,0 +1,10 @@
+{
+  "name": "@destyler/shared",
+  "version": "0.0.0",
+  "private": "true",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@destyler/tour": "workspace:*"
+  }
+
+}

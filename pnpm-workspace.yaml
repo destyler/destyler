@@ -2,7 +2,7 @@ packages:
   - packages/*
   - packages/*/*
   - examples/*
-  - utils
+  - shared
 catalog:
   '@zag-js/core': &zag ^0.80.0
   '@zag-js/anatomy': *zag
@@ -28,6 +28,7 @@ catalog:
   '@zag-js/color-utils': *zag
   '@zag-js/date-utils': *zag
   '@zag-js/interact-outside': *zag
+  '@zag-js/stringify-state': *zag
   '@zag-js/text-selection': *zag
   '@zag-js/scroll-snap': *zag
   '@zag-js/live-region': *zag

@@ -5,6 +5,8 @@ import App from './App.vue'
 import '@unocss/reset/tailwind.css'
 import 'uno.css'
 
+import '../../../shared/src/bootstrap.css'
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
