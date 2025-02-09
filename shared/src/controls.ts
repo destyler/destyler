@@ -221,3 +221,12 @@ export const switchControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   readOnly: { type: 'boolean', defaultValue: false },
 })
+
+export const tabsControls = defineControls({
+  activationMode: { type: 'select', options: ['manual', 'automatic'] as const, defaultValue: 'automatic' },
+  deselectable: { type: 'boolean', defaultValue: false },
+  loopFocus: { type: 'boolean', defaultValue: true },
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'horizontal' },
+})
+
