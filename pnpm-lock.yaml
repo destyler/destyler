@@ -190,6 +190,12 @@ catalogs:
     react-dom:
       specifier: ^19.0.0
       version: 19.0.0
+    react-router:
+      specifier: ^7.1.5
+      version: 7.1.5
+    react-router-dom:
+      specifier: ^7.1.5
+      version: 7.1.5
     unocss:
       specifier: ^0.65.3
       version: 0.65.3
@@ -410,10 +416,10 @@ importers:
         specifier: catalog:examples
         version: 19.0.0(react@19.0.0)
       react-router:
-        specifier: ^7.1.5
+        specifier: catalog:examples
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-router-dom:
-        specifier: ^7.1.5
+        specifier: catalog:examples
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       typescript:
         specifier: 'catalog:'
