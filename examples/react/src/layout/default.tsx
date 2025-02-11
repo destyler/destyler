@@ -1,3 +1,4 @@
+import type { RouteData } from '@destyler/shared'
 import type { FC, ReactNode } from 'react'
 import { routes } from '@destyler/shared'
 import { Link } from 'react-router-dom'
@@ -5,12 +6,6 @@ import './default.css'
 
 interface DefaultLayoutProps {
   children: ReactNode
-}
-
-function getRouteName(name: string) {
-  if (!name)
-    return ''
-  return name === '/' ? null : name.replace('/', '')
 }
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {
@@ -23,13 +18,13 @@ const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {
           </Link>
         </div>
         <div className="flex flex-col space-y-2 overflow-y-auto">
-          {routes?.map((route: any) => (
+          {routes?.map((route: RouteData) => (
             <Link
               key={route.path}
               to={route.path}
               className="px-3 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-200 text-gray-600 hover:text-dark"
             >
-              {getRouteName(route.path)}
+              {route.label}
             </Link>
           ))}
         </div>

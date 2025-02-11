@@ -1,4 +1,4 @@
-interface RouteData {
+export interface RouteData {
   path: `/${string}`
   label: string
 }
