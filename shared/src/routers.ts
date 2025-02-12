@@ -76,4 +76,96 @@ export const routes: RouteData[] = [
     path: '/hover-card',
     label: 'Hover Card',
   },
+  {
+    path: '/image',
+    label: 'Image',
+  },
+  {
+    path: '/label',
+    label: 'Label',
+  },
+  {
+    path: '/menu',
+    label: 'Menu',
+  },
+  {
+    path: '/number-input',
+    label: 'Number Input',
+  },
+  {
+    path: '/otp-input',
+    label: 'OTP Input',
+  },
+  {
+    path: '/pagination',
+    label: 'Pagination',
+  },
+  {
+    path: '/popover',
+    label: 'Popover',
+  },
+  {
+    path: '/progress',
+    label: 'Progress',
+  },
+  {
+    path: '/presence',
+    label: 'Presence',
+  },
+  {
+    path: '/qr-code',
+    label: 'QR Code',
+  },
+  {
+    path: '/radio',
+    label: 'Radio',
+  },
+  {
+    path: '/select',
+    label: 'Select',
+  },
+  {
+    path: '/signature',
+    label: 'Signature',
+  },
+  {
+    path: '/slider',
+    label: 'Slider',
+  },
+  {
+    path: '/splitter',
+    label: 'Splitter',
+  },
+  {
+    path: '/step',
+    label: 'Step',
+  },
+  {
+    path: '/switch',
+    label: 'Switch',
+  },
+  {
+    path: '/tabs',
+    label: 'Tabs',
+  },
+  {
+    path: '/timer',
+    label: 'Timer',
+  },
+  {
+    path: '/toggle',
+    label: 'Toggle',
+  },
+  {
+    path: '/tooltip',
+    label: 'Tooltip',
+  },
+  {
+    path: '/tour',
+    label: 'Tour',
+  },
+  {
+    path: '/tree',
+    label: 'Tree',
+  },
 ]
