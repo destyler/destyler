@@ -14,7 +14,7 @@ import 'uno.css'
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense>
       {useRoutes(routes)}
     </Suspense>
   )
