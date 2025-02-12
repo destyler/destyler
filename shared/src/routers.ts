@@ -20,4 +20,28 @@ export const routes: RouteData[] = [
     path: '/carousel',
     label: 'Carousel',
   },
+  {
+    path: '/checkbox',
+    label: 'Checkbox',
+  },
+  {
+    path: '/clipboard',
+    label: 'Clipboard',
+  },
+  {
+    path: '/collapse',
+    label: 'Collapse',
+  },
+  {
+    path: '/collapse',
+    label: 'Collapse',
+  },
+  {
+    path: '/collapsible',
+    label: 'Collapsible',
+  },
+  {
+    path: '/color-picker',
+    label: 'Color Picker',
+  },
 ]
