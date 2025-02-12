@@ -388,6 +388,9 @@ importers:
       '@destyler/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@iconify-json/carbon':
+        specifier: ^1.2.6
+        version: 1.2.6
       '@types/react':
         specifier: catalog:examples
         version: 19.0.8

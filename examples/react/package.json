@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@destyler/shared": "workspace:*",
+    "@iconify-json/carbon": "^1.2.6",
     "@types/react": "catalog:examples",
     "@types/react-dom": "catalog:examples",
     "@types/react-router-config": "^5.0.11",
