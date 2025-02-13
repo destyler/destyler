@@ -98,6 +98,8 @@ export function useControls<T extends ControlRecord>(config: T) {
                   />
                 </div>
               )
+            default:
+              return null
           }
         })}
       </div>
