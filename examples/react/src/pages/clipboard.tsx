@@ -2,13 +2,21 @@ import * as clipboard from '@destyler/clipboard'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { clipboardControls } from '@destyler/shared'
 import { useId } from 'react'
+import { StateVisualizer } from '../components/tool/StateVisualizer'
+import { Toolbar } from '../components/tool/Toolbar'
+import { useControls } from '../hooks/use-controls'
 
 export default function ClipboardDemo() {
+  const controls = useControls(clipboardControls)
+
   const [state, send] = useMachine(
     clipboard.machine({
       id: useId(),
       value: 'https://github.com/destyler/destyler',
     }),
+    {
+      context: controls.context,
+    },
   )
 
   const api = clipboard.connect(state, send, normalizeProps)
@@ -46,6 +54,9 @@ export default function ClipboardDemo() {
           Click the button to copy link to clipboard
         </p>
       </div>
+      <Toolbar controls={controls.ui()}>
+        <StateVisualizer state={state} />
+      </Toolbar>
     </>
   )
 }

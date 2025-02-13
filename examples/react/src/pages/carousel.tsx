@@ -1,12 +1,18 @@
 import * as carousel from '@destyler/carousel'
 import { normalizeProps, useMachine } from '@destyler/react'
+import { carouselControls } from '@destyler/shared'
 import { useId } from 'react'
+import { StateVisualizer } from '../components/tool/StateVisualizer'
+import { Toolbar } from '../components/tool/Toolbar'
+import { useControls } from '../hooks/use-controls'
 
 export default function CarouselDemo() {
   const items = [
     'https://elonehoo.me/coffee/01.jpeg',
     'https://elonehoo.me/coffee/02.jpeg',
   ]
+
+  const controls = useControls(carouselControls)
 
   const [state, send] = useMachine(
     carousel.machine({
@@ -15,6 +21,9 @@ export default function CarouselDemo() {
       spacing: '20px',
       slidesPerPage: 1,
     }),
+    {
+      context: controls.context,
+    },
   )
 
   const api = carousel.connect(state, send, normalizeProps)
@@ -58,6 +67,9 @@ export default function CarouselDemo() {
           />
         </div>
       </div>
+      <Toolbar controls={controls.ui()}>
+        <StateVisualizer state={state} />
+      </Toolbar>
     </>
   )
 }

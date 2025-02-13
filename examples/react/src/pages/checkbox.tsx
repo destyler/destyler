@@ -1,11 +1,19 @@
 import * as checkbox from '@destyler/checkbox'
 import { normalizeProps, useMachine } from '@destyler/react'
+import { checkboxControls } from '@destyler/shared'
 import { useId } from 'react'
+import { StateVisualizer } from '../components/tool/StateVisualizer'
+import { Toolbar } from '../components/tool/Toolbar'
+import { useControls } from '../hooks/use-controls'
 
 export default function CheckboxPage() {
   const id = useId()
 
-  const [state, send] = useMachine(checkbox.machine({ id }))
+  const controls = useControls(checkboxControls)
+
+  const [state, send] = useMachine(checkbox.machine({ id }), {
+    context: controls.context,
+  })
 
   const api = checkbox.connect(state, send, normalizeProps)
 
@@ -29,7 +37,9 @@ export default function CheckboxPage() {
 
         <input {...api.getHiddenInputProps()} />
       </label>
-
+      <Toolbar controls={controls.ui()}>
+        <StateVisualizer state={state} />
+      </Toolbar>
     </>
   )
 }

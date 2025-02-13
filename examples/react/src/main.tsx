@@ -12,6 +12,8 @@ import DefaultLayout from './layout/default'
 import '@unocss/reset/tailwind.css'
 import 'uno.css'
 
+import '../../../shared/src/bootstrap.css'
+
 function App() {
   return (
     <Suspense>
