@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import {routes} from '@destyler/shared'
 
 const router = useRouter()
-const routes = router.getRoutes()
-  .filter(route => route.path !== '/')
-  .map(route => ({
-    path: route.path,
-    name: (String(route.name || route.path.slice(1))).replace(/^\/+/, '')
-  }))
 </script>
 
 <template>
@@ -24,7 +19,7 @@ const routes = router.getRoutes()
         @click="router.push(route.path)"
       >
         <h2 class="text-sm font-medium capitalize truncate">
-          {{ route.name }}
+          {{ route.label }}
         </h2>
       </div>
     </div>
