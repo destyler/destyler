@@ -68,6 +68,7 @@
     "react-router-dom": "catalog:examples",
     "typescript": "catalog:",
     "unocss": "catalog:examples",
+    "unplugin-react-components": "^0.1.4",
     "vite": "catalog:examples",
     "vite-plugin-pages": "^0.32.4"
   }
