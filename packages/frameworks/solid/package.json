@@ -1,7 +1,7 @@
 {
   "name": "@destyler/solid",
   "type": "module",
-  "version": "0.0.7-beta.2",
+  "version": "0.0.7-beta.3",
   "description": "the solid wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
