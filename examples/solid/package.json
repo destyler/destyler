@@ -56,6 +56,7 @@
     "@destyler/shared": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
+    "@solidjs/router": "^0.15.3",
     "@unocss/reset": "catalog:examples",
     "@zag-js/dom-query": "catalog:",
     "@zag-js/stringify-state": "catalog:",
@@ -63,6 +64,7 @@
     "typescript": "catalog:",
     "unocss": "catalog:examples",
     "vite": "catalog:",
+    "vite-plugin-pages": "^0.32.4",
     "vite-plugin-solid": "catalog:examples"
   }
 }

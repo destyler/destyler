@@ -587,6 +587,9 @@ importers:
       '@internationalized/date':
         specifier: 'catalog:'
         version: 3.7.0
+      '@solidjs/router':
+        specifier: ^0.15.3
+        version: 0.15.3(solid-js@1.9.4)
       '@unocss/reset':
         specifier: catalog:examples
         version: 65.4.3
@@ -608,6 +611,9 @@ importers:
       vite:
         specifier: 'catalog:'
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+      vite-plugin-pages:
+        specifier: ^0.32.4
+        version: 0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       vite-plugin-solid:
         specifier: catalog:examples
         version: 2.11.1(solid-js@1.9.4)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
@@ -2826,6 +2832,11 @@ packages:
     resolution: {integrity: sha512-4ZedScpxxIrVO7otcZ8kCX1mZArtH2Wfj3uFCxRJ9NO80gg1XV0U/b2f/MKaGwj2X3QopHfoWiDQ917FRpwY3w==}
     cpu: [x64]
     os: [win32]
+
+  '@solidjs/router@0.15.3':
+    resolution: {integrity: sha512-iEbW8UKok2Oio7o6Y4VTzLj+KFCmQPGEpm1fS3xixwFBdclFVBvaQVeibl1jys4cujfAK5Kn6+uG2uBm3lxOMw==}
+    peerDependencies:
+      solid-js: ^1.8.6
 
   '@stylistic/eslint-plugin@4.0.0-beta.1':
     resolution: {integrity: sha512-QjXLdE0K6NWxCj3G6588UCxWRbZ7wW/shInTC0iruog4qfvlhWhW67+6GZvBHs3qK53ucoI03fyM8I+hg2i7Dg==}
@@ -6751,6 +6762,10 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.34.7':
     optional: true
 
+  '@solidjs/router@0.15.3(solid-js@1.9.4)':
+    dependencies:
+      solid-js: 1.9.4
+
   '@stylistic/eslint-plugin@4.0.0-beta.1(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/utils': 8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
@@ -10307,6 +10322,24 @@ snapshots:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+
+  vite-plugin-pages@0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
+    dependencies:
+      '@types/debug': 4.1.12
+      debug: 4.4.0
+      dequal: 2.0.3
+      extract-comments: 1.1.0
+      fast-glob: 3.3.2
+      json5: 2.2.3
+      local-pkg: 0.5.1
+      picocolors: 1.1.1
+      vite: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+      yaml: 2.7.0
+    optionalDependencies:
+      '@solidjs/router': 0.15.3(solid-js@1.9.4)
+      '@vue/compiler-sfc': 3.5.13
+    transitivePeerDependencies:
+      - supports-color
 
   vite-plugin-pages@0.32.4(@vue/compiler-sfc@3.5.13)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
