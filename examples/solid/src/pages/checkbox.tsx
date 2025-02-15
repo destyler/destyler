@@ -9,7 +9,10 @@ import { useControls } from '../hooks/use-controls'
 export default function CheckboxPage() {
   const controls = useControls(checkboxControls)
 
-  const [state, send] = useMachine(checkbox.machine({ id: createUniqueId() }), {
+  const [state, send] = useMachine(checkbox.machine({
+    id: createUniqueId(),
+    checked: false,
+  }), {
     context: controls.context,
   })
 
@@ -26,7 +29,7 @@ export default function CheckboxPage() {
         </div>
         <span {...api.getLabelProps()}>
           Input is
-          {api.checked ? <span> checked</span> : <span> unchecked</span>}
+          { api.checked }
         </span>
 
         <input {...api.getHiddenInputProps()} />
