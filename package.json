@@ -27,7 +27,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
     "@types/node": "catalog:",
-    "bumpp": "^10.0.2",
+    "bumpp": "^10.0.3",
     "eslint": "catalog:",
     "find-packages": "catalog:",
     "plop": "catalog:",
