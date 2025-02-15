@@ -33,10 +33,6 @@ export const routes: RouteData[] = [
     label: 'Collapse',
   },
   {
-    path: '/collapse',
-    label: 'Collapse',
-  },
-  {
     path: '/collapsible',
     label: 'Collapsible',
   },

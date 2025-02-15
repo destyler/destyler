@@ -63,6 +63,7 @@ catalogs:
     '@types/react-dom': ^19.0.3
     '@unocss/reset': ^65.4.3
     '@vitejs/plugin-vue': ^5.2.1
+    vite-plugin-solid: ^2.11.0
     '@vue/tsconfig': ^0.7.0
     nanoid: ^5.1.0
     react: ^19.0.0
