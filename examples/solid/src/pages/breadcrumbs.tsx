@@ -1,7 +1,7 @@
 import type { BreadcrumbItem } from '@destyler/breadcrumbs'
 import * as breadcrumbs from '@destyler/breadcrumbs'
 import { normalizeProps, useMachine } from '@destyler/solid'
-import { createUniqueId, For } from 'solid-js'
+import { createMemo, createUniqueId, For } from 'solid-js'
 
 export default function Breadcrumbs() {
   const items: BreadcrumbItem[] = [
@@ -17,18 +17,18 @@ export default function Breadcrumbs() {
     }),
   )
 
-  const api = breadcrumbs.connect(state, send, normalizeProps)
+  const api = createMemo(() => breadcrumbs.connect(state, send, normalizeProps))
 
   return (
-    <nav {...api.getRootProps()}>
-      <ol {...api.getListProps()} class="flex items-center space-x-2">
-        <For each={api.items}>
+    <nav {...api().getRootProps()}>
+      <ol {...api().getListProps()} class="flex items-center space-x-2">
+        <For each={api().items}>
           {item => (
-            <li {...api.getItemProps(item)}>
-              <a {...api.getLinkProps(item)} class="text-blue-500 hover:underline">
+            <li {...api().getItemProps(item)}>
+              <a {...api().getLinkProps(item)} class="text-blue-500 hover:underline">
                 {item.label}
               </a>
-              {item.href && <span {...api.getSeparatorProps()}>/</span>}
+              {item.href && <span {...api().getSeparatorProps()}>/</span>}
             </li>
           )}
         </For>
