@@ -7,11 +7,9 @@ import { Toolbar } from '../components/tools/toolbar'
 import { useControls } from '../hooks/use-controls'
 
 export default function CheckboxPage() {
-  const id = createUniqueId()
-
   const controls = useControls(checkboxControls)
 
-  const [state, send] = useMachine(checkbox.machine({ id }), {
+  const [state, send] = useMachine(checkbox.machine({ id: createUniqueId() }), {
     context: controls.context,
   })
 
