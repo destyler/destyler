@@ -21,12 +21,13 @@
     "taze": "taze",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
     "vue": "pnpm --filter \"./examples/vue\"",
+    "react": "pnpm --filter \"./examples/react\"",
     "release": "bumpp package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
     "@types/node": "catalog:",
-    "bumpp": "^10.0.2",
+    "bumpp": "^10.0.3",
     "eslint": "catalog:",
     "find-packages": "catalog:",
     "plop": "catalog:",
