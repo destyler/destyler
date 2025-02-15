@@ -22,7 +22,7 @@ const DefaultLayout: Component<ParentProps> = (props) => {
           ))}
         </div>
       </div>
-      <div class="flex-1 pl-6 overflow-y-auto pr-80">
+      <div class="flex-1 pl-6 py-4 overflow-y-auto pr-80">
         {props.children}
       </div>
     </main>
