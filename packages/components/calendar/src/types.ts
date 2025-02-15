@@ -7,7 +7,7 @@ import type {
   DateValue,
   ZonedDateTime,
 } from '@internationalized/date'
-import type { Machine, StateMachine as S } from '@zag-js/core'
+import type { Machine, StateMachine } from '@zag-js/core'
 import type { DateRangePreset } from '@zag-js/date-utils'
 import type { LiveRegion } from '@zag-js/live-region'
 import type { Placement, PositioningOptions } from '@zag-js/popper'
@@ -32,6 +32,11 @@ export interface ViewChangeDetails {
 
 export interface OpenChangeDetails {
   open: boolean
+}
+
+export interface LocaleDetails {
+  locale: string
+  timeZone: string
 }
 
 export type SelectionMode = 'single' | 'multiple' | 'range'
@@ -176,12 +181,30 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The format of the date to display in the input.
    */
-  'format'?: ((date: DateValue) => string) | undefined
+  'format': (date: DateValue, details: LocaleDetails) => string
+  /**
+   * Function to parse the date from the input back to a DateValue.
+   */
+  'parse': (value: string, details: LocaleDetails) => DateValue | undefined
+  /**
+   * The placeholder text to display in the input.
+   */
+  'placeholder'?: string | undefined
   /**
    * The view of the calendar
    * @default "day"
    */
   'view': DateView
+  /**
+   * The minimum view of the calendar
+   * @default "day"
+   */
+  'minView': DateView
+  /**
+   * The maximum view of the calendar
+   * @default "year"
+   */
+  'maxView': DateView
   /**
    * The user provided options used to position the date picker content
    */
@@ -281,11 +304,6 @@ type ComputedContext = Readonly<{
    * The value text to display in the input.
    */
   valueAsString: string[]
-  /**
-   * @internal
-   * The input element's value
-   */
-  formattedValue: string[]
 }>
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
@@ -297,11 +315,11 @@ export interface MachineState {
   value: 'idle' | 'focused' | 'open'
 }
 
-export type State = S.State<MachineContext, MachineState>
+export type State = StateMachine.State<MachineContext, MachineState>
 
-export type Send = S.Send<S.AnyEventObject>
+export type Send = StateMachine.Send<StateMachine.AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, S.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
 
 export interface Range<T> {
   start: T
@@ -369,7 +387,15 @@ export interface ViewProps {
 }
 
 export interface InputProps {
+  /**
+   * The index of the input to focus.
+   */
   index?: number | undefined
+  /**
+   * Whether to fix the input value on blur.
+   * @default true
+   */
+  fixOnBlur?: boolean | undefined
 }
 
 export interface LabelProps {
