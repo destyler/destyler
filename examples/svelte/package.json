@@ -43,6 +43,7 @@
     "@destyler/slider": "workspace:*",
     "@destyler/splitter": "workspace:*",
     "@destyler/steps": "workspace:*",
+    "@destyler/svelte": "workspace:*",
     "@destyler/switch": "workspace:*",
     "@destyler/tabs": "workspace:*",
     "@destyler/timer": "workspace:*",
@@ -50,22 +51,22 @@
     "@destyler/toggle": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/tour": "workspace:*",
-    "@destyler/tree": "workspace:*",
-    "@destyler/svelte": "workspace:*"
+    "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
     "@destyler/shared": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
     "@unocss/reset": "catalog:examples",
     "@zag-js/dom-query": "catalog:",
     "@zag-js/stringify-state": "catalog:",
-    "unocss": "catalog:examples",
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tsconfig/svelte": "^5.0.4",
     "svelte": "catalog:",
     "svelte-check": "^4.1.4",
+    "svelte-routing": "^2.13.0",
     "typescript": "catalog:",
+    "unocss": "catalog:examples",
     "vite": "catalog:"
   }
 }

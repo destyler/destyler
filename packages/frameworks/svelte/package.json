@@ -7,13 +7,13 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./*": "./*"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "*.d.ts",
@@ -22,8 +22,9 @@
   "scripts": {
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
+
     "prepublishOnly": "pnpm run build",
-    "build": "pnpm run clear && unbuild",
+    "build": "pnpm run clear && svelte-package -i src && tsc --noEmit",
     "stub": "unbuild --stub"
   },
   "peerDependencies": {
@@ -34,6 +35,7 @@
     "@zag-js/types": "catalog:"
   },
   "devDependencies": {
+    "@sveltejs/package": "^2.3.10",
     "@zag-js/utils": "catalog:",
     "svelte": "catalog:"
   }
