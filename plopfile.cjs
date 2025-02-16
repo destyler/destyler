@@ -76,9 +76,9 @@ module.exports = function main(plop) {
 
       actions.push({
         type: 'modify',
-        path: 'shared/src/routes.ts',
+        path: 'shared/src/routers.ts',
         pattern: /= \[/,
-        template: '= [\n  { label: "{{multiCapitalize machine}}", path: "/{{machine}}" },',
+        template: '= [\n  { path: "/{{machine}}", label: "{{multiCapitalize machine}}" },',
       })
 
       return actions

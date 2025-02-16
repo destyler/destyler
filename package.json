@@ -16,6 +16,7 @@
     "clear:packages:node_modules": "pnpm run --filter \"./packages/**\" -r clear:node_modules",
     "clear": "pnpm run clear:packages:dist && pnpm run clear:packages:node_modules && pnpm run clear:node_modules",
     "generate-machine": "plop machine",
+    "generate-example": "plop examples",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "taze": "taze",
