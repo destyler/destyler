@@ -23,6 +23,7 @@
     "vue": "pnpm --filter \"./examples/vue\"",
     "react": "pnpm --filter \"./examples/react\"",
     "solid": "pnpm --filter \"./examples/solid\"",
+    "svelte": "pnpm --filter \"./examples/svelte\"",
     "release": "bumpp package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
