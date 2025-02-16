@@ -8,8 +8,10 @@ import {useControls} from '../hooks/use-controls.svelte'
 
 const controls = useControls(aspectRatioControls)
 
+const uid = $props.id();
+
 const [state, send] = useMachine(aspectRatio.machine({
-  id:'1',
+  id: uid,
 }),{
   context:controls.context
 })
