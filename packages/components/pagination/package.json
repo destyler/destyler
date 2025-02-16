@@ -1,7 +1,7 @@
 {
   "name": "@destyler/pagination",
   "type": "module",
-  "version": "0.0.7-beta.4",
+  "version": "0.0.7-beta.5",
   "description": "displays data in paged format and provides navigation between pages.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
