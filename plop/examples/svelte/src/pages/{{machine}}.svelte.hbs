@@ -1,0 +1,29 @@
+<script lang="ts">
+import * as {{camelCase machine}} from "@destyler/{{machine}}"
+import { normalizeProps, useMachine } from '@destyler/svelte'
+import { {{camelCase machine}}Controls, {{camelCase machine}}Data } from "@destyler/shared"
+import Toolbar from '../components/toolbar.svelte'
+import StateVisualizer from "../components/state-visualizer.svelte"
+import {useControls} from '../hooks/use-controls.svelte'
+
+const controls = useControls({{camelCase machine}}Controls)
+
+const uid = $props.id();
+
+const [state, send] = useMachine({{camelCase machine}}.machine({
+  id: uid,
+}),{
+  context:controls.context
+})
+const api = $derived({{camelCase machine}}.connect(state, send, normalizeProps))
+</script>
+
+<main class="{{machine}}">
+    <div {...api.getRootProps()}>
+
+    </div>
+</main>
+
+<Toolbar {controls}>
+  <StateVisualizer state={state} />
+</Toolbar>

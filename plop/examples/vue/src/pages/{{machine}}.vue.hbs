@@ -1,0 +1,30 @@
+<script setup lang="ts">
+import * as {{camelCase machine}} from "@destyler/{{machine}}"
+import { {{camelCase machine}}Controls, {{camelCase machine}}Data } from "@destyler/shared"
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
+import { useControls } from '../composables/useControls'
+
+const controls = useControls({{camelCase machine}}Controls)
+
+const [state, send] = useMachine({{camelCase machine}}.machine({ id: useId() }), {
+  context: controls.context,
+})
+const api = computed(() =>
+  {{camelCase machine}}.connect(state.value, send, normalizeProps),
+)
+</script>
+
+<template>
+  <main class="">
+    <div v-bind="api.getRootProps()">
+    </div>
+  </main>
+
+  <Toolbar>
+    <StateVisualizer :state="state" />
+    <template #controls>
+      <Controls :control="controls" />
+    </template>
+  </Toolbar>
+</template>

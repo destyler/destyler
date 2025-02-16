@@ -47,4 +47,41 @@ module.exports = function main(plop) {
       return actions
     },
   })
+
+  plop.setGenerator('examples', {
+    description: 'Generates a new ui machine example',
+    prompts: [
+      {
+        type: 'input',
+        name: 'machine',
+        message: 'Enter machine name (e.g. menu, otp-input):',
+      },
+    ],
+    actions(answers) {
+      const actions = []
+
+      if (!answers)
+        return actions
+
+      const { machine } = answers
+
+      actions.push({
+        type: 'addMany',
+        templateFiles: 'plop/examples/**',
+        destination: `examples`,
+        base: 'plop/examples/',
+        data: { machine, name: machine },
+        abortOnFail: true,
+      })
+
+      actions.push({
+        type: 'modify',
+        path: 'shared/src/routes.ts',
+        pattern: /= \[/,
+        template: '= [\n  { label: "{{multiCapitalize machine}}", path: "/{{machine}}" },',
+      })
+
+      return actions
+    },
+  })
 }
