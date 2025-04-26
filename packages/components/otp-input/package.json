@@ -1,7 +1,7 @@
 {
   "name": "@destyler/otp-input",
   "type": "module",
-  "version": "0.0.7-beta.5",
+  "version": "0.0.7-beta.6",
   "description": "a sequence of one-character alphanumeric inputs.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
