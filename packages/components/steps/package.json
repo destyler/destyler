@@ -1,7 +1,7 @@
 {
   "name": "@destyler/steps",
   "type": "module",
-  "version": "0.0.7-beta.6",
+  "version": "0.0.7-beta.7",
   "description": "Used to guide users through a series of steps in a process",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

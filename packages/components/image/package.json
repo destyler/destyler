@@ -1,7 +1,7 @@
 {
   "name": "@destyler/image",
   "type": "module",
-  "version": "0.0.7-beta.6",
+  "version": "0.0.7-beta.7",
   "description": "an image element with a fallback.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
