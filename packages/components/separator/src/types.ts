@@ -36,5 +36,5 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
    * Whether the divider is vertical
    */
   isVertical: boolean
-  getRootProps: () => T['element']
+  getRootProps: (orientation?: Orientation) => T['element']
 }
