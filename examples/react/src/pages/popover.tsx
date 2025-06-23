@@ -1,6 +1,6 @@
 import * as popover from '@destyler/popover'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { popoverControls } from '@destyler/shared'
+import { popoverControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

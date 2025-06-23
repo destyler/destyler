@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as carousel from '@destyler/carousel'
-import { carouselControls } from '@destyler/shared'
+import { carouselControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'

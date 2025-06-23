@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as splitter from "@destyler/splitter"
   import { normalizeProps, useMachine } from "@destyler/svelte"
-  import { splitterControls } from '@destyler/shared'
+  import { splitterControls } from '@destyler/shared-private-private'
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

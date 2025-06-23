@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as collapsible from '@destyler/collapsible'
-  import { collapsibleControls } from '@destyler/shared'
+  import { collapsibleControls } from '@destyler/shared-private-private'
   import { normalizeProps, useMachine } from '@destyler/svelte'
 
   import Toolbar from '../components/toolbar.svelte'

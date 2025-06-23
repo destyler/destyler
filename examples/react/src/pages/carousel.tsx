@@ -1,6 +1,6 @@
 import * as carousel from '@destyler/carousel'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { carouselControls } from '@destyler/shared'
+import { carouselControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

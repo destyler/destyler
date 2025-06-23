@@ -1,6 +1,6 @@
 import * as clipboard from '@destyler/clipboard'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { clipboardControls } from '@destyler/shared'
+import { clipboardControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

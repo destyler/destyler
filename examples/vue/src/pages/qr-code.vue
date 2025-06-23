@@ -2,7 +2,7 @@
 import * as qrCode from "@destyler/qr-code"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed, useId } from "vue"
-import { qrCodeControls } from '@destyler/shared'
+import { qrCodeControls } from '@destyler/shared-private-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(qrCodeControls)

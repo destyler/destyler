@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { splitterControls } from '@destyler/shared'
+import { splitterControls } from '@destyler/shared-private-private'
 import * as splitter from '@destyler/splitter'
 import { useId } from 'react'
 import { useControls } from '../hooks/use-controls'

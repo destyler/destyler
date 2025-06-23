@@ -1,6 +1,6 @@
 import * as dynamic from '@destyler/dynamic'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { dynamicControls } from '@destyler/shared'
+import { dynamicControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

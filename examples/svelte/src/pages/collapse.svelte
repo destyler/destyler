@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as collapse from '@destyler/collapse';
-  import { collapseControls } from '@destyler/shared';
+  import { collapseControls } from '@destyler/shared-private-private';
   import { normalizeProps, useMachine } from '@destyler/svelte';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"

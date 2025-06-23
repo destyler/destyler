@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { sliderControls } from '@destyler/shared'
+import { sliderControls } from '@destyler/shared-private-private'
 import * as slider from '@destyler/slider'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'

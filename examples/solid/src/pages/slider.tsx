@@ -1,4 +1,4 @@
-import { sliderControls } from '@destyler/shared'
+import { sliderControls } from '@destyler/shared-private-private'
 import * as slider from '@destyler/slider'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'

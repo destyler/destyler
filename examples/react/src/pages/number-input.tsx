@@ -1,6 +1,6 @@
 import * as numberInput from '@destyler/number-input'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { numberInputControls } from '@destyler/shared'
+import { numberInputControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

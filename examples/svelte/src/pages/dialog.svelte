@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as dialog from '@destyler/dialog';
-  import { dialogControls } from '@destyler/shared';
+  import { dialogControls } from '@destyler/shared-private-private';
   import { normalizeProps, useMachine } from '@destyler/svelte';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"

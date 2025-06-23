@@ -1,6 +1,6 @@
 import * as menu from '@destyler/menu'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { menuControls } from '@destyler/shared'
+import { menuControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

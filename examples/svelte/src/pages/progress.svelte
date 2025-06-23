@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as progress from "@destyler/progress";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { progressControls } from '@destyler/shared';
+  import { progressControls } from '@destyler/shared-private-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

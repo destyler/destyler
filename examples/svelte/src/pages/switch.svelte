@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as switchs from "@destyler/switch";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { switchControls } from '@destyler/shared';
+  import { switchControls } from '@destyler/shared-private-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

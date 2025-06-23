@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as colorPicker from '@destyler/color-picker'
-import { colorPickerControls } from '@destyler/shared'
+import { colorPickerControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'

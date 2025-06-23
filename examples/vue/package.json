@@ -53,7 +53,7 @@
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
-    "@destyler/shared": "workspace:*",
+    "@destyler/shared-private-private": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
     "@unocss/reset": "catalog:examples",

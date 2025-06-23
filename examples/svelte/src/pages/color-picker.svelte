@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as colorPicker from '@destyler/color-picker'
-  import { colorPickerControls } from '@destyler/shared'
+  import { colorPickerControls } from '@destyler/shared-private-private'
   import { normalizeProps, useMachine } from '@destyler/svelte'
 
   import Toolbar from '../components/toolbar.svelte'

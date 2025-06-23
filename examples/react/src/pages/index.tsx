@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { routes } from '@destyler/shared'
+import { routes } from '@destyler/shared-private-private'
 import { useNavigate } from 'react-router-dom'
 
 const Home: FC = () => {

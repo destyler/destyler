@@ -1,5 +1,5 @@
 import * as otpInput from '@destyler/otp-input'
-import { pinInputControls } from '@destyler/shared'
+import { pinInputControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

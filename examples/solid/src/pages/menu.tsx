@@ -1,5 +1,5 @@
 import * as menu from '@destyler/menu'
-import { menuControls } from '@destyler/shared'
+import { menuControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

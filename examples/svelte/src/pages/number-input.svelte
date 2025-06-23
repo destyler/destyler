@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as numberInput from "@destyler/number-input";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { numberInputControls } from '@destyler/shared'
+  import { numberInputControls } from '@destyler/shared-private-private'
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

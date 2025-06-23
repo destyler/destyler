@@ -1,5 +1,5 @@
 import * as dialog from '@destyler/dialog'
-import { dialogControls } from '@destyler/shared'
+import { dialogControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

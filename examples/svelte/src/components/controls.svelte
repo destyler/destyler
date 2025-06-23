@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { UseControlsReturn } from "../hooks/use-controls.svelte"
-  import { deepGet } from "@destyler/shared"
+  import { deepGet } from "@destyler/shared-private-private"
 
   const { controls }: { controls: UseControlsReturn } = $props()
 </script>

@@ -1,5 +1,5 @@
 import * as dynamic from '@destyler/dynamic'
-import { dynamicControls } from '@destyler/shared'
+import { dynamicControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

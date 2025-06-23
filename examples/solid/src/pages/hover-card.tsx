@@ -1,5 +1,5 @@
 import * as hoverCard from '@destyler/hover-card'
-import { hoverCardControls } from '@destyler/shared'
+import { hoverCardControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

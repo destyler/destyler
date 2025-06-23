@@ -1,5 +1,5 @@
 import * as fileUpload from '@destyler/file-upload'
-import { fileUploadControls } from '@destyler/shared'
+import { fileUploadControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

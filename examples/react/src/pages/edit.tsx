@@ -1,6 +1,6 @@
 import * as edit from '@destyler/edit'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { editControls } from '@destyler/shared'
+import { editControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

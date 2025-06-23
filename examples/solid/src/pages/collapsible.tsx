@@ -1,5 +1,5 @@
 import * as collapsible from '@destyler/collapsible'
-import { collapsibleControls } from '@destyler/shared'
+import { collapsibleControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

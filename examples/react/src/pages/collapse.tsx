@@ -1,6 +1,6 @@
 import * as collapse from '@destyler/collapse'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { collapseControls } from '@destyler/shared'
+import { collapseControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

@@ -1,6 +1,6 @@
 import * as hoverCard from '@destyler/hover-card'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { hoverCardControls } from '@destyler/shared'
+import { hoverCardControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

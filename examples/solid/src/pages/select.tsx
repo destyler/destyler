@@ -1,5 +1,5 @@
 import * as select from '@destyler/select'
-import { selectControls } from '@destyler/shared'
+import { selectControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

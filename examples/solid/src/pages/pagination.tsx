@@ -1,5 +1,5 @@
 import * as pagination from '@destyler/pagination'
-import { paginationControls } from '@destyler/shared'
+import { paginationControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

@@ -1,4 +1,4 @@
-import { stepsControls } from '@destyler/shared'
+import { stepsControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as steps from '@destyler/steps'
 import { createMemo, createUniqueId } from 'solid-js'

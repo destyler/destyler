@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { toggleControls } from '@destyler/shared'
+import { toggleControls } from '@destyler/shared-private-private'
 import * as toggle from '@destyler/toggle'
 import { useId } from 'react'
 import { useControls } from '../hooks/use-controls'

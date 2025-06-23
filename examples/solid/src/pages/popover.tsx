@@ -1,5 +1,5 @@
 import * as popover from '@destyler/popover'
-import { popoverControls } from '@destyler/shared'
+import { popoverControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

@@ -1,5 +1,5 @@
 import * as edit from '@destyler/edit'
-import { editControls } from '@destyler/shared'
+import { editControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

@@ -1,6 +1,6 @@
 import * as otpInput from '@destyler/otp-input'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { pinInputControls } from '@destyler/shared'
+import { pinInputControls } from '@destyler/shared-private-private'
 import { useId, useMemo } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

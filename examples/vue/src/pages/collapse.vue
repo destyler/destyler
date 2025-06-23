@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as collapse from '@destyler/collapse'
-import { collapseControls } from '@destyler/shared'
+import { collapseControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'

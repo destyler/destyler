@@ -1,4 +1,4 @@
-import { tabsControls } from '@destyler/shared'
+import { tabsControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as tabs from '@destyler/tabs'
 import { createMemo, createUniqueId } from 'solid-js'

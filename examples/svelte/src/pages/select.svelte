@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as select from "@destyler/select"
   import { normalizeProps, useMachine } from "@destyler/svelte"
-  import { selectControls } from '@destyler/shared'
+  import { selectControls } from '@destyler/shared-private-private'
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

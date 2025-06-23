@@ -3,7 +3,7 @@ import * as tree from "@destyler/tree"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed, useId } from "vue"
 import TreeNode from "../components/TreeNode.vue"
-import { treeControls } from '@destyler/shared'
+import { treeControls } from '@destyler/shared-private-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(treeControls)

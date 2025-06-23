@@ -2,7 +2,7 @@
   import * as tree from "@destyler/tree";
   import { normalizeProps, useMachine } from "@destyler/svelte";
   import TreeNode from "../components/TreeNode.svelte";
-  import { treeControls } from '@destyler/shared';
+  import { treeControls } from '@destyler/shared-private-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

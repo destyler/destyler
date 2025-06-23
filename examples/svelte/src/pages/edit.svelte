@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as edit from "@destyler/edit";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { editControls } from '@destyler/shared';
+  import { editControls } from '@destyler/shared-private-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

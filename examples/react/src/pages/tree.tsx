@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { treeControls } from '@destyler/shared'
+import { treeControls } from '@destyler/shared-private-private'
 import * as tree from '@destyler/tree'
 import { useId, useMemo } from 'react'
 import { TreeNode } from '../components/TreeNode'

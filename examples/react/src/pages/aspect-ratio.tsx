@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { aspectRatioControls } from '@destyler/shared'
+import { aspectRatioControls } from '@destyler/shared-private-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

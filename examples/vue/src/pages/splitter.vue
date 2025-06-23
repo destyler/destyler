@@ -2,7 +2,7 @@
 import * as splitter from "@destyler/splitter"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed,useId } from "vue"
-import { splitterControls } from '@destyler/shared'
+import { splitterControls } from '@destyler/shared-private-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(splitterControls)

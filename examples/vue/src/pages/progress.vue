@@ -2,7 +2,7 @@
 import * as progress from "@destyler/progress"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed,useId } from "vue"
-import { progressControls } from '@destyler/shared'
+import { progressControls } from '@destyler/shared-private-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(progressControls)

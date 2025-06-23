@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as combobox from '@destyler/combobox'
-import { comboboxControls } from '@destyler/shared'
+import { comboboxControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
 

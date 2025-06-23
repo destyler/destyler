@@ -1,5 +1,5 @@
 import * as numberInput from '@destyler/number-input'
-import { numberInputControls } from '@destyler/shared'
+import { numberInputControls } from '@destyler/shared-private-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

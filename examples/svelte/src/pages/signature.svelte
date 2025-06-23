@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as signaturePad from "@destyler/signature"
   import { useMachine, normalizeProps } from "@destyler/svelte"
-  import { signatureControls } from '@destyler/shared'
+  import { signatureControls } from '@destyler/shared-private-private'
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

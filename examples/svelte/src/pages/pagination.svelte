@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as pagination from "@destyler/pagination"
   import { normalizeProps, useMachine } from "@destyler/svelte"
-  import { paginationControls } from '@destyler/shared'
+  import { paginationControls } from '@destyler/shared-private-private'
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

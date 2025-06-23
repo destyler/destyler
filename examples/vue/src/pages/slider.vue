@@ -2,7 +2,7 @@
 import * as slider from "@destyler/slider";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed,useId } from "vue";
-import { sliderControls } from '@destyler/shared'
+import { sliderControls } from '@destyler/shared-private-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(sliderControls)

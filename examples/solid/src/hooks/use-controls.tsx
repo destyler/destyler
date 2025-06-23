@@ -1,5 +1,5 @@
-import type { ControlRecord } from '@destyler/shared';
-import { deepGet, deepSet, getControlDefaults } from '@destyler/shared'
+import type { ControlRecord } from '@destyler/shared-private-private';
+import { deepGet, deepSet, getControlDefaults } from '@destyler/shared-private-private'
 import { createMemo, createSignal, For } from 'solid-js'
 
 export function useControls<T extends ControlRecord>(config: T) {
