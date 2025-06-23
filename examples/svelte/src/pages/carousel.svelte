@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as carousel from '@destyler/carousel'
-  import { carouselControls } from '@destyler/shared-private-private'
+  import { carouselControls } from '@destyler/shared-private'
   import { normalizeProps, useMachine } from '@destyler/svelte'
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"

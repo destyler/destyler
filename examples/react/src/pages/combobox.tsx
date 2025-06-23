@@ -1,6 +1,6 @@
 import * as combobox from '@destyler/combobox'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { comboboxControls } from '@destyler/shared-private-private'
+import { comboboxControls } from '@destyler/shared-private'
 import * as React from 'react'
 import { useId } from 'react'
 

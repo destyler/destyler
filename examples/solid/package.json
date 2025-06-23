@@ -53,7 +53,7 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
-    "@destyler/shared-private-private": "workspace:*",
+    "@destyler/shared-private": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
     "@solidjs/router": "^0.15.3",

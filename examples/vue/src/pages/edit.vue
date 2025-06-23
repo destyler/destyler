@@ -2,7 +2,7 @@
 import * as edit from "@destyler/edit";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed, useId } from "vue";
-import { editControls } from '@destyler/shared-private-private'
+import { editControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(editControls)

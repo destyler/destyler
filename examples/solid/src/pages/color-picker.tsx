@@ -1,5 +1,5 @@
 import * as colorPicker from '@destyler/color-picker'
-import { colorPickerControls } from '@destyler/shared-private-private'
+import { colorPickerControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

@@ -2,7 +2,7 @@
 import * as dynamic from "@destyler/dynamic";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed, useId } from "vue";
-import { dynamicControls } from '@destyler/shared-private-private'
+import { dynamicControls } from '@destyler/shared-private'
 
 import { useControls } from '../composables/useControls'
 

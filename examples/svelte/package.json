@@ -54,7 +54,7 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
-    "@destyler/shared-private-private": "workspace:*",
+    "@destyler/shared-private": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",

@@ -1,5 +1,5 @@
 import * as aspectRatio from '@destyler/aspect-ratio'
-import { aspectRatioControls } from '@destyler/shared-private-private'
+import { aspectRatioControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

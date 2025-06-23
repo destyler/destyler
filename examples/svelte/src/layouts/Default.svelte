@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { routes } from '@destyler/shared-private-private'
+  import { routes } from '@destyler/shared-private'
 </script>
 
 <main class="h-screen p-4 flex">

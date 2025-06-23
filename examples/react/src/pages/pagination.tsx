@@ -1,6 +1,6 @@
 import * as pagination from '@destyler/pagination'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { paginationControls } from '@destyler/shared-private-private'
+import { paginationControls } from '@destyler/shared-private'
 import { useId, useMemo } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

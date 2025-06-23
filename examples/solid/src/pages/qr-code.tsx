@@ -1,5 +1,5 @@
 import * as qrCode from '@destyler/qr-code'
-import { qrCodeControls } from '@destyler/shared-private-private'
+import { qrCodeControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 

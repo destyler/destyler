@@ -2,7 +2,7 @@
 import * as radio from "@destyler/radio"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed,useId } from "vue"
-import { radioControls } from '@destyler/shared-private-private'
+import { radioControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(radioControls)

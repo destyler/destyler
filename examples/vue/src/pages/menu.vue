@@ -2,7 +2,7 @@
 import * as menu from "@destyler/menu";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed, useId,ref } from "vue";
-import { menuControls } from '@destyler/shared-private-private'
+import { menuControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(menuControls)

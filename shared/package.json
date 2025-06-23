@@ -1,5 +1,5 @@
 {
-  "name": "@destyler/shared-private-private",
+  "name": "@destyler/shared-private",
   "version": "0.0.0",
   "private": "true",
   "main": "src/index.ts",

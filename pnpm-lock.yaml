@@ -388,7 +388,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components/tree
     devDependencies:
-      '@destyler/shared':
+      '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
       '@iconify-json/carbon':
@@ -578,7 +578,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components/tree
     devDependencies:
-      '@destyler/shared':
+      '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
       '@iconify-json/carbon':
@@ -747,7 +747,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components/tree
     devDependencies:
-      '@destyler/shared':
+      '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
       '@iconify-json/carbon':
@@ -971,7 +971,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/frameworks/vue
     devDependencies:
-      '@destyler/shared':
+      '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
       '@iconify-json/carbon':

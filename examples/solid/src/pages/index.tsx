@@ -1,4 +1,4 @@
-import { routes } from '@destyler/shared-private-private'
+import { routes } from '@destyler/shared-private'
 import { useNavigate } from '@solidjs/router'
 
 function Home() {

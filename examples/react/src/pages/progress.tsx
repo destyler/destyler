@@ -1,6 +1,6 @@
 import * as progress from '@destyler/progress'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { progressControls } from '@destyler/shared-private-private'
+import { progressControls } from '@destyler/shared-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

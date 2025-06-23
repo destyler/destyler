@@ -1,6 +1,6 @@
-import type { RouteData } from '@destyler/shared-private-private'
+import type { RouteData } from '@destyler/shared-private'
 import type { FC, ReactNode } from 'react'
-import { routes } from '@destyler/shared-private-private'
+import { routes } from '@destyler/shared-private'
 import { Link } from 'react-router-dom'
 import './default.css'
 

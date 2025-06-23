@@ -2,7 +2,7 @@
 import * as numberInput from "@destyler/number-input";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed, useId } from "vue";
-import { numberInputControls } from '@destyler/shared-private-private'
+import { numberInputControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(numberInputControls)

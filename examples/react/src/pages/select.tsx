@@ -1,6 +1,6 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import * as select from '@destyler/select'
-import { selectControls } from '@destyler/shared-private-private'
+import { selectControls } from '@destyler/shared-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

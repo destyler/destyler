@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { routes } from '@destyler/shared-private-private'
+  import { routes } from '@destyler/shared-private'
   import {Link} from 'svelte-routing'
 </script>
 

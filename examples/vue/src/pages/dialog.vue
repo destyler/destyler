@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as dialog from '@destyler/dialog'
-import { dialogControls } from '@destyler/shared-private-private'
+import { dialogControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'

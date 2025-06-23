@@ -2,7 +2,7 @@
 import * as tabs from "@destyler/tabs";
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed,useId } from "vue";
-import { tabsControls } from '@destyler/shared-private-private'
+import { tabsControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(tabsControls)

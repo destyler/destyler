@@ -1,4 +1,4 @@
-import { splitterControls } from '@destyler/shared-private-private'
+import { splitterControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as splitter from '@destyler/splitter'
 import { createMemo, createUniqueId } from 'solid-js'

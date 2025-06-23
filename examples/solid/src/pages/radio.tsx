@@ -1,5 +1,5 @@
 import * as radio from '@destyler/radio'
-import { radioControls } from '@destyler/shared-private-private'
+import { radioControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

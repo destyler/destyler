@@ -1,6 +1,6 @@
 import * as floatingPanel from '@destyler/floating-panel'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { floatingPanelControls } from '@destyler/shared-private-private'
+import { floatingPanelControls } from '@destyler/shared-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

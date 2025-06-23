@@ -1,5 +1,5 @@
 import * as progress from '@destyler/progress'
-import { progressControls } from '@destyler/shared-private-private'
+import { progressControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

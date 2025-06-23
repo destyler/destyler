@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/solid'
-import { treeControls } from '@destyler/shared-private-private'
+import { treeControls } from '@destyler/shared-private'
 import * as tree from '@destyler/tree'
 import { createMemo, createUniqueId } from 'solid-js'
 import { TreeNode } from '../components/TreeNode'

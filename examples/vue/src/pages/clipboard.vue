@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as clipboard from '@destyler/clipboard'
-import { clipboardControls } from '@destyler/shared-private-private'
+import { clipboardControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'

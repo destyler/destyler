@@ -2,7 +2,7 @@
   import * as signaturePad from "@destyler/signature"
   import { useMachine, normalizeProps } from "@destyler/vue"
   import { computed,useId } from "vue"
-  import { signatureControls } from '@destyler/shared-private-private'
+  import { signatureControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(signatureControls)

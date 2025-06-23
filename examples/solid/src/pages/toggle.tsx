@@ -1,4 +1,4 @@
-import { toggleControls } from '@destyler/shared-private-private'
+import { toggleControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as toggle from '@destyler/toggle'
 import { createMemo, createUniqueId } from 'solid-js'

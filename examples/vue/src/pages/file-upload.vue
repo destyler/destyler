@@ -2,7 +2,7 @@
   import * as fileUpload from "@destyler/file-upload"
   import { normalizeProps, useMachine } from "@destyler/vue"
   import { computed,useId } from "vue"
-  import { fileUploadControls } from '@destyler/shared-private-private'
+  import { fileUploadControls } from '@destyler/shared-private'
   import { useControls } from '../composables/useControls'
 
 const controls = useControls(fileUploadControls)

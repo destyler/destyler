@@ -2,7 +2,7 @@
 import * as steps from "@destyler/steps"
 import { useMachine, normalizeProps } from "@destyler/vue"
 import { computed, useId } from "vue"
-import { stepsControls } from '@destyler/shared-private-private'
+import { stepsControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(stepsControls)

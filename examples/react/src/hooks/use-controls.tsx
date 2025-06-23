@@ -1,5 +1,5 @@
-import type { ControlRecord } from '@destyler/shared-private-private'
-import { deepGet, deepSet, getControlDefaults } from '@destyler/shared-private-private'
+import type { ControlRecord } from '@destyler/shared-private'
+import { deepGet, deepSet, getControlDefaults } from '@destyler/shared-private'
 import { useState } from 'react'
 
 export function useControls<T extends ControlRecord>(config: T) {

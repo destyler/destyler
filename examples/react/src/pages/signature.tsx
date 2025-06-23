@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { signatureControls } from '@destyler/shared-private-private'
+import { signatureControls } from '@destyler/shared-private'
 import * as signaturePad from '@destyler/signature'
 import { useId, useMemo } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'

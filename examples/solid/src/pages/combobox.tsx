@@ -1,5 +1,5 @@
 import * as combobox from '@destyler/combobox'
-import { comboboxControls } from '@destyler/shared-private-private'
+import { comboboxControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 
 import { createMemo, createSignal, createUniqueId } from 'solid-js'

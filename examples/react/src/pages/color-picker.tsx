@@ -1,6 +1,6 @@
 import * as colorPicker from '@destyler/color-picker'
 import { normalizeProps, useMachine } from '@destyler/react'
-import { colorPickerControls } from '@destyler/shared-private-private'
+import { colorPickerControls } from '@destyler/shared-private'
 import { useId } from 'react'
 import { StateVisualizer } from '../components/tool/StateVisualizer'
 import { Toolbar } from '../components/tool/Toolbar'

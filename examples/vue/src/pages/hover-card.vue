@@ -2,7 +2,7 @@
 import * as hoverCard from "@destyler/hover-card"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed, useId } from "vue"
-import { hoverCardControls } from '@destyler/shared-private-private'
+import { hoverCardControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(hoverCardControls)

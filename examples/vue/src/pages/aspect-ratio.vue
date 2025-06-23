@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as aspectRatio from '@destyler/aspect-ratio'
-import { aspectRatioControls } from '@destyler/shared-private-private'
+import { aspectRatioControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'

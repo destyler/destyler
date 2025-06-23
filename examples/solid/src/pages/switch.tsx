@@ -1,4 +1,4 @@
-import { switchControls } from '@destyler/shared-private-private'
+import { switchControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as switchs from '@destyler/switch'
 import { createMemo, createUniqueId } from 'solid-js'

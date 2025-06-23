@@ -1,4 +1,4 @@
-import { signatureControls } from '@destyler/shared-private-private'
+import { signatureControls } from '@destyler/shared-private'
 import * as signaturePad from '@destyler/signature'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'

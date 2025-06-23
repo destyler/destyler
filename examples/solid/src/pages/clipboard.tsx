@@ -1,5 +1,5 @@
 import * as clipboard from '@destyler/clipboard'
-import { clipboardControls } from '@destyler/shared-private-private'
+import { clipboardControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

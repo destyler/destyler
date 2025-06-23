@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as steps from "@destyler/steps";
   import { useMachine, normalizeProps } from "@destyler/svelte";
-  import { stepsControls } from '@destyler/shared-private-private';
+  import { stepsControls } from '@destyler/shared-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

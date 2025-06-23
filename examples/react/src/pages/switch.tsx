@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { switchControls } from '@destyler/shared-private-private'
+import { switchControls } from '@destyler/shared-private'
 import * as switchs from '@destyler/switch'
 import { useId, useMemo } from 'react'
 import { useControls } from '../hooks/use-controls'

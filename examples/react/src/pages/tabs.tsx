@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { tabsControls } from '@destyler/shared-private-private'
+import { tabsControls } from '@destyler/shared-private'
 import * as tabs from '@destyler/tabs'
 import { useId } from 'react'
 import { useControls } from '../hooks/use-controls'

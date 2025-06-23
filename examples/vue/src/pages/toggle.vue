@@ -2,7 +2,7 @@
 import * as toggle from "@destyler/toggle"
 import { normalizeProps, useMachine } from "@destyler/vue";
 import { computed,useId } from "vue";
-import { toggleControls } from '@destyler/shared-private-private'
+import { toggleControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(toggleControls)

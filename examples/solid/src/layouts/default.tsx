@@ -1,5 +1,5 @@
 import type { Component, ParentProps } from 'solid-js'
-import { routes } from '@destyler/shared-private-private'
+import { routes } from '@destyler/shared-private'
 import './default.css'
 
 const DefaultLayout: Component<ParentProps> = (props) => {

@@ -2,7 +2,7 @@
 import * as pagination from "@destyler/pagination"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed, useId } from "vue"
-import { paginationControls } from '@destyler/shared-private-private'
+import { paginationControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(paginationControls)

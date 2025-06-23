@@ -2,7 +2,7 @@
 import * as popover from "@destyler/popover"
 import { normalizeProps, useMachine } from "@destyler/vue"
 import { computed,useId } from "vue"
-import { popoverControls } from '@destyler/shared-private-private'
+import { popoverControls } from '@destyler/shared-private'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(popoverControls)

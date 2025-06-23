@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as radio from "@destyler/radio";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { radioControls } from '@destyler/shared-private-private';
+  import { radioControls } from '@destyler/shared-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

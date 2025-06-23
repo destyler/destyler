@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as tabs from "@destyler/tabs";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { tabsControls } from '@destyler/shared-private-private';
+  import { tabsControls } from '@destyler/shared-private';
   import Toolbar from '../components/toolbar.svelte'
   import StateVisualizer from "../components/state-visualizer.svelte"
   import {useControls} from '../hooks/use-controls.svelte'

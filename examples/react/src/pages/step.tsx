@@ -1,5 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
-import { stepsControls } from '@destyler/shared-private-private'
+import { stepsControls } from '@destyler/shared-private'
 import * as steps from '@destyler/steps'
 import { useId } from 'react'
 import { useControls } from '../hooks/use-controls'

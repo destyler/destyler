@@ -1,5 +1,5 @@
 import type { Ref, UnwrapRef } from 'vue'
-import { type ControlRecord, type ControlValue, deepGet, deepSet, getControlDefaults } from '@destyler/shared-private-private'
+import { type ControlRecord, type ControlValue, deepGet, deepSet, getControlDefaults } from '@destyler/shared-private'
 import { computed, ref, unref } from 'vue'
 
 export interface UseControlsReturn<T extends ControlRecord> {

@@ -1,5 +1,5 @@
 import * as checkbox from '@destyler/checkbox'
-import { checkboxControls } from '@destyler/shared-private-private'
+import { checkboxControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { StateVisualizer } from '../components/tools/state-visualizer'

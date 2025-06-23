@@ -1,5 +1,5 @@
-import type { ControlRecord } from '@destyler/shared-private-private'
-import { deepSet, getControlDefaults } from '@destyler/shared-private-private'
+import type { ControlRecord } from '@destyler/shared-private'
+import { deepSet, getControlDefaults } from '@destyler/shared-private'
 
 export function useControls<T extends ControlRecord>(config: T) {
   const context = $state(getControlDefaults(config))
