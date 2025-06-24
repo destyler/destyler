@@ -11,5 +11,7 @@ export default antfu({
     'no-prototype-builtins': 'off',
     'no-cond-assign': 'off',
     'regexp/no-super-linear-backtracking': 'off',
+    'lit-plugin(no-invalid-tag-name)': 'off',
+    'vue/no-reserved-component-names': 'off'
   },
 })

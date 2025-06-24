@@ -2143,6 +2143,18 @@ importers:
         specifier: 'catalog:'
         version: 3.0.1
 
+  packages/types:
+    dependencies:
+      '@destyler/store':
+        specifier: workspace:*
+        version: link:../store
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../utils
+      csstype:
+        specifier: ^3.1.3
+        version: 3.1.3
+
   packages/utils: {}
 
   packages/xstate:
