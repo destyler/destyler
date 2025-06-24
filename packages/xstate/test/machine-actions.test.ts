@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, vi, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createMachine } from '../index'
 
 describe('machine Actions', () => {

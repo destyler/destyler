@@ -14,7 +14,7 @@ export default antfu({
     'vue/no-reserved-component-names': 'off',
   },
 }, {
-  files: ['tests/**'],
+  files: ['test/**'],
   plugins: {
     vitest,
   },
