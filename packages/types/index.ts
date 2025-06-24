@@ -1,0 +1,178 @@
+import type { CSSProperties, SyntheticKeyboardEvent } from './src/jsx'
+
+export type RequiredBy<T, K extends keyof T> = Partial<Omit<T, K>> & Required<Pick<T, K>>
+
+export type Nullable<T> = T | null
+
+export type NonNullable<T> = T extends null | undefined ? never : T
+
+export type Required<T> = {
+  [P in keyof T]-?: NonNullable<T[P]>
+}
+
+export type Direction = 'ltr' | 'rtl'
+
+export type Orientation = 'horizontal' | 'vertical'
+
+export type MaybeFn<T> = T | (() => T)
+
+export type MaybeElement<T extends HTMLElement = HTMLElement> = Nullable<T>
+
+export interface OrientationProperty {
+  /**
+   * The orientation of the element.
+   * @default "horizontal"
+   */
+  orientation: Orientation
+}
+
+export interface DirectionProperty {
+  /**
+   * The document's text/writing direction.
+   * @default "ltr"
+   */
+  dir?: 'ltr' | 'rtl' | undefined
+}
+
+export interface LocaleProperties extends DirectionProperty {
+  /**
+   * The current locale. Based on the BCP 47 definition.
+   * @default "en-US"
+   */
+  locale?: string | undefined
+}
+
+export interface CommonProperties {
+  /**
+   * The unique identifier of the machine.
+   */
+  id: string
+  /**
+   * A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron.
+   */
+  getRootNode?: (() => ShadowRoot | Document | Node) | undefined
+}
+
+export type Style = CSSProperties
+
+export type EventKey =
+  | 'ArrowDown'
+  | 'ArrowUp'
+  | 'ArrowLeft'
+  | 'ArrowRight'
+  | 'Space'
+  | 'Enter'
+  | 'Comma'
+  | 'Escape'
+  | 'Backspace'
+  | 'Delete'
+  | 'Home'
+  | 'End'
+  | 'Tab'
+  | 'PageUp'
+  | 'PageDown'
+  | (string & {})
+
+export type EventKeyMap<T extends HTMLElement = HTMLElement> = {
+  [key in EventKey]?: (event: SyntheticKeyboardEvent<T>) => void
+}
+
+export interface Point {
+  x: number
+  y: number
+}
+
+export * from './src/create-props'
+
+export type {
+  BaseSyntheticEvent,
+  SyntheticChangeEvent,
+  SyntheticClipboardEvent,
+  SyntheticCompositionEvent,
+  SyntheticDragEvent,
+  SyntheticEvent,
+  SyntheticFocusEvent,
+  SyntheticFormEvent,
+  SyntheticInvalidEvent,
+  SyntheticPointerEvent,
+  SyntheticKeyboardEvent,
+  SyntheticMouseEvent,
+  SyntheticTouchEvent,
+  AbstractView,
+  SyntheticUIEvent,
+  SyntheticWheelEvent,
+  SyntheticAnimationEvent,
+  SyntheticTransitionEvent,
+  ClipboardEventHandler,
+  CompositionEventHandler,
+  DragEventHandler,
+  FocusEventHandler,
+  FormEventHandler,
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  TouchEventHandler,
+  PointerEventHandler,
+  UIEventHandler,
+  WheelEventHandler,
+  AnimationEventHandler,
+  TransitionEventHandler,
+  HTMLProps,
+  DOMAttributes,
+  CSSProperties,
+  AriaAttributes,
+  HTMLAttributes,
+  AllHTMLAttributes,
+  AnchorHTMLAttributes,
+  AudioHTMLAttributes,
+  AreaHTMLAttributes,
+  BaseHTMLAttributes,
+  BlockquoteHTMLAttributes,
+  ButtonHTMLAttributes,
+  CanvasHTMLAttributes,
+  ColHTMLAttributes,
+  ColgroupHTMLAttributes,
+  DataHTMLAttributes,
+  DetailsHTMLAttributes,
+  DelHTMLAttributes,
+  DialogHTMLAttributes,
+  EmbedHTMLAttributes,
+  FieldsetHTMLAttributes,
+  FormHTMLAttributes,
+  HtmlHTMLAttributes,
+  IframeHTMLAttributes,
+  ImgHTMLAttributes,
+  InsHTMLAttributes,
+  InputHTMLAttributes,
+  KeygenHTMLAttributes,
+  LabelHTMLAttributes,
+  LiHTMLAttributes,
+  LinkHTMLAttributes,
+  MapHTMLAttributes,
+  MenuHTMLAttributes,
+  MediaHTMLAttributes,
+  MetaHTMLAttributes,
+  MeterHTMLAttributes,
+  QuoteHTMLAttributes,
+  ObjectHTMLAttributes,
+  OlHTMLAttributes,
+  OptgroupHTMLAttributes,
+  OutputHTMLAttributes,
+  ParamHTMLAttributes,
+  ProgressHTMLAttributes,
+  SlotHTMLAttributes,
+  ScriptHTMLAttributes,
+  SelectHTMLAttributes,
+  SourceHTMLAttributes,
+  StyleHTMLAttributes,
+  TableHTMLAttributes,
+  TextareaHTMLAttributes,
+  TdHTMLAttributes,
+  ThHTMLAttributes,
+  TrackHTMLAttributes,
+  VideoHTMLAttributes,
+  SVGAttributes,
+  IntrinsicElements,
+} from './src/jsx'
+
+export * from './src/prop-types'
