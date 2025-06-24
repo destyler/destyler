@@ -32,7 +32,7 @@ function Tour() {
   ]
 
   const [state, send] = useMachine(tour.machine({ id: createUniqueId(), steps }))
-  const api = createMemo(()=>tour.connect(state, send, normalizeProps))
+  const api = createMemo(() => tour.connect(state, send, normalizeProps))
 
   return (
     <>

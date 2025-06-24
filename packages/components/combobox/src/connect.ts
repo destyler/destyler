@@ -1,6 +1,7 @@
+import type { EventKeyMap } from '@zag-js/dom-event'
 import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type { CollectionItem, ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { clickIfLink, type EventKeyMap, getEventKey, isContextMenuEvent, isLeftClick } from '@zag-js/dom-event'
+import { clickIfLink, getEventKey, isContextMenuEvent, isLeftClick } from '@zag-js/dom-event'
 import { ariaAttr, dataAttr, isComposingEvent, isDownloadingEvent, isOpeningInNewTab } from '@zag-js/dom-query'
 import { getPlacementStyles } from '@zag-js/popper'
 import { parts } from './anatomy'

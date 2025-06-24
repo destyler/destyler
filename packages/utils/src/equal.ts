@@ -47,7 +47,7 @@ export function isEqual(a: any, b: any, visited = new WeakMap()): boolean {
   if (!(typeof a === 'object') || !(typeof b === 'object')
     || a === null || b === null
     || isArrayLike(a) || isArrayLike(b)
-      || a instanceof Date || b instanceof Date) {
+    || a instanceof Date || b instanceof Date) {
     return false
   }
 

@@ -1,9 +1,10 @@
+import type { EventKeyMap } from '@zag-js/dom-event'
 import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type { ItemProps, ItemState, MachineApi, OptionItemProps, OptionItemState, Send, State } from './types'
 import { mergeProps } from '@zag-js/core'
 import {
   clickIfLink,
-  type EventKeyMap,
+
   getEventKey,
   getEventPoint,
   isContextMenuEvent,

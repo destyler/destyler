@@ -453,7 +453,7 @@ export class Machine<
         return
 
       if (!hasProp(transition, 'delay')) {
-        throw new Error(`[@zag-js/core > after] Delay is required for after transition: ${JSON.stringify(transition)}`)
+        throw new Error(`[@destyler/xstate > after] Delay is required for after transition: ${JSON.stringify(transition)}`)
       }
 
       const determineDelay = determineDelayFn((transition as any).delay, this.delayMap)

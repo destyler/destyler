@@ -1,7 +1,8 @@
 import type { Machine, StateMachine } from '@zag-js/core'
+import type { Ref } from 'vue'
 import type { MachineOptions } from '../types'
 import { snapshot, subscribe } from '@zag-js/store'
-import { onUnmounted, type Ref, shallowRef, unref, watch, watchEffect } from 'vue'
+import { onUnmounted, shallowRef, unref, watch, watchEffect } from 'vue'
 
 export function useSnapshot<
   TContext extends Record<string, any>,

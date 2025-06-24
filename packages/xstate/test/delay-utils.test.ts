@@ -1,5 +1,5 @@
-import { describe, expect, test } from "vitest"
-import { determineDelayFn } from "../src/delay-utils"
+import { describe, expect, it } from 'vitest'
+import { determineDelayFn } from '../src/delay-utils'
 
 const context = {
   values: [],
@@ -8,7 +8,7 @@ const context = {
 }
 
 const event = {
-  type: "testing",
+  type: 'testing',
 }
 
 type Context = typeof context
@@ -26,168 +26,168 @@ const delaysMapWithNull: any = {
   t3: null,
 }
 
-describe("determineDelayFn", () => {
-  describe("string delay (reference to delaysMap)", () => {
-    test("should determine delay - t1", () => {
-      const fn = determineDelayFn("t1", delaysMap)
+describe('determineDelayFn', () => {
+  describe('string delay (reference to delaysMap)', () => {
+    it('should determine delay - t1', () => {
+      const fn = determineDelayFn('t1', delaysMap)
       expect(fn(context, event)).toBe(200)
     })
 
-    test("should determine delay - t2", () => {
-      const fn = determineDelayFn("t2", delaysMap)
+    it('should determine delay - t2', () => {
+      const fn = determineDelayFn('t2', delaysMap)
       expect(fn(context, event)).toBe(300)
     })
 
-    test("should determine delay - t5 with different context", () => {
-      const fn = determineDelayFn("t5", delaysMap)
+    it('should determine delay - t5 with different context', () => {
+      const fn = determineDelayFn('t5', delaysMap)
       expect(fn(context, event)).toBe(500)
       expect(fn({ ...context, disabled: false }, event)).toBe(1000)
     })
 
-    test("should handle zero delay", () => {
-      const fn = determineDelayFn("t4", delaysMap)
+    it('should handle zero delay', () => {
+      const fn = determineDelayFn('t4', delaysMap)
       expect(fn(context, event)).toBe(0)
     })
 
-    test("should throw if delay is set to null in delaysMap", () => {
-      const fn = determineDelayFn("t3", delaysMapWithNull)
+    it('should throw if delay is set to null in delaysMap', () => {
+      const fn = determineDelayFn('t3', delaysMapWithNull)
       expect(() => fn(context, event)).toThrow(
-        "[@destyler/xstate > determine-delay] Cannot determine delay for `t3`. It is set to null in `options.delays`"
+        '[@destyler/xstate > determine-delay] Cannot determine delay for `t3`. It is set to null in `options.delays`',
       )
     })
 
-    test("should return undefined if delay not found in delaysMap", () => {
-      const fn = determineDelayFn("nonexistent", delaysMap)
+    it('should return undefined if delay not found in delaysMap', () => {
+      const fn = determineDelayFn('nonexistent', delaysMap)
       expect(fn(context, event)).toBeUndefined()
     })
 
-    test("should return undefined if delay not found and no delaysMap", () => {
-      const fn = determineDelayFn("t1", undefined)
+    it('should return undefined if delay not found and no delaysMap', () => {
+      const fn = determineDelayFn('t1', undefined)
       expect(fn(context, event)).toBeUndefined()
     })
   })
 
-  describe("string delay (numeric string)", () => {
-    test("should parse valid numeric string", () => {
-      const fn = determineDelayFn("250", delaysMap)
+  describe('string delay (numeric string)', () => {
+    it('should parse valid numeric string', () => {
+      const fn = determineDelayFn('250', delaysMap)
       expect(fn(context, event)).toBe(250)
     })
 
-    test("should parse decimal numeric string", () => {
-      const fn = determineDelayFn("150.5", delaysMap)
+    it('should parse decimal numeric string', () => {
+      const fn = determineDelayFn('150.5', delaysMap)
       expect(fn(context, event)).toBe(150.5)
     })
 
-    test("should parse zero string", () => {
-      const fn = determineDelayFn("0", delaysMap)
+    it('should parse zero string', () => {
+      const fn = determineDelayFn('0', delaysMap)
       expect(fn(context, event)).toBe(0)
     })
 
-    test("should parse negative number string", () => {
-      const fn = determineDelayFn("-100", delaysMap)
+    it('should parse negative number string', () => {
+      const fn = determineDelayFn('-100', delaysMap)
       expect(fn(context, event)).toBe(-100)
     })
 
-    test("should fallback to delaysMap for invalid numeric string", () => {
-      const fn = determineDelayFn("t1", delaysMap)
+    it('should fallback to delaysMap for invalid numeric string', () => {
+      const fn = determineDelayFn('t1', delaysMap)
       expect(fn(context, event)).toBe(200)
     })
 
-    test("should return undefined for invalid string without delaysMap", () => {
-      const fn = determineDelayFn("invalid", undefined)
+    it('should return undefined for invalid string without delaysMap', () => {
+      const fn = determineDelayFn('invalid', undefined)
       expect(fn(context, event)).toBeUndefined()
     })
 
-    test("should return undefined for empty string", () => {
-      const fn = determineDelayFn("", delaysMap)
+    it('should return undefined for empty string', () => {
+      const fn = determineDelayFn('', delaysMap)
       expect(fn(context, event)).toBeUndefined()
     })
 
-    test("should return undefined for whitespace string", () => {
-      const fn = determineDelayFn("   ", delaysMap)
+    it('should return undefined for whitespace string', () => {
+      const fn = determineDelayFn('   ', delaysMap)
       expect(fn(context, event)).toBeUndefined()
     })
   })
 
-  describe("number delay", () => {
-    test("should return number delay directly", () => {
+  describe('number delay', () => {
+    it('should return number delay directly', () => {
       const fn = determineDelayFn(500, delaysMap)
       expect(fn(context, event)).toBe(500)
     })
 
-    test("should handle zero delay", () => {
+    it('should handle zero delay', () => {
       const fn = determineDelayFn(0, delaysMap)
       expect(fn(context, event)).toBe(0)
     })
 
-    test("should handle negative delay", () => {
+    it('should handle negative delay', () => {
       const fn = determineDelayFn(-100, delaysMap)
       expect(fn(context, event)).toBe(-100)
     })
 
-    test("should handle decimal delay", () => {
+    it('should handle decimal delay', () => {
       const fn = determineDelayFn(123.45, delaysMap)
       expect(fn(context, event)).toBe(123.45)
     })
 
-    test("should work without delaysMap", () => {
+    it('should work without delaysMap', () => {
       const fn = determineDelayFn(300, undefined)
       expect(fn(context, event)).toBe(300)
     })
   })
 
-  describe("function delay", () => {
-    test("should execute function delay", () => {
+  describe('function delay', () => {
+    it('should execute function delay', () => {
       const delayFn = (ctx: Context) => ctx.values.length * 100
       const fn = determineDelayFn(delayFn, delaysMap)
       expect(fn(context, event)).toBe(0)
     })
 
-    test("should execute function delay with different context", () => {
-      const delayFn = (ctx: Context, evt: any) => ctx.focusable ? 200 : 400
+    it('should execute function delay with different context', () => {
+      const delayFn = (ctx: Context, _evt: any) => ctx.focusable ? 200 : 400
       const fn = determineDelayFn(delayFn, delaysMap)
       expect(fn(context, event)).toBe(200)
       expect(fn({ ...context, focusable: false }, event)).toBe(400)
     })
 
-    test("should pass both context and event to function", () => {
+    it('should pass both context and event to function', () => {
       const delayFn = (ctx: Context, evt: any) => {
-        return evt.type === "testing" ? 100 : 200
+        return evt.type === 'testing' ? 100 : 200
       }
       const fn = determineDelayFn(delayFn, delaysMap)
       expect(fn(context, event)).toBe(100)
-      expect(fn(context, { type: "other" })).toBe(200)
+      expect(fn(context, { type: 'other' })).toBe(200)
     })
 
-    test("should work without delaysMap", () => {
+    it('should work without delaysMap', () => {
       const delayFn = () => 150
       const fn = determineDelayFn(delayFn, undefined)
       expect(fn(context, event)).toBe(150)
     })
   })
 
-  describe("undefined delay", () => {
-    test("should return undefined for undefined delay", () => {
+  describe('undefined delay', () => {
+    it('should return undefined for undefined delay', () => {
       const fn = determineDelayFn(undefined, delaysMap)
       expect(fn(context, event)).toBeUndefined()
     })
 
-    test("should return undefined for undefined delay without delaysMap", () => {
+    it('should return undefined for undefined delay without delaysMap', () => {
       const fn = determineDelayFn(undefined, undefined)
       expect(fn(context, event)).toBeUndefined()
     })
   })
 
-  describe("edge cases", () => {
-    test("should handle complex context and event objects", () => {
+  describe('edge cases', () => {
+    it('should handle complex context and event objects', () => {
       const complexContext = {
         ...context,
         nested: { deep: { value: 10 } },
         array: [1, 2, 3],
       }
       const complexEvent = {
-        type: "complex",
-        payload: { data: "test" },
+        type: 'complex',
+        payload: { data: 'test' },
         timestamp: Date.now(),
       }
 
@@ -199,29 +199,29 @@ describe("determineDelayFn", () => {
       expect(fn(complexContext, complexEvent)).toBe(400) // 10 * 4 * 10
     })
 
-    test("should handle empty delaysMap", () => {
-      const fn = determineDelayFn("t1", {})
+    it('should handle empty delaysMap', () => {
+      const fn = determineDelayFn('t1', {})
       expect(fn(context, event)).toBeUndefined()
     })
 
-    test("should handle function that returns zero", () => {
+    it('should handle function that returns zero', () => {
       const delayFn = () => 0
       const fn = determineDelayFn(delayFn, delaysMap)
       expect(fn(context, event)).toBe(0)
     })
 
-    test("should handle function that returns negative value", () => {
+    it('should handle function that returns negative value', () => {
       const delayFn = () => -50
       const fn = determineDelayFn(delayFn, delaysMap)
       expect(fn(context, event)).toBe(-50)
     })
 
-    test("should handle very large numbers", () => {
+    it('should handle very large numbers', () => {
       const fn = determineDelayFn(Number.MAX_SAFE_INTEGER, delaysMap)
       expect(fn(context, event)).toBe(Number.MAX_SAFE_INTEGER)
     })
 
-    test("should handle Infinity", () => {
+    it('should handle Infinity', () => {
       const fn = determineDelayFn(Infinity, delaysMap)
       expect(fn(context, event)).toBe(Infinity)
     })

@@ -18,6 +18,7 @@
     "clear": "pnpm run clear:packages:dist && pnpm run clear:packages:node_modules && pnpm run clear:node_modules",
     "generate-machine": "plop machine",
     "generate-example": "plop examples",
+    "generate-shared": "plop shared",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "taze": "taze",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "catalog:",
     "@types/node": "catalog:",
+    "@vitest/eslint-plugin": "^1.2.7",
     "bumpp": "^10.0.3",
     "eslint": "catalog:",
     "find-packages": "catalog:",

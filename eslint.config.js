@@ -1,7 +1,7 @@
 import antfu from '@antfu/eslint-config'
+import vitest from '@vitest/eslint-plugin'
 
 export default antfu({
-}, {
   rules: {
     'vue/no-template-shadow': 'off',
     'ts/no-empty-object-type': 'off',
@@ -11,7 +11,15 @@ export default antfu({
     'no-prototype-builtins': 'off',
     'no-cond-assign': 'off',
     'regexp/no-super-linear-backtracking': 'off',
-    'lit-plugin(no-invalid-tag-name)': 'off',
-    'vue/no-reserved-component-names': 'off'
+    'vue/no-reserved-component-names': 'off',
+  },
+}, {
+  files: ['tests/**'],
+  plugins: {
+    vitest,
+  },
+  rules: {
+    ...vitest.configs.recommended.rules,
+    'vitest/max-nested-describe': ['error', { max: 3 }],
   },
 })

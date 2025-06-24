@@ -1,3 +1,4 @@
+import type { EventKeyMap } from '@zag-js/dom-event'
 import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type {
   AreaProps,
@@ -10,7 +11,7 @@ import type {
 } from './types'
 import { getColorAreaGradient, normalizeColor } from '@zag-js/color-utils'
 import {
-  type EventKeyMap,
+
   getEventKey,
   getEventPoint,
   getEventStep,

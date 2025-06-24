@@ -2,7 +2,7 @@ export type MaybeFunction<T> = T | (() => T)
 
 export type Nullable<T> = T | null | undefined
 
-export function runIfFn<T>(v: T | undefined,  ...a: T extends (...a: any[]) => void ? Parameters<T> : never): T extends (...a: any[]) => void ? NonNullable<ReturnType<T>> : NonNullable<T> {
+export function runIfFn<T>(v: T | undefined, ...a: T extends (...a: any[]) => void ? Parameters<T> : never): T extends (...a: any[]) => void ? NonNullable<ReturnType<T>> : NonNullable<T> {
   const res = typeof v === 'function' ? v(...a) : v
   return res ?? undefined
 }
@@ -47,7 +47,7 @@ export function tryCatch<R>(fn: () => R, fallback: () => R) {
   try {
     return fn()
   }
- catch (error) {
+  catch (error) {
     if (error instanceof Error) {
       Error.captureStackTrace?.(error, tryCatch)
     }

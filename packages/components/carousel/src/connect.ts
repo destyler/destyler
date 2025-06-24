@@ -1,6 +1,7 @@
+import type { EventKeyMap } from '@zag-js/dom-event'
 import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type { ItemProps, MachineApi, MachineContext, Send, State } from './types'
-import { type EventKeyMap, getEventKey } from '@zag-js/dom-event'
+import { getEventKey } from '@zag-js/dom-event'
 import { ariaAttr, dataAttr, getEventTarget, isFocusable } from '@zag-js/dom-query'
 import { parts } from './anatomy'
 import { dom } from './dom'

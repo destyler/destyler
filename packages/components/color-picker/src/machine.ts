@@ -1,3 +1,4 @@
+import type { Color } from '@zag-js/color-utils'
 import type {
   ColorFormat,
   ColorType,
@@ -6,7 +7,7 @@ import type {
   MachineState,
   UserDefinedContext,
 } from './types'
-import { type Color, parseColor } from '@zag-js/color-utils'
+import { parseColor } from '@zag-js/color-utils'
 import { createMachine, guards } from '@zag-js/core'
 import { trackDismissableElement } from '@zag-js/dismissable'
 import { trackPointerMove } from '@zag-js/dom-event'

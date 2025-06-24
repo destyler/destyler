@@ -1,4 +1,5 @@
-import { filePathToTree, type FilePathTreeNode, TreeCollection, type TreeCollectionOptions } from '@zag-js/collection'
+import type { FilePathTreeNode, TreeCollectionOptions } from '@zag-js/collection'
+import { filePathToTree, TreeCollection } from '@zag-js/collection'
 import { ref } from '@zag-js/core'
 
 export function collection<T>(options: TreeCollectionOptions<T>): TreeCollection<T> {

@@ -25,8 +25,8 @@ export const insertAt = <T>(v: T[], i: number, ...items: T[]): T[] => [...v.slic
 export const uniq = <T>(v: T[]): T[] => Array.from(new Set(v))
 
 export function addOrRemove<T>(v: T[], item: T): T[] {
-  if (has(v, item)) 
-return remove(v, item)
+  if (has(v, item))
+    return remove(v, item)
   return add(v, item)
 }
 
@@ -70,8 +70,8 @@ export function prev<T>(v: T[], index: number, opts: IndexOptions = {}): T | und
 export function chunk<T>(v: T[], size: number): T[][] {
   const res: T[][] = []
   return v.reduce((rows, value, index) => {
-    if (index % size === 0) 
-rows.push([value])
+    if (index % size === 0)
+      rows.push([value])
     else last(rows)?.push(value)
     return rows
   }, res)

@@ -1,5 +1,6 @@
+import type { Color, ColorChannelRange } from '@zag-js/color-utils'
 import type { ExtendedColorChannel } from '../types'
-import { type Color, type ColorChannelRange, parseColor } from '@zag-js/color-utils'
+import { parseColor } from '@zag-js/color-utils'
 
 export function getChannelValue(color: Color, channel: ExtendedColorChannel | null | undefined): string {
   if (channel == null)

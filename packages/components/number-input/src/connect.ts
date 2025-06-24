@@ -1,6 +1,7 @@
+import type { EventKeyMap } from '@zag-js/dom-event'
 import type { NormalizeProps, PropTypes } from '@zag-js/types'
 import type { MachineApi, Send, State } from './types'
-import { type EventKeyMap, getEventPoint, getEventStep, isLeftClick, isModifierKey } from '@zag-js/dom-event'
+import { getEventPoint, getEventStep, isLeftClick, isModifierKey } from '@zag-js/dom-event'
 import { ariaAttr, dataAttr, isComposingEvent } from '@zag-js/dom-query'
 import { roundToDevicePixel } from '@zag-js/number-utils'
 import { parts } from './anatomy'

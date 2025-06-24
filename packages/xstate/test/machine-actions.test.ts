@@ -1,22 +1,22 @@
-import { expect, test, vi, describe, beforeEach } from "vitest"
-import { createMachine } from "../index"
+import { beforeEach, describe, expect, vi, it } from 'vitest'
+import { createMachine } from '../index'
 
-describe("Machine Actions", () => {
+describe('machine Actions', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  test("[final state] exit actions should be called when invoked machine reaches its final state", () => {
+  it('[final state] exit actions should be called when invoked machine reaches its final state', () => {
     const exit_root = vi.fn()
     const exit_state = vi.fn()
-    let done = vi.fn()
+    const done = vi.fn()
 
     const machine = createMachine({
       exit: exit_root,
-      initial: "a",
+      initial: 'a',
       states: {
         a: {
-          type: "final",
+          type: 'final',
           exit: exit_state,
         },
       },
@@ -33,13 +33,13 @@ describe("Machine Actions", () => {
     expect(done).toHaveBeenCalled()
   })
 
-  test("exit actions should be called when stopping a machine", () => {
+  it('exit actions should be called when stopping a machine', () => {
     const exit_root = vi.fn()
     const exit_state = vi.fn()
 
     const machine = createMachine({
       exit: exit_root,
-      initial: "a",
+      initial: 'a',
       states: {
         a: {
           exit: exit_state,
@@ -53,13 +53,13 @@ describe("Machine Actions", () => {
     expect(exit_state).toHaveBeenCalled()
   })
 
-  test("entry actions should be called when entering a state", () => {
+  it('entry actions should be called when entering a state', () => {
     const entry_root = vi.fn()
     const entry_state = vi.fn()
 
     const machine = createMachine({
       entry: entry_root,
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           entry: entry_state,
@@ -73,16 +73,16 @@ describe("Machine Actions", () => {
     expect(entry_state).toHaveBeenCalled()
   })
 
-  test("transition actions should be executed", () => {
+  it('transition actions should be executed', () => {
     const transitionAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             NEXT: {
-              target: "active",
+              target: 'active',
               actions: transitionAction,
             },
           },
@@ -92,18 +92,18 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send("NEXT")
+    machine.send('NEXT')
 
     expect(transitionAction).toHaveBeenCalled()
   })
 
-  test("actions should receive correct parameters", () => {
+  it('actions should receive correct parameters', () => {
     const action = vi.fn()
     const context = { count: 0 }
 
     const machine = createMachine({
       context,
-      initial: "idle",
+      initial: 'idle',
       entry: action,
       states: {
         idle: {},
@@ -114,20 +114,20 @@ describe("Machine Actions", () => {
 
     expect(action).toHaveBeenCalledWith(
       expect.objectContaining(context),
-      expect.objectContaining({ type: "machine.start" }),
+      expect.objectContaining({ type: 'machine.start' }),
       expect.objectContaining({
         state: expect.any(Object),
         guards: expect.any(Object),
         send: expect.any(Function),
         self: expect.any(Object),
-      })
+      }),
     )
   })
 
-  test("actions can modify context", () => {
+  it('actions can modify context', () => {
     const machine = createMachine({
       context: { count: 0 },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -144,18 +144,18 @@ describe("Machine Actions", () => {
     machine.start()
     expect(machine.getState().context.count).toBe(0)
 
-    machine.send("INCREMENT")
+    machine.send('INCREMENT')
     expect(machine.getState().context.count).toBe(1)
   })
 
-  test("multiple actions should be executed in order", () => {
+  it('multiple actions should be executed in order', () => {
     const order: number[] = []
     const action1 = vi.fn(() => order.push(1))
     const action2 = vi.fn(() => order.push(2))
     const action3 = vi.fn(() => order.push(3))
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -168,7 +168,7 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send("MULTI")
+    machine.send('MULTI')
 
     expect(order).toEqual([1, 2, 3])
     expect(action1).toHaveBeenCalled()
@@ -176,14 +176,14 @@ describe("Machine Actions", () => {
     expect(action3).toHaveBeenCalled()
   })
 
-  test("action map should work with string references", () => {
+  it('action map should work with string references', () => {
     const namedAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
-          entry: "myAction",
+          entry: 'myAction',
         },
       },
     }, {
@@ -197,14 +197,14 @@ describe("Machine Actions", () => {
     expect(namedAction).toHaveBeenCalled()
   })
 
-  test("should warn when action is not found in action map", () => {
-    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+  it('should warn when action is not found in action map', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
-          entry: "nonExistentAction",
+          entry: 'nonExistentAction',
         },
       },
     })
@@ -212,19 +212,19 @@ describe("Machine Actions", () => {
     machine.start()
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("No implementation found for action: `nonExistentAction`")
+      expect.stringContaining('No implementation found for action: `nonExistentAction`'),
     )
 
     consoleSpy.mockRestore()
   })
 
-  test("conditional actions with guards", () => {
+  it('conditional actions with guards', () => {
     const actionA = vi.fn()
     const actionB = vi.fn()
 
     const machine = createMachine({
       context: { flag: true },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -232,7 +232,8 @@ describe("Machine Actions", () => {
               actions: (context) => {
                 if (context.flag) {
                   actionA()
-                } else {
+                }
+                else {
                   actionB()
                 }
               },
@@ -243,18 +244,18 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send("TEST")
+    machine.send('TEST')
 
     expect(actionA).toHaveBeenCalled()
     expect(actionB).not.toHaveBeenCalled()
   })
 
-  test("created actions should be executed", () => {
+  it('created actions should be executed', () => {
     const createdAction = vi.fn()
 
     const machine = createMachine({
       created: createdAction,
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {},
       },
@@ -266,19 +267,19 @@ describe("Machine Actions", () => {
     expect(createdAction).toHaveBeenCalled()
   })
 
-  test("complex state transitions with multiple actions", () => {
+  it('complex state transitions with multiple actions', () => {
     const exitAction = vi.fn()
     const transitionAction = vi.fn()
     const entryAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           exit: exitAction,
           on: {
             START: {
-              target: "active",
+              target: 'active',
               actions: transitionAction,
             },
           },
@@ -290,20 +291,20 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send("START")
+    machine.send('START')
 
     expect(exitAction).toHaveBeenCalled()
     expect(transitionAction).toHaveBeenCalled()
     expect(entryAction).toHaveBeenCalled()
   })
 
-  test("actions should not be called for targetless transitions", () => {
+  it('actions should not be called for targetless transitions', () => {
     const exitAction = vi.fn()
     const entryAction = vi.fn()
     const transitionAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           exit: exitAction,
@@ -322,25 +323,25 @@ describe("Machine Actions", () => {
     exitAction.mockClear()
     entryAction.mockClear()
 
-    machine.send("INTERNAL")
+    machine.send('INTERNAL')
 
     expect(exitAction).not.toHaveBeenCalled()
     expect(entryAction).not.toHaveBeenCalled()
     expect(transitionAction).toHaveBeenCalled()
   })
 
-  test("reentrant transitions should call exit and entry actions", () => {
+  it('reentrant transitions should call exit and entry actions', () => {
     const exitAction = vi.fn()
     const entryAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           exit: exitAction,
           entry: entryAction,
           on: {
-            REENTER: "idle",
+            REENTER: 'idle',
           },
         },
       },
@@ -350,24 +351,24 @@ describe("Machine Actions", () => {
     exitAction.mockClear()
     entryAction.mockClear()
 
-    machine.send("REENTER")
+    machine.send('REENTER')
 
     expect(exitAction).toHaveBeenCalled()
     expect(entryAction).toHaveBeenCalled()
   })
 
-  test("actions in nested states", () => {
+  it('actions in nested states', () => {
     const parentExit = vi.fn()
     const parentEntry = vi.fn()
 
     const machine = createMachine({
-      initial: "parent",
+      initial: 'parent',
       states: {
         parent: {
           exit: parentExit,
           entry: parentEntry,
           on: {
-            LEAVE: "other",
+            LEAVE: 'other',
           },
         },
         other: {},
@@ -377,44 +378,44 @@ describe("Machine Actions", () => {
     machine.start()
     parentExit.mockClear()
 
-    machine.send("LEAVE")
+    machine.send('LEAVE')
 
     expect(parentExit).toHaveBeenCalled()
   })
 
-  test("action execution order: exit -> transition -> entry", () => {
+  it('action execution order: exit -> transition -> entry', () => {
     const order: string[] = []
 
     const machine = createMachine({
-      initial: "a",
+      initial: 'a',
       states: {
         a: {
-          exit: () => order.push("exit-a"),
+          exit: () => order.push('exit-a'),
           on: {
             GO: {
-              target: "b",
-              actions: () => order.push("transition"),
+              target: 'b',
+              actions: () => order.push('transition'),
             },
           },
         },
         b: {
-          entry: () => order.push("entry-b"),
+          entry: () => order.push('entry-b'),
         },
       },
     })
 
     machine.start()
-    machine.send("GO")
+    machine.send('GO')
 
-    expect(order).toEqual(["exit-a", "transition", "entry-b"])
+    expect(order).toEqual(['exit-a', 'transition', 'entry-b'])
   })
 
-  test("actions with different event types", () => {
+  it('actions with different event types', () => {
     const clickAction = vi.fn()
     const keydownAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -430,18 +431,18 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send("CLICK")
-    machine.send("KEYDOWN")
+    machine.send('CLICK')
+    machine.send('KEYDOWN')
 
     expect(clickAction).toHaveBeenCalledTimes(1)
     expect(keydownAction).toHaveBeenCalledTimes(1)
   })
 
-  test("actions with event payload", () => {
+  it('actions with event payload', () => {
     const action = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -454,25 +455,25 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send({ type: "UPDATE", data: { value: 42 } })
+    machine.send({ type: 'UPDATE', data: { value: 42 } })
 
     expect(action).toHaveBeenCalledWith(
       expect.any(Object),
       expect.objectContaining({
-        type: "UPDATE",
+        type: 'UPDATE',
         data: { value: 42 },
       }),
-      expect.any(Object)
+      expect.any(Object),
     )
   })
 
-  test("actions should handle async functions", async () => {
+  it('actions should handle async functions', async () => {
     const asyncAction = vi.fn(async () => {
       await new Promise(resolve => setTimeout(resolve, 10))
     })
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           entry: asyncAction,
@@ -485,39 +486,39 @@ describe("Machine Actions", () => {
     expect(asyncAction).toHaveBeenCalled()
   })
 
-  test("actions in final state should execute before done", () => {
+  it('actions in final state should execute before done', () => {
     const finalAction = vi.fn()
     const doneCallback = vi.fn()
 
     const machine = createMachine({
-      initial: "active",
+      initial: 'active',
       states: {
         active: {
           on: {
-            FINISH: "done",
+            FINISH: 'done',
           },
         },
         done: {
-          type: "final",
+          type: 'final',
           entry: finalAction,
         },
       },
     })
 
     machine.onDone(doneCallback).start()
-    machine.send("FINISH")
+    machine.send('FINISH')
 
     expect(finalAction).toHaveBeenCalled()
     expect(doneCallback).toHaveBeenCalled()
   })
 
-  test("actions with machine stop during execution", () => {
+  it('actions with machine stop during execution', () => {
     const action = vi.fn(() => {
       // Action that might cause side effects
     })
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           entry: action,
@@ -531,19 +532,19 @@ describe("Machine Actions", () => {
     expect(action).toHaveBeenCalled()
   })
 
-  test("actions with deep context modification", () => {
+  it('actions with deep context modification', () => {
     const machine = createMachine({
       context: {
         user: {
-          name: "John",
+          name: 'John',
           settings: {
-            theme: "light",
+            theme: 'light',
             notifications: true,
           },
         },
         items: [],
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -566,29 +567,29 @@ describe("Machine Actions", () => {
     machine.start()
 
     machine.send({
-      type: "UPDATE_USER",
-      name: "Jane",
-      theme: "dark",
+      type: 'UPDATE_USER',
+      name: 'Jane',
+      theme: 'dark',
     })
 
     machine.send({
-      type: "ADD_ITEM",
-      item: { id: 1, name: "Test Item" },
+      type: 'ADD_ITEM',
+      item: { id: 1, name: 'Test Item' },
     })
 
     const state = machine.getState()
-    expect(state.context.user.name).toBe("Jane")
-    expect(state.context.user.settings.theme).toBe("dark")
+    expect(state.context.user.name).toBe('Jane')
+    expect(state.context.user.settings.theme).toBe('dark')
     expect(state.context.items).toHaveLength(1)
-    expect(state.context.items[0]).toEqual({ id: 1, name: "Test Item" })
+    expect(state.context.items[0]).toEqual({ id: 1, name: 'Test Item' })
   })
 
-  test("actions with meta information access", () => {
+  it('actions with meta information access', () => {
     const action = vi.fn()
 
     const machine = createMachine({
       context: { count: 0 },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           entry: action,
@@ -600,25 +601,25 @@ describe("Machine Actions", () => {
 
     const [_context, _event, meta] = action.mock.calls[0]
 
-    expect(meta).toHaveProperty("state")
-    expect(meta).toHaveProperty("guards")
-    expect(meta).toHaveProperty("send")
-    expect(meta).toHaveProperty("self")
-    expect(meta).toHaveProperty("getState")
-    expect(meta).toHaveProperty("getAction")
-    expect(meta).toHaveProperty("getGuard")
+    expect(meta).toHaveProperty('state')
+    expect(meta).toHaveProperty('guards')
+    expect(meta).toHaveProperty('send')
+    expect(meta).toHaveProperty('self')
+    expect(meta).toHaveProperty('getState')
+    expect(meta).toHaveProperty('getAction')
+    expect(meta).toHaveProperty('getGuard')
   })
 
-  test("actions error handling - should not break machine", () => {
+  it('actions error handling - should not break machine', () => {
     const errorAction = vi.fn(() => {
-      throw new Error("Action error")
+      throw new Error('Action error')
     })
     const safeAction = vi.fn()
 
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {})
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -633,8 +634,8 @@ describe("Machine Actions", () => {
     machine.start()
 
     expect(() => {
-      machine.send("ERROR")
-    }).toThrow("Action error")
+      machine.send('ERROR')
+    }).toThrow('Action error')
 
     expect(errorAction).toHaveBeenCalled()
     // Safe action might not execute if error throws
@@ -642,16 +643,16 @@ describe("Machine Actions", () => {
     consoleSpy.mockRestore()
   })
 
-  test("actions with state value checks", () => {
+  it('actions with state value checks', () => {
     const action = vi.fn((context, event, meta) => {
-      if (meta.state.matches("active")) {
+      if (meta.state.matches('active')) {
         context.isActive = true
       }
     })
 
     const machine = createMachine({
       context: { isActive: false },
-      initial: "active",
+      initial: 'active',
       states: {
         active: {
           entry: action,
@@ -665,55 +666,55 @@ describe("Machine Actions", () => {
     expect(machine.getState().context.isActive).toBe(true)
   })
 
-  test("actions with transition guards", () => {
+  it('actions with transition guards', () => {
     const allowedAction = vi.fn()
     const blockedAction = vi.fn()
 
     const machine = createMachine({
       context: { allowed: true },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             ALLOWED_ACTION: {
               actions: allowedAction,
-              guard: "isAllowed",
+              guard: 'isAllowed',
             },
             BLOCKED_ACTION: {
               actions: blockedAction,
-              guard: "isBlocked",
+              guard: 'isBlocked',
             },
           },
         },
       },
     }, {
       guards: {
-        isAllowed: (context) => context.allowed,
-        isBlocked: (context) => !context.allowed,
+        isAllowed: context => context.allowed,
+        isBlocked: context => !context.allowed,
       },
     })
 
     machine.start()
 
-    machine.send("ALLOWED_ACTION")
-    machine.send("BLOCKED_ACTION")
+    machine.send('ALLOWED_ACTION')
+    machine.send('BLOCKED_ACTION')
 
     expect(allowedAction).toHaveBeenCalled()
     expect(blockedAction).not.toHaveBeenCalled()
   })
 
-  test("actions with send function in meta", () => {
+  it('actions with send function in meta', () => {
     const action = vi.fn((context, event, meta) => {
       // Action can send events to itself
       setTimeout(() => {
-        meta.send("DELAYED_EVENT")
+        meta.send('DELAYED_EVENT')
       }, 10)
     })
 
     const delayedAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           entry: action,
@@ -740,11 +741,11 @@ describe("Machine Actions", () => {
     vi.useRealTimers()
   })
 
-  test("root-level transition actions", () => {
+  it('root-level transition actions', () => {
     const globalAction = vi.fn()
 
     const machine = createMachine({
-      initial: "idle",
+      initial: 'idle',
       on: {
         GLOBAL_EVENT: {
           actions: globalAction,
@@ -757,9 +758,8 @@ describe("Machine Actions", () => {
     })
 
     machine.start()
-    machine.send("GLOBAL_EVENT")
+    machine.send('GLOBAL_EVENT')
 
     expect(globalAction).toHaveBeenCalled()
   })
-
 })

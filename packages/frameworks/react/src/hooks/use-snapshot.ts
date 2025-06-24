@@ -1,7 +1,8 @@
 /// <reference types="react/experimental" />
 
 import type { Machine, StateMachine as S } from '@zag-js/core'
-import { globalRef, snapshot, type Snapshot, subscribe } from '@zag-js/store'
+import type { Snapshot } from '@zag-js/store'
+import { globalRef, snapshot, subscribe } from '@zag-js/store'
 import { compact, isEqual } from '@zag-js/utils'
 import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react'

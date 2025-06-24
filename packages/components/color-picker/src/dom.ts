@@ -1,6 +1,7 @@
 import type { ColorChannel } from '@zag-js/color-utils'
+import type { Point } from '@zag-js/dom-event'
 import type { MachineContext as Ctx } from './types'
-import { getRelativePoint, type Point } from '@zag-js/dom-event'
+import { getRelativePoint } from '@zag-js/dom-event'
 import { createScope, queryAll } from '@zag-js/dom-query'
 
 export const dom = createScope({

@@ -1,4 +1,4 @@
-import type { Snapshot } from './proxy';
+import type { Snapshot } from './proxy'
 import { proxy, snapshot } from './proxy'
 
 export function proxyWithComputed<T extends object, U extends object>(

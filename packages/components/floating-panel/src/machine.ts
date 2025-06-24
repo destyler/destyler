@@ -1,3 +1,4 @@
+import type { Point, Size } from '@zag-js/rect-utils'
 import type { MachineContext, MachineState, Stage, UserDefinedContext } from './types'
 import { createMachine, guards, subscribe } from '@zag-js/core'
 import { addDomEvent, trackPointerMove } from '@zag-js/dom-event'
@@ -11,9 +12,9 @@ import {
   getElementRect,
   isPointEqual,
   isSizeEqual,
-  type Point,
+
   resizeRect,
-  type Size,
+
   subtractPoints,
 } from '@zag-js/rect-utils'
 import { compact, invariant, isEqual, match, pick } from '@zag-js/utils'

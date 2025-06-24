@@ -7,7 +7,7 @@ import { Toolbar } from '../components/tools/toolbar'
 export default function TooltipDemo() {
   const id = createUniqueId()
   const [state, send] = useMachine(tooltip.machine({ id }))
-  const api = createMemo(()=>tooltip.connect(state, send, normalizeProps))
+  const api = createMemo(() => tooltip.connect(state, send, normalizeProps))
 
   return (
     <>

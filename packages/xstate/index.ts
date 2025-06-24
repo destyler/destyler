@@ -46,7 +46,7 @@ export type {
   TransitionDefinition,
   TransitionDefinitionMap,
   Transitions,
-  UserContext
+  UserContext,
 } from './src/type'
 export type { ContextFrom, ContextRef, EventFrom, StateFrom } from './src/type'
 export { proxy, ref, type Ref, snapshot, subscribe } from '@destyler/store'

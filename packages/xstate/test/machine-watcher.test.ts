@@ -1,13 +1,13 @@
-import { expect, test, vi, describe } from "vitest"
-import { createMachine } from "../index"
+import { describe, expect, vi, it } from 'vitest'
+import { createMachine } from '../index'
 
-describe("Machine Context Watchers", () => {
-  test("should watch single key", async () => {
+describe('machine Context Watchers', () => {
+  it('should watch single key', async () => {
     let called = false
 
     const machine = createMachine({
       context: {
-        value: "4",
+        value: '4',
       },
       watch: {
         value() {
@@ -15,13 +15,13 @@ describe("Machine Context Watchers", () => {
         },
       },
 
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             UPDATE: {
               actions(ctx) {
-                ctx.value = "5"
+                ctx.value = '5'
               },
             },
           },
@@ -29,37 +29,37 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send("UPDATE")
+    machine.start().send('UPDATE')
 
     await Promise.resolve()
 
     expect(called).toBe(true)
   })
 
-  test("should watch multiple keys", async () => {
-    let called = new Set<string>()
+  it('should watch multiple keys', async () => {
+    const called = new Set<string>()
 
     const machine = createMachine({
       context: {
-        value: "4",
+        value: '4',
         count: 0,
       },
       watch: {
         value() {
-          called.add("value")
+          called.add('value')
         },
         count() {
-          called.add("count")
+          called.add('count')
         },
       },
 
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             UPDATE: {
               actions(ctx) {
-                ctx.value = "5"
+                ctx.value = '5'
                 ctx.count++
               },
             },
@@ -68,7 +68,7 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send("UPDATE")
+    machine.start().send('UPDATE')
 
     await Promise.resolve()
 
@@ -80,30 +80,30 @@ describe("Machine Context Watchers", () => {
     `)
   })
 
-  test("should not trigger watcher when value doesn't change", async () => {
+  it('should not trigger watcher when value doesn\'t change', async () => {
     let callCount = 0
 
     const machine = createMachine({
       context: {
-        value: "test",
+        value: 'test',
       },
       watch: {
         value() {
           callCount++
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             SET_SAME: {
               actions(ctx) {
-                ctx.value = "test" // same value
+                ctx.value = 'test' // same value
               },
             },
             SET_DIFFERENT: {
               actions(ctx) {
-                ctx.value = "different"
+                ctx.value = 'different'
               },
             },
           },
@@ -112,20 +112,20 @@ describe("Machine Context Watchers", () => {
     })
 
     machine.start()
-    machine.send("SET_SAME")
+    machine.send('SET_SAME')
 
     await Promise.resolve()
 
     expect(callCount).toBe(0)
 
-    machine.send("SET_DIFFERENT")
+    machine.send('SET_DIFFERENT')
 
     await Promise.resolve()
 
     expect(callCount).toBe(1)
   })
 
-  test("should provide current context and event to watcher", async () => {
+  it('should provide current context and event to watcher', async () => {
     let watcherContext: any
     let watcherEvent: any
 
@@ -139,7 +139,7 @@ describe("Machine Context Watchers", () => {
           watcherEvent = event
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -153,21 +153,21 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send({ type: "INCREMENT", payload: "test" })
+    machine.start().send({ type: 'INCREMENT', payload: 'test' })
 
     await Promise.resolve()
 
     expect(watcherContext).toEqual({ count: 1 })
-    expect(watcherEvent).toEqual({ type: "INCREMENT", payload: "test" })
+    expect(watcherEvent).toEqual({ type: 'INCREMENT', payload: 'test' })
   })
 
-  test("should handle nested object watching", async () => {
+  it('should handle nested object watching', async () => {
     let called = false
 
     const machine = createMachine({
       context: {
         user: {
-          name: "John",
+          name: 'John',
           age: 25,
         },
       },
@@ -176,13 +176,13 @@ describe("Machine Context Watchers", () => {
           called = true
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             UPDATE_USER: {
               actions(ctx) {
-                ctx.user.name = "Jane"
+                ctx.user.name = 'Jane'
               },
             },
           },
@@ -190,14 +190,14 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send("UPDATE_USER")
+    machine.start().send('UPDATE_USER')
 
     await Promise.resolve()
 
     expect(called).toBe(true)
   })
 
-  test("should work with custom comparison functions", async () => {
+  it('should work with custom comparison functions', async () => {
     let callCount = 0
 
     const machine = createMachine({
@@ -209,7 +209,7 @@ describe("Machine Context Watchers", () => {
           callCount++
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -228,43 +228,43 @@ describe("Machine Context Watchers", () => {
       },
     }, {
       compareFns: {
-        items: (prev, next) => JSON.stringify(prev) === JSON.stringify(next)
+        items: (prev, next) => JSON.stringify(prev) === JSON.stringify(next),
       },
     })
 
     machine.start()
-    machine.send("REPLACE_ITEMS")
+    machine.send('REPLACE_ITEMS')
 
     await Promise.resolve()
 
     expect(callCount).toBe(0) // should not trigger due to custom comparison
 
-    machine.send("ADD_ITEM")
+    machine.send('ADD_ITEM')
 
     await Promise.resolve()
 
     expect(callCount).toBe(1) // should trigger due to actual change
   })
 
-  test("should handle multiple watchers for the same key", async () => {
-    let calls: string[] = []
+  it('should handle multiple watchers for the same key', async () => {
+    const calls: string[] = []
 
     const machine = createMachine({
       context: {
-        status: "idle",
+        status: 'idle',
       },
       watch: {
         status() {
-          calls.push("watcher1")
+          calls.push('watcher1')
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             UPDATE: {
               actions(ctx) {
-                ctx.status = "active"
+                ctx.status = 'active'
               },
             },
           },
@@ -272,35 +272,35 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send("UPDATE")
+    machine.start().send('UPDATE')
 
     await Promise.resolve()
 
-    expect(calls).toEqual(["watcher1"])
+    expect(calls).toEqual(['watcher1'])
   })
 
-  test("should handle watcher errors gracefully", async () => {
+  it('should handle watcher errors gracefully', async () => {
     let errorThrown = false
-    let errorMessage = ""
+    let errorMessage = ''
 
     const machine = createMachine({
       context: {
-        value: "test",
+        value: 'test',
       },
       watch: {
         value() {
           errorThrown = true
-          errorMessage = "Watcher error"
+          errorMessage = 'Watcher error'
           // Instead of throwing, just set flags to test the behavior
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             UPDATE: {
               actions(ctx) {
-                ctx.value = "updated"
+                ctx.value = 'updated'
               },
             },
           },
@@ -309,33 +309,33 @@ describe("Machine Context Watchers", () => {
     })
 
     machine.start()
-    machine.send("UPDATE")
+    machine.send('UPDATE')
 
     await Promise.resolve()
 
     expect(errorThrown).toBe(true)
-    expect(errorMessage).toBe("Watcher error")
+    expect(errorMessage).toBe('Watcher error')
   })
 
-  test("should watch array mutations", async () => {
+  it('should watch array mutations', async () => {
     let watchedValue: any
 
     const machine = createMachine({
       context: {
-        list: ["a", "b"],
+        list: ['a', 'b'],
       },
       watch: {
         list(context) {
           watchedValue = [...context.list]
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             PUSH: {
               actions(ctx) {
-                ctx.list.push("c")
+                ctx.list.push('c')
               },
             },
             POP: {
@@ -349,20 +349,20 @@ describe("Machine Context Watchers", () => {
     })
 
     machine.start()
-    machine.send("PUSH")
+    machine.send('PUSH')
 
     await Promise.resolve()
 
-    expect(watchedValue).toEqual(["a", "b", "c"])
+    expect(watchedValue).toEqual(['a', 'b', 'c'])
 
-    machine.send("POP")
+    machine.send('POP')
 
     await Promise.resolve()
 
-    expect(watchedValue).toEqual(["a", "b"])
+    expect(watchedValue).toEqual(['a', 'b'])
   })
 
-  test("should handle primitive to object changes", async () => {
+  it('should handle primitive to object changes', async () => {
     let calls = 0
 
     const machine = createMachine({
@@ -374,13 +374,13 @@ describe("Machine Context Watchers", () => {
           calls++
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             SET_OBJECT: {
               actions(ctx) {
-                ctx.data = { key: "value" }
+                ctx.data = { key: 'value' }
               },
             },
             SET_NULL: {
@@ -394,29 +394,29 @@ describe("Machine Context Watchers", () => {
     })
 
     machine.start()
-    machine.send("SET_OBJECT")
+    machine.send('SET_OBJECT')
 
     await Promise.resolve()
 
     expect(calls).toBe(1)
 
-    machine.send("SET_NULL")
+    machine.send('SET_NULL')
 
     await Promise.resolve()
 
     expect(calls).toBe(2)
   })
 
-  test("should handle deep object property changes", async () => {
+  it('should handle deep object property changes', async () => {
     let lastChange: any
 
     const machine = createMachine({
       context: {
         settings: {
           theme: {
-            mode: "light",
+            mode: 'light',
             colors: {
-              primary: "#blue",
+              primary: '#blue',
             },
           },
         },
@@ -426,18 +426,18 @@ describe("Machine Context Watchers", () => {
           lastChange = JSON.parse(JSON.stringify(context.settings))
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
             CHANGE_MODE: {
               actions(ctx) {
-                ctx.settings.theme.mode = "dark"
+                ctx.settings.theme.mode = 'dark'
               },
             },
             CHANGE_COLOR: {
               actions(ctx) {
-                ctx.settings.theme.colors.primary = "#red"
+                ctx.settings.theme.colors.primary = '#red'
               },
             },
           },
@@ -446,20 +446,20 @@ describe("Machine Context Watchers", () => {
     })
 
     machine.start()
-    machine.send("CHANGE_MODE")
+    machine.send('CHANGE_MODE')
 
     await Promise.resolve()
 
-    expect(lastChange.theme.mode).toBe("dark")
+    expect(lastChange.theme.mode).toBe('dark')
 
-    machine.send("CHANGE_COLOR")
+    machine.send('CHANGE_COLOR')
 
     await Promise.resolve()
 
-    expect(lastChange.theme.colors.primary).toBe("#red")
+    expect(lastChange.theme.colors.primary).toBe('#red')
   })
 
-  test("should watch boolean toggles", async () => {
+  it('should watch boolean toggles', async () => {
     let toggleCount = 0
 
     const machine = createMachine({
@@ -471,7 +471,7 @@ describe("Machine Context Watchers", () => {
           toggleCount++
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -487,16 +487,16 @@ describe("Machine Context Watchers", () => {
 
     machine.start()
 
-    machine.send("TOGGLE")
+    machine.send('TOGGLE')
     await Promise.resolve()
     expect(toggleCount).toBe(1)
 
-    machine.send("TOGGLE")
+    machine.send('TOGGLE')
     await Promise.resolve()
     expect(toggleCount).toBe(2)
   })
 
-  test("should handle watchers with string action references", async () => {
+  it('should handle watchers with string action references', async () => {
     let actionCalled = false
 
     const machine = createMachine({
@@ -504,9 +504,9 @@ describe("Machine Context Watchers", () => {
         value: 0,
       },
       watch: {
-        value: "handleValueChange",
+        value: 'handleValueChange',
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -526,24 +526,24 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send("UPDATE")
+    machine.start().send('UPDATE')
 
     await Promise.resolve()
 
     expect(actionCalled).toBe(true)
   })
 
-  test("should warn when watcher action is not found", async () => {
-    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {})
+  it('should warn when watcher action is not found', async () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     const machine = createMachine({
       context: {
         value: 0,
       },
       watch: {
-        value: "nonExistentAction",
+        value: 'nonExistentAction',
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -557,18 +557,18 @@ describe("Machine Context Watchers", () => {
       },
     })
 
-    machine.start().send("UPDATE")
+    machine.start().send('UPDATE')
 
     await Promise.resolve()
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("No implementation found for action")
+      expect.stringContaining('No implementation found for action'),
     )
 
     consoleSpy.mockRestore()
   })
 
-  test("should handle rapid successive changes", async () => {
+  it('should handle rapid successive changes', async () => {
     let lastValue: number
     let callCount = 0
     const values: number[] = []
@@ -584,7 +584,7 @@ describe("Machine Context Watchers", () => {
           values.push(context.counter)
         },
       },
-      initial: "idle",
+      initial: 'idle',
       states: {
         idle: {
           on: {
@@ -601,19 +601,19 @@ describe("Machine Context Watchers", () => {
     machine.start()
 
     // Test sequential changes instead of rapid fire
-    machine.send("INCREMENT")
+    machine.send('INCREMENT')
     await Promise.resolve()
 
-    machine.send("INCREMENT")
+    machine.send('INCREMENT')
     await Promise.resolve()
 
-    machine.send("INCREMENT")
+    machine.send('INCREMENT')
     await Promise.resolve()
 
-    machine.send("INCREMENT")
+    machine.send('INCREMENT')
     await Promise.resolve()
 
-    machine.send("INCREMENT")
+    machine.send('INCREMENT')
     await Promise.resolve()
 
     expect(lastValue!).toBe(5)

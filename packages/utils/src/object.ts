@@ -1,6 +1,6 @@
 export function compact<T extends Record<string, unknown> | undefined>(obj: T): T {
-  if (!isPlainObject(obj) || obj === undefined) 
-return obj
+  if (!isPlainObject(obj) || obj === undefined)
+    return obj
   const keys = Reflect.ownKeys(obj).filter(key => typeof key === 'string')
   const filtered: Partial<T> = {}
   for (const key of keys) {
@@ -14,8 +14,8 @@ return obj
 
 export const json = (v: any) => JSON.parse(JSON.stringify(v))
 
-function isPlainObject (v: any) {
-  return v && typeof v === "object" && v.constructor === Object
+function isPlainObject(v: any) {
+  return v && typeof v === 'object' && v.constructor === Object
 }
 
 export function pick<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
@@ -43,7 +43,7 @@ export function splitProps<T extends Dict>(props: T, keys: (keyof T)[]) {
     if (keySet.has(key)) {
       result[key] = props[key]
     }
- else {
+    else {
       rest[key] = props[key]
     }
   }
@@ -51,7 +51,7 @@ export function splitProps<T extends Dict>(props: T, keys: (keyof T)[]) {
   return [result, rest]
 }
 
-export function createSplitProps <T extends Dict>(keys: (keyof T)[]) {
+export function createSplitProps<T extends Dict>(keys: (keyof T)[]) {
   return function split<Props extends T>(props: Props) {
     return splitProps(props, keys) as [T, Omit<Props, keyof T>]
   }

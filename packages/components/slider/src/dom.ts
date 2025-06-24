@@ -1,5 +1,6 @@
+import type { Point } from '@zag-js/dom-event'
 import type { MachineContext as Ctx } from './types'
-import { getRelativePoint, type Point } from '@zag-js/dom-event'
+import { getRelativePoint } from '@zag-js/dom-event'
 import { createScope, queryAll } from '@zag-js/dom-query'
 import { dispatchInputValueEvent } from '@zag-js/form-utils'
 import { getPercentValue } from '@zag-js/numeric-range'

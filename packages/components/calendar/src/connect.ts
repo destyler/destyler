@@ -1,3 +1,4 @@
+import type { DateValue } from '@internationalized/date'
 import type { EventKeyMap, NormalizeProps, PropTypes } from '@zag-js/types'
 import type {
   DayTableCellProps,
@@ -9,7 +10,7 @@ import type {
   TableCellState,
   TableProps,
 } from './types'
-import { DateFormatter, type DateValue, isEqualDay, isToday, isWeekend } from '@internationalized/date'
+import { DateFormatter, isEqualDay, isToday, isWeekend } from '@internationalized/date'
 import {
   constrainValue,
   getDateRangePreset,

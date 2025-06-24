@@ -84,4 +84,39 @@ module.exports = function main(plop) {
       return actions
     },
   })
+
+  plop.setGenerator('shared', {
+    description: 'Generates a shared package',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Enter package name:',
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'The description of this package:',
+      },
+    ],
+    actions(answers) {
+      const actions = []
+
+      if (!answers)
+        return actions
+
+      const { name, description } = answers
+
+      actions.push({
+        type: 'addMany',
+        templateFiles: 'plop/shared/**',
+        destination: `packages/shareds/{{dashCase name}}`,
+        base: 'plop/shared/',
+        data: { description, name },
+        abortOnFail: true,
+      })
+
+      return actions
+    },
+  })
 }

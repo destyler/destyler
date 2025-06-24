@@ -1,4 +1,4 @@
-import { expect, it, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { choose, guards } from '../index'
 
 const { not, and, or, stateIn } = guards
@@ -17,8 +17,8 @@ const event = {
 
 const meta = {
   state: {
-    matches: (...values: any[]) => values.includes('active') || values.includes('enabled')
-  }
+    matches: (...values: any[]) => values.includes('active') || values.includes('enabled'),
+  },
 }
 
 type Context = typeof context
@@ -129,7 +129,7 @@ describe('guard helpers', () => {
     it('should work with function guards', () => {
       const functionGuard = and(
         (ctx: Context) => ctx.count > 0,
-        (ctx: Context) => ctx.count < 10
+        (ctx: Context) => ctx.count < 10,
       )
       const getResult = functionGuard.predicate(guardMap)
       expect(getResult(context, event, meta)).toBe(true)
@@ -152,7 +152,7 @@ describe('guard helpers', () => {
     it('should work with mixed guard types', () => {
       const mixedGuard = or(
         'hasValues',
-        (ctx: Context) => ctx.count > 0
+        (ctx: Context) => ctx.count > 0,
       )
       const getResult = mixedGuard.predicate(guardMap)
       expect(getResult(context, event, meta)).toBe(true)
@@ -175,7 +175,7 @@ describe('guard helpers', () => {
     it('should handle nested guard combinations', () => {
       const complexGuard = or(
         and('isEmpty', 'isFocusable'),
-        not('isDisabled')
+        not('isDisabled'),
       )
       const getResult = complexGuard.predicate(guardMap)
       expect(getResult(context, event, meta)).toBe(true)

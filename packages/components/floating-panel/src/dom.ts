@@ -1,6 +1,7 @@
+import type { Rect } from '@zag-js/rect-utils'
 import type { MachineContext as Ctx } from './types'
 import { createScope, isHTMLElement } from '@zag-js/dom-query'
-import { createRect, getElementRect, getWindowRect, type Rect } from '@zag-js/rect-utils'
+import { createRect, getElementRect, getWindowRect } from '@zag-js/rect-utils'
 import { pick } from '@zag-js/utils'
 
 export const dom = createScope({
