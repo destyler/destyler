@@ -2143,6 +2143,15 @@ importers:
 
   packages/utils: {}
 
+  packages/xstate:
+    dependencies:
+      '@destyler/store':
+        specifier: workspace:*
+        version: link:../store
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../utils
+
   shared:
     dependencies:
       '@destyler/tour':

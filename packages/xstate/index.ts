@@ -1,0 +1,52 @@
+export { deepMerge } from './src/deep-merge'
+export { choose, guards } from './src/guard-utils'
+export * from './src/machine'
+export { mergeProps } from './src/merge-props'
+export type {
+  Action,
+  ActionMap,
+  Actions,
+  Activities,
+  Activity,
+  ActivityMap,
+  AnyEventObject,
+  ChooseHelper,
+  Context,
+  ContextListener,
+  Delay,
+  DelayedTransition,
+  DelayedTransitions,
+  DelayExpression,
+  DelayMap,
+  Event,
+  EventListener,
+  EventObject,
+  ExtractEvent,
+  Guard,
+  GuardExpression,
+  GuardHelper,
+  GuardMap,
+  GuardMeta,
+  HookOptions,
+  MachineConfig,
+  MachineOptions,
+  Meta,
+  PureActions,
+  Self,
+  Send,
+  State,
+  StateInfo,
+  StateInit,
+  StateInitObject,
+  StateListener,
+  StateNode,
+  StateSchema,
+  TComputedContext,
+  Transition,
+  TransitionDefinition,
+  TransitionDefinitionMap,
+  Transitions,
+  UserContext
+} from './src/type'
+export type { ContextFrom, ContextRef, EventFrom, StateFrom } from './src/type'
+export { proxy, ref, type Ref, snapshot, subscribe } from '@destyler/store'

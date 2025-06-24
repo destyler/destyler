@@ -22,6 +22,7 @@
     "lint:fix": "eslint . --fix",
     "taze": "taze",
     "test": "vitest run",
+    "test:dev": "vitest dev",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
     "vue": "pnpm --filter \"./examples/vue\"",
     "react": "pnpm --filter \"./examples/react\"",
