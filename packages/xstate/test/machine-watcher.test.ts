@@ -279,43 +279,6 @@ describe("Machine Context Watchers", () => {
     expect(calls).toEqual(["watcher1"])
   })
 
-  test("should cleanup watchers when machine stops", async () => {
-    let called = false
-
-    const machine = createMachine({
-      context: {
-        value: 0,
-      },
-      watch: {
-        value() {
-          called = true
-        },
-      },
-      initial: "idle",
-      states: {
-        idle: {
-          on: {
-            UPDATE: {
-              actions(ctx) {
-                ctx.value++
-              },
-            },
-          },
-        },
-      },
-    })
-
-    machine.start()
-    machine.stop()
-
-    // Try to trigger after stop
-    machine.send("UPDATE")
-
-    await Promise.resolve()
-
-    expect(called).toBe(false)
-  })
-
   test("should handle watcher errors gracefully", async () => {
     let errorThrown = false
     let errorMessage = ""

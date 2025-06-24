@@ -1020,6 +1020,8 @@ importers:
         specifier: catalog:examples
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
 
+  packages/anatomy: {}
+
   packages/components/aspect-ratio:
     dependencies:
       '@zag-js/anatomy':
