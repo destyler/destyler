@@ -2154,6 +2154,12 @@ importers:
         specifier: workspace:*
         version: link:../../utils
 
+  packages/shareds/color:
+    dependencies:
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+
   packages/shareds/dom:
     dependencies:
       '@destyler/types':
