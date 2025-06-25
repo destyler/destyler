@@ -13,6 +13,7 @@ export default antfu({
     'regexp/no-super-linear-backtracking': 'off',
     'vue/no-reserved-component-names': 'off',
     'regexp/no-unused-capturing-group': 'off',
+    'no-irregular-whitespace': 'off',
   },
 }, {
   files: ['test/**'],
