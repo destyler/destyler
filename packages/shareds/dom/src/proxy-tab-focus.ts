@@ -1,7 +1,7 @@
-import { addDomEvent } from "./event"
-import { raf } from "./raf"
-import { getNextTabbable, getTabbableEdges } from "./tabbable"
-import type { MaybeElement, MaybeElementOrFn } from "./types"
+import type { MaybeElement, MaybeElementOrFn } from './types'
+import { addDomEvent } from './event'
+import { raf } from './raf'
+import { getNextTabbable, getTabbableEdges } from './tabbable'
 
 export interface ProxyTabFocusOptions<T = MaybeElement> {
   triggerElement?: T | undefined
@@ -16,7 +16,8 @@ function proxyTabFocusImpl(container: MaybeElement, options: ProxyTabFocusOption
   const body = doc.body
 
   function onKeyDown(event: KeyboardEvent) {
-    if (event.key !== "Tab") return
+    if (event.key !== 'Tab')
+      return
 
     let elementToFocus: MaybeElement | undefined = null
 
@@ -29,29 +30,33 @@ function proxyTabFocusImpl(container: MaybeElement, options: ProxyTabFocusOption
     // we want to focus the reference element
     if (event.shiftKey && (doc.activeElement === firstTabbable || noTabbableElements)) {
       elementToFocus = triggerElement
-    } else if (!event.shiftKey && doc.activeElement === triggerElement) {
+    }
+    else if (!event.shiftKey && doc.activeElement === triggerElement) {
       // if we're focused on the reference element and the user tabs forwards
       // we want to focus the first tabbable element
       elementToFocus = firstTabbable
-    } else if (!event.shiftKey && (doc.activeElement === lastTabbable || noTabbableElements)) {
+    }
+    else if (!event.shiftKey && (doc.activeElement === lastTabbable || noTabbableElements)) {
       // if we're focused on the last tabbable element and the user tabs forwards
       // we want to focus the next tabbable element after the reference element
       elementToFocus = getNextTabbable(body, triggerElement)
     }
 
-    if (!elementToFocus) return
+    if (!elementToFocus)
+      return
 
     event.preventDefault()
 
-    if (typeof onFocus === "function") {
+    if (typeof onFocus === 'function') {
       onFocus(elementToFocus)
-    } else {
+    }
+    else {
       elementToFocus.focus()
     }
   }
 
   // listen for the tab key in the capture phase
-  return addDomEvent(doc, "keydown", onKeyDown, true)
+  return addDomEvent(doc, 'keydown', onKeyDown, true)
 }
 
 export function proxyTabFocus(container: MaybeElementOrFn, options: ProxyTabFocusOptions<MaybeElementOrFn>) {
@@ -60,12 +65,12 @@ export function proxyTabFocus(container: MaybeElementOrFn, options: ProxyTabFocu
   const cleanups: (VoidFunction | undefined)[] = []
   cleanups.push(
     func(() => {
-      const node = typeof container === "function" ? container() : container
-      const trigger = typeof triggerElement === "function" ? triggerElement() : triggerElement
+      const node = typeof container === 'function' ? container() : container
+      const trigger = typeof triggerElement === 'function' ? triggerElement() : triggerElement
       cleanups.push(proxyTabFocusImpl(node, { triggerElement: trigger, ...restOptions }))
     }),
   )
   return () => {
-    cleanups.forEach((fn) => fn?.())
+    cleanups.forEach(fn => fn?.())
   }
 }

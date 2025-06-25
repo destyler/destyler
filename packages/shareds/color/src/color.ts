@@ -1,4 +1,3 @@
-import { clampValue, getPercentValue, getValuePercent, snapValueToStep } from "@destyler/utils"
 import type {
   Color2DAxes,
   ColorAxes,
@@ -7,11 +6,16 @@ import type {
   ColorFormat,
   ColorStringFormat,
   ColorType,
-} from "./types"
+} from './types'
+import { clampValue, getPercentValue, getValuePercent, snapValueToStep } from '@destyler/utils'
 
-const isEqualObject = (a: Record<string, number>, b: Record<string, number>): boolean => {
-  if (Object.keys(a).length !== Object.keys(b).length) return false
-  for (let key in a) if (a[key] !== b[key]) return false
+function isEqualObject(a: Record<string, number>, b: Record<string, number>): boolean {
+  if (Object.keys(a).length !== Object.keys(b).length)
+    return false
+  for (const key in a) {
+    if (a[key] !== b[key])
+      return false
+  }
   return true
 }
 
@@ -26,13 +30,14 @@ export abstract class Color implements ColorType {
   abstract formatChannelValue(channel: ColorChannel, locale: string): string
 
   toHexInt(): number {
-    return this.toFormat("rgba").toHexInt()
+    return this.toFormat('rgba').toHexInt()
   }
 
   getChannelValue(channel: ColorChannel): number {
-    // @ts-ignore
-    if (channel in this) return this[channel]
-    throw new Error("Unsupported color channel: " + channel)
+    if (channel in this)
+      // @ts-expect-error TypeScript doesn't know that this[channel] is a number.
+      return this[channel]
+    throw new Error(`Unsupported color channel: ${channel}`)
   }
 
   getChannelValuePercent(channel: ColorChannel, valueToCheck?: number): number {
@@ -50,20 +55,20 @@ export abstract class Color implements ColorType {
   withChannelValue(channel: ColorChannel, value: number): ColorType {
     const { minValue, maxValue } = this.getChannelRange(channel)
     if (channel in this) {
-      let clone = this.clone()
-      // @ts-ignore
+      const clone = this.clone()
+      // @ts-expect-error TypeScript doesn't know that this[channel] is a number.
       clone[channel] = clampValue(value, minValue, maxValue)
       return clone
     }
 
-    throw new Error("Unsupported color channel: " + channel)
+    throw new Error(`Unsupported color channel: ${channel}`)
   }
 
   getColorAxes(xyChannels: Color2DAxes): ColorAxes {
-    let { xChannel, yChannel } = xyChannels
-    let xCh = xChannel || this.getChannels().find((c) => c !== yChannel)
-    let yCh = yChannel || this.getChannels().find((c) => c !== xCh)
-    let zCh = this.getChannels().find((c) => c !== xCh && c !== yCh)
+    const { xChannel, yChannel } = xyChannels
+    const xCh = xChannel || this.getChannels().find(c => c !== yChannel)
+    const yCh = yChannel || this.getChannels().find(c => c !== xCh)
+    const zCh = this.getChannels().find(c => c !== xCh && c !== yCh)
     return { xChannel: xCh!, yChannel: yCh!, zChannel: zCh! }
   }
 
@@ -84,6 +89,6 @@ export abstract class Color implements ColorType {
 
   isEqual(color: ColorType): boolean {
     const isSame = isEqualObject(this.toJSON(), color.toJSON())
-    return isSame && this.getChannelValue("alpha") === color.getChannelValue("alpha")
+    return isSame && this.getChannelValue('alpha') === color.getChannelValue('alpha')
   }
 }

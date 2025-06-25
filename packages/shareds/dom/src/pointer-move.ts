@@ -1,6 +1,6 @@
-import { addDomEvent, getEventPoint } from "./event"
-import { disableTextSelection } from "./text-selection"
-import type { Point } from "./types"
+import type { Point } from './types'
+import { addDomEvent, getEventPoint } from './event'
+import { disableTextSelection } from './text-selection'
 
 export interface PointerMoveDetails {
   /**
@@ -31,12 +31,13 @@ export function trackPointerMove(doc: Document, handlers: PointerMoveHandlers) {
     const point = getEventPoint(event)
 
     const distance = Math.sqrt(point.x ** 2 + point.y ** 2)
-    const moveBuffer = event.pointerType === "touch" ? 10 : 5
+    const moveBuffer = event.pointerType === 'touch' ? 10 : 5
 
-    if (distance < moveBuffer) return
+    if (distance < moveBuffer)
+      return
 
     // Because Safari doesn't trigger mouseup events when it's above a `<select>`
-    if (event.pointerType === "mouse" && event.button === 0) {
+    if (event.pointerType === 'mouse' && event.button === 0) {
       onPointerUp()
       return
     }
@@ -45,14 +46,14 @@ export function trackPointerMove(doc: Document, handlers: PointerMoveHandlers) {
   }
 
   const cleanups = [
-    addDomEvent(doc, "pointermove", handleMove, false),
-    addDomEvent(doc, "pointerup", onPointerUp, false),
-    addDomEvent(doc, "pointercancel", onPointerUp, false),
-    addDomEvent(doc, "contextmenu", onPointerUp, false),
+    addDomEvent(doc, 'pointermove', handleMove, false),
+    addDomEvent(doc, 'pointerup', onPointerUp, false),
+    addDomEvent(doc, 'pointercancel', onPointerUp, false),
+    addDomEvent(doc, 'contextmenu', onPointerUp, false),
     disableTextSelection({ doc }),
   ]
 
   return () => {
-    cleanups.forEach((cleanup) => cleanup())
+    cleanups.forEach(cleanup => cleanup())
   }
 }

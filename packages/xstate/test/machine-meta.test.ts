@@ -369,7 +369,7 @@ describe('guards', () => {
                 actions: () => {},
               },
               {
-                guard: (ctx: any) => {
+                guard: () => {
                   evaluationOrder.push(3)
                   return true
                 },

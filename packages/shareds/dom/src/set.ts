@@ -28,7 +28,8 @@ function set(element: Element, key: string, setup: () => () => void) {
 
   return () => {
     const isCurrent = elementCleanups.get(key) === nextCleanup
-    if (!isCurrent) return
+    if (!isCurrent)
+      return
     cleanup()
     elementCleanups.set(key, prevCleanup)
   }
@@ -41,7 +42,8 @@ export function setAttribute(element: Element, attr: string, value: string) {
     return () => {
       if (previousValue == null) {
         element.removeAttribute(attr)
-      } else {
+      }
+      else {
         element.setAttribute(attr, previousValue)
       }
     }
@@ -58,7 +60,8 @@ export function setProperty<T extends Element, K extends keyof T & string>(eleme
     return () => {
       if (!exists) {
         delete element[property]
-      } else {
+      }
+      else {
         element[property] = previousValue
       }
     }
@@ -68,7 +71,8 @@ export function setProperty<T extends Element, K extends keyof T & string>(eleme
 }
 
 export function setStyle(element: HTMLElement | null | undefined, style: Partial<CSSStyleDeclaration>) {
-  if (!element) return () => {}
+  if (!element)
+    return () => {}
 
   const setup = () => {
     const prevStyle = element.style.cssText
@@ -78,5 +82,5 @@ export function setStyle(element: HTMLElement | null | undefined, style: Partial
     }
   }
 
-  return set(element, "style", setup)
+  return set(element, 'style', setup)
 }

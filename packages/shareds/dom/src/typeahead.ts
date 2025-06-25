@@ -1,5 +1,6 @@
-import type { ItemToId } from "./query"
-import { getByText, type SearchableItem } from "./searchable"
+import type { ItemToId } from './query'
+import type { SearchableItem } from './searchable'
+import { getByText } from './searchable'
 
 export interface TypeaheadState {
   keysSoFar: string
@@ -18,11 +19,11 @@ function getByTypeaheadImpl<T extends SearchableItem>(baseItems: T[], options: T
   const { state, activeId, key, timeout = 350, itemToId } = options
 
   const search = state.keysSoFar + key
-  const isRepeated = search.length > 1 && Array.from(search).every((char) => char === search[0])
+  const isRepeated = search.length > 1 && Array.from(search).every(char => char === search[0])
 
   const query = isRepeated ? search[0] : search
 
-  let items = baseItems.slice()
+  const items = baseItems.slice()
 
   const next = getByText(items, query, activeId, itemToId)
 
@@ -35,9 +36,9 @@ function getByTypeaheadImpl<T extends SearchableItem>(baseItems: T[], options: T
     state.keysSoFar = value
     cleanup()
 
-    if (value !== "") {
+    if (value !== '') {
       state.timer = +setTimeout(() => {
-        update("")
+        update('')
         cleanup()
       }, timeout)
     }
@@ -47,11 +48,11 @@ function getByTypeaheadImpl<T extends SearchableItem>(baseItems: T[], options: T
 
   return next
 }
-export const getByTypeahead = /*#__PURE__*/ Object.assign(getByTypeaheadImpl, {
-  defaultOptions: { keysSoFar: "", timer: -1 },
+export const getByTypeahead = /* #__PURE__ */ Object.assign(getByTypeaheadImpl, {
+  defaultOptions: { keysSoFar: '', timer: -1 },
   isValidEvent: isValidTypeaheadEvent,
 })
 
-function isValidTypeaheadEvent(event: Pick<KeyboardEvent, "key" | "ctrlKey" | "metaKey">) {
+function isValidTypeaheadEvent(event: Pick<KeyboardEvent, 'key' | 'ctrlKey' | 'metaKey'>) {
   return event.key.length === 1 && !event.ctrlKey && !event.metaKey
 }

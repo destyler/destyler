@@ -1,8 +1,8 @@
-import { clampValue, toFixedNumber } from "@destyler/utils"
-import { Color } from "./color"
-import { HSBColor } from "./hsb"
-import { HSLColor } from "./hsl"
-import type { ColorChannel, ColorChannelRange, ColorFormat, ColorStringFormat, ColorType } from "./types"
+import type { ColorChannel, ColorChannelRange, ColorFormat, ColorStringFormat, ColorType } from './types'
+import { clampValue, toFixedNumber } from '@destyler/utils'
+import { Color } from './color'
+import { HSBColor } from './hsb'
+import { HSLColor } from './hsl'
 
 export class RGBColor extends Color {
   constructor(
@@ -19,9 +19,9 @@ export class RGBColor extends Color {
 
     // matching #rgb, #rgba, #rrggbb, #rrggbbaa
     if (/^#[\da-f]+$/i.test(value) && [4, 5, 7, 9].includes(value.length)) {
-      const values = (value.length < 6 ? value.replace(/[^#]/gi, "$&$&") : value).slice(1).split("")
+      const values = (value.length < 6 ? value.replace(/[^#]/g, '$&$&') : value).slice(1).split('')
       while (values.length > 0) {
-        colors.push(parseInt(values.splice(0, 2).join(""), 16))
+        colors.push(Number.parseInt(values.splice(0, 2).join(''), 16))
       }
       colors[3] = colors[3] !== undefined ? colors[3] / 255 : undefined
     }
@@ -31,47 +31,47 @@ export class RGBColor extends Color {
 
     if (match?.[1]) {
       colors = match[1]
-        .split(",")
-        .map((value) => Number(value.trim()))
+        .split(',')
+        .map(value => Number(value.trim()))
         .map((num, i) => clampValue(num, 0, i < 3 ? 255 : 1))
     }
 
-    //@ts-expect-error
+    // @ts-expect-error TypeScript doesn't know that colors is an array of numbers.
     return colors.length < 3 ? undefined : new RGBColor(colors[0], colors[1], colors[2], colors[3] ?? 1)
   }
 
   toString(format: ColorStringFormat) {
     switch (format) {
-      case "hex":
+      case 'hex':
         return (
-          "#" +
-          (
-            this.red.toString(16).padStart(2, "0") +
-            this.green.toString(16).padStart(2, "0") +
-            this.blue.toString(16).padStart(2, "0")
-          ).toUpperCase()
+          `#${
+            (
+              this.red.toString(16).padStart(2, '0')
+              + this.green.toString(16).padStart(2, '0')
+              + this.blue.toString(16).padStart(2, '0')
+            ).toUpperCase()}`
         )
-      case "hexa":
+      case 'hexa':
         return (
-          "#" +
-          (
-            this.red.toString(16).padStart(2, "0") +
-            this.green.toString(16).padStart(2, "0") +
-            this.blue.toString(16).padStart(2, "0") +
-            Math.round(this.alpha * 255)
-              .toString(16)
-              .padStart(2, "0")
-          ).toUpperCase()
+          `#${
+            (
+              this.red.toString(16).padStart(2, '0')
+              + this.green.toString(16).padStart(2, '0')
+              + this.blue.toString(16).padStart(2, '0')
+              + Math.round(this.alpha * 255)
+                .toString(16)
+                .padStart(2, '0')
+            ).toUpperCase()}`
         )
-      case "rgb":
+      case 'rgb':
         return `rgb(${this.red}, ${this.green}, ${this.blue})`
-      case "css":
-      case "rgba":
+      case 'css':
+      case 'rgba':
         return `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`
-      case "hsl":
-        return this.toHSL().toString("hsl")
-      case "hsb":
-        return this.toHSB().toString("hsb")
+      case 'hsl':
+        return this.toHSL().toString('hsl')
+      case 'hsb':
+        return this.toHSB().toString('hsb')
       default:
         return this.toFormat(format).toString(format)
     }
@@ -79,14 +79,14 @@ export class RGBColor extends Color {
 
   toFormat(format: ColorFormat): ColorType {
     switch (format) {
-      case "rgba":
+      case 'rgba':
         return this
-      case "hsba":
+      case 'hsba':
         return this.toHSB()
-      case "hsla":
+      case 'hsla':
         return this.toHSL()
       default:
-        throw new Error("Unsupported color conversion: rgb -> " + format)
+        throw new Error(`Unsupported color conversion: rgb -> ${format}`)
     }
   }
 
@@ -152,7 +152,8 @@ export class RGBColor extends Color {
 
     if (chroma === 0) {
       hue = saturation = 0 // achromatic
-    } else {
+    }
+    else {
       saturation = chroma / (lightness < 0.5 ? max + min : 2 - max - min)
 
       switch (max) {
@@ -184,45 +185,45 @@ export class RGBColor extends Color {
 
   getChannelFormatOptions(channel: ColorChannel): Intl.NumberFormatOptions {
     switch (channel) {
-      case "red":
-      case "green":
-      case "blue":
-        return { style: "decimal" }
-      case "alpha":
-        return { style: "percent" }
+      case 'red':
+      case 'green':
+      case 'blue':
+        return { style: 'decimal' }
+      case 'alpha':
+        return { style: 'percent' }
       default:
-        throw new Error("Unknown color channel: " + channel)
+        throw new Error(`Unknown color channel: ${channel}`)
     }
   }
 
   formatChannelValue(channel: ColorChannel, locale: string) {
-    let options = this.getChannelFormatOptions(channel)
-    let value = this.getChannelValue(channel)
+    const options = this.getChannelFormatOptions(channel)
+    const value = this.getChannelValue(channel)
     return new Intl.NumberFormat(locale, options).format(value)
   }
 
   getChannelRange(channel: ColorChannel): ColorChannelRange {
     switch (channel) {
-      case "red":
-      case "green":
-      case "blue":
-        return { minValue: 0x0, maxValue: 0xff, step: 0x1, pageSize: 0x11 }
-      case "alpha":
+      case 'red':
+      case 'green':
+      case 'blue':
+        return { minValue: 0x0, maxValue: 0xFF, step: 0x1, pageSize: 0x11 }
+      case 'alpha':
         return { minValue: 0, maxValue: 1, step: 0.01, pageSize: 0.1 }
       default:
-        throw new Error("Unknown color channel: " + channel)
+        throw new Error(`Unknown color channel: ${channel}`)
     }
   }
 
-  toJSON(): Record<"r" | "g" | "b" | "a", number> {
+  toJSON(): Record<'r' | 'g' | 'b' | 'a', number> {
     return { r: this.red, g: this.green, b: this.blue, a: this.alpha }
   }
 
   getFormat(): ColorFormat {
-    return "rgba"
+    return 'rgba'
   }
 
-  private static colorChannels: [ColorChannel, ColorChannel, ColorChannel] = ["red", "green", "blue"]
+  private static colorChannels: [ColorChannel, ColorChannel, ColorChannel] = ['red', 'green', 'blue']
 
   getChannels(): [ColorChannel, ColorChannel, ColorChannel] {
     return RGBColor.colorChannels

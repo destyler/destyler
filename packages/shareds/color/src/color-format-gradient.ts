@@ -1,4 +1,4 @@
-export const generateRGB_R = (orientation: [string, string], dir: boolean, zValue: number) => {
+export function generateRGB_R(orientation: [string, string], dir: boolean, zValue: number) {
   const maskImage = `linear-gradient(to ${orientation[Number(!dir)]}, transparent, #000)`
   const result = {
     areaStyles: {
@@ -13,7 +13,7 @@ export const generateRGB_R = (orientation: [string, string], dir: boolean, zValu
   return result
 }
 
-export const generateRGB_G = (orientation: [string, string], dir: boolean, zValue: number) => {
+export function generateRGB_G(orientation: [string, string], dir: boolean, zValue: number) {
   const maskImage = `linear-gradient(to ${orientation[Number(!dir)]}, transparent, #000)`
   const result = {
     areaStyles: {
@@ -28,7 +28,7 @@ export const generateRGB_G = (orientation: [string, string], dir: boolean, zValu
   return result
 }
 
-export const generateRGB_B = (orientation: [string, string], dir: boolean, zValue: number) => {
+export function generateRGB_B(orientation: [string, string], dir: boolean, zValue: number) {
   const maskImage = `linear-gradient(to ${orientation[Number(!dir)]}, transparent, #000)`
   const result = {
     areaStyles: {
@@ -43,7 +43,7 @@ export const generateRGB_B = (orientation: [string, string], dir: boolean, zValu
   return result
 }
 
-export const generateHSL_H = (orientation: [string, string], dir: boolean, zValue: number) => {
+export function generateHSL_H(orientation: [string, string], dir: boolean, zValue: number) {
   const result = {
     areaStyles: {},
     areaGradientStyles: {
@@ -53,13 +53,13 @@ export const generateHSL_H = (orientation: [string, string], dir: boolean, zValu
         }, hsla(0,0%,0%,1) 0%, hsla(0,0%,0%,0) 50%, hsla(0,0%,100%,0) 50%, hsla(0,0%,100%,1) 100%)`,
         `linear-gradient(to ${orientation[Number(!dir)]},hsl(0,0%,50%),hsla(0,0%,50%,0))`,
         `hsl(${zValue}, 100%, 50%)`,
-      ].join(","),
+      ].join(','),
     },
   }
   return result
 }
 
-export const generateHSL_S = (orientation: [string, string], dir: boolean, alphaValue: number) => {
+export function generateHSL_S(orientation: [string, string], dir: boolean, alphaValue: number) {
   const result = {
     areaStyles: {},
     areaGradientStyles: {
@@ -70,14 +70,14 @@ export const generateHSL_S = (orientation: [string, string], dir: boolean, alpha
         `linear-gradient(to ${
           orientation[Number(dir)]
         },hsla(0,100%,50%,${alphaValue}),hsla(60,100%,50%,${alphaValue}),hsla(120,100%,50%,${alphaValue}),hsla(180,100%,50%,${alphaValue}),hsla(240,100%,50%,${alphaValue}),hsla(300,100%,50%,${alphaValue}),hsla(359,100%,50%,${alphaValue}))`,
-        "hsl(0, 0%, 50%)",
-      ].join(","),
+        'hsl(0, 0%, 50%)',
+      ].join(','),
     },
   }
   return result
 }
 
-export const generateHSL_L = (orientation: [string, string], dir: boolean, zValue: number) => {
+export function generateHSL_L(orientation: [string, string], dir: boolean, zValue: number) {
   const result = {
     areaStyles: {},
     areaGradientStyles: {
@@ -86,13 +86,13 @@ export const generateHSL_L = (orientation: [string, string], dir: boolean, zValu
         `linear-gradient(to ${
           orientation[Number(dir)]
         },hsl(0,100%,${zValue}%),hsl(60,100%,${zValue}%),hsl(120,100%,${zValue}%),hsl(180,100%,${zValue}%),hsl(240,100%,${zValue}%),hsl(300,100%,${zValue}%),hsl(360,100%,${zValue}%))`,
-      ].join(","),
+      ].join(','),
     },
   }
   return result
 }
 
-export const generateHSB_H = (orientation: [string, string], dir: boolean, zValue: number) => {
+export function generateHSB_H(orientation: [string, string], dir: boolean, zValue: number) {
   const result = {
     areaStyles: {},
     areaGradientStyles: {
@@ -100,13 +100,13 @@ export const generateHSB_H = (orientation: [string, string], dir: boolean, zValu
         `linear-gradient(to ${orientation[Number(dir)]},hsl(0,0%,0%),hsla(0,0%,0%,0))`,
         `linear-gradient(to ${orientation[Number(!dir)]},hsl(0,0%,100%),hsla(0,0%,100%,0))`,
         `hsl(${zValue}, 100%, 50%)`,
-      ].join(","),
+      ].join(','),
     },
   }
   return result
 }
 
-export const generateHSB_S = (orientation: [string, string], dir: boolean, alphaValue: number) => {
+export function generateHSB_S(orientation: [string, string], dir: boolean, alphaValue: number) {
   const result = {
     areaStyles: {},
     areaGradientStyles: {
@@ -116,13 +116,13 @@ export const generateHSB_S = (orientation: [string, string], dir: boolean, alpha
           orientation[Number(dir)]
         },hsla(0,100%,50%,${alphaValue}),hsla(60,100%,50%,${alphaValue}),hsla(120,100%,50%,${alphaValue}),hsla(180,100%,50%,${alphaValue}),hsla(240,100%,50%,${alphaValue}),hsla(300,100%,50%,${alphaValue}),hsla(359,100%,50%,${alphaValue}))`,
         `linear-gradient(to ${orientation[Number(!dir)]},hsl(0,0%,0%),hsl(0,0%,100%))`,
-      ].join(","),
+      ].join(','),
     },
   }
   return result
 }
 
-export const generateHSB_B = (orientation: [string, string], dir: boolean, alphaValue: number) => {
+export function generateHSB_B(orientation: [string, string], dir: boolean, alphaValue: number) {
   const result = {
     areaStyles: {},
     areaGradientStyles: {
@@ -131,8 +131,8 @@ export const generateHSB_B = (orientation: [string, string], dir: boolean, alpha
         `linear-gradient(to ${
           orientation[Number(dir)]
         },hsla(0,100%,50%,${alphaValue}),hsla(60,100%,50%,${alphaValue}),hsla(120,100%,50%,${alphaValue}),hsla(180,100%,50%,${alphaValue}),hsla(240,100%,50%,${alphaValue}),hsla(300,100%,50%,${alphaValue}),hsla(359,100%,50%,${alphaValue}))`,
-        "#000",
-      ].join(","),
+        '#000',
+      ].join(','),
     },
   }
   return result

@@ -1,23 +1,27 @@
-import { defaultItemToId, indexOfId, type ItemToId } from "./query"
-import { wrap } from "./shared"
+import type { ItemToId } from './query'
+import { defaultItemToId, indexOfId } from './query'
+import { wrap } from './shared'
 
-const sanitize = (str: string) =>
-  str
-    .split("")
+function sanitize(str: string) {
+  return str
+    .split('')
     .map((char) => {
       const code = char.charCodeAt(0)
-      if (code > 0 && code < 128) return char
-      if (code >= 128 && code <= 255) return `/x${code.toString(16)}`.replace("/", "\\")
-      return ""
+      if (code > 0 && code < 128)
+        return char
+      if (code >= 128 && code <= 255)
+        return `/x${code.toString(16)}`.replace('/', '\\')
+      return ''
     })
-    .join("")
+    .join('')
     .trim()
-
-const getValueText = <T extends SearchableItem>(el: T) => {
-  return sanitize(el.dataset?.valuetext ?? el.textContent ?? "")
 }
 
-const match = (valueText: string, query: string) => {
+function getValueText<T extends SearchableItem>(el: T) {
+  return sanitize(el.dataset?.valuetext ?? el.textContent ?? '')
+}
+
+function match(valueText: string, query: string) {
   return valueText.trim().toLowerCase().startsWith(query.toLowerCase())
 }
 
@@ -37,7 +41,7 @@ export function getByText<T extends SearchableItem>(
   let items = currentId ? wrap(v, index) : v
   const isSingleKey = text.length === 1
   if (isSingleKey) {
-    items = items.filter((item) => itemToId(item) !== currentId)
+    items = items.filter(item => itemToId(item) !== currentId)
   }
-  return items.find((item) => match(getValueText(item), text))
+  return items.find(item => match(getValueText(item), text))
 }

@@ -12,6 +12,7 @@ export default antfu({
     'no-cond-assign': 'off',
     'regexp/no-super-linear-backtracking': 'off',
     'vue/no-reserved-component-names': 'off',
+    'regexp/no-unused-capturing-group': 'off',
   },
 }, {
   files: ['test/**'],

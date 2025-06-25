@@ -19,7 +19,7 @@ export function deepGet<T extends Record<string, any>>(obj: T, path: string) {
 
   return parts.reduce<any>((obj, key) => {
     if (!obj)
-      return
+      return undefined
     return obj[key]
   }, obj)
 }

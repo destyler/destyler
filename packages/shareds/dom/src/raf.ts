@@ -6,7 +6,7 @@ export function nextTick(fn: VoidFunction) {
   }
   raf(() => raf(fn))
   return function cleanup() {
-    set.forEach((fn) => fn())
+    set.forEach(fn => fn())
   }
 }
 
@@ -18,14 +18,15 @@ export function raf(fn: VoidFunction) {
 }
 
 export function queueBeforeEvent(el: EventTarget, type: string, cb: () => void) {
-  const cancelTimer = raf(() => {
-    el.removeEventListener(type, exec, true)
-    cb()
-  })
+  let cancelTimer: () => void
   const exec = () => {
     cancelTimer()
     cb()
   }
+  cancelTimer = raf(() => {
+    el.removeEventListener(type, exec, true)
+    cb()
+  })
   el.addEventListener(type, exec, { once: true, capture: true })
   return cancelTimer
 }

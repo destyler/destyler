@@ -1,4 +1,4 @@
-import { addDomEvent } from "./event"
+import { addDomEvent } from './event'
 
 export interface ViewportSize {
   width: number
@@ -11,7 +11,7 @@ export function trackVisualViewport(doc: Document, fn: (data: ViewportSize) => v
     fn?.(getViewportSize(win))
   }
   onResize()
-  return addDomEvent(win.visualViewport ?? win, "resize", onResize)
+  return addDomEvent(win.visualViewport ?? win, 'resize', onResize)
 }
 
 function getViewportSize(win: Window): ViewportSize {

@@ -1,6 +1,6 @@
-import { getWindow } from "./node"
+import { getWindow } from './node'
 
-export type DataUrlType = "image/png" | "image/jpeg" | "image/svg+xml"
+export type DataUrlType = 'image/png' | 'image/jpeg' | 'image/svg+xml'
 
 export interface DataUrlOptions {
   /**
@@ -22,7 +22,8 @@ export interface DataUrlOptions {
 export function getDataUrl(svg: SVGSVGElement | undefined | null, opts: DataUrlOptions): Promise<string> {
   const { type, quality = 0.92, background } = opts
 
-  if (!svg) throw new Error("[@destyler/dom]: Could not find the svg element")
+  if (!svg)
+    throw new Error('[@destyler/dom]: Could not find the svg element')
 
   const win = getWindow(svg)
   const doc = win.document
@@ -30,15 +31,15 @@ export function getDataUrl(svg: SVGSVGElement | undefined | null, opts: DataUrlO
   const svgBounds = svg.getBoundingClientRect()
 
   const svgClone = svg.cloneNode(true) as SVGSVGElement
-  if (!svgClone.hasAttribute("viewBox")) {
-    svgClone.setAttribute("viewBox", `0 0 ${svgBounds.width} ${svgBounds.height}`)
+  if (!svgClone.hasAttribute('viewBox')) {
+    svgClone.setAttribute('viewBox', `0 0 ${svgBounds.width} ${svgBounds.height}`)
   }
 
   const serializer = new win.XMLSerializer()
-  const source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(svgClone)
-  const svgString = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source)
+  const source = `<?xml version="1.0" standalone="no"?>\r\n${serializer.serializeToString(svgClone)}`
+  const svgString = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(source)}`
 
-  if (type === "image/svg+xml") {
+  if (type === 'image/svg+xml') {
     return Promise.resolve(svgString).then((str) => {
       svgClone.remove()
       return str
@@ -47,17 +48,17 @@ export function getDataUrl(svg: SVGSVGElement | undefined | null, opts: DataUrlO
 
   const dpr = win.devicePixelRatio || 1
 
-  const canvas = doc.createElement("canvas")
+  const canvas = doc.createElement('canvas')
   const image = new win.Image()
   image.src = svgString
 
   canvas.width = svgBounds.width * dpr
   canvas.height = svgBounds.height * dpr
 
-  const context = canvas.getContext("2d")
+  const context = canvas.getContext('2d')
 
-  if (type === "image/jpeg" || background) {
-    context!.fillStyle = background || "white"
+  if (type === 'image/jpeg' || background) {
+    context!.fillStyle = background || 'white'
     context!.fillRect(0, 0, canvas.width, canvas.height)
   }
 

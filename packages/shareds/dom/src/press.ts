@@ -1,7 +1,7 @@
-import { addDomEvent, getEventPoint, getEventTarget } from "./event"
-import { contains, getDocument, getWindow } from "./node"
-import { noop, pipe } from "./shared"
-import type { Point } from "./types"
+import type { Point } from './types'
+import { addDomEvent, getEventPoint, getEventTarget } from './event'
+import { contains, getDocument, getWindow } from './node'
+import { noop, pipe } from './shared'
 
 export interface PressDetails {
   /**
@@ -26,19 +26,19 @@ export interface TrackPressOptions {
   /**
    * A function that determines if the key is valid for the press event.
    */
-  isValidKey?(event: KeyboardEvent): boolean
+  isValidKey?: (event: KeyboardEvent) => boolean
   /**
    * A function that will be called when the pointer is pressed.
    */
-  onPress?(details: PressDetails): void
+  onPress?: (details: PressDetails) => void
   /**
    * A function that will be called when the pointer is pressed down.
    */
-  onPressStart?(details: PressDetails): void
+  onPressStart?: (details: PressDetails) => void
   /**
    * A function that will be called when the pointer is pressed up or cancelled.
    */
-  onPressEnd?(details: PressDetails): void
+  onPressEnd?: (details: PressDetails) => void
 }
 
 export function trackPress(options: TrackPressOptions) {
@@ -48,10 +48,11 @@ export function trackPress(options: TrackPressOptions) {
     onPress,
     onPressStart,
     onPressEnd,
-    isValidKey = (e) => e.key === "Enter",
+    isValidKey = e => e.key === 'Enter',
   } = options
 
-  if (!pointerNode) return noop
+  if (!pointerNode)
+    return noop
 
   const win = getWindow(pointerNode)
   const doc = getDocument(pointerNode)
@@ -80,54 +81,57 @@ export function trackPress(options: TrackPressOptions) {
       const target = getEventTarget<Element>(endEvent)
       if (contains(pointerNode, target)) {
         onPress?.(getInfo(endEvent))
-      } else {
+      }
+      else {
         onPressEnd?.(getInfo(endEvent))
       }
     }
 
-    const removePointerUpListener = addDomEvent(win, "pointerup", endPointerPress, { passive: !onPress })
-    const removePointerCancelListener = addDomEvent(win, "pointercancel", cancelPress, { passive: !onPressEnd })
+    const removePointerUpListener = addDomEvent(win, 'pointerup', endPointerPress, { passive: !onPress })
+    const removePointerCancelListener = addDomEvent(win, 'pointercancel', cancelPress, { passive: !onPressEnd })
 
     removeEndListeners = pipe(removePointerUpListener, removePointerCancelListener)
 
-    if (doc.activeElement === keyboardNode && startEvent.pointerType === "mouse") {
+    if (doc.activeElement === keyboardNode && startEvent.pointerType === 'mouse') {
       startEvent.preventDefault()
     }
 
     startPress(startEvent)
   }
 
-  const removePointerListener = addDomEvent(pointerNode, "pointerdown", startPointerPress, { passive: !onPressStart })
-  const removeFocusListener = addDomEvent(keyboardNode, "focus", startAccessiblePress)
+  const removePointerListener = addDomEvent(pointerNode, 'pointerdown', startPointerPress, { passive: !onPressStart })
+  const removeFocusListener = addDomEvent(keyboardNode, 'focus', startAccessiblePress)
 
   removeStartListeners = pipe(removePointerListener, removeFocusListener)
 
   function startAccessiblePress() {
     const handleKeydown = (keydownEvent: KeyboardEvent) => {
-      if (!isValidKey(keydownEvent)) return
+      if (!isValidKey(keydownEvent))
+        return
 
       const handleKeyup = (keyupEvent: KeyboardEvent) => {
-        if (!isValidKey(keyupEvent)) return
-        const evt = new win.PointerEvent("pointerup")
+        if (!isValidKey(keyupEvent))
+          return
+        const evt = new win.PointerEvent('pointerup')
         const info = getInfo(evt)
         onPress?.(info)
         onPressEnd?.(info)
       }
 
       removeEndListeners()
-      removeEndListeners = addDomEvent(keyboardNode, "keyup", handleKeyup)
+      removeEndListeners = addDomEvent(keyboardNode, 'keyup', handleKeyup)
 
-      const evt = new win.PointerEvent("pointerdown")
+      const evt = new win.PointerEvent('pointerdown')
       startPress(evt)
     }
 
     const handleBlur = () => {
-      const evt = new win.PointerEvent("pointercancel")
+      const evt = new win.PointerEvent('pointercancel')
       cancelPress(evt)
     }
 
-    const removeKeydownListener = addDomEvent(keyboardNode, "keydown", handleKeydown)
-    const removeBlurListener = addDomEvent(keyboardNode, "blur", handleBlur)
+    const removeKeydownListener = addDomEvent(keyboardNode, 'keydown', handleKeydown)
+    const removeBlurListener = addDomEvent(keyboardNode, 'blur', handleBlur)
 
     removeAccessibleListeners = pipe(removeKeydownListener, removeBlurListener)
   }

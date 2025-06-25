@@ -1,26 +1,24 @@
-import { isEditableElement, isElementVisible, isHTMLElement } from "./node"
+import { isEditableElement, isElementVisible, isHTMLElement } from './node'
 
-type IncludeContainerType = boolean | "if-empty"
+type IncludeContainerType = boolean | 'if-empty'
 
-const isFrame = (el: any): el is HTMLIFrameElement => isHTMLElement(el) && el.tagName === "IFRAME"
+const isFrame = (el: any): el is HTMLIFrameElement => isHTMLElement(el) && el.tagName === 'IFRAME'
 
-const hasTabIndex = (el: Element) => !Number.isNaN(parseInt(el.getAttribute("tabindex") || "0", 10))
-const hasNegativeTabIndex = (el: Element) => parseInt(el.getAttribute("tabindex") || "0", 10) < 0
+const hasTabIndex = (el: Element) => !Number.isNaN(Number.parseInt(el.getAttribute('tabindex') || '0', 10))
+const hasNegativeTabIndex = (el: Element) => Number.parseInt(el.getAttribute('tabindex') || '0', 10) < 0
 
-const focusableSelector =
-  /*#__PURE__*/ "input:not([type='hidden']):not([disabled]), select:not([disabled]), " +
-  "textarea:not([disabled]), a[href], button:not([disabled]), [tabindex], " +
-  "iframe, object, embed, area[href], audio[controls], video[controls], " +
-  "[contenteditable]:not([contenteditable='false']), details > summary:first-of-type"
+const focusableSelector
+/* #__PURE__ */ = 'input:not([type=\'hidden\']):not([disabled]), select:not([disabled]), '
+  + 'textarea:not([disabled]), a[href], button:not([disabled]), [tabindex], '
+  + 'iframe, object, embed, area[href], audio[controls], video[controls], '
+  + '[contenteditable]:not([contenteditable=\'false\']), details > summary:first-of-type'
 
-export const getFocusables = (
-  container: Pick<HTMLElement, "querySelectorAll"> | null,
-  includeContainer: IncludeContainerType = false,
-) => {
-  if (!container) return []
+export function getFocusables(container: Pick<HTMLElement, 'querySelectorAll'> | null, includeContainer: IncludeContainerType = false) {
+  if (!container)
+    return []
   const elements = Array.from(container.querySelectorAll<HTMLElement>(focusableSelector))
 
-  const include = includeContainer == true || (includeContainer == "if-empty" && elements.length === 0)
+  const include = includeContainer === true || (includeContainer === 'if-empty' && elements.length === 0)
   if (include && isHTMLElement(container) && isFocusable(container)) {
     elements.unshift(container)
   }
@@ -38,7 +36,8 @@ export const getFocusables = (
 }
 
 export function isFocusable(element: HTMLElement | null): element is HTMLElement {
-  if (!element || element.closest("[inert]")) return false
+  if (!element || element.closest('[inert]'))
+    return false
   return element.matches(focusableSelector) && isElementVisible(element)
 }
 
@@ -51,7 +50,8 @@ export function getFirstFocusable(
 }
 
 export function getTabbables(container: HTMLElement | null, includeContainer?: IncludeContainerType) {
-  if (!container) return []
+  if (!container)
+    return []
   const elements = Array.from(container.querySelectorAll<HTMLElement>(focusableSelector))
   const tabbableElements = elements.filter(isTabbable)
 
@@ -75,7 +75,8 @@ export function getTabbables(container: HTMLElement | null, includeContainer?: I
 }
 
 export function isTabbable(el: HTMLElement | null): el is HTMLElement {
-  if (el != null && el.tabIndex > 0) return true
+  if (el != null && el.tabIndex > 0)
+    return true
   return isFocusable(el) && !hasNegativeTabIndex(el)
 }
 
@@ -109,7 +110,8 @@ export function getNextTabbable(container: HTMLElement | null, current?: HTMLEle
   const tabbables = getTabbables(container)
   const doc = container?.ownerDocument || document
   const currentElement = current ?? (doc.activeElement as HTMLElement | null)
-  if (!currentElement) return null
+  if (!currentElement)
+    return null
   const index = tabbables.indexOf(currentElement)
   return tabbables[index + 1] || null
 }

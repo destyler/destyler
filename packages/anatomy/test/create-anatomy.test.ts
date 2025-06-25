@@ -125,13 +125,13 @@ describe('anatomy', () => {
   })
 
   it('should not allow to invoke .parts more than once', () => {
-    // @ts-expect-error
+    // @ts-expect-error no checks parts
     expect(() => createAnatomy('accordion').parts('a').parts('b')).toThrow()
   })
 
   it('should not allow to invoke .parts when extending', () => {
     const anatomy = createAnatomy('accordion').parts('root', 'control')
-    // @ts-expect-error
+    // @ts-expect-error no checks parts
     expect(() => anatomy.parts('b')).toThrow()
   })
 

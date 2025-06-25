@@ -45,7 +45,7 @@ describe('deepMerge', () => {
     const malicious = { constructor: { polluted: true } }
     const obj = {}
     deepMerge<any>(obj, malicious)
-    // @ts-expect-error
+    // @ts-expect-error test
     expect(Object.prototype.polluted).toBeUndefined()
   })
 
@@ -53,7 +53,7 @@ describe('deepMerge', () => {
     const malicious = { prototype: { polluted: true } }
     const obj = {}
     deepMerge<any>(obj, malicious)
-    // @ts-expect-error
+    // @ts-expect-error test
     expect(Object.prototype.polluted).toBeUndefined()
   })
 
@@ -196,7 +196,7 @@ describe('deepMerge', () => {
     })
   })
 
-  it('handles undefined values', () => {
+  it('handles object undefined values', () => {
     const obj1 = {
       a: 1,
       b: undefined,
@@ -492,11 +492,14 @@ describe('deepMerge', () => {
   })
 
   it('handles sparse arrays in objects', () => {
+    // eslint-disable-next-line no-sparse-arrays
     const arr1 = [1, , 3] // sparse array
+    // eslint-disable-next-line no-sparse-arrays
     const arr2 = [, 2, 4] // sparse array
     const obj1 = { sparse: arr1 }
     const obj2 = { sparse: arr2 }
     const result = deepMerge<any>(obj1, obj2)
+    // eslint-disable-next-line no-sparse-arrays
     expect(result.sparse).toEqual([, 2, 4])
   })
 

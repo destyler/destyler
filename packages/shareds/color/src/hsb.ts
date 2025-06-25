@@ -1,11 +1,11 @@
-import { clampValue, mod, toFixedNumber } from "@destyler/utils"
-import { Color } from "./color"
-import { HSLColor } from "./hsl"
-import { RGBColor } from "./rgb"
-import type { ColorChannel, ColorChannelRange, ColorFormat, ColorStringFormat, ColorType } from "./types"
+import type { ColorChannel, ColorChannelRange, ColorFormat, ColorStringFormat, ColorType } from './types'
+import { clampValue, mod, toFixedNumber } from '@destyler/utils'
+import { Color } from './color'
+import { HSLColor } from './hsl'
+import { RGBColor } from './rgb'
 
-const HSB_REGEX =
-  /hsb\(([-+]?\d+(?:.\d+)?\s*,\s*[-+]?\d+(?:.\d+)?%\s*,\s*[-+]?\d+(?:.\d+)?%)\)|hsba\(([-+]?\d+(?:.\d+)?\s*,\s*[-+]?\d+(?:.\d+)?%\s*,\s*[-+]?\d+(?:.\d+)?%\s*,\s*[-+]?\d(.\d+)?)\)/
+const HSB_REGEX
+  = /hsb\(([-+]?\d+(?:.\d+)?\s*,\s*[-+]?\d+(?:.\d+)?%\s*,\s*[-+]?\d+(?:.\d+)?%)\)|hsba\(([-+]?\d+(?:.\d+)?\s*,\s*[-+]?\d+(?:.\d+)?%\s*,\s*[-+]?\d+(?:.\d+)?%\s*,\s*[-+]?\d(.\d+)?)\)/
 
 export class HSBColor extends Color {
   constructor(
@@ -20,29 +20,29 @@ export class HSBColor extends Color {
   static parse(value: string): HSBColor | void {
     let m: RegExpMatchArray | null
     if ((m = value.match(HSB_REGEX))) {
-      const [h, s, b, a] = (m[1] ?? m[2]).split(",").map((n) => Number(n.trim().replace("%", "")))
+      const [h, s, b, a] = (m[1] ?? m[2]).split(',').map(n => Number(n.trim().replace('%', '')))
       return new HSBColor(mod(h, 360), clampValue(s, 0, 100), clampValue(b, 0, 100), clampValue(a ?? 1, 0, 1))
     }
   }
 
   toString(format: ColorStringFormat) {
     switch (format) {
-      case "css":
-        return this.toHSL().toString("css")
-      case "hex":
-        return this.toRGB().toString("hex")
-      case "hexa":
-        return this.toRGB().toString("hexa")
-      case "hsb":
+      case 'css':
+        return this.toHSL().toString('css')
+      case 'hex':
+        return this.toRGB().toString('hex')
+      case 'hexa':
+        return this.toRGB().toString('hexa')
+      case 'hsb':
         return `hsb(${this.hue}, ${toFixedNumber(this.saturation, 2)}%, ${toFixedNumber(this.brightness, 2)}%)`
-      case "hsba":
+      case 'hsba':
         return `hsba(${this.hue}, ${toFixedNumber(this.saturation, 2)}%, ${toFixedNumber(this.brightness, 2)}%, ${
           this.alpha
         })`
-      case "hsl":
-        return this.toHSL().toString("hsl")
-      case "rgb":
-        return this.toRGB().toString("rgb")
+      case 'hsl':
+        return this.toHSL().toString('hsl')
+      case 'rgb':
+        return this.toRGB().toString('rgb')
       default:
         return this.toFormat(format).toString(format)
     }
@@ -50,14 +50,14 @@ export class HSBColor extends Color {
 
   toFormat(format: ColorFormat): ColorType {
     switch (format) {
-      case "hsba":
+      case 'hsba':
         return this
-      case "hsla":
+      case 'hsla':
         return this.toHSL()
-      case "rgba":
+      case 'rgba':
         return this.toRGB()
       default:
-        throw new Error("Unsupported color conversion: hsb -> " + format)
+        throw new Error(`Unsupported color conversion: hsb -> ${format}`)
     }
   }
 
@@ -68,8 +68,8 @@ export class HSBColor extends Color {
    */
   private toHSL(): ColorType {
     let saturation = this.saturation / 100
-    let brightness = this.brightness / 100
-    let lightness = brightness * (1 - saturation / 2)
+    const brightness = this.brightness / 100
+    const lightness = brightness * (1 - saturation / 2)
     saturation = lightness === 0 || lightness === 1 ? 0 : (brightness - lightness) / Math.min(lightness, 1 - lightness)
 
     return new HSLColor(
@@ -86,11 +86,11 @@ export class HSBColor extends Color {
    * @returns An RGBColor object.
    */
   private toRGB(): ColorType {
-    let hue = this.hue
-    let saturation = this.saturation / 100
-    let brightness = this.brightness / 100
+    const hue = this.hue
+    const saturation = this.saturation / 100
+    const brightness = this.brightness / 100
 
-    let fn = (n: number, k = (n + hue / 60) % 6) =>
+    const fn = (n: number, k = (n + hue / 60) % 6) =>
       brightness - saturation * brightness * Math.max(Math.min(k, 4 - k, 1), 0)
 
     return new RGBColor(
@@ -107,21 +107,21 @@ export class HSBColor extends Color {
 
   getChannelFormatOptions(channel: ColorChannel): Intl.NumberFormatOptions {
     switch (channel) {
-      case "hue":
-        return { style: "unit", unit: "degree", unitDisplay: "narrow" }
-      case "saturation":
-      case "brightness":
-      case "alpha":
-        return { style: "percent" }
+      case 'hue':
+        return { style: 'unit', unit: 'degree', unitDisplay: 'narrow' }
+      case 'saturation':
+      case 'brightness':
+      case 'alpha':
+        return { style: 'percent' }
       default:
-        throw new Error("Unknown color channel: " + channel)
+        throw new Error(`Unknown color channel: ${channel}`)
     }
   }
 
   formatChannelValue(channel: ColorChannel, locale: string) {
-    let options = this.getChannelFormatOptions(channel)
+    const options = this.getChannelFormatOptions(channel)
     let value = this.getChannelValue(channel)
-    if (channel === "saturation" || channel === "brightness") {
+    if (channel === 'saturation' || channel === 'brightness') {
       value /= 100
     }
     return new Intl.NumberFormat(locale, options).format(value)
@@ -129,27 +129,27 @@ export class HSBColor extends Color {
 
   getChannelRange(channel: ColorChannel): ColorChannelRange {
     switch (channel) {
-      case "hue":
+      case 'hue':
         return { minValue: 0, maxValue: 360, step: 1, pageSize: 15 }
-      case "saturation":
-      case "brightness":
+      case 'saturation':
+      case 'brightness':
         return { minValue: 0, maxValue: 100, step: 1, pageSize: 10 }
-      case "alpha":
+      case 'alpha':
         return { minValue: 0, maxValue: 1, step: 0.01, pageSize: 0.1 }
       default:
-        throw new Error("Unknown color channel: " + channel)
+        throw new Error(`Unknown color channel: ${channel}`)
     }
   }
 
-  toJSON(): Record<"h" | "s" | "b" | "a", number> {
+  toJSON(): Record<'h' | 's' | 'b' | 'a', number> {
     return { h: this.hue, s: this.saturation, b: this.brightness, a: this.alpha }
   }
 
   getFormat(): ColorFormat {
-    return "hsba"
+    return 'hsba'
   }
 
-  private static colorChannels: [ColorChannel, ColorChannel, ColorChannel] = ["hue", "saturation", "brightness"]
+  private static colorChannels: [ColorChannel, ColorChannel, ColorChannel] = ['hue', 'saturation', 'brightness']
 
   getChannels(): [ColorChannel, ColorChannel, ColorChannel] {
     return HSBColor.colorChannels

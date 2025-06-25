@@ -1,19 +1,20 @@
-import { raf } from "./raf"
-import type { MaybeElement, MaybeElementOrFn } from "./types"
+import type { MaybeElement, MaybeElementOrFn } from './types'
+import { raf } from './raf'
 
 export interface ObserveAttributeOptions {
   attributes: string[]
-  callback(record: MutationRecord): void
+  callback: (record: MutationRecord) => void
   defer?: boolean | undefined
 }
 
 function observeAttributesImpl(node: MaybeElement, options: ObserveAttributeOptions) {
-  if (!node) return
+  if (!node)
+    return
   const { attributes, callback: fn } = options
   const win = node.ownerDocument.defaultView || window
   const obs = new win.MutationObserver((changes) => {
     for (const change of changes) {
-      if (change.type === "attributes" && change.attributeName && attributes.includes(change.attributeName)) {
+      if (change.type === 'attributes' && change.attributeName && attributes.includes(change.attributeName)) {
         fn(change)
       }
     }
@@ -28,12 +29,12 @@ export function observeAttributes(nodeOrFn: MaybeElementOrFn, options: ObserveAt
   const cleanups: (VoidFunction | undefined)[] = []
   cleanups.push(
     func(() => {
-      const node = typeof nodeOrFn === "function" ? nodeOrFn() : nodeOrFn
+      const node = typeof nodeOrFn === 'function' ? nodeOrFn() : nodeOrFn
       cleanups.push(observeAttributesImpl(node, options))
     }),
   )
   return () => {
-    cleanups.forEach((fn) => fn?.())
+    cleanups.forEach(fn => fn?.())
   }
 }
 
@@ -44,7 +45,8 @@ export interface ObserveChildrenOptions {
 
 function observeChildrenImpl(node: MaybeElement, options: ObserveChildrenOptions) {
   const { callback: fn } = options
-  if (!node) return
+  if (!node)
+    return
   const win = node.ownerDocument.defaultView || window
   const obs = new win.MutationObserver(fn)
   obs.observe(node, { childList: true, subtree: true })
@@ -57,11 +59,11 @@ export function observeChildren(nodeOrFn: MaybeElementOrFn, options: ObserveChil
   const cleanups: (VoidFunction | undefined)[] = []
   cleanups.push(
     func(() => {
-      const node = typeof nodeOrFn === "function" ? nodeOrFn() : nodeOrFn
+      const node = typeof nodeOrFn === 'function' ? nodeOrFn() : nodeOrFn
       cleanups.push(observeChildrenImpl(node, options))
     }),
   )
   return () => {
-    cleanups.forEach((fn) => fn?.())
+    cleanups.forEach(fn => fn?.())
   }
 }

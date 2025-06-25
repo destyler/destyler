@@ -1,4 +1,4 @@
-import { isHTMLElement } from "./node"
+import { isHTMLElement } from './node'
 
 type ElementGetter = () => Element | null
 
@@ -9,7 +9,8 @@ export function waitForElement(query: ElementGetter, cb: (el: HTMLElement) => vo
   if (isHTMLElement(el) && el.isConnected) {
     cb(el)
     return () => void 0
-  } else {
+  }
+  else {
     const timerId = setInterval(() => {
       const el = query()
       if (isHTMLElement(el) && el.isConnected) {
@@ -28,6 +29,6 @@ export function waitForElements(queries: ElementGetter[], cb: (el: HTMLElement) 
     cleanups.push(clean)
   })
   return () => {
-    cleanups.forEach((fn) => fn())
+    cleanups.forEach(fn => fn())
   }
 }

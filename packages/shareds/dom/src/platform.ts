@@ -1,7 +1,7 @@
-export const isDom = () => typeof document !== "undefined"
+export const isDom = () => typeof document !== 'undefined'
 
 interface NavigatorUserAgentData {
-  brands: Array<{ brand: string; version: string }>
+  brands: Array<{ brand: string, version: string }>
   mobile: boolean
   platform: string
 }
@@ -14,7 +14,7 @@ export function getPlatform(): string {
 export function getUserAgent(): string {
   const ua = (navigator as any).userAgentData as NavigatorUserAgentData | undefined
   if (ua && Array.isArray(ua.brands)) {
-    return ua.brands.map(({ brand, version }) => `${brand}/${version}`).join(" ")
+    return ua.brands.map(({ brand, version }) => `${brand}/${version}`).join(' ')
   }
   return navigator.userAgent
 }
@@ -25,12 +25,12 @@ const vn = (v: RegExp) => isDom() && v.test(navigator.vendor)
 
 export const isTouchDevice = () => isDom() && !!navigator.maxTouchPoints
 export const isMac = () => pt(/^Mac/)
+export const isApple = () => pt(/mac|iphone|ipad|ipod/i)
 export const isSafari = () => isApple() && vn(/apple/i)
 export const isFirefox = () => ua(/firefox\//i)
-export const isApple = () => pt(/mac|iphone|ipad|ipod/i)
 export const isIos = () => pt(/iP(hone|ad|od)|iOS/)
 export const isWebKit = () => ua(/AppleWebKit/)
-export const isAndroid = () => {
+export function isAndroid() {
   const re = /android/i
   return pt(re) || ua(re)
 }

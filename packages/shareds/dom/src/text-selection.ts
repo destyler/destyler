@@ -1,10 +1,10 @@
-import { isIos } from "./platform"
-import { nextTick, raf } from "./raf"
+import { isIos } from './platform'
+import { nextTick, raf } from './raf'
 
-type State = "default" | "disabled" | "restoring"
+type State = 'default' | 'disabled' | 'restoring'
 
-let state: State = "default"
-let userSelect = ""
+let state: State = 'default'
+let userSelect = ''
 const elementMap = new WeakMap<HTMLElement, string>()
 
 export interface DisableTextSelectionOptions<T = MaybeElement> {
@@ -20,15 +20,16 @@ function disableTextSelectionImpl(options: DisableTextSelectionOptions = {}) {
   const rootEl = docNode.documentElement
 
   if (isIos()) {
-    if (state === "default") {
+    if (state === 'default') {
       userSelect = rootEl.style.webkitUserSelect
-      rootEl.style.webkitUserSelect = "none"
+      rootEl.style.webkitUserSelect = 'none'
     }
 
-    state = "disabled"
-  } else if (target) {
+    state = 'disabled'
+  }
+  else if (target) {
     elementMap.set(target, target.style.userSelect)
-    target.style.userSelect = "none"
+    target.style.userSelect = 'none'
   }
 
   return () => restoreTextSelection({ target, doc: docNode })
@@ -41,30 +42,32 @@ export function restoreTextSelection(options: DisableTextSelectionOptions = {}) 
   const rootEl = docNode.documentElement
 
   if (isIos()) {
-    if (state !== "disabled") return
-    state = "restoring"
+    if (state !== 'disabled')
+      return
+    state = 'restoring'
 
     setTimeout(() => {
       nextTick(() => {
-        if (state === "restoring") {
-          if (rootEl.style.webkitUserSelect === "none") {
-            rootEl.style.webkitUserSelect = userSelect || ""
+        if (state === 'restoring') {
+          if (rootEl.style.webkitUserSelect === 'none') {
+            rootEl.style.webkitUserSelect = userSelect || ''
           }
-          userSelect = ""
-          state = "default"
+          userSelect = ''
+          state = 'default'
         }
       })
     }, 300)
-  } else {
+  }
+  else {
     if (target && elementMap.has(target)) {
       const prevUserSelect = elementMap.get(target)
 
-      if (target.style.userSelect === "none") {
-        target.style.userSelect = prevUserSelect ?? ""
+      if (target.style.userSelect === 'none') {
+        target.style.userSelect = prevUserSelect ?? ''
       }
 
-      if (target.getAttribute("style") === "") {
-        target.removeAttribute("style")
+      if (target.getAttribute('style') === '') {
+        target.removeAttribute('style')
       }
       elementMap.delete(target)
     }
@@ -81,11 +84,11 @@ export function disableTextSelection(options: DisableTextSelectionOptions<NodeOr
   const cleanups: (VoidFunction | undefined)[] = []
   cleanups.push(
     func(() => {
-      const node = typeof target === "function" ? target() : target
+      const node = typeof target === 'function' ? target() : target
       cleanups.push(disableTextSelectionImpl({ ...restOptions, target: node }))
     }),
   )
   return () => {
-    cleanups.forEach((fn) => fn?.())
+    cleanups.forEach(fn => fn?.())
   }
 }
