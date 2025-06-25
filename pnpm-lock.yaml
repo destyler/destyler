@@ -2142,6 +2142,12 @@ importers:
 
   packages/shareds/aria-hidden: {}
 
+  packages/shareds/auto-resize:
+    dependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../dom
+
   packages/shareds/dom:
     dependencies:
       '@destyler/types':
