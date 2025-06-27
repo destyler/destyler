@@ -2166,11 +2166,58 @@ importers:
         specifier: 3.8.2
         version: 3.8.2
 
+  packages/shareds/dismissable:
+    dependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../dom
+      '@destyler/interact-outside':
+        specifier: workspace:*
+        version: link:../interact-outside
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+
   packages/shareds/dom:
     dependencies:
       '@destyler/types':
         specifier: workspace:*
         version: link:../../types
+
+  packages/shareds/element-rect: {}
+
+  packages/shareds/file: {}
+
+  packages/shareds/focus-trap:
+    dependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../dom
+
+  packages/shareds/focus-visible:
+    dependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../dom
+
+  packages/shareds/highlight-text: {}
+
+  packages/shareds/i18n:
+    dependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../dom
+
+  packages/shareds/interact-outside:
+    dependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../dom
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+
+  packages/shareds/live-region: {}
 
   packages/shareds/popper:
     dependencies:
@@ -2197,6 +2244,8 @@ importers:
       '@destyler/dom':
         specifier: workspace:*
         version: link:../dom
+
+  packages/shareds/size: {}
 
   packages/shareds/stringify: {}
 
