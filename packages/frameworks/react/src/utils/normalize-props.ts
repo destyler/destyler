@@ -1,5 +1,5 @@
 import type { CSSProperties, HTMLAttributes, JSX } from 'react'
-import { createNormalizer } from '@zag-js/types'
+import { createNormalizer } from '@destyler/types'
 
 type WithoutRef<T> = Omit<T, 'ref'>
 

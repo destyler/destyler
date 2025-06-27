@@ -31,15 +31,15 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/store": "catalog:",
-    "@zag-js/types": "catalog:",
+    "@destyler/store": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*",
     "proxy-compare": "catalog:"
   },
   "devDependencies": {
+    "@destyler/utils": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@zag-js/utils": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   }

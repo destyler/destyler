@@ -2045,28 +2045,28 @@ importers:
 
   packages/frameworks/react:
     dependencies:
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/store':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/store':
+        specifier: workspace:*
+        version: link:../../store
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
       proxy-compare:
         specifier: 'catalog:'
         version: 3.0.1
     devDependencies:
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
       '@types/react':
         specifier: 'catalog:'
         version: 19.0.8
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.0.3(@types/react@19.0.8)
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
       react:
         specifier: 'catalog:'
         version: 19.0.0
