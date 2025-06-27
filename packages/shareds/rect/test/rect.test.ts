@@ -6,7 +6,7 @@ import { collisions, intersection, intersects } from '../src/intersection'
 import { inset } from '../src/operations'
 import { union } from '../src/union'
 
-describe('@zag-js/rect-utils', () => {
+describe('rect', () => {
   it('should create rect', () => {
     const r = createRect({ x: 0, y: 0, width: 100, height: 100 })
     expect(r).toMatchObject({ x: 0, y: 0, width: 100, height: 100 })
