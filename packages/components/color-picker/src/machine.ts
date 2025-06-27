@@ -1,4 +1,4 @@
-import type { Color } from '@zag-js/color-utils'
+import type { Color } from '@destyler/color'
 import type {
   ColorFormat,
   ColorType,
@@ -7,15 +7,19 @@ import type {
   MachineState,
   UserDefinedContext,
 } from './types'
-import { parseColor } from '@zag-js/color-utils'
-import { createMachine, guards } from '@zag-js/core'
-import { trackDismissableElement } from '@zag-js/dismissable'
-import { trackPointerMove } from '@zag-js/dom-event'
-import { getInitialFocus, raf } from '@zag-js/dom-query'
-import { dispatchInputValueEvent, trackFormControl } from '@zag-js/form-utils'
-import { getPlacement } from '@zag-js/popper'
-import { disableTextSelection } from '@zag-js/text-selection'
-import { compact, tryCatch } from '@zag-js/utils'
+import { parseColor } from '@destyler/color'
+import { trackDismissableElement } from '@destyler/dismissable'
+import {
+  disableTextSelection,
+  dispatchInputValueEvent,
+  getInitialFocus,
+  raf,
+  trackFormControl,
+  trackPointerMove,
+} from '@destyler/dom'
+import { getPlacement } from '@destyler/popper'
+import { compact, tryCatch } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { parse } from './parse'
 import { getChannelValue } from './utils/get-channel-input-value'
@@ -27,7 +31,7 @@ const sync = {
   inputs(ctx: MachineContext, color?: Color) {
     const channelInputs = dom.getChannelInputEls(ctx)
     raf(() => {
-      channelInputs.forEach((inputEl) => {
+      channelInputs.forEach((inputEl: any) => {
         const channel = inputEl.dataset.channel as ExtendedColorChannel | null
         dom.setValue(inputEl, getChannelValue(color || ctx.value, channel))
       })
@@ -407,7 +411,7 @@ export function machine(userContext: UserDefinedContext) {
       },
       activities: {
         trackPositioning(ctx) {
-          ctx.currentPlacement = ctx.positioning.placement
+          ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getTriggerEl(ctx)
           const getPositionerEl = () => dom.getPositionerEl(ctx)
           return getPlacement(anchorEl, getPositionerEl, {
@@ -472,7 +476,7 @@ export function machine(userContext: UserDefinedContext) {
           const picker = new win.EyeDropper()
           picker
             .open()
-            .then(({ sRGBHex }) => {
+            .then(({ sRGBHex }: any) => {
               const format = ctx.value.getFormat()
               const color = parseColor(sRGBHex).toFormat(format) as Color
               set.value(ctx, color)

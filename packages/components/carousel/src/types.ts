@@ -1,5 +1,5 @@
-import type { ContextRef, Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, OrientationProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, DirectionProperty, OrientationProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, ContextRef, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface PageChangeDetails {
   page: number
@@ -140,11 +140,11 @@ export interface MachineState {
   value: 'idle' | 'dragging' | 'autoplay'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ItemProps {
   /**
@@ -244,4 +244,4 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   getIndicatorProps: (props: IndicatorProps) => T['button']
 }
 
-export type { Orientation } from '@zag-js/types'
+export type { Orientation } from '@destyler/types'

@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js'
-import { createNormalizer } from '@zag-js/types'
-import { isNumber, isObject, isString } from '@zag-js/utils'
+import { createNormalizer } from '@destyler/types'
+import { isNumber, isObject, isString } from '@destyler/utils'
 
 export type PropTypes = JSX.IntrinsicElements & {
   element: JSX.HTMLAttributes<any>

@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope, query } from '@zag-js/dom-query'
+import { createScope, query } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `combobox:${ctx.id}`,
@@ -11,7 +11,8 @@ export const dom = createScope({
   getTriggerId: (ctx: Ctx) => ctx.ids?.trigger ?? `combobox:${ctx.id}:toggle-btn`,
   getClearTriggerId: (ctx: Ctx) => ctx.ids?.clearTrigger ?? `combobox:${ctx.id}:clear-btn`,
   getItemGroupId: (ctx: Ctx, id: string | number) => ctx.ids?.itemGroup?.(id) ?? `combobox:${ctx.id}:optgroup:${id}`,
-  getItemGroupLabelId: (ctx: Ctx, id: string | number) => ctx.ids?.itemGroupLabel?.(id) ?? `combobox:${ctx.id}:optgroup-label:${id}`,
+  getItemGroupLabelId: (ctx: Ctx, id: string | number) =>
+    ctx.ids?.itemGroupLabel?.(id) ?? `combobox:${ctx.id}:optgroup-label:${id}`,
   getItemId: (ctx: Ctx, id: string) => ctx.ids?.item?.(id) ?? `combobox:${ctx.id}:option:${id}`,
 
   getContentEl: (ctx: Ctx) => dom.getById(ctx, dom.getContentId(ctx)),

@@ -31,12 +31,12 @@
     "svelte": ">=5.0.0"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/types": "catalog:"
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/utils": "workspace:*",
     "@sveltejs/package": "^2.3.10",
-    "@zag-js/utils": "catalog:",
     "svelte": "catalog:"
   }
 }

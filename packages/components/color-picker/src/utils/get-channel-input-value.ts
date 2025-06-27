@@ -1,6 +1,6 @@
-import type { Color, ColorChannelRange } from '@zag-js/color-utils'
+import type { Color, ColorChannelRange } from '@destyler/color'
 import type { ExtendedColorChannel } from '../types'
-import { parseColor } from '@zag-js/color-utils'
+import { parseColor } from '@destyler/color'
 
 export function getChannelValue(color: Color, channel: ExtendedColorChannel | null | undefined): string {
   if (channel == null)

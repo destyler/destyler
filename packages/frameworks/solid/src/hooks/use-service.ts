@@ -1,11 +1,11 @@
-import type { MachineSrc, StateMachine as S } from '@zag-js/core'
+import type { AnyEventObject, EventObject, MachineSrc, StateSchema } from '@destyler/xstate'
 import type { MachineOptions } from '../types'
 import { onCleanup, onMount } from 'solid-js'
 
 export function useService<
   TContext extends Record<string, any>,
-  TState extends S.StateSchema,
-  TEvent extends S.EventObject = S.AnyEventObject,
+  TState extends StateSchema,
+  TEvent extends EventObject = AnyEventObject,
 >(machine: MachineSrc<TContext, TState, TEvent>, options?: MachineOptions<TContext, TState, TEvent>) {
   const { state: hydratedState, context } = options ?? {}
 

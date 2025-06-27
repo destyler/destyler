@@ -1,5 +1,4 @@
 import type { AnyEventObject, EventObject, HookOptions, MachineSrc, StateInit, StateSchema } from '@destyler/xstate'
-import { isDev } from '@destyler/utils'
 import { useRef } from 'react'
 import { useConstant } from './use-constant'
 import { useSafeLayoutEffect } from './use-layout-effect'
@@ -25,10 +24,6 @@ export function useService<
     const stateInit = hydratedState ?? snapshotRef.current
     service.start(stateInit)
     return () => {
-      // HMR improvements for dev
-      if (isDev()) {
-        snapshotRef.current = service.getHydrationState()
-      }
       service.stop()
     }
   }, [])

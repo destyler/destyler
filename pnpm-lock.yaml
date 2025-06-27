@@ -36,13 +36,7 @@ catalogs:
     '@zag-js/collection':
       specifier: ^0.82.1
       version: 0.82.1
-    '@zag-js/color-utils':
-      specifier: ^0.82.1
-      version: 0.82.1
     '@zag-js/core':
-      specifier: ^0.82.1
-      version: 0.82.1
-    '@zag-js/date-utils':
       specifier: ^0.82.1
       version: 0.82.1
     '@zag-js/dismissable':
@@ -96,18 +90,12 @@ catalogs:
     '@zag-js/remove-scroll':
       specifier: ^0.82.1
       version: 0.82.1
-    '@zag-js/scroll-snap':
-      specifier: ^0.82.1
-      version: 0.82.1
     '@zag-js/store':
       specifier: ^0.82.1
       version: 0.82.1
     '@zag-js/stringify-state':
       specifier: ^0.82.1
       version: 0.82.1
-    '@zag-js/text-selection':
-      specifier: ^0.80.0
-      version: 0.80.0
     '@zag-js/types':
       specifier: ^0.82.1
       version: 0.82.1
@@ -1027,78 +1015,69 @@ importers:
 
   packages/components/aspect-ratio:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/breadcrumbs:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/calendar:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/date-utils':
-        specifier: 'catalog:'
-        version: 0.82.1(@internationalized/date@3.8.2)
-      '@zag-js/dismissable':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-event':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/form-utils':
-        specifier: 'catalog:'
-        version: 0.81.1
-      '@zag-js/live-region':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/popper':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/text-selection':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/date':
+        specifier: workspace:*
+        version: link:../../shareds/date
+      '@destyler/dismissable':
+        specifier: workspace:*
+        version: link:../../shareds/dismissable
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/live-region':
+        specifier: workspace:*
+        version: link:../../shareds/live-region
+      '@destyler/popper':
+        specifier: workspace:*
+        version: link:../../shareds/popper
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
     devDependencies:
       '@internationalized/date':
         specifier: 'catalog:'
@@ -1106,180 +1085,156 @@ importers:
 
   packages/components/carousel:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-event':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/scroll-snap':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/scroll-snap':
+        specifier: workspace:*
+        version: link:../../shareds/scroll-snap
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/checkbox:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-event':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/focus-visible':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/form-utils':
-        specifier: 'catalog:'
-        version: 0.81.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/focus-visible':
+        specifier: workspace:*
+        version: link:../../shareds/focus-visible
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/clipboard:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/collapse:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-event':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/collapsible:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/color-picker:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/color-utils':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dismissable':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-event':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/form-utils':
-        specifier: 'catalog:'
-        version: 0.81.1
-      '@zag-js/popper':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/text-selection':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/color':
+        specifier: workspace:*
+        version: link:../../shareds/color
+      '@destyler/dismissable':
+        specifier: workspace:*
+        version: link:../../shareds/dismissable
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/popper':
+        specifier: workspace:*
+        version: link:../../shareds/popper
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/combobox:
     dependencies:
-      '@zag-js/anatomy':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/aria-hidden':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/collection':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dismissable':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/dom-event':
-        specifier: 'catalog:'
-        version: 0.80.0
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/popper':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/aria-hidden':
+        specifier: workspace:*
+        version: link:../../shareds/aria-hidden
+      '@destyler/collection':
+        specifier: workspace:*
+        version: link:../../shareds/collection
+      '@destyler/dismissable':
+        specifier: workspace:*
+        version: link:../../shareds/dismissable
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
+      '@destyler/popper':
+        specifier: workspace:*
+        version: link:../../shareds/popper
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/components/dialog:
     dependencies:
@@ -2076,66 +2031,66 @@ importers:
 
   packages/frameworks/solid:
     dependencies:
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/store':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/store':
+        specifier: workspace:*
+        version: link:../../store
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
     devDependencies:
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
       solid-js:
         specifier: 'catalog:'
         version: 1.9.4
 
   packages/frameworks/svelte:
     dependencies:
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
     devDependencies:
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
       '@sveltejs/package':
         specifier: ^2.3.10
         version: 2.3.10(svelte@5.20.1)(typescript@5.7.3)
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
       svelte:
         specifier: 'catalog:'
         version: 5.20.1
 
   packages/frameworks/vanilla:
     dependencies:
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
 
   packages/frameworks/vue:
     dependencies:
-      '@zag-js/core':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/store':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/types':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/store':
+        specifier: workspace:*
+        version: link:../../store
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
     devDependencies:
-      '@zag-js/utils':
-        specifier: 'catalog:'
-        version: 0.82.1
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
@@ -3577,16 +3532,8 @@ packages:
   '@zag-js/collection@0.82.1':
     resolution: {integrity: sha512-uteM+xWZlWhRQe5biA5QWyva9PdzXONs+bpycUtZt8MakQgPmhW2whY9r1aW5NFVb/ScTwGAIGB3Eyc6Npz7Wg==}
 
-  '@zag-js/color-utils@0.82.1':
-    resolution: {integrity: sha512-BMSYcBeypGX0wCLszU2jxWBRUmd5/wPDJ59Y3Zwl9yNld0gtMnuBLSUeokMcG0UVQ/BxkyrWu3VDkKTUYKprqQ==}
-
   '@zag-js/core@0.82.1':
     resolution: {integrity: sha512-Ux0fkt1PumcqLwExcEozCMEfKBxtd2JlnitXo4hR3lJW5q9G52FkgWDyPSrhblyTkX+7RgxViZTMnHxaXs99jg==}
-
-  '@zag-js/date-utils@0.82.1':
-    resolution: {integrity: sha512-z9sHtgV4fvtXsqLaTD4/o+D+H5wumLYhIw/Bj3yC41gR5oa4Wo9QifRT9DBfvuokmXsrnRZ8k32hUtWoYb6M/A==}
-    peerDependencies:
-      '@internationalized/date': '>=3.0.0'
 
   '@zag-js/dismissable@0.82.1':
     resolution: {integrity: sha512-vs+zkORzaeNzX4Wsy4OkW1AVce7l4Tc6DHZq8gqNB5SvhK+5wEPl6EmacQRvZyoCxi2m6xpaI98UkLCmVJKU+Q==}
@@ -3641,9 +3588,6 @@ packages:
 
   '@zag-js/remove-scroll@0.82.1':
     resolution: {integrity: sha512-68cvXvqgNOlucbnGKRyephk8Qg8wb4xpjgUdmF9xQwICdY/uhW2p4ZGJ4471TDCDIlpoBrJPYsWqV2oWH3QNfA==}
-
-  '@zag-js/scroll-snap@0.82.1':
-    resolution: {integrity: sha512-HL3MkBpWx4Cw0+h1UP/PnvLP3Z1T+F5mkeS8HWmiP+KPzhtFiEBRrve+xk7h7BMXifteg2UZy53ZiZfJeGsd3w==}
 
   '@zag-js/store@0.82.1':
     resolution: {integrity: sha512-uWlVivLZBCuAEXrXOITM1srwfBtAnT8kBYVPElrT5aSO9gkV1YC/g+YdFRol7KKOg12qO561CPKReVfilmtAKg==}
@@ -7902,18 +7846,10 @@ snapshots:
     dependencies:
       '@zag-js/utils': 0.82.1
 
-  '@zag-js/color-utils@0.82.1':
-    dependencies:
-      '@zag-js/utils': 0.82.1
-
   '@zag-js/core@0.82.1':
     dependencies:
       '@zag-js/store': 0.82.1
       '@zag-js/utils': 0.82.1
-
-  '@zag-js/date-utils@0.82.1(@internationalized/date@3.8.2)':
-    dependencies:
-      '@internationalized/date': 3.8.2
 
   '@zag-js/dismissable@0.82.1':
     dependencies:
@@ -7975,10 +7911,6 @@ snapshots:
   '@zag-js/rect-utils@0.82.1': {}
 
   '@zag-js/remove-scroll@0.82.1':
-    dependencies:
-      '@zag-js/dom-query': 0.82.1
-
-  '@zag-js/scroll-snap@0.82.1':
     dependencies:
       '@zag-js/dom-query': 0.82.1
 

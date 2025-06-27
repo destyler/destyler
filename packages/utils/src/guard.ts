@@ -1,8 +1,5 @@
-import process from 'node:process'
-
 type AnyFunction = (...args: any[]) => any
 
-export const isDev = () => process.env.NODE_ENV !== 'production'
 export const isArray = (v: any): v is any[] => Array.isArray(v)
 export const isBoolean = (v: any): v is boolean => v === true || v === false
 export const isObjectLike = (v: any): v is Record<string, any> => v != null && typeof v === 'object'

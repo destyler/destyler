@@ -1,8 +1,6 @@
-import type { EventKeyMap } from '@zag-js/dom-event'
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { getEventKey } from '@zag-js/dom-event'
-import { dataAttr, isSafari } from '@zag-js/dom-query'
+import { dataAttr, getEventKey, isSafari } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -13,7 +11,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
   function setValue(value: string[]) {
     let nextValue = value
-    if (multiple && nextValue.length > 1) {
+    if (!multiple && nextValue.length > 1) {
       nextValue = [nextValue[0]]
     }
     send({ type: 'VALUE.SET', value: nextValue })

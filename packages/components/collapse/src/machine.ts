@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { add, compact, isEqual, remove, warn } from '@zag-js/utils'
+import { add, compact, isEqual, remove } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { and, not } = guards
@@ -33,13 +33,13 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'collapse',
+      id: 'accordion',
       initial: 'idle',
 
       context: {
         focusedValue: null,
         value: [],
-        collapsible: true,
+        collapsible: false,
         multiple: false,
         orientation: 'vertical',
         ...ctx,
@@ -146,8 +146,8 @@ export function machine(userContext: UserDefinedContext) {
         },
         coarseValue(ctx) {
           if (!ctx.multiple && ctx.value.length > 1) {
-            warn(`The value of collapse should be a single value when multiple is false.`)
             ctx.value = [ctx.value[0]]
+            throw new Error(`The value of accordion should be a single value when multiple is false.`)
           }
         },
       },

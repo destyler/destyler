@@ -32,9 +32,6 @@ export type {
   MachineOptions,
   Meta,
   PureActions,
-  Self,
-  Send,
-  State,
   StateInfo,
   StateInit,
   StateInitObject,
@@ -47,6 +44,9 @@ export type {
   TransitionDefinitionMap,
   Transitions,
   UserContext,
+  XSelf,
+  XSend,
+  XState,
 } from './src/type'
 export type { ContextFrom, ContextRef, EventFrom, StateFrom } from './src/type'
 export { proxy, ref, type Ref, snapshot, subscribe } from '@destyler/store'

@@ -1,12 +1,13 @@
 import type { ItemGroupLabelProps, ItemGroupProps, ItemProps, UserDefinedContext } from './types'
-import { createProps } from '@zag-js/types'
-import { createSplitProps } from '@zag-js/utils'
+import { createProps } from '@destyler/types'
+import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'allowCustomValue',
   'autoFocus',
   'closeOnSelect',
   'collection',
+  'composite',
   'dir',
   'disabled',
   'disableLayer',
@@ -21,6 +22,7 @@ export const props = createProps<UserDefinedContext>()([
   'loopFocus',
   'multiple',
   'name',
+  'navigate',
   'onFocusOutside',
   'onHighlightChange',
   'onInputValueChange',
@@ -31,8 +33,8 @@ export const props = createProps<UserDefinedContext>()([
   'onValueChange',
   'open.controlled',
   'open',
-  'openOnClick',
   'openOnChange',
+  'openOnClick',
   'openOnKeyPress',
   'placeholder',
   'positioning',
@@ -41,7 +43,6 @@ export const props = createProps<UserDefinedContext>()([
   'scrollToIndexFn',
   'selectionBehavior',
   'translations',
-  'composite',
   'value',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

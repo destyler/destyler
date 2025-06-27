@@ -1,4 +1,4 @@
-import { createNormalizer } from '@zag-js/types'
+import { createNormalizer } from '@destyler/types'
 
 export interface AttrMap {
   [key: string]: string

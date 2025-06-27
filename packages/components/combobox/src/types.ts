@@ -1,8 +1,8 @@
-import type { CollectionItem, CollectionOptions, ListCollection } from '@zag-js/collection'
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { InteractOutsideHandlers } from '@zag-js/dismissable'
-import type { Placement, PositioningOptions } from '@zag-js/popper'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CollectionItem, CollectionOptions, ListCollection } from '@destyler/collection'
+import type { InteractOutsideHandlers } from '@destyler/dismissable'
+import type { Placement, PositioningOptions } from '@destyler/popper'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
   value: string[]
@@ -25,6 +25,11 @@ export interface OpenChangeDetails {
 export interface ScrollToIndexDetails {
   index: number
   immediate?: boolean | undefined
+}
+
+export interface NavigateDetails {
+  value: string | null
+  node: HTMLAnchorElement
 }
 
 export interface IntlTranslations {
@@ -203,6 +208,10 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    * Whether to disable registering this a dismissable layer
    */
   'disableLayer'?: boolean | undefined
+  /**
+   * Function to navigate to the selected item
+   */
+  'navigate': (details: NavigateDetails) => void
 }
 
 export type UserDefinedContext<T extends CollectionItem = CollectionItem> = RequiredBy<
@@ -265,11 +274,11 @@ export interface MachineState {
   tags: 'open' | 'focused' | 'idle' | 'closed'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface TriggerProps {
   /**

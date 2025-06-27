@@ -23,4 +23,4 @@ export type {
   TriggerProps,
   ValueChangeDetails,
 } from './src/types'
-export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@zag-js/dismissable'
+export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/dismissable'

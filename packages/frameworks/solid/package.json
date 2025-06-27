@@ -30,12 +30,12 @@
     "solid-js": ">=1.1.3"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/store": "catalog:",
-    "@zag-js/types": "catalog:"
+    "@destyler/store": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   },
   "devDependencies": {
-    "@zag-js/utils": "catalog:",
+    "@destyler/utils": "workspace:*",
     "solid-js": "catalog:"
   }
 }

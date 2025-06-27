@@ -30,12 +30,12 @@
     "vue": ">=3.0.0"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/store": "catalog:",
-    "@zag-js/types": "catalog:"
+    "@destyler/xstate": "workspace:*",
+    "@destyler/store": "workspace:*",
+    "@destyler/types": "workspace:*"
   },
   "devDependencies": {
-    "@zag-js/utils": "catalog:",
+    "@destyler/utils": "workspace:*",
     "vue": "catalog:"
   }
 }

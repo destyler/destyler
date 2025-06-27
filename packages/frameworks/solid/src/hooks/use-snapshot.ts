@@ -1,12 +1,12 @@
-import type { Machine, StateMachine as S } from '@zag-js/core'
+import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyler/xstate'
 import type { MachineOptions } from '../types'
 import { createEffect, onCleanup, onMount } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
 
 export function useSnapshot<
   TContext extends Record<string, any>,
-  TState extends S.StateSchema,
-  TEvent extends S.EventObject = S.AnyEventObject,
+  TState extends StateSchema,
+  TEvent extends EventObject = AnyEventObject,
 >(service: Machine<TContext, TState, TEvent>, options?: MachineOptions<TContext, TState, TEvent>) {
   const { actions, context } = options ?? {}
 

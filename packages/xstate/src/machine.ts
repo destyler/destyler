@@ -13,8 +13,6 @@ import type {
   MachineConfig,
   MachineOptions,
   Meta,
-  Self,
-  State,
   StateInfo,
   StateInit,
   StateListener,
@@ -23,6 +21,8 @@ import type {
   Transitions,
   VoidFunction,
   Writable,
+  XSelf,
+  XState,
 } from './type'
 import { clone, ref, snapshot, subscribe } from '@destyler/store'
 import {
@@ -31,7 +31,6 @@ import {
   compact,
   hasProp,
   isArray,
-  isDev,
   isObject,
   isString,
   noop,
@@ -56,7 +55,7 @@ export class Machine<
   TEvent extends EventObject = AnyEventObject,
 > {
   public status: MachineStatus = MachineStatus.NotStarted
-  public readonly state: State<TContext, TState, TEvent>
+  public readonly state: XState<TContext, TState, TEvent>
 
   public initialState: StateInfo<TContext, TState, TEvent> | undefined
   public initialContext: TContext
@@ -112,11 +111,11 @@ export class Machine<
   }
 
   // immutable state value
-  private get stateSnapshot(): State<TContext, TState, TEvent> {
+  private get stateSnapshot(): XState<TContext, TState, TEvent> {
     return cast(snapshot(this.state))
   }
 
-  public getState(): State<TContext, TState, TEvent> {
+  public getState(): XState<TContext, TState, TEvent> {
     return this.stateSnapshot
   }
 
@@ -489,7 +488,7 @@ export class Machine<
    * A reference to the instance methods of the machine.
    * Useful when spawning child machines and managing the communication between them.
    */
-  private get self(): Self<TContext, TState, TEvent> {
+  private get self(): XSelf<TContext, TState, TEvent> {
     // eslint-disable-next-line ts/no-this-alias
     const self = this
     return {
@@ -777,7 +776,7 @@ export class Machine<
   }
 
   private log = (...args: any[]) => {
-    if (isDev() && this.options.debug) {
+    if (this.options.debug) {
       // eslint-disable-next-line no-console
       console.log(...args)
     }

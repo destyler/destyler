@@ -1,17 +1,17 @@
-import type { Machine, StateMachine } from '@zag-js/core'
+import type { AnyEventObject, EventObject, Machine, State, StateSchema } from '@destyler/xstate'
 import type { Ref } from 'vue'
 import type { MachineOptions } from '../types'
-import { snapshot, subscribe } from '@zag-js/store'
+import { snapshot, subscribe } from '@destyler/store'
 import { onUnmounted, shallowRef, unref, watch, watchEffect } from 'vue'
 
 export function useSnapshot<
   TContext extends Record<string, any>,
-  TState extends StateMachine.StateSchema,
-  TEvent extends StateMachine.EventObject = StateMachine.AnyEventObject,
+  TState extends StateSchema,
+  TEvent extends EventObject = AnyEventObject,
 >(
   service: Machine<TContext, TState, TEvent>,
   options?: MachineOptions<TContext, TState, TEvent>,
-): Ref<StateMachine.State<TContext, TState, TEvent>> {
+): Ref<State<TContext, TState, TEvent>> {
   const { actions, context } = options ?? {}
 
   const state = shallowRef(service.state)

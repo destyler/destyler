@@ -1,8 +1,8 @@
-import type { Color, ColorAxes, ColorChannel, ColorFormat, ColorType } from '@zag-js/color-utils'
-import type { Machine, StateMachine as S } from '@zag-js/core'
-import type { InteractOutsideHandlers } from '@zag-js/dismissable'
-import type { PositioningOptions } from '@zag-js/popper'
-import type { CommonProperties, DirectionProperty, Orientation, PropTypes, RequiredBy } from '@zag-js/types'
+import type { Color, ColorAxes, ColorChannel, ColorFormat, ColorType } from '@destyler/color'
+import type { InteractOutsideHandlers } from '@destyler/dismissable'
+import type { PositioningOptions } from '@destyler/popper'
+import type { CommonProperties, DirectionProperty, Orientation, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export type ExtendedColorChannel = ColorChannel | 'hex' | 'css'
 
@@ -155,7 +155,7 @@ interface PrivateContext {
    */
   currentPlacement?: PositioningOptions['placement'] | undefined
   /**
-   * @internal
+   *  @internal
    * Whether the color picker should return focus to the trigger when closed
    */
   restoreFocus?: boolean | undefined
@@ -198,11 +198,11 @@ export interface MachineState {
   value: 'idle' | 'focused' | 'open' | 'open:dragging'
 }
 
-export type State = S.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = S.Send<S.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, S.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ChannelProps {
   channel: ColorChannel

@@ -1,6 +1,6 @@
-import type { CollectionItem, CollectionOptions } from '@zag-js/collection'
-import { ListCollection } from '@zag-js/collection'
-import { ref } from '@zag-js/core'
+import type {CollectionItem, CollectionOptions} from '@destyler/collection';
+import {   ListCollection } from '@destyler/collection'
+import { ref } from '@destyler/xstate'
 
 export function collection<T extends CollectionItem>(options: CollectionOptions<T>): ListCollection<T> {
   return ref(new ListCollection(options))

@@ -2,7 +2,7 @@
 
 import { getUntracked, markToTrack } from 'proxy-compare'
 import { globalRef, refSet } from './global'
-import { canProxy, isDev, isObject } from './utils'
+import { canProxy, isObject } from './utils'
 
 interface AsRef { $$valtioRef: true }
 
@@ -90,9 +90,6 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
           notifyUpdate(newOp, nextVersion)
         }
   const addPropListener = (prop: string | symbol, propProxyState: ProxyState) => {
-    if (isDev() && propProxyStates.has(prop)) {
-      throw new Error('prop listener already exists')
-    }
     if (listeners.size) {
       const remove = propProxyState[3](createPropListener(prop))
       propProxyStates.set(prop, [propProxyState, remove])
@@ -112,9 +109,6 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
     listeners.add(listener)
     if (listeners.size === 1) {
       propProxyStates.forEach(([propProxyState, prevRemove], prop) => {
-        if (isDev() && prevRemove) {
-          throw new Error('remove already exists')
-        }
         const remove = propProxyState[3](createPropListener(prop))
         propProxyStates.set(prop, [propProxyState, remove])
       })
@@ -223,9 +217,6 @@ export function subscribe<T extends object>(
   notifyInSync?: boolean,
 ): () => void {
   const proxyState = proxyStateMap.get(proxyObject as object)
-  if (isDev() && !proxyState) {
-    console.warn('Please use proxy object')
-  }
   let promise: Promise<void> | undefined
   const ops: Op[] = []
   const addListener = (proxyState as ProxyState)[3]
@@ -255,9 +246,6 @@ export function subscribe<T extends object>(
 
 export function snapshot<T extends object>(proxyObject: T): T {
   const proxyState = proxyStateMap.get(proxyObject as object)
-  if (isDev() && !proxyState) {
-    console.warn('Please use proxy object')
-  }
   const [target, ensureVersion, createSnapshot] = proxyState as ProxyState
   return createSnapshot(target, ensureVersion()) as T
 }

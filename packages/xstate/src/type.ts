@@ -54,7 +54,7 @@ export interface AnyEventObject extends EventObject {
 }
 
 /** Function to send events to the machine */
-export type Send<TEvent extends EventObject = AnyEventObject> = (event: Event<TEvent>) => void
+export type XSend<TEvent extends EventObject = AnyEventObject> = (event: Event<TEvent>) => void
 
 /** Event listener callback */
 export type EventListener<TEvent extends EventObject = AnyEventObject> = (event: TEvent) => void
@@ -75,13 +75,13 @@ type Expression<TContext extends Dict, TEvent extends EventObject, TReturn> = (
 
 /** Meta information passed to expressions */
 export interface Meta<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> {
-  state: State<TContext, TState>
+  state: XState<TContext, TState>
   guards: Dict
-  send: Send<TEvent>
-  self: Self<TContext, TState, TEvent>
+  send: XSend<TEvent>
+  self: XSelf<TContext, TState, TEvent>
   initialContext: TContext
   initialState: string
-  getState: () => State<TContext, TState, TEvent>
+  getState: () => XState<TContext, TState, TEvent>
   getAction: (key: string) => ExpressionWithMeta<TContext, TState, TEvent, void>
   getGuard: (key: string) => GuardExpression<TContext, TState, TEvent>
 }
@@ -238,7 +238,7 @@ export interface StateNode<TContext extends Dict, TState extends StateSchema, TE
 
 /** Meta information available to guard functions */
 export interface GuardMeta<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> {
-  state: Pick<State<TContext, TState, TEvent>, 'matches'>
+  state: Pick<XState<TContext, TState, TEvent>, 'matches'>
 }
 
 /** Guard expression function */
@@ -297,7 +297,7 @@ export type StateListener<
   TContext extends Dict,
   TState extends StateSchema,
   TEvent extends EventObject = EventObject,
-> = (state: State<TContext, TState, TEvent>) => void
+> = (state: XState<TContext, TState, TEvent>) => void
 
 /** Information about state transition */
 export interface StateInfo<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> {
@@ -344,7 +344,7 @@ export interface MachineConfig<TContext extends Dict, TState extends StateSchema
 }
 
 /** Current state representation */
-export interface State<
+export interface XState<
   TContext extends Dict,
   TState extends StateSchema = StateSchema,
   TEvent extends EventObject = AnyEventObject,
@@ -410,7 +410,7 @@ export interface HookOptions<TContext extends Dict, TState extends StateSchema, 
 }
 
 /** Machine self-reference for advanced operations */
-export interface Self<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> {
+export interface XSelf<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> {
   /** Machine identifier */
   id: string
   /** Send event to this machine */
@@ -428,7 +428,7 @@ export interface Self<TContext extends Dict, TState extends StateSchema, TEvent 
   /** Spawn new actor */
   spawn: <T>(src: T | (() => T), id?: string) => T
   /** Current state */
-  state: State<TContext, TState, TEvent>
+  state: XState<TContext, TState, TEvent>
   /** Initial context */
   initialContext: TContext
   /** Initial state */
@@ -467,7 +467,7 @@ type ReturnTypeOrValue<T> = T extends AnyFunction ? ReturnType<T> : T
 export type StateFrom<T> =
   ReturnTypeOrValue<T> extends infer R
     ? R extends Machine<infer TContext, infer TState, infer TEvent>
-      ? State<TContext, TState, TEvent>
+      ? XState<TContext, TState, TEvent>
       : never
     : never
 

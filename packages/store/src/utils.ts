@@ -1,4 +1,3 @@
-import process from 'node:process'
 import { refSet } from './global'
 
 const isReactElement = (x: any) => typeof x === 'object' && x !== null && '$$typeof' in x && 'props' in x
@@ -28,5 +27,3 @@ export function canProxy(x: unknown) {
     && !(x instanceof ArrayBuffer)
     && !(x instanceof Promise)
 }
-
-export const isDev = () => process.env.NODE_ENV !== 'production'

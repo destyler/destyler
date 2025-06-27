@@ -1,4 +1,4 @@
-import type { Dict, EventObject, MachineConfig, State, StateSchema, TComputedContext } from './type'
+import type { Dict, EventObject, MachineConfig, StateSchema, TComputedContext, XState } from './type'
 import { proxy, proxyWithComputed } from '@destyler/store'
 import { cast } from '@destyler/utils'
 import { ActionTypes } from './type'
@@ -39,5 +39,5 @@ export function createProxy<TContext extends Dict, TState extends StateSchema, T
     },
   })
 
-  return cast<State<TContext, TState, TEvent>>(state)
+  return cast<XState<TContext, TState, TEvent>>(state)
 }

@@ -1,4 +1,4 @@
-import { mergeProps as zagMergeProps } from '@zag-js/core'
+import { mergeProps as PropsMerge } from '@destyler/xstate'
 import { toStyleString } from './normalize-props'
 
 const CSS_REGEX = /((?:--)?(?:\w+-?)+)\s*:\s*([^;]*)/g
@@ -15,7 +15,7 @@ function serialize(style: string): CSSObject {
 }
 
 export function mergeProps(...args: Record<string, any>[]) {
-  const merged = zagMergeProps(...args)
+  const merged = PropsMerge(...args)
 
   if ('style' in merged) {
     if (typeof merged.style === 'string') {
