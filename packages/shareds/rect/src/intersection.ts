@@ -1,5 +1,5 @@
-import type { Rect, RectSide } from "./types"
-import { createRect } from "./rect"
+import type { Rect, RectSide } from './types'
+import { createRect } from './rect'
 
 /**
  * Checks if a Rect intersects another Rect

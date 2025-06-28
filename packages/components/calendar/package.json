@@ -31,14 +31,14 @@
   },
   "dependencies": {
     "@destyler/anatomy": "workspace:*",
-    "@destyler/live-region": "workspace:*",
-    "@destyler/xstate": "workspace:*",
-    "@destyler/dismissable": "workspace:*",
-    "@destyler/types": "workspace:*",
     "@destyler/date": "workspace:*",
+    "@destyler/dismissable": "workspace:*",
     "@destyler/dom": "workspace:*",
+    "@destyler/live-region": "workspace:*",
     "@destyler/popper": "workspace:*",
-    "@destyler/utils": "workspace:*"
+    "@destyler/types": "workspace:*",
+    "@destyler/utils": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   },
   "devDependencies": {
     "@internationalized/date": "catalog:core"

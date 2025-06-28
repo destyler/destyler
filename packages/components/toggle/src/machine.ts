@@ -6,6 +6,21 @@ import { dom } from './dom'
 
 const { not, and } = guards
 
+const invoke = {
+  change(ctx: MachineContext) {
+    ctx.onValueChange?.({ value: Array.from(ctx.value) })
+  },
+}
+
+const set = {
+  value(ctx: MachineContext, value: string[]) {
+    if (isEqual(ctx.value, value))
+      return
+    ctx.value = value
+    invoke.change(ctx)
+  },
+}
+
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
@@ -155,19 +170,4 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
-}
-
-const invoke = {
-  change(ctx: MachineContext) {
-    ctx.onValueChange?.({ value: Array.from(ctx.value) })
-  },
-}
-
-const set = {
-  value(ctx: MachineContext, value: string[]) {
-    if (isEqual(ctx.value, value))
-      return
-    ctx.value = value
-    invoke.change(ctx)
-  },
 }

@@ -2,7 +2,7 @@ import type { AutoUpdateOptions, Middleware, Placement } from '@floating-ui/dom'
 import type { MaybeElement, MaybeFn, MaybeRectElement, PositioningOptions } from './types'
 import { getComputedStyle, getWindow, raf } from '@destyler/dom'
 import { compact, isNull, noop, runIfFn } from '@destyler/utils'
-import { arrow, autoUpdate, computePosition, flip, hide, limitShift, offset, shift, size } from "@floating-ui/dom"
+import { arrow, autoUpdate, computePosition, flip, hide, limitShift, offset, shift, size } from '@floating-ui/dom'
 import { getAnchorElement } from './get-anchor'
 import { rectMiddleware, shiftArrowMiddleware, transformOriginMiddleware } from './middleware'
 import { getPlacementDetails } from './placement'

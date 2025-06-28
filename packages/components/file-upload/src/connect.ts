@@ -1,5 +1,5 @@
-import type {NormalizeProps, PropTypes} from "@destyler/types";
-import type {MachineApi, Send, State} from "./types";
+import type { NormalizeProps, PropTypes } from '@destyler/types'
+import type { MachineApi, Send, State } from './types'
 import { contains, dataAttr, isSelfTarget, visuallyHiddenStyle } from '@destyler/dom'
 import { formatBytes } from '@destyler/i18n'
 import { parts } from './anatomy'

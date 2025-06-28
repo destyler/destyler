@@ -1,9 +1,9 @@
-import { createMachine, guards } from "@destyler/xstate"
-import { trackDismissableElement } from "@destyler/dismissable"
-import { getPlacement } from "@destyler/popper"
-import { compact } from "@destyler/utils"
-import { dom } from "./dom"
-import type { MachineContext, MachineState, UserDefinedContext } from "./types"
+import type { MachineContext, MachineState, UserDefinedContext } from './types'
+import { trackDismissableElement } from '@destyler/dismissable'
+import { getPlacement } from '@destyler/popper'
+import { compact } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
+import { dom } from './dom'
 
 const { not, and } = guards
 
@@ -11,150 +11,150 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: "hover-card",
-      initial: ctx.open ? "open" : "closed",
+      id: 'hover-card',
+      initial: ctx.open ? 'open' : 'closed',
       context: {
         openDelay: 700,
         closeDelay: 300,
         currentPlacement: undefined,
         ...ctx,
         positioning: {
-          placement: "bottom",
+          placement: 'bottom',
           ...ctx.positioning,
         },
       },
 
       watch: {
-        open: ["toggleVisibility"],
+        open: ['toggleVisibility'],
       },
 
       states: {
         closed: {
-          tags: ["closed"],
-          entry: ["clearIsPointer"],
+          tags: ['closed'],
+          entry: ['clearIsPointer'],
           on: {
-            "CONTROLLED.OPEN": "open",
-            POINTER_ENTER: {
-              target: "opening",
-              actions: ["setIsPointer"],
+            'CONTROLLED.OPEN': 'open',
+            'POINTER_ENTER': {
+              target: 'opening',
+              actions: ['setIsPointer'],
             },
-            TRIGGER_FOCUS: "opening",
-            OPEN: "opening",
+            'TRIGGER_FOCUS': 'opening',
+            'OPEN': 'opening',
           },
         },
 
         opening: {
-          tags: ["closed"],
+          tags: ['closed'],
           after: {
             OPEN_DELAY: [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["invokeOnOpen"],
+                target: 'open',
+                actions: ['invokeOnOpen'],
               },
             ],
           },
           on: {
-            "CONTROLLED.OPEN": "open",
-            "CONTROLLED.CLOSE": "closed",
-            POINTER_LEAVE: [
+            'CONTROLLED.OPEN': 'open',
+            'CONTROLLED.CLOSE': 'closed',
+            'POINTER_LEAVE': [
               {
-                guard: "isOpenControlled",
+                guard: 'isOpenControlled',
                 // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
-                actions: ["invokeOnClose", "toggleVisibility"],
+                actions: ['invokeOnClose', 'toggleVisibility'],
               },
               {
-                target: "closed",
-                actions: ["invokeOnClose"],
+                target: 'closed',
+                actions: ['invokeOnClose'],
               },
             ],
-            TRIGGER_BLUR: [
+            'TRIGGER_BLUR': [
               {
-                guard: and("isOpenControlled", not("isPointer")),
+                guard: and('isOpenControlled', not('isPointer')),
                 // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
-                actions: ["invokeOnClose", "toggleVisibility"],
+                actions: ['invokeOnClose', 'toggleVisibility'],
               },
               {
-                guard: not("isPointer"),
-                target: "closed",
-                actions: ["invokeOnClose"],
+                guard: not('isPointer'),
+                target: 'closed',
+                actions: ['invokeOnClose'],
               },
             ],
-            CLOSE: [
+            'CLOSE': [
               {
-                guard: "isOpenControlled",
+                guard: 'isOpenControlled',
                 // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
-                actions: ["invokeOnClose", "toggleVisibility"],
+                actions: ['invokeOnClose', 'toggleVisibility'],
               },
               {
-                target: "closed",
-                actions: ["invokeOnClose"],
+                target: 'closed',
+                actions: ['invokeOnClose'],
               },
             ],
           },
         },
 
         open: {
-          tags: ["open"],
-          activities: ["trackDismissableElement", "trackPositioning"],
+          tags: ['open'],
+          activities: ['trackDismissableElement', 'trackPositioning'],
           on: {
-            "CONTROLLED.CLOSE": "closed",
-            POINTER_ENTER: {
-              actions: ["setIsPointer"],
+            'CONTROLLED.CLOSE': 'closed',
+            'POINTER_ENTER': {
+              actions: ['setIsPointer'],
             },
-            POINTER_LEAVE: "closing",
-            CLOSE: [
+            'POINTER_LEAVE': 'closing',
+            'CLOSE': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnClose"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
               },
               {
-                target: "closed",
-                actions: ["invokeOnClose"],
-              },
-            ],
-            TRIGGER_BLUR: [
-              {
-                guard: and("isOpenControlled", not("isPointer")),
-                actions: ["invokeOnClose"],
-              },
-              {
-                guard: not("isPointer"),
-                target: "closed",
-                actions: ["invokeOnClose"],
+                target: 'closed',
+                actions: ['invokeOnClose'],
               },
             ],
-            "POSITIONING.SET": {
-              actions: "reposition",
+            'TRIGGER_BLUR': [
+              {
+                guard: and('isOpenControlled', not('isPointer')),
+                actions: ['invokeOnClose'],
+              },
+              {
+                guard: not('isPointer'),
+                target: 'closed',
+                actions: ['invokeOnClose'],
+              },
+            ],
+            'POSITIONING.SET': {
+              actions: 'reposition',
             },
           },
         },
 
         closing: {
-          tags: ["open"],
-          activities: ["trackPositioning"],
+          tags: ['open'],
+          activities: ['trackPositioning'],
           after: {
             CLOSE_DELAY: [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnClose"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
               },
               {
-                target: "closed",
-                actions: ["invokeOnClose"],
+                target: 'closed',
+                actions: ['invokeOnClose'],
               },
             ],
           },
           on: {
-            "CONTROLLED.CLOSE": "closed",
-            "CONTROLLED.OPEN": "open",
-            POINTER_ENTER: {
-              target: "open",
+            'CONTROLLED.CLOSE': 'closed',
+            'CONTROLLED.OPEN': 'open',
+            'POINTER_ENTER': {
+              target: 'open',
               // no need to invokeOnOpen here because it's still open (but about to close)
-              actions: ["setIsPointer"],
+              actions: ['setIsPointer'],
             },
           },
         },
@@ -162,13 +162,13 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       delays: {
-        OPEN_DELAY: (ctx) => ctx.openDelay,
-        CLOSE_DELAY: (ctx) => ctx.closeDelay,
+        OPEN_DELAY: ctx => ctx.openDelay,
+        CLOSE_DELAY: ctx => ctx.closeDelay,
       },
 
       guards: {
-        isPointer: (ctx) => !!ctx.isPointer,
-        isOpenControlled: (ctx) => !!ctx["open.controlled"],
+        isPointer: ctx => !!ctx.isPointer,
+        isOpenControlled: ctx => !!ctx['open.controlled'],
       },
 
       activities: {
@@ -190,7 +190,7 @@ export function machine(userContext: UserDefinedContext) {
             defer: true,
             exclude: [dom.getTriggerEl(ctx)],
             onDismiss() {
-              send({ type: "CLOSE", src: "interact-outside" })
+              send({ type: 'CLOSE', src: 'interact-outside' })
             },
             onFocusOutside(event) {
               event.preventDefault()
@@ -226,7 +226,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         toggleVisibility(ctx, evt, { send }) {
           queueMicrotask(() => {
-            send({ type: ctx.open ? "CONTROLLED.OPEN" : "CONTROLLED.CLOSE", previousEvent: evt })
+            send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
           })
         },
       },

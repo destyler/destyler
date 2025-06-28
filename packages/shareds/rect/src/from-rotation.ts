@@ -1,5 +1,5 @@
-import type { Point, Rect } from "./types"
-import { createRect, getRectCorners } from "./rect"
+import type { Point, Rect } from './types'
+import { createRect, getRectCorners } from './rect'
 
 export function toRad(d: number) {
   return ((d % 360) * Math.PI) / 180

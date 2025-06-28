@@ -12,9 +12,9 @@ const FUTURE_YEAR_COERCION = 10
 
 export function normalizeYear(year: string | null | undefined) {
   if (!year)
-return
+    return
   if (year.length === 3)
-return year.padEnd(4, '0')
+    return year.padEnd(4, '0')
   if (year.length === 2) {
     const currentYear = new Date().getFullYear()
     const currentCentury = Math.floor(currentYear / 100) * 100

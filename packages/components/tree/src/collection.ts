@@ -1,5 +1,5 @@
-import type {FilePathTreeNode, TreeCollectionOptions} from '@destyler/collection';
-import { filePathToTree,  TreeCollection  } from '@destyler/collection'
+import type { FilePathTreeNode, TreeCollectionOptions } from '@destyler/collection'
+import { filePathToTree, TreeCollection } from '@destyler/collection'
 import { ref } from '@destyler/xstate'
 
 export function collection<T>(options: TreeCollectionOptions<T>): TreeCollection<T> {

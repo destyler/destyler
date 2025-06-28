@@ -1,14 +1,16 @@
 import type { HighlightSpan } from './types'
 
-export function normalizeSpan (spans: HighlightSpan[], len: number) {
+export function normalizeSpan(spans: HighlightSpan[], len: number) {
   const result: HighlightSpan[] = []
   const append = (start: number, end: number, match: boolean) => {
-    if (end - start > 0) result.push({ start, end, match })
+    if (end - start > 0)
+      result.push({ start, end, match })
   }
 
   if (spans.length === 0) {
     append(0, len, false)
-  } else {
+  }
+  else {
     let lastIndex = 0
     for (const chunk of spans) {
       append(lastIndex, chunk.start, false)

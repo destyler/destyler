@@ -1,5 +1,5 @@
-import type { HighlightChunk, HighlightWordProps } from "./types"
-import { normalizeSpan } from "./normalize-span"
+import type { HighlightChunk, HighlightWordProps } from './types'
+import { normalizeSpan } from './normalize-span'
 
 export function highlightFirst(props: HighlightWordProps): HighlightChunk[] {
   const { text, query, ignoreCase } = props

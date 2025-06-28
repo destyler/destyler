@@ -1,7 +1,7 @@
-import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
-import type { DismissableElementHandlers, PersistentElementOptions } from "@destyler/dismissable"
-import type { Placement, PositioningOptions } from "@destyler/popper"
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@destyler/types"
+import type { DismissableElementHandlers, PersistentElementOptions } from '@destyler/dismissable'
+import type { Placement, PositioningOptions } from '@destyler/popper'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface OpenChangeDetails {
   open: boolean
@@ -20,13 +20,13 @@ export type ElementIds = Partial<{
 
 interface PublicContext
   extends CommonProperties,
-    DirectionProperty,
-    DismissableElementHandlers,
-    PersistentElementOptions {
+  DirectionProperty,
+  DismissableElementHandlers,
+  PersistentElementOptions {
   /**
    * The ids of the elements in the popover. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
    * Whether the popover should be modal. When set to `true`:
    * - interaction with outside elements will be disabled
@@ -36,54 +36,54 @@ interface PublicContext
    *
    * @default false
    */
-  modal?: boolean | undefined
+  'modal'?: boolean | undefined
   /**
    * Whether the popover is portalled. This will proxy the tabbing behavior regardless of the DOM position
    * of the popover content.
    *
    * @default true
    */
-  portalled?: boolean | undefined
+  'portalled'?: boolean | undefined
   /**
    * Whether to automatically set focus on the first focusable
    * content within the popover when opened.
    *
    * @default true
    */
-  autoFocus?: boolean | undefined
+  'autoFocus'?: boolean | undefined
   /**
    * The element to focus on when the popover is opened.
    */
-  initialFocusEl?: (() => HTMLElement | null) | undefined
+  'initialFocusEl'?: (() => HTMLElement | null) | undefined
   /**
    * Whether to close the popover when the user clicks outside of the popover.
    * @default true
    */
-  closeOnInteractOutside?: boolean | undefined
+  'closeOnInteractOutside'?: boolean | undefined
   /**
    * Whether to close the popover when the escape key is pressed.
    * @default true
    */
-  closeOnEscape?: boolean | undefined
+  'closeOnEscape'?: boolean | undefined
   /**
    * Function invoked when the popover opens or closes
    */
-  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
+  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * The user provided options used to position the popover content
    */
-  positioning: PositioningOptions
+  'positioning': PositioningOptions
   /**
    * Whether the popover is open
    */
-  open?: boolean | undefined
+  'open'?: boolean | undefined
   /**
    * Whether the popover is controlled by the user
    */
-  "open.controlled"?: boolean | undefined
+  'open.controlled'?: boolean | undefined
 }
 
-export type UserDefinedContext = RequiredBy<PublicContext, "id">
+export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
 type ComputedContext = Readonly<{
   /**
@@ -112,7 +112,7 @@ interface PrivateContext {
 export interface MachineContext extends PublicContext, ComputedContext, PrivateContext {}
 
 export interface MachineState {
-  value: "open" | "closed"
+  value: 'open' | 'closed'
 }
 
 export type State = XState<MachineContext, MachineState>
@@ -133,22 +133,22 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to open or close the popover
    */
-  setOpen(open: boolean): void
+  setOpen: (open: boolean) => void
   /**
    * Function to reposition the popover
    */
-  reposition(options?: Partial<PositioningOptions>): void
+  reposition: (options?: Partial<PositioningOptions>) => void
 
-  getArrowProps(): T["element"]
-  getArrowTipProps(): T["element"]
-  getAnchorProps(): T["element"]
-  getTriggerProps(): T["button"]
-  getIndicatorProps(): T["element"]
-  getPositionerProps(): T["element"]
-  getContentProps(): T["element"]
-  getTitleProps(): T["element"]
-  getDescriptionProps(): T["element"]
-  getCloseTriggerProps(): T["button"]
+  getArrowProps: () => T['element']
+  getArrowTipProps: () => T['element']
+  getAnchorProps: () => T['element']
+  getTriggerProps: () => T['button']
+  getIndicatorProps: () => T['element']
+  getPositionerProps: () => T['element']
+  getContentProps: () => T['element']
+  getTitleProps: () => T['element']
+  getDescriptionProps: () => T['element']
+  getCloseTriggerProps: () => T['button']
 }
 
 export type { Placement, PositioningOptions }

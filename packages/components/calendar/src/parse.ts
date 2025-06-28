@@ -1,10 +1,11 @@
-import { CalendarDate, parseDate, type DateValue } from "@internationalized/date"
+import type { DateValue } from '@internationalized/date'
+import { CalendarDate, parseDate } from '@internationalized/date'
 
 export function parse(value: string | Date): DateValue
 export function parse(value: string[] | Date[]): DateValue[]
 export function parse(value: any) {
   if (Array.isArray(value)) {
-    return value.map((v) => parse(v))
+    return value.map(v => parse(v))
   }
 
   if (value instanceof Date) {

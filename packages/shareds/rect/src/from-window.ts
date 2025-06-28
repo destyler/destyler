@@ -1,5 +1,5 @@
-import type { Rect } from "./types"
-import { createRect } from "./rect"
+import type { Rect } from './types'
+import { createRect } from './rect'
 
 export interface WindowRectOptions {
   /**

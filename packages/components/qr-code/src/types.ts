@@ -1,7 +1,7 @@
-import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
-import type { DataUrlType } from "@destyler/dom"
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@destyler/types"
-import type { QrCodeGenerateOptions, QrCodeGenerateResult } from "uqr"
+import type { DataUrlType } from '@destyler/dom'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
+import type { QrCodeGenerateOptions, QrCodeGenerateResult } from 'uqr'
 
 export type ElementIds = Partial<{
   root: string
@@ -42,12 +42,12 @@ type ComputedContext = Readonly<{
   encoded: QrCodeGenerateResult
 }>
 
-export type UserDefinedContext = RequiredBy<PublicContext, "id">
+export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
 export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
 
 export interface MachineState {
-  value: "idle"
+  value: 'idle'
 }
 
 export type State = XState<MachineContext, MachineState>
@@ -79,17 +79,17 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Set the value to encode.
    */
-  setValue(value: string): void
+  setValue: (value: string) => void
   /**
    * Returns the data URL of the qr code.
    */
-  getDataUrl(type: DataUrlType, quality?: number): Promise<string>
+  getDataUrl: (type: DataUrlType, quality?: number) => Promise<string>
 
-  getRootProps(): T["element"]
-  getFrameProps(): T["svg"]
-  getPatternProps(): T["path"]
-  getOverlayProps(): T["element"]
-  getDownloadTriggerProps(props: DownloadTriggerProps): T["button"]
+  getRootProps: () => T['element']
+  getFrameProps: () => T['svg']
+  getPatternProps: () => T['path']
+  getOverlayProps: () => T['element']
+  getDownloadTriggerProps: (props: DownloadTriggerProps) => T['button']
 }
 
-export type { QrCodeGenerateOptions, QrCodeGenerateResult } from "uqr"
+export type { QrCodeGenerateOptions, QrCodeGenerateResult } from 'uqr'

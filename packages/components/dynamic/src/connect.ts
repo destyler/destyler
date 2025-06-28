@@ -138,10 +138,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           send('FOCUS')
         },
         onKeyDown(event) {
-          if (event.defaultPrevented) 
-return
-          if (isComposingEvent(event)) 
-return
+          if (event.defaultPrevented)
+            return
+          if (isComposingEvent(event))
+            return
 
           // handle composition when used as combobox
           const target = event.currentTarget as HTMLElement
@@ -153,16 +153,16 @@ return
               send('ARROW_DOWN')
             },
             ArrowLeft() {
-              if (isCombobox && isExpanded) 
-return
+              if (isCombobox && isExpanded)
+                return
               send('ARROW_LEFT')
             },
             ArrowRight(event) {
               if (state.context.highlightedTagId) {
                 event.preventDefault()
               }
-              if (isCombobox && isExpanded) 
-return
+              if (isCombobox && isExpanded)
+                return
               send('ARROW_RIGHT')
             },
             Escape(event) {
@@ -176,8 +176,8 @@ return
               send('DELETE')
             },
             Enter(event) {
-              if (isCombobox && isExpanded) 
-return
+              if (isCombobox && isExpanded)
+                return
               send('ENTER')
               event.preventDefault()
             },

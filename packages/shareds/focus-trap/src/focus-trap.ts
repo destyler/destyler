@@ -577,8 +577,8 @@ export class FocusTrap {
   ) => {
     return configOverrideOptions && configOverrideOptions[optionName] !== undefined
       ? configOverrideOptions[optionName]
-      : // @ts-expect-error FIX-ME
-      this.config[configOptionName || optionName]
+      // @ts-expect-error FIX-ME
+      : this.config[configOptionName || optionName]
   }
 
   private getNodeForOption = (

@@ -1,4 +1,4 @@
-import type { AnyEventObject, EventObject, Machine, StateSchema, } from '@destyler/xstate'
+import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyler/xstate'
 import { useSnapshot } from './snapshot'
 
 export function useActor<

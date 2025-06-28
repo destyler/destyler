@@ -1,8 +1,8 @@
-import { getDataUrl } from "@destyler/dom"
-import type { NormalizeProps, PropTypes } from "@destyler/types"
-import { parts } from "./anatomy"
-import { dom } from "./dom"
-import type { MachineApi, Send, State } from "./types"
+import type { NormalizeProps, PropTypes } from '@destyler/types'
+import type { MachineApi, Send, State } from './types'
+import { getDataUrl } from '@destyler/dom'
+import { parts } from './anatomy'
+import { dom } from './dom'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const encoded = state.context.encoded
@@ -26,7 +26,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   return {
     value: state.context.value,
     setValue(value) {
-      send({ type: "VALUE.SET", value })
+      send({ type: 'VALUE.SET', value })
     },
     getDataUrl(type, quality) {
       const svgEl = dom.getFrameEl(state.context)
@@ -38,10 +38,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         id: dom.getRootId(state.context),
         ...parts.root.attrs,
         style: {
-          "--qrcode-pixel-size": `${pixelSize}px`,
-          "--qrcode-width": `${width}px`,
-          "--qrcode-height": `${height}px`,
-          position: "relative",
+          '--qrcode-pixel-size': `${pixelSize}px`,
+          '--qrcode-width': `${width}px`,
+          '--qrcode-height': `${height}px`,
+          'position': 'relative',
         },
       })
     },
@@ -50,14 +50,14 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       return normalize.svg({
         id: dom.getFrameId(state.context),
         ...parts.frame.attrs,
-        xmlns: "http://www.w3.org/2000/svg",
+        xmlns: 'http://www.w3.org/2000/svg',
         viewBox: `0 0 ${width} ${height}`,
       })
     },
 
     getPatternProps() {
       return normalize.path({
-        d: paths.join(""),
+        d: paths.join(''),
         ...parts.pattern.attrs,
       })
     },
@@ -66,21 +66,22 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       return normalize.element({
         ...parts.overlay.attrs,
         style: {
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          translate: "-50% -50%",
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          translate: '-50% -50%',
         },
       })
     },
 
     getDownloadTriggerProps(props) {
       return normalize.button({
-        type: "button",
+        type: 'button',
         ...parts.downloadTrigger.attrs,
         onClick(event) {
-          if (event.defaultPrevented) return
-          send({ type: "DOWNLOAD_TRIGGER.CLICK", ...props })
+          if (event.defaultPrevented)
+            return
+          send({ type: 'DOWNLOAD_TRIGGER.CLICK', ...props })
         },
       })
     },

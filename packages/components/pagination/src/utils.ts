@@ -1,22 +1,23 @@
-import type { MachineContext as Ctx, Pages } from "./types"
+import type { MachineContext as Ctx, Pages } from './types'
 
-export const range = (start: number, end: number) => {
-  let length = end - start + 1
+export function range(start: number, end: number) {
+  const length = end - start + 1
   return Array.from({ length }, (_, idx) => idx + start)
 }
 
-export const transform = (items: (string | number)[]): Pages => {
+export function transform(items: (string | number)[]): Pages {
   return items.map((value) => {
-    if (typeof value === "number") return { type: "page", value }
-    return { type: "ellipsis" }
+    if (typeof value === 'number')
+      return { type: 'page', value }
+    return { type: 'ellipsis' }
   })
 }
 
-const ELLIPSIS = "ellipsis"
+const ELLIPSIS = 'ellipsis'
 
-export type PageContext = Pick<Ctx, "siblingCount" | "page" | "totalPages">
+export type PageContext = Pick<Ctx, 'siblingCount' | 'page' | 'totalPages'>
 
-export const getRange = (ctx: PageContext) => {
+export function getRange(ctx: PageContext) {
   const totalPageNumbers = Math.min(2 * ctx.siblingCount + 5, ctx.totalPages)
 
   const firstPageIndex = 1

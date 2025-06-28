@@ -1,5 +1,5 @@
-import { createScope, query, queryAll } from "@destyler/dom"
-import type { DateView, MachineContext as Ctx } from "./types"
+import type { MachineContext as Ctx, DateView } from './types'
+import { createScope, query, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
   getLabelId: (ctx: Ctx, index: number) => ctx.ids?.label?.(index) ?? `calendar:${ctx.id}:label:${index}`,

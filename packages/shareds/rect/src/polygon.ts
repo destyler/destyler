@@ -1,5 +1,5 @@
-import type { Point, RectInit } from "./types"
-import { createRect, getRectCorners } from "./rect"
+import type { Point, RectInit } from './types'
+import { createRect, getRectCorners } from './rect'
 
 export function getElementPolygon(rectValue: RectInit, placement: string) {
   const rect = createRect(rectValue)
@@ -24,7 +24,7 @@ export function isPointInPolygon(polygon: Point[], point: Point) {
     const xj = polygon[j].x
     const yj = polygon[j].y
 
-    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
+    if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
       c = !c
     }
   }

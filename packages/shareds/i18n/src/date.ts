@@ -1,7 +1,7 @@
 const symbols = '\\s|\\.|-|/|\\\\|,|\\$|\\!|\\?|:|;'
 
 function createRegEx(sign: string) {
-  return new RegExp(`(^|>|${ symbols })(${ sign })($|<|${ symbols })`, 'g')
+  return new RegExp(`(^|>|${symbols})(${sign})($|<|${symbols})`, 'g')
 }
 
 // prettier-ignore
@@ -263,7 +263,7 @@ export function formatDate(date: Date, format: string, locale: string, timeZone?
   let result = format
   for (const key of FORMATS) {
     const res = getFormat(date, { locale, format: key, timeZone })
-    result = result.replace(createRegEx(key), `$1${ res }$3`)
+    result = result.replace(createRegEx(key), `$1${res}$3`)
   }
   return result
 }

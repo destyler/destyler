@@ -42,7 +42,7 @@ export function trackElementRect(el: HTMLElement, options: ElementRectOptions) {
       rafId = requestAnimationFrame(loop)
     }
   }
- else {
+  else {
     data.callbacks.push(onChange)
     onChange(getRect(el))
   }
@@ -50,7 +50,7 @@ export function trackElementRect(el: HTMLElement, options: ElementRectOptions) {
   return function unobserve() {
     const data = observedElements.get(el)
     if (!data)
-return
+      return
 
     const index = data.callbacks.indexOf(onChange)
     if (index > -1) {
@@ -98,8 +98,8 @@ const isEqualRect = (a: Rect, b: Rect) => isEqualSize(a, b) && isEqualPosition(a
 
 function getEqualityFn(scope: TrackScope) {
   if (scope === 'size')
-return isEqualSize
+    return isEqualSize
   if (scope === 'position')
-return isEqualPosition
+    return isEqualPosition
   return isEqualRect
 }

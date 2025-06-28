@@ -1,12 +1,12 @@
-import { dataAttr, isSafari } from "@destyler/dom"
-import { getPlacementStyles } from "@destyler/popper"
-import type { NormalizeProps, PropTypes } from "@destyler/types"
-import { parts } from "./anatomy"
-import { dom } from "./dom"
-import type { MachineApi, Send, State } from "./types"
+import type { NormalizeProps, PropTypes } from '@destyler/types'
+import type { MachineApi, Send, State } from './types'
+import { dataAttr, isSafari } from '@destyler/dom'
+import { getPlacementStyles } from '@destyler/popper'
+import { parts } from './anatomy'
+import { dom } from './dom'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
-  const open = state.matches("open")
+  const open = state.matches('open')
 
   const currentPlacement = state.context.currentPlacement
   const portalled = state.context.currentPortalled
@@ -19,13 +19,14 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
   return {
     portalled,
-    open: open,
+    open,
     setOpen(nextOpen) {
-      if (nextOpen === open) return
-      send(nextOpen ? "OPEN" : "CLOSE")
+      if (nextOpen === open)
+        return
+      send(nextOpen ? 'OPEN' : 'CLOSE')
     },
     reposition(options = {}) {
-      send({ type: "POSITIONING.SET", options })
+      send({ type: 'POSITIONING.SET', options })
     },
 
     getArrowProps() {
@@ -56,25 +57,26 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getTriggerProps() {
       return normalize.button({
         ...parts.trigger.attrs,
-        dir: state.context.dir,
-        type: "button",
-        "data-placement": currentPlacement,
-        id: dom.getTriggerId(state.context),
-        "aria-haspopup": "dialog",
-        "aria-expanded": open,
-        "data-state": open ? "open" : "closed",
-        "aria-controls": dom.getContentId(state.context),
+        'dir': state.context.dir,
+        'type': 'button',
+        'data-placement': currentPlacement,
+        'id': dom.getTriggerId(state.context),
+        'aria-haspopup': 'dialog',
+        'aria-expanded': open,
+        'data-state': open ? 'open' : 'closed',
+        'aria-controls': dom.getContentId(state.context),
         onPointerDown(event) {
           if (isSafari()) {
             event.currentTarget.focus()
           }
         },
         onClick(event) {
-          if (event.defaultPrevented) return
-          send("TOGGLE")
+          if (event.defaultPrevented)
+            return
+          send('TOGGLE')
         },
         onBlur(event) {
-          send({ type: "TRIGGER_BLUR", target: event.relatedTarget })
+          send({ type: 'TRIGGER_BLUR', target: event.relatedTarget })
         },
       })
     },
@@ -82,8 +84,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getIndicatorProps() {
       return normalize.element({
         ...parts.indicator.attrs,
-        dir: state.context.dir,
-        "data-state": open ? "open" : "closed",
+        'dir': state.context.dir,
+        'data-state': open ? 'open' : 'closed',
       })
     },
 
@@ -99,16 +101,16 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getContentProps() {
       return normalize.element({
         ...parts.content.attrs,
-        dir: state.context.dir,
-        id: dom.getContentId(state.context),
-        tabIndex: -1,
-        role: "dialog",
-        hidden: !open,
-        "data-state": open ? "open" : "closed",
-        "data-expanded": dataAttr(open),
-        "aria-labelledby": rendered.title ? dom.getTitleId(state.context) : undefined,
-        "aria-describedby": rendered.description ? dom.getDescriptionId(state.context) : undefined,
-        "data-placement": currentPlacement,
+        'dir': state.context.dir,
+        'id': dom.getContentId(state.context),
+        'tabIndex': -1,
+        'role': 'dialog',
+        'hidden': !open,
+        'data-state': open ? 'open' : 'closed',
+        'data-expanded': dataAttr(open),
+        'aria-labelledby': rendered.title ? dom.getTitleId(state.context) : undefined,
+        'aria-describedby': rendered.description ? dom.getDescriptionId(state.context) : undefined,
+        'data-placement': currentPlacement,
       })
     },
 
@@ -131,13 +133,14 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getCloseTriggerProps() {
       return normalize.button({
         ...parts.closeTrigger.attrs,
-        dir: state.context.dir,
-        id: dom.getCloseTriggerId(state.context),
-        type: "button",
-        "aria-label": "close",
+        'dir': state.context.dir,
+        'id': dom.getCloseTriggerId(state.context),
+        'type': 'button',
+        'aria-label': 'close',
         onClick(event) {
-          if (event.defaultPrevented) return
-          send("CLOSE")
+          if (event.defaultPrevented)
+            return
+          send('CLOSE')
         },
       })
     },

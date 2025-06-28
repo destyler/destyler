@@ -28,12 +28,12 @@
   },
   "dependencies": {
     "@destyler/anatomy": "workspace:*",
-    "@destyler/xstate": "workspace:*",
-    "@destyler/dom": "workspace:*",
-    "@destyler/rect": "workspace:*",
-    "@destyler/utils": "workspace:*",
     "@destyler/dismissable": "workspace:*",
+    "@destyler/dom": "workspace:*",
     "@destyler/popper": "workspace:*",
-    "@destyler/types": "workspace:*"
+    "@destyler/rect": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/utils": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   }
 }

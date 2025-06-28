@@ -1,5 +1,5 @@
-import type { AnyEventObject, XSend, XState } from '@destyler/xstate'
 import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, XSend, XState } from '@destyler/xstate'
 
 export interface ElementIds {
   root?: string

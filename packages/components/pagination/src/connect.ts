@@ -1,9 +1,9 @@
-import { dataAttr } from "@destyler/dom"
-import type { NormalizeProps, PropTypes } from "@destyler/types"
-import { parts } from "./anatomy"
-import { dom } from "./dom"
-import type { MachineApi, Send, State } from "./types"
-import { getTransformedRange } from "./utils"
+import type { NormalizeProps, PropTypes } from '@destyler/types'
+import type { MachineApi, Send, State } from './types'
+import { dataAttr } from '@destyler/dom'
+import { parts } from './anatomy'
+import { dom } from './dom'
+import { getTransformedRange } from './utils'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const totalPages = state.context.totalPages
@@ -16,7 +16,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   const pageRange = state.context.pageRange
 
   const type = state.context.type
-  const isButton = type === "button"
+  const isButton = type === 'button'
 
   const isFirstPage = page === 1
   const isLastPage = page === totalPages
@@ -35,33 +35,33 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       return data.slice(pageRange.start, pageRange.end)
     },
     setCount(count) {
-      send({ type: "SET_COUNT", count })
+      send({ type: 'SET_COUNT', count })
     },
     setPageSize(size) {
-      send({ type: "SET_PAGE_SIZE", size })
+      send({ type: 'SET_PAGE_SIZE', size })
     },
     setPage(page) {
-      send({ type: "SET_PAGE", page })
+      send({ type: 'SET_PAGE', page })
     },
     goToNextPage() {
-      send({ type: "NEXT_PAGE" })
+      send({ type: 'NEXT_PAGE' })
     },
     goToPrevPage() {
-      send({ type: "PREVIOUS_PAGE" })
+      send({ type: 'PREVIOUS_PAGE' })
     },
     goToFirstPage() {
-      send({ type: "FIRST_PAGE" })
+      send({ type: 'FIRST_PAGE' })
     },
     goToLastPage() {
-      send({ type: "LAST_PAGE" })
+      send({ type: 'LAST_PAGE' })
     },
 
     getRootProps() {
       return normalize.element({
-        id: dom.getRootId(state.context),
+        'id': dom.getRootId(state.context),
         ...parts.root.attrs,
-        dir: state.context.dir,
-        "aria-label": translations.rootLabel,
+        'dir': state.context.dir,
+        'aria-label': translations.rootLabel,
       })
     },
 
@@ -78,45 +78,45 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       const isCurrentPage = index === state.context.page
 
       return normalize.element({
-        id: dom.getItemId(state.context, index),
+        'id': dom.getItemId(state.context, index),
         ...parts.item.attrs,
-        dir: state.context.dir,
-        "data-index": index,
-        "data-selected": dataAttr(isCurrentPage),
-        "aria-current": isCurrentPage ? "page" : undefined,
-        "aria-label": translations.itemLabel?.({ page: index, totalPages }),
+        'dir': state.context.dir,
+        'data-index': index,
+        'data-selected': dataAttr(isCurrentPage),
+        'aria-current': isCurrentPage ? 'page' : undefined,
+        'aria-label': translations.itemLabel?.({ page: index, totalPages }),
         onClick() {
-          send({ type: "SET_PAGE", page: index })
+          send({ type: 'SET_PAGE', page: index })
         },
-        ...(isButton && { type: "button" }),
+        ...(isButton && { type: 'button' }),
       })
     },
 
     getPrevTriggerProps() {
       return normalize.element({
-        id: dom.getPrevTriggerId(state.context),
+        'id': dom.getPrevTriggerId(state.context),
         ...parts.prevTrigger.attrs,
-        dir: state.context.dir,
-        "data-disabled": dataAttr(isFirstPage),
-        "aria-label": translations.prevTriggerLabel,
+        'dir': state.context.dir,
+        'data-disabled': dataAttr(isFirstPage),
+        'aria-label': translations.prevTriggerLabel,
         onClick() {
-          send({ type: "PREVIOUS_PAGE" })
+          send({ type: 'PREVIOUS_PAGE' })
         },
-        ...(isButton && { disabled: isFirstPage, type: "button" }),
+        ...(isButton && { disabled: isFirstPage, type: 'button' }),
       })
     },
 
     getNextTriggerProps() {
       return normalize.element({
-        id: dom.getNextTriggerId(state.context),
+        'id': dom.getNextTriggerId(state.context),
         ...parts.nextTrigger.attrs,
-        dir: state.context.dir,
-        "data-disabled": dataAttr(isLastPage),
-        "aria-label": translations.nextTriggerLabel,
+        'dir': state.context.dir,
+        'data-disabled': dataAttr(isLastPage),
+        'aria-label': translations.nextTriggerLabel,
         onClick() {
-          send({ type: "NEXT_PAGE" })
+          send({ type: 'NEXT_PAGE' })
         },
-        ...(isButton && { disabled: isLastPage, type: "button" }),
+        ...(isButton && { disabled: isLastPage, type: 'button' }),
       })
     },
   }

@@ -1,5 +1,5 @@
-import { createScope } from "@destyler/dom"
-import type { MachineContext as Ctx } from "./types"
+import type { MachineContext as Ctx } from './types'
+import { createScope } from '@destyler/dom'
 
 export const dom = createScope({
   getTriggerId: (ctx: Ctx) => ctx.ids?.trigger ?? `hover-card:${ctx.id}:trigger`,

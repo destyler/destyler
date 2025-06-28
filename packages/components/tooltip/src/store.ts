@@ -1,4 +1,4 @@
-import { proxy } from "@destyler/xstate"
+import { proxy } from '@destyler/xstate'
 
 type Id = string | null
 

@@ -1,8 +1,7 @@
-import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@destyler/types"
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
-
-export type LoadStatus = "error" | "loaded"
+export type LoadStatus = 'error' | 'loaded'
 
 export interface StatusChangeDetails {
   status: LoadStatus
@@ -29,12 +28,12 @@ interface PrivateContext {}
 
 type ComputedContext = Readonly<{}>
 
-export type UserDefinedContext = RequiredBy<PublicContext, "id">
+export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
 export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
 
 export interface MachineState {
-  value: "loading" | "error" | "loaded"
+  value: 'loading' | 'error' | 'loaded'
 }
 
 export type State = XState<MachineContext, MachineState>
@@ -51,17 +50,17 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to set new src.
    */
-  setSrc(src: string): void
+  setSrc: (src: string) => void
   /**
    * Function to set loaded state.
    */
-  setLoaded(): void
+  setLoaded: () => void
   /**
    * Function to set error state.
    */
-  setError(): void
+  setError: () => void
 
-  getRootProps(): T["element"]
-  getImageProps(): T["img"]
-  getFallbackProps(): T["element"]
+  getRootProps: () => T['element']
+  getImageProps: () => T['img']
+  getFallbackProps: () => T['element']
 }

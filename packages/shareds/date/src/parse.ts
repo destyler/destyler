@@ -1,4 +1,4 @@
-import type { DateValue } from '@internationalized/date';
+import type { DateValue } from '@internationalized/date'
 import { CalendarDate, DateFormatter } from '@internationalized/date'
 import { normalizeYear } from './year'
 

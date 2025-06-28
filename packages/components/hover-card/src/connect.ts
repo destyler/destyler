@@ -1,11 +1,11 @@
-import { getPlacementStyles } from "@destyler/popper"
-import type { NormalizeProps, PropTypes } from "@destyler/types"
-import { parts } from "./anatomy"
-import { dom } from "./dom"
-import type { MachineApi, Send, State } from "./types"
+import type { NormalizeProps, PropTypes } from '@destyler/types'
+import type { MachineApi, Send, State } from './types'
+import { getPlacementStyles } from '@destyler/popper'
+import { parts } from './anatomy'
+import { dom } from './dom'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
-  const open = state.hasTag("open")
+  const open = state.hasTag('open')
 
   const popperStyles = getPlacementStyles({
     ...state.context.positioning,
@@ -13,13 +13,14 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   })
 
   return {
-    open: open,
+    open,
     setOpen(nextOpen) {
-      if (nextOpen === open) return
-      send(nextOpen ? "OPEN" : "CLOSE")
+      if (nextOpen === open)
+        return
+      send(nextOpen ? 'OPEN' : 'CLOSE')
     },
     reposition(options = {}) {
-      send({ type: "POSITIONING.SET", options })
+      send({ type: 'POSITIONING.SET', options })
     },
 
     getArrowProps() {
@@ -42,23 +43,25 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getTriggerProps() {
       return normalize.element({
         ...parts.trigger.attrs,
-        dir: state.context.dir,
-        "data-placement": state.context.currentPlacement,
-        id: dom.getTriggerId(state.context),
-        "data-state": open ? "open" : "closed",
+        'dir': state.context.dir,
+        'data-placement': state.context.currentPlacement,
+        'id': dom.getTriggerId(state.context),
+        'data-state': open ? 'open' : 'closed',
         onPointerEnter(event) {
-          if (event.pointerType === "touch") return
-          send({ type: "POINTER_ENTER", src: "trigger" })
+          if (event.pointerType === 'touch')
+            return
+          send({ type: 'POINTER_ENTER', src: 'trigger' })
         },
         onPointerLeave(event) {
-          if (event.pointerType === "touch") return
-          send({ type: "POINTER_LEAVE", src: "trigger" })
+          if (event.pointerType === 'touch')
+            return
+          send({ type: 'POINTER_LEAVE', src: 'trigger' })
         },
         onFocus() {
-          send("TRIGGER_FOCUS")
+          send('TRIGGER_FOCUS')
         },
         onBlur() {
-          send("TRIGGER_BLUR")
+          send('TRIGGER_BLUR')
         },
       })
     },
@@ -75,18 +78,20 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getContentProps() {
       return normalize.element({
         ...parts.content.attrs,
-        dir: state.context.dir,
-        id: dom.getContentId(state.context),
-        hidden: !open,
-        "data-state": open ? "open" : "closed",
-        "data-placement": state.context.currentPlacement,
+        'dir': state.context.dir,
+        'id': dom.getContentId(state.context),
+        'hidden': !open,
+        'data-state': open ? 'open' : 'closed',
+        'data-placement': state.context.currentPlacement,
         onPointerEnter(event) {
-          if (event.pointerType === "touch") return
-          send({ type: "POINTER_ENTER", src: "content" })
+          if (event.pointerType === 'touch')
+            return
+          send({ type: 'POINTER_ENTER', src: 'content' })
         },
         onPointerLeave(event) {
-          if (event.pointerType === "touch") return
-          send({ type: "POINTER_LEAVE", src: "content" })
+          if (event.pointerType === 'touch')
+            return
+          send({ type: 'POINTER_LEAVE', src: 'content' })
         },
       })
     },

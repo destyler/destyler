@@ -1,6 +1,6 @@
 import type { DateDuration, DateValue } from '@internationalized/date'
-import type { DateAlignment } from "./types"
-import { alignCenter, alignEnd, alignStart } from "./constrain"
+import type { DateAlignment } from './types'
+import { alignCenter, alignEnd, alignStart } from './constrain'
 
 export function alignDate(
   date: DateValue,

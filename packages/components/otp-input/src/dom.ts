@@ -1,5 +1,5 @@
-import { createScope, queryAll } from "@destyler/dom"
-import type { MachineContext as Ctx } from "./types"
+import type { MachineContext as Ctx } from './types'
+import { createScope, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `otp-input:${ctx.id}`,

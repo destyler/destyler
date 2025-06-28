@@ -1,5 +1,5 @@
-import type {FormatBytesOptions} from "../index";
-import { describe, expect, it } from "vitest";
+import type { FormatBytesOptions } from '../index'
+import { describe, expect, it } from 'vitest'
 import { formatBytes } from '../index'
 
 describe('formatBytes', () => {

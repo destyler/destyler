@@ -108,7 +108,7 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
   const addListener = (listener: Listener) => {
     listeners.add(listener)
     if (listeners.size === 1) {
-      propProxyStates.forEach(([propProxyState, prevRemove], prop) => {
+      propProxyStates.forEach(([propProxyState], prop) => {
         const remove = propProxyState[3](createPropListener(prop))
         propProxyStates.set(prop, [propProxyState, remove])
       })

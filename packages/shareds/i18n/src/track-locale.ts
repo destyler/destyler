@@ -1,6 +1,6 @@
-import type {Locale} from "./locale";
+import type { Locale } from './locale'
 import { getWindow } from '@destyler/dom'
-import { getDefaultLocale  } from "./locale"
+import { getDefaultLocale } from './locale'
 
 export interface LocaleOptions {
   locale?: string | undefined

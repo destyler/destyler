@@ -1,6 +1,6 @@
-import { createScope, isSafari, MAX_Z_INDEX } from "@destyler/dom"
-import { roundToDpr, wrap } from "@destyler/utils"
-import type { MachineContext as Ctx } from "./types"
+import type { MachineContext as Ctx } from './types'
+import { createScope, isSafari, MAX_Z_INDEX } from '@destyler/dom'
+import { roundToDpr, wrap } from '@destyler/utils'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `number-input:${ctx.id}`,
@@ -19,17 +19,18 @@ export const dom = createScope({
 
   getPressedTriggerEl: (ctx: Ctx, hint = ctx.hint) => {
     let btnEl: HTMLButtonElement | null = null
-    if (hint === "increment") {
+    if (hint === 'increment') {
       btnEl = dom.getIncrementTriggerEl(ctx)
     }
-    if (hint === "decrement") {
+    if (hint === 'decrement') {
       btnEl = dom.getDecrementTriggerEl(ctx)
     }
     return btnEl
   },
 
   setupVirtualCursor(ctx: Ctx) {
-    if (isSafari()) return
+    if (isSafari())
+      return
     dom.createVirtualCursor(ctx)
     return () => {
       dom.getCursorEl(ctx)?.remove()
@@ -41,19 +42,19 @@ export const dom = createScope({
     const html = doc.documentElement
     const body = doc.body
 
-    body.style.pointerEvents = "none"
-    html.style.userSelect = "none"
-    html.style.cursor = "ew-resize"
+    body.style.pointerEvents = 'none'
+    html.style.userSelect = 'none'
+    html.style.cursor = 'ew-resize'
 
     return () => {
-      body.style.pointerEvents = ""
-      html.style.userSelect = ""
-      html.style.cursor = ""
+      body.style.pointerEvents = ''
+      html.style.userSelect = ''
+      html.style.cursor = ''
       if (!html.style.length) {
-        html.removeAttribute("style")
+        html.removeAttribute('style')
       }
       if (!body.style.length) {
-        body.removeAttribute("style")
+        body.removeAttribute('style')
       }
     }
   },
@@ -63,10 +64,12 @@ export const dom = createScope({
     const x = roundToDpr(event.movementX, win.devicePixelRatio)
     const y = roundToDpr(event.movementY, win.devicePixelRatio)
 
-    let hint = x > 0 ? "increment" : x < 0 ? "decrement" : null
+    let hint = x > 0 ? 'increment' : x < 0 ? 'decrement' : null
 
-    if (ctx.isRtl && hint === "increment") hint = "decrement"
-    if (ctx.isRtl && hint === "decrement") hint = "increment"
+    if (ctx.isRtl && hint === 'increment')
+      hint = 'decrement'
+    if (ctx.isRtl && hint === 'decrement')
+      hint = 'increment'
 
     const point = {
       x: ctx.scrubberCursorPoint!.x + x,
@@ -82,22 +85,22 @@ export const dom = createScope({
 
   createVirtualCursor(ctx: Ctx) {
     const doc = dom.getDoc(ctx)
-    const el = doc.createElement("div")
-    el.className = "scrubber--cursor"
+    const el = doc.createElement('div')
+    el.className = 'scrubber--cursor'
     el.id = dom.getCursorId(ctx)
 
     Object.assign(el.style, {
-      width: "15px",
-      height: "15px",
-      position: "fixed",
-      pointerEvents: "none",
-      left: "0px",
-      top: "0px",
+      width: '15px',
+      height: '15px',
+      position: 'fixed',
+      pointerEvents: 'none',
+      left: '0px',
+      top: '0px',
       zIndex: MAX_Z_INDEX,
       transform: ctx.scrubberCursorPoint
         ? `translate3d(${ctx.scrubberCursorPoint.x}px, ${ctx.scrubberCursorPoint.y}px, 0px)`
         : undefined,
-      willChange: "transform",
+      willChange: 'transform',
     })
 
     el.innerHTML = `

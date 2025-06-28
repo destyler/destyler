@@ -1,13 +1,13 @@
-import { createMachine } from "@destyler/xstate"
-import { compact, isEqual, isNumber } from "@destyler/utils"
-import type { MachineContext, MachineState, UserDefinedContext } from "./types"
+import type { MachineContext, MachineState, UserDefinedContext } from './types'
+import { compact, isEqual, isNumber } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 
 function midValue(min: number, max: number) {
   return min + (max - min) / 2
 }
 
 function isValidNumber(max: any) {
-  return isNumber(max) && !isNaN(max)
+  return isNumber(max) && !Number.isNaN(max)
 }
 
 function isValidMax(value: number, max: number) {
@@ -20,49 +20,50 @@ function isValidMin(value: number, min: number) {
 
 const set = {
   value(ctx: MachineContext, value: number | null) {
-    if (isEqual(ctx.value, value)) return
+    if (isEqual(ctx.value, value))
+      return
     ctx.value = value === null ? null : Math.max(0, Math.min(value, ctx.max))
     ctx.onValueChange?.({ value })
   },
 }
 
-
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: "progress",
-      initial: "idle",
+      id: 'progress',
+      initial: 'idle',
       context: {
         max: ctx.max ?? 100,
         min: ctx.min ?? 0,
         value: midValue(ctx.min ?? 0, ctx.max ?? 100),
-        orientation: "horizontal",
+        orientation: 'horizontal',
         translations: {
-          value: ({ percent }) => (percent === -1 ? "loading..." : `${percent} percent`),
+          value: ({ percent }) => (percent === -1 ? 'loading...' : `${percent} percent`),
           ...ctx.translations,
         },
         ...ctx,
       },
 
-      created: ["validateContext"],
+      created: ['validateContext'],
 
       computed: {
-        isIndeterminate: (ctx) => ctx.value === null,
+        isIndeterminate: ctx => ctx.value === null,
         percent(ctx) {
-          if (!isNumber(ctx.value)) return -1
+          if (!isNumber(ctx.value))
+            return -1
           return Math.round(((ctx.value - ctx.min) / (ctx.max - ctx.min)) * 100)
         },
-        isAtMax: (ctx) => ctx.value === ctx.max,
-        isHorizontal: (ctx) => ctx.orientation === "horizontal",
-        isRtl: (ctx) => ctx.dir === "rtl",
+        isAtMax: ctx => ctx.value === ctx.max,
+        isHorizontal: ctx => ctx.orientation === 'horizontal',
+        isRtl: ctx => ctx.dir === 'rtl',
       },
 
       states: {
         idle: {
           on: {
-            "VALUE.SET": {
-              actions: ["setValue"],
+            'VALUE.SET': {
+              actions: ['setValue'],
             },
           },
         },
@@ -74,7 +75,8 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, evt.value)
         },
         validateContext: (ctx) => {
-          if (ctx.value == null) return
+          if (ctx.value == null)
+            return
 
           if (!isValidNumber(ctx.max)) {
             throw new Error(`[progress] The max value passed \`${ctx.max}\` is not a valid number`)

@@ -1,6 +1,6 @@
-import type { NumberFormatter, NumberParser } from "@internationalized/number"
-import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
-import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from "@destyler/types"
+import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
+import type { NumberFormatter, NumberParser } from '@internationalized/number'
 
 export interface ValueChangeDetails {
   value: string
@@ -11,13 +11,13 @@ export interface FocusChangeDetails extends ValueChangeDetails {
   focused: boolean
 }
 
-export type ValidityState = "rangeUnderflow" | "rangeOverflow"
+export type ValidityState = 'rangeUnderflow' | 'rangeOverflow'
 
 export interface ValueInvalidDetails extends ValueChangeDetails {
   reason: ValidityState
 }
 
-export type InputMode = "text" | "tel" | "numeric" | "decimal"
+export type InputMode = 'text' | 'tel' | 'numeric' | 'decimal'
 
 export type ElementIds = Partial<{
   root: string
@@ -28,7 +28,7 @@ export type ElementIds = Partial<{
   scrubber: string
 }>
 
-export type IntlTranslations = {
+export interface IntlTranslations {
   /**
    * Function that returns the human-readable value.
    * It is used to set the `aria-valuetext` property of the input
@@ -150,7 +150,7 @@ interface PublicContext extends LocaleProperties, CommonProperties {
   spinOnPress?: boolean | undefined
 }
 
-export type UserDefinedContext = RequiredBy<PublicContext, "id">
+export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
 type ComputedContext = Readonly<{
   /**
@@ -215,12 +215,12 @@ interface PrivateContext {
    * @internal
    * The hint that determines if we're incrementing or decrementing
    */
-  hint: "increment" | "decrement" | "set" | null
+  hint: 'increment' | 'decrement' | 'set' | null
   /**
    * @internal
    * The scrubber cursor position
    */
-  scrubberCursorPoint: { x: number; y: number } | null
+  scrubberCursorPoint: { x: number, y: number } | null
   /**
    * @internal
    * The number i18n formatter
@@ -241,8 +241,8 @@ interface PrivateContext {
 export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
 
 export interface MachineState {
-  value: "idle" | "focused" | "spinning" | "before:spin" | "scrubbing"
-  tags: "focus"
+  value: 'idle' | 'focused' | 'spinning' | 'before:spin' | 'scrubbing'
+  tags: 'focus'
 }
 
 export type State = XState<MachineContext, MachineState>
@@ -275,38 +275,38 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to set the value of the input.
    */
-  setValue(value: number): void
+  setValue: (value: number) => void
   /**
    * Function to clear the value of the input.
    */
-  clearValue(): void
+  clearValue: () => void
   /**
    * Function to increment the value of the input by the step.
    */
-  increment(): void
+  increment: () => void
   /**
    * Function to decrement the value of the input by the step.
    */
-  decrement(): void
+  decrement: () => void
   /**
    * Function to set the value of the input to the max.
    */
-  setToMax(): void
+  setToMax: () => void
   /**
    * Function to set the value of the input to the min.
    */
-  setToMin(): void
+  setToMin: () => void
   /**
    * Function to focus the input.
    */
-  focus(): void
+  focus: () => void
 
-  getRootProps(): T["element"]
-  getLabelProps(): T["label"]
-  getControlProps(): T["element"]
-  getValueTextProps(): T["element"]
-  getInputProps(): T["input"]
-  getDecrementTriggerProps(): T["button"]
-  getIncrementTriggerProps(): T["button"]
-  getScrubberProps(): T["element"]
+  getRootProps: () => T['element']
+  getLabelProps: () => T['label']
+  getControlProps: () => T['element']
+  getValueTextProps: () => T['element']
+  getInputProps: () => T['input']
+  getDecrementTriggerProps: () => T['button']
+  getIncrementTriggerProps: () => T['button']
+  getScrubberProps: () => T['element']
 }

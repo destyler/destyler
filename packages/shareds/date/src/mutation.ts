@@ -1,4 +1,4 @@
-import type { Calendar, DateValue } from '@internationalized/date';
+import type { Calendar, DateValue } from '@internationalized/date'
 import type { DateAvailableFn } from './types'
 import {
   getLocalTimeZone,

@@ -1,6 +1,6 @@
-import { isHTMLElement, nextById, prevById, queryAll, getByTypeahead, createScope } from "@destyler/dom"
-import { first, last } from "@destyler/utils"
-import type { MachineContext as Ctx } from "./types"
+import type { MachineContext as Ctx } from './types'
+import { createScope, getByTypeahead, isHTMLElement, nextById, prevById, queryAll } from '@destyler/dom'
+import { first, last } from '@destyler/utils'
 
 export const dom = createScope({
   getTriggerId: (ctx: Ctx) => ctx.ids?.trigger ?? `menu:${ctx.id}:trigger`,
@@ -31,10 +31,10 @@ export const dom = createScope({
     getByTypeahead(dom.getElements(ctx), { state: ctx.typeaheadState, key, activeId: ctx.highlightedValue }),
 
   isTargetDisabled: (v: EventTarget | null) => {
-    return isHTMLElement(v) && (v.dataset.disabled === "" || v.hasAttribute("disabled"))
+    return isHTMLElement(v) && (v.dataset.disabled === '' || v.hasAttribute('disabled'))
   },
   isTriggerItem: (el: HTMLElement | null) => {
-    return !!el?.getAttribute("role")?.startsWith("menuitem") && !!el?.hasAttribute("aria-controls")
+    return !!el?.getAttribute('role')?.startsWith('menuitem') && !!el?.hasAttribute('aria-controls')
   },
 
   getOptionFromItemEl(el: HTMLElement) {

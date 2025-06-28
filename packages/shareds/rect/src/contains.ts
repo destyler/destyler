@@ -1,5 +1,5 @@
-import type { Point, Rect } from "./types"
-import { getRectCorners, isRect } from "./rect"
+import type { Point, Rect } from './types'
+import { getRectCorners, isRect } from './rect'
 
 export function containsPoint(r: Rect, p: Point): boolean {
   return r.minX <= p.x && p.x <= r.maxX && r.minY <= p.y && p.y <= r.maxY

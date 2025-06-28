@@ -17,7 +17,7 @@ export function trackElementSize(element: HTMLElement | null, callback: ElementS
 
   const observer = new win.ResizeObserver((entries) => {
     if (!Array.isArray(entries) || !entries.length)
-return
+      return
 
     const [entry] = entries
     let width: number
@@ -29,7 +29,7 @@ return
       width = borderSize.inlineSize
       height = borderSize.blockSize
     }
- else {
+    else {
       width = element.offsetWidth
       height = element.offsetHeight
     }

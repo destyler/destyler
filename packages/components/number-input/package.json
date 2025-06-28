@@ -28,10 +28,10 @@
   },
   "dependencies": {
     "@destyler/anatomy": "workspace:*",
-    "@internationalized/number": "catalog:core",
     "@destyler/dom": "workspace:*",
-    "@destyler/xstate": "workspace:*",
     "@destyler/types": "workspace:*",
-    "@destyler/utils": "workspace:*"
+    "@destyler/utils": "workspace:*",
+    "@destyler/xstate": "workspace:*",
+    "@internationalized/number": "catalog:core"
   }
 }

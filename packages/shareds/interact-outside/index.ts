@@ -1,9 +1,4 @@
-import { addDomEvent, contains,
-  getDocument,
-  getEventTarget,
-  getNearestOverflowAncestor,
-  getWindow,
-  isContextMenuEvent,  isFocusable,  isHTMLElement,  raf } from '@destyler/dom'
+import { addDomEvent, contains, getDocument, getEventTarget, getNearestOverflowAncestor, getWindow, isContextMenuEvent, isFocusable, isHTMLElement, raf } from '@destyler/dom'
 import { callAll } from '@destyler/utils'
 import { getParentWindow, getWindowFrames } from './src/frame-utils'
 

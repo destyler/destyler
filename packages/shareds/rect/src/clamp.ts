@@ -2,7 +2,7 @@ import type { Point, RectInit, Size } from './types'
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
-export function clampPoint (position: Point, size: Size, boundaryRect: RectInit) {
+export function clampPoint(position: Point, size: Size, boundaryRect: RectInit) {
   const x = clamp(position.x, boundaryRect.x, boundaryRect.x + boundaryRect.width - size.width)
   const y = clamp(position.y, boundaryRect.y, boundaryRect.y + boundaryRect.height - size.height)
   return { x, y }
@@ -18,7 +18,7 @@ const defaultMaxSize: Size = {
   height: Infinity,
 }
 
-export function clampSize (size: Size, minSize = defaultMinSize, maxSize = defaultMaxSize) {
+export function clampSize(size: Size, minSize = defaultMinSize, maxSize = defaultMaxSize) {
   return {
     width: Math.min(Math.max(size.width, minSize!.width), maxSize!.width),
     height: Math.min(Math.max(size.height, minSize!.height), maxSize!.height),

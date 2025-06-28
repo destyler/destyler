@@ -4,16 +4,16 @@ const defaultColors = {
   stringColor: 'lightcoral',
   trueColor: 'lightseagreen',
   falseColor: '#f66578',
-  nullColor: 'cornflowerblue'
+  nullColor: 'cornflowerblue',
 }
 
 interface ColorOptions {
-  keyColor?: string;
-  numberColor?: string;
-  stringColor?: string;
-  trueColor?: string;
-  falseColor?: string;
-  nullColor?: string;
+  keyColor?: string
+  numberColor?: string
+  stringColor?: string
+  trueColor?: string
+  falseColor?: string
+  nullColor?: string
 }
 
 const entityMap: Record<string, string> = {
@@ -21,15 +21,15 @@ const entityMap: Record<string, string> = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
-  "'": '&#39;',
+  '\'': '&#39;',
   '`': '&#x60;',
-  '=': '&#x3D;'
-};
+  '=': '&#x3D;',
+}
 
-function escapeHtml (html: string): string {
-  return String(html).replace(/[&<>"'`=]/g, function (s) {
-      return entityMap[s];
-  });
+function escapeHtml(html: string): string {
+  return String(html).replace(/[&<>"'`=]/g, (s) => {
+    return entityMap[s]
+  })
 }
 
 export default function (json: any, colorOptions: ColorOptions = {}): string {
@@ -41,20 +41,22 @@ export default function (json: any, colorOptions: ColorOptions = {}): string {
     }
     json = JSON.stringify(json, null, 2) || valueType
   }
-  let colors: Required<ColorOptions> = Object.assign({}, defaultColors, colorOptions)
+  const colors: Required<ColorOptions> = Object.assign({}, defaultColors, colorOptions)
   json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>')
-  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+]?\d+)?)/g, (match: string) => {
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE]\+?\d+)?)/g, (match: string) => {
     let color: string = colors.numberColor
     let style: string = ''
-    if (/^"/.test(match)) {
-      if (/:$/.test(match)) {
+    if (match.startsWith('"')) {
+      if (match.endsWith(':')) {
         color = colors.keyColor
-      } else {
-        color = colors.stringColor;
-        match = '"' + escapeHtml(match.substr(1, match.length - 2)) + '"';
-        style = 'word-wrap:break-word;white-space:pre-wrap;';
       }
-    } else {
+      else {
+        color = colors.stringColor
+        match = `"${escapeHtml(match.substr(1, match.length - 2))}"`
+        style = 'word-wrap:break-word;white-space:pre-wrap;'
+      }
+    }
+    else {
       color = /true/.test(match)
         ? colors.trueColor
         : /false/.test(match)

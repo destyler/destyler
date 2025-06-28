@@ -10,7 +10,7 @@ const isValidMIME = (v: string) => isMIMEType(v) || isExt(v)
 
 export function getAcceptAttrString(accept: Record<string, string[]> | string | string[] | undefined) {
   if (!accept)
-return
+    return
 
   if (typeof accept === 'string') {
     return accept

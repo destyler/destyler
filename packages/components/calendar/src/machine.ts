@@ -1,6 +1,7 @@
-import { DateFormatter } from "@internationalized/date"
-import { createMachine, guards } from "@destyler/xstate"
+import type { AdjustDateReturn } from '@destyler/date'
+import type { DateValue, DateView, MachineContext, MachineState, UserDefinedContext } from './types'
 import {
+
   alignDate,
   constrainValue,
   formatSelectedDate,
@@ -17,15 +18,15 @@ import {
   isNextVisibleRangeInvalid,
   isPreviousVisibleRangeInvalid,
   parseDateString,
-  type AdjustDateReturn,
-} from "@destyler/date"
-import { trackDismissableElement } from "@destyler/dismissable"
-import { disableTextSelection, raf, restoreTextSelection } from "@destyler/dom"
-import { createLiveRegion } from "@destyler/live-region"
-import { getPlacement } from "@destyler/popper"
-import { compact, isEqual } from "@destyler/utils"
-import { dom } from "./dom"
-import type { DateValue, DateView, MachineContext, MachineState, UserDefinedContext } from "./types"
+} from '@destyler/date'
+import { trackDismissableElement } from '@destyler/dismissable'
+import { disableTextSelection, raf, restoreTextSelection } from '@destyler/dom'
+import { createLiveRegion } from '@destyler/live-region'
+import { getPlacement } from '@destyler/popper'
+import { compact, isEqual } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
+import { DateFormatter } from '@internationalized/date'
+import { dom } from './dom'
 import {
   adjustStartAndEndDate,
   clampView,
@@ -36,29 +37,119 @@ import {
   isBelowMinView,
   isValidDate,
   sortDates,
-} from "./utils"
+} from './utils'
 
 const { and } = guards
 
-const transformContext = (ctx: Partial<MachineContext>): MachineContext => {
-  const locale = ctx.locale || "en-US"
-  const timeZone = ctx.timeZone || "UTC"
-  const selectionMode = ctx.selectionMode || "single"
+const invoke = {
+  change(ctx: MachineContext) {
+    ctx.onValueChange?.({
+      value: Array.from(ctx.value),
+      valueAsString: Array.from(ctx.valueAsString),
+      view: ctx.view,
+    })
+  },
+  focusChange(ctx: MachineContext) {
+    ctx.onFocusChange?.({
+      focusedValue: ctx.focusedValue,
+      value: Array.from(ctx.value),
+      valueAsString: Array.from(ctx.valueAsString),
+      view: ctx.view,
+    })
+  },
+  viewChange(ctx: MachineContext) {
+    ctx.onViewChange?.({ view: ctx.view })
+  },
+}
+
+function isDateEqualFn(a: DateValue[], b: DateValue[]) {
+  if (a.length !== b.length)
+    return false
+  return a.every((date, index) => isDateEqual(date, b[index]))
+}
+
+function normalizeValue(ctx: MachineContext, value: number | DateValue) {
+  let dateValue = typeof value === 'number' ? ctx.focusedValue.set({ [ctx.view]: value }) : value
+  eachView((view) => {
+    // normalize month and day
+    if (isBelowMinView(view, ctx.minView)) {
+      dateValue = dateValue.set({ [view]: view === 'day' ? 1 : 0 })
+    }
+  })
+  return dateValue
+}
+
+const set = {
+  value(ctx: MachineContext, value: DateValue[]) {
+    if (isDateEqualFn(ctx.value, value))
+      return
+    ctx.value = value
+    invoke.change(ctx)
+  },
+
+  focusedValue(ctx: MachineContext, mixedValue: DateValue | number | undefined) {
+    if (!mixedValue)
+      return
+
+    const value = normalizeValue(ctx, mixedValue)
+    if (isDateEqual(ctx.focusedValue, value))
+      return
+
+    const adjustFn = getAdjustedDateFn(ctx.visibleDuration, ctx.locale, ctx.min, ctx.max)
+    const adjustedValue = adjustFn({
+      focusedDate: value,
+      startDate: ctx.startValue,
+    })
+
+    ctx.startValue = adjustedValue.startDate
+    ctx.focusedValue = adjustedValue.focusedDate
+
+    invoke.focusChange(ctx)
+  },
+
+  adjustedValue(ctx: MachineContext, value: AdjustDateReturn) {
+    ctx.startValue = value.startDate
+    if (isDateEqual(ctx.focusedValue, value.focusedDate))
+      return
+
+    ctx.focusedValue = value.focusedDate
+    invoke.focusChange(ctx)
+  },
+
+  view(ctx: MachineContext, value: DateView) {
+    if (isEqual(ctx.view, value))
+      return
+    ctx.view = value
+    invoke.viewChange(ctx)
+  },
+
+  inputValue(ctx: MachineContext, index: number) {
+    const value = ctx.valueAsString[index]
+    if (ctx.inputValue === value)
+      return
+    ctx.inputValue = value
+  },
+}
+
+function transformContext(ctx: Partial<MachineContext>): MachineContext {
+  const locale = ctx.locale || 'en-US'
+  const timeZone = ctx.timeZone || 'UTC'
+  const selectionMode = ctx.selectionMode || 'single'
   const numOfMonths = ctx.numOfMonths || 1
 
   // sort and constrain dates
-  const value = sortDates(ctx.value || []).map((date) => constrainValue(date, ctx.min, ctx.max))
+  const value = sortDates(ctx.value || []).map(date => constrainValue(date, ctx.min, ctx.max))
 
   // get initial focused value
   let focusedValue = value[0] || ctx.focusedValue || getTodayDate(timeZone)
   focusedValue = constrainValue(focusedValue, ctx.min, ctx.max)
 
   // get initial start value for visible range
-  const startValue = alignDate(focusedValue, "start", { months: numOfMonths }, locale)
+  const startValue = alignDate(focusedValue, 'start', { months: numOfMonths }, locale)
 
   // get the initial view
-  const minView: DateView = "day"
-  const maxView: DateView = "year"
+  const minView: DateView = 'day'
+  const maxView: DateView = 'year'
   const view = clampView(ctx.view || minView, minView, maxView)
 
   return {
@@ -66,7 +157,7 @@ const transformContext = (ctx: Partial<MachineContext>): MachineContext => {
     numOfMonths,
     focusedValue,
     startValue,
-    inputValue: "",
+    inputValue: '',
     timeZone,
     value,
     selectionMode,
@@ -81,7 +172,7 @@ const transformContext = (ctx: Partial<MachineContext>): MachineContext => {
     min: undefined,
     max: undefined,
     format(date, { locale, timeZone }) {
-      const formatter = new DateFormatter(locale, { timeZone, day: "2-digit", month: "2-digit", year: "numeric" })
+      const formatter = new DateFormatter(locale, { timeZone, day: '2-digit', month: '2-digit', year: 'numeric' })
       return formatter.format(date.toDate(timeZone))
     },
     parse(value, { locale, timeZone }) {
@@ -89,7 +180,7 @@ const transformContext = (ctx: Partial<MachineContext>): MachineContext => {
     },
     ...ctx,
     positioning: {
-      placement: "bottom",
+      placement: 'bottom',
       ...ctx.positioning,
     },
   } as MachineContext
@@ -99,460 +190,460 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: "calendar",
-      initial: ctx.open ? "open" : "idle",
+      id: 'calendar',
+      initial: ctx.open ? 'open' : 'idle',
       context: transformContext(ctx),
       computed: {
-        isInteractive: (ctx) => !ctx.disabled && !ctx.readOnly,
-        visibleDuration: (ctx) => ({ months: ctx.numOfMonths }),
-        endValue: (ctx) => getEndDate(ctx.startValue, ctx.visibleDuration),
-        visibleRange: (ctx) => ({ start: ctx.startValue, end: ctx.endValue }),
+        isInteractive: ctx => !ctx.disabled && !ctx.readOnly,
+        visibleDuration: ctx => ({ months: ctx.numOfMonths }),
+        endValue: ctx => getEndDate(ctx.startValue, ctx.visibleDuration),
+        visibleRange: ctx => ({ start: ctx.startValue, end: ctx.endValue }),
         visibleRangeText(ctx) {
-          const formatter = new DateFormatter(ctx.locale, { month: "long", year: "numeric", timeZone: ctx.timeZone })
+          const formatter = new DateFormatter(ctx.locale, { month: 'long', year: 'numeric', timeZone: ctx.timeZone })
           const start = formatter.format(ctx.startValue.toDate(ctx.timeZone))
           const end = formatter.format(ctx.endValue.toDate(ctx.timeZone))
-          const formatted = ctx.selectionMode === "range" ? `${start} - ${end}` : start
+          const formatted = ctx.selectionMode === 'range' ? `${start} - ${end}` : start
           return { start, end, formatted }
         },
-        isPrevVisibleRangeValid: (ctx) => !isPreviousVisibleRangeInvalid(ctx.startValue, ctx.min, ctx.max),
-        isNextVisibleRangeValid: (ctx) => !isNextVisibleRangeInvalid(ctx.endValue, ctx.min, ctx.max),
+        isPrevVisibleRangeValid: ctx => !isPreviousVisibleRangeInvalid(ctx.startValue, ctx.min, ctx.max),
+        isNextVisibleRangeValid: ctx => !isNextVisibleRangeInvalid(ctx.endValue, ctx.min, ctx.max),
         valueAsString(ctx) {
-          return ctx.value.map((date) => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone }))
+          return ctx.value.map(date => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone }))
         },
       },
 
-      activities: ["setupLiveRegion"],
+      activities: ['setupLiveRegion'],
 
-      created: ["setStartValue"],
+      created: ['setStartValue'],
 
       watch: {
-        locale: ["setStartValue"],
+        locale: ['setStartValue'],
         focusedValue: [
-          "setStartValue",
-          "syncMonthSelectElement",
-          "syncYearSelectElement",
-          "focusActiveCellIfNeeded",
-          "setHoveredValueIfKeyboard",
+          'setStartValue',
+          'syncMonthSelectElement',
+          'syncYearSelectElement',
+          'focusActiveCellIfNeeded',
+          'setHoveredValueIfKeyboard',
         ],
-        inputValue: ["syncInputValue"],
-        value: ["syncInputElement"],
-        valueAsString: ["announceValueText"],
-        view: ["focusActiveCell"],
-        open: ["toggleVisibility"],
+        inputValue: ['syncInputValue'],
+        value: ['syncInputElement'],
+        valueAsString: ['announceValueText'],
+        view: ['focusActiveCell'],
+        open: ['toggleVisibility'],
       },
 
       on: {
-        "VALUE.SET": {
-          actions: ["setDateValue", "setFocusedDate"],
+        'VALUE.SET': {
+          actions: ['setDateValue', 'setFocusedDate'],
         },
-        "VIEW.SET": {
-          actions: ["setView"],
+        'VIEW.SET': {
+          actions: ['setView'],
         },
-        "FOCUS.SET": {
-          actions: ["setFocusedDate"],
+        'FOCUS.SET': {
+          actions: ['setFocusedDate'],
         },
-        "VALUE.CLEAR": {
-          actions: ["clearDateValue", "clearFocusedDate", "focusFirstInputElement"],
+        'VALUE.CLEAR': {
+          actions: ['clearDateValue', 'clearFocusedDate', 'focusFirstInputElement'],
         },
-        "INPUT.CHANGE": [
+        'INPUT.CHANGE': [
           {
-            guard: "isInputValueEmpty",
-            actions: ["setInputValue", "clearDateValue", "clearFocusedDate"],
+            guard: 'isInputValueEmpty',
+            actions: ['setInputValue', 'clearDateValue', 'clearFocusedDate'],
           },
           {
-            actions: ["setInputValue", "focusParsedDate"],
+            actions: ['setInputValue', 'focusParsedDate'],
           },
         ],
-        "INPUT.ENTER": {
-          actions: ["focusParsedDate", "selectFocusedDate"],
+        'INPUT.ENTER': {
+          actions: ['focusParsedDate', 'selectFocusedDate'],
         },
-        "INPUT.FOCUS": {
-          actions: ["setActiveIndex"],
+        'INPUT.FOCUS': {
+          actions: ['setActiveIndex'],
         },
-        "INPUT.BLUR": [
+        'INPUT.BLUR': [
           {
-            guard: "shouldFixOnBlur",
-            actions: ["setActiveIndexToStart", "selectParsedDate"],
+            guard: 'shouldFixOnBlur',
+            actions: ['setActiveIndexToStart', 'selectParsedDate'],
           },
           {
-            actions: ["setActiveIndexToStart"],
-          },
-        ],
-        "PRESET.CLICK": [
-          {
-            guard: "isOpenControlled",
-            actions: ["setDateValue", "setFocusedDate", "invokeOnClose"],
-          },
-          {
-            target: "focused",
-            actions: ["setDateValue", "setFocusedDate", "focusInputElement"],
+            actions: ['setActiveIndexToStart'],
           },
         ],
-        "GOTO.NEXT": [
+        'PRESET.CLICK': [
           {
-            guard: "isYearView",
-            actions: ["focusNextDecade", "announceVisibleRange"],
+            guard: 'isOpenControlled',
+            actions: ['setDateValue', 'setFocusedDate', 'invokeOnClose'],
           },
           {
-            guard: "isMonthView",
-            actions: ["focusNextYear", "announceVisibleRange"],
-          },
-          {
-            actions: ["focusNextPage"],
+            target: 'focused',
+            actions: ['setDateValue', 'setFocusedDate', 'focusInputElement'],
           },
         ],
-        "GOTO.PREV": [
+        'GOTO.NEXT': [
           {
-            guard: "isYearView",
-            actions: ["focusPreviousDecade", "announceVisibleRange"],
+            guard: 'isYearView',
+            actions: ['focusNextDecade', 'announceVisibleRange'],
           },
           {
-            guard: "isMonthView",
-            actions: ["focusPreviousYear", "announceVisibleRange"],
+            guard: 'isMonthView',
+            actions: ['focusNextYear', 'announceVisibleRange'],
           },
           {
-            actions: ["focusPreviousPage"],
+            actions: ['focusNextPage'],
+          },
+        ],
+        'GOTO.PREV': [
+          {
+            guard: 'isYearView',
+            actions: ['focusPreviousDecade', 'announceVisibleRange'],
+          },
+          {
+            guard: 'isMonthView',
+            actions: ['focusPreviousYear', 'announceVisibleRange'],
+          },
+          {
+            actions: ['focusPreviousPage'],
           },
         ],
       },
 
       states: {
         idle: {
-          tags: "closed",
+          tags: 'closed',
           on: {
-            "CONTROLLED.OPEN": {
-              target: "open",
-              actions: ["focusFirstSelectedDate", "focusActiveCell"],
+            'CONTROLLED.OPEN': {
+              target: 'open',
+              actions: ['focusFirstSelectedDate', 'focusActiveCell'],
             },
-            "TRIGGER.CLICK": [
+            'TRIGGER.CLICK': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+                target: 'open',
+                actions: ['focusFirstSelectedDate', 'focusActiveCell', 'invokeOnOpen'],
               },
             ],
-            OPEN: [
+            'OPEN': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+                target: 'open',
+                actions: ['focusFirstSelectedDate', 'focusActiveCell', 'invokeOnOpen'],
               },
             ],
           },
         },
 
         focused: {
-          tags: "closed",
+          tags: 'closed',
           on: {
-            "CONTROLLED.OPEN": {
-              target: "open",
-              actions: ["focusFirstSelectedDate", "focusActiveCell"],
+            'CONTROLLED.OPEN': {
+              target: 'open',
+              actions: ['focusFirstSelectedDate', 'focusActiveCell'],
             },
-            "TRIGGER.CLICK": [
+            'TRIGGER.CLICK': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+                target: 'open',
+                actions: ['focusFirstSelectedDate', 'focusActiveCell', 'invokeOnOpen'],
               },
             ],
-            OPEN: [
+            'OPEN': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["focusFirstSelectedDate", "focusActiveCell", "invokeOnOpen"],
+                target: 'open',
+                actions: ['focusFirstSelectedDate', 'focusActiveCell', 'invokeOnOpen'],
               },
             ],
           },
         },
 
         open: {
-          tags: "open",
-          activities: ["trackDismissableElement", "trackPositioning"],
-          exit: ["clearHoveredDate", "resetView"],
+          tags: 'open',
+          activities: ['trackDismissableElement', 'trackPositioning'],
+          exit: ['clearHoveredDate', 'resetView'],
           on: {
-            "CONTROLLED.CLOSE": [
+            'CONTROLLED.CLOSE': [
               {
-                guard: and("shouldRestoreFocus", "isInteractOutsideEvent"),
-                target: "focused",
-                actions: ["focusTriggerElement"],
+                guard: and('shouldRestoreFocus', 'isInteractOutsideEvent'),
+                target: 'focused',
+                actions: ['focusTriggerElement'],
               },
               {
-                guard: "shouldRestoreFocus",
-                target: "focused",
-                actions: ["focusInputElement"],
+                guard: 'shouldRestoreFocus',
+                target: 'focused',
+                actions: ['focusInputElement'],
               },
               {
-                target: "idle",
+                target: 'idle',
               },
             ],
-            "CELL.CLICK": [
+            'CELL.CLICK': [
               {
-                guard: "isAboveMinView",
-                actions: ["setFocusedValueForView", "setPreviousView"],
+                guard: 'isAboveMinView',
+                actions: ['setFocusedValueForView', 'setPreviousView'],
               },
               {
-                guard: and("isRangePicker", "hasSelectedRange"),
+                guard: and('isRangePicker', 'hasSelectedRange'),
                 actions: [
-                  "setActiveIndexToStart",
-                  "clearDateValue",
-                  "setFocusedDate",
-                  "setSelectedDate",
-                  "setActiveIndexToEnd",
+                  'setActiveIndexToStart',
+                  'clearDateValue',
+                  'setFocusedDate',
+                  'setSelectedDate',
+                  'setActiveIndexToEnd',
                 ],
               },
               // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
               {
-                guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect", "isOpenControlled"),
+                guard: and('isRangePicker', 'isSelectingEndDate', 'closeOnSelect', 'isOpenControlled'),
                 actions: [
-                  "setFocusedDate",
-                  "setSelectedDate",
-                  "setActiveIndexToStart",
-                  "invokeOnClose",
-                  "setRestoreFocus",
+                  'setFocusedDate',
+                  'setSelectedDate',
+                  'setActiveIndexToStart',
+                  'invokeOnClose',
+                  'setRestoreFocus',
                 ],
               },
               {
-                guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect"),
-                target: "focused",
+                guard: and('isRangePicker', 'isSelectingEndDate', 'closeOnSelect'),
+                target: 'focused',
                 actions: [
-                  "setFocusedDate",
-                  "setSelectedDate",
-                  "setActiveIndexToStart",
-                  "invokeOnClose",
-                  "focusInputElement",
+                  'setFocusedDate',
+                  'setSelectedDate',
+                  'setActiveIndexToStart',
+                  'invokeOnClose',
+                  'focusInputElement',
                 ],
               },
               {
-                guard: and("isRangePicker", "isSelectingEndDate"),
-                actions: ["setFocusedDate", "setSelectedDate", "setActiveIndexToStart", "clearHoveredDate"],
+                guard: and('isRangePicker', 'isSelectingEndDate'),
+                actions: ['setFocusedDate', 'setSelectedDate', 'setActiveIndexToStart', 'clearHoveredDate'],
               },
               // ===
               {
-                guard: "isRangePicker",
-                actions: ["setFocusedDate", "setSelectedDate", "setActiveIndexToEnd"],
+                guard: 'isRangePicker',
+                actions: ['setFocusedDate', 'setSelectedDate', 'setActiveIndexToEnd'],
               },
               {
-                guard: "isMultiPicker",
-                actions: ["setFocusedDate", "toggleSelectedDate"],
+                guard: 'isMultiPicker',
+                actions: ['setFocusedDate', 'toggleSelectedDate'],
               },
               // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
               {
-                guard: and("closeOnSelect", "isOpenControlled"),
-                actions: ["setFocusedDate", "setSelectedDate", "invokeOnClose"],
+                guard: and('closeOnSelect', 'isOpenControlled'),
+                actions: ['setFocusedDate', 'setSelectedDate', 'invokeOnClose'],
               },
               {
-                guard: "closeOnSelect",
-                target: "focused",
-                actions: ["setFocusedDate", "setSelectedDate", "invokeOnClose", "focusInputElement"],
+                guard: 'closeOnSelect',
+                target: 'focused',
+                actions: ['setFocusedDate', 'setSelectedDate', 'invokeOnClose', 'focusInputElement'],
               },
               {
-                actions: ["setFocusedDate", "setSelectedDate"],
+                actions: ['setFocusedDate', 'setSelectedDate'],
               },
               // ===
             ],
-            "CELL.POINTER_MOVE": {
-              guard: and("isRangePicker", "isSelectingEndDate"),
-              actions: ["setHoveredDate", "setFocusedDate"],
+            'CELL.POINTER_MOVE': {
+              guard: and('isRangePicker', 'isSelectingEndDate'),
+              actions: ['setHoveredDate', 'setFocusedDate'],
             },
-            "TABLE.POINTER_LEAVE": {
-              guard: "isRangePicker",
-              actions: ["clearHoveredDate"],
+            'TABLE.POINTER_LEAVE': {
+              guard: 'isRangePicker',
+              actions: ['clearHoveredDate'],
             },
-            "TABLE.POINTER_DOWN": {
-              actions: ["disableTextSelection"],
+            'TABLE.POINTER_DOWN': {
+              actions: ['disableTextSelection'],
             },
-            "TABLE.POINTER_UP": {
-              actions: ["enableTextSelection"],
+            'TABLE.POINTER_UP': {
+              actions: ['enableTextSelection'],
             },
-            "TABLE.ESCAPE": [
+            'TABLE.ESCAPE': [
               {
-                guard: "isOpenControlled",
-                actions: ["focusFirstSelectedDate", "invokeOnClose"],
+                guard: 'isOpenControlled',
+                actions: ['focusFirstSelectedDate', 'invokeOnClose'],
               },
               {
-                target: "focused",
-                actions: ["focusFirstSelectedDate", "invokeOnClose", "focusTriggerElement"],
+                target: 'focused',
+                actions: ['focusFirstSelectedDate', 'invokeOnClose', 'focusTriggerElement'],
               },
             ],
-            "TABLE.ENTER": [
+            'TABLE.ENTER': [
               {
-                guard: "isAboveMinView",
-                actions: ["setPreviousView"],
+                guard: 'isAboveMinView',
+                actions: ['setPreviousView'],
               },
               {
-                guard: and("isRangePicker", "hasSelectedRange"),
-                actions: ["setActiveIndexToStart", "clearDateValue", "setSelectedDate", "setActiveIndexToEnd"],
+                guard: and('isRangePicker', 'hasSelectedRange'),
+                actions: ['setActiveIndexToStart', 'clearDateValue', 'setSelectedDate', 'setActiveIndexToEnd'],
               },
               // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
               {
-                guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect", "isOpenControlled"),
-                actions: ["setSelectedDate", "setActiveIndexToStart", "invokeOnClose"],
+                guard: and('isRangePicker', 'isSelectingEndDate', 'closeOnSelect', 'isOpenControlled'),
+                actions: ['setSelectedDate', 'setActiveIndexToStart', 'invokeOnClose'],
               },
               {
-                guard: and("isRangePicker", "isSelectingEndDate", "closeOnSelect"),
-                target: "focused",
-                actions: ["setSelectedDate", "setActiveIndexToStart", "invokeOnClose", "focusInputElement"],
+                guard: and('isRangePicker', 'isSelectingEndDate', 'closeOnSelect'),
+                target: 'focused',
+                actions: ['setSelectedDate', 'setActiveIndexToStart', 'invokeOnClose', 'focusInputElement'],
               },
               {
-                guard: and("isRangePicker", "isSelectingEndDate"),
-                actions: ["setSelectedDate", "setActiveIndexToStart"],
+                guard: and('isRangePicker', 'isSelectingEndDate'),
+                actions: ['setSelectedDate', 'setActiveIndexToStart'],
               },
               // ===
               {
-                guard: "isRangePicker",
-                actions: ["setSelectedDate", "setActiveIndexToEnd", "focusNextDay"],
+                guard: 'isRangePicker',
+                actions: ['setSelectedDate', 'setActiveIndexToEnd', 'focusNextDay'],
               },
               {
-                guard: "isMultiPicker",
-                actions: ["toggleSelectedDate"],
+                guard: 'isMultiPicker',
+                actions: ['toggleSelectedDate'],
               },
               // === Grouped transitions (based on `closeOnSelect` and `isOpenControlled`) ===
               {
-                guard: and("closeOnSelect", "isOpenControlled"),
-                actions: ["selectFocusedDate", "invokeOnClose"],
+                guard: and('closeOnSelect', 'isOpenControlled'),
+                actions: ['selectFocusedDate', 'invokeOnClose'],
               },
               {
-                guard: "closeOnSelect",
-                target: "focused",
-                actions: ["selectFocusedDate", "invokeOnClose", "focusInputElement"],
+                guard: 'closeOnSelect',
+                target: 'focused',
+                actions: ['selectFocusedDate', 'invokeOnClose', 'focusInputElement'],
               },
               {
-                actions: ["selectFocusedDate"],
+                actions: ['selectFocusedDate'],
               },
               // ===
             ],
-            "TABLE.ARROW_RIGHT": [
+            'TABLE.ARROW_RIGHT': [
               {
-                guard: "isMonthView",
-                actions: "focusNextMonth",
+                guard: 'isMonthView',
+                actions: 'focusNextMonth',
               },
               {
-                guard: "isYearView",
-                actions: "focusNextYear",
+                guard: 'isYearView',
+                actions: 'focusNextYear',
               },
               {
-                actions: ["focusNextDay", "setHoveredDate"],
-              },
-            ],
-            "TABLE.ARROW_LEFT": [
-              {
-                guard: "isMonthView",
-                actions: "focusPreviousMonth",
-              },
-              {
-                guard: "isYearView",
-                actions: "focusPreviousYear",
-              },
-              {
-                actions: ["focusPreviousDay"],
+                actions: ['focusNextDay', 'setHoveredDate'],
               },
             ],
-            "TABLE.ARROW_UP": [
+            'TABLE.ARROW_LEFT': [
               {
-                guard: "isMonthView",
-                actions: "focusPreviousMonthColumn",
+                guard: 'isMonthView',
+                actions: 'focusPreviousMonth',
               },
               {
-                guard: "isYearView",
-                actions: "focusPreviousYearColumn",
+                guard: 'isYearView',
+                actions: 'focusPreviousYear',
               },
               {
-                actions: ["focusPreviousWeek"],
-              },
-            ],
-            "TABLE.ARROW_DOWN": [
-              {
-                guard: "isMonthView",
-                actions: "focusNextMonthColumn",
-              },
-              {
-                guard: "isYearView",
-                actions: "focusNextYearColumn",
-              },
-              {
-                actions: ["focusNextWeek"],
+                actions: ['focusPreviousDay'],
               },
             ],
-            "TABLE.PAGE_UP": {
-              actions: ["focusPreviousSection"],
+            'TABLE.ARROW_UP': [
+              {
+                guard: 'isMonthView',
+                actions: 'focusPreviousMonthColumn',
+              },
+              {
+                guard: 'isYearView',
+                actions: 'focusPreviousYearColumn',
+              },
+              {
+                actions: ['focusPreviousWeek'],
+              },
+            ],
+            'TABLE.ARROW_DOWN': [
+              {
+                guard: 'isMonthView',
+                actions: 'focusNextMonthColumn',
+              },
+              {
+                guard: 'isYearView',
+                actions: 'focusNextYearColumn',
+              },
+              {
+                actions: ['focusNextWeek'],
+              },
+            ],
+            'TABLE.PAGE_UP': {
+              actions: ['focusPreviousSection'],
             },
-            "TABLE.PAGE_DOWN": {
-              actions: ["focusNextSection"],
+            'TABLE.PAGE_DOWN': {
+              actions: ['focusNextSection'],
             },
-            "TABLE.HOME": [
+            'TABLE.HOME': [
               {
-                guard: "isMonthView",
-                actions: ["focusFirstMonth"],
+                guard: 'isMonthView',
+                actions: ['focusFirstMonth'],
               },
               {
-                guard: "isYearView",
-                actions: ["focusFirstYear"],
+                guard: 'isYearView',
+                actions: ['focusFirstYear'],
               },
               {
-                actions: ["focusSectionStart"],
-              },
-            ],
-            "TABLE.END": [
-              {
-                guard: "isMonthView",
-                actions: ["focusLastMonth"],
-              },
-              {
-                guard: "isYearView",
-                actions: ["focusLastYear"],
-              },
-              {
-                actions: ["focusSectionEnd"],
+                actions: ['focusSectionStart'],
               },
             ],
-            "TRIGGER.CLICK": [
+            'TABLE.END': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnClose"],
+                guard: 'isMonthView',
+                actions: ['focusLastMonth'],
               },
               {
-                target: "focused",
-                actions: ["invokeOnClose"],
+                guard: 'isYearView',
+                actions: ['focusLastYear'],
+              },
+              {
+                actions: ['focusSectionEnd'],
               },
             ],
-            "VIEW.TOGGLE": {
-              actions: ["setNextView"],
+            'TRIGGER.CLICK': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'focused',
+                actions: ['invokeOnClose'],
+              },
+            ],
+            'VIEW.TOGGLE': {
+              actions: ['setNextView'],
             },
-            INTERACT_OUTSIDE: [
+            'INTERACT_OUTSIDE': [
               {
-                guard: "isOpenControlled",
-                actions: ["setActiveIndexToStart", "invokeOnClose"],
+                guard: 'isOpenControlled',
+                actions: ['setActiveIndexToStart', 'invokeOnClose'],
               },
               {
-                guard: "shouldRestoreFocus",
-                target: "focused",
-                actions: ["setActiveIndexToStart", "invokeOnClose", "focusTriggerElement"],
+                guard: 'shouldRestoreFocus',
+                target: 'focused',
+                actions: ['setActiveIndexToStart', 'invokeOnClose', 'focusTriggerElement'],
               },
               {
-                target: "idle",
-                actions: ["setActiveIndexToStart", "invokeOnClose"],
+                target: 'idle',
+                actions: ['setActiveIndexToStart', 'invokeOnClose'],
               },
             ],
-            CLOSE: [
+            'CLOSE': [
               {
-                guard: "isOpenControlled",
-                actions: ["setActiveIndexToStart", "invokeOnClose"],
+                guard: 'isOpenControlled',
+                actions: ['setActiveIndexToStart', 'invokeOnClose'],
               },
               {
-                target: "idle",
-                actions: ["setActiveIndexToStart", "invokeOnClose"],
+                target: 'idle',
+                actions: ['setActiveIndexToStart', 'invokeOnClose'],
               },
             ],
           },
@@ -561,19 +652,19 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isAboveMinView: (ctx) => isAboveMinView(ctx.view, ctx.minView),
-        isDayView: (ctx, evt) => (evt.view || ctx.view) === "day",
-        isMonthView: (ctx, evt) => (evt.view || ctx.view) === "month",
-        isYearView: (ctx, evt) => (evt.view || ctx.view) === "year",
-        isRangePicker: (ctx) => ctx.selectionMode === "range",
-        hasSelectedRange: (ctx) => ctx.value.length === 2,
-        isMultiPicker: (ctx) => ctx.selectionMode === "multiple",
-        shouldRestoreFocus: (ctx) => !!ctx.restoreFocus,
-        isSelectingEndDate: (ctx) => ctx.activeIndex === 1,
-        closeOnSelect: (ctx) => !!ctx.closeOnSelect,
-        isOpenControlled: (ctx) => !!ctx["open.controlled"],
-        isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === "INTERACT_OUTSIDE",
-        isInputValueEmpty: (_ctx, evt) => evt.value.trim() === "",
+        isAboveMinView: ctx => isAboveMinView(ctx.view, ctx.minView),
+        isDayView: (ctx, evt) => (evt.view || ctx.view) === 'day',
+        isMonthView: (ctx, evt) => (evt.view || ctx.view) === 'month',
+        isYearView: (ctx, evt) => (evt.view || ctx.view) === 'year',
+        isRangePicker: ctx => ctx.selectionMode === 'range',
+        hasSelectedRange: ctx => ctx.value.length === 2,
+        isMultiPicker: ctx => ctx.selectionMode === 'multiple',
+        shouldRestoreFocus: ctx => !!ctx.restoreFocus,
+        isSelectingEndDate: ctx => ctx.activeIndex === 1,
+        closeOnSelect: ctx => !!ctx.closeOnSelect,
+        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === 'INTERACT_OUTSIDE',
+        isInputValueEmpty: (_ctx, evt) => evt.value.trim() === '',
         shouldFixOnBlur: (_ctx, evt) => !!evt.fixOnBlur,
       },
 
@@ -593,7 +684,7 @@ export function machine(userContext: UserDefinedContext) {
 
         setupLiveRegion(ctx) {
           const doc = dom.getDoc(ctx)
-          ctx.announcer = createLiveRegion({ level: "assertive", document: doc })
+          ctx.announcer = createLiveRegion({ level: 'assertive', document: doc })
           return () => ctx.announcer?.destroy?.()
         },
 
@@ -606,11 +697,11 @@ export function machine(userContext: UserDefinedContext) {
               ctx.restoreFocus = !event.detail.focusable
             },
             onDismiss() {
-              send({ type: "INTERACT_OUTSIDE" })
+              send({ type: 'INTERACT_OUTSIDE' })
             },
             onEscapeKeyDown(event) {
               event.preventDefault()
-              send({ type: "TABLE.ESCAPE", src: "dismissable" })
+              send({ type: 'TABLE.ESCAPE', src: 'dismissable' })
             },
           })
         },
@@ -632,8 +723,8 @@ export function machine(userContext: UserDefinedContext) {
           ctx.restoreFocus = true
         },
         announceValueText(ctx) {
-          const announceText = ctx.value.map((date) => formatSelectedDate(date, null, ctx.locale, ctx.timeZone))
-          ctx.announcer?.announce(announceText.join(","), 3000)
+          const announceText = ctx.value.map(date => formatSelectedDate(date, null, ctx.locale, ctx.timeZone))
+          ctx.announcer?.announce(announceText.join(','), 3000)
         },
         announceVisibleRange(ctx) {
           const { formatted } = ctx.visibleRangeText
@@ -646,14 +737,15 @@ export function machine(userContext: UserDefinedContext) {
           restoreTextSelection({ doc: dom.getDoc(ctx), target: dom.getContentEl(ctx)! })
         },
         focusFirstSelectedDate(ctx) {
-          if (!ctx.value.length) return
+          if (!ctx.value.length)
+            return
           set.focusedValue(ctx, ctx.value[0])
         },
         syncInputElement(ctx) {
           raf(() => {
             const inputEls = dom.getInputEls(ctx)
             inputEls.forEach((inputEl, index) => {
-              dom.setValue(inputEl, ctx.valueAsString[index] || "")
+              dom.setValue(inputEl, ctx.valueAsString[index] || '')
             })
           })
         },
@@ -671,7 +763,8 @@ export function machine(userContext: UserDefinedContext) {
           set.focusedValue(ctx, ctx.focusedValue.subtract({ months: 1 }))
         },
         setDateValue(ctx, evt) {
-          if (!Array.isArray(evt.value)) return
+          if (!Array.isArray(evt.value))
+            return
           const value = evt.value.map((date: DateValue) => constrainValue(date, ctx.min, ctx.max))
           set.value(ctx, value)
         },
@@ -685,12 +778,13 @@ export function machine(userContext: UserDefinedContext) {
         },
         toggleSelectedDate(ctx, evt) {
           const currentValue = normalizeValue(ctx, evt.value ?? ctx.focusedValue)
-          const index = ctx.value.findIndex((date) => isDateEqual(date, currentValue))
+          const index = ctx.value.findIndex(date => isDateEqual(date, currentValue))
 
           if (index === -1) {
             const values = [...ctx.value, currentValue]
             set.value(ctx, sortDates(values))
-          } else {
+          }
+          else {
             const values = Array.from(ctx.value)
             values.splice(index, 1)
             set.value(ctx, sortDates(values))
@@ -764,7 +858,8 @@ export function machine(userContext: UserDefinedContext) {
             ctx.max,
           )
 
-          if (!nextSection) return
+          if (!nextSection)
+            return
           set.adjustedValue(ctx, nextSection)
         },
         focusPreviousSection(ctx, evt) {
@@ -778,7 +873,8 @@ export function machine(userContext: UserDefinedContext) {
             ctx.max,
           )
 
-          if (!previousSection) return
+          if (!previousSection)
+            return
           set.adjustedValue(ctx, previousSection)
         },
         focusNextYear(ctx) {
@@ -837,13 +933,15 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         focusActiveCellIfNeeded(ctx, evt) {
-          if (!evt.focus) return
+          if (!evt.focus)
+            return
           raf(() => {
             dom.getFocusedCell(ctx)?.focus({ preventScroll: true })
           })
         },
         setHoveredValueIfKeyboard(ctx, evt) {
-          if (!evt.type.startsWith("TABLE.ARROW") || ctx.selectionMode !== "range" || ctx.activeIndex === 0) return
+          if (!evt.type.startsWith('TABLE.ARROW') || ctx.selectionMode !== 'range' || ctx.activeIndex === 0)
+            return
           ctx.hoveredValue = ctx.focusedValue.copy()
         },
         focusTriggerElement(ctx) {
@@ -861,7 +959,7 @@ export function machine(userContext: UserDefinedContext) {
           raf(() => {
             const inputEls = dom.getInputEls(ctx)
 
-            const lastIndexWithValue = inputEls.findLastIndex((inputEl) => inputEl.value !== "")
+            const lastIndexWithValue = inputEls.findLastIndex(inputEl => inputEl.value !== '')
             const indexToFocus = Math.max(lastIndexWithValue, 0)
 
             const inputEl = inputEls[indexToFocus]
@@ -879,7 +977,8 @@ export function machine(userContext: UserDefinedContext) {
           dom.setValue(yearSelectEl, ctx.startValue.year.toString())
         },
         setInputValue(ctx, evt) {
-          if (ctx.activeIndex !== evt.index) return
+          if (ctx.activeIndex !== evt.index)
+            return
           ctx.inputValue = evt.value
         },
         syncInputValue(ctx, evt) {
@@ -890,15 +989,18 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         focusParsedDate(ctx, evt) {
-          if (evt.index == null) return
+          if (evt.index == null)
+            return
 
           const date = ctx.parse(evt.value, { locale: ctx.locale, timeZone: ctx.timeZone })
-          if (!date || !isValidDate(date)) return
+          if (!date || !isValidDate(date))
+            return
 
           set.focusedValue(ctx, date)
         },
         selectParsedDate(ctx, evt) {
-          if (evt.index == null) return
+          if (evt.index == null)
+            return
 
           let date = ctx.parse(evt.value, { locale: ctx.locale, timeZone: ctx.timeZone })
 
@@ -909,7 +1011,8 @@ export function machine(userContext: UserDefinedContext) {
             }
           }
 
-          if (!date) return
+          if (!date)
+            return
 
           const values = Array.from(ctx.value)
           values[evt.index] = date
@@ -924,8 +1027,9 @@ export function machine(userContext: UserDefinedContext) {
         },
         setStartValue(ctx) {
           const outside = isDateOutsideVisibleRange(ctx.focusedValue, ctx.startValue, ctx.endValue)
-          if (!outside) return
-          const startValue = alignDate(ctx.focusedValue, "start", { months: ctx.numOfMonths }, ctx.locale)
+          if (!outside)
+            return
+          const startValue = alignDate(ctx.focusedValue, 'start', { months: ctx.numOfMonths }, ctx.locale)
           ctx.startValue = startValue
         },
         invokeOnOpen(ctx) {
@@ -935,7 +1039,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.onOpenChange?.({ open: false })
         },
         toggleVisibility(ctx, evt, { send }) {
-          send({ type: ctx.open ? "CONTROLLED.OPEN" : "CONTROLLED.CLOSE", previousEvent: evt })
+          send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
         },
       },
       compareFns: {
@@ -946,87 +1050,4 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
-}
-
-const invoke = {
-  change(ctx: MachineContext) {
-    ctx.onValueChange?.({
-      value: Array.from(ctx.value),
-      valueAsString: Array.from(ctx.valueAsString),
-      view: ctx.view,
-    })
-  },
-  focusChange(ctx: MachineContext) {
-    ctx.onFocusChange?.({
-      focusedValue: ctx.focusedValue,
-      value: Array.from(ctx.value),
-      valueAsString: Array.from(ctx.valueAsString),
-      view: ctx.view,
-    })
-  },
-  viewChange(ctx: MachineContext) {
-    ctx.onViewChange?.({ view: ctx.view })
-  },
-}
-
-const isDateEqualFn = (a: DateValue[], b: DateValue[]) => {
-  if (a.length !== b.length) return false
-  return a.every((date, index) => isDateEqual(date, b[index]))
-}
-
-const normalizeValue = (ctx: MachineContext, value: number | DateValue) => {
-  let dateValue = typeof value === "number" ? ctx.focusedValue.set({ [ctx.view]: value }) : value
-  eachView((view) => {
-    // normalize month and day
-    if (isBelowMinView(view, ctx.minView)) {
-      dateValue = dateValue.set({ [view]: view === "day" ? 1 : 0 })
-    }
-  })
-  return dateValue
-}
-
-const set = {
-  value(ctx: MachineContext, value: DateValue[]) {
-    if (isDateEqualFn(ctx.value, value)) return
-    ctx.value = value
-    invoke.change(ctx)
-  },
-
-  focusedValue(ctx: MachineContext, mixedValue: DateValue | number | undefined) {
-    if (!mixedValue) return
-
-    const value = normalizeValue(ctx, mixedValue)
-    if (isDateEqual(ctx.focusedValue, value)) return
-
-    const adjustFn = getAdjustedDateFn(ctx.visibleDuration, ctx.locale, ctx.min, ctx.max)
-    const adjustedValue = adjustFn({
-      focusedDate: value,
-      startDate: ctx.startValue,
-    })
-
-    ctx.startValue = adjustedValue.startDate
-    ctx.focusedValue = adjustedValue.focusedDate
-
-    invoke.focusChange(ctx)
-  },
-
-  adjustedValue(ctx: MachineContext, value: AdjustDateReturn) {
-    ctx.startValue = value.startDate
-    if (isDateEqual(ctx.focusedValue, value.focusedDate)) return
-
-    ctx.focusedValue = value.focusedDate
-    invoke.focusChange(ctx)
-  },
-
-  view(ctx: MachineContext, value: DateView) {
-    if (isEqual(ctx.view, value)) return
-    ctx.view = value
-    invoke.viewChange(ctx)
-  },
-
-  inputValue(ctx: MachineContext, index: number) {
-    const value = ctx.valueAsString[index]
-    if (ctx.inputValue === value) return
-    ctx.inputValue = value
-  },
 }

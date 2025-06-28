@@ -1,15 +1,15 @@
-import type { HighlightChunk, HighlightWordProps } from "./types"
-import { normalizeSpan } from "./normalize-span"
+import type { HighlightChunk, HighlightWordProps } from './types'
+import { normalizeSpan } from './normalize-span'
 
 const escapeRegexp = (term: string): string => term.replace(/[|\\{}()[\]^$+*?.-]/g, (char: string) => `\\${char}`)
 
-function buildRegex (queryProp: string[], flags: string): RegExp {
-  const query = queryProp.filter(Boolean).map((text) => escapeRegexp(text))
-  return new RegExp(`(${query.join("|")})`, flags)
+function buildRegex(queryProp: string[], flags: string): RegExp {
+  const query = queryProp.filter(Boolean).map(text => escapeRegexp(text))
+  return new RegExp(`(${query.join('|')})`, flags)
 }
 
-function getRegexFlags (ignoreCase: boolean | undefined, matchAll = true): string {
-  return `${ignoreCase ? "i" : ""}${matchAll ? "g" : ""}`
+function getRegexFlags(ignoreCase: boolean | undefined, matchAll = true): string {
+  return `${ignoreCase ? 'i' : ''}${matchAll ? 'g' : ''}`
 }
 
 export function highlightMultiple(props: HighlightWordProps): HighlightChunk[] {

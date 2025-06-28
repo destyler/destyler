@@ -1,8 +1,8 @@
-import type { EventKeyMap, NormalizeProps, PropTypes } from "@destyler/types"
-import type { ItemProps, MachineApi, MachineContext, Send, State } from "./types"
-import { ariaAttr, dataAttr, getEventKey, getEventTarget, isFocusable } from "@destyler/dom"
-import { parts } from "./anatomy"
-import { dom } from "./dom"
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
+import type { ItemProps, MachineApi, MachineContext, Send, State } from './types'
+import { ariaAttr, dataAttr, getEventKey, getEventTarget, isFocusable } from '@destyler/dom'
+import { parts } from './anatomy'
+import { dom } from './dom'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const isPlaying = state.matches('autoplay')
@@ -57,12 +57,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getRootProps() {
       return normalize.element({
         ...parts.root.attrs,
-        "id": dom.getRootId(state.context),
-        "role": 'region',
+        'id': dom.getRootId(state.context),
+        'role': 'region',
         'aria-roledescription': 'carousel',
         'data-orientation': state.context.orientation,
-        "dir": state.context.dir,
-        "style": {
+        'dir': state.context.dir,
+        'style': {
           '--slides-per-page': slidesPerPage,
           '--slide-spacing': state.context.spacing,
           '--slide-item-size':
@@ -74,28 +74,28 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getItemGroupProps() {
       return normalize.element({
         ...parts.itemGroup.attrs,
-        "id": dom.getItemGroupId(state.context),
+        'id': dom.getItemGroupId(state.context),
         'data-orientation': state.context.orientation,
         'data-dragging': dataAttr(isDragging),
-        "dir": state.context.dir,
+        'dir': state.context.dir,
         'aria-live': isPlaying ? 'off' : 'polite',
         onMouseDown(event) {
-          if (!state.context.allowMouseDrag) 
-return
-          if (event.button !== 0) 
-return
-          if (event.defaultPrevented) 
-return
+          if (!state.context.allowMouseDrag)
+            return
+          if (event.button !== 0)
+            return
+          if (event.defaultPrevented)
+            return
 
           const target = getEventTarget<HTMLElement>(event)
-          if (isFocusable(target) && target !== event.currentTarget) 
-return
+          if (isFocusable(target) && target !== event.currentTarget)
+            return
 
           event.preventDefault()
           send({ type: 'DRAGGING.START' })
         },
 
-        "style": {
+        'style': {
           display: 'grid',
           gap: 'var(--slide-spacing)',
           scrollSnapType: [horizontal ? 'x' : 'y', state.context.snapType].join(' '),
@@ -114,16 +114,16 @@ return
       const isInView = state.context.slidesInView.includes(props.index)
       return normalize.element({
         ...parts.item.attrs,
-        "id": dom.getItemId(state.context, props.index),
-        "dir": state.context.dir,
-        "role": 'group',
+        'id': dom.getItemId(state.context, props.index),
+        'dir': state.context.dir,
+        'role': 'group',
         'data-index': props.index,
         'data-inview': dataAttr(isInView),
         'aria-roledescription': 'slide',
         'data-orientation': state.context.orientation,
         'aria-label': state.context.slideCount ? translations.item(props.index, state.context.slideCount) : undefined,
         'aria-hidden': ariaAttr(!isInView),
-        "style": {
+        'style': {
           scrollSnapAlign: getSnapAlign(state.context, props),
         },
       })
@@ -139,16 +139,16 @@ return
     getPrevTriggerProps() {
       return normalize.button({
         ...parts.prevTrigger.attrs,
-        "id": dom.getPrevTriggerId(state.context),
-        "type": 'button',
-        "disabled": !canScrollPrev,
-        "dir": state.context.dir,
+        'id': dom.getPrevTriggerId(state.context),
+        'type': 'button',
+        'disabled': !canScrollPrev,
+        'dir': state.context.dir,
         'aria-label': translations.prevTrigger,
         'data-orientation': state.context.orientation,
         'aria-controls': dom.getItemGroupId(state.context),
         onClick(event) {
-          if (event.defaultPrevented) 
-return
+          if (event.defaultPrevented)
+            return
           send({ type: 'PAGE.PREV', src: 'trigger' })
         },
       })
@@ -157,16 +157,16 @@ return
     getNextTriggerProps() {
       return normalize.button({
         ...parts.nextTrigger.attrs,
-        "dir": state.context.dir,
-        "id": dom.getNextTriggerId(state.context),
-        "type": 'button',
+        'dir': state.context.dir,
+        'id': dom.getNextTriggerId(state.context),
+        'type': 'button',
         'aria-label': translations.nextTrigger,
         'data-orientation': state.context.orientation,
         'aria-controls': dom.getItemGroupId(state.context),
-        "disabled": !canScrollNext,
+        'disabled': !canScrollNext,
         onClick(event) {
-          if (event.defaultPrevented) 
-return
+          if (event.defaultPrevented)
+            return
           send({ type: 'PAGE.NEXT', src: 'trigger' })
         },
       })
@@ -175,35 +175,35 @@ return
     getIndicatorGroupProps() {
       return normalize.element({
         ...parts.indicatorGroup.attrs,
-        "dir": state.context.dir,
-        "id": dom.getIndicatorGroupId(state.context),
+        'dir': state.context.dir,
+        'id': dom.getIndicatorGroupId(state.context),
         'data-orientation': state.context.orientation,
         onKeyDown(event) {
-          if (event.defaultPrevented) 
-return
+          if (event.defaultPrevented)
+            return
           const src = 'indicator'
           const keyMap: EventKeyMap = {
             ArrowDown(event) {
-              if (horizontal) 
-return
+              if (horizontal)
+                return
               send({ type: 'PAGE.NEXT', src })
               event.preventDefault()
             },
             ArrowUp(event) {
-              if (horizontal) 
-return
+              if (horizontal)
+                return
               send({ type: 'PAGE.PREV', src })
               event.preventDefault()
             },
             ArrowRight(event) {
-              if (!horizontal) 
-return
+              if (!horizontal)
+                return
               send({ type: 'PAGE.NEXT', src })
               event.preventDefault()
             },
             ArrowLeft(event) {
-              if (!horizontal) 
-return
+              if (!horizontal)
+                return
               send({ type: 'PAGE.PREV', src })
               event.preventDefault()
             },
@@ -231,19 +231,19 @@ return
     getIndicatorProps(props) {
       return normalize.button({
         ...parts.indicator.attrs,
-        "dir": state.context.dir,
-        "id": dom.getIndicatorId(state.context, props.index),
-        "type": 'button',
+        'dir': state.context.dir,
+        'id': dom.getIndicatorId(state.context, props.index),
+        'type': 'button',
         'data-orientation': state.context.orientation,
         'data-index': props.index,
         'data-readonly': dataAttr(props.readOnly),
         'data-current': dataAttr(props.index === state.context.page),
         'aria-label': translations.indicator(props.index),
         onClick(event) {
-          if (event.defaultPrevented) 
-return
-          if (props.readOnly) 
-return
+          if (event.defaultPrevented)
+            return
+          if (props.readOnly)
+            return
           send({ type: 'PAGE.SET', index: props.index, src: 'indicator' })
         },
       })
@@ -252,13 +252,13 @@ return
     getAutoplayTriggerProps() {
       return normalize.button({
         ...parts.autoplayTrigger.attrs,
-        "type": 'button',
+        'type': 'button',
         'data-orientation': state.context.orientation,
         'data-pressed': dataAttr(isPlaying),
         'aria-label': isPlaying ? translations.autoplayStop : translations.autoplayStart,
         onClick(event) {
-          if (event.defaultPrevented) 
-return
+          if (event.defaultPrevented)
+            return
           send({ type: isPlaying ? 'AUTOPLAY.PAUSE' : 'AUTOPLAY.START' })
         },
       })

@@ -283,7 +283,7 @@ describe('getMonthNames', () => {
     locales.forEach((locale) => {
       formats.forEach((format) => {
         const months = getMonthNames(locale, format)
-        months.forEach((month, index) => {
+        months.forEach((month) => {
           expect(month).toBeTruthy()
           expect(typeof month).toBe('string')
           expect(month.length).toBeGreaterThan(0)

@@ -1,20 +1,20 @@
-import { ariaHidden } from "@destyler/aria-hidden"
-import { createMachine } from "@destyler/xstate"
-import { trackDismissableElement } from "@destyler/dismissable"
-import { getInitialFocus, proxyTabFocus, raf } from "@destyler/dom"
-import { trapFocus } from "@destyler/focus-trap"
-import { getPlacement } from "@destyler/popper"
-import { preventBodyScroll } from "@destyler/remove-scroll"
-import { compact } from "@destyler/utils"
-import { dom } from "./dom"
-import type { MachineContext, MachineState, UserDefinedContext } from "./types"
+import type { MachineContext, MachineState, UserDefinedContext } from './types'
+import { ariaHidden } from '@destyler/aria-hidden'
+import { trackDismissableElement } from '@destyler/dismissable'
+import { getInitialFocus, proxyTabFocus, raf } from '@destyler/dom'
+import { trapFocus } from '@destyler/focus-trap'
+import { getPlacement } from '@destyler/popper'
+import { preventBodyScroll } from '@destyler/remove-scroll'
+import { compact } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
+import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: "popover",
-      initial: ctx.open ? "open" : "closed",
+      id: 'popover',
+      initial: ctx.open ? 'open' : 'closed',
       context: {
         closeOnInteractOutside: true,
         closeOnEscape: true,
@@ -22,7 +22,7 @@ export function machine(userContext: UserDefinedContext) {
         modal: false,
         portalled: true,
         positioning: {
-          placement: "bottom",
+          placement: 'bottom',
           ...ctx.positioning,
         },
         currentPlacement: undefined,
@@ -34,40 +34,40 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       computed: {
-        currentPortalled: (ctx) => !!ctx.modal || !!ctx.portalled,
+        currentPortalled: ctx => !!ctx.modal || !!ctx.portalled,
       },
 
       watch: {
-        open: ["toggleVisibility"],
+        open: ['toggleVisibility'],
       },
 
-      entry: ["checkRenderedElements"],
+      entry: ['checkRenderedElements'],
 
       states: {
         closed: {
           on: {
-            "CONTROLLED.OPEN": {
-              target: "open",
-              actions: ["setInitialFocus"],
+            'CONTROLLED.OPEN': {
+              target: 'open',
+              actions: ['setInitialFocus'],
             },
-            TOGGLE: [
+            'TOGGLE': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["invokeOnOpen", "setInitialFocus"],
+                target: 'open',
+                actions: ['invokeOnOpen', 'setInitialFocus'],
               },
             ],
-            OPEN: [
+            'OPEN': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnOpen"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
               },
               {
-                target: "open",
-                actions: ["invokeOnOpen", "setInitialFocus"],
+                target: 'open',
+                actions: ['invokeOnOpen', 'setInitialFocus'],
               },
             ],
           },
@@ -75,40 +75,40 @@ export function machine(userContext: UserDefinedContext) {
 
         open: {
           activities: [
-            "trapFocus",
-            "preventScroll",
-            "hideContentBelow",
-            "trackPositioning",
-            "trackDismissableElement",
-            "proxyTabFocus",
+            'trapFocus',
+            'preventScroll',
+            'hideContentBelow',
+            'trackPositioning',
+            'trackDismissableElement',
+            'proxyTabFocus',
           ],
           on: {
-            "CONTROLLED.CLOSE": {
-              target: "closed",
-              actions: ["setFinalFocus"],
+            'CONTROLLED.CLOSE': {
+              target: 'closed',
+              actions: ['setFinalFocus'],
             },
-            CLOSE: [
+            'CLOSE': [
               {
-                guard: "isOpenControlled",
-                actions: ["invokeOnClose"],
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
               },
               {
-                target: "closed",
-                actions: ["invokeOnClose", "setFinalFocus"],
-              },
-            ],
-            TOGGLE: [
-              {
-                guard: "isOpenControlled",
-                actions: ["invokeOnClose"],
-              },
-              {
-                target: "closed",
-                actions: ["invokeOnClose"],
+                target: 'closed',
+                actions: ['invokeOnClose', 'setFinalFocus'],
               },
             ],
-            "POSITIONING.SET": {
-              actions: "reposition",
+            'TOGGLE': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose'],
+              },
+            ],
+            'POSITIONING.SET': {
+              actions: 'reposition',
             },
           },
         },
@@ -116,7 +116,7 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isOpenControlled: (ctx) => !!ctx["open.controlled"],
+        isOpenControlled: ctx => !!ctx['open.controlled'],
       },
       activities: {
         trackPositioning(ctx) {
@@ -140,12 +140,14 @@ export function machine(userContext: UserDefinedContext) {
             defer: true,
             onEscapeKeyDown(event) {
               ctx.onEscapeKeyDown?.(event)
-              if (ctx.closeOnEscape) return
+              if (ctx.closeOnEscape)
+                return
               event.preventDefault()
             },
             onInteractOutside(event) {
               ctx.onInteractOutside?.(event)
-              if (event.defaultPrevented) return
+              if (event.defaultPrevented)
+                return
               restoreFocus = !(event.detail.focusable || event.detail.contextmenu)
               if (!ctx.closeOnInteractOutside) {
                 event.preventDefault()
@@ -155,12 +157,13 @@ export function machine(userContext: UserDefinedContext) {
             onFocusOutside: ctx.onFocusOutside,
             persistentElements: ctx.persistentElements,
             onDismiss() {
-              send({ type: "CLOSE", src: "interact-outside", restoreFocus })
+              send({ type: 'CLOSE', src: 'interact-outside', restoreFocus })
             },
           })
         },
         proxyTabFocus(ctx) {
-          if (ctx.modal || !ctx.portalled) return
+          if (ctx.modal || !ctx.portalled)
+            return
           const getContentEl = () => dom.getContentEl(ctx)
           return proxyTabFocus(getContentEl, {
             triggerElement: dom.getTriggerEl(ctx),
@@ -171,16 +174,19 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         hideContentBelow(ctx) {
-          if (!ctx.modal) return
+          if (!ctx.modal)
+            return
           const getElements = () => [dom.getContentEl(ctx), dom.getTriggerEl(ctx)]
           return ariaHidden(getElements, { defer: true })
         },
         preventScroll(ctx) {
-          if (!ctx.modal) return
+          if (!ctx.modal)
+            return
           return preventBodyScroll(dom.getDoc(ctx))
         },
         trapFocus(ctx) {
-          if (!ctx.modal) return
+          if (!ctx.modal)
+            return
           const contentEl = () => dom.getContentEl(ctx)
           return trapFocus(contentEl, {
             initialFocus: () =>
@@ -216,7 +222,8 @@ export function machine(userContext: UserDefinedContext) {
         },
         setInitialFocus(ctx) {
           // handoff to `trapFocus` activity for initial focus
-          if (ctx.modal) return
+          if (ctx.modal)
+            return
           raf(() => {
             const element = getInitialFocus({
               root: dom.getContentEl(ctx),
@@ -228,7 +235,8 @@ export function machine(userContext: UserDefinedContext) {
         },
         setFinalFocus(ctx, evt) {
           const restoreFocus = evt.restoreFocus ?? evt.previousEvent?.restoreFocus
-          if (restoreFocus != null && !restoreFocus) return
+          if (restoreFocus != null && !restoreFocus)
+            return
           raf(() => {
             const element = dom.getTriggerEl(ctx)
             element?.focus({ preventScroll: true })
@@ -241,7 +249,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.onOpenChange?.({ open: false })
         },
         toggleVisibility(ctx, evt, { send }) {
-          send({ type: ctx.open ? "CONTROLLED.OPEN" : "CONTROLLED.CLOSE", previousEvent: evt })
+          send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
         },
       },
     },

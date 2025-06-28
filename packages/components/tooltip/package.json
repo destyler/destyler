@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "@destyler/anatomy": "workspace:*",
-    "@destyler/xstate": "workspace:*",
-    "@destyler/popper": "workspace:*",
-    "@destyler/focus-visible": "workspace:*",
     "@destyler/dom": "workspace:*",
+    "@destyler/focus-visible": "workspace:*",
+    "@destyler/popper": "workspace:*",
+    "@destyler/types": "workspace:*",
     "@destyler/utils": "workspace:*",
-    "@destyler/types": "workspace:*"
+    "@destyler/xstate": "workspace:*"
   }
 }

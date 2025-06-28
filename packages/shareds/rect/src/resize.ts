@@ -1,7 +1,7 @@
-import type {CompassDirection} from './compass';
+import type { CompassDirection } from './compass'
 import type { Point, Rect, RectInit, ScalingOptions } from './types'
 import { AffineTransform } from './affine-transform'
-import {  compassDirectionMap, oppositeDirectionMap } from './compass'
+import { compassDirectionMap, oppositeDirectionMap } from './compass'
 
 const { sign, abs, min } = Math
 

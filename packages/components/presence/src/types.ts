@@ -1,5 +1,4 @@
-import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
-
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 interface PublicContext {
   /**
@@ -9,7 +8,7 @@ interface PublicContext {
   /**
    * Function called when the animation ends in the closed state
    */
-  onExitComplete?(): void
+  onExitComplete?: () => void
   /**
    * Whether to synchronize the present change immediately or defer it to the next frame
    */
@@ -30,7 +29,7 @@ export interface UserDefinedContext extends PublicContext {}
 export interface MachineContext extends PublicContext, PrivateContext {}
 
 export interface MachineState {
-  value: "mounted" | "unmountSuspended" | "unmounted"
+  value: 'mounted' | 'unmountSuspended' | 'unmounted'
 }
 
 export type State = XState<MachineContext, MachineState>
@@ -51,9 +50,9 @@ export interface MachineApi {
   /**
    * Function to set the node (as early as possible)
    */
-  setNode(node: HTMLElement | null): void
+  setNode: (node: HTMLElement | null) => void
   /**
    * Function to programmatically unmount the node
    */
-  unmount(): void
+  unmount: () => void
 }

@@ -1,23 +1,21 @@
-import { createMachine, ref } from "@destyler/xstate"
-import type { MachineContext, MachineState, UserDefinedContext } from "./types"
-
+import type { MachineContext, MachineState, UserDefinedContext } from './types'
+import { createMachine, ref } from '@destyler/xstate'
 
 function getAnimationName(styles?: CSSStyleDeclaration | null) {
-  return styles?.animationName || "none"
+  return styles?.animationName || 'none'
 }
 
 function parseMs(value: string | undefined) {
-  return parseFloat(value || "0") * 1000
+  return Number.parseFloat(value || '0') * 1000
 }
 
 // Extra frame margin to account for event loop slowdowns
 const ANIMATION_TIMEOUT_MARGIN = 16.667
 
-
 export function machine(ctx: Partial<UserDefinedContext>) {
   return createMachine<MachineContext, MachineState>(
     {
-      initial: ctx.present ? "mounted" : "unmounted",
+      initial: ctx.present ? 'mounted' : 'unmounted',
 
       context: {
         node: null,
@@ -29,55 +27,55 @@ export function machine(ctx: Partial<UserDefinedContext>) {
         ...ctx,
       },
 
-      exit: ["clearInitial", "cleanupNode"],
+      exit: ['clearInitial', 'cleanupNode'],
 
       watch: {
-        present: ["setInitial", "syncPresence"],
+        present: ['setInitial', 'syncPresence'],
       },
 
       on: {
-        "NODE.SET": {
-          actions: ["setNode", "setStyles"],
+        'NODE.SET': {
+          actions: ['setNode', 'setStyles'],
         },
       },
 
       states: {
         mounted: {
           on: {
-            UNMOUNT: {
-              target: "unmounted",
-              actions: ["invokeOnExitComplete"],
+            'UNMOUNT': {
+              target: 'unmounted',
+              actions: ['invokeOnExitComplete'],
             },
-            "UNMOUNT.SUSPEND": "unmountSuspended",
+            'UNMOUNT.SUSPEND': 'unmountSuspended',
           },
         },
         unmountSuspended: {
-          activities: ["trackAnimationEvents"],
+          activities: ['trackAnimationEvents'],
           after: {
             // Fallback to timeout to ensure we exit this state even if the `animationend` event
             // did not get trigger
             ANIMATION_DURATION: {
-              target: "unmounted",
-              actions: ["invokeOnExitComplete"],
+              target: 'unmounted',
+              actions: ['invokeOnExitComplete'],
             },
           },
           on: {
             MOUNT: {
-              target: "mounted",
-              actions: ["setPrevAnimationName"],
+              target: 'mounted',
+              actions: ['setPrevAnimationName'],
             },
             UNMOUNT: {
-              target: "unmounted",
-              actions: ["invokeOnExitComplete"],
+              target: 'unmounted',
+              actions: ['invokeOnExitComplete'],
             },
           },
         },
         unmounted: {
-          entry: ["clearPrevAnimationName"],
+          entry: ['clearPrevAnimationName'],
           on: {
             MOUNT: {
-              target: "mounted",
-              actions: ["setPrevAnimationName"],
+              target: 'mounted',
+              actions: ['setPrevAnimationName'],
             },
           },
         },
@@ -112,12 +110,12 @@ export function machine(ctx: Partial<UserDefinedContext>) {
         },
         syncPresence(ctx, _evt, { send }) {
           if (ctx.present) {
-            send({ type: "MOUNT", src: "presence.changed" })
+            send({ type: 'MOUNT', src: 'presence.changed' })
             return
           }
 
-          if (!ctx.present && ctx.node?.ownerDocument.visibilityState === "hidden") {
-            send({ type: "UNMOUNT", src: "visibilitychange" })
+          if (!ctx.present && ctx.node?.ownerDocument.visibilityState === 'hidden') {
+            send({ type: 'UNMOUNT', src: 'visibilitychange' })
             return
           }
 
@@ -127,14 +125,15 @@ export function machine(ctx: Partial<UserDefinedContext>) {
           exec(() => {
             ctx.unmountAnimationName = animationName
             if (
-              animationName === "none" ||
-              animationName === ctx.prevAnimationName ||
-              ctx.styles?.display === "none" ||
-              ctx.styles?.animationDuration === "0s"
+              animationName === 'none'
+              || animationName === ctx.prevAnimationName
+              || ctx.styles?.display === 'none'
+              || ctx.styles?.animationDuration === '0s'
             ) {
-              send({ type: "UNMOUNT", src: "presence.changed" })
-            } else {
-              send({ type: "UNMOUNT.SUSPEND" })
+              send({ type: 'UNMOUNT', src: 'presence.changed' })
+            }
+            else {
+              send({ type: 'UNMOUNT.SUSPEND' })
             }
           })
         },
@@ -151,7 +150,8 @@ export function machine(ctx: Partial<UserDefinedContext>) {
       activities: {
         trackAnimationEvents(ctx, _evt, { send }) {
           const node = ctx.node
-          if (!node) return
+          if (!node)
+            return
 
           const onStart = (event: AnimationEvent) => {
             const target = event.composedPath?.()?.[0] ?? event.target
@@ -164,18 +164,18 @@ export function machine(ctx: Partial<UserDefinedContext>) {
             const animationName = getAnimationName(ctx.styles)
             const target = event.composedPath?.()?.[0] ?? event.target
             if (target === node && animationName === ctx.unmountAnimationName) {
-              send({ type: "UNMOUNT", src: "animationend" })
+              send({ type: 'UNMOUNT', src: 'animationend' })
             }
           }
 
-          node.addEventListener("animationstart", onStart)
-          node.addEventListener("animationcancel", onEnd)
-          node.addEventListener("animationend", onEnd)
+          node.addEventListener('animationstart', onStart)
+          node.addEventListener('animationcancel', onEnd)
+          node.addEventListener('animationend', onEnd)
 
           return () => {
-            node.removeEventListener("animationstart", onStart)
-            node.removeEventListener("animationcancel", onEnd)
-            node.removeEventListener("animationend", onEnd)
+            node.removeEventListener('animationstart', onStart)
+            node.removeEventListener('animationcancel', onEnd)
+            node.removeEventListener('animationend', onEnd)
           }
         },
       },

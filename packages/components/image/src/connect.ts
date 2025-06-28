@@ -1,20 +1,20 @@
-import type { NormalizeProps, PropTypes } from "@destyler/types"
-import { parts } from "./anatomy"
-import { dom } from "./dom"
-import type { MachineApi, Send, State } from "./types"
+import type { NormalizeProps, PropTypes } from '@destyler/types'
+import type { MachineApi, Send, State } from './types'
+import { parts } from './anatomy'
+import { dom } from './dom'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
-  const loaded = state.matches("loaded")
+  const loaded = state.matches('loaded')
   return {
     loaded,
     setSrc(src) {
-      send({ type: "SRC.SET", src })
+      send({ type: 'SRC.SET', src })
     },
     setLoaded() {
-      send({ type: "IMG.LOADED", src: "api" })
+      send({ type: 'IMG.LOADED', src: 'api' })
     },
     setError() {
-      send({ type: "IMG.ERROR", src: "api" })
+      send({ type: 'IMG.ERROR', src: 'api' })
     },
 
     getRootProps() {
@@ -28,15 +28,15 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getImageProps() {
       return normalize.img({
         ...parts.image.attrs,
-        hidden: !loaded,
-        dir: state.context.dir,
-        id: dom.getImageId(state.context),
-        "data-state": loaded ? "visible" : "hidden",
+        'hidden': !loaded,
+        'dir': state.context.dir,
+        'id': dom.getImageId(state.context),
+        'data-state': loaded ? 'visible' : 'hidden',
         onLoad() {
-          send({ type: "IMG.LOADED", src: "element" })
+          send({ type: 'IMG.LOADED', src: 'element' })
         },
         onError() {
-          send({ type: "IMG.ERROR", src: "element" })
+          send({ type: 'IMG.ERROR', src: 'element' })
         },
       })
     },
@@ -44,10 +44,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getFallbackProps() {
       return normalize.element({
         ...parts.fallback.attrs,
-        dir: state.context.dir,
-        id: dom.getFallbackId(state.context),
-        hidden: loaded,
-        "data-state": loaded ? "hidden" : "visible",
+        'dir': state.context.dir,
+        'id': dom.getFallbackId(state.context),
+        'hidden': loaded,
+        'data-state': loaded ? 'hidden' : 'visible',
       })
     },
   }

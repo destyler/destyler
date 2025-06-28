@@ -1,6 +1,6 @@
-import { createScope, nextById, prevById, queryAll } from "@destyler/dom"
-import type { MachineContext as Ctx } from "./types"
-import { first, last } from "@destyler/utils"
+import type { MachineContext as Ctx } from './types'
+import { createScope, nextById, prevById, queryAll } from '@destyler/dom'
+import { first, last } from '@destyler/utils'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `toggle:${ctx.id}`,

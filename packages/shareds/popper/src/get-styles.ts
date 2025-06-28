@@ -1,6 +1,6 @@
 import type { Placement } from '@floating-ui/dom'
-import type { PositioningOptions } from "./types"
-import { cssVars } from "./middleware"
+import type { PositioningOptions } from './types'
+import { cssVars } from './middleware'
 
 export interface GetPlacementStylesOptions {
   placement?: Placement | undefined

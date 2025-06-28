@@ -1,64 +1,62 @@
-import { createMachine } from "@destyler/xstate"
-import { observeAttributes, observeChildren } from "@destyler/dom"
-import { compact } from "@destyler/utils"
-import { dom } from "./dom"
-import type { MachineContext, MachineState, UserDefinedContext } from "./types"
-
+import type { MachineContext, MachineState, UserDefinedContext } from './types'
+import { observeAttributes, observeChildren } from '@destyler/dom'
+import { compact } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
+import { dom } from './dom'
 
 function hasLoaded(image: HTMLImageElement) {
   return image.complete && image.naturalWidth !== 0 && image.naturalHeight !== 0
 }
 
-
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: "avatar",
-      initial: "loading",
-      activities: ["trackImageRemoval"],
+      id: 'avatar',
+      initial: 'loading',
+      activities: ['trackImageRemoval'],
 
       context: ctx,
 
       on: {
-        "SRC.CHANGE": {
-          target: "loading",
+        'SRC.CHANGE': {
+          target: 'loading',
         },
-        "IMG.UNMOUNT": {
-          target: "error",
+        'IMG.UNMOUNT': {
+          target: 'error',
         },
       },
 
       states: {
         loading: {
-          activities: ["trackSrcChange"],
-          entry: ["checkImageStatus"],
+          activities: ['trackSrcChange'],
+          entry: ['checkImageStatus'],
           on: {
-            "IMG.LOADED": {
-              target: "loaded",
-              actions: ["invokeOnLoad"],
+            'IMG.LOADED': {
+              target: 'loaded',
+              actions: ['invokeOnLoad'],
             },
-            "IMG.ERROR": {
-              target: "error",
-              actions: ["invokeOnError"],
+            'IMG.ERROR': {
+              target: 'error',
+              actions: ['invokeOnError'],
             },
           },
         },
         error: {
-          activities: ["trackSrcChange"],
+          activities: ['trackSrcChange'],
           on: {
-            "IMG.LOADED": {
-              target: "loaded",
-              actions: ["invokeOnLoad"],
+            'IMG.LOADED': {
+              target: 'loaded',
+              actions: ['invokeOnLoad'],
             },
           },
         },
         loaded: {
-          activities: ["trackSrcChange"],
+          activities: ['trackSrcChange'],
           on: {
-            "IMG.ERROR": {
-              target: "error",
-              actions: ["invokeOnError"],
+            'IMG.ERROR': {
+              target: 'error',
+              actions: ['invokeOnError'],
             },
           },
         },
@@ -69,9 +67,9 @@ export function machine(userContext: UserDefinedContext) {
         trackSrcChange(ctx, _evt, { send }) {
           const imageEl = dom.getImageEl(ctx)
           return observeAttributes(imageEl, {
-            attributes: ["src", "srcset"],
+            attributes: ['src', 'srcset'],
             callback() {
-              send({ type: "SRC.CHANGE" })
+              send({ type: 'SRC.CHANGE' })
             },
           })
         },
@@ -81,10 +79,10 @@ export function machine(userContext: UserDefinedContext) {
             callback(records) {
               const removedNodes = Array.from(records[0].removedNodes) as HTMLElement[]
               const removed = removedNodes.find(
-                (node) => node.nodeType === Node.ELEMENT_NODE && node.matches("[data-scope=avatar][data-part=image]"),
+                node => node.nodeType === Node.ELEMENT_NODE && node.matches('[data-scope=avatar][data-part=image]'),
               )
               if (removed) {
-                send({ type: "IMG.UNMOUNT" })
+                send({ type: 'IMG.UNMOUNT' })
               }
             },
           })
@@ -92,16 +90,16 @@ export function machine(userContext: UserDefinedContext) {
       },
       actions: {
         invokeOnLoad(ctx) {
-          ctx.onStatusChange?.({ status: "loaded" })
+          ctx.onStatusChange?.({ status: 'loaded' })
         },
         invokeOnError(ctx) {
-          ctx.onStatusChange?.({ status: "error" })
+          ctx.onStatusChange?.({ status: 'error' })
         },
         checkImageStatus(ctx, _evt, { send }) {
           const imageEl = dom.getImageEl(ctx)
           if (imageEl?.complete) {
-            const type = hasLoaded(imageEl) ? "IMG.LOADED" : "IMG.ERROR"
-            send({ type, src: "ssr" })
+            const type = hasLoaded(imageEl) ? 'IMG.LOADED' : 'IMG.ERROR'
+            send({ type, src: 'ssr' })
           }
         },
       },
