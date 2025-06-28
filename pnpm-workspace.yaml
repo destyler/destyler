@@ -55,6 +55,7 @@ catalogs:
     globals: ^15.14.0
   test:
     vitest: ^3.2.4
+    '@vitest/ui': ^3.2.4
     '@vitest/eslint-plugin': ^1.2.7
   css:
     unocss: ^65.4.3
