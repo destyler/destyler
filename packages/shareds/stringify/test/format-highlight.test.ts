@@ -1,4 +1,4 @@
-import { expect } from 'vitest'
+import { expect, it } from 'vitest'
 import formatHighlight from '../src/format-highlight'
 
 it('it works', () => {
