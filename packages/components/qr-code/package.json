@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "@destyler/anatomy": "workspace:*",
-    "@destyler/xstate": "workspace:*",
     "@destyler/dom": "workspace:*",
-    "@destyler/utils": "workspace:*",
+    "@destyler/xstate": "workspace:*",
     "@destyler/types": "workspace:*",
-    "proxy-memoize": "catalog:",
-    "uqr": "catalog:"
+    "@destyler/utils": "workspace:*",
+    "proxy-memoize": "catalog:core",
+    "uqr": "catalog:core"
   }
 }

@@ -29,6 +29,6 @@
   "dependencies": {
     "@destyler/dom": "workspace:*",
     "@destyler/utils": "workspace:*",
-    "@floating-ui/dom": "1.7.1"
+    "@floating-ui/dom": "catalog:core"
   }
 }

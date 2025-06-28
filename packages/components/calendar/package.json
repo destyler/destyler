@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@destyler/anatomy": "workspace:*",
-    "@destyler/xstate": "workspace:*",
     "@destyler/live-region": "workspace:*",
+    "@destyler/xstate": "workspace:*",
     "@destyler/dismissable": "workspace:*",
     "@destyler/types": "workspace:*",
     "@destyler/date": "workspace:*",
@@ -41,6 +41,6 @@
     "@destyler/utils": "workspace:*"
   },
   "devDependencies": {
-    "@internationalized/date": "catalog:"
+    "@internationalized/date": "catalog:core"
   }
 }

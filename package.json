@@ -32,18 +32,17 @@
     "release": "bumpp package.json packages/**/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "catalog:",
-    "@types/node": "catalog:",
-    "@vitest/eslint-plugin": "^1.2.7",
-    "bumpp": "^10.0.3",
-    "eslint": "catalog:",
-    "find-packages": "catalog:",
-    "plop": "catalog:",
-    "rimraf": "catalog:",
-    "taze": "catalog:",
-    "tsx": "catalog:",
-    "typescript": "catalog:",
-    "unbuild": "catalog:",
-    "vitest": "^3.2.4"
+    "@antfu/eslint-config": "catalog:type",
+    "@types/node": "catalog:type",
+    "@vitest/eslint-plugin": "catalog:test",
+    "bumpp": "catalog:build",
+    "eslint": "catalog:type",
+    "plop": "catalog:util",
+    "rimraf": "catalog:util",
+    "taze": "catalog:util",
+    "tsx": "catalog:util",
+    "typescript": "catalog:type",
+    "unbuild": "catalog:build",
+    "vitest": "catalog:test"
   }
 }

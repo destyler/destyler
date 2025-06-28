@@ -27,7 +27,7 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@destyler/xstate": "workspace:*",
-    "@destyler/types": "workspace:*"
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   }
 }

@@ -21,9 +21,9 @@
     "@destyler/vanilla": "workspace:*"
   },
   "devDependencies": {
-    "@unocss/reset": "catalog:examples",
-    "nanoid": "catalog:examples",
-    "unocss": "catalog:examples",
-    "vite": "catalog:"
+    "@unocss/reset": "catalog:css",
+    "nanoid": "catalog:util",
+    "unocss": "catalog:css",
+    "vite": "catalog:runtime"
   }
 }

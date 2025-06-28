@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "@destyler/utils": "workspace:*",
-    "solid-js": "catalog:"
+    "solid-js": "catalog:frameworks"
   }
 }

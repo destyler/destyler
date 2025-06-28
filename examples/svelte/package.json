@@ -57,16 +57,16 @@
     "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
     "@destyler/stringify": "workspace:*",
-    "@iconify-json/carbon": "^1.2.6",
-    "@internationalized/date": "catalog:",
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tsconfig/svelte": "^5.0.4",
-    "@unocss/reset": "catalog:examples",
-    "svelte": "catalog:",
-    "svelte-check": "^4.1.4",
-    "svelte-routing": "^2.13.0",
-    "typescript": "catalog:",
-    "unocss": "catalog:examples",
-    "vite": "catalog:"
+    "@iconify-json/carbon": "catalog:icon",
+    "@internationalized/date": "catalog:core",
+    "@sveltejs/vite-plugin-svelte": "catalog:plugin",
+    "@tsconfig/svelte": "catalog:frameworks",
+    "@unocss/reset": "catalog:css",
+    "svelte": "catalog:frameworks",
+    "svelte-check": "catalog:frameworks",
+    "svelte-routing": "catalog:frameworks",
+    "typescript": "catalog:type",
+    "unocss": "catalog:css",
+    "vite": "catalog:runtime"
   }
 }

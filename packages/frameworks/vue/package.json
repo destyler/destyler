@@ -30,12 +30,12 @@
     "vue": ">=3.0.0"
   },
   "dependencies": {
-    "@destyler/xstate": "workspace:*",
     "@destyler/store": "workspace:*",
-    "@destyler/types": "workspace:*"
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   },
   "devDependencies": {
     "@destyler/utils": "workspace:*",
-    "vue": "catalog:"
+    "vue": "catalog:frameworks"
   }
 }

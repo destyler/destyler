@@ -34,13 +34,13 @@
     "@destyler/store": "workspace:*",
     "@destyler/types": "workspace:*",
     "@destyler/xstate": "workspace:*",
-    "proxy-compare": "catalog:"
+    "proxy-compare": "catalog:core"
   },
   "devDependencies": {
     "@destyler/utils": "workspace:*",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@types/react": "catalog:frameworks",
+    "@types/react-dom": "catalog:frameworks",
+    "react": "catalog:frameworks",
+    "react-dom": "catalog:frameworks"
   }
 }

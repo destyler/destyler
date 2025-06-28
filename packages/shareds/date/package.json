@@ -30,6 +30,6 @@
     "@internationalized/date": ">=3.0.0"
   },
   "devDependencies": {
-    "@internationalized/date": "3.8.2"
+    "@internationalized/date": "catalog:core"
   }
 }

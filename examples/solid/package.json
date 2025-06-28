@@ -56,15 +56,15 @@
     "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
     "@destyler/stringify": "workspace:*",
-    "@iconify-json/carbon": "^1.2.6",
-    "@internationalized/date": "catalog:",
-    "@solidjs/router": "^0.15.3",
-    "@unocss/reset": "catalog:examples",
-    "solid-js": "catalog:",
-    "typescript": "catalog:",
-    "unocss": "catalog:examples",
-    "vite": "catalog:",
-    "vite-plugin-pages": "^0.32.4",
-    "vite-plugin-solid": "catalog:examples"
+    "@iconify-json/carbon": "catalog:icon",
+    "@internationalized/date": "catalog:core",
+    "@solidjs/router": "catalog:frameworks",
+    "@unocss/reset": "catalog:css",
+    "solid-js": "catalog:frameworks",
+    "typescript": "catalog:type",
+    "unocss": "catalog:css",
+    "vite": "catalog:runtime",
+    "vite-plugin-pages": "catalog:plugin",
+    "vite-plugin-solid": "catalog:plugin"
   }
 }

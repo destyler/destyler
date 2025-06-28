@@ -92,10 +92,10 @@ describe('formatDate', () => {
     expect(run('EEEEEE')).toMatchInlineSnapshot(`"Sa"`)
   })
 
-  it.skip('format timezone', () => {
-    expect(run('z')).toMatchInlineSnapshot(`"GMT"`)
-    expect(run('zz')).toMatchInlineSnapshot(`"GMT"`)
-    expect(run('zzz')).toMatchInlineSnapshot(`"GMT"`)
-    expect(run('zzzz')).toMatchInlineSnapshot(`"GMT"`)
+  it('format timezone', () => {
+    expect(run('z')).toMatchInlineSnapshot(`"GMT+8"`)
+    expect(run('zz')).toMatchInlineSnapshot(`"GMT+8"`)
+    expect(run('zzz')).toMatchInlineSnapshot(`"GMT+8"`)
+    expect(run('zzzz')).toMatchInlineSnapshot(`"GMT+08:00"`)
   })
 })
