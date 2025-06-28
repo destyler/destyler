@@ -55,7 +55,9 @@ jobs:
         run: pnpm run build
 
       - name: Test
-        run: pnpm run test:e2e:react
+        run: pnpm playwright test
+        env:
+          FRAMEWORK: react
   lint:
     runs-on: ubuntu-latest
     steps:
