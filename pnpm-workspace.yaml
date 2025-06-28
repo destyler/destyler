@@ -53,10 +53,14 @@ catalogs:
   runtime:
     vite: ^6.1.0
     globals: ^15.14.0
+    cross-env: ^7.0.3
   test:
     vitest: ^3.2.4
     '@vitest/ui': ^3.2.4
     '@vitest/eslint-plugin': ^1.2.7
+    playwright: ^1.53.1
+    '@playwright/test': ^1.53.1
+    '@axe-core/playwright': ^4.10.2
   css:
     unocss: ^65.4.3
     '@unocss/reset': ^65.4.3
