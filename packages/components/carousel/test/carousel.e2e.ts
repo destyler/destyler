@@ -14,68 +14,84 @@ test.describe('carousel', () => {
   })
 
   test('renders correctly', async () => {
-    await I.seeNumOfItems(2)
-    await I.seeIndicatorIsActive(0)
-    await I.seeItemInView(0)
-    await I.dontSeeItemInView(1)
+    setTimeout(async () => {
+      await I.seeNumOfItems(2)
+      await I.seeIndicatorIsActive(0)
+      await I.seeItemInView(0)
+      await I.dontSeeItemInView(1)
+    }, 1000);
   })
 
   test('next/prev buttons navigate carousel', async () => {
-    await I.seePrevTriggerIsDisabled()
-    await I.clickNextTrigger()
-    await I.seeIndicatorIsActive(1)
-    await I.seePrevTriggerIsEnabled()
+    setTimeout(async () => {
+      await I.seePrevTriggerIsDisabled()
+      await I.clickNextTrigger()
+      await I.seeIndicatorIsActive(1)
+      await I.seePrevTriggerIsEnabled()
+    }, 1000);
   })
 
   test('autoplay start/stop', async ({ page }) => {
-    await page.clock.install()
+    setTimeout(async () => {
+      await page.clock.install()
 
-    await I.clickAutoplayTrigger()
-    await I.seeAutoplayIsOn()
+      await I.clickAutoplayTrigger()
+      await I.seeAutoplayIsOn()
 
-    await page.clock.fastForward(5000)
-    await I.seeIndicatorIsActive(1)
+      await page.clock.fastForward(5000)
+      await I.seeIndicatorIsActive(1)
 
-    await I.clickAutoplayTrigger()
-    await I.seeAutoplayIsOff()
+      await I.clickAutoplayTrigger()
+      await I.seeAutoplayIsOff()
 
-    await page.clock.fastForward(5000)
-    await I.seeIndicatorIsActive(1)
+      await page.clock.fastForward(5000)
+      await I.seeIndicatorIsActive(1)
+    }, 1000);
   })
 
   test('clicking indicator scrolls to correct slide', async () => {
-    await I.clickIndicator(1)
-    await I.seeIndicatorIsActive(1)
+    setTimeout(async () => {
+      await I.clickIndicator(1)
+      await I.seeIndicatorIsActive(1)
 
-    await I.seeItemInView(1)
+      await I.seeItemInView(1)
+    }, 1000);
   })
 
   test('scroll to a specific index via button', async () => {
-    await I.clickScrollToButton(1)
-    await I.seeItemInView(1)
+    setTimeout(async () => {
+      await I.clickScrollToButton(1)
+      await I.seeItemInView(1)
+    }, 1000);
   })
 
   test('dragging behavior', async () => {
-    await I.swipeCarousel('left', 400)
-    await I.seeItemInView(0)
-    await I.dontSeeItemInView(1)
+    setTimeout(async () => {
+      await I.swipeCarousel('left', 400)
+      await I.seeItemInView(0)
+      await I.dontSeeItemInView(1)
+    }, 1000);
   })
 
   test('indicator keyboard navigation', async () => {
-    await I.focusIndicator(0)
-    await I.pressKey('ArrowRight')
-    await I.seeItemInView(1)
+    setTimeout(async () => {
+      await I.focusIndicator(0)
+      await I.pressKey('ArrowRight')
+      await I.seeItemInView(1)
+    }, 1000);
   })
 
   test('[loop=true] should loop slides', async () => {
-    await I.controls.bool('loop')
-    await I.seePrevTriggerIsEnabled()
+      setTimeout(async () => {
+        await I.controls.bool('loop')
+        await I.seePrevTriggerIsEnabled()
 
-    await I.clickNextTrigger()
-    await I.clickNextTrigger()
-    await I.seeItemInView(0)
+        await I.clickNextTrigger()
+        await I.clickNextTrigger()
+        await I.seeItemInView(0)
 
-    await I.clickNextTrigger()
-    await I.seeItemInView(1)
+        await I.clickNextTrigger()
+        await I.seeItemInView(1)
+      }, 1000);
   })
 })

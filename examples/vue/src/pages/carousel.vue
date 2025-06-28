@@ -18,6 +18,7 @@ const [state, send] = useMachine(
     slideCount: items.length,
     spacing: '20px',
     slidesPerPage: 1,
+    autoplay: false,
   }),
   {
     context: controls.context,
@@ -43,12 +44,15 @@ const api = computed(() =>
         <img :src="image" alt="">
       </div>
     </div>
-
+    <button @click="api.scrollToIndex(1)">
+      Scroll to 1
+    </button>
     <!-- control -->
     <div
       v-bind="api.getControlProps()"
       class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
     >
+      <button v-bind="api.getAutoplayTriggerProps()">{{ api.isPlaying ? 'Stop' : 'Play' }}</button>
       <button
         v-bind="api.getPrevTriggerProps()"
         class="w-4 h-4 text-light i-carbon:caret-left"

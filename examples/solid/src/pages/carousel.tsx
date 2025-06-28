@@ -20,6 +20,8 @@ const CarouselDemo: Component = () => {
       id: createUniqueId(),
       slideCount: items.length,
       spacing: '20px',
+      slidesPerPage: 1,
+      autoplay: false,
     }),
     {
       context: controls.context,
@@ -43,10 +45,12 @@ const CarouselDemo: Component = () => {
             </div>
           ))}
         </div>
+        <button onClick={() => api().scrollToIndex(1)}>Scroll to 1</button>
         <div
           {...api().getControlProps()}
           class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
         >
+          <button {...api().getAutoplayTriggerProps()}>{api().isPlaying ? 'Stop' : 'Play'}</button>
           <button
             {...api().getPrevTriggerProps()}
             class="w-4 h-4 text-light i-carbon:caret-left"

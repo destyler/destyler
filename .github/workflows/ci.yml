@@ -31,6 +31,31 @@ jobs:
 
       - name: Test
         run: pnpm run test
+  e2e-react:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.1.0
+
+      - name: Install
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm playwright install --with-deps
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Test
+        run: pnpm run test:e2e:react
   lint:
     runs-on: ubuntu-latest
     steps:

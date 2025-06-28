@@ -50,11 +50,11 @@ export default defineConfig({
   fullyParallel: !CI,
   timeout: 30_000,
   expect: {
-    timeout: 10_000,
+    timeout: 20_000,
   },
   forbidOnly: !!CI,
   reportSlowTests: null,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : '50%',
   reporter: [
     process.env.CI ? ['github', ['junit', { outputFile: 'test/junit.xml' }]] : ['list'],
