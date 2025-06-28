@@ -53,7 +53,9 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
+    "@destyler/stringify": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@types/react": "catalog:examples",
     "@types/react-dom": "catalog:examples",
@@ -61,8 +63,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@unocss/reset": "catalog:examples",
     "@vitejs/plugin-react": "^4.3.4",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/stringify-state": "catalog:",
     "globals": "^15.14.0",
     "react": "catalog:examples",
     "react-dom": "catalog:examples",

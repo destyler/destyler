@@ -24,12 +24,6 @@ catalogs:
     '@types/react-dom':
       specifier: ^19.0.3
       version: 19.0.3
-    '@zag-js/dom-query':
-      specifier: ^0.82.1
-      version: 0.82.1
-    '@zag-js/stringify-state':
-      specifier: ^0.82.1
-      version: 0.82.1
     eslint:
       specifier: ^9.20.1
       version: 9.20.1
@@ -310,9 +304,15 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components/tree
     devDependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../packages/shareds/dom
       '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
+      '@destyler/stringify':
+        specifier: workspace:*
+        version: link:../../packages/shareds/stringify
       '@iconify-json/carbon':
         specifier: ^1.2.6
         version: 1.2.6
@@ -334,12 +334,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.3.4(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/stringify-state':
-        specifier: 'catalog:'
-        version: 0.82.1
       globals:
         specifier: ^15.14.0
         version: 15.14.0
@@ -500,9 +494,15 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components/tree
     devDependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../packages/shareds/dom
       '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
+      '@destyler/stringify':
+        specifier: workspace:*
+        version: link:../../packages/shareds/stringify
       '@iconify-json/carbon':
         specifier: ^1.2.6
         version: 1.2.6
@@ -515,12 +515,6 @@ importers:
       '@unocss/reset':
         specifier: catalog:examples
         version: 65.4.3
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/stringify-state':
-        specifier: 'catalog:'
-        version: 0.82.1
       solid-js:
         specifier: 'catalog:'
         version: 1.9.4
@@ -669,9 +663,15 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components/tree
     devDependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../packages/shareds/dom
       '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
+      '@destyler/stringify':
+        specifier: workspace:*
+        version: link:../../packages/shareds/stringify
       '@iconify-json/carbon':
         specifier: ^1.2.6
         version: 1.2.6
@@ -687,12 +687,6 @@ importers:
       '@unocss/reset':
         specifier: catalog:examples
         version: 65.4.3
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/stringify-state':
-        specifier: 'catalog:'
-        version: 0.82.1
       svelte:
         specifier: 'catalog:'
         version: 5.20.1
@@ -893,9 +887,15 @@ importers:
         specifier: workspace:*
         version: link:../../packages/frameworks/vue
     devDependencies:
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../packages/shareds/dom
       '@destyler/shared-private':
         specifier: workspace:*
         version: link:../../shared
+      '@destyler/stringify':
+        specifier: workspace:*
+        version: link:../../packages/shareds/stringify
       '@iconify-json/carbon':
         specifier: ^1.2.6
         version: 1.2.6
@@ -911,12 +911,6 @@ importers:
       '@vue/tsconfig':
         specifier: catalog:examples
         version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
-      '@zag-js/dom-query':
-        specifier: 'catalog:'
-        version: 0.82.1
-      '@zag-js/stringify-state':
-        specifier: 'catalog:'
-        version: 0.82.1
       unocss:
         specifier: catalog:examples
         version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -3355,15 +3349,6 @@ packages:
       vue:
         optional: true
 
-  '@zag-js/dom-query@0.82.1':
-    resolution: {integrity: sha512-KFtbqDUykQur587hyrGi8LL8GfTS2mqBpIT0kL3E+S63Mq7U84i+hGf3VyNuInMB5ONpkNEk5JN4G9/HWQ6pAQ==}
-
-  '@zag-js/stringify-state@0.82.1':
-    resolution: {integrity: sha512-JGuAI5nYzasn8kQ4um2wzpWHRqULZ1wvhZT5Tl0zr7HxkSsk3ElMaek2PIJAJ7dff7r60kJjCv5WEO3L5cKzyQ==}
-
-  '@zag-js/types@0.82.1':
-    resolution: {integrity: sha512-Nr/CU/z/SZWDL92P2u9VDZL9JUxY8L1P7dGI0CmDKHlEHk1+vzqg3UnVkUKkZ5eVMNLtloHbrux5X9Gmkl39WQ==}
-
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -4528,9 +4513,6 @@ packages:
 
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
-
-  json-format-highlight@1.0.4:
-    resolution: {integrity: sha512-RqenIjKr1I99XfXPAml9G7YlEZg/GnsH7emWyWJh2yuGXqHW8spN7qx6/ME+MoIBb35/fxrMC9Jauj6nvGe4Mg==}
 
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
@@ -7580,18 +7562,6 @@ snapshots:
       typescript: 5.7.3
       vue: 3.5.13(typescript@5.7.3)
 
-  '@zag-js/dom-query@0.82.1':
-    dependencies:
-      '@zag-js/types': 0.82.1
-
-  '@zag-js/stringify-state@0.82.1':
-    dependencies:
-      json-format-highlight: 1.0.4
-
-  '@zag-js/types@0.82.1':
-    dependencies:
-      csstype: 3.1.3
-
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
       acorn: 8.14.0
@@ -8896,8 +8866,6 @@ snapshots:
   jsesc@3.1.0: {}
 
   json-buffer@3.0.1: {}
-
-  json-format-highlight@1.0.4: {}
 
   json-parse-even-better-errors@2.3.1: {}
 

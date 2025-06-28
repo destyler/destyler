@@ -23,7 +23,7 @@ const collection = tree.collection<Node>({
         id: "node_modules",
         name: "node_modules",
         children: [
-          { id: "node_modules/zag-js", name: "destyler" },
+          { id: "node_modules/destyler", name: "destyler" },
           { id: "node_modules/pandacss", name: "unocss" },
           {
             id: "node_modules/@types",

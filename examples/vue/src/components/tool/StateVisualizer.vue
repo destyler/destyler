@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { highlightState } from "@zag-js/stringify-state"
+import { highlightState } from "@destyler/stringify"
 import { isRef } from "vue"
 
 const props = defineProps<{

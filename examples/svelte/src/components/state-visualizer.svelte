@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { highlightState } from "@zag-js/stringify-state"
+  import { highlightState } from "@destyler/stringify"
 
   interface StateVisualizerProps {
     state: Record<string, any>

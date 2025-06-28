@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { dataAttr } from '@zag-js/dom-query'
+import { dataAttr } from '@destyler/dom'
 import { useState } from 'react'
 
 interface ToolbarProps {

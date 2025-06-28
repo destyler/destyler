@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { UseControlsReturn } from "../hooks/use-controls.svelte"
-  import { dataAttr } from "@zag-js/dom-query"
+  import { dataAttr } from "@destyler/dom"
   import Controls from "./controls.svelte"
   import type { Snippet } from "svelte"
 

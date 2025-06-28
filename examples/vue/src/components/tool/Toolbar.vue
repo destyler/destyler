@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dataAttr } from '@zag-js/dom-query'
+import { dataAttr } from '@destyler/dom'
 import { ref, useSlots } from 'vue'
 
 const props = defineProps<{

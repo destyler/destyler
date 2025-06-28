@@ -1,5 +1,5 @@
 import type { JSX } from 'solid-js'
-import { dataAttr } from '@zag-js/dom-query'
+import { dataAttr } from '@destyler/dom'
 import { createSignal } from 'solid-js'
 
 interface ToolbarProps {

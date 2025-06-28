@@ -53,13 +53,13 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
+    "@destyler/stringify": "workspace:*",
     "@iconify-json/carbon": "^1.2.6",
     "@internationalized/date": "catalog:",
     "@solidjs/router": "^0.15.3",
     "@unocss/reset": "catalog:examples",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/stringify-state": "catalog:",
     "solid-js": "catalog:",
     "typescript": "catalog:",
     "unocss": "catalog:examples",

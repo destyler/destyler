@@ -1,4 +1,4 @@
-import type { AnyEventObject, EventObject, Machine, State, StateSchema } from '@destyler/xstate'
+import type { AnyEventObject, EventObject, Machine, StateSchema, XState } from '@destyler/xstate'
 import type { Ref } from 'vue'
 import type { MachineOptions } from '../types'
 import { snapshot, subscribe } from '@destyler/store'
@@ -11,7 +11,7 @@ export function useSnapshot<
 >(
   service: Machine<TContext, TState, TEvent>,
   options?: MachineOptions<TContext, TState, TEvent>,
-): Ref<State<TContext, TState, TEvent>> {
+): Ref<XState<TContext, TState, TEvent>> {
   const { actions, context } = options ?? {}
 
   const state = shallowRef(service.state)
