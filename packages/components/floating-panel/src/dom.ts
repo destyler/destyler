@@ -1,8 +1,8 @@
-import type { Rect } from '@zag-js/rect-utils'
+import type { Rect } from '@destyler/rect'
 import type { MachineContext as Ctx } from './types'
-import { createScope, isHTMLElement } from '@zag-js/dom-query'
-import { createRect, getElementRect, getWindowRect } from '@zag-js/rect-utils'
-import { pick } from '@zag-js/utils'
+import { createScope, isHTMLElement } from '@destyler/dom'
+import { createRect, getElementRect, getWindowRect } from '@destyler/rect'
+import { pick } from '@destyler/utils'
 
 export const dom = createScope({
   getTriggerId: (ctx: Ctx) => ctx.ids?.trigger ?? `float-panel:${ctx.id}:trigger`,

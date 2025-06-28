@@ -1,16 +1,15 @@
-import type { EventKeyMap } from '@zag-js/dom-event'
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State } from './types'
 import {
-
+  ariaAttr,
+  dataAttr,
   getEventKey,
   getEventPoint,
   getEventStep,
   isLeftClick,
   isModifierKey,
-} from '@zag-js/dom-event'
-import { ariaAttr, dataAttr } from '@zag-js/dom-query'
-import { getPercentValue, getValuePercent } from '@zag-js/numeric-range'
+} from '@destyler/dom'
+import { getPercentValue, getValuePercent } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import { getRangeAtIndex } from './utils'

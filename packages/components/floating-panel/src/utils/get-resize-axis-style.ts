@@ -1,7 +1,7 @@
-import type { JSX } from '@zag-js/types'
+import type { CSSProperties } from '@destyler/types'
 import type { ResizeTriggerAxis } from '../types'
 
-export function getResizeAxisStyle(axis: ResizeTriggerAxis): JSX.CSSProperties {
+export function getResizeAxisStyle(axis: ResizeTriggerAxis): CSSProperties {
   switch (axis) {
     case 'n':
       return {

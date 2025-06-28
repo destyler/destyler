@@ -1,7 +1,7 @@
-import type { StateMachine } from '@zag-js/core'
-import type { InteractOutsideHandlers } from '@zag-js/interact-outside'
-import type { LiveRegion } from '@zag-js/live-region'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { InteractOutsideHandlers } from '@destyler/interact-outside'
+import type { LiveRegion } from '@destyler/live-region'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, XSend, XState } from '@destyler/xstate'
 
 export interface ValueChangeDetails {
   value: string[]
@@ -248,9 +248,9 @@ export interface MachineState {
   tags: 'focused' | 'editing'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
 export interface ItemProps {
   index: string | number

@@ -1,6 +1,6 @@
-import type { MachineContext as Ctx } from './types'
-import { createScope, nextById, prevById, queryAll } from '@zag-js/dom-query'
-import { first, last } from '@zag-js/utils'
+import { createScope, nextById, prevById, queryAll } from "@destyler/dom"
+import type { MachineContext as Ctx } from "./types"
+import { first, last } from "@destyler/utils"
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `toggle:${ctx.id}`,

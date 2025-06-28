@@ -1,5 +1,5 @@
-import type { MachineContext as Ctx } from './types'
-import { createScope, getFocusables } from '@zag-js/dom-query'
+import { createScope, getFocusables } from "@destyler/dom"
+import type { MachineContext as Ctx } from "./types"
 
 export const dom = createScope({
   getAnchorId: (ctx: Ctx) => ctx.ids?.anchor ?? `popover:${ctx.id}:anchor`,

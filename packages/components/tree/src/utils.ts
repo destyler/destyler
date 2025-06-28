@@ -1,4 +1,4 @@
-import type { TreeNode, TreeSkipFn } from '@zag-js/collection'
+import type { TreeNode, TreeSkipFn } from '@destyler/collection'
 import type { MachineContext } from './types'
 
 export function skipFn(ctx: MachineContext): TreeSkipFn<any> {

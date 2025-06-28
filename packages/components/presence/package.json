@@ -27,7 +27,7 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/types": "catalog:"
+    "@destyler/xstate": "workspace:*",
+    "@destyler/types": "workspace:*"
   }
 }

@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx, DataUrlOptions } from './types'
-import { createScope, getDataUrl, query } from '@zag-js/dom-query'
+import { createScope, getDataUrl, query } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `signature-${ctx.id}`,

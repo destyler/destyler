@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope } from '@zag-js/dom-query'
+import { createScope } from '@destyler/dom'
 
 export const dom = createScope({
   getPositionerId: (ctx: Ctx) => ctx.ids?.positioner ?? `tour-positioner-${ctx.id}`,

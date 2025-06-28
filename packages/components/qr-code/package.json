@@ -27,11 +27,11 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@zag-js/anatomy": "catalog:",
-    "@zag-js/core": "catalog:",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/types": "catalog:",
-    "@zag-js/utils": "catalog:",
+    "@destyler/anatomy": "workspace:*",
+    "@destyler/xstate": "workspace:*",
+    "@destyler/dom": "workspace:*",
+    "@destyler/utils": "workspace:*",
+    "@destyler/types": "workspace:*",
     "proxy-memoize": "catalog:",
     "uqr": "catalog:"
   }

@@ -1,6 +1,5 @@
 import type { MachineContext as Ctx, ItemProps } from './types'
-import { createScope, indexOfId, nextById, prevById, queryAll } from '@zag-js/dom-query'
-import { dispatchInputValueEvent } from '@zag-js/form-utils'
+import { createScope, dispatchInputValueEvent, indexOfId, nextById, prevById, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `dynamic:${ctx.id}`,

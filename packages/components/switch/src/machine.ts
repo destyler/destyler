@@ -1,9 +1,8 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { trackPress } from '@zag-js/dom-event'
-import { trackFocusVisible } from '@zag-js/focus-visible'
-import { dispatchInputCheckedEvent, trackFormControl } from '@zag-js/form-utils'
-import { compact, isEqual } from '@zag-js/utils'
+import { dispatchInputCheckedEvent, trackFormControl, trackPress } from '@destyler/dom'
+import { trackFocusVisible } from '@destyler/focus-visible'
+import { compact, isEqual } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not } = guards

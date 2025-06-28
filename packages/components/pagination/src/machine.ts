@@ -1,45 +1,45 @@
-import type { IntlTranslations, MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact, isEqual } from '@zag-js/utils'
+import { createMachine } from "@destyler/xstate"
+import { compact, isEqual } from "@destyler/utils"
+import type { IntlTranslations, MachineContext, MachineState, UserDefinedContext } from "./types"
+
+const defaultTranslations: IntlTranslations = {
+  rootLabel: "pagination",
+  prevTriggerLabel: "previous page",
+  nextTriggerLabel: "next page",
+  itemLabel({ page, totalPages }) {
+    const isLastPage = totalPages > 1 && page === totalPages
+    return `${isLastPage ? "last page, " : ""}page ${page}`
+  },
+}
+
 
 const clampPage = (page: number, totalPages: number) => Math.min(Math.max(page, 1), totalPages)
 
 const set = {
   pageSize: (ctx: MachineContext, value: number) => {
-    if (isEqual(ctx.pageSize, value))
-      return
+    if (isEqual(ctx.pageSize, value)) return
     ctx.pageSize = value
     ctx.onPageSizeChange?.({ pageSize: ctx.pageSize })
   },
   page: (ctx: MachineContext, value: number) => {
-    if (isEqual(ctx.page, value))
-      return
+    if (isEqual(ctx.page, value)) return
     ctx.page = clampPage(value, ctx.totalPages)
     ctx.onPageChange?.({ page: ctx.page, pageSize: ctx.pageSize })
   },
 }
 
-const defaultTranslations: IntlTranslations = {
-  rootLabel: 'pagination',
-  prevTriggerLabel: 'previous page',
-  nextTriggerLabel: 'next page',
-  itemLabel({ page, totalPages }) {
-    const isLastPage = totalPages > 1 && page === totalPages
-    return `${isLastPage ? 'last page, ' : ''}page ${page}`
-  },
-}
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'pagination',
-      initial: 'idle',
+      id: "pagination",
+      initial: "idle",
       context: {
         pageSize: 10,
         siblingCount: 1,
         page: 1,
-        type: 'button',
+        type: "button",
         translations: {
           ...defaultTranslations,
           ...ctx.translations,
@@ -48,51 +48,51 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       watch: {
-        pageSize: ['setPageIfNeeded'],
+        pageSize: ["setPageIfNeeded"],
       },
 
       computed: {
-        totalPages: ctx => Math.ceil(ctx.count / ctx.pageSize),
-        previousPage: ctx => (ctx.page === 1 ? null : ctx.page - 1),
-        nextPage: ctx => (ctx.page === ctx.totalPages ? null : ctx.page + 1),
+        totalPages: (ctx) => Math.ceil(ctx.count / ctx.pageSize),
+        previousPage: (ctx) => (ctx.page === 1 ? null : ctx.page - 1),
+        nextPage: (ctx) => (ctx.page === ctx.totalPages ? null : ctx.page + 1),
         pageRange: (ctx) => {
           const start = (ctx.page - 1) * ctx.pageSize
-          const end = start + ctx.pageSize
+          const end = Math.min(start + ctx.pageSize, ctx.count)
           return { start, end }
         },
-        isValidPage: ctx => ctx.page >= 1 && ctx.page <= ctx.totalPages,
+        isValidPage: (ctx) => ctx.page >= 1 && ctx.page <= ctx.totalPages,
       },
 
       on: {
         SET_COUNT: [
           {
-            guard: 'isValidCount',
-            actions: ['setCount', 'goToFirstPage'],
+            guard: "isValidCount",
+            actions: ["setCount", "goToFirstPage"],
           },
           {
-            actions: 'setCount',
+            actions: "setCount",
           },
         ],
         SET_PAGE: {
-          guard: 'isValidPage',
-          actions: 'setPage',
+          guard: "isValidPage",
+          actions: "setPage",
         },
         SET_PAGE_SIZE: {
-          actions: 'setPageSize',
+          actions: "setPageSize",
         },
         FIRST_PAGE: {
-          actions: 'goToFirstPage',
+          actions: "goToFirstPage",
         },
         LAST_PAGE: {
-          actions: 'goToLastPage',
+          actions: "goToLastPage",
         },
         PREVIOUS_PAGE: {
-          guard: 'canGoToPrevPage',
-          actions: 'goToPrevPage',
+          guard: "canGoToPrevPage",
+          actions: "goToPrevPage",
         },
         NEXT_PAGE: {
-          guard: 'canGoToNextPage',
-          actions: 'goToNextPage',
+          guard: "canGoToNextPage",
+          actions: "goToNextPage",
         },
       },
 
@@ -104,8 +104,8 @@ export function machine(userContext: UserDefinedContext) {
       guards: {
         isValidPage: (ctx, evt) => evt.page >= 1 && evt.page <= ctx.totalPages,
         isValidCount: (ctx, evt) => ctx.page > evt.count,
-        canGoToNextPage: ctx => ctx.page < ctx.totalPages,
-        canGoToPrevPage: ctx => ctx.page > 1,
+        canGoToNextPage: (ctx) => ctx.page < ctx.totalPages,
+        canGoToPrevPage: (ctx) => ctx.page > 1,
       },
       actions: {
         setCount(ctx, evt) {
@@ -130,8 +130,7 @@ export function machine(userContext: UserDefinedContext) {
           set.page(ctx, ctx.page + 1)
         },
         setPageIfNeeded(ctx, _evt) {
-          if (ctx.isValidPage)
-            return
+          if (ctx.isValidPage) return
           set.page(ctx, 1)
         },
       },

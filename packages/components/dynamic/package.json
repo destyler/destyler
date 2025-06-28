@@ -27,15 +27,13 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@zag-js/anatomy": "catalog:",
-    "@zag-js/auto-resize": "catalog:",
-    "@zag-js/core": "catalog:",
-    "@zag-js/dom-event": "catalog:",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/form-utils": "catalog:",
-    "@zag-js/interact-outside": "catalog:",
-    "@zag-js/live-region": "catalog:",
-    "@zag-js/types": "catalog:",
-    "@zag-js/utils": "catalog:"
+    "@destyler/anatomy": "workspace:*",
+    "@destyler/auto-resize": "workspace:*",
+    "@destyler/dom": "workspace:*",
+    "@destyler/interact-outside": "workspace:*",
+    "@destyler/live-region": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/utils": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   }
 }

@@ -1,5 +1,5 @@
-import type { StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { AnyEventObject, XSend, XState } from '@destyler/xstate'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
 
 export interface ElementIds {
   root?: string
@@ -21,9 +21,9 @@ export interface MachineState {
   value: 'idle' | 'hovered'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   isHovered: boolean

@@ -1,4 +1,4 @@
-import type { Machine, StateMachine } from '@zag-js/core'
+import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
 import type {
   CommonProperties,
   DirectionProperty,
@@ -6,9 +6,9 @@ import type {
   OrientationProperty,
   PropTypes,
   RequiredBy,
-} from '@zag-js/types'
+} from "@destyler/types"
 
-export type ProgressState = 'indeterminate' | 'loading' | 'complete'
+export type ProgressState = "indeterminate" | "loading" | "complete"
 
 export interface ValueTranslationDetails {
   value: number | null
@@ -17,8 +17,12 @@ export interface ValueTranslationDetails {
   percent: number
 }
 
+export interface ValueChangeDetails {
+  value: number | null
+}
+
 export interface IntlTranslations {
-  value: (details: ValueTranslationDetails) => string
+  value(details: ValueTranslationDetails): string
 }
 
 export type ElementIds = Partial<{
@@ -52,6 +56,10 @@ interface PublicContext extends DirectionProperty, CommonProperties, Orientation
    * The localized messages to use.
    */
   translations: IntlTranslations
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
 }
 
 interface PrivateContext {}
@@ -84,19 +92,19 @@ type ComputedContext = Readonly<{
   isRtl: boolean
 }>
 
-export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
+export type UserDefinedContext = RequiredBy<PublicContext, "id">
 
 export type MachineContext = PublicContext & PrivateContext & ComputedContext
 
-export interface MachineState {
-  value: 'idle'
+export type MachineState = {
+  value: "idle"
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ViewProps {
   state: ProgressState
@@ -114,15 +122,15 @@ export interface MachineApi<T extends PropTypes> {
   /**
    * Sets the current value of the progress bar.
    */
-  setValue: (value: number | null) => void
+  setValue(value: number | null): void
   /**
    * Sets the current value of the progress bar to the max value.
    */
-  setToMax: () => void
+  setToMax(): void
   /**
    * Sets the current value of the progress bar to the min value.
    */
-  setToMin: () => void
+  setToMin(): void
   /**
    * The percentage of the progress bar's value.
    */
@@ -144,15 +152,15 @@ export interface MachineApi<T extends PropTypes> {
    */
   indeterminate: boolean
 
-  getRootProps: () => T['element']
-  getLabelProps: () => T['element']
-  getTrackProps: () => T['element']
-  getValueTextProps: () => T['element']
-  getRangeProps: () => T['element']
-  getViewProps: (props: ViewProps) => T['element']
-  getCircleProps: () => T['svg']
-  getCircleTrackProps: () => T['circle']
-  getCircleRangeProps: () => T['circle']
+  getRootProps(): T["element"]
+  getLabelProps(): T["element"]
+  getTrackProps(): T["element"]
+  getValueTextProps(): T["element"]
+  getRangeProps(): T["element"]
+  getViewProps(props: ViewProps): T["element"]
+  getCircleProps(): T["svg"]
+  getCircleTrackProps(): T["circle"]
+  getCircleRangeProps(): T["circle"]
 }
 
 export type { Orientation }

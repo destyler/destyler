@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, Options } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { queryAll, raf } from '@zag-js/dom-query'
-import { compact, warn } from '@zag-js/utils'
+import { queryAll, raf } from '@destyler/dom'
+import { compact } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { getToastDuration } from './utils'
 
@@ -122,10 +122,9 @@ export function createToastMachine<T>(options: Options<T>) {
 
             const ghosts = queryAll(rootEl, '[data-ghost]')
 
-            warn(
-              ghosts.length !== 2,
-              '[toast] No ghost element found in toast. Render the `ghostBefore` and `ghostAfter` elements',
-            )
+            if (ghosts.length !== 2) {
+              throw new Error('[toast] No ghost element found in toast. Render the `ghostBefore` and `ghostAfter` elements')
+            }
 
             const syncHeight = () => {
               const originalHeight = rootEl.style.height

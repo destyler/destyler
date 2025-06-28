@@ -1,4 +1,4 @@
-import type { UserDefinedContext } from './types'
-import { createProps } from '@zag-js/types'
+import { createProps } from "@destyler/types"
+import type { UserDefinedContext } from "./types"
 
-export const props = createProps<UserDefinedContext>()(['onExitComplete', 'present', 'immediate'])
+export const props = createProps<UserDefinedContext>()(["onExitComplete", "present", "immediate"])

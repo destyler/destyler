@@ -1,17 +1,15 @@
-import type { EventKeyMap } from '@zag-js/dom-event'
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
-import type { ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { getEventKey } from '@zag-js/dom-event'
-import { dataAttr, isSafari, isSelfTarget } from '@zag-js/dom-query'
-import { parts } from './anatomy'
-import { dom } from './dom'
+import { dataAttr, getEventKey, isSafari, isSelfTarget } from "@destyler/dom"
+import type { EventKeyMap, NormalizeProps, PropTypes } from "@destyler/types"
+import { parts } from "./anatomy"
+import { dom } from "./dom"
+import type { ItemProps, ItemState, MachineApi, Send, State } from "./types"
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const value = state.context.value
   const disabled = state.context.disabled
   const isSingle = !state.context.multiple
   const rovingFocus = state.context.rovingFocus
-  const isHorizontal = state.context.orientation === 'horizontal'
+  const isHorizontal = state.context.orientation === "horizontal"
 
   function getItemState(props: ItemProps): ItemState {
     const id = dom.getItemId(state.context, props.value)
@@ -26,37 +24,33 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   return {
     value,
     setValue(value) {
-      send({ type: 'VALUE.SET', value })
+      send({ type: "VALUE.SET", value })
     },
 
     getRootProps() {
       return normalize.element({
         ...parts.root.attrs,
-        'id': dom.getRootId(state.context),
-        'dir': state.context.dir,
-        'role': isSingle ? 'radiogroup' : 'group',
-        'tabIndex': state.context.isTabbingBackward ? -1 : 0,
-        'data-disabled': dataAttr(disabled),
-        'data-orientation': state.context.orientation,
-        'data-focus': dataAttr(state.context.focusedId != null),
-        'style': { outline: 'none' },
+        id: dom.getRootId(state.context),
+        dir: state.context.dir,
+        role: isSingle ? "radiogroup" : "group",
+        tabIndex: state.context.isTabbingBackward ? -1 : 0,
+        "data-disabled": dataAttr(disabled),
+        "data-orientation": state.context.orientation,
+        "data-focus": dataAttr(state.context.focusedId != null),
+        style: { outline: "none" },
         onMouseDown() {
-          if (disabled)
-            return
-          send('ROOT.MOUSE_DOWN')
+          if (disabled) return
+          send("ROOT.MOUSE_DOWN")
         },
         onFocus(event) {
-          if (disabled)
-            return
+          if (disabled) return
           const evt = event.nativeEvent || event
-          if (!isSelfTarget(evt) || !!state.context.isClickFocus || state.context.isTabbingBackward)
-            return
-          send('ROOT.FOCUS')
+          if (!isSelfTarget(evt) || !!state.context.isClickFocus || state.context.isTabbingBackward) return
+          send("ROOT.FOCUS")
         },
         onBlur() {
-          if (disabled)
-            return
-          send('ROOT.BLUR')
+          if (disabled) return
+          send("ROOT.BLUR")
         },
       })
     },
@@ -69,76 +63,65 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
       return normalize.button({
         ...parts.item.attrs,
-        'id': itemState.id,
-        'type': 'button',
-        'data-ownedby': dom.getRootId(state.context),
-        'data-focus': dataAttr(itemState.focused),
-        'disabled': itemState.disabled,
-        'tabIndex': rovingFocus ? rovingTabIndex : undefined,
+        id: itemState.id,
+        type: "button",
+        "data-ownedby": dom.getRootId(state.context),
+        "data-focus": dataAttr(itemState.focused),
+        disabled: itemState.disabled,
+        tabIndex: rovingFocus ? rovingTabIndex : undefined,
         // radio
-        'role': isSingle ? 'radio' : undefined,
-        'aria-checked': isSingle ? itemState.pressed : undefined,
-        'aria-pressed': isSingle ? undefined : itemState.pressed,
+        role: isSingle ? "radio" : undefined,
+        "aria-checked": isSingle ? itemState.pressed : undefined,
+        "aria-pressed": isSingle ? undefined : itemState.pressed,
         //
-        'data-disabled': dataAttr(itemState.disabled),
-        'data-orientation': state.context.orientation,
-        'dir': state.context.dir,
-        'data-state': itemState.pressed ? 'on' : 'off',
+        "data-disabled": dataAttr(itemState.disabled),
+        "data-orientation": state.context.orientation,
+        dir: state.context.dir,
+        "data-state": itemState.pressed ? "on" : "off",
         onFocus() {
-          if (itemState.disabled)
-            return
-          send({ type: 'TOGGLE.FOCUS', id: itemState.id })
+          if (itemState.disabled) return
+          send({ type: "TOGGLE.FOCUS", id: itemState.id })
         },
         onClick(event) {
-          if (itemState.disabled)
-            return
-          send({ type: 'TOGGLE.CLICK', id: itemState.id, value: props.value })
+          if (itemState.disabled) return
+          send({ type: "TOGGLE.CLICK", id: itemState.id, value: props.value })
           if (isSafari()) {
             event.currentTarget.focus({ preventScroll: true })
           }
         },
         onKeyDown(event) {
-          if (event.defaultPrevented)
-            return
-          if (!isSelfTarget(event))
-            return
-          if (itemState.disabled)
-            return
+          if (event.defaultPrevented) return
+          if (!isSelfTarget(event)) return
+          if (itemState.disabled) return
 
           const keyMap: EventKeyMap = {
             Tab(event) {
               const isShiftTab = event.shiftKey
-              send({ type: 'TOGGLE.SHIFT_TAB', isShiftTab })
+              send({ type: "TOGGLE.SHIFT_TAB", isShiftTab })
             },
             ArrowLeft() {
-              if (!rovingFocus || !isHorizontal)
-                return
-              send('TOGGLE.FOCUS_PREV')
+              if (!rovingFocus || !isHorizontal) return
+              send("TOGGLE.FOCUS_PREV")
             },
             ArrowRight() {
-              if (!rovingFocus || !isHorizontal)
-                return
-              send('TOGGLE.FOCUS_NEXT')
+              if (!rovingFocus || !isHorizontal) return
+              send("TOGGLE.FOCUS_NEXT")
             },
             ArrowUp() {
-              if (!rovingFocus || isHorizontal)
-                return
-              send('TOGGLE.FOCUS_PREV')
+              if (!rovingFocus || isHorizontal) return
+              send("TOGGLE.FOCUS_PREV")
             },
             ArrowDown() {
-              if (!rovingFocus || isHorizontal)
-                return
-              send('TOGGLE.FOCUS_NEXT')
+              if (!rovingFocus || isHorizontal) return
+              send("TOGGLE.FOCUS_NEXT")
             },
             Home() {
-              if (!rovingFocus)
-                return
-              send('TOGGLE.FOCUS_FIRST')
+              if (!rovingFocus) return
+              send("TOGGLE.FOCUS_FIRST")
             },
             End() {
-              if (!rovingFocus)
-                return
-              send('TOGGLE.FOCUS_LAST')
+              if (!rovingFocus) return
+              send("TOGGLE.FOCUS_LAST")
             },
           }
 
@@ -146,8 +129,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
           if (exec) {
             exec(event)
-            if (event.key !== 'Tab')
-              event.preventDefault()
+            if (event.key !== "Tab") event.preventDefault()
           }
         },
       })

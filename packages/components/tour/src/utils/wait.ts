@@ -1,4 +1,4 @@
-import { getDocument, getWindow } from '@zag-js/dom-query'
+import { getDocument, getWindow } from '@destyler/dom'
 
 export interface WaitOptions {
   timeout: number

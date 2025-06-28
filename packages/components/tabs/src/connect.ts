@@ -1,8 +1,6 @@
-import type { EventKeyMap } from '@zag-js/dom-event'
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State, TriggerProps, TriggerState } from './types'
-import { getEventKey } from '@zag-js/dom-event'
-import { dataAttr, isComposingEvent, isSafari, isSelfTarget } from '@zag-js/dom-query'
+import { dataAttr, getEventKey, isComposingEvent, isSafari, isSelfTarget } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 

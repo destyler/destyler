@@ -1,31 +1,16 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { raf } from '@zag-js/dom-query'
-import { add, compact, isEqual, remove } from '@zag-js/utils'
+import { raf } from '@destyler/dom'
+import { add, compact, isEqual, remove } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and } = guards
-
-const invoke = {
-  change(ctx: MachineContext) {
-    ctx.onValueChange?.({ value: Array.from(ctx.value) })
-  },
-}
-
-const set = {
-  value(ctx: MachineContext, value: string[]) {
-    if (isEqual(ctx.value, value))
-      return
-    ctx.value = value
-    invoke.change(ctx)
-  },
-}
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'toggle',
+      id: 'toggle-group',
       initial: 'idle',
 
       context: {
@@ -170,4 +155,19 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
+}
+
+const invoke = {
+  change(ctx: MachineContext) {
+    ctx.onValueChange?.({ value: Array.from(ctx.value) })
+  },
+}
+
+const set = {
+  value(ctx: MachineContext, value: string[]) {
+    if (isEqual(ctx.value, value))
+      return
+    ctx.value = value
+    invoke.change(ctx)
+  },
 }

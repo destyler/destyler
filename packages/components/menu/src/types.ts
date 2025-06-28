@@ -1,9 +1,9 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { DismissableElementHandlers } from '@zag-js/dismissable'
-import type { TypeaheadState } from '@zag-js/dom-query'
-import type { Placement, PositioningOptions } from '@zag-js/popper'
-import type { Point } from '@zag-js/rect-utils'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
+import type { DismissableElementHandlers } from "@destyler/dismissable"
+import type { TypeaheadState } from "@destyler/dom"
+import type { Placement, PositioningOptions } from "@destyler/popper"
+import type { Point } from "@destyler/rect"
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@destyler/types"
 
 export interface OpenChangeDetails {
   /**
@@ -26,12 +26,17 @@ export interface HighlightChangeDetails {
   highlightedValue: string | null
 }
 
+export interface NavigateDetails {
+  value: string | null
+  node: HTMLAnchorElement
+}
+
 type ElementIds = Partial<{
   trigger: string
   contextTrigger: string
   content: string
-  groupLabel: (id: string) => string
-  group: (id: string) => string
+  groupLabel(id: string): string
+  group(id: string): string
   positioner: string
   arrow: string
 }>
@@ -40,66 +45,70 @@ interface PublicContext extends DirectionProperty, CommonProperties, Dismissable
   /**
    * The ids of the elements in the menu. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The value of the highlighted menu item.
    */
-  'highlightedValue': string | null
+  highlightedValue: string | null
   /**
    * Function called when the highlighted menu item changes.
    */
-  'onHighlightChange'?: ((details: HighlightChangeDetails) => void) | undefined
+  onHighlightChange?: ((details: HighlightChangeDetails) => void) | undefined
   /**
    * Function called when a menu item is selected.
    */
-  'onSelect'?: ((details: SelectionDetails) => void) | undefined
+  onSelect?: ((details: SelectionDetails) => void) | undefined
   /**
    * The positioning point for the menu. Can be set by the context menu trigger or the button trigger.
    */
-  'anchorPoint': Point | null
+  anchorPoint: Point | null
   /**
    * Whether to loop the keyboard navigation.
    * @default false
    */
-  'loopFocus': boolean
+  loopFocus: boolean
   /**
    * The options used to dynamically position the menu
    */
-  'positioning': PositioningOptions
+  positioning: PositioningOptions
   /**
    * Whether to close the menu when an option is selected
    * @default true
    */
-  'closeOnSelect': boolean
+  closeOnSelect: boolean
   /**
    * The accessibility label for the menu
    */
-  'aria-label'?: string | undefined
+  "aria-label"?: string | undefined
   /**
    * Whether the menu is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * Function called when the menu opens or closes
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    *  Whether the menu's open state is controlled by the user
    */
-  'open.controlled'?: boolean | undefined
+  "open.controlled"?: boolean | undefined
   /**
    * Whether the pressing printable characters should trigger typeahead navigation
    * @default true
    */
-  'typeahead': boolean
+  typeahead: boolean
   /**
    * Whether the menu is a composed with other composite widgets like a combobox or tabs
    * @default true
    */
-  'composite': boolean
+  composite: boolean
+  /**
+   * Function to navigate to the selected item if it's an anchor element
+   */
+  navigate: (details: NavigateDetails) => void
 }
 
-export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
+export type UserDefinedContext = RequiredBy<PublicContext, "id">
 
 type ComputedContext = Readonly<{
   /**
@@ -161,19 +170,19 @@ interface PrivateContext {
 export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
 
 export interface MachineState {
-  value: 'idle' | 'open' | 'closed' | 'opening' | 'closing' | 'opening:contextmenu'
-  tags: 'open' | 'closed'
+  value: "idle" | "open" | "closed" | "opening" | "closing" | "opening:contextmenu"
+  tags: "open" | "closed"
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface Api {
   getItemProps: (opts: ItemProps) => Record<string, any>
-  getTriggerProps: () => Record<string, any>
+  getTriggerProps(): Record<string, any>
 }
 
 export interface ItemProps {
@@ -204,7 +213,7 @@ export interface OptionItemProps extends Partial<ItemProps> {
   /**
    * Whether the option is a radio or a checkbox
    */
-  type: 'radio' | 'checkbox'
+  type: "radio" | "checkbox"
   /**
    * The value of the option
    */
@@ -212,7 +221,7 @@ export interface OptionItemProps extends Partial<ItemProps> {
   /**
    * Function called when the option state is changed
    */
-  onCheckedChange?: (checked: boolean) => void
+  onCheckedChange?(checked: boolean): void
 }
 
 export interface ItemState {
@@ -255,7 +264,7 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to open or close the menu
    */
-  setOpen: (open: boolean) => void
+  setOpen(open: boolean): void
   /**
    * The id of the currently highlighted menuitem
    */
@@ -263,42 +272,42 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to set the highlighted menuitem
    */
-  setHighlightedValue: (value: string) => void
+  setHighlightedValue(value: string): void
   /**
    * Function to register a parent menu. This is used for submenus
    */
-  setParent: (parent: Service) => void
+  setParent(parent: Service): void
   /**
    * Function to register a child menu. This is used for submenus
    */
-  setChild: (child: Service) => void
+  setChild(child: Service): void
   /**
    * Function to reposition the popover
    */
-  reposition: (options?: Partial<PositioningOptions>) => void
+  reposition(options?: Partial<PositioningOptions>): void
   /**
    * Returns the state of the option item
    */
-  getOptionItemState: (props: OptionItemProps) => OptionItemState
+  getOptionItemState(props: OptionItemProps): OptionItemState
   /**
    * Returns the state of the menu item
    */
-  getItemState: (props: ItemProps) => ItemState
-  getContextTriggerProps: () => T['element']
-  getTriggerItemProps: <A extends Api>(childApi: A) => T['element']
-  getTriggerProps: () => T['button']
-  getIndicatorProps: () => T['element']
-  getPositionerProps: () => T['element']
-  getArrowProps: () => T['element']
-  getArrowTipProps: () => T['element']
-  getContentProps: () => T['element']
-  getSeparatorProps: () => T['element']
-  getItemProps: (options: ItemProps) => T['element']
-  getOptionItemProps: (option: OptionItemProps) => T['element']
-  getItemIndicatorProps: (option: OptionItemProps) => T['element']
-  getItemTextProps: (option: OptionItemProps) => T['element']
-  getItemGroupLabelProps: (options: ItemGroupLabelProps) => T['element']
-  getItemGroupProps: (options: ItemGroupProps) => T['element']
+  getItemState(props: ItemProps): ItemState
+  getContextTriggerProps(): T["element"]
+  getTriggerItemProps<A extends Api>(childApi: A): T["element"]
+  getTriggerProps(): T["button"]
+  getIndicatorProps(): T["element"]
+  getPositionerProps(): T["element"]
+  getArrowProps(): T["element"]
+  getArrowTipProps(): T["element"]
+  getContentProps(): T["element"]
+  getSeparatorProps(): T["element"]
+  getItemProps(options: ItemProps): T["element"]
+  getOptionItemProps(option: OptionItemProps): T["element"]
+  getItemIndicatorProps(option: OptionItemProps): T["element"]
+  getItemTextProps(option: OptionItemProps): T["element"]
+  getItemGroupLabelProps(options: ItemGroupLabelProps): T["element"]
+  getItemGroupProps(options: ItemGroupProps): T["element"]
 }
 
-export type { Point, PositioningOptions }
+export type { PositioningOptions, Point }

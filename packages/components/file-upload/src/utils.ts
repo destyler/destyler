@@ -1,7 +1,7 @@
-import type { FileError } from '@zag-js/file-utils'
-import type { FileRejection, MachineContext } from './types'
-import { getEventTarget } from '@zag-js/dom-query'
-import { isValidFileSize, isValidFileType } from '@zag-js/file-utils'
+import type {FileError} from '@destyler/file';
+import type { FileRejection, MachineContext } from './types';
+import { getEventTarget } from '@destyler/dom'
+import {  isValidFileSize, isValidFileType } from '@destyler/file'
 
 export function isEventWithFiles(event: Pick<DragEvent, 'dataTransfer' | 'target'>) {
   const target = getEventTarget<Element>(event)

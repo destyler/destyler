@@ -1,20 +1,21 @@
 import type { ContentProps, TriggerProps, UserDefinedContext } from './types'
-import { createProps } from '@zag-js/types'
-import { createSplitProps } from '@zag-js/utils'
+import { createProps } from '@destyler/types'
+import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'activationMode',
   'composite',
+  'deselectable',
   'dir',
   'getRootNode',
   'id',
   'ids',
   'loopFocus',
+  'navigate',
   'onFocusChange',
   'onValueChange',
   'orientation',
   'translations',
-  'deselectable',
   'value',
 ])
 

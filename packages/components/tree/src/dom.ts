@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope, getByTypeahead } from '@zag-js/dom-query'
+import { createScope, getByTypeahead } from '@destyler/dom'
 import { getVisibleNodes } from './utils'
 
 export const dom = createScope({

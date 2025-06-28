@@ -1,37 +1,65 @@
-import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact } from '@zag-js/utils'
-import { memoize } from 'proxy-memoize'
-import { encode } from 'uqr'
+import { createMachine } from "@destyler/xstate"
+import { getDataUrl } from "@destyler/dom"
+import { compact, isEqual } from "@destyler/utils"
+import { memoize } from "proxy-memoize"
+import { encode } from "uqr"
+import { dom } from "./dom"
+import type { MachineContext, MachineState, UserDefinedContext } from "./types"
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'qr-code',
-      initial: 'idle',
+      id: "qr-code",
+      initial: "idle",
       context: {
-        value: '',
+        value: "",
         ...ctx,
         pixelSize: 10,
       },
 
       computed: {
-        encoded: memoize(ctx => encode(ctx.value, ctx.encoding)),
+        encoded: memoize((ctx) => encode(ctx.value, ctx.encoding)),
       },
 
       on: {
-        'VALUE.SET': {
-          actions: ['setValue'],
+        "VALUE.SET": {
+          actions: ["setValue"],
+        },
+        "DOWNLOAD_TRIGGER.CLICK": {
+          actions: ["downloadQrCode"],
         },
       },
     },
     {
       actions: {
-        setValue: (ctx, e) => {
-          ctx.value = e.value
+        setValue(ctx, evt) {
+          set.value(ctx, evt.value)
+        },
+        downloadQrCode(ctx, evt) {
+          const { mimeType, quality, fileName } = evt
+          const svgEl = dom.getFrameEl(ctx)
+          const doc = dom.getDoc(ctx)
+          getDataUrl(svgEl, { type: mimeType, quality }).then((dataUri) => {
+            const a = doc.createElement("a")
+            a.href = dataUri
+            a.rel = "noopener"
+            a.download = fileName
+            a.click()
+            setTimeout(() => {
+              a.remove()
+            }, 0)
+          })
         },
       },
     },
   )
+}
+
+const set = {
+  value(ctx: MachineContext, value: string) {
+    if (isEqual(ctx.value, value)) return
+    ctx.value = value
+    ctx.onValueChange?.({ value })
+  },
 }

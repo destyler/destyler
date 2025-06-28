@@ -1,14 +1,14 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from "@destyler/anatomy"
 
-export const anatomy = createAnatomy('number-input').parts(
-  'root',
-  'label',
-  'input',
-  'control',
-  'valueText',
-  'incrementTrigger',
-  'decrementTrigger',
-  'scrubber',
+export const anatomy = createAnatomy("numberInput").parts(
+  "root",
+  "label",
+  "input",
+  "control",
+  "valueText",
+  "incrementTrigger",
+  "decrementTrigger",
+  "scrubber",
 )
 
 export const parts = anatomy.build()

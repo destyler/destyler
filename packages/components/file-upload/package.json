@@ -27,12 +27,12 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "@zag-js/anatomy": "catalog:",
-    "@zag-js/core": "catalog:",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/file-utils": "catalog:",
-    "@zag-js/i18n-utils": "catalog:",
-    "@zag-js/types": "catalog:",
-    "@zag-js/utils": "catalog:"
+    "@destyler/anatomy": "workspace:*",
+    "@destyler/dom": "workspace:*",
+    "@destyler/file": "workspace:*",
+    "@destyler/i18n": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/utils": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   }
 }

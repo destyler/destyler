@@ -1,6 +1,40 @@
 import type { MachineContext, MachineState, Time, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact } from '@zag-js/utils'
+import { compact } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
+
+function msToTime(ms: number): Time {
+  const milliseconds = ms % 1000
+  const seconds = Math.floor(ms / 1000) % 60
+  const minutes = Math.floor(ms / (1000 * 60)) % 60
+  const hours = Math.floor(ms / (1000 * 60 * 60)) % 24
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24))
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+    milliseconds,
+  }
+}
+
+function toPercent(value: number, minValue: number, maxValue: number) {
+  return (value - minValue) / (maxValue - minValue)
+}
+
+function padStart(num: number, size = 2) {
+  return num.toString().padStart(size, '0')
+}
+
+function formatTime(time: Time): Time<string> {
+  const { days, hours, minutes, seconds } = time
+  return {
+    days: padStart(days),
+    hours: padStart(hours),
+    minutes: padStart(minutes),
+    seconds: padStart(seconds),
+    milliseconds: time.milliseconds.toString(),
+  }
+}
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
@@ -110,38 +144,4 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
-}
-
-function msToTime(ms: number): Time {
-  const milliseconds = ms % 1000
-  const seconds = Math.floor(ms / 1000) % 60
-  const minutes = Math.floor(ms / (1000 * 60)) % 60
-  const hours = Math.floor(ms / (1000 * 60 * 60)) % 24
-  const days = Math.floor(ms / (1000 * 60 * 60 * 24))
-  return {
-    days,
-    hours,
-    minutes,
-    seconds,
-    milliseconds,
-  }
-}
-
-function toPercent(value: number, minValue: number, maxValue: number) {
-  return (value - minValue) / (maxValue - minValue)
-}
-
-function padStart(num: number, size = 2) {
-  return num.toString().padStart(size, '0')
-}
-
-function formatTime(time: Time): Time<string> {
-  const { days, hours, minutes, seconds } = time
-  return {
-    days: padStart(days),
-    hours: padStart(hours),
-    minutes: padStart(minutes),
-    seconds: padStart(seconds),
-    milliseconds: time.milliseconds.toString(),
-  }
 }

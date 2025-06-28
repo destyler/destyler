@@ -1,5 +1,5 @@
-import type { MachineContext as Ctx } from './types'
-import { createScope } from '@zag-js/dom-query'
+import { createScope } from "@destyler/dom"
+import type { MachineContext as Ctx } from "./types"
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `pagination:${ctx.id}`,

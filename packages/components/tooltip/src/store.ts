@@ -1,4 +1,4 @@
-import { proxy } from '@zag-js/core'
+import { proxy } from "@destyler/xstate"
 
 type Id = string | null
 

@@ -1,5 +1,5 @@
-import type { Machine, Ref, StateMachine } from '@zag-js/core'
-import type { CommonProperties, Direction, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, Direction, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { Machine, Ref, XSend, XState } from '@destyler/xstate'
 
 export type Type = 'success' | 'error' | 'loading' | 'info' | (string & {})
 
@@ -144,9 +144,9 @@ export interface MachineState {
   tags: 'visible' | 'paused' | 'updating'
 }
 
-export type State<T = any> = StateMachine.State<MachineContext<T>, MachineState>
+export type State<T = any> = XState<MachineContext<T>, MachineState>
 
-export type Send = StateMachine.Send
+export type Send = XSend
 
 export type Service<T = any> = Machine<MachineContext<T>, MachineState>
 
@@ -241,9 +241,9 @@ export interface GroupMachineState {
   value: 'stack' | 'overlap'
 }
 
-export type GroupState<T = any> = StateMachine.State<GroupMachineContext<T>>
+export type GroupState<T = any> = XState<GroupMachineContext<T>>
 
-export type GroupSend = StateMachine.Send
+export type GroupSend = XSend
 
 export type GroupService<T = any> = Machine<GroupMachineContext<T>, GroupMachineState>
 

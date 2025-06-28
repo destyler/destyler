@@ -1,5 +1,5 @@
-import type { StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { AnyEventObject, XSend, XState } from "@destyler/xstate"
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@destyler/types"
 
 export interface ValueChangeDetails {
   value: string[]
@@ -11,7 +11,7 @@ export interface ValueInvalidDetails {
   index: number
 }
 
-export interface IntlTranslations {
+export type IntlTranslations = {
   inputLabel: (index: number, length: number) => string
 }
 
@@ -20,7 +20,7 @@ export type ElementIds = Partial<{
   hiddenInput: string
   label: string
   control: string
-  input: (id: string) => string
+  input(id: string): string
 }>
 
 interface PublicContext extends DirectionProperty, CommonProperties {
@@ -78,7 +78,7 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * The type of value the pin-input should allow
    * @default "numeric"
    */
-  type?: 'alphanumeric' | 'numeric' | 'alphabetic' | undefined
+  type?: "alphanumeric" | "numeric" | "alphabetic" | undefined
   /**
    * Function called when all inputs have valid values
    */
@@ -109,7 +109,7 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   translations: IntlTranslations
 }
 
-export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
+export type UserDefinedContext = RequiredBy<PublicContext, "id">
 
 type ComputedContext = Readonly<{
   /**
@@ -150,12 +150,12 @@ interface PrivateContext {
 export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
 
 export interface MachineState {
-  value: 'idle' | 'focused'
+  value: "idle" | "focused"
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
 export interface InputProps {
   index: number
@@ -177,22 +177,22 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to set the value of the inputs.
    */
-  setValue: (value: string[]) => void
+  setValue(value: string[]): void
   /**
    * Function to clear the value of the inputs.
    */
-  clearValue: () => void
+  clearValue(): void
   /**
    * Function to set the value of the input at a specific index.
    */
-  setValueAtIndex: (index: number, value: string) => void
+  setValueAtIndex(index: number, value: string): void
   /**
    * Function to focus the pin-input. This will focus the first input.
    */
   focus: () => void
-  getRootProps: () => T['element']
-  getLabelProps: () => T['label']
-  getHiddenInputProps: () => T['input']
-  getControlProps: () => T['element']
-  getInputProps: (props: InputProps) => T['input']
+  getRootProps(): T["element"]
+  getLabelProps(): T["label"]
+  getHiddenInputProps(): T["input"]
+  getControlProps(): T["element"]
+  getInputProps(props: InputProps): T["input"]
 }

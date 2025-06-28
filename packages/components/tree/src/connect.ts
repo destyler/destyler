@@ -1,9 +1,14 @@
-import type { EventKeyMap } from '@zag-js/dom-event'
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, NodeProps, NodeState, Send, State } from './types'
-import { getEventKey, isModifierKey } from '@zag-js/dom-event'
-import { dataAttr, getEventTarget, isComposingEvent, isEditableElement } from '@zag-js/dom-query'
-import { add, isEqual, remove, uniq } from '@zag-js/utils'
+import {
+  dataAttr,
+  getEventKey,
+  getEventTarget,
+  isComposingEvent,
+  isEditableElement,
+  isModifierKey,
+} from '@destyler/dom'
+import { add, isEqual, remove, uniq } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import { getVisibleNodes } from './utils'
@@ -140,7 +145,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           const nodeId = node.dataset.value
 
           if (nodeId == null) {
-            console.warn(`[zag-js/tree-view] Node id not found for node`, node)
+            console.warn(`[destyler/tree-view] Node id not found for node`, node)
             return
           }
 

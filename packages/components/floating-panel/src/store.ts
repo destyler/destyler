@@ -1,4 +1,4 @@
-import { proxy } from '@zag-js/store'
+import { proxy } from '@destyler/store'
 
 export const panelStack = proxy({
   stack: [] as string[],

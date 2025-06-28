@@ -1,9 +1,12 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { contains, raf } from '@zag-js/dom-query'
-import { trackInteractOutside } from '@zag-js/interact-outside'
-import { compact, isEqual } from '@zag-js/utils'
+import { contains, raf } from '@destyler/dom'
+import { trackInteractOutside } from '@destyler/interact-outside'
+import { compact, isEqual } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
+
+const submitOnEnter = (ctx: MachineContext) => ['both', 'enter'].includes(ctx.submitMode)
+const submitOnBlur = (ctx: MachineContext) => ['both', 'blur'].includes(ctx.submitMode)
 
 const sync = {
   value: (ctx: MachineContext) => {
@@ -27,9 +30,6 @@ const set = {
     invoke.change(ctx)
   },
 }
-
-const submitOnEnter = (ctx: MachineContext) => ['both', 'enter'].includes(ctx.submitMode)
-const submitOnBlur = (ctx: MachineContext) => ['both', 'blur'].includes(ctx.submitMode)
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)

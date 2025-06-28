@@ -1,5 +1,5 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { AnyEventObject, Machine, XSend, XState } from "@destyler/xstate"
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from "@destyler/types"
 
 export interface PageChangeDetails {
   page: number
@@ -19,15 +19,15 @@ export interface IntlTranslations {
   rootLabel?: string | undefined
   prevTriggerLabel?: string | undefined
   nextTriggerLabel?: string | undefined
-  itemLabel?: (details: ItemLabelDetails) => string
+  itemLabel?(details: ItemLabelDetails): string
 }
 
 export type ElementIds = Partial<{
   root: string
-  ellipsis: (index: number) => string
+  ellipsis(index: number): string
   prevTrigger: string
   nextTrigger: string
-  item: (page: number) => string
+  item(page: number): string
 }>
 
 interface PublicContext extends DirectionProperty, CommonProperties {
@@ -70,7 +70,7 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * The type of the trigger element
    * @default "button"
    */
-  type: 'button' | 'link'
+  type: "button" | "link"
 }
 
 interface PrivateContext {}
@@ -90,7 +90,7 @@ type ComputedContext = Readonly<{
    * @computed
    * Index of first and last data items on current page
    */
-  pageRange: { start: number, end: number }
+  pageRange: { start: number; end: number }
   /**
    * @computed
    * The previous page index
@@ -108,22 +108,22 @@ type ComputedContext = Readonly<{
   isValidPage: boolean
 }>
 
-export type UserDefinedContext = RequiredBy<PublicContext, 'id' | 'count'>
+export type UserDefinedContext = RequiredBy<PublicContext, "id" | "count">
 
 export interface MachineContext extends PublicContext, PrivateContext, ComputedContext {}
 
 export interface MachineState {
-  value: 'idle'
+  value: "idle"
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ItemProps {
-  type: 'page'
+  type: "page"
   value: number
 }
 
@@ -131,7 +131,7 @@ export interface EllipsisProps {
   index: number
 }
 
-export type Pages = Array<{ type: 'ellipsis' } | { type: 'page', value: number }>
+export type Pages = Array<{ type: "ellipsis" } | { type: "page"; value: number }>
 
 interface PageRange {
   start: number
@@ -174,39 +174,39 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
    * Function to slice an array of data based on the current page.
    */
-  slice: <V>(data: V[]) => V[]
+  slice<V>(data: V[]): V[]
   /**
    * Function to set the total number of pages.
    */
-  setCount: (count: number) => void
+  setCount(count: number): void
   /**
    * Function to set the page size.
    */
-  setPageSize: (size: number) => void
+  setPageSize(size: number): void
   /**
    * Function to set the current page.
    */
-  setPage: (page: number) => void
+  setPage(page: number): void
   /**
    * Function to go to the next page.
    */
-  goToNextPage: () => void
+  goToNextPage(): void
   /**
    * Function to go to the previous page.
    */
-  goToPrevPage: () => void
+  goToPrevPage(): void
   /**
    * Function to go to the first page.
    */
-  goToFirstPage: () => void
+  goToFirstPage(): void
   /**
    * Function to go to the last page.
    */
-  goToLastPage: () => void
+  goToLastPage(): void
 
-  getRootProps: () => T['element']
-  getEllipsisProps: (props: EllipsisProps) => T['element']
-  getItemProps: (page: ItemProps) => T['element']
-  getPrevTriggerProps: () => T['element']
-  getNextTriggerProps: () => T['element']
+  getRootProps(): T["element"]
+  getEllipsisProps(props: EllipsisProps): T["element"]
+  getItemProps(page: ItemProps): T["element"]
+  getPrevTriggerProps(): T["element"]
+  getNextTriggerProps(): T["element"]
 }

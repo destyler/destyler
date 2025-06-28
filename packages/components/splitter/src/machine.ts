@@ -1,8 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { getRelativePoint, trackPointerMove } from '@zag-js/dom-event'
-import { raf } from '@zag-js/dom-query'
-import { compact } from '@zag-js/utils'
+import { getRelativePoint, raf, trackPointerMove } from '@destyler/dom'
+import { compact } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 import { clamp, getHandleBounds, getHandlePanels, getNormalizedPanels, getPanelBounds } from './utils'
 

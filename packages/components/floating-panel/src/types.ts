@@ -1,6 +1,6 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { Point, Size } from '@zag-js/rect-utils'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { Point, Size } from '@destyler/rect'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface PositionChangeDetails {
   position: Point
@@ -175,11 +175,11 @@ export interface MachineState {
   value: 'open' | 'open.dragging' | 'open.resizing' | 'closed'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export type ResizeTriggerAxis = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne'
 

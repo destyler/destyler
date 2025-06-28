@@ -1,8 +1,6 @@
-import type { EventKeyMap } from '@zag-js/dom-event'
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { getEventKey, getNativeEvent } from '@zag-js/dom-event'
-import { ariaAttr, dataAttr, isComposingEvent } from '@zag-js/dom-query'
+import { ariaAttr, dataAttr, getEventKey, getNativeEvent, isComposingEvent } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -120,7 +118,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'autoCorrect': 'off',
         'autoCapitalize': 'none',
         'disabled': disabled || readOnly,
-        onChange(event) {
+        onInput(event) {
           const evt = getNativeEvent(event)
           const value = event.currentTarget.value
 
@@ -140,10 +138,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           send('FOCUS')
         },
         onKeyDown(event) {
-          if (event.defaultPrevented)
-            return
-          if (isComposingEvent(event))
-            return
+          if (event.defaultPrevented) 
+return
+          if (isComposingEvent(event)) 
+return
 
           // handle composition when used as combobox
           const target = event.currentTarget as HTMLElement
@@ -155,16 +153,16 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               send('ARROW_DOWN')
             },
             ArrowLeft() {
-              if (isCombobox && isExpanded)
-                return
+              if (isCombobox && isExpanded) 
+return
               send('ARROW_LEFT')
             },
             ArrowRight(event) {
               if (state.context.highlightedTagId) {
                 event.preventDefault()
               }
-              if (isCombobox && isExpanded)
-                return
+              if (isCombobox && isExpanded) 
+return
               send('ARROW_RIGHT')
             },
             Escape(event) {
@@ -178,8 +176,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               send('DELETE')
             },
             Enter(event) {
-              if (isCombobox && isExpanded)
-                return
+              if (isCombobox && isExpanded) 
+return
               send('ENTER')
               event.preventDefault()
             },
@@ -264,7 +262,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'tabIndex': -1,
         'hidden': !itemState.editing,
         'defaultValue': itemState.editing ? state.context.editedTagValue : '',
-        onChange(event) {
+        onInput(event) {
           send({ type: 'TAG_INPUT_TYPE', value: event.currentTarget.value })
         },
         onBlur(event) {

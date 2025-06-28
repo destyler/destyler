@@ -1,6 +1,6 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State } from './types'
-import { dataAttr } from '@zag-js/dom-query'
+import { dataAttr } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import { getGhostAfterStyle, getGhostBeforeStyle, getPlacementStyle } from './utils'

@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact } from '@zag-js/utils'
+import { createMachine } from '@destyler/xstate'
+import { compact } from '@destyler/utils'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)

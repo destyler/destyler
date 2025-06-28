@@ -1,7 +1,7 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
-import type { MachineApi, Send, State } from './types'
-import { contains, dataAttr, isSelfTarget, visuallyHiddenStyle } from '@zag-js/dom-query'
-import { formatBytes } from '@zag-js/i18n-utils'
+import type {NormalizeProps, PropTypes} from "@destyler/types";
+import type {MachineApi, Send, State} from "./types";
+import { contains, dataAttr, isSelfTarget, visuallyHiddenStyle } from '@destyler/dom'
+import { formatBytes } from '@destyler/i18n'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import { isEventWithFiles } from './utils'
@@ -17,7 +17,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   return {
     dragging,
     focused,
+    disabled: !!disabled,
     openFilePicker() {
+      if (disabled)
+        return
       send('OPEN')
     },
     deleteFile(file) {
@@ -45,6 +48,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       return () => win.URL.revokeObjectURL(url)
     },
     setClipboardFiles(dt) {
+      if (disabled)
+        return false
       const items = Array.from(dt?.items ?? [])
       const files = items.reduce<File[]>((acc, item) => {
         if (item.kind !== 'file')
@@ -70,35 +75,50 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       })
     },
 
-    getDropzoneProps() {
+    getDropzoneProps(props = {}) {
       return normalize.element({
         ...parts.dropzone.attrs,
         'dir': state.context.dir,
         'id': dom.getDropzoneId(state.context),
-        'tabIndex': disabled ? undefined : 0,
-        'role': 'button',
+        'tabIndex': disabled || props.disableClick ? undefined : 0,
+        'role': props.disableClick ? 'application' : 'button',
         'aria-label': translations.dropzone,
         'aria-disabled': disabled,
         'data-invalid': dataAttr(state.context.invalid),
         'data-disabled': dataAttr(disabled),
         'data-dragging': dataAttr(dragging),
         onKeyDown(event) {
+          if (disabled)
+            return
           if (event.defaultPrevented)
             return
           if (!isSelfTarget(event))
+            return
+          if (props.disableClick)
             return
           if (event.key !== 'Enter' && event.key !== ' ')
             return
           send({ type: 'DROPZONE.CLICK', src: 'keydown' })
         },
         onClick(event) {
-          const isLabel = event.currentTarget.localName === 'label'
+          if (disabled)
+            return
+          if (event.defaultPrevented)
+            return
+          if (props.disableClick)
+            return
+          // ensure it's the dropzone that's actually clicked
+          if (!isSelfTarget(event))
+            return
           // prevent opening the file dialog when clicking on the label (to avoid double opening)
-          if (isLabel)
+          if (event.currentTarget.localName === 'label') {
             event.preventDefault()
+          }
           send('DROPZONE.CLICK')
         },
         onDragOver(event) {
+          if (disabled)
+            return
           if (!allowDrop)
             return
           event.preventDefault()
@@ -116,13 +136,17 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           send({ type: 'DROPZONE.DRAG_OVER', count })
         },
         onDragLeave(event) {
-          if (!allowDrop || disabled)
+          if (disabled)
+            return
+          if (!allowDrop)
             return
           if (contains(event.currentTarget, event.relatedTarget))
             return
           send({ type: 'DROPZONE.DRAG_LEAVE' })
         },
         onDrop(event) {
+          if (disabled)
+            return
           if (allowDrop) {
             event.preventDefault()
             event.stopPropagation()
@@ -135,9 +159,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           send({ type: 'DROPZONE.DROP', files: Array.from(event.dataTransfer.files) })
         },
         onFocus() {
+          if (disabled)
+            return
           send('DROPZONE.FOCUS')
         },
         onBlur() {
+          if (disabled)
+            return
           send('DROPZONE.BLUR')
         },
       })
@@ -181,7 +209,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           // allow for re-selection of the same file
           event.currentTarget.value = ''
         },
-        onChange(event) {
+        onInput(event) {
           if (disabled)
             return
           const { files } = event.currentTarget
