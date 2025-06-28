@@ -19,7 +19,7 @@ test.describe('carousel', () => {
       await I.seeIndicatorIsActive(0)
       await I.seeItemInView(0)
       await I.dontSeeItemInView(1)
-    }, 1000);
+    }, 1000)
   })
 
   test('next/prev buttons navigate carousel', async () => {
@@ -28,7 +28,7 @@ test.describe('carousel', () => {
       await I.clickNextTrigger()
       await I.seeIndicatorIsActive(1)
       await I.seePrevTriggerIsEnabled()
-    }, 1000);
+    }, 1000)
   })
 
   test('autoplay start/stop', async ({ page }) => {
@@ -46,7 +46,7 @@ test.describe('carousel', () => {
 
       await page.clock.fastForward(5000)
       await I.seeIndicatorIsActive(1)
-    }, 1000);
+    }, 1000)
   })
 
   test('clicking indicator scrolls to correct slide', async () => {
@@ -55,14 +55,14 @@ test.describe('carousel', () => {
       await I.seeIndicatorIsActive(1)
 
       await I.seeItemInView(1)
-    }, 1000);
+    }, 1000)
   })
 
   test('scroll to a specific index via button', async () => {
     setTimeout(async () => {
       await I.clickScrollToButton(1)
       await I.seeItemInView(1)
-    }, 1000);
+    }, 1000)
   })
 
   test('dragging behavior', async () => {
@@ -70,7 +70,7 @@ test.describe('carousel', () => {
       await I.swipeCarousel('left', 400)
       await I.seeItemInView(0)
       await I.dontSeeItemInView(1)
-    }, 1000);
+    }, 1000)
   })
 
   test('indicator keyboard navigation', async () => {
@@ -78,20 +78,20 @@ test.describe('carousel', () => {
       await I.focusIndicator(0)
       await I.pressKey('ArrowRight')
       await I.seeItemInView(1)
-    }, 1000);
+    }, 1000)
   })
 
   test('[loop=true] should loop slides', async () => {
-      setTimeout(async () => {
-        await I.controls.bool('loop')
-        await I.seePrevTriggerIsEnabled()
+    setTimeout(async () => {
+      await I.controls.bool('loop')
+      await I.seePrevTriggerIsEnabled()
 
-        await I.clickNextTrigger()
-        await I.clickNextTrigger()
-        await I.seeItemInView(0)
+      await I.clickNextTrigger()
+      await I.clickNextTrigger()
+      await I.seeItemInView(0)
 
-        await I.clickNextTrigger()
-        await I.seeItemInView(1)
-      }, 1000);
+      await I.clickNextTrigger()
+      await I.seeItemInView(1)
+    }, 1000)
   })
 })

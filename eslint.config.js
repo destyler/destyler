@@ -2,6 +2,7 @@ import antfu from '@antfu/eslint-config'
 import vitest from '@vitest/eslint-plugin'
 
 export default antfu({
+  test: true,
   rules: {
     'vue/no-template-shadow': 'off',
     'ts/no-empty-object-type': 'off',
@@ -17,9 +18,6 @@ export default antfu({
   },
 }, {
   files: ['test/**'],
-  plugins: {
-    vitest,
-  },
   rules: {
     ...vitest.configs.recommended.rules,
     'vitest/max-nested-describe': ['error', { max: 3 }],

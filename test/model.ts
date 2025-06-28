@@ -1,5 +1,6 @@
-import { expect, type Page } from "@playwright/test"
-import { a11y, clickOutside, clickViz, controls, repeat } from "./utils"
+import type { Page } from '@playwright/test'
+import { expect } from '@playwright/test'
+import { a11y, clickOutside, clickViz, controls, repeat } from './utils'
 
 export class Model {
   constructor(public page: Page) {}
@@ -25,15 +26,15 @@ export class Model {
   }
 
   pressKeyDown(key: string, times = 1) {
-    return repeat(times, () => this.page.keyboard.down("ArrowDown"))
+    return repeat(times, () => this.page.keyboard.down('ArrowDown'))
   }
 
   pressKeyUp(key: string, times = 1) {
-    return repeat(times, () => this.page.keyboard.up("ArrowUp"))
+    return repeat(times, () => this.page.keyboard.up('ArrowUp'))
   }
 
   rightClick(selector: string) {
-    return this.page.locator(selector).click({ button: "right" })
+    return this.page.locator(selector).click({ button: 'right' })
   }
 
   type(value: string) {
@@ -45,14 +46,15 @@ export class Model {
       const el = document.activeElement
       try {
         return (el as any).selectionStart
-      } catch {
+      }
+      catch {
         return -1
       }
     })
     expect(value).toBe(position)
   }
 
-  moveCursorTo(pos: { x: number; y: number }) {
+  moveCursorTo(pos: { x: number, y: number }) {
     return this.page.mouse.move(pos.x, pos.y)
   }
 
@@ -60,12 +62,12 @@ export class Model {
     return this.page.setInputFiles(selector, path)
   }
 
-  resizeWindow(size: { width: number; height: number }) {
+  resizeWindow(size: { width: number, height: number }) {
     return this.page.setViewportSize(size)
   }
 
   async wait(time: number) {
-    return new Promise<void>((resolve) => setTimeout(resolve, time))
+    return new Promise<void>(resolve => setTimeout(resolve, time))
   }
 
   async mouseup() {
