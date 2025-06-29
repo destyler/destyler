@@ -1,8 +1,8 @@
 import * as collapse from '@destyler/collapse'
 import { collapseControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 
 export default function CollapsePage() {
   const controls = useControls(collapseControls)

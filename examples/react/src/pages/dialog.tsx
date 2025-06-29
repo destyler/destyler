@@ -1,8 +1,8 @@
 import * as dialog from '@destyler/dialog'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { dialogControls } from '@destyler/shared-private'
-import { useId } from 'react'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId } from 'react'
 
 export default function DialogExample() {
   const controls = useControls(dialogControls)

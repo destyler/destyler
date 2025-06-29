@@ -1,8 +1,8 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { sliderControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as slider from '@destyler/slider'
 import { useId } from 'react'
-import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 
 export default function SliderPage() {
   const controls = useControls(sliderControls)

@@ -1,9 +1,9 @@
 import * as combobox from '@destyler/combobox'
 import { comboboxControls } from '@destyler/shared-private'
-import { normalizeProps, useMachine } from '@destyler/solid'
-
-import { createMemo, createSignal, createUniqueId } from 'solid-js'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
+
+import { normalizeProps, useMachine } from '@destyler/solid'
+import { createMemo, createSignal, createUniqueId } from 'solid-js'
 
 export default function ComboboxDemo() {
   const controls = useControls(comboboxControls)

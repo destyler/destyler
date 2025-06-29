@@ -1,8 +1,8 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { signatureControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as signaturePad from '@destyler/signature'
 import { useId, useMemo } from 'react'
-import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 
 export default function SignaturePage() {
   const controls = useControls(signatureControls)

@@ -1,10 +1,10 @@
 import * as combobox from '@destyler/combobox'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { comboboxControls } from '@destyler/shared-private'
-import * as React from 'react'
-import { useId } from 'react'
-
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import * as React from 'react'
+
+import { useId } from 'react'
 
 export default function ComboboxDemo() {
   const controls = useControls(comboboxControls)

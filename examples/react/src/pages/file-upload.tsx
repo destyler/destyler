@@ -1,8 +1,8 @@
 import * as fileUpload from '@destyler/file-upload'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { fileUploadControls } from '@destyler/shared-private'
-import { useId } from 'react'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId } from 'react'
 
 export default function FileUpload() {
   const controls = useControls(fileUploadControls)

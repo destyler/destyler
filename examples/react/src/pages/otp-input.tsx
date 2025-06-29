@@ -1,8 +1,8 @@
 import * as otpInput from '@destyler/otp-input'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { pinInputControls } from '@destyler/shared-private'
-import { useId, useMemo } from 'react'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId, useMemo } from 'react'
 
 export default function OtpInput() {
   const controls = useControls(pinInputControls)

@@ -1,8 +1,8 @@
 import * as collapsible from '@destyler/collapsible'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { collapsibleControls } from '@destyler/shared-private'
-import { useId } from 'react'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId } from 'react'
 
 export default function CollapsibleDemo() {
   const controls = useControls(collapsibleControls)

@@ -1,8 +1,8 @@
 import { sliderControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import * as slider from '@destyler/slider'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
-import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 
 export default function SliderPage() {
   const controls = useControls(sliderControls)

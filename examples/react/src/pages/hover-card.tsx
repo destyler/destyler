@@ -1,8 +1,8 @@
 import * as hoverCard from '@destyler/hover-card'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { hoverCardControls } from '@destyler/shared-private'
-import { useId } from 'react'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId } from 'react'
 
 export default function HoverCard() {
   const controls = useControls(hoverCardControls)
