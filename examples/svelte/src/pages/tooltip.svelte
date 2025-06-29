@@ -1,9 +1,7 @@
 <script lang="ts">
   import * as tooltip from "@destyler/tooltip";
   import { normalizeProps, useMachine } from "@destyler/svelte";
-  import { derived } from "svelte/store";
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
+  import { Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
 
   const id = $props.id();
   const [state, send] = useMachine(tooltip.machine({ id }));

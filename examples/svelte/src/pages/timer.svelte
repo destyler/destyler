@@ -1,8 +1,7 @@
 <script lang="ts">
   import * as timer from "@destyler/timer"
   import { normalizeProps, useMachine } from "@destyler/svelte"
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
+  import { Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
 
   const [state, send] = useMachine(
     timer.machine({

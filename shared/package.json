@@ -9,6 +9,9 @@
     "./vue": {
       "default": "./src/vue/index.ts"
     },
+    "./svelte": {
+      "default": "./src/svelte/index.ts"
+    },
     "./test": {
       "default": "./src/test/index.ts"
     }

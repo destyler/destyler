@@ -1,8 +1,7 @@
 <script lang="ts">
   import * as image from "@destyler/image"
   import { normalizeProps, useMachine } from "@destyler/svelte"
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
+  import { Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
 
   const id = $props.id()
 

@@ -1,9 +1,7 @@
 <script lang="ts">
   import * as label from '@destyler/label'
   import { normalizeProps, useMachine } from "@destyler/svelte"
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
-  import {useControls} from '../hooks/use-controls.svelte'
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
 
   const id = $props.id()
   const [state, send] = useMachine(label.machine({ id }))
