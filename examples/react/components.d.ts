@@ -11,6 +11,4 @@ declare global{
 	const Presence: typeof import('./src/pages/presence')['Presence']
 	const Select: typeof import('./src/pages/select')['default']
 	const Timer: typeof import('./src/pages/timer')['default']
-	const StateVisualizer: typeof import('./src/components/tool/StateVisualizer')['StateVisualizer']
-	const Toolbar: typeof import('./src/components/tool/Toolbar')['Toolbar']
 }

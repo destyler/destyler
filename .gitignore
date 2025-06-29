@@ -32,3 +32,4 @@ test/report
 test/junit.xml
 test/results
 html
+__screenshots__

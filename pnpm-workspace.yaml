@@ -61,6 +61,9 @@ catalogs:
     playwright: ^1.53.1
     '@vitest/browser': ^3.2.4
     vitest-browser-vue: ^1.0.0
+    vitest-browser-svelte: ^1.0.0
+    vitest-browser-react: ^1.0.0
+    vitest-browser-solid: ^0.1.4
   css:
     unocss: ^65.4.3
     '@unocss/reset': ^65.4.3

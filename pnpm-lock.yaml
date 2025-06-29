@@ -151,6 +151,15 @@ catalogs:
     vitest:
       specifier: ^3.2.4
       version: 3.2.4
+    vitest-browser-react:
+      specifier: ^1.0.0
+      version: 1.0.0
+    vitest-browser-solid:
+      specifier: ^0.1.4
+      version: 0.1.4
+    vitest-browser-svelte:
+      specifier: ^1.0.0
+      version: 1.0.0
     vitest-browser-vue:
       specifier: ^1.0.0
       version: 1.0.0
@@ -200,24 +209,45 @@ importers:
       '@destyler/presence':
         specifier: workspace:*
         version: link:packages/components/presence
+      '@destyler/react':
+        specifier: workspace:*
+        version: link:packages/frameworks/react
       '@destyler/shared-private':
         specifier: workspace:*
         version: link:shared
+      '@destyler/solid':
+        specifier: workspace:*
+        version: link:packages/frameworks/solid
       '@destyler/stringify':
         specifier: workspace:*
         version: link:packages/shareds/stringify
+      '@destyler/svelte':
+        specifier: workspace:*
+        version: link:packages/frameworks/svelte
       '@destyler/tree':
         specifier: workspace:*
         version: link:packages/components/tree
       '@destyler/vue':
         specifier: workspace:*
         version: link:packages/frameworks/vue
+      '@solidjs/testing-library':
+        specifier: ^0.8.10
+        version: 0.8.10(@solidjs/router@0.15.3(solid-js@1.9.4))(solid-js@1.9.4)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: catalog:plugin
+        version: 5.0.3(svelte@5.20.1)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       '@types/node':
         specifier: catalog:type
         version: 22.13.4
       '@types/react':
         specifier: catalog:frameworks
         version: 19.0.8
+      '@types/react-dom':
+        specifier: catalog:frameworks
+        version: 19.0.3(@types/react@19.0.8)
+      '@vitejs/plugin-react':
+        specifier: catalog:plugin
+        version: 4.3.4(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       '@vitejs/plugin-vue':
         specifier: catalog:plugin
         version: 5.2.1(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -248,6 +278,9 @@ importers:
       react:
         specifier: catalog:frameworks
         version: 19.0.0
+      react-dom:
+        specifier: catalog:frameworks
+        version: 19.0.0(react@19.0.0)
       rimraf:
         specifier: catalog:util
         version: 6.0.1
@@ -269,9 +302,21 @@ importers:
       unbuild:
         specifier: catalog:build
         version: 3.3.1(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      vite-plugin-solid:
+        specifier: catalog:plugin
+        version: 2.11.1(solid-js@1.9.4)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       vitest:
         specifier: catalog:test
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.4)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+      vitest-browser-react:
+        specifier: catalog:test
+        version: 1.0.0(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(@vitest/browser@3.2.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.2.4)
+      vitest-browser-solid:
+        specifier: catalog:test
+        version: 0.1.4(@vitest/browser@3.2.4)(solid-js@1.9.4)(vitest@3.2.4)
+      vitest-browser-svelte:
+        specifier: catalog:test
+        version: 1.0.0(@vitest/browser@3.2.4)(svelte@5.20.1)(vitest@3.2.4)
       vitest-browser-vue:
         specifier: catalog:test
         version: 1.0.0(@vitest/browser@3.2.4)(vitest@3.2.4)(vue@3.5.13(typescript@5.7.3))
@@ -467,7 +512,7 @@ importers:
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-pages:
         specifier: catalog:plugin
-        version: 0.32.4(@vue/compiler-sfc@3.5.13)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
 
   examples/solid:
     dependencies:
@@ -633,7 +678,7 @@ importers:
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-pages:
         specifier: catalog:plugin
-        version: 0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       vite-plugin-solid:
         specifier: catalog:plugin
         version: 2.11.1(solid-js@1.9.4)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
@@ -3020,6 +3065,16 @@ packages:
     resolution: {integrity: sha512-iEbW8UKok2Oio7o6Y4VTzLj+KFCmQPGEpm1fS3xixwFBdclFVBvaQVeibl1jys4cujfAK5Kn6+uG2uBm3lxOMw==}
     peerDependencies:
       solid-js: ^1.8.6
+
+  '@solidjs/testing-library@0.8.10':
+    resolution: {integrity: sha512-qdeuIerwyq7oQTIrrKvV0aL9aFeuwTd86VYD3afdq5HYEwoox1OBTJy4y8A3TFZr8oAR0nujYgCzY/8wgHGfeQ==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      '@solidjs/router': '>=0.9.0'
+      solid-js: '>=1.0.0'
+    peerDependenciesMeta:
+      '@solidjs/router':
+        optional: true
 
   '@stylistic/eslint-plugin@4.0.0-beta.1':
     resolution: {integrity: sha512-QjXLdE0K6NWxCj3G6588UCxWRbZ7wW/shInTC0iruog4qfvlhWhW67+6GZvBHs3qK53ucoI03fyM8I+hg2i7Dg==}
@@ -6181,6 +6236,38 @@ packages:
       vite:
         optional: true
 
+  vitest-browser-react@1.0.0:
+    resolution: {integrity: sha512-d8oHuCOxG6KL6j2LOgUbU5Jh5ljPIqGoy38Pey1Fzw7BTWxYNsztNFmxbGNrBVSMcRcctDZXBSsgPIl9PLcD8Q==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      '@types/react': ^18.0.0 || ^19.0.0
+      '@types/react-dom': ^18.0.0 || ^19.0.0
+      '@vitest/browser': ^2.1.0 || ^3.0.0 || ^4.0.0-0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+      vitest: ^2.1.0 || ^3.0.0 || ^4.0.0-0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  vitest-browser-solid@0.1.4:
+    resolution: {integrity: sha512-DB8KY/KEu2UiN/CLU1uBPIIHUw9JtEK7wo6oiWmpsBsOP+jHBCcoIgkO3W4+33fLBb5c24eBlS+H+A8+DxCaFw==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      '@vitest/browser': ^2.1.0 || ^3.0.0
+      solid-js: 1.9.5
+      vitest: ^2.1.0 || ^3.0.0
+
+  vitest-browser-svelte@1.0.0:
+    resolution: {integrity: sha512-rjK4uMM6D6IgvJqvLNRo7vBbUfDcnoHHlGdjN/1zZG+u8qpe0cl9v85nOKcqgW3sNzVF5Hti7SrwlH20BvsvOg==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      '@vitest/browser': ^2.1.0 || ^3.0.0 || ^4.0.0-0
+      svelte: ^3 || ^4 || ^5 || ^5.0.0-next.0
+      vitest: ^2.1.0 || ^3.0.0 || ^4.0.0-0
+
   vitest-browser-vue@1.0.0:
     resolution: {integrity: sha512-zAIPkxcOL6gPlLVLm/sfVTqYDQD2LBh7VTRxjy3Eef9qBRXMdPTsq/B5ZfxGno4u4gZNljLzCe4iXJVudfNZJA==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -7078,6 +7165,13 @@ snapshots:
   '@solidjs/router@0.15.3(solid-js@1.9.4)':
     dependencies:
       solid-js: 1.9.4
+
+  '@solidjs/testing-library@0.8.10(@solidjs/router@0.15.3(solid-js@1.9.4))(solid-js@1.9.4)':
+    dependencies:
+      '@testing-library/dom': 10.4.0
+      solid-js: 1.9.4
+    optionalDependencies:
+      '@solidjs/router': 0.15.3(solid-js@1.9.4)
 
   '@stylistic/eslint-plugin@4.0.0-beta.1(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)':
     dependencies:
@@ -10787,7 +10881,7 @@ snapshots:
       - tsx
       - yaml
 
-  vite-plugin-pages@0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
+  vite-plugin-pages@0.32.4(@solidjs/router@0.15.3(solid-js@1.9.4))(@vue/compiler-sfc@3.5.13)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
       '@types/debug': 4.1.12
       debug: 4.4.1
@@ -10801,23 +10895,6 @@ snapshots:
       yaml: 2.7.0
     optionalDependencies:
       '@solidjs/router': 0.15.3(solid-js@1.9.4)
-      '@vue/compiler-sfc': 3.5.13
-    transitivePeerDependencies:
-      - supports-color
-
-  vite-plugin-pages@0.32.4(@vue/compiler-sfc@3.5.13)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
-    dependencies:
-      '@types/debug': 4.1.12
-      debug: 4.4.1
-      dequal: 2.0.3
-      extract-comments: 1.1.0
-      fast-glob: 3.3.3
-      json5: 2.2.3
-      local-pkg: 0.5.1
-      picocolors: 1.1.1
-      vite: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
-      yaml: 2.7.0
-    optionalDependencies:
       '@vue/compiler-sfc': 3.5.13
       react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     transitivePeerDependencies:
@@ -10851,6 +10928,28 @@ snapshots:
   vitefu@1.0.5(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
     optionalDependencies:
       vite: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+
+  vitest-browser-react@1.0.0(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(@vitest/browser@3.2.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.2.4):
+    dependencies:
+      '@vitest/browser': 3.2.4(playwright@1.53.1)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vitest@3.2.4)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.4)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+    optionalDependencies:
+      '@types/react': 19.0.8
+      '@types/react-dom': 19.0.3(@types/react@19.0.8)
+
+  vitest-browser-solid@0.1.4(@vitest/browser@3.2.4)(solid-js@1.9.4)(vitest@3.2.4):
+    dependencies:
+      '@vitest/browser': 3.2.4(playwright@1.53.1)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vitest@3.2.4)
+      solid-js: 1.9.4
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.4)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+
+  vitest-browser-svelte@1.0.0(@vitest/browser@3.2.4)(svelte@5.20.1)(vitest@3.2.4):
+    dependencies:
+      '@vitest/browser': 3.2.4(playwright@1.53.1)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vitest@3.2.4)
+      svelte: 5.20.1
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.4)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
 
   vitest-browser-vue@1.0.0(@vitest/browser@3.2.4)(vitest@3.2.4)(vue@3.5.13(typescript@5.7.3)):
     dependencies:

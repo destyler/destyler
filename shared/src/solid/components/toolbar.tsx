@@ -4,7 +4,7 @@ import { dataAttr } from '@destyler/dom'
 import { createSignal } from 'solid-js'
 
 interface ToolbarProps {
-  controls?: null | (() => JSX.Element)
+  controls?: null | (() => any)
   children?: JSX.Element
   viz?: boolean
 }
