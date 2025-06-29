@@ -12,6 +12,12 @@
     "./svelte": {
       "default": "./src/svelte/index.ts"
     },
+    "./solid": {
+      "default": "./src/solid/index.ts"
+    },
+    "./react": {
+      "default": "./src/react/index.ts"
+    },
     "./test": {
       "default": "./src/test/index.ts"
     }

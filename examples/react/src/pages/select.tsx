@@ -2,9 +2,7 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import * as select from '@destyler/select'
 import { selectControls } from '@destyler/shared-private'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 
 export default function Select() {
   const controls = useControls(selectControls)

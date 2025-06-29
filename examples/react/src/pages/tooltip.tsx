@@ -1,4 +1,5 @@
 import { normalizeProps, useMachine } from '@destyler/react'
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import * as tooltip from '@destyler/tooltip'
 import { useId } from 'react'
 

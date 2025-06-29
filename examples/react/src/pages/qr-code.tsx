@@ -1,10 +1,8 @@
 import * as qrCode from '@destyler/qr-code'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { qrCodeControls } from '@destyler/shared-private'
-import * as React from 'react'
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
 
 import { useControls } from '../hooks/use-controls'
 

@@ -2,9 +2,7 @@ import * as {{camelCase machine}} from "@destyler/{{machine}}"
 import { normalizeProps, useMachine, mergeProps } from "@destyler/solid"
 import { createMemo, createUniqueId } from "solid-js"
 import { {{camelCase machine}}Controls, {{camelCase machine}}Data } from "@destyler/shared-private"
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 
 export default function Page() {
   const controls = useControls({{camelCase machine}}Controls)

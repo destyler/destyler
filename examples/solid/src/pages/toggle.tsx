@@ -2,9 +2,7 @@ import { toggleControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as toggle from '@destyler/toggle'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 
 export default function TogglePage() {
   const controls = useControls(toggleControls)

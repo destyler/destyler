@@ -1,8 +1,8 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { switchControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as switchs from '@destyler/switch'
 import { useId, useMemo } from 'react'
-import { useControls } from '../hooks/use-controls'
 
 export default function SwitchPage() {
   const controls = useControls(switchControls)

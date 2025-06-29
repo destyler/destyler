@@ -2,9 +2,7 @@ import * as pagination from '@destyler/pagination'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { paginationControls } from '@destyler/shared-private'
 import { useId, useMemo } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 
 export default function Pagination() {
   const controls = useControls(paginationControls)

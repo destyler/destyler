@@ -2,9 +2,7 @@ import * as numberInput from '@destyler/number-input'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { numberInputControls } from '@destyler/shared-private'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 
 export default function NumberInputExample() {
   const controls = useControls(numberInputControls)

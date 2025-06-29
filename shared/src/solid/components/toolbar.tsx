@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js'
 import { dataAttr } from '@destyler/dom'
 import { createSignal } from 'solid-js'

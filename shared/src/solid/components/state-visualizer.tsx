@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import { highlightState } from '@destyler/stringify'
 
 interface StateVisualizerProps {

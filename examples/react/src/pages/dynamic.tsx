@@ -2,9 +2,7 @@ import * as dynamic from '@destyler/dynamic'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { dynamicControls } from '@destyler/shared-private'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 
 export default function DynamicPage() {
   const controls = useControls(dynamicControls)

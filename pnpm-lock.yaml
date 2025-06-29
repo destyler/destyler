@@ -6,24 +6,135 @@ settings:
 
 catalogs:
   build:
+    '@sveltejs/package':
+      specifier: ^2.3.10
+      version: 2.3.10
     bumpp:
       specifier: ^10.0.3
       version: 10.0.3
     unbuild:
       specifier: ^3.3.1
       version: 3.3.1
+  core:
+    '@floating-ui/dom':
+      specifier: 1.7.1
+      version: 1.7.1
+    '@internationalized/date':
+      specifier: ^3.7.0
+      version: 3.8.2
+    '@internationalized/number':
+      specifier: ^3.6.0
+      version: 3.6.0
+    csstype:
+      specifier: ^3.1.3
+      version: 3.1.3
+    proxy-compare:
+      specifier: ^3.0.1
+      version: 3.0.1
+    proxy-memoize:
+      specifier: ^3.0.1
+      version: 3.0.1
+    uqr:
+      specifier: ^0.1.2
+      version: 0.1.2
+  css:
+    '@unocss/reset':
+      specifier: ^65.4.3
+      version: 65.4.3
+    unocss:
+      specifier: ^65.4.3
+      version: 65.4.3
   frameworks:
+    '@solidjs/router':
+      specifier: ^0.15.3
+      version: 0.15.3
+    '@tsconfig/svelte':
+      specifier: ^5.0.4
+      version: 5.0.4
+    '@types/react':
+      specifier: ^19.0.8
+      version: 19.0.8
+    '@types/react-dom':
+      specifier: ^19.0.3
+      version: 19.0.3
+    '@types/react-router-config':
+      specifier: ^5.0.11
+      version: 5.0.11
+    '@types/react-router-dom':
+      specifier: ^5.3.3
+      version: 5.3.3
+    react:
+      specifier: ^19.0.0
+      version: 19.0.0
+    react-dom:
+      specifier: ^19.0.0
+      version: 19.0.0
+    react-router:
+      specifier: ^7.1.5
+      version: 7.1.5
+    react-router-dom:
+      specifier: ^7.1.5
+      version: 7.1.5
+    solid-js:
+      specifier: ^1.9.4
+      version: 1.9.4
+    svelte:
+      specifier: ^5.20.1
+      version: 5.20.1
+    svelte-check:
+      specifier: ^4.1.4
+      version: 4.1.4
+    svelte-routing:
+      specifier: ^2.13.0
+      version: 2.13.0
     vue:
       specifier: ^3.5.13
       version: 3.5.13
+    vue-router:
+      specifier: ^4.5.0
+      version: 4.5.0
+  icon:
+    '@iconify-json/carbon':
+      specifier: ^1.2.6
+      version: 1.2.6
   plugin:
+    '@sveltejs/vite-plugin-svelte':
+      specifier: ^5.0.3
+      version: 5.0.3
+    '@vitejs/plugin-react':
+      specifier: ^4.3.4
+      version: 4.3.4
     '@vitejs/plugin-vue':
       specifier: ^5.2.1
       version: 5.2.1
+    unplugin-auto-import:
+      specifier: ^19.0.0
+      version: 19.0.0
+    unplugin-react-components:
+      specifier: ^0.1.4
+      version: 0.1.4
+    unplugin-vue-components:
+      specifier: ^28.0.0
+      version: 28.0.0
+    unplugin-vue-router:
+      specifier: ^0.11.2
+      version: 0.11.2
+    vite-plugin-pages:
+      specifier: ^0.32.4
+      version: 0.32.4
+    vite-plugin-solid:
+      specifier: ^2.11.0
+      version: 2.11.1
   runtime:
     cross-env:
       specifier: ^7.0.3
       version: 7.0.3
+    globals:
+      specifier: ^15.14.0
+      version: 15.14.0
+    vite:
+      specifier: ^6.1.0
+      version: 6.1.0
   test:
     '@vitest/browser':
       specifier: ^3.2.4
@@ -50,6 +161,9 @@ catalogs:
     '@types/node':
       specifier: ^22.13.4
       version: 22.13.4
+    '@vue/tsconfig':
+      specifier: ^0.7.0
+      version: 0.7.0
     eslint:
       specifier: ^9.20.1
       version: 9.20.1
@@ -57,6 +171,9 @@ catalogs:
       specifier: ^5.7.3
       version: 5.7.3
   util:
+    nanoid:
+      specifier: ^5.1.0
+      version: 5.1.0
     plop:
       specifier: ^4.0.1
       version: 4.0.1
@@ -98,6 +215,9 @@ importers:
       '@types/node':
         specifier: catalog:type
         version: 22.13.4
+      '@types/react':
+        specifier: catalog:frameworks
+        version: 19.0.8
       '@vitejs/plugin-vue':
         specifier: catalog:plugin
         version: 5.2.1(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -125,9 +245,18 @@ importers:
       plop:
         specifier: catalog:util
         version: 4.0.1
+      react:
+        specifier: catalog:frameworks
+        version: 19.0.0
       rimraf:
         specifier: catalog:util
         version: 6.0.1
+      solid-js:
+        specifier: catalog:frameworks
+        version: 1.9.4
+      svelte:
+        specifier: catalog:frameworks
+        version: 5.20.1
       taze:
         specifier: catalog:util
         version: 18.5.0
@@ -5583,10 +5712,6 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  sirv@3.0.0:
-    resolution: {integrity: sha512-BPwJGUeDaDCHihkORDchNyyTvWFhcusy1XMmhEVTQTwGeybFbp8YEmB+njbPnth1FibULBSBVwCQni25XlCUDg==}
-    engines: {node: '>=18'}
-
   sirv@3.0.1:
     resolution: {integrity: sha512-FoqMu0NCGBLCcAkS1qA+XJIQTR6/JHfQXl+uGteNCQ76T91DMUjPa9xfmeqMY3z80nLSg9yQmNjK0Px6RWsH/A==}
     engines: {node: '>=18'}
@@ -7308,7 +7433,7 @@ snapshots:
       '@unocss/rule-utils': 65.4.3
       colorette: 2.0.20
       gzip-size: 6.0.0
-      sirv: 3.0.0
+      sirv: 3.0.1
       vue-flow-layout: 0.1.1(vue@3.5.13(typescript@5.7.3))
     transitivePeerDependencies:
       - vue
@@ -10125,12 +10250,6 @@ snapshots:
   signal-exit@3.0.7: {}
 
   signal-exit@4.1.0: {}
-
-  sirv@3.0.0:
-    dependencies:
-      '@polka/url': 1.0.0-next.28
-      mrmime: 2.0.0
-      totalist: 3.0.1
 
   sirv@3.0.1:
     dependencies:

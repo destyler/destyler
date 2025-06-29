@@ -2,10 +2,8 @@ import type { FC } from 'react'
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { aspectRatioControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
 
 const AspectRatio: FC = () => {
   const controls = useControls(aspectRatioControls)

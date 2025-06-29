@@ -2,9 +2,7 @@ import * as radio from '@destyler/radio'
 import { radioControls } from '@destyler/shared-private'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 
 export default function RadioDemo() {
   const controls = useControls(radioControls)

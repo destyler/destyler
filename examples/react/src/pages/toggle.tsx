@@ -1,8 +1,8 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { toggleControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as toggle from '@destyler/toggle'
 import { useId } from 'react'
-import { useControls } from '../hooks/use-controls'
 
 export default function TogglePage() {
   const controls = useControls(toggleControls)

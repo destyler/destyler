@@ -1,8 +1,8 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { tabsControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as tabs from '@destyler/tabs'
 import { useId } from 'react'
-import { useControls } from '../hooks/use-controls'
 
 export default function TabsDemo() {
   const controls = useControls(tabsControls)

@@ -1,8 +1,7 @@
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as tooltip from '@destyler/tooltip'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
 
 export default function TooltipDemo() {
   const id = createUniqueId()
