@@ -2,9 +2,24 @@
   "name": "@destyler/shared-private",
   "version": "0.0.0",
   "private": "true",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./vue": {
+      "default": "./src/vue/index.ts"
+    },
+    "./test": {
+      "default": "./src/test/index.ts"
+    }
+  },
   "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
   "dependencies": {
-    "@destyler/tour": "workspace:*"
+    "@destyler/tour": "workspace:*",
+    "vue": "catalog:frameworks"
   }
 
 }
