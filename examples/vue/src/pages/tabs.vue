@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { tabsControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import * as tabs from '@destyler/tabs'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(tabsControls)
 

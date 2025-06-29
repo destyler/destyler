@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import * as combobox from '@destyler/combobox'
 import { comboboxControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed, ref, useId } from 'vue'
 
-import { useControls } from '../composables/useControls'
+import { computed, ref, useId } from 'vue'
 
 const controls = useControls(comboboxControls)
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { treeControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import * as tree from '@destyler/tree'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import TreeNode from '../components/TreeNode.vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(treeControls)
 interface Node {

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import * as dynamic from '@destyler/dynamic'
 import { dynamicControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed, useId } from 'vue'
 
-import { useControls } from '../composables/useControls'
+import { computed, useId } from 'vue'
 
 const controls = useControls(dynamicControls)
 

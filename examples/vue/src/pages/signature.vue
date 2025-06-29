@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { signatureControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import * as signaturePad from '@destyler/signature'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(signatureControls)
 

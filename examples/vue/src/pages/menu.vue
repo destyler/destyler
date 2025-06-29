@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import * as menu from '@destyler/menu'
 import { menuControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(menuControls)
 

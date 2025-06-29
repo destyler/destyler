@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import * as image from '@destyler/image'
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 

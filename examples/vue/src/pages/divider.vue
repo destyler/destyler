@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import * as separator from '@destyler/separator'
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
 

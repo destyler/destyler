@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { sliderControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import * as slider from '@destyler/slider'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(sliderControls)
 

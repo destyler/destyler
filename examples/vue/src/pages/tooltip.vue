@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import * as tooltip from '@destyler/tooltip'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'

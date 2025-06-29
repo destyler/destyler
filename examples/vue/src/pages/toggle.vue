@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { toggleControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import * as toggle from '@destyler/toggle'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(toggleControls)
 

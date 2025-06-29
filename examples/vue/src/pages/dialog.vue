@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import * as dialog from '@destyler/dialog'
 import { dialogControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import { useControls } from '../composables/useControls'
 
 const controls = useControls(dialogControls)
 
