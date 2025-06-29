@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { dataAttr } from '@destyler/dom'
-import { ref, useSlots } from 'vue'
+import { defineProps, ref, useSlots } from 'vue'
 
 const props = defineProps<{
   viz?: boolean

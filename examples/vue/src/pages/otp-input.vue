@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import * as otpInput from "@destyler/otp-input";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed, useId } from "vue";
+import * as otpInput from '@destyler/otp-input'
 import { pinInputControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(pinInputControls)
 
-const [state, send] = useMachine(otpInput.machine({ id: useId() }),{
+const [state, send] = useMachine(otpInput.machine({ id: useId() }), {
   context: controls.context,
-});
-const api = computed(() => otpInput.connect(state.value, send, normalizeProps));
+})
+const api = computed(() => otpInput.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
@@ -26,7 +26,6 @@ const api = computed(() => otpInput.connect(state.value, send, normalizeProps));
       </div>
 
       <div
-        ref="ref"
         v-bind="api.getRootProps()"
         class="flex justify-center gap-4 mt-8"
       >
@@ -35,13 +34,13 @@ const api = computed(() => otpInput.connect(state.value, send, normalizeProps));
           :key="index"
           v-bind="api.getInputProps({ index: index - 1 })"
           class="w-16 h-16 text-center text-2xl font-semibold bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-black dark:focus:border-white focus:ring-2 focus:ring-black dark:focus:ring-white focus:outline-none"
-        />
+        >
       </div>
 
       <div class="text-center mt-6">
         <button
-          @click="api.clearValue"
           class="px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:focus:ring-white"
+          @click="api.clearValue"
         >
           Clear
         </button>

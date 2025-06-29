@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import * as hoverCard from "@destyler/hover-card"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId } from "vue"
+import * as hoverCard from '@destyler/hover-card'
 import { hoverCardControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(hoverCardControls)
 
-const [state, send] = useMachine(hoverCard.machine({ id: useId() }),{
+const [state, send] = useMachine(hoverCard.machine({ id: useId() }), {
   context: controls.context,
 })
 
@@ -34,17 +34,21 @@ const api = computed(() => hoverCard.connect(state.value, send, normalizeProps))
             src="https://github.com/elonehoo.png"
             alt="Profile"
             class="w-12 h-12 rounded-full border border-gray-200 dark:border-gray-700"
-          />
+          >
           <div>
-            <h3 class="font-semibold text-gray-900 dark:text-gray-100">elonehoo</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">Frontend Developer</p>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100">
+              elonehoo
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Frontend Developer
+            </p>
           </div>
         </div>
         <div class="mt-3 text-sm text-gray-700 dark:text-gray-300">
           Follow me on Twitter for web development tips and updates!
         </div>
         <div class="mt-3 flex items-center text-sm text-gray-600 dark:text-gray-400">
-          <div class="w-4 h-4 i-carbon:logo-x"></div>
+          <div class="w-4 h-4 i-carbon:logo-x" />
           @elonehoo
         </div>
       </div>

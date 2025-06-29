@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import * as menu from "@destyler/menu";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed, useId,ref } from "vue";
+import * as menu from '@destyler/menu'
 import { menuControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(menuControls)
 
-const [state, send] = useMachine(menu.machine({ id: useId(), "aria-label": "File" }),{
+const [state, send] = useMachine(menu.machine({ 'id': useId(), 'aria-label': 'File' }), {
   context: controls.context,
-});
-const api = computed(() => menu.connect(state.value, send, normalizeProps));
+})
+const api = computed(() => menu.connect(state.value, send, normalizeProps))
 
 const items = ref([
-  { value: "edit", label: "Edit" },
-  { value: "duplicate", label: "Duplicate" },
-  { value: "delete", label: "Delete" },
-  { value: "export", label: "Export..." },
+  { value: 'edit', label: 'Edit' },
+  { value: 'duplicate', label: 'Duplicate' },
+  { value: 'delete', label: 'Delete' },
+  { value: 'export', label: 'Export...' },
 ])
 </script>
 
@@ -46,7 +46,7 @@ const items = ref([
           v-bind="api.getItemProps({ value: item.value })"
           class="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
         >
-          {{item.label}}
+          {{ item.label }}
         </li>
       </ul>
     </div>

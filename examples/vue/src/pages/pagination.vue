@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import * as pagination from "@destyler/pagination"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId } from "vue"
+import * as pagination from '@destyler/pagination'
 import { paginationControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(paginationControls)
 
-const [state, send] = useMachine(pagination.machine({ id: useId(), count: 1000 }),{
+const [state, send] = useMachine(pagination.machine({ id: useId(), count: 1000 }), {
   context: controls.context,
 })
 
@@ -24,7 +24,7 @@ const api = computed(() => pagination.connect(state.value, send, normalizeProps)
           transition-all duration-200 shadow-sm hover:shadow-md
           flex items-center gap-x-1 text-sm font-medium cursor-pointer"
         >
-          <div class="w-4 h-4 i-carbon:chevron-left"></div>
+          <div class="w-4 h-4 i-carbon:chevron-left" />
           Previous <span class="sr-only">Page</span>
         </a>
       </li>
@@ -60,7 +60,7 @@ const api = computed(() => pagination.connect(state.value, send, normalizeProps)
           flex items-center gap-x-1 text-sm font-medium cursor-pointer"
         >
           Next <span class="sr-only">Page</span>
-          <div class="w-4 h-4 i-carbon:chevron-right"></div>
+          <div class="w-4 h-4 i-carbon:chevron-right" />
         </a>
       </li>
     </ul>

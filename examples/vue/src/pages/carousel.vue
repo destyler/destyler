@@ -52,7 +52,9 @@ const api = computed(() =>
       v-bind="api.getControlProps()"
       class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
     >
-      <button v-bind="api.getAutoplayTriggerProps()">{{ api.isPlaying ? 'Stop' : 'Play' }}</button>
+      <button v-bind="api.getAutoplayTriggerProps()">
+        {{ api.isPlaying ? 'Stop' : 'Play' }}
+      </button>
       <button
         v-bind="api.getPrevTriggerProps()"
         class="w-4 h-4 text-light i-carbon:caret-left"

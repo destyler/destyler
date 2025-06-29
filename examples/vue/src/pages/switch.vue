@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import * as switchs from "@destyler/switch"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed,useId } from "vue"
 import { switchControls } from '@destyler/shared-private'
+import * as switchs from '@destyler/switch'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(switchControls)
 
-  const [state, send] = useMachine(switchs.machine({ id: useId() }),{
-    context: controls.context,
-  })
+const [state, send] = useMachine(switchs.machine({ id: useId() }), {
+  context: controls.context,
+})
 
-  const api = computed(() =>
-    switchs.connect(state.value, send, normalizeProps),
-  )
+const api = computed(() =>
+  switchs.connect(state.value, send, normalizeProps),
+)
 </script>
 
 <template>
@@ -21,7 +21,7 @@ const controls = useControls(switchControls)
     v-bind="api.getRootProps()"
     class="inline-flex items-center space-x-3 cursor-pointer"
   >
-    <input v-bind="api.getHiddenInputProps()" />
+    <input v-bind="api.getHiddenInputProps()">
     <span
       v-bind="api.getControlProps()"
       class="

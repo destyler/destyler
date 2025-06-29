@@ -1,48 +1,52 @@
 <script setup lang="ts">
-  import * as tour from "@destyler/tour"
-  import { useMachine, normalizeProps } from "@destyler/vue"
-  import { useId, computed, Teleport } from "vue"
+import * as tour from '@destyler/tour'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 
-  const steps: tour.StepDetails[] = [
-    {
-      type: 'dialog',
-      id: 'start',
-      title: 'Ready to go for a ride',
-      description: "Let's take the tour component for a ride and have some fun!",
-      actions: [{ label: "Let's go!", action: 'next' }],
-    },
-    {
-      type: 'dialog',
-      id: 'logic',
-      title: 'Statechart',
-      description: `As an engineer, you'll learn about the internal statechart that powers the tour.`,
-      actions: [
-        { label: 'Prev', action: 'prev' },
-        { label: 'Next', action: 'next' },
-      ],
-    },
-    {
-      type: 'dialog',
-      id: 'end',
-      title: 'Amazing! You got to the end',
-      description: 'Like what you see? Now go ahead and use it in your project.',
-      actions: [{ label: 'Finish', action: 'dismiss' }],
-    },
-  ]
+const steps: tour.StepDetails[] = [
+  {
+    type: 'dialog',
+    id: 'start',
+    title: 'Ready to go for a ride',
+    description: 'Let\'s take the tour component for a ride and have some fun!',
+    actions: [{ label: 'Let\'s go!', action: 'next' }],
+  },
+  {
+    type: 'dialog',
+    id: 'logic',
+    title: 'Statechart',
+    description: `As an engineer, you'll learn about the internal statechart that powers the tour.`,
+    actions: [
+      { label: 'Prev', action: 'prev' },
+      { label: 'Next', action: 'next' },
+    ],
+  },
+  {
+    type: 'dialog',
+    id: 'end',
+    title: 'Amazing! You got to the end',
+    description: 'Like what you see? Now go ahead and use it in your project.',
+    actions: [{ label: 'Finish', action: 'dismiss' }],
+  },
+]
 
-  const [state, send] = useMachine(tour.machine({ id: useId(), steps }))
+const [state, send] = useMachine(tour.machine({ id: useId(), steps }))
 
-  const api = computed(() => tour.connect(state.value, send, normalizeProps))
-  const open = computed(() => api.value.open && api.value.step)
+const api = computed(() => tour.connect(state.value, send, normalizeProps))
+const open = computed(() => api.value.open && api.value.step)
 </script>
 
 <template>
   <div>
-    <button @click="api.start()">Start Tour</button>
-    <div id="step-1">Step 1</div>
+    <button @click="api.start()">
+      Start Tour
+    </button>
+    <div id="step-1">
+      Step 1
+    </div>
   </div>
 
-  <Teleport to="body" v-if="open">
+  <Teleport v-if="open" to="body">
     <div v-if="api.step?.backdrop" v-bind="api.getBackdropProps()" />
     <div v-bind="api.getSpotlightProps()" />
     <div v-bind="api.getPositionerProps()" class="fixed">
@@ -51,8 +55,12 @@
           <div v-bind="api.getArrowTipProps()" />
         </div>
 
-        <p v-bind="api.getTitleProps()">{{ api.step?.title }}</p>
-        <div v-bind="api.getDescriptionProps()">{{ api.step?.description }}</div>
+        <p v-bind="api.getTitleProps()">
+          {{ api.step?.title }}
+        </p>
+        <div v-bind="api.getDescriptionProps()">
+          {{ api.step?.description }}
+        </div>
         <div v-bind="api.getProgressTextProps()">
           {{ api.getProgressText() }}
         </div>
@@ -67,7 +75,9 @@
           </button>
         </div>
 
-        <button v-bind="api.getCloseTriggerProps()">X</button>
+        <button v-bind="api.getCloseTriggerProps()">
+          X
+        </button>
       </div>
     </div>
   </Teleport>

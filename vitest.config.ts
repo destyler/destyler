@@ -18,14 +18,14 @@ export default defineConfig({
           Vue(),
         ],
         test: {
-          name: 'browser',
+          name: 'vue-browser',
           browser: {
             enabled: true,
             provider: 'playwright',
             instances: [
-              {
-                browser: 'chromium',
-              },
+              { browser: 'chromium' },
+              { browser: 'firefox' },
+              { browser: 'webkit' },
             ],
           },
           setupFiles: [

@@ -5,7 +5,6 @@ import { render } from 'vitest-browser-vue'
 import Carousel from '../model/Carousel.vue'
 
 describe('carousel vue browser tests', () => {
-
   it('renders correctly', async () => {
     render(Carousel)
     const items = page.getByArticle(part('item'))
@@ -15,7 +14,7 @@ describe('carousel vue browser tests', () => {
     await expect.element(items.nth(1)).not.toHaveAttribute('data-inview', '')
   })
 
-  it('next/prev buttons navigate carousel', async ()=>{
+  it('next/prev buttons navigate carousel', async () => {
     render(Carousel)
     const prevTrigger = page.getByArticle(part('prev-trigger'))
     await expect.element(prevTrigger).toBeDisabled()
@@ -52,7 +51,7 @@ describe('carousel vue browser tests', () => {
     await expect.element(page.getByArticle(part('indicator')).nth(1)).toHaveAttribute('data-current', '')
   })
 
-  it('clicking indicator scrolls to correct slide', async ()=>{
+  it('clicking indicator scrolls to correct slide', async () => {
     render(Carousel)
     const indicator = page.getByArticle(part('indicator'))
     await indicator.nth(1).click()
@@ -61,21 +60,21 @@ describe('carousel vue browser tests', () => {
     await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
   })
 
-  it('scroll to a specific index via button', async ()=>{
+  it('scroll to a specific index via button', async () => {
     render(Carousel)
 
     await page.getByRole('button', { name: 'Scroll to 1' }).click()
     await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
   })
 
-  it('indicator keyboard navigation', async ()=>{
+  it('indicator keyboard navigation', async () => {
     render(Carousel)
     const indicator = page.getByArticle(part('indicator'))
     await userEvent.type(indicator.nth(0), '{arrowright}')
     await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
   })
 
-  it('[loop=true] should loop slides', async ()=>{
+  it('[loop=true] should loop slides', async () => {
     render(Carousel)
 
     await page.getByTestId('loop').click()

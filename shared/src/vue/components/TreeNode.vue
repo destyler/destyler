@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Api } from "@destyler/tree"
-import { defineProps, computed } from "vue"
+import type { Api } from '@destyler/tree'
+import { computed, defineProps } from 'vue'
 
 interface Node {
   id: string
@@ -29,8 +29,7 @@ const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
     <div v-bind="api.getBranchProps(nodeProps)">
       <div v-bind="api.getBranchControlProps(nodeProps)">
         <span v-bind="api.getBranchTextProps(nodeProps)">{{ node.name }}</span>
-        <span v-bind="api.getBranchIndicatorProps(nodeProps)">
-        </span>
+        <span v-bind="api.getBranchIndicatorProps(nodeProps)" />
       </div>
       <div v-bind="api.getBranchContentProps(nodeProps)">
         <div v-bind="api.getBranchIndentGuideProps(nodeProps)" />
@@ -45,6 +44,8 @@ const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
     </div>
   </template>
   <template v-else>
-    <div v-bind="api.getItemProps(nodeProps)"> {{ node.name }}</div>
+    <div v-bind="api.getItemProps(nodeProps)">
+      {{ node.name }}
+    </div>
   </template>
 </template>

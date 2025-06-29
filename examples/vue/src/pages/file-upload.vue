@@ -1,19 +1,19 @@
 <script setup lang="ts">
-  import * as fileUpload from "@destyler/file-upload"
-  import { normalizeProps, useMachine } from "@destyler/vue"
-  import { computed,useId } from "vue"
-  import { fileUploadControls } from '@destyler/shared-private'
-  import { useControls } from '../composables/useControls'
+import * as fileUpload from '@destyler/file-upload'
+import { fileUploadControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
+import { useControls } from '../composables/useControls'
 
 const controls = useControls(fileUploadControls)
 
-  const [state, send] = useMachine(fileUpload.machine({ id: useId() }),{
-    context: controls.context,
-  })
+const [state, send] = useMachine(fileUpload.machine({ id: useId() }), {
+  context: controls.context,
+})
 
-  const api = computed(() =>
-    fileUpload.connect(state.value, send, normalizeProps),
-  )
+const api = computed(() =>
+  fileUpload.connect(state.value, send, normalizeProps),
+)
 </script>
 
 <template>
@@ -22,9 +22,13 @@ const controls = useControls(fileUploadControls)
       v-bind="api.getDropzoneProps()"
       class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-gray-800 transition-colors cursor-pointer bg-gray-50 data-[dragging]:bg-gray-100"
     >
-      <input v-bind="api.getHiddenInputProps()" />
-      <p class="text-gray-600">Drag and drop your files here</p>
-      <p class="text-sm text-gray-400 mt-2">or</p>
+      <input v-bind="api.getHiddenInputProps()">
+      <p class="text-gray-600">
+        Drag and drop your files here
+      </p>
+      <p class="text-sm text-gray-400 mt-2">
+        or
+      </p>
       <button
         v-bind="api.getTriggerProps()"
         class="mt-4 px-6 py-2 bg-gray-900 text-white rounded-md hover:bg-black transition-colors"

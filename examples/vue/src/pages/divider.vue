@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as separator from '@destyler/separator'
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId, ref } from "vue"
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
 
 const items = ref([
   { label: 'Blog', value: 'blog' },
@@ -35,8 +35,8 @@ const api = computed(() =>
           {{ item.label }}
         </div>
         <div
-          v-bind="api.getRootProps('vertical')"
           v-if="index < items.length - 1"
+          v-bind="api.getRootProps('vertical')"
           class="bg-dark data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-4"
         />
       </template>

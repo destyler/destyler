@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import * as tabs from "@destyler/tabs";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed,useId } from "vue";
 import { tabsControls } from '@destyler/shared-private'
+import * as tabs from '@destyler/tabs'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(tabsControls)
 
 const data = [
-  { value: "item-1", label: "Item one", content: "Item one content" },
-  { value: "item-2", label: "Item two", content: "Item two content" },
-  { value: "item-3", label: "Item three", content: "Item three content" },
-];
+  { value: 'item-1', label: 'Item one', content: 'Item one content' },
+  { value: 'item-2', label: 'Item two', content: 'Item two content' },
+  { value: 'item-3', label: 'Item three', content: 'Item three content' },
+]
 
-const [state, send] = useMachine(tabs.machine({ id: useId(), value: "item-1" }),{
+const [state, send] = useMachine(tabs.machine({ id: useId(), value: 'item-1' }), {
   context: controls.context,
-});
-const api = computed(() => tabs.connect(state.value, send, normalizeProps));
+})
+const api = computed(() => tabs.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div ref="ref" v-bind="api.getRootProps()" class="max-w-md p-6 bg-white rounded-lg shadow-md">
+  <div v-bind="api.getRootProps()" class="max-w-md p-6 bg-white rounded-lg shadow-md">
     <div v-bind="api.getListProps()" class="flex gap-2 mb-6 border-b border-gray-200">
       <button
         v-for="item in data"
@@ -41,7 +41,9 @@ const api = computed(() => tabs.connect(state.value, send, normalizeProps));
       :key="item.value"
       class="p-4 bg-gray-50 rounded-lg data-[hidden]:hidden"
     >
-      <p class="text-gray-800">{{ item.content }}</p>
+      <p class="text-gray-800">
+        {{ item.content }}
+      </p>
     </div>
   </div>
   <Toolbar>

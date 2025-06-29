@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import * as edit from "@destyler/edit";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed, useId } from "vue";
+import * as edit from '@destyler/edit'
 import { editControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(editControls)
@@ -10,19 +10,19 @@ const controls = useControls(editControls)
 const [state, send] = useMachine(edit.machine({
   id: useId(),
   placeholder: 'Type something...',
-}),{
+}), {
   context: controls.context,
-});
-const api = computed(() => edit.connect(state.value, send, normalizeProps));
+})
+const api = computed(() => edit.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div ref="ref" v-bind="api.getRootProps()" class="max-w-md p-6 bg-white rounded-lg shadow-md border border-gray-200">
+  <div v-bind="api.getRootProps()" class="max-w-md p-6 bg-white rounded-lg shadow-md border border-gray-200">
     <div v-bind="api.getAreaProps()" class="mb-4">
       <input
         v-bind="api.getInputProps()"
         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-      />
+      >
       <span
         v-bind="api.getPreviewProps()"
         class="block mt-2 text-gray-700"

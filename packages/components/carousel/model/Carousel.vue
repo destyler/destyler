@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as carousel from '@destyler/carousel'
 import { carouselControls } from '@destyler/shared-private'
-import { useControls, Toolbar, StateVisualizer, Controls } from '@destyler/shared-private/vue'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 
@@ -49,7 +49,9 @@ const api = computed(() =>
     <div
       v-bind="api.getControlProps()"
     >
-      <button v-bind="api.getAutoplayTriggerProps()">{{ api.isPlaying ? 'Stop' : 'Play' }}</button>
+      <button v-bind="api.getAutoplayTriggerProps()">
+        {{ api.isPlaying ? 'Stop' : 'Play' }}
+      </button>
       <button
         v-bind="api.getPrevTriggerProps()"
       />

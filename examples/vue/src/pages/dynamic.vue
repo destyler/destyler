@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import * as dynamic from "@destyler/dynamic";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed, useId } from "vue";
+import * as dynamic from '@destyler/dynamic'
 import { dynamicControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 
 import { useControls } from '../composables/useControls'
 
@@ -11,15 +11,15 @@ const controls = useControls(dynamicControls)
 const [state, send] = useMachine(
   dynamic.machine({
     id: useId(),
-    value: ["React", "Vue"],
+    value: ['React', 'Vue'],
   }),
   {
     context: controls.context,
-  }
-);
+  },
+)
 const api = computed(() =>
-  dynamic.connect(state.value, send, normalizeProps)
-);
+  dynamic.connect(state.value, send, normalizeProps),
+)
 </script>
 
 <template>
@@ -46,14 +46,14 @@ const api = computed(() =>
         <input
           v-bind="api.getItemInputProps({ index, value })"
           class="hidden absolute left-0 top-0 w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none"
-        />
+        >
       </span>
     </div>
     <input
       placeholder="Add tag..."
       v-bind="api.getInputProps()"
       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none placeholder-gray-500"
-    />
+    >
   </div>
 
   <Toolbar>

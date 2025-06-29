@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import * as popover from "@destyler/popover"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed,useId } from "vue"
+import * as popover from '@destyler/popover'
 import { popoverControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(popoverControls)
 
-  const [state, send] = useMachine(popover.machine({ id: useId() }),{
-    context: controls.context,
-  })
-  const api = computed(() => popover.connect(state.value, send, normalizeProps))
+const [state, send] = useMachine(popover.machine({ id: useId() }), {
+  context: controls.context,
+})
+const api = computed(() => popover.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
@@ -48,8 +48,7 @@ const controls = useControls(popoverControls)
         <button
           v-bind="api.getCloseTriggerProps()"
           class="absolute top-5 right-3 text-gray-400 hover:text-gray-600 i-carbon:close-large"
-        >
-        </button>
+        />
       </div>
     </div>
   </div>

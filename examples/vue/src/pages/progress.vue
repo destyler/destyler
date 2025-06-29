@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import * as progress from "@destyler/progress"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed,useId } from "vue"
+import * as progress from '@destyler/progress'
 import { progressControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(progressControls)
 
-const [state, send] = useMachine(progress.machine({ id: useId(),value: 30 }),{
+const [state, send] = useMachine(progress.machine({ id: useId(), value: 30 }), {
   context: controls.context,
 })
 

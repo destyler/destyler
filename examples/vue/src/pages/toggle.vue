@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import * as toggle from "@destyler/toggle"
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed,useId } from "vue";
 import { toggleControls } from '@destyler/shared-private'
+import * as toggle from '@destyler/toggle'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(toggleControls)
 
-const [state, send] = useMachine(toggle.machine({ id: useId() }),{
+const [state, send] = useMachine(toggle.machine({ id: useId() }), {
   context: controls.context,
 })
 const api = computed(() => toggle.connect(state.value, send, normalizeProps))
@@ -24,7 +24,7 @@ const api = computed(() => toggle.connect(state.value, send, normalizeProps))
         :key="index"
         v-bind="api.getItemProps({ value: item })"
         class="w-10 h-10 rounded-md border border-gray-200 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium"
-        :class="{'bg-gray-800 text-white hover:bg-gray-700': api.value.includes(item)}"
+        :class="{ 'bg-gray-800 text-white hover:bg-gray-700': api.value.includes(item) }"
       >
         {{ item[0].toUpperCase() }}
       </button>

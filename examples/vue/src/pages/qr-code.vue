@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import * as qrCode from "@destyler/qr-code"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId } from "vue"
+import * as qrCode from '@destyler/qr-code'
 import { qrCodeControls } from '@destyler/shared-private'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(qrCodeControls)
 
-  const [state, send] = useMachine(
-    qrCode.machine({
-      id: useId(),
-    }),
-    {
-      context: controls.context,
-    },
-  )
+const [state, send] = useMachine(
+  qrCode.machine({
+    id: useId(),
+  }),
+  {
+    context: controls.context,
+  },
+)
 
-  const api = computed(() => qrCode.connect(state.value, send, normalizeProps))
+const api = computed(() => qrCode.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
@@ -28,7 +28,7 @@ const controls = useControls(qrCodeControls)
       <img
         src="https://github.com/destyler.png"
         alt=""
-      />
+      >
     </div>
   </div>
 

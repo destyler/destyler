@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import * as slider from "@destyler/slider";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed,useId } from "vue";
 import { sliderControls } from '@destyler/shared-private'
+import * as slider from '@destyler/slider'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
 import { useControls } from '../composables/useControls'
 
 const controls = useControls(sliderControls)
 
-const [state, send] = useMachine(slider.machine({ id: useId(), value: [12] }),{
+const [state, send] = useMachine(slider.machine({ id: useId(), value: [12] }), {
   context: controls.context,
-});
-const api = computed(() => slider.connect(state.value, send, normalizeProps));
+})
+const api = computed(() => slider.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
@@ -39,7 +39,7 @@ const api = computed(() => slider.connect(state.value, send, normalizeProps));
         v-bind="api.getThumbProps({ index })"
         class="absolute top-2.5 w-5 h-5 bg-white border-2 border-gray-600 rounded-full cursor-pointer transform -translate-y-1/2 hover:border-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400"
       >
-        <input v-bind="api.getHiddenInputProps({ index })" />
+        <input v-bind="api.getHiddenInputProps({ index })">
       </div>
     </div>
   </div>
