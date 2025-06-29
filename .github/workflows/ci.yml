@@ -31,8 +31,11 @@ jobs:
 
       - name: Test
         run: pnpm run test
-  e2e-react:
+  e2e:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        framework: [react, vue, svelte, solid]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,7 +60,7 @@ jobs:
       - name: Test
         run: pnpm playwright test
         env:
-          FRAMEWORK: react
+          FRAMEWORK: ${{ matrix.framework }}
   lint:
     runs-on: ubuntu-latest
     steps:
