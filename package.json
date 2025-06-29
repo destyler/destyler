@@ -44,7 +44,6 @@
     "@destyler/svelte": "workspace:*",
     "@destyler/tree": "workspace:*",
     "@destyler/vue": "workspace:*",
-    "@solidjs/testing-library": "^0.8.10",
     "@sveltejs/vite-plugin-svelte": "catalog:plugin",
     "@types/node": "catalog:type",
     "@types/react": "catalog:frameworks",
