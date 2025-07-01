@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import type { ControlRecord } from '@destyler/shared-private'
 import { deepGet, deepSet, getControlDefaults } from '@destyler/shared-private'
 import { createMemo, createSignal, For } from 'solid-js'

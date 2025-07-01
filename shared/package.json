@@ -18,6 +18,9 @@
     "./react": {
       "default": "./src/react/index.ts"
     },
+    "./vanilla": {
+      "default": "./src/vanilla/index.ts"
+    },
     "./test": {
       "default": "./src/test/index.ts"
     }

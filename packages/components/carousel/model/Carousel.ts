@@ -1,6 +1,5 @@
 import * as carousel from '@destyler/carousel'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
-import { nanoid } from 'nanoid'
 
 export class Carousel extends Component<carousel.Context, carousel.Api> {
   initService(context: carousel.Context) {
@@ -32,7 +31,6 @@ export class Carousel extends Component<carousel.Context, carousel.Api> {
         this.api.scrollToIndex(1)
       }
     }
-
 
     // 控制区
     const controlEl = rootEl.querySelector<HTMLElement>('.carousel-controls')
@@ -126,23 +124,4 @@ export function createCarouselElements(images: string[]): Promise<HTMLDivElement
     // 这里直接 resolve，实际可替换为异步逻辑
     resolve(root)
   })
-}
-
-export default async function HelloWorld(): Promise<HTMLDivElement> {
-  const images = [
-    'https://elonehoo.me/coffee/01.jpeg',
-    'https://elonehoo.me/coffee/02.jpeg',
-  ]
-  const root = await createCarouselElements(images)
-  setTimeout(() => {
-    const carousel = new Carousel(root, {
-      id: nanoid(),
-      slideCount: images.length,
-      spacing: '20px',
-      slidesPerPage: 1,
-      autoplay: false,
-    })
-    carousel.init()
-  })
-  return root
 }

@@ -1,3 +1,5 @@
+import { carouselControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { nanoid } from 'nanoid'
 import { beforeAll, describe, it } from 'vitest'
 import { Carousel, createCarouselElements } from '../model/Carousel'
@@ -18,15 +20,37 @@ describe('carousel vanilla browser tests', () => {
       'https://elonehoo.me/coffee/02.jpeg',
     ]
     const root = await createCarouselElements(images)
+    const control = useControls(carouselControls)
     document.body.appendChild(root)
+    document.body.appendChild(
+      Toolbar({
+        controlsSlot: () => Controls(control),
+        visualizerSlot: () => StateVisualizer({ state: control.context }),
+      }),
+    )
+
+    const id = nanoid()
     const carousel = new Carousel(root, {
-      id: nanoid(),
+      ...control.context,
+      id,
       slideCount: images.length,
       spacing: '20px',
       slidesPerPage: 1,
       autoplay: false,
     })
     carousel.init()
+
+    control.subscribe(() => {
+      const carousel = new Carousel(root, {
+        ...control.context,
+        id,
+        slideCount: images.length,
+        spacing: '20px',
+        slidesPerPage: 1,
+        autoplay: false,
+      })
+      carousel.init()
+    })
   })
 
   it('renders name', async () => {
@@ -51,5 +75,9 @@ describe('carousel vanilla browser tests', () => {
 
   it('indicator keyboard navigation', async () => {
     await IndicatorKeyboardNavigation()
+  })
+
+  it('[loop=true] should loop slides', async () => {
+    await LoopShouldLoopSlides()
   })
 })
