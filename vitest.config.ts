@@ -33,6 +33,10 @@ export default defineConfig({
               { browser: 'firefox', name: 'browser-firefox' },
               { browser: 'webkit', name: 'browser-webkit' },
             ],
+            viewport: {
+              width: 834,
+              height: 1112,
+            },
           },
           setupFiles: [
             './vitest.browser.setup.ts',
@@ -41,7 +45,7 @@ export default defineConfig({
             'packages/**/*.solid.browser.spec.{js,ts,jsx,tsx}',
           ],
           include: [
-
+            'packages/**/*.vanilla.browser.spec.{js,ts,jsx,tsx}',
             'packages/**/*.react.browser.spec.{js,ts,jsx,tsx}',
             'packages/**/*.svelte.browser.spec.{js,ts,jsx,tsx}',
             'packages/**/*.vue.browser.spec.{js,ts,jsx,tsx}',

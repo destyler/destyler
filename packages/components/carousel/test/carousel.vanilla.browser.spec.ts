@@ -1,6 +1,6 @@
-import { describe, it } from 'vitest'
-import { render } from 'vitest-browser-svelte'
-import Carousel from '../model/Carousel.svelte'
+import { nanoid } from 'nanoid'
+import { beforeAll, describe, it } from 'vitest'
+import { Carousel, createCarouselElements } from '../model/Carousel'
 import {
   AutoplayStartAndStop,
   ClickingIndicatorScrollsToCorrectSlide,
@@ -11,41 +11,45 @@ import {
   ScrollToSpecificIndexViaButton,
 } from './carousel.spec'
 
-describe('carousel svelte browser tests', () => {
-  it('renders correctly', async () => {
-    render(Carousel)
+describe('carousel vanilla browser tests', () => {
+  beforeAll(async () => {
+    const images = [
+      'https://elonehoo.me/coffee/01.jpeg',
+      'https://elonehoo.me/coffee/02.jpeg',
+    ]
+    const root = await createCarouselElements(images)
+    document.body.appendChild(root)
+    const carousel = new Carousel(root, {
+      id: nanoid(),
+      slideCount: images.length,
+      spacing: '20px',
+      slidesPerPage: 1,
+      autoplay: false,
+    })
+    carousel.init()
+  })
+
+  it('renders name', async () => {
     await RendersCorrectly()
   })
 
   it('next/prev buttons navigate carousel', async () => {
-    render(Carousel)
     await NextAndPrevButtonsNavigateCarousel()
   })
 
   it('autoplay start/stop', async () => {
-    render(Carousel)
     await AutoplayStartAndStop()
   })
 
   it('clicking indicator scrolls to correct slide', async () => {
-    render(Carousel)
     await ClickingIndicatorScrollsToCorrectSlide()
   })
 
   it('scroll to a specific index via button', async () => {
-    render(Carousel)
-
     await ScrollToSpecificIndexViaButton()
   })
 
   it('indicator keyboard navigation', async () => {
-    render(Carousel)
     await IndicatorKeyboardNavigation()
-  })
-
-  it('[loop=true] should loop slides', async () => {
-    render(Carousel)
-
-    await LoopShouldLoopSlides()
   })
 })
