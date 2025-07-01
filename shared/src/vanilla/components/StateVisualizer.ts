@@ -1,6 +1,6 @@
 import { highlightState } from '@destyler/stringify'
 
-export function StateVisualizer(params: { state: any; label?: string; omit?: string[] }): HTMLDivElement {
+export function StateVisualizer(params: { state: any, label?: string, omit?: string[] }): HTMLDivElement {
   const div = document.createElement('div')
   div.className = 'viz'
   const pre = document.createElement('pre')

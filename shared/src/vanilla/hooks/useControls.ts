@@ -1,7 +1,7 @@
 import { deepGet, deepSet, getControlDefaults } from '@destyler/shared-private'
 
 export function useControls(config) {
-  let state = getControlDefaults(config)
+  const state = getControlDefaults(config)
 
   const listeners = new Set()
 
