@@ -3,7 +3,7 @@ import { part } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { describe, expect, it, vi } from 'vitest'
 import { render } from 'vitest-browser-solid'
-import { Carousel } from '../model/Carousel.solid'
+import { Carousel } from './fixtures/Carousel.solid'
 
 describe('carousel solid browser tests', () => {
   it('renders correctly', async () => {

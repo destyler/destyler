@@ -3,7 +3,7 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import { carouselControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import * as carousel from '../index'
+import * as carousel from '../../index'
 
 export function Carousel(): ReactElement {
   const items = [

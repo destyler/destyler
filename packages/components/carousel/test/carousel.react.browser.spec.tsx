@@ -1,6 +1,5 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { Carousel } from '../model/Carousel.react'
 import {
   AutoplayStartAndStop,
   ClickingIndicatorScrollsToCorrectSlide,
@@ -10,6 +9,7 @@ import {
   RendersCorrectly,
   ScrollToSpecificIndexViaButton,
 } from './carousel.spec'
+import { Carousel } from './fixtures/Carousel.react'
 
 describe('carousel react browser tests', () => {
   it('renders correctly', async () => {

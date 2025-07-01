@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as carousel from '../index'
+  import * as carousel from '../../index'
   import { carouselControls } from '@destyler/shared-private'
   import { normalizeProps, useMachine } from '@destyler/svelte'
   import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'

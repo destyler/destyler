@@ -1,5 +1,5 @@
-import * as carousel from '@destyler/carousel'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as carousel from '../../index'
 
 export class Carousel extends Component<carousel.Context, carousel.Api> {
   initService(context: carousel.Context) {

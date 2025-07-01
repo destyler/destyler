@@ -2,7 +2,6 @@ import { carouselControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { nanoid } from 'nanoid'
 import { beforeAll, describe, it } from 'vitest'
-import { Carousel, createCarouselElements } from '../model/Carousel'
 import {
   AutoplayStartAndStop,
   ClickingIndicatorScrollsToCorrectSlide,
@@ -12,6 +11,7 @@ import {
   RendersCorrectly,
   ScrollToSpecificIndexViaButton,
 } from './carousel.spec'
+import { Carousel, createCarouselElements } from './fixtures/Carousel'
 
 describe('carousel vanilla browser tests', () => {
   beforeAll(async () => {
