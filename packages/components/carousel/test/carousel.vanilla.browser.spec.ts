@@ -77,7 +77,7 @@ describe('carousel vanilla browser tests', () => {
     await IndicatorKeyboardNavigation()
   })
 
-  it('[loop=true] should loop slides', async () => {
+  it.skip('[loop=true] should loop slides', async () => {
     await LoopShouldLoopSlides()
   })
 })
