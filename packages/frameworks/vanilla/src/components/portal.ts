@@ -47,7 +47,7 @@ export class Portal {
         }
       })
     }
- else {
+    else {
       // 如果没有原始父节点，从 DOM 中移除
       this.children.forEach((child) => {
         child.remove()

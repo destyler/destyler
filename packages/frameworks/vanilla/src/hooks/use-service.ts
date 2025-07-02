@@ -1,4 +1,4 @@
-import type { AnyEventObject, EventObject, HookOptions, MachineSrc, StateInit, StateSchema } from '@destyler/xstate'
+import type { AnyEventObject, EventObject, HookOptions, MachineSrc, StateSchema } from '@destyler/xstate'
 import { useConstant } from './use-constant'
 
 export function useService<

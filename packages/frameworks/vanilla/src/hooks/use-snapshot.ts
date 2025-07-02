@@ -1,6 +1,5 @@
-import type { Snapshot } from '@destyler/store'
 import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, XState } from '@destyler/xstate'
-import { globalRef, snapshot, subscribe } from '@destyler/store'
+import { globalRef, snapshot } from '@destyler/store'
 import { compact, isEqual } from '@destyler/utils'
 import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
 
@@ -16,9 +15,7 @@ export function useSnapshot<
   service: Machine<TContext, TState, TEvent>,
   options?: HookOptions<TContext, TState, TEvent> & { sync?: boolean },
 ): XState<TContext, TState, TEvent> {
-  type State = XState<TContext, TState, TEvent>
-
-  const { actions, context, sync: notifyInSync } = options ?? {}
+  const { actions, context } = options ?? {}
 
   // 获取或创建快照缓存
   if (!snapshotCache.has(target)) {
