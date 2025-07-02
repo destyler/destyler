@@ -3,7 +3,7 @@ import { globalRef, snapshot } from '@destyler/store'
 import { compact, isEqual } from '@destyler/utils'
 import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
 
-const targetCache = globalRef('__zag__targetCache', () => new WeakMap())
+const targetCache = globalRef('__destyler__targetCache', () => new WeakMap())
 const snapshotCache = new WeakMap<object, any>()
 
 export function useSnapshot<
