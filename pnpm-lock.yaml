@@ -2059,12 +2059,22 @@ importers:
 
   packages/frameworks/vanilla:
     dependencies:
+      '@destyler/store':
+        specifier: workspace:*
+        version: link:../../store
       '@destyler/types':
         specifier: workspace:*
         version: link:../../types
       '@destyler/xstate':
         specifier: workspace:*
         version: link:../../xstate
+      proxy-compare:
+        specifier: catalog:core
+        version: 3.0.1
+    devDependencies:
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
 
   packages/frameworks/vue:
     dependencies:

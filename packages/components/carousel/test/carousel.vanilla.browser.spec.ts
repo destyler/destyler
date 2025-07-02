@@ -14,6 +14,8 @@ import {
 import { Carousel, createCarouselElements } from './fixtures/Carousel'
 
 describe('carousel vanilla browser tests', () => {
+  let carousel: Carousel
+
   beforeAll(async () => {
     const images = [
       'https://elonehoo.me/coffee/01.jpeg',
@@ -30,7 +32,7 @@ describe('carousel vanilla browser tests', () => {
     )
 
     const id = nanoid()
-    const carousel = new Carousel(root, {
+    const createContext = () => ({
       ...control.context,
       id,
       slideCount: images.length,
@@ -38,18 +40,13 @@ describe('carousel vanilla browser tests', () => {
       slidesPerPage: 1,
       autoplay: false,
     })
+
+    carousel = new Carousel(root, createContext())
     carousel.init()
 
     control.subscribe(() => {
-      const carousel = new Carousel(root, {
-        ...control.context,
-        id,
-        slideCount: images.length,
-        spacing: '20px',
-        slidesPerPage: 1,
-        autoplay: false,
-      })
-      carousel.init()
+      const newContext = createContext()
+      carousel.updateContext(newContext)
     })
   })
 
@@ -77,7 +74,7 @@ describe('carousel vanilla browser tests', () => {
     await IndicatorKeyboardNavigation()
   })
 
-  it.skip('[loop=true] should loop slides', async () => {
+  it('[loop=true] should loop slides', async () => {
     await LoopShouldLoopSlides()
   })
 })

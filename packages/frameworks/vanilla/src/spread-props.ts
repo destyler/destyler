@@ -1,16 +1,18 @@
 export interface Attrs {
-  [key: string]: any // Change 'any' to the specific type you want to allow for attributes
+  [key: string]: any
 }
 
 const prevAttrsMap = new WeakMap<HTMLElement, Attrs>()
 
 export function spreadProps(node: HTMLElement, attrs: Attrs): () => void {
   const oldAttrs = prevAttrsMap.get(node) || {}
+  const cleanupFunctions: (() => void)[] = []
 
   const attrKeys = Object.keys(attrs)
 
   const addEvt = (e: string, f: EventListener) => {
     node.addEventListener(e.toLowerCase(), f)
+    cleanupFunctions.push(() => node.removeEventListener(e.toLowerCase(), f))
   }
 
   const remEvt = (e: string, f: EventListener) => {
@@ -21,7 +23,6 @@ export function spreadProps(node: HTMLElement, attrs: Attrs): () => void {
   const others = (attr: string) => !attr.startsWith('on')
 
   const setup = (attr: string) => addEvt(attr.substring(2), attrs[attr])
-  const teardown = (attr: string) => remEvt(attr.substring(2), attrs[attr])
 
   const apply = (attrName: string) => {
     let value = attrs[attrName]
@@ -36,7 +37,6 @@ export function spreadProps(node: HTMLElement, attrs: Attrs): () => void {
 
     if (value != null) {
       if (['value', 'checked', 'htmlFor'].includes(attrName)) {
-        // Using 'any' here because TypeScript can't narrow the type based on the array check
         ;(node as any)[attrName] = value
       }
       else {
@@ -48,25 +48,26 @@ export function spreadProps(node: HTMLElement, attrs: Attrs): () => void {
     node.removeAttribute(attrName.toLowerCase())
   }
 
-  // reconcile old attributes
-
+  // 清理旧属性
   for (const key in oldAttrs) {
     if (attrs[key] == null) {
       node.removeAttribute(key.toLowerCase())
     }
   }
 
+  // 清理旧事件监听器
   const oldEvents = Object.keys(oldAttrs).filter(onEvents)
   oldEvents.forEach((evt) => {
     remEvt(evt.substring(2), oldAttrs[evt])
   })
 
+  // 设置新事件监听器和属性
   attrKeys.filter(onEvents).forEach(setup)
   attrKeys.filter(others).forEach(apply)
 
   prevAttrsMap.set(node, attrs)
 
   return function cleanup() {
-    attrKeys.filter(onEvents).forEach(teardown)
+    cleanupFunctions.forEach(fn => fn())
   }
 }

@@ -1,14 +1,14 @@
 /// <reference types="react/experimental" />
 
 import type { Snapshot } from '@destyler/store'
-import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, State as XState } from '@destyler/xstate'
+import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, XState } from '@destyler/xstate'
 import { globalRef, snapshot, subscribe } from '@destyler/store'
 import { compact, isEqual } from '@destyler/utils'
 import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 import { useUpdateEffect } from './use-update-effect'
 
-const targetCache = globalRef('__zag__targetCache', () => new WeakMap())
+const targetCache = globalRef('__destyler__targetCache', () => new WeakMap())
 
 export function useSnapshot<
   TContext extends Record<string, any>,
