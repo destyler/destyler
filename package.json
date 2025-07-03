@@ -71,6 +71,7 @@
     "unbuild": "catalog:build",
     "vite-plugin-solid": "catalog:plugin",
     "vitest": "catalog:test",
+    "vitest-axe": "catalog:test",
     "vitest-browser-react": "catalog:test",
     "vitest-browser-solid": "catalog:test",
     "vitest-browser-svelte": "catalog:test",

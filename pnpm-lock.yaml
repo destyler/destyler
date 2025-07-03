@@ -151,6 +151,9 @@ catalogs:
     vitest:
       specifier: ^3.2.4
       version: 3.2.4
+    vitest-axe:
+      specifier: ^0.1.0
+      version: 0.1.0
     vitest-browser-react:
       specifier: ^1.0.0
       version: 1.0.0
@@ -311,6 +314,9 @@ importers:
       vitest:
         specifier: catalog:test
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.4)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+      vitest-axe:
+        specifier: catalog:test
+        version: 0.1.0(vitest@3.2.4)
       vitest-browser-react:
         specifier: catalog:test
         version: 1.0.0(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(@vitest/browser@3.2.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.2.4)
@@ -3610,6 +3616,10 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
+  axe-core@4.10.3:
+    resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
+    engines: {node: '>=4'}
+
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
     engines: {node: '>= 0.4'}
@@ -4787,6 +4797,9 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
     deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
@@ -5620,6 +5633,10 @@ packages:
     resolution: {integrity: sha512-/vxpCXddiX8NGfGO/mTafwjq4aFa/71pvamip0++IQk3zG8cbCj0fifNPrjjF1XMXUne91jL9OoxmdykoEtifQ==}
     engines: {node: '>= 10.13.0'}
 
+  redent@3.0.0:
+    resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
+    engines: {node: '>=8'}
+
   refa@0.12.1:
     resolution: {integrity: sha512-J8rn6v4DBb2nnFqkqwy6/NnTYMcgLA+sLr0iIO41qpv0n+ngb7ksag2tMRl0inb1bbO/esUwzW1vbJi7K0sI0g==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
@@ -6238,6 +6255,11 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
+
+  vitest-axe@0.1.0:
+    resolution: {integrity: sha512-jvtXxeQPg8R/2ANTY8QicA5pvvdRP4F0FsVUAHANJ46YCDASie/cuhlSzu0DGcLmZvGBSBNsNuK3HqfaeknyvA==}
+    peerDependencies:
+      vitest: '>=0.16.0'
 
   vitest-browser-react@1.0.0:
     resolution: {integrity: sha512-d8oHuCOxG6KL6j2LOgUbU5Jh5ljPIqGoy38Pey1Fzw7BTWxYNsztNFmxbGNrBVSMcRcctDZXBSsgPIl9PLcD8Q==}
@@ -7883,6 +7905,8 @@ snapshots:
       postcss: 8.5.2
       postcss-value-parser: 4.2.0
 
+  axe-core@4.10.3: {}
+
   axobject-query@4.1.0: {}
 
   babel-plugin-jsx-dom-expressions@0.39.6(@babel/core@7.26.0):
@@ -9212,6 +9236,8 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash-es@4.17.21: {}
+
   lodash.get@4.4.2: {}
 
   lodash.memoize@4.1.2: {}
@@ -10193,6 +10219,11 @@ snapshots:
     dependencies:
       resolve: 1.22.10
 
+  redent@3.0.0:
+    dependencies:
+      indent-string: 4.0.0
+      strip-indent: 3.0.0
+
   refa@0.12.1:
     dependencies:
       '@eslint-community/regexpp': 4.12.1
@@ -10941,6 +10972,16 @@ snapshots:
   vitefu@1.0.5(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)):
     optionalDependencies:
       vite: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
+
+  vitest-axe@0.1.0(vitest@3.2.4):
+    dependencies:
+      aria-query: 5.3.2
+      axe-core: 4.10.3
+      chalk: 5.4.1
+      dom-accessibility-api: 0.5.16
+      lodash-es: 4.17.21
+      redent: 3.0.0
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.13.4)(@vitest/browser@3.2.4)(@vitest/ui@3.2.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
 
   vitest-browser-react@1.0.0(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(@vitest/browser@3.2.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.2.4):
     dependencies:

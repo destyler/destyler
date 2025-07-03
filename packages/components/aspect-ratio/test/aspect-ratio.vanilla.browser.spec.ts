@@ -5,7 +5,7 @@ import { beforeAll, describe, it } from 'vitest'
 import { RendersCorrectly } from './aspect-ratio.spec'
 import { AspectRatio, createAspectRatio } from './fixtures/AspectRatio'
 
-describe('aspect-ratio vue browser tests', () => {
+describe('aspect-ratio vanilla browser tests', () => {
   let aspectRatio: AspectRatio
 
   beforeAll(async () => {
