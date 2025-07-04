@@ -1,5 +1,5 @@
-import { render } from 'vitest-browser-vue'
 import { describe, it } from 'vitest'
+import { render } from 'vitest-browser-vue'
 import {
   ShouldBeCheckedWhenClicked,
   ShouldBeCheckedWhenSpacebarIsPressedWhileFocused,
@@ -9,9 +9,7 @@ import {
 } from './checkbox.spec'
 import Checkbox from './fixtures/Checkbox.vue'
 
-
 describe('checkbox vue browser tests', () => {
-
   it('should be checked when clicked', async () => {
     render(Checkbox)
     await ShouldBeCheckedWhenClicked()
