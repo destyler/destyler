@@ -2,10 +2,16 @@ import { checkboxControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { nanoid } from 'nanoid'
 import { beforeAll, describe, it } from 'vitest'
-import { RendersCorrectly } from './checkbox.spec'
+import {
+  ShouldBeCheckedWhenClicked,
+  ShouldBeCheckedWhenSpacebarIsPressedWhileFocused,
+  ShouldBeFocusedWhenPageIsTabbed,
+  ShouldHaveDisabledAttributesWhenDisabled,
+  ShouldNotBeFocusableWhenDisabled,
+} from './checkbox.spec'
 import { Checkbox, createCheckboxElements } from './fixtures/Checkbox'
 
-describe('aspect-ratio vanilla browser tests', () => {
+describe('checkbox vanilla browser tests', () => {
   let checkbox: Checkbox
 
   beforeAll(async () => {
@@ -35,7 +41,23 @@ describe('aspect-ratio vanilla browser tests', () => {
     })
   })
 
-  it('renders correctly', async () => {
-    await RendersCorrectly()
+  it('should be checked when clicked', async () => {
+    await ShouldBeCheckedWhenClicked()
+  })
+
+  it('should be focused when page is tabbed', async () => {
+    await ShouldBeFocusedWhenPageIsTabbed()
+  })
+
+  it('should be checked when spacebar is pressed while focused', async () => {
+    await ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
+  })
+
+  it('should have disabled attributes when disabled', async () => {
+    await ShouldHaveDisabledAttributesWhenDisabled()
+  })
+
+  it('should not be focusable when disabled', async () => {
+    await ShouldNotBeFocusableWhenDisabled()
   })
 })

@@ -29,7 +29,7 @@ const api = computed(() =>
       <span v-else> unchecked</span>
     </span>
 
-    <input v-bind="api.getHiddenInputProps()">
+    <input data-testid="hidden-input" v-bind="api.getHiddenInputProps()">
   </label>
 
   <Toolbar>

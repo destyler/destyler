@@ -45,7 +45,7 @@ export function createCheckboxElements(): Promise<HTMLElement> {
       <span class="checkbox-label">
       </span>
 
-      <input type="checkbox" class="checkbox-hidden-input" >
+      <input data-testid="hidden-input" type="checkbox" class="checkbox-hidden-input" >
     `
     document.body.appendChild(rootEl)
     resolve(rootEl)
