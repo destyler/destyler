@@ -27,4 +27,3 @@ export function Toolbar(params: {
   render()
   return root
 }
-
