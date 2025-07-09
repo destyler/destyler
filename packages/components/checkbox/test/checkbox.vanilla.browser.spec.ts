@@ -49,7 +49,7 @@ describe('checkbox vanilla browser tests', () => {
     await ShouldBeFocusedWhenPageIsTabbed()
   })
 
-  it.skip('should be checked when spacebar is pressed while focused', async () => {
+  it('should be checked when spacebar is pressed while focused', async () => {
     await ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
   })
 
@@ -57,7 +57,7 @@ describe('checkbox vanilla browser tests', () => {
     await ShouldHaveDisabledAttributesWhenDisabled()
   })
 
-  it.skip('should not be focusable when disabled', async () => {
+  it('should not be focusable when disabled', async () => {
     await ShouldNotBeFocusableWhenDisabled()
   })
 })

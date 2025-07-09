@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest'
-import { render } from 'vitest-browser-vue'
+import { render } from 'vitest-browser-react'
 import {
   ShouldBeCheckedWhenClicked,
   ShouldBeCheckedWhenSpacebarIsPressedWhileFocused,
@@ -7,31 +7,31 @@ import {
   ShouldHaveDisabledAttributesWhenDisabled,
   ShouldNotBeFocusableWhenDisabled,
 } from './checkbox.spec'
-import Checkbox from './fixtures/Checkbox.vue'
+import Checkbox from './fixtures/Checkbox.react'
 
-describe('checkbox vue browser tests', () => {
+describe('checkbox react browser tests', () => {
   it('should be checked when clicked', async () => {
-    render(Checkbox)
+    render(<Checkbox />)
     await ShouldBeCheckedWhenClicked()
   })
 
   it('should be focused when page is tabbed', async () => {
-    render(Checkbox)
+    render(<Checkbox />)
     await ShouldBeFocusedWhenPageIsTabbed()
   })
 
   it('should be checked when spacebar is pressed while focused', async () => {
-    render(Checkbox)
+    render(<Checkbox />)
     await ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
   })
 
   it('should have disabled attributes when disabled', async () => {
-    render(Checkbox)
+    render(<Checkbox />)
     await ShouldHaveDisabledAttributesWhenDisabled()
   })
 
   it('should not be focusable when disabled', async () => {
-    render(Checkbox)
+    render(<Checkbox />)
     await ShouldNotBeFocusableWhenDisabled()
   })
 })

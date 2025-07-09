@@ -17,16 +17,15 @@ export async function ShouldBeCheckedWhenClicked() {
 }
 
 export async function ShouldBeFocusedWhenPageIsTabbed() {
-  await userEvent.click(document.body)
   await userEvent.tab()
   await expect.element(page.getByArticle(input)).toHaveFocus()
   await expect.element(page.getByArticle(control)).toHaveAttribute('data-focus', '')
 }
 
 export async function ShouldBeCheckedWhenSpacebarIsPressedWhileFocused() {
-  await userEvent.click(document.body)
   await userEvent.tab()
-  await userEvent.keyboard('{space}')
+  await userEvent.keyboard('{Space}')
+  await userEvent.keyboard('{/Space}')
   await expect.element(page.getByArticle(root)).toHaveAttribute('data-state', 'checked')
   await expect.element(page.getByArticle(label)).toHaveAttribute('data-state', 'checked')
   await expect.element(page.getByArticle(control)).toHaveAttribute('data-state', 'checked')
@@ -43,5 +42,5 @@ export async function ShouldNotBeFocusableWhenDisabled() {
   await disabledEl.click()
   await userEvent.click(document.body)
   await userEvent.tab()
-  await expect.element(page.getByArticle(input)).toHaveFocus()
+  await expect.element(page.getByArticle(input)).not.toHaveFocus()
 }
