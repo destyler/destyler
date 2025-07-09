@@ -31,8 +31,6 @@ export default defineConfig({
             provider: 'playwright',
             instances: [
               { browser: 'chromium', name: 'browser-chromium' },
-              { browser: 'firefox', name: 'browser-firefox' },
-              { browser: 'webkit', name: 'browser-webkit' },
             ],
             viewport: {
               width: 834,

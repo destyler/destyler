@@ -46,7 +46,7 @@ describe('checkbox vanilla browser tests', () => {
   })
 
   it('should be focused when page is tabbed', async () => {
-    await ShouldBeFocusedWhenPageIsTabbed()
+    await ShouldBeFocusedWhenPageIsTabbed(true)
   })
 
   it('should be checked when spacebar is pressed while focused', async () => {
