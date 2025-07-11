@@ -33,3 +33,4 @@ test/junit.xml
 test/results
 html
 __screenshots__
+.node-modules-inspector

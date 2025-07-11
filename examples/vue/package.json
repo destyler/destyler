@@ -1,7 +1,6 @@
 {
-  "name": "vue",
+  "name": "@destyler/example-vue",
   "type": "module",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",

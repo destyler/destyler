@@ -77,5 +77,7 @@ catalogs:
     nanoid: ^5.1.0
   icon:
     '@iconify-json/carbon': ^1.2.6
+  visual:
+    node-modules-inspector: ^1.0.0
 onlyBuiltDependencies:
   - esbuild
