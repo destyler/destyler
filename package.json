@@ -69,7 +69,6 @@
     "tsdown": "catalog:build",
     "tsx": "catalog:script",
     "typescript": "catalog:types",
-    "unbuild": "catalog:build",
     "vite-plugin-solid": "catalog:plugin",
     "vitest": "catalog:test",
     "vitest-axe": "catalog:test",

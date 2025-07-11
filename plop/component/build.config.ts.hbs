@@ -1,15 +1,10 @@
-import { defineBuildConfig } from 'unbuild'
+import { defineConfig } from 'tsdown'
 
-export default defineBuildConfig({
-  entries: [
-    'index',
+export default defineConfig({
+  entry: [
+    'index.ts',
   ],
-  externals: [
-  ],
+  dts: true,
+  format: ['esm'],
   clean: true,
-  declaration: true,
-  rollup: {
-    emitCJS: true,
-    inlineDependencies: true,
-  },
 })
