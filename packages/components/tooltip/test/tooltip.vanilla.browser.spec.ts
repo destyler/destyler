@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
+import { Tooltip } from './fixtures/Tooltip.ts'
 // Vanilla JS - no render import needed
 import * as Tests from './tooltip.spec'
-import { Tooltip } from './fixtures/Tooltip.ts'
 
 describe('tooltip vanilla browser tests', () => {
   it('renders correctly', async () => {

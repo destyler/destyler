@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Api } from '@destyler/tree'
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 
 interface Node {
   id: string

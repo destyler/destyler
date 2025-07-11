@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import Pagination from '~/vue/pagination.vue'
 import * as Tests from './pagination.spec'
-import Pagination from './fixtures/Pagination.vue'
 
 describe('pagination vue browser tests', () => {
   it('renders correctly', async () => {

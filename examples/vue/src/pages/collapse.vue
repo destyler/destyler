@@ -9,14 +9,17 @@ const controls = useControls(collapseControls)
 
 const data = [
   {
+    id: 'watercraft',
     title: 'Watercraft',
     content: 'Experience the thrill of cutting-edge marine vessels, from luxury yachts to high-performance speedboats.',
   },
   {
+    id: 'automobiles',
     title: 'Automobiles',
     content: 'Discover our premium selection of automobiles, featuring the latest in automotive technology and design.',
   },
   {
+    id: 'aircraft',
     title: 'Aircraft',
     content: 'Explore our range of aircraft, from private jets to commercial airliners, all equipped with state-of-the-art technology.',
   },
@@ -44,6 +47,7 @@ const api = computed(() =>
     >
       <h3 class="m-0">
         <button
+          :data-testid="`${item.id}:trigger`"
           v-bind="api.getItemTriggerProps({ value: item.title })"
           class="group w-full px-6 py-5 flex justify-between items-center bg-transparent hover:bg-gray-50/50 transition-all duration-300"
         >
@@ -58,6 +62,7 @@ const api = computed(() =>
         </button>
       </h3>
       <div
+        :data-testid="`${item.id}:content`"
         v-bind="api.getItemContentProps({ value: item.title })"
         class="transition-all duration-300 overflow-hidden max-h-0 opacity-0 data-[state=open]:max-h-[200px] data-[state=open]:opacity-100"
       >

@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
+import { Signature } from './fixtures/Signature.ts'
 // Vanilla JS - no render import needed
 import * as Tests from './signature.spec'
-import { Signature } from './fixtures/Signature.ts'
 
 describe('signature vanilla browser tests', () => {
   it('renders correctly', async () => {

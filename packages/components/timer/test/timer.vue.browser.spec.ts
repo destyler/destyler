@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import Timer from '~/vue/timer.vue'
 import * as Tests from './timer.spec'
-import Timer from './fixtures/Timer.vue'
 
 describe('timer vue browser tests', () => {
   it('renders correctly', async () => {

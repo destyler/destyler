@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import Combobox from '~/vue/combobox.vue'
 import * as Tests from './combobox.spec'
-import Combobox from './fixtures/Combobox.vue'
 
 describe('combobox vue browser tests', () => {
   it('renders correctly', async () => {

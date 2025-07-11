@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import FileUpload from '~/vue/file-upload.vue'
 import * as Tests from './file-upload.spec'
-import FileUpload from './fixtures/FileUpload.vue'
 
 describe('file-upload vue browser tests', () => {
   it('renders correctly', async () => {

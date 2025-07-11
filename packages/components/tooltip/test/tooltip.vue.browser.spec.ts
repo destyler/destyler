@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import Tooltip from '~/vue/tooltip.vue'
 import * as Tests from './tooltip.spec'
-import Tooltip from './fixtures/Tooltip.vue'
 
 describe('tooltip vue browser tests', () => {
   it('renders correctly', async () => {

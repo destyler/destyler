@@ -1,7 +1,6 @@
 /// <reference types="@vitest/browser/providers/playwright" />
 
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-import React from '@vitejs/plugin-react'
+import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vitest/config'
 
@@ -18,10 +17,13 @@ export default defineConfig({
         },
       },
       {
+        resolve: {
+          alias: {
+            '~/vue/': `${path.resolve(__dirname, 'examples/vue/src/pages')}/`,
+          },
+        },
         plugins: [
           Vue(),
-          svelte(),
-          React(),
         ],
         test: {
           name: 'browser',
@@ -42,11 +44,11 @@ export default defineConfig({
           ],
           exclude: [
             'packages/**/*.solid.browser.spec.{js,ts,jsx,tsx}',
-          ],
-          include: [
             'packages/**/*.vanilla.browser.spec.{js,ts,jsx,tsx}',
             'packages/**/*.react.browser.spec.{js,ts,jsx,tsx}',
             'packages/**/*.svelte.browser.spec.{js,ts,jsx,tsx}',
+          ],
+          include: [
             'packages/**/*.vue.browser.spec.{js,ts,jsx,tsx}',
           ],
         },

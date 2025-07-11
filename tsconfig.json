@@ -6,6 +6,10 @@
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "~/vue/*": ["examples/vue/src/pages/*"],
+      "~/react/*": ["examples/react/src/pages/*"]
+    },
     "resolveJsonModule": true,
     "types": [
       "node",

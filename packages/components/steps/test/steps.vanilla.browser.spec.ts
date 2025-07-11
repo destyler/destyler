@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
+import { Steps } from './fixtures/Steps.ts'
 // Vanilla JS - no render import needed
 import * as Tests from './steps.spec'
-import { Steps } from './fixtures/Steps.ts'
 
 describe('steps vanilla browser tests', () => {
   it('renders correctly', async () => {

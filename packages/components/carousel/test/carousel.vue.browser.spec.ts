@@ -1,11 +1,43 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import Carousel from '~/vue/carousel.vue'
 import * as Tests from './carousel.spec'
-import Carousel from './fixtures/Carousel.vue'
 
 describe('carousel vue browser tests', () => {
   it('renders correctly', async () => {
     render(Carousel)
     await Tests.RendersCorrectly()
+  })
+
+  it('next/prev buttons navigate carousel', async () => {
+    render(Carousel)
+    await Tests.NextAndPrevButtonsNavigateCarousel()
+  })
+
+  it('autoplay start/stop', async () => {
+    render(Carousel)
+    await Tests.AutoplayStartAndStop()
+  })
+
+  it('clicking indicator scrolls to correct slide', async () => {
+    render(Carousel)
+    await Tests.ClickingIndicatorScrollsToCorrectSlide()
+  })
+
+  it('scroll to a specific index via button', async () => {
+    render(Carousel)
+
+    await Tests.ScrollToSpecificIndexViaButton()
+  })
+
+  it('indicator keyboard navigation', async () => {
+    render(Carousel)
+    await Tests.IndicatorKeyboardNavigation()
+  })
+
+  it('[loop=true] should loop slides', async () => {
+    render(Carousel)
+
+    await Tests.LoopShouldLoopSlides()
   })
 })

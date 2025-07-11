@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { highlightState } from '@destyler/stringify'
-import { defineProps, isRef } from 'vue'
+import { isRef } from 'vue'
 
 const props = defineProps<{
   state: any

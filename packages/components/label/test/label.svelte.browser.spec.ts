@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-svelte'
-import * as Tests from './label.spec'
 import Label from './fixtures/Label.svelte'
+import * as Tests from './label.spec'
 
 describe('label svelte browser tests', () => {
   it('renders correctly', async () => {

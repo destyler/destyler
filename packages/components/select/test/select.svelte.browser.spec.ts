@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-svelte'
-import * as Tests from './select.spec'
 import Select from './fixtures/Select.svelte'
+import * as Tests from './select.spec'
 
 describe('select svelte browser tests', () => {
   it('renders correctly', async () => {

@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
+import FloatingPanel from '~/vue/floating-panel.vue'
 import * as Tests from './floating-panel.spec'
-import FloatingPanel from './fixtures/FloatingPanel.vue'
 
 describe('floating-panel vue browser tests', () => {
   it('renders correctly', async () => {
