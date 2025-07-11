@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "pnpm run --filter \"./packages/**\" -r build",
+    "watch": "pnpm run --filter \"./packages/**\" -r watch",
     "clear:node_modules": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml",
     "clear:packages:dist": "pnpm run --filter \"./packages/**\" -r clear ",
     "clear:packages:node_modules": "pnpm run --filter \"./packages/**\" -r clear:node_modules",

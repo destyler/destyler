@@ -20,7 +20,7 @@
     "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && tsdown",
-    "stub": "tsdown --watch"
+    "watch": "tsdown --watch"
   },
   "dependencies": {
     "@destyler/types": "workspace:*"
