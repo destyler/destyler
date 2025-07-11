@@ -24,6 +24,6 @@
     "@unocss/reset": "catalog:css",
     "nanoid": "catalog:util",
     "unocss": "catalog:css",
-    "vite": "catalog:runtime"
+    "vite": "catalog:build"
   }
 }

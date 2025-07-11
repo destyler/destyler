@@ -32,6 +32,6 @@
     "@destyler/types": "workspace:*",
     "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*",
-    "@internationalized/number": "catalog:core"
+    "@internationalized/number": "catalog:prod"
   }
 }

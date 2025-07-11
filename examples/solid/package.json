@@ -57,13 +57,13 @@
     "@destyler/shared-private": "workspace:*",
     "@destyler/stringify": "workspace:*",
     "@iconify-json/carbon": "catalog:icon",
-    "@internationalized/date": "catalog:core",
-    "@solidjs/router": "catalog:frameworks",
+    "@internationalized/date": "catalog:prod",
+    "@solidjs/router": "catalog:frontend",
     "@unocss/reset": "catalog:css",
-    "solid-js": "catalog:frameworks",
-    "typescript": "catalog:type",
+    "solid-js": "catalog:frontend",
+    "typescript": "catalog:types",
     "unocss": "catalog:css",
-    "vite": "catalog:runtime",
+    "vite": "catalog:build",
     "vite-plugin-pages": "catalog:plugin",
     "vite-plugin-solid": "catalog:plugin"
   }

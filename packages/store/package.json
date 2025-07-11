@@ -27,6 +27,6 @@
     "stub": "unbuild --stub"
   },
   "dependencies": {
-    "proxy-compare": "catalog:core"
+    "proxy-compare": "catalog:prod"
   }
 }

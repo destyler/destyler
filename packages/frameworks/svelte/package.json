@@ -37,6 +37,6 @@
   "devDependencies": {
     "@destyler/utils": "workspace:*",
     "@sveltejs/package": "catalog:build",
-    "svelte": "catalog:frameworks"
+    "svelte": "catalog:frontend"
   }
 }

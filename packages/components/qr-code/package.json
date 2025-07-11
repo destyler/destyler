@@ -32,7 +32,7 @@
     "@destyler/types": "workspace:*",
     "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*",
-    "proxy-memoize": "catalog:core",
-    "uqr": "catalog:core"
+    "proxy-memoize": "catalog:prod",
+    "uqr": "catalog:prod"
   }
 }

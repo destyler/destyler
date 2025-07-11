@@ -58,15 +58,15 @@
     "@destyler/shared-private": "workspace:*",
     "@destyler/stringify": "workspace:*",
     "@iconify-json/carbon": "catalog:icon",
-    "@internationalized/date": "catalog:core",
+    "@internationalized/date": "catalog:prod",
     "@sveltejs/vite-plugin-svelte": "catalog:plugin",
-    "@tsconfig/svelte": "catalog:frameworks",
+    "@tsconfig/svelte": "catalog:frontend",
     "@unocss/reset": "catalog:css",
-    "svelte": "catalog:frameworks",
-    "svelte-check": "catalog:frameworks",
-    "svelte-routing": "catalog:frameworks",
-    "typescript": "catalog:type",
+    "svelte": "catalog:frontend",
+    "svelte-check": "catalog:frontend",
+    "svelte-routing": "catalog:frontend",
+    "typescript": "catalog:types",
     "unocss": "catalog:css",
-    "vite": "catalog:runtime"
+    "vite": "catalog:build"
   }
 }

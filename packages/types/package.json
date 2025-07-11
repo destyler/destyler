@@ -29,6 +29,6 @@
   "dependencies": {
     "@destyler/store": "workspace:*",
     "@destyler/utils": "workspace:*",
-    "csstype": "catalog:core"
+    "csstype": "catalog:prod"
   }
 }

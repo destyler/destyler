@@ -57,16 +57,16 @@
     "@destyler/shared-private": "workspace:*",
     "@destyler/stringify": "workspace:*",
     "@iconify-json/carbon": "catalog:icon",
-    "@internationalized/date": "catalog:core",
+    "@internationalized/date": "catalog:prod",
     "@unocss/reset": "catalog:css",
     "@vitejs/plugin-vue": "catalog:plugin",
-    "@vue/tsconfig": "catalog:type",
+    "@vue/tsconfig": "catalog:frontend",
     "unocss": "catalog:css",
     "unplugin-auto-import": "catalog:plugin",
     "unplugin-vue-components": "catalog:plugin",
     "unplugin-vue-router": "catalog:plugin",
-    "vite": "catalog:runtime",
-    "vue": "catalog:frameworks",
-    "vue-router": "catalog:frameworks"
+    "vite": "catalog:build",
+    "vue": "catalog:frontend",
+    "vue-router": "catalog:frontend"
   }
 }

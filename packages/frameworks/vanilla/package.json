@@ -30,7 +30,7 @@
     "@destyler/store": "workspace:*",
     "@destyler/types": "workspace:*",
     "@destyler/xstate": "workspace:*",
-    "proxy-compare": "catalog:core"
+    "proxy-compare": "catalog:prod"
   },
   "devDependencies": {
     "@destyler/utils": "workspace:*"

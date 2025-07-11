@@ -41,6 +41,6 @@
     "@destyler/xstate": "workspace:*"
   },
   "devDependencies": {
-    "@internationalized/date": "catalog:core"
+    "@internationalized/date": "catalog:prod"
   }
 }

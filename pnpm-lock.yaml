@@ -9,34 +9,12 @@ catalogs:
     '@sveltejs/package':
       specifier: ^2.3.10
       version: 2.3.10
-    bumpp:
-      specifier: ^10.0.3
-      version: 10.0.3
     unbuild:
       specifier: ^3.3.1
       version: 3.3.1
-  core:
-    '@floating-ui/dom':
-      specifier: 1.7.1
-      version: 1.7.1
-    '@internationalized/date':
-      specifier: ^3.7.0
-      version: 3.8.2
-    '@internationalized/number':
-      specifier: ^3.6.0
-      version: 3.6.0
-    csstype:
-      specifier: ^3.1.3
-      version: 3.1.3
-    proxy-compare:
-      specifier: ^3.0.1
-      version: 3.0.1
-    proxy-memoize:
-      specifier: ^3.0.1
-      version: 3.0.1
-    uqr:
-      specifier: ^0.1.2
-      version: 0.1.2
+    vite:
+      specifier: ^6.1.0
+      version: 6.1.0
   css:
     '@unocss/reset':
       specifier: ^65.4.3
@@ -44,25 +22,16 @@ catalogs:
     unocss:
       specifier: ^65.4.3
       version: 65.4.3
-  frameworks:
+  frontend:
     '@solidjs/router':
       specifier: ^0.15.3
       version: 0.15.3
     '@tsconfig/svelte':
       specifier: ^5.0.4
       version: 5.0.4
-    '@types/react':
-      specifier: ^19.0.8
-      version: 19.0.8
-    '@types/react-dom':
-      specifier: ^19.0.3
-      version: 19.0.3
-    '@types/react-router-config':
-      specifier: ^5.0.11
-      version: 5.0.11
-    '@types/react-router-dom':
-      specifier: ^5.3.3
-      version: 5.3.3
+    '@vue/tsconfig':
+      specifier: ^0.7.0
+      version: 0.7.0
     react:
       specifier: ^19.0.0
       version: 19.0.0
@@ -97,6 +66,13 @@ catalogs:
     '@iconify-json/carbon':
       specifier: ^1.2.6
       version: 1.2.6
+  lint:
+    '@antfu/eslint-config':
+      specifier: ^4.2.0
+      version: 4.2.0
+    eslint:
+      specifier: ^9.20.1
+      version: 9.20.1
   plugin:
     '@sveltejs/vite-plugin-svelte':
       specifier: ^5.0.3
@@ -125,16 +101,44 @@ catalogs:
     vite-plugin-solid:
       specifier: ^2.11.0
       version: 2.11.1
-  runtime:
-    cross-env:
-      specifier: ^7.0.3
-      version: 7.0.3
-    globals:
-      specifier: ^15.14.0
-      version: 15.14.0
-    vite:
-      specifier: ^6.1.0
-      version: 6.1.0
+  prod:
+    '@floating-ui/dom':
+      specifier: 1.7.1
+      version: 1.7.1
+    '@internationalized/date':
+      specifier: ^3.7.0
+      version: 3.8.2
+    '@internationalized/number':
+      specifier: ^3.6.0
+      version: 3.6.0
+    csstype:
+      specifier: ^3.1.3
+      version: 3.1.3
+    proxy-compare:
+      specifier: ^3.0.1
+      version: 3.0.1
+    proxy-memoize:
+      specifier: ^3.0.1
+      version: 3.0.1
+    uqr:
+      specifier: ^0.1.2
+      version: 0.1.2
+  script:
+    bumpp:
+      specifier: ^10.0.3
+      version: 10.0.3
+    plop:
+      specifier: ^4.0.1
+      version: 4.0.1
+    rimraf:
+      specifier: ^6.0.1
+      version: 6.0.1
+    taze:
+      specifier: ^18.5.0
+      version: 18.5.0
+    tsx:
+      specifier: ^4.19.2
+      version: 4.19.2
   test:
     '@vitest/browser':
       specifier: ^3.2.4
@@ -166,45 +170,42 @@ catalogs:
     vitest-browser-vue:
       specifier: ^1.0.0
       version: 1.0.0
-  type:
-    '@antfu/eslint-config':
-      specifier: ^4.2.0
-      version: 4.2.0
+  types:
     '@types/node':
       specifier: ^22.13.4
       version: 22.13.4
-    '@vue/tsconfig':
-      specifier: ^0.7.0
-      version: 0.7.0
-    eslint:
-      specifier: ^9.20.1
-      version: 9.20.1
+    '@types/react':
+      specifier: ^19.0.8
+      version: 19.0.8
+    '@types/react-dom':
+      specifier: ^19.0.3
+      version: 19.0.3
+    '@types/react-router-config':
+      specifier: ^5.0.11
+      version: 5.0.11
+    '@types/react-router-dom':
+      specifier: ^5.3.3
+      version: 5.3.3
     typescript:
       specifier: ^5.7.3
       version: 5.7.3
   util:
+    cross-env:
+      specifier: ^7.0.3
+      version: 7.0.3
+    globals:
+      specifier: ^15.14.0
+      version: 15.14.0
     nanoid:
       specifier: ^5.1.0
       version: 5.1.0
-    plop:
-      specifier: ^4.0.1
-      version: 4.0.1
-    rimraf:
-      specifier: ^6.0.1
-      version: 6.0.1
-    taze:
-      specifier: ^18.5.0
-      version: 18.5.0
-    tsx:
-      specifier: ^4.19.2
-      version: 4.19.2
 
 importers:
 
   .:
     devDependencies:
       '@antfu/eslint-config':
-        specifier: catalog:type
+        specifier: catalog:lint
         version: 4.2.0(@vue/compiler-sfc@3.5.13)(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)(vitest@3.2.4)
       '@destyler/dom':
         specifier: workspace:*
@@ -240,13 +241,13 @@ importers:
         specifier: catalog:plugin
         version: 5.0.3(svelte@5.20.1)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       '@types/node':
-        specifier: catalog:type
+        specifier: catalog:types
         version: 22.13.4
       '@types/react':
-        specifier: catalog:frameworks
+        specifier: catalog:types
         version: 19.0.8
       '@types/react-dom':
-        specifier: catalog:frameworks
+        specifier: catalog:types
         version: 19.0.3(@types/react@19.0.8)
       '@vitejs/plugin-react':
         specifier: catalog:plugin
@@ -264,13 +265,13 @@ importers:
         specifier: catalog:test
         version: 3.2.4(vitest@3.2.4)
       bumpp:
-        specifier: catalog:build
+        specifier: catalog:script
         version: 10.0.3
       cross-env:
-        specifier: catalog:runtime
+        specifier: catalog:util
         version: 7.0.3
       eslint:
-        specifier: catalog:type
+        specifier: catalog:lint
         version: 9.20.1(jiti@2.4.2)
       nanoid:
         specifier: catalog:util
@@ -279,31 +280,31 @@ importers:
         specifier: catalog:test
         version: 1.53.1
       plop:
-        specifier: catalog:util
+        specifier: catalog:script
         version: 4.0.1
       react:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 19.0.0
       react-dom:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 19.0.0(react@19.0.0)
       rimraf:
-        specifier: catalog:util
+        specifier: catalog:script
         version: 6.0.1
       solid-js:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 1.9.4
       svelte:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 5.20.1
       taze:
-        specifier: catalog:util
+        specifier: catalog:script
         version: 18.5.0
       tsx:
-        specifier: catalog:util
+        specifier: catalog:script
         version: 4.19.2
       typescript:
-        specifier: catalog:type
+        specifier: catalog:types
         version: 5.7.3
       unbuild:
         specifier: catalog:build
@@ -330,7 +331,7 @@ importers:
         specifier: catalog:test
         version: 1.0.0(@vitest/browser@3.2.4)(vitest@3.2.4)(vue@3.5.13(typescript@5.7.3))
       vue:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 3.5.13(typescript@5.7.3)
 
   examples/react:
@@ -475,16 +476,16 @@ importers:
         specifier: catalog:icon
         version: 1.2.6
       '@types/react':
-        specifier: catalog:frameworks
+        specifier: catalog:types
         version: 19.0.8
       '@types/react-dom':
-        specifier: catalog:frameworks
+        specifier: catalog:types
         version: 19.0.3(@types/react@19.0.8)
       '@types/react-router-config':
-        specifier: catalog:frameworks
+        specifier: catalog:types
         version: 5.0.11
       '@types/react-router-dom':
-        specifier: catalog:frameworks
+        specifier: catalog:types
         version: 5.3.3
       '@unocss/reset':
         specifier: catalog:css
@@ -493,22 +494,22 @@ importers:
         specifier: catalog:plugin
         version: 4.3.4(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       globals:
-        specifier: catalog:runtime
+        specifier: catalog:util
         version: 15.14.0
       react:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 19.0.0
       react-dom:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 19.0.0(react@19.0.0)
       react-router:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-router-dom:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       typescript:
-        specifier: catalog:type
+        specifier: catalog:types
         version: 5.7.3
       unocss:
         specifier: catalog:css
@@ -517,7 +518,7 @@ importers:
         specifier: catalog:plugin
         version: 0.1.4(@types/react@19.0.8)(react@19.0.0)(rollup@4.34.7)
       vite:
-        specifier: catalog:runtime
+        specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-pages:
         specifier: catalog:plugin
@@ -665,25 +666,25 @@ importers:
         specifier: catalog:icon
         version: 1.2.6
       '@internationalized/date':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.8.2
       '@solidjs/router':
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 0.15.3(solid-js@1.9.4)
       '@unocss/reset':
         specifier: catalog:css
         version: 65.4.3
       solid-js:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 1.9.4
       typescript:
-        specifier: catalog:type
+        specifier: catalog:types
         version: 5.7.3
       unocss:
         specifier: catalog:css
         version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite:
-        specifier: catalog:runtime
+        specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-pages:
         specifier: catalog:plugin
@@ -834,34 +835,34 @@ importers:
         specifier: catalog:icon
         version: 1.2.6
       '@internationalized/date':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.8.2
       '@sveltejs/vite-plugin-svelte':
         specifier: catalog:plugin
         version: 5.0.3(svelte@5.20.1)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
       '@tsconfig/svelte':
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 5.0.4
       '@unocss/reset':
         specifier: catalog:css
         version: 65.4.3
       svelte:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 5.20.1
       svelte-check:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 4.1.4(picomatch@4.0.2)(svelte@5.20.1)(typescript@5.7.3)
       svelte-routing:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 2.13.0
       typescript:
-        specifier: catalog:type
+        specifier: catalog:types
         version: 5.7.3
       unocss:
         specifier: catalog:css
         version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite:
-        specifier: catalog:runtime
+        specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
 
   examples/vanilla:
@@ -913,7 +914,7 @@ importers:
         specifier: catalog:css
         version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite:
-        specifier: catalog:runtime
+        specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
 
   examples/vue:
@@ -1058,7 +1059,7 @@ importers:
         specifier: catalog:icon
         version: 1.2.6
       '@internationalized/date':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.8.2
       '@unocss/reset':
         specifier: catalog:css
@@ -1067,7 +1068,7 @@ importers:
         specifier: catalog:plugin
         version: 5.2.1(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       '@vue/tsconfig':
-        specifier: catalog:type
+        specifier: catalog:frontend
         version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
       unocss:
         specifier: catalog:css
@@ -1082,13 +1083,13 @@ importers:
         specifier: catalog:plugin
         version: 0.11.2(rollup@4.34.7)(vue-router@4.5.0(vue@3.5.13(typescript@5.7.3)))(vue@3.5.13(typescript@5.7.3))
       vite:
-        specifier: catalog:runtime
+        specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vue:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 3.5.13(typescript@5.7.3)
       vue-router:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
 
   packages/anatomy: {}
@@ -1160,7 +1161,7 @@ importers:
         version: link:../../xstate
     devDependencies:
       '@internationalized/date':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.8.2
 
   packages/components/carousel:
@@ -1550,7 +1551,7 @@ importers:
         specifier: workspace:*
         version: link:../../xstate
       '@internationalized/number':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.6.0
 
   packages/components/otp-input:
@@ -1667,10 +1668,10 @@ importers:
         specifier: workspace:*
         version: link:../../xstate
       proxy-memoize:
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.0.1
       uqr:
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 0.1.2
 
   packages/components/radio:
@@ -2006,23 +2007,17 @@ importers:
         specifier: workspace:*
         version: link:../../xstate
       proxy-compare:
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.0.1
     devDependencies:
       '@destyler/utils':
         specifier: workspace:*
         version: link:../../utils
-      '@types/react':
-        specifier: catalog:frameworks
-        version: 19.0.8
-      '@types/react-dom':
-        specifier: catalog:frameworks
-        version: 19.0.3(@types/react@19.0.8)
       react:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 19.0.0
       react-dom:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 19.0.0(react@19.0.0)
 
   packages/frameworks/solid:
@@ -2041,7 +2036,7 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       solid-js:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 1.9.4
 
   packages/frameworks/svelte:
@@ -2060,7 +2055,7 @@ importers:
         specifier: catalog:build
         version: 2.3.10(svelte@5.20.1)(typescript@5.7.3)
       svelte:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 5.20.1
 
   packages/frameworks/vanilla:
@@ -2075,7 +2070,7 @@ importers:
         specifier: workspace:*
         version: link:../../xstate
       proxy-compare:
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.0.1
     devDependencies:
       '@destyler/utils':
@@ -2098,7 +2093,7 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       vue:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 3.5.13(typescript@5.7.3)
 
   packages/shareds/aria-hidden: {}
@@ -2124,7 +2119,7 @@ importers:
   packages/shareds/date:
     devDependencies:
       '@internationalized/date':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.8.2
 
   packages/shareds/dismissable:
@@ -2189,7 +2184,7 @@ importers:
         specifier: workspace:*
         version: link:../../utils
       '@floating-ui/dom':
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 1.7.1
 
   packages/shareds/rect: {}
@@ -2213,7 +2208,7 @@ importers:
   packages/store:
     dependencies:
       proxy-compare:
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.0.1
 
   packages/types:
@@ -2225,7 +2220,7 @@ importers:
         specifier: workspace:*
         version: link:../utils
       csstype:
-        specifier: catalog:core
+        specifier: catalog:prod
         version: 3.1.3
 
   packages/utils: {}
@@ -2245,7 +2240,7 @@ importers:
         specifier: workspace:*
         version: link:../packages/components/tour
       vue:
-        specifier: catalog:frameworks
+        specifier: catalog:frontend
         version: 3.5.13(typescript@5.7.3)
 
 packages:
@@ -4360,9 +4355,6 @@ packages:
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
     engines: {node: '>=16'}
-
-  flatted@3.3.2:
-    resolution: {integrity: sha512-AiwGJM8YcNOaobumgtng+6NHuOqC3A7MixFeDafM3X9cIUM+xUXoS5Vfgf+OihAYe20fxqNM9yPBXJzRtZ/4eA==}
 
   flatted@3.3.3:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
@@ -8828,10 +8820,8 @@ snapshots:
 
   flat-cache@4.0.1:
     dependencies:
-      flatted: 3.3.2
+      flatted: 3.3.3
       keyv: 4.5.4
-
-  flatted@3.3.2: {}
 
   flatted@3.3.3: {}
 

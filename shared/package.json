@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@destyler/tour": "workspace:*",
-    "vue": "catalog:frameworks"
+    "vue": "catalog:frontend"
   }
 
 }
