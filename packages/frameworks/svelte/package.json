@@ -6,11 +6,7 @@
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./*": "./*"
+    ".": "./dist/index.js"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -22,10 +18,9 @@
   "scripts": {
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
-
     "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && svelte-package -i src && tsc --noEmit",
-    "stub": "unbuild --stub"
+    "stub": "tsdown --watch"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"

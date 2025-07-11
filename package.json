@@ -66,6 +66,7 @@
     "solid-js": "catalog:frontend",
     "svelte": "catalog:frontend",
     "taze": "catalog:script",
+    "tsdown": "catalog:build",
     "tsx": "catalog:script",
     "typescript": "catalog:types",
     "unbuild": "catalog:build",
