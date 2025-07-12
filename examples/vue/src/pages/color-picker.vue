@@ -9,6 +9,8 @@ const controls = useControls(colorPickerControls)
 
 const [state, send] = useMachine(colorPicker.machine({
   id: useId(),
+  name: 'color',
+  format: 'hsla',
   value: colorPicker.parse('hsl(0, 100%, 50%)'),
 }), {
   context: controls.context,
@@ -20,7 +22,7 @@ const api = computed(() => colorPicker.connect(state.value, send, normalizeProps
 <template>
   <div v-bind="api.getRootProps()" class="p-4">
     <label v-bind="api.getLabelProps()" class="block mb-2 text-lg font-medium text-gray-700">
-      Select Color: {{ api.valueAsString }}
+      Select Color: <span data-testid="value-text">{{ api.valueAsString }}</span>
     </label>
     <input v-bind="api.getHiddenInputProps()">
     <div v-bind="api.getControlProps()" class="flex items-center gap-4 mb-4">

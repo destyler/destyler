@@ -60,12 +60,10 @@
     "@internationalized/date": "catalog:prod",
     "@sveltejs/vite-plugin-svelte": "catalog:plugin",
     "@tsconfig/svelte": "catalog:frontend",
-    "@unocss/reset": "catalog:css",
     "svelte": "catalog:frontend",
     "svelte-check": "catalog:frontend",
     "svelte-routing": "catalog:frontend",
     "typescript": "catalog:types",
-    "unocss": "catalog:css",
     "vite": "catalog:build"
   }
 }

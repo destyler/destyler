@@ -253,6 +253,9 @@ importers:
       '@types/react-dom':
         specifier: catalog:types
         version: 19.0.3(@types/react@19.0.8)
+      '@unocss/reset':
+        specifier: catalog:css
+        version: 65.4.3
       '@vitejs/plugin-react':
         specifier: catalog:plugin
         version: 4.3.4(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
@@ -316,6 +319,9 @@ importers:
       typescript:
         specifier: catalog:types
         version: 5.7.3
+      unocss:
+        specifier: catalog:css
+        version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite-plugin-solid:
         specifier: catalog:plugin
         version: 2.11.1(solid-js@1.9.4)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
@@ -494,9 +500,6 @@ importers:
       '@types/react-router-dom':
         specifier: catalog:types
         version: 5.3.3
-      '@unocss/reset':
-        specifier: catalog:css
-        version: 65.4.3
       '@vitejs/plugin-react':
         specifier: catalog:plugin
         version: 4.3.4(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))
@@ -518,9 +521,6 @@ importers:
       typescript:
         specifier: catalog:types
         version: 5.7.3
-      unocss:
-        specifier: catalog:css
-        version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       unplugin-react-components:
         specifier: catalog:plugin
         version: 0.1.4(@types/react@19.0.8)(react@19.0.0)(rollup@4.34.7)
@@ -678,18 +678,12 @@ importers:
       '@solidjs/router':
         specifier: catalog:frontend
         version: 0.15.3(solid-js@1.9.4)
-      '@unocss/reset':
-        specifier: catalog:css
-        version: 65.4.3
       solid-js:
         specifier: catalog:frontend
         version: 1.9.4
       typescript:
         specifier: catalog:types
         version: 5.7.3
-      unocss:
-        specifier: catalog:css
-        version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite:
         specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
@@ -850,9 +844,6 @@ importers:
       '@tsconfig/svelte':
         specifier: catalog:frontend
         version: 5.0.4
-      '@unocss/reset':
-        specifier: catalog:css
-        version: 65.4.3
       svelte:
         specifier: catalog:frontend
         version: 5.20.1
@@ -865,9 +856,6 @@ importers:
       typescript:
         specifier: catalog:types
         version: 5.7.3
-      unocss:
-        specifier: catalog:css
-        version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite:
         specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
@@ -911,15 +899,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/frameworks/vanilla
     devDependencies:
-      '@unocss/reset':
-        specifier: catalog:css
-        version: 65.4.3
       nanoid:
         specifier: catalog:util
         version: 5.1.0
-      unocss:
-        specifier: catalog:css
-        version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       vite:
         specifier: catalog:build
         version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
@@ -1068,18 +1050,12 @@ importers:
       '@internationalized/date':
         specifier: catalog:prod
         version: 3.8.2
-      '@unocss/reset':
-        specifier: catalog:css
-        version: 65.4.3
       '@vitejs/plugin-vue':
         specifier: catalog:plugin
         version: 5.2.1(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       '@vue/tsconfig':
         specifier: catalog:frontend
         version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
-      unocss:
-        specifier: catalog:css
-        version: 65.4.3(postcss@8.5.2)(rollup@4.34.7)(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
       unplugin-auto-import:
         specifier: catalog:plugin
         version: 19.0.0(rollup@4.34.7)

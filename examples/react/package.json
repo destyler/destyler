@@ -60,7 +60,6 @@
     "@types/react-dom": "catalog:types",
     "@types/react-router-config": "catalog:types",
     "@types/react-router-dom": "catalog:types",
-    "@unocss/reset": "catalog:css",
     "@vitejs/plugin-react": "catalog:plugin",
     "globals": "catalog:util",
     "react": "catalog:frontend",
@@ -68,7 +67,6 @@
     "react-router": "catalog:frontend",
     "react-router-dom": "catalog:frontend",
     "typescript": "catalog:types",
-    "unocss": "catalog:css",
     "unplugin-react-components": "catalog:plugin",
     "vite": "catalog:build",
     "vite-plugin-pages": "catalog:plugin"

@@ -22,9 +22,7 @@
     "@destyler/vanilla": "workspace:*"
   },
   "devDependencies": {
-    "@unocss/reset": "catalog:css",
     "nanoid": "catalog:util",
-    "unocss": "catalog:css",
     "vite": "catalog:build"
   }
 }
