@@ -1,4 +1,4 @@
-import { part, testid } from '@destyler/shared-private/test'
+import { part } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
