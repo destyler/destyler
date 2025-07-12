@@ -4,8 +4,13 @@ import Collapsible from '~/vue/collapsible.vue'
 import * as Tests from './collapsible.spec'
 
 describe('collapsible vue browser tests', () => {
-  it('renders correctly', async () => {
+  it('should be open when clicked', async () => {
     render(Collapsible)
-    await Tests.RendersCorrectly()
+    await Tests.ShouldBeOpenWhenClicked()
+  })
+
+  it('content should not be reachable via tab key', async () => {
+    render(Collapsible)
+    await Tests.ContentShouldNotBeReachableViaTabKey()
   })
 })

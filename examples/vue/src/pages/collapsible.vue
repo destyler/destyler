@@ -50,6 +50,16 @@ const api = computed(() =>
     </div>
   </div>
 
+  <div>
+    <div>Toggle Controls</div>
+    <button @click="api.setOpen(true)">
+      Open
+    </button>
+    <button @click="api.setOpen(false)">
+      Close
+    </button>
+  </div>
+
   <Toolbar>
     <StateVisualizer :state="state" />
     <template #controls>
