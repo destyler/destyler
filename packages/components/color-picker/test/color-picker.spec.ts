@@ -1,10 +1,9 @@
-import { part, testid } from '@destyler/shared-private/test'
+import { part } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
 const INITIAL_VALUE = '#FF0000'
 const PINK_VALUE = '#FFC0CB'
-const FIRST_SWATCH_VALUE = '#F47373'
 
 function hexInput() {
   return page.locatoring(`[data-part=control] [data-channel=hex]`)
@@ -16,6 +15,10 @@ function alphaInput() {
 
 function channelThumb(channel: string) {
   return page.locatoring(`[data-part=channel-slider-thumb][data-channel=${channel}]`)
+}
+
+function channelSlider(channel: string) {
+  return page.locatoring(`[data-part=channel-slider][data-channel=${channel}]`)
 }
 
 async function typeColor(color: string) {
@@ -61,7 +64,7 @@ export async function ClickOnTriggerShouldOpenPicker() {
   await expect.element(page.getByArticle(part('content'))).toBeVisible()
 }
 
-export async function ShouldReFocusTriggerOnOutsideClick(){
+export async function ShouldReFocusTriggerOnOutsideClick() {
   const trigger = page.getByArticle(part('trigger'))
   await trigger.click()
 
@@ -71,16 +74,16 @@ export async function ShouldReFocusTriggerOnOutsideClick(){
   await expect.element(trigger).toHaveFocus()
 }
 
-export async function OpeningThePickerShouldFocusArea(){
+export async function OpeningThePickerShouldFocusArea() {
   const trigger = page.getByArticle(part('trigger'))
   await trigger.click()
 
   await expect.element(page.getByArticle(part('content'))).toBeVisible()
 
-  await expect.element(page.getByArticle(part("area-thumb"))).toBeVisible()
+  await expect.element(page.getByArticle(part('area-thumb'))).toBeVisible()
 }
 
-export async function keyboardFocusMovement(){
+export async function KeyboardFocusMovement() {
   const trigger = page.getByArticle(part('trigger'))
   await trigger.click()
 
@@ -89,4 +92,24 @@ export async function keyboardFocusMovement(){
 
   await userEvent.tab()
   await expect.element(channelThumb('alpha')).toHaveFocus()
+}
+
+export async function ShouldChangehueWhenClickingTheHueBar() {
+  const trigger = page.getByArticle(part('trigger'))
+  await trigger.click()
+
+  const channelSliderEl = channelSlider('hue')
+  await channelSliderEl.click()
+
+  await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(180, 100%, 50%, 1)')
+}
+
+export async function ShouldChangehueWhenClickingTheAlphaBar() {
+  const trigger = page.getByArticle(part('trigger'))
+  await trigger.click()
+
+  const channelSliderEl = channelSlider('alpha')
+  await channelSliderEl.click()
+
+  await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(0, 100%, 50%, 0.5)')
 }

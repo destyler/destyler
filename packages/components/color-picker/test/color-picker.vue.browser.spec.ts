@@ -29,13 +29,23 @@ describe('color-picker vue browser tests', () => {
     await Tests.ShouldReFocusTriggerOnOutsideClick()
   })
 
-  it('opening the picker should focus area', async ()=>{
+  it('opening the picker should focus area', async () => {
     render(ColorPicker)
     await Tests.OpeningThePickerShouldFocusArea()
   })
 
-  it('keyboard focus movement', async ()=>{
+  it('keyboard focus movement', async () => {
     render(ColorPicker)
-    await Tests.keyboardFocusMovement()
+    await Tests.KeyboardFocusMovement()
+  })
+
+  it('should change hue when clicking the hue bar', async () => {
+    render(ColorPicker)
+    await Tests.ShouldChangehueWhenClickingTheHueBar()
+  })
+
+  it('should change alpha when clicking the alpha bar', async () => {
+    render(ColorPicker)
+    await Tests.ShouldChangehueWhenClickingTheAlphaBar()
   })
 })
