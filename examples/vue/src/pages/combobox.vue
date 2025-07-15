@@ -9,11 +9,35 @@ import { computed, ref, useId } from 'vue'
 const controls = useControls(comboboxControls)
 
 const comboboxData = [
-  { label: 'Zambia', code: 'ZA' },
-  { label: 'Benin', code: 'BN' },
-  { label: 'Canada', code: 'CA' },
-  { label: 'Japan', code: 'JA' },
-  { label: 'Nigeria', code: 'NG' },
+  { label: "Zambia", code: "ZA" },
+  { label: "Benin", code: "BN" },
+  { label: "Canada", code: "CA" },
+  { label: "United States", code: "US" },
+  { label: "Japan", code: "JP" },
+  { label: "Nigeria", code: "NG" },
+  { label: "Albania", code: "AL" },
+  { label: "Algeria", code: "DZ" },
+  { label: "American Samoa", code: "AS" },
+  { label: "Andorra", code: "AD" },
+  { label: "Angola", code: "AO" },
+  { label: "Anguilla", code: "AI" },
+  { label: "Antarctica", code: "AQ" },
+  { label: "Australia", code: "AU" },
+  { label: "Austria", code: "AT" },
+  { label: "Azerbaijan", code: "AZ" },
+  { label: "Bahamas", code: "BS" },
+  { label: "Bahrain", code: "BH" },
+  { label: "Madagascar", code: "MG" },
+  { label: "Malawi", code: "MW" },
+  { label: "Malaysia", code: "MY" },
+  { label: "Maldives", code: "MV" },
+  { label: "Mali", code: "ML" },
+  { label: "Malta", code: "MT" },
+  { label: "Togo", code: "TG" },
+  { label: "Tokelau", code: "TK" },
+  { label: "Tonga", code: "TO" },
+  { label: "Trinidad and Tobago", code: "TT" },
+  { label: "Tunisia", code: "TN" },
 ]
 const options = ref(comboboxData)
 const collectionRef = computed(() =>
@@ -65,6 +89,12 @@ const api = computed(() =>
         class="group absolute inset-y-0 right-0 flex items-center px-2 focus:outline-none"
       >
         <div class="text-gray-400 i-carbon:chevron-down group-data-[state=open]:rotate--180 transition-transform duration-300" />
+      </button>
+       <button
+         v-bind="api.getClearTriggerProps()"
+        class="absolute right-10 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+      >
+        x
       </button>
     </div>
   </div>

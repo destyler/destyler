@@ -1,403 +1,307 @@
-import { part, testid } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
-const root = part('root')
-const control = part('control')
-const label = part('label')
-const input = part('input')
-const hiddenInput = testid('hidden-input')
-const disabledComponent = testid('disabled-combobox')
-const readonlyComponent = testid('readonly-combobox')
-const invalidComponent = testid('invalid-combobox')
-const requiredComponent = testid('required-combobox')
-
-// === 基础渲染测试 ===
-export async function RendersCorrectly() {
-  const componentEl = page.getByArticle(root)
-  await expect.element(componentEl).toBeInTheDocument()
-  await expect.element(componentEl).toHaveAttribute('data-part', 'root')
-  await expect.element(componentEl).toHaveAttribute('data-scope', 'combobox')
+function trigger() {
+  return page.locatoring('[data-part=trigger]')
 }
 
-export async function ShouldHaveCorrectInitialState() {
-  const componentEl = page.getByArticle(root)
-  await expect.element(componentEl).toHaveAttribute('data-state')
-
-  const controlEl = page.getByArticle(control)
-  await expect.element(controlEl).toBeInTheDocument()
+function content() {
+  return page.locatoring('[data-part=content]')
 }
 
-export async function ShouldRenderAllRequiredParts() {
-  const componentEl = page.getByArticle(root)
-  const controlEl = page.getByArticle(control)
-
-  await expect.element(componentEl).toBeInTheDocument()
-  await expect.element(controlEl).toBeInTheDocument()
+function input() {
+  return page.locatoring('[data-part=input]')
 }
 
-// === 交互测试 ===
-export async function ShouldRespondToClick() {
-  const componentEl = page.getByArticle(root)
-  const initialState = await componentEl.getAttribute('data-state')
-
-  await componentEl.click()
-
-  const newState = await componentEl.getAttribute('data-state')
-  expect(newState).not.toBe(initialState)
+function clearTrigger(){
+  return page.locatoring('[data-part=clear-trigger]')
 }
 
-export async function ShouldHandleKeyboardInteraction() {
-  const componentEl = page.getByArticle(root)
-
-  await componentEl.focus()
-  await userEvent.keyboard('{Space}')
-
-  await expect.element(componentEl).toHaveAttribute('data-state')
+async function focusInput() {
+  const inputEl = input()
+  await inputEl.fill('')
 }
 
-export async function ShouldHandleEnterKey() {
-  const componentEl = page.getByArticle(root)
+async function type(text: string) {
+  const inputEl = input()
 
-  await componentEl.focus()
-  await userEvent.keyboard('{Enter}')
-
-  await expect.element(componentEl).toHaveAttribute('data-state')
+  await userEvent.type(inputEl, text)
 }
 
-export async function ShouldHandleMouseInteractions() {
-  const componentEl = page.getByArticle(root)
-
-  // 测试悬停
-  await userEvent.hover(componentEl)
-  await expect.element(componentEl).toHaveAttribute('data-hover', '')
-
-  // 测试离开
-  await userEvent.unhover(componentEl)
-  await expect.element(componentEl).not.toHaveAttribute('data-hover', '')
-
-  // 测试按下
-  await userEvent.pointer({ target: componentEl, keys: '[MouseLeft>]' })
-  await expect.element(componentEl).toHaveAttribute('data-active', '')
-
-  await userEvent.pointer({ target: componentEl, keys: '[/MouseLeft]' })
-  await expect.element(componentEl).not.toHaveAttribute('data-active', '')
+function getItem(text: string) {
+  return page.locatoring(`[data-part=item]`).filter({ hasText: text })
 }
 
-// === 状态管理测试 ===
-export async function ShouldBeDisabledWhenDisabled() {
-  const disabledEl = page.getByArticle(disabledComponent)
-
-  await expect.element(disabledEl).toHaveAttribute('data-disabled', '')
-  await expect.element(disabledEl).toHaveAttribute('aria-disabled', 'true')
-
-  const hiddenInput = disabledEl.locator('input')
-  if (await hiddenInput.count() > 0) {
-    await expect.element(hiddenInput).toBeDisabled()
-  }
+async function hoverItem(text: string) {
+  const itemEl = getItem(text)
+  await itemEl.hover()
 }
 
-export async function ShouldNotRespondWhenDisabled() {
-  const disabledEl = page.getByArticle(disabledComponent)
-  const initialState = await disabledEl.getAttribute('data-state')
-
-  await disabledEl.click()
-  await userEvent.keyboard('{Space}')
-
-  const finalState = await disabledEl.getAttribute('data-state')
-  expect(finalState).toBe(initialState)
+async function clickItem(text: string) {
+  const itemEl = getItem(text)
+  await itemEl.click()
 }
 
-export async function ShouldBeReadonlyWhenReadonly() {
-  const readonlyEl = page.getByArticle(readonlyComponent)
-
-  await expect.element(readonlyEl).toHaveAttribute('data-readonly', '')
-
-  const hiddenInput = readonlyEl.locator('input')
-  if (await hiddenInput.count() > 0) {
-    await expect.element(hiddenInput).toHaveAttribute('readonly')
-  }
+async function clickTrigger() {
+  const triggerEl = trigger()
+  await triggerEl.click()
 }
 
-export async function ShouldNotChangeWhenReadonly() {
-  const readonlyEl = page.getByArticle(readonlyComponent)
-  const initialState = await readonlyEl.getAttribute('data-state')
-
-  await readonlyEl.click()
-
-  const finalState = await readonlyEl.getAttribute('data-state')
-  expect(finalState).toBe(initialState)
+async function clickInput() {
+  const inputEl = input()
+  await inputEl.click()
 }
 
-export async function ShouldShowInvalidStateWhenInvalid() {
-  const invalidEl = page.getByArticle(invalidComponent)
-
-  await expect.element(invalidEl).toHaveAttribute('data-invalid', '')
-  await expect.element(invalidEl).toHaveAttribute('aria-invalid', 'true')
+async function clickClearTrigger() {
+  const clearTriggerEl = clearTrigger()
+  await clearTriggerEl.click()
 }
 
-export async function ShouldShowRequiredStateWhenRequired() {
-  const requiredEl = page.getByArticle(requiredComponent)
-
-  await expect.element(requiredEl).toHaveAttribute('data-required', '')
-  await expect.element(requiredEl).toHaveAttribute('aria-required', 'true')
+async function seeDropdown() {
+  const contentEl = content()
+  await expect.element(contentEl).toBeVisible()
+}
+async function dontSeeDropdown() {
+  const contentEl = content()
+  await expect.element(contentEl).not.toBeVisible()
 }
 
-// === 焦点管理测试 ===
-export async function ShouldBeFocusableWhenEnabled() {
-  const componentEl = page.getByArticle(root)
+async function seeInputIsFocused() {
+  const inputEl = input()
 
-  await componentEl.focus()
-  await expect.element(componentEl).toBeFocused()
-  await expect.element(componentEl).toHaveAttribute('data-focus', '')
+  await expect.element(inputEl).toHaveFocus()
 }
 
-export async function ShouldNotBeFocusableWhenDisabled() {
-  const disabledEl = page.getByArticle(disabledComponent)
+async function seeItemIsHighlighted(text: string) {
+  const itemEl = getItem(text)
 
-  await disabledEl.focus()
-  await expect.element(disabledEl).not.toBeFocused()
+  await expect.element(itemEl).toHaveAttribute('data-highlighted', '')
 }
 
-export async function ShouldShowFocusIndicator() {
-  const componentEl = page.getByArticle(root)
-
-  await componentEl.focus()
-
-  const focusStyles = await componentEl.evaluate((el) => {
-    const styles = window.getComputedStyle(el)
-    return {
-      outline: styles.outline,
-      boxShadow: styles.boxShadow,
-      border: styles.border,
-    }
-  })
-
-  const hasFocusIndicator
-    = focusStyles.outline !== 'none'
-      || focusStyles.boxShadow !== 'none'
-      || focusStyles.border !== 'none'
-
-  expect(hasFocusIndicator).toBeTruthy()
+async function seeItemIsNotChecked(text:string) {
+  const itemEl = getItem(text)
+  await expect.element(itemEl).not.toHaveAttribute("data-state", "checked")
 }
 
-export async function ShouldMaintainFocusAfterInteraction() {
-  const componentEl = page.getByArticle(root)
-
-  await componentEl.focus()
-  await componentEl.click()
-
-  await expect.element(componentEl).toBeFocused()
+async function seeInputHasValue(text: string) {
+  const inputEl = input()
+  await expect.element(inputEl).toHaveValue(text)
 }
 
-// === 表单集成测试 ===
-export async function ShouldHaveCorrectFormAttributes() {
-  const hiddenInputEl = page.getByArticle(hiddenInput)
-
-  await expect.element(hiddenInputEl).toHaveAttribute('name')
-  await expect.element(hiddenInputEl).toHaveAttribute('value')
-
-  const form = hiddenInputEl.locator('xpath=ancestor::form')
-  if (await form.count() > 0) {
-    await expect.element(hiddenInputEl).toHaveAttribute('form')
-  }
+async function seeItemIsChecked(text: string) {
+  const itemEl = getItem(text)
+  await expect.element(itemEl).toHaveAttribute("data-state", "checked")
 }
 
-export async function ShouldUpdateFormValueOnChange() {
-  const componentEl = page.getByArticle(root)
-  const hiddenInputEl = page.getByArticle(hiddenInput)
-
-  const initialValue = await hiddenInputEl.getAttribute('value')
-
-  await componentEl.click()
-
-  const newValue = await hiddenInputEl.getAttribute('value')
-  expect(newValue).not.toBe(initialValue)
+async function pressKey(key: string) {
+  await userEvent.keyboard(`{${key}}`)
+  await userEvent.keyboard(`{/${key}}`)
 }
 
-export async function ShouldSupportFormValidation() {
-  const componentEl = page.getByArticle(root)
-  const hiddenInputEl = page.getByArticle(hiddenInput)
+export async function ShouldOpenComboboxMenuWhenArrowIsClicked() {
+  await clickTrigger()
 
-  // 测试自定义验证
-  await hiddenInputEl.evaluate((input) => {
-    input.setCustomValidity('Custom error message')
-  })
+  await seeDropdown()
 
-  const isValid = await hiddenInputEl.evaluate(input => input.checkValidity())
-  expect(isValid).toBeFalsy()
-
-  // 清除验证错误
-  await hiddenInputEl.evaluate((input) => {
-    input.setCustomValidity('')
-  })
+  await seeInputIsFocused()
 }
 
-export async function ShouldSupportFormReset() {
-  const componentEl = page.getByArticle(root)
-  const hiddenInputEl = page.getByArticle(hiddenInput)
+export async function EscapeShouldCloseContent() {
+  await clickTrigger()
 
-  // 改变值
-  await componentEl.click()
+  await seeDropdown()
 
-  // 重置表单
-  const form = hiddenInputEl.locator('xpath=ancestor::form')
-  if (await form.count() > 0) {
-    await form.evaluate(form => form.reset())
+  await pressKey('Escape')
 
-    // 验证重置后的状态
-    await expect.element(componentEl).toHaveAttribute('data-state')
-  }
+  await dontSeeDropdown()
 }
 
-// === 可访问性测试 ===
-export async function ShouldHaveCorrectAriaAttributes() {
-  const componentEl = page.getByArticle(root)
+export async function ShouldOpenComboboxMenuWhenTyping() {
+  await type('can')
+  await seeDropdown()
+  await seeItemIsHighlighted('Canada')
 
-  await expect.element(componentEl).toHaveAttribute('role')
-
-  const labelEl = page.getByArticle(label)
-  if (await labelEl.count() > 0) {
-    await expect.element(componentEl).toHaveAttribute('aria-labelledby')
-  }
+  await pressKey('Enter')
+  await seeInputHasValue('Canada')
+  await dontSeeDropdown()
 }
 
-export async function ShouldSupportAriaDescription() {
-  const componentEl = page.getByArticle(root)
+export async function PointerAndSelection() {
+  await clickTrigger()
 
-  const hasDescription = await componentEl.getAttribute('aria-describedby')
-  if (hasDescription) {
-    const descriptionEl = page.locator(`#${hasDescription}`)
-    await expect.element(descriptionEl).toBeInTheDocument()
-  }
+  await hoverItem('Zambia')
+
+  await seeItemIsHighlighted('Zambia')
+
+  await clickItem('Zambia')
+
+  await seeInputHasValue('Zambia')
+
+  await dontSeeDropdown()
 }
 
-export async function ShouldAnnounceStateChanges() {
-  const componentEl = page.getByArticle(root)
+export async function SelectAndSelectAgain() {
+  await clickTrigger()
 
-  await componentEl.click()
+  await clickItem('Zambia')
+  await seeInputHasValue('Zambia')
 
-  // 检查状态变化是否被正确公告
-  const liveRegions = page.locator('[aria-live]')
-  const statusElements = page.locator('[role="status"]')
-
-  const hasAnnouncement = await liveRegions.count() > 0 || await statusElements.count() > 0
-  expect(hasAnnouncement).toBeTruthy()
+  await clickTrigger()
+  await clickItem('Canada')
+  await seeInputHasValue('Canada')
 }
 
-export async function ShouldSupportScreenReaders() {
-  const componentEl = page.getByArticle(root)
+export async function OnArrowDownOpenAndHighlightFirstEnabledOption() {
+  await focusInput()
 
-  // 检查语义化标记
-  const hasSemanticRole = await componentEl.getAttribute('role')
-  expect(hasSemanticRole).toBeTruthy()
+  await pressKey('ArrowDown')
 
-  // 检查可访问名称
-  const hasAccessibleName = await componentEl.getAttribute('aria-label')
-    || await componentEl.getAttribute('aria-labelledby')
-  expect(hasAccessibleName).toBeTruthy()
+  await seeDropdown()
+  await seeItemIsHighlighted('Zambia')
+
+  await pressKey('ArrowUp')
+  await seeItemIsHighlighted('Tunisia')
+}
+export async function NoLoopOnArrowDownOpenAndHighlightFirstEnabledOption() {
+  await page.getByTestId('loopFocus').click()
+
+  await focusInput()
+
+  await pressKey('ArrowDown')
+
+  await seeDropdown()
+  await seeItemIsHighlighted('Zambia')
+
+  await pressKey('ArrowUp')
+  await seeItemIsHighlighted('Zambia')
 }
 
-// === 性能测试 ===
-export async function ShouldRenderWithinPerformanceThreshold() {
-  const startTime = performance.now()
+export async function OnArrowUpOpenAndHighlightLastEnabledOption() {
+  await focusInput()
 
-  const componentEl = page.getByArticle(root)
-  await componentEl.click()
+  await pressKey('ArrowUp')
 
-  const endTime = performance.now()
-  const renderTime = endTime - startTime
-
-  expect(renderTime).toBeLessThan(100)
+  await seeDropdown()
+  await seeItemIsHighlighted('Tunisia')
 }
 
-export async function ShouldHandleRapidInteractions() {
-  const componentEl = page.getByArticle(root)
+export async function NoLoopOnArrowUpOpenAndHighlightLastEnabledOption() {
+  await page.getByTestId('loopFocus').click()
 
-  const startTime = performance.now()
+  await focusInput()
 
-  for (let i = 0; i < 20; i++) {
-    await componentEl.click()
-  }
+  await pressKey('ArrowUp')
 
-  const endTime = performance.now()
-  const totalTime = endTime - startTime
-
-  expect(totalTime).toBeLessThan(1000)
+  await seeDropdown()
+  await seeItemIsHighlighted('Tunisia')
 }
 
-export async function ShouldMaintainStateConsistency() {
-  const componentEl = page.getByArticle(root)
+export async function OnHomeAndEndFocusFirstAndLastOption(){
+  await clickTrigger()
 
-  // 快速切换状态
-  for (let i = 0; i < 10; i++) {
-    await componentEl.click()
-  }
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
 
-  // 验证状态一致性
-  const finalState = await componentEl.getAttribute('data-state')
-  expect(finalState).toBeDefined()
+  await seeItemIsHighlighted('Canada')
+
+  await pressKey('Home')
+  await seeItemIsHighlighted('Zambia')
+
+  await pressKey('End')
+  await seeItemIsHighlighted('Tunisia')
 }
 
-// === 边界测试 ===
-export async function ShouldHandleInvalidInputs() {
-  const componentEl = page.getByArticle(root)
+export async function KeyBoardArrowDownLoop(){
+  await type('mal')
 
-  // 测试各种无效输入
-  await componentEl.click()
-  await userEvent.keyboard('{Escape}')
-  await userEvent.keyboard('{F1}')
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
 
-  // 应该保持稳定
-  await expect.element(componentEl).toBeInTheDocument()
+  await seeItemIsHighlighted('Malta')
+
+  await pressKey('ArrowDown')
+  await seeItemIsHighlighted('Malawi')
+
 }
 
-export async function ShouldRecoverFromErrors() {
-  const componentEl = page.getByArticle(root)
+export async function KeyBoardArrowDownNoLoop(){
+  await page.getByTestId('loopFocus').click()
 
-  try {
-    // 模拟错误条件
-    await componentEl.click()
-    await userEvent.keyboard('{Escape}')
-    await componentEl.click()
-  }
-  catch (error) {
-    // 组件应该能够恢复
-  }
+  await type('mal')
 
-  await expect.element(componentEl).toBeInTheDocument()
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
+  await pressKey('ArrowDown')
+
+  await seeItemIsHighlighted('Malta')
+
+  await pressKey('ArrowDown')
+  await seeItemIsHighlighted('Malta')
+
 }
 
-// === 响应式测试 ===
-export async function ShouldWorkOnMobileDevices() {
-  await page.setViewportSize({ width: 375, height: 667 })
+export async function KeyBoardArrowUpLoop(){
+  await type('mal')
 
-  const componentEl = page.getByArticle(root)
-
-  await expect.element(componentEl).toBeVisible()
-  await componentEl.click()
-
-  // 测试触摸交互
-  await userEvent.pointer({ target: componentEl, keys: '[TouchA]' })
-
-  await expect.element(componentEl).toBeInTheDocument()
+  await pressKey('ArrowUp')
+  await seeItemIsHighlighted('Malta')
 }
 
-export async function ShouldWorkOnDesktopDevices() {
-  await page.setViewportSize({ width: 1920, height: 1080 })
+export async function KeyBoardArrowUpNoLoop(){
+  await page.getByTestId('loopFocus').click()
 
-  const componentEl = page.getByArticle(root)
+  await type('mal')
 
-  await expect.element(componentEl).toBeVisible()
-  await componentEl.click()
-
-  await userEvent.hover(componentEl)
-
-  await expect.element(componentEl).toBeInTheDocument()
+  await pressKey('ArrowUp')
+  await seeItemIsHighlighted('Malawi')
 }
 
-export async function ShouldPreventTextSelection() {
-  const componentEl = page.getByArticle(root)
+export async function PointerOpenOnClick(){
+  await page.getByTestId('openOnClick').click()
 
-  await expect.element(componentEl).toHaveStyle('user-select: none')
+  await clickInput()
+
+  await seeDropdown()
 }
+
+export async function SelectsValueOnClick(){
+  await clickTrigger()
+  await clickItem('Zambia')
+
+  await seeItemIsChecked('Zambia')
+
+}
+
+export async function CanClearValue(){
+  await clickTrigger()
+  await clickItem('Zambia')
+
+  await clickTrigger()
+  await clickClearTrigger()
+  await seeInputHasValue('')
+  await seeItemIsNotChecked('Zambia')
+}
+
+export async function ShouldClearInputValue(){
+  const selectionBehaviorEl =  page.getByTestId('selectionBehavior')
+  await selectionBehaviorEl.selectOptions('clear')
+
+  await type('mal')
+  await pressKey('Enter')
+  await seeInputHasValue('')
+}
+
+export async function EnterBehaviorForCustomValues(){
+  const selectionBehaviorEl =  page.getByTestId('inputBehavior')
+  await selectionBehaviorEl.selectOptions('none')
+
+  await type('foo')
+  await pressKey('Enter')
+  await seeInputHasValue('')
+}
+
+
