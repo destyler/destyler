@@ -16,10 +16,8 @@ export async function ShouldBeCheckedWhenClicked() {
   await expect.element(page.getByArticle(control)).toHaveAttribute('data-state', 'checked')
 }
 
-export async function ShouldBeFocusedWhenPageIsTabbed(clickBody = false) {
-  if (clickBody) {
-    await userEvent.click(document.body)
-  }
+export async function ShouldBeFocusedWhenPageIsTabbed() {
+  await userEvent.click(page.getByRole('main'))
   await userEvent.tab()
   await expect.element(page.getByArticle(input)).toHaveFocus()
   await expect.element(page.getByArticle(control)).toHaveAttribute('data-focus', '')
