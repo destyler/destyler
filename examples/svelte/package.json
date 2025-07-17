@@ -60,6 +60,7 @@
     "@internationalized/date": "catalog:prod",
     "@sveltejs/vite-plugin-svelte": "catalog:plugin",
     "@tsconfig/svelte": "catalog:frontend",
+    "match-sorter": "^8.0.3",
     "svelte": "catalog:frontend",
     "svelte-check": "catalog:frontend",
     "svelte-routing": "catalog:frontend",

@@ -8,7 +8,8 @@
     "moduleResolution": "Bundler",
     "paths": {
       "~/vue/*": ["examples/vue/src/pages/*"],
-      "~/react/*": ["examples/react/src/pages/*"]
+      "~/react/*": ["examples/react/src/pages/*"],
+      "~/svelte/*": ["examples/svelte/src/pages/*"]
     },
     "resolveJsonModule": true,
     "types": [

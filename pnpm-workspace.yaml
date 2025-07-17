@@ -5,78 +5,79 @@ packages:
   - shared
 
 catalogs:
+  build:
+    '@sveltejs/package': ^2.3.10
+    tsdown: ^0.12.9
+    vite: ^6.1.0
+  css:
+    '@unocss/reset': ^65.4.3
+    unocss: ^65.4.3
+  frontend:
+    '@solidjs/router': ^0.15.3
+    '@tsconfig/svelte': ^5.0.4
+    '@vue/tsconfig': ^0.7.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    react-router: ^7.1.5
+    react-router-dom: ^7.1.5
+    solid-js: ^1.9.4
+    svelte: ^5.20.1
+    svelte-check: ^4.1.4
+    svelte-routing: ^2.13.0
+    vue: ^3.5.13
+    vue-router: ^4.5.0
+  icon:
+    '@iconify-json/carbon': ^1.2.6
+  lint:
+    '@antfu/eslint-config': ^4.2.0
+    eslint: ^9.20.1
+  plugin:
+    '@sveltejs/vite-plugin-svelte': ^5.0.3
+    '@vitejs/plugin-react': ^4.3.4
+    '@vitejs/plugin-vue': ^5.2.1
+    unplugin-auto-import: ^19.0.0
+    unplugin-react-components: ^0.1.4
+    unplugin-vue-components: ^28.0.0
+    unplugin-vue-router: ^0.11.2
+    vite-plugin-pages: ^0.32.4
+    vite-plugin-solid: ^2.11.0
   prod:
+    '@floating-ui/dom': 1.7.1
     '@internationalized/date': ^3.7.0
     '@internationalized/number': ^3.6.0
-    '@floating-ui/dom': 1.7.1
+    csstype: ^3.1.3
     proxy-compare: ^3.0.1
     proxy-memoize: ^3.0.1
     uqr: ^0.1.2
-    csstype: ^3.1.3
-  lint:
-    eslint: ^9.20.1
-    '@antfu/eslint-config': ^4.2.0
+  script:
+    bumpp: ^10.0.3
+    plop: ^4.0.1
+    rimraf: ^6.0.1
+    taze: ^18.5.0
+    tsx: ^4.19.2
+  test:
+    '@vitest/browser': ^3.2.4
+    '@vitest/eslint-plugin': ^1.2.7
+    '@vitest/ui': ^3.2.4
+    playwright: ^1.53.1
+    vitest: ^3.2.4
+    vitest-axe: ^0.1.0
+    vitest-browser-react: ^1.0.0
+    vitest-browser-solid: ^0.1.4
+    vitest-browser-svelte: ^1.0.0
+    vitest-browser-vue: ^1.0.0
   types:
-    typescript: ^5.7.3
     '@types/node': ^22.13.4
     '@types/react': ^19.0.8
     '@types/react-dom': ^19.0.3
     '@types/react-router-config': ^5.0.11
     '@types/react-router-dom': ^5.3.3
-  build:
-    vite: ^6.1.0
-    tsdown: ^0.12.9
-    '@sveltejs/package': ^2.3.10
-  script:
-    bumpp: ^10.0.3
-    rimraf: ^6.0.1
-    taze: ^18.5.0
-    tsx: ^4.19.2
-    plop: ^4.0.1
-  frontend:
-    react: ^19.0.0
-    react-dom: ^19.0.0
-    react-router: ^7.1.5
-    react-router-dom: ^7.1.5
-    vue: ^3.5.13
-    vue-router: ^4.5.0
-    solid-js: ^1.9.4
-    '@solidjs/router': ^0.15.3
-    svelte: ^5.20.1
-    svelte-check: ^4.1.4
-    svelte-routing: ^2.13.0
-    '@tsconfig/svelte': ^5.0.4
-    '@vue/tsconfig': ^0.7.0
-  plugin:
-    '@vitejs/plugin-vue': ^5.2.1
-    vite-plugin-solid: ^2.11.0
-    unplugin-auto-import: ^19.0.0
-    unplugin-vue-components: ^28.0.0
-    unplugin-vue-router: ^0.11.2
-    unplugin-react-components: ^0.1.4
-    vite-plugin-pages: ^0.32.4
-    '@vitejs/plugin-react': ^4.3.4
-    '@sveltejs/vite-plugin-svelte': ^5.0.3
-  test:
-    vitest: ^3.2.4
-    '@vitest/ui': ^3.2.4
-    '@vitest/eslint-plugin': ^1.2.7
-    playwright: ^1.53.1
-    '@vitest/browser': ^3.2.4
-    vitest-browser-vue: ^1.0.0
-    vitest-browser-svelte: ^1.0.0
-    vitest-browser-react: ^1.0.0
-    vitest-browser-solid: ^0.1.4
-    vitest-axe: ^0.1.0
-  css:
-    unocss: ^65.4.3
-    '@unocss/reset': ^65.4.3
+    typescript: ^5.7.3
   util:
-    globals: ^15.14.0
     cross-env: ^7.0.3
+    globals: ^15.14.0
+    match-sorter: ^8.0.3
     nanoid: ^5.1.0
-  icon:
-    '@iconify-json/carbon': ^1.2.6
   visual:
     node-modules-inspector: ^1.0.0
 onlyBuiltDependencies:

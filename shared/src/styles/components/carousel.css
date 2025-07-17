@@ -45,12 +45,12 @@
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background-color: #9ca3af;
+  background-color: #9ca3af !important;
 
 }
 
 .carousel-indicator[data-current] {
-  background-color: #4ade80;
+  background-color: #4ade80 !important;
 }
 
 .carousel-other-controls {

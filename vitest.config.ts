@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'vitest/config'
 import React from './vitest.react.config'
+import Svelte from './vitest.svelte.config'
 import Utils from './vitest.utils.config'
 import Vue from './vitest.vue.config'
 
@@ -11,6 +12,7 @@ export default defineConfig({
       Utils,
       Vue,
       React,
+      Svelte,
     ],
   },
 })
