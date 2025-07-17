@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import AspectRatio from '~/vue/aspect-ratio.vue'
-import * as Tests from './aspect-ratio.spec'
+import * as Tests from './spec'
 
 describe('aspect-ratio vue browser tests', () => {
   it('renders correctly', async () => {

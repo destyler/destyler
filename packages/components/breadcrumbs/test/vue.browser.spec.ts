@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Breadcrumbs from '~/vue/breadcrumbs.vue'
-import * as Tests from './breadcrumbs.spec'
+import * as Tests from './spec'
 
 describe('breadcrumbs vue browser tests', () => {
   it('renders correctly', async () => {

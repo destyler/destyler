@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Combobox from '~/vue/combobox.vue'
-import * as Tests from './combobox.spec'
+import * as Tests from './spec'
 
 describe('combobox vue browser tests', () => {
   it('should open combobox menu when arrow is clicked', async () => {

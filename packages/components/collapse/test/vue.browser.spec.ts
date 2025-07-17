@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Collapse from '~/vue/collapse.vue'
-import * as Tests from './collapse.spec'
+import * as Tests from './spec'
 
 describe('collapse vue browser tests - single / keyboard', () => {
   it('arrow down, focus next trigger', async () => {

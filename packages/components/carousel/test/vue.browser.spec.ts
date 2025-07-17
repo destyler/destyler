@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Carousel from '~/vue/carousel.vue'
-import * as Tests from './carousel.spec'
+import * as Tests from './spec'
 
 describe('carousel vue browser tests', () => {
   it('renders correctly', async () => {

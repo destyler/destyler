@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import ColorPicker from '~/vue/color-picker.vue'
-import * as Tests from './color-picker.spec'
+import * as Tests from './spec'
 
 describe('color-picker vue browser tests', () => {
   it('typing the same native css colors switch show hex', async () => {

@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Checkbox from '~/vue/checkbox.vue'
-import * as Tests from './checkbox.spec'
+import * as Tests from './spec'
 
 describe('checkbox vue browser tests', () => {
   it('should be checked when clicked', async () => {
