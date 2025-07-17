@@ -1,0 +1,117 @@
+.combobox-root {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.combobox-label {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.combobox-control {
+  position: relative;
+  margin-top: 4px;
+}
+
+.combobox-input {
+  width: 100%;
+  border-radius: 6px;
+  border-width: 1px;
+  border-color: rgb(209 213 219);
+  --un-bg-opacity: 1;
+  background-color: #ffffff;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 40px;
+}
+
+.combobox-input:focus {
+  border-color: rgb(34 34 34);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.combobox-trigger {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 8px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.combobox-trigger:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.combobox-trigger-icon {
+  color: #9ca3af;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.group[data-state="open"] .combobox-trigger-icon {
+  transform: rotate(-180deg);
+}
+
+.combobox-clear-trigger {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+.combobox-clear-trigger:hover {
+  --un-text-opacity: 1;
+  color: #4b5563;
+}
+.combobox-clear-trigger:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.combobox-positioner {
+  width: 100%;
+  max-width: 448px;
+  margin-top: 4px;
+  background-color: #ffffff;
+}
+
+.combobox-content {
+  max-height: 240px;
+  overflow: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 6px;
+  border-width: 1px;
+  border-color: rgb(229 231 235);
+}
+
+.combobox-item {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #111827;
+}
+
+.combobox-item[data-highlighted] {
+  background-color: #3c3c3c;
+  color: #fcfcfc;
+}

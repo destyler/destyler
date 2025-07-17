@@ -4,6 +4,7 @@ import { carouselControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import '@destyler/shared-private/styles/carousel.css'
 
 const controls = useControls(carouselControls)
 
@@ -33,9 +34,9 @@ const api = computed(() =>
 <template>
   <div
     v-bind="api.getRootProps()"
-    class="flex items-center justify-center flex-col gap-4 w-100 relative"
+    class="carousel-root"
   >
-    <div v-bind="api.getItemGroupProps()" class="rounded-xl">
+    <div v-bind="api.getItemGroupProps()" class="carousel-item-group">
       <div
         v-for="(image, index) in items"
         :key="index"
@@ -44,34 +45,40 @@ const api = computed(() =>
         <img :src="image" alt="">
       </div>
     </div>
-    <button @click="api.scrollToIndex(1)">
-      Scroll to 1
-    </button>
     <!-- control -->
     <div
       v-bind="api.getControlProps()"
-      class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
+      class="carousel-control"
     >
-      <button v-bind="api.getAutoplayTriggerProps()">
-        {{ api.isPlaying ? 'Stop' : 'Play' }}
-      </button>
       <button
         v-bind="api.getPrevTriggerProps()"
-        class="w-4 h-4 text-light i-carbon:caret-left"
-      />
-      <div v-bind="api.getIndicatorGroupProps()" class="flex gap-2 mx-2">
+        class="carousel-trigger"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m20 24l-10-8l10-8z" /></svg>
+      </button>
+      <div v-bind="api.getIndicatorGroupProps()" class="carousel-indicator-group">
         <button
           v-for="(_, index) in api.pageSnapPoints"
           :key="index"
           v-bind="api.getIndicatorProps({ index })"
-          class="w-2 h-2 bg-gray rounded-full data-[current]:bg-green"
+          class="carousel-indicator"
         />
       </div>
       <button
         v-bind="api.getNextTriggerProps()"
-        class="w-4 h-4 text-light i-carbon:caret-right"
-      />
+        class="carousel-trigger"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m12 8l10 8l-10 8z" /></svg>
+      </button>
     </div>
+  </div>
+  <div class="carousel-other-controls">
+    <button class="button" @click="api.scrollToIndex(1)">
+      Scroll to 1
+    </button>
+    <button v-bind="api.getAutoplayTriggerProps()" class="button">
+      {{ api.isPlaying ? 'Stop' : 'Play' }}
+    </button>
   </div>
   <Toolbar>
     <StateVisualizer :state="state" />

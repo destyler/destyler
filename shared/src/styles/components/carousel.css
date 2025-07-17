@@ -1,0 +1,61 @@
+.carousel-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  width: 400px;
+  position: relative;
+}
+
+.carousel-item-group {
+  border-radius: 12px;
+}
+
+.carousel-control {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222222;
+  border-radius: 6px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.carousel-trigger {
+  width: 16px;
+  height: 16px;
+  color: #f6f6f6;
+}
+
+.carousel-indicator-group {
+  display: flex;
+  gap: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.carousel-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: #9ca3af;
+
+}
+
+.carousel-indicator[data-current] {
+  background-color: #4ade80;
+}
+
+.carousel-other-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+

@@ -3,41 +3,42 @@ import * as combobox from '@destyler/combobox'
 import { comboboxControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-
 import { computed, ref, useId } from 'vue'
+
+import '@destyler/shared-private/styles/combobox.css'
 
 const controls = useControls(comboboxControls)
 
 const comboboxData = [
-  { label: "Zambia", code: "ZA" },
-  { label: "Benin", code: "BN" },
-  { label: "Canada", code: "CA" },
-  { label: "United States", code: "US" },
-  { label: "Japan", code: "JP" },
-  { label: "Nigeria", code: "NG" },
-  { label: "Albania", code: "AL" },
-  { label: "Algeria", code: "DZ" },
-  { label: "American Samoa", code: "AS" },
-  { label: "Andorra", code: "AD" },
-  { label: "Angola", code: "AO" },
-  { label: "Anguilla", code: "AI" },
-  { label: "Antarctica", code: "AQ" },
-  { label: "Australia", code: "AU" },
-  { label: "Austria", code: "AT" },
-  { label: "Azerbaijan", code: "AZ" },
-  { label: "Bahamas", code: "BS" },
-  { label: "Bahrain", code: "BH" },
-  { label: "Madagascar", code: "MG" },
-  { label: "Malawi", code: "MW" },
-  { label: "Malaysia", code: "MY" },
-  { label: "Maldives", code: "MV" },
-  { label: "Mali", code: "ML" },
-  { label: "Malta", code: "MT" },
-  { label: "Togo", code: "TG" },
-  { label: "Tokelau", code: "TK" },
-  { label: "Tonga", code: "TO" },
-  { label: "Trinidad and Tobago", code: "TT" },
-  { label: "Tunisia", code: "TN" },
+  { label: 'Zambia', code: 'ZA' },
+  { label: 'Benin', code: 'BN' },
+  { label: 'Canada', code: 'CA' },
+  { label: 'United States', code: 'US' },
+  { label: 'Japan', code: 'JP' },
+  { label: 'Nigeria', code: 'NG' },
+  { label: 'Albania', code: 'AL' },
+  { label: 'Algeria', code: 'DZ' },
+  { label: 'American Samoa', code: 'AS' },
+  { label: 'Andorra', code: 'AD' },
+  { label: 'Angola', code: 'AO' },
+  { label: 'Anguilla', code: 'AI' },
+  { label: 'Antarctica', code: 'AQ' },
+  { label: 'Australia', code: 'AU' },
+  { label: 'Austria', code: 'AT' },
+  { label: 'Azerbaijan', code: 'AZ' },
+  { label: 'Bahamas', code: 'BS' },
+  { label: 'Bahrain', code: 'BH' },
+  { label: 'Madagascar', code: 'MG' },
+  { label: 'Malawi', code: 'MW' },
+  { label: 'Malaysia', code: 'MY' },
+  { label: 'Maldives', code: 'MV' },
+  { label: 'Mali', code: 'ML' },
+  { label: 'Malta', code: 'MT' },
+  { label: 'Togo', code: 'TG' },
+  { label: 'Tokelau', code: 'TK' },
+  { label: 'Tonga', code: 'TO' },
+  { label: 'Trinidad and Tobago', code: 'TT' },
+  { label: 'Tunisia', code: 'TN' },
 ]
 const options = ref(comboboxData)
 const collectionRef = computed(() =>
@@ -74,44 +75,46 @@ const api = computed(() =>
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()" class="w-full max-w-xs mt-8 px-4">
-    <label v-bind="api.getLabelProps()" class="block text-sm font-medium text-gray-700 mb-2">
+  <div v-bind="api.getRootProps()" class="combobox-root">
+    <label v-bind="api.getLabelProps()" class="combobox-label">
       Select country
     </label>
 
-    <div v-bind="api.getControlProps()" class="relative mt-1">
+    <div v-bind="api.getControlProps()" class="combobox-control">
       <input
         v-bind="api.getInputProps()"
-        class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-dark focus:outline-none focus:ring-1 focus:ring-dark"
+        class="combobox-input"
       >
       <button
         v-bind="api.getTriggerProps()"
-        class="group absolute inset-y-0 right-0 flex items-center px-2 focus:outline-none"
+        class="group combobox-trigger"
       >
-        <div class="text-gray-400 i-carbon:chevron-down group-data-[state=open]:rotate--180 transition-transform duration-300" />
+        <div class="combobox-trigger-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="M16 22L6 12l1.4-1.4l8.6 8.6l8.6-8.6L26 12z" /></svg>
+        </div>
       </button>
-       <button
-         v-bind="api.getClearTriggerProps()"
-        class="absolute right-10 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+      <button
+        v-bind="api.getClearTriggerProps()"
+        class="combobox-clear-trigger"
       >
-        x
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="M17.414 16L24 9.414L22.586 8L16 14.586L9.414 8L8 9.414L14.586 16L8 22.586L9.414 24L16 17.414L22.586 24L24 22.586z" /></svg>
       </button>
     </div>
   </div>
   <div
     v-bind="api.getPositionerProps()"
-    class="w-full max-w-md mt-1 bg-white "
+    class="combobox-positioner"
   >
     <ul
       v-if="options.length > 0"
       v-bind="api.getContentProps()"
-      class="max-h-60 overflow-auto py-1 px-2 rounded-md shadow-lg border border-gray-200"
+      class="combobox-content"
     >
       <li
         v-for="item in options"
         :key="item.code"
         v-bind="api.getItemProps({ item })"
-        class="px-3 py-2 rounded-md data-[highlighted]:bg-dark-100 cursor-pointer text-gray-900 data-[highlighted]:text-light-100"
+        class="combobox-item"
       >
         {{ item.label }}
       </li>

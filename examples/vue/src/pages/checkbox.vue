@@ -4,6 +4,7 @@ import { checkboxControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import '@destyler/shared-private/styles/checkbox.css'
 
 const controls = useControls(checkboxControls)
 
@@ -18,17 +19,14 @@ const api = computed(() =>
 
 <template>
   <main>main</main>
-  <label v-bind="api.getRootProps()" class="flex gap-2.5 justify-start items-center cursor-pointer">
+  <label v-bind="api.getRootProps()" class="checkbox-root">
     <div
       v-bind="api.getControlProps()"
-      class="h-4 w-4 shrink-0 rounded-sm border border-dark
-        shadow focus-visible:outline-none focus-visible:ring-1
-        disabled:cursor-not-allowed disabled:opacity-50
-        data-[state=checked]:bg-dark data-[state=checked]:text-light
-        flex justify-center items-center
-        "
+      class="checkbox-control"
     >
-      <div v-if="api.checked" class="i-carbon:checkmark w-3 h-3 text-light" />
+      <div v-if="api.checked" class="checkbox-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m13 24l-9-9l1.414-1.414L13 21.171L26.586 7.586L28 9z" /></svg>
+      </div>
     </div>
     <span v-bind="api.getLabelProps()">
       Input is

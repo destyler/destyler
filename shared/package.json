@@ -23,6 +23,12 @@
     },
     "./test": {
       "default": "./src/test/index.ts"
+    },
+    "./styles/*": {
+      "default": "./src/styles/components/*"
+    },
+    "./bootstrap": {
+      "default": "./src/bootstrap.css"
     }
   },
   "main": "src/index.ts",
@@ -31,6 +37,10 @@
   ],
   "dependencies": {
     "@destyler/tour": "workspace:*",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "solid-js": "catalog:frontend",
+    "svelte": "catalog:frontend",
     "vue": "catalog:frontend"
   }
 

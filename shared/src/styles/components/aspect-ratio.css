@@ -1,0 +1,16 @@
+.aspect-ratio-root {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+}
+@media (min-width: 640px) {
+  .aspect-ratio-root {
+    width: 300px;
+  }
+}
+
+.aspect-ratio-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

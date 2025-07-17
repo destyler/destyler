@@ -2222,6 +2222,18 @@ importers:
       '@destyler/tour':
         specifier: workspace:*
         version: link:../packages/components/tour
+      react:
+        specifier: catalog:frontend
+        version: 19.0.0
+      react-dom:
+        specifier: catalog:frontend
+        version: 19.0.0(react@19.0.0)
+      solid-js:
+        specifier: catalog:frontend
+        version: 1.9.4
+      svelte:
+        specifier: catalog:frontend
+        version: 5.20.1
       vue:
         specifier: catalog:frontend
         version: 3.5.13(typescript@5.7.3)
