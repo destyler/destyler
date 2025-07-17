@@ -14,6 +14,7 @@ export async function NextAndPrevButtonsNavigateCarousel() {
   const prevTrigger = page.getByArticle(part('prev-trigger'))
   await expect.element(prevTrigger).toBeDisabled()
   const nextTrigger = page.getByArticle(part('next-trigger'))
+  await expect.element(nextTrigger).toBeEnabled()
   await nextTrigger.click()
   await expect.element(page.getByArticle(part('indicator')).nth(1)).toHaveAttribute('data-current', '')
   await expect.element(prevTrigger).toBeEnabled()

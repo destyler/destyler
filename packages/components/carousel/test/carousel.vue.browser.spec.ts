@@ -9,11 +9,6 @@ describe('carousel vue browser tests', () => {
     await Tests.RendersCorrectly()
   })
 
-  it('next/prev buttons navigate carousel', async () => {
-    render(Carousel)
-    await Tests.NextAndPrevButtonsNavigateCarousel()
-  })
-
   it('autoplay start/stop', async () => {
     render(Carousel)
     await Tests.AutoplayStartAndStop()
@@ -39,5 +34,10 @@ describe('carousel vue browser tests', () => {
     render(Carousel)
 
     await Tests.LoopShouldLoopSlides()
+  })
+
+  it('next and prev buttons navigate carousel', async () => {
+    render(Carousel)
+    await Tests.NextAndPrevButtonsNavigateCarousel()
   })
 })

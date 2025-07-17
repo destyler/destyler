@@ -54,49 +54,48 @@ describe('combobox vue browser tests', () => {
     await Tests.OnHomeAndEndFocusFirstAndLastOption()
   })
 
-  it("keyboard / arrowdown / loop", async () => {
+  it('keyboard / arrowdown / loop', async () => {
     render(Combobox)
     await Tests.KeyBoardArrowDownLoop()
   })
 
-  it("keyboard / arrowdown / no-loop", async () => {
+  it('keyboard / arrowdown / no-loop', async () => {
     render(Combobox)
     await Tests.KeyBoardArrowDownNoLoop()
   })
 
-  it("keyboard / arrowup / loop", async () => {
+  it('keyboard / arrowup / loop', async () => {
     render(Combobox)
     await Tests.KeyBoardArrowUpLoop()
   })
 
-  it("keyboard / arrowup / no-loop", async () => {
+  it('keyboard / arrowup / no-loop', async () => {
     render(Combobox)
     await Tests.KeyBoardArrowUpNoLoop()
   })
 
-  it("[pointer / open-on-click]", async () => {
+  it('[pointer / open-on-click]', async () => {
     render(Combobox)
     await Tests.PointerOpenOnClick()
   })
 
-  it("selects value on click", async () => {
+  it('selects value on click', async () => {
     render(Combobox)
     await Tests.SelectsValueOnClick()
   })
 
-  it("can clear value", async () => {
+  it('can clear value', async () => {
     render(Combobox)
     await Tests.CanClearValue()
   })
 
-  it("[selection=clear] should clear input value", async () => {
+  it('[selection=clear] should clear input value', async () => {
     render(Combobox)
     await Tests.ShouldClearInputValue()
   })
 
-  it("[no value] enter behavior for custom values", async () => {
+  it('[no value] enter behavior for custom values', async () => {
     render(Combobox)
     await Tests.EnterBehaviorForCustomValues()
   })
-
 })

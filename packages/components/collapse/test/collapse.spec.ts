@@ -64,7 +64,7 @@ export async function ShouldCloseThePreviousContent() {
   await expect.element(getContent('watercraft')).not.toBeVisible()
 }
 
-export async function OnArrowDownFocusNextTrigger(){
+export async function OnArrowDownFocusNextTrigger() {
   await page.getByTestId('multiple').click()
   const trigger = getTrigger('watercraft')
   await trigger.dblClick()
@@ -79,11 +79,9 @@ export async function OnArrowDownFocusNextTrigger(){
 
   await expect.element(getContent('watercraft')).toBeVisible()
   await expect.element(getContent('automobiles')).toBeVisible()
-
 }
 
-
-export async function clickingAnotherTriggerShouldCloseThePreviousContent(){
+export async function clickingAnotherTriggerShouldCloseThePreviousContent() {
   await page.getByTestId('multiple').click()
   await getTrigger('watercraft').click()
   await getTrigger('automobiles').click()

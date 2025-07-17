@@ -43,15 +43,13 @@ describe('collapse vue browser tests - single / pointer', () => {
 })
 
 describe('collapse vue browser tests - multiple / keyboard', () => {
-
-  it("[multiple=true] on arrow down, focus next trigger", async () => {
+  it('[multiple=true] on arrow down, focus next trigger', async () => {
     render(Collapse)
     await Tests.OnArrowDownFocusNextTrigger()
   })
 
-  it("clicking another trigger, should close the previous content", async () => {
+  it('clicking another trigger, should close the previous content', async () => {
     render(Collapse)
     await Tests.clickingAnotherTriggerShouldCloseThePreviousContent()
   })
-
 })

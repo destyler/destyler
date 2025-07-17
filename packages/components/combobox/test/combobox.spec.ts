@@ -13,7 +13,7 @@ function input() {
   return page.locatoring('[data-part=input]')
 }
 
-function clearTrigger(){
+function clearTrigger() {
   return page.locatoring('[data-part=clear-trigger]')
 }
 
@@ -78,9 +78,9 @@ async function seeItemIsHighlighted(text: string) {
   await expect.element(itemEl).toHaveAttribute('data-highlighted', '')
 }
 
-async function seeItemIsNotChecked(text:string) {
+async function seeItemIsNotChecked(text: string) {
   const itemEl = getItem(text)
-  await expect.element(itemEl).not.toHaveAttribute("data-state", "checked")
+  await expect.element(itemEl).not.toHaveAttribute('data-state', 'checked')
 }
 
 async function seeInputHasValue(text: string) {
@@ -90,7 +90,7 @@ async function seeInputHasValue(text: string) {
 
 async function seeItemIsChecked(text: string) {
   const itemEl = getItem(text)
-  await expect.element(itemEl).toHaveAttribute("data-state", "checked")
+  await expect.element(itemEl).toHaveAttribute('data-state', 'checked')
 }
 
 async function pressKey(key: string) {
@@ -196,7 +196,7 @@ export async function NoLoopOnArrowUpOpenAndHighlightLastEnabledOption() {
   await seeItemIsHighlighted('Tunisia')
 }
 
-export async function OnHomeAndEndFocusFirstAndLastOption(){
+export async function OnHomeAndEndFocusFirstAndLastOption() {
   await clickTrigger()
 
   await pressKey('ArrowDown')
@@ -212,7 +212,7 @@ export async function OnHomeAndEndFocusFirstAndLastOption(){
   await seeItemIsHighlighted('Tunisia')
 }
 
-export async function KeyBoardArrowDownLoop(){
+export async function KeyBoardArrowDownLoop() {
   await type('mal')
 
   await pressKey('ArrowDown')
@@ -224,10 +224,9 @@ export async function KeyBoardArrowDownLoop(){
 
   await pressKey('ArrowDown')
   await seeItemIsHighlighted('Malawi')
-
 }
 
-export async function KeyBoardArrowDownNoLoop(){
+export async function KeyBoardArrowDownNoLoop() {
   await page.getByTestId('loopFocus').click()
 
   await type('mal')
@@ -241,17 +240,16 @@ export async function KeyBoardArrowDownNoLoop(){
 
   await pressKey('ArrowDown')
   await seeItemIsHighlighted('Malta')
-
 }
 
-export async function KeyBoardArrowUpLoop(){
+export async function KeyBoardArrowUpLoop() {
   await type('mal')
 
   await pressKey('ArrowUp')
   await seeItemIsHighlighted('Malta')
 }
 
-export async function KeyBoardArrowUpNoLoop(){
+export async function KeyBoardArrowUpNoLoop() {
   await page.getByTestId('loopFocus').click()
 
   await type('mal')
@@ -260,7 +258,7 @@ export async function KeyBoardArrowUpNoLoop(){
   await seeItemIsHighlighted('Malawi')
 }
 
-export async function PointerOpenOnClick(){
+export async function PointerOpenOnClick() {
   await page.getByTestId('openOnClick').click()
 
   await clickInput()
@@ -268,15 +266,14 @@ export async function PointerOpenOnClick(){
   await seeDropdown()
 }
 
-export async function SelectsValueOnClick(){
+export async function SelectsValueOnClick() {
   await clickTrigger()
   await clickItem('Zambia')
 
   await seeItemIsChecked('Zambia')
-
 }
 
-export async function CanClearValue(){
+export async function CanClearValue() {
   await clickTrigger()
   await clickItem('Zambia')
 
@@ -286,8 +283,8 @@ export async function CanClearValue(){
   await seeItemIsNotChecked('Zambia')
 }
 
-export async function ShouldClearInputValue(){
-  const selectionBehaviorEl =  page.getByTestId('selectionBehavior')
+export async function ShouldClearInputValue() {
+  const selectionBehaviorEl = page.getByTestId('selectionBehavior')
   await selectionBehaviorEl.selectOptions('clear')
 
   await type('mal')
@@ -295,13 +292,11 @@ export async function ShouldClearInputValue(){
   await seeInputHasValue('')
 }
 
-export async function EnterBehaviorForCustomValues(){
-  const selectionBehaviorEl =  page.getByTestId('inputBehavior')
+export async function EnterBehaviorForCustomValues() {
+  const selectionBehaviorEl = page.getByTestId('inputBehavior')
   await selectionBehaviorEl.selectOptions('none')
 
   await type('foo')
   await pressKey('Enter')
   await seeInputHasValue('')
 }
-
-

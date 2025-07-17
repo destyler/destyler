@@ -41,6 +41,7 @@ export default defineConfig({
           },
           setupFiles: [
             './vitest.browser.setup.ts',
+            './shared/src/bootstrap.css',
           ],
           exclude: [
             'packages/**/*.solid.browser.spec.{js,ts,jsx,tsx}',
