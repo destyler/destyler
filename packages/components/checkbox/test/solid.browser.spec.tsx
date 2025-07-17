@@ -1,0 +1,32 @@
+/** @jsxImportSource solid-js */
+import { describe, it } from 'vitest'
+import { render } from 'vitest-browser-solid'
+import Checkbox from '~/solid/checkbox'
+import * as Tests from './spec'
+
+describe('checkbox react browser tests', () => {
+  it('should be checked when clicked', async () => {
+    render(() => <Checkbox />)
+    await Tests.ShouldBeCheckedWhenClicked()
+  })
+
+  it('should be focused when page is tabbed', async () => {
+    render(() => <Checkbox />)
+    await Tests.ShouldBeFocusedWhenPageIsTabbed()
+  })
+
+  it('should be checked when spacebar is pressed while focused', async () => {
+    render(() => <Checkbox />)
+    await Tests.ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
+  })
+
+  it('should have disabled attributes when disabled', async () => {
+    render(() => <Checkbox />)
+    await Tests.ShouldHaveDisabledAttributesWhenDisabled()
+  })
+
+  it('should not be focusable when disabled', async () => {
+    render(() => <Checkbox />)
+    await Tests.ShouldNotBeFocusableWhenDisabled()
+  })
+})

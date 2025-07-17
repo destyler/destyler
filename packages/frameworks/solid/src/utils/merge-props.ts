@@ -42,8 +42,9 @@ export function mergeProps(...sources: any[]) {
             }
             for (let i = sources.length - 1; i >= 0; i--) {
               let s = sources[i]
-              if (typeof s === 'function')
+              if (typeof s === 'function') {
                 s = s()
+              }
               const v = (s || {})[key]
               if (v !== undefined)
                 return v

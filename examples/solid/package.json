@@ -58,6 +58,7 @@
     "@iconify-json/carbon": "catalog:icon",
     "@internationalized/date": "catalog:prod",
     "@solidjs/router": "catalog:frontend",
+    "match-sorter": "catalog:util",
     "solid-js": "catalog:frontend",
     "typescript": "catalog:types",
     "vite": "catalog:build",

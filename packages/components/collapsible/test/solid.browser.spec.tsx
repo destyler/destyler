@@ -1,0 +1,17 @@
+/** @jsxImportSource solid-js */
+import { describe, it } from 'vitest'
+import { render } from 'vitest-browser-solid'
+import Collapsible from '~/solid/collapsible'
+import * as Tests from './spec'
+
+describe('collapsible react browser tests', () => {
+  it('should be open when clicked', async () => {
+    render(() => <Collapsible />)
+    await Tests.ShouldBeOpenWhenClicked()
+  })
+
+  it('content should not be reachable via tab key', async () => {
+    render(() => <Collapsible />)
+    await Tests.ContentShouldNotBeReachableViaTabKey()
+  })
+})
