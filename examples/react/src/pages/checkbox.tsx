@@ -3,6 +3,7 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import { checkboxControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
+import '@destyler/shared-private/styles/checkbox.css'
 
 export default function CheckboxPage() {
   const id = useId()
@@ -17,23 +18,25 @@ export default function CheckboxPage() {
 
   return (
     <>
-      <label {...api.getRootProps()} className="flex gap-2.5 justify-start items-center cursor-pointer">
+      <main>main</main>
+      <label {...api.getRootProps()} className="checkbox-root">
         <div
           {...api.getControlProps()}
-          className="h-4 w-4 shrink-0 rounded-sm border border-dark
-            shadow focus-visible:outline-none focus-visible:ring-1
-            disabled:cursor-not-allowed disabled:opacity-50
-            data-[state=checked]:bg-dark data-[state=checked]:text-light
-            flex justify-center items-center"
+          className="checkbox-control"
         >
-          {api.checked && <div className="i-carbon:checkmark w-3 h-3 text-light" />}
+          {api.checked
+            && (
+              <div className="checkbox-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 32 32"><path fill="currentColor" d="m13 24l-9-9l1.414-1.414L13 21.171L26.586 7.586L28 9z" /></svg>
+              </div>
+            )}
         </div>
         <span {...api.getLabelProps()}>
           Input is
           {api.checked ? <span> checked</span> : <span> unchecked</span>}
         </span>
 
-        <input {...api.getHiddenInputProps()} />
+        <input data-testid="hidden-input" {...api.getHiddenInputProps()} />
       </label>
       <Toolbar controls={controls.ui()}>
         <StateVisualizer state={state} />

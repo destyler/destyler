@@ -2,6 +2,7 @@ import type { BreadcrumbItem } from '@destyler/breadcrumbs'
 import * as breadcrumbs from '@destyler/breadcrumbs'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { useId } from 'react'
+import '@destyler/shared-private/styles/breadcrumbs.css'
 
 export default function Breadcrumbs() {
   const items: BreadcrumbItem[] = [
@@ -21,10 +22,10 @@ export default function Breadcrumbs() {
 
   return (
     <nav {...api.getRootProps()}>
-      <ol {...api.getListProps()} className="flex items-center space-x-2">
+      <ol {...api.getListProps()} className="breadcrumbs-root">
         {api.items.map(item => (
           <li {...api.getItemProps(item)} key={item.id}>
-            <a {...api.getLinkProps(item)} className="text-blue-500 hover:underline">
+            <a {...api.getLinkProps(item)} className="breadcrumbs-link">
               {item.label}
             </a>
             {item.href && <span {...api.getSeparatorProps()}>/</span>}

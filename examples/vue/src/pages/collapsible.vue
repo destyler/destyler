@@ -67,30 +67,3 @@ const api = computed(() =>
     </template>
   </Toolbar>
 </template>
-
-<style scoped>
-@keyframes slideDown {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--destyler-height);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    height: var(--destyler-height);
-  }
-  to {
-    height: 0;
-  }
-}
-
-.content[data-state='open'] {
-  animation: slideDown 250ms cubic-bezier(0.87, 0, 0.13, 1);
-}
-.content[data-state='closed'] {
-  animation: slideUp 250ms cubic-bezier(0.87, 0, 0.13, 1);
-}
-</style>
