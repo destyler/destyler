@@ -19,8 +19,8 @@ export interface EventKeyOptions {
   orientation?: 'horizontal' | 'vertical' | undefined
 }
 
-export type NativeEvent<E> =
-  SyntheticChangeEvent<any> extends E ? InputEvent : E extends SyntheticEvent<any, infer T> ? T : never
+export type NativeEvent<E>
+  = SyntheticChangeEvent<any> extends E ? InputEvent : E extends SyntheticEvent<any, infer T> ? T : never
 
 export type AnyPointerEvent = MouseEvent | TouchEvent | PointerEvent
 

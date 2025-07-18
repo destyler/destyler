@@ -27,16 +27,16 @@ export interface Rect extends Point, Size, Bounds, CenterPoint {}
 
 export type RectSide = 'top' | 'right' | 'bottom' | 'left'
 
-export type RectPoint =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'right-center'
-  | 'left-center'
-  | 'bottom-left'
-  | 'bottom-right'
-  | 'bottom-center'
-  | 'center'
+export type RectPoint
+  = | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'right-center'
+    | 'left-center'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'bottom-center'
+    | 'center'
 
 export type RectEdge = [Point, Point]
 

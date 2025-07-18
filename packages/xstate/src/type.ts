@@ -98,14 +98,14 @@ type ExpressionWithMeta<TContext extends Dict, TState extends StateSchema, TEven
  */
 
 /** Single action - can be string reference or function */
-export type Action<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | string
-  | ExpressionWithMeta<TContext, TState, TEvent, void>
+export type Action<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | string
+    | ExpressionWithMeta<TContext, TState, TEvent, void>
 
 /** Multiple actions - can include conditional actions */
-export type Actions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | ChooseHelper<TContext, TState, TEvent>
-  | MaybeArray<Action<TContext, TState, TEvent>>
+export type Actions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | ChooseHelper<TContext, TState, TEvent>
+    | MaybeArray<Action<TContext, TState, TEvent>>
 
 /** Pure actions without conditional logic */
 export type PureActions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> = MaybeArray<
@@ -122,9 +122,9 @@ export interface ActionMap<TContext extends Dict, TState extends StateSchema, TE
  */
 
 /** Activity - long-running process with cleanup */
-export type Activity<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | string
-  | ExpressionWithMeta<TContext, TState, TEvent, VoidFunction | void | undefined>
+export type Activity<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | string
+    | ExpressionWithMeta<TContext, TState, TEvent, VoidFunction | void | undefined>
 
 /** Multiple activities */
 export type Activities<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> = MaybeArray<
@@ -156,10 +156,10 @@ export interface TransitionDefinition<TContext extends Dict, TState extends Stat
 export type DelayExpression<TContext extends Dict, TEvent extends EventObject> = Expression<TContext, TEvent, number>
 
 /** Delay specification - string, number, or expression */
-export type Delay<TContext extends Dict, TEvent extends EventObject> =
-  | string
-  | number
-  | DelayExpression<TContext, TEvent>
+export type Delay<TContext extends Dict, TEvent extends EventObject>
+  = | string
+    | number
+    | DelayExpression<TContext, TEvent>
 
 /** Map of delay names to implementations */
 export interface DelayMap<TContext extends Dict, TEvent extends EventObject> {
@@ -177,19 +177,19 @@ export type DelayedTransition<
 }
 
 /** Collection of delayed transitions */
-export type DelayedTransitions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | Record<string | number, TState['value'] | MaybeArray<TransitionDefinition<TContext, TState, TEvent>>>
-  | Array<DelayedTransition<TContext, TState, TEvent>>
+export type DelayedTransitions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | Record<string | number, TState['value'] | MaybeArray<TransitionDefinition<TContext, TState, TEvent>>>
+    | Array<DelayedTransition<TContext, TState, TEvent>>
 
 /** Transition can be a string (target) or full definition object */
-export type Transition<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | TState['value']
-  | TransitionDefinition<TContext, TState, TEvent>
+export type Transition<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | TState['value']
+    | TransitionDefinition<TContext, TState, TEvent>
 
 /** Multiple transition possibilities with guards */
-export type Transitions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | Transition<TContext, TState, TEvent>
-  | Array<TransitionDefinition<TContext, TState, TEvent>>
+export type Transitions<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | Transition<TContext, TState, TEvent>
+    | Array<TransitionDefinition<TContext, TState, TEvent>>
 
 /** Map of event types to their transitions */
 export type TransitionDefinitionMap<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> = {
@@ -262,10 +262,10 @@ export interface ChooseHelper<TContext extends Dict, TState extends StateSchema,
 }
 
 /** Guard can be string reference, function, or helper */
-export type Guard<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> =
-  | string
-  | GuardExpression<TContext, TState, TEvent>
-  | GuardHelper<TContext, TState, TEvent>
+export type Guard<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>
+  = | string
+    | GuardExpression<TContext, TState, TEvent>
+    | GuardHelper<TContext, TState, TEvent>
 
 /** Map of guard names to implementations */
 export interface GuardMap<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject> {
@@ -464,17 +464,17 @@ export type CompareFn<T = any> = (prev: T, next: T) => boolean
 type AnyFunction = (...args: any[]) => any
 type ReturnTypeOrValue<T> = T extends AnyFunction ? ReturnType<T> : T
 
-export type StateFrom<T> =
-  ReturnTypeOrValue<T> extends infer R
+export type StateFrom<T>
+  = ReturnTypeOrValue<T> extends infer R
     ? R extends Machine<infer TContext, infer TState, infer TEvent>
       ? XState<TContext, TState, TEvent>
       : never
     : never
 
-export type ContextFrom<T> =
-  ReturnTypeOrValue<T> extends infer R ? (R extends Machine<infer TContext, any, any> ? TContext : never) : never
+export type ContextFrom<T>
+  = ReturnTypeOrValue<T> extends infer R ? (R extends Machine<infer TContext, any, any> ? TContext : never) : never
 
-export type EventFrom<T> =
-  ReturnTypeOrValue<T> extends infer R ? (R extends Machine<any, any, infer TEvent> ? TEvent : never) : never
+export type EventFrom<T>
+  = ReturnTypeOrValue<T> extends infer R ? (R extends Machine<any, any, infer TEvent> ? TEvent : never) : never
 
 export interface ContextRef<T> { current: T | undefined }

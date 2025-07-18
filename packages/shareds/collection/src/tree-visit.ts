@@ -390,11 +390,11 @@ export function visit<T>(node: T, options: TreeVisitOptions<T>): void {
 
 // Types
 
-export type NodeOperation<T> =
-  | { type: 'insert', index: number, nodes: T[] }
-  | { type: 'remove', indexes: number[] }
-  | { type: 'replace' }
-  | { type: 'removeThenInsert', removeIndexes: number[], insertIndex: number, insertNodes: T[] }
+export type NodeOperation<T>
+  = | { type: 'insert', index: number, nodes: T[] }
+    | { type: 'remove', indexes: number[] }
+    | { type: 'replace' }
+    | { type: 'removeThenInsert', removeIndexes: number[], insertIndex: number, insertNodes: T[] }
 
 export type IndexPath = number[]
 

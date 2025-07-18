@@ -268,8 +268,8 @@ export class ListCollection<T extends CollectionItem = CollectionItem> {
     return value
   }
 
-  *[Symbol.iterator]() {
-    yield * this.items
+  * [Symbol.iterator]() {
+    yield* this.items
   }
 
   insertBefore(value: string, item: T) {

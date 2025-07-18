@@ -55,23 +55,23 @@ export interface CommonProperties {
 
 export type Style = CSSProperties
 
-export type EventKey =
-  | 'ArrowDown'
-  | 'ArrowUp'
-  | 'ArrowLeft'
-  | 'ArrowRight'
-  | 'Space'
-  | 'Enter'
-  | 'Comma'
-  | 'Escape'
-  | 'Backspace'
-  | 'Delete'
-  | 'Home'
-  | 'End'
-  | 'Tab'
-  | 'PageUp'
-  | 'PageDown'
-  | (string & {})
+export type EventKey
+  = | 'ArrowDown'
+    | 'ArrowUp'
+    | 'ArrowLeft'
+    | 'ArrowRight'
+    | 'Space'
+    | 'Enter'
+    | 'Comma'
+    | 'Escape'
+    | 'Backspace'
+    | 'Delete'
+    | 'Home'
+    | 'End'
+    | 'Tab'
+    | 'PageUp'
+    | 'PageDown'
+    | (string & {})
 
 export type EventKeyMap<T extends HTMLElement = HTMLElement> = {
   [key in EventKey]?: (event: SyntheticKeyboardEvent<T>) => void

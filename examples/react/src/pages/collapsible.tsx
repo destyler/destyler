@@ -52,10 +52,10 @@ export default function CollapsibleDemo() {
       <div>
         <div>Toggle Controls</div>
         <button className="button" onClick={() => api.setOpen(true)}>
-      Open
+          Open
         </button>
         <button className="button" onClick={() => api.setOpen(false)}>
-      Close
+          Close
         </button>
       </div>
 

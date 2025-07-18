@@ -39,11 +39,11 @@ export interface IntlTranslations {
   inputLabel?: (count: number) => string
 }
 
-type Log =
-  | { type: 'add' | 'update' | 'delete' | 'select', value: string }
-  | { type: 'clear' }
-  | { type: 'paste', values: string[] }
-  | { type: 'set', values: string[] }
+type Log
+  = | { type: 'add' | 'update' | 'delete' | 'select', value: string }
+    | { type: 'clear' }
+    | { type: 'paste', values: string[] }
+    | { type: 'set', values: string[] }
 
 export type ElementIds = Partial<{
   root: string
