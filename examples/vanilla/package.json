@@ -20,8 +20,10 @@
     "@destyler/switch": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/vanilla": "workspace:*"
+
   },
   "devDependencies": {
+    "@destyler/shared-private": "workspace:*",
     "nanoid": "catalog:util",
     "vite": "catalog:build"
   }

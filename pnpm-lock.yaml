@@ -908,6 +908,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/frameworks/vanilla
     devDependencies:
+      '@destyler/shared-private':
+        specifier: workspace:*
+        version: link:../../shared
       nanoid:
         specifier: catalog:util
         version: 5.1.5

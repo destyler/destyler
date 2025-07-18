@@ -2,6 +2,7 @@ import * as combobox from '@destyler/combobox'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import { nanoid } from 'nanoid'
 import '../main'
+import '@destyler/shared-private/styles/combobox.css'
 
 const comboboxData = [
   { label: 'Zambia', code: 'ZA' },
