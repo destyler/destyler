@@ -3,6 +3,7 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import { dialogControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
+import '@destyler/shared-private/styles/dialog.css'
 
 export default function DialogExample() {
   const controls = useControls(dialogControls)
@@ -19,46 +20,48 @@ export default function DialogExample() {
     <>
       <button
         {...api.getTriggerProps()}
-        className="px-4 py-2 bg-dark text-white rounded-md hover:bg-black transition-colors"
+        className="dialog-trigger"
       >
         Open Dialog
       </button>
       <div>
         <div
           {...api.getBackdropProps()}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+          className="dialog-backdrop"
         />
         <div
           {...api.getPositionerProps()}
-          className="fixed inset-0 flex items-center justify-center"
+          className="dialog-positioner"
         >
           <div
             {...api.getContentProps()}
-            className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md relative border border-gray-200"
+            className="dialog-content"
           >
             <h2
               {...api.getTitleProps()}
-              className="text-xl font-semibold text-black mb-4"
+              className="dialog-title"
             >
               Edit profile
             </h2>
             <p
               {...api.getDescriptionProps()}
-              className="text-gray-500 mb-6"
+              className="dialog-description"
             >
               Make changes to your profile here. Click save when you are done.
             </p>
             <button
               {...api.getCloseTriggerProps()}
-              className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"
+              className="dialog-close-trigger"
             >
-              <div className="w-4 h-4 i-carbon:close-large" />
+              <div className="dialog-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="M17.414 16L24 9.414L22.586 8L16 14.586L9.414 8L8 9.414L14.586 16L8 22.586L9.414 24L16 17.414L22.586 24L24 22.586z" /></svg>
+              </div>
             </button>
             <input
               placeholder="Enter name..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-black"
+              className="dialog-input"
             />
-            <button className="w-full px-4 py-2 bg-dark text-white rounded-md hover:bg-black transition-colors">
+            <button>
               Save Changes
             </button>
           </div>
