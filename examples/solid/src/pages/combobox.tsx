@@ -65,7 +65,10 @@ export default function ComboboxDemo() {
       },
     }),
     {
-      context: controls.context,
+      context: createMemo(() => ({
+        ...controls.context(),
+        collection: collection(),
+      })),
     },
   )
 
