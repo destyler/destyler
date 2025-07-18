@@ -3,8 +3,9 @@ import * as dynamic from '@destyler/dynamic'
 import { dynamicControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-
 import { computed, useId } from 'vue'
+
+import '@destyler/shared-private/styles/dynamic.css'
 
 const controls = useControls(dynamicControls)
 
@@ -20,39 +21,46 @@ const [state, send] = useMachine(
 const api = computed(() =>
   dynamic.connect(state.value, send, normalizeProps),
 )
+
+function toDashCase(str: string) {
+  return str.replace(/\s+/g, '-').toLowerCase()
+}
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()" class="max-w-md p-6">
-    <div class="flex flex-wrap gap-2 mb-4">
+  <div v-bind="api.getRootProps()" class="dynamic-root">
+    <div class="dynamic-content">
       <span
         v-for="(value, index) in api.value"
         :key="index"
+
         v-bind="api.getItemProps({ index, value })"
-        class="relative group"
+        class="group"
+        style="position: relative;"
       >
         <div
+          :data-testid="`${toDashCase(value)}-input`"
           v-bind="api.getItemPreviewProps({ index, value })"
-          class="bg-gray-100 text-gray-900 rounded-lg px-3 py-1 flex items-center gap-2"
+          class="dynamic-item-preview"
         >
-          <span class="text-sm font-medium">{{ value }}</span>
+          <span class="dynamic-item-preview-value">{{ value }}</span>
           <button
             v-bind="api.getItemDeleteTriggerProps({ index, value })"
-            class="text-gray-600 hover:text-gray-900 transition-colors text-xs"
+            class="dynamic-item-delete-trigger"
           >
             &#x2715;
           </button>
         </div>
         <input
           v-bind="api.getItemInputProps({ index, value })"
-          class="hidden absolute left-0 top-0 w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none"
+          class="dynamic-item-input"
         >
       </span>
     </div>
     <input
       placeholder="Add tag..."
       v-bind="api.getInputProps()"
-      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none placeholder-gray-500"
+      class="dynamic-input"
     >
   </div>
 
