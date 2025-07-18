@@ -9,4 +9,7 @@ export default defineConfig({
     UnoCSS(),
     Pages(),
   ],
+  esbuild: {
+    jsx: 'automatic',
+  },
 })

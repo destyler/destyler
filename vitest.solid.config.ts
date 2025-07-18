@@ -11,6 +11,9 @@ export default defineProject({
   plugins: [
     Solid(),
   ],
+  esbuild: {
+    jsx: 'automatic',
+  },
   test: {
     name: {
       label: 'solid',
