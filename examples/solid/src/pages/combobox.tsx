@@ -2,7 +2,6 @@
 import * as combobox from '@destyler/combobox'
 import { comboboxControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
-
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { matchSorter } from 'match-sorter'
 import { createMemo, createSignal, createUniqueId, Index, Show } from 'solid-js'
