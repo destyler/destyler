@@ -13,4 +13,49 @@ describe('vue browser tests', () => {
     render(Dynamic)
     await Tests.WhenInputIsEmptyBackspaceHighlightsLastTag()
   })
+
+  it('deletes tag with backspace when input value is empty', async () => {
+    render(Dynamic)
+    await Tests.DeletesTagWithBackspaceWhenInputValueIsEmpty()
+  })
+
+  it('delete tag by clearing its content and hit enter', async () => {
+    render(Dynamic)
+    await Tests.DeleteTagByClearingItsContentAndHitEnter()
+  })
+
+  it('delete tag with delete key, show allow keyboard navigation', async () => {
+    render(Dynamic)
+    await Tests.DeleteTagWithDeleteKeyShowAllowKeyboardNavigation()
+  })
+
+  it('delete tag with pointer, show allow keyboard navigation', async () => {
+    render(Dynamic)
+    await Tests.DeleteTagWithPointerShowAllowKeyboardNavigation()
+  })
+
+  it('when tag is empty + no visible tags + enter pressed, should not enter editing state', async () => {
+    render(Dynamic)
+    await Tests.WhenTagIsEmptyNoVisibleTagsEnterPressedShouldNotEnterEditingState()
+  })
+
+  it('should navigate tags with arrow keys', async () => {
+    render(Dynamic)
+    await Tests.ShouldNavigateTagsWithArrowKeys()
+  })
+
+  it('should clear focused tag on blur', async () => {
+    render(Dynamic)
+    await Tests.ShouldClearFocusedTagOnBlur()
+  })
+
+  it('removes tag on close button click', async () => {
+    render(Dynamic)
+    await Tests.RemovesTagOnCloseButtonClick()
+  })
+
+  it.skip('edit tag with enter key', async () => {
+    render(Dynamic)
+    await Tests.EditTagWithEnterKey()
+  })
 })

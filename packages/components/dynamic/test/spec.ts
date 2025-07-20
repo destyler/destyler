@@ -17,14 +17,42 @@ async function getTag(value: string) {
   return page.getByTestId(`${value.toLowerCase()}-input`)
 }
 
+async function getTagClose(value: string) {
+  return page.getByTestId(`${value.toLowerCase()}-delete-trigger`)
+}
+
+async function getTagInput(value: string) {
+  return page.getByTestId(`${value.toLowerCase()}-item-input`)
+}
+
+async function clickTagClose(value: string) {
+  const tagClose = await getTagClose(value)
+  await userEvent.click(tagClose, {
+    force: true,
+  })
+}
+
 async function focusInput() {
   const inputEl = input()
-  await inputEl.fill('')
+  await userEvent.click(inputEl)
+}
+
+async function deleteLastTag() {
+  for (let i = 0; i < 2; i++) {
+    await userEvent.keyboard('{Backspace}')
+    await userEvent.keyboard('{/Backspace}')
+  }
 }
 
 async function seeTag(value: string) {
   const tag = await getTag(value)
+
   await expect.element(tag).toBeVisible()
+}
+
+async function dontSeeTag(value: string) {
+  const tag = await getTag(value)
+  await expect.element(tag).not.toBeInTheDocument()
 }
 
 async function seeInputHasValue(value: string) {
@@ -37,9 +65,26 @@ async function seeInputIsFocused() {
   await expect.element(inputEl).toHaveFocus()
 }
 
+async function seeTagInputIsFocused(value:string) {
+  const tagInputEl = await getTagInput(value)
+  await expect.element(tagInputEl).toHaveFocus()
+}
+
+async function editTag(tag: string,value:string){
+  const tagInputEl = await getTagInput(tag)
+  await userEvent.fill(tagInputEl, value)
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+}
+
 async function seeTagIsHighlighted(value: string) {
   const tag = await getTag(value)
   await expect.element(tag).toHaveAttribute('data-highlighted', '')
+}
+
+async function expectNoTagToBeHighlighted() {
+  const el = page.locatoring('[data-part=item][data-selected]')
+  expect(el.all().length).toBe(0)
 }
 
 export async function ShouldAddNewTagValue() {
@@ -55,4 +100,142 @@ export async function WhenInputIsEmptyBackspaceHighlightsLastTag() {
   await userEvent.keyboard('{Backspace}')
 
   await seeTagIsHighlighted('Vue')
+}
+
+export async function DeletesTagWithBackspaceWhenInputValueIsEmpty() {
+  await addTag('Svelte')
+
+  await userEvent.keyboard('{Backspace}')
+  await seeTagIsHighlighted('Svelte')
+
+  await userEvent.keyboard('{Backspace}')
+  await userEvent.keyboard('{/Backspace}')
+  await dontSeeTag('Svelte')
+
+  await seeInputIsFocused()
+}
+
+export async function DeleteTagByClearingItsContentAndHitEnter() {
+  await focusInput()
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await userEvent.keyboard('{Backspace}')
+  await userEvent.keyboard('{/Backspace}')
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+
+  await seeInputIsFocused()
+  await dontSeeTag('Vue')
+}
+
+export async function DeleteTagWithDeleteKeyShowAllowKeyboardNavigation() {
+  await focusInput()
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await userEvent.keyboard('{Delete}')
+  await userEvent.keyboard('{/Delete}')
+
+  await seeInputIsFocused()
+  await dontSeeTag('Vue')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await seeTagIsHighlighted('React')
+}
+
+export async function DeleteTagWithPointerShowAllowKeyboardNavigation() {
+  await clickTagClose('Vue')
+
+  await seeInputIsFocused()
+
+  await dontSeeTag('Vue')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await seeTagIsHighlighted('React')
+}
+
+export async function WhenTagIsEmptyNoVisibleTagsEnterPressedShouldNotEnterEditingState() {
+  await focusInput()
+
+  await deleteLastTag()
+  await deleteLastTag()
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+
+  await addTag('Svelte')
+  await seeTag('Svelte')
+
+  await seeInputHasValue('')
+  await seeInputIsFocused()
+}
+
+export async function ShouldNavigateTagsWithArrowKeys() {
+  await addTag('Svelte')
+  await addTag('Solid')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await seeTagIsHighlighted('Solid')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await seeTagIsHighlighted('Vue')
+
+  await userEvent.keyboard('{ArrowRight}')
+  await userEvent.keyboard('{/ArrowRight}')
+
+  await seeTagIsHighlighted('Svelte')
+}
+
+export async function ShouldClearFocusedTagOnBlur() {
+  await addTag('Svelte')
+  await addTag('Solid')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await userEvent.click(document.body, {
+    force: true,
+  })
+
+  await expectNoTagToBeHighlighted()
+}
+
+export async function RemovesTagOnCloseButtonClick() {
+  await clickTagClose('Vue')
+  await dontSeeTag('Vue')
+  await seeInputIsFocused()
+}
+
+export async function EditTagWithEnterKey() {
+  await addTag('Svelte')
+  await addTag('Solid')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+
+  await seeTagInputIsFocused('Svelte')
+
+  await editTag('Svelte', 'Jenkins')
+
+  await seeTag('Jenkins')
+
+  await seeInputIsFocused()
 }

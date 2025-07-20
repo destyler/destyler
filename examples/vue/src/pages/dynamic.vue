@@ -47,6 +47,7 @@ function toDashCase(str: string) {
           <button
             v-bind="api.getItemDeleteTriggerProps({ index, value })"
             class="dynamic-item-delete-trigger"
+            :data-testid="`${toDashCase(value)}-delete-trigger`"
           >
             &#x2715;
           </button>
@@ -54,6 +55,7 @@ function toDashCase(str: string) {
         <input
           v-bind="api.getItemInputProps({ index, value })"
           class="dynamic-item-input"
+          :data-testid="`${toDashCase(value)}-item-input`"
         >
       </span>
     </div>
