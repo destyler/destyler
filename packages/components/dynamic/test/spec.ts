@@ -6,6 +6,13 @@ function input() {
   return page.getByArticle(part('input'))
 }
 
+async function paste(value: string) {
+  const inputEl = input()
+  await inputEl.click()
+  navigator.clipboard.writeText(value)
+  await userEvent.paste()
+}
+
 async function addTag(value: string) {
   const inputEl = page.getByArticle(part('input'))
   await inputEl.fill(value)
@@ -55,6 +62,11 @@ async function dontSeeTag(value: string) {
   await expect.element(tag).not.toBeInTheDocument()
 }
 
+async function dontSeeTagInput(value: string) {
+  const tagInput = await getTagInput(value)
+  await expect.element(tagInput).not.toBeVisible()
+}
+
 async function seeInputHasValue(value: string) {
   const inputEl = input()
   await expect.element(inputEl).toHaveValue(value)
@@ -65,12 +77,12 @@ async function seeInputIsFocused() {
   await expect.element(inputEl).toHaveFocus()
 }
 
-async function seeTagInputIsFocused(value:string) {
+async function seeTagInputIsFocused(value: string) {
   const tagInputEl = await getTagInput(value)
   await expect.element(tagInputEl).toHaveFocus()
 }
 
-async function editTag(tag: string,value:string){
+async function editTag(tag: string, value: string) {
   const tagInputEl = await getTagInput(tag)
   await userEvent.fill(tagInputEl, value)
   await userEvent.keyboard('{Enter}')
@@ -119,6 +131,9 @@ export async function DeleteTagByClearingItsContentAndHitEnter() {
   await focusInput()
   await userEvent.keyboard('{ArrowLeft}')
   await userEvent.keyboard('{/ArrowLeft}')
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
 
   await userEvent.keyboard('{Backspace}')
   await userEvent.keyboard('{/Backspace}')
@@ -233,9 +248,123 @@ export async function EditTagWithEnterKey() {
 
   await seeTagInputIsFocused('Svelte')
 
-  await editTag('Svelte', 'Jenkins')
+  await editTag('Svelte', 'PReact')
 
-  await seeTag('Jenkins')
+  await seeTag('PReact')
 
   await seeInputIsFocused()
+}
+
+export async function EditTagWithDoubleClick() {
+  await addTag('Svelte')
+
+  const tagEl = await getTag('Svelte')
+  await userEvent.dblClick(tagEl)
+
+  await seeTagInputIsFocused('Svelte')
+
+  await editTag('Svelte', 'PReact')
+
+  await seeTag('PReact')
+  await dontSeeTagInput('PReact')
+}
+
+export async function ClearsHighlightedTagOnEscapePress() {
+  await addTag('Svelte')
+
+  await userEvent.keyboard('{ArrowLeft}')
+  await userEvent.keyboard('{/ArrowLeft}')
+
+  await userEvent.keyboard('{Escape}')
+  await userEvent.keyboard('{/Escape}')
+
+  await expectNoTagToBeHighlighted()
+}
+
+export async function DeleteTagWithBackspaceWhenInputValueIsEmpty() {
+  await addTag('Svelte')
+  await addTag('Solid')
+
+  const VueTagEl = await getTag('Vue')
+  await userEvent.click(VueTagEl)
+
+  await userEvent.keyboard('{Delete}')
+  await userEvent.keyboard('{/Delete}')
+
+  await seeTagIsHighlighted('Svelte')
+  await dontSeeTag('Vue')
+
+  await userEvent.keyboard('{Delete}')
+  await userEvent.keyboard('{/Delete}')
+
+  await seeTagIsHighlighted('Solid')
+  await dontSeeTag('Svelte')
+
+  await userEvent.keyboard('{Delete}')
+  await userEvent.keyboard('{/Delete}')
+  await dontSeeTag('Solid')
+
+  await expectNoTagToBeHighlighted()
+
+  await userEvent.keyboard('{Backspace}')
+  await userEvent.keyboard('{/Backspace}')
+  await seeTagIsHighlighted('React')
+
+  await userEvent.keyboard('{Backspace}')
+  await userEvent.keyboard('{/Backspace}')
+  await dontSeeTag('React')
+
+  await expectNoTagToBeHighlighted()
+}
+
+export async function AddOnPasteFalsePastingShouldWorkEveryTime() {
+  await paste('Svelte')
+  await seeInputHasValue('Svelte')
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+
+  await seeTag('Svelte')
+
+  await userEvent.keyboard('{Backspace}')
+  await userEvent.keyboard('{/Backspace}')
+  await userEvent.keyboard('{Backspace}')
+  await userEvent.keyboard('{/Backspace}')
+
+  await paste('Svelte')
+  await seeInputHasValue('Svelte')
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+  await seeTag('Svelte')
+}
+
+export async function AddOnPasteFalsePastingEnterShouldWork() {
+  await paste('Svelte')
+
+  await userEvent.keyboard('{Enter}')
+  await userEvent.keyboard('{/Enter}')
+
+  await seeTag('Svelte')
+}
+
+export async function AddOnPasteTruePastingShouldAddTags() {
+  const addOnPasteEl = page.getByTestId('addOnPaste')
+  await userEvent.click(addOnPasteEl)
+
+  await paste('Svelte, Solid')
+
+  await seeTag('Svelte')
+  await seeTag('Solid')
+}
+
+export async function AddOnPasteTrueWhenInputIsEmptyShouldWork() {
+  const addOnPasteEl = page.getByTestId('addOnPaste')
+  await userEvent.click(addOnPasteEl)
+
+  await deleteLastTag()
+  await deleteLastTag()
+
+  await paste('Svelte, Solid')
+  await seeTag('Svelte')
 }

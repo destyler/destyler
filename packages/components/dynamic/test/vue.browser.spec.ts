@@ -54,8 +54,43 @@ describe('vue browser tests', () => {
     await Tests.RemovesTagOnCloseButtonClick()
   })
 
-  it.skip('edit tag with enter key', async () => {
+  it('edit tag with enter key', async () => {
     render(Dynamic)
     await Tests.EditTagWithEnterKey()
+  })
+
+  it('edit with double click', async () => {
+    render(Dynamic)
+    await Tests.EditTagWithDoubleClick()
+  })
+
+  it('clears highlighted tag on escape press', async () => {
+    render(Dynamic)
+    await Tests.ClearsHighlightedTagOnEscapePress()
+  })
+
+  it('delete + backspace interaction', async () => {
+    render(Dynamic)
+    await Tests.DeleteTagWithBackspaceWhenInputValueIsEmpty()
+  })
+
+  it('[addOnPaste: false] pasting should work every time', async () => {
+    render(Dynamic)
+    await Tests.AddOnPasteFalsePastingShouldWorkEveryTime()
+  })
+
+  it('[addOnPaste: false] pasting + enter should work', async () => {
+    render(Dynamic)
+    await Tests.AddOnPasteFalsePastingEnterShouldWork()
+  })
+
+  it('[addOnPaste: true] pasting should add tags', async () => {
+    render(Dynamic)
+    await Tests.AddOnPasteTruePastingShouldAddTags()
+  })
+
+  it('[addOnPaste: true] when input is empty, should work', async () => {
+    render(Dynamic)
+    await Tests.AddOnPasteTrueWhenInputIsEmptyShouldWork()
   })
 })

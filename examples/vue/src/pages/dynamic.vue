@@ -54,7 +54,6 @@ function toDashCase(str: string) {
         </div>
         <input
           v-bind="api.getItemInputProps({ index, value })"
-          class="dynamic-item-input"
           :data-testid="`${toDashCase(value)}-item-input`"
         >
       </span>
