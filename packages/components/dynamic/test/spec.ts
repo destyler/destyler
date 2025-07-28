@@ -53,7 +53,6 @@ async function deleteLastTag() {
 
 async function seeTag(value: string) {
   const tag = await getTag(value)
-
   await expect.element(tag).toBeVisible()
 }
 
