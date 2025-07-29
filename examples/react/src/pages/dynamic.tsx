@@ -37,7 +37,7 @@ export default function DynamicPage() {
               style={{ position: 'relative' }}
             >
               <div
-                date-testid={`${toDashCase(value)}-input`}
+                data-testid={`${toDashCase(value)}-input`}
                 {...api.getItemPreviewProps({ index, value })}
                 className="dynamic-item-preview"
               >

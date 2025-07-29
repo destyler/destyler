@@ -12,7 +12,7 @@ export default function DynamicPage() {
   const [state, send] = useMachine(
     dynamic.machine({
       id: createUniqueId(),
-      value: ['Solid', 'Vue'],
+      value: ['React', 'Vue'],
     }),
     {
       context: controls.context,
