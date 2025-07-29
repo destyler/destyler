@@ -1,76 +1,68 @@
-import { part } from '@destyler/shared-private/test'
+import { TestSuite } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
-import { expect, vi } from 'vitest'
+import { expect } from 'vitest'
 
-export async function RendersCorrectly() {
-  const items = page.getByArticle(part('item'))
-  expect(items.all().length).toBe(2)
-  await expect.element(page.getByArticle(part('indicator')).nth(0)).toHaveAttribute('data-current', '')
-  await expect.element(items.nth(0)).toHaveAttribute('data-inview', '')
-  await expect.element(items.nth(1)).not.toHaveAttribute('data-inview', '')
-}
+export class CarouselTestSuite extends TestSuite {
+  async RendersCorrectly() {
+    const items = this.itemEls()
+    expect(items.all().length).toBe(2)
+    await expect.element(this.indicatorEl().nth(0)).toHaveAttribute('data-current', '')
+    await expect.element(items.nth(0)).toHaveAttribute('data-inview', '')
+    await expect.element(items.nth(1)).not.toHaveAttribute('data-inview', '')
+  }
 
-export async function NextAndPrevButtonsNavigateCarousel() {
-  const prevTrigger = page.getByArticle(part('prev-trigger'))
-  await expect.element(prevTrigger).toBeDisabled()
-  const nextTrigger = page.getByArticle(part('next-trigger'))
-  await expect.element(nextTrigger).toBeEnabled()
-  await nextTrigger.click()
-  await expect.element(page.getByArticle(part('indicator')).nth(1)).toHaveAttribute('data-current', '')
-  await expect.element(prevTrigger).toBeEnabled()
-}
+  async NextAndPrevButtonsNavigateCarousel() {
+    const prevTrigger = this.prevEl()
+    await expect.element(prevTrigger).toBeDisabled()
+    const nextTrigger = this.nextEl()
+    await expect.element(nextTrigger).toBeEnabled()
+    await nextTrigger.click()
+    await expect.element(this.indicatorEl().nth(1)).toHaveAttribute('data-current', '')
+    await expect.element(prevTrigger).toBeEnabled()
+  }
 
-export async function AutoplayStartAndStop() {
-  const autoplayTrigger = page.getByArticle(part('autoplay-trigger'))
-  await autoplayTrigger.click()
-  await expect.element(autoplayTrigger).toHaveTextContent('Stop')
-  await vi.waitFor(async () => {
-    return true
-  }, {
-    timeout: 5000,
-    interval: 50,
-  })
-  await expect.element(page.getByArticle(part('indicator')).nth(1)).toHaveAttribute('data-current', '')
-  await autoplayTrigger.click()
-  await expect.element(autoplayTrigger).toHaveTextContent('Play')
-  await vi.waitFor(async () => {
-    return true
-  }, {
-    timeout: 5000,
-    interval: 50,
-  })
-  await expect.element(page.getByArticle(part('indicator')).nth(1)).toHaveAttribute('data-current', '')
-}
+  async AutoplayStartAndStop() {
+    const autoplayTrigger = this.autoPlayEl()
+    await autoplayTrigger.click()
+    await expect.element(autoplayTrigger).toHaveTextContent('Stop')
+    await this.waitFor()
+    await expect.element(this.indicatorEl().nth(1)).toHaveAttribute('data-current', '')
+    await autoplayTrigger.click()
+    await expect.element(autoplayTrigger).toHaveTextContent('Play')
+    await this.waitFor()
+    await expect.element(this.indicatorEl().nth(1)).toHaveAttribute('data-current', '')
+  }
 
-export async function ClickingIndicatorScrollsToCorrectSlide() {
-  const indicator = page.getByArticle(part('indicator'))
-  await indicator.nth(1).click()
-  await expect.element(indicator.nth(1)).toHaveAttribute('data-current', '')
+  async ClickingIndicatorScrollsToCorrectSlide() {
+    const indicator = this.indicatorEl()
+    await indicator.nth(1).click()
+    await expect.element(indicator.nth(1)).toHaveAttribute('data-current', '')
 
-  await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
-}
+    await expect.element(this.itemEls().nth(1)).toHaveAttribute('data-inview', '')
+  }
 
-export async function ScrollToSpecificIndexViaButton() {
-  await page.getByRole('button', { name: 'Scroll to 1' }).click()
-  await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
-}
+  async ScrollToSpecificIndexViaButton() {
+    await page.getByRole('button', { name: 'Scroll to 1' }).click()
+    await expect.element(this.itemEls().nth(1)).toHaveAttribute('data-inview', '')
+  }
 
-export async function IndicatorKeyboardNavigation() {
-  const indicator = page.getByArticle(part('indicator'))
-  await userEvent.type(indicator.nth(0), '{arrowright}')
-  await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
-}
+  async IndicatorKeyboardNavigation() {
+    const indicator = this.indicatorEl()
+    await userEvent.type(indicator.nth(0), '{arrowright}')
+    await expect.element(this.itemEls().nth(1)).toHaveAttribute('data-inview', '')
+  }
 
-export async function LoopShouldLoopSlides() {
-  await page.getByTestId('loop').click()
-  const prevTrigger = page.getByArticle(part('prev-trigger'))
-  await expect.element(prevTrigger).toBeEnabled()
+  async LoopShouldLoopSlides() {
+    await page.getByTestId('loop').click()
+    const prevTrigger = this.prevEl()
+    await expect.element(prevTrigger).toBeEnabled()
 
-  const nextTrigger = page.getByArticle(part('next-trigger'))
-  await nextTrigger.click()
-  await nextTrigger.click()
-  await expect.element(page.getByArticle(part('item')).nth(0)).toHaveAttribute('data-inview', '')
+    const nextTrigger = this.nextEl()
+    await nextTrigger.click()
+    await nextTrigger.click()
+    await expect.element(this.itemEls().nth(0)).toHaveAttribute('data-inview', '')
 
-  await nextTrigger.click()
-  await expect.element(page.getByArticle(part('item')).nth(1)).toHaveAttribute('data-inview', '')
+    await nextTrigger.click()
+    await expect.element(this.itemEls().nth(1)).toHaveAttribute('data-inview', '')
+  }
 }

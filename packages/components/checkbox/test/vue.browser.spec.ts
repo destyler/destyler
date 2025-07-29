@@ -1,31 +1,33 @@
-import { describe, it } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Checkbox from '~/vue/checkbox.vue'
-import * as Tests from './spec'
+import { CheckboxTestSuite } from './spec'
 
-describe('checkbox vue browser tests', () => {
-  it('should be checked when clicked', async () => {
+let Tests: CheckboxTestSuite
+
+describe('vue browser tests', () => {
+  beforeEach(async () => {
     render(Checkbox)
+    Tests = new CheckboxTestSuite()
+  })
+
+  it('should be checked when clicked', async () => {
     await Tests.ShouldBeCheckedWhenClicked()
   })
 
   it('should be focused when page is tabbed', async () => {
-    render(Checkbox)
     await Tests.ShouldBeFocusedWhenPageIsTabbed()
   })
 
   it('should be checked when spacebar is pressed while focused', async () => {
-    render(Checkbox)
     await Tests.ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
   })
 
   it('should have disabled attributes when disabled', async () => {
-    render(Checkbox)
     await Tests.ShouldHaveDisabledAttributesWhenDisabled()
   })
 
   it('should not be focusable when disabled', async () => {
-    render(Checkbox)
     await Tests.ShouldNotBeFocusableWhenDisabled()
   })
 })

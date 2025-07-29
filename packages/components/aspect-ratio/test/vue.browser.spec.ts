@@ -1,11 +1,17 @@
-import { describe, it } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import AspectRatio from '~/vue/aspect-ratio.vue'
-import * as Tests from './spec'
+import { AspectRatioTestSuite } from './spec'
 
-describe('aspect-ratio vue browser tests', () => {
-  it('renders correctly', async () => {
+let Tests: AspectRatioTestSuite
+
+describe('vue browser tests', () => {
+  beforeEach(async () => {
     render(AspectRatio)
+    Tests = new AspectRatioTestSuite()
+  })
+
+  it('renders correctly', async () => {
     await Tests.RendersCorrectly()
   })
 })

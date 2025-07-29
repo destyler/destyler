@@ -1,16 +1,21 @@
-import { describe, it } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import Collapsible from '~/react/collapsible'
-import * as Tests from './spec'
+import { CollapseTestSuite } from './spec'
+
+let Tests: CollapseTestSuite
 
 describe('collapsible react browser tests', () => {
-  it('should be open when clicked', async () => {
+  beforeEach(async () => {
     render(<Collapsible />)
+    Tests = new CollapseTestSuite()
+  })
+
+  it('should be open when clicked', async () => {
     await Tests.ShouldBeOpenWhenClicked()
   })
 
   it('content should not be reachable via tab key', async () => {
-    render(<Collapsible />)
     await Tests.ContentShouldNotBeReachableViaTabKey()
   })
 })

@@ -1,91 +1,79 @@
-import { testid } from '@destyler/shared-private/test'
-import { page, userEvent } from '@vitest/browser/context'
+import { TestSuite } from '@destyler/shared-private/test'
+import { page } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
-function getTrigger(id: string) {
-  return page.getByArticle(testid(`${id}:trigger`))
-}
+export class CollapseTestSuite extends TestSuite {
+  async arrowDownFocusNextTrigger() {
+    const trigger = this.getTrigger('watercraft')
+    await trigger.click()
+    await this.pressKey('ArrowDown')
+    await expect.element(this.getTrigger('automobiles')).toHaveFocus()
+  }
 
-function getContent(id: string) {
-  return page.getByArticle(testid(`${id}:content`))
-}
+  async arrowUpFocusPreviousTrigger() {
+    const trigger = this.getTrigger('automobiles')
+    await trigger.click()
 
-export async function arrowDownFocusNextTrigger() {
-  const trigger = getTrigger('watercraft')
-  await trigger.click()
-  await userEvent.keyboard('{ArrowDown}')
-  await userEvent.keyboard('{/ArrowDown}')
-  await expect.element(getTrigger('automobiles')).toHaveFocus()
-}
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowUp')
+    await expect.element(trigger).toHaveFocus()
+  }
 
-export async function arrowUpFocusPreviousTrigger() {
-  const trigger = getTrigger('automobiles')
-  await trigger.click()
-  await userEvent.keyboard('{ArrowDown}')
-  await userEvent.keyboard('{/ArrowDown}')
-  await userEvent.keyboard('{ArrowUp}')
-  await userEvent.keyboard('{/ArrowDown}')
-  await expect.element(trigger).toHaveFocus()
-}
+  async homeKeyFocusFirstTrigger() {
+    const trigger = this.getTrigger('automobiles')
+    await trigger.click()
+    await this.pressKey('Home')
+    await expect.element(this.getTrigger('watercraft')).toHaveFocus()
+  }
 
-export async function homeKeyFocusFirstTrigger() {
-  const trigger = getTrigger('automobiles')
-  await trigger.click()
-  await userEvent.keyboard('{Home}')
-  await userEvent.keyboard('{/Home}')
-  await expect.element(getTrigger('watercraft')).toHaveFocus()
-}
+  async endKeyFocusLastTrigger() {
+    const trigger = this.getTrigger('watercraft')
+    await trigger.click()
+    await this.pressKey('End')
+    await expect.element(this.getTrigger('aircraft')).toHaveFocus()
+  }
 
-export async function endKeyFocusLastTrigger() {
-  const trigger = getTrigger('watercraft')
-  await trigger.click()
-  await userEvent.keyboard('{End}')
-  await userEvent.keyboard('{/End}')
-  await expect.element(getTrigger('aircraft')).toHaveFocus()
-}
+  async shouldShowContent() {
+    const trigger = this.getTrigger('watercraft')
+    await trigger.click()
+    await expect.element(this.getContent('watercraft')).toBeVisible()
+  }
 
-export async function shouldShowContent() {
-  const trigger = getTrigger('watercraft')
-  await trigger.click()
-  await expect.element(getContent('watercraft')).toBeVisible()
-}
+  async ShouldNotCloseTheContent() {
+    const trigger = this.getTrigger('watercraft')
+    await trigger.dblClick()
 
-export async function ShouldNotCloseTheContent() {
-  const trigger = getTrigger('watercraft')
-  await trigger.dblClick()
+    await expect.element(this.getContent('watercraft')).not.toBeVisible()
+  }
 
-  await expect.element(getContent('watercraft')).not.toBeVisible()
-}
+  async ShouldCloseThePreviousContent() {
+    await this.getTrigger('watercraft').click()
+    await this.getTrigger('automobiles').click()
+    await expect.element(this.getContent('automobiles')).toBeVisible()
+    await expect.element(this.getContent('watercraft')).not.toBeVisible()
+  }
 
-export async function ShouldCloseThePreviousContent() {
-  await getTrigger('watercraft').click()
-  await getTrigger('automobiles').click()
-  await expect.element(getContent('automobiles')).toBeVisible()
-  await expect.element(getContent('watercraft')).not.toBeVisible()
-}
+  async OnArrowDownFocusNextTrigger() {
+    await page.getByTestId('multiple').click()
+    const trigger = this.getTrigger('watercraft')
+    await trigger.dblClick()
 
-export async function OnArrowDownFocusNextTrigger() {
-  await page.getByTestId('multiple').click()
-  const trigger = getTrigger('watercraft')
-  await trigger.dblClick()
+    await this.pressKey('Enter')
 
-  await userEvent.keyboard('{Enter}')
-  await userEvent.keyboard('{/Enter}')
+    await this.pressKey('ArrowDown')
 
-  await userEvent.keyboard('{ArrowDown}')
-  await userEvent.keyboard('{/ArrowDown}')
-  await userEvent.keyboard('{Enter}')
-  await userEvent.keyboard('{/Enter}')
+    await this.pressKey('Enter')
 
-  await expect.element(getContent('watercraft')).toBeVisible()
-  await expect.element(getContent('automobiles')).toBeVisible()
-}
+    await expect.element(this.getContent('watercraft')).toBeVisible()
+    await expect.element(this.getContent('automobiles')).toBeVisible()
+  }
 
-export async function clickingAnotherTriggerShouldCloseThePreviousContent() {
-  await page.getByTestId('multiple').click()
-  await getTrigger('watercraft').click()
-  await getTrigger('automobiles').click()
+  async clickingAnotherTriggerShouldCloseThePreviousContent() {
+    await page.getByTestId('multiple').click()
+    await this.getTrigger('watercraft').click()
+    await this.getTrigger('automobiles').click()
 
-  await expect.element(getContent('watercraft')).toBeVisible()
-  await expect.element(getContent('automobiles')).toBeVisible()
+    await expect.element(this.getContent('watercraft')).toBeVisible()
+    await expect.element(this.getContent('automobiles')).toBeVisible()
+  }
 }

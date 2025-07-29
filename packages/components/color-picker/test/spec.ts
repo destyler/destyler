@@ -1,115 +1,119 @@
-import { part } from '@destyler/shared-private/test'
+import { part, TestSuite } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
-const INITIAL_VALUE = '#FF0000'
-const PINK_VALUE = '#FFC0CB'
+export class ColorPickerTestSuite extends TestSuite {
+  INITIAL_VALUE = '#FF0000'
+  PINK_VALUE = '#FFC0CB'
 
-function hexInput() {
-  return page.locatoring(`[data-part=control] [data-channel=hex]`)
-}
+  hexInput() {
+    return page.locatoring(`[data-part=control] [data-channel=hex]`)
+  }
 
-function alphaInput() {
-  return page.locatoring(`[data-part=control] [data-channel=alpha]`)
-}
+  alphaInput() {
+    return page.locatoring(`[data-part=control] [data-channel=alpha]`)
+  }
 
-function channelThumb(channel: string) {
-  return page.locatoring(`[data-part=channel-slider-thumb][data-channel=${channel}]`)
-}
+  channelThumb(channel: string) {
+    return page.locatoring(`[data-part=channel-slider-thumb][data-channel=${channel}]`)
+  }
 
-function channelSlider(channel: string) {
-  return page.locatoring(`[data-part=channel-slider][data-channel=${channel}]`)
-}
+  channelSlider(channel: string) {
+    return page.locatoring(`[data-part=channel-slider][data-channel=${channel}]`)
+  }
 
-async function typeColor(color: string) {
-  const hexInputEl = hexInput()
-  await hexInputEl.fill(color)
-}
+  async typeColor(color: string) {
+    const hexInputEl = this.hexInput()
+    await hexInputEl.fill(color)
+  }
 
-async function typeInAlphaInput(alpha: string) {
-  const alphaInputEl = alphaInput()
-  await alphaInputEl.fill(alpha)
-}
+  async typeInAlphaInput(alpha: string) {
+    const alphaInputEl = this.alphaInput()
+    await alphaInputEl.fill(alpha)
+  }
 
-export async function TypeingTheSameNativeCssColorsSwitchShowHex() {
-  typeColor('red')
-  await userEvent.keyboard('{Enter}')
-  await userEvent.keyboard('{/Enter}')
-  await userEvent.click(document.body)
-  await expect.element(hexInput()).toHaveValue(INITIAL_VALUE)
-}
+  async TypeingTheSameNativeCssColorsSwitchShowHex() {
+    this.typeColor('red')
 
-export async function TypeingDifferentNativeCssColorsShouldUpdateColor() {
-  typeColor('pink')
-  await userEvent.keyboard('{Enter}')
-  await userEvent.keyboard('{/Enter}')
-  await userEvent.click(document.body)
-  await expect.element(hexInput()).toHaveValue(PINK_VALUE)
-}
+    await this.pressKey('Enter')
+    await this.clickOutside()
 
-export async function TypingInAlphaShouldUpdateColor() {
-  typeInAlphaInput('0.3')
+    await expect.element(this.hexInput()).toHaveValue(this.INITIAL_VALUE)
+  }
 
-  await userEvent.keyboard('{Enter}')
-  await userEvent.keyboard('{/Enter}')
-  await userEvent.click(document.body)
+  async TypeingDifferentNativeCssColorsShouldUpdateColor() {
+    this.typeColor('pink')
 
-  await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(0, 100%, 50%, 0.3)')
-}
+    await this.pressKey('Enter')
+    await this.clickOutside()
 
-export async function ClickOnTriggerShouldOpenPicker() {
-  const trigger = page.getByArticle(part('trigger'))
-  await trigger.click()
+    await expect.element(this.hexInput()).toHaveValue(this.PINK_VALUE)
+  }
 
-  await expect.element(page.getByArticle(part('content'))).toBeVisible()
-}
+  async TypingInAlphaShouldUpdateColor() {
+    this.typeInAlphaInput('0.3')
 
-export async function ShouldReFocusTriggerOnOutsideClick() {
-  const trigger = page.getByArticle(part('trigger'))
-  await trigger.click()
+    await this.pressKey('Enter')
+    await this.clickOutside()
 
-  await expect.element(page.getByArticle(part('content'))).toBeVisible()
+    await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(0, 100%, 50%, 0.3)')
+  }
 
-  await userEvent.click(document.body)
-  await expect.element(trigger).toHaveFocus()
-}
+  async ClickOnTriggerShouldOpenPicker() {
+    const trigger = this.triggerEl()
+    await trigger.click()
 
-export async function OpeningThePickerShouldFocusArea() {
-  const trigger = page.getByArticle(part('trigger'))
-  await trigger.click()
+    await expect.element(this.contentEl()).toBeVisible()
+  }
 
-  await expect.element(page.getByArticle(part('content'))).toBeVisible()
+  async ShouldReFocusTriggerOnOutsideClick() {
+    const trigger = this.triggerEl()
+    await trigger.click()
 
-  await expect.element(page.getByArticle(part('area-thumb'))).toBeVisible()
-}
+    await expect.element(this.contentEl()).toBeVisible()
 
-export async function KeyboardFocusMovement() {
-  const trigger = page.getByArticle(part('trigger'))
-  await trigger.click()
+    await this.clickOutside()
 
-  await userEvent.tab()
-  await expect.element(channelThumb('hue')).toHaveFocus()
+    await expect.element(trigger).toHaveFocus()
+  }
 
-  await userEvent.tab()
-  await expect.element(channelThumb('alpha')).toHaveFocus()
-}
+  async OpeningThePickerShouldFocusArea() {
+    const trigger = this.triggerEl()
+    await trigger.click()
 
-export async function ShouldChangehueWhenClickingTheHueBar() {
-  const trigger = page.getByArticle(part('trigger'))
-  await trigger.click()
+    await expect.element(this.contentEl()).toBeVisible()
 
-  const channelSliderEl = channelSlider('hue')
-  await channelSliderEl.click()
+    await expect.element(page.getByArticle(part('area-thumb'))).toBeVisible()
+  }
 
-  await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(180, 100%, 50%, 1)')
-}
+  async KeyboardFocusMovement() {
+    const trigger = this.triggerEl()
+    await trigger.click()
 
-export async function ShouldChangehueWhenClickingTheAlphaBar() {
-  const trigger = page.getByArticle(part('trigger'))
-  await trigger.click()
+    await userEvent.tab()
+    await expect.element(this.channelThumb('hue')).toHaveFocus()
 
-  const channelSliderEl = channelSlider('alpha')
-  await channelSliderEl.click()
+    await userEvent.tab()
+    await expect.element(this.channelThumb('alpha')).toHaveFocus()
+  }
 
-  await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(0, 100%, 50%, 0.5)')
+  async ShouldChangehueWhenClickingTheHueBar() {
+    const trigger = this.triggerEl()
+    await trigger.click()
+
+    const channelSliderEl = this.channelSlider('hue')
+    await channelSliderEl.click()
+
+    await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(180, 100%, 50%, 1)')
+  }
+
+  async ShouldChangehueWhenClickingTheAlphaBar() {
+    const trigger = this.triggerEl()
+    await trigger.click()
+
+    const channelSliderEl = this.channelSlider('alpha')
+    await channelSliderEl.click()
+
+    await expect.element(page.getByTestId('value-text').first()).toHaveTextContent('hsla(0, 100%, 50%, 0.5)')
+  }
 }

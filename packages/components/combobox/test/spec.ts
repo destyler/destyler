@@ -1,302 +1,265 @@
-import { page, userEvent } from '@vitest/browser/context'
+import { TestSuite } from '@destyler/shared-private/test'
+import { page } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
-function trigger() {
-  return page.locatoring('[data-part=trigger]')
-}
-
-function content() {
-  return page.locatoring('[data-part=content]')
-}
-
-function input() {
-  return page.locatoring('[data-part=input]')
-}
-
-function clearTrigger() {
-  return page.locatoring('[data-part=clear-trigger]')
-}
+export class ComboboxTestSuite extends TestSuite {
+  getItem(text: string) {
+    return this.itemEls().filter({ hasText: text })
+  }
 
-async function focusInput() {
-  const inputEl = input()
-  await inputEl.fill('')
-}
+  async hoverItem(text: string) {
+    const itemEl = this.getItem(text)
+    await itemEl.hover()
+  }
 
-async function type(text: string) {
-  const inputEl = input()
-
-  await userEvent.type(inputEl, text)
-}
-
-function getItem(text: string) {
-  return page.locatoring(`[data-part=item]`).filter({ hasText: text })
-}
+  async clickItem(text: string) {
+    const itemEl = this.getItem(text)
+    await itemEl.click()
+  }
 
-async function hoverItem(text: string) {
-  const itemEl = getItem(text)
-  await itemEl.hover()
-}
+  async clickClearTrigger() {
+    const clearTriggerEl = this.clearEl()
+    await clearTriggerEl.click()
+  }
 
-async function clickItem(text: string) {
-  const itemEl = getItem(text)
-  await itemEl.click()
-}
+  async seeDropdown() {
+    const contentEl = this.contentEl()
+    await expect.element(contentEl).toBeVisible()
+  }
 
-async function clickTrigger() {
-  const triggerEl = trigger()
-  await triggerEl.click()
-}
+  async dontSeeDropdown() {
+    const contentEl = this.contentEl()
+    await expect.element(contentEl).not.toBeVisible()
+  }
 
-async function clickInput() {
-  const inputEl = input()
-  await inputEl.click()
-}
+  async seeInputIsFocused() {
+    const inputEl = this.inputEl()
 
-async function clickClearTrigger() {
-  const clearTriggerEl = clearTrigger()
-  await clearTriggerEl.click()
-}
+    await expect.element(inputEl).toHaveFocus()
+  }
 
-async function seeDropdown() {
-  const contentEl = content()
-  await expect.element(contentEl).toBeVisible()
-}
-async function dontSeeDropdown() {
-  const contentEl = content()
-  await expect.element(contentEl).not.toBeVisible()
-}
+  async seeItemIsHighlighted(text: string) {
+    const itemEl = this.getItem(text)
 
-async function seeInputIsFocused() {
-  const inputEl = input()
+    await expect.element(itemEl).toHaveAttribute('data-highlighted', '')
+  }
 
-  await expect.element(inputEl).toHaveFocus()
-}
+  async seeItemIsNotChecked(text: string) {
+    const itemEl = this.getItem(text)
+    await expect.element(itemEl).not.toHaveAttribute('data-state', 'checked')
+  }
 
-async function seeItemIsHighlighted(text: string) {
-  const itemEl = getItem(text)
+  async seeInputHasValue(text: string) {
+    const inputEl = this.inputEl()
+    await expect.element(inputEl).toHaveValue(text)
+  }
 
-  await expect.element(itemEl).toHaveAttribute('data-highlighted', '')
-}
+  async seeItemIsChecked(text: string) {
+    const itemEl = this.getItem(text)
+    await expect.element(itemEl).toHaveAttribute('data-state', 'checked')
+  }
 
-async function seeItemIsNotChecked(text: string) {
-  const itemEl = getItem(text)
-  await expect.element(itemEl).not.toHaveAttribute('data-state', 'checked')
-}
+  async ShouldOpenComboboxMenuWhenArrowIsClicked() {
+    await this.clickTrigger()
 
-async function seeInputHasValue(text: string) {
-  const inputEl = input()
-  await expect.element(inputEl).toHaveValue(text)
-}
+    await this.seeDropdown()
 
-async function seeItemIsChecked(text: string) {
-  const itemEl = getItem(text)
-  await expect.element(itemEl).toHaveAttribute('data-state', 'checked')
-}
+    await this.seeInputIsFocused()
+  }
 
-async function pressKey(key: string) {
-  await userEvent.keyboard(`{${key}}`)
-  await userEvent.keyboard(`{/${key}}`)
-}
+  async EscapeShouldCloseContent() {
+    await this.clickTrigger()
 
-export async function ShouldOpenComboboxMenuWhenArrowIsClicked() {
-  await clickTrigger()
+    await this.seeDropdown()
 
-  await seeDropdown()
+    await this.pressKey('Escape')
 
-  await seeInputIsFocused()
-}
+    await this.dontSeeDropdown()
+  }
 
-export async function EscapeShouldCloseContent() {
-  await clickTrigger()
+  async ShouldOpenComboboxMenuWhenTyping() {
+    await this.type('can')
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Canada')
 
-  await seeDropdown()
+    await this.pressKey('Enter')
+    await this.seeInputHasValue('Canada')
+    await this.dontSeeDropdown()
+  }
 
-  await pressKey('Escape')
+  async PointerAndSelection() {
+    await this.clickTrigger()
 
-  await dontSeeDropdown()
-}
+    await this.hoverItem('Zambia')
 
-export async function ShouldOpenComboboxMenuWhenTyping() {
-  await type('can')
-  await seeDropdown()
-  await seeItemIsHighlighted('Canada')
+    await this.seeItemIsHighlighted('Zambia')
 
-  await pressKey('Enter')
-  await seeInputHasValue('Canada')
-  await dontSeeDropdown()
-}
+    await this.clickItem('Zambia')
 
-export async function PointerAndSelection() {
-  await clickTrigger()
+    await this.seeInputHasValue('Zambia')
 
-  await hoverItem('Zambia')
+    await this.dontSeeDropdown()
+  }
 
-  await seeItemIsHighlighted('Zambia')
+  async SelectAndSelectAgain() {
+    await this.clickTrigger()
 
-  await clickItem('Zambia')
+    await this.clickItem('Zambia')
+    await this.seeInputHasValue('Zambia')
 
-  await seeInputHasValue('Zambia')
+    await this.clickTrigger()
+    await this.clickItem('Canada')
+    await this.seeInputHasValue('Canada')
+  }
 
-  await dontSeeDropdown()
-}
+  async OnArrowDownOpenAndHighlightFirstEnabledOption() {
+    await this.focusInput()
 
-export async function SelectAndSelectAgain() {
-  await clickTrigger()
+    await this.pressKey('ArrowDown')
 
-  await clickItem('Zambia')
-  await seeInputHasValue('Zambia')
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Zambia')
 
-  await clickTrigger()
-  await clickItem('Canada')
-  await seeInputHasValue('Canada')
-}
+    await this.pressKey('ArrowUp')
+    await this.seeItemIsHighlighted('Tunisia')
+  }
 
-export async function OnArrowDownOpenAndHighlightFirstEnabledOption() {
-  await focusInput()
+  async NoLoopOnArrowDownOpenAndHighlightFirstEnabledOption() {
+    await page.getByTestId('loopFocus').click()
 
-  await pressKey('ArrowDown')
+    await this.focusInput()
 
-  await seeDropdown()
-  await seeItemIsHighlighted('Zambia')
+    await this.pressKey('ArrowDown')
 
-  await pressKey('ArrowUp')
-  await seeItemIsHighlighted('Tunisia')
-}
-export async function NoLoopOnArrowDownOpenAndHighlightFirstEnabledOption() {
-  await page.getByTestId('loopFocus').click()
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Zambia')
 
-  await focusInput()
+    await this.pressKey('ArrowUp')
+    await this.seeItemIsHighlighted('Zambia')
+  }
 
-  await pressKey('ArrowDown')
+  async OnArrowUpOpenAndHighlightLastEnabledOption() {
+    await this.focusInput()
 
-  await seeDropdown()
-  await seeItemIsHighlighted('Zambia')
+    await this.pressKey('ArrowUp')
 
-  await pressKey('ArrowUp')
-  await seeItemIsHighlighted('Zambia')
-}
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Tunisia')
+  }
 
-export async function OnArrowUpOpenAndHighlightLastEnabledOption() {
-  await focusInput()
+  async NoLoopOnArrowUpOpenAndHighlightLastEnabledOption() {
+    await page.getByTestId('loopFocus').click()
 
-  await pressKey('ArrowUp')
+    await this.focusInput()
 
-  await seeDropdown()
-  await seeItemIsHighlighted('Tunisia')
-}
+    await this.pressKey('ArrowUp')
 
-export async function NoLoopOnArrowUpOpenAndHighlightLastEnabledOption() {
-  await page.getByTestId('loopFocus').click()
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Tunisia')
+  }
 
-  await focusInput()
+  async OnHomeAndEndFocusFirstAndLastOption() {
+    await this.clickTrigger()
 
-  await pressKey('ArrowUp')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
 
-  await seeDropdown()
-  await seeItemIsHighlighted('Tunisia')
-}
+    await this.seeItemIsHighlighted('Canada')
 
-export async function OnHomeAndEndFocusFirstAndLastOption() {
-  await clickTrigger()
+    await this.pressKey('Home')
+    await this.seeItemIsHighlighted('Zambia')
 
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
+    await this.pressKey('End')
+    await this.seeItemIsHighlighted('Tunisia')
+  }
 
-  await seeItemIsHighlighted('Canada')
+  async KeyBoardArrowDownLoop() {
+    await this.type('mal')
 
-  await pressKey('Home')
-  await seeItemIsHighlighted('Zambia')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
 
-  await pressKey('End')
-  await seeItemIsHighlighted('Tunisia')
-}
+    await this.seeItemIsHighlighted('Malta')
 
-export async function KeyBoardArrowDownLoop() {
-  await type('mal')
+    await this.pressKey('ArrowDown')
+    await this.seeItemIsHighlighted('Malawi')
+  }
 
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
+  async KeyBoardArrowDownNoLoop() {
+    await page.getByTestId('loopFocus').click()
 
-  await seeItemIsHighlighted('Malta')
+    await this.type('mal')
 
-  await pressKey('ArrowDown')
-  await seeItemIsHighlighted('Malawi')
-}
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
+    await this.pressKey('ArrowDown')
 
-export async function KeyBoardArrowDownNoLoop() {
-  await page.getByTestId('loopFocus').click()
+    await this.seeItemIsHighlighted('Malta')
 
-  await type('mal')
+    await this.pressKey('ArrowDown')
+    await this.seeItemIsHighlighted('Malta')
+  }
 
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
-  await pressKey('ArrowDown')
+  async KeyBoardArrowUpLoop() {
+    await this.type('mal')
 
-  await seeItemIsHighlighted('Malta')
+    await this.pressKey('ArrowUp')
+    await this.seeItemIsHighlighted('Malta')
+  }
 
-  await pressKey('ArrowDown')
-  await seeItemIsHighlighted('Malta')
-}
+  async KeyBoardArrowUpNoLoop() {
+    await page.getByTestId('loopFocus').click()
 
-export async function KeyBoardArrowUpLoop() {
-  await type('mal')
+    await this.type('mal')
 
-  await pressKey('ArrowUp')
-  await seeItemIsHighlighted('Malta')
-}
+    await this.pressKey('ArrowUp')
+    await this.seeItemIsHighlighted('Malawi')
+  }
 
-export async function KeyBoardArrowUpNoLoop() {
-  await page.getByTestId('loopFocus').click()
+  async PointerOpenOnClick() {
+    await page.getByTestId('openOnClick').click()
 
-  await type('mal')
+    await this.clickInput()
 
-  await pressKey('ArrowUp')
-  await seeItemIsHighlighted('Malawi')
-}
+    await this.seeDropdown()
+  }
 
-export async function PointerOpenOnClick() {
-  await page.getByTestId('openOnClick').click()
+  async SelectsValueOnClick() {
+    await this.clickTrigger()
+    await this.clickItem('Zambia')
 
-  await clickInput()
+    await this.seeItemIsChecked('Zambia')
+  }
 
-  await seeDropdown()
-}
+  async CanClearValue() {
+    await this.clickTrigger()
+    await this.clickItem('Zambia')
 
-export async function SelectsValueOnClick() {
-  await clickTrigger()
-  await clickItem('Zambia')
+    await this.clickTrigger()
+    await this.clickClearTrigger()
+    await this.seeInputHasValue('')
+    await this.seeItemIsNotChecked('Zambia')
+  }
 
-  await seeItemIsChecked('Zambia')
-}
+  async ShouldClearInputValue() {
+    const selectionBehaviorEl = page.getByTestId('selectionBehavior')
+    await selectionBehaviorEl.selectOptions('clear')
 
-export async function CanClearValue() {
-  await clickTrigger()
-  await clickItem('Zambia')
+    await this.type('mal')
+    await this.pressKey('Enter')
+    await this.seeInputHasValue('')
+  }
 
-  await clickTrigger()
-  await clickClearTrigger()
-  await seeInputHasValue('')
-  await seeItemIsNotChecked('Zambia')
-}
+  async EnterBehaviorForCustomValues() {
+    const selectionBehaviorEl = page.getByTestId('inputBehavior')
+    await selectionBehaviorEl.selectOptions('none')
 
-export async function ShouldClearInputValue() {
-  const selectionBehaviorEl = page.getByTestId('selectionBehavior')
-  await selectionBehaviorEl.selectOptions('clear')
-
-  await type('mal')
-  await pressKey('Enter')
-  await seeInputHasValue('')
-}
-
-export async function EnterBehaviorForCustomValues() {
-  const selectionBehaviorEl = page.getByTestId('inputBehavior')
-  await selectionBehaviorEl.selectOptions('none')
-
-  await type('foo')
-  await pressKey('Enter')
-  await seeInputHasValue('')
+    await this.type('foo')
+    await this.pressKey('Enter')
+    await this.seeInputHasValue('')
+  }
 }

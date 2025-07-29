@@ -1,16 +1,21 @@
-import { describe, it } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-svelte'
 import Combobox from '~/svelte/dialog.svelte'
-import * as Tests from './spec'
+import { ComboboxTestSuite } from './spec'
+
+let Tests: ComboboxTestSuite
 
 describe('svelte browser tests', () => {
-  it('should focus on close button when dialog is open', async () => {
+  beforeEach(async () => {
     render(Combobox)
+    Tests = new ComboboxTestSuite()
+  })
+
+  it('should focus on close button when dialog is open', async () => {
     await Tests.ShouldFocusonCloseButtonWhenDialogIsOpen()
   })
 
   it('should close modal on escape', async () => {
-    render(Combobox)
     await Tests.ShouldCloseOnEscape()
   })
 })

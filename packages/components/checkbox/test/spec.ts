@@ -1,46 +1,47 @@
-import { part, testid } from '@destyler/shared-private/test'
+import { testid, TestSuite } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
-const root = part('root')
-const label = part('label')
-const control = part('control')
-const input = testid('hidden-input')
-const disabledCheck = testid('disabled')
+export class CheckboxTestSuite extends TestSuite {
+  input = testid('hidden-input')
 
-export async function ShouldBeCheckedWhenClicked() {
-  const rootEL = page.getByArticle(root)
-  await rootEL.click()
-  await expect.element(page.getByArticle(root)).toHaveAttribute('data-state', 'checked')
-  await expect.element(page.getByArticle(label)).toHaveAttribute('data-state', 'checked')
-  await expect.element(page.getByArticle(control)).toHaveAttribute('data-state', 'checked')
-}
+  disabledCheck = testid('disabled')
 
-export async function ShouldBeFocusedWhenPageIsTabbed() {
-  await userEvent.click(page.getByRole('main'))
-  await userEvent.tab()
-  await expect.element(page.getByArticle(input)).toHaveFocus()
-  await expect.element(page.getByArticle(control)).toHaveAttribute('data-focus', '')
-}
+  async ShouldBeCheckedWhenClicked() {
+    const rootEL = this.rootEl()
+    await rootEL.click()
+    await expect.element(this.labelEl()).toHaveAttribute('data-state', 'checked')
+    await expect.element(this.labelEl()).toHaveAttribute('data-state', 'checked')
+    await expect.element(this.controlEl()).toHaveAttribute('data-state', 'checked')
+  }
 
-export async function ShouldBeCheckedWhenSpacebarIsPressedWhileFocused() {
-  await userEvent.tab()
-  await userEvent.keyboard('{Space}')
-  await userEvent.keyboard('{/Space}')
-  await expect.element(page.getByArticle(root)).toHaveAttribute('data-state', 'checked')
-  await expect.element(page.getByArticle(label)).toHaveAttribute('data-state', 'checked')
-  await expect.element(page.getByArticle(control)).toHaveAttribute('data-state', 'checked')
-}
+  async ShouldBeFocusedWhenPageIsTabbed() {
+    await userEvent.click(page.getByRole('main'))
+    await userEvent.tab()
+    await expect.element(page.getByArticle(this.input)).toHaveFocus()
+    await expect.element(this.controlEl()).toHaveAttribute('data-focus', '')
+  }
 
-export async function ShouldHaveDisabledAttributesWhenDisabled() {
-  const disabledEl = page.getByArticle(disabledCheck)
-  await disabledEl.click()
-  await expect.element(page.getByArticle(input)).toBeDisabled()
-}
+  async ShouldBeCheckedWhenSpacebarIsPressedWhileFocused() {
+    await userEvent.tab()
 
-export async function ShouldNotBeFocusableWhenDisabled() {
-  const disabledEl = page.getByArticle(disabledCheck)
-  await disabledEl.click()
-  await userEvent.tab()
-  await expect.element(page.getByArticle(input)).not.toHaveFocus()
+    await this.pressKey('Space')
+
+    await expect.element(this.rootEl()).toHaveAttribute('data-state', 'checked')
+    await expect.element(this.labelEl()).toHaveAttribute('data-state', 'checked')
+    await expect.element(this.controlEl()).toHaveAttribute('data-state', 'checked')
+  }
+
+  async ShouldHaveDisabledAttributesWhenDisabled() {
+    const disabledEl = page.getByArticle(this.disabledCheck)
+    await disabledEl.click()
+    await expect.element(page.getByArticle(this.input)).toBeDisabled()
+  }
+
+  async ShouldNotBeFocusableWhenDisabled() {
+    const disabledEl = page.getByArticle(this.disabledCheck)
+    await disabledEl.click()
+    await userEvent.tab()
+    await expect.element(page.getByArticle(this.input)).not.toHaveFocus()
+  }
 }

@@ -1,11 +1,17 @@
-import { describe, it } from 'vitest'
+import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-svelte'
 import AspectRatio from '~/svelte/aspect-ratio.svelte'
-import * as Tests from './spec'
+import { AspectRatioTestSuite } from './spec'
 
-describe('aspect-ratio svelte browser tests', () => {
-  it('renders correctly', async () => {
+let Tests: AspectRatioTestSuite
+
+describe('svelte browser tests', () => {
+  beforeEach(async () => {
     render(AspectRatio)
+    Tests = new AspectRatioTestSuite()
+  })
+
+  it('renders correctly', async () => {
     await Tests.RendersCorrectly()
   })
 })
