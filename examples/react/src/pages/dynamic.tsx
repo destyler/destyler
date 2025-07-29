@@ -27,6 +27,7 @@ export default function DynamicPage() {
 
   return (
     <>
+      <input data-testid="copy-text" />
       <div {...api.getRootProps()} className="dynamic-root">
         <div className="dynamic-content">
           {api.value.map((value, index) => (

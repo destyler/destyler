@@ -4,9 +4,12 @@ import { expect } from 'vitest'
 
 export class DynamicTestSuite extends TestSuite {
   async paste(value: string) {
+    const copyTextEl = page.getByTestId('copy-text')
+    await userEvent.fill(copyTextEl, value)
+    await userEvent.tripleClick(copyTextEl)
+    await userEvent.copy()
     const inputEl = this.inputEl()
     await inputEl.click()
-    navigator.clipboard.writeText(value)
     await userEvent.paste()
   }
 

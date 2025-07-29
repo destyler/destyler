@@ -20,6 +20,7 @@
   const api = $derived(dynamic.connect(state, send, normalizeProps));
 </script>
 
+<input data-testid="copy-text" />
 <div {...api.getRootProps()} class="dynamic-root">
   <div class="dynamic-content">
     {#each api.value as value, index (index)}

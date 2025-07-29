@@ -28,6 +28,7 @@ function toDashCase(str: string) {
 </script>
 
 <template>
+  <input data-testid="copy-text" >
   <div v-bind="api.getRootProps()" class="dynamic-root">
     <div class="dynamic-content">
       <span

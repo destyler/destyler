@@ -1,12 +1,11 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import Dynamic from '~/react/dynamic'
-import {DynamicTestSuite} from './spec'
+import { DynamicTestSuite } from './spec'
 
 let Tests: DynamicTestSuite
 
 describe('react browser tests', () => {
-
   beforeEach(() => {
     render(<Dynamic />)
     Tests = new DynamicTestSuite()

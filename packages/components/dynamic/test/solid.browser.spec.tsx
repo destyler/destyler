@@ -7,7 +7,6 @@ import { DynamicTestSuite } from './spec'
 let Tests: DynamicTestSuite
 
 describe('solid browser tests', () => {
-
   beforeEach(() => {
     render(() => <Dynamic />)
     Tests = new DynamicTestSuite()

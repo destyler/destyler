@@ -1,13 +1,12 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import Collapse from '~/vue/collapse.vue'
-import {CollapseTestSuite} from './spec'
+import { CollapseTestSuite } from './spec'
 
 let Tests: CollapseTestSuite
 
 describe('collapse vue browser tests - single / keyboard', () => {
-
-  beforeEach(async() =>{
+  beforeEach(async () => {
     render(Collapse)
     Tests = new CollapseTestSuite()
   })
@@ -30,8 +29,7 @@ describe('collapse vue browser tests - single / keyboard', () => {
 })
 
 describe('collapse vue browser tests - single / pointer', () => {
-
-  beforeEach(async() =>{
+  beforeEach(async () => {
     render(Collapse)
     Tests = new CollapseTestSuite()
   })
@@ -50,8 +48,7 @@ describe('collapse vue browser tests - single / pointer', () => {
 })
 
 describe('collapse vue browser tests - multiple / keyboard', () => {
-
-  beforeEach(async() =>{
+  beforeEach(async () => {
     render(Collapse)
     Tests = new CollapseTestSuite()
   })
