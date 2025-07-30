@@ -100,7 +100,9 @@ export class NumberInputTestSuite extends TestSuite {
   async CtrlAndArrowUpShouldChangeFor0_1Steps() {
     await this.changeStep('0.1')
     await this.waitFor()
-    await this.type('0.10')
+
+    const inputEl = page.getByTestId('input')
+    await inputEl.fill('0.1')
 
     await userEvent.keyboard('{Control>}{ArrowUp}{/Control}')
     await this.seeInputHasValue('0.11')

@@ -43,7 +43,7 @@ export default function NumberInputExample() {
           />
           <button
             class="number-input-trigger"
-            data-testid="dec:trigger"
+            data-testid="inc:trigger"
             {...api().getIncrementTriggerProps()}
           >
             <span>+</span>
