@@ -14,6 +14,7 @@
   <pre>
     <details open>
         <summary>{label || "Visualizer"}</summary>
+        <!-- svelte-ignore state_snapshot_uncloneable -->
         <div>{@html highlightState($state.snapshot(currentState), omit)}</div>
     </details>
   </pre>
