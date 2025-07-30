@@ -1,0 +1,77 @@
+.number-input-root {
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 16px;
+}
+
+.number-input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #374151;
+}
+
+.number-input-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.number-input-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #374151;
+  background-color: #f9fafb;
+  border-width: 1px;
+  border-color: #E5E7EB;
+  border-radius: 6px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 200ms;
+}
+.number-input-trigger:active {
+  background-color: #e5e7eb;
+}
+.number-input-trigger:hover {
+  background-color: #e5e7eb;
+  border-color: #D1D5DB;
+}
+
+.number-input-input {
+  width: 100%;
+  height: 40px;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+  color: #374151;
+  border-width: 1px;
+  border-color: #E5E7EB;
+  border-radius: 6px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 200ms;
+}
+.number-input-input:focus {
+  border-color: #60A5FA;
+  --un-ring-width: 2px;
+  --un-ring-offset-shadow: var(--un-ring-inset) 0 0 0
+    var(--un-ring-offset-width) var(--un-ring-offset-color);
+  --un-ring-shadow: var(--un-ring-inset) 0 0 0
+    calc(var(--un-ring-width) + var(--un-ring-offset-width))
+    var(--un-ring-color);
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+    var(--un-shadow);
+  --un-ring-color: #dbeafe;
+}
