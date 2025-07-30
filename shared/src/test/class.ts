@@ -108,11 +108,19 @@ export class TestSuite {
     return page.getByArticle(testid(`${id}:trigger`))
   }
 
-  async clickTriggerById(id: string, opts: { delay?: number } = {}) {
+  async clickTriggerById(id: string, opts: {
+    delay?: number
+    times: number
+  } = {
+    delay: 0,
+    times: 1,
+ }) {
     const triggerEl = this.getTrigger(id)
-    await userEvent.click(triggerEl, {
-      delay: opts.delay,
-    })
+    for (let i = 0; i < opts.times; i++) {
+      await userEvent.click(triggerEl, {
+        delay: opts.delay,
+      })
+    }
   }
 
   getContent(id: string) {

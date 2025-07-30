@@ -3,28 +3,26 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import { paginationControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId, useMemo } from 'react'
+import '@destyler/shared-private/styles/pagination.css'
 
 export default function Pagination() {
   const controls = useControls(paginationControls)
-
   const [state, send] = useMachine(pagination.machine({ id: useId(), count: 1000 }), {
     context: controls.context,
   })
-
   const api = useMemo(() => pagination.connect(state, send, normalizeProps), [state])
 
   return (
     <>
-      <nav {...api.getRootProps()} className="flex justify-center py-8">
-        <ul className="flex items-center gap-x-3">
+      <nav {...api.getRootProps()} className="pagination-root">
+        <ul className="pagination-list">
           <li>
             <a
               {...api.getPrevTriggerProps()}
-              className="px-5 py-2.5 rounded-lg border border-gray-800 hover:bg-gray-50
-              transition-all duration-200 shadow-sm hover:shadow-md
-              flex items-center gap-x-1 text-sm font-medium cursor-pointer"
+              className="pagination-btn"
+              data-testid="prev:trigger"
             >
-              <div className="w-4 h-4 i-carbon:chevron-left" />
+              <div className="pagination-icon i-carbon:chevron-left" />
               Previous
               {' '}
               <span className="sr-only">Page</span>
@@ -34,22 +32,18 @@ export default function Pagination() {
             <li key={page.type === 'page' ? page.value : `ellipsis-${i}`}>
               {page.type === 'page'
                 ? (
-                    <a
+                    <button
                       {...api.getItemProps(page)}
-                      className="min-w-[40px] h-10 flex items-center justify-center px-3
-                  rounded-lg border border-gray-800 hover:bg-gray-50
-                  transition-all duration-200 shadow-sm hover:shadow-md
-                  data-[selected]:bg-gray-900 data-[selected]:text-white
-                  data-[selected]:border-gray-900 data-[selected]:shadow-lg
-                  text-sm font-medium cursor-pointer"
+                      className="pagination-page"
+                      data-testid={`pagination-item-${page.value}`}
                     >
                       {page.value}
-                    </a>
+                    </button>
                   )
                 : (
                     <span
                       {...api.getEllipsisProps({ index: i })}
-                      className="px-3 py-2 text-gray-500 font-medium"
+                      className="pagination-ellipsis"
                     >
                       &#8230;
                     </span>
@@ -59,14 +53,13 @@ export default function Pagination() {
           <li>
             <a
               {...api.getNextTriggerProps()}
-              className="px-5 py-2.5 rounded-lg border border-gray-800 hover:bg-gray-50
-              transition-all duration-200 shadow-sm hover:shadow-md
-              flex items-center gap-x-1 text-sm font-medium cursor-pointer"
+              className="pagination-btn"
+              data-testid="next:trigger"
             >
               Next
               {' '}
               <span className="sr-only">Page</span>
-              <div className="w-4 h-4 i-carbon:chevron-right" />
+              <div className="pagination-icon i-carbon:chevron-right" />
             </a>
           </li>
         </ul>
