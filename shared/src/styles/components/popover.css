@@ -1,0 +1,79 @@
+.popover-demo-root {
+  margin-top: 1.25rem; /* mt-5 */
+  position: relative;
+}
+
+.popover-trigger {
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #000; /* bg-black */
+  color: #fff; /* text-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: background-color 0.2s;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.popover-trigger:hover {
+  background-color: #1a1a1a; /* hover:bg-gray-800 */
+}
+.popover-trigger:focus {
+  box-shadow: 0 0 0 2px #9ca3af, 0 0 0 4px #fff; /* focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 */
+}
+
+.popover-positioner {
+  z-index: 50;
+  position: absolute;
+}
+
+.popover-content {
+  background-color: #fff; /* bg-white */
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.03); /* shadow-lg */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #e5e7eb; /* border border-gray-200 */
+  width: 16rem; /* w-64 */
+  padding: 1rem; /* p-4 */
+  margin-top: 0.5rem; /* mt-2 */
+  position: relative;
+}
+
+.popover-title {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #111827; /* text-gray-900 */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.popover-description {
+  color: #4b5563; /* text-gray-600 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.popover-action-btn {
+  width: 100%; /* w-full */
+  margin-bottom: 0.5rem; /* mb-2 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #000; /* bg-black */
+  color: #fff; /* text-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.popover-action-btn:hover {
+  background-color: #1a1a1a; /* hover:bg-gray-800 */
+}
+
+.popover-close-btn {
+  position: absolute;
+  top: 1.25rem; /* top-5 */
+  right: 0.75rem; /* right-3 */
+  color: #9ca3af; /* text-gray-400 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.popover-close-btn:hover {
+  color: #4b5563; /* hover:text-gray-600 */
+}
+/* 图标样式 i-carbon:close-large 需要你自己处理 SVG 或 iconfont */

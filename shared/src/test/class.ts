@@ -100,6 +100,11 @@ export class TestSuite {
     return page.getByArticle(this.close)
   }
 
+  async clickClose(){
+    const closeEl = this.closeEl()
+    await userEvent.click(closeEl)
+  }
+
   autoPlayEl() {
     return page.getByArticle(this.autoPlay)
   }
