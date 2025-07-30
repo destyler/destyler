@@ -102,7 +102,7 @@ export class OtpInputTestSuite extends TestSuite {
 
   async SameShouldAllowOnlySingleCharacter() {
     await page.locatoring(this.first).fill('1')
-    await page.getByTestId('focus').click()
+    await page.locatoring(this.first).click()
     await page.locatoring(this.first).fill('1')
     await expect.element(page.locatoring(this.first)).toHaveValue('1')
   }

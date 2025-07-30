@@ -14,7 +14,7 @@ function assignValue(ctx: MachineContext, value: string | string[]) {
 function getNextValue(current: string, next: string) {
   let nextValue = next
   if (current[0] === next[0])
-    nextValue = next[1]
+    nextValue = next[1] || next
   else if (current[0] === next[1])
     nextValue = next[0]
   return nextValue.split('')[nextValue.length - 1]
