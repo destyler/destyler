@@ -11,7 +11,9 @@
     id: crypto.randomUUID(),
     value: 'Hello World',
     placeholder: 'Type something...',
-  }))
+  }),{
+    context: controls.context,
+  })
 
   const api = $derived(edit.connect(state, send, normalizeProps));
 </script>
@@ -27,7 +29,7 @@
       data-testid="preview"
       {...api.getPreviewProps()}
       class="edit-preview"
-    ></span>
+    >{api.valueText}</span>
   </div>
   <div class="edit-actions-box space-x-2">
     {#if api.editing}
