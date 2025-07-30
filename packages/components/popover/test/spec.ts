@@ -16,7 +16,7 @@ export class PopoverTestSuite extends TestSuite {
     await expect.element(this.contentEl()).toBeVisible()
   }
 
-  async dontSeeContent(){
+  async dontSeeContent() {
     await expect.element(this.contentEl()).not.toBeVisible()
   }
 
@@ -29,7 +29,7 @@ export class PopoverTestSuite extends TestSuite {
     await expect.element(el).toHaveFocus()
   }
 
-  async seeButtonAfterIsFocused(){
+  async seeButtonAfterIsFocused() {
     const el = page.getByTestId('button-after')
     await expect.element(el).toHaveFocus()
   }
@@ -81,14 +81,14 @@ export class PopoverTestSuite extends TestSuite {
     await this.seeLinkIsFocused()
   }
 
-  async KeyboardNonModalOnTabShouldMoveFocusToNextTabbableElementAfterButton(){
+  async KeyboardNonModalOnTabShouldMoveFocusToNextTabbableElementAfterButton() {
     await this.focusTrigger()
     await this.pressKey('Enter')
     await this.pressKey('Tab', 3)
     await this.seeButtonAfterIsFocused()
   }
 
-  async KeyboardNonModalOnShiftTabShouldMoveFocusToTrigger(){
+  async KeyboardNonModalOnShiftTabShouldMoveFocusToTrigger() {
     await this.focusTrigger()
     await this.pressKey('Enter')
     await userEvent.keyboard('{Shift>}{Tab}{/Shift}')
@@ -96,26 +96,25 @@ export class PopoverTestSuite extends TestSuite {
     await this.seeContent()
   }
 
-  async PointerCloseThePopoverOnClickCloseButton(){
+  async PointerCloseThePopoverOnClickCloseButton() {
     await this.clickTrigger()
     await this.clickClose()
     await this.dontSeeContent()
     await this.seeTriggerIsFocused()
   }
 
-  async PointerShouldToOPenOrCloseAPopoverOnTriggerClick(){
+  async PointerShouldToOPenOrCloseAPopoverOnTriggerClick() {
     await this.clickTrigger()
     await this.seeContent()
     await this.clickTrigger()
     await this.dontSeeContent()
   }
 
-  async PointerWhenClickingOutsideOnFocusableElementShouldNotReFocusTheButton(){
+  async PointerWhenClickingOutsideOnFocusableElementShouldNotReFocusTheButton() {
     await this.clickTrigger()
     await page.getByTestId('button-after').click()
 
     await expect.element(page.getByTestId('button-after')).toHaveFocus()
     await this.dontSeeContent()
-
   }
 }

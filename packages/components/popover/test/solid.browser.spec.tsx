@@ -36,19 +36,19 @@ describe('solid browser tests', () => {
     await Tests.KeyboardNonModalOnTabShouldMoveFocusToNextTabbableElementAfterButton()
   })
 
-  it("[keyboard / non-modal] on shift-tab outside: should move focus to trigger", async () => {
+  it('[keyboard / non-modal] on shift-tab outside: should move focus to trigger', async () => {
     await Tests.KeyboardNonModalOnShiftTabShouldMoveFocusToTrigger()
   })
 
-  it("[pointer] close the popover on click close button", async () => {
+  it('[pointer] close the popover on click close button', async () => {
     await Tests.PointerCloseThePopoverOnClickCloseButton()
   })
 
-  it("[pointer] should to open/close a popover on trigger click", async () => {
+  it('[pointer] should to open/close a popover on trigger click', async () => {
     await Tests.PointerShouldToOPenOrCloseAPopoverOnTriggerClick()
   })
 
-  it("[pointer] when clicking outside on focusable element, should not re-focus the button", async () => {
+  it('[pointer] when clicking outside on focusable element, should not re-focus the button', async () => {
     await Tests.PointerWhenClickingOutsideOnFocusableElementShouldNotReFocusTheButton()
   })
 })

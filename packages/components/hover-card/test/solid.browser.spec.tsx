@@ -8,7 +8,7 @@ let Tests: HoverCardTestSuite
 
 describe('svelte browser tests', () => {
   beforeEach(() => {
-    render(()=> <HoverCard />)
+    render(() => <HoverCard />)
     Tests = new HoverCardTestSuite()
   })
 

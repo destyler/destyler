@@ -60,7 +60,9 @@ const api = computed(() => popover.connect(state.value, send, normalizeProps))
       </div>
     </Teleport>
     <span data-testid="plain-text">I am just text</span>
-    <button data-testid="button-after">Button :after</button>
+    <button data-testid="button-after">
+      Button :after
+    </button>
   </div>
   <Toolbar>
     <StateVisualizer :state="state" />

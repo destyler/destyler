@@ -1,16 +1,16 @@
+import type { ParentProps } from 'solid-js'
 /** @jsxImportSource solid-js */
 import * as popover from '@destyler/popover'
 import { popoverControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
-import { createMemo, createUniqueId, type ParentProps } from 'solid-js'
-import { Portal } from "solid-js/web"
-import '@destyler/shared-private/styles/popover.css';
+import { createMemo, createUniqueId } from 'solid-js'
+import { Portal } from 'solid-js/web'
+import '@destyler/shared-private/styles/popover.css'
 
 function Wrapper(props: ParentProps<{ guard: boolean }>) {
   return <>{props.guard ? <Portal mount={document.body}>{props.children}</Portal> : props.children}</>
 }
-
 
 export default function PopoverPage() {
   const controls = useControls(popoverControls)

@@ -16,6 +16,9 @@ export default antfu({
     'regexp/no-unused-capturing-group': 'off',
     'no-irregular-whitespace': 'off',
   },
+  ignores: [
+    '.specstory/**',
+  ],
 }, {
   files: ['test/**'],
   rules: {

@@ -1,9 +1,9 @@
 import * as popover from '@destyler/popover'
-import { normalizeProps, useMachine, Portal } from '@destyler/react'
+import { normalizeProps, Portal, useMachine } from '@destyler/react'
 import { popoverControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
-import { useId, Fragment } from 'react'
-import '@destyler/shared-private/styles/popover.css';
+import { Fragment, useId } from 'react'
+import '@destyler/shared-private/styles/popover.css'
 
 export default function PopoverPage() {
   const controls = useControls(popoverControls)

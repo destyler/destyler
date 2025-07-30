@@ -35,21 +35,20 @@ const api = computed(() => hoverCard.connect(state.value, send, normalizeProps))
             src="https://github.com/elonehoo.png"
             alt="Profile"
             class="hover-card-avatar"
-
           >
           <div>
-            <h3 >
+            <h3>
               elonehoo
             </h3>
-            <p >
+            <p>
               Frontend Developer
             </p>
           </div>
         </div>
-        <div >
+        <div>
           Follow me on Twitter for web development tips and updates!
         </div>
-        <div >
+        <div>
           @elonehoo
         </div>
       </div>

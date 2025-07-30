@@ -100,7 +100,7 @@ export class TestSuite {
     return page.getByArticle(this.close)
   }
 
-  async clickClose(){
+  async clickClose() {
     const closeEl = this.closeEl()
     await userEvent.click(closeEl)
   }
