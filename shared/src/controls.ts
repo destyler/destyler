@@ -79,7 +79,7 @@ export const dynamicControls = defineControls({
 export const editControls = defineControls({
   readOnly: { type: 'boolean', defaultValue: false },
   disabled: { type: 'boolean', defaultValue: false },
-  autoResize: { type: 'boolean', defaultValue: false },
+  autoResize: { type: 'boolean', defaultValue: true },
   maxLength: { type: 'number', defaultValue: 1000 },
   submitMode: {
     type: 'select',

@@ -108,6 +108,13 @@ export class TestSuite {
     return page.getByArticle(testid(`${id}:trigger`))
   }
 
+  async clickTriggerById(id: string, opts: { delay?: number } = {}) {
+    const triggerEl = this.getTrigger(id)
+    await userEvent.click(triggerEl, {
+      delay: opts.delay,
+    })
+  }
+
   getContent(id: string) {
     return page.getByArticle(testid(`${id}:content`))
   }

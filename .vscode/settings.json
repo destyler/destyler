@@ -1,3 +1,6 @@
 {
-  "vitest.disableWorkspaceWarning": true
+  "vitest.disableWorkspaceWarning": true,
+  "explorer.fileNesting.patterns": {
+    "vitest.config.*": "vitest.*, tsconfig.*"
+  }
 }
