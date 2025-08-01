@@ -13,15 +13,11 @@ locators.extend({
   locatoring(article) {
     return article
   },
-  locator(article) {
-    return article
-  },
 })
 
 declare module '@vitest/browser/context' {
   interface LocatorSelectors {
     getByArticle: (article: string) => Locator
     locatoring: (article: string) => Locator
-    locator: (article: string) => Locator
   }
 }
