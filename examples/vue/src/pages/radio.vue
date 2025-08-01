@@ -4,6 +4,7 @@ import { radioControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import '@destyler/shared-private/styles/radio.css'
 
 const controls = useControls(radioControls)
 
@@ -22,27 +23,27 @@ const api = computed(() => radio.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()" class="max-w-md p-6 border border-gray-200 rounded-lg shadow-sm">
-    <h3 v-bind="api.getLabelProps()" class="text-xl font-semibold mb-4 text-gray-800">
+  <div v-bind="api.getRootProps()" class="radio-root">
+    <h3 v-bind="api.getLabelProps()" class="radio-label">
       Fruits
     </h3>
     <div
       v-for="opt in items"
       :key="opt.id"
-      class="mb-3"
+      class="radio-item"
     >
       <label
         v-bind="api.getItemProps({ value: opt.id })"
-        class="flex items-center space-x-3 cursor-pointer group hover:bg-gray-50 p-2 rounded-md transition-colors"
+        class="radio-item-label"
       >
         <input v-bind="api.getItemHiddenInputProps({ value: opt.id })">
         <div
           v-bind="api.getItemControlProps({ value: opt.id })"
-          class="w-4 h-4 border-2 border-gray-300 rounded-full transition-colors data-[state=checked]:bg-black data-[state=checked]:border-black"
+          class="radio-item-control"
         />
         <span
           v-bind="api.getItemTextProps({ value: opt.id })"
-          class="text-gray-700 group-hover:text-gray-900"
+          class="radio-item-text"
         >
           {{ opt.label }}
         </span>

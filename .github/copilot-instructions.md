@@ -86,6 +86,10 @@ globs: *
 - When converting the Toolbar component, remove the navigation buttons and switching logic, and render both the controls and visualizer slots simultaneously.
 
 ## STYLE GUIDELINES
+
+- When migrating CSS from SFC (Single File Component) format to native CSS, ensure that the CSS is structured in a component-based manner. This means encapsulating the styles specific to each component within its own CSS file or style block, mimicking the modularity of SFCs.
+- When converting from UnoCSS to native CSS, create semantic component-specific CSS classes, and consider using CSS custom properties for theming.
+
 ## CODE REVIEW GUIDELINES
 
 ## NAMING CONVENTIONS
