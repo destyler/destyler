@@ -2,7 +2,7 @@ import * as image from '@destyler/image'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import '@destyler/shared/src/styles/components/image.css'
+import '@destyler/shared-private/styles/image.css'
 
 export default function ImageDemo() {
   const [state, send] = useMachine(image.machine({ id: useId() }))

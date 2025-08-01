@@ -2,7 +2,7 @@
   import * as image from "@destyler/image"
   import { normalizeProps, useMachine } from "@destyler/svelte"
   import { Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
-  import '@destyler/shared/src/styles/components/image.css'
+  import '@destyler/shared-private/styles/image.css'
 
   const id = $props.id()
 

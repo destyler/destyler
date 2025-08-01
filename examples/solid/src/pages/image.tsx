@@ -2,7 +2,7 @@ import * as image from '@destyler/image'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import '@destyler/shared/src/styles/components/image.css'
+import '@destyler/shared-private/styles/image.css'
 
 export default function ImageDemo() {
   const [state, send] = useMachine(image.machine({ id: createUniqueId() }))

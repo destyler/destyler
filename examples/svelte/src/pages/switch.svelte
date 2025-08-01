@@ -3,7 +3,7 @@
   import { normalizeProps, useMachine } from "@destyler/svelte";
   import { switchControls } from '@destyler/shared-private';
   import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
-  import '@destyler/shared/src/styles/components/switch.css'
+  import '@destyler/shared-private/styles/switch.css'
 
   const controls = useControls(switchControls);
   const id = $props.id()

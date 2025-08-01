@@ -3,7 +3,7 @@ import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as switchs from '@destyler/switch'
 import { createMemo, createUniqueId } from 'solid-js'
-import '@destyler/shared/src/styles/components/switch.css'
+import '@destyler/shared-private/styles/switch.css'
 
 export default function SwitchPage() {
   const controls = useControls(switchControls)

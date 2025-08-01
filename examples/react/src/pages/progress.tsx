@@ -3,7 +3,7 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import { progressControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import '@destyler/shared/src/styles/components/progress.css'
+import '@destyler/shared-private/styles/progress.css'
 
 export default function ProgressDemo() {
   const controls = useControls(progressControls)

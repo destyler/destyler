@@ -3,7 +3,7 @@ import * as image from '@destyler/image'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import '@destyler/shared/src/styles/components/image.css'
+import '@destyler/shared-private/styles/image.css'
 
 const [state, send] = useMachine(image.machine({ id: useId() }))
 

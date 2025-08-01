@@ -4,7 +4,7 @@ import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/share
 import * as switchs from '@destyler/switch'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import '@destyler/shared/src/styles/components/switch.css'
+import '@destyler/shared-private/styles/switch.css'
 
 const controls = useControls(switchControls)
 

@@ -4,7 +4,7 @@ import { progressControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import '@destyler/shared/src/styles/components/progress.css'
+import '@destyler/shared-private/styles/progress.css'
 
 const controls = useControls(progressControls)
 
