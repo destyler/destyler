@@ -1,8 +1,10 @@
+/** @jsxImportSource solid-js */
 import * as radio from '@destyler/radio'
 import { radioControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
+import '@destyler/shared-private/styles/radio.css'
 
 export default function RadioDemo() {
   const controls = useControls(radioControls)
@@ -14,7 +16,10 @@ export default function RadioDemo() {
     { id: 'grape', label: 'Grapes' },
   ]
 
-  const [state, send] = useMachine(radio.machine({ id: createUniqueId() }), {
+  const [state, send] = useMachine(radio.machine({
+    id: createUniqueId(),
+    name: 'fruits',
+  }), {
     context: controls.context,
   })
 
@@ -22,33 +27,38 @@ export default function RadioDemo() {
 
   return (
     <>
-      <div {...api().getRootProps()} class="max-w-md p-6 border border-gray-200 rounded-lg shadow-sm">
-        <h3 {...api().getLabelProps()} class="text-xl font-semibold mb-4 text-gray-800">
-          Fruits
-        </h3>
-        <For each={items}>
-          {opt => (
-            <div class="mb-3">
-              <label
-                {...api().getItemProps({ value: opt.id })}
-                class="flex items-center space-x-3 cursor-pointer group hover:bg-gray-50 p-2 rounded-md transition-colors"
-              >
-                <input {...api().getItemHiddenInputProps({ value: opt.id })} />
-                <div
-                  {...api().getItemControlProps({ value: opt.id })}
-                  class="w-4 h-4 border-2 border-gray-300 rounded-full transition-colors data-[state=checked]:bg-black data-[state=checked]:border-black"
-                />
-                <span
-                  {...api().getItemTextProps({ value: opt.id })}
-                  class="text-gray-700 group-hover:text-gray-900"
-                >
-                  {opt.label}
-                </span>
-              </label>
+      <main class="radio">
+        <form>
+          <div data-testid="radio-click">radio click</div>
+          <fieldset>
+            <div {...api().getRootProps()} class="radio-root">
+              <h3 {...api().getLabelProps()} class="radio-label">Fruits</h3>
+              <div {...api().getIndicatorProps()} />
+
+              <For each={items}>
+                {opt => (
+                  <label
+                    data-testid={`radio-${opt.id}`}
+                    class="radio-item"
+                    {...api().getItemProps({ value: opt.id })}
+                  >
+                    <div class="radio-item-control" data-testid={`control-${opt.id}`} {...api().getItemControlProps({ value: opt.id })} />
+                    <span class="radio-item-label" data-testid={`label-${opt.id}`} {...api().getItemTextProps({ value: opt.id })}>
+                      {opt.label}
+                    </span>
+                    <input data-testid={`input-${opt.id}`} {...api().getItemHiddenInputProps({ value: opt.id })} />
+                  </label>
+                )}
+              </For>
             </div>
-          )}
-        </For>
-      </div>
+
+            <button type="reset">Reset</button>
+            <button type="button" onClick={() => api().clearValue()}>Clear</button>
+            <button type="button" onClick={() => api().setValue('mango')}>Set to Mangoes</button>
+            <button type="button" onClick={() => api().focus()}>Focus</button>
+          </fieldset>
+        </form>
+      </main>
 
       <Toolbar controls={controls.ui}>
         <StateVisualizer state={state} />

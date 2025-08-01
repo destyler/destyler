@@ -1,13 +1,15 @@
+/** @jsxImportSource solid-js */
+
 import { beforeEach, describe, it } from 'vitest'
-import { render } from 'vitest-browser-vue'
-import Radio from '~/vue/radio.vue'
+import { render } from 'vitest-browser-solid'
+import Radio from '~/solid/radio'
 import { RadioTestSuite } from './spec'
 
 let Tests: RadioTestSuite
 
-describe('vue browser tests', () => {
+describe('svelte browser tests', () => {
   beforeEach(() => {
-    render(Radio)
+    render(()=> <Radio />)
     Tests = new RadioTestSuite()
   })
 

@@ -177,3 +177,250 @@ _**Assistant**_
 
 ---
 
+_**User**_
+
+帮我将这些 react，solid，svelte 的组件与 vue 进行同步，需要注意的是 vue是标准，不要修改我 vue 的代码，让 他们的 element 之间是一致的
+
+---
+
+_**Assistant**_
+
+我将帮您将 React、Solid 和 Svelte 组件与 Vue 组件保持一致。根据 Vue 组件的结构，我需要同步以下内容：
+
+1. 添加 CSS 样式导入
+2. 添加 `name` 属性到 machine 配置
+3. 调整 DOM 结构使其与 Vue 组件一致
+4. 添加相应的按钮功能
+
+### [radio.tsx](file:///Users/elonehoo/Developer/destyler-dev/destyler/examples/react/src/pages/radio.tsx)
+
+更新 React 组件以匹配 Vue 组件的结构和功能。
+
+````tsx
+import * as radio from '@destyler/radio'
+import { normalizeProps, useMachine } from '@destyler/react'
+import { radioControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId } from 'react'
+import '@destyler/shared-private/styles/radio.css'
+
+export default function RadioDemo() {
+  const controls = useControls(radioControls)
+
+  const items = [
+    { id: 'apple', label: 'Apples' },
+    { id: 'orange', label: 'Oranges' },
+    { id: 'mango', label: 'Mangoes' },
+    { id: 'grape', label: 'Grapes' },
+  ]
+
+  const [state, send] = useMachine(radio.machine({
+    id: useId(),
+    name: 'fruits',
+  }), {
+    context: controls.context,
+  })
+
+  const api = radio.connect(state, send, normalizeProps)
+
+  return (
+    <>
+      <main className="radio">
+        <form>
+          <div data-testid="radio-click">radio click</div>
+          <fieldset>
+            <div {...api.getRootProps()} className="radio-root">
+              <h3 {...api.getLabelProps()} className="radio-label">Fruits</h3>
+              <div {...api.getIndicatorProps()} />
+
+              {items.map(opt => (
+                <label
+                  key={opt.id}
+                  data-testid={`radio-${opt.id}`}
+                  className="radio-item"
+                  {...api.getItemProps({ value: opt.id })}
+                >
+                  <div className="radio-item-control" data-testid={`control-${opt.id}`} {...api.getItemControlProps({ value: opt.id })} />
+                  <span className="radio-item-label" data-testid={`label-${opt.id}`} {...api.getItemTextProps({ value: opt.id })}>
+                    {opt.label}
+                  </span>
+                  <input data-testid={`input-${opt.id}`} {...api.getItemHiddenInputProps({ value: opt.id })} />
+                </label>
+              ))}
+            </div>
+
+            <button type="reset">Reset</button>
+            <button type="button" onClick={() => api.clearValue()}>Clear</button>
+            <button type="button" onClick={() => api.setValue('mango')}>Set to Mangoes</button>
+            <button type="button" onClick={() => api.focus()}>Focus</button>
+          </fieldset>
+        </form>
+      </main>
+
+      <Toolbar controls={controls.ui()}>
+        <StateVisualizer state={state} />
+      </Toolbar>
+    </>
+  )
+}
+````
+
+### [radio.tsx](file:///Users/elonehoo/Developer/destyler-dev/destyler/examples/solid/src/pages/radio.tsx)
+
+更新 Solid 组件以匹配 Vue 组件的结构和功能。
+
+````tsx
+````tsx
+/** @jsxImportSource solid-js */
+import * as radio from '@destyler/radio'
+import { radioControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
+import { normalizeProps, useMachine } from '@destyler/solid'
+import { createMemo, createUniqueId, For } from 'solid-js'
+import '@destyler/shared-private/styles/radio.css'
+
+export default function RadioDemo() {
+  const controls = useControls(radioControls)
+
+  const items = [
+    { id: 'apple', label: 'Apples' },
+    { id: 'orange', label: 'Oranges' },
+    { id: 'mango', label: 'Mangoes' },
+    { id: 'grape', label: 'Grapes' },
+  ]
+
+  const [state, send] = useMachine(radio.machine({
+    id: createUniqueId(),
+    name: 'fruits',
+  }), {
+    context: controls.context,
+  })
+
+  const api = createMemo(() => radio.connect(state, send, normalizeProps))
+
+  return (
+    <>
+      <main class="radio">
+        <form>
+          <div data-testid="radio-click">radio click</div>
+          <fieldset>
+            <div {...api().getRootProps()} class="radio-root">
+              <h3 {...api().getLabelProps()} class="radio-label">Fruits</h3>
+              <div {...api().getIndicatorProps()} />
+
+              <For each={items}>
+                {opt => (
+                  <label
+                    data-testid={`radio-${opt.id}`}
+                    class="radio-item"
+                    {...api().getItemProps({ value: opt.id })}
+                  >
+                    <div class="radio-item-control" data-testid={`control-${opt.id}`} {...api().getItemControlProps({ value: opt.id })} />
+                    <span class="radio-item-label" data-testid={`label-${opt.id}`} {...api().getItemTextProps({ value: opt.id })}>
+                      {opt.label}
+                    </span>
+                    <input data-testid={`input-${opt.id}`} {...api().getItemHiddenInputProps({ value: opt.id })} />
+                  </label>
+                )}
+              </For>
+            </div>
+
+            <button type="reset">Reset</button>
+            <button type="button" onClick={() => api().clearValue()}>Clear</button>
+            <button type="button" onClick={() => api().setValue('mango')}>Set to Mangoes</button>
+            <button type="button" onClick={() => api().focus()}>Focus</button>
+          </fieldset>
+        </form>
+      </main>
+
+      <Toolbar controls={controls.ui}>
+        <StateVisualizer state={state} />
+      </Toolbar>
+    </>
+  )
+}
+````
+
+### [radio.svelte](file:///Users/elonehoo/Developer/destyler-dev/destyler/examples/svelte/src/pages/radio.svelte)
+
+更新 Svelte 组件以匹配 Vue 组件的结构和功能。
+
+````svelte
+````svelte
+````svelte
+````svelte
+<script lang="ts">
+  import * as radio from "@destyler/radio";
+  import { normalizeProps, useMachine } from "@destyler/svelte";
+  import { radioControls } from '@destyler/shared-private';
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
+  import '@destyler/shared-private/styles/radio.css'
+
+  const controls = useControls(radioControls);
+
+  const items = [
+    { id: "apple", label: "Apples" },
+    { id: "orange", label: "Oranges" },
+    { id: "mango", label: "Mangoes" },
+    { id: "grape", label: "Grapes" },
+  ];
+
+  const [state, send] = useMachine(radio.machine({
+    id: crypto.randomUUID(),
+    name: 'fruits',
+  }), {
+    context: controls.context,
+  });
+
+  const api = $derived(radio.connect(state, send, normalizeProps));
+</script>
+
+<main class="radio">
+  <form>
+    <div data-testid="radio-click">radio click</div>
+    <fieldset>
+      <div {...api.getRootProps()} class="radio-root">
+        <h3 {...api.getLabelProps()} class="radio-label">Fruits</h3>
+        <div {...api.getIndicatorProps()}></div>
+
+        {#each items as opt (opt.id)}
+          <label
+            data-testid="radio-{opt.id}"
+            class="radio-item"
+            {...api.getItemProps({ value: opt.id })}
+          >
+            <div class="radio-item-control" data-testid="control-{opt.id}" {...api.getItemControlProps({ value: opt.id })}></div>
+            <span class="radio-item-label" data-testid="label-{opt.id}" {...api.getItemTextProps({ value: opt.id })}>
+              {opt.label}
+            </span>
+            <input data-testid="input-{opt.id}" {...api.getItemHiddenInputProps({ value: opt.id })} />
+          </label>
+        {/each}
+      </div>
+
+      <button type="reset">Reset</button>
+      <button type="button" on:click={() => api.clearValue()}>Clear</button>
+      <button type="button" on:click={() => api.setValue('mango')}>Set to Mangoes</button>
+      <button type="button" on:click={() => api.focus()}>Focus</button>
+    </fieldset>
+  </form>
+</main>
+
+<Toolbar {controls}>
+  <StateVisualizer state={state} />
+</Toolbar>
+````
+
+### [radio.css](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/styles/components/radio.css)
+
+更新 CSS 以支持新的 DOM 结构。
+
+````postcss
+````postcss
+/* Radio Component Styles */
+.radio-root {
+  max-width: 28rem; /* max-w-md */
+  
+
+---
+

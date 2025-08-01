@@ -93,3 +93,5 @@ globs: *
 ## CODE REVIEW GUIDELINES
 
 ## NAMING CONVENTIONS
+
+- When synchronizing components across different frameworks (e.g., React, Solid, Svelte, and Vue), Vue serves as the standard. Ensure that elements and their structure in other frameworks align with the Vue component's structure.
