@@ -1,0 +1,58 @@
+/* Step Component Styles */
+
+.step-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-list {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.step-indicator[data-state="current"] {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.step-indicator[data-state="completed"] {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.step-content {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.step-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+}

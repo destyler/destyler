@@ -1,3 +1,4 @@
+import '@destyler/shared-private/styles/slider.css'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { sliderControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
@@ -18,32 +19,32 @@ export default function SliderPage() {
 
   return (
     <>
-      <div {...api.getRootProps()} className="max-w-md mx-auto p-6">
-        <div className="mb-4 flex justify-between items-center">
-          <label {...api.getLabelProps()} className="text-gray-700 font-medium">
+      <div {...api.getRootProps()} className="slider-root">
+        <div className="slider-header">
+          <label {...api.getLabelProps()} className="slider-label">
             Slider Value
           </label>
-          <output {...api.getValueTextProps()} className="text-sm font-mono bg-gray-100 px-2 py-1 rounded">
+          <output {...api.getValueTextProps()} className="slider-value-text">
             {api.value[0]}
           </output>
         </div>
-        <div {...api.getControlProps()} className="relative py-4">
+        <div {...api.getControlProps()} className="slider-control">
           <div
             {...api.getTrackProps()}
-            className="w-full h-2 bg-gray-200 rounded-full"
+            className="slider-track"
           >
             <div
               {...api.getRangeProps()}
-              className="h-2 bg-gray-600 rounded-full"
+              className="slider-range"
             />
           </div>
           {api.value.map((_, index) => (
             <div
               key={index}
               {...api.getThumbProps({ index })}
-              className="absolute top-2.5 w-5 h-5 bg-white border-2 border-gray-600 rounded-full cursor-pointer transform -translate-y-1/2 hover:border-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className="slider-thumb"
             >
-              <input {...api.getHiddenInputProps({ index })} />
+              <input {...api.getHiddenInputProps({ index })} className="slider-hidden-input" />
             </div>
           ))}
         </div>

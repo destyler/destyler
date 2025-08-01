@@ -3,6 +3,7 @@ import * as select from '@destyler/select'
 import { selectControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
+import '@destyler/shared-private/styles/select.css'
 
 export default function Select() {
   const controls = useControls(selectControls)
@@ -28,39 +29,39 @@ export default function Select() {
   const api = select.connect(state, send, normalizeProps)
 
   return (
-    <div className="flex flex-col space-y-2 p-4">
+    <div className="select-root">
       <label
         {...api.getLabelProps()}
-        className="text-sm font-medium text-gray-700 dark:text-gray-200"
+        className="select-label"
       >
         Label
       </label>
       <button
         {...api.getTriggerProps()}
-        className="group flex items-center justify-between w-xs px-4 py-2 text-sm border border-gray-300 rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700"
+        className="select-trigger"
       >
         <span>{api.valueAsString || 'Select option'}</span>
-        <span className="transition-transform duration-300 i-carbon:chevron-right w-4 h-4 text-gray-400 group-data-[state=open]:rotate-90" />
+        <span className="select-trigger-icon i-carbon:chevron-right" />
       </button>
 
       <div
         {...api.getPositionerProps()}
-        className="relative z-50 w-[--reference-width]"
+        className="select-positioner"
       >
         <ul
           {...api.getContentProps()}
-          className="absolute w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto focus:outline-none dark:bg-gray-800 dark:border-gray-700"
+          className="select-content"
         >
           {selectData.map(item => (
             <li
               key={item.value}
               {...api.getItemProps({ item })}
-              className="flex items-center justify-between px-4 py-2 text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200"
+              className="select-item"
             >
               <span>{item.label}</span>
               <span
                 {...api.getItemIndicatorProps({ item })}
-                className="text-gray-600 dark:text-gray-400"
+                className="select-item-indicator"
               >
                 ✓
               </span>

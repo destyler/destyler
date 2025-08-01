@@ -2,6 +2,7 @@ import * as image from '@destyler/image'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
+import '@destyler/shared/src/styles/components/image.css'
 
 export default function ImageDemo() {
   const [state, send] = useMachine(image.machine({ id: createUniqueId() }))
@@ -9,15 +10,15 @@ export default function ImageDemo() {
 
   return (
     <>
-      <div {...api().getRootProps()} class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-        <div {...api().getFallbackProps()} class="h-full w-full rounded-full bg-dark text-white">
+      <div {...api().getRootProps()} class="image-root">
+        <div {...api().getFallbackProps()} class="image-fallback">
           EH
         </div>
         <img
           alt="EH"
           src="https://github.com/elonehoo.png"
           {...api().getImageProps()}
-          class="aspect-square h-full w-full"
+          class="image-img"
         />
       </div>
       <Toolbar>

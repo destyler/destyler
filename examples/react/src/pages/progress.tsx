@@ -3,6 +3,7 @@ import { normalizeProps, useMachine } from '@destyler/react'
 import { progressControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
+import '@destyler/shared/src/styles/components/progress.css'
 
 export default function ProgressDemo() {
   const controls = useControls(progressControls)
@@ -21,17 +22,17 @@ export default function ProgressDemo() {
 
   return (
     <>
-      <div {...api.getRootProps()} className="max-w-md p-6">
-        <div {...api.getLabelProps()} className="text-lg font-semibold mb-2 text-gray-800">
+      <div {...api.getRootProps()} className="progress-root">
+        <div {...api.getLabelProps()} className="progress-label">
           Upload progress
         </div>
         <div
           {...api.getTrackProps()}
-          className="w-full h-4 bg-gray-200 rounded-full overflow-hidden"
+          className="progress-track"
         >
           <div
             {...api.getRangeProps()}
-            className="h-full bg-black transition-all duration-300 ease-out rounded-full"
+            className="progress-range"
           />
         </div>
       </div>

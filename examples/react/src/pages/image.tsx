@@ -2,6 +2,7 @@ import * as image from '@destyler/image'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'
+import '@destyler/shared/src/styles/components/image.css'
 
 export default function ImageDemo() {
   const [state, send] = useMachine(image.machine({ id: useId() }))
@@ -9,15 +10,15 @@ export default function ImageDemo() {
 
   return (
     <>
-      <div {...api.getRootProps()} className="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-        <div {...api.getFallbackProps()} className="h-full w-full rounded-full bg-dark text-white">
+      <div {...api.getRootProps()} className="image-root">
+        <div {...api.getFallbackProps()} className="image-fallback">
           EH
         </div>
         <img
           alt="EH"
           src="https://github.com/elonehoo.png"
           {...api.getImageProps()}
-          className="aspect-square h-full w-full"
+          className="image-img"
         />
       </div>
       <Toolbar>

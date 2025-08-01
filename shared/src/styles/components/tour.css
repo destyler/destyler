@@ -1,0 +1,78 @@
+/* Tour Component Styles */
+
+.tour-content {
+  position: fixed;
+  z-index: 50;
+  max-width: 20rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.tour-arrow {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  transform: rotate(45deg);
+}
+
+.tour-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.tour-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.tour-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tour-progress {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.tour-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tour-control {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tour-control:hover {
+  background-color: #f3f4f6;
+}
+
+.tour-control[data-variant="primary"] {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.tour-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}

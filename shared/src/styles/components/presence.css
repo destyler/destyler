@@ -1,0 +1,33 @@
+/* Presence Component Styles */
+
+.presence-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.presence-indicator {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: #ef4444;
+  border: 2px solid #ffffff;
+}
+
+.presence-indicator[data-state="online"] {
+  background-color: #10b981;
+}
+
+.presence-indicator[data-state="offline"] {
+  background-color: #6b7280;
+}
+
+.presence-indicator[data-state="away"] {
+  background-color: #f59e0b;
+}
+
+.presence-content {
+  font-size: 0.875rem;
+  color: #374151;
+}

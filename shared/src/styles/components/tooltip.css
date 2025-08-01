@@ -1,0 +1,207 @@
+/* Tooltip Component Styles */
+
+.tooltip-root {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-trigger {
+  padding: 0.5rem 1rem;
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tooltip-trigger:hover {
+  background-color: #1f2937;
+}
+
+.tooltip-trigger:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.tooltip-trigger[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tooltip-trigger[data-disabled]:hover {
+  background-color: #111827;
+}
+
+.tooltip-positioner {
+  position: absolute;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.tooltip-content {
+  padding: 0.5rem 0.75rem;
+  background-color: #ffffff;
+  color: #111827;
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  max-width: 300px;
+  word-wrap: break-word;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  pointer-events: auto;
+}
+
+/* Tooltip states */
+.tooltip-content[data-state="closed"] {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.tooltip-content[data-state="open"] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tooltip-content[data-state="opening"] {
+  animation: tooltipIn 0.15s ease-out;
+}
+
+.tooltip-content[data-state="closing"] {
+  animation: tooltipOut 0.1s ease-in;
+}
+
+/* Tooltip arrow */
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.tooltip-arrow[data-placement="top"] {
+  bottom: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #ffffff;
+}
+
+.tooltip-arrow[data-placement="bottom"] {
+  top: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #ffffff;
+}
+
+.tooltip-arrow[data-placement="left"] {
+  right: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #ffffff;
+}
+
+.tooltip-arrow[data-placement="right"] {
+  left: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #ffffff;
+}
+
+/* Animations */
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes tooltipOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(-2px);
+  }
+}
+
+/* Dark theme support */
+.tooltip-trigger[data-theme="dark"] {
+  background-color: #374151;
+  color: #f9fafb;
+}
+
+.tooltip-trigger[data-theme="dark"]:hover {
+  background-color: #4b5563;
+}
+
+.tooltip-content[data-theme="dark"] {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border-color: #374151;
+}
+
+.tooltip-arrow[data-theme="dark"][data-placement="top"] {
+  border-top-color: #1f2937;
+}
+
+.tooltip-arrow[data-theme="dark"][data-placement="bottom"] {
+  border-bottom-color: #1f2937;
+}
+
+.tooltip-arrow[data-theme="dark"][data-placement="left"] {
+  border-left-color: #1f2937;
+}
+
+.tooltip-arrow[data-theme="dark"][data-placement="right"] {
+  border-right-color: #1f2937;
+}
+
+/* Variant styles */
+.tooltip-content.tooltip-variant-error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.tooltip-content.tooltip-variant-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+
+.tooltip-content.tooltip-variant-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #6ee7b7;
+}
+
+.tooltip-content.tooltip-variant-info {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .tooltip-content {
+    max-width: 250px;
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.625rem;
+  }
+  
+  .tooltip-trigger {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}

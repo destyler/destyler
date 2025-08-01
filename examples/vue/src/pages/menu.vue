@@ -4,6 +4,7 @@ import { menuControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
+import '@destyler/shared-private/styles/menu.css'
 
 const controls = useControls(menuControls)
 
@@ -21,30 +22,30 @@ const items = ref([
 </script>
 
 <template>
-  <div ref="ref" class="p-4">
+  <div ref="ref" class="menu-root">
     <button
       v-bind="api.getTriggerProps()"
-      class="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+      class="menu-trigger"
     >
       Actions
       <span
         v-bind="api.getIndicatorProps()"
-        class="ml-2"
+        class="menu-indicator"
       >▾</span>
     </button>
     <div
       v-bind="api.getPositionerProps()"
-      class="relative"
+      class="menu-positioner"
     >
       <ul
         v-bind="api.getContentProps()"
-        class="absolute mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-gray-200 py-1"
+        class="menu-content"
       >
         <li
           v-for="item in items"
           :key="item.value"
           v-bind="api.getItemProps({ value: item.value })"
-          class="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
+          class="menu-item"
         >
           {{ item.label }}
         </li>

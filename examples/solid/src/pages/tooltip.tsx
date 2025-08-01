@@ -1,3 +1,4 @@
+import '@destyler/shared-private/styles/tooltip.css'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as tooltip from '@destyler/tooltip'
@@ -10,17 +11,17 @@ export default function TooltipDemo() {
 
   return (
     <>
-      <div class="">
+      <div class="tooltip-root">
         <button
           {...api().getTriggerProps()}
-          class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200"
+          class="tooltip-trigger"
         >
           Hover me
         </button>
-        <div {...api().getPositionerProps()} class="z-50">
+        <div {...api().getPositionerProps()} class="tooltip-positioner">
           <div
             {...api().getContentProps()}
-            class="px-3 py-2 bg-white text-gray-900 rounded-md shadow-lg border border-gray-200 text-sm transition-opacity duration-200"
+            class="tooltip-content"
           >
             Tooltip
           </div>
