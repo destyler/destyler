@@ -1,14 +1,14 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import uimage from '~/vue/image.vue'
-import { ComponentTestSuite } from './spec'
+import { ImageTestSuite } from './spec'
 
-let Tests: ComponentTestSuite
+let Tests: ImageTestSuite
 
 describe('image vue browser tests', () => {
   beforeEach(async () => {
     render(uimage)
-    Tests = new ComponentTestSuite()
+    Tests = new ImageTestSuite()
   })
 
   it('should render correctly', async () => {

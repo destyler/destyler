@@ -6,7 +6,7 @@ export class ImageTestSuite extends TestSuite {
   positioner = testid('positioner')
 
   async ShouldLoadImageSuccessfully() {
-    const image = page.locator('img')
+    const image = page.locatoring('img')
 
     // Wait for image to load
     await expect.element(image).toBeVisible({ timeout: 5000 })
@@ -23,8 +23,8 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldShowLoadingState() {
-    const image = page.locator('img')
-    const loadingIndicator = page.locator('[data-part="loading"]')
+    const image = page.locatoring('img')
+    const loadingIndicator = page.locatoring('[data-part="loading"]')
 
     // Initially should show loading state
     if (loadingIndicator.all().length > 0) {
@@ -35,8 +35,8 @@ export class ImageTestSuite extends TestSuite {
 
   async ShouldShowErrorStateOnFailure() {
     // This test would need a component that loads a broken image
-    const image = page.locator('img[src*="broken"]')
-    const errorIndicator = page.locator('[data-part="error"]')
+    const image = page.locatoring('img[src*="broken"]')
+    const errorIndicator = page.locatoring('[data-part="error"]')
 
     if (image.all().length > 0) {
       // Wait for error state
@@ -49,7 +49,7 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldHaveCorrectAltText() {
-    const image = page.locator('img')
+    const image = page.locatoring('img')
 
     // Image should have alt attribute for accessibility
     const altText = await image.getAttribute('alt')
@@ -57,7 +57,7 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldRespectLazyLoading() {
-    const image = page.locator('img[loading="lazy"]')
+    const image = page.locatoring('img[loading="lazy"]')
 
     if (image.all().length > 0) {
       // Check that lazy loading attribute is set
@@ -77,9 +77,9 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldHandleMultipleSources() {
-    const picture = page.locator('picture')
-    const sources = page.locator('source')
-    const image = page.locator('picture img')
+    const picture = page.locatoring('picture')
+    const sources = page.locatoring('source')
+    const image = page.locatoring('picture img')
 
     if (picture.all().length > 0) {
       // Check that picture element has sources
@@ -94,8 +94,8 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldSupportImageFallback() {
-    const image = page.locator('img')
-    const fallback = page.locator('[data-part="fallback"]')
+    const image = page.locatoring('img')
+    const fallback = page.locatoring('[data-part="fallback"]')
 
     // If there's a fallback element
     if (fallback.all().length > 0) {
@@ -112,8 +112,8 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldMaintainAspectRatio() {
-    const image = page.locator('img')
-    const container = page.locator('[data-part="container"]')
+    const image = page.locatoring('img')
+    const container = page.locatoring('[data-part="container"]')
 
     if (container.all().length > 0) {
       // Check if aspect ratio is maintained
@@ -129,7 +129,7 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldSupportObjectFit() {
-    const image = page.locator('img')
+    const image = page.locatoring('img')
 
     // Check if image has object-fit style
     const objectFit = await image.evaluate(img => {
@@ -141,8 +141,8 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldHandleImageClick() {
-    const image = page.locator('img')
-    const overlay = page.locator('[data-part="overlay"]')
+    const image = page.locatoring('img')
+    const overlay = page.locatoring('[data-part="overlay"]')
 
     // Click on image
     await userEvent.click(image)
@@ -154,7 +154,7 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldSupportResponsiveImages() {
-    const image = page.locator('img[srcset]')
+    const image = page.locatoring('img[srcset]')
 
     if (image.all().length > 0) {
       // Should have srcset for responsive images
@@ -171,7 +171,7 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldPreventDragByDefault() {
-    const image = page.locator('img')
+    const image = page.locatoring('img')
 
     // Check if draggable is set to false by default
     const draggable = await image.getAttribute('draggable')
@@ -179,8 +179,8 @@ export class ImageTestSuite extends TestSuite {
   }
 
   async ShouldHaveLoadingIndicator() {
-    const image = page.locator('img')
-    const loadingSpinner = page.locator('[data-part="loading-spinner"]')
+    const image = page.locatoring('img')
+    const loadingSpinner = page.locatoring('[data-part="loading-spinner"]')
 
     // If image is still loading
     const imageState = await image.getAttribute('data-state')
