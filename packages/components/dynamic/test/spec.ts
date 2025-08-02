@@ -92,7 +92,7 @@ export class DynamicTestSuite extends TestSuite {
   }
 
   async expectNoTagToBeHighlighted() {
-    const el = page.locator('[data-part=item][data-selected]')
+    const el = page.locatoring('[data-part=item][data-selected]')
     expect(el.all().length).toBe(0)
   }
 
