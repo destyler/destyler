@@ -6,17 +6,17 @@ export class ComponentTestSuite extends TestSuite {
   positioner = testid('positioner')
 
   async ShouldRenderCorrectly() {
-    const element = page.locator('[data-part="root"]')
+    const element = this.rootEl()
     await expect.element(element).toBeVisible()
   }
 
   async ShouldHaveCorrectAttributes() {
-    const element = page.locator('[data-part="root"]')
+    const element = this.rootEl()
     await expect.element(element).toHaveAttribute('data-part', 'root')
   }
 
   async ShouldBeFocusableWhenRequired() {
-    const focusableElement = page.locator('[tabindex="0"]')
+    const focusableElement = page.locatoring('[tabindex="0"]')
     if (focusableElement.all().length > 0) {
       await userEvent.tab()
       await expect.element(focusableElement).toHaveFocus()
@@ -24,7 +24,7 @@ export class ComponentTestSuite extends TestSuite {
   }
 
   async ShouldHandleKeyboardNavigation() {
-    const focusableElement = page.locator('[tabindex="0"]')
+    const focusableElement = page.locatoring('[tabindex="0"]')
     if (focusableElement.all().length > 0) {
       await userEvent.click(focusableElement)
       await expect.element(focusableElement).toHaveFocus()
@@ -36,7 +36,7 @@ export class ComponentTestSuite extends TestSuite {
   }
 
   async ShouldSupportDisabledState() {
-    const element = page.locator('[data-disabled="true"]')
+    const element = page.locatoring('[data-disabled="true"]')
     if (element.all().length > 0) {
       await expect.element(element).toHaveAttribute('data-disabled', 'true')
     }
