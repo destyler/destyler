@@ -94,4 +94,4 @@ globs: *
 
 ## NAMING CONVENTIONS
 
-- When synchronizing components across different frameworks (e.g., React, Solid, Svelte, and Vue), Vue serves as the standard. Ensure that elements and their structure in other frameworks align with the Vue component's structure.
+- When synchronizing components across different frameworks (e.g., React, Solid, Svelte, and Vue), Vue serves as the standard. Ensure that elements and their structure in other frameworks align with the Vue component's structure. All class names, auxiliary elements, and structure must match the Vue SFC. Portal/Teleport logic should be determined using the `portalled` property. The Vue SFC file should not be modified.
