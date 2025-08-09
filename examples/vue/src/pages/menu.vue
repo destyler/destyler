@@ -22,7 +22,7 @@ const items = ref([
 </script>
 
 <template>
-  <div ref="ref" class="menu-root">
+  <div class="menu-root">
     <button
       v-bind="api.getTriggerProps()"
       class="menu-trigger"
