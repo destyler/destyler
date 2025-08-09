@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import * as image from '@destyler/image'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'

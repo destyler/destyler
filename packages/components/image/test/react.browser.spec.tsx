@@ -1,33 +1,18 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import uimage from '~/react/image'
-import { uimageTestSuite } from './spec'
+import Image from '~/react/image'
+import { ImageTestSuite } from './spec'
 
-let Tests: uimageTestSuite
+let Tests: ImageTestSuite
 
 describe('image react browser tests', () => {
   beforeEach(async () => {
-    render(<uimage />)
-    Tests = new uimageTestSuite()
+    render(<Image />)
+    Tests = new ImageTestSuite()
   })
 
   it('should render correctly', async () => {
-    await Tests.ShouldRenderCorrectly?.()
+    await Tests.ShouldRenderCorrectly()
   })
 
-  it('should have correct attributes', async () => {
-    await Tests.ShouldHaveCorrectAttributes?.()
-  })
-
-  it('should be focusable when required', async () => {
-    await Tests.ShouldBeFocusableWhenRequired?.()
-  })
-
-  it('should handle keyboard navigation', async () => {
-    await Tests.ShouldHandleKeyboardNavigation?.()
-  })
-
-  it('should support disabled state', async () => {
-    await Tests.ShouldSupportDisabledState?.()
-  })
 })

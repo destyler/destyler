@@ -1,3 +1,4 @@
+import type { AxeMatchers } from 'vitest-axe/matchers'
 import { locators } from '@vitest/browser/context'
 import { expect } from 'vitest'
 import * as matchers from 'vitest-axe/matchers'
@@ -14,6 +15,11 @@ locators.extend({
     return article
   },
 })
+
+declare module "vitest" {
+	export interface Assertion extends AxeMatchers {}
+	export interface AsymmetricMatchersContaining extends AxeMatchers {}
+}
 
 declare module '@vitest/browser/context' {
   interface LocatorSelectors {
