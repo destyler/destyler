@@ -1,14 +1,14 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
 import ufileupload from '~/vue/file-upload.vue'
-import { ufileuploadTestSuite } from './spec'
+import { ComponentTestSuite } from './spec'
 
-let Tests: ufileuploadTestSuite
+let Tests: ComponentTestSuite
 
 describe('file-upload vue browser tests', () => {
   beforeEach(async () => {
     render(ufileupload)
-    Tests = new ufileuploadTestSuite()
+    Tests = new ComponentTestSuite()
   })
 
   it('should render correctly', async () => {

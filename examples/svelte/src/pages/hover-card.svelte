@@ -17,6 +17,7 @@
 </script>
 
 <div class="hover-card-root">
+  <span data-testid="hover-card-test-click">click</span>
   <a
     href="https://twitter.com/elonehoo"
     target="_blank"
