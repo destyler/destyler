@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as select from '@destyler/select'
-import { selectControls } from '@destyler/shared-private'
+import { listData, selectControls } from '@destyler/shared-private'
 import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
@@ -8,11 +8,10 @@ import '@destyler/shared-private/styles/select.css'
 
 const controls = useControls(selectControls)
 
-const selectData = [
-  { label: 'Nigeria', value: 'NG' },
-  { label: 'Japan', value: 'JP' },
-  // ...
-]
+const selectData = listData.map(item => ({
+  label: item.label,
+  value: item.code,
+}))
 
 const [state, send] = useMachine(
   select.machine({
@@ -44,6 +43,9 @@ const api = computed(() => select.connect(state.value, send, normalizeProps))
       <span>{{ api.valueAsString || "Select option" }}</span>
       <span class="select-trigger-icon i-carbon:chevron-right" />
     </button>
+    <button v-bind="api.getClearTriggerProps()">
+      X
+    </button>
   </div>
 
   <div
@@ -58,6 +60,7 @@ const api = computed(() => select.connect(state.value, send, normalizeProps))
         v-for="item in selectData"
         :key="item.value"
         v-bind="api.getItemProps({ item })"
+        :data-testid="`item-${item.label}`"
         class="select-item"
       >
         <span>{{ item.label }}</span>
