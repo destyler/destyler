@@ -1,5 +1,5 @@
 import { part, TestSuite } from '@destyler/shared-private/test'
-import { page } from '@vitest/browser/context'
+import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
 export class SelectTestSuite extends TestSuite {
@@ -33,11 +33,6 @@ export class SelectTestSuite extends TestSuite {
     await expect.element(this.contentEl()).toBeVisible()
   }
 
-  async seeItemInViewport(item: string) {
-    const itemEl = this.getItem(item)
-    
-  }
-
   async dontSeeDropdown() {
     await expect.element(this.contentEl()).not.toBeVisible()
   }
@@ -57,6 +52,21 @@ export class SelectTestSuite extends TestSuite {
   async clickDeselectable() {
     const deselectable = page.getByTestId('deselectable')
     await deselectable.click()
+  }
+
+  async clickLoopFocus() {
+    const loopFocus = page.getByTestId('loopFocus')
+    await loopFocus.click()
+  }
+
+  async clickCloseOnSelect() {
+    const closeOnSelect = page.getByTestId('closeOnSelect')
+    await closeOnSelect.click()
+  }
+
+  async seeItemIsChecked(item: string) {
+    const itemEl = this.getItem(item)
+    await expect.element(itemEl).toHaveAttribute('data-state', '')
   }
 
   async ClickingTheLabelShouldFocusControl() {
@@ -108,6 +118,80 @@ export class SelectTestSuite extends TestSuite {
   async ShouldNavigateOnArrowDown() {
     await this.clickTrigger()
     await this.pressKey('ArrowDown', 3)
-    await this.seeItemIsHighlighted('Afghanistan')
+    await this.seeItemIsHighlighted('Canada')
+  }
+
+  async ShouldNavigateOnArrowUp() {
+    await this.clickTrigger()
+    await this.pressKey('ArrowUp', 3)
+    await this.seeItemIsHighlighted('Tonga')
+  }
+
+  async ShouldNavigateOnHomeAndEnd() {
+    await this.clickTrigger()
+    await this.pressKey('End')
+
+    await this.seeItemIsHighlighted('Tunisia')
+
+    await this.pressKey('Home')
+    await this.seeItemIsHighlighted('Zambia')
+  }
+
+  async ShouldNavigateOnTypeahed() {
+    await this.clickTrigger()
+    await userEvent.keyboard('Ca')
+    await this.seeItemIsHighlighted('Canada')
+  }
+
+  async ShouldLoopThroughOptionsWhenLoopIsEnabled() {
+    await this.clickLabel()
+    await this.pressKey('Enter')
+
+    await this.pressKey('ArrowUp')
+    await this.seeItemIsHighlighted('Tunisia')
+
+    await this.pressKey('ArrowDown')
+    await this.seeItemIsHighlighted('Zambia')
+  }
+
+  async ShouldCloseOnEscape() {
+    await this.clickTrigger()
+    await this.seeDropdown()
+
+    await this.pressKey('Escape')
+    await this.dontSeeDropdown()
+  }
+
+  async ShouldSelectOnEnter() {
+    await this.clickTrigger()
+    await this.pressKey('ArrowDown')
+    await this.pressKey('Enter')
+    await this.seeTriggerHasText('Zambia')
+    await this.seeTriggerIsFocused()
+  }
+
+  async ShouldSelectOnSpace() {
+    await this.clickTrigger()
+    await this.pressKey('ArrowDown')
+    await this.pressKey('Space')
+    await this.seeTriggerHasText('Zambia')
+    await this.seeTriggerIsFocused()
+  }
+
+  async ShouldCloseOnSelect() {
+    await this.clickTrigger()
+    await this.pressKey('ArrowDown')
+    await this.pressKey('Enter')
+    await this.dontSeeDropdown()
+    await this.seeTriggerIsFocused()
+  }
+
+  async ShouldNotCloseOnCloseOnSelectFalse() {
+    await this.clickCloseOnSelect()
+    await this.clickTrigger()
+    await this.pressKey('ArrowDown')
+    await this.pressKey('Enter')
+
+    await this.seeDropdown()
   }
 }

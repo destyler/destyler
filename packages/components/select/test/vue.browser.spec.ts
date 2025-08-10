@@ -34,4 +34,40 @@ describe('vue browser tests', () => {
   it('should navigate on arrow down', async () => {
     await Tests.ShouldNavigateOnArrowDown()
   })
+
+  it('should navigate on arrow up', async () => {
+    await Tests.ShouldNavigateOnArrowUp()
+  })
+
+  it('should navigate on home/end', async () => {
+    await Tests.ShouldNavigateOnHomeAndEnd()
+  })
+
+  it('should navigate on typeahead', async () => {
+    await Tests.ShouldNavigateOnTypeahed()
+  })
+
+  it('should loop through the options when loop is enabled', async () => {
+    await Tests.ShouldLoopThroughOptionsWhenLoopIsEnabled()
+  })
+
+  it('should close on escape', async () => {
+    await Tests.ShouldCloseOnEscape()
+  })
+
+  it('should select on enter', async () => {
+    await Tests.ShouldSelectOnEnter()
+  })
+
+  it('should select on space', async () => {
+    await Tests.ShouldSelectOnSpace()
+  })
+
+  it('should close on select', async () => {
+    await Tests.ShouldCloseOnSelect()
+  })
+
+  it('should not close on closeOnSelect = false', async () => {
+    await Tests.ShouldNotCloseOnCloseOnSelectFalse()
+  })
 })
