@@ -9,7 +9,7 @@
 
   const [state, send] = useMachine(slider.machine({
     id: crypto.randomUUID(),
-    value: [12]
+    value: [0]
   }), {
     context: controls.context
   });

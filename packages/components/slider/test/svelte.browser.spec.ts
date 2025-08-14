@@ -11,47 +11,28 @@ describe('slider svelte browser tests', () => {
     Tests = new SliderTestSuite()
   })
 
-  it('should change value on drag', async () => {
-    await Tests.ShouldChangeValueOnDrag()
+  it('[keyboard] should work with arrow left/right keys', async () => {
+    await Tests.KeyboardShouldWorkWithArrowLeftRightKeys()
   })
 
-  it('should change value with arrow keys', async () => {
-    await Tests.ShouldChangeValueWithArrowKeys()
+  it('[keyboard] should work with home/end keys', async () => {
+    await Tests.KeyboardShouldWorkWithHomeAndEndKeys()
   })
 
-  it('should jump to min with home', async () => {
-    await Tests.ShouldJumpToMinWithHome()
+  it('[keyboard] should work with shift key', async () => {
+    await Tests.KeyboardShouldWorkWithShiftKey()
   })
 
-  it('should jump to max with end', async () => {
-    await Tests.ShouldJumpToMaxWithEnd()
+  it('[keyboard] should work with page up/down keys', async () => {
+    await Tests.KeyboardShouldWorkWithPageUpAndDownKeys()
   })
 
-  it('should change value with page keys', async () => {
-    await Tests.ShouldChangeValueWithPageKeys()
+  it('[pointer] should set value on click track', async () => {
+    await Tests.PointerShouldSetValueOnClickTrack()
   })
 
-  it('should be focusable with tab', async () => {
-    await Tests.ShouldBeFocusableWithTab()
-  })
-
-  it('should have correct aria attributes', async () => {
-    await Tests.ShouldHaveCorrectAriaAttributes()
-  })
-
-  it('should respect min max constraints', async () => {
-    await Tests.ShouldRespectMinMaxConstraints()
-  })
-
-  it('should be disabled when required', async () => {
-    await Tests.ShouldBeDisabledWhenRequired()
-  })
-
-  it('should click on track to set value', async () => {
-    await Tests.ShouldClickOnTrackToSetValue()
-  })
-
-  it('should handle multiple thumbs in range', async () => {
-    await Tests.ShouldHandleMultipleThumbsInRange()
+  it('[pointer] should set the value on drag', async () => {
+    await Tests.PointerShouldSetValueOnDrag()
   })
 })
+

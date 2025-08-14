@@ -1,9 +1,10 @@
-import '@destyler/shared-private/styles/slider.css'
+/** @jsxImportSource solid-js */
 import { sliderControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import * as slider from '@destyler/slider'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
+import '@destyler/shared-private/styles/slider.css'
 
 export default function SliderPage() {
   const controls = useControls(sliderControls)
@@ -11,7 +12,7 @@ export default function SliderPage() {
 
   const [state, send] = useMachine(slider.machine({
     id,
-    value: [12],
+    value: [0],
   }), {
     context: controls.context,
   })
