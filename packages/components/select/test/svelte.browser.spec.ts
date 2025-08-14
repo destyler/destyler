@@ -1,11 +1,11 @@
 import { beforeEach, describe, it } from 'vitest'
-import { render } from 'vitest-browser-vue'
-import Select from '~/vue/select.vue'
+import { render } from 'vitest-browser-svelte'
+import Select from '~/svelte/select.svelte'
 import { SelectTestSuite } from './spec'
 
 let Tests: SelectTestSuite
 
-describe('vue browser tests', () => {
+describe('svelte browser tests', () => {
   beforeEach(() => {
     render(Select)
     Tests = new SelectTestSuite()

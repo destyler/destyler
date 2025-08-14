@@ -1,13 +1,14 @@
+/** @jsxImportSource solid-js */
 import { beforeEach, describe, it } from 'vitest'
-import { render } from 'vitest-browser-vue'
-import Select from '~/vue/select.vue'
+import { render } from 'vitest-browser-solid'
+import Select from '~/solid/select'
 import { SelectTestSuite } from './spec'
 
 let Tests: SelectTestSuite
 
-describe('vue browser tests', () => {
+describe('solid browser tests', () => {
   beforeEach(() => {
-    render(Select)
+    render(() => <Select />)
     Tests = new SelectTestSuite()
   })
 

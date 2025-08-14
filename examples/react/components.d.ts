@@ -9,6 +9,5 @@ declare global{
 	const FloatingPanel: typeof import('./src/pages/floating-panel')['default']
 	const HoverCard: typeof import('./src/pages/hover-card')['default']
 	const Presence: typeof import('./src/pages/presence')['Presence']
-	const Select: typeof import('./src/pages/select')['default']
 	const Timer: typeof import('./src/pages/timer')['default']
 }

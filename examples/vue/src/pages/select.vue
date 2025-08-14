@@ -29,50 +29,60 @@ const api = computed(() => select.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div class="select-root">
-    <label
-      v-bind="api.getLabelProps()"
-      class="select-label"
+  <div class="select-root" v-bind="api.getRootProps()">
+    <div v-bind="api.getControlProps()">
+      <label
+        v-bind="api.getLabelProps()"
+        class="select-label"
+      >
+        Label
+      </label>
+      <button
+        v-bind="api.getTriggerProps()"
+        class="select-trigger"
+      >
+        <span>{{ api.valueAsString || "Select option" }}</span>
+        <span class="select-trigger-icon i-carbon:chevron-right" />
+      </button>
+      <button v-bind="api.getClearTriggerProps()">
+        X
+      </button>
+    </div>
+    <form>
+      <select v-bind="api.getHiddenSelectProps()">
+        <option v-for="option in selectData" :key="option.value" :value="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </form>
+
+    <div
+      v-bind="api.getPositionerProps()"
+      class="select-positioner"
     >
-      Label
-    </label>
-    <button
-      v-bind="api.getTriggerProps()"
-      class="select-trigger"
-    >
-      <span>{{ api.valueAsString || "Select option" }}</span>
-      <span class="select-trigger-icon i-carbon:chevron-right" />
-    </button>
-    <button v-bind="api.getClearTriggerProps()">
-      X
-    </button>
+      <ul
+        v-bind="api.getContentProps()"
+        class="select-content"
+      >
+        <li
+          v-for="item in selectData"
+          :key="item.value"
+          v-bind="api.getItemProps({ item })"
+          :data-testid="`item-${item.label}`"
+          class="select-item"
+        >
+          <span>{{ item.label }}</span>
+          <span
+            v-bind="api.getItemIndicatorProps({ item })"
+            class="select-item-indicator"
+          >
+            ✓
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div
-    v-bind="api.getPositionerProps()"
-    class="select-positioner"
-  >
-    <ul
-      v-bind="api.getContentProps()"
-      class="select-content"
-    >
-      <li
-        v-for="item in selectData"
-        :key="item.value"
-        v-bind="api.getItemProps({ item })"
-        :data-testid="`item-${item.label}`"
-        class="select-item"
-      >
-        <span>{{ item.label }}</span>
-        <span
-          v-bind="api.getItemIndicatorProps({ item })"
-          class="select-item-indicator"
-        >
-          ✓
-        </span>
-      </li>
-    </ul>
-  </div>
   <Toolbar>
     <StateVisualizer :state="state" />
     <template #controls>

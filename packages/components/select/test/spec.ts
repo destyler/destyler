@@ -66,7 +66,7 @@ export class SelectTestSuite extends TestSuite {
 
   async seeItemIsChecked(item: string) {
     const itemEl = this.getItem(item)
-    await expect.element(itemEl).toHaveAttribute('data-state', '')
+    await expect.element(itemEl).toHaveAttribute('data-state', 'checked')
   }
 
   async ClickingTheLabelShouldFocusControl() {
@@ -173,7 +173,7 @@ export class SelectTestSuite extends TestSuite {
   async ShouldSelectOnSpace() {
     await this.clickTrigger()
     await this.pressKey('ArrowDown')
-    await this.pressKey('Space')
+    await this.pressKey(' ')
     await this.seeTriggerHasText('Zambia')
     await this.seeTriggerIsFocused()
   }
@@ -193,5 +193,77 @@ export class SelectTestSuite extends TestSuite {
     await this.pressKey('Enter')
 
     await this.seeDropdown()
+  }
+
+  async ShouldCloseOnOutsideClick() {
+    await this.clickTrigger()
+    await this.seeDropdown()
+
+    await this.clickOutside()
+    await this.dontSeeDropdown()
+  }
+
+  async ShouldCloseOnBlurNoSelection() {
+    await this.clickTrigger()
+    await this.pressKey('ArrowDown', 3)
+    await this.clickOutside()
+    await this.dontSeeDropdown()
+    await this.seeTriggerHasText('Select option')
+  }
+
+  async ShouldOpenSelectWithEnterKey() {
+    await this.clickLabel()
+    await this.pressKey('Enter')
+    await this.seeDropdown()
+  }
+
+  async ShouldOpenSelectWithSpaceKey() {
+    await this.clickLabel()
+    await this.pressKey(' ')
+    await this.seeDropdown()
+  }
+
+  async ShouldOpenWithDownArrowKeysAndHighlightFirstOption() {
+    await this.clickLabel()
+    await this.pressKey('ArrowDown')
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Zambia')
+  }
+
+  async ShouldOpenWithUpArrowKeysAndHighlightLastOption() {
+    await this.clickLabel()
+    await this.pressKey('ArrowUp')
+    await this.seeDropdown()
+    await this.seeItemIsHighlighted('Tunisia')
+  }
+
+  async ShouldSelectLastOptionOnArrowLeft() {
+    await this.clickLabel()
+    await this.pressKey('ArrowLeft')
+    await this.seeItemIsChecked('Tunisia')
+  }
+
+  async ShouldSelectFirstOptionOnArrowRight() {
+    await this.clickLabel()
+    await this.pressKey('ArrowRight')
+    await this.seeItemIsChecked('Zambia')
+  }
+
+  async ShouldSelectNextOptionsOnArrowRight() {
+    await this.clickLabel()
+    await this.pressKey('ArrowRight')
+    await this.seeItemIsChecked('Zambia')
+
+    await this.pressKey('ArrowRight')
+    await this.seeItemIsChecked('Benin')
+
+    await this.pressKey('ArrowRight')
+    await this.seeItemIsChecked('Canada')
+  }
+
+  async ShouldSelectWithTypeahead() {
+    await this.clickLabel()
+    await userEvent.keyboard('Nigeri')
+    await this.seeItemIsChecked('Nigeria')
   }
 }
