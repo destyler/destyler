@@ -35,4 +35,3 @@ describe('slider svelte browser tests', () => {
     await Tests.PointerShouldSetValueOnDrag()
   })
 })
-

@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import usignature from '~/react/signature'
 import { usignatureTestSuite } from './spec'
 
 let Tests: usignatureTestSuite

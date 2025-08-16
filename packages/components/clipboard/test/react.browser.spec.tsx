@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import uclipboard from '~/react/clipboard'
 import { uclipboardTestSuite } from './spec'
 
 let Tests: uclipboardTestSuite

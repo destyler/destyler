@@ -35,4 +35,3 @@ describe('slider react browser tests', () => {
     await Tests.PointerShouldSetValueOnDrag()
   })
 })
-

@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import usplitter from '~/react/splitter'
 import { usplitterTestSuite } from './spec'
 
 let Tests: usplitterTestSuite

@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import ufileupload from '~/react/file-upload'
 import { ufileuploadTestSuite } from './spec'
 
 let Tests: ufileuploadTestSuite

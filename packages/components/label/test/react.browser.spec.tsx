@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import ulabel from '~/react/label'
 import { ulabelTestSuite } from './spec'
 
 let Tests: ulabelTestSuite

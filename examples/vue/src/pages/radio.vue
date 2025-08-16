@@ -28,10 +28,14 @@ const api = computed(() => radio.connect(state.value, send, normalizeProps))
 <template>
   <main class="radio">
     <form>
-      <div data-testid="radio-click">radio click</div>
+      <div data-testid="radio-click">
+        radio click
+      </div>
       <fieldset>
         <div v-bind="api.getRootProps()" class="radio-root">
-          <h3 v-bind="api.getLabelProps()" class="radio-label">Fruits</h3>
+          <h3 v-bind="api.getLabelProps()" class="radio-label">
+            Fruits
+          </h3>
           <div v-bind="api.getIndicatorProps()" />
 
           <label
@@ -45,14 +49,22 @@ const api = computed(() => radio.connect(state.value, send, normalizeProps))
             <span class="radio-item-label" :data-testid="`label-${opt.id}`" v-bind="api.getItemTextProps({ value: opt.id })">
               {{ opt.label }}
             </span>
-            <input :data-testid="`input-${opt.id}`" v-bind="api.getItemHiddenInputProps({ value: opt.id })" />
+            <input :data-testid="`input-${opt.id}`" v-bind="api.getItemHiddenInputProps({ value: opt.id })">
           </label>
         </div>
 
-        <button type="reset">Reset</button>
-        <button type="button" @click="() => api.clearValue()">Clear</button>
-        <button type="button" @click="() => api.setValue('mango')">Set to Mangoes</button>
-        <button type="button" @click="() => api.focus()">Focus</button>
+        <button type="reset">
+          Reset
+        </button>
+        <button type="button" @click="() => api.clearValue()">
+          Clear
+        </button>
+        <button type="button" @click="() => api.setValue('mango')">
+          Set to Mangoes
+        </button>
+        <button type="button" @click="() => api.focus()">
+          Focus
+        </button>
       </fieldset>
     </form>
   </main>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import '@destyler/shared-private/styles/tooltip.css'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import * as tooltip from '@destyler/tooltip'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import '@destyler/shared-private/styles/tooltip.css'
 
 const [state, send] = useMachine(tooltip.machine({ id: useId() }))
 const api = computed(() => tooltip.connect(state.value, send, normalizeProps))

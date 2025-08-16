@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import utour from '~/react/tour'
 import { utourTestSuite } from './spec'
 
 let Tests: utourTestSuite

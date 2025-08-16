@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import udivider from '~/react/divider'
 import { udividerTestSuite } from './spec'
 
 let Tests: udividerTestSuite

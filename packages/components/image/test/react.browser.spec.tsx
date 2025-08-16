@@ -14,5 +14,4 @@ describe('image react browser tests', () => {
   it('should render correctly', async () => {
     await Tests.ShouldRenderCorrectly()
   })
-
 })

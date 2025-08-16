@@ -9,43 +9,43 @@ let Tests: RadioTestSuite
 
 describe('svelte browser tests', () => {
   beforeEach(() => {
-    render(()=> <Radio />)
+    render(() => <Radio />)
     Tests = new RadioTestSuite()
   })
 
-  it("should have aria-labelledby on root", async () => {
+  it('should have aria-labelledby on root', async () => {
     await Tests.ShouldHaveAriaLabelledByOnRoot()
   })
 
-  it("should be checked when clicked", async () => {
+  it('should be checked when clicked', async () => {
     await Tests.ShouldBeCheckedWhenClicked()
   })
 
-  it("should be focused when page is tabbed", async () => {
+  it('should be focused when page is tabbed', async () => {
     await Tests.ShouldBeFocusedWhenPageIsTabbed()
   })
 
-  it("should be checked when spacebar is pressed while focused", async () => {
+  it('should be checked when spacebar is pressed while focused', async () => {
     await Tests.ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
   })
 
-  it("should have disabled attributes when disabled", async () => {
+  it('should have disabled attributes when disabled', async () => {
     await Tests.ShouldHaveDisabledAttributesWhenDisabled()
   })
 
-  it("should not be focusable when disabled", async () => {
+  it('should not be focusable when disabled', async () => {
     await Tests.ShouldNotBeFocusableWhenDisabled()
   })
 
-  it("should be focusable when readonly", async () => {
+  it('should be focusable when readonly', async () => {
     await Tests.ShouldBeFocusableWhenReadonly()
   })
 
-  it("should be focused on active radio item when page is tabbed", async () => {
+  it('should be focused on active radio item when page is tabbed', async () => {
     await Tests.ShouldBeFocusedOnActiveRadioItemWhenPageIsTabbed()
   })
 
-  it("should check items when navigating by arrows", async () => {
+  it('should check items when navigating by arrows', async () => {
     await Tests.ShouldCheckItemsWhenNavigatingByArrows()
   })
 })

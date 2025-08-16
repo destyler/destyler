@@ -3,7 +3,7 @@ import { page } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
 export class ImageTestSuite extends TestSuite {
-  async ShouldRenderCorrectly(){
+  async ShouldRenderCorrectly() {
     const el = page.getByArticle(part('image'))
     await this.waitFor()
     await expect.element(el).toBeVisible()

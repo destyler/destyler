@@ -35,7 +35,7 @@ export default function Select() {
             {...api.getLabelProps()}
             className="select-label"
           >
-          Label
+            Label
           </label>
           <button
             {...api.getTriggerProps()}
@@ -45,7 +45,7 @@ export default function Select() {
             <span className="select-trigger-icon i-carbon:chevron-right" />
           </button>
           <button {...api.getClearTriggerProps()}>
-          X
+            X
           </button>
         </div>
         <form>
@@ -81,7 +81,7 @@ export default function Select() {
                   {...api.getItemIndicatorProps({ item })}
                   className="select-item-indicator"
                 >
-                ✓
+                  ✓
                 </span>
               </li>
             ))}
@@ -90,7 +90,7 @@ export default function Select() {
       </div>
       <Toolbar controls={controls.ui()}>
         <StateVisualizer state={state} />
-    </Toolbar>
+      </Toolbar>
     </>
   )
 }

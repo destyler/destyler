@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import ufloatingpanel from '~/react/floating-panel'
 import { ufloatingpanelTestSuite } from './spec'
 
 let Tests: ufloatingpanelTestSuite

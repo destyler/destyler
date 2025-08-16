@@ -8,11 +8,11 @@ export class HoverCardTestSuite extends TestSuite {
     await userEvent.tab()
   }
 
-  testEl(){
+  testEl() {
     return page.getByTestId('hover-card-test-click')
   }
 
-  async clickMain(){
+  async clickMain() {
     const el = page.getByTestId('hover-card-test-click')
     await userEvent.click(el)
   }
@@ -45,7 +45,7 @@ export class HoverCardTestSuite extends TestSuite {
     await expect.element(this.contentEl()).not.toBeVisible()
   }
 
-  async ShouldBeClosedAfterBlurringTriggerWithKeyboard(){
+  async ShouldBeClosedAfterBlurringTriggerWithKeyboard() {
     await this.clickMain()
     await userEvent.tab()
     await this.waitFor()
@@ -55,7 +55,7 @@ export class HoverCardTestSuite extends TestSuite {
     await expect.element(this.contentEl()).not.toBeVisible()
   }
 
-  async ShouldRemainOPenAfterBlurringTriggerIfPointerOpensCard(){
+  async ShouldRemainOPenAfterBlurringTriggerIfPointerOpensCard() {
     const trigger = this.triggerEl()
     await userEvent.hover(trigger)
     await this.waitFor()

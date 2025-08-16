@@ -1,8 +1,8 @@
-import '@destyler/shared-private/styles/tooltip.css'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import * as tooltip from '@destyler/tooltip'
 import { useId } from 'react'
+import '@destyler/shared-private/styles/tooltip.css'
 
 export default function TooltipDemo() {
   const id = useId()

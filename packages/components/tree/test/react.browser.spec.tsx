@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import utree from '~/react/tree'
 import { utreeTestSuite } from './spec'
 
 let Tests: utreeTestSuite

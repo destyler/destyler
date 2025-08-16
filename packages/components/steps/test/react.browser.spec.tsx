@@ -1,6 +1,5 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import usteps from '~/react/steps'
 import { ustepsTestSuite } from './spec'
 
 let Tests: ustepsTestSuite

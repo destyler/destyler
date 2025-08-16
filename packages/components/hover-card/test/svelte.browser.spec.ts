@@ -23,10 +23,10 @@ describe('svelte browser tests', () => {
   it('should be closed after blurring trigger', async () => {
     await Tests.ShouldBeClosedAfterBlurringTrigger()
   })
-  it("should be closed after blurring trigger with keyboard", async () => {
+  it('should be closed after blurring trigger with keyboard', async () => {
     await Tests.ShouldBeClosedAfterBlurringTriggerWithKeyboard()
   })
-  it('should remain open after blurring trigger if pointer opens card', async ()=>{
+  it('should remain open after blurring trigger if pointer opens card', async () => {
     await Tests.ShouldRemainOPenAfterBlurringTriggerIfPointerOpensCard()
   })
   it('should remain open after moving from trigger to content', async () => {

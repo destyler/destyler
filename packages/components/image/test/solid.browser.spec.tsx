@@ -8,12 +8,11 @@ let Tests: ImageTestSuite
 
 describe('image solid browser tests', () => {
   beforeEach(async () => {
-    render(()=> <Image />)
+    render(() => <Image />)
     Tests = new ImageTestSuite()
   })
 
   it('should render correctly', async () => {
     await Tests.ShouldRenderCorrectly()
   })
-
 })
