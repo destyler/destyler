@@ -15,12 +15,16 @@
   const api = $derived(switchs.connect(state, send, normalizeProps));
 </script>
 
+<h1 data-testid="click">
+  Switch
+</h1>
 <label
   {...api.getRootProps()}
   class="switch-root"
 >
-  <input {...api.getHiddenInputProps()} class="switch-hidden-input" />
+  <input data-testid="input" {...api.getHiddenInputProps()} class="switch-hidden-input" />
   <span
+    data-testid="control"
     {...api.getControlProps()}
     class="switch-control"
   >
@@ -30,6 +34,7 @@
     ></span>
   </span>
   <span
+    data-testid="label"
     {...api.getLabelProps()}
     class="switch-label"
   >

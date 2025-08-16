@@ -18,12 +18,16 @@ const api = computed(() =>
 </script>
 
 <template>
+  <h1 data-testid="click">
+    Switch
+  </h1>
   <label
     v-bind="api.getRootProps()"
     class="switch-root"
   >
-    <input v-bind="api.getHiddenInputProps()" class="switch-hidden-input">
+    <input data-testid="input" v-bind="api.getHiddenInputProps()" class="switch-hidden-input">
     <span
+      data-testid="control"
       v-bind="api.getControlProps()"
       class="switch-control"
     >
@@ -33,11 +37,11 @@ const api = computed(() =>
       />
     </span>
     <span
+      data-testid="label"
       v-bind="api.getLabelProps()"
       class="switch-label"
     >
-      <span v-if="api.checked">open</span>
-      <span v-else>close</span>
+      <span>{{ api.checked ? 'open' : 'close' }}</span>
     </span>
   </label>
   <Toolbar>

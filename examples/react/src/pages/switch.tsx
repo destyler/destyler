@@ -18,12 +18,16 @@ export default function SwitchPage() {
 
   return (
     <>
+      <h1 data-testid="click">
+        Switch
+      </h1>
       <label
         {...api.getRootProps()}
         className="switch-root"
       >
-        <input {...api.getHiddenInputProps()} className="switch-hidden-input" />
+        <input data-testid="input" {...api.getHiddenInputProps()} className="switch-hidden-input" />
         <span
+          data-testid="control"
           {...api.getControlProps()}
           className="switch-control"
         >
@@ -33,6 +37,7 @@ export default function SwitchPage() {
           />
         </span>
         <span
+          data-testid="label"
           {...api.getLabelProps()}
           className="switch-label"
         >

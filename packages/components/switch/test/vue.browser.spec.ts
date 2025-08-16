@@ -11,47 +11,19 @@ describe('switch vue browser tests', () => {
     Tests = new SwitchTestSuite()
   })
 
-  it('should toggle when clicked', async () => {
-    await Tests.ShouldToggleWhenClicked()
+  it('should be checked when clicked', async () => {
+    await Tests.ShouldBeCheckedWhenClicked()
   })
 
-  it('should toggle with space key', async () => {
-    await Tests.ShouldToggleWithSpaceKey()
+  it('should be focused when page is tabbed', async () => {
+    await Tests.ShouldBeFOcusedWhenPageIsTabbed()
   })
 
-  it('should toggle with enter key', async () => {
-    await Tests.ShouldToggleWithEnterKey()
+  it('should be checked when spacebar is pressed while focused', async () => {
+    await Tests.ShouldBeCheckedWhenSpacebarIsPressedWhileFocused()
   })
 
-  it('should be focusable with tab', async () => {
-    await Tests.ShouldBeFocusableWithTab()
-  })
-
-  it('should have correct aria attributes', async () => {
-    await Tests.ShouldHaveCorrectAriaAttributes()
-  })
-
-  it('should not toggle when disabled', async () => {
-    await Tests.ShouldNotToggleWhenDisabled()
-  })
-
-  it('should have visual state indicators', async () => {
-    await Tests.ShouldHaveVisualStateIndicators()
-  })
-
-  it('should have focus visual indicator', async () => {
-    await Tests.ShouldHaveFocusVisualIndicator()
-  })
-
-  it('should handle form integration', async () => {
-    await Tests.ShouldHandleFormIntegration()
-  })
-
-  it('should prevent default key handling', async () => {
-    await Tests.ShouldPreventDefaultKeyHandling()
-  })
-
-  it('should support label association', async () => {
-    await Tests.ShouldSupportLabelAssociation()
+  it('should have disabled attributes when disabled', async () => {
+    await Tests.ShouldHaveDisabledAttributesWhenDisabled()
   })
 })

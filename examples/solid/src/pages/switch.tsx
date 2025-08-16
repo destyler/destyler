@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import { switchControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
@@ -18,12 +19,16 @@ export default function SwitchPage() {
 
   return (
     <>
+      <h1 data-testid="click">
+        Switch
+      </h1>
       <label
         {...api().getRootProps()}
         class="switch-root"
       >
-        <input {...api().getHiddenInputProps()} class="switch-hidden-input" />
+        <input data-testid="input" {...api().getHiddenInputProps()} class="switch-hidden-input" />
         <span
+          data-testid="control"
           {...api().getControlProps()}
           class="switch-control"
         >
@@ -33,6 +38,7 @@ export default function SwitchPage() {
           />
         </span>
         <span
+          data-testid="label"
           {...api().getLabelProps()}
           class="switch-label"
         >
