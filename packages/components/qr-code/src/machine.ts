@@ -1,8 +1,19 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact } from '@zag-js/utils'
+import { getDataUrl } from '@destyler/dom'
+import { compact, isEqual } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 import { memoize } from 'proxy-memoize'
 import { encode } from 'uqr'
+import { dom } from './dom'
+
+const set = {
+  value(ctx: MachineContext, value: string) {
+    if (isEqual(ctx.value, value))
+      return
+    ctx.value = value
+    ctx.onValueChange?.({ value })
+  },
+}
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
@@ -24,12 +35,30 @@ export function machine(userContext: UserDefinedContext) {
         'VALUE.SET': {
           actions: ['setValue'],
         },
+        'DOWNLOAD_TRIGGER.CLICK': {
+          actions: ['downloadQrCode'],
+        },
       },
     },
     {
       actions: {
-        setValue: (ctx, e) => {
-          ctx.value = e.value
+        setValue(ctx, evt) {
+          set.value(ctx, evt.value)
+        },
+        downloadQrCode(ctx, evt) {
+          const { mimeType, quality, fileName } = evt
+          const svgEl = dom.getFrameEl(ctx)
+          const doc = dom.getDoc(ctx)
+          getDataUrl(svgEl, { type: mimeType, quality }).then((dataUri) => {
+            const a = doc.createElement('a')
+            a.href = dataUri
+            a.rel = 'noopener'
+            a.download = fileName
+            a.click()
+            setTimeout(() => {
+              a.remove()
+            }, 0)
+          })
         },
       },
     },

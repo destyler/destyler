@@ -1,4 +1,4 @@
-import { getWindow } from '@zag-js/dom-query'
+import { getWindow } from '@destyler/dom'
 
 export interface Point {
   x: number

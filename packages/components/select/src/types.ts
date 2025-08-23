@@ -1,9 +1,9 @@
-import type { CollectionItem, CollectionOptions, ListCollection } from '@zag-js/collection'
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { InteractOutsideHandlers } from '@zag-js/dismissable'
-import type { TypeaheadState } from '@zag-js/dom-query'
-import type { Placement, PositioningOptions } from '@zag-js/popper'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CollectionItem, CollectionOptions, ListCollection } from '@destyler/collection'
+import type { InteractOutsideHandlers } from '@destyler/dismissable'
+import type { TypeaheadState } from '@destyler/dom'
+import type { Placement, PositioningOptions } from '@destyler/popper'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface ValueChangeDetails<T extends CollectionItem = CollectionItem> {
   value: string[]
@@ -204,11 +204,11 @@ export interface MachineState {
   value: 'idle' | 'focused' | 'open'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ItemProps<T extends CollectionItem = CollectionItem> {
   /**

@@ -5,13 +5,18 @@ import type {
   Service,
   UserDefinedGroupContext,
 } from './types'
-import { createMachine, ref } from '@zag-js/core'
-import { trackDismissableBranch } from '@zag-js/dismissable'
-import { addDomEvent } from '@zag-js/dom-event'
-import { compact } from '@zag-js/utils'
+import { trackDismissableBranch } from '@destyler/dismissable'
+import { addDomEvent } from '@destyler/dom'
+import { compact } from '@destyler/utils'
+import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 import { createToastMachine } from './machine'
 import { getToastsByPlacement } from './utils'
+
+function each(ctx: GroupMachineContext, fn: (toast: Service<any>, index: number, arr: Service<any>[]) => void) {
+  const currentToasts = getToastsByPlacement(ctx.toasts, ctx.placement)
+  currentToasts.forEach(fn)
+}
 
 export function groupMachine<T = any>(userContext: UserDefinedGroupContext) {
   const ctx = compact(userContext)
@@ -321,9 +326,4 @@ export function groupMachine<T = any>(userContext: UserDefinedGroupContext) {
       },
     },
   )
-}
-
-function each(ctx: GroupMachineContext, fn: (toast: Service<any>, index: number, arr: Service<any>[]) => void) {
-  const currentToasts = getToastsByPlacement(ctx.toasts, ctx.placement)
-  currentToasts.forEach(fn)
 }

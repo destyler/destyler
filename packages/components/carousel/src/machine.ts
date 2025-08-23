@@ -1,9 +1,8 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, ref } from '@zag-js/core'
-import { addDomEvent, trackPointerMove } from '@zag-js/dom-event'
-import { raf } from '@zag-js/dom-query'
-import { findSnapPoint, getScrollSnapPositions } from '@zag-js/scroll-snap'
-import { add, compact, isEqual, isObject, nextIndex, prevIndex, remove, uniq } from '@zag-js/utils'
+import { addDomEvent, raf, trackPointerMove } from '@destyler/dom'
+import { findSnapPoint, getScrollSnapPositions } from '@destyler/scroll-snap'
+import { add, compact, isEqual, isObject, nextIndex, prevIndex, remove, uniq } from '@destyler/utils'
+import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
 const DEFAULT_SLIDES_PER_PAGE = 1

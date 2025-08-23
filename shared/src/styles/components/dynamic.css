@@ -1,0 +1,103 @@
+.dynamic-root {
+  max-width: 448px;
+  padding: 24px;
+}
+
+.dynamic-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.dynamic-item-preview {
+  background-color: #f3f4f6;
+  color: #111827;
+  border-radius: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dynamic-item-preview-value {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.dynamic-item-delete-trigger {
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 16px;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+}
+.dynamic-item-delete-trigger:hover {
+  color: #111827;
+}
+
+.dynamic-item-input {
+  position: absolute;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-width: 1px;
+  display: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  left: 0;
+  top: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px;
+  border-color: rgb(209 213 219);
+}
+
+.dynamic-item-input:focus {
+  --un-ring-width: 2px;
+  --un-ring-offset-shadow: var(--un-ring-inset) 0 0 0
+    var(--un-ring-offset-width) var(--un-ring-offset-color);
+  --un-ring-shadow: var(--un-ring-inset) 0 0 0
+    calc(var(--un-ring-width) + var(--un-ring-offset-width))
+    var(--un-ring-color);
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+    var(--un-shadow);
+  --un-ring-color: #6b7280;
+  border-color: transparent;
+}
+
+.dynamic-input {
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-width: 1px;
+  border-color: rgb(209 213 219);
+  border-radius: 8px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.dynamic-input::placeholder {
+  color: #6b7280;
+}
+.dynamic-input:focus {
+  --un-ring-width: 2px;
+  --un-ring-offset-shadow: var(--un-ring-inset) 0 0 0
+    var(--un-ring-offset-width) var(--un-ring-offset-color);
+  --un-ring-shadow: var(--un-ring-inset) 0 0 0
+    calc(var(--un-ring-width) + var(--un-ring-offset-width))
+    var(--un-ring-color);
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+    var(--un-shadow);
+  --un-ring-opacity: 1;
+  --un-ring-color: #6b7280;
+  border-color: transparent;
+}

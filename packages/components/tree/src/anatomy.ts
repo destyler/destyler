@@ -1,6 +1,6 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('tree').parts(
+export const anatomy = createAnatomy('tree-view').parts(
   'root',
   'label',
   'tree',

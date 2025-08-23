@@ -1,8 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { choose, createMachine } from '@zag-js/core'
-import { raf } from '@zag-js/dom-query'
-import { dispatchInputValueEvent } from '@zag-js/form-utils'
-import { compact, isEqual } from '@zag-js/utils'
+import { dispatchInputValueEvent, raf } from '@destyler/dom'
+import { compact, isEqual } from '@destyler/utils'
+import { choose, createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 function assignValue(ctx: MachineContext, value: string | string[]) {
@@ -15,7 +14,7 @@ function assignValue(ctx: MachineContext, value: string | string[]) {
 function getNextValue(current: string, next: string) {
   let nextValue = next
   if (current[0] === next[0])
-    nextValue = next[1]
+    nextValue = next[1] || next
   else if (current[0] === next[1])
     nextValue = next[0]
   return nextValue.split('')[nextValue.length - 1]
@@ -230,7 +229,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         syncInputElements(ctx) {
           const inputEls = dom.getInputEls(ctx)
-          inputEls.forEach((inputEl, index) => {
+          inputEls.forEach((inputEl: any, index: any) => {
             dom.setValue(inputEl, ctx.value[index])
           })
         },

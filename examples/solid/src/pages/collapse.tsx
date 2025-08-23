@@ -1,24 +1,27 @@
+/** @jsxImportSource solid-js */
 import * as collapse from '@destyler/collapse'
 import { collapseControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/collapse.css'
 
 export default function CollapsePage() {
   const controls = useControls(collapseControls)
 
   const data = [
     {
+      id: 'watercraft',
       title: 'Watercraft',
       content: 'Experience the thrill of cutting-edge marine vessels, from luxury yachts to high-performance speedboats.',
     },
     {
+      id: 'automobiles',
       title: 'Automobiles',
       content: 'Discover our premium selection of automobiles, featuring the latest in automotive technology and design.',
     },
     {
+      id: 'aircraft',
       title: 'Aircraft',
       content: 'Explore our range of aircraft, from private jets to commercial airliners, all equipped with state-of-the-art technology.',
     },
@@ -34,33 +37,37 @@ export default function CollapsePage() {
     <>
       <div
         {...api().getRootProps()}
-        class="max-w-[600px] my-8 rounded-xl overflow-hidden bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-lg shadow-gray-200/50"
+        class="collapse-root"
       >
         {data.map(item => (
           <div
             {...api().getItemProps({ value: item.title })}
-            class="border-b border-gray-100 last:border-none"
+            class="collapse-item"
           >
-            <h3 class="m-0">
+            <h3 style="margin: 0;">
               <button
+                data-testid={`${item.id}:trigger`}
                 {...api().getItemTriggerProps({ value: item.title })}
-                class="group w-full px-6 py-5 flex justify-between items-center bg-transparent hover:bg-gray-50/50 transition-all duration-300"
+                class="group collapse-item-trigger"
               >
-                <div class="flex items-center gap-3">
-                  <span class="text-left text-base font-medium text-gray-700 transition-colors">
+                <div class="collapse-item-trigger-title">
+                  <span class="collapse-item-trigger-title-text">
                     {item.title}
                   </span>
                 </div>
                 <div
-                  class="transition-transform duration-300 i-carbon:chevron-right w-4 h-4 text-gray-400 group-data-[state=open]:rotate-90"
-                />
+                  class="collapse-item-trigger-icon"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="M22 16L12 26l-1.4-1.4l8.6-8.6l-8.6-8.6L12 6z" /></svg>
+                </div>
               </button>
             </h3>
             <div
+              data-testid={`${item.id}:content`}
               {...api().getItemContentProps({ value: item.title })}
-              class="transition-all duration-300 overflow-hidden max-h-0 opacity-0 data-[state=open]:max-h-[200px] data-[state=open]:opacity-100"
+              class="collapse-item-content"
             >
-              <div class="px-6 py-4 text-gray-600 bg-gray-50/50">
+              <div class="collapse-item-content-box">
                 <p class="leading-relaxed">
                   {item.content}
                 </p>

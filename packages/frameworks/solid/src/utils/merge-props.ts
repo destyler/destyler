@@ -1,4 +1,4 @@
-import { mergeProps as zagMergeProps } from '@zag-js/core'
+import { mergeProps as PropMerge } from '@destyler/xstate'
 
 export type MaybeAccessor<T> = T | (() => T)
 
@@ -35,15 +35,16 @@ export function mergeProps(...sources: any[]) {
                 let s = sources[i]
                 if (typeof s === 'function')
                   s = s()
-                e = zagMergeProps(e, { [key]: (s || {})[key] })
+                e = PropMerge(e, { [key]: (s || {})[key] })
               }
 
               return (e as any)[key]
             }
             for (let i = sources.length - 1; i >= 0; i--) {
               let s = sources[i]
-              if (typeof s === 'function')
+              if (typeof s === 'function') {
                 s = s()
+              }
               const v = (s || {})[key]
               if (v !== undefined)
                 return v

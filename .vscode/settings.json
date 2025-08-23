@@ -1,0 +1,7 @@
+{
+  "vitest.disableWorkspaceWarning": true,
+  "explorer.fileNesting.patterns": {
+    "vitest.config.*": "vitest.*, tsconfig.*",
+    "package.json": ".editorconfig, .npmrc, eslint.config.*, pnpm*.yaml, node-modules-inspector.config.*, plopfile.*"
+  }
+}

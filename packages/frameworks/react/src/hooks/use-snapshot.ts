@@ -1,24 +1,25 @@
 /// <reference types="react/experimental" />
 
-import type { Machine, StateMachine as S } from '@zag-js/core'
-import { globalRef, snapshot, type Snapshot, subscribe } from '@zag-js/store'
-import { compact, isEqual } from '@zag-js/utils'
+import type { Snapshot } from '@destyler/store'
+import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, XState } from '@destyler/xstate'
+import { globalRef, snapshot, subscribe } from '@destyler/store'
+import { compact, isEqual } from '@destyler/utils'
 import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 import { useUpdateEffect } from './use-update-effect'
 
-const targetCache = globalRef('__zag__targetCache', () => new WeakMap())
+const targetCache = globalRef('__destyler__targetCache', () => new WeakMap())
 
 export function useSnapshot<
   TContext extends Record<string, any>,
-  TState extends S.StateSchema,
-  TEvent extends S.EventObject = S.AnyEventObject,
+  TState extends StateSchema,
+  TEvent extends EventObject = AnyEventObject,
 >(
   service: Machine<TContext, TState, TEvent>,
-  options?: S.HookOptions<TContext, TState, TEvent> & { sync?: boolean },
-): S.State<TContext, TState, TEvent> {
+  options?: HookOptions<TContext, TState, TEvent> & { sync?: boolean },
+): XState<TContext, TState, TEvent> {
   //
-  type State = S.State<TContext, TState, TEvent>
+  type State = XState<TContext, TState, TEvent>
 
   const { actions, context, sync: notifyInSync } = options ?? {}
 

@@ -1,8 +1,17 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { CollectionItem, ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { clickIfLink, type EventKeyMap, getEventKey, isContextMenuEvent, isLeftClick } from '@zag-js/dom-event'
-import { ariaAttr, dataAttr, isComposingEvent, isDownloadingEvent, isOpeningInNewTab } from '@zag-js/dom-query'
-import { getPlacementStyles } from '@zag-js/popper'
+import {
+  ariaAttr,
+  dataAttr,
+  getEventKey,
+  isAnchorElement,
+  isComposingEvent,
+  isContextMenuEvent,
+  isDownloadingEvent,
+  isLeftClick,
+  isOpeningInNewTab,
+} from '@destyler/dom'
+import { getPlacementStyles } from '@destyler/popper'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -236,8 +245,14 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
               if (open) {
                 event.preventDefault()
               }
+
               const itemEl = dom.getHighlightedItemEl(state.context)
-              clickIfLink(itemEl)
+              if (isAnchorElement(itemEl)) {
+                state.context.navigate({
+                  value: state.context.highlightedValue,
+                  node: itemEl,
+                })
+              }
             },
             Escape() {
               send({ type: 'INPUT.ESCAPE', keypress })

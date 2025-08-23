@@ -1,8 +1,7 @@
 import * as label from '@destyler/label'
 import { normalizeProps, useMachine } from '@destyler/react'
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
 
 export default function Label() {
   const id = useId()

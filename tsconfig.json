@@ -2,13 +2,21 @@
   "compilerOptions": {
     "target": "es2016",
     "jsx": "preserve",
+    "jsxImportSource": "react",
     "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "~/vue/*": ["examples/vue/src/pages/*"],
+      "~/react/*": ["examples/react/src/pages/*"],
+      "~/svelte/*": ["examples/svelte/src/pages/*"],
+      "~/solid/*": ["examples/solid/src/pages/*"]
+    },
     "resolveJsonModule": true,
     "types": [
-      "node"
+      "node",
+      "@vitest/browser/providers/playwright"
     ],
     "strict": true,
     "strictNullChecks": true,

@@ -1,3 +1,8 @@
+import type { DateRangePreset } from '@destyler/date'
+import type { LiveRegion } from '@destyler/live-region'
+import type { Placement, PositioningOptions } from '@destyler/popper'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 import type {
   Calendar,
   CalendarDate,
@@ -7,11 +12,10 @@ import type {
   DateValue,
   ZonedDateTime,
 } from '@internationalized/date'
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { DateRangePreset } from '@zag-js/date-utils'
-import type { LiveRegion } from '@zag-js/live-region'
-import type { Placement, PositioningOptions } from '@zag-js/popper'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+
+/* -----------------------------------------------------------------------------
+ * Callback details
+ * ----------------------------------------------------------------------------- */
 
 export type DateView = 'day' | 'month' | 'year'
 
@@ -38,6 +42,10 @@ export interface LocaleDetails {
   locale: string
   timeZone: string
 }
+
+/* -----------------------------------------------------------------------------
+ * Machine context
+ * ----------------------------------------------------------------------------- */
 
 export type SelectionMode = 'single' | 'multiple' | 'range'
 
@@ -210,11 +218,11 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'positioning': PositioningOptions
   /**
-   * Whether the datepicker is open
+   * Whether the calendar is open
    */
   'open'?: boolean | undefined
   /**
-   * Whether the datepicker open state is controlled by the user
+   * Whether the calendar open state is controlled by the user
    */
   'open.controlled'?: boolean | undefined
 }
@@ -315,11 +323,15 @@ export interface MachineState {
   value: 'idle' | 'focused' | 'open'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
+
+/* -----------------------------------------------------------------------------
+ * Component API
+ * ----------------------------------------------------------------------------- */
 
 export interface Range<T> {
   start: T
@@ -621,6 +633,10 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   getMonthSelectProps: () => T['select']
   getYearSelectProps: () => T['select']
 }
+
+/* -----------------------------------------------------------------------------
+ * Re-exported types
+ * ----------------------------------------------------------------------------- */
 
 export type {
   Calendar,

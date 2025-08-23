@@ -1,0 +1,59 @@
+.otp-input-box {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.otp-input-content-box {
+  width: 100%;
+  max-width: 448px;
+}
+.otp-input-content-box > :not([hidden]) ~ :not([hidden]) {
+  --un-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--un-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--un-space-y-reverse));
+}
+
+.otp-input-root {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.otp-input-item-input {
+  width: 64px;
+  height: 64px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  background-color: #FFFFFF;
+  border-width: 2px;
+  border-color: #D1D5DB;
+  border-radius: 8px;
+}
+.otp-input-item-input:focus {
+  border-color: #000000;
+  --un-ring-width: 2px;
+  --un-ring-offset-shadow: var(--un-ring-inset) 0 0 0
+    var(--un-ring-offset-width) var(--un-ring-offset-color);
+  --un-ring-shadow: var(--un-ring-inset) 0 0 0
+    calc(var(--un-ring-width) + var(--un-ring-offset-width))
+    var(--un-ring-color);
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+    var(--un-shadow);
+  --un-ring-opacity: 1;
+  --un-ring-color: #000000;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.dark .otp-input-item-input {
+  background-color: #1f2937;
+  border-color: #4B5563;
+}
+.dark .otp-input-item-input:focus {
+  border-color: #FFFFFF;
+  --un-ring-opacity: 1;
+  --un-ring-color: #FFFFFF;
+}

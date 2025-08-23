@@ -1,6 +1,6 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State } from './types'
-import { getDataUrl } from '@zag-js/dom-query'
+import { getDataUrl } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -70,6 +70,18 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           top: '50%',
           left: '50%',
           translate: '-50% -50%',
+        },
+      })
+    },
+
+    getDownloadTriggerProps(props) {
+      return normalize.button({
+        type: 'button',
+        ...parts.downloadTrigger.attrs,
+        onClick(event) {
+          if (event.defaultPrevented)
+            return
+          send({ type: 'DOWNLOAD_TRIGGER.CLICK', ...props })
         },
       })
     },

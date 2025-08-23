@@ -1,0 +1,54 @@
+.edit-root {
+  max-width: 448px;
+  padding: 24px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.edit-area {
+  margin-bottom: 16px;
+}
+
+.edit-input {
+  width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-width: 1px;
+  --un-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--un-border-opacity));
+  border-radius: 6px;
+}
+.edit-input:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --un-ring-width: 2px;
+  --un-ring-offset-shadow: var(--un-ring-inset) 0 0 0
+    var(--un-ring-offset-width) var(--un-ring-offset-color);
+  --un-ring-shadow: var(--un-ring-inset) 0 0 0
+    calc(var(--un-ring-width) + var(--un-ring-offset-width))
+    var(--un-ring-color);
+  box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+    var(--un-shadow);
+  --un-ring-opacity: 1;
+  --un-ring-color: rgb(0 0 0 / var(--un-ring-opacity)) /* #000 */;
+  border-color: transparent;
+}
+
+.edit-preview {
+  display: block;
+  margin-top: 8px;
+  color: #374151;
+}
+
+.edit-actions-box {
+  display: flex;
+  justify-content: flex-end;
+}
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --un-space-x-reverse: 0;
+  margin-left: calc(0.5rem * calc(1 - var(--un-space-x-reverse)));
+  margin-right: calc(0.5rem * var(--un-space-x-reverse));
+}

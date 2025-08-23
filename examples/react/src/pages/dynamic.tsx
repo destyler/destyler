@@ -1,10 +1,10 @@
 import * as dynamic from '@destyler/dynamic'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { dynamicControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+
+import '@destyler/shared-private/styles/dynamic.css'
 
 export default function DynamicPage() {
   const controls = useControls(dynamicControls)
@@ -21,31 +21,39 @@ export default function DynamicPage() {
 
   const api = dynamic.connect(state, send, normalizeProps)
 
+  function toDashCase(str: string) {
+    return str.replace(/\s+/g, '-').toLowerCase()
+  }
+
   return (
     <>
-      <div {...api.getRootProps()} className="max-w-md p-6">
-        <div className="flex flex-wrap gap-2 mb-4">
+      <input data-testid="copy-text" />
+      <div {...api.getRootProps()} className="dynamic-root">
+        <div className="dynamic-content">
           {api.value.map((value, index) => (
             <span
               key={index}
               {...api.getItemProps({ index, value })}
-              className="relative group"
+              className="group"
+              style={{ position: 'relative' }}
             >
               <div
+                data-testid={`${toDashCase(value)}-input`}
                 {...api.getItemPreviewProps({ index, value })}
-                className="bg-gray-100 text-gray-900 rounded-lg px-3 py-1 flex items-center gap-2"
+                className="dynamic-item-preview"
               >
-                <span className="text-sm font-medium">{value}</span>
+                <span className="dynamic-item-preview-value">{value}</span>
                 <button
                   {...api.getItemDeleteTriggerProps({ index, value })}
-                  className="text-gray-600 hover:text-gray-900 transition-colors text-xs"
+                  className="dynamic-item-delete-trigger"
+                  data-testid={`${toDashCase(value)}-delete-trigger`}
                 >
                   &#x2715;
                 </button>
               </div>
               <input
                 {...api.getItemInputProps({ index, value })}
-                className="hidden absolute left-0 top-0 w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none"
+                data-testid={`${toDashCase(value)}-item-input`}
               />
             </span>
           ))}
@@ -53,7 +61,7 @@ export default function DynamicPage() {
         <input
           placeholder="Add tag..."
           {...api.getInputProps()}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none placeholder-gray-500"
+          className="dynamic-input"
         />
       </div>
 

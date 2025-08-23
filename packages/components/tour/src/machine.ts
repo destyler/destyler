@@ -1,16 +1,38 @@
 import type { MachineContext, MachineState, StepBaseDetails, StepStatus, UserDefinedContext } from './types'
-import { createMachine, guards, ref } from '@zag-js/core'
-import { trackDismissableBranch } from '@zag-js/dismissable'
-import { contains, isHTMLElement } from '@zag-js/dom-query'
-import { trapFocus } from '@zag-js/focus-trap'
-import { trackInteractOutside } from '@zag-js/interact-outside'
-import { getPlacement } from '@zag-js/popper'
-import { compact, isEqual, isString, nextIndex, prevIndex } from '@zag-js/utils'
+import { trackDismissableBranch } from '@destyler/dismissable'
+import { contains, getComputedStyle, isHTMLElement, raf } from '@destyler/dom'
+import { trapFocus } from '@destyler/focus-trap'
+import { trackInteractOutside } from '@destyler/interact-outside'
+import { getPlacement } from '@destyler/popper'
+import { compact, isEqual, isString, nextIndex, prevIndex } from '@destyler/utils'
+import { createMachine, guards, ref } from '@destyler/xstate'
 import { dom } from './dom'
 import { isEventInRect, offset } from './utils/rect'
-import { findStep, findStepIndex, isTooltipStep } from './utils/step'
+import { findStep, findStepIndex, isDialogStep, isTooltipStep } from './utils/step'
 
 const { and } = guards
+
+function syncZIndex(ctx: MachineContext) {
+  return raf(() => {
+    // sync z-index of positioner with content
+    const contentEl = dom.getContentEl(ctx)
+    if (!contentEl)
+      return
+
+    const styles = getComputedStyle(contentEl)
+    const positionerEl = dom.getPositionerEl(ctx)
+    const backdropEl = dom.getBackdropEl(ctx)
+
+    if (positionerEl) {
+      positionerEl.style.setProperty('--z-index', styles.zIndex)
+      positionerEl.style.setProperty('z-index', 'var(--z-index)')
+    }
+
+    if (backdropEl) {
+      backdropEl.style.setProperty('--z-index', styles.zIndex)
+    }
+  })
+}
 
 const invoke = {
   stepChange(ctx: MachineContext) {
@@ -480,11 +502,13 @@ export function machine(userContext: UserDefinedContext) {
 
           ctx.currentPlacement = ctx.step.placement ?? 'bottom'
 
+          if (isDialogStep(ctx.step))
+            return syncZIndex(ctx)
+
           if (!isTooltipStep(ctx.step))
             return
 
           const positionerEl = () => dom.getPositionerEl(ctx)
-
           return getPlacement(ctx.resolvedTarget.value, positionerEl, {
             defer: true,
             placement: ctx.step.placement ?? 'bottom',

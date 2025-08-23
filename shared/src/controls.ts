@@ -79,7 +79,7 @@ export const dynamicControls = defineControls({
 export const editControls = defineControls({
   readOnly: { type: 'boolean', defaultValue: false },
   disabled: { type: 'boolean', defaultValue: false },
-  autoResize: { type: 'boolean', defaultValue: false },
+  autoResize: { type: 'boolean', defaultValue: true },
   maxLength: { type: 'number', defaultValue: 1000 },
   submitMode: {
     type: 'select',
@@ -235,6 +235,13 @@ export const toggleControls = defineControls({
   loopFocus: { type: 'boolean', defaultValue: true },
   multiple: { type: 'boolean', defaultValue: false },
   rovingFocus: { type: 'boolean', defaultValue: true },
+})
+
+export const tourControls = defineControls({
+  keyboardNavigation: { type: 'boolean', defaultValue: true },
+  closeOnEsc: { type: 'boolean', defaultValue: true },
+  closeOnInteractOutside: { type: 'boolean', defaultValue: true },
+  preventInteraction: { type: 'boolean', defaultValue: true },
 })
 
 export const treeControls = defineControls({

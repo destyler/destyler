@@ -2,10 +2,9 @@ import type { FC } from 'react'
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { aspectRatioControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/aspect-ratio.css'
 
 const AspectRatio: FC = () => {
   const controls = useControls(aspectRatioControls)
@@ -20,11 +19,11 @@ const AspectRatio: FC = () => {
 
   return (
     <>
-      <div className="w-full sm:w-75 overflow-hidden rounded-md">
+      <div className="aspect-ratio-root">
         <div {...api.getRootProps()}>
           <div {...api.getContentProps()}>
             <img
-              className="h-full w-full object-cover"
+              className="aspect-ratio-img"
               src="https://elonehoo.me/gallery/20_sun.jpg"
             />
           </div>

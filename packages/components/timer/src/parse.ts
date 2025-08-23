@@ -1,5 +1,5 @@
 import type { Time, TimePart } from './types'
-import { isObject } from '@zag-js/utils'
+import { isObject } from '@destyler/utils'
 
 const segments = new Set<TimePart>(['days', 'hours', 'minutes', 'seconds'])
 

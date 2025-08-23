@@ -1,10 +1,9 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards, subscribe } from '@zag-js/core'
-import { addDomEvent } from '@zag-js/dom-event'
-import { getOverflowAncestors, isComposingEvent } from '@zag-js/dom-query'
-import { trackFocusVisible } from '@zag-js/focus-visible'
-import { getPlacement } from '@zag-js/popper'
-import { compact } from '@zag-js/utils'
+import { addDomEvent, getOverflowAncestors, isComposingEvent } from '@destyler/dom'
+import { trackFocusVisible } from '@destyler/focus-visible'
+import { getPlacement } from '@destyler/popper'
+import { compact } from '@destyler/utils'
+import { createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { store } from './store'
 
@@ -27,6 +26,7 @@ export function machine(userContext: UserDefinedContext) {
         interactive: false,
         closeOnScroll: true,
         closeOnClick: true,
+        disabled: false,
         ...ctx,
         currentPlacement: undefined,
         hasPointerMoveOpened: false,
@@ -51,10 +51,16 @@ export function machine(userContext: UserDefinedContext) {
           entry: ['clearGlobalId'],
           on: {
             'CONTROLLED.OPEN': 'open',
-            'OPEN': {
-              target: 'open',
-              actions: ['invokeOnOpen'],
-            },
+            'OPEN': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
+              },
+              {
+                target: 'open',
+                actions: ['invokeOnOpen'],
+              },
+            ],
             'POINTER_LEAVE': {
               actions: ['clearPointerMoveOpened'],
             },
@@ -103,17 +109,25 @@ export function machine(userContext: UserDefinedContext) {
             'POINTER_LEAVE': [
               {
                 guard: 'isOpenControlled',
-                actions: ['clearPointerMoveOpened', 'invokeOnClose'],
+                // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
+                actions: ['clearPointerMoveOpened', 'invokeOnClose', 'toggleVisibility'],
               },
               {
                 target: 'closed',
                 actions: ['clearPointerMoveOpened', 'invokeOnClose'],
               },
             ],
-            'CLOSE': {
-              target: 'closed',
-              actions: ['invokeOnClose'],
-            },
+            'CLOSE': [
+              {
+                guard: 'isOpenControlled',
+                // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
+                actions: ['invokeOnClose', 'toggleVisibility'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose'],
+              },
+            ],
           },
         },
 
@@ -123,10 +137,16 @@ export function machine(userContext: UserDefinedContext) {
           entry: ['setGlobalId'],
           on: {
             'CONTROLLED.CLOSE': 'closed',
-            'CLOSE': {
-              target: 'closed',
-              actions: ['invokeOnClose'],
-            },
+            'CLOSE': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose'],
+              },
+            ],
             'POINTER_LEAVE': [
               {
                 guard: 'isVisible',
@@ -184,7 +204,8 @@ export function machine(userContext: UserDefinedContext) {
             'POINTER_MOVE': [
               {
                 guard: 'isOpenControlled',
-                actions: ['setPointerMoveOpened', 'invokeOnOpen'],
+                // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
+                actions: ['setPointerMoveOpened', 'invokeOnOpen', 'toggleVisibility'],
               },
               {
                 target: 'open',
@@ -208,7 +229,7 @@ export function machine(userContext: UserDefinedContext) {
           return trackFocusVisible({ root: dom.getRootNode(ctx) })
         },
         trackPositioning(ctx) {
-          ctx.currentPlacement = ctx.positioning.placement
+          ctx.currentPlacement ||= ctx.positioning.placement
           const getPositionerEl = () => dom.getPositionerEl(ctx)
           return getPlacement(dom.getTriggerEl(ctx), getPositionerEl, {
             ...ctx.positioning,
@@ -299,7 +320,9 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         toggleVisibility(ctx, evt, { send }) {
-          send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
+          queueMicrotask(() => {
+            send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
+          })
         },
         setPointerMoveOpened(ctx) {
           ctx.hasPointerMoveOpened = true

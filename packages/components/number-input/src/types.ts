@@ -1,6 +1,6 @@
+import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 import type { NumberFormatter, NumberParser } from '@internationalized/number'
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from '@zag-js/types'
 
 export interface ValueChangeDetails {
   value: string
@@ -245,11 +245,11 @@ export interface MachineState {
   tags: 'focus'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   /**

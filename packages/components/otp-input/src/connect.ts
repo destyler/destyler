@@ -1,8 +1,6 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State } from './types'
-import { type EventKeyMap, getEventKey, getNativeEvent, isModifierKey } from '@zag-js/dom-event'
-import { ariaAttr, dataAttr, getBeforeInputValue, isComposingEvent, visuallyHiddenStyle } from '@zag-js/dom-query'
-import { invariant } from '@zag-js/utils'
+import { ariaAttr, dataAttr, getBeforeInputValue, getEventKey, getNativeEvent, isComposingEvent, isModifierKey, visuallyHiddenStyle } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import { isValidValue } from './utils'
@@ -24,7 +22,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     complete,
     setValue(value) {
       if (!Array.isArray(value)) {
-        invariant('[pin-input/setValue] value must be an array')
+        throw new TypeError(`[otp-input/setValue] value must be an array`)
       }
       send({ type: 'VALUE.SET', value })
     },

@@ -1,11 +1,10 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { autoResizeInput } from '@zag-js/auto-resize'
-import { createMachine, guards } from '@zag-js/core'
-import { contains, raf } from '@zag-js/dom-query'
-import { trackFormControl } from '@zag-js/form-utils'
-import { trackInteractOutside } from '@zag-js/interact-outside'
-import { createLiveRegion } from '@zag-js/live-region'
-import { compact, isEqual, removeAt, uniq, warn } from '@zag-js/utils'
+import { autoResizeInput } from '@destyler/auto-resize'
+import { contains, raf, trackFormControl } from '@destyler/dom'
+import { trackInteractOutside } from '@destyler/interact-outside'
+import { createLiveRegion } from '@destyler/live-region'
+import { compact, isEqual, removeAt, uniq } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { and, not, or } = guards
@@ -55,7 +54,7 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'dynamic',
+      id: 'tags-input',
       initial: ctx.autoFocus ? 'focused:input' : 'idle',
       context: {
         inputValue: '',
@@ -496,7 +495,7 @@ export function machine(userContext: UserDefinedContext) {
             ctx.log.current = { type: 'update', value: evt.value }
           }
           else {
-            warn('You need to provide a value for the tag')
+            throw new Error('You need to provide a value for the tag')
           }
         },
         initializeEditedTagValue(ctx) {

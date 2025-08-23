@@ -1,7 +1,7 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { dataAttr } from '@zag-js/dom-query'
-import { fromLength } from '@zag-js/utils'
+import { dataAttr } from '@destyler/dom'
+import { fromLength } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -45,6 +45,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     percent,
     hasNextStep,
     hasPrevStep,
+    isCompleted: state.context.completed,
     goToNextStep,
     goToPrevStep,
     resetStep,

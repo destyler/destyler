@@ -1,0 +1,23 @@
+# SpecStory explanation file
+/.what-is-this.md
+# SpecStory project identity file
+/.project.json
+
+history/2025-02-05_*.md
+history/2025-02-16_*.md
+history/2025-*-23_*.md
+history/2025-06-24_*.md
+history/2025-06-25_*.md
+history/2025-07-01_*.md
+history/2025-07-09_*.md
+history/2025-07-20_*.md
+history/2025-07-02_*.md
+history/2025-07-11_*.md
+history/2025-07-18_*.md
+history/2025-07-26_*.md
+history/2025-07-29_*.md
+history/2025-08-01_06-34*.md
+history/2025-08-01_06-41*.md
+history/2025-08-09_10-25*.md
+# SpecStory copilot-instructions.md backup files
+/ai_rules_backups/*

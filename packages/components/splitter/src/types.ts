@@ -1,5 +1,5 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, Required, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, DirectionProperty, PropTypes, Required, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export type PanelId = string | number
 
@@ -78,11 +78,11 @@ export interface MachineState {
   tags: 'focus'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface PanelProps {
   id: PanelId

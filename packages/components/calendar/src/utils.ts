@@ -1,6 +1,7 @@
+import type { DateValue } from '@internationalized/date'
 import type { DateView, IntlTranslations } from './types'
-import { DateFormatter, type DateValue } from '@internationalized/date'
-import { clampValue, match } from '@zag-js/utils'
+import { clampValue, match } from '@destyler/utils'
+import { DateFormatter } from '@internationalized/date'
 
 export function adjustStartAndEndDate(value: DateValue[]) {
   const [startDate, endDate] = value
@@ -43,7 +44,7 @@ export function getInputPlaceholder(locale: string) {
 
 export function isValidCharacter(char: string | null, separator: string) {
   if (!char)
-return true
+    return true
   return /\d/.test(char) || char === separator || char.length !== 1
 }
 

@@ -1,5 +1,5 @@
 import type { HTMLAttributes, SvelteHTMLElements } from 'svelte/elements'
-import { createNormalizer } from '@zag-js/types'
+import { createNormalizer } from '@destyler/types'
 
 type Dict = Record<string, boolean | number | string | undefined>
 

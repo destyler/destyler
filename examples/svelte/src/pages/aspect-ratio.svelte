@@ -2,28 +2,27 @@
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/svelte'
 import {aspectRatioControls} from '@destyler/shared-private'
-import Toolbar from '../components/toolbar.svelte'
-import StateVisualizer from "../components/state-visualizer.svelte"
-import {useControls} from '../hooks/use-controls.svelte'
+import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
+import '@destyler/shared-private/styles/aspect-ratio.css'
 
 const controls = useControls(aspectRatioControls)
 
 const uid = $props.id();
 
-const [state, send] = useMachine(aspectRatio.machine({
+const [snapshot, send] = useMachine(aspectRatio.machine({
   id: uid,
 }),{
   context:controls.context
 })
-const api = $derived(aspectRatio.connect(state, send, normalizeProps))
+const api = $derived(aspectRatio.connect(snapshot, send, normalizeProps))
 </script>
 
 <main>
-  <div class="w-full sm:w-75 overflow-hidden rounded-md">
+  <div class="aspect-ratio-root">
     <div {...api.getRootProps()}>
       <div {...api.getContentProps()}>
         <img
-          class="h-full w-full object-cover"
+          class="aspect-ratio-img"
           alt='cat'
           src="https://elonehoo.me/gallery/20_sun.jpg"
         />
@@ -33,5 +32,5 @@ const api = $derived(aspectRatio.connect(state, send, normalizeProps))
 </main>
 
 <Toolbar {controls}>
-  <StateVisualizer state={state} />
+  <StateVisualizer state={snapshot} />
 </Toolbar>

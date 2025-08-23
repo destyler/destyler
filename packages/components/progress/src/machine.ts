@@ -1,9 +1,30 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact, isNumber } from '@zag-js/utils'
+import { compact, isEqual, isNumber } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 
 function midValue(min: number, max: number) {
   return min + (max - min) / 2
+}
+
+function isValidNumber(max: any) {
+  return isNumber(max) && !Number.isNaN(max)
+}
+
+function isValidMax(value: number, max: number) {
+  return isValidNumber(value) && value <= max
+}
+
+function isValidMin(value: number, min: number) {
+  return isValidNumber(value) && value >= min
+}
+
+const set = {
+  value(ctx: MachineContext, value: number | null) {
+    if (isEqual(ctx.value, value))
+      return
+    ctx.value = value === null ? null : Math.max(0, Math.min(value, ctx.max))
+    ctx.onValueChange?.({ value })
+  },
 }
 
 export function machine(userContext: UserDefinedContext) {
@@ -51,7 +72,7 @@ export function machine(userContext: UserDefinedContext) {
     {
       actions: {
         setValue: (ctx, evt) => {
-          ctx.value = evt.value === null ? null : Math.max(0, Math.min(evt.value, ctx.max))
+          set.value(ctx, evt.value)
         },
         validateContext: (ctx) => {
           if (ctx.value == null)
@@ -72,16 +93,4 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
-}
-
-function isValidNumber(max: any) {
-  return isNumber(max) && !Number.isNaN(max)
-}
-
-function isValidMax(value: number, max: number) {
-  return isValidNumber(value) && value <= max
-}
-
-function isValidMin(value: number, min: number) {
-  return isValidNumber(value) && value >= min
 }

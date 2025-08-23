@@ -1,6 +1,6 @@
-import type { JSX, Style } from '@zag-js/types'
+import type { CSSProperties, Style } from '@destyler/types'
 import type { MachineContext as Ctx, PanelId } from './types'
-import { createScope, queryAll } from '@zag-js/dom-query'
+import { createScope, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`,
@@ -23,7 +23,7 @@ export const dom = createScope({
     return cursor
   },
 
-  getPanelStyle(ctx: Ctx, id: PanelId): JSX.CSSProperties {
+  getPanelStyle(ctx: Ctx, id: PanelId): CSSProperties {
     const flexGrow = ctx.panels.find(panel => panel.id === id)?.size ?? '0'
     return {
       flexBasis: 0,

@@ -1,8 +1,8 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { trackDismissableElement } from '@zag-js/dismissable'
-import { getPlacement } from '@zag-js/popper'
-import { compact } from '@zag-js/utils'
+import { trackDismissableElement } from '@destyler/dismissable'
+import { getPlacement } from '@destyler/popper'
+import { compact } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and } = guards
@@ -59,10 +59,12 @@ export function machine(userContext: UserDefinedContext) {
           },
           on: {
             'CONTROLLED.OPEN': 'open',
+            'CONTROLLED.CLOSE': 'closed',
             'POINTER_LEAVE': [
               {
                 guard: 'isOpenControlled',
-                actions: ['invokeOnClose'],
+                // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
+                actions: ['invokeOnClose', 'toggleVisibility'],
               },
               {
                 target: 'closed',
@@ -72,7 +74,8 @@ export function machine(userContext: UserDefinedContext) {
             'TRIGGER_BLUR': [
               {
                 guard: and('isOpenControlled', not('isPointer')),
-                actions: ['invokeOnClose'],
+                // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
+                actions: ['invokeOnClose', 'toggleVisibility'],
               },
               {
                 guard: not('isPointer'),
@@ -83,7 +86,8 @@ export function machine(userContext: UserDefinedContext) {
             'CLOSE': [
               {
                 guard: 'isOpenControlled',
-                actions: ['invokeOnClose'],
+                // We trigger toggleVisibility manually since the `ctx.open` has not changed yet (at this point)
+                actions: ['invokeOnClose', 'toggleVisibility'],
               },
               {
                 target: 'closed',
@@ -146,6 +150,7 @@ export function machine(userContext: UserDefinedContext) {
           },
           on: {
             'CONTROLLED.CLOSE': 'closed',
+            'CONTROLLED.OPEN': 'open',
             'POINTER_ENTER': {
               target: 'open',
               // no need to invokeOnOpen here because it's still open (but about to close)
@@ -156,13 +161,19 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
     {
+      delays: {
+        OPEN_DELAY: ctx => ctx.openDelay,
+        CLOSE_DELAY: ctx => ctx.closeDelay,
+      },
+
       guards: {
         isPointer: ctx => !!ctx.isPointer,
         isOpenControlled: ctx => !!ctx['open.controlled'],
       },
+
       activities: {
         trackPositioning(ctx) {
-          ctx.currentPlacement = ctx.positioning.placement
+          ctx.currentPlacement ||= ctx.positioning.placement
           const getPositionerEl = () => dom.getPositionerEl(ctx)
           return getPlacement(dom.getTriggerEl(ctx), getPositionerEl, {
             ...ctx.positioning,
@@ -172,6 +183,7 @@ export function machine(userContext: UserDefinedContext) {
             },
           })
         },
+
         trackDismissableElement(ctx, _evt, { send }) {
           const getContentEl = () => dom.getContentEl(ctx)
           return trackDismissableElement(getContentEl, {
@@ -186,6 +198,7 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
       },
+
       actions: {
         invokeOnClose(ctx) {
           ctx.onOpenChange?.({ open: false })
@@ -212,12 +225,10 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         toggleVisibility(ctx, evt, { send }) {
-          send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
+          queueMicrotask(() => {
+            send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
+          })
         },
-      },
-      delays: {
-        OPEN_DELAY: ctx => ctx.openDelay,
-        CLOSE_DELAY: ctx => ctx.closeDelay,
       },
     },
   )

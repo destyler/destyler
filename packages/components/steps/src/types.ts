@@ -1,5 +1,5 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface StepChangeDetails {
   step: number
@@ -49,6 +49,7 @@ type ComputedContext = Readonly<{
   percent: number
   hasNextStep: boolean
   hasPrevStep: boolean
+  completed: boolean
 }>
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
@@ -59,11 +60,11 @@ export interface MachineState {
   value: 'idle'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ItemProps {
   index: number
@@ -101,6 +102,10 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
    * Whether the stepper has a previous step.
    */
   hasPrevStep: boolean
+  /**
+   * Whether the stepper is completed.
+   */
+  isCompleted: boolean
   /**
    * Function to set the value of the stepper.
    */

@@ -1,11 +1,11 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { ariaHidden } from '@zag-js/aria-hidden'
-import { createMachine } from '@zag-js/core'
-import { trackDismissableElement } from '@zag-js/dismissable'
-import { raf } from '@zag-js/dom-query'
-import { trapFocus } from '@zag-js/focus-trap'
-import { preventBodyScroll } from '@zag-js/remove-scroll'
-import { compact } from '@zag-js/utils'
+import { ariaHidden } from '@destyler/aria-hidden'
+import { trackDismissableElement } from '@destyler/dismissable'
+import { getComputedStyle, raf } from '@destyler/dom'
+import { trapFocus } from '@destyler/focus-trap'
+import { preventBodyScroll } from '@destyler/remove-scroll'
+import { compact } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
@@ -169,9 +169,7 @@ export function machine(userContext: UserDefinedContext) {
             if (!contentEl)
               return
 
-            const win = dom.getWin(ctx)
-            const styles = win.getComputedStyle(contentEl)
-
+            const styles = getComputedStyle(contentEl)
             const elems = [dom.getPositionerEl(ctx), dom.getBackdropEl(ctx)]
             elems.forEach((node) => {
               node?.style.setProperty('--z-index', styles.zIndex)

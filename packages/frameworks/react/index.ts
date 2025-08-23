@@ -5,5 +5,5 @@ export * from './src/hooks/use-actor'
 export * from './src/hooks/use-machine'
 export * from './src/utils/normalize-props'
 
-export { mergeProps } from '@zag-js/core'
-export type { ContextFrom, EventFrom, StateFrom } from '@zag-js/core'
+export { mergeProps } from '@destyler/xstate'
+export type { ContextFrom, EventFrom, StateFrom } from '@destyler/xstate'

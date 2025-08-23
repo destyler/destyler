@@ -1,16 +1,17 @@
+/** @jsxImportSource solid-js */
 import * as edit from '@destyler/edit'
 import { editControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/edit.css'
 
 export default function EditPage() {
   const controls = useControls(editControls)
 
   const [state, send] = useMachine(edit.machine({
     id: createUniqueId(),
+    value: 'Hello World',
     placeholder: 'Type something...',
   }), {
     context: controls.context,
@@ -20,30 +21,32 @@ export default function EditPage() {
 
   return (
     <>
-      <div {...api().getRootProps()} class="max-w-md p-6 bg-white rounded-lg shadow-md border border-gray-200">
-        <div {...api().getAreaProps()} class="mb-4">
+      <div {...api().getRootProps()} class="edit-root">
+        <div {...api().getAreaProps()} class="edit-area">
           <input
+            data-testid="input"
             {...api().getInputProps()}
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+            class="edit-input"
           />
           <span
+            data-testid="preview"
             {...api().getPreviewProps()}
-            class="block mt-2 text-gray-700"
+            class="edit-preview"
           />
         </div>
-        <div class="flex justify-end space-x-2">
+        <div class="edit-actions-box space-x-2">
           {api().editing
             ? (
                 <div class="space-x-2">
                   <button
+                    data-testid="save:trigger"
                     {...api().getSubmitTriggerProps()}
-                    class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                   >
                     Save
                   </button>
                   <button
+                    data-testid="cancel:trigger"
                     {...api().getCancelTriggerProps()}
-                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
                   >
                     Cancel
                   </button>
@@ -51,8 +54,8 @@ export default function EditPage() {
               )
             : (
                 <button
+                  data-testid="edit:trigger"
                   {...api().getEditTriggerProps()}
-                  class="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
                 >
                   Edit
                 </button>

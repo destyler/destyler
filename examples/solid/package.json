@@ -1,7 +1,6 @@
 {
-  "name": "solid",
+  "name": "@destyler/example-solid",
   "type": "module",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -53,18 +52,17 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
-    "@iconify-json/carbon": "^1.2.6",
-    "@internationalized/date": "catalog:",
-    "@solidjs/router": "^0.15.3",
-    "@unocss/reset": "catalog:examples",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/stringify-state": "catalog:",
-    "solid-js": "catalog:",
-    "typescript": "catalog:",
-    "unocss": "catalog:examples",
-    "vite": "catalog:",
-    "vite-plugin-pages": "^0.32.4",
-    "vite-plugin-solid": "catalog:examples"
+    "@destyler/stringify": "workspace:*",
+    "@iconify-json/carbon": "catalog:icon",
+    "@internationalized/date": "catalog:prod",
+    "@solidjs/router": "catalog:frontend",
+    "match-sorter": "catalog:util",
+    "solid-js": "catalog:frontend",
+    "typescript": "catalog:types",
+    "vite": "catalog:build",
+    "vite-plugin-pages": "catalog:plugin",
+    "vite-plugin-solid": "catalog:plugin"
   }
 }

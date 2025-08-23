@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { raf } from '@zag-js/dom-query'
-import { add, compact, isEqual, remove } from '@zag-js/utils'
+import { raf } from '@destyler/dom'
+import { add, compact, isEqual, remove } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and } = guards
@@ -25,7 +25,7 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'toggle',
+      id: 'toggle-group',
       initial: 'idle',
 
       context: {

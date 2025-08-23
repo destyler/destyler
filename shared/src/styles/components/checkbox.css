@@ -1,0 +1,40 @@
+.checkbox-root {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.checkbox-icon {
+  width: 12px;
+  height: 12px;
+  color: #f6f6f6;
+}
+
+.checkbox-control {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #222222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-control:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.checkbox-control:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.checkbox-control[data-state="checked"] {
+  background-color: #222222;
+  color: #f6f6f6;
+}

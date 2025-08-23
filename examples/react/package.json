@@ -1,7 +1,6 @@
 {
-  "name": "react",
+  "name": "@destyler/example-react",
   "type": "module",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -53,25 +52,23 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
-    "@iconify-json/carbon": "^1.2.6",
-    "@types/react": "catalog:examples",
-    "@types/react-dom": "catalog:examples",
-    "@types/react-router-config": "^5.0.11",
-    "@types/react-router-dom": "^5.3.3",
-    "@unocss/reset": "catalog:examples",
-    "@vitejs/plugin-react": "^4.3.4",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/stringify-state": "catalog:",
-    "globals": "^15.14.0",
-    "react": "catalog:examples",
-    "react-dom": "catalog:examples",
-    "react-router": "catalog:examples",
-    "react-router-dom": "catalog:examples",
-    "typescript": "catalog:",
-    "unocss": "catalog:examples",
-    "unplugin-react-components": "^0.1.4",
-    "vite": "catalog:examples",
-    "vite-plugin-pages": "^0.32.4"
+    "@destyler/stringify": "workspace:*",
+    "@iconify-json/carbon": "catalog:icon",
+    "@types/react": "catalog:types",
+    "@types/react-dom": "catalog:types",
+    "@types/react-router-config": "catalog:types",
+    "@types/react-router-dom": "catalog:types",
+    "@vitejs/plugin-react": "catalog:plugin",
+    "globals": "catalog:util",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "react-router": "catalog:frontend",
+    "react-router-dom": "catalog:frontend",
+    "typescript": "catalog:types",
+    "unplugin-react-components": "catalog:plugin",
+    "vite": "catalog:build",
+    "vite-plugin-pages": "catalog:plugin"
   }
 }

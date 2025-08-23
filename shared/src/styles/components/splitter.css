@@ -1,0 +1,36 @@
+/* Splitter Component Styles */
+
+.splitter-root {
+  display: flex;
+  position: relative;
+}
+
+.splitter-panel {
+  flex: 1;
+  overflow: hidden;
+}
+
+.splitter-resize-trigger {
+  background-color: #e5e7eb;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.splitter-resize-trigger:hover {
+  background-color: #d1d5db;
+}
+
+.splitter-resize-trigger[data-orientation="horizontal"] {
+  height: 0.5rem;
+  cursor: ns-resize;
+  width: 100%;
+}
+
+.splitter-resize-trigger[data-orientation="vertical"] {
+  width: 0.5rem;
+  cursor: ew-resize;
+  height: 100%;
+}
+
+.splitter-resize-trigger[data-state="drag"] {
+  background-color: #3b82f6;
+}

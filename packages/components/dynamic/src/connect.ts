@@ -1,7 +1,6 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { type EventKeyMap, getEventKey, getNativeEvent } from '@zag-js/dom-event'
-import { ariaAttr, dataAttr, isComposingEvent } from '@zag-js/dom-query'
+import { ariaAttr, dataAttr, getEventKey, getNativeEvent, isComposingEvent } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -119,7 +118,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'autoCorrect': 'off',
         'autoCapitalize': 'none',
         'disabled': disabled || readOnly,
-        onChange(event) {
+        onInput(event) {
           const evt = getNativeEvent(event)
           const value = event.currentTarget.value
 
@@ -263,7 +262,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'tabIndex': -1,
         'hidden': !itemState.editing,
         'defaultValue': itemState.editing ? state.context.editedTagValue : '',
-        onChange(event) {
+        onInput(event) {
           send({ type: 'TAG_INPUT_TYPE', value: event.currentTarget.value })
         },
         onBlur(event) {

@@ -1,6 +1,6 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('dynamic').parts(
+export const anatomy = createAnatomy('tagsInput').parts(
   'root',
   'label',
   'control',

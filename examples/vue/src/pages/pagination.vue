@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import * as pagination from "@destyler/pagination"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId } from "vue"
+import * as pagination from '@destyler/pagination'
 import { paginationControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
+import '@destyler/shared-private/styles/pagination.css'
 
 const controls = useControls(paginationControls)
 
-const [state, send] = useMachine(pagination.machine({ id: useId(), count: 1000 }),{
+const [state, send] = useMachine(pagination.machine({ id: useId(), count: 1000 }), {
   context: controls.context,
 })
 
@@ -15,16 +16,15 @@ const api = computed(() => pagination.connect(state.value, send, normalizeProps)
 </script>
 
 <template>
-  <nav v-bind="api.getRootProps()" class="flex justify-center py-8">
-    <ul class="flex items-center gap-x-3">
+  <nav v-bind="api.getRootProps()" class="pagination-root">
+    <ul class="pagination-list">
       <li>
         <a
+          data-testid="prev:trigger"
           v-bind="api.getPrevTriggerProps()"
-          class="px-5 py-2.5 rounded-lg border border-gray-800 hover:bg-gray-50
-          transition-all duration-200 shadow-sm hover:shadow-md
-          flex items-center gap-x-1 text-sm font-medium cursor-pointer"
+          class="pagination-btn"
         >
-          <div class="w-4 h-4 i-carbon:chevron-left"></div>
+          <div class="pagination-icon i-carbon:chevron-left" />
           Previous <span class="sr-only">Page</span>
         </a>
       </li>
@@ -32,35 +32,30 @@ const api = computed(() => pagination.connect(state.value, send, normalizeProps)
         v-for="(page, i) in api.pages"
         :key="page.type === 'page' ? page.value : `ellipsis-${i}`"
       >
-        <span v-if="page.type === 'page'">
-          <a
+        <template v-if="page.type === 'page'">
+          <button
+            :data-testid="`pagination-item-${page.value}`"
             v-bind="api.getItemProps(page)"
-            class="min-w-[40px] h-10 flex items-center justify-center px-3
-            rounded-lg border border-gray-800 hover:bg-gray-50
-            transition-all duration-200 shadow-sm hover:shadow-md
-            data-[selected]:bg-gray-900 data-[selected]:text-white
-            data-[selected]:border-gray-900 data-[selected]:shadow-lg
-            text-sm font-medium cursor-pointer"
+            class="pagination-page"
           >
             {{ page.value }}
-          </a>
-        </span>
-        <span v-else>
+          </button>
+        </template>
+        <template v-else>
           <span
             v-bind="api.getEllipsisProps({ index: i })"
-            class="px-3 py-2 text-gray-500 font-medium"
+            class="pagination-ellipsis"
           >&#8230;</span>
-        </span>
+        </template>
       </li>
       <li>
         <a
+          data-testid="next:trigger"
           v-bind="api.getNextTriggerProps()"
-          class="px-5 py-2.5 rounded-lg border border-gray-800 hover:bg-gray-50
-          transition-all duration-200 shadow-sm hover:shadow-md
-          flex items-center gap-x-1 text-sm font-medium cursor-pointer"
+          class="pagination-btn"
         >
           Next <span class="sr-only">Page</span>
-          <div class="w-4 h-4 i-carbon:chevron-right"></div>
+          <div class="pagination-icon i-carbon:chevron-right" />
         </a>
       </li>
     </ul>

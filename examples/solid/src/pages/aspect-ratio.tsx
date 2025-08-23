@@ -1,10 +1,10 @@
+/** @jsxImportSource solid-js */
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { aspectRatioControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/aspect-ratio.css'
 
 function AspectRatio() {
   const controls = useControls(aspectRatioControls)
@@ -17,11 +17,11 @@ function AspectRatio() {
   const api = createMemo(() => aspectRatio.connect(state, send, normalizeProps))
   return (
     <>
-      <div class="w-full sm:w-75 overflow-hidden rounded-md">
+      <div class="aspect-ratio-root">
         <div {...api().getRootProps()}>
           <div {...api().getContentProps()}>
             <img
-              class="h-full w-full object-cover"
+              class="aspect-ratio-img"
               src="https://elonehoo.me/gallery/20_sun.jpg"
             />
           </div>

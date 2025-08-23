@@ -1,6 +1,10 @@
-import type { Style } from '@zag-js/types'
+import type { Style } from '@destyler/types'
 import type { MachineContext as Ctx, SharedContext } from './types'
-import { getValuePercent, getValueTransformer } from '@zag-js/numeric-range'
+import { getValuePercent, getValueTransformer } from '@destyler/utils'
+
+/* -----------------------------------------------------------------------------
+ * Range style calculations
+ * ----------------------------------------------------------------------------- */
 
 function getBounds<T>(value: T[]): [T, T] {
   const firstValue = value[0]
@@ -120,11 +124,11 @@ function getMarkerStyle(
   value: number,
 ): Style {
   return {
-    // @ts-expect-error error
+    // @ts-expect-error FIX-ME
     'visibility': getVisibility(ctx),
     'position': 'absolute',
     'pointerEvents': 'none',
-    // @ts-expect-error error
+    // @ts-expect-error FIX-ME
     [ctx.isHorizontal ? 'insetInlineStart' : 'bottom']: getThumbOffset({ ...ctx, value }),
     'translate': 'var(--tx) var(--ty)',
     '--tx': ctx.isHorizontal ? (ctx.isRtl ? '50%' : '-50%') : '0%',

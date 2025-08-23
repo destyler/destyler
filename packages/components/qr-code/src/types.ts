@@ -1,12 +1,16 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { DataUrlType } from '@zag-js/dom-query'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { DataUrlType } from '@destyler/dom'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 import type { QrCodeGenerateOptions, QrCodeGenerateResult } from 'uqr'
 
 export type ElementIds = Partial<{
   root: string
   frame: string
 }>
+
+export interface ValueChangeDetails {
+  value: string
+}
 
 interface PublicContext extends DirectionProperty, CommonProperties {
   /**
@@ -21,6 +25,10 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * The qr code encoding options.
    */
   encoding?: QrCodeGenerateOptions | undefined
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
 }
 
 interface PrivateContext {
@@ -42,11 +50,26 @@ export interface MachineState {
   value: 'idle'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
+
+export interface DownloadTriggerProps {
+  /**
+   * The mime type of the image.
+   */
+  mimeType: DataUrlType
+  /**
+   * The quality of the image.
+   */
+  quality?: number
+  /**
+   * The name of the file.
+   */
+  fileName: string
+}
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
@@ -66,6 +89,7 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
   getFrameProps: () => T['svg']
   getPatternProps: () => T['path']
   getOverlayProps: () => T['element']
+  getDownloadTriggerProps: (props: DownloadTriggerProps) => T['button']
 }
 
 export type { QrCodeGenerateOptions, QrCodeGenerateResult } from 'uqr'

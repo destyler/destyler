@@ -1,6 +1,6 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('calendar').parts(
+export const anatomy = createAnatomy('date-picker').parts(
   'root',
   'label',
   'clearTrigger',

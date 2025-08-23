@@ -1,0 +1,119 @@
+/* Select Component Styles */
+
+.select-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.select-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.select-label[data-theme="dark"] {
+  color: #e5e7eb;
+}
+
+.select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.select-trigger:hover {
+  background-color: #f9fafb;
+}
+
+.select-trigger:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #6b7280;
+}
+
+.select-trigger[data-theme="dark"] {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #e5e7eb;
+}
+
+.select-trigger[data-theme="dark"]:hover {
+  background-color: #374151;
+}
+
+.select-trigger-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #9ca3af;
+  transition: transform 0.3s ease-in-out;
+}
+
+.select-trigger[data-state="open"] .select-trigger-icon {
+  transform: rotate(90deg);
+}
+
+.select-positioner {
+  position: relative;
+  z-index: 50;
+  width: var(--reference-width);
+}
+
+.select-content {
+  position: absolute;
+  width: 100%;
+  margin-top: 0.25rem;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  max-height: 15rem;
+  overflow: auto;
+}
+
+.select-content:focus {
+  outline: none;
+}
+
+.select-content[data-theme="dark"] {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.select-item:hover {
+  background-color: #f3f4f6;
+}
+
+.select-item[data-theme="dark"] {
+  color: #e5e7eb;
+}
+
+.select-item[data-theme="dark"]:hover {
+  background-color: #374151;
+}
+
+.select-item-indicator {
+  color: #6b7280;
+}
+
+.select-item-indicator[data-theme="dark"] {
+  color: #9ca3af;
+}

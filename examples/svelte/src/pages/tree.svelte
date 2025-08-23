@@ -3,9 +3,7 @@
   import { normalizeProps, useMachine } from "@destyler/svelte";
   import TreeNode from "../components/TreeNode.svelte";
   import { treeControls } from '@destyler/shared-private';
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
-  import {useControls} from '../hooks/use-controls.svelte'
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
 
   const controls = useControls(treeControls);
 
@@ -26,7 +24,7 @@
           id: "node_modules",
           name: "node_modules",
           children: [
-            { id: "node_modules/zag-js", name: "destyler" },
+            { id: "node_modules/destyler", name: "destyler" },
             { id: "node_modules/pandacss", name: "unocss" },
             {
               id: "node_modules/@types",

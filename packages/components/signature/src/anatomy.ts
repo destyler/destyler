@@ -1,6 +1,6 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('signature').parts(
+export const anatomy = createAnatomy('signature-pad').parts(
   'root',
   'control',
   'segment',

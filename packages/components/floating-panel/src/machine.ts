@@ -1,7 +1,6 @@
+import type { Point, Size } from '@destyler/rect'
 import type { MachineContext, MachineState, Stage, UserDefinedContext } from './types'
-import { createMachine, guards, subscribe } from '@zag-js/core'
-import { addDomEvent, trackPointerMove } from '@zag-js/dom-event'
-import { isHTMLElement, raf } from '@zag-js/dom-query'
+import { addDomEvent, isHTMLElement, raf, trackPointerMove } from '@destyler/dom'
 import {
   addPoints,
   clampPoint,
@@ -11,12 +10,13 @@ import {
   getElementRect,
   isPointEqual,
   isSizeEqual,
-  type Point,
+
   resizeRect,
-  type Size,
+
   subtractPoints,
-} from '@zag-js/rect-utils'
-import { compact, invariant, isEqual, match, pick } from '@zag-js/utils'
+} from '@destyler/rect'
+import { compact, isEqual, match, pick } from '@destyler/utils'
+import { createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { panelStack } from './store'
 
@@ -394,8 +394,6 @@ export function machine(userContext: UserDefinedContext) {
           }
         },
         setPositionFromKeyboard(ctx, evt) {
-          invariant(evt.step == null, 'step is required')
-
           let nextPosition = match(evt.direction, {
             left: { x: ctx.position.x - evt.step, y: ctx.position.y },
             right: { x: ctx.position.x + evt.step, y: ctx.position.y },

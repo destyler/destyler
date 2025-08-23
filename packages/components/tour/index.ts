@@ -23,4 +23,4 @@ export type {
   StepType,
 } from './src/types'
 export * from './src/utils/wait'
-export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@zag-js/dismissable'
+export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/dismissable'

@@ -1,5 +1,5 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface ValueChangeDetails {
   value: string[]
@@ -18,37 +18,37 @@ export type ElementIds = Partial<{
 
 interface PublicContext extends DirectionProperty, CommonProperties {
   /**
-   * The ids of the elements in the collapse. Useful for composition.
+   * The ids of the elements in the accordion. Useful for composition.
    */
   ids?: ElementIds | undefined
   /**
-   * Whether multiple collapse items can be expanded at the same time.
+   * Whether multiple accordion items can be expanded at the same time.
    * @default false
    */
   multiple?: boolean | undefined
   /**
-   * Whether an collapse item can be closed after it has been expanded.
-   * @default true
+   * Whether an accordion item can be closed after it has been expanded.
+   * @default false
    */
   collapsible?: boolean | undefined
   /**
-   * The `value` of the collapse items that are currently being expanded.
+   * The `value` of the accordion items that are currently being expanded.
    */
   value: string[]
   /**
-   * Whether the collapse items are disabled
+   * Whether the accordion items are disabled
    */
   disabled?: boolean | undefined
   /**
-   * The callback fired when the state of expanded/collapsed collapse items changes.
+   * The callback fired when the state of expanded/collapsed accordion items changes.
    */
   onValueChange?: (details: ValueChangeDetails) => void
   /**
-   * The callback fired when the focused collapse item changes.
+   * The callback fired when the focused accordion item changes.
    */
   onFocusChange?: (details: FocusChangeDetails) => void
   /**
-   *  The orientation of the collapse items.
+   *  The orientation of the accordion items.
    *  @default "vertical"
    */
   orientation?: 'horizontal' | 'vertical' | undefined
@@ -58,14 +58,16 @@ export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
 type ComputedContext = Readonly<{
   /**
-   * Whether the collapse items are horizontal.
+   * @computed
+   * Whether the accordion items are horizontal.
    */
   isHorizontal: boolean
 }>
 
 interface PrivateContext {
   /**
-   * The `id` of the focused collapse item.
+   * @internal
+   * The `id` of the focused accordion item.
    */
   focusedValue: string | null
 }
@@ -76,57 +78,53 @@ export interface MachineState {
   value: 'idle' | 'focused'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
-
-/* -----------------------------------------------------------------------------
- * Component API
- * ----------------------------------------------------------------------------- */
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ItemProps {
   /**
-   * The value of the collapse item.
+   * The value of the accordion item.
    */
   value: string
   /**
-   * Whether the collapse item is disabled.
+   * Whether the accordion item is disabled.
    */
   disabled?: boolean | undefined
 }
 
 export interface ItemState {
   /**
-   * Whether the collapse item is expanded.
+   * Whether the accordion item is expanded.
    */
   expanded: boolean
   /**
-   * Whether the collapse item is focused.
+   * Whether the accordion item is focused.
    */
   focused: boolean
   /**
-   * Whether the collapse item is disabled.
+   * Whether the accordion item is disabled.
    */
   disabled: boolean
 }
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   /**
-   * The value of the focused collapse item.
+   * The value of the focused accordion item.
    */
   focusedValue: string | null
   /**
-   * The value of the collapse
+   * The value of the accordion
    */
   value: string[]
   /**
-   * Sets the value of the collapse.
+   * Sets the value of the accordion.
    */
   setValue: (value: string[]) => void
   /**
-   * Gets the state of an collapse item.
+   * Gets the state of an accordion item.
    */
   getItemState: (props: ItemProps) => ItemState
 

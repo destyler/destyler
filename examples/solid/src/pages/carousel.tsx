@@ -1,11 +1,11 @@
+/** @jsxImportSource solid-js */
 import type { Component } from 'solid-js'
 import * as carousel from '@destyler/carousel'
 import { carouselControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/carousel.css'
 
 const CarouselDemo: Component = () => {
   const items = [
@@ -20,6 +20,8 @@ const CarouselDemo: Component = () => {
       id: createUniqueId(),
       slideCount: items.length,
       spacing: '20px',
+      slidesPerPage: 1,
+      autoplay: false,
     }),
     {
       context: controls.context,
@@ -32,9 +34,9 @@ const CarouselDemo: Component = () => {
     <>
       <div
         {...api().getRootProps()}
-        class="flex items-center justify-center flex-col gap-4 w-100 relative"
+        class="carousel-root"
       >
-        <div {...api().getItemGroupProps()} class="rounded-xl">
+        <div {...api().getItemGroupProps()} class="carousel-item-group">
           {items.map((image, index) => (
             <div
               {...api().getItemProps({ index })}
@@ -45,25 +47,37 @@ const CarouselDemo: Component = () => {
         </div>
         <div
           {...api().getControlProps()}
-          class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
+          class="carousel-control"
         >
           <button
             {...api().getPrevTriggerProps()}
-            class="w-4 h-4 text-light i-carbon:caret-left"
-          />
-          <div {...api().getIndicatorGroupProps()} class="flex gap-2 mx-2">
+            class="carousel-trigger"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="m20 24l-10-8l10-8z" /></svg>
+          </button>
+          <div {...api().getIndicatorGroupProps()} class="carousel-indicator-group">
             {Array.from({ length: api().pageSnapPoints.length }).map((_, index) => (
               <button
                 {...api().getIndicatorProps({ index })}
-                class="w-2 h-2 bg-gray rounded-full data-[current]:bg-green"
+                class="carousel-indicator"
               />
             ))}
           </div>
           <button
             {...api().getNextTriggerProps()}
-            class="w-4 h-4 text-light i-carbon:caret-right"
-          />
+            class="carousel-trigger"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="m12 8l10 8l-10 8z" /></svg>
+          </button>
         </div>
+      </div>
+      <div class="carousel-other-controls">
+        <button class="button" onclick={() => api().scrollToIndex(1)}>
+          Scroll to 1
+        </button>
+        <button {...api().getAutoplayTriggerProps()} class="button">
+          { api().isPlaying ? 'Stop' : 'Play' }
+        </button>
       </div>
       <Toolbar controls={controls.ui}>
         <StateVisualizer state={state} />

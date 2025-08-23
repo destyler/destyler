@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import * as steps from "@destyler/steps"
-import { useMachine, normalizeProps } from "@destyler/vue"
-import { computed, useId } from "vue"
 import { stepsControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import * as steps from '@destyler/steps'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 
 const controls = useControls(stepsControls)
 
-  const stepsData = [
-    { title: "Step 1" },
-    { title: "Step 2" },
-    { title: "Step 3" },
-  ]
+const stepsData = [
+  { title: 'Step 1' },
+  { title: 'Step 2' },
+  { title: 'Step 3' },
+]
 
-  const [state, send] = useMachine(
-    steps.machine({
-      id: useId(),
-      count: stepsData.length,
-    }),
-    {
-      context: controls.context,
-    },
-  )
+const [state, send] = useMachine(
+  steps.machine({
+    id: useId(),
+    count: stepsData.length,
+  }),
+  {
+    context: controls.context,
+  },
+)
 
-  const api = computed(() => steps.connect(state.value, send, normalizeProps))
+const api = computed(() => steps.connect(state.value, send, normalizeProps))
 </script>
 
 <template>

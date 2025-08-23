@@ -1,10 +1,9 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { nextTick } from '@zag-js/dom-query'
-import { trackElementRect } from '@zag-js/element-rect'
-import { trackFocusVisible } from '@zag-js/focus-visible'
-import { dispatchInputCheckedEvent, trackFormControl } from '@zag-js/form-utils'
-import { compact, isEqual, isString } from '@zag-js/utils'
+import { dispatchInputCheckedEvent, nextTick, trackFormControl } from '@destyler/dom'
+import { trackElementRect } from '@destyler/element-rect'
+import { trackFocusVisible } from '@destyler/focus-visible'
+import { compact, isEqual, isString } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not } = guards
@@ -123,7 +122,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         syncInputElements(ctx) {
           const inputs = dom.getInputEls(ctx)
-          inputs.forEach((input) => {
+          inputs.forEach((input: any) => {
             input.checked = input.value === ctx.value
           })
         },
@@ -165,7 +164,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         dispatchChangeEvent(ctx) {
           const inputEls = dom.getInputEls(ctx)
-          inputEls.forEach((inputEl) => {
+          inputEls.forEach((inputEl: any) => {
             const checked = inputEl.value === ctx.value
             if (checked === inputEl.checked)
               return

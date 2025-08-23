@@ -1,7 +1,7 @@
-import type { ColorChannel } from '@zag-js/color-utils'
+import type { ColorChannel } from '@destyler/color'
+import type { Point } from '@destyler/types'
 import type { MachineContext as Ctx } from './types'
-import { getRelativePoint, type Point } from '@zag-js/dom-event'
-import { createScope, queryAll } from '@zag-js/dom-query'
+import { createScope, getRelativePoint, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `color-picker:${ctx.id}`,

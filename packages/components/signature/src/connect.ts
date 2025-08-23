@@ -1,7 +1,6 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { IntlTranslations, MachineApi, Send, State } from './types'
-import { getRelativePoint, isLeftClick, isModifierKey } from '@zag-js/dom-event'
-import { dataAttr, getEventTarget } from '@zag-js/dom-query'
+import { dataAttr, getEventTarget, getRelativePoint, isLeftClick, isModifierKey } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 

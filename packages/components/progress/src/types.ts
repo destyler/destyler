@@ -1,4 +1,3 @@
-import type { Machine, StateMachine } from '@zag-js/core'
 import type {
   CommonProperties,
   DirectionProperty,
@@ -6,7 +5,8 @@ import type {
   OrientationProperty,
   PropTypes,
   RequiredBy,
-} from '@zag-js/types'
+} from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export type ProgressState = 'indeterminate' | 'loading' | 'complete'
 
@@ -15,6 +15,10 @@ export interface ValueTranslationDetails {
   max: number
   min: number
   percent: number
+}
+
+export interface ValueChangeDetails {
+  value: number | null
 }
 
 export interface IntlTranslations {
@@ -52,6 +56,10 @@ interface PublicContext extends DirectionProperty, CommonProperties, Orientation
    * The localized messages to use.
    */
   translations: IntlTranslations
+  /**
+   * Callback fired when the value changes.
+   */
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
 }
 
 interface PrivateContext {}
@@ -92,11 +100,11 @@ export interface MachineState {
   value: 'idle'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ViewProps {
   state: ProgressState

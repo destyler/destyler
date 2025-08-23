@@ -1,25 +1,22 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { ItemProps, ItemState, MachineApi, OptionItemProps, OptionItemState, Send, State } from './types'
-import { mergeProps } from '@zag-js/core'
-import {
-  clickIfLink,
-  type EventKeyMap,
-  getEventKey,
-  getEventPoint,
-  isContextMenuEvent,
-  isModifierKey,
-  isPrintableKey,
-} from '@zag-js/dom-event'
 import {
   dataAttr,
+  getEventKey,
+  getEventPoint,
   getEventTarget,
+  isAnchorElement,
+  isContextMenuEvent,
   isDownloadingEvent,
   isEditableElement,
+  isModifierKey,
   isOpeningInNewTab,
+  isPrintableKey,
   isSelfTarget,
   isValidTabEvent,
-} from '@zag-js/dom-query'
-import { getPlacementStyles } from '@zag-js/popper'
+} from '@destyler/dom'
+import { getPlacementStyles } from '@destyler/popper'
+import { mergeProps } from '@destyler/xstate'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -349,7 +346,9 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             },
             Enter() {
               send('ENTER')
-              clickIfLink(item)
+              if (isAnchorElement(item)) {
+                state.context.navigate({ value: state.context.highlightedValue, node: item })
+              }
             },
             Space(event) {
               if (isTypingAhead) {

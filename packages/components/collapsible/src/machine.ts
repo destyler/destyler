@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, ref } from '@zag-js/core'
-import { getComputedStyle, getEventTarget, raf } from '@zag-js/dom-query'
-import { compact } from '@zag-js/utils'
+import { getComputedStyle, getEventTarget, raf } from '@destyler/dom'
+import { compact } from '@destyler/utils'
+import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {

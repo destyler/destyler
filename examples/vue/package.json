@@ -1,7 +1,6 @@
 {
-  "name": "vue",
+  "name": "@destyler/example-vue",
   "type": "module",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -53,20 +52,18 @@
     "@destyler/vue": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
-    "@iconify-json/carbon": "^1.2.6",
-    "@internationalized/date": "catalog:",
-    "@unocss/reset": "catalog:examples",
-    "@vitejs/plugin-vue": "catalog:examples",
-    "@vue/tsconfig": "catalog:examples",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/stringify-state": "catalog:",
-    "unocss": "catalog:examples",
-    "unplugin-auto-import": "catalog:examples",
-    "unplugin-vue-components": "catalog:examples",
-    "unplugin-vue-router": "catalog:examples",
-    "vite": "catalog:examples",
-    "vue": "catalog:examples",
-    "vue-router": "catalog:examples"
+    "@destyler/stringify": "workspace:*",
+    "@iconify-json/carbon": "catalog:icon",
+    "@internationalized/date": "catalog:prod",
+    "@vitejs/plugin-vue": "catalog:plugin",
+    "@vue/tsconfig": "catalog:frontend",
+    "unplugin-auto-import": "catalog:plugin",
+    "unplugin-vue-components": "catalog:plugin",
+    "unplugin-vue-router": "catalog:plugin",
+    "vite": "catalog:build",
+    "vue": "catalog:frontend",
+    "vue-router": "catalog:frontend"
   }
 }

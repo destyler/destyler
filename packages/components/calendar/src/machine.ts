@@ -1,8 +1,7 @@
+import type { AdjustDateReturn } from '@destyler/date'
 import type { DateValue, DateView, MachineContext, MachineState, UserDefinedContext } from './types'
-import { DateFormatter } from '@internationalized/date'
-import { createMachine, guards } from '@zag-js/core'
 import {
-  type AdjustDateReturn,
+
   alignDate,
   constrainValue,
   formatSelectedDate,
@@ -19,12 +18,14 @@ import {
   isNextVisibleRangeInvalid,
   isPreviousVisibleRangeInvalid,
   parseDateString,
-} from '@zag-js/date-utils'
-import { trackDismissableElement } from '@zag-js/dismissable'
-import { disableTextSelection, raf, restoreTextSelection } from '@zag-js/dom-query'
-import { createLiveRegion } from '@zag-js/live-region'
-import { getPlacement } from '@zag-js/popper'
-import { compact, isEqual } from '@zag-js/utils'
+} from '@destyler/date'
+import { trackDismissableElement } from '@destyler/dismissable'
+import { disableTextSelection, raf, restoreTextSelection } from '@destyler/dom'
+import { createLiveRegion } from '@destyler/live-region'
+import { getPlacement } from '@destyler/popper'
+import { compact, isEqual } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
+import { DateFormatter } from '@internationalized/date'
 import { dom } from './dom'
 import {
   adjustStartAndEndDate,
@@ -189,7 +190,7 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'datepicker',
+      id: 'calendar',
       initial: ctx.open ? 'open' : 'idle',
       context: transformContext(ctx),
       computed: {

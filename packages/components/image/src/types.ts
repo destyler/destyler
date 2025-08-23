@@ -1,5 +1,5 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export type LoadStatus = 'error' | 'loaded'
 
@@ -19,14 +19,14 @@ interface PublicContext extends CommonProperties, DirectionProperty {
    */
   onStatusChange?: ((details: StatusChangeDetails) => void) | undefined
   /**
-   * The ids of the elements in the image. Useful for composition.
+   * The ids of the elements in the avatar. Useful for composition.
    */
   ids?: ElementIds | undefined
 }
 
 interface PrivateContext {}
 
-type ComputedContext = Readonly<any>
+type ComputedContext = Readonly<{}>
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
@@ -36,11 +36,11 @@ export interface MachineState {
   value: 'loading' | 'error' | 'loaded'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   /**

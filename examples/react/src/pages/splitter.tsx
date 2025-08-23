@@ -1,8 +1,8 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { splitterControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as splitter from '@destyler/splitter'
 import { useId } from 'react'
-import { useControls } from '../hooks/use-controls'
 
 export default function SplitterDemo() {
   const controls = useControls(splitterControls)

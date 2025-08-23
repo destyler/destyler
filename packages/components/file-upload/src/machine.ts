@@ -1,8 +1,8 @@
 import type { FileRejection, MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, ref } from '@zag-js/core'
-import { addDomEvent, contains, getEventTarget, raf } from '@zag-js/dom-query'
-import { getAcceptAttrString, isFileEqual } from '@zag-js/file-utils'
-import { callAll, compact } from '@zag-js/utils'
+import { addDomEvent, contains, getEventTarget, raf } from '@destyler/dom'
+import { getAcceptAttrString, isFileEqual } from '@destyler/file'
+import { callAll, compact } from '@destyler/utils'
+import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 import { getFilesFromEvent } from './utils'
 
@@ -158,6 +158,7 @@ export function machine(userContext: UserDefinedContext) {
             })
 
             inputEl.files = dataTransfer.files
+            inputEl.dispatchEvent(new win.Event('change', { bubbles: true }))
           })
         },
         openFilePicker(ctx) {
@@ -184,8 +185,10 @@ export function machine(userContext: UserDefinedContext) {
           }
         },
         removeFile(ctx, evt) {
-          const nextFiles = ctx.acceptedFiles.filter(file => file !== evt.file)
-          ctx.acceptedFiles = ref(nextFiles)
+          const files = Array.from(ctx.acceptedFiles.filter(file => file !== evt.file))
+          const rejectedFiles = Array.from(ctx.rejectedFiles.filter(item => item.file !== evt.file))
+          ctx.acceptedFiles = ref(files)
+          ctx.rejectedFiles = ref(rejectedFiles)
           invoke.change(ctx)
         },
         clearRejectedFiles(ctx) {

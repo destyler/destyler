@@ -1,10 +1,9 @@
 import * as carousel from '@destyler/carousel'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { carouselControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/carousel.css'
 
 export default function CarouselDemo() {
   const items = [
@@ -20,6 +19,7 @@ export default function CarouselDemo() {
       slideCount: items.length,
       spacing: '20px',
       slidesPerPage: 1,
+      autoplay: false,
     }),
     {
       context: controls.context,
@@ -32,9 +32,9 @@ export default function CarouselDemo() {
     <>
       <div
         {...api.getRootProps()}
-        className="flex items-center justify-center flex-col gap-4 w-100 relative"
+        className="carousel-root"
       >
-        <div {...api.getItemGroupProps()} className="rounded-xl">
+        <div {...api.getItemGroupProps()} className="carousel-item-group">
           {items.map((image, index) => (
             <div
               key={index}
@@ -46,26 +46,38 @@ export default function CarouselDemo() {
         </div>
         <div
           {...api.getControlProps()}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
+          className="carousel-control"
         >
           <button
             {...api.getPrevTriggerProps()}
-            className="w-4 h-4 text-light i-carbon:caret-left"
-          />
-          <div {...api.getIndicatorGroupProps()} className="flex gap-2 mx-2">
+            className="carousel-trigger"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="m20 24l-10-8l10-8z" /></svg>
+          </button>
+          <div {...api.getIndicatorGroupProps()} className="carousel-indicator-group">
             {Array.from({ length: api.pageSnapPoints.length }).map((_, index) => (
               <button
                 key={index}
                 {...api.getIndicatorProps({ index }) as any}
-                className="w-2 h-2 bg-gray rounded-full data-[current]:bg-green"
+                className="carousel-indicator"
               />
             ))}
           </div>
           <button
             {...api.getNextTriggerProps()}
-            className="w-4 h-4 text-light i-carbon:caret-right"
-          />
+            className="carousel-trigger"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="m12 8l10 8l-10 8z" /></svg>
+          </button>
         </div>
+      </div>
+      <div className="carousel-other-controls">
+        <button className="button" onClick={() => api.scrollToIndex(1)}>
+          Scroll to 1
+        </button>
+        <button {...api.getAutoplayTriggerProps()} className="button">
+          { api.isPlaying ? 'Stop' : 'Play' }
+        </button>
       </div>
       <Toolbar controls={controls.ui()}>
         <StateVisualizer state={state} />

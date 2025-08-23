@@ -1,11 +1,9 @@
-import { normalizeProps, useMachine } from '@destyler/solid'
 import { treeControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
+import { normalizeProps, useMachine } from '@destyler/solid'
 import * as tree from '@destyler/tree'
 import { createMemo, createUniqueId } from 'solid-js'
 import { TreeNode } from '../components/TreeNode'
-import { useControls } from '../hooks/use-controls'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
 
 interface Node {
   id: string
@@ -50,7 +48,7 @@ export default function TreeDemo() {
     context: controls.context,
   })
 
-  const api = createMemo(()=>tree.connect(state, send, normalizeProps))
+  const api = createMemo(() => tree.connect(state, send, normalizeProps))
 
   return (
     <>
@@ -58,7 +56,7 @@ export default function TreeDemo() {
         <div {...api().getRootProps()}>
           <h3 {...api().getLabelProps()}>My Documents</h3>
           <div {...api().getTreeProps()}>
-            {api().collection.rootNode.children?.map((node, index) => (
+            {api().collection.rootNode.children?.map((node: any, index: any) => (
               <TreeNode
                 node={node}
                 indexPath={[index]}

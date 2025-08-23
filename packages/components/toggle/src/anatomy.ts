@@ -1,5 +1,4 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('toggle').parts('root', 'item')
-
+export const anatomy = createAnatomy('toggle-group').parts('root', 'item')
 export const parts = anatomy.build()

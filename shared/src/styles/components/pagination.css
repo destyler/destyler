@@ -1,0 +1,81 @@
+.pagination-root {
+  display: flex;
+  justify-content: center;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+/* ul: flex items-center gap-x-3 */
+.pagination-list {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* 12px */
+}
+
+/* 通用按钮样式 */
+.pagination-btn {
+  padding-left: 1.25rem; /* 20px */
+  padding-right: 1.25rem;
+  padding-top: 0.625rem; /* 10px */
+  padding-bottom: 0.625rem;
+  border-radius: 0.5rem; /* 8px */
+  border: 1px solid #1f2937; /* gray-800 */
+  background: none;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); /* shadow-sm */
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* 4px */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  cursor: pointer;
+}
+.pagination-btn:hover {
+  background: #f9fafb; /* gray-50 */
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10); /* shadow-md */
+}
+
+/* 页码按钮 */
+.pagination-page {
+  min-width: 40px;
+  height: 2.5rem; /* 40px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.75rem; /* 12px */
+  padding-right: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #1f2937;
+  background: none;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.pagination-page:hover {
+  background: #f9fafb;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+}
+.pagination-page[data-selected] {
+  background: #111827; /* gray-900 */
+  color: #fff;
+  border-color: #111827;
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.15); /* shadow-lg */
+}
+
+/* 省略号 */
+.pagination-ellipsis {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: #6b7280; /* gray-500 */
+  font-weight: 500;
+}
+
+/* 图标尺寸 */
+.pagination-icon {
+  width: 1rem; /* 16px */
+  height: 1rem;
+}

@@ -2,6 +2,7 @@
   import type { BreadcrumbItem } from '@destyler/breadcrumbs'
   import * as breadcrumbs from '@destyler/breadcrumbs'
   import { normalizeProps, useMachine } from '@destyler/svelte'
+  import '@destyler/shared-private/styles/breadcrumbs.css'
 
   let items: BreadcrumbItem[] = [
     { id: '1', label: 'one', href: '/' },
@@ -11,19 +12,19 @@
 
   const uid = $props.id();
 
-  const [state, send] = useMachine(breadcrumbs.machine({
+  const [snapshot, send] = useMachine(breadcrumbs.machine({
     id: uid,
     items,
   }))
 
-  const api = $derived(breadcrumbs.connect(state, send, normalizeProps))
+  const api = $derived(breadcrumbs.connect(snapshot, send, normalizeProps))
 </script>
 
 <nav {...api.getRootProps()}>
-  <ol {...api.getListProps()} class="flex items-center space-x-2">
+  <ol {...api.getListProps()} class="breadcrumbs-root">
     {#each api.items as item (item.id)}
       <li {...api.getItemProps(item)}>
-        <a {...api.getLinkProps(item)} class="text-blue-500 hover:underline">{item.label}</a>
+        <a {...api.getLinkProps(item)} class="breadcrumbs-link">{item.label}</a>
         {#if item.href}
           <span {...api.getSeparatorProps()}>/</span>
         {/if}

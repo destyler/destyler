@@ -6,11 +6,7 @@
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./*": "./*"
+    ".": "./dist/index.js"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -22,21 +18,20 @@
   "scripts": {
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
-
     "prepublishOnly": "pnpm run build",
     "build": "pnpm run clear && svelte-package -i src && tsc --noEmit",
-    "stub": "unbuild --stub"
+    "watch": "tsdown --watch"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/types": "catalog:"
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/package": "^2.3.10",
-    "@zag-js/utils": "catalog:",
-    "svelte": "catalog:"
+    "@destyler/utils": "workspace:*",
+    "@sveltejs/package": "catalog:build",
+    "svelte": "catalog:frontend"
   }
 }

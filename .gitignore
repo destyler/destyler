@@ -28,3 +28,9 @@ cache
 storybook-static
 
 *storybook.log
+test/report
+test/junit.xml
+test/results
+html
+__screenshots__
+.node-modules-inspector

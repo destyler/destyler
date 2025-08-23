@@ -1,5 +1,5 @@
-import type { AnchorRect } from '@zag-js/popper'
-import type { Required } from '@zag-js/types'
+import type { AnchorRect } from '@destyler/popper'
+import type { Required } from '@destyler/types'
 
 interface CompositeRadius {
   topLeft: number

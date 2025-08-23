@@ -2,31 +2,28 @@
   import * as checkbox from '@destyler/checkbox'
   import { checkboxControls } from '@destyler/shared-private'
   import { normalizeProps, useMachine } from '@destyler/svelte'
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
-  import {useControls} from '../hooks/use-controls.svelte'
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
+  import '@destyler/shared-private/styles/checkbox.css'
 
   const controls = useControls(checkboxControls)
   const id = $props.id()
 
-  const [state, send] = useMachine(checkbox.machine({ id }), {
+  const [snapshot, send] = useMachine(checkbox.machine({ id }), {
     context: controls.context
   })
 
-  const api = $derived(checkbox.connect(state, send, normalizeProps))
+  const api = $derived(checkbox.connect(snapshot, send, normalizeProps))
 </script>
 
-<label {...api.getRootProps()} class="flex gap-2.5 justify-start items-center cursor-pointer">
+<main>main</main>
+<label {...api.getRootProps()} class="checkbox-root">
   <div
     {...api.getControlProps()}
-    class="h-4 w-4 shrink-0 rounded-sm border border-dark
-    shadow focus-visible:outline-none focus-visible:ring-1
-    disabled:cursor-not-allowed disabled:opacity-50
-    data-[state=checked]:bg-dark data-[state=checked]:text-light
-    flex justify-center items-center"
+    class="checkbox-control"
   >
     {#if api.checked}
-      <div class="i-carbon:checkmark w-3 h-3 text-light" >
+      <div class="checkbox-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m13 24l-9-9l1.414-1.414L13 21.171L26.586 7.586L28 9z" /></svg>
       </div>
     {/if}
   </div>
@@ -39,9 +36,9 @@
     {/if}
   </span>
 
-  <input {...api.getHiddenInputProps()}>
+  <input data-testid="hidden-input" {...api.getHiddenInputProps()}>
 </label>
 
 <Toolbar {controls}>
-  <StateVisualizer state={state} />
+  <StateVisualizer state={snapshot} />
 </Toolbar>

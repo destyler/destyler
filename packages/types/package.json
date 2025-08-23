@@ -1,0 +1,30 @@
+{
+  "name": "@destyler/types",
+  "type": "module",
+  "version": "0.0.7-beta.7",
+  "description": "a minimal implementation of types for UI machines",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && tsdown",
+    "watch": "tsdown --watch"
+  },
+  "dependencies": {
+    "@destyler/store": "workspace:*",
+    "@destyler/utils": "workspace:*",
+    "csstype": "catalog:prod"
+  }
+}

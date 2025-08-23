@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import * as splitter from "@destyler/splitter"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed,useId } from "vue"
 import { splitterControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import * as splitter from '@destyler/splitter'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 
 const controls = useControls(splitterControls)
 
@@ -11,13 +11,13 @@ const [state, send] = useMachine(
   splitter.machine({
     id: useId(),
     size: [
-      { id: "a", size: 50,minSize:10 },
-      { id: "b", size: 50 ,minSize:10},
-    ]
+      { id: 'a', size: 50, minSize: 10 },
+      { id: 'b', size: 50, minSize: 10 },
+    ],
   }),
   {
     context: controls.context,
-  }
+  },
 )
 
 const api = computed(() => splitter.connect(state.value, send, normalizeProps))
@@ -26,7 +26,9 @@ const api = computed(() => splitter.connect(state.value, send, normalizeProps))
 <template>
   <div v-bind="api.getRootProps()" class="h-[200px]! w-80%! border border-gray-200 rounded-lg bg-white shadow-sm">
     <div v-bind="api.getPanelProps({ id: 'a' })" class="bg-gray-50 p-6 flex items-center justify-center">
-      <p class="text-gray-800 font-medium text-lg">Panel A</p>
+      <p class="text-gray-800 font-medium text-lg">
+        Panel A
+      </p>
     </div>
     <div
       v-bind="api.getResizeTriggerProps({ id: 'a:b' })"
@@ -35,7 +37,9 @@ const api = computed(() => splitter.connect(state.value, send, normalizeProps))
       <div class="w-[2px] h-8 bg-gray-400 rounded-full" />
     </div>
     <div v-bind="api.getPanelProps({ id: 'b' })" class="bg-white p-6 flex items-center justify-center">
-      <p class="text-gray-800 font-medium text-lg">Panel B</p>
+      <p class="text-gray-800 font-medium text-lg">
+        Panel B
+      </p>
     </div>
   </div>
   <Toolbar>

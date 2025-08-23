@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import * as progress from "@destyler/progress"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed,useId } from "vue"
+import * as progress from '@destyler/progress'
 import { progressControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
+import '@destyler/shared-private/styles/progress.css'
 
 const controls = useControls(progressControls)
 
-const [state, send] = useMachine(progress.machine({ id: useId(),value: 30 }),{
+const [state, send] = useMachine(progress.machine({ id: useId(), value: 30 }), {
   context: controls.context,
 })
 
@@ -17,17 +18,17 @@ const api = computed(() =>
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()" class="max-w-md p-6">
-    <div v-bind="api.getLabelProps()" class="text-lg font-semibold mb-2 text-gray-800">
+  <div v-bind="api.getRootProps()" class="progress-root">
+    <div v-bind="api.getLabelProps()" class="progress-label">
       Upload progress
     </div>
     <div
       v-bind="api.getTrackProps()"
-      class="w-full h-4 bg-gray-200 rounded-full overflow-hidden"
+      class="progress-track"
     >
       <div
         v-bind="api.getRangeProps()"
-        class="h-full bg-black transition-all duration-300 ease-out rounded-full"
+        class="progress-range"
       />
     </div>
   </div>

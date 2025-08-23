@@ -1,0 +1,25 @@
+{
+  "name": "@destyler/highlight-text",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Highlight a portion of text in a string",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && tsdown",
+    "watch": "tsdown --watch"
+  }
+}

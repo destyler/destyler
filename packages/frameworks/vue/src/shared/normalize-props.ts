@@ -1,6 +1,5 @@
 import type * as Vue from 'vue'
-import process from 'node:process'
-import { createNormalizer } from '@zag-js/types'
+import { createNormalizer } from '@destyler/types'
 
 interface ReservedProps {
   key?: string | number | symbol
@@ -49,9 +48,6 @@ export const normalizeProps = createNormalizer<PropTypes>((props: Dict) => {
     if (key === 'children') {
       if (typeof value === 'string') {
         normalized.innerHTML = value
-      }
-      else if (process.env.NODE_ENV !== 'production' && value != null) {
-        console.warn('[Vue Normalize Prop] : avoid passing non-primitive value as `children`')
       }
     }
     else {

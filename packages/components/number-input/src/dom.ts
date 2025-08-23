@@ -1,6 +1,6 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope, isSafari, MAX_Z_INDEX } from '@zag-js/dom-query'
-import { roundToDevicePixel, wrap } from '@zag-js/number-utils'
+import { createScope, isSafari, MAX_Z_INDEX } from '@destyler/dom'
+import { roundToDpr, wrap } from '@destyler/utils'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `number-input:${ctx.id}`,
@@ -60,8 +60,9 @@ export const dom = createScope({
   },
 
   getMousemoveValue(ctx: Ctx, event: MouseEvent) {
-    const x = roundToDevicePixel(event.movementX)
-    const y = roundToDevicePixel(event.movementY)
+    const win = dom.getWin(ctx)
+    const x = roundToDpr(event.movementX, win.devicePixelRatio)
+    const y = roundToDpr(event.movementY, win.devicePixelRatio)
 
     let hint = x > 0 ? 'increment' : x < 0 ? 'decrement' : null
 
@@ -75,9 +76,8 @@ export const dom = createScope({
       y: ctx.scrubberCursorPoint!.y + y,
     }
 
-    const win = dom.getWin(ctx)
     const width = win.innerWidth
-    const half = roundToDevicePixel(7.5)
+    const half = roundToDpr(7.5, win.devicePixelRatio)
     point.x = wrap(point.x + half, width) - half
 
     return { hint, point }

@@ -40,7 +40,7 @@ const api = computed(() =>
           <table v-bind="api.getTableProps({ view: 'day' })">
             <thead v-bind="api.getTableHeaderProps({ view: 'day' })">
               <tr v-bind="api.getTableRowProps({ view: 'day' })">
-                <template v-for="(day) in api.weekDays">
+                <template v-for="(day, index) in api.weekDays" :key="index">
                   <th scope="col">
                     {{ day.narrow }}
                   </th>
@@ -48,9 +48,9 @@ const api = computed(() =>
               </tr>
             </thead>
             <tbody v-bind="api.getTableBodyProps({ view: 'day' })">
-              <template v-for="(week) in api.weeks">
+              <template v-for="(week, weekIndex) in api.weeks" :key="weekIndex">
                 <tr v-bind="api.getTableRowProps({ view: 'day' })">
-                  <template v-for="(value) in week">
+                  <template v-for="(value, weekValueKey) in week" :key="weekValueKey">
                     <td v-bind="api.getDayTableCellProps({ value })">
                       <div v-bind="api.getDayTableCellTriggerProps({ value })">
                         {{ value.day }}
@@ -79,9 +79,9 @@ const api = computed(() =>
 
           <table v-bind="api.getTableProps({ view: 'month', columns: 4 })">
             <tbody v-bind="api.getTableBodyProps({ view: 'month' })">
-              <template v-for="(months) in api.getMonthsGrid({ columns: 4, format: 'short' })">
+              <template v-for="(months, key) in api.getMonthsGrid({ columns: 4, format: 'short' })" :key="key">
                 <tr v-bind="api.getTableRowProps()">
-                  <template v-for="(month) in months">
+                  <template v-for="(month, index) in months" :key="index">
                     <td
                       v-bind="api.getMonthTableCellProps({
                         ...month,
@@ -120,9 +120,9 @@ const api = computed(() =>
 
           <table v-bind="api.getTableProps({ view: 'year', columns: 4 })">
             <tbody v-bind="api.getTableBodyProps()">
-              <template v-for="(years) in api.getYearsGrid({ columns: 4 })">
+              <template v-for="(years, key) in api.getYearsGrid({ columns: 4 })" :key="key">
                 <tr v-bind="api.getTableRowProps({ view: 'year' })">
-                  <template v-for="(year) in years">
+                  <template v-for="(year, index) in years" :key="index">
                     <td
                       v-bind="api.getYearTableCellProps({
                         ...year,

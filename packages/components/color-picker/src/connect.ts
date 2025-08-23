@@ -1,4 +1,4 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type {
   AreaProps,
   ColorFormat,
@@ -8,17 +8,9 @@ import type {
   SwatchTriggerProps,
   SwatchTriggerState,
 } from './types'
-import { getColorAreaGradient, normalizeColor } from '@zag-js/color-utils'
-import {
-  type EventKeyMap,
-  getEventKey,
-  getEventPoint,
-  getEventStep,
-  isLeftClick,
-  isModifierKey,
-} from '@zag-js/dom-event'
-import { dataAttr, query, visuallyHiddenStyle } from '@zag-js/dom-query'
-import { getPlacementStyles } from '@zag-js/popper'
+import { getColorAreaGradient, normalizeColor } from '@destyler/color'
+import { dataAttr, getEventKey, getEventPoint, getEventStep, isLeftClick, isModifierKey, query, visuallyHiddenStyle } from '@destyler/dom'
+import { getPlacementStyles } from '@destyler/popper'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import { getChannelDisplayColor } from './utils/get-channel-display-color'
@@ -714,7 +706,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 }
 
 const formats: ColorFormat[] = ['hsba', 'hsla', 'rgba']
-const formatRegex = new RegExp(`^(?:${formats.join('|')})$`)
+const formatRegex = new RegExp(`^(${formats.join('|')})$`)
 
 function getNextFormat(format: ColorFormat) {
   const index = formats.indexOf(format)

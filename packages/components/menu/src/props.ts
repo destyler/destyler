@@ -1,29 +1,30 @@
 import type { ItemGroupLabelProps, ItemGroupProps, ItemProps, OptionItemProps, UserDefinedContext } from './types'
-import { createProps } from '@zag-js/types'
-import { createSplitProps } from '@zag-js/utils'
+import { createProps } from '@destyler/types'
+import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'anchorPoint',
   'aria-label',
   'closeOnSelect',
+  'composite',
   'dir',
   'getRootNode',
   'highlightedValue',
   'id',
   'ids',
   'loopFocus',
+  'navigate',
+  'onEscapeKeyDown',
   'onFocusOutside',
+  'onHighlightChange',
   'onInteractOutside',
   'onOpenChange',
   'onPointerDownOutside',
-  'onEscapeKeyDown',
   'onSelect',
-  'onHighlightChange',
-  'open',
   'open.controlled',
+  'open',
   'positioning',
   'typeahead',
-  'composite',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

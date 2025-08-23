@@ -2,9 +2,46 @@
   "name": "@destyler/shared-private",
   "version": "0.0.0",
   "private": "true",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./vue": {
+      "default": "./src/vue/index.ts"
+    },
+    "./svelte": {
+      "default": "./src/svelte/index.ts"
+    },
+    "./solid": {
+      "default": "./src/solid/index.ts"
+    },
+    "./react": {
+      "default": "./src/react/index.ts"
+    },
+    "./vanilla": {
+      "default": "./src/vanilla/index.ts"
+    },
+    "./test": {
+      "default": "./src/test/index.ts"
+    },
+    "./styles/*": {
+      "default": "./src/styles/components/*"
+    },
+    "./bootstrap": {
+      "default": "./src/bootstrap.css"
+    }
+  },
   "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
   "dependencies": {
-    "@destyler/tour": "workspace:*"
+    "@destyler/tour": "workspace:*",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "solid-js": "catalog:frontend",
+    "svelte": "catalog:frontend",
+    "vue": "catalog:frontend"
   }
 
 }

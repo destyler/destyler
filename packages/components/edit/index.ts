@@ -13,4 +13,4 @@ export type {
   SubmitMode,
   ValueChangeDetails,
 } from './src/types'
-export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@zag-js/interact-outside'
+export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/interact-outside'

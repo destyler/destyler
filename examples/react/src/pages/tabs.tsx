@@ -1,8 +1,9 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { tabsControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as tabs from '@destyler/tabs'
 import { useId } from 'react'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/tabs.css'
 
 export default function TabsDemo() {
   const controls = useControls(tabsControls)
@@ -20,17 +21,14 @@ export default function TabsDemo() {
 
   return (
     <>
-      <div {...api.getRootProps()} className="max-w-md p-6 bg-white rounded-lg shadow-md">
-        <div {...api.getListProps()} className="flex gap-2 mb-6 border-b border-gray-200">
+      <div {...api.getRootProps()} className="tabs-root">
+        <div {...api.getListProps()} className="tabs-list">
           {data.map(item => (
             <button
               key={item.value}
               {...api.getTriggerProps({ value: item.value })}
-              className="px-4 py-2 hover:bg-gray-100 transition-colors
-                duration-200 relative after:absolute after:bottom-[-1px]
-                after:left-0 after:w-full after:h-[2px] after:bg-black
-                after:opacity-0 data-[selected]:after:opacity-100 rounded-md
-                data-[selected]:font-medium data-[selected]:bg-gray-100"
+              className="tabs-trigger"
+              data-testid={`${item.value}-tab`}
             >
               {item.label}
             </button>
@@ -40,9 +38,10 @@ export default function TabsDemo() {
           <div
             key={item.value}
             {...api.getContentProps({ value: item.value })}
-            className="p-4 bg-gray-50 rounded-lg data-[hidden]:hidden"
+            className="tabs-content"
+            data-testid={`${item.value}-tab-panel`}
           >
-            <p className="text-gray-800">{item.content}</p>
+            <p className="tabs-content-text">{item.content}</p>
           </div>
         ))}
       </div>

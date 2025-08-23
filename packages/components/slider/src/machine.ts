@@ -1,11 +1,9 @@
+import type { ElementSize } from '@destyler/size'
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { trackPointerMove } from '@zag-js/dom-event'
-import { raf } from '@zag-js/dom-query'
-import { type ElementSize, trackElementsSize } from '@zag-js/element-size'
-import { trackFormControl } from '@zag-js/form-utils'
-import { getValuePercent } from '@zag-js/numeric-range'
-import { compact, isEqual } from '@zag-js/utils'
+import { raf, trackFormControl, trackPointerMove } from '@destyler/dom'
+import { trackElementsSize } from '@destyler/size'
+import { compact, getValuePercent, isEqual } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 import {
   assignArray,

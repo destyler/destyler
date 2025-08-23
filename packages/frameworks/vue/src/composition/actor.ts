@@ -1,10 +1,10 @@
-import type { Machine, StateMachine } from '@zag-js/core'
+import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyler/xstate'
 import { useSnapshot } from './snapshot'
 
 export function useActor<
   TContext extends Record<string, any>,
-  TState extends StateMachine.StateSchema,
-  TEvent extends StateMachine.EventObject = StateMachine.AnyEventObject,
+  TState extends StateSchema,
+  TEvent extends EventObject = AnyEventObject,
 >(service: Machine<TContext, TState, TEvent>) {
   const state = useSnapshot(service)
   return [state, service.send] as const

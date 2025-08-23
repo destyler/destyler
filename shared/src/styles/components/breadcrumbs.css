@@ -1,0 +1,18 @@
+.breadcrumbs-root{
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs-root > :not([hidden]) ~ :not([hidden]) {
+  --un-space-x-reverse: 0;
+  margin-left: calc(0.5rem * 1);
+  margin-right: calc(0.5rem * 0);
+}
+
+.breadcrumbs-link {
+  color: #3b82f6;
+}
+
+.breadcrumbs-link:hover {
+  text-decoration-line: underline;
+}

@@ -1,6 +1,16 @@
 import type { IntlTranslations, MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { compact, isEqual } from '@zag-js/utils'
+import { compact, isEqual } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
+
+const defaultTranslations: IntlTranslations = {
+  rootLabel: 'pagination',
+  prevTriggerLabel: 'previous page',
+  nextTriggerLabel: 'next page',
+  itemLabel({ page, totalPages }) {
+    const isLastPage = totalPages > 1 && page === totalPages
+    return `${isLastPage ? 'last page, ' : ''}page ${page}`
+  },
+}
 
 const clampPage = (page: number, totalPages: number) => Math.min(Math.max(page, 1), totalPages)
 
@@ -16,16 +26,6 @@ const set = {
       return
     ctx.page = clampPage(value, ctx.totalPages)
     ctx.onPageChange?.({ page: ctx.page, pageSize: ctx.pageSize })
-  },
-}
-
-const defaultTranslations: IntlTranslations = {
-  rootLabel: 'pagination',
-  prevTriggerLabel: 'previous page',
-  nextTriggerLabel: 'next page',
-  itemLabel({ page, totalPages }) {
-    const isLastPage = totalPages > 1 && page === totalPages
-    return `${isLastPage ? 'last page, ' : ''}page ${page}`
   },
 }
 
@@ -57,7 +57,7 @@ export function machine(userContext: UserDefinedContext) {
         nextPage: ctx => (ctx.page === ctx.totalPages ? null : ctx.page + 1),
         pageRange: (ctx) => {
           const start = (ctx.page - 1) * ctx.pageSize
-          const end = start + ctx.pageSize
+          const end = Math.min(start + ctx.pageSize, ctx.count)
           return { start, end }
         },
         isValidPage: ctx => ctx.page >= 1 && ctx.page <= ctx.totalPages,

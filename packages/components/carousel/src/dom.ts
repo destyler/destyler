@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope, getTabbables, queryAll } from '@zag-js/dom-query'
+import { createScope, getTabbables, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `carousel:${ctx.id}`,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { routes } from '@destyler/shared-private'
 import { useRouter } from 'vue-router'
-import {routes} from '@destyler/shared-private'
 
 const router = useRouter()
 </script>

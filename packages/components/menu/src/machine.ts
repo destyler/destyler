@@ -1,8 +1,8 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards, ref } from '@zag-js/core'
-import { trackDismissableElement } from '@zag-js/dismissable'
-import { addDomEvent } from '@zag-js/dom-event'
+import { trackDismissableElement } from '@destyler/dismissable'
 import {
+  addDomEvent,
+  clickIfLink,
   contains,
   getByTypeahead,
   getInitialFocus,
@@ -10,10 +10,11 @@ import {
   observeAttributes,
   raf,
   scrollIntoView,
-} from '@zag-js/dom-query'
-import { getPlacement, getPlacementSide } from '@zag-js/popper'
-import { getElementPolygon, isPointInPolygon } from '@zag-js/rect-utils'
-import { cast, compact, isEqual } from '@zag-js/utils'
+} from '@destyler/dom'
+import { getPlacement, getPlacementSide } from '@destyler/popper'
+import { getElementPolygon, isPointInPolygon } from '@destyler/rect'
+import { cast, compact, isEqual } from '@destyler/utils'
+import { createMachine, guards, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and, or } = guards
@@ -48,6 +49,9 @@ export function machine(userContext: UserDefinedContext) {
         closeOnSelect: true,
         typeahead: true,
         composite: true,
+        navigate(details) {
+          clickIfLink(details.node)
+        },
         ...ctx,
         positioning: {
           placement: 'bottom-start',

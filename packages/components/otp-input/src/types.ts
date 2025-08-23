@@ -1,5 +1,5 @@
-import type { StateMachine } from '@zag-js/core'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, XSend, XState } from '@destyler/xstate'
 
 export interface ValueChangeDetails {
   value: string[]
@@ -153,9 +153,9 @@ export interface MachineState {
   value: 'idle' | 'focused'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
 export interface InputProps {
   index: number

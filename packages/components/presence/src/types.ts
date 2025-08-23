@@ -1,4 +1,4 @@
-import type { Machine, StateMachine } from '@zag-js/core'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 interface PublicContext {
   /**
@@ -32,11 +32,11 @@ export interface MachineState {
   value: 'mounted' | 'unmountSuspended' | 'unmounted'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface MachineApi {
   /**

@@ -1,4 +1,5 @@
-import { type Color, type ColorChannel, parseColor } from '@zag-js/color-utils'
+import type { Color, ColorChannel } from '@destyler/color'
+import { parseColor } from '@destyler/color'
 
 export function getChannelDisplayColor(color: Color, channel: ColorChannel) {
   switch (channel) {

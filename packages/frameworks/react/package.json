@@ -6,14 +6,10 @@
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "./*": "./*"
+    ".": "./dist/index.js"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "*.d.ts",
@@ -23,24 +19,22 @@
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
-    "build": "pnpm run clear && unbuild",
-    "stub": "unbuild --stub"
+    "build": "pnpm run clear && tsdown",
+    "watch": "tsdown --watch"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@zag-js/core": "catalog:",
-    "@zag-js/store": "catalog:",
-    "@zag-js/types": "catalog:",
-    "proxy-compare": "catalog:"
+    "@destyler/store": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*",
+    "proxy-compare": "catalog:prod"
   },
   "devDependencies": {
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "@zag-js/utils": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@destyler/utils": "workspace:*",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend"
   }
 }

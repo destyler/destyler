@@ -1,10 +1,16 @@
 import type { CollectionItem, MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, guards } from '@zag-js/core'
-import { trackDismissableElement } from '@zag-js/dismissable'
-import { getByTypeahead, getInitialFocus, observeAttributes, raf, scrollIntoView } from '@zag-js/dom-query'
-import { trackFormControl } from '@zag-js/form-utils'
-import { getPlacement } from '@zag-js/popper'
-import { addOrRemove, compact, isEqual } from '@zag-js/utils'
+import { trackDismissableElement } from '@destyler/dismissable'
+import {
+  getByTypeahead,
+  getInitialFocus,
+  observeAttributes,
+  raf,
+  scrollIntoView,
+  trackFormControl,
+} from '@destyler/dom'
+import { getPlacement } from '@destyler/popper'
+import { addOrRemove, compact, isEqual } from '@destyler/utils'
+import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
 
@@ -658,8 +664,8 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
             selectEl.selectedIndex = -1
             return
           }
-          // @ts-expect-error - TS doesn't know about the `options` property
-          for (const option of selectEl.options) {
+
+          for (const option of Array.from(selectEl.options)) {
             option.selected = ctx.value.includes(option.value)
           }
         },

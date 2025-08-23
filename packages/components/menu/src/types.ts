@@ -1,9 +1,9 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { DismissableElementHandlers } from '@zag-js/dismissable'
-import type { TypeaheadState } from '@zag-js/dom-query'
-import type { Placement, PositioningOptions } from '@zag-js/popper'
-import type { Point } from '@zag-js/rect-utils'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { DismissableElementHandlers } from '@destyler/dismissable'
+import type { TypeaheadState } from '@destyler/dom'
+import type { Placement, PositioningOptions } from '@destyler/popper'
+import type { Point } from '@destyler/rect'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface OpenChangeDetails {
   /**
@@ -24,6 +24,11 @@ export interface HighlightChangeDetails {
    * The value of the highlighted menu item
    */
   highlightedValue: string | null
+}
+
+export interface NavigateDetails {
+  value: string | null
+  node: HTMLAnchorElement
 }
 
 type ElementIds = Partial<{
@@ -97,6 +102,10 @@ interface PublicContext extends DirectionProperty, CommonProperties, Dismissable
    * @default true
    */
   'composite': boolean
+  /**
+   * Function to navigate to the selected item if it's an anchor element
+   */
+  'navigate': (details: NavigateDetails) => void
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
@@ -165,11 +174,11 @@ export interface MachineState {
   tags: 'open' | 'closed'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface Api {
   getItemProps: (opts: ItemProps) => Record<string, any>

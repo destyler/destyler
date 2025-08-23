@@ -2,9 +2,8 @@
   import * as carousel from '@destyler/carousel'
   import { carouselControls } from '@destyler/shared-private'
   import { normalizeProps, useMachine } from '@destyler/svelte'
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
-  import {useControls} from '../hooks/use-controls.svelte'
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
+  import '@destyler/shared-private/styles/carousel.css'
 
   const controls = useControls(carouselControls)
 
@@ -15,26 +14,27 @@
 
   const uid = $props.id();
 
-  const [state, send] = useMachine(
+  const [snapshot, send] = useMachine(
     carousel.machine({
       id: uid,
       slideCount: items.length,
       spacing: '20px',
       slidesPerPage: 1,
+      autoplay: false,
     }),
     {
       context: controls.context,
     },
   )
 
-  const api = $derived(carousel.connect(state, send, normalizeProps))
+  const api = $derived(carousel.connect(snapshot, send, normalizeProps))
 </script>
 
 <div
   {...api.getRootProps()}
-  class="flex items-center justify-center flex-col gap-4 w-100 relative"
+  class="carousel-root"
 >
-  <div {...api.getItemGroupProps()} class="rounded-xl">
+  <div {...api.getItemGroupProps()} class="carousel-item-group">
     {#each items as image, index}
       <div {...api.getItemProps({ index })}>
         <img src={image} alt="" />
@@ -45,30 +45,41 @@
   <!-- control -->
   <div
     {...api.getControlProps()}
-    class="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center items-center bg-dark rounded-md px-2 py-1"
+    class="carousel-control"
   >
     <button
       {...api.getPrevTriggerProps()}
-      class="w-4 h-4 text-light i-carbon:caret-left"
+      class="carousel-trigger"
     >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m20 24l-10-8l10-8z" /></svg>
     </button>
-    <div {...api.getIndicatorGroupProps()} class="flex gap-2 mx-2">
+    <div {...api.getIndicatorGroupProps()} class="carousel-indicator-group">
       {#each api.pageSnapPoints as _, index}
         <button
           {...api.getIndicatorProps({ index })}
-          class="w-2 h-2 bg-gray rounded-full data-[current]:bg-green"
+          class="carousel-indicator"
         >
         </button>
       {/each}
     </div>
     <button
       {...api.getNextTriggerProps()}
-      class="w-4 h-4 text-light i-carbon:caret-right"
+      class="carousel-trigger"
     >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m12 8l10 8l-10 8z" /></svg>
     </button>
   </div>
 </div>
 
+  <div class="carousel-other-controls">
+    <button class="button" onclick={()=>api.scrollToIndex(1)}>
+      Scroll to 1
+    </button>
+    <button {...api.getAutoplayTriggerProps()} class="button">
+      { api.isPlaying ? 'Stop' : 'Play' }
+    </button>
+  </div>
+
 <Toolbar {controls}>
-  <StateVisualizer state={state} />
+  <StateVisualizer state={snapshot} />
 </Toolbar>

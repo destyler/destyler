@@ -1,12 +1,12 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope, queryAll } from '@zag-js/dom-query'
+import { createScope, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
-  getRootId: (ctx: Ctx) => ctx.ids?.root ?? `pin-input:${ctx.id}`,
-  getInputId: (ctx: Ctx, id: string) => ctx.ids?.input?.(id) ?? `pin-input:${ctx.id}:${id}`,
-  getHiddenInputId: (ctx: Ctx) => ctx.ids?.hiddenInput ?? `pin-input:${ctx.id}:hidden`,
-  getLabelId: (ctx: Ctx) => ctx.ids?.label ?? `pin-input:${ctx.id}:label`,
-  getControlId: (ctx: Ctx) => ctx.ids?.control ?? `pin-input:${ctx.id}:control`,
+  getRootId: (ctx: Ctx) => ctx.ids?.root ?? `otp-input:${ctx.id}`,
+  getInputId: (ctx: Ctx, id: string) => ctx.ids?.input?.(id) ?? `otp-input:${ctx.id}:${id}`,
+  getHiddenInputId: (ctx: Ctx) => ctx.ids?.hiddenInput ?? `otp-input:${ctx.id}:hidden`,
+  getLabelId: (ctx: Ctx) => ctx.ids?.label ?? `otp-input:${ctx.id}:label`,
+  getControlId: (ctx: Ctx) => ctx.ids?.control ?? `otp-input:${ctx.id}:control`,
 
   getRootEl: (ctx: Ctx) => dom.getById(ctx, dom.getRootId(ctx)),
   getInputEls: (ctx: Ctx) => {

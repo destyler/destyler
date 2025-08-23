@@ -1,4 +1,5 @@
 {
+  "name": "@destyler/example-vanilla",
   "type": "module",
   "private": true,
   "scripts": {
@@ -19,11 +20,11 @@
     "@destyler/switch": "workspace:*",
     "@destyler/tooltip": "workspace:*",
     "@destyler/vanilla": "workspace:*"
+
   },
   "devDependencies": {
-    "@unocss/reset": "catalog:examples",
-    "nanoid": "catalog:examples",
-    "unocss": "catalog:examples",
-    "vite": "catalog:"
+    "@destyler/shared-private": "workspace:*",
+    "nanoid": "catalog:util",
+    "vite": "catalog:build"
   }
 }

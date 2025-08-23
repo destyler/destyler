@@ -1,10 +1,10 @@
+/** @jsxImportSource solid-js */
 import * as dynamic from '@destyler/dynamic'
 import { dynamicControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/dynamic.css'
 
 export default function DynamicPage() {
   const controls = useControls(dynamicControls)
@@ -12,7 +12,7 @@ export default function DynamicPage() {
   const [state, send] = useMachine(
     dynamic.machine({
       id: createUniqueId(),
-      value: ['Solid', 'Vue'],
+      value: ['React', 'Vue'],
     }),
     {
       context: controls.context,
@@ -21,31 +21,39 @@ export default function DynamicPage() {
 
   const api = createMemo(() => dynamic.connect(state, send, normalizeProps))
 
+  function toDashCase(str: string) {
+    return str.replace(/\s+/g, '-').toLowerCase()
+  }
+
   return (
     <>
-      <div {...api().getRootProps()} class="max-w-md p-6">
-        <div class="flex flex-wrap gap-2 mb-4">
+      <input data-testid="copy-text" />
+      <div {...api().getRootProps()} class="dynamic-root">
+        <div class="dynamic-content">
           <For each={api().value}>
             {(value, index) => (
               <span
                 {...api().getItemProps({ index: index(), value })}
-                class="relative group"
+                class="group"
+                style="position: relative;"
               >
                 <div
                   {...api().getItemPreviewProps({ index: index(), value })}
-                  class="bg-gray-100 text-gray-900 rounded-lg px-3 py-1 flex items-center gap-2"
+                  class="dynamic-item-preview"
+                  data-testid={`${toDashCase(value)}-input`}
                 >
-                  <span class="text-sm font-medium">{value}</span>
+                  <span class="dynamic-item-preview-value">{value}</span>
                   <button
                     {...api().getItemDeleteTriggerProps({ index: index(), value })}
-                    class="text-gray-600 hover:text-gray-900 transition-colors text-xs"
+                    class="dynamic-item-delete-trigger"
+                    data-testid={`${toDashCase(value)}-delete-trigger`}
                   >
                     &#x2715;
                   </button>
                 </div>
                 <input
                   {...api().getItemInputProps({ index: index(), value })}
-                  class="hidden absolute left-0 top-0 w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none"
+                  data-testid={`${toDashCase(value)}-item-input`}
                 />
               </span>
             )}
@@ -54,7 +62,7 @@ export default function DynamicPage() {
         <input
           placeholder="Add tag..."
           {...api().getInputProps()}
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent outline-none placeholder-gray-500"
+          class="dynamic-input"
         />
       </div>
 

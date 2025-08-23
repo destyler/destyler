@@ -2,9 +2,8 @@
   import * as hoverCard from "@destyler/hover-card";
   import { normalizeProps, useMachine } from "@destyler/svelte";
   import { hoverCardControls } from '@destyler/shared-private';
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
-  import {useControls} from '../hooks/use-controls.svelte'
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
+  import '@destyler/shared-private/styles/hover-card.css'
 
   const controls = useControls(hoverCardControls);
 
@@ -17,36 +16,36 @@
   const api = $derived(hoverCard.connect(state, send, normalizeProps));
 </script>
 
-<div class="mt-10">
+<div class="hover-card-root">
+  <span data-testid="hover-card-test-click">click</span>
   <a
     href="https://twitter.com/elonehoo"
     target="_blank"
     {...api.getTriggerProps()}
-    class="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700 transition-colors duration-200"
+    class="hover-card-trigger"
   >
     Twitter
   </a>
   <div {...api.getPositionerProps()}>
     <div
       {...api.getContentProps()}
-      class="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-4 max-w-sm mt-2 border border-gray-200 dark:border-gray-800 transition-all duration-200 transform"
+      class="hover-card-content"
     >
-      <div class="flex items-center space-x-4">
+      <div>
         <img
           src="https://github.com/elonehoo.png"
           alt="Profile"
-          class="w-12 h-12 rounded-full border border-gray-200 dark:border-gray-700"
+          class="hover-card-avatar"
         />
         <div>
-          <h3 class="font-semibold text-gray-900 dark:text-gray-100">elonehoo</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Frontend Developer</p>
+          <h3>elonehoo</h3>
+          <p>Frontend Developer</p>
         </div>
       </div>
-      <div class="mt-3 text-sm text-gray-700 dark:text-gray-300">
+      <div>
         Follow me on Twitter for web development tips and updates!
       </div>
-      <div class="mt-3 flex items-center text-sm text-gray-600 dark:text-gray-400">
-        <div class="w-4 h-4 i-carbon:logo-x" ></div>
+      <div >
         @elonehoo
       </div>
     </div>

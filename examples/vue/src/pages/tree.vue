@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import * as tree from "@destyler/tree"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId } from "vue"
-import TreeNode from "../components/TreeNode.vue"
 import { treeControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import * as tree from '@destyler/tree'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
+import TreeNode from '../components/TreeNode.vue'
 
 const controls = useControls(treeControls)
 interface Node {
@@ -13,24 +13,24 @@ interface Node {
   children?: Node[]
 }
 const collection = tree.collection<Node>({
-  nodeToValue: (node) => node.id,
-  nodeToString: (node) => node.name,
+  nodeToValue: node => node.id,
+  nodeToString: node => node.name,
   rootNode: {
-    id: "ROOT",
-    name: "",
+    id: 'ROOT',
+    name: '',
     children: [
       {
-        id: "node_modules",
-        name: "node_modules",
+        id: 'node_modules',
+        name: 'node_modules',
         children: [
-          { id: "node_modules/zag-js", name: "destyler" },
-          { id: "node_modules/pandacss", name: "unocss" },
+          { id: 'node_modules/destyler', name: 'destyler' },
+          { id: 'node_modules/pandacss', name: 'unocss' },
           {
-            id: "node_modules/@types",
-            name: "@types",
+            id: 'node_modules/@types',
+            name: '@types',
             children: [
-              { id: "node_modules/@types/react", name: "react" },
-              { id: "node_modules/@types/react-dom", name: "react-dom" },
+              { id: 'node_modules/@types/react', name: 'react' },
+              { id: 'node_modules/@types/react-dom', name: 'react-dom' },
             ],
           },
         ],
@@ -38,7 +38,7 @@ const collection = tree.collection<Node>({
     ],
   },
 })
-const [state, send] = useMachine(tree.machine({ id: useId(), collection }),{
+const [state, send] = useMachine(tree.machine({ id: useId(), collection }), {
   context: controls.context,
 })
 const api = computed(() => tree.connect(state.value, send, normalizeProps))
@@ -47,7 +47,9 @@ const api = computed(() => tree.connect(state.value, send, normalizeProps))
 <template>
   <main class="tree">
     <div v-bind="api.getRootProps()">
-      <h3 v-bind="api.getLabelProps()">My Documents</h3>
+      <h3 v-bind="api.getLabelProps()">
+        My Documents
+      </h3>
       <div v-bind="api.getTreeProps()">
         <TreeNode
           v-for="(node, index) in api.collection.rootNode.children"

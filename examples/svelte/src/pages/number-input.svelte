@@ -2,9 +2,8 @@
   import * as numberInput from "@destyler/number-input";
   import { normalizeProps, useMachine } from "@destyler/svelte";
   import { numberInputControls } from '@destyler/shared-private'
-  import Toolbar from '../components/toolbar.svelte'
-  import StateVisualizer from "../components/state-visualizer.svelte"
-  import {useControls} from '../hooks/use-controls.svelte'
+  import {useControls, Toolbar, StateVisualizer} from '@destyler/shared-private/svelte'
+  import '@destyler/shared-private/styles/number-input.css'
 
   const controls = useControls(numberInputControls)
 
@@ -18,31 +17,34 @@
 </script>
 
 <div
-  class="max-w-[300px] mx-auto my-5 p-4"
+  class="number-input-root"
   {...api.getRootProps()}
 >
   <label
-    class="block mb-2 text-sm text-gray-700"
+    class="number-input-label"
     {...api.getLabelProps()}
   >
     Enter number
   </label>
-  <div class="flex items-center gap-2">
+  <div class="number-input-action">
     <button
-      class="flex items-center justify-center w-10 h-10 text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300 active:bg-gray-200 transition-all duration-200"
+      class="number-input-trigger"
+      data-testid="dec:trigger"
       {...api.getDecrementTriggerProps()}
     >
-      <span class="text-xl font-bold">-</span>
+      <span>-</span>
     </button>
     <input
-      class="w-full h-10 px-2 text-center text-gray-700 border border-gray-200 rounded-md outline-none transition-colors duration-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+      data-testid="input"
+      class="number-input-input"
       {...api.getInputProps()}
     />
     <button
-      class="flex items-center justify-center w-10 h-10 text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300 active:bg-gray-200 transition-all duration-200"
+      class="number-input-trigger"
+      data-testid="inc:trigger"
       {...api.getIncrementTriggerProps()}
     >
-      <span class="text-xl font-bold">+</span>
+      <span>+</span>
     </button>
   </div>
 </div>

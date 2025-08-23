@@ -1,6 +1,6 @@
 import type { UserDefinedContext } from './types'
-import { createProps } from '@zag-js/types'
-import { createSplitProps } from '@zag-js/utils'
+import { createProps } from '@destyler/types'
+import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'dir',
@@ -12,6 +12,7 @@ export const props = createProps<UserDefinedContext>()([
   'orientation',
   'translations',
   'value',
+  'onValueChange',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

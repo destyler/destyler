@@ -1,8 +1,12 @@
-import type { Placement } from '@zag-js/popper'
+import type { Placement } from '@destyler/popper'
 import type { StepDetails, StepPlacement } from '../types'
 
 export function isTooltipStep(step: StepDetails | null): step is Omit<StepDetails, 'placement'> & { placement: Placement } {
   return step?.type === 'tooltip'
+}
+
+export function isDialogStep(step: StepDetails | null) {
+  return step?.type === 'dialog'
 }
 
 export function isTooltipPlacement(placement: StepPlacement | undefined): placement is Placement {

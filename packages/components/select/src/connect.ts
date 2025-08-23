@@ -1,17 +1,17 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { CollectionItem, ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { type EventKeyMap, getEventKey } from '@zag-js/dom-event'
 import {
   ariaAttr,
   dataAttr,
   getByTypeahead,
+  getEventKey,
   getEventTarget,
   isEditableElement,
   isSelfTarget,
   isValidTabEvent,
   visuallyHiddenStyle,
-} from '@zag-js/dom-query'
-import { getPlacementStyles } from '@zag-js/popper'
+} from '@destyler/dom'
+import { getPlacementStyles } from '@destyler/popper'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -406,9 +406,6 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
           if (!isSelfTarget(event))
             return
 
-          // select should not be navigated using tab key so we prevent it
-          // but, we want to allow tabbing within the content when composing
-          // with widgets like tabs or trees
           if (event.key === 'Tab') {
             const valid = isValidTabEvent(event)
             if (!valid) {

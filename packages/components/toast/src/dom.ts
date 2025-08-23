@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx, GroupMachineContext as GroupCtx, Placement } from './types'
-import { createScope } from '@zag-js/dom-query'
+import { createScope } from '@destyler/dom'
 
 export const dom = createScope({
   getRegionId: (placement: Placement) => `toast-group:${placement}`,

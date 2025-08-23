@@ -1,4 +1,4 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
 export const anatomy = createAnatomy('popover').parts(
   'arrow',

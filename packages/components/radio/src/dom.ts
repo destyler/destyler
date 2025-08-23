@@ -1,17 +1,17 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope, queryAll } from '@zag-js/dom-query'
+import { createScope, queryAll } from '@destyler/dom'
 
 export const dom = createScope({
-  getRootId: (ctx: Ctx) => ctx.ids?.root ?? `radio-group:${ctx.id}`,
-  getLabelId: (ctx: Ctx) => ctx.ids?.label ?? `radio-group:${ctx.id}:label`,
-  getItemId: (ctx: Ctx, value: string) => ctx.ids?.item?.(value) ?? `radio-group:${ctx.id}:radio:${value}`,
+  getRootId: (ctx: Ctx) => ctx.ids?.root ?? `radio:${ctx.id}`,
+  getLabelId: (ctx: Ctx) => ctx.ids?.label ?? `radio:${ctx.id}:label`,
+  getItemId: (ctx: Ctx, value: string) => ctx.ids?.item?.(value) ?? `radio:${ctx.id}:radio:${value}`,
   getItemHiddenInputId: (ctx: Ctx, value: string) =>
-    ctx.ids?.itemHiddenInput?.(value) ?? `radio-group:${ctx.id}:radio:input:${value}`,
+    ctx.ids?.itemHiddenInput?.(value) ?? `radio:${ctx.id}:radio:input:${value}`,
   getItemControlId: (ctx: Ctx, value: string) =>
-    ctx.ids?.itemControl?.(value) ?? `radio-group:${ctx.id}:radio:control:${value}`,
+    ctx.ids?.itemControl?.(value) ?? `radio:${ctx.id}:radio:control:${value}`,
   getItemLabelId: (ctx: Ctx, value: string) =>
-    ctx.ids?.itemLabel?.(value) ?? `radio-group:${ctx.id}:radio:label:${value}`,
-  getIndicatorId: (ctx: Ctx) => ctx.ids?.indicator ?? `radio-group:${ctx.id}:indicator`,
+    ctx.ids?.itemLabel?.(value) ?? `radio:${ctx.id}:radio:label:${value}`,
+  getIndicatorId: (ctx: Ctx) => ctx.ids?.indicator ?? `radio:${ctx.id}:indicator`,
 
   getRootEl: (ctx: Ctx) => dom.getById(ctx, dom.getRootId(ctx)),
   getItemHiddenInputEl: (ctx: Ctx, value: string) =>

@@ -1,7 +1,7 @@
-import type { TreeCollection, TreeNode } from '@zag-js/collection'
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { TypeaheadState } from '@zag-js/dom-query'
-import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@zag-js/types'
+import type { TreeCollection, TreeNode } from '@destyler/collection'
+import type { TypeaheadState } from '@destyler/dom'
+import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from 'packages/xstate'
 
 export interface FocusChangeDetails {
   focusedValue: string | null
@@ -104,11 +104,11 @@ export interface MachineState {
   value: 'idle'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface NodeProps {
   /**
@@ -230,4 +230,4 @@ export interface MachineApi<T extends PropTypes = PropTypes, V = TreeNode> {
   getBranchIndentGuideProps: (props: NodeProps) => T['element']
 }
 
-export type { TreeNode } from '@zag-js/collection'
+export type { TreeNode } from '@destyler/collection'

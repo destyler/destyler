@@ -1,10 +1,8 @@
 import * as clipboard from '@destyler/clipboard'
 import { clipboardControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
 
 export default function ClipboardDemo() {
   const controls = useControls(clipboardControls)

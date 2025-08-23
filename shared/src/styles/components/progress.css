@@ -1,0 +1,166 @@
+/* Progress Component Styles */
+
+.progress-root {
+  max-width: 28rem;
+  padding: 1.5rem;
+}
+
+.progress-label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.progress-track {
+  width: 100%;
+  height: 1rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-range {
+  height: 100%;
+  background-color: #000000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 9999px;
+}
+
+/* Size variants */
+.progress-track.progress-size-sm {
+  height: 0.5rem;
+}
+
+.progress-track.progress-size-md {
+  height: 1rem;
+}
+
+.progress-track.progress-size-lg {
+  height: 1.25rem;
+}
+
+.progress-track.progress-size-xl {
+  height: 1.5rem;
+}
+
+/* Color variants */
+.progress-range.progress-color-primary {
+  background-color: #3b82f6;
+}
+
+.progress-range.progress-color-success {
+  background-color: #10b981;
+}
+
+.progress-range.progress-color-warning {
+  background-color: #f59e0b;
+}
+
+.progress-range.progress-color-danger {
+  background-color: #ef4444;
+}
+
+.progress-range.progress-color-gray {
+  background-color: #6b7280;
+}
+
+/* State styles */
+.progress-root[data-state="indeterminate"] .progress-range {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #000000,
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: indeterminate 2s ease-in-out infinite;
+}
+
+.progress-root[data-state="complete"] .progress-range {
+  background-color: #10b981;
+}
+
+/* Animation for indeterminate state */
+@keyframes indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dark theme */
+.progress-label[data-theme="dark"] {
+  color: #e5e7eb;
+}
+
+.progress-track[data-theme="dark"] {
+  background-color: #374151;
+}
+
+.progress-range[data-theme="dark"] {
+  background-color: #ffffff;
+}
+
+/* Accessibility */
+.progress-track:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Striped variant */
+.progress-range.progress-striped {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.progress-range.progress-striped.progress-animated {
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1rem 0;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .progress-track {
+    border: 2px solid #000000;
+  }
+  
+  .progress-range {
+    border: 1px solid #ffffff;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .progress-range {
+    transition: none;
+  }
+  
+  .progress-root[data-state="indeterminate"] .progress-range {
+    animation: none;
+  }
+  
+  .progress-range.progress-striped.progress-animated {
+    animation: none;
+  }
+}

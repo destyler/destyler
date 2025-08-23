@@ -1,0 +1,33 @@
+/* Label Component Styles */
+
+.label-root {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.label-root[data-required="true"]::after {
+  content: '*';
+  color: #ef4444;
+  margin-left: 0.25rem;
+}
+
+.label-root[data-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.label-root[data-invalid="true"] {
+  color: #ef4444;
+}
+
+/* Dark theme */
+.label-root[data-theme="dark"] {
+  color: #e5e7eb;
+}
+
+.label-root[data-theme="dark"][data-invalid="true"] {
+  color: #f87171;
+}

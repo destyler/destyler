@@ -1,6 +1,6 @@
-import { createAnatomy } from '@zag-js/anatomy'
+import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('number-input').parts(
+export const anatomy = createAnatomy('numberInput').parts(
   'root',
   'label',
   'input',

@@ -1,32 +1,58 @@
 import { normalizeProps, useMachine } from '@destyler/react'
+import { StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import * as tooltip from '@destyler/tooltip'
-import { useId } from 'react'
+import '@destyler/shared-private/styles/tooltip.css'
 
 export default function TooltipDemo() {
-  const id = useId()
-  const [state, send] = useMachine(tooltip.machine({ id }))
-  const api = tooltip.connect(state, send, normalizeProps)
+  const id1 = 'id1'
+  const id2 = 'id2'
+  const [state1, send1] = useMachine(tooltip.machine({ id: id1 }))
+  const api1 = tooltip.connect(state1, send1, normalizeProps)
+
+  const [state2, send2] = useMachine(tooltip.machine({ id: id2 }))
+  const api2 = tooltip.connect(state2, send2, normalizeProps)
 
   return (
     <>
-      <div className="">
+      <div data-testid="focus">focus</div>
+      <div className="tooltip-root">
         <button
-          {...api.getTriggerProps()}
-          className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200"
+          {...api1.getTriggerProps()}
+          className="tooltip-trigger"
+          data-testid={`${id1}-trigger`}
         >
           Hover me
         </button>
-        <div {...api.getPositionerProps()} className="z-50">
+        <div {...api1.getPositionerProps()} className="tooltip-positioner">
           <div
-            {...api.getContentProps()}
-            className="px-3 py-2 bg-white text-gray-900 rounded-md shadow-lg border border-gray-200 text-sm transition-opacity duration-200"
+            {...api1.getContentProps()}
+            className="tooltip-content"
+            data-testid={`${id1}-tooltip`}
           >
-            Tooltip
+            Tooltip 1
+          </div>
+        </div>
+      </div>
+      <div className="tooltip-root">
+        <button
+          {...api2.getTriggerProps()}
+          className="tooltip-trigger"
+          data-testid={`${id2}-trigger`}
+        >
+          Over me
+        </button>
+        <div {...api2.getPositionerProps()} className="tooltip-positioner">
+          <div
+            {...api2.getContentProps()}
+            className="tooltip-content"
+            data-testid={`${id2}-tooltip`}
+          >
+            Tooltip 2
           </div>
         </div>
       </div>
       <Toolbar>
-        <StateVisualizer state={state} />
+        <StateVisualizer state={state1} />
       </Toolbar>
     </>
   )

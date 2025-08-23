@@ -1,8 +1,7 @@
 {
-  "name": "svelte",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@destyler/example-svelte",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -54,19 +53,18 @@
     "@destyler/tree": "workspace:*"
   },
   "devDependencies": {
+    "@destyler/dom": "workspace:*",
     "@destyler/shared-private": "workspace:*",
-    "@iconify-json/carbon": "^1.2.6",
-    "@internationalized/date": "catalog:",
-    "@sveltejs/vite-plugin-svelte": "^5.0.3",
-    "@tsconfig/svelte": "^5.0.4",
-    "@unocss/reset": "catalog:examples",
-    "@zag-js/dom-query": "catalog:",
-    "@zag-js/stringify-state": "catalog:",
-    "svelte": "catalog:",
-    "svelte-check": "^4.1.4",
-    "svelte-routing": "^2.13.0",
-    "typescript": "catalog:",
-    "unocss": "catalog:examples",
-    "vite": "catalog:"
+    "@destyler/stringify": "workspace:*",
+    "@iconify-json/carbon": "catalog:icon",
+    "@internationalized/date": "catalog:prod",
+    "@sveltejs/vite-plugin-svelte": "catalog:plugin",
+    "@tsconfig/svelte": "catalog:frontend",
+    "match-sorter": "catalog:util",
+    "svelte": "catalog:frontend",
+    "svelte-check": "catalog:frontend",
+    "svelte-routing": "catalog:frontend",
+    "typescript": "catalog:types",
+    "vite": "catalog:build"
   }
 }

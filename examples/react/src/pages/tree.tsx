@@ -1,9 +1,9 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { treeControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as tree from '@destyler/tree'
 import { useId, useMemo } from 'react'
 import { TreeNode } from '../components/TreeNode'
-import { useControls } from '../hooks/use-controls'
 
 interface Node {
   id: string
@@ -56,7 +56,7 @@ export default function TreeDemo() {
         <div {...api.getRootProps()}>
           <h3 {...api.getLabelProps()}>My Documents</h3>
           <div {...api.getTreeProps()}>
-            {api.collection.rootNode.children?.map((node, index) => (
+            {api.collection.rootNode.children?.map((node: any, index: any) => (
               <TreeNode
                 key={node.id}
                 node={node}

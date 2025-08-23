@@ -1,4 +1,5 @@
-import type { EventKeyMap, NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
+import type { DateValue } from '@internationalized/date'
 import type {
   DayTableCellProps,
   DayTableCellState,
@@ -9,7 +10,6 @@ import type {
   TableCellState,
   TableProps,
 } from './types'
-import { DateFormatter, type DateValue, isEqualDay, isToday, isWeekend } from '@internationalized/date'
 import {
   constrainValue,
   getDateRangePreset,
@@ -28,10 +28,11 @@ import {
   isDateInvalid,
   isDateOutsideVisibleRange,
   isDateUnavailable,
-} from '@zag-js/date-utils'
-import { ariaAttr, dataAttr, getEventKey, getNativeEvent, isComposingEvent } from '@zag-js/dom-query'
-import { getPlacementStyles } from '@zag-js/popper'
-import { chunk, isValueWithinRange } from '@zag-js/utils'
+} from '@destyler/date'
+import { ariaAttr, dataAttr, getEventKey, getNativeEvent, isComposingEvent } from '@destyler/dom'
+import { getPlacementStyles } from '@destyler/popper'
+import { chunk, isValueWithinRange } from '@destyler/utils'
+import { DateFormatter, isEqualDay, isToday, isWeekend } from '@internationalized/date'
 import { parts } from './anatomy'
 import { dom } from './dom'
 import {
@@ -311,7 +312,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getContentId(state.context),
         'tabIndex': -1,
         'role': 'application',
-        'aria-roledescription': 'datepicker',
+        'aria-roledescription': 'calendar',
         'aria-label': translations.content,
       })
     },

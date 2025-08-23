@@ -1,6 +1,6 @@
-import type { Style } from '@zag-js/types'
+import type { Style } from '@destyler/types'
 import type { GroupMachineContext, MachineContext, Placement, Service, Type } from './types'
-import { MAX_Z_INDEX } from '@zag-js/dom-query'
+import { MAX_Z_INDEX } from '@destyler/dom'
 
 export function getToastsByPlacement<T>(toasts: Service<T>[], placement: Placement) {
   return toasts.filter(toast => toast.state.context.placement === placement)

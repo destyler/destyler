@@ -1,14 +1,18 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine } from '@zag-js/core'
-import { observeAttributes, observeChildren } from '@zag-js/dom-query'
-import { compact } from '@zag-js/utils'
+import { observeAttributes, observeChildren } from '@destyler/dom'
+import { compact } from '@destyler/utils'
+import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
+
+function hasLoaded(image: HTMLImageElement) {
+  return image.complete && image.naturalWidth !== 0 && image.naturalHeight !== 0
+}
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'image',
+      id: 'avatar',
       initial: 'loading',
       activities: ['trackImageRemoval'],
 
@@ -75,7 +79,7 @@ export function machine(userContext: UserDefinedContext) {
             callback(records) {
               const removedNodes = Array.from(records[0].removedNodes) as HTMLElement[]
               const removed = removedNodes.find(
-                node => node.nodeType === Node.ELEMENT_NODE && node.matches('[data-scope=image][data-part=image]'),
+                node => node.nodeType === Node.ELEMENT_NODE && node.matches('[data-scope=avatar][data-part=image]'),
               )
               if (removed) {
                 send({ type: 'IMG.UNMOUNT' })
@@ -101,8 +105,4 @@ export function machine(userContext: UserDefinedContext) {
       },
     },
   )
-}
-
-function hasLoaded(image: HTMLImageElement) {
-  return image.complete && image.naturalWidth !== 0 && image.naturalHeight !== 0
 }

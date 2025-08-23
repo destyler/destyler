@@ -1,8 +1,7 @@
+import type { Point } from '@destyler/types'
 import type { MachineContext as Ctx } from './types'
-import { getRelativePoint, type Point } from '@zag-js/dom-event'
-import { createScope, queryAll } from '@zag-js/dom-query'
-import { dispatchInputValueEvent } from '@zag-js/form-utils'
-import { getPercentValue } from '@zag-js/numeric-range'
+import { createScope, dispatchInputValueEvent, getRelativePoint, queryAll } from '@destyler/dom'
+import { getPercentValue } from '@destyler/utils'
 import { styleGetterFns } from './style'
 
 export const dom = createScope({

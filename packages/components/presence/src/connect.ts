@@ -1,4 +1,4 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State } from './types'
 
 export function connect<T extends PropTypes>(state: State, send: Send, _normalize: NormalizeProps<T>): MachineApi {

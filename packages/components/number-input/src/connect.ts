@@ -1,8 +1,16 @@
-import type { NormalizeProps, PropTypes } from '@zag-js/types'
+import type { EventKeyMap, NormalizeProps, PropTypes } from '@destyler/types'
 import type { MachineApi, Send, State } from './types'
-import { type EventKeyMap, getEventPoint, getEventStep, isLeftClick, isModifierKey } from '@zag-js/dom-event'
-import { ariaAttr, dataAttr, isComposingEvent } from '@zag-js/dom-query'
-import { roundToDevicePixel } from '@zag-js/number-utils'
+import {
+  ariaAttr,
+  dataAttr,
+  getEventPoint,
+  getEventStep,
+  getWindow,
+  isComposingEvent,
+  isLeftClick,
+  isModifierKey,
+} from '@destyler/dom'
+import { roundToDpr } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -261,9 +269,11 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             return
 
           const point = getEventPoint(event)
+          const win = getWindow(event.currentTarget)
 
-          point.x = point.x - roundToDevicePixel(7.5)
-          point.y = point.y - roundToDevicePixel(7.5)
+          const dpr = win.devicePixelRatio
+          point.x = point.x - roundToDpr(7.5, dpr)
+          point.y = point.y - roundToDpr(7.5, dpr)
 
           send({ type: 'SCRUBBER.PRESS_DOWN', point })
           event.preventDefault()

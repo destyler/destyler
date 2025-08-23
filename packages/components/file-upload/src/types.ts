@@ -1,6 +1,6 @@
-import type { Machine, StateMachine } from '@zag-js/core'
-import type { FileError, FileMimeType } from '@zag-js/file-utils'
-import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from '@zag-js/types'
+import type { FileError, FileMimeType } from '@destyler/file'
+import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from '@destyler/types'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface FileRejection {
   file: File
@@ -161,11 +161,11 @@ export interface MachineState {
   value: 'idle' | 'focused' | 'open' | 'dragging'
 }
 
-export type State = StateMachine.State<MachineContext, MachineState>
+export type State = XState<MachineContext, MachineState>
 
-export type Send = StateMachine.Send<StateMachine.AnyEventObject>
+export type Send = XSend<AnyEventObject>
 
-export type Service = Machine<MachineContext, MachineState, StateMachine.AnyEventObject>
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface ItemProps {
   file: File
@@ -173,6 +173,13 @@ export interface ItemProps {
 
 export interface ItemPreviewImageProps extends ItemProps {
   url: string
+}
+
+export interface DropzoneProps {
+  /**
+   * Whether to disable the click event on the dropzone
+   */
+  disableClick?: boolean
 }
 
 export interface MachineApi<T extends PropTypes> {
@@ -184,6 +191,10 @@ export interface MachineApi<T extends PropTypes> {
    * Whether the user is focused on the dropzone element
    */
   focused: boolean
+  /**
+   * Whether the file input is disabled
+   */
+  disabled: boolean
   /**
    * Function to open the file dialog
    */
@@ -229,7 +240,7 @@ export interface MachineApi<T extends PropTypes> {
 
   getLabelProps: () => T['label']
   getRootProps: () => T['element']
-  getDropzoneProps: () => T['element']
+  getDropzoneProps: (props?: DropzoneProps) => T['element']
   getTriggerProps: () => T['button']
   getHiddenInputProps: () => T['input']
   getItemGroupProps: () => T['element']

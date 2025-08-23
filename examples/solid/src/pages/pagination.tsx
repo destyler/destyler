@@ -1,30 +1,29 @@
+/** @jsxImportSource solid-js */
 import * as pagination from '@destyler/pagination'
 import { paginationControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import { StateVisualizer } from '../components/tools/state-visualizer'
-import { Toolbar } from '../components/tools/toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/pagination.css'
 
 export default function Pagination() {
   const controls = useControls(paginationControls)
-
   const [state, send] = useMachine(pagination.machine({ id: createUniqueId(), count: 1000 }), {
     context: controls.context,
   })
-
   const api = createMemo(() => pagination.connect(state, send, normalizeProps))
 
   return (
     <>
-      <nav {...api().getRootProps()} class="flex justify-center py-8">
-        <ul class="flex items-center gap-x-3">
+      <nav {...api().getRootProps()} class="pagination-root">
+        <ul class="pagination-list">
           <li>
             <a
               {...api().getPrevTriggerProps()}
-              class="px-5 py-2.5 rounded-lg border border-gray-800 hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-x-1 text-sm font-medium cursor-pointer"
+              class="pagination-btn"
+              data-testid="prev:trigger"
             >
-              <div class="w-4 h-4 i-carbon:chevron-left" />
+              <div class="pagination-icon i-carbon:chevron-left" />
               Previous
               {' '}
               <span class="sr-only">Page</span>
@@ -34,17 +33,18 @@ export default function Pagination() {
             <li>
               {page.type === 'page'
                 ? (
-                    <a
+                    <button
                       {...api().getItemProps(page)}
-                      class="min-w-[40px] h-10 flex items-center justify-center px-3 rounded-lg border border-gray-800 hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md data-[selected]:bg-gray-900 data-[selected]:text-white data-[selected]:border-gray-900 data-[selected]:shadow-lg text-sm font-medium cursor-pointer"
+                      class="pagination-page"
+                      data-testid={`pagination-item-${page.value}`}
                     >
                       {page.value}
-                    </a>
+                    </button>
                   )
                 : (
                     <span
                       {...api().getEllipsisProps({ index: i })}
-                      class="px-3 py-2 text-gray-500 font-medium"
+                      class="pagination-ellipsis"
                     >
                       &#8230;
                     </span>
@@ -54,12 +54,13 @@ export default function Pagination() {
           <li>
             <a
               {...api().getNextTriggerProps()}
-              class="px-5 py-2.5 rounded-lg border border-gray-800 hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-x-1 text-sm font-medium cursor-pointer"
+              class="pagination-btn"
+              data-testid="next:trigger"
             >
               Next
               {' '}
               <span class="sr-only">Page</span>
-              <div class="w-4 h-4 i-carbon:chevron-right" />
+              <div class="pagination-icon i-carbon:chevron-right" />
             </a>
           </li>
         </ul>

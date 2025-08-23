@@ -1,5 +1,5 @@
 import type { MachineContext as Ctx } from './types'
-import { createScope } from '@zag-js/dom-query'
+import { createScope } from '@destyler/dom'
 
 export const dom = createScope({
   getTriggerId: (ctx: Ctx) => ctx.ids?.trigger ?? `hover-card:${ctx.id}:trigger`,

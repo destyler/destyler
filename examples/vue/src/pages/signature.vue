@@ -1,19 +1,19 @@
 <script setup lang="ts">
-  import * as signaturePad from "@destyler/signature"
-  import { useMachine, normalizeProps } from "@destyler/vue"
-  import { computed,useId } from "vue"
-  import { signatureControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { signatureControls } from '@destyler/shared-private'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import * as signaturePad from '@destyler/signature'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 
 const controls = useControls(signatureControls)
 
-  const [state, send] = useMachine(signaturePad.machine({ id: useId(), }),{
-    context: controls.context,
-  })
+const [state, send] = useMachine(signaturePad.machine({ id: useId() }), {
+  context: controls.context,
+})
 
-  const api = computed(() =>
-    signaturePad.connect(state.value, send, normalizeProps),
-  )
+const api = computed(() =>
+  signaturePad.connect(state.value, send, normalizeProps),
+)
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const controls = useControls(signatureControls)
         v-bind="api.getClearTriggerProps()"
         class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
       >
-        <span class="text-gray-600 i-carbon:close-large"></span>
+        <span class="text-gray-600 i-carbon:close-large" />
       </button>
 
       <div

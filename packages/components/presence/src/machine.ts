@@ -1,5 +1,5 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { createMachine, ref } from '@zag-js/core'
+import { createMachine, ref } from '@destyler/xstate'
 
 function getAnimationName(styles?: CSSStyleDeclaration | null) {
   return styles?.animationName || 'none'

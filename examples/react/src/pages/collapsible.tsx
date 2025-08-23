@@ -1,10 +1,9 @@
 import * as collapsible from '@destyler/collapsible'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { collapsibleControls } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import { StateVisualizer } from '../components/tool/StateVisualizer'
-import { Toolbar } from '../components/tool/Toolbar'
-import { useControls } from '../hooks/use-controls'
+import '@destyler/shared-private/styles/collapsible.css'
 
 export default function CollapsibleDemo() {
   const controls = useControls(collapsibleControls)
@@ -18,35 +17,46 @@ export default function CollapsibleDemo() {
   return (
     <>
       <div
-        className="max-w-md my-8 rounded-lg overflow-hidden shadow-md"
+        className="collapsible-root"
         {...api.getRootProps()}
       >
         <button
-          className="group w-full px-4 py-3 flex justify-between items-center bg-gray-100 hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
+          className="group collapsible-trigger"
           {...api.getTriggerProps()}
         >
           <span>Toggle Content</span>
           <div
             className={`
-              text-sm transition-transform duration-300 ease-in-out
-              group-data-[state=open]:rotate-180 i-carbon:chevron-down
+              collapsible-trigger-icon
             `}
-          />
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="M16 22L6 12l1.4-1.4l8.6 8.6l8.6-8.6L26 12z" /></svg>
+          </div>
         </button>
 
         <div
-          className="bg-white overflow-hidden content"
+          className="content"
           {...api.getContentProps()}
         >
           <div className="p-4 leading-relaxed">
-            <p className="text-gray-700 my-2">
+            <p className="desc">
               This is a collapsible demo content. You can place any content here that you want to show or hide.
             </p>
-            <p className="text-gray-700 my-2">
+            <p className="desc">
               Click the button above to toggle the content state.
             </p>
           </div>
         </div>
+      </div>
+
+      <div>
+        <div>Toggle Controls</div>
+        <button className="button" onClick={() => api.setOpen(true)}>
+          Open
+        </button>
+        <button className="button" onClick={() => api.setOpen(false)}>
+          Close
+        </button>
       </div>
 
       <Toolbar controls={controls.ui()}>

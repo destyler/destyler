@@ -1,11 +1,11 @@
-import type { Machine, StateMachine as S } from '@zag-js/core'
+import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyler/xstate'
 import { onDestroy } from 'svelte'
 import { reflect } from '../utils/reflect'
 
 export function useSnapshot<
   TContext extends Record<string, any>,
-  TState extends S.StateSchema,
-  TEvent extends S.EventObject = S.AnyEventObject,
+  TState extends StateSchema,
+  TEvent extends EventObject = AnyEventObject,
 >(service: Machine<TContext, TState, TEvent>) {
   let state = $state(service.state)
 

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import * as floatingPanel from "@destyler/floating-panel"
-import { normalizeProps, useMachine } from "@destyler/vue"
-import { computed, useId } from "vue"
+import * as floatingPanel from '@destyler/floating-panel'
 import { floatingPanelControls } from '@destyler/shared-private'
-import { useControls } from '../composables/useControls'
+import { Controls, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
 
 const controls = useControls(floatingPanelControls)
 
-const [state, send] = useMachine(floatingPanel.machine({ id: useId() }),{
+const [state, send] = useMachine(floatingPanel.machine({ id: useId() }), {
   context: controls.context,
 })
 
@@ -24,7 +24,9 @@ const api = computed(() => floatingPanel.connect(state.value, send, normalizePro
         <div v-bind="api.getContentProps()" class="bg-white rounded-lg shadow-lg border border-gray-200 min-w-[320px] min-h-150px">
           <div v-bind="api.getDragTriggerProps()" class="cursor-move">
             <div v-bind="api.getHeaderProps()" class="flex items-center justify-between p-4 border-b border-gray-200">
-              <p v-bind="api.getTitleProps()" class="font-semibold text-gray-700">Floating Panel</p>
+              <p v-bind="api.getTitleProps()" class="font-semibold text-gray-700">
+                Floating Panel
+              </p>
               <div data-scope="floating-panel" data-part="trigger-group" class="flex space-x-2">
                 <button v-bind="api.getMinimizeTriggerProps()" class="p-1.5 hover:bg-gray-100 rounded-md text-gray-500">
                   <div class="w-4 h-4 i-carbon:minimize" />
@@ -42,7 +44,9 @@ const api = computed(() => floatingPanel.connect(state.value, send, normalizePro
             </div>
           </div>
           <div v-bind="api.getBodyProps()" class="p-4">
-            <p class="text-gray-600">Some content</p>
+            <p class="text-gray-600">
+              Some content
+            </p>
           </div>
 
           <div v-bind="api.getResizeTriggerProps({ axis: 'n' })" class="absolute top-0 left-0 right-0 h-1 cursor-ns-resize" />

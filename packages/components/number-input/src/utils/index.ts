@@ -1,6 +1,6 @@
 import type { MachineContext } from '../types'
+import { ref } from '@destyler/xstate'
 import { NumberParser } from '@internationalized/number'
-import { ref } from '@zag-js/core'
 
 export function createFormatter(locale: string, options: Intl.NumberFormatOptions = {}) {
   return ref(new Intl.NumberFormat(locale, options))
