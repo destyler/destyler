@@ -1,7 +1,7 @@
 {
   "name": "@destyler/aria-hidden",
   "type": "module",
-  "version": "0.0.7-beta.9",
+  "version": "0.1.0",
   "description": "Hide targets from screen readers",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

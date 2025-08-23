@@ -1,7 +1,7 @@
 {
   "name": "@destyler/splitter",
   "type": "module",
-  "version": "0.0.7-beta.9",
+  "version": "0.1.0",
   "description": "A component that divides your layout into resizable sections.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
