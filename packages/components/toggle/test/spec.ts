@@ -1,44 +1,61 @@
-import { testid, TestSuite } from '@destyler/shared-private/test'
+import { part, testid, TestSuite } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
+type Item = 'bold' | 'italic' | 'underline'
+
 export class ComponentTestSuite extends TestSuite {
-  positioner = testid('positioner')
-
-  async ShouldRenderCorrectly() {
-    const element = page.locator('[data-part="root"]')
-    await expect.element(element).toBeVisible()
+  getItem(item: Item) {
+    return page.locatoring(part('item')).nth(['bold', 'italic', 'underline'].indexOf(item))
   }
 
-  async ShouldHaveCorrectAttributes() {
-    const element = page.locator('[data-part="root"]')
-    await expect.element(element).toHaveAttribute('data-part', 'root')
+  async clickItem(item: Item) {
+    await this.getItem(item).click()
   }
 
-  async ShouldBeFocusableWhenRequired() {
-    const focusableElement = page.locator('[tabindex="0"]')
-    if (focusableElement.all().length > 0) {
-      await userEvent.tab()
-      await expect.element(focusableElement).toHaveFocus()
-    }
+  async seeSelected(item: Item) {
+    await expect.element(this.getItem(item)).toHaveAttribute('data-state', 'on')
   }
 
-  async ShouldHandleKeyboardNavigation() {
-    const focusableElement = page.locator('[tabindex="0"]')
-    if (focusableElement.all().length > 0) {
-      await userEvent.click(focusableElement)
-      await expect.element(focusableElement).toHaveFocus()
-
-      await this.pressKey('Enter')
-      await this.pressKey('Space')
-      await this.pressKey('Escape')
-    }
+  async seeNotSelected(item: Item) {
+    await expect.element(this.getItem(item)).toHaveAttribute('data-state', 'off')
   }
 
-  async ShouldSupportDisabledState() {
-    const element = page.locator('[data-disabled="true"]')
-    if (element.all().length > 0) {
-      await expect.element(element).toHaveAttribute('data-disabled', 'true')
-    }
+  async seeItemIsSelected(items: Item[]) {
+    await Promise.all(items.map(item => this.seeSelected(item)))
+  }
+
+  async seeItemIsNotSelected(items: Item[]) {
+    await Promise.all(items.map(item => this.seeNotSelected(item)))
+  }
+
+  async openMultiple() {
+    const el = page.getByTestId('multiple')
+    await userEvent.click(el)
+  }
+
+  async SingleShouldSelectOnClick() {
+    await this.clickItem('bold')
+    await this.seeItemIsSelected(['bold'])
+
+    await this.clickItem('italic')
+    await this.seeItemIsSelected(['italic'])
+    await this.seeItemIsNotSelected(['bold'])
+  }
+
+  async SingleShouldSelectAndDeselect() {
+    await this.clickItem('bold')
+    await this.seeItemIsSelected(['bold'])
+
+    await this.clickItem('bold')
+    await this.seeItemIsNotSelected(['bold'])
+  }
+
+  async MultipleShouldSelectMultiple() {
+    await this.openMultiple()
+    await this.clickItem('bold')
+    await this.clickItem('italic')
+
+    await this.seeItemIsSelected(['bold', 'italic'])
   }
 }

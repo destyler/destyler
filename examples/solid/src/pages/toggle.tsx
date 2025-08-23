@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import { toggleControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
@@ -18,14 +19,12 @@ export default function TogglePage() {
       <div class="flex">
         <div
           {...api().getRootProps()}
-          class="bg-white p-2 rounded-lg shadow-md space-x-2"
+          class="toggle-root"
         >
           {['bold', 'italic', 'underline'].map(item => (
             <button
               {...api().getItemProps({ value: item })}
-              class={`w-10 h-10 rounded-md border border-gray-200 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium ${
-                api().value.includes(item) ? 'bg-gray-800 text-white hover:bg-gray-700' : ''
-              }`}
+              class="toggle-control"
             >
               {item[0].toUpperCase()}
             </button>

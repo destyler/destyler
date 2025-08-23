@@ -1,33 +1,26 @@
+/** @jsxImportSource solid-js */
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-solid'
-import utoggle from '~/solid/toggle'
-import { utoggleTestSuite } from './spec'
+import Toggle from '~/solid/toggle'
+import { ComponentTestSuite } from './spec'
 
-let Tests: utoggleTestSuite
+let Tests: ComponentTestSuite
 
 describe('toggle solid browser tests', () => {
   beforeEach(async () => {
-    render(utoggle)
-    Tests = new utoggleTestSuite()
+    render(()=><Toggle />)
+    Tests = new ComponentTestSuite()
   })
 
-  it('should render correctly', async () => {
-    await Tests.ShouldRenderCorrectly?.()
+  it('[single] should select on click', async () => {
+    await Tests.SingleShouldSelectOnClick()
   })
 
-  it('should have correct attributes', async () => {
-    await Tests.ShouldHaveCorrectAttributes?.()
+  it('[single] should select and deselect', async () => {
+    await Tests.SingleShouldSelectAndDeselect()
   })
 
-  it('should be focusable when required', async () => {
-    await Tests.ShouldBeFocusableWhenRequired?.()
-  })
-
-  it('should handle keyboard navigation', async () => {
-    await Tests.ShouldHandleKeyboardNavigation?.()
-  })
-
-  it('should support disabled state', async () => {
-    await Tests.ShouldSupportDisabledState?.()
+  it('[multiple] should select multiple', async () => {
+    await Tests.MultipleShouldSelectMultiple()
   })
 })

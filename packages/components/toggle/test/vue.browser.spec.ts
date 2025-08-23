@@ -1,33 +1,25 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
-import utoggle from '~/vue/toggle.vue'
+import Toggle from '~/vue/toggle.vue'
 import { ComponentTestSuite } from './spec'
 
 let Tests: ComponentTestSuite
 
 describe('toggle vue browser tests', () => {
   beforeEach(async () => {
-    render(utoggle)
+    render(Toggle)
     Tests = new ComponentTestSuite()
   })
 
-  it('should render correctly', async () => {
-    await Tests.ShouldRenderCorrectly?.()
+  it('[single] should select on click', async () => {
+    await Tests.SingleShouldSelectOnClick()
   })
 
-  it('should have correct attributes', async () => {
-    await Tests.ShouldHaveCorrectAttributes?.()
+  it('[single] should select and deselect', async () => {
+    await Tests.SingleShouldSelectAndDeselect()
   })
 
-  it('should be focusable when required', async () => {
-    await Tests.ShouldBeFocusableWhenRequired?.()
-  })
-
-  it('should handle keyboard navigation', async () => {
-    await Tests.ShouldHandleKeyboardNavigation?.()
-  })
-
-  it('should support disabled state', async () => {
-    await Tests.ShouldSupportDisabledState?.()
+  it('[multiple] should select multiple', async () => {
+    await Tests.MultipleShouldSelectMultiple()
   })
 })

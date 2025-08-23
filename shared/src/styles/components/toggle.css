@@ -1,5 +1,9 @@
 /* Toggle Component Styles */
 
+.flex {
+  display: flex;
+}
+
 .toggle-root {
   display: inline-flex;
   align-items: center;
