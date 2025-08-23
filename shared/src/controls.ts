@@ -237,6 +237,13 @@ export const toggleControls = defineControls({
   rovingFocus: { type: 'boolean', defaultValue: true },
 })
 
+export const tourControls = defineControls({
+  keyboardNavigation: { type: "boolean", defaultValue: true },
+  closeOnEsc: { type: "boolean", defaultValue: true },
+  closeOnInteractOutside: { type: "boolean", defaultValue: true },
+  preventInteraction: { type: "boolean", defaultValue: true },
+})
+
 export const treeControls = defineControls({
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
   selectionMode: { type: 'select', options: ['single', 'multiple'] as const, defaultValue: 'single' },
