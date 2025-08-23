@@ -1,7 +1,7 @@
 {
   "name": "@destyler/hover-card",
   "type": "module",
-  "version": "0.0.7-beta.8",
+  "version": "0.0.7-beta.9",
   "description": "for sighted users to preview content available behind a link.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

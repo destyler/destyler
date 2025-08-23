@@ -1,7 +1,7 @@
 {
   "name": "@destyler/remove-scroll",
   "type": "module",
-  "version": "0.0.7-beta.8",
+  "version": "0.0.7-beta.9",
   "description": "remove scroll on body of UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
