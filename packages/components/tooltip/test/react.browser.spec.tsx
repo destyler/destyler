@@ -5,7 +5,7 @@ import { ComponentTestSuite } from './spec'
 
 let Tests: ComponentTestSuite
 
-describe('toggle react browser tests', () => {
+describe('react browser tests', () => {
   beforeEach(async () => {
     render(<Toggle />)
     Tests = new ComponentTestSuite()

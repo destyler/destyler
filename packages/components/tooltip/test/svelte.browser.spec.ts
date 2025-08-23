@@ -5,7 +5,7 @@ import { ComponentTestSuite } from './spec'
 
 let Tests: ComponentTestSuite
 
-describe('tooltip svelte browser tests', () => {
+describe('svelte browser tests', () => {
   beforeEach(async () => {
     render(Tooltip)
     Tests = new ComponentTestSuite()
