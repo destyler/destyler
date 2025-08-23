@@ -1,5 +1,4 @@
-import apiJson from '../data/api.json'
-import dataAttrJson from '../data/data-attr.json'
+import { apiJson, dataAttrJson } from './src/data'
 
 export interface DataAttrEntry {
   [part: string]: Record<string, string>

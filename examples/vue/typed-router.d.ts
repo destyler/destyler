@@ -60,4 +60,192 @@ declare module 'vue-router/auto-routes' {
     '/tour': RouteRecordInfo<'/tour', '/tour', Record<never, never>, Record<never, never>>,
     '/tree': RouteRecordInfo<'/tree', '/tree', Record<never, never>, Record<never, never>>,
   }
+
+  /**
+   * Route file to route info map by unplugin-vue-router.
+   * Used by the volar plugin to automatically type useRoute()
+   *
+   * Each key is a file path relative to the project root with 2 properties:
+   * - routes: union of route names of the possible routes when in this page (passed to useRoute<...>())
+   * - views: names of nested views (can be passed to <RouterView name="...">)
+   *
+   * @internal
+   */
+  export interface _RouteFileInfoMap {
+    'src/pages/index.vue': {
+      routes: '/'
+      views: never
+    }
+    'src/pages/aspect-ratio.vue': {
+      routes: '/aspect-ratio'
+      views: never
+    }
+    'src/pages/breadcrumbs.vue': {
+      routes: '/breadcrumbs'
+      views: never
+    }
+    'src/pages/calendar.vue': {
+      routes: '/calendar'
+      views: never
+    }
+    'src/pages/carousel.vue': {
+      routes: '/carousel'
+      views: never
+    }
+    'src/pages/checkbox.vue': {
+      routes: '/checkbox'
+      views: never
+    }
+    'src/pages/clipboard.vue': {
+      routes: '/clipboard'
+      views: never
+    }
+    'src/pages/collapse.vue': {
+      routes: '/collapse'
+      views: never
+    }
+    'src/pages/collapsible.vue': {
+      routes: '/collapsible'
+      views: never
+    }
+    'src/pages/color-picker.vue': {
+      routes: '/color-picker'
+      views: never
+    }
+    'src/pages/combobox.vue': {
+      routes: '/combobox'
+      views: never
+    }
+    'src/pages/dialog.vue': {
+      routes: '/dialog'
+      views: never
+    }
+    'src/pages/divider.vue': {
+      routes: '/divider'
+      views: never
+    }
+    'src/pages/dynamic.vue': {
+      routes: '/dynamic'
+      views: never
+    }
+    'src/pages/edit.vue': {
+      routes: '/edit'
+      views: never
+    }
+    'src/pages/file-upload.vue': {
+      routes: '/file-upload'
+      views: never
+    }
+    'src/pages/floating-panel.vue': {
+      routes: '/floating-panel'
+      views: never
+    }
+    'src/pages/hover-card.vue': {
+      routes: '/hover-card'
+      views: never
+    }
+    'src/pages/image.vue': {
+      routes: '/image'
+      views: never
+    }
+    'src/pages/label.vue': {
+      routes: '/label'
+      views: never
+    }
+    'src/pages/menu.vue': {
+      routes: '/menu'
+      views: never
+    }
+    'src/pages/number-input.vue': {
+      routes: '/number-input'
+      views: never
+    }
+    'src/pages/otp-input.vue': {
+      routes: '/otp-input'
+      views: never
+    }
+    'src/pages/pagination.vue': {
+      routes: '/pagination'
+      views: never
+    }
+    'src/pages/popover.vue': {
+      routes: '/popover'
+      views: never
+    }
+    'src/pages/presence.vue': {
+      routes: '/presence'
+      views: never
+    }
+    'src/pages/progress.vue': {
+      routes: '/progress'
+      views: never
+    }
+    'src/pages/qr-code.vue': {
+      routes: '/qr-code'
+      views: never
+    }
+    'src/pages/radio.vue': {
+      routes: '/radio'
+      views: never
+    }
+    'src/pages/select.vue': {
+      routes: '/select'
+      views: never
+    }
+    'src/pages/signature.vue': {
+      routes: '/signature'
+      views: never
+    }
+    'src/pages/slider.vue': {
+      routes: '/slider'
+      views: never
+    }
+    'src/pages/splitter.vue': {
+      routes: '/splitter'
+      views: never
+    }
+    'src/pages/step.vue': {
+      routes: '/step'
+      views: never
+    }
+    'src/pages/switch.vue': {
+      routes: '/switch'
+      views: never
+    }
+    'src/pages/tabs.vue': {
+      routes: '/tabs'
+      views: never
+    }
+    'src/pages/timer.vue': {
+      routes: '/timer'
+      views: never
+    }
+    'src/pages/toggle.vue': {
+      routes: '/toggle'
+      views: never
+    }
+    'src/pages/tooltip.vue': {
+      routes: '/tooltip'
+      views: never
+    }
+    'src/pages/tour.vue': {
+      routes: '/tour'
+      views: never
+    }
+    'src/pages/tree.vue': {
+      routes: '/tree'
+      views: never
+    }
+  }
+
+  /**
+   * Get a union of possible route names in a certain route component file.
+   * Used by the volar plugin to automatically type useRoute()
+   *
+   * @internal
+   */
+  export type _RouteNamesForFilePath<FilePath extends string> =
+    _RouteFileInfoMap extends Record<FilePath, infer Info>
+      ? Info['routes']
+      : keyof RouteNamedMap
 }

@@ -30,6 +30,31 @@
 			"label": "Run TypeDocs pnpm script",
 			"type": "shell",
 			"command": "pnpm docs:type"
+		},
+		{
+			"label": "Build docs package",
+			"type": "shell",
+			"command": "cd packages/docs && pnpm run build"
+		},
+		{
+			"label": "Build docs package with DTS fix",
+			"type": "shell",
+			"command": "cd packages/docs && pnpm run build"
+		},
+		{
+			"label": "Build docs package with resolve fix",
+			"type": "shell",
+			"command": "cd packages/docs && pnpm run build"
+		},
+		{
+			"label": "Build docs package with custom plugin",
+			"type": "shell",
+			"command": "cd packages/docs && pnpm run build"
+		},
+		{
+			"label": "Build docs package with TypeScript data",
+			"type": "shell",
+			"command": "cd packages/docs && pnpm run build"
 		}
 	]
 }
