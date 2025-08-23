@@ -1,7 +1,7 @@
 {
   "name": "@destyler/toggle",
   "type": "module",
-  "version": "0.0.7-beta.7",
+  "version": "0.0.7-beta.8",
   "description": "A two-state button that can be either on or off.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

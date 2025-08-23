@@ -1,7 +1,7 @@
 {
   "name": "@destyler/collection",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.7-beta.8",
   "description": "Utilities to manage a collection of items.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

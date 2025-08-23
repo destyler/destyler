@@ -1,7 +1,7 @@
 {
   "name": "@destyler/dismissable",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.7-beta.8",
   "description": "Dismissable layer utilities for the dom",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

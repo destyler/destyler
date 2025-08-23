@@ -1,7 +1,7 @@
 {
   "name": "@destyler/color-picker",
   "type": "module",
-  "version": "0.0.7-beta.7",
+  "version": "0.0.7-beta.8",
   "description": "a component that allows users to select a color from a color picker.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

@@ -1,7 +1,7 @@
 {
   "name": "@destyler/auto-resize",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.7-beta.8",
   "description": "Autoresize utilities for the web",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
