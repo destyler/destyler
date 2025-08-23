@@ -8,7 +8,7 @@ let Tests: ComponentTestSuite
 
 describe('toggle solid browser tests', () => {
   beforeEach(async () => {
-    render(()=><Toggle />)
+    render(() => <Toggle />)
     Tests = new ComponentTestSuite()
   })
 

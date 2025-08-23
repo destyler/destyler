@@ -1,9 +1,9 @@
-import { useId, useState } from "react"
-import { createPortal } from "react-dom"
+import { useId, useState } from 'react'
+import { createPortal } from 'react-dom'
 
-type IFrameProps = React.ComponentProps<"iframe">
+type IFrameProps = React.ComponentProps<'iframe'>
 
-export const IFrame = function IFrame(props: IFrameProps) {
+export function IFrame(props: IFrameProps) {
   const { children, ...rest } = props
 
   const [frameRef, setFrameRef] = useState<HTMLIFrameElement | null>(null)

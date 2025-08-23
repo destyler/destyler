@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { type IframeHTMLAttributes, type VNode, ref, watch } from "vue"
+import { ref, watch } from 'vue'
 
 const frameRef = ref<HTMLIFrameElement | null>(null)
 const mountNode = ref<HTMLElement | null>(null)
 
 function getMountNode(frame: HTMLIFrameElement) {
   const doc = frame.contentWindow?.document
-  if (!doc) return null
-  return doc.body.querySelector<HTMLElement>(".frame-root") || doc.body
+  if (!doc)
+    return null
+  return doc.body.querySelector<HTMLElement>('.frame-root') || doc.body
 }
 
 watch(frameRef, (node) => {
-  if (!node) return
+  if (!node)
+    return
 
   const doc = node.contentWindow?.document
-  if (!doc) return
+  if (!doc)
+    return
 
   doc.open()
   doc.write(
@@ -28,16 +31,19 @@ watch(frameRef, (node) => {
 watch(
   () => [frameRef.value, mountNode.value] as const,
   ([frameNode, mountNode], _oldValue, onCleanup) => {
-    if (!frameNode || !frameNode.contentDocument) return
+    if (!frameNode || !frameNode.contentDocument)
+      return
 
     const win = frameNode.contentWindow as Window & typeof globalThis
-    if (!win) return
+    if (!win)
+      return
 
     const exec = () => {
       const rootEl = frameNode.contentDocument?.documentElement
-      if (!rootEl || !mountNode) return
-      frameNode.style.setProperty("--width", `${mountNode.scrollWidth}px`)
-      frameNode.style.setProperty("--height", `${mountNode.scrollHeight}px`)
+      if (!rootEl || !mountNode)
+        return
+      frameNode.style.setProperty('--width', `${mountNode.scrollWidth}px`)
+      frameNode.style.setProperty('--height', `${mountNode.scrollHeight}px`)
     }
 
     const resizeObserver = new win.ResizeObserver(exec)
@@ -52,14 +58,12 @@ watch(
     })
   },
 )
-
-const env = () => frameRef.value?.contentDocument ?? document
 </script>
 
 <template>
   <iframe ref="frameRef" v-bind="$attrs">
     <Teleport v-if="mountNode" :to="mountNode">
-      <slot />
+    <slot />
     </Teleport>
   </iframe>
 </template>

@@ -1,9 +1,9 @@
+import { tourControls, tourData } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 /** @jsxImportSource solid-js */
 import { normalizeProps, useMachine } from '@destyler/solid'
-import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import * as tour from '@destyler/tour'
-import { tourControls, tourData } from '@destyler/shared-private'
-import { For, Show, createMemo, createUniqueId } from "solid-js"
+import { createMemo, createUniqueId, For, Show } from 'solid-js'
 import { Portal } from 'solid-js/web'
 import { IFrame } from '../components/IFrame'
 import '@destyler/shared-private/styles/tour.css'
@@ -64,7 +64,7 @@ export default function Page() {
 
                 <div class="tour button__group">
                   <For each={api().step?.actions}>
-                    {(action) => <button {...api().getActionTriggerProps({ action })}>{action.label}</button>}
+                    {action => <button {...api().getActionTriggerProps({ action })}>{action.label}</button>}
                   </For>
                 </div>
               </div>
@@ -74,7 +74,7 @@ export default function Page() {
       </main>
 
       <Toolbar controls={controls.ui}>
-        <StateVisualizer state={state} omit={["steps"]} />
+        <StateVisualizer state={state} omit={['steps']} />
       </Toolbar>
     </>
   )

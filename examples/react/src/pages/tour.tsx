@@ -1,8 +1,8 @@
-import { normalizeProps, useMachine, Portal } from '@destyler/react'
+import { normalizeProps, Portal, useMachine } from '@destyler/react'
+import { tourControls, tourData } from '@destyler/shared-private'
+import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import * as tour from '@destyler/tour'
 import { useId } from 'react'
-import { tourControls, tourData } from '@destyler/shared-private'
-import {  StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { IFrame } from '../components/IFrame'
 import '@destyler/shared-private/styles/tour.css'
 
@@ -63,7 +63,7 @@ export default function Page() {
 
                 {api.step.actions && (
                   <div className="tour button__group">
-                    {api.step.actions.map((action) => (
+                    {api.step.actions.map(action => (
                       <button key={action.label} {...api.getActionTriggerProps({ action })}>
                         {action.label}
                       </button>
@@ -81,7 +81,7 @@ export default function Page() {
       </main>
 
       <Toolbar controls={controls.ui()}>
-        <StateVisualizer state={state} omit={["steps"]} />
+        <StateVisualizer state={state} omit={['steps']} />
       </Toolbar>
     </>
   )

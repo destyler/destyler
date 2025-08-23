@@ -238,10 +238,10 @@ export const toggleControls = defineControls({
 })
 
 export const tourControls = defineControls({
-  keyboardNavigation: { type: "boolean", defaultValue: true },
-  closeOnEsc: { type: "boolean", defaultValue: true },
-  closeOnInteractOutside: { type: "boolean", defaultValue: true },
-  preventInteraction: { type: "boolean", defaultValue: true },
+  keyboardNavigation: { type: 'boolean', defaultValue: true },
+  closeOnEsc: { type: 'boolean', defaultValue: true },
+  closeOnInteractOutside: { type: 'boolean', defaultValue: true },
+  preventInteraction: { type: 'boolean', defaultValue: true },
 })
 
 export const treeControls = defineControls({

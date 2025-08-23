@@ -11,11 +11,11 @@ describe('react browser tests', () => {
     Tests = new ComponentTestSuite()
   })
 
-  it("should open tour on click start", async () => {
+  it('should open tour on click start', async () => {
     await Tests.ShouldOpenTourOnClickStart()
   })
 
-  it("should close on escape", async () => {
+  it('should close on escape', async () => {
     await Tests.ShouldCloseOnEscape()
   })
 })

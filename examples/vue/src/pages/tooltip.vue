@@ -16,7 +16,9 @@ const api2 = computed(() => tooltip.connect(state2.value, send2, normalizeProps)
 </script>
 
 <template>
-  <div data-testid="focus">focus</div>
+  <div data-testid="focus">
+    focus
+  </div>
   <div class="tooltip-root">
     <button
       v-bind="api1.getTriggerProps()"

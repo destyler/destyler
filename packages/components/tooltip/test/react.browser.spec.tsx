@@ -11,23 +11,23 @@ describe('toggle react browser tests', () => {
     Tests = new ComponentTestSuite()
   })
 
-  it("should open tooltip on hover interaction", async () => {
+  it('should open tooltip on hover interaction', async () => {
     await Tests.ShouldOpenTooltipOnHoverInteraction()
   })
 
-  it("should show only one tooltip at a time", async () => {
+  it('should show only one tooltip at a time', async () => {
     await Tests.ShouldShowOnlyOneTooltipAtATime()
   })
 
-  it("should work with focus/blur", async () => {
+  it('should work with focus/blur', async () => {
     await Tests.ShouldWorkWithFocusBlur()
   })
 
-  it("should work with focus/blur for multiple tooltips", async () => {
+  it('should work with focus/blur for multiple tooltips', async () => {
     await Tests.ShouldWorkWithFocusBlurForMultipleTooltips()
   })
 
-  it("closes on esc press", async () => {
+  it('closes on esc press', async () => {
     await Tests.ClosesOnEscPress()
   })
 })
