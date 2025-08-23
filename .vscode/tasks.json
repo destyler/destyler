@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run TypeDocs Script",
+			"type": "shell",
+			"command": "tsx ./scripts/typedocs.ts"
+		},
+		{
+			"label": "Run TypeDocs Script",
+			"type": "shell",
+			"command": "pnpm run docs:type"
+		},
+		{
+			"label": "Run TypeDocs Script",
+			"type": "shell",
+			"command": "npx tsx ./scripts/typedocs.ts"
+		},
+		{
+			"label": "Run TypeDocs Script",
+			"type": "shell",
+			"command": "pnpm exec tsx ./scripts/typedocs.ts"
+		},
+		{
+			"label": "Run TypeDocs via pnpm",
+			"type": "shell",
+			"command": "pnpm tsx ./scripts/typedocs.ts"
+		},
+		{
+			"label": "Run TypeDocs pnpm script",
+			"type": "shell",
+			"command": "pnpm docs:type"
+		}
+	]
+}

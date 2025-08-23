@@ -1,0 +1,26 @@
+{
+  "name": "@destyler/docs",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Components Type for destyler",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "data",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && tsdown",
+    "watch": "tsdown --watch"
+  }
+}

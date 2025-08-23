@@ -1,0 +1,4465 @@
+{
+  "aspect-ratio": {
+    "api": {
+      "setRatio": {
+        "type": "(ratio: number) => void",
+        "description": "\nFunction to set the aspect ratio"
+      }
+    },
+    "context": {
+      "ratio": {
+        "type": "number",
+        "description": "\nThe aspect ratio of the container"
+      },
+      "ids": {
+        "type": "Partial<{ root: string; content: string; }>",
+        "description": "\nThe ids of the elements in the aspect ratio. Useful for composition."
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      }
+    }
+  },
+  "breadcrumbs": {
+    "api": {},
+    "context": {
+      "items": {
+        "type": "BreadcrumbItem[]",
+        "description": "\n面包屑项目"
+      },
+      "ids": {
+        "type": "Partial<{ root: string; list: string; separator: string; }>",
+        "description": "\nDOM 元素的 ID"
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      }
+    }
+  },
+  "calendar": {
+    "api": {
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the input is focused"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the date picker is open"
+      },
+      "view": {
+        "type": "DateView",
+        "description": "\nThe current view of the date picker"
+      },
+      "getDaysInWeek": {
+        "type": "(week: number, from?: DateValue) => DateValue[]",
+        "description": "\nReturns an array of days in the week index counted from the provided start date, or the first visible date if not given."
+      },
+      "getOffset": {
+        "type": "(duration: DateDuration) => DateValueOffset",
+        "description": "\nReturns the offset of the month based on the provided number of months."
+      },
+      "getRangePresetValue": {
+        "type": "(value: DateRangePreset) => DateValue[]",
+        "description": "\nReturns the range of dates based on the provided date range preset."
+      },
+      "getMonthWeeks": {
+        "type": "(from?: DateValue) => DateValue[][]",
+        "description": "\nReturns the weeks of the month from the provided date. Represented as an array of arrays of dates."
+      },
+      "isUnavailable": {
+        "type": "(date: DateValue) => boolean",
+        "description": "\nReturns whether the provided date is available (or can be selected)"
+      },
+      "weeks": {
+        "type": "DateValue[][]",
+        "description": "\nThe weeks of the month. Represented as an array of arrays of dates."
+      },
+      "weekDays": {
+        "type": "WeekDay[]",
+        "description": "\nThe days of the week. Represented as an array of strings."
+      },
+      "visibleRange": {
+        "type": "VisibleRange",
+        "description": "\nThe visible range of dates."
+      },
+      "visibleRangeText": {
+        "type": "VisibleRangeText",
+        "description": "\nThe human readable text for the visible range of dates."
+      },
+      "value": {
+        "type": "DateValue[]",
+        "description": "\nThe selected date."
+      },
+      "valueAsDate": {
+        "type": "Date[]",
+        "description": "\nThe selected date as a Date object."
+      },
+      "valueAsString": {
+        "type": "string[]",
+        "description": "\nThe selected date as a string."
+      },
+      "focusedValue": {
+        "type": "DateValue",
+        "description": "\nThe focused date."
+      },
+      "focusedValueAsDate": {
+        "type": "Date",
+        "description": "\nThe focused date as a Date object."
+      },
+      "focusedValueAsString": {
+        "type": "string",
+        "description": "\nThe focused date as a string."
+      },
+      "selectToday": {
+        "type": "() => void",
+        "description": "\nSets the selected date to today."
+      },
+      "setValue": {
+        "type": "(values: CalendarDate[]) => void",
+        "description": "\nSets the selected date to the given date."
+      },
+      "setFocusedValue": {
+        "type": "(value: CalendarDate) => void",
+        "description": "\nSets the focused date to the given date."
+      },
+      "clearValue": {
+        "type": "() => void",
+        "description": "\nClears the selected date(s)."
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the calendar."
+      },
+      "focusMonth": {
+        "type": "(month: number) => void",
+        "description": "\nFunction to set the selected month."
+      },
+      "focusYear": {
+        "type": "(year: number) => void",
+        "description": "\nFunction to set the selected year."
+      },
+      "getYears": {
+        "type": "() => Cell[]",
+        "description": "\nReturns the months of the year"
+      },
+      "getYearsGrid": {
+        "type": "(props?: YearGridProps) => YearGridValue",
+        "description": "\nReturns the years of the decade based on the columns.\nRepresented as an array of arrays of years."
+      },
+      "getDecade": {
+        "type": "() => Range<number>",
+        "description": "\nReturns the start and end years of the decade."
+      },
+      "getMonths": {
+        "type": "(props?: MonthFormatOptions) => Cell[]",
+        "description": "\nReturns the months of the year"
+      },
+      "getMonthsGrid": {
+        "type": "(props?: MonthGridProps) => MonthGridValue",
+        "description": "\nReturns the months of the year based on the columns.\nRepresented as an array of arrays of months."
+      },
+      "format": {
+        "type": "(value: CalendarDate, opts?: Intl.DateTimeFormatOptions) => string",
+        "description": "\nFormats the given date value based on the provided options."
+      },
+      "setView": {
+        "type": "(view: DateView) => void",
+        "description": "\nSets the view of the date picker."
+      },
+      "goToNext": {
+        "type": "() => void",
+        "description": "\nGoes to the next month/year/decade."
+      },
+      "goToPrev": {
+        "type": "() => void",
+        "description": "\nGoes to the previous month/year/decade."
+      },
+      "getDayTableCellState": {
+        "type": "(props: DayTableCellProps) => DayTableCellState",
+        "description": "\nReturns the state details for a given cell."
+      },
+      "getMonthTableCellState": {
+        "type": "(props: TableCellProps) => TableCellState",
+        "description": "\nReturns the state details for a given month cell."
+      },
+      "getYearTableCellState": {
+        "type": "(props: TableCellProps) => TableCellState",
+        "description": "\nReturns the state details for a given year cell."
+      }
+    },
+    "context": {
+      "locale": {
+        "type": "string",
+        "description": "\nThe locale (BCP 47 language tag) to use when formatting the date.",
+        "defaultValue": "\"en-US\""
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nThe localized messages to use."
+      },
+      "ids": {
+        "type": "Partial<{ root: string; label: (index: number) => string; table: (id: string) => string; tableHeader: (id: string) => string; tableBody: (id: string) => string; tableRow: (id: string) => string; content: string; cellTrigger: (id: string) => string; prevTrigger: (view: DateView) => string; nextTrigger: (view: DateView) => string; viewTrigger: (view: DateView) => string; clearTrigger: string; control: string; input: (index: number) => string; trigger: string; monthSelect: string; yearSelect: string; positioner: string; }>",
+        "description": "\nThe ids of the elements in the date picker. Useful for composition."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe `name` attribute of the input element."
+      },
+      "timeZone": {
+        "type": "string",
+        "description": "\nThe time zone to use",
+        "defaultValue": "\"UTC\""
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the calendar is disabled."
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the calendar is read-only."
+      },
+      "min": {
+        "type": "DateValue",
+        "description": "\nThe minimum date that can be selected."
+      },
+      "max": {
+        "type": "DateValue",
+        "description": "\nThe maximum date that can be selected."
+      },
+      "closeOnSelect": {
+        "type": "boolean",
+        "description": "\nWhether the calendar should close after the date selection is complete.\nThis is ignored when the selection mode is `multiple`.",
+        "defaultValue": "true"
+      },
+      "value": {
+        "type": "DateValue[]",
+        "description": "\nThe selected date(s)."
+      },
+      "focusedValue": {
+        "type": "DateValue",
+        "description": "\nThe focused date."
+      },
+      "numOfMonths": {
+        "type": "number",
+        "description": "\nThe number of months to display."
+      },
+      "startOfWeek": {
+        "type": "number",
+        "description": "\nThe first day of the week.\n `0` - Sunday\n `1` - Monday\n `2` - Tuesday\n `3` - Wednesday\n `4` - Thursday\n `5` - Friday\n `6` - Saturday"
+      },
+      "fixedWeeks": {
+        "type": "boolean",
+        "description": "\nWhether the calendar should have a fixed number of weeks.\nThis renders the calendar with 6 weeks instead of 5 or 6."
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction called when the value changes."
+      },
+      "onFocusChange": {
+        "type": "(details: FocusChangeDetails) => void",
+        "description": "\nFunction called when the focused date changes."
+      },
+      "onViewChange": {
+        "type": "(details: ViewChangeDetails) => void",
+        "description": "\nFunction called when the view changes."
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the calendar opens or closes."
+      },
+      "isDateUnavailable": {
+        "type": "(date: DateValue, locale: string) => boolean",
+        "description": "\nReturns whether a date of the calendar is available."
+      },
+      "selectionMode": {
+        "type": "SelectionMode",
+        "description": "\nThe selection mode of the calendar.\n- `single` - only one date can be selected\n- `multiple` - multiple dates can be selected\n- `range` - a range of dates can be selected\n",
+        "defaultValue": "\"single\""
+      },
+      "format": {
+        "type": "(date: LocaleDetails) => string",
+        "description": "\nThe format of the date to display in the input."
+      },
+      "parse": {
+        "type": "(value: string, details: LocaleDetails) => DateValue",
+        "description": "\nFunction to parse the date from the input back to a DateValue."
+      },
+      "placeholder": {
+        "type": "string",
+        "description": "\nThe placeholder text to display in the input."
+      },
+      "view": {
+        "type": "DateView",
+        "description": "\nThe view of the calendar",
+        "defaultValue": "\"day\""
+      },
+      "minView": {
+        "type": "DateView",
+        "description": "\nThe minimum view of the calendar",
+        "defaultValue": "\"day\""
+      },
+      "maxView": {
+        "type": "DateView",
+        "description": "\nThe maximum view of the calendar",
+        "defaultValue": "\"year\""
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe user provided options used to position the date picker content"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the calendar is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the calendar open state is controlled by the user"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "carousel": {
+    "api": {
+      "page": {
+        "type": "number",
+        "description": "\nThe current index of the carousel"
+      },
+      "pageSnapPoints": {
+        "type": "number[]",
+        "description": "\nThe current snap points of the carousel"
+      },
+      "isPlaying": {
+        "type": "boolean",
+        "description": "\nWhether the carousel is auto playing"
+      },
+      "isDragging": {
+        "type": "boolean",
+        "description": "\nWhether the carousel is being dragged. This only works when `draggable` is true."
+      },
+      "canScrollNext": {
+        "type": "boolean",
+        "description": "\nWhether the carousel is can scroll to the next view"
+      },
+      "canScrollPrev": {
+        "type": "boolean",
+        "description": "\nWhether the carousel is can scroll to the previous view"
+      },
+      "scrollToIndex": {
+        "type": "(index: number, instant?: boolean) => void",
+        "description": "\nFunction to scroll to a specific item index"
+      },
+      "scrollTo": {
+        "type": "(page: number, instant?: boolean) => void",
+        "description": "\nFunction to scroll to a specific page"
+      },
+      "scrollNext": {
+        "type": "(instant?: boolean) => void",
+        "description": "\nFunction to scroll to the next page"
+      },
+      "scrollPrev": {
+        "type": "(instant?: boolean) => void",
+        "description": "\nFunction to scroll to the previous page"
+      },
+      "getProgress": {
+        "type": "() => number",
+        "description": "\nReturns the current scroll progress as a percentage"
+      },
+      "play": {
+        "type": "() => void",
+        "description": "\nFunction to start/resume autoplay"
+      },
+      "pause": {
+        "type": "() => void",
+        "description": "\nFunction to pause autoplay"
+      },
+      "isInView": {
+        "type": "(index: number) => boolean",
+        "description": "\nWhether the item is in view"
+      },
+      "refresh": {
+        "type": "() => void",
+        "description": "\nFunction to re-compute the snap points\nand clamp the page"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; item: (index: number) => string; itemGroup: string; nextTrigger: string; prevTrigger: string; indicatorGroup: string; indicator: (index: number) => string; }>",
+        "description": "\nThe ids of the elements in the carousel. Useful for composition."
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nThe localized messages to use."
+      },
+      "slidesPerPage": {
+        "type": "number",
+        "description": "\nThe number of slides to show at a time.",
+        "defaultValue": "1"
+      },
+      "slidesPerMove": {
+        "type": "number | \"auto\"",
+        "description": "\nThe number of slides to scroll at a time.\n\nWhen set to `auto`, the number of slides to scroll is determined by the\n`slidesPerPage` property.\n",
+        "defaultValue": "\"auto\""
+      },
+      "autoplay": {
+        "type": "boolean | { delay: number; }",
+        "description": "\nWhether to scroll automatically. The default delay is 4000ms.",
+        "defaultValue": "false"
+      },
+      "allowMouseDrag": {
+        "type": "boolean",
+        "description": "\nWhether to allow scrolling via dragging with mouse",
+        "defaultValue": "false"
+      },
+      "loop": {
+        "type": "boolean",
+        "description": "\nWhether the carousel should loop around.",
+        "defaultValue": "false"
+      },
+      "page": {
+        "type": "number",
+        "description": "\nThe index of the active page."
+      },
+      "spacing": {
+        "type": "string",
+        "description": "\nThe amount of space between items.",
+        "defaultValue": "\"0px\""
+      },
+      "padding": {
+        "type": "string",
+        "description": "\nDefines the extra space added around the scrollable area,\nenabling nearby items to remain partially in view."
+      },
+      "onPageChange": {
+        "type": "(details: PageChangeDetails) => void",
+        "description": "\nFunction called when the page changes."
+      },
+      "inViewThreshold": {
+        "type": "number | number[]",
+        "description": "\nThe threshold for determining if an item is in view.",
+        "defaultValue": "0.6"
+      },
+      "snapType": {
+        "type": "\"proximity\" | \"mandatory\"",
+        "description": "\nThe snap type of the item.",
+        "defaultValue": "\"mandatory\""
+      },
+      "slideCount": {
+        "type": "number",
+        "description": "\nThe total number of slides.\nUseful for SSR to render the initial ating the snap points."
+      },
+      "onDragStatusChange": {
+        "type": "(details: DragStatusDetails) => void",
+        "description": "\nFunction called when the drag status changes."
+      },
+      "onAutoplayStatusChange": {
+        "type": "(details: AutoplayStatusDetails) => void",
+        "description": "\nFunction called when the autoplay status changes."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "orientation": {
+        "type": "Orientation",
+        "description": "\nThe orientation of the element.",
+        "defaultValue": "\"horizontal\""
+      }
+    }
+  },
+  "checkbox": {
+    "api": {
+      "checked": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is checked"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is disabled"
+      },
+      "indeterminate": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is indeterminate"
+      },
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is focused"
+      },
+      "checkedState": {
+        "type": "CheckedState",
+        "description": "\n The checked state of the checkbox"
+      },
+      "setChecked": {
+        "type": "(checked: CheckedState) => void",
+        "description": "\nFunction to set the checked state of the checkbox"
+      },
+      "toggleChecked": {
+        "type": "() => void",
+        "description": "\nFunction to toggle the checked state of the checkbox"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; hiddenInput: string; control: string; label: string; }>",
+        "description": "\nThe ids of the elements in the checkbox. Useful for composition."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is disabled"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is invalid"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is required"
+      },
+      "checked": {
+        "type": "CheckedState",
+        "description": "\nThe checked state of the checkbox"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is read-only"
+      },
+      "onCheckedChange": {
+        "type": "(details: CheckedChangeDetails) => void",
+        "description": "\nThe callback invoked when the checked state changes."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name of the input field in a checkbox.\nUseful for form submission."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe id of the form that the checkbox belongs to."
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value of checkbox input. Useful for form submission.",
+        "defaultValue": "\"on\""
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "clipboard": {
+    "api": {
+      "copied": {
+        "type": "boolean",
+        "description": "\nWhether the value has been copied to the clipboard"
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value to be copied to the clipboard"
+      },
+      "setValue": {
+        "type": "(value: string) => void",
+        "description": "\nSet the value to be copied to the clipboard"
+      },
+      "copy": {
+        "type": "() => void",
+        "description": "\nCopy the value to the clipboard"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; input: string; label: string; }>",
+        "description": "\nThe ids of the elements in the clipboard. Useful for composition."
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value to be copied to the clipboard"
+      },
+      "onStatusChange": {
+        "type": "(details: CopyStatusDetails) => void",
+        "description": "\nThe function to be called when the value is copied to the clipboard"
+      },
+      "timeout": {
+        "type": "number",
+        "description": "\nThe timeout for the copy operation",
+        "defaultValue": "3000"
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "collapse": {
+    "api": {
+      "focusedValue": {
+        "type": "string",
+        "description": "\nThe value of the focused accordion item."
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe value of the accordion"
+      },
+      "setValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nSets the value of the accordion."
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nGets the state of an accordion item."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; item: (value: string) => string; itemContent: (value: string) => string; itemTrigger: (value: string) => string; }>",
+        "description": "\nThe ids of the elements in the accordion. Useful for composition."
+      },
+      "multiple": {
+        "type": "boolean",
+        "description": "\nWhether multiple accordion items can be expanded at the same time.",
+        "defaultValue": "false"
+      },
+      "collapsible": {
+        "type": "boolean",
+        "description": "\nWhether an accordion item can be closed after it has been expanded.",
+        "defaultValue": "false"
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe `value` of the accordion items that are currently being expanded."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the accordion items are disabled"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nThe callback fired when the state of expanded/collapsed accordion items changes."
+      },
+      "onFocusChange": {
+        "type": "(details: FocusChangeDetails) => void",
+        "description": "\nThe callback fired when the focused accordion item changes."
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "description": "\n The orientation of the accordion items.",
+        "defaultValue": "\"vertical\""
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "collapsible": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the collapsible is open."
+      },
+      "visible": {
+        "type": "boolean",
+        "description": "\nWhether the collapsible is visible (open or closing)"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the collapsible is disabled"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the collapsible."
+      },
+      "measureSize": {
+        "type": "() => void",
+        "description": "\nFunction to measure the size of the content."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; content: string; trigger: string; }>",
+        "description": "\nThe ids of the elements in the collapsible. Useful for composition."
+      },
+      "onExitComplete": {
+        "type": "() => void",
+        "description": "\nFunction called when the animation ends in the closed state."
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the popup is opened"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the collapsible is open"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the collapsible is disabled"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\n Whether the collapsible open state is controlled by the user"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "color-picker": {
+    "api": {
+      "dragging": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is being dragged"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is open"
+      },
+      "value": {
+        "type": "Color",
+        "description": "\nThe current color value (as a string)"
+      },
+      "valueAsString": {
+        "type": "string",
+        "description": "\nThe current color value (as a Color object)"
+      },
+      "setValue": {
+        "type": "(value: string | Color) => void",
+        "description": "\nFunction to set the color value"
+      },
+      "getChannelValue": {
+        "type": "(channel: ColorChannel) => string",
+        "description": "\nFunction to set the color value"
+      },
+      "getChannelValueText": {
+        "type": "(channel: ColorChannel, locale: string) => string",
+        "description": "\nFunction to get the formatted and localized value of a specific channel"
+      },
+      "setChannelValue": {
+        "type": "(channel: ColorChannel, value: number) => void",
+        "description": "\nFunction to set the color value of a specific channel"
+      },
+      "format": {
+        "type": "ColorFormat",
+        "description": "\nThe current color format"
+      },
+      "setFormat": {
+        "type": "(format: ColorFormat) => void",
+        "description": "\nFunction to set the color format"
+      },
+      "alpha": {
+        "type": "number",
+        "description": "\nThe alpha value of the color"
+      },
+      "setAlpha": {
+        "type": "(value: number) => void",
+        "description": "\nFunction to set the color alpha"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the color picker"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; control: string; trigger: string; label: string; input: string; hiddenInput: string; content: string; area: string; areaGradient: string; positioner: string; formatSelect: string; areaThumb: string; channelInput: (id: string) => string; channelSliderTrack: (id: ColorChannel) => string; channelSliderThumb: (id: ColorChannel) => string; }>",
+        "description": "\nThe ids of the elements in the color picker. Useful for composition."
+      },
+      "value": {
+        "type": "Color",
+        "description": "\nThe current color value",
+        "defaultValue": "#000000"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is disabled"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is read-only"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is required"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is invalid"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nHandler that is called when the value changes, as the user drags."
+      },
+      "onValueChangeEnd": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nHandler that is called when the user stops dragging."
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nHandler that is called when the user opens or closes the color picker."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name for the form input"
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe positioning options for the color picker"
+      },
+      "initialFocusEl": {
+        "type": "() => HTMLElement",
+        "description": "\nThe initial focus element when the color picker is opened."
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the color picker is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the color picker open state is controlled by the user"
+      },
+      "format": {
+        "type": "ColorFormat",
+        "description": "\nThe color format to use",
+        "defaultValue": "\"rgba\""
+      },
+      "onFormatChange": {
+        "type": "(details: FormatChangeDetails) => void",
+        "description": "\nFunction called when the color format changes"
+      },
+      "closeOnSelect": {
+        "type": "boolean",
+        "description": "\nWhether to close the color picker when a swatch is selected",
+        "defaultValue": "false"
+      },
+      "openAutoFocus": {
+        "type": "boolean",
+        "description": "\nWhether to auto focus the color picker when it is opened",
+        "defaultValue": "true"
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => Node | ShadowRoot | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "combobox": {
+    "api": {
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is focused"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is open"
+      },
+      "inputValue": {
+        "type": "string",
+        "description": "\nThe value of the combobox input"
+      },
+      "highlightedValue": {
+        "type": "string",
+        "description": "\nThe value of the highlighted item"
+      },
+      "highlightedItem": {
+        "type": "V",
+        "description": "\nThe highlighted item"
+      },
+      "setHighlightValue": {
+        "type": "(value: string) => void",
+        "description": "\nThe value of the combobox input"
+      },
+      "syncSelectedItems": {
+        "type": "() => void",
+        "description": "\nFunction to sync the selected items with the value.\nUseful when `value` is updated from async sources."
+      },
+      "selectedItems": {
+        "type": "V[]",
+        "description": "\nThe selected items"
+      },
+      "hasSelectedItems": {
+        "type": "boolean",
+        "description": "\nWhether there's a selected item"
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe selected item keys"
+      },
+      "valueAsString": {
+        "type": "string",
+        "description": "\nThe string representation of the selected items"
+      },
+      "selectValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to select a value"
+      },
+      "setValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nFunction to set the value of the combobox"
+      },
+      "clearValue": {
+        "type": "(value?: string) => void",
+        "description": "\nFunction to clear the value of the combobox"
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus on the combobox input"
+      },
+      "setInputValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to set the input value of the combobox"
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nReturns the state of a combobox item"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the combobox"
+      },
+      "collection": {
+        "type": "ListCollection<V>",
+        "description": "\nFunction to toggle the combobox"
+      },
+      "setCollection": {
+        "type": "(collection: ListCollection<V>) => void",
+        "description": "\nFunction to set the collection of items"
+      },
+      "reposition": {
+        "type": "(options?: Partial<PositioningOptions>) => void",
+        "description": "\nFunction to set the positioning options"
+      },
+      "multiple": {
+        "type": "boolean",
+        "description": "\nWhether the combobox allows multiple selections"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is disabled"
+      }
+    },
+    "context": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the combobox open state is controlled by the user"
+      },
+      "ids": {
+        "type": "Partial<{ root: string; label: string; control: string; input: string; content: string; trigger: string; clearTrigger: string; item: (id: string, index?: number) => string; positioner: string; itemGroup: (id: string | number) => string; itemGroupLabel: (id: string | number) => string; }>",
+        "description": "\nThe ids of the elements in the combobox. Useful for composition."
+      },
+      "inputValue": {
+        "type": "string",
+        "description": "\nThe current value of the combobox's input"
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe `name` attribute of the combobox's input. Useful for form submission"
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the combobox."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is disabled"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is readonly. This puts the combobox in a \"non-editable\" mode\nbut the user can still interact with it"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is invalid"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is required"
+      },
+      "placeholder": {
+        "type": "string",
+        "description": "\nThe placeholder text of the combobox's input"
+      },
+      "highlightedValue": {
+        "type": "string",
+        "description": "\nThe active item's id. Used to set the `aria-activedescendant` attribute"
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe keys of the selected items"
+      },
+      "inputBehavior": {
+        "type": "\"autohighlight\" | \"autocomplete\" | \"none\"",
+        "description": "\nDefines the auto-completion behavior of the combobox.\n\n- `autohighlight`: The first focused item is highlighted as the user types\n- `autocomplete`: Navigating the listbox with the arrow keys selects the item and the input is updated\n",
+        "defaultValue": "\"none\""
+      },
+      "selectionBehavior": {
+        "type": "\"clear\" | \"replace\" | \"preserve\"",
+        "description": "\nThe behavior of the combobox input when an item is selected\n\n- `replace`: The selected item string is set as the input value\n- `clear`: The input value is cleared\n- `preserve`: The input value is preserved\n",
+        "defaultValue": "\"replace\""
+      },
+      "autoFocus": {
+        "type": "boolean",
+        "description": "\nWhether to autofocus the input on mount"
+      },
+      "openOnClick": {
+        "type": "boolean",
+        "description": "\nWhether to open the combobox popup on initial click on the input",
+        "defaultValue": "false"
+      },
+      "openOnChange": {
+        "type": "boolean | ((details: InputValueChangeDetails) => boolean)",
+        "description": "\nWhether to show the combobox when the input value changes",
+        "defaultValue": "true"
+      },
+      "allowCustomValue": {
+        "type": "boolean",
+        "description": "\nWhether to allow typing custom values in the input"
+      },
+      "loopFocus": {
+        "type": "boolean",
+        "description": "\nWhether to loop the keyboard navigation through the items",
+        "defaultValue": "true"
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe positioning options to dynamically position the menu"
+      },
+      "onInputValueChange": {
+        "type": "(details: InputValueChangeDetails) => void",
+        "description": "\nFunction called when the input's value changes"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails<T>) => void",
+        "description": "\nFunction called when a new item is selected"
+      },
+      "onHighlightChange": {
+        "type": "(details: HighlightChangeDetails<T>) => void",
+        "description": "\nFunction called when an item is highlighted using the pointer\nor keyboard navigation."
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the popup is opened"
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "collection": {
+        "type": "ListCollection<any>",
+        "description": "\nThe collection of items"
+      },
+      "multiple": {
+        "type": "boolean",
+        "description": "\nWhether to allow multiple selection.\n\n**Good to know:** When `multiple` is `true`, the `selectionBehavior` is automatically set to `clear`.\nIt is recommended to render the selected items in a separate container."
+      },
+      "closeOnSelect": {
+        "type": "boolean",
+        "description": "\nWhether to close the combobox when an item is selected."
+      },
+      "openOnKeyPress": {
+        "type": "boolean",
+        "description": "\nWhether to open the combobox on arrow key press",
+        "defaultValue": "true"
+      },
+      "scrollToIndexFn": {
+        "type": "(details: ScrollToIndexDetails) => void",
+        "description": "\nFunction to scroll to a specific index"
+      },
+      "composite": {
+        "type": "boolean",
+        "description": "\nWhether the combobox is a composed with other composite widgets like tabs",
+        "defaultValue": "true"
+      },
+      "disableLayer": {
+        "type": "boolean",
+        "description": "\nWhether to disable registering this a dismissable layer"
+      },
+      "navigate": {
+        "type": "(details: NavigateDetails) => void",
+        "description": "\nFunction to navigate to the selected item"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "dialog": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the dialog is open"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the dialog"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ trigger: string; positioner: string; backdrop: string; content: string; closeTrigger: string; title: string; description: string; }>",
+        "description": "\nThe ids of the elements in the dialog. Useful for composition."
+      },
+      "trapFocus": {
+        "type": "boolean",
+        "description": "\nWhether to trap focus inside the dialog when it's opened",
+        "defaultValue": "true"
+      },
+      "preventScroll": {
+        "type": "boolean",
+        "description": "\nWhether to prevent scrolling behind the dialog when it's opened",
+        "defaultValue": "true"
+      },
+      "modal": {
+        "type": "boolean",
+        "description": "\nWhether to prevent pointer interaction outside the element and hide all content below it",
+        "defaultValue": "true"
+      },
+      "initialFocusEl": {
+        "type": "() => HTMLElement",
+        "description": "\nElement to receive focus when the dialog is opened"
+      },
+      "finalFocusEl": {
+        "type": "() => HTMLElement",
+        "description": "\nElement to receive focus when the dialog is closed"
+      },
+      "restoreFocus": {
+        "type": "boolean",
+        "description": "\nWhether to restore focus to the element that had focus before the dialog was opened"
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nCallback to be invoked when the dialog is opened or closed"
+      },
+      "closeOnInteractOutside": {
+        "type": "boolean",
+        "description": "\nWhether to close the dialog when the outside is clicked",
+        "defaultValue": "true"
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "description": "\nWhether to close the dialog when the escape key is pressed",
+        "defaultValue": "true"
+      },
+      "aria-label": {
+        "type": "string",
+        "description": "\nHuman readable label for the dialog, in event the dialog title is not rendered"
+      },
+      "role": {
+        "type": "\"dialog\" | \"alertdialog\"",
+        "description": "\nThe dialog's role",
+        "defaultValue": "\"dialog\""
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the dialog is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the dialog is controlled by the user"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => Node | ShadowRoot | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onEscapeKeyDown": {
+        "type": "(event: KeyboardEvent) => void",
+        "description": "\nFunction called when the escape key is pressed"
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "persistentElements": {
+        "type": "(() => Element)[]",
+        "description": "\nReturns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+      }
+    }
+  },
+  "dynamic": {
+    "api": {
+      "empty": {
+        "type": "boolean",
+        "description": "\nWhether the tags are empty"
+      },
+      "inputValue": {
+        "type": "string",
+        "description": "\nThe value of the tags entry input."
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe value of the tags as an array of strings."
+      },
+      "valueAsString": {
+        "type": "string",
+        "description": "\nThe value of the tags as a string."
+      },
+      "count": {
+        "type": "number",
+        "description": "\nThe number of the tags."
+      },
+      "atMax": {
+        "type": "boolean",
+        "description": "\nWhether the tags have reached the max limit."
+      },
+      "setValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nFunction to set the value of the tags."
+      },
+      "clearValue": {
+        "type": "(id?: string) => void",
+        "description": "\nFunction to clear the value of the tags."
+      },
+      "addValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to add a tag to the tags."
+      },
+      "setValueAtIndex": {
+        "type": "(index: number, value: string) => void",
+        "description": "\nFunction to set the value of a tag at the given index."
+      },
+      "setInputValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to set the value of the tags entry input."
+      },
+      "clearInputValue": {
+        "type": "() => void",
+        "description": "\nFunction to clear the value of the tags entry input."
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus the tags entry input."
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nReturns the state of a tag"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; input: string; hiddenInput: string; clearBtn: string; label: string; control: string; item: (opts: ItemProps) => string; itemDeleteTrigger: (opts: ItemProps) => string; itemInput: (opts: ItemProps) => string; }>",
+        "description": "\nThe ids of the elements in the tags input. Useful for composition."
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "maxLength": {
+        "type": "number",
+        "description": "\nThe max length of the input."
+      },
+      "delimiter": {
+        "type": "string | RegExp",
+        "description": "\nThe character that serves has:\n- event key to trigger the addition of a new tag\n- character used to split tags when pasting into the input\n",
+        "defaultValue": "\",\""
+      },
+      "autoFocus": {
+        "type": "boolean",
+        "description": "\nWhether the input should be auto-focused"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the tags input should be disabled"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the tags input should be read-only"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the tags input is invalid"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the tags input is required"
+      },
+      "editable": {
+        "type": "boolean",
+        "description": "\nWhether a tag can be edited after creation, by pressing `Enter` or double clicking.",
+        "defaultValue": "true"
+      },
+      "inputValue": {
+        "type": "string",
+        "description": "\nThe tag input's value"
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe tag values"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nCallback fired when the tag values is updated"
+      },
+      "onInputValueChange": {
+        "type": "(details: InputValueChangeDetails) => void",
+        "description": "\nCallback fired when the input value is updated"
+      },
+      "onHighlightChange": {
+        "type": "(details: HighlightChangeDetails) => void",
+        "description": "\nCallback fired when a tag is highlighted by pointer or keyboard navigation"
+      },
+      "onValueInvalid": {
+        "type": "(details: ValidityChangeDetails) => void",
+        "description": "\nCallback fired when the max tag count is reached or the `validateTag` function returns `false`"
+      },
+      "validate": {
+        "type": "(details: ValidateArgs) => boolean",
+        "description": "\nReturns a boolean that determines whether a tag can be added.\nUseful for preventing duplicates or invalid tag values."
+      },
+      "blurBehavior": {
+        "type": "\"clear\" | \"add\"",
+        "description": "\nThe behavior of the tags input when the input is blurred\n- `\"add\"`: add the input value as a new tag\n- `\"clear\"`: clear the input value"
+      },
+      "addOnPaste": {
+        "type": "boolean",
+        "description": "\nWhether to add a tag when you paste values into the tag input",
+        "defaultValue": "false"
+      },
+      "max": {
+        "type": "number",
+        "description": "\nThe max number of tags",
+        "defaultValue": "Infinity"
+      },
+      "allowOverflow": {
+        "type": "boolean",
+        "description": "\nWhether to allow tags to exceed max. In this case,\nwe'll attach `data-invalid` to the root"
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name attribute for the input. Useful for form submissions"
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the underlying input element."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "edit": {
+    "api": {
+      "editing": {
+        "type": "boolean",
+        "description": "\nWhether the editable is in edit mode"
+      },
+      "empty": {
+        "type": "boolean",
+        "description": "\nWhether the editable value is empty"
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe current value of the editable"
+      },
+      "valueText": {
+        "type": "string",
+        "description": "\nThe current value of the editable, or the placeholder if the value is empty"
+      },
+      "setValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to set the value of the editable"
+      },
+      "clearValue": {
+        "type": "() => void",
+        "description": "\nFunction to clear the value of the editable"
+      },
+      "edit": {
+        "type": "() => void",
+        "description": "\nFunction to enter edit mode"
+      },
+      "cancel": {
+        "type": "() => void",
+        "description": "\nFunction to exit edit mode, and discard any changes"
+      },
+      "submit": {
+        "type": "() => void",
+        "description": "\nFunction to exit edit mode, and submit any changes"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; area: string; label: string; preview: string; input: string; control: string; submitTrigger: string; cancelTrigger: string; editTrigger: string; }>",
+        "description": "\nThe ids of the elements in the editable. Useful for composition."
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the input's value is invalid."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name attribute of the editable component. Used for form submission."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the underlying input."
+      },
+      "autoResize": {
+        "type": "boolean",
+        "description": "\nWhether the editable should auto-resize to fit the content."
+      },
+      "activationMode": {
+        "type": "ActivationMode",
+        "description": "\nThe activation mode for the preview element.\n\n- \"focus\" - Enter edit mode when the preview is focused\n- \"dblclick\" - Enter edit mode when the preview is double-clicked\n- \"click\" - Enter edit mode when the preview is clicked\n",
+        "defaultValue": "\"focus\""
+      },
+      "submitMode": {
+        "type": "SubmitMode",
+        "description": "\nThe action that triggers submit in the edit mode:\n\n- \"enter\" - Trigger submit when the enter key is pressed\n- \"blur\" - Trigger submit when the editable is blurred\n- \"none\" - No action will trigger submit. You need to use the submit button\n- \"both\" - Pressing `Enter` and blurring the input will trigger submit\n",
+        "defaultValue": "\"both\""
+      },
+      "edit": {
+        "type": "boolean",
+        "description": "\nWhether the editable is in edit mode."
+      },
+      "edit.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the editable is controlled"
+      },
+      "selectOnFocus": {
+        "type": "boolean",
+        "description": "\nWhether to select the text in the input when it is focused.",
+        "defaultValue": "true"
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value of the editable in both edit and preview mode"
+      },
+      "maxLength": {
+        "type": "number",
+        "description": "\nThe maximum number of characters allowed in the editable"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the editable is disabled"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the editable is readonly"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the editable is required"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nThe callback that is called when the editable's value is changed"
+      },
+      "onValueRevert": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nThe callback that is called when the esc key is pressed or the cancel button is clicked"
+      },
+      "onValueCommit": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nThe callback that is called when the editable's value is submitted."
+      },
+      "onEditChange": {
+        "type": "(details: EditChangeDetails) => void",
+        "description": "\nThe callback that is called when the edit mode is changed"
+      },
+      "placeholder": {
+        "type": "string | { edit: string; preview: string; }",
+        "description": "\nThe placeholder value to show when the `value` is empty"
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "finalFocusEl": {
+        "type": "() => HTMLElement",
+        "description": "\nThe element that should receive focus when the editable is closed.\nBy default, it will focus on the trigger element."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => Node | ShadowRoot | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "file-upload": {
+    "api": {
+      "dragging": {
+        "type": "boolean",
+        "description": "\nWhether the user is dragging something over the root element"
+      },
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the user is focused on the dropzone element"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the file input is disabled"
+      },
+      "openFilePicker": {
+        "type": "() => void",
+        "description": "\nFunction to open the file dialog"
+      },
+      "deleteFile": {
+        "type": "(file: File) => void",
+        "description": "\nFunction to delete the file from the list"
+      },
+      "acceptedFiles": {
+        "type": "File[]",
+        "description": "\nThe accepted files that have been dropped or selected"
+      },
+      "rejectedFiles": {
+        "type": "FileRejection[]",
+        "description": "\nThe files that have been rejected"
+      },
+      "setFiles": {
+        "type": "(files: File[]) => void",
+        "description": "\nFunction to set the value"
+      },
+      "clearFiles": {
+        "type": "() => void",
+        "description": "\nFunction to clear the value"
+      },
+      "clearRejectedFiles": {
+        "type": "() => void",
+        "description": "\nFunction to clear the rejected files"
+      },
+      "getFileSize": {
+        "type": "(file: File) => string",
+        "description": "\nFunction to format the file size (e.g. 1.2MB)"
+      },
+      "createFileUrl": {
+        "type": "(file: File, cb: (url: string) => void) => VoidFunction",
+        "description": "\nFunction to get the preview url of a file.\nReturns a function to revoke the url."
+      },
+      "setClipboardFiles": {
+        "type": "(dt: DataTransfer) => boolean",
+        "description": "\nFunction to set the clipboard files.\nReturns `true` if the clipboard data contains files, `false` otherwise."
+      }
+    },
+    "context": {
+      "name": {
+        "type": "string",
+        "description": "\nThe name of the underlying file input"
+      },
+      "ids": {
+        "type": "Partial<{ root: string; dropzone: string; hiddenInput: string; trigger: string; label: string; item: (id: string) => string; itemName: (id: string) => string; itemSizeText: (id: string) => string; itemPreview: (id: string) => string; }>",
+        "description": "\nThe ids of the elements. Useful for composition."
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nThe localized messages to use."
+      },
+      "accept": {
+        "type": "Record<string, string[]> | FileMimeType[]",
+        "description": "\nThe accept file types"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the file input is disabled"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the file input is required"
+      },
+      "allowDrop": {
+        "type": "boolean",
+        "description": "\nWhether to allow drag and drop in the dropzone element",
+        "defaultValue": "true"
+      },
+      "maxFileSize": {
+        "type": "number",
+        "description": "\nThe maximum file size in bytes\n",
+        "defaultValue": "Infinity"
+      },
+      "minFileSize": {
+        "type": "number",
+        "description": "\nThe minimum file size in bytes\n",
+        "defaultValue": "0"
+      },
+      "maxFiles": {
+        "type": "number",
+        "description": "\nThe maximum number of files",
+        "defaultValue": "1"
+      },
+      "preventDocumentDrop": {
+        "type": "boolean",
+        "description": "\nWhether to prevent the drop event on the document",
+        "defaultValue": "true"
+      },
+      "validate": {
+        "type": "(file: File, details: FileValidateDetails) => FileError[]",
+        "description": "\nFunction to validate a file"
+      },
+      "onFileChange": {
+        "type": "(details: FileChangeDetails) => void",
+        "description": "\nFunction called when the value changes, whether accepted or rejected"
+      },
+      "onFileAccept": {
+        "type": "(details: FileAcceptDetails) => void",
+        "description": "\nFunction called when the file is accepted"
+      },
+      "onFileReject": {
+        "type": "(details: FileRejectDetails) => void",
+        "description": "\nFunction called when the file is rejected"
+      },
+      "capture": {
+        "type": "\"user\" | \"environment\"",
+        "description": "\nThe default camera to use when capturing media"
+      },
+      "directory": {
+        "type": "boolean",
+        "description": "\nWhether to accept directories, only works in webkit browsers"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the file input is invalid"
+      },
+      "locale": {
+        "type": "string",
+        "description": "\nThe current locale. Based on the BCP 47 definition.",
+        "defaultValue": "\"en-US\""
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "floating-panel": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the panel is open"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the panel"
+      },
+      "dragging": {
+        "type": "boolean",
+        "description": "\nWhether the panel is being dragged"
+      },
+      "resizing": {
+        "type": "boolean",
+        "description": "\nWhether the panel is being resized"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ trigger: string; positioner: string; content: string; title: string; header: string; }>",
+        "description": "\nThe ids of the elements in the floating panel. Useful for composition."
+      },
+      "strategy": {
+        "type": "\"absolute\" | \"fixed\"",
+        "description": "\nThe strategy to use for positioning",
+        "defaultValue": "\"absolute\""
+      },
+      "allowOverflow": {
+        "type": "boolean",
+        "description": "\nWhether the panel should be strictly contained within the boundary when dragging",
+        "defaultValue": "true"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the panel is open"
+      },
+      "draggable": {
+        "type": "boolean",
+        "description": "\nWhether the panel is draggable",
+        "defaultValue": "true"
+      },
+      "resizable": {
+        "type": "boolean",
+        "description": "\nWhether the panel is resizable",
+        "defaultValue": "true"
+      },
+      "size": {
+        "type": "Size",
+        "description": "\nThe size of the panel"
+      },
+      "minSize": {
+        "type": "Size",
+        "description": "\nThe minimum size of the panel"
+      },
+      "maxSize": {
+        "type": "Size",
+        "description": "\nThe maximum size of the panel"
+      },
+      "position": {
+        "type": "Point",
+        "description": "\nThe position of the panel"
+      },
+      "getAnchorPosition": {
+        "type": "(details: AnchorPositionDetails) => Point",
+        "description": "\nFunction that returns the initial position of the panel when it is opened.\nIf provided, will be used instead of the default position."
+      },
+      "lockAspectRatio": {
+        "type": "boolean",
+        "description": "\nWhether the panel is locked to its aspect ratio"
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "description": "\nWhether the panel should close when the escape key is pressed"
+      },
+      "getBoundaryEl": {
+        "type": "() => HTMLElement",
+        "description": "\nThe boundary of the panel. Useful for recalculating the boundary rect when\nthe it is resized."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\n Whether the panel is disabled"
+      },
+      "onPositionChange": {
+        "type": "(details: PositionChangeDetails) => void",
+        "description": "\nFunction called when the position of the panel changes via dragging"
+      },
+      "onPositionChangeEnd": {
+        "type": "(details: PositionChangeDetails) => void",
+        "description": "\nFunction called when the position of the panel changes via dragging ends"
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the panel is opened or closed"
+      },
+      "onSizeChange": {
+        "type": "(details: SizeChangeDetails) => void",
+        "description": "\nFunction called when the size of the panel changes via resizing"
+      },
+      "onSizeChangeEnd": {
+        "type": "(details: SizeChangeDetails) => void",
+        "description": "\nFunction called when the size of the panel changes via resizing ends"
+      },
+      "persistRect": {
+        "type": "boolean",
+        "description": "\nWhether the panel size and position should be preserved when it is closed"
+      },
+      "gridSize": {
+        "type": "number",
+        "description": "\nThe snap grid for the panel",
+        "defaultValue": "1"
+      },
+      "onStageChange": {
+        "type": "(details: StageChangeDetails) => void",
+        "description": "\nFunction called when the stage of the panel changes"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => Node | ShadowRoot | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "hover-card": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the hover card is open"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open the hover card"
+      },
+      "reposition": {
+        "type": "(options?: Partial<PositioningOptions>) => void",
+        "description": "\nFunction to reposition the popover"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ trigger: string; content: string; positioner: string; arrow: string; }>",
+        "description": "\nThe ids of the elements in the popover. Useful for composition."
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the hover card opens or closes."
+      },
+      "openDelay": {
+        "type": "number",
+        "description": "\nThe duration from when the mouse enters the trigger until the hover card opens.",
+        "defaultValue": "700"
+      },
+      "closeDelay": {
+        "type": "number",
+        "description": "\nThe duration from when the mouse leaves the trigger or content until the hover card closes.",
+        "defaultValue": "300"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the hover card is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the hover card is controlled by the user"
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe user provided options used to position the popover content"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "image": {
+    "api": {
+      "loaded": {
+        "type": "boolean",
+        "description": "\nWhether the image is loaded."
+      },
+      "setSrc": {
+        "type": "(src: string) => void",
+        "description": "\nFunction to set new src."
+      },
+      "setLoaded": {
+        "type": "() => void",
+        "description": "\nFunction to set loaded state."
+      },
+      "setError": {
+        "type": "() => void",
+        "description": "\nFunction to set error state."
+      }
+    },
+    "context": {
+      "onStatusChange": {
+        "type": "(details: StatusChangeDetails) => void",
+        "description": "\nFunctional called when the image loading status changes."
+      },
+      "ids": {
+        "type": "Partial<{ root: string; image: string; fallback: string; }>",
+        "description": "\nThe ids of the elements in the avatar. Useful for composition."
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      }
+    }
+  },
+  "label": {
+    "api": {},
+    "context": {
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      }
+    }
+  },
+  "menu": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the menu is open"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the menu"
+      },
+      "highlightedValue": {
+        "type": "string",
+        "description": "\nThe id of the currently highlighted menuitem"
+      },
+      "setHighlightedValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to set the highlighted menuitem"
+      },
+      "setParent": {
+        "type": "(parent: Service) => void",
+        "description": "\nFunction to register a parent menu. This is used for submenus"
+      },
+      "setChild": {
+        "type": "(child: Service) => void",
+        "description": "\nFunction to register a child menu. This is used for submenus"
+      },
+      "reposition": {
+        "type": "(options?: Partial<PositioningOptions>) => void",
+        "description": "\nFunction to reposition the popover"
+      },
+      "getOptionItemState": {
+        "type": "(props: OptionItemProps) => OptionItemState",
+        "description": "\nReturns the state of the option item"
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nReturns the state of the menu item"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ trigger: string; contextTrigger: string; content: string; groupLabel: (id: string) => string; group: (id: string) => string; positioner: string; arrow: string; }>",
+        "description": "\nThe ids of the elements in the menu. Useful for composition."
+      },
+      "highlightedValue": {
+        "type": "string",
+        "description": "\nThe value of the highlighted menu item."
+      },
+      "onHighlightChange": {
+        "type": "(details: HighlightChangeDetails) => void",
+        "description": "\nFunction called when the highlighted menu item changes."
+      },
+      "onSelect": {
+        "type": "(details: SelectionDetails) => void",
+        "description": "\nFunction called when a menu item is selected."
+      },
+      "anchorPoint": {
+        "type": "Point",
+        "description": "\nThe positioning point for the menu. Can be set by the context menu trigger or the button trigger."
+      },
+      "loopFocus": {
+        "type": "boolean",
+        "description": "\nWhether to loop the keyboard navigation.",
+        "defaultValue": "false"
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe options used to dynamically position the menu"
+      },
+      "closeOnSelect": {
+        "type": "boolean",
+        "description": "\nWhether to close the menu when an option is selected",
+        "defaultValue": "true"
+      },
+      "aria-label": {
+        "type": "string",
+        "description": "\nThe accessibility label for the menu"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the menu is open"
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the menu opens or closes"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\n Whether the menu's open state is controlled by the user"
+      },
+      "typeahead": {
+        "type": "boolean",
+        "description": "\nWhether the pressing printable characters should trigger typeahead navigation",
+        "defaultValue": "true"
+      },
+      "composite": {
+        "type": "boolean",
+        "description": "\nWhether the menu is a composed with other composite widgets like a combobox or tabs",
+        "defaultValue": "true"
+      },
+      "navigate": {
+        "type": "(details: NavigateDetails) => void",
+        "description": "\nFunction to navigate to the selected item if it's an anchor element"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onEscapeKeyDown": {
+        "type": "(event: KeyboardEvent) => void",
+        "description": "\nFunction called when the escape key is pressed"
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "number-input": {
+    "api": {
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the input is focused."
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the input is invalid."
+      },
+      "empty": {
+        "type": "boolean",
+        "description": "\nWhether the input value is empty."
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe formatted value of the input."
+      },
+      "valueAsNumber": {
+        "type": "number",
+        "description": "\nThe value of the input as a number."
+      },
+      "setValue": {
+        "type": "(value: number) => void",
+        "description": "\nFunction to set the value of the input."
+      },
+      "clearValue": {
+        "type": "() => void",
+        "description": "\nFunction to clear the value of the input."
+      },
+      "increment": {
+        "type": "() => void",
+        "description": "\nFunction to increment the value of the input by the step."
+      },
+      "decrement": {
+        "type": "() => void",
+        "description": "\nFunction to decrement the value of the input by the step."
+      },
+      "setToMax": {
+        "type": "() => void",
+        "description": "\nFunction to set the value of the input to the max."
+      },
+      "setToMin": {
+        "type": "() => void",
+        "description": "\nFunction to set the value of the input to the min."
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus the input."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; label: string; input: string; incrementTrigger: string; decrementTrigger: string; scrubber: string; }>",
+        "description": "\nThe ids of the elements in the number input. Useful for composition."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name attribute of the number input. Useful for form submission."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the input element."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the number input is disabled."
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the number input is readonly"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the number input value is invalid."
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the number input is required"
+      },
+      "pattern": {
+        "type": "string",
+        "description": "\nThe pattern used to check the <input> element's value against\n",
+        "defaultValue": "\"[0-9]*(.[0-9]+)?\""
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value of the input"
+      },
+      "min": {
+        "type": "number",
+        "description": "\nThe minimum value of the number input",
+        "defaultValue": "Number.MIN_SAFE_INTEGER"
+      },
+      "max": {
+        "type": "number",
+        "description": "\nThe maximum value of the number input",
+        "defaultValue": "Number.MAX_SAFE_INTEGER"
+      },
+      "step": {
+        "type": "number",
+        "description": "\nThe amount to increment or decrement the value by",
+        "defaultValue": "1"
+      },
+      "allowMouseWheel": {
+        "type": "boolean",
+        "description": "\nWhether to allow mouse wheel to change the value"
+      },
+      "allowOverflow": {
+        "type": "boolean",
+        "description": "\nWhether to allow the value overflow the min/max range",
+        "defaultValue": "true"
+      },
+      "clampValueOnBlur": {
+        "type": "boolean",
+        "description": "\nWhether to clamp the value when the input loses focus (blur)",
+        "defaultValue": "true"
+      },
+      "focusInputOnChange": {
+        "type": "boolean",
+        "description": "\nWhether to focus input when the value changes",
+        "defaultValue": "true"
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "formatOptions": {
+        "type": "Intl.NumberFormatOptions",
+        "description": "\nThe options to pass to the `Intl.NumberFormat` constructor"
+      },
+      "inputMode": {
+        "type": "InputMode",
+        "description": "\nHints at the type of data that might be entered by the user. It also determines\nthe type of keyboard shown to the user on mobile devices",
+        "defaultValue": "\"decimal\""
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction invoked when the value changes"
+      },
+      "onValueInvalid": {
+        "type": "(details: ValueInvalidDetails) => void",
+        "description": "\nFunction invoked when the value overflows or underflows the min/max range"
+      },
+      "onFocusChange": {
+        "type": "(details: FocusChangeDetails) => void",
+        "description": "\nFunction invoked when the number input is focused"
+      },
+      "spinOnPress": {
+        "type": "boolean",
+        "description": "\nWhether to spin the value when the increment/decrement button is pressed",
+        "defaultValue": "true"
+      },
+      "locale": {
+        "type": "string",
+        "description": "\nThe current locale. Based on the BCP 47 definition.",
+        "defaultValue": "\"en-US\""
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "otp-input": {
+    "api": {
+      "value": {
+        "type": "string[]",
+        "description": "\nThe value of the input as an array of strings."
+      },
+      "valueAsString": {
+        "type": "string",
+        "description": "\nThe value of the input as a string."
+      },
+      "complete": {
+        "type": "boolean",
+        "description": "\nWhether all inputs are filled."
+      },
+      "setValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nFunction to set the value of the inputs."
+      },
+      "clearValue": {
+        "type": "() => void",
+        "description": "\nFunction to clear the value of the inputs."
+      },
+      "setValueAtIndex": {
+        "type": "(index: number, value: string) => void",
+        "description": "\nFunction to set the value of the input at a specific index."
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus the pin-input. This will focus the first input."
+      }
+    },
+    "context": {
+      "name": {
+        "type": "string",
+        "description": "\nThe name of the input element. Useful for form submission."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the underlying input element."
+      },
+      "pattern": {
+        "type": "string",
+        "description": "\nThe regular expression that the user-entered input value is checked against."
+      },
+      "ids": {
+        "type": "Partial<{ root: string; hiddenInput: string; label: string; control: string; input: (id: string) => string; }>",
+        "description": "\nThe ids of the elements in the pin input. Useful for composition."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the inputs are disabled"
+      },
+      "placeholder": {
+        "type": "string",
+        "description": "\nThe placeholder text for the input",
+        "defaultValue": "\"○\""
+      },
+      "autoFocus": {
+        "type": "boolean",
+        "description": "\nWhether to auto-focus the first input."
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the pin input is in the invalid state"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the pin input is required"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the pin input is in the valid state"
+      },
+      "otp": {
+        "type": "boolean",
+        "description": "\nIf `true`, the pin input component signals to its fields that they should\nuse `autocomplete=\"one-time-code\"`."
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe value of the the pin input."
+      },
+      "type": {
+        "type": "\"alphanumeric\" | \"numeric\" | \"alphabetic\"",
+        "description": "\nThe type of value the pin-input should allow",
+        "defaultValue": "\"numeric\""
+      },
+      "onValueComplete": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction called when all inputs have valid values"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction called on input change"
+      },
+      "onValueInvalid": {
+        "type": "(details: ValueInvalidDetails) => void",
+        "description": "\nFunction called when an invalid value is entered"
+      },
+      "mask": {
+        "type": "boolean",
+        "description": "\nIf `true`, the input's value will be masked just like `type=password`"
+      },
+      "blurOnComplete": {
+        "type": "boolean",
+        "description": "\nWhether to blur the input when the value is complete"
+      },
+      "selectOnFocus": {
+        "type": "boolean",
+        "description": "\nWhether to select input value when input is focused"
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "pagination": {
+    "api": {
+      "page": {
+        "type": "number",
+        "description": "\nThe current page."
+      },
+      "count": {
+        "type": "number",
+        "description": "\nThe total number of data items."
+      },
+      "pageSize": {
+        "type": "number",
+        "description": "\nThe number of data items per page."
+      },
+      "totalPages": {
+        "type": "number",
+        "description": "\nThe total number of pages."
+      },
+      "pages": {
+        "type": "Pages",
+        "description": "\nThe page range. Represented as an array of page numbers (including ellipsis)"
+      },
+      "previousPage": {
+        "type": "number",
+        "description": "\nThe previous page."
+      },
+      "nextPage": {
+        "type": "number",
+        "description": "\nThe next page."
+      },
+      "pageRange": {
+        "type": "PageRange",
+        "description": "\nThe page range. Represented as an object with `start` and `end` properties."
+      },
+      "slice": {
+        "type": "<V>(data: V[]) => V[]",
+        "description": "\nFunction to slice an array of data based on the current page."
+      },
+      "setCount": {
+        "type": "(count: number) => void",
+        "description": "\nFunction to set the total number of pages."
+      },
+      "setPageSize": {
+        "type": "(size: number) => void",
+        "description": "\nFunction to set the page size."
+      },
+      "setPage": {
+        "type": "(page: number) => void",
+        "description": "\nFunction to set the current page."
+      },
+      "goToNextPage": {
+        "type": "() => void",
+        "description": "\nFunction to go to the next page."
+      },
+      "goToPrevPage": {
+        "type": "() => void",
+        "description": "\nFunction to go to the previous page."
+      },
+      "goToFirstPage": {
+        "type": "() => void",
+        "description": "\nFunction to go to the first page."
+      },
+      "goToLastPage": {
+        "type": "() => void",
+        "description": "\nFunction to go to the last page."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; ellipsis: (index: number) => string; prevTrigger: string; nextTrigger: string; item: (page: number) => string; }>",
+        "description": "\nThe ids of the elements in the accordion. Useful for composition."
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "count": {
+        "type": "number",
+        "description": "\nTotal number of data items"
+      },
+      "pageSize": {
+        "type": "number",
+        "description": "\nNumber of data items per page",
+        "defaultValue": "10"
+      },
+      "siblingCount": {
+        "type": "number",
+        "description": "\nNumber of pages to show beside active page",
+        "defaultValue": "1"
+      },
+      "page": {
+        "type": "number",
+        "description": "\nThe active page",
+        "defaultValue": "1"
+      },
+      "onPageChange": {
+        "type": "(details: PageChangeDetails) => void",
+        "description": "\nCalled when the page number is changed"
+      },
+      "onPageSizeChange": {
+        "type": "(details: PageSizeChangeDetails) => void",
+        "description": "\nCalled when the page size is changed"
+      },
+      "type": {
+        "type": "\"button\" | \"link\"",
+        "description": "\nThe type of the trigger element",
+        "defaultValue": "\"button\""
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "popover": {
+    "api": {
+      "portalled": {
+        "type": "boolean",
+        "description": "\nWhether the popover is portalled."
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the popover is open"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the popover"
+      },
+      "reposition": {
+        "type": "(options?: Partial<PositioningOptions>) => void",
+        "description": "\nFunction to reposition the popover"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ anchor: string; trigger: string; content: string; title: string; description: string; closeTrigger: string; positioner: string; arrow: string; }>",
+        "description": "\nThe ids of the elements in the popover. Useful for composition."
+      },
+      "modal": {
+        "type": "boolean",
+        "description": "\nWhether the popover should be modal. When set to `true`:\n- interaction with outside elements will be disabled\n- only popover content will be visible to screen readers\n- scrolling is blocked\n- focus is trapped within the popover\n",
+        "defaultValue": "false"
+      },
+      "portalled": {
+        "type": "boolean",
+        "description": "\nWhether the popover is portalled. This will proxy the tabbing behavior regardless of the DOM position\nof the popover content.\n",
+        "defaultValue": "true"
+      },
+      "autoFocus": {
+        "type": "boolean",
+        "description": "\nWhether to automatically set focus on the first focusable\ncontent within the popover when opened.\n",
+        "defaultValue": "true"
+      },
+      "initialFocusEl": {
+        "type": "() => HTMLElement",
+        "description": "\nThe element to focus on when the popover is opened."
+      },
+      "closeOnInteractOutside": {
+        "type": "boolean",
+        "description": "\nWhether to close the popover when the user clicks outside of the popover.",
+        "defaultValue": "true"
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "description": "\nWhether to close the popover when the escape key is pressed.",
+        "defaultValue": "true"
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction invoked when the popover opens or closes"
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe user provided options used to position the popover content"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the popover is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the popover is controlled by the user"
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => Node | ShadowRoot | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "onEscapeKeyDown": {
+        "type": "(event: KeyboardEvent) => void",
+        "description": "\nFunction called when the escape key is pressed"
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "persistentElements": {
+        "type": "(() => Element)[]",
+        "description": "\nReturns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+      }
+    }
+  },
+  "presence": {
+    "api": {
+      "skip": {
+        "type": "boolean",
+        "description": "\nWhether the animation should be skipped."
+      },
+      "present": {
+        "type": "boolean",
+        "description": "\nWhether the node is present in the DOM."
+      },
+      "setNode": {
+        "type": "(node: HTMLElement) => void",
+        "description": "\nFunction to set the node (as early as possible)"
+      },
+      "unmount": {
+        "type": "() => void",
+        "description": "\nFunction to programmatically unmount the node"
+      }
+    },
+    "context": {
+      "present": {
+        "type": "boolean",
+        "description": "\nWhether the node is present (controlled by the user)"
+      },
+      "onExitComplete": {
+        "type": "() => void",
+        "description": "\nFunction called when the animation ends in the closed state"
+      },
+      "immediate": {
+        "type": "boolean",
+        "description": "\nWhether to synchronize the present change immediately or defer it to the next frame"
+      }
+    }
+  },
+  "progress": {
+    "api": {
+      "value": {
+        "type": "number",
+        "description": "\nThe current value of the progress bar."
+      },
+      "valueAsString": {
+        "type": "string",
+        "description": "\nThe current value of the progress bar as a string."
+      },
+      "setValue": {
+        "type": "(value: number) => void",
+        "description": "\nSets the current value of the progress bar."
+      },
+      "setToMax": {
+        "type": "() => void",
+        "description": "\nSets the current value of the progress bar to the max value."
+      },
+      "setToMin": {
+        "type": "() => void",
+        "description": "\nSets the current value of the progress bar to the min value."
+      },
+      "percent": {
+        "type": "number",
+        "description": "\nThe percentage of the progress bar's value."
+      },
+      "percentAsString": {
+        "type": "string",
+        "description": "\nThe percentage of the progress bar's value as a string."
+      },
+      "min": {
+        "type": "number",
+        "description": "\nThe minimum allowed value of the progress bar."
+      },
+      "max": {
+        "type": "number",
+        "description": "\nThe maximum allowed value of the progress bar."
+      },
+      "indeterminate": {
+        "type": "boolean",
+        "description": "\nWhether the progress bar is indeterminate."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; track: string; label: string; circle: string; }>",
+        "description": "\nThe ids of the elements in the progress bar. Useful for composition."
+      },
+      "value": {
+        "type": "number",
+        "description": "\n The current value of the progress bar.",
+        "defaultValue": "50"
+      },
+      "min": {
+        "type": "number",
+        "description": "\nThe minimum allowed value of the progress bar.",
+        "defaultValue": "0"
+      },
+      "max": {
+        "type": "number",
+        "description": "\nThe maximum allowed value of the progress bar.",
+        "defaultValue": "100"
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nThe localized messages to use."
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nCallback fired when the value changes."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "orientation": {
+        "type": "Orientation",
+        "description": "\nThe orientation of the element.",
+        "defaultValue": "\"horizontal\""
+      }
+    }
+  },
+  "qr-code": {
+    "api": {
+      "value": {
+        "type": "string",
+        "description": "\nThe value to encode."
+      },
+      "setValue": {
+        "type": "(value: string) => void",
+        "description": "\nSet the value to encode."
+      },
+      "getDataUrl": {
+        "type": "(type: DataUrlType, quality?: number) => Promise<string>",
+        "description": "\nReturns the data URL of the qr code."
+      }
+    },
+    "context": {
+      "value": {
+        "type": "string",
+        "description": "\nThe value to encode."
+      },
+      "ids": {
+        "type": "Partial<{ root: string; frame: string; }>",
+        "description": "\nThe element ids."
+      },
+      "encoding": {
+        "type": "QrCodeGenerateOptions",
+        "description": "\nThe qr code encoding options."
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nCallback fired when the value changes."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "radio": {
+    "api": {
+      "value": {
+        "type": "string",
+        "description": "\nThe current value of the radio group"
+      },
+      "setValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to set the value of the radio group"
+      },
+      "clearValue": {
+        "type": "() => void",
+        "description": "\nFunction to clear the value of the radio group"
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus the radio group"
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nReturns the state details of a radio input"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; label: string; indicator: string; item: (value: string) => string; itemLabel: (value: string) => string; itemControl: (value: string) => string; itemHiddenInput: (value: string) => string; }>",
+        "description": "\nThe ids of the elements in the radio. Useful for composition."
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value of the checked radio"
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name of the input fields in the radio\n(Useful for form submission)."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the underlying input."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nIf `true`, the radio group will be disabled"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is read-only"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction called once a radio is checked"
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "description": "\nOrientation of the radio group"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "select": {
+    "api": {
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the select is focused"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the select is open"
+      },
+      "empty": {
+        "type": "boolean",
+        "description": "\nWhether the select value is empty"
+      },
+      "highlightedValue": {
+        "type": "string",
+        "description": "\nThe value of the highlighted item"
+      },
+      "highlightedItem": {
+        "type": "V",
+        "description": "\nThe highlighted item"
+      },
+      "highlightValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to highlight a value"
+      },
+      "selectedItems": {
+        "type": "V[]",
+        "description": "\nThe selected items"
+      },
+      "hasSelectedItems": {
+        "type": "boolean",
+        "description": "\nWhether there's a selected option"
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe selected item keys"
+      },
+      "valueAsString": {
+        "type": "string",
+        "description": "\nThe string representation of the selected items"
+      },
+      "selectValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to select a value"
+      },
+      "selectAll": {
+        "type": "() => void",
+        "description": "\nFunction to select all values"
+      },
+      "setValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nFunction to set the value of the select"
+      },
+      "clearValue": {
+        "type": "(value?: string) => void",
+        "description": "\nFunction to clear the value of the select.\nIf a value is provided, it will only clear that value, otherwise, it will clear all values."
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus on the select input"
+      },
+      "getItemState": {
+        "type": "(props: ItemProps<any>) => ItemState",
+        "description": "\nReturns the state of a select item"
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open or close the select"
+      },
+      "collection": {
+        "type": "ListCollection<V>",
+        "description": "\nFunction to toggle the select"
+      },
+      "setCollection": {
+        "type": "(collection: ListCollection<V>) => void",
+        "description": "\nFunction to set the collection of items"
+      },
+      "reposition": {
+        "type": "(options?: Partial<PositioningOptions>) => void",
+        "description": "\nFunction to set the positioning options of the select"
+      },
+      "multiple": {
+        "type": "boolean",
+        "description": "\nWhether the select allows multiple selections"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the select is disabled"
+      }
+    },
+    "context": {
+      "collection": {
+        "type": "ListCollection<any>",
+        "description": "\nThe item collection"
+      },
+      "ids": {
+        "type": "Partial<{ root: string; content: string; control: string; trigger: string; clearTrigger: string; label: string; hiddenSelect: string; positioner: string; item: (id: string | number) => string; itemGroup: (id: string | number) => string; itemGroupLabel: (id: string | number) => string; }>",
+        "description": "\nThe ids of the elements in the select. Useful for composition."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe `name` attribute of the underlying select."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the underlying select."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the select is disabled"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the select is invalid"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the select is read-only"
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the select is required"
+      },
+      "closeOnSelect": {
+        "type": "boolean",
+        "description": "\nWhether the select should close after an item is selected",
+        "defaultValue": "true"
+      },
+      "onHighlightChange": {
+        "type": "(details: HighlightChangeDetails<T>) => void",
+        "description": "\nThe callback fired when the highlighted item changes."
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails<T>) => void",
+        "description": "\nThe callback fired when the selected item changes."
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the popup is opened"
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe positioning options of the menu."
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe keys of the selected items"
+      },
+      "highlightedValue": {
+        "type": "string",
+        "description": "\nThe key of the highlighted item"
+      },
+      "loopFocus": {
+        "type": "boolean",
+        "description": "\nWhether to loop the keyboard navigation through the options",
+        "defaultValue": "false"
+      },
+      "multiple": {
+        "type": "boolean",
+        "description": "\nWhether to allow multiple selection"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the select menu is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the select's open state is controlled by the user"
+      },
+      "scrollToIndexFn": {
+        "type": "(details: ScrollToIndexDetails) => void",
+        "description": "\nFunction to scroll to a specific index"
+      },
+      "composite": {
+        "type": "boolean",
+        "description": "\nWhether the select is a composed with other composite widgets like tabs or combobox",
+        "defaultValue": "true"
+      },
+      "deselectable": {
+        "type": "boolean",
+        "description": "\nWhether the value can be cleared by clicking the selected item.\n\n**Note:** this is only applicable for single selection"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "separator": {
+    "api": {
+      "isVertical": {
+        "type": "boolean",
+        "description": "\nWhether the divider is vertical"
+      }
+    },
+    "context": {
+      "orientation": {
+        "type": "Orientation",
+        "description": "\nThe orientation of divider",
+        "defaultValue": "\"horizontal\""
+      },
+      "ids": {
+        "type": "Partial<{ root: string; }>",
+        "description": "\nThe ids of the elements in the divider"
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      }
+    }
+  },
+  "signature": {
+    "api": {
+      "empty": {
+        "type": "boolean",
+        "description": "\nWhether the signature pad is empty."
+      },
+      "drawing": {
+        "type": "boolean",
+        "description": "\nWhether the user is currently drawing."
+      },
+      "currentPath": {
+        "type": "string",
+        "description": "\nThe current path being drawn."
+      },
+      "paths": {
+        "type": "string[]",
+        "description": "\nThe paths of the signature pad."
+      },
+      "getDataUrl": {
+        "type": "(type: DataUrlType, quality?: number) => Promise<string>",
+        "description": "\nReturns the data URL of the signature pad."
+      },
+      "clear": {
+        "type": "() => void",
+        "description": "\nClears the signature pad."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; control: string; hiddenInput: string; label: string; }>",
+        "description": "\nThe ids of the signature pad elements. Useful for composition."
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nThe translations of the signature pad. Useful for internationalization."
+      },
+      "onDraw": {
+        "type": "(details: DrawDetails) => void",
+        "description": "\nCallback when the signature pad is drawing."
+      },
+      "onDrawEnd": {
+        "type": "(details: DrawEndDetails) => void",
+        "description": "\nCallback when the signature pad is done drawing."
+      },
+      "drawing": {
+        "type": "DrawingOptions",
+        "description": "\nThe drawing options.",
+        "defaultValue": "'{ size: 2, simulatePressure: true }'"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the signature pad is disabled."
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nWhether the signature pad is required."
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the signature pad is read-only."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name of the signature pad. Useful for form submission."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "slider": {
+    "api": {
+      "value": {
+        "type": "number[]",
+        "description": "\nThe value of the slider."
+      },
+      "dragging": {
+        "type": "boolean",
+        "description": "\nWhether the slider is being dragged."
+      },
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the slider is focused."
+      },
+      "setValue": {
+        "type": "(value: number[]) => void",
+        "description": "\nFunction to set the value of the slider."
+      },
+      "getThumbValue": {
+        "type": "(index: number) => number",
+        "description": "\nReturns the value of the thumb at the given index."
+      },
+      "setThumbValue": {
+        "type": "(index: number, value: number) => void",
+        "description": "\nSets the value of the thumb at the given index."
+      },
+      "getValuePercent": {
+        "type": "(value: number) => number",
+        "description": "\nReturns the percent of the thumb at the given index."
+      },
+      "getPercentValue": {
+        "type": "(percent: number) => number",
+        "description": "\nReturns the value of the thumb at the given percent."
+      },
+      "getThumbPercent": {
+        "type": "(index: number) => number",
+        "description": "\nReturns the percent of the thumb at the given index."
+      },
+      "setThumbPercent": {
+        "type": "(index: number, percent: number) => void",
+        "description": "\nSets the percent of the thumb at the given index."
+      },
+      "getThumbMin": {
+        "type": "(index: number) => number",
+        "description": "\nReturns the min value of the thumb at the given index."
+      },
+      "getThumbMax": {
+        "type": "(index: number) => number",
+        "description": "\nReturns the max value of the thumb at the given index."
+      },
+      "increment": {
+        "type": "(index: number) => void",
+        "description": "\nFunction to increment the value of the slider at the given index."
+      },
+      "decrement": {
+        "type": "(index: number) => void",
+        "description": "\nFunction to decrement the value of the slider at the given index."
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nFunction to focus the slider. This focuses the first thumb."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; thumb: (index: number) => string; hiddenInput: (index: number) => string; control: string; track: string; range: string; label: string; valueText: string; marker: (index: number) => string; }>",
+        "description": "\nThe ids of the elements in the range slider. Useful for composition."
+      },
+      "aria-label": {
+        "type": "string[]",
+        "description": "\nThe aria-label of each slider thumb. Useful for providing an accessible name to the slider"
+      },
+      "aria-labelledby": {
+        "type": "string[]",
+        "description": "\nThe `id` of the elements that labels each slider thumb. Useful for providing an accessible name to the slider"
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name associated with each slider thumb (when used in a form)"
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe associate form of the underlying input element."
+      },
+      "value": {
+        "type": "number[]",
+        "description": "\nThe value of the range slider"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the slider is disabled"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the slider is read-only"
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nWhether the slider is invalid"
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction invoked when the value of the slider changes"
+      },
+      "onValueChangeEnd": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction invoked when the slider value change is done"
+      },
+      "onFocusChange": {
+        "type": "(details: FocusChangeDetails) => void",
+        "description": "\nFunction invoked when the slider's focused index changes"
+      },
+      "getAriaValueText": {
+        "type": "(details: ValueTextDetails) => string",
+        "description": "\nFunction that returns a human readable value for the slider thumb"
+      },
+      "min": {
+        "type": "number",
+        "description": "\nThe minimum value of the slider",
+        "defaultValue": "0"
+      },
+      "max": {
+        "type": "number",
+        "description": "\nThe maximum value of the slider",
+        "defaultValue": "100"
+      },
+      "step": {
+        "type": "number",
+        "description": "\nThe step value of the slider",
+        "defaultValue": "1"
+      },
+      "minStepsBetweenThumbs": {
+        "type": "number",
+        "description": "\nThe minimum permitted steps between multiple thumbs.",
+        "defaultValue": "0"
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\"",
+        "description": "\nThe orientation of the slider",
+        "defaultValue": "\"horizontal\""
+      },
+      "origin": {
+        "type": "\"start\" | \"center\"",
+        "description": "\nThe origin of the slider range\n- \"start\": Useful when the value represents an absolute value\n- \"center\": Useful when the value represents an offset (relative)\n",
+        "defaultValue": "\"start\""
+      },
+      "thumbAlignment": {
+        "type": "\"center\" | \"contain\"",
+        "description": "\nThe alignment of the slider thumb relative to the track\n- `center`: the thumb will extend beyond the bounds of the slider track.\n- `contain`: the thumb will be contained within the bounds of the track.\n",
+        "defaultValue": "\"contain\""
+      },
+      "thumbSize": {
+        "type": "{ width: number; height: number; }",
+        "description": "\nThe slider thumbs dimensions"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "splitter": {
+    "api": {
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the splitter is focused."
+      },
+      "dragging": {
+        "type": "boolean",
+        "description": "\nWhether the splitter is being dragged."
+      },
+      "bounds": {
+        "type": "PanelBounds",
+        "description": "\n The bounds of the currently dragged splitter handle."
+      },
+      "setToMinSize": {
+        "type": "(id: PanelId) => void",
+        "description": "\nFunction to set a panel to its minimum size."
+      },
+      "setToMaxSize": {
+        "type": "(id: PanelId) => void",
+        "description": "\nFunction to set a panel to its maximum size."
+      },
+      "setSize": {
+        "type": "(id: PanelId, size: number) => void",
+        "description": "\nFunction to set the size of a panel."
+      },
+      "getResizeTriggerState": {
+        "type": "(props: ResizeTriggerProps) => ResizeTriggerState",
+        "description": "\nReturns the state details for a resize trigger."
+      }
+    },
+    "context": {
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "description": "\nThe orientation of the splitter. Can be `horizontal` or `vertical`"
+      },
+      "size": {
+        "type": "PanelSizeData[]",
+        "description": "\nThe size data of the panels"
+      },
+      "onSizeChange": {
+        "type": "(details: SizeChangeDetails) => void",
+        "description": "\nFunction called when the splitter is resized."
+      },
+      "onSizeChangeEnd": {
+        "type": "(details: SizeChangeDetails) => void",
+        "description": "\nFunction called when the splitter resize ends."
+      },
+      "ids": {
+        "type": "Partial<{ root: string; resizeTrigger: (id: string) => string; label: (id: string) => string; panel: (id: string | number) => string; }>",
+        "description": "\nThe ids of the elements in the splitter. Useful for composition."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "steps": {
+    "api": {
+      "value": {
+        "type": "number",
+        "description": "\nThe value of the stepper."
+      },
+      "percent": {
+        "type": "number",
+        "description": "\nThe percentage of the stepper."
+      },
+      "count": {
+        "type": "number",
+        "description": "\nThe total number of steps."
+      },
+      "hasNextStep": {
+        "type": "boolean",
+        "description": "\nWhether the stepper has a next step."
+      },
+      "hasPrevStep": {
+        "type": "boolean",
+        "description": "\nWhether the stepper has a previous step."
+      },
+      "isCompleted": {
+        "type": "boolean",
+        "description": "\nWhether the stepper is completed."
+      },
+      "setStep": {
+        "type": "(step: number) => void",
+        "description": "\nFunction to set the value of the stepper."
+      },
+      "goToNextStep": {
+        "type": "() => void",
+        "description": "\nFunction to go to the next step."
+      },
+      "goToPrevStep": {
+        "type": "() => void",
+        "description": "\nFunction to go to the previous step."
+      },
+      "resetStep": {
+        "type": "() => void",
+        "description": "\nFunction to go to reset the stepper."
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nReturns the state of the item at the given index."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "ElementIds",
+        "description": "\nThe custom ids for the stepper elements"
+      },
+      "step": {
+        "type": "number",
+        "description": "\nThe current value of the stepper"
+      },
+      "onStepChange": {
+        "type": "(details: StepChangeDetails) => void",
+        "description": "\nCallback to be called when the value changes"
+      },
+      "onStepComplete": {
+        "type": "VoidFunction",
+        "description": "\nCallback to be called when a step is completed"
+      },
+      "linear": {
+        "type": "boolean",
+        "description": "\nIf `true`, the stepper requires the user to complete the steps in order"
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "description": "\nThe orientation of the stepper"
+      },
+      "count": {
+        "type": "number",
+        "description": "\nThe total number of steps"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "switch": {
+    "api": {
+      "checked": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is checked"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is disabled"
+      },
+      "focused": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is focused"
+      },
+      "setChecked": {
+        "type": "(checked: boolean) => void",
+        "description": "\nFunction to set the checked state of the switch."
+      },
+      "toggleChecked": {
+        "type": "() => void",
+        "description": "\nFunction to toggle the checked state of the checkbox"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; hiddenInput: string; control: string; label: string; thumb: string; }>",
+        "description": "\nThe ids of the elements in the switch. Useful for composition."
+      },
+      "label": {
+        "type": "string",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the switch is disabled."
+      },
+      "invalid": {
+        "type": "boolean",
+        "description": "\nIf `true`, the switch is marked as invalid."
+      },
+      "required": {
+        "type": "boolean",
+        "description": "\nIf `true`, the switch input is marked as required,"
+      },
+      "readOnly": {
+        "type": "boolean",
+        "description": "\nWhether the switch is read-only"
+      },
+      "onCheckedChange": {
+        "type": "(details: CheckedChangeDetails) => void",
+        "description": "\nFunction to call when the switch is clicked."
+      },
+      "checked": {
+        "type": "boolean",
+        "description": "\nWhether the switch is checked."
+      },
+      "name": {
+        "type": "string",
+        "description": "\nThe name of the input field in a switch\n(Useful for form submission)."
+      },
+      "form": {
+        "type": "string",
+        "description": "\nThe id of the form that the switch belongs to"
+      },
+      "value": {
+        "type": "string | number",
+        "description": "\nThe value of switch input. Useful for form submission.",
+        "defaultValue": "\"on\""
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "tabs": {
+    "api": {
+      "value": {
+        "type": "string",
+        "description": "\nThe current value of the tabs."
+      },
+      "focusedValue": {
+        "type": "string",
+        "description": "\nThe value of the tab that is currently focused."
+      },
+      "setValue": {
+        "type": "(value: string) => void",
+        "description": "\nSets the value of the tabs."
+      },
+      "clearValue": {
+        "type": "() => void",
+        "description": "\nClears the value of the tabs."
+      },
+      "setIndicatorRect": {
+        "type": "(value: string) => void",
+        "description": "\nSets the indicator rect to the tab with the given value"
+      },
+      "syncTabIndex": {
+        "type": "() => void",
+        "description": "\nSynchronizes the tab index of the content element.\nUseful when rendering tabs within a select or combobox"
+      },
+      "focus": {
+        "type": "() => void",
+        "description": "\nSet focus on the selected tab trigger"
+      },
+      "selectNext": {
+        "type": "(fromValue?: string) => void",
+        "description": "\nSelects the next tab"
+      },
+      "selectPrev": {
+        "type": "(fromValue?: string) => void",
+        "description": "\nSelects the previous tab"
+      },
+      "getTriggerState": {
+        "type": "(props: TriggerProps) => TriggerState",
+        "description": "\nReturns the state of the trigger with the given props"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; trigger: string; list: string; content: string; indicator: string; }>",
+        "description": "\nThe ids of the elements in the tabs. Useful for composition."
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nSpecifies the localized strings that identifies the accessibility elements and their states"
+      },
+      "loopFocus": {
+        "type": "boolean",
+        "description": "\nWhether the keyboard navigation will loop from last tab to first, and vice versa.",
+        "defaultValue": "true"
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe selected tab id"
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "description": "\nThe orientation of the tabs. Can be `horizontal` or `vertical`\n- `horizontal`: only left and right arrow key navigation will work.\n- `vertical`: only up and down arrow key navigation will work.\n",
+        "defaultValue": "\"horizontal\""
+      },
+      "activationMode": {
+        "type": "\"manual\" | \"automatic\"",
+        "description": "\nThe activation mode of the tabs. Can be `manual` or `automatic`\n- `manual`: Tabs are activated when clicked or press `enter` key.\n- `automatic`: Tabs are activated when receiving focus\n",
+        "defaultValue": "\"automatic\""
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nCallback to be called when the selected/active tab changes"
+      },
+      "onFocusChange": {
+        "type": "(details: FocusChangeDetails) => void",
+        "description": "\nCallback to be called when the focused tab changes"
+      },
+      "composite": {
+        "type": "boolean",
+        "description": "\nWhether the tab is composite"
+      },
+      "deselectable": {
+        "type": "boolean",
+        "description": "\nWhether the active tab can be deselected when clicking on it."
+      },
+      "navigate": {
+        "type": "(details: NavigateDetails) => void",
+        "description": "\nFunction to navigate to the selected tab when clicking on it.\nUseful if tab triggers are anchor elements."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "timer": {
+    "api": {
+      "running": {
+        "type": "boolean",
+        "description": "\nWhether the timer is running."
+      },
+      "paused": {
+        "type": "boolean",
+        "description": "\nWhether the timer is paused."
+      },
+      "time": {
+        "type": "Time<number>",
+        "description": "\nThe formatted timer count value."
+      },
+      "formattedTime": {
+        "type": "Time<string>",
+        "description": "\nThe formatted time parts of the timer count."
+      },
+      "start": {
+        "type": "() => void",
+        "description": "\nFunction to start the timer."
+      },
+      "pause": {
+        "type": "() => void",
+        "description": "\nFunction to pause the timer."
+      },
+      "resume": {
+        "type": "() => void",
+        "description": "\nFunction to resume the timer."
+      },
+      "reset": {
+        "type": "() => void",
+        "description": "\nFunction to reset the timer."
+      },
+      "restart": {
+        "type": "() => void",
+        "description": "\nFunction to restart the timer."
+      },
+      "progressPercent": {
+        "type": "number",
+        "description": "\nThe progress percentage of the timer."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; area: string; }>",
+        "description": "\nThe ids of the timer parts"
+      },
+      "countdown": {
+        "type": "boolean",
+        "description": "\nWhether the timer should countdown, decrementing the timer on each tick."
+      },
+      "startMs": {
+        "type": "number",
+        "description": "\nThe total duration of the timer in milliseconds."
+      },
+      "targetMs": {
+        "type": "number",
+        "description": "\nThe minimum count of the timer in milliseconds."
+      },
+      "autoStart": {
+        "type": "boolean",
+        "description": "\nWhether the timer should start automatically"
+      },
+      "interval": {
+        "type": "number",
+        "description": "\nThe interval in milliseconds to update the timer count.",
+        "defaultValue": "250"
+      },
+      "onTick": {
+        "type": "(details: TickDetails) => void",
+        "description": "\nFunction invoked when the timer ticks"
+      },
+      "onComplete": {
+        "type": "() => void",
+        "description": "\nFunction invoked when the timer is completed"
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "toast": {
+    "api": {
+      "getCount": {
+        "type": "() => number",
+        "description": "\nThe total number of toasts"
+      },
+      "getPlacements": {
+        "type": "() => Placement[]",
+        "description": "\nThe placements of the active toasts"
+      },
+      "getToastsByPlacement": {
+        "type": "(placement: Placement) => Service<O>[]",
+        "description": "\nThe active toasts by placement"
+      },
+      "isVisible": {
+        "type": "(id: string) => boolean",
+        "description": "\nReturns whether the toast id is visible"
+      },
+      "create": {
+        "type": "(options: Options<O>) => string",
+        "description": "\nFunction to create a toast."
+      },
+      "upsert": {
+        "type": "(options: Options<O>) => string",
+        "description": "\nFunction to create or update a toast."
+      },
+      "update": {
+        "type": "(id: string, options: Options<O>) => void",
+        "description": "\nFunction to update a toast's options by id."
+      },
+      "success": {
+        "type": "(options: Options<O>) => string",
+        "description": "\nFunction to create a success toast."
+      },
+      "error": {
+        "type": "(options: Options<O>) => string",
+        "description": "\nFunction to create an error toast."
+      },
+      "loading": {
+        "type": "(options: Options<O>) => string",
+        "description": "\nFunction to create a loading toast."
+      },
+      "resume": {
+        "type": "(id?: string) => void",
+        "description": "\nFunction to resume a toast by id."
+      },
+      "pause": {
+        "type": "(id?: string) => void",
+        "description": "\nFunction to pause a toast by id."
+      },
+      "dismiss": {
+        "type": "(id?: string) => void",
+        "description": "\nFunction to dismiss a toast by id.\nIf no id is provided, all toasts will be dismissed."
+      },
+      "dismissByPlacement": {
+        "type": "(placement: Placement) => void",
+        "description": "\nFunction to dismiss all toasts by placement."
+      },
+      "remove": {
+        "type": "(id?: string) => void",
+        "description": "\nFunction to remove a toast by id.\nIf no id is provided, all toasts will be removed."
+      },
+      "promise": {
+        "type": "<T>(promise: Promise<T> | (() => Promise<T>), options: Options<O>>) => string",
+        "description": "\nFunction to create a toast from a promise.\n- When the promise resolves, the toast will be updated with the success options.\n- When the promise rejects, the toast will be updated with the error options."
+      },
+      "subscribe": {
+        "type": "(callback: (toasts: Options<O>[]) => void) => VoidFunction",
+        "description": "\nFunction to subscribe to the toast group."
+      }
+    },
+    "context": {
+      "pauseOnPageIdle": {
+        "type": "boolean",
+        "description": "\nWhether to pause toast when the user leaves the browser tab",
+        "defaultValue": "false"
+      },
+      "gap": {
+        "type": "number",
+        "description": "\nThe gap or spacing between toasts",
+        "defaultValue": "16"
+      },
+      "max": {
+        "type": "number",
+        "description": "\nThe maximum number of toasts that can be shown at once",
+        "defaultValue": "Number.MAX_SAFE_INTEGER"
+      },
+      "offsets": {
+        "type": "string | Record<\"left\" | \"right\" | \"bottom\" | \"top\", string>",
+        "description": "\nThe offset from the safe environment edge of the viewport",
+        "defaultValue": "\"1rem\""
+      },
+      "hotkey": {
+        "type": "string[]",
+        "description": "\nThe hotkey that will move focus to the toast group",
+        "defaultValue": "'[\"altKey\", \"KeyT\"]'"
+      },
+      "overlap": {
+        "type": "boolean",
+        "description": "\nWhether the toasts should overlap each other"
+      },
+      "placement": {
+        "type": "Placement",
+        "description": "\nThe placement of the toast"
+      },
+      "removeDelay": {
+        "type": "number",
+        "description": "\nThe duration for the toast to kept alive before it is removed.\nUseful for exit transitions.\n",
+        "defaultValue": "200"
+      },
+      "duration": {
+        "type": "number",
+        "description": "\nThe duration the toast will be visible"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "toggle": {
+    "api": {
+      "value": {
+        "type": "string[]",
+        "description": "\nThe value of the toggle group."
+      },
+      "setValue": {
+        "type": "(values: string[]) => void",
+        "description": "\nFunction to set the value of the toggle group."
+      },
+      "getItemState": {
+        "type": "(props: ItemProps) => ItemState",
+        "description": "\nReturns the state of the toggle item."
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; item: (value: string) => string; }>",
+        "description": "\nThe ids of the elements in the toggle. Useful for composition."
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the toggle is disabled."
+      },
+      "value": {
+        "type": "string[]",
+        "description": "\nThe values of the toggles in the group."
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction to call when the toggle is clicked."
+      },
+      "loopFocus": {
+        "type": "boolean",
+        "description": "\nWhether to loop focus inside the toggle group.",
+        "defaultValue": "true"
+      },
+      "rovingFocus": {
+        "type": "boolean",
+        "description": "\n Whether to use roving tab index to manage focus.",
+        "defaultValue": "true"
+      },
+      "orientation": {
+        "type": "Orientation",
+        "description": "\nThe orientation of the toggle group.",
+        "defaultValue": "\"horizontal\""
+      },
+      "multiple": {
+        "type": "boolean",
+        "description": "\nWhether to allow multiple toggles to be selected."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "tooltip": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip is open."
+      },
+      "setOpen": {
+        "type": "(open: boolean) => void",
+        "description": "\nFunction to open the tooltip."
+      },
+      "reposition": {
+        "type": "(options?: Partial<PositioningOptions>) => void",
+        "description": "\nFunction to reposition the popover"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ trigger: string; content: string; arrow: string; positioner: string; }>",
+        "description": "\nThe ids of the elements in the tooltip. Useful for composition."
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe `id` of the tooltip."
+      },
+      "openDelay": {
+        "type": "number",
+        "description": "\nThe open delay of the tooltip.",
+        "defaultValue": "1000"
+      },
+      "closeDelay": {
+        "type": "number",
+        "description": "\nThe close delay of the tooltip.",
+        "defaultValue": "500"
+      },
+      "closeOnPointerDown": {
+        "type": "boolean",
+        "description": "\nWhether to close the tooltip on pointerdown.",
+        "defaultValue": "true"
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "description": "\nWhether to close the tooltip when the Escape key is pressed.",
+        "defaultValue": "true"
+      },
+      "closeOnScroll": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip should close on scroll",
+        "defaultValue": "true"
+      },
+      "closeOnClick": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip should close on click",
+        "defaultValue": "true"
+      },
+      "interactive": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip's content is interactive.\nIn this mode, the tooltip will remain open when user hovers over the content.",
+        "defaultValue": "false"
+      },
+      "onOpenChange": {
+        "type": "(details: OpenChangeDetails) => void",
+        "description": "\nFunction called when the tooltip is opened."
+      },
+      "aria-label": {
+        "type": "string",
+        "description": "\nCustom label for the tooltip."
+      },
+      "positioning": {
+        "type": "PositioningOptions",
+        "description": "\nThe user provided options used to position the popover content"
+      },
+      "disabled": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip is disabled"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip is open"
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the tooltip is controlled by the user"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
+  "tour": {
+    "api": {
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether the tour is open"
+      },
+      "totalSteps": {
+        "type": "number",
+        "description": "\nThe total number of steps"
+      },
+      "stepIndex": {
+        "type": "number",
+        "description": "\nThe index of the current step"
+      },
+      "step": {
+        "type": "StepDetails",
+        "description": "\nThe current step details"
+      },
+      "hasNextStep": {
+        "type": "boolean",
+        "description": "\nWhether there is a next step"
+      },
+      "hasPrevStep": {
+        "type": "boolean",
+        "description": "\nWhether there is a previous step"
+      },
+      "firstStep": {
+        "type": "boolean",
+        "description": "\nWhether the current step is the first step"
+      },
+      "lastStep": {
+        "type": "boolean",
+        "description": "\nWhether the current step is the last step"
+      },
+      "addStep": {
+        "type": "(step: StepDetails) => void",
+        "description": "\nAdd a new step to the tour"
+      },
+      "removeStep": {
+        "type": "(id: string) => void",
+        "description": "\nRemove a step from the tour"
+      },
+      "updateStep": {
+        "type": "(id: string, stepOverrides: Partial<StepDetails>) => void",
+        "description": "\nUpdate a step in the tour with partial details"
+      },
+      "setSteps": {
+        "type": "(steps: StepDetails[]) => void",
+        "description": "\nSet the steps of the tour"
+      },
+      "setStep": {
+        "type": "(id: string) => void",
+        "description": "\nSet the current step of the tour"
+      },
+      "start": {
+        "type": "(id?: string) => void",
+        "description": "\nStart the tour at a specific step (or the first step if not provided)"
+      },
+      "isValidStep": {
+        "type": "(id: string) => boolean",
+        "description": "\nCheck if a step is valid"
+      },
+      "isCurrentStep": {
+        "type": "(id: string) => boolean",
+        "description": "\nCheck if a step is visible"
+      },
+      "next": {
+        "type": "() => void",
+        "description": "\nMove to the next step"
+      },
+      "prev": {
+        "type": "() => void",
+        "description": "\nMove to the previous step"
+      },
+      "getProgressText": {
+        "type": "() => string",
+        "description": "\nReturns the progress text"
+      },
+      "getProgressPercent": {
+        "type": "() => number",
+        "description": "\nReturns the progress percent"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ content: string; title: string; description: string; positioner: string; backdrop: string; arrow: string; }>",
+        "description": "\nThe ids of the elements in the tour. Useful for composition."
+      },
+      "steps": {
+        "type": "StepDetails[]",
+        "description": "\nThe steps of the tour"
+      },
+      "stepId": {
+        "type": "string",
+        "description": "\nThe id of the currently highlighted step"
+      },
+      "onStepChange": {
+        "type": "(details: StepChangeDetails) => void",
+        "description": "\nCallback when the highlighted step changes"
+      },
+      "onStatusChange": {
+        "type": "(details: StatusChangeDetails) => void",
+        "description": "\nCallback when the tour is opened or closed"
+      },
+      "closeOnInteractOutside": {
+        "type": "boolean",
+        "description": "\nWhether to close the tour when the user clicks outside the tour",
+        "defaultValue": "true"
+      },
+      "closeOnEscape": {
+        "type": "boolean",
+        "description": "\nWhether to close the tour when the user presses the escape key",
+        "defaultValue": "true"
+      },
+      "keyboardNavigation": {
+        "type": "boolean",
+        "description": "\nWhether to allow keyboard navigation (right/left arrow keys to navigate between steps)",
+        "defaultValue": "true"
+      },
+      "preventInteraction": {
+        "type": "boolean",
+        "description": "\nPrevents interaction with the rest of the page while the tour is open",
+        "defaultValue": "false"
+      },
+      "spotlightOffset": {
+        "type": "Point",
+        "description": "\nThe offsets to apply to the spotlight",
+        "defaultValue": "\"{ x: 10, y: 10 }\""
+      },
+      "spotlightRadius": {
+        "type": "number",
+        "description": "\nThe radius of the spotlight clip path",
+        "defaultValue": "4"
+      },
+      "translations": {
+        "type": "IntlTranslations",
+        "description": "\nThe translations for the tour"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "onPointerDownOutside": {
+        "type": "(event: PointerDownOutsideEvent) => void",
+        "description": "\nFunction called when the pointer is pressed down outside the component"
+      },
+      "onFocusOutside": {
+        "type": "(event: FocusOutsideEvent) => void",
+        "description": "\nFunction called when the focus is moved outside the component"
+      },
+      "onInteractOutside": {
+        "type": "(event: InteractOutsideEvent) => void",
+        "description": "\nFunction called when an interaction happens outside the component"
+      }
+    }
+  },
+  "tree": {
+    "api": {
+      "collection": {
+        "type": "TreeCollection<V>",
+        "description": "\nThe tree collection data"
+      },
+      "expandedValue": {
+        "type": "string[]",
+        "description": "\nThe id of the expanded nodes"
+      },
+      "setExpandedValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nFunction to set the expanded value"
+      },
+      "selectedValue": {
+        "type": "string[]",
+        "description": "\nThe id of the selected nodes"
+      },
+      "setSelectedValue": {
+        "type": "(value: string[]) => void",
+        "description": "\nFunction to set the selected value"
+      },
+      "getVisibleNodes": {
+        "type": "() => V[]",
+        "description": "\nFunction to get the visible nodes"
+      },
+      "expand": {
+        "type": "(value?: string[]) => void",
+        "description": "\nFunction to expand nodes.\nIf no value is provided, all nodes will be expanded"
+      },
+      "collapse": {
+        "type": "(value?: string[]) => void",
+        "description": "\nFunction to collapse nodes\nIf no value is provided, all nodes will be collapsed"
+      },
+      "select": {
+        "type": "(value?: string[]) => void",
+        "description": "\nFunction to select nodes\nIf no value is provided, all nodes will be selected"
+      },
+      "deselect": {
+        "type": "(value?: string[]) => void",
+        "description": "\nFunction to deselect nodes\nIf no value is provided, all nodes will be deselected"
+      },
+      "focus": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to focus an item node"
+      },
+      "selectParent": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to select the parent node of the focused node"
+      },
+      "expandParent": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to expand the parent node of the focused node"
+      }
+    },
+    "context": {
+      "collection": {
+        "type": "TreeCollection<T>",
+        "description": "\nThe tree collection data"
+      },
+      "ids": {
+        "type": "Partial<{ root: string; tree: string; label: string; node: (value: string) => string; }>",
+        "description": "\nThe ids of the tree elements. Useful for composition."
+      },
+      "expandedValue": {
+        "type": "string[]",
+        "description": "\nThe id of the expanded nodes"
+      },
+      "selectedValue": {
+        "type": "string[]",
+        "description": "\nThe id of the selected nodes"
+      },
+      "focusedValue": {
+        "type": "string",
+        "description": "\nThe id of the focused node"
+      },
+      "selectionMode": {
+        "type": "\"single\" | \"multiple\"",
+        "description": "\nWhether the tree supports multiple selection\n- \"single\": only one node can be selected\n- \"multiple\": multiple nodes can be selected\n",
+        "defaultValue": "\"single\""
+      },
+      "onExpandedChange": {
+        "type": "(details: ExpandedChangeDetails) => void",
+        "description": "\nCalled when the tree is opened or closed"
+      },
+      "onSelectionChange": {
+        "type": "(details: SelectionChangeDetails) => void",
+        "description": "\nCalled when the selection changes"
+      },
+      "onFocusChange": {
+        "type": "(details: FocusChangeDetails) => void",
+        "description": "\nCalled when the focused node changes"
+      },
+      "expandOnClick": {
+        "type": "boolean",
+        "description": "\nWhether clicking on a branch should open it or not",
+        "defaultValue": "true"
+      },
+      "typeahead": {
+        "type": "boolean",
+        "description": "\nWhether the tree supports typeahead search",
+        "defaultValue": "true"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  }
+}
