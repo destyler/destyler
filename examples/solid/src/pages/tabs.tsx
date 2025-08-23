@@ -1,3 +1,4 @@
+/** @jsxImportSource solid-js */
 import { tabsControls } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
@@ -27,6 +28,7 @@ export default function TabsDemo() {
             <button
               {...api().getTriggerProps({ value: item.value })}
               class="tabs-trigger"
+              data-testid={`${item.value}-tab`}
             >
               {item.label}
             </button>
@@ -36,6 +38,7 @@ export default function TabsDemo() {
           <div
             {...api().getContentProps({ value: item.value })}
             class="tabs-content"
+            data-testid={`${item.value}-tab-panel`}
           >
             <p class="tabs-content-text">{item.content}</p>
           </div>

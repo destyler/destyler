@@ -28,6 +28,7 @@ export default function TabsDemo() {
               key={item.value}
               {...api.getTriggerProps({ value: item.value })}
               className="tabs-trigger"
+              data-testid={`${item.value}-tab`}
             >
               {item.label}
             </button>
@@ -38,6 +39,7 @@ export default function TabsDemo() {
             key={item.value}
             {...api.getContentProps({ value: item.value })}
             className="tabs-content"
+            data-testid={`${item.value}-tab-panel`}
           >
             <p className="tabs-content-text">{item.content}</p>
           </div>

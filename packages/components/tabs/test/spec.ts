@@ -1,129 +1,159 @@
-import { testid, TestSuite } from '@destyler/shared-private/test'
+import { TestSuite } from '@destyler/shared-private/test'
 import { page, userEvent } from '@vitest/browser/context'
 import { expect } from 'vitest'
 
 export class TabsTestSuite extends TestSuite {
-  positioner = testid('positioner')
-
-  async ShouldSwitchTabsWhenClicked() {
-    const firstTab = page.getByRole('tab').first()
-    const secondTab = page.getByRole('tab').nth(1)
-    const firstPanel = page.getByRole('tabpanel').first()
-    const secondPanel = page.getByRole('tabpanel').nth(1)
-
-    // First tab should be selected by default
-    await expect.element(firstTab).toHaveAttribute('aria-selected', 'true')
-    await expect.element(firstPanel).toBeVisible()
-
-    // Click second tab
-    await userEvent.click(secondTab)
-    await expect.element(secondTab).toHaveAttribute('aria-selected', 'true')
-    await expect.element(firstTab).toHaveAttribute('aria-selected', 'false')
-    await expect.element(secondPanel).toBeVisible()
-    await expect.element(firstPanel).not.toBeVisible()
+  getTabTrigger(id: string) {
+    const el = page.getByTestId(`${id}-tab`)
+    return el
   }
 
-  async ShouldNavigateTabsWithArrowKeys() {
-    const firstTab = page.getByRole('tab').first()
-    const secondTab = page.getByRole('tab').nth(1)
-
-    // Focus first tab
-    await userEvent.click(firstTab)
-    await expect.element(firstTab).toHaveFocus()
-
-    // Navigate with arrow right
-    await this.pressKey('ArrowRight')
-    await expect.element(secondTab).toHaveFocus()
-    await expect.element(secondTab).toHaveAttribute('aria-selected', 'true')
-
-    // Navigate with arrow left
-    await this.pressKey('ArrowLeft')
-    await expect.element(firstTab).toHaveFocus()
-    await expect.element(firstTab).toHaveAttribute('aria-selected', 'true')
+  getTabPanel(id: string) {
+    const el = page.getByTestId(`${id}-tab-panel`)
+    return el
   }
 
-  async ShouldNavigateTabsWithHomeAndEnd() {
-    const firstTab = page.getByRole('tab').first()
-    const lastTab = page.getByRole('tab').last()
+  async setTabIsFocused(id: string) {
+    const el = this.getTabTrigger(id)
+    await expect.element(el).toHaveFocus()
+  }
 
-    // Focus first tab
-    await userEvent.click(firstTab)
+  async clickTab(id: string) {
+    const el = this.getTabTrigger(id)
+    await userEvent.click(el)
+  }
 
-    // Press End to go to last tab
-    await this.pressKey('End')
-    await expect.element(lastTab).toHaveFocus()
-    await expect.element(lastTab).toHaveAttribute('aria-selected', 'true')
+  async seeTabContent(id: string) {
+    const el = this.getTabPanel(id)
+    await expect.element(el).toBeVisible()
+  }
 
-    // Press Home to go to first tab
+  async dontSeeTabContent(id: string) {
+    const el = this.getTabPanel(id)
+    await expect.element(el).not.toBeVisible()
+  }
+
+  async openDeselect() {
+    const el = page.getByTestId('deselectable')
+    await userEvent.click(el)
+  }
+
+  async closeLoopFocus() {
+    const el = page.getByTestId('loopFocus')
+    await userEvent.click(el)
+  }
+
+  async selectManual(value: string) {
+    const el = page.getByTestId('activationMode') as any
+    await userEvent.selectOptions(el, value)
+  }
+
+  async onHomeKeySelectsFirstTab() {
+    await this.clickTab('item-2')
     await this.pressKey('Home')
-    await expect.element(firstTab).toHaveFocus()
-    await expect.element(firstTab).toHaveAttribute('aria-selected', 'true')
+
+    await this.setTabIsFocused('item-1')
+    await this.seeTabContent('item-1')
   }
 
-  async ShouldBeFocusableWithTab() {
-    await userEvent.tab()
-    const firstTab = page.getByRole('tab').first()
-    await expect.element(firstTab).toHaveFocus()
+  async onEndKeySelectsLastTab() {
+    await this.clickTab('item-1')
+    await this.pressKey('End')
+
+    await this.setTabIsFocused('item-3')
+    await this.seeTabContent('item-3')
   }
 
-  async ShouldSkipDisabledTabs() {
-    const tabs = page.getByRole('tab')
-    const enabledTabs = tabs.filter({ hasNot: page.locator('[aria-disabled="true"]') })
-
-    if (enabledTabs.all().length > 1) {
-      await userEvent.click(enabledTabs.first())
-      await this.pressKey('ArrowRight')
-
-      // Should skip disabled tabs and focus next enabled tab
-      const focusedTab = page.locator(':focus')
-      await expect.element(focusedTab).not.toHaveAttribute('aria-disabled', 'true')
-    }
+  async ClickTabSelectsTab() {
+    await this.clickTab('item-2')
+    await this.seeTabContent('item-2')
   }
 
-  async ShouldActivateTabWithSpaceKey() {
-    const secondTab = page.getByRole('tab').nth(1)
-    const secondPanel = page.getByRole('tabpanel').nth(1)
+  async ShouldDeselect() {
+    await this.openDeselect()
 
-    // Focus second tab but don't click
-    await userEvent.tab()
+    await this.clickTab('item-2')
+    await this.seeTabContent('item-2')
+
+    await this.clickTab('item-2')
+    await this.dontSeeTabContent('item-2')
+
+    await this.clickTab('item-2')
+    await this.seeTabContent('item-2')
+  }
+
+  async AutomaticShouldSelectTheCorrectTabOnClick() {
+    await this.clickTab('item-1')
+    await this.seeTabContent('item-1')
+
+    await this.clickTab('item-2')
+    await this.seeTabContent('item-2')
+
+    await this.clickTab('item-3')
+    await this.seeTabContent('item-3')
+  }
+
+  async AutomaticOnArrowRightSelectPlusFocusNextTab() {
+    await this.clickTab('item-1')
     await this.pressKey('ArrowRight')
-    await expect.element(secondTab).toHaveFocus()
 
-    // Activate with space
-    await this.pressKey('Space')
-    await expect.element(secondTab).toHaveAttribute('aria-selected', 'true')
-    await expect.element(secondPanel).toBeVisible()
+    await this.setTabIsFocused('item-2')
+    await this.seeTabContent('item-2')
   }
 
-  async ShouldActivateTabWithEnterKey() {
-    const secondTab = page.getByRole('tab').nth(1)
-    const secondPanel = page.getByRole('tabpanel').nth(1)
+  async AutomaticOnArrowRightLoopFocusPlusSelection() {
+    await this.clickTab('item-3')
+    await this.pressKey('ArrowRight', 3)
 
-    // Focus second tab but don't click
-    await userEvent.tab()
+    await this.setTabIsFocused('item-3')
+    await this.seeTabContent('item-3')
+  }
+
+  async AutomaticOnArrowLeftSelectPlusFocusThePreviousTab() {
+    await this.clickTab('item-1')
+    await this.pressKey('ArrowLeft')
+
+    await this.setTabIsFocused('item-3')
+    await this.seeTabContent('item-3')
+  }
+
+  async ManualOnArrowRightFocusButNotSelectTab() {
+    await this.selectManual('manual')
+
+    await this.clickTab('item-1')
     await this.pressKey('ArrowRight')
-    await expect.element(secondTab).toHaveFocus()
 
-    // Activate with enter
+    await this.setTabIsFocused('item-2')
+    await this.dontSeeTabContent('item-2')
+  }
+
+  async ManualOnHomeKeyFocusButNotSelectTab() {
+    await this.selectManual('manual')
+
+    await this.clickTab('item-2')
+    await this.pressKey('Home')
+
+    await this.setTabIsFocused('item-1')
+    await this.dontSeeTabContent('item-1')
+  }
+
+  async ManualOnNavigateSelectOnEnter() {
+    await this.selectManual('manual')
+
+    await this.clickTab('item-1')
+    await this.pressKey('ArrowRight')
     await this.pressKey('Enter')
-    await expect.element(secondTab).toHaveAttribute('aria-selected', 'true')
-    await expect.element(secondPanel).toBeVisible()
+
+    await this.setTabIsFocused('item-2')
+    await this.seeTabContent('item-2')
   }
 
-  async ShouldMaintainTabPanelAssociation() {
-    const tabs = page.getByRole('tab')
-    const panels = page.getByRole('tabpanel')
+  async LoopFocusFalse() {
+    await this.closeLoopFocus()
 
-    for (let i = 0; i < tabs.all().length; i++) {
-      const tab = tabs.nth(i)
-      const panel = panels.nth(i)
+    await this.clickTab('item-3')
+    await this.pressKey('ArrowRight')
 
-      await userEvent.click(tab)
-
-      const tabId = await tab.getAttribute('id')
-      const panelControls = await panel.getAttribute('aria-labelledby')
-
-      expect(panelControls).toBe(tabId)
-    }
+    await this.setTabIsFocused('item-3')
   }
 }

@@ -11,35 +11,51 @@ describe('tabs svelte browser tests', () => {
     Tests = new TabsTestSuite()
   })
 
-  it('should switch tabs when clicked', async () => {
-    await Tests.ShouldSwitchTabsWhenClicked()
+  it('on home key, select first tab', async () => {
+    await Tests.onHomeKeySelectsFirstTab()
   })
 
-  it('should navigate tabs with arrow keys', async () => {
-    await Tests.ShouldNavigateTabsWithArrowKeys()
+  it('on end key, select last tab', async () => {
+    await Tests.onEndKeySelectsLastTab()
   })
 
-  it('should navigate tabs with home and end', async () => {
-    await Tests.ShouldNavigateTabsWithHomeAndEnd()
+  it('click tab, select tab', async () => {
+    await Tests.ClickTabSelectsTab()
   })
 
-  it('should be focusable with tab', async () => {
-    await Tests.ShouldBeFocusableWithTab()
+  it('should deselect', async () => {
+    await Tests.ShouldDeselect()
   })
 
-  it('should skip disabled tabs', async () => {
-    await Tests.ShouldSkipDisabledTabs()
+  it('automatic: should select the correct tab on click', async () => {
+    await Tests.AutomaticShouldSelectTheCorrectTabOnClick()
   })
 
-  it('should activate tab with space key', async () => {
-    await Tests.ShouldActivateTabWithSpaceKey()
+  it('automatic: on arrow right, select + focus next tab', async () => {
+    await Tests.AutomaticOnArrowRightSelectPlusFocusNextTab()
   })
 
-  it('should activate tab with enter key', async () => {
-    await Tests.ShouldActivateTabWithEnterKey()
+  it('automatic: on arrow right, loop focus + selection', async () => {
+    await Tests.AutomaticOnArrowRightLoopFocusPlusSelection()
   })
 
-  it('should maintain tab panel association', async () => {
-    await Tests.ShouldMaintainTabPanelAssociation()
+  it('automatic: on arrow left, select + focus the previous tab', async () => {
+    await Tests.AutomaticOnArrowLeftSelectPlusFocusThePreviousTab()
+  })
+
+  it('manual: on arrow right, focus but not select tab', async () => {
+    await Tests.ManualOnArrowRightFocusButNotSelectTab()
+  })
+
+  it('manual: on home key, focus but not select tab', async () => {
+    await Tests.ManualOnHomeKeyFocusButNotSelectTab()
+  })
+
+  it('manual: on navigate, select on enter', async () => {
+    await Tests.ManualOnNavigateSelectOnEnter()
+  })
+
+  it('loopFocus=false', async () => {
+    await Tests.LoopFocusFalse()
   })
 })

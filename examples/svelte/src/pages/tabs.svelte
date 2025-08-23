@@ -27,6 +27,7 @@
       <button
         {...api.getTriggerProps({ value: item.value })}
         class="tabs-trigger"
+        data-testid={`${item.value}-tab`}
       >
         {item.label}
       </button>
@@ -36,6 +37,7 @@
     <div
       {...api.getContentProps({ value: item.value })}
       class="tabs-content"
+      data-testid={`${item.value}-tab-panel`}
     >
       <p class="tabs-content-text">{item.content}</p>
     </div>
