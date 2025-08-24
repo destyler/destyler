@@ -1,0 +1,534 @@
+---
+head:
+  - tag: title
+    content: Number Input - Destyler UI
+title:  Number Input
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> The number input provides controls for editing, incrementing or decrementing numeric values using the keyboard or pointer.
+
+<PreviewCode name="number-input"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Based on the spinbutton pattern.',
+  'Supports using the scroll wheel to increment and decrement the value.',
+  'Handles floating point rounding errors when incrementing, decrementing, and snapping to step.',
+  'Supports pressing and holding the spin buttons to continuously increment or decrement.',
+  'Supports rounding value to specific number of fraction digits.',
+  'Support for scrubbing interaction.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="number-input" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as numberInput from '@destyler/number-input'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(numberInput.machine({
+    id: useId(),
+  }))
+
+  const api = computed(() => numberInput.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()" >
+      <label v-bind="api.getLabelProps()"></label>
+      <button v-bind="api.getDecrementTriggerProps()" />
+      <input v-bind="api.getInputProps()">
+      <button v-bind="api.getIncrementTriggerProps()" />
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as numberInput from '@destyler/number-input'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function NumberInput() {
+    const [state, send] = useMachine(numberInput.machine({
+      id: useId(),
+    }))
+
+    const api = numberInput.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <label {...api.getLabelProps()}></label>
+        <button {...api.getDecrementTriggerProps()} ></button>
+        <input {...api.getInputProps()}/>
+        <button {...api.getIncrementTriggerProps()}></button>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as numberInput from '@destyler/number-input'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+    
+    const [state, send] = useMachine(numberInput.machine({
+      id,
+    }))
+
+    const api = $derived(numberInput.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <label {...api.getLabelProps()}></label>
+    <button {...api.getDecrementTriggerProps()}></button>
+    <input {...api.getInputProps()} />
+    <button {...api.getIncrementTriggerProps()}></button>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as numberInput from '@destyler/number-input'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function NumberInput() {
+    const [state, send] = useMachine(numberInput.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => numberInput.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <label {...api().getLabelProps()}></label>
+        <button {...api().getDecrementTriggerProps()}></button>
+        <input {...api().getInputProps()}/>
+        <button {...api().getIncrementTriggerProps()} ></button>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial value
+
+To set the initial value of the number input, you can set the `value` context property.
+
+:::note
+The value must be a string
+:::
+
+```tsx
+const [state, send] = useMachine(
+  numberInput.machine({
+    value: "66",
+  }),
+)
+```
+
+## Setting a minimum and maximum value
+
+Pass the `min` prop or `max` prop to set an upper and lower limit for the input. By default, 
+the input will restrict the value to stay within the specified range.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    min: 0,
+    max: 100,
+  }),
+)
+```
+
+:::tip
+To allow the value overflow the specified min or max, set the allowOverflow: true in the context.
+:::
+
+## Scrubbing the input value
+
+The number input machine supports the scrubber interaction pattern. 
+The use this pattern, spread the `scrubberProps` from the `api` on to the scrubbing element.
+
+It uses the Pointer lock API and tracks the pointer movement. 
+It also renders a virtual cursor which mimics the real cursor's pointer.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as numberInput from '@destyler/number-input'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(numberInput.machine({
+    id: useId(),
+  }))
+
+  const api = computed(() => numberInput.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()" >
+      <label v-bind="api.getLabelProps()"></label>
+      <button v-bind="api.getDecrementTriggerProps()" />
+      <div v-bind="api.getScrubberProps()" />
+      <input v-bind="api.getInputProps()">
+      <button v-bind="api.getIncrementTriggerProps()" />
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as numberInput from '@destyler/number-input'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function NumberInput() {
+    const [state, send] = useMachine(numberInput.machine({
+      id: useId(),
+    }))
+
+    const api = numberInput.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <label {...api.getLabelProps()}></label>
+        <button {...api.getDecrementTriggerProps()} ></button>
+        <div {...api.getScrubberProps()} />
+        <input {...api.getInputProps()}/>
+        <button {...api.getIncrementTriggerProps()}></button>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as numberInput from '@destyler/number-input'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+    
+    const [state, send] = useMachine(numberInput.machine({
+      id,
+    }))
+
+    const api = $derived(numberInput.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <label {...api.getLabelProps()}></label>
+    <button {...api.getDecrementTriggerProps()}></button>
+    <div {...api.getScrubberProps()}></div>
+    <input {...api.getInputProps()} />
+    <button {...api.getIncrementTriggerProps()}></button>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as numberInput from '@destyler/number-input'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function NumberInput() {
+    const [state, send] = useMachine(numberInput.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => numberInput.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <label {...api().getLabelProps()}></label>
+        <button {...api().getDecrementTriggerProps()}></button>
+        <div {...api().getScrubberProps()} />
+        <input {...api().getInputProps()}/>
+        <button {...api().getIncrementTriggerProps()} ></button>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Using the mousewheel to change value
+
+The number input machine exposes a way to increment/decrement the value using the mouse wheel event. 
+To activate this, pass the `allowMouseWheel` property to the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    allowMouseWheel: true,
+  }),
+)
+```
+
+## Clamp value when user blurs the input
+
+In most cases, users can type custom values in the input field. 
+If the typed value is greater than the max, the value is reset to max when the user blur out of the input.
+
+To disable this behavior, pass `clampValueOnBlur` and set to `false`.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    clampValueOnBlur: false,
+  }),
+)
+```
+
+## Listening for value changes
+
+When the value changes, the `onValueChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    onValueChange(details) {
+      // details => { value: string, valueAsNumber: number }
+      console.log("value is:", details.value)
+    },
+  }),
+)
+```
+
+## Usage within forms
+
+To use the number input within forms, set the `name` property in the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    name: "number-input",
+  }),
+)
+```
+
+## Adjusting the precision of the value
+
+To format the input value to be rounded to specific decimal points, 
+set the `formatOptions` and provide `Intl.NumberFormatOptions` 
+such as `maximumFractionDigits` or `minimumFractionDigits`.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    formatOptions: {
+      maximumFractionDigits: 4,
+      minimumFractionDigits: 2,
+    },
+  }),
+)
+```
+
+## Disabling long press spin
+
+To disable the long press spin, set the `spinOnPress` to `false`.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    spinOnPress: false,
+  }),
+)
+```
+
+## Format and parse value
+
+To apply custom formatting to the input's value, 
+set the `formatOptions` and provide `Intl.NumberFormatOptions` such as `style` and `currency`.
+
+```ts
+const [state, send] = useMachine(
+  numberInput.machine({
+    formatOptions: {
+      style: "currency",
+      currency: "USD",
+    },
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each QR Code part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Disabled state
+
+When the number input is disabled, the root, label and input parts will have `data-disabled` attribute added to them.
+
+The increment and decrement spin buttons are disabled when the number input is disabled and the min/max is reached.
+
+```css
+[data-part="root"][data-disabled] {
+  /* disabled styles for the input */
+}
+
+[data-part="input"][data-disabled] {
+  /* disabled styles for the input */
+}
+
+[data-part="label"][data-disabled] {
+  /* disabled styles for the label */
+}
+
+[data-part="increment-trigger"][data-disabled] {
+  /* disabled styles for the increment button */
+}
+
+[data-part="decrement-trigger"][data-disabled] {
+  /* disabled styles for the decrement button */
+}
+```
+
+### Invalid state
+
+The number input is invalid, either by passing `invalid: true` or when the value exceeds the max and `allowOverflow: true` is passed. 
+When this happens, the root, label and input parts will have `data-invalid` attribute added to them.
+
+```css
+[data-part="root"][data-invalid] {
+  /* disabled styles for the input */
+}
+
+[data-part="input"][data-invalid] {
+  /* invalid styles for the input */
+}
+
+[data-part="label"][data-invalid] {
+  /* invalid styles for the label */
+}
+```
+
+### Readonly state
+
+When the number input is readonly, the input part will have `data-readonly` added.
+
+```css
+[data-part="input"][data-readonly] {
+  /* readonly styles for the input */
+}
+```
+
+### Increment and decrement spin buttons
+
+The spin buttons can be styled individually with their respective `data-part` attribute.
+
+```css
+[data-part="increment-trigger"] {
+  /* styles for the increment trigger element */
+}
+
+[data-part="decrement-trigger"] {
+  /* styles for the decrement trigger element */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The Number Input machine exposes the following context properties:
+
+<MachineTable name="number-input"></MachineTable>
+
+### Machine API
+
+The Number Input `api` exposes the following methods:
+
+<APITable name="number-input"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="number-input" nodeType="root" />
+
+#### Label
+
+<StyleTable component="number-input" nodeType="label" />
+
+#### Control
+
+<StyleTable component="number-input" nodeType="control" />
+
+#### Value Text
+
+<StyleTable component="number-input" nodeType="valueText" />
+
+#### Input
+
+<StyleTable component="number-input" nodeType="input" />
+
+#### Decrement Trigger
+
+<StyleTable component="number-input" nodeType="decrementTrigger" />
+
+#### Increment Trigger
+
+<StyleTable component="number-input" nodeType="incrementTrigger" />
+
+#### Scrubber
+
+<StyleTable component="number-input" nodeType="scrubber" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="menu"></KeyboardTable>

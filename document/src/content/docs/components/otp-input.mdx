@@ -1,0 +1,354 @@
+---
+head:
+  - tag: title
+    content: OTP Input - Destyler UI
+title: OTP Input
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> The otp input is optimized for entering a sequence of digits or letters. 
+> The input fields allow one character at a time. 
+> When the digit or letter is entered, focus transfers to the next input 
+> in the sequence, until every input is filled.
+
+<PreviewCode name="otpInput"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Automatically focuses the next field on typing and focuses the previous field on deletion.',
+  'Supports numeric and alphanumeric values.',
+  'Support for masking value (for sensitive data).',
+  'Support for copy/paste to autofill all fields.',
+  'Supports fast paste SMS-code.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="otp-input" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as otpInput from '@destyler/otp-input'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(otpInput.machine({
+    id: useId(),
+  }))
+
+  const api = computed(() => otpInput.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <input v-bind="api.getInputProps({ index: 0 })">
+      <input v-bind="api.getInputProps({ index: 1 })">
+      <input v-bind="api.getInputProps({ index: 2 })">
+    </div>
+    <button @click="api.clearValue" />
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as otpInput from '@destyler/otp-input'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useMemo } from 'react'
+
+  export default function OtpInput() {
+    const [state, send] = useMachine(otpInput.machine({
+      id: useId(),
+    }))
+
+    const api = useMemo(() => otpInput.connect(state, send, normalizeProps), [state, send])
+
+    return (
+      <div {...api.getRootProps()} >
+        <input {...api.getInputProps({ index:0 })}/>
+        <input {...api.getInputProps({ index:1 })}/>
+        <input {...api.getInputProps({ index:2 })}/>
+      </div>
+      <button onClick={api.clearValue}></button>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as otpInput from "@destyler/otp-input";
+    import { normalizeProps, useMachine } from "@destyler/svelte";
+
+    const id = $props.id();
+
+    const [state, send] = useMachine(otpInput.machine({
+      id,
+    }));
+
+    const api = $derived(otpInput.connect(state, send, normalizeProps));
+  </script>
+
+  <div {...api.getRootProps()}>
+    <input {...api.getInputProps({ index:0 })} />
+    <input {...api.getInputProps({ index:1 })} />
+    <input {...api.getInputProps({ index:2 })} />
+  </div>
+  <button onclick={api.clearValue}></button>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as otpInput from '@destyler/otp-input'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function OtpInput() {
+    const uniqueId = createUniqueId()
+
+    const [state, send] = useMachine(otpInput.machine({
+      id: uniqueId,
+    }))
+
+    const api = createMemo(() => otpInput.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <input {...api().getInputProps({ index: 0 })}/>
+        <input {...api().getInputProps({ index: 1 })}/>
+        <input {...api().getInputProps({ index: 2 })}/>
+      </div>
+      <button onClick={() => api().clearValue()}></button>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting a default value
+
+To set the initial value of the otp input, pass the `value` property to the destyler's context.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    value: ["1", "2", ""],
+  }),
+)
+```
+
+## Changing the placeholder
+
+To customize the default otp input placeholder (○) for each input, 
+pass the `placeholder` prop and set it to your desired value.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    placeholder: "*",
+  }),
+)
+```
+
+## Blur on complete
+
+By default, the last input maintains focus when filled and we invoke the `onComplete` callback. 
+To blur the last input when the user completes the input, set the `blurOnComplete: true` in the destyler's context.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    blurOnComplete: true,
+  }),
+)
+```
+
+## Allowing alphanumeric values
+
+By default, the otp input accepts only number values but you can choose between `numeric`, 
+`alphanumeric` and `alphabetic` values. To change the input mode, pass the `type` 
+context property and set its value to `alphanumeric`.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    type: "alphanumeric",
+  }),
+)
+```
+
+## Using OTP mode
+
+To trigger smartphone OTP auto-suggestion, it is recommended to set the 
+`autocomplete` attribute to "one-time-code". The pin-input machine provides 
+support for this automatically when you set the `otp` context property to `true`.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    otp: true,
+  }),
+)
+```
+
+## Securing the text input
+
+When collecting private or sensitive information using the otp input, 
+you might need to mask the value entered, similar to `<input type="password"/>`. 
+Pass the `mask` context property and set it to `true`.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    mask: true,
+  }),
+)
+```
+
+## Listening for changes
+
+The otp input machine invokes several callback functions when the user enters:
+
+- `onValueChange` — Function invoked when the value is changed.
+
+- `onValueComplete` — Function invoked when all fields have been completed (by typing or pasting).
+
+- `onValueInvalid` — Function invoked when an invalid value is entered into the input. An invalid value is any value that doesn't match the specified "type".
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    onValueChange(value) {
+      // value => string[]
+      console.log("value changed to:", value)
+    },
+    onValueComplete(details) {
+      // details => { value: string[], valueAsString: string }
+      console.log("completed value:", details)
+    },
+    onValueInvalid(details) {
+      // details => { index: number, value: string }
+      console.log("invalid value:", details)
+    },
+  }),
+)
+```
+
+## RTL support
+
+The pin input machine supports RTL writing directions. 
+To set the `dir` property in the destyler's context.
+
+When this attribute is set, we attach a `dir` attribute to the root part.
+
+```ts
+const [state, send] = useMachine(
+  otpInput.machine({
+    dir: "rtl",
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each OTP Input part has a `data-part` attribute added to them to select and style them in the DOM.
+
+## Completed state
+
+When all values have been filled, we attach a `data-complete` attribute to the root and input parts.
+
+```css
+[data-part="root"][data-complete] {
+  /* styles for when all value has been filled */
+}
+
+[data-part="input"][data-complete] {
+  /* styles for when all value has been filled */
+}
+```
+
+## Invalid state
+
+When an invalid value is entered, we attach a `data-invalid` attribute to the affected input part.
+
+```css
+[data-part="input"][data-invalid] {
+  /* styles for when the input is invalid */
+}
+```
+
+Disabled state
+
+When the pin-input is disabled, we attach a `data-disabled` attribute to the root and input parts.
+
+```css
+[data-part="root"][data-disabled] {
+  /* styles for when the input is disabled */
+}
+
+[data-part="input"][data-invalid] {
+  /* styles for when the input is disabled */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The otp input machine exposes the following context properties:
+
+<MachineTable name="otpInput"></MachineTable>
+
+### Machine API
+
+The otp input `api` exposes the following methods:
+
+<APITable name="otpInput"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="otpInput" nodeType="root" />
+
+#### Label
+
+<StyleTable component="otpInput" nodeType="label" />
+
+#### Input
+
+<StyleTable component="otpInput" nodeType="input" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="otpInput"></KeyboardTable>

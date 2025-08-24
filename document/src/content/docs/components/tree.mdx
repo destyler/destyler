@@ -1,0 +1,637 @@
+---
+head:
+  - tag: title
+    content: Tree - Destyler UI
+title: Tree
+---
+
+import Features from '../../../components/Features.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+
+> The Tree component provides a hierarchical view of data, 
+> similar to a file system explorer. 
+> It allows users to expand and collapse branches, 
+> select individual or multiple nodes, 
+> and traverse the hierarchy using keyboard navigation.
+
+<PreviewCode name="tree"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Display hierarchical data in a tree structure.',
+  'Expand or collapse nodes',
+  'Support for keyboard navigation',
+  'Select single or multiple nodes (depending on the selection mode)',
+  'Perform actions on the nodes, such as deleting them or performing some other operation.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="tree" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  <Tabs syncKey="anatomy-vue">
+    <TabItem label="Tree.vue">
+
+    ```vue
+    <script setup lang="ts">
+    import * as tree from '@destyler/tree'
+    import { normalizeProps, useMachine } from '@destyler/vue'
+    import { computed, useId } from 'vue'
+    import TreeNode from './Node.vue'
+
+    interface Node {
+      id: string
+      name: string
+      children?: Node[]
+    }
+    const collection = tree.collection<Node>({
+      nodeToValue: node => node.id,
+      nodeToString: node => node.name,
+      rootNode: {
+        id: 'ROOT',
+        name: '',
+        children: [
+          // ...
+        ],
+      },
+    })
+    const [state, send] = useMachine(tree.machine({
+      id: useId(),
+      collection,
+    }))
+    const api = computed(() => tree.connect(state.value, send, normalizeProps))
+    </script>
+
+    <template>
+      <main>
+        <div v-bind="api.getRootProps()">
+          <div v-bind="api.getTreeProps()">
+            <TreeNode
+              v-for="(node, index) in api.collection.rootNode.children"
+              :key="node.id"
+              :node="node"
+              :index-path="[index]"
+              :api="api"
+            />
+          </div>
+        </div>
+      </main>
+    </template>
+  	```
+
+    </TabItem>
+    <TabItem label="Node.vue">
+
+    ```vue
+    <script setup lang="ts">
+    import type { Api } from '@destyler/tree'
+    import { computed } from 'vue'
+
+    interface Node {
+      id: string
+      name: string
+      children?: Node[]
+    }
+
+    interface Props {
+      node: Node
+      indexPath: number[]
+      api: Api
+    }
+
+    const props = defineProps<Props>()
+
+    const nodeProps = computed(() => ({
+      indexPath: props.indexPath,
+      node: props.node,
+    }))
+
+    const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
+    </script>
+
+    <template>
+      <template v-if="nodeState.isBranch">
+        <div v-bind="api.getBranchProps(nodeProps)">
+          <div v-bind="api.getBranchControlProps(nodeProps)">
+            <span v-bind="api.getBranchIndicatorProps(nodeProps)"></span>
+            <span v-bind="api.getBranchTextProps(nodeProps)"></span>
+          </div>
+          <div v-bind="api.getBranchContentProps(nodeProps)">
+            <Node
+              v-for="(childNode, index) in node.children"
+              :key="childNode.id"
+              :node="childNode"
+              :index-path="[...indexPath, index]"
+              :api="api"
+            />
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <div v-bind="api.getItemProps(nodeProps)"></div>
+      </template>
+    </template>
+    ```
+
+    </TabItem>
+  </Tabs>
+
+  </div>
+  <div slot='react'>
+
+  <Tabs syncKey="anatomy-react">
+    <TabItem label="Tree.tsx">
+
+    ```tsx
+    import { normalizeProps, useMachine } from '@destyler/react'
+    import * as tree from '@destyler/tree'
+    import { useId } from 'react'
+    import TreeNode from './Node.tsx'
+
+    interface Node {
+      id: string
+      name: string
+      children?: Node[]
+    }
+
+    const collection = tree.collection<Node>({
+      nodeToValue: node => node.id,
+      nodeToString: node => node.name,
+      rootNode: {
+        id: 'ROOT',
+        name: '',
+        children: [
+          // ...
+        ],
+      },
+    })
+
+    export default function Tree() {
+      const [state, send] = useMachine(tree.machine({
+        id: useId(),
+        collection,
+      }))
+
+      const api = tree.connect(state, send, normalizeProps)
+
+      return (
+        <main >
+          <div {...api.getRootProps()}>
+            <div {...api.getTreeProps()}>
+              {api.collection.rootNode.children?.map((node: any, index: any) => (
+                <TreeNode
+                  key={node.id}
+                  node={node}
+                  indexPath={[index]}
+                  api={api}
+                />
+              ))}
+            </div>
+          </div>
+        </main>
+      )
+    }
+
+  	```
+
+    </TabItem>
+    <TabItem label="Node.tsx">
+
+    ```tsx
+    import type { Api } from '@destyler/tree'
+    import { useMemo } from 'react'
+
+    interface Node {
+      id: string
+      name: string
+      children?: Node[]
+    }
+
+    interface TreeNodeProps {
+      node: Node
+      indexPath: number[]
+      api: Api
+    }
+
+    export default function TreeNode({ node, indexPath, api }: TreeNodeProps) {
+      const nodeProps = useMemo(() => ({
+        indexPath,
+        node,
+      }), [indexPath, node])
+
+      const nodeState = useMemo(() => api.getNodeState(nodeProps), [api, nodeProps])
+
+      if (nodeState.isBranch) {
+        return (
+          <div {...api.getBranchProps(nodeProps)}>
+            <div {...api.getBranchControlProps(nodeProps)}>
+              <span {...api.getBranchIndicatorProps(nodeProps)}></span>
+              <span {...api.getBranchTextProps(nodeProps)}></span>
+            </div>
+            <div {...api.getBranchContentProps(nodeProps)}>
+              {node.children?.map((childNode, index) => (
+                <Node
+                  key={childNode.id}
+                  node={childNode}
+                  indexPath={[...indexPath, index]}
+                  api={api}
+                />
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      return (
+        <div {...api.getItemProps(nodeProps)}></div>
+      )
+    }
+
+    ```
+
+    </TabItem>
+  </Tabs>
+
+  </div>
+  <div slot='svelte'>
+
+  <Tabs syncKey="anatomy-svelte">
+    <TabItem label="Tree.svelte">
+
+    ```svelte
+    <script lang="ts">
+      import * as tree from '@destyler/tree'
+      import { normalizeProps, useMachine } from '@destyler/svelte'
+      import TreeNode from './Node.svelte'
+
+      interface Node {
+        id: string
+        name: string
+        children?: Node[]
+      }
+      
+      const collection = tree.collection<Node>({
+        nodeToValue: node => node.id,
+        nodeToString: node => node.name,
+        rootNode: {
+          id: 'ROOT',
+          name: '',
+          children: [
+            // ...
+          ],
+        },
+      })
+
+      const [state, send] = useMachine(tree.machine({
+        id: crypto.randomUUID(),
+        collection,
+      }))
+
+      const api = $derived(tree.connect(state, send, normalizeProps))
+    </script>
+
+    <main>
+      <div {...api.getRootProps()}>
+        <div {...api.getTreeProps()}>
+          {#each api.collection.rootNode.children as node, index}
+            <TreeNode
+              {node}
+              indexPath={[index]}
+              {api}
+            />
+          {/each}
+        </div>
+      </div>
+    </main>
+    ```
+
+    </TabItem>
+    <TabItem label="Node.svelte">
+
+    ```svelte
+    <script lang="ts">
+      import type { Api } from '@destyler/tree'
+
+      interface Node {
+        id: string
+        name: string
+        children?: Node[]
+      }
+
+      export let node: Node
+      export let indexPath: number[]
+      export let api: Api
+
+      $: nodeProps = {
+        indexPath,
+        node,
+      }
+
+      $: nodeState = api.getNodeState(nodeProps)
+    </script>
+
+    {#if nodeState.isBranch}
+      <div {...api.getBranchProps(nodeProps)}>
+        <div {...api.getBranchControlProps(nodeProps)}>
+          <span {...api.getBranchIndicatorProps(nodeProps)}></span>
+          <span {...api.getBranchTextProps(nodeProps)}></span>
+        </div>
+        <div {...api.getBranchContentProps(nodeProps)}>
+          {#each node.children || [] as childNode, index}
+            <svelte:self
+              node={childNode}
+              indexPath={[...indexPath, index]}
+              api={api}
+            />
+          {/each}
+        </div>
+      </div>
+    {:else}
+      <div {...api.getItemProps(nodeProps)}></div>
+    {/if}
+    ```
+
+    </TabItem>
+  </Tabs>
+
+  </div>
+  <div slot='solid'>
+
+  <Tabs syncKey="anatomy-solid">
+    <TabItem label="Tree.tsx">
+
+    ```tsx
+    import { normalizeProps, useMachine } from '@destyler/solid'
+    import * as tree from '@destyler/tree'
+    import { createMemo, createUniqueId } from 'solid-js'
+    import TreeNode from './Node.tsx'
+
+    interface Node {
+      id: string
+      name: string
+      children?: Node[]
+    }
+
+    const collection = tree.collection<Node>({
+      nodeToValue: node => node.id,
+      nodeToString: node => node.name,
+      rootNode: {
+        id: 'ROOT',
+        name: '',
+        children: [
+          // ...
+        ],
+      },
+    })
+
+    export default function Tree() {
+      const [state, send] = useMachine(tree.machine({
+        id: createUniqueId(),
+        collection,
+      }))
+
+      const api = createMemo(() => tree.connect(state, send, normalizeProps))
+
+      return (
+        <main>
+          <div {...api().getRootProps()}>
+            <div {...api().getTreeProps()}>
+              {api().collection.rootNode.children?.map((node: any, index: any) => (
+                <TreeNode
+                  node={node}
+                  indexPath={[index]}
+                  api={api()}
+                />
+              ))}
+            </div>
+          </div>
+        </main>
+      )
+    }
+
+    ```
+
+    </TabItem>
+    <TabItem label="Node.tsx">
+
+    ```tsx
+    import type { Api } from '@destyler/tree'
+    import { createMemo } from 'solid-js'
+
+    interface Node {
+      id: string
+      name: string
+      children?: Node[]
+    }
+
+    interface TreeNodeProps {
+      node: Node
+      indexPath: number[]
+      api: Api
+    }
+
+    export default function TreeNode(props: TreeNodeProps) {
+      const nodeProps = createMemo(() => ({
+        indexPath: props.indexPath,
+        node: props.node,
+      }))
+
+      const nodeState = createMemo(() => props.api.getNodeState(nodeProps()))
+
+      return (
+        <>
+          {createMemo(() => nodeState().isBranch)()
+            ? (
+                <div {...props.api.getBranchProps(nodeProps())}>
+                  <div {...props.api.getBranchControlProps(nodeProps())}>
+                    <span {...props.api.getBranchIndicatorProps(nodeProps())}></span>
+                    <span {...props.api.getBranchTextProps(nodeProps())}></span>
+                  </div>
+                  <div {...props.api.getBranchContentProps(nodeProps())}>
+                    {props.node.children?.map((childNode, index) => (
+                      <TreeNode
+                        node={childNode}
+                        indexPath={[...props.indexPath, index]}
+                        api={props.api}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            : (
+                <div {...props.api.getItemProps(nodeProps())}></div>
+              )}
+        </>
+      )
+    }
+
+    ```
+
+    </TabItem>
+  </Tabs>
+
+  </div>
+
+</FrameworkLayout>
+
+## Expanding and Collapsing Nodes
+
+By default, the tree view will expand or collapse when clicking the branch control. 
+To control the expanded state of the tree view, 
+use the `api.expand` and `api.collapse` methods.
+
+```ts
+api.expand(["node_modules/unocss"]) // expand a single node
+api.expand() // expand all nodes
+
+api.collapse(["node_modules/unocss"]) // collapse a single node
+api.collapse() // collapse all nodes
+```
+
+## Multiple selection
+
+The tree view supports multiple selection. 
+To enable this, set the `selectionMode` to `multiple`.
+
+```ts
+const [state, send] = useMachine(
+  tree.machine({
+    selectionMode: "multiple",
+  }),
+)
+```
+
+## Setting the default expanded nodes
+
+To set the default expanded nodes, use the `expandedValue` context property.
+
+```ts
+const [state, send] = useMachine(
+  tree.machine({
+    expandedValue: ["node_modules/unocss"],
+  }),
+)
+```
+
+## Setting the default selected nodes
+
+To set the default selected nodes, use the `selectedValue` context property.
+
+```ts
+const [state, send] = useMachine(
+  tree.machine({
+    selectedValue: ["node_modules/unocss"],
+  }),
+)
+```
+
+## Listening for selection
+
+When a node is selected, the `onSelectionChange` callback is invoked with the selected nodes.
+
+```ts
+const [state, send] = useMachine(
+  tree.machine({
+    onSelectionChange(details) {
+      console.log("selected nodes:", details)
+    },
+  }),
+)
+```
+
+## Listening for expanding and collapsing
+
+When a node is expanded or collapsed, the `onExpandedChange` callback is invoked with the expanded nodes.
+
+```ts
+const [state, send] = useMachine(
+  tree.machine({
+    onExpandedChange(details) {
+      console.log("expanded nodes:", details)
+    },
+  }),
+)
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The tree machine exposes the following context properties:
+
+<MachineTable name="tree"></MachineTable>
+
+### Machine API
+
+The tree `api` exposes the following methods:
+
+<APITable name="tree"></APITable>
+
+### Data Attributes
+
+#### Item
+
+<StyleTable component="tree" nodeType="item" />
+
+#### Item Text
+
+<StyleTable component="tree" nodeType="itemText" />
+
+#### Item Indicator
+
+<StyleTable component="tree" nodeType="itemIndicator" />
+
+#### Branch
+
+<StyleTable component="tree" nodeType="branch" />
+
+#### Branch Indicator
+
+<StyleTable component="tree" nodeType="branchIndicator" />
+
+#### Branch Trigger
+
+<StyleTable component="tree" nodeType="branchTrigger" />
+
+#### Branch Control
+
+<StyleTable component="tree" nodeType="branchControl" />
+
+#### Branch Text
+
+<StyleTable component="tree" nodeType="branchText" />
+
+#### Branch Content
+
+<StyleTable component="tree" nodeType="branchContent" />
+
+#### Branch Indent Guide
+
+<StyleTable component="tree" nodeType="branchIndentGuide" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="tree"></KeyboardTable>

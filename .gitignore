@@ -34,3 +34,4 @@ test/results
 html
 __screenshots__
 .node-modules-inspector
+.astro

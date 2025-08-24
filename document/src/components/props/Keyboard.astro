@@ -1,0 +1,46 @@
+---
+const { name } = Astro.props
+
+let apiModule;
+try {
+  apiModule = await import(`../../snippets/${name}/api.ts`);
+} catch (error) {
+  console.error(`Failed to import API for "${name}":`, error);
+}
+
+interface KeyboardProps {
+  name:string,
+  desc:string
+}
+
+const matchContext:KeyboardProps[] = apiModule?.keyboardApi || [];
+
+const hasData = matchContext && matchContext.length > 0;
+---
+
+{hasData ? (
+  <div class="w-full overflow-hidden mt-6 border border-border rounded-md">
+    <div class="grid grid-cols-3 bg-background! mt-0!">
+      <div class="col-span-1 py-3 px-4 font-medium text-left border-b border-b-border mt-0!">
+        name
+      </div>
+      <div class="col-span-2 py-3 px-4 font-medium text-left border-b border-b-border border-l border-l-border mt-0!">
+        desc
+      </div>
+    </div>
+    <div class="w-full mt-0!">
+      {matchContext.map((item) => (
+        <div class="grid mt-0! grid-cols-3 border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
+          <div class="col-span-1 py-3 px-4 font-mono text-sm mt-0!">
+            <code class="bg-muted/50 px-1.5 py-0.5 rounded break-all">{item.name}</code>
+          </div>
+          <div class="col-span-2 py-3 px-4 border-l border-l-border mt-0!">
+            {item.desc}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+) : (
+  <p class="text-muted-foreground mt-4">Unable to load API property information for "{name}"</p>
+)}

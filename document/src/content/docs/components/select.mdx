@@ -1,0 +1,637 @@
+---
+head:
+  - tag: title
+    content: Select - Destyler UI
+title: Select
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> A Select component allows users pick a value from predefined options.
+
+<PreviewCode name="select"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for selecting a single or multiple option',
+  'Keyboard support for opening the listbox using the arrow keys, including automatically focusing the first or last item.',
+  'Support for looping keyboard navigation.',
+  'Support for selecting an item on blur.',
+  'Typeahead to allow selecting options by typing text, even without opening the listbox',
+  'Support for Right to Left direction.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="select" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as select from '@destyler/select'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(
+    select.machine({
+      id: useId(),
+    }),
+  )
+
+  const api = computed(() => select.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <div v-bind="api.getPositionerProps()">
+      <ul v-bind="api.getContentProps()" >
+        <li v-bind="api.getItemProps({ item: '0' })" >
+          <span v-bind="api.getItemIndicatorProps({ item: '0' })"></span>
+        </li>
+      </ul>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as select from '@destyler/select'
+  import { useId } from 'react'
+
+  export default function Select() {
+    const [state, send] = useMachine(
+      select.machine({
+        id: useId(),
+      }),
+    )
+
+    const api = select.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()} ></button>
+        <div {...api.getPositionerProps()}>
+          <ul {...api.getContentProps()} >
+            <li {...api.getItemProps({ item: '0' })} >
+              <span {...api.getItemIndicatorProps({ item: '0' })} ></span>
+            </li>
+          </ul>
+        </div>
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as select from '@destyler/select'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(
+      select.machine({
+        id,
+      }),
+    )
+
+    const api = $derived(select.connect(state, send, normalizeProps))
+  </script>
+
+  <button {...api.getTriggerProps()} ></button>
+  <div {...api.getPositionerProps()} >
+    <ul {...api.getContentProps()} >
+        <li {...api.getItemProps({ item:'0' })} >
+          <span {...api.getItemIndicatorProps({ item:'0' })} ></span>
+        </li>
+    </ul>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as select from '@destyler/select'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Select() {
+    const [state, send] = useMachine(
+      select.machine({
+        id: createUniqueId(),
+      }),
+    )
+
+    const api = createMemo(() => select.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+        <div {...api().getPositionerProps()}>
+          <ul {...api().getContentProps()}>
+            <li {...api().getItemProps({ item: '0' })} >
+              <span {...api().getItemIndicatorProps({ item: '0' })}></span>
+            </li>
+          </ul>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial value
+
+To set the initial value of the select, pass the `value` property to the select destyler's context.
+
+:::tip
+The `value` property must be an array of strings. 
+If selecting a single value, pass an array with a single string.
+:::
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    value: ["vue"],
+  }),
+)
+```
+
+## Selecting multiple values
+
+To allow selecting multiple values, set the `multiple` property in the destyler's context to `true`.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    multiple: true,
+  }),
+)
+```
+
+## Use custom object format
+
+By default, the combobox collection expects an array of items with `label` and `value` properties. 
+To use a custom object format, pass the `itemToString` and `itemToValue` properties to the collection function.
+
+- `itemToString` — A function that returns the string representation of an item. Used to compare items when filtering.
+
+- `itemToValue` — A function that returns the unique value of an item.
+
+- `itemToDisabled` — A function that returns the disabled state of an item.
+
+```ts
+const collection = combobox.collection({
+  // custom object format
+  items: [
+    { id: 1, fruit: "Vue", available: true, quantity: 10 },
+    { id: 2, fruit: "React", available: false, quantity: 5 },
+    { id: 3, fruit: "Svelte", available: true, quantity: 3 },
+    { id: 4, fruit: "Solid", available: false, quantity: 0 },
+    //...
+  ],
+  // convert item to string
+  itemToString(item) {
+    return item.fruit
+  },
+  // convert item to value
+  itemToValue(item) {
+    return item.id
+  },
+  // convert item to disabled state
+  itemToDisabled(item) {
+    return !item.available || item.quantity === 0
+  },
+})
+
+// use the collection
+const [state, send] = useMachine(
+  select.machine({
+    id: useId(),
+    collection,
+  }),
+)
+```
+
+## Usage within a form
+
+To use select within a form, you'll need to:
+
+- Pass the `name` property to the select destyler's context
+
+- Render a `hidden select` element using `api.getSelectProps()`
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as select from '@destyler/select'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(
+    select.machine({
+      id: useId(),
+      name: "country",
+    }),
+  )
+
+  const api = computed(() => select.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <select v-bind="api.getHiddenSelectProps()"></select>
+    <button v-bind="api.getTriggerProps()"></button>
+    <div v-bind="api.getPositionerProps()">
+      <ul v-bind="api.getContentProps()" >
+        <li v-bind="api.getItemProps({ item: '0' })" >
+          <span v-bind="api.getItemIndicatorProps({ item: '0' })"></span>
+        </li>
+      </ul>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as select from '@destyler/select'
+  import { useId } from 'react'
+
+  export default function Select() {
+    const [state, send] = useMachine(
+      select.machine({
+        id: useId(),
+        name: "country",
+      }),
+    )
+
+    const api = select.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <select {...api.getHiddenSelectProps()}></select>
+        <button {...api.getTriggerProps()} ></button>
+        <div {...api.getPositionerProps()}>
+          <ul {...api.getContentProps()} >
+            <li {...api.getItemProps({ item: '0' })} >
+              <span {...api.getItemIndicatorProps({ item: '0' })} ></span>
+            </li>
+          </ul>
+        </div>
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as select from '@destyler/select'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(
+      select.machine({
+        id,
+        name: "country",
+      }),
+    )
+
+    const api = $derived(select.connect(state, send, normalizeProps))
+  </script>
+
+  <select {...api.getHiddenSelectProps()}></select>
+  <button {...api.getTriggerProps()} ></button>
+  <div {...api.getPositionerProps()} >
+    <ul {...api.getContentProps()} >
+        <li {...api.getItemProps({ item:'0' })} >
+          <span {...api.getItemIndicatorProps({ item:'0' })} ></span>
+        </li>
+    </ul>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as select from '@destyler/select'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Select() {
+    const [state, send] = useMachine(
+      select.machine({
+        id: createUniqueId(),
+        name: "country",
+      }),
+    )
+
+    const api = createMemo(() => select.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <select {...api().getHiddenSelectProps()}></select>
+        <button {...api().getTriggerProps()}></button>
+        <div {...api().getPositionerProps()}>
+          <ul {...api().getContentProps()}>
+            <li {...api().getItemProps({ item: '0' })} >
+              <span {...api().getItemIndicatorProps({ item: '0' })}></span>
+            </li>
+          </ul>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Disabling the select
+
+To disable the select, set the `disabled` property in the destyler's context to `true`.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    id: useId(),
+    collection: select.collection({
+      items: countries,
+      isItemDisabled(item) {
+        return item.disabled
+      },
+    }),
+  }),
+)
+```
+
+## Close on select
+
+This behaviour ensures that the menu is closed when an item is selected 
+and is `true` by default. It's only concerned with when an item is selected 
+with pointer, space key or enter key. To disable the behaviour, 
+set the `closeOnSelect` property in the destyler's context to `false`.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    closeOnSelect: false,
+  }),
+)
+```
+
+## Looping the keyboard navigation
+
+When navigating with the select using the arrow down and up keys, 
+the select stops at the first and last options. 
+If you need want the navigation to loop back to the first or last option, 
+set the `loop: true` in the destyler's context.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    loop: true,
+  }),
+)
+```
+
+## Listening for highlight changes
+
+When an item is highlighted with the pointer or keyboard, use the `onHighlightChange` to listen for the change and do something with it.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    onHighlightChange(details) {
+      // details => { 
+      //   highlightedValue: string | null, 
+      //   highlightedItem: CollectionItem | null 
+      // }
+      console.log(details)
+    },
+  }),
+)
+```
+
+## Listening for selection changes
+
+When an item is selected, use the `onValueChange` property to listen for the change and do something with it.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    onValueChange(details) {
+      // details => { value: string[], items: Item[] }
+      console.log(details)
+    },
+  }),
+)
+```
+
+## Listening for open and close events
+
+When the select is opened or closed, the `onOpenChange` callback is called. You can listen for these events and do something with it.
+
+```ts
+const [state, send] = useMachine(
+  select.machine({
+    onOpenChange(details) {
+      // details => { open: boolean }
+      console.log("Select opened")
+    },
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Select part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Open and closed state
+
+When the select is open, the trigger and content is given a `data-state` attribute.
+
+```css
+[data-part="trigger"][data-state="open"] {
+  /* styles for open or closed state */
+}
+
+[data-part="content"][data-state="open"] {
+  /* styles for open or closed state */
+}
+```
+
+### Selected state
+
+Items are given a `data-state `attribute, indicating whether they are selected.
+
+```css
+[data-part="item"][data-state="checked"] {
+  /* styles for selected or unselected state */
+}
+```
+
+### Highlighted state
+
+When an item is highlighted, via keyboard navigation or pointer, it is given a `data-highlighted` attribute.
+
+```css
+[data-part="item"][data-highlighted] {
+  /* styles for highlighted state */
+}
+```
+
+### Invalid state
+
+When the select is invalid, the label and trigger is given a `data-invalid` attribute.
+
+```css
+[data-part="label"][data-invalid] {
+  /* styles for invalid state */
+}
+
+[data-part="trigger"][data-invalid] {
+  /* styles for invalid state */
+}
+```
+
+### Disabled state
+
+When the select is disabled, the trigger and label is given a `data-disabled` attribute.
+
+```css
+[data-part="trigger"][data-disabled] {
+  /* styles for disabled select state */
+}
+
+[data-part="label"][data-disabled] {
+  /* styles for disabled label state */
+}
+
+[data-part="item"][data-disabled] {
+  /* styles for disabled option state */
+}
+```
+
+### Empty state
+
+When no option is selected, the trigger is given a `data-placeholder-shown` attribute.
+
+```css
+[data-part="trigger"][data-placeholder-shown] {
+  /* styles for empty select state */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The combobox machine exposes the following context properties:
+
+<MachineTable name="select"></MachineTable>
+
+### Machine API
+
+The select `api` exposes the following methods:
+
+<APITable name="select"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="select" nodeType="root" />
+
+#### Label
+
+<StyleTable component="select" nodeType="label" />
+
+#### Control
+
+<StyleTable component="select" nodeType="control" />
+
+#### ValueText
+
+<StyleTable component="select" nodeType="valueText" />
+
+#### Trigger
+
+<StyleTable component="select" nodeType="trigger" />
+
+#### Indicator
+
+<StyleTable component="select" nodeType="indicator" />
+
+#### Item
+
+<StyleTable component="select" nodeType="item" />
+
+#### ItemText
+
+<StyleTable component="select" nodeType="itemText" />
+
+#### ItemIndicator
+
+<StyleTable component="select" nodeType="itemIndicator" />
+
+#### ItemGroup
+
+<StyleTable component="select" nodeType="itemGroup" />
+
+#### ClearTrigger
+
+<StyleTable component="select" nodeType="clearTrigger" />
+
+#### Content
+
+<StyleTable component="select" nodeType="content" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="select"></KeyboardTable>

@@ -1,0 +1,40 @@
+---
+const { name } = Astro.props
+
+let apiModule;
+try {
+  apiModule = await import(`../../snippets/${name}/api.ts`);
+} catch (error) {
+  console.error(`Failed to import API for "${name}":`, error);
+}
+
+interface MatchContextProps {
+  name:string,
+  type:string,
+  desc:string
+}
+
+const matchContext:MatchContextProps[] = apiModule?.matchApi || [];
+
+const hasData = matchContext && matchContext.length > 0;
+---
+
+{hasData ? (
+  <div class="space-y-2 mt-0!">
+    {matchContext.map((item) => (
+      <div class="py-2 border-b border-border last:border-none mt-0!">
+        <div class="mb-1 mt-0!">
+          <span class="font-mono font-bold text-primary">{item.name}</span>
+        </div>
+        <div class="mb-1 mt-0!">
+          <code class="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">{item.type}</code>
+        </div>
+        <div class="text-sm text-foreground/80 mt-2!">{item.desc}</div>
+      </div>
+    ))}
+  </div>
+) : (
+  <div class="py-3 text-center text-muted-foreground mt-0!">
+    Unable to load API property information for "{name}"
+  </div>
+)}

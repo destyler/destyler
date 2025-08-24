@@ -1,0 +1,166 @@
+<script lang="ts">
+  import * as collapsible from '@destyler/collapsible'
+  import { normalizeProps, useMachine } from '@destyler/svelte'
+
+  const id = $props.id()
+
+  const [state, send] = useMachine(collapsible.machine({ id }))
+
+  const api = $derived(collapsible.connect(state, send, normalizeProps))
+</script>
+
+<div {...api.getRootProps()} class="collapsible-root">
+  <div class="collapsible-header">
+    <h4 class="collapsible-title">
+      @elonehoo starred 3 repositories
+    </h4>
+    <button
+      class="collapsible-trigger"
+      {...api.getTriggerProps()}
+    >
+      <div class="collapsible-trigger-icon"></div>
+    </button>
+  </div>
+
+  <div class="collapsible-main-item">
+    @destyler/collapsible
+  </div>
+
+  <div
+    class="collapsible-content"
+    {...api.getContentProps()}
+  >
+    <div class="collapsible-content-item">
+      @destyler/svelte
+    </div>
+    <div class="collapsible-content-item">
+      svelte
+    </div>
+  </div>
+</div>
+
+<style>
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);  
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.collapsible-root {
+  width: 350px;
+  max-width: 24rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.collapsible-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.collapsible-trigger {
+  margin: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+  background-color: transparent;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapsible-trigger:hover {
+  background-color: var(--background);
+}
+
+.collapsible-trigger-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground);
+  transition: transform 200ms ease;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="currentColor" d="M16 22L6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+[data-state="open"] .collapsible-trigger-icon {
+  transform: rotate(180deg);
+}
+
+.collapsible-main-item {
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: var(--primary);
+}
+
+.collapsible-content {
+  overflow: hidden;
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.collapsible-content-item {
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: var(--primary);
+  margin-top: 0.5rem;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--destyler-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--destyler-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.collapsible-content[data-state='open'] {
+  animation: slideDown 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.collapsible-content[data-state='closed'] {
+  animation: slideUp 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+</style>

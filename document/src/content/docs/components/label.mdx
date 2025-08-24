@@ -1,0 +1,141 @@
+---
+head:
+  - tag: title
+    content: Label - Destyler UI
+title: Label
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> Renders an accessible label associated with controls.
+
+<PreviewCode name="label"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Text selection is prevented when double clicking label.',
+  'Supports nested controls.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="label" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as label from '@destyler/label'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(label.machine({ id: useId() }))
+
+  const api = computed(() => label.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <label v-bind="api.getRootProps()" />
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as label from '@destyler/label'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useState } from 'react'
+
+  export default function Label() {
+    const id = useId()
+    const [state, send] = useMachine(label.machine({ id }))
+    const api = label.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <label {...api.getRootProps()} ></label>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as label from '@destyler/label'
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+
+    const id = $props.id()
+    const [state, send] = useMachine(label.machine({ id }))
+
+    const api = $derived(label.connect(state, send, normalizeProps))
+  </script>
+
+  <label {...api.getRootProps()}></label>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as label from '@destyler/label'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Label() {
+    const id = createUniqueId()
+    const [state, send] = useMachine(label.machine({ id }))
+    const api = createMemo(() => label.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <label {...api().getRootProps()}></label>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The label machine exposes the following context properties:
+
+<MachineTable name="label"></MachineTable>
+
+### Machine API
+
+The label `api` exposes the following methods:
+
+<APITable name="label"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="label" nodeType="root" />

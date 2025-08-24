@@ -1,0 +1,206 @@
+---
+import SinppetsVue from '../snippets/Sinppets.vue'
+import SinppetsReact from '../snippets/Sinppets.react'
+import SinppetsSolid from '../snippets/Sinppets.solid'
+import SinppetsSvelte from '../snippets/Sinppets.svelte'
+import Preview from './Preview.astro'
+import FrameworkLayout from './FrameworkLayout.astro'
+import CodeGroup from './preview/CodeGroup.vue'
+import { createHighlighter } from 'shiki'
+
+const { name } = Astro.props
+
+const getFiles = async (framework: string, style: string) => {
+  let files:any = {}
+  let allFiles:any = {}
+  
+  // 使用静态路径模式而非动态字面量
+  if (framework === 'vue') {
+    if (style === 'unocss') {
+      allFiles = import.meta.glob('../snippets/*/vue/unocss/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'css') {
+      allFiles = import.meta.glob('../snippets/*/vue/css/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'tailwind') {
+      allFiles = import.meta.glob('../snippets/*/vue/tailwind/**/*', { query: '?raw', import: 'default' })
+    }
+  } else if (framework === 'react') {
+    if (style === 'unocss') {
+      allFiles = import.meta.glob('../snippets/*/react/unocss/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'css') {
+      allFiles = import.meta.glob('../snippets/*/react/css/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'tailwind') {
+      allFiles = import.meta.glob('../snippets/*/react/tailwind/**/*', { query: '?raw', import: 'default' })
+    }
+  } else if (framework === 'solid') {
+    if (style === 'unocss') {
+      allFiles = import.meta.glob('../snippets/*/solid/unocss/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'css') {
+      allFiles = import.meta.glob('../snippets/*/solid/css/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'tailwind') {
+      allFiles = import.meta.glob('../snippets/*/solid/tailwind/**/*', { query: '?raw', import: 'default' })
+    }
+  } else if (framework === 'svelte') {
+    if (style === 'unocss') {
+      allFiles = import.meta.glob('../snippets/*/svelte/unocss/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'css') {
+      allFiles = import.meta.glob('../snippets/*/svelte/css/**/*', { query: '?raw', import: 'default' })
+    } else if (style === 'tailwind') {
+      allFiles = import.meta.glob('../snippets/*/svelte/tailwind/**/*', { query: '?raw', import: 'default' })
+    }
+  }
+  
+  // 在运行时根据组件名称过滤文件
+  const componentPattern = new RegExp(`/snippets/${name}/`);
+  for (const path in allFiles) {
+    if (componentPattern.test(path)) {
+      files[path] = allFiles[path];
+    }
+  }
+
+  const result:any = {
+    code: [],
+    config: null,
+  }
+  
+  try {
+    for (const [path, importFn] of Object.entries(files) as [string, () => Promise<string>][]) {
+
+      const highlighter = await createHighlighter({
+        themes: ['vitesse-light','vitesse-dark'],
+        langs: ['html', 'css', 'js', 'ts', 'vue', 'jsx', 'tsx', 'svelte']
+      })
+
+      const fileName = path.split('/').pop() || '';
+      const category = path.includes('config') ? 'config' : 'code';
+      const content = await importFn();
+      
+      // 根据文件扩展名确定语言
+      const extension = fileName.split('.').pop() || '';
+      let language = 'html';
+      
+      if (extension === 'vue') language = 'vue';
+      else if (extension === 'jsx') language = 'jsx';
+      else if (extension === 'tsx') language = 'tsx';
+      else if (extension === 'js') language = 'js';
+      else if (extension === 'ts') language = 'ts';
+      else if (extension === 'css') language = 'css';
+      else if (extension === 'svelte') language = 'svelte';
+      
+      console.log(`Processing file: ${path}, language: ${language}`); // 添加日志
+      const highlightedCode = highlighter.codeToHtml(content, {
+        lang: language,
+        theme: 'vitesse-dark',
+        themes:{
+          dark: 'vitesse-dark',
+          light: 'vitesse-light'
+        }
+      });
+      
+      if (category === 'config') {
+        result.config = { 
+          title: fileName,
+          content,
+          highlighted: highlightedCode,
+          language
+        };
+      } else {
+        result.code.push({ 
+          title: fileName,
+          content,
+          highlighted: highlightedCode,
+          language,
+        });
+      }
+
+      highlighter.dispose()
+    }
+    
+    // 对文件进行排序，按类型或名称
+    result.code.sort((a:any, b:any) => {
+      const extA = a.title.split('.').pop() || '';
+      const extB = b.title.split('.').pop() || '';
+      
+      if (extA !== extB) {
+        // 主要组件文件优先
+        if (extA === 'vue' || extA === 'jsx' || extA === 'tsx' || extA === 'svelte') return -1;
+        if (extB === 'vue' || extB === 'jsx' || extB === 'tsx' || extB === 'svelte') return 1;
+        
+        // 然后是脚本文件
+        if ((extA === 'js' || extA === 'ts') && !(extB === 'js' || extB === 'ts')) return -1;
+        if ((extB === 'js' || extB === 'ts') && !(extA === 'js' || extA === 'ts')) return 1;
+        
+        // 最后是样式文件
+        return extA.localeCompare(extB);
+      }
+      
+      // 同类型按名称排序
+      return a.title.localeCompare(b.title);
+    });
+    
+  } catch (error) {
+    console.error(`Error loading files for ${framework}/${style}:`, error);
+  }
+  
+  return result;
+}
+
+// 尝试加载所有框架和样式的代码文件
+const frameworks = ['vue', 'react', 'solid', 'svelte'];
+const styles = ['unocss', 'css', 'tailwind'];
+
+const codeFiles:any = {};
+
+for (const framework of frameworks) {
+  codeFiles[framework] = {};
+  for (const style of styles) {
+    try {
+      codeFiles[framework][style] = await getFiles(framework, style);
+    } catch (e) {
+      console.error(`Failed to load ${framework}/${style} files:`, e);
+      codeFiles[framework][style] = { code: [], config: null };
+    }
+  }
+}
+---
+
+<Preview mode="code">
+  <FrameworkLayout>
+    <div slot="vue">
+      <SinppetsVue name={name} client:idle />
+    </div>
+    <div slot="react">
+      <SinppetsReact name={name} client:idle />
+    </div>
+    <div slot="solid">
+      <SinppetsSolid name={name} client:idle />
+    </div>
+    <div slot="svelte">
+      <SinppetsSvelte name={name} client:idle />
+    </div>
+  </FrameworkLayout>
+
+  <div class="mt-0!" slot="code">
+    <CodeGroup
+      client:only="vue"
+      files={codeFiles}
+    />
+  </div>
+</Preview>
+
+<style>
+  /* 增加一些全局样式以支持代码展示 */
+  :global(.code-preview-wrapper) {
+    position: relative;
+  }
+  
+  /* 处理代码高亮时的错误提示 */
+  :global(.code-preview-wrapper .error-message) {
+    color: #ff5555;
+    background-color: rgba(255, 85, 85, 0.1);
+    border-left: 3px solid #ff5555;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+</style>

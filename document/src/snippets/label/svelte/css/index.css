@@ -1,0 +1,65 @@
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);  
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.label-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 35px;
+  color: var(--foreground);
+}
+
+.input {
+  background-color: var(--input);
+  border-width: 1px;
+  display: inline-flex;
+  height: 35px;
+  width: 200px;
+  appearance: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 0.875rem;
+  line-height: 1;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  outline: none;
+  color: var(--foreground);
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px black;
+}
+
+.input::selection {
+  color: var(--primary);
+  background-color: var(--background);
+}

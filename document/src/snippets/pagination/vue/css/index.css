@@ -1,0 +1,108 @@
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);  
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.pagination-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 0 !important;
+}
+
+.pagination-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0 !important;
+  list-style-type: none !important;
+}
+
+.pagination-button {
+  display: inline-flex;
+  height: 2.25rem;
+  items-align: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border: 1px solid var(--input);
+  background-color: var(--background);
+  font-size: 0.875rem;
+  font-medium: medium;
+  text-decoration: none !important;
+  color: var(--primary) !important;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground) !important;
+}
+
+.pagination-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.pagination-button[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.pagination-prev,
+.pagination-next {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.pagination-page {
+  width: 2.25rem;
+}
+
+.pagination-page[data-selected="true"] {
+  background-color: var(--accent);
+  color: var(--accent-foreground) !important;
+}
+
+.pagination-ellipsis {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-medium: medium;
+  cursor: pointer;
+  color: var(--muted-foreground) !important;
+}
+
+.pagination-icon {
+  width: 1rem;
+  height: 1rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pagination-prev-icon {
+  margin-right: 0.25rem;
+}
+
+.pagination-next-icon {
+  margin-left: 0.25rem;
+}

@@ -1,0 +1,49 @@
+---
+interface Props {
+  component: string;
+  nodeType: string;
+}
+
+const { component, nodeType } = Astro.props;
+
+// 动态导入对应组件的API
+let styleData = [];
+try {
+  const apiModule = await import(`../../snippets/${component}/api.ts`);
+  if (apiModule.styleApi && apiModule.styleApi[nodeType]) {
+    styleData = apiModule.styleApi[nodeType];
+  }
+} catch (error) {
+  console.error(`Failed to load API for ${component}:`, error);
+}
+
+// 判断是否有数据
+const hasData = styleData && styleData.length > 0;
+---
+
+{hasData ? (
+  <div class="w-full overflow-hidden mt-6 border border-border rounded-md">
+    <div class="grid grid-cols-3 bg-background! mt-0!">
+      <div class="col-span-1 p-3 font-medium text-left border-b border-b-border mt-0!">
+        name
+      </div>
+      <div class="col-span-2 p-3 font-medium text-left border-b border-b-border border-l border-l-border mt-0!">
+        desc
+      </div>
+    </div>
+    <div class="w-full mt-0!">
+      {styleData.map((item: any) => (
+        <div class="grid mt-0! grid-cols-3 border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
+          <div class="col-span-1 p-3 font-mono text-sm mt-0!">
+            <code class="bg-muted/50 px-1.5 py-0.5 rounded break-all">{item.name}</code>
+          </div>
+          <div class="col-span-2 p-3 border-l border-l-border mt-0!">
+            {item.desc}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+) : (
+  <p class="text-gray-500 dark:text-gray-400 mt-4">none</p>
+)}

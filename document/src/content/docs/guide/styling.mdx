@@ -1,0 +1,445 @@
+---
+head:
+  - tag: title
+    content: Styling - Destyler UI
+title: Styling
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+
+> Destyler are unstyled and compatible with any styling solution giving you complete control over styling.
+
+## Styling overview
+
+### Functional styles
+
+You are in control of all aspects of styling, including functional styles. 
+For example, by default, a [Dialog Overlay]() won't cover the entire viewport. 
+You're responsible for adding those styles, plus any presentation styles.
+
+### Classes
+
+All components accept `class` attributes, just like normal component. 
+This class will be passed through to the DOM element. You can use it in CSS as expected.
+
+### Data attributes
+
+When components are stateful, their state will be exposed in a `data-state` attribute. 
+For example, when an [Collapse Item]() is opened, it includes a `data-state="open"` attribute.
+
+## Styling with CSS
+
+### Styling a part
+
+You can style a component part by targeting the class that you provide.
+
+<FrameworkLayout>
+  <div slot="vue">
+    ```vue
+    // App.vue
+    <script setup lang="ts">
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/vue'
+    import { computed, useId } from 'vue'
+
+    const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+    const api = computed(() =>
+      collapse.connect(state.value, send, normalizeProps),
+    )
+    </script>
+
+    <template>
+      <div v-bind="api.getRootProps()" >
+        <div 
+          class="collapse-item" 
+          v-bind="api.getItemProps({ value: 'item-1' })" 
+        />
+        <!-- ... -->
+      </div>
+    </template>
+
+    <style scoped>
+    .collapse-item {
+      /* ... */
+    }
+    </style>
+    ```
+  </div>
+  <div slot="react">
+    <Tabs syncKey="pkg">
+      <TabItem label="App.tsx">
+      ```tsx
+      import * as collapse from '@destyler/collapse'
+      import { normalizeProps, useMachine } from '@destyler/react'
+      import { useId } from 'react'
+      import './App.css'
+
+      export default function CollapsePage() {
+
+        const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+        const api = collapse.connect(state, send, normalizeProps)
+
+        return (
+          <>
+            <div {...api.getRootProps()} >
+              <div 
+                className="collapse-item"
+                {...api.getItemProps({ value: item.title })} 
+              >
+              </div>
+              {/* ... */}
+            </div>
+          </>
+        )
+      }    
+      ```
+      </TabItem>
+      <TabItem label="App.css">
+      ```css
+      .collapse-item {
+        /* ... */
+      }
+      ```
+      </TabItem>
+    </Tabs>
+  </div>
+  <div slot="svelte">
+    ```svelte
+    // App.svelte
+    <script lang="ts">
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(collapse.machine({ id }))
+
+    const api = $derived(collapse.connect(state, send, normalizeProps))
+    </script>
+
+    <div
+      {...api.getRootProps()}
+    >
+      <div
+        class="collapse-item"
+        {...api.getItemProps({ value: item.title })}
+      >
+      </div>
+      <!-- ... -->
+    </div>
+
+    <style>
+      .collapse-item {
+        /* ... */
+      }
+    </style>
+    ```
+  </div>
+  <div slot='solid'>
+    <Tabs syncKey="pkg">
+      <TabItem label="App.tsx">
+      ```tsx
+      import * as collapse from '@destyler/collapse'
+      import { normalizeProps, useMachine } from '@destyler/solid'
+      import { createMemo, createUniqueId } from 'solid-js'
+      import './App.css'
+
+      export default function CollapsePage() {
+
+        const [state, send] = useMachine(collapse.machine({ id: createUniqueId() }))
+
+        const api = createMemo(() => collapse.connect(state, send, normalizeProps))
+
+        return (
+          <>
+            <div {...api().getRootProps()} >
+              <div 
+                class="collapse-item"
+                {...api().getItemProps({ value: item.title })} 
+              >
+              </div>
+              {/* ... */}
+            </div>
+          </>
+        )
+      }   
+      ```
+      </TabItem>
+      <TabItem label="App.css">
+      ```css
+      .collapse-item {
+        /* ... */
+      }
+      ```
+      </TabItem>
+    </Tabs>
+  </div>
+</FrameworkLayout>
+
+### Styling a state
+
+You can style a component state by targeting its `data-state` attribute.
+
+```css
+.collapse-item {
+  border-bottom: 1px solid gainsboro;
+}
+
+.collapse-item[data-state="open"] {
+  border-bottom-width: 2px;
+}
+```
+
+## Styling with Atomic CSS
+
+### Styling a part
+
+You can style a component part by targeting the `class`.
+
+<FrameworkLayout>
+  <div slot="vue">
+    ```vue
+    // App.vue
+    <script setup lang="ts">
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/vue'
+    import { computed, useId } from 'vue'
+
+    const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+    const api = computed(() =>
+      collapse.connect(state.value, send, normalizeProps),
+    )
+    </script>
+
+    <template>
+      <div
+        v-bind="api.getRootProps()"
+      >
+        <div 
+          class="border border-gray-400 rounded-2xl" 
+          v-bind="api.getItemProps({ value: 'item-1' })" 
+        />
+        <!-- ... -->
+      </div>
+    </template>
+    ```
+  </div>
+  <div slot="react">
+    ```tsx
+    // App.tsx
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/react'
+    import { useId } from 'react'
+
+    export default function CollapsePage() {
+
+      const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+      const api = collapse.connect(state, send, normalizeProps)
+
+      return (
+        <>
+          <div {...api.getRootProps()} >
+            <div 
+              class="border border-gray-400 rounded-2xl" 
+              {...api.getItemProps({ value: item.title })} 
+            >
+            </div>
+            {/* ... */}
+          </div>
+        </>
+      )
+    }
+    ```
+  </div>
+  <div slot="svelte">
+    ```svelte
+    // App.svelte
+    <script lang="ts">
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(collapse.machine({ id }))
+
+    const api = $derived(collapse.connect(state, send, normalizeProps))
+    </script>
+
+    <div
+      {...api.getRootProps()}
+    >
+      <div
+        class="border border-gray-400 rounded-2xl" 
+        {...api.getItemProps({ value: item.title })}
+      >
+      </div>
+      <!-- ... -->
+    </div>
+    ```
+  </div>
+  <div slot="solid">
+    ```tsx
+    // App.tsx
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/solid'
+    import { createMemo, createUniqueId } from 'solid-js'
+
+    export default function CollapsePage() {
+
+      const [state, send] = useMachine(collapse.machine({ id: createUniqueId() }))
+
+      const api = createMemo(() => collapse.connect(state, send, normalizeProps))
+
+      return (
+        <>
+          <div {...api().getRootProps()} >
+            <div 
+              class="border border-gray-400 rounded-2xl"
+              {...api().getItemProps({ value: item.title })} 
+            >
+            </div>
+            {/* ... */}
+          </div>
+        </>
+      )
+    }
+    ```
+  </div>
+</FrameworkLayout>
+
+### Styling a state
+
+With Tailwind CSS's powerful variant selector, you can style a component state by targeting its `data-state` attribute.
+
+<FrameworkLayout>
+
+  <div slot="vue">
+    ```vue
+    // App.vue
+    <script setup lang="ts">
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/vue'
+    import { computed, useId } from 'vue'
+
+    const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+    const api = computed(() =>
+      collapse.connect(state.value, send, normalizeProps),
+    )
+    </script>
+
+    <template>
+      <div
+        v-bind="api.getRootProps()"
+      >
+        <div 
+          class="border border-gray-400 rounded-2xl
+          data-[state=open]:border-b-2 data-[state=open]:border-gray-800" 
+          v-bind="api.getItemProps({ value: 'item-1' })" 
+        />
+        <!-- ... -->
+      </div>
+    </template>
+    ```
+  </div>
+
+  <div slot="react">
+    ```tsx
+    // App.tsx
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/react'
+    import { useId } from 'react'
+
+    export default function CollapsePage() {
+
+      const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+      const api = collapse.connect(state, send, normalizeProps)
+
+      return (
+        <>
+          <div {...api.getRootProps()} >
+            <div 
+              class="border border-gray-400 rounded-2xl
+              data-[state=open]:border-b-2 data-[state=open]:border-gray-800" 
+              {...api.getItemProps({ value: item.title })} 
+            >
+            </div>
+          </div>
+        </>
+      )
+    }
+    ```
+  </div>
+
+  <div slot="svelte">
+  ```svelte
+  // App.svelte
+  <script lang="ts">
+  import * as collapse from '@destyler/collapse'
+  import { normalizeProps, useMachine } from '@destyler/svelte'
+
+  const id = $props.id()
+
+  const [state, send] = useMachine(collapse.machine({ id }))
+
+  const api = $derived(collapse.connect(state, send, normalizeProps))
+  </script>
+
+  <div
+    {...api.getRootProps()}
+  >
+    <div
+      class="border border-gray-400 rounded-2xl
+      data-[state=open]:border-b-2 data-[state=open]:border-gray-800" 
+      {...api.getItemProps({ value: item.title })}
+    >
+    </div>
+    <!-- ... -->
+  </div>
+  ```
+  </div>
+
+  <div slot="solid">
+  ```tsx
+  // App.tsx
+  import * as collapse from '@destyler/collapse'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function CollapsePage() {
+
+    const [state, send] = useMachine(collapse.machine({ id: createUniqueId() }))
+
+    const api = createMemo(() => collapse.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()} >
+          <div 
+            class="border border-gray-400 rounded-2xl
+            data-[state=open]:border-b-2 data-[state=open]:border-gray-800"
+            {...api().getItemProps({ value: item.title })} 
+          >
+          </div>
+          {/* ... */}
+        </div>
+      </>
+    )
+  }
+  ```
+  </div>
+
+
+</FrameworkLayout>
+
+## Summary​
+
+Destyler were designed to encapsulate accessibility concerns and other complex functionalities, while ensuring you retain complete control over styling.
+
+For convenience, stateful components include a data-state attribute.

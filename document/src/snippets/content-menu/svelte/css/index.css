@@ -1,0 +1,184 @@
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);  
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.context-menu-trigger {
+  display: flex;
+  height: 150px;
+  width: 300px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border: 1px dashed rgba(var(--primary), 0.15);
+  font-size: 0.875rem;
+  cursor: default;
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  outline: none;
+}
+
+.context-menu-trigger:hover {
+  border-color: rgba(var(--primary), 0.5);
+}
+
+.context-menu-trigger:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.2);
+}
+
+.context-menu-trigger:focus-visible {
+  box-shadow: 0 0 0 2px rgba(var(--primary), 0.2);
+  outline-offset: 2px;
+}
+
+.context-menu-trigger-text {
+  color: var(--primary);
+}
+
+.context-menu-positioner {
+  z-index: 50;
+  min-width: 8rem;
+  width: 14rem;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border);
+  background-color: var(--popover);
+  padding: 0.25rem;
+  color: var(--popover-foreground);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  outline: none;
+}
+
+.context-menu-positioner[data-state="open"] {
+  animation: fadeIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-menu-positioner[data-state="closed"] {
+  animation: fadeOut 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-menu-positioner[data-side="bottom"] {
+  animation: slideDownAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-menu-positioner[data-side="left"] {
+  animation: slideRightAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-menu-positioner[data-side="right"] {
+  animation: slideLeftAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-menu-positioner[data-side="top"] {
+  animation: slideUpAndFade 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.context-menu-title {
+  padding: 0.5rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.context-menu-separator {
+  margin: 0.25rem -0.25rem;
+  height: 1px;
+  background-color: var(--muted);
+}
+
+.context-menu-content {
+  padding: 0.25rem;
+  padding-bottom: 0;
+  outline: none;
+}
+
+.context-menu-content:last-child {
+  padding-bottom: 0.25rem;
+}
+
+.context-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0.125rem;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition-property: color, background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  cursor: pointer;
+  user-select: none;
+}
+
+.context-menu-item[data-highlighted] {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.context-menu-item[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.context-menu-item-icon {
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+.context-menu-item-shortcut {
+  margin-left: auto;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideDownAndFade {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUpAndFade {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRightAndFade {
+  from { opacity: 0; transform: translateX(-2px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideLeftAndFade {
+  from { opacity: 0; transform: translateX(2px); }
+  to { opacity: 1; transform: translateX(0); }
+}

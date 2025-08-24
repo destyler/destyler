@@ -1,0 +1,93 @@
+.carousel-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem; 
+  width: 400px; 
+  position: relative;
+}
+
+.carousel-item-group {
+  border-radius: 0.75rem; 
+  overflow: hidden; 
+}
+
+.carousel-item {
+  margin-top: 0 !important; 
+  flex-shrink: 0; 
+  width: 100%; 
+}
+
+.carousel-image {
+  border-radius: 0.75rem; 
+  margin-top: 0 !important; 
+  display: block; 
+  width: 100%;
+  height: auto;
+}
+
+.carousel-control {
+  margin-top: 0 !important; 
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333; 
+  border-radius: 0.375rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.carousel-prev-button,
+.carousel-next-button {
+  width: 1rem;
+  height: 1rem;
+  color: #f8f8f8;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.carousel-prev-button {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f8f8f8'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z'/%3E%3C/svg%3E");
+}
+
+.carousel-next-button {
+  margin-top: 0 !important; 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f8f8f8'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+}
+
+
+.carousel-indicator-group {
+  display: flex;
+  gap: 0.5rem; 
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0 !important;
+  align-items: center;
+}
+
+.carousel-indicator {
+  width: 0.5rem;
+  height: 0.5rem; 
+  background-color: #888; 
+  border-radius: 9999px; 
+  margin-top: 0 !important; 
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.carousel-indicator[data-current] {
+  background-color: #4ade80; 
+}

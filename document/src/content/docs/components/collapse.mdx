@@ -1,0 +1,404 @@
+---
+head:
+  - tag: title
+    content: Collapse - Destyler UI
+title: Collapse
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> An collapse is a vertically stacked set of interactive headings containing a title, 
+> content snippet, or thumbnail representing a section of content.
+
+<PreviewCode name="collapse"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Full keyboard navigation.',
+  'Can expand one or multiple items.',
+  'Collapse each collapse item.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="collapse" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as collapse from '@destyler/collapse'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const data = [ ... ]
+
+  const [state, send] = useMachine(collapse.machine({ id: useId() }))
+
+  const api = computed(() =>
+    collapse.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div
+        v-for="item in data"
+        :key="item.title"
+        v-bind="api.getItemProps({ value: item.title })"
+      >
+        <button v-bind="api.getItemTriggerProps({ value: item.title })"></button>
+        <div v-bind="api.getItemContentProps({ value: item.title })"></div>
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as collapse from '@destyler/collapse'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  const data = [ ... ]
+
+  export default function Collapse() {
+    const [state, send] = useMachine(collapse.machine({ id: useId() }))
+    const api = collapse.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        {data.map(item => (
+          <div key={item.title} {...api.getItemProps({ value: item.title })}>
+            <button {...api.getItemTriggerProps({ value: item.title })}></button>
+            <div {...api.getItemContentProps({ value: item.title })}></div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as collapse from '@destyler/collapse'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const data = [ ... ]
+
+    const id = $props.id()
+    const [state, send] = useMachine(collapse.machine({ id }))
+    const api = $derived(collapse.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    {#each data as item (item.title)}
+      <div {...api.getItemProps({ value: item.title })}>
+        <button {...api.getItemTriggerProps({ value: item.title })}></button>
+        <div {...api.getItemContentProps({ value: item.title })}></div>
+      </div>
+    {/each}
+  </div>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as collapse from '@destyler/collapse'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createUniqueId } from 'solid-js'
+
+  const data = [ ... ]
+
+  export default function Collapse() {
+    const [state, send] = useMachine(collapse.machine({ id: createUniqueId() }))
+    const api = collapse.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        {data.map(item => (
+          <div {...api.getItemProps({ value: item.title })}>
+            <button {...api.getItemTriggerProps({ value: item.title })} ></button>
+            <div {...api.getItemContentProps({ value: item.title })}></div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+:::note
+You may have noticed we wrapped each collapse trigger within an `h3`. 
+This is recommended by the [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#wai-aria-roles-states-and-properties) design pattern to ensure the collapse 
+has the appropriate hierarchy on the page.
+:::
+
+## Open multiple collapse at once
+
+To allow multiple items to be expanded at once, set `multiple` to `true`. 
+This mode implicitly sets `collapsible` to `true` and ensures that each collapse can be expanded.
+
+```ts
+const [state, send] = useMachine(
+  collapse.machine({
+    multiple: true,
+  }),
+)
+```
+
+## Opening specific collapse
+
+To set the value of the collapse that should be opened initially, 
+pass the `value` property to the machine function.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+
+<Tabs syncKey="specific">
+  <TabItem label='Multiple'>
+  ```ts
+  const [state, send] = useMachine(
+    collapse.machine({
+      multiple: true,
+      value: ["home"],
+    }),
+  )
+  ```
+  </TabItem>
+  <TabItem label='Single'>
+  ```ts
+  const [state, send] = useMachine(
+    collapse.machine({
+      value: ["home"],
+    }),
+  )
+  ```
+  </TabItem>
+</Tabs>
+
+## Toggle each collapse item
+
+To collapse an already expanded collapse item by clicking on it, 
+set the context's `collapsible` property to `true`.
+
+:::note
+If multiple is `true`, we internally set collapsible to be true.
+:::
+
+```ts
+const [state, send] = useMachine(
+  collapse.machine({
+    collapsible: true,
+  }),
+)
+```
+
+## Listening for changes
+
+When the collapse value changes, the `onValueChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  collapse.machine({
+    onValueChange(details) {
+      // details => { value: string[] }
+      console.log("selected collapse:", details.value)
+    },
+  }),
+)
+```
+
+## Disabling an collapse item
+
+To disable a specific collapse item, pass the `disabled: true` property to the `getItemProps`, 
+`getItemTriggerProps` and `getItemContentProps`.
+
+When an collapse item is disabled, it is skipped from keyboard navigation and can't be interacted with.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <template>
+    <!-- ... -->
+    <div v-bind="api.getItemProps({ value: 'item-1', disabled: true })">
+      <button v-bind="api.getItemTriggerProps({ value: 'item-1', disabled: true })"></button>
+      <div v-bind="api.getItemContentProps({ value: 'item-1', disabled: true })"></div>
+    </div>
+    <!-- ... -->
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  export default function Collapse() {
+
+    return (
+      // ...
+      <div {...api.getItemProps({ value: 'item-1', disabled: true })}>
+        <button {...api.getItemTriggerProps({ value: 'item-1', disabled: true })}></button>
+        <div {...api.getItemContentProps({ value: 'item-1', disabled: true })}></div>
+      </div>
+      // ...
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <!-- ... -->
+  <div {...api.getItemProps({ value: 'item-1', disabled: true })}>
+    <button {...api.getItemTriggerProps({ value: 'item-1', disabled: true })}></button>
+    <div {...api.getItemContentProps({ value: 'item-1', disabled: true })}></div>
+  </div>
+  <!-- ... -->
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  export default function Collapse() {
+    return (
+      // ...
+      <div {...api.getItemProps({ value: 'item-1', disabled: true })}>
+        <button {...api.getItemTriggerProps({ value: 'item-1', disabled: true })} ></button>
+        <div {...api.getItemContentProps({ value: 'item-1', disabled: true })}></div>
+      </div>
+      // ...
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+You can also disable the entire collapse items by passing disabled to the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  collapse.machine({
+    disabled: true,
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Open and closed state
+
+When an collapse item is expanded or collapsed, a data-state attribute is set on the item, 
+trigger and content elements. This attribute is removed when it is closed.
+
+```css
+[data-part="item"][data-state="open"] {
+  /* styles for the item is open or closed state */
+}
+
+[data-part="item-trigger"][data-state="open"] {
+  /* styles for the item is open or closed state */
+}
+
+[data-part="item-content"][data-state="open"] {
+  /* styles for the item is open or closed state */
+}
+```
+
+### Focused state
+
+When an collapse item's trigger is focused, a data-focus attribute is set on the item and content.
+
+```css
+[data-part="item"][data-focus] {
+  /* styles for the item's focus state */
+}
+
+[data-part="item-trigger"]:focus {
+  /* styles for the trigger's focus state */
+}
+
+[data-part="item-content"][data-focus] {
+  /* styles for the content's focus state */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The collapse machine exposes the following context properties:
+
+<MachineTable name="collapse"></MachineTable>
+
+### Machine API
+
+The collapse `api` exposes the following methods:
+
+<APITable name="collapse"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="collapse" nodeType="root" />
+
+#### Item
+
+<StyleTable component="collapse" nodeType="item" />
+
+#### ItemContent
+
+<StyleTable component="collapse" nodeType="itemContent" />
+
+#### ItemIndicator
+
+<StyleTable component="collapse" nodeType="itemIndicator" />
+
+#### ItemTrigger
+
+<StyleTable component="collapse" nodeType="itemTrigger" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="collapse"></KeyboardTable>

@@ -1,0 +1,107 @@
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);  
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.splitter-root {
+  width: 100%;
+  min-width: 36rem;
+  border-radius: 0.5rem;
+  background-color: var(--background);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+}
+
+.splitter-panel-a {
+  background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.splitter-panel-b {
+  margin-top: 0;
+  background-color: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.splitter-panel-content {
+  text-align: center;
+  padding: 3rem;
+  white-space: nowrap;
+}
+
+.splitter-panel-text {
+  color: var(--card-foreground);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.splitter-resize-trigger {
+  width: 0.25rem;
+  margin-top: 0;
+  background-color: var(--border);
+  cursor: col-resize;
+  transition: all 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  outline: none;
+}
+
+.splitter-resize-trigger:hover {
+  background-color: color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.splitter-resize-trigger:focus {
+  outline: none;
+}
+
+.splitter-resize-handle {
+  width: 0.25rem;
+  height: 3rem;
+  background-color: color-mix(in srgb, var(--muted-foreground) 40%, transparent);
+  border-radius: 9999px;
+  transition: all 200ms;
+}
+
+.splitter-resize-trigger:focus .splitter-resize-handle {
+  height: 4rem;
+  background-color: var(--primary);
+}
+
+.splitter-resize-area {
+  position: absolute;
+  inset: 0;
+  width: 1rem;
+  margin-left: -0.375rem;
+  margin-right: -0.375rem;
+}
+
+.cursor-col-resize {
+  cursor: col-resize;
+}

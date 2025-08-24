@@ -1,0 +1,40 @@
+---
+---
+
+<div class="framework-layout">
+  <div data-framework="vue" class="framework-content">
+    <slot name="vue" />
+  </div>
+  <div data-framework="react" class="framework-content">
+    <slot name="react" />
+  </div>
+  <div data-framework="svelte" class="framework-content">
+    <slot name="svelte" />
+  </div>
+  <div data-framework="solid" class="framework-content">
+    <slot name="solid" />
+  </div>
+</div>
+
+<style>
+  .framework-content {
+    display: none;
+    margin-top: 0 !important;
+  }
+
+  .framework-content[data-framework="vue"] {
+    display: block;
+  }
+</style>
+
+<script>
+import { $framework } from '../stores/framework.ts'
+
+document.addEventListener('DOMContentLoaded', () => {
+  $framework.subscribe((value) => {
+    document.querySelectorAll('.framework-content').forEach((el:any) => {
+      el.style.display = el.dataset.framework === value ? 'block' : 'none'
+    })
+  })
+})
+</script>

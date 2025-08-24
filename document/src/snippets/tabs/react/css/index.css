@@ -1,0 +1,212 @@
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);  
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.switch-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tabs-root {
+  width: 100%;
+}
+
+.tabs-list {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  background-color: var(--muted);
+  padding: 0.25rem;
+  color: var(--muted-foreground);
+}
+
+.tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  width: 50%;
+  border-radius: 0.125rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 150ms;
+  outline-offset: 2px;
+}
+
+.tabs-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring), 0 0 0 4px var(--background);
+}
+
+.tabs-trigger:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.tabs-trigger[data-selected] {
+  background-color: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.tabs-content {
+  margin-top: 0.5rem;
+  outline-offset: 2px;
+}
+
+.tabs-content:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring), 0 0 0 4px var(--background);
+}
+
+.tabs-content[data-hidden] {
+  display: none;
+}
+
+.card {
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--card-foreground);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+
+.card-description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.card-content {
+  padding: 1.5rem;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.form-label:has(+ input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-input {
+  display: flex;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid var(--input);
+  background-color: var(--background);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: all 150ms;
+  outline-offset: 2px;
+}
+
+.form-input::file-selector-button {
+  border: 0;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.form-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring), 0 0 0 4px var(--background);
+}
+
+.form-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  padding-top: 0;
+}
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: colors 150ms;
+  outline-offset: 2px;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.button-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring), 0 0 0 4px var(--background);
+}
+
+.button-primary:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: hsl(from var(--primary) h s calc(l * 0.9));
+}

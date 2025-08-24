@@ -1,0 +1,758 @@
+---
+head:
+  - tag: title
+    content: Tabs - Destyler UI
+title: Tabs
+---
+
+import Features from '../../../components/Features.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+
+> An accessible tabs component that provides keyboard interactions and ARIA 
+> attributes described in the WAI-ARIA Tabs Design Pattern. 
+> Tabs consist of a tab list with one or more visually separated tabs. 
+> Each tab has associated content, 
+> and only the selected tab's content is shown.
+
+<PreviewCode name="tabs"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for mouse, touch, and keyboard interactions on tabs.',
+  'Support for LTR and RTL keyboard navigation.',
+  'Support for disabled tabs.',
+  'Follows the tabs ARIA pattern, semantically linking tabs and their associated tab panels.',
+  'Focus management for tab panels without any focusable children',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="tabs" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as tabs from '@destyler/tabs'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const data = [
+    { value: 'item-1', label: 'item-1'},
+    { value: 'item-2', label: 'item-2'},
+    { value: 'item-3', label: 'item-3'},
+  ]
+
+  const [state, send] = useMachine(tabs.machine({ 
+    id: useId(), 
+    value: 'item-1' 
+  }))
+  const api = computed(() => tabs.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getListProps()">
+        <button
+          v-for="item in data"
+          v-bind="api.getTriggerProps({ value: item.value })"
+          :key="item.value"
+        >
+          {{ item.label }}
+        </button>
+      </div>
+      <div
+        v-for="item in data"
+        v-bind="api.getContentProps({ value: item.value })"
+        :key="item.value"
+      >
+        {{ item.content }}
+      </div>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as tabs from '@destyler/tabs'
+  import { useId } from 'react'
+
+  const data = [
+    { value: 'item-1', label: 'item-1'},
+    { value: 'item-2', label: 'item-2'},
+    { value: 'item-3', label: 'item-3'},
+  ]
+
+  export default function Tabs() {
+    const [state, send] = useMachine(tabs.machine({
+      id: useId(),
+      value: 'item-1', 
+    }))
+
+    const api = tabs.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getListProps()}>
+          {data.map(item => (
+            <button
+              key={item.value}
+              {...api.getTriggerProps({ value: item.value })}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        {data.map(item => (
+          <div
+            key={item.value}
+            {...api.getContentProps({ value: item.value })}
+          >
+            {item.content}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as tabs from '@destyler/tabs'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const data = [
+      { value: 'item-1', label: 'item-1'},
+      { value: 'item-2', label: 'item-2'},
+      { value: 'item-3', label: 'item-3'},
+    ]
+
+    const id = $props.id()
+    const [state, send] = useMachine(tabs.machine({ id, value: 'item-1' }))
+    const api = $derived(tabs.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <div {...api.getListProps()}>
+      {#each data as item}
+        <button {...api.getTriggerProps({ value: item.value })}>
+          {item.label}
+        </button>
+      {/each}
+    </div>
+    {#each data as item}
+      <div {...api.getContentProps({ value: item.value })}>
+        { data.content }
+      </div>
+    {/each}
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as tabs from '@destyler/tabs'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+    const data = [
+      { value: 'item-1', label: 'item-1'},
+      { value: 'item-2', label: 'item-2'},
+      { value: 'item-3', label: 'item-3'},
+    ]
+
+  export default function Tabs() {
+    const [state, send] = useMachine(tabs.machine({
+      id: createUniqueId(),
+      value: 'item-1',
+    }))
+
+    const api = createMemo(() => tabs.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <div {...api().getListProps()}>
+          {data.map(item => (
+            <button {...api().getTriggerProps({ value: item.value })}>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        {data.map(item => (
+          <div {...api().getContentProps({ value: item.value })}>
+            {item.content}
+          </div>
+        ))}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the selected tab
+
+To set the initially selected tab, 
+pass the `value` property to the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  tabs.machine({
+    value: "tab-1",
+  }),
+)
+```
+
+Subsequently, you can use the `api.setValue` function to set the selected tab.
+
+## Changing the orientation
+
+The default orientation of the tabs is horizontal. To change the `orientation`, 
+set the orientation property in the machine's context to `"vertical"`.
+
+```ts
+const [state, send] = useMachine(
+  tabs.machine({
+    orientation: "vertical",
+  }),
+)
+```
+
+## Showing an indicator
+
+To show an active indicator when a tab is selected, 
+you add the `tabIndicatorProps` object provided by the `connect` function.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```diff lang="vue"
+  <script setup lang="ts">
+  import * as tabs from '@destyler/tabs'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const data = [
+    { value: 'item-1', label: 'item-1'},
+    { value: 'item-2', label: 'item-2'},
+    { value: 'item-3', label: 'item-3'},
+  ]
+
+  const [state, send] = useMachine(tabs.machine({ 
+    id: useId(), 
+    value: 'item-1' 
+  }))
+  const api = computed(() => tabs.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getListProps()">
+        <button
+          v-for="item in data"
+          v-bind="api.getTriggerProps({ value: item.value })"
+          :key="item.value"
+        >
+          {{ item.label }}
+        </button>
++       <div v-bind="api.getIndicatorProps()" />
+      </div>
+      <div
+        v-for="item in data"
+        v-bind="api.getContentProps({ value: item.value })"
+        :key="item.value"
+      >
+        {{ item.content }}
+      </div>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```diff lang="tsx"
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as tabs from '@destyler/tabs'
+  import { useId } from 'react'
+
+  const data = [
+    { value: 'item-1', label: 'item-1'},
+    { value: 'item-2', label: 'item-2'},
+    { value: 'item-3', label: 'item-3'},
+  ]
+
+  export default function Tabs() {
+    const [state, send] = useMachine(tabs.machine({
+      id: useId(),
+      value: 'item-1', 
+    }))
+
+    const api = tabs.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getListProps()}>
+          {data.map(item => (
+            <button
+              key={item.value}
+              {...api.getTriggerProps({ value: item.value })}
+            >
+              {item.label}
+            </button>
+          ))}
++         <div {...api.getIndicatorProps()} />
+        </div>
+        {data.map(item => (
+          <div
+            key={item.value}
+            {...api.getContentProps({ value: item.value })}
+          >
+            {item.content}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```diff lang="svelte"
+  <script lang="ts">
+    import * as tabs from '@destyler/tabs'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const data = [
+      { value: 'item-1', label: 'item-1'},
+      { value: 'item-2', label: 'item-2'},
+      { value: 'item-3', label: 'item-3'},
+    ]
+
+    const id = $props.id()
+    const [state, send] = useMachine(tabs.machine({ id, value: 'item-1' }))
+    const api = $derived(tabs.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <div {...api.getListProps()}>
+      {#each data as item}
+        <button {...api.getTriggerProps({ value: item.value })}>
+          {item.label}
+        </button>
+      {/each}
++     <div {...api.getIndicatorProps()}></div>
+    </div>
+    {#each data as item}
+      <div {...api.getContentProps({ value: item.value })}>
+        { data.content }
+      </div>
+    {/each}
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```diff lang="tsx"
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as tabs from '@destyler/tabs'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+    const data = [
+      { value: 'item-1', label: 'item-1'},
+      { value: 'item-2', label: 'item-2'},
+      { value: 'item-3', label: 'item-3'},
+    ]
+
+  export default function Tabs() {
+    const [state, send] = useMachine(tabs.machine({
+      id: createUniqueId(),
+      value: 'item-1',
+    }))
+
+    const api = createMemo(() => tabs.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <div {...api().getListProps()}>
+          {data.map(item => (
+            <button {...api().getTriggerProps({ value: item.value })}>
+              {item.label}
+            </button>
+          ))}
++         <div {...api().getIndicatorProps()} />
+        </div>
+        {data.map(item => (
+          <div {...api().getContentProps({ value: item.value })}>
+            {item.content}
+          </div>
+        ))}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Disabling a tab
+
+To disable a tab, set the `disabled` property in the `getTriggerProps` to `true`.
+
+When a Tab is `disabled`, it is skipped during keyboard navigation and it is not clickable.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as tabs from '@destyler/tabs'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const data = [
+    { value: 'item-1', label: 'item-1', disabled: false },
+    { value: 'item-2', label: 'item-2', disabled: true},
+    { value: 'item-3', label: 'item-3', disabled: false},
+  ]
+
+  const [state, send] = useMachine(tabs.machine({ 
+    id: useId(), 
+    value: 'item-1' 
+  }))
+  const api = computed(() => tabs.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getListProps()">
+        <button
+          v-for="item in data"
+          v-bind="api.getTriggerProps({ value: item.value, disabled: item.disabled })"
+          :key="item.value"
+        >
+          {{ item.label }}
+        </button>
+      </div>
+      <div
+        v-for="item in data"
+        v-bind="api.getContentProps({ value: item.value })"
+        :key="item.value"
+      >
+        {{ item.content }}
+      </div>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as tabs from '@destyler/tabs'
+  import { useId } from 'react'
+
+  const data = [
+    { value: 'item-1', label: 'item-1', disabled: false },
+    { value: 'item-2', label: 'item-2', disabled: true},
+    { value: 'item-3', label: 'item-3', disabled: false},
+  ]
+
+  export default function Tabs() {
+    const [state, send] = useMachine(tabs.machine({
+      id: useId(),
+      value: 'item-1', 
+    }))
+
+    const api = tabs.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getListProps()}>
+          {data.map(item => (
+            <button
+              key={item.value}
+              {...api.getTriggerProps({ value: item.value, disabled: item.disabled })}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+        {data.map(item => (
+          <div
+            key={item.value}
+            {...api.getContentProps({ value: item.value })}
+          >
+            {item.content}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as tabs from '@destyler/tabs'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const data = [
+      { value: 'item-1', label: 'item-1', disabled: false },
+      { value: 'item-2', label: 'item-2', disabled: true},
+      { value: 'item-3', label: 'item-3', disabled: false},
+    ]
+
+    const id = $props.id()
+    const [state, send] = useMachine(tabs.machine({ id, value: 'item-1' }))
+    const api = $derived(tabs.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <div {...api.getListProps()}>
+      {#each data as item}
+        <button {...api.getTriggerProps({ value: item.value, disabled: item.disabled })}>
+          {item.label}
+        </button>
+      {/each}
+    </div>
+    {#each data as item}
+      <div {...api.getContentProps({ value: item.value })}>
+        { data.content }
+      </div>
+    {/each}
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as tabs from '@destyler/tabs'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  const data = [
+    { value: 'item-1', label: 'item-1', disabled: false },
+    { value: 'item-2', label: 'item-2', disabled: true},
+    { value: 'item-3', label: 'item-3', disabled: false},
+  ]
+
+  export default function Tabs() {
+    const [state, send] = useMachine(tabs.machine({
+      id: createUniqueId(),
+      value: 'item-1',
+    }))
+
+    const api = createMemo(() => tabs.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <div {...api().getListProps()}>
+          {data.map(item => (
+            <button {...api().getTriggerProps({ value: item.value, disabled: item.disabled })}>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        {data.map(item => (
+          <div {...api().getContentProps({ value: item.value })}>
+            {item.content}
+          </div>
+        ))}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Listening for events
+
+- `onValueChange` — Callback invoked when the selected tab changes.
+
+- `onFocusChange` — Callback invoked when the focused tab changes.
+
+```ts
+const [state, send] = useMachine(
+  tabs.machine({
+    onFocusChange(details) {
+      // details => { value: string | null }
+      console.log("focused tab:", details.value)
+    },
+    onValueChange(details) {
+      // details => { value: string }
+      console.log("selected tab:", details.value)
+    },
+  }),
+)
+```
+
+## Manual tab activation
+
+By default, the tab can be selected when the receive focus from either the keyboard or pointer interaction. This is called "automatic tab activation".
+
+The other approach is "manual tab activation" which means the tab is selected with the `Enter` key or by `clicking` on the tab.
+
+```ts
+const [state, send] = useMachine(
+  tabs.machine({
+    activationMode: "manual",
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Tabs part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Selected state
+
+When a tab is selected, 
+a `data-selected` attribute is added to the trigger and content elements.
+
+```css
+[data-part="trigger"][data-state="active"] {
+  /* Styles for selected tab */
+}
+
+[data-part="content"][data-state="active"] {
+  /* Styles for selected tab */
+}
+```
+
+### Disabled state
+
+When a tab is disabled, a `data-disabled` attribute is added to the trigger element.
+
+```css
+[data-part="trigger"][data-disabled] {
+  /* Styles for disabled tab */
+}
+```
+
+### Focused state
+
+When a tab is focused, 
+you the `:focus` or `:focus-visible` pseudo-class to style it.
+
+```css
+[data-part="trigger"]:focus {
+  /* Styles for focused tab */
+}
+```
+
+When any tab is focused, the list is given a `data-focus` attribute.
+
+```css
+[data-part="list"][data-focus] {
+  /* Styles for when any tab is focused */
+}
+```
+
+### Orientation styles
+
+All parts of the tabs component have the `data-orientation` attribute. 
+You can use this to set the style for the horizontal or vertical tabs.
+
+```css
+[data-part="trigger"][data-orientation="horizontal"] {
+  /* Styles for horizontal/vertical tabs */
+}
+
+[data-part="root"][data-orientation="horizontal"] {
+  /* Styles for horizontal/vertical root */
+}
+
+[data-part="indicator"][data-orientation="horizontal"] {
+  /* Styles for horizontal/vertical tab-indicator */
+}
+
+[data-part="list"][data-orientation="horizontal"] {
+  /* Styles for horizontal/vertical list */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The tabs machine exposes the following context properties:
+
+<MachineTable name="tabs"></MachineTable>
+
+### Machine API
+
+The switch `api` exposes the following methods:
+
+<APITable name="switch"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="tabs" nodeType="root" />
+
+#### List
+
+<StyleTable component="tabs" nodeType="list" />
+
+#### Trigger
+
+<StyleTable component="tabs" nodeType="trigger" />
+
+#### Content
+
+<StyleTable component="tabs" nodeType="content" />
+
+#### Indicator
+
+<StyleTable component="tabs" nodeType="indicator" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="tabs"></KeyboardTable>

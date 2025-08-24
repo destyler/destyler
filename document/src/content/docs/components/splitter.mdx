@@ -1,0 +1,258 @@
+---
+head:
+  - tag: title
+    content: Splitter - Destyler UI
+title: Splitter
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> A splitter allow create dynamic layouts split into vertically or horizontally arranged panes. 
+> Panes are separated by the splitter bars that allow dragging to resize or expand/collapse them.
+
+<PreviewCode name="splitter"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Double click a splitter to maximize pane',
+  'Programmatic control of width or height',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="splitter" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as splitter from "@destyler/splitter"
+  import { normalizeProps, useMachine } from "@destyler/vue"
+  import { computed,useId } from "vue"
+
+  const [state, send] = useMachine(
+    splitter.machine({
+      id: useId(),
+    })
+  )
+
+  const api = computed(() => splitter.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getPanelProps({ id: 'a' })">
+      </div>
+      <div v-bind="api.getResizeTriggerProps({ id: 'a:b' })" />
+      <div v-bind="api.getPanelProps({ id: 'b' })">
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+import * as splitter from '@destyler/splitter'
+import { useId } from 'react'
+
+export default function SplitterDemo() {
+  const [state, send] = useMachine(
+    splitter.machine({
+      id: useId(),
+    })
+  )
+
+  const api = splitter.connect(state, send, normalizeProps)
+
+  return (
+    <>
+      <div {...api.getRootProps()}>
+        <div {...api.getPanelProps({ id: 'a' })}></div>
+
+        <div {...api.getResizeTriggerProps({ id: 'a:b' })}></div>
+        
+        <div {...api.getPanelProps({ id: 'b' })}></div>
+      </div>
+    </>
+  )
+}
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as splitter from "@destyler/splitter"
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+
+
+    const [state, send] = useMachine(
+      splitter.machine({
+        id: crypto.randomUUID(),
+      })
+    )
+
+    const api = $derived(splitter.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <div {...api.getPanelProps({ id: 'a' })}></div>
+    
+    <div {...api.getResizeTriggerProps({ id: 'a:b' })}></div>
+    
+    <div {...api.getPanelProps({ id: 'b' })}></div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as splitter from '@destyler/splitter'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function SplitterDemo() {
+
+    const [state, send] = useMachine(
+      splitter.machine({
+        id: createUniqueId(),
+      })
+    )
+
+    const api = createMemo(() => splitter.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()}>
+          <div {...api().getPanelProps({ id: 'a' })}></div>
+          
+          <div {...api().getResizeTriggerProps({ id: 'a:b' })}></div>
+          
+          <div {...api().getPanelProps({ id: 'b' })}></div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Listening for events
+
+When the resize trigger of splitter changes, 
+the `onSizeChangeStart` and `onSizeChangeEnd` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  splitter.machine({
+    onSizeChangeStart(detail) {
+      console.log("change start", detail)
+    },
+    onSizeChangeEnd(detail) {
+      console.log("change end", detail)
+    },
+  }),
+)
+```
+
+## Changing the orientation
+
+By default, the splitter is assumed to be horizontal. 
+To change the orientation to vertical, 
+set the `orientation` property in the machine's context to `vertical`.
+
+```ts
+const [state, send] = useMachine(
+  splitter.machine({
+    orientation: 'vertical',
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each splitter part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Resize trigger
+
+When an splitter item is horizontal or vertical, 
+a `data-state` attribute is set on the item and content elements.
+
+```css
+[data-scope="splitter"][data-part="resize-trigger"] {
+  /* styles for the item */
+}
+
+[data-scope="splitter"][data-part="resize-trigger"][data-orientation="horizontal"] {
+  /* styles for the item is horizontal state */
+}
+
+[data-scope="splitter"][data-part="resize-trigger"][data-orientation="vertical"] {
+  /* styles for the item is horizontal state */
+}
+
+[data-scope="splitter"][data-part="resize-trigger"][data-focus] {
+  /* styles for the item is focus state */
+}
+
+[data-scope="splitter"][data-part="resize-trigger"]:active {
+  /* styles for the item is active state */
+}
+
+[data-scope="splitter"][data-part="resize-trigger"][data-disabled] {
+  /* styles for the item is disabled state */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The splitter machine exposes the following context properties:
+
+<MachineTable name="splitter" />
+
+### Machine API
+
+The splitter `api` exposes the following methods:
+
+<APITable name="splitter"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="splitter" nodeType="root" />
+
+#### Panel
+
+<StyleTable component="splitter" nodeType="panel" />
+
+#### Resize Trigger
+
+<StyleTable component="splitter" nodeType="resizeTrigger" />

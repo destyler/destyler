@@ -1,0 +1,72 @@
+:root {
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --ring: hsl(240 4.9% 83.9%);
+  --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 85.7% 97.3%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --accent: hsl(240 3.7% 15.9%);
+  --accent-foreground: hsl(0 0% 98%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+}
+
+.breadcrumb-list {
+  margin-top: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  overflow-wrap: break-word;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+@media (min-width: 640px) {
+  .breadcrumb-list {
+    gap: 0.625rem;
+  }
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0 !important;
+}
+
+.breadcrumb-link {
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  text-decoration-line: none !important;
+}
+
+.breadcrumb-link:hover {
+  color: var(--foreground);
+}
+
+.breadcrumb-link[data-current="page"] {
+  color: var(--foreground);
+}
+
+.breadcrumb-separator {
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-block;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='currentColor' d='M11.8 26.8L10 25l8.2-8.2L10 8.6l1.8-1.8l10 10z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}

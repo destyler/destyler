@@ -1,0 +1,552 @@
+---
+head:
+  - tag: title
+    content: Dynamic - Destyler UI
+title: Dynamic
+---
+
+import Features from '../../../components/Features.astro'
+import PreviewCode from '../../../components/PreviewCode.astro'
+import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import InstallShell from '../../../components/InstallShell.astro'
+
+> Dynamic render tags inside an input, followed by an actual text input. 
+> By default, tags are added when text is typed in the input field and the `Enter` or `Comma` key is pressed. 
+> Throughout the interaction, DOM focus remains on the input element.
+
+<PreviewCode name="dynamic"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Typing in the input and pressing enter will add new items.',
+  'Clear button to reset all tags values.',
+  'Add tags by pasting into the input.',
+  'Delete tags on backspace.',
+  'Edit tags after creation.',
+  'Limit the number of tags.',
+  'Navigate tags with keyboard.',
+  'Custom validation to accept/reject tags.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="dynamic" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as dynamic from '@destyler/dynamic'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(
+    dynamic.machine({
+      id: useId(),
+      value: ['React', 'Vue'],
+    }),
+  )
+  const api = computed(() =>
+    dynamic.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()" >
+      <span
+        v-for="(value, index) in api.value"
+        :key="index"
+        v-bind="api.getItemProps({ index, value })"
+      >
+        <div v-bind="api.getItemPreviewProps({ index, value })">
+          <button v-bind="api.getItemDeleteTriggerProps({ index, value })" />
+        </div>
+        <input v-bind="api.getItemInputProps({ index, value })">
+      </span>
+      <input v-bind="api.getInputProps()">
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as dynamic from '@destyler/dynamic'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function DynamicPage() {
+    const [state, send] = useMachine(
+      dynamic.machine({
+        id: useId(),
+        value: ['React', 'Vue'],
+      }),
+    )
+
+    const api = dynamic.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getRootProps()}>
+          {api.value.map((value, index) => (
+            <span
+              key={index}
+              {...api.getItemProps({ index, value })}
+            >
+              <div {...api.getItemPreviewProps({ index, value })} >
+                <button {...api.getItemDeleteTriggerProps({ index, value })} />
+              </div>
+              <input {...api.getItemInputProps({ index, value })}/>
+            </span>
+          ))}
+          <input {...api.getInputProps()} />
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as dynamic from "@destyler/dynamic";
+    import { normalizeProps, useMachine } from "@destyler/svelte";
+
+
+    const [state, send] = useMachine(
+      dynamic.machine({
+        id: crypto.randomUUID(),
+        value: ["Svelte", "Vue"],
+      }),
+    );
+
+    const api = $derived(dynamic.connect(state, send, normalizeProps));
+  </script>
+
+  <div {...api.getRootProps()}>
+      {#each api.value as value, index (index)}
+        <span {...api.getItemProps({ index, value })}>
+          <div
+            {...api.getItemPreviewProps({ index, value })}
+          >
+            <button {...api.getItemDeleteTriggerProps({ index, value })}></button>
+          </div>
+          <input {...api.getItemInputProps({ index, value })} />
+        </span>
+      {/each}
+      <input {...api.getInputProps()}/>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as dynamic from '@destyler/dynamic'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, For } from 'solid-js'
+
+  export default function DynamicPage() {
+    const [state, send] = useMachine(
+      dynamic.machine({
+        id: createUniqueId(),
+        value: ['Solid', 'Vue'],
+      }),
+    )
+
+    const api = createMemo(() => dynamic.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()}>
+          <For each={api().value}>
+            {(value, index) => (
+              <span {...api().getItemProps({ index: index(), value })}>
+                <div {...api().getItemPreviewProps({ index: index(), value })}>
+                  <button {...api().getItemDeleteTriggerProps({ index: index(), value })} />
+                </div>
+                <input {...api().getItemInputProps({ index: index(), value })} />
+              </span>
+            )}
+          </For>
+          <input {...api().getInputProps()} />
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Removing all tags
+
+The tags input will remove all tags when the clear button is clicked. 
+To remove all tags, use the provided `clearButtonProps` function from the `api`.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <template>
+    <!-- ... -->
+    <div v-bind="api.getControlProps()">
+      <input v-bind="api.getInputProps()" />
+      <button v-bind="api.getClearButtonProps()" />
+    </div>
+    <!-- ... -->
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  //...
+  <div {...api.getControlProps()}>
+    <input {...api.getInputProps()} />
+    <button {...api.getClearButtonProps()} />
+  </div>
+  //...
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <!-- ... -->
+  <div {...api.getControlProps()}>
+    <input {...api.getInputProps()} />
+    <button {...api.getClearButtonProps()} ></button>
+  </div>
+  <!-- ... -->
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  //...
+  <div {...api().getControlProps()}>
+    <input {...api().getInputProps()} />
+    <button {...api().getClearButtonProps()} />
+  </div>
+  //...
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+<br />
+To programmatically remove all tags, use the `api.clearAll()` method that's available in the `connect`.
+
+## Usage within forms
+
+The tags input works when placed within a form and the form is submitted. We achieve this by:
+
+- ensuring we emit the input event as the value changes.
+
+- adding a `name` and `value` attribute to a hidden input so the tags can be accessed in the `FormData`.
+
+To get this feature working you need to pass a `name` option to the context and render the `hiddenInput` element.
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    name: "tags",
+  }),
+)
+```
+
+## Limiting the number of tags
+
+To limit the number of tags within the component, 
+you can set the `max` property to the limit you want. 
+The default value is `Infinity`.
+
+When the tag reaches the limit, 
+new tags cannot be added except the `allowOverflow` option is passed to the context.
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    max: 10,
+    allowOverflow: true,
+  }),
+)
+```
+
+## Validating Tags
+
+Before a tag is added, the machine provides a `validate` function you can use to determine whether to accept or reject a tag.
+
+A common use-case for validating tags is preventing duplicates or validating the data type.
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    validate(details) {
+      return !details.values.includes(details.inputValue)
+    },
+  }),
+)
+```
+
+## Blur behavior
+
+When the tags input is blurred, you can configure the action the machine should take by passing the blurBehavior option to the context.
+
+- `"add"` — Adds the tag to the list of tags.
+
+- `"clear"` — Clears the tags input value.
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    blurBehavior: "add",
+  }),
+)
+```
+
+## Paste behavior
+
+To add a tag when a arbitrary value is pasted in the input element, 
+pass the `addOnPaste` option.
+
+When a value is pasted, the machine will:
+
+- check if the value is a valid tag based on the `validate` option
+
+- split the value by the `delimiter` option passed
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    addOnPaste: true,
+  }),
+)
+```
+
+## Disable tag editing
+
+by default the tags can be edited by double clicking on the tag or focusing on them and pressing `Enter`. 
+To disable this behavior, pass the `allowEditTag: false`.
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    allowEditTag: false,
+  }),
+)
+```
+
+## Listening for events
+
+During the lifetime of the tags input interaction, here's a list of events we emit:
+
+- `onValueChange` — invoked when the tag value changes.
+
+- `onHighlightChange` — invoked when a tag has visual focus.
+
+- `onValueInvalid` — invoked when the max tag count is reached or the `validate` function returns `false`.
+
+```ts
+const [state, send] = useMachine(
+  tagsInput.machine({
+    onValueChange(details) {
+      // details => { value: string[] }
+      console.log("tags changed to:", details.value)
+    },
+    onHighlightChange(details) {
+      // details => { value: string }
+      console.log("highlighted tag:", details.value)
+    },
+    onValueInvalid(details) {
+      console.log("Invalid!", details.reason)
+    },
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Dynamic part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Focused state
+
+The combobox input is focused when the user clicks on the input element. 
+In this focused state, the root, label, input.
+
+```css
+[data-part="root"][data-focus] {
+  /* styles for root focus state */
+}
+
+[data-part="label"][data-focus] {
+  /* styles for label focus state */
+}
+
+[data-part="input"]:focus {
+  /* styles for input focus state */
+}
+```
+
+### Invalid state
+
+When the tags input is invalid by setting the `invalid: true` in the destyler's context, the `data-invalid` attribute is set on the root, input, control, and label.
+
+```css
+[data-part="root"][data-invalid] {
+  /* styles for invalid state for root */
+}
+
+[data-part="label"][data-invalid] {
+  /*  styles for invalid state for label */
+}
+
+[data-part="input"][data-invalid] {
+  /*  styles for invalid state for input */
+}
+```
+
+### Disabled state
+
+When the tags input is disabled by setting the `disabled: true` in the destyler's context, 
+the `data-disabled` attribute is set on the root, input, control and label.
+
+```css
+[data-part="root"][data-disabled] {
+  /* styles for disabled state for root */
+}
+
+[data-part="label"][data-disabled] {
+  /* styles for disabled state for label */
+}
+
+[data-part="input"][data-disabled] {
+  /* styles for disabled state for input */
+}
+
+[data-part="control"][data-disabled] {
+  /* styles for disabled state for control */
+}
+```
+
+When a tag is disabled, the `data-disabled` attribute is set on the tag.
+
+```css
+[data-part="item-preview"][data-disabled] {
+  /* styles for disabled tag  */
+}
+```
+
+### Highlighted state
+
+When a tag is highlighted via the keyboard navigation or pointer hover, 
+a `data-highlighted` attribute is set on the tag.
+
+```css
+[data-part="item-preview"][data-highlighted] {
+  /* styles for visual focus */
+}
+```
+
+### Readonly state
+
+When the tags input is in its readonly state, 
+the `data-readonly` attribute is set on the root, label, input and control.
+
+```css
+[data-part="root"][data-readonly] {
+  /* styles for readonly for root */
+}
+
+[data-part="control"][data-readonly] {
+  /* styles for readonly for control */
+}
+
+[data-part="input"][data-readonly] {
+  /* styles for readonly for input  */
+}
+
+[data-part="label"][data-readonly] {
+  /* styles for readonly for label */
+}
+```
+
+import MachineTable from '../../../components/props/Machine.astro'
+import APITable from '../../../components/props/Api.astro'
+import StyleTable from '../../../components/props/Style.astro'
+import KeyboardTable from '../../../components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The dynamic machine exposes the following context properties:
+
+<MachineTable name="dynamic"></MachineTable>
+
+### Machine API
+
+The dynamic `api` exposes the following methods:
+
+<APITable name="dynamic"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="dynamic" nodeType="root" />
+
+#### Label
+
+<StyleTable component="dynamic" nodeType="label" />
+
+#### Control
+
+<StyleTable component="dynamic" nodeType="control" />
+
+#### Input
+
+<StyleTable component="dynamic" nodeType="input" />
+
+#### Item
+
+<StyleTable component="dynamic" nodeType="item" />
+
+#### ItemPreview
+
+<StyleTable component="dynamic" nodeType="itemPreview" />
+
+#### ItemText
+
+<StyleTable component="dynamic" nodeType="itemText" />
+
+#### ClearTrigger
+
+<StyleTable component="dynamic" nodeType="clearTrigger" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="dynamic"></KeyboardTable>
