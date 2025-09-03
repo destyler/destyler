@@ -10,157 +10,98 @@ import { createHighlighter } from 'shiki'
 
 const { name } = Astro.props
 
-const getFiles = async (framework: string, style: string) => {
-  let files:any = {}
-  let allFiles:any = {}
-  
-  // 使用静态路径模式而非动态字面量
-  if (framework === 'vue') {
-    if (style === 'unocss') {
-      allFiles = import.meta.glob('../snippets/*/vue/unocss/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'css') {
-      allFiles = import.meta.glob('../snippets/*/vue/css/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'tailwind') {
-      allFiles = import.meta.glob('../snippets/*/vue/tailwind/**/*', { query: '?raw', import: 'default' })
-    }
-  } else if (framework === 'react') {
-    if (style === 'unocss') {
-      allFiles = import.meta.glob('../snippets/*/react/unocss/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'css') {
-      allFiles = import.meta.glob('../snippets/*/react/css/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'tailwind') {
-      allFiles = import.meta.glob('../snippets/*/react/tailwind/**/*', { query: '?raw', import: 'default' })
-    }
-  } else if (framework === 'solid') {
-    if (style === 'unocss') {
-      allFiles = import.meta.glob('../snippets/*/solid/unocss/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'css') {
-      allFiles = import.meta.glob('../snippets/*/solid/css/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'tailwind') {
-      allFiles = import.meta.glob('../snippets/*/solid/tailwind/**/*', { query: '?raw', import: 'default' })
-    }
-  } else if (framework === 'svelte') {
-    if (style === 'unocss') {
-      allFiles = import.meta.glob('../snippets/*/svelte/unocss/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'css') {
-      allFiles = import.meta.glob('../snippets/*/svelte/css/**/*', { query: '?raw', import: 'default' })
-    } else if (style === 'tailwind') {
-      allFiles = import.meta.glob('../snippets/*/svelte/tailwind/**/*', { query: '?raw', import: 'default' })
-    }
-  }
-  
-  // 在运行时根据组件名称过滤文件
-  const componentPattern = new RegExp(`/snippets/${name}/`);
-  for (const path in allFiles) {
-    if (componentPattern.test(path)) {
-      files[path] = allFiles[path];
-    }
-  }
+// 将 kebab-case 名称转换为 PascalCase，用于匹配文件名
+const toPascalCase = (str: string) => str.split(/[-_]/).map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('')
+const baseName = toPascalCase(name)
 
-  const result:any = {
-    code: [],
-    config: null,
-  }
-  
-  try {
-    for (const [path, importFn] of Object.entries(files) as [string, () => Promise<string>][]) {
+// 高亮器（重复创建成本较大，复用单实例）
+const highlighter = await createHighlighter({
+  themes: ['vitesse-light','vitesse-dark'],
+  langs: ['html', 'css', 'js', 'ts', 'vue', 'jsx', 'tsx', 'svelte']
+})
 
-      const highlighter = await createHighlighter({
-        themes: ['vitesse-light','vitesse-dark'],
-        langs: ['html', 'css', 'js', 'ts', 'vue', 'jsx', 'tsx', 'svelte']
-      })
+interface CodeFile { title: string; content: string; highlighted: string; language: string; framework: string }
 
-      const fileName = path.split('/').pop() || '';
-      const category = path.includes('config') ? 'config' : 'code';
-      const content = await importFn();
-      
-      // 根据文件扩展名确定语言
-      const extension = fileName.split('.').pop() || '';
-      let language = 'html';
-      
-      if (extension === 'vue') language = 'vue';
-      else if (extension === 'jsx') language = 'jsx';
-      else if (extension === 'tsx') language = 'tsx';
-      else if (extension === 'js') language = 'js';
-      else if (extension === 'ts') language = 'ts';
-      else if (extension === 'css') language = 'css';
-      else if (extension === 'svelte') language = 'svelte';
-      
-      console.log(`Processing file: ${path}, language: ${language}`); // 添加日志
-      const highlightedCode = highlighter.codeToHtml(content, {
+// 清理不需要展示的指令 / 引入
+const sanitize = (code: string) => {
+  return code
+    // 去掉 solid-js jsxImportSource 注释
+    .replace(/\/\*+\s*@jsxImportSource\s+solid-js\s*\*+\//g, '')
+    // 去掉样式引入 ../../styles/components/*.css
+    .replace(/import\s+['\"]\.\.\/\.\.\/styles\/components\/[A-Za-z0-9_-]+\.css['\"];?\n?/g, '')
+    // 删除开头空行
+    .replace(/^(\s*\n)+/, '')
+    // 折叠 3 行及以上连续空行
+    .replace(/\n{3,}/g, '\n\n')
+}
+
+// 预先静态收集 snippets 下所有相关文件（包括根级主文件）
+const allSnippets = import.meta.glob('../snippets/**/*', { query: '?raw', import: 'default' })
+
+const loadFrameworkFile = async (framework: string) => {
+  const allFiles: Record<string, () => Promise<any>> = allSnippets
+
+  // 仅根级主文件，不读取子目录
+  const expectedFiles: string[] = []
+  if (framework === 'vue') expectedFiles.push(`${baseName}.vue`)
+  else if (framework === 'react') expectedFiles.push(`${baseName}.react.tsx`, `${baseName}.react.jsx`, `${baseName}.react.ts`, `${baseName}.react.js`)
+  else if (framework === 'solid') expectedFiles.push(`${baseName}.solid.tsx`, `${baseName}.solid.ts`)
+  else if (framework === 'svelte') expectedFiles.push(`${baseName}.svelte`)
+
+  const result: CodeFile[] = []
+  const nameDirPattern = new RegExp(`/snippets/${name}/`)
+
+  for (const [path, importer] of Object.entries(allFiles)) {
+    if (!nameDirPattern.test(path)) continue
+  const segments = path.split('/')
+  const fileName = segments.pop() || ''
+  // 排除任何 path 中继续包含框架子目录的文件（保持只取根目录主文件）
+  if (segments.includes('vue') || segments.includes('react') || segments.includes('solid') || segments.includes('svelte')) continue
+  if (!expectedFiles.includes(fileName)) continue
+    try {
+  const raw = await importer()
+  const cleaned = sanitize(raw)
+      const ext = fileName.split('.').pop() || ''
+      let language = ext
+      if (fileName.endsWith('.react.tsx') || fileName.endsWith('.solid.tsx')) language = 'tsx'
+      else if (fileName.endsWith('.react.jsx')) language = 'jsx'
+      else if (fileName.endsWith('.react.ts')) language = 'ts'
+      else if (fileName.endsWith('.react.js')) language = 'js'
+      else if (ext === 'vue') language = 'vue'
+      else if (ext === 'svelte') language = 'svelte'
+
+  const highlighted = highlighter.codeToHtml(cleaned, {
         lang: language,
         theme: 'vitesse-dark',
-        themes:{
-          dark: 'vitesse-dark',
-          light: 'vitesse-light'
-        }
-      });
-      
-      if (category === 'config') {
-        result.config = { 
-          title: fileName,
-          content,
-          highlighted: highlightedCode,
-          language
-        };
-      } else {
-        result.code.push({ 
-          title: fileName,
-          content,
-          highlighted: highlightedCode,
-          language,
-        });
-      }
+        themes: { dark: 'vitesse-dark', light: 'vitesse-light' }
+      })
 
-      highlighter.dispose()
-    }
-    
-    // 对文件进行排序，按类型或名称
-    result.code.sort((a:any, b:any) => {
-      const extA = a.title.split('.').pop() || '';
-      const extB = b.title.split('.').pop() || '';
-      
-      if (extA !== extB) {
-        // 主要组件文件优先
-        if (extA === 'vue' || extA === 'jsx' || extA === 'tsx' || extA === 'svelte') return -1;
-        if (extB === 'vue' || extB === 'jsx' || extB === 'tsx' || extB === 'svelte') return 1;
-        
-        // 然后是脚本文件
-        if ((extA === 'js' || extA === 'ts') && !(extB === 'js' || extB === 'ts')) return -1;
-        if ((extB === 'js' || extB === 'ts') && !(extA === 'js' || extA === 'ts')) return 1;
-        
-        // 最后是样式文件
-        return extA.localeCompare(extB);
-      }
-      
-      // 同类型按名称排序
-      return a.title.localeCompare(b.title);
-    });
-    
-  } catch (error) {
-    console.error(`Error loading files for ${framework}/${style}:`, error);
-  }
-  
-  return result;
-}
+  // 推断框架（用于前端展示图标）
+  let frameworkName = ''
+  if (fileName.endsWith('.vue')) frameworkName = 'vue'
+  else if (/\.react\.(t|j)sx?$/.test(fileName)) frameworkName = 'react'
+  else if (/\.solid\.(t|j)sx?$/.test(fileName)) frameworkName = 'solid'
+  else if (fileName.endsWith('.svelte')) frameworkName = 'svelte'
 
-// 尝试加载所有框架和样式的代码文件
-const frameworks = ['vue', 'react', 'solid', 'svelte'];
-const styles = ['unocss', 'css', 'tailwind'];
-
-const codeFiles:any = {};
-
-for (const framework of frameworks) {
-  codeFiles[framework] = {};
-  for (const style of styles) {
-    try {
-      codeFiles[framework][style] = await getFiles(framework, style);
+  result.push({ title: fileName, content: cleaned, highlighted, language, framework: frameworkName })
     } catch (e) {
-      console.error(`Failed to load ${framework}/${style} files:`, e);
-      codeFiles[framework][style] = { code: [], config: null };
+      console.error(`Failed to load file ${path}`, e)
     }
   }
+
+  return result
 }
+
+const frameworks = ['vue', 'react', 'solid', 'svelte']
+// 与 CodeGroup 期望的结构匹配
+const codeFiles: Record<string, { code: CodeFile[] }> = {}
+
+for (const fw of frameworks) {
+  codeFiles[fw] = { code: await loadFrameworkFile(fw) }
+}
+
+// 释放高亮器（如果后续页面交互不需要动态生成，可直接释放）
+highlighter.dispose()
 ---
 
 <Preview mode="code">
@@ -192,7 +133,7 @@ for (const framework of frameworks) {
   :global(.code-preview-wrapper) {
     position: relative;
   }
-  
+
   /* 处理代码高亮时的错误提示 */
   :global(.code-preview-wrapper .error-message) {
     color: #ff5555;

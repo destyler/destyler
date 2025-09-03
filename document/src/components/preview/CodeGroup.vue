@@ -1,41 +1,33 @@
 <script setup lang="ts">
-import type { CSSFramework } from '../../stores/style';
-import * as select from '@destyler/select'
+// 移除样式相关逻辑
 import * as tabs from '@destyler/tabs'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { useStore } from '@nanostores/vue'
 import { computed, onMounted, ref, useId, watch } from 'vue'
 import { $framework } from '../../stores/framework'
-import { $style, styleFrameworkData } from '../../stores/style'
+// 样式 store 已移除
 
 const props = defineProps<{
-  files: CodeFiles
+  files: Record<string, { code: CodeFile[] }>
 }>()
 
 const store = useStore($framework)
 
-const styleStore = useStore($style)
+// 已删除样式 store
 
 interface CodeFile {
   title: string
   content?: string
   highlighted?: string
   language?: string
+  framework?: string
 }
 
-interface CodeFiles {
-  [framework: string]: {
-    [style: string]: {
-      config: CodeFile | null
-      code: CodeFile[]
-    }
-  }
-}
+// 新的数据结构不再包含样式和 config
 
 const currentFramework = computed(() => store.value || 'vue')
 
-const currentStyleRef = computed(() => styleStore.value || 'unocss')
-const currentStyle = computed(() => currentStyleRef.value)
+// 样式相关逻辑移除
 const currentSelectedFile = ref('0')
 
 const isCopied = ref(false)
@@ -66,27 +58,14 @@ const [state, send] = useMachine(tabs.machine({
 
 const api = computed(() => tabs.connect(state.value, send, normalizeProps))
 
-const [styleState, styleSend] = useMachine(
-  select.machine({
-    id: useId(),
-    collection: select.collection({
-      items: styleFrameworkData,
-    }),
-    value: [currentStyle.value],
-  }),
-)
-
-const styleApi = computed(() => select.connect(styleState.value, styleSend, normalizeProps))
+// 移除样式选择机器
 
 const fileData = computed(() => {
   const data: any[] = []
   const framework = currentFramework.value
-  const style = currentStyle.value
-
-  if (!props.files[framework] || !props.files[framework][style])
+  if (!props.files[framework])
     return data
-
-  const content = props.files[framework][style]
+  const content = props.files[framework]
 
   if (!content)
     return data
@@ -107,6 +86,7 @@ const fileData = computed(() => {
         content: file.highlighted || file.content,
         language: file.language,
         type: fileExt,
+        framework: (file as any).framework,
       })
     })
   }
@@ -148,15 +128,7 @@ const fileData = computed(() => {
       })
     })
 
-  if (content.config) {
-    data.push({
-      value: `config`,
-      label: content.config.title,
-      content: content.config.highlighted || content.config.content,
-      language: content.config.language,
-      type: 'config',
-    })
-  }
+  // 不再处理 config
 
   return data
 })
@@ -167,17 +139,7 @@ watch(() => api.value.value, (newValue) => {
   }
 })
 
-watch(() => styleApi.value.value, (newValue) => {
-  if (newValue) {
-    $style.set(newValue[0] as CSSFramework)
-    currentSelectedFile.value = '0'
-    api.value.setValue('0')
-  }
-})
-
-onMounted(() => {
-  styleApi.value.setValue([currentStyleRef.value])
-})
+// 移除样式监听与初始化
 </script>
 
 <template>
@@ -196,52 +158,21 @@ onMounted(() => {
             class="relative inline-flex mt-0! items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium transition-all hover:text-foreground data-[selected]:text-foreground data-[selected]:bg-background/50 rounded"
           >
             <div class="flex items-center gap-1 mt-0!">
-              <span v-if="file.language === 'vue'" class="i-logos:vue w-3 h-3" />
-              <span v-else-if="file.language === 'jsx'" class="i-logos:react w-3 h-3" />
-              <span v-else-if="file.language === 'tsx'" class="i-logos:react w-3 h-3" />
-              <span v-else-if="file.language === 'css'" class="i-logos:css-3 w-3 h-3" />
-              <span v-else-if="file.language === 'js'" class="i-logos:javascript w-3 h-3" />
-              <span v-else-if="file.language === 'ts'" class="i-logos:typescript-icon w-3 h-3" />
-              <span v-else-if="file.language === 'svelte'" class="i-logos:svelte-icon w-3 h-3" />
+              <span v-if="file.framework === 'vue'" class="i-logos:vue size-4" />
+              <span v-else-if="file.framework === 'react'" class="i-logos:react size-4" />
+              <span v-else-if="file.framework === 'solid'" class="i-logos:solidjs-icon size-4" />
+              <span v-else-if="file.framework === 'svelte'" class="i-logos:svelte-icon size-4" />
+              <span v-else-if="file.language === 'css'" class="i-logos:css-3 size-4" />
+              <span v-else-if="file.language === 'js'" class="i-logos:javascript size-4" />
+              <span v-else-if="file.language === 'ts'" class="i-logos:typescript-icon size-4" />
+              <span v-else-if="file.language === 'jsx' || file.language === 'tsx'" class="i-logos:react size-4" />
               <span v-else class="i-carbon:document w-3 h-3" />
               {{ file.label }}
             </div>
           </button>
         </div>
 
-        <div class="relative w-32 mt-0!">
-          <button
-            v-bind="styleApi.getTriggerProps()"
-            class="group flex h-8 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <div class="flex items-center gap-2">
-              <span :class="styleApi.selectedItems[0]?.icon" class="w-4 h-4" />
-              <span class="text-foreground">{{ styleApi.valueAsString || "Select" }}</span>
-            </div>
-            <span class="i-carbon:chevron-down transition-transform duration-300 group-data-[state=open]:rotate--180 w-4 h-4 text-muted-foreground" />
-          </button>
-
-          <Teleport v-if="styleApi.open" to="body">
-            <div v-bind="styleApi.getPositionerProps()" class="relative z-50! min-w-[8rem] w-[--reference-width]">
-              <ul v-bind="styleApi.getContentProps()" class="absolute w-full rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-lg animate-in fade-in-0 zoom-in-95">
-                <li
-                  v-for="item in styleFrameworkData"
-                  :key="item.value"
-                  v-bind="styleApi.getItemProps({ item })"
-                  class="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                >
-                  <div class="flex items-center gap-2">
-                    <span :class="item.icon" class="w-4 h-4" />
-                    <span>{{ item.label }}</span>
-                  </div>
-                  <span v-bind="styleApi.getItemIndicatorProps({ item })" class="ml-auto pl-2 text-primary">
-                    <span class="i-lucide:check w-4 h-4" />
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </Teleport>
-        </div>
+        <!-- 样式选择器已移除 -->
       </div>
 
       <div
