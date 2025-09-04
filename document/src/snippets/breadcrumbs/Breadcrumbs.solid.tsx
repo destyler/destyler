@@ -3,6 +3,7 @@ import type { BreadcrumbItem } from '@destyler/breadcrumbs'
 import * as breadcrumbs from '@destyler/breadcrumbs'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
+import '../../styles/components/breadcrumbs.css'
 
 export default function Breadcrumbs() {
   const items: BreadcrumbItem[] = [
@@ -22,14 +23,14 @@ export default function Breadcrumbs() {
 
   return (
     <nav {...api().getRootProps()}>
-      <ol {...api().getListProps()} class="mt-0! flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
+      <ol {...api().getListProps()}>
         <For each={api().items}>
           {item => (
-            <li {...api().getItemProps(item)} class="inline-flex items-center gap-1.5 mt-0!">
-              <a {...api().getLinkProps(item)} class="transition-colors hover:text-foreground no-underline! data-[current=page]:text-foreground">
+            <li {...api().getItemProps(item)}>
+              <a {...api().getLinkProps(item)}>
                 {item.label}
               </a>
-              {item.href && <span {...api().getSeparatorProps()} class="i-carbon:chevron-right size-3"></span>}
+              {item.href && <span {...api().getSeparatorProps()}></span>}
             </li>
           )}
         </For>
