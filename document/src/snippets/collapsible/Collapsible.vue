@@ -2,7 +2,7 @@
 import * as collapsible from '@destyler/collapsible'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import './collapsible.css'
+import '../../styles/components/collapsible.css'
 
 const [state, send] = useMachine(collapsible.machine({ id: useId() }))
 
@@ -12,39 +12,19 @@ const api = computed(() =>
 </script>
 
 <template>
-  <div
-    class="w-350px max-w-sm my-8"
-    v-bind="api.getRootProps()"
-  >
-
-    <div class="flex items-center justify-between space-x-4 px-4">
-      <h4 class="text-sm! font-semibold">
-        @elonehoo starred 3 repositories
-      </h4>
-      <button
-        class="group m-0! size-6! hover:bg-background p-1 rounded-md flex justify-center items-center"
-        v-bind="api.getTriggerProps()"
-      >
-        <div
-          class="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180 i-carbon:chevron-down"
-        />
+  <div v-bind="api.getRootProps()">
+    <div>
+      <h4>@elonehoo starred 3 repositories</h4>
+      <button v-bind="api.getTriggerProps()">
+        <div />
       </button>
     </div>
 
-    <div class="rounded-md text-primary border border-border px-4 py-2 font-mono text-sm shadow-sm">
-      @destyler/collapsible
-    </div>
+    <div>@destyler/collapsible</div>
 
-    <div
-      class="overflow-hidden rounded-b-md content"
-      v-bind="api.getContentProps()"
-    >
-      <div class="rounded-md text-primary border border-border px-4 py-2 font-mono text-sm shadow-sm">
-        @destyler/vue
-      </div>
-      <div class="rounded-md text-primary border border-border px-4 py-2 font-mono text-sm shadow-sm">
-        vue
-      </div>
+    <div v-bind="api.getContentProps()">
+      <div>@destyler/vue</div>
+      <div>vue</div>
     </div>
   </div>
 </template>
