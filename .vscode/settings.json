@@ -11,5 +11,7 @@
     "./examples/vue",
     "./examples/vanilla",
     "./document"
-  ]
+  ],
+  "tailwindCSS.codeActions": false,
+  "tailwindCSS.hovers": false
 }
