@@ -44,7 +44,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="min-w-150px flex justify-center items-center mt-0!">
+  <div data-layout="sinppets" class="min-w-150px flex justify-center items-center mt-0!">
     <Checkbox v-if="props.name === 'checkbox'" />
     <Collapse v-if="props.name === 'collapse'" class="w-450px!" />
     <Combobox v-if="props.name === 'combobox'" />

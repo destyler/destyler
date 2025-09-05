@@ -1,4 +1,4 @@
-[data-scope="carousel"][data-part="root"] {
+[data-layout="sinppets"] [data-scope="carousel"][data-part="root"] {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,20 +8,20 @@
   position: relative;
 }
 
-[data-scope="carousel"][data-part="item-group"] {
+[data-layout="sinppets"] [data-scope="carousel"][data-part="item-group"] {
   border-radius: calc(var(--radius) + 4px);
 }
 
-[data-scope="carousel"][data-part="item"] {
+[data-layout="sinppets"] [data-scope="carousel"][data-part="item"] {
   margin-top: 0 !important;
 }
 
-[data-scope="carousel"][data-part="item"] img {
+[data-layout="sinppets"] [data-scope="carousel"][data-part="item"] img {
   border-radius: calc(var(--radius) + 4px);
   margin-top: 0 !important;
 }
 
-[data-scope="carousel"][data-part="control"] {
+[data-layout="sinppets"] [data-scope="carousel"][data-part="control"] {
   margin-top: 0 !important;
   position: absolute;
   bottom: 1rem;
@@ -38,7 +38,7 @@
   padding-bottom: 0.25rem;
 }
 
-[data-scope="carousel"][data-part="indicator-group"]{
+[data-layout="sinppets"] [data-scope="carousel"][data-part="indicator-group"]{
   display: flex;
   margin-top: 0 !important;
   gap: 0.5rem;
@@ -46,7 +46,7 @@
   margin-right: 0.5rem;
 }
 
-[data-scope="carousel"][data-part="indicator"]{
+[data-layout="sinppets"] [data-scope="carousel"][data-part="indicator"]{
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 9999px;
@@ -54,11 +54,11 @@
   margin-top: 0 !important;
 }
 
-[data-scope="carousel"][data-part="indicator"][data-current] {
+[data-layout="sinppets"] [data-scope="carousel"][data-part="indicator"][data-current] {
   background-color: rgb(74 222 128 );
 }
 
-[data-scope="carousel"][data-part="prev-trigger"]{
+[data-layout="sinppets"] [data-scope="carousel"][data-part="prev-trigger"]{
   --at-apply: i-carbon:caret-left;
   width: 1rem;
   height: 1rem;
@@ -66,7 +66,7 @@
   margin-left: 0 !important;
 }
 
-[data-scope="carousel"][data-part="next-trigger"]{
+[data-layout="sinppets"] [data-scope="carousel"][data-part="next-trigger"]{
   --at-apply: i-carbon:caret-right;
   width: 1rem;
   height: 1rem;

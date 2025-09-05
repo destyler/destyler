@@ -35,11 +35,11 @@
   import Timer from './timer/Timer.svelte';
   import Tooltip from './tooltip/Tooltip.svelte';
   import Tree from './tree/Tree.svelte';
-  
+
   export let name: string;
 </script>
 
-<div class="min-w-150px flex justify-center items-center mt-0!">
+<div data-layout="sinppets" class="min-w-150px flex justify-center items-center mt-0!">
   {#if name === 'checkbox'}
     <Checkbox />
   {/if}
