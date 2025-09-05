@@ -1,6 +1,7 @@
 import * as collapse from '@destyler/collapse'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { useId } from 'react'
+import '../../styles/components/collapse.css'
 
 const data = [
   {
@@ -24,32 +25,19 @@ export default function Collapse({ className = '' }: { className?: string }) {
   return (
     <div
       {...api.getRootProps()}
-      className={`flex flex-col w-full justify-center items-center mt-4! ${className}`}
+      className={`${className}`}
     >
       {data.map(item => (
-        <div
-          key={item.title}
-          {...api.getItemProps({ value: item.title })}
-          className="border-b border-primary/15 w-full mt-0!"
-        >
-          <h3 className="flex">
-            <button
-              {...api.getItemTriggerProps({ value: item.title })}
-              className="group cursor-pointer text-primary/80 flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline"
-            >
+        <div key={item.title} {...api.getItemProps({ value: item.title })}>
+          <h3>
+            <button {...api.getItemTriggerProps({ value: item.title })}>
               <span>{item.title}</span>
-              <div
-                className="h-4 w-4 shrink-0 text-accent-foreground transition-transform
-                duration-200 i-carbon:chevron-down group-data-[state=open]:rotate--180"
-              />
+              <div />
             </button>
           </h3>
-          <div
-            {...api.getItemContentProps({ value: item.title })}
-            className="overflow-hidden text-black dark:text-white text-sm mt-0!"
-          >
-            <div className="pb-4 pt-0">
-              <p className="text-muted-foreground mt-0!">
+          <div {...api.getItemContentProps({ value: item.title })}>
+            <div>
+              <p>
                 {item.content}
               </p>
             </div>
