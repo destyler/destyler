@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import * as menu from "@destyler/menu";
-import { normalizeProps, useMachine } from "@destyler/vue";
-import { computed, ref } from "vue";
+import * as menu from '@destyler/menu'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
+import '../../styles/components/content-menu.css'
 
-const [state, send] = useMachine(menu.machine({ id: "1", "aria-label": "File" }));
+const [state, send] = useMachine(menu.machine({ 'id': useId(), 'aria-label': 'File' }))
 
-const api = computed(() => menu.connect(state.value, send, normalizeProps));
+const api = computed(() => menu.connect(state.value, send, normalizeProps))
 
 interface MenuItem {
   value: string
@@ -96,56 +97,34 @@ const items = ref<MenuItem[][]>([
 
 <template>
   <div>
-    <button 
-      v-bind="api.getContextTriggerProps()"
-      class="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-primary/15 border-dashed hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus-visible:ring-2 focus-visible:ring-offset-2 text-sm cursor-default transition-colors"
-    >
-      <div class="text-primary">Open context menu</div>
+    <button v-bind="api.getContextTriggerProps()">
+      <div> Open context menu</div>
     </button>
     <Teleport to="body">
       <div
         v-if="api.open"
+        data-layout="sinppets"
         v-bind="api.getPositionerProps()"
-        class="z-50! min-w-32 overflow-hidden rounded-md border border-border! w-56
-        bg-popover p-1 text-popover-foreground shadow-md outline-none!
-        focus:outline-none
-        data-[state=open]:animate-in
-        data-[state=closed]:animate-out
-        data-[state=closed]:fade-out-0
-        data-[state=open]:fade-in-0
-        data-[state=closed]:zoom-out-95
-        data-[state=open]:zoom-in-95
-        data-[side=bottom]:slide-in-from-top-2
-        data-[side=left]:slide-in-from-right-2
-        data-[side=right]:slide-in-from-left-2
-        data-[side=top]:slide-in-from-bottom-2"
       >
-        <div class="px-2 py-1.5 text-sm font-semibold text-primary">
-          My Account
-        </div>
-        <div class="-mx-1 my-1 h-px bg-muted" v-bind="api.getSeparatorProps()" />
+        <div>My Account</div>
+        <div v-bind="api.getSeparatorProps()" />
         <ul
           v-for="(itemList, index) in items"
           :key="index"
           v-bind="api.getContentProps()"
-          class="group p-1 pb-0 last:pb-1 outline-none!"
         >
           <li
             v-for="item in itemList"
             :key="item.value"
             v-bind="api.getItemProps({ value: item.value, disabled: item?.disabled })"
-            class="relative flex select-none items-center rounded-sm
-            px-2 py-1.5 text-sm outline-none transition-colors cursor-pointer
-            data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground
-            data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
           >
-            <div class="mr-2 h-4 w-4" :class="item.icon" />
+            <div :class="item.icon" />
             {{ item.label }}
-            <span v-if="item?.shortcut" class="ml-auto text-xs tracking-widest opacity-60">
+            <span v-if="item?.shortcut">
               {{ item.shortcut }}
             </span>
           </li>
-          <div v-if="index < items.length - 1" class="-mx-1 my-1 h-px bg-muted" v-bind="api.getSeparatorProps()" />
+          <div v-if="index < items.length - 1" v-bind="api.getSeparatorProps()" />
         </ul>
       </div>
     </Teleport>
