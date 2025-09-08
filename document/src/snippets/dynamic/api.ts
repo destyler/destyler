@@ -223,7 +223,7 @@ export const styleApi = {
   root: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -249,7 +249,7 @@ export const styleApi = {
   label: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -271,7 +271,7 @@ export const styleApi = {
   control: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -297,7 +297,7 @@ export const styleApi = {
   input: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -315,7 +315,7 @@ export const styleApi = {
   item: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -333,7 +333,7 @@ export const styleApi = {
   itemPreview: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -355,7 +355,7 @@ export const styleApi = {
   itemText: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -373,7 +373,7 @@ export const styleApi = {
   clearTrigger: [
     {
       name: 'data-scope',
-      desc: 'tags-input',
+      desc: 'dynamic',
     },
     {
       name: 'data-part',
@@ -410,5 +410,5 @@ export const keyboardApi = [
   {
     name: 'Control + V',
     desc: 'When `addOnPaste` is set. Adds the pasted value as a tags',
-  }
+  },
 ]
