@@ -2,6 +2,7 @@
 import * as combobox from '@destyler/combobox'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
+import '../../styles/components/combobox.css'
 
 const comboboxData = [
   { label: 'Vue', code: 'vue' },
@@ -42,39 +43,23 @@ const api = computed(() =>
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()" class="w-full outline-none! mt-0!">
-    <div v-bind="api.getControlProps()" class="relative outline-none!">
-      <input
-        v-bind="api.getInputProps()"
-        class="flex h-10 w-full rounded-md border border-primary/20 text-primary
-        bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground
-        disabled:cursor-not-allowed disabled:opacity-50 outline-none!"
-      >
-      <button
-        v-bind="api.getTriggerProps()"
-        class="absolute right-0 top-0 h-full px-3 text-muted-foreground hover:text-foreground focus:outline-none"
-      >
-        <div class="i-carbon:chevron-down h-4 w-4 opacity-50 group-data-[state=open]:rotate--180 transition-transform duration-300" />
+  <div v-bind="api.getRootProps()">
+    <div v-bind="api.getControlProps()">
+      <input v-bind="api.getInputProps()">
+      <button v-bind="api.getTriggerProps()">
+        <div />
       </button>
     </div>
     <Teleport v-if="api.open" to="body">
-      <div
-        v-bind="api.getPositionerProps()"
-        class="relative mt-2"
-      >
+      <div data-layout="sinppets" v-bind="api.getPositionerProps()">
         <ul
           v-if="options.length > 0"
           v-bind="api.getContentProps()"
-          class="absolute top-0 z-50 px-1 py-1 w-full min-w-[200px] overflow-hidden rounded-md border border-input bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
         >
           <li
             v-for="item in options"
             :key="item.code"
             v-bind="api.getItemProps({ item })"
-            class="relative flex cursor-default select-none
-            items-center rounded-sm px-2 py-1.5 text-sm outline-none
-            data-[highlighted]:bg-accent
-            data-[highlighted]:text-accent-foreground"
           >
             {{ item.label }}
           </li>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as combobox from '@destyler/combobox'
   import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+  import '../../styles/components/combobox.css'
 
   const comboboxData = [
     { label: 'Vue', code: 'vue' },
@@ -40,40 +41,20 @@
   const api = $derived(combobox.connect(state, send, normalizeProps))
 </script>
 
-<div {...api.getRootProps()} class="w-full outline-none! mt-0!">
-  <div {...api.getControlProps()} class="relative outline-none!">
-    <input
-      {...api.getInputProps()}
-      class="flex h-10 w-full rounded-md border border-primary/20 text-primary
-      bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground
-      disabled:cursor-not-allowed disabled:opacity-50 outline-none!"
-    >
-    <button
-      {...api.getTriggerProps()}
-      class="absolute right-0 top-0 h-full px-3 text-muted-foreground hover:text-foreground focus:outline-none"
-    >
-      <div class="i-carbon:chevron-down h-4 w-4 opacity-50 group-data-[state=open]:rotate--180 transition-transform duration-300" ></div>
+<div {...api.getRootProps()}>
+  <div {...api.getControlProps()}>
+    <input {...api.getInputProps()}>
+    <button {...api.getTriggerProps()}>
+      <div ></div>
     </button>
   </div>
   {#if api.open}
-    <div use:portal>
-      <div
-        {...api.getPositionerProps()}
-        class="relative mt-2"
-      >
+    <div data-layout="sinppets" use:portal>
+      <div {...api.getPositionerProps()}>
         {#if options.length > 0}
-          <ul
-            {...api.getContentProps()}
-            class="absolute top-0 z-50 px-1 py-1 w-full min-w-[200px] overflow-hidden rounded-md border border-input bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
-          >
+          <ul {...api.getContentProps()}>
             {#each options as item (item.code)}
-              <li
-                {...api.getItemProps({ item })}
-                class="relative flex cursor-default select-none
-                items-center rounded-sm px-2 py-1.5 text-sm outline-none
-                data-[highlighted]:bg-accent
-                data-[highlighted]:text-accent-foreground"
-              >
+              <li {...api.getItemProps({ item })} >
                 {item.label}
               </li>
             {/each}
