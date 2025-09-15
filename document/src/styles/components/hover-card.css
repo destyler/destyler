@@ -89,7 +89,7 @@
   --una-enter-translate-y: initial;
   --una-enter-scale: 0.9;
 
-  & div:first-child {
+  & > div:first-child {
     display: flex;
     gap: 1rem; /* 16px */
     margin-top: 0 !important;
@@ -125,7 +125,7 @@
     }
   }
 
-  & div:not(:first-child):not(:last-child){
+  & > div:not(:first-child):not(:last-child){
     margin-top: 1rem; /* 16px */
     font-size: 0.875rem; /* 14px */
     line-height: 1.25rem; /* 20px */
@@ -133,7 +133,7 @@
     color: hsl(var(--muted-foreground) / var(--un-text-opacity));
   }
 
-  & div:last-child {
+  & > div:last-child {
     margin-top: 1rem; /* 16px */
     display: flex;
     align-items: center;

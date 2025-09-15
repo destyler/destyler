@@ -27,12 +27,8 @@ const api = computed(() => hoverCard.connect(state.value, send, normalizeProps))
               alt="Profile"
             >
             <div>
-              <h4>
-                elonehoo
-              </h4>
-              <p>
-                Frontend Developer
-              </p>
+              <h4>elonehoo</h4>
+              <p>Frontend Developer</p>
             </div>
           </div>
           <div>
