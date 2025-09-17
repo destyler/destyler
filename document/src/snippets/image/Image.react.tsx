@@ -1,6 +1,7 @@
 import * as image from '@destyler/image'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { useId } from 'react'
+import '../../styles/components/image.css'
 
 export default function Image() {
   const [state, send] = useMachine(image.machine({
@@ -10,17 +11,13 @@ export default function Image() {
   const api = image.connect(state, send, normalizeProps)
 
   return (
-    <div {...api.getRootProps()} className="relative mt-0! flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+    <div {...api.getRootProps()}>
       <img
-        alt="EH"
+        alt="Destyler UI"
         src="https://github.com/destyler.png"
         {...api.getImageProps()}
-        className="aspect-square h-full w-full"
       />
-      <div
-        {...api.getFallbackProps()}
-        className="flex h-full w-full items-center justify-center rounded-full bg-muted"
-      >
+      <div {...api.getFallbackProps()}>
         EH
       </div>
     </div>
