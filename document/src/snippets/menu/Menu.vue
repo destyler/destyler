@@ -2,6 +2,7 @@
 import * as menu from '@destyler/menu'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
+import '../../styles/components/menu.css'
 
 interface MenuItem {
   value: string
@@ -97,62 +98,33 @@ const items = ref<MenuItem[][]>([
 </script>
 
 <template>
-  <div>
-    <button
-      v-bind="api.getTriggerProps()"
-      class="ml-4 items-center justify-center rounded-md
-      text-sm font-medium ring-offset-background transition-colors
-      disabled:pointer-events-none disabled:opacity-50 bg-primary!
-      text-primary-foreground! hover:bg-primary/90! h-10 px-4 py-2 outline-none!"
-    >
-      Open
-    </button>
-    <Teleport to="body">
-      <div
-        v-if="api.open"
-        v-bind="api.getPositionerProps()"
-        class="z-50! min-w-32 overflow-hidden rounded-md border border-border! w-56
-        bg-popover p-1 text-popover-foreground shadow-md outline-none!
-        focus:outline-none
-        data-[state=open]:animate-in
-        data-[state=closed]:animate-out
-        data-[state=closed]:fade-out-0
-        data-[state=open]:fade-in-0
-        data-[state=closed]:zoom-out-95
-        data-[state=open]:zoom-in-95
-        data-[side=bottom]:slide-in-from-top-2
-        data-[side=left]:slide-in-from-right-2
-        data-[side=right]:slide-in-from-left-2
-        data-[side=top]:slide-in-from-bottom-2"
-      >
-        <div class="px-2 py-1.5 text-sm font-semibold text-primary">
-          My Account
-        </div>
-        <div class="-mx-1 my-1 h-px bg-muted" v-bind="api.getSeparatorProps()" />
-        <ul
-          v-for="(itemList, index) in items"
-          :key="index"
-          v-bind="api.getContentProps()"
-          class="group p-1 pb-0 last:pb-1 outline-none!"
-        >
-          <li
-            v-for="item in itemList"
-            :key="item.value"
-            v-bind="api.getItemProps({ value: item.value, disabled: item?.disabled })"
-            class="relative flex select-none items-center rounded-sm
-            px-2 py-1.5 text-sm outline-none transition-colors cursor-pointer
-            data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground
-            data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
-          >
-            <div class="mr-2 h-4 w-4" :class="item.icon" />
-            {{ item.label }}
-            <span v-if="item?.shortcut" class="ml-auto text-xs tracking-widest opacity-60">
-              {{ item.shortcut }}
-            </span>
-          </li>
-          <div v-if="index < items.length - 1" class="-mx-1 my-1 h-px bg-muted" v-bind="api.getSeparatorProps()" />
-        </ul>
+  <button v-bind="api.getTriggerProps()">
+    Open
+  </button>
+  <Teleport to="body">
+    <div v-if="api.open" v-bind="api.getPositionerProps()" data-layout="sinppets">
+      <div class="px-2 py-1.5 text-sm font-semibold text-primary">
+        My Account
       </div>
-    </Teleport>
-  </div>
+      <div v-bind="api.getSeparatorProps()" />
+      <ul
+        v-for="(itemList, index) in items"
+        :key="index"
+        v-bind="api.getContentProps()"
+      >
+        <li
+          v-for="item in itemList"
+          :key="item.value"
+          v-bind="api.getItemProps({ value: item.value, disabled: item?.disabled })"
+        >
+          <div class="mr-2 h-4 w-4" :class="item.icon" />
+          {{ item.label }}
+          <span v-if="item?.shortcut" class="ml-auto text-xs tracking-widest opacity-60">
+            {{ item.shortcut }}
+          </span>
+        </li>
+        <div v-if="index < items.length - 1" v-bind="api.getSeparatorProps()" />
+      </ul>
+    </div>
+  </Teleport>
 </template>

@@ -98,32 +98,24 @@ export default function Menu() {
 
   return (
     <div>
-      <button
-        {...api.getTriggerProps()}
-        className="ml-4 items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 bg-primary! text-primary-foreground! hover:bg-primary/90! h-10 px-4 py-2 outline-none!"
-      >
+      <button {...api.getTriggerProps()}>
         Open
       </button>
       {api.open && createPortal(
-        <div
-          {...api.getPositionerProps()}
-          className="z-50! min-w-32 overflow-hidden rounded-md border border-border! w-56 bg-popover p-1 text-popover-foreground shadow-md outline-none! focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-        >
+        <div {...api.getPositionerProps()} data-layout="sinppets">
           <div className="px-2 py-1.5 text-sm font-semibold text-primary">
             My Account
           </div>
-          <div className="-mx-1 my-1 h-px bg-muted" {...api.getSeparatorProps()} />
+          <div {...api.getSeparatorProps()} />
           {items.map((itemList, index) => (
             <ul
               key={index}
               {...api.getContentProps()}
-              className="group p-1 pb-0 last:pb-1 outline-none!"
             >
               {itemList.map(item => (
                 <li
                   key={item.value}
                   {...api.getItemProps({ value: item.value, disabled: item?.disabled })}
-                  className="relative flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors cursor-pointer data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
                 >
                   <div className={`mr-2 h-4 w-4 ${item.icon}`} />
                   {item.label}
@@ -135,7 +127,7 @@ export default function Menu() {
                 </li>
               ))}
               {index < items.length - 1 && (
-                <div className="-mx-1 my-1 h-px bg-muted" {...api.getSeparatorProps()} />
+                <div {...api.getSeparatorProps()} />
               )}
             </ul>
           ))}
