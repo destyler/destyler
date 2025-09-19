@@ -1,0 +1,67 @@
+[data-layout="sinppets"] div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  padding-left: 1.25rem; /* 20px */
+  padding-right: 1.25rem; /* 20px */
+
+  & input {
+    & {
+      align-items: center;
+      font-size: 0.875rem; /* 14px */
+      line-height: 1.25rem; /* 20px */
+      --un-text-opacity: 1;
+      color: hsl(var(--foreground) / var(--un-text-opacity))
+        /* hsl(var(--foreground)) */;
+      display: inline-flex;
+      -webkit-appearance: none;
+      appearance: none;
+      justify-content: center;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      border-width: 1px;
+      height: 35px;
+      width: 200px;
+      border-radius: var(--radius);
+      padding-left: 10px;
+      padding-right: 10px;
+      line-height: 1;
+      --un-shadow: var(--un-shadow-inset) 0 1px 2px 0
+        var(--un-shadow-color, rgb(0 0 0 / 0.05));
+      box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+        var(--un-shadow);
+      --un-bg-opacity: 1;
+      background-color: hsl(var(--input) / var(--un-bg-opacity))
+        /* hsl(var(--input)) */;
+    }
+    & *::selection {
+      --un-text-opacity: 1;
+      color: hsl(var(--primary) / var(--un-text-opacity)) /* hsl(var(--primary)) */;
+      --un-bg-opacity: 1;
+      background-color: hsl(var(--background) / var(--un-bg-opacity))
+        /* hsl(var(--background)) */;
+    }
+    &::selection {
+      --un-text-opacity: 1;
+      color: hsl(var(--primary) / var(--un-text-opacity)) /* hsl(var(--primary)) */;
+      --un-bg-opacity: 1;
+      background-color: hsl(var(--background) / var(--un-bg-opacity))
+        /* hsl(var(--background)) */;
+    }
+    &:focus {
+      --un-shadow: 0 0 0 2px black var(--un-shadow-color);
+      box-shadow: var(--un-ring-offset-shadow), var(--un-ring-shadow),
+        var(--un-shadow);
+    }
+  }
+}
+
+[data-layout="sinppets"] [data-scope="label"][data-part="root"]{
+  line-height: 35px;
+  font-weight: 600;
+  --un-text-opacity: 1;
+  color: hsl(var(--foreground) / var(--un-text-opacity));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
