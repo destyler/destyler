@@ -16,6 +16,7 @@
 }
 
 [data-layout="sinppets"] [data-scope="image"][data-part="fallback"]{
+  margin-top: 0 !important;
   display: flex;
   height: 100%;
   width: 100%;
