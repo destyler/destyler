@@ -1,62 +1,45 @@
 <script setup lang="ts">
 import * as popover from '@destyler/popover'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed, useId, ref } from 'vue'
+import { computed, ref, useId } from 'vue'
+import '../../styles/components/popover.css'
 
 const buttonRef = ref(null)
 
-const [state, send] = useMachine(popover.machine({ 
+const [state, send] = useMachine(popover.machine({
   id: useId(),
-  initialFocusEl: ()=> buttonRef.value,
+  initialFocusEl: () => buttonRef.value,
 }))
 const api = computed(() => popover.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
   <div class="mt-0!">
-    <button
-      v-bind="api.getTriggerProps()"
-      class="btn"
-    >
+    <button v-bind="api.getTriggerProps()">
       Open popover
     </button>
     <Teleport v-if="api.open" to="body">
-      <div v-bind="api.getPositionerProps()" class="z-50">
-        <div
-          v-bind="api.getContentProps()"
-          class="z-50 w-72 rounded-md border border-border bg-popover p-4 text-popover-foreground shadow-md outline-none"
-        >
-          <div
-            v-bind="api.getTitleProps()"
-            class="text-sm font-medium mb-2"
-          >
+      <div v-bind="api.getPositionerProps()" data-layout="sinppets">
+        <div v-bind="api.getContentProps()">
+          <div v-bind="api.getTitleProps()">
             Presenters
           </div>
 
-          <div
-            v-bind="api.getDescriptionProps()"
-            class="text-sm text-muted-foreground mb-4"
-          >
+          <div v-bind="api.getDescriptionProps()">
             Description
           </div>
 
           <button
             ref="buttonRef"
-            class="inline-flex w-full items-center justify-center rounded-md text-sm 
-            font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 
-            focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 
+            class="inline-flex w-full items-center justify-center rounded-md text-sm
+            font-medium transition-colors focus-visible:outline-none focus-visible:ring-1
+            focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50
             bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 px-4 py-2"
           >
             Action Button
           </button>
 
-          <button
-            v-bind="api.getCloseTriggerProps()"
-            class="absolute top-3.5 right-3.5 bg-muted-foreground/70!
-            hover:bg-muted-foreground i-carbon:close-large rounded-sm
-            opacity-70 transition-opacity
-            hover:opacity-100 "
-          />
+          <button v-bind="api.getCloseTriggerProps()" />
         </div>
       </div>
     </Teleport>
