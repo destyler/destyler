@@ -1,6 +1,7 @@
 import * as otpInput from '@destyler/otp-input'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { useId, useMemo } from 'react'
+import '../../styles/components/otp-input.css'
 
 export default function OtpInput() {
   const [state, send] = useMachine(otpInput.machine({
@@ -17,17 +18,11 @@ export default function OtpInput() {
     >
       <div className="w-full max-w-sm space-y-6">
         <div className="flex items-center gap-2 has-[:disabled]:opacity-50">
-          <div
-            {...api.getRootProps()}
-            className="flex items-center"
-          >
-            {Array.from({ length: 6 }).map((_, index) => (
+          <div {...api.getRootProps()}>
+            {Array.from({ length: 5 }).map((_, index) => (
               <input
                 key={index}
                 {...api.getInputProps({ index })}
-                className="relative flex h-9 w-9 items-center justify-center text-primary text-center
-                border-y border-r border-primary/20 text-sm shadow-sm bg-transparent!
-                transition-all first:rounded-l-md first:border-l last:rounded-r-md"
               />
             ))}
           </div>

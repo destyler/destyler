@@ -4,7 +4,7 @@
   import Combobox from './combobox/Combobox.svelte';
   import Dynamic from './dynamic/Dynamic.svelte';
   import Label from './label/Label.svelte';
-  import OtpInput from './otpInput/OTPInput.svelte';
+  import OtpInput from './otpInput/OtpInput.svelte';
   import Radio from './radio/Radio.svelte';
   import Select from './select/Select.svelte';
   import Slider from './slider/Slider.svelte';

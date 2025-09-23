@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as otpInput from "@destyler/otp-input";
   import { normalizeProps, useMachine } from "@destyler/svelte";
+  import '../../styles/components/otp-input.css'
 
   const id = $props.id();
 
@@ -16,17 +17,9 @@
 <div class="flex flex-col items-center justify-center w-full">
   <div class="w-full max-w-sm space-y-6">
     <div class="flex items-center gap-2 has-[:disabled]:opacity-50">
-      <div
-        {...api.getRootProps()}
-        class="flex items-center"
-      >
-        {#each Array(6) as _, index}
-          <input
-            {...api.getInputProps({ index })}
-            class="relative flex h-9 w-9 items-center justify-center text-primary text-center
-            border-y border-r border-primary/20 text-sm shadow-sm bg-transparent!
-            transition-all first:rounded-l-md first:border-l last:rounded-r-md"
-          />
+      <div {...api.getRootProps()}>
+        {#each Array(5) as _, index}
+          <input {...api.getInputProps({ index })}/>
         {/each}
       </div>
     </div>

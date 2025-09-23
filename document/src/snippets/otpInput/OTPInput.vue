@@ -2,6 +2,7 @@
 import * as otpInput from '@destyler/otp-input'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import '../../styles/components/otp-input.css'
 
 const [state, send] = useMachine(otpInput.machine({
   id: useId(),
@@ -17,18 +18,12 @@ const api = computed(() => otpInput.connect(state.value, send, normalizeProps))
     class="flex flex-col items-center justify-center w-full"
   >
     <div class="w-full max-w-sm space-y-6">
-      <div class="flex items-center gap-2 has-[:disabled]:opacity-50">
-        <div
-          v-bind="api.getRootProps()"
-          class="flex items-center"
-        >
+      <div class="flex items-center has-[:disabled]:opacity-50">
+        <div v-bind="api.getRootProps()">
           <input
-            v-for="index in 6"
+            v-for="index in 5"
             :key="index"
             v-bind="api.getInputProps({ index: index - 1 })"
-            class="relative flex h-9 w-9 items-center justify-center text-primary text-center
-            border-y border-r border-primary/20 text-sm shadow-sm bg-transparent!
-            transition-all first:rounded-l-md first:border-l last:rounded-r-md"
           >
         </div>
       </div>

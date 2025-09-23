@@ -2,6 +2,7 @@
 import * as otpInput from '@destyler/otp-input'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
+import '../../styles/components/otp-input.css'
 
 export default function OtpInput() {
   const uniqueId = createUniqueId()
@@ -18,17 +19,9 @@ export default function OtpInput() {
     <div class="flex flex-col items-center justify-center w-full">
       <div class="w-full max-w-sm space-y-6">
         <div class="flex items-center gap-2 has-[:disabled]:opacity-50">
-          <div
-            {...api().getRootProps()}
-            class="flex items-center"
-          >
-            {Array.from({ length: 6 }, (_, index) => (
-              <input
-                {...api().getInputProps({ index })}
-                class={`relative flex h-9 w-9 items-center justify-center text-primary text-center
-                border-y border-r border-primary/20 text-sm shadow-sm bg-transparent!
-                transition-all first:rounded-l-md first:border-l last:rounded-r-md`}
-              />
+          <div {...api().getRootProps()}>
+            {Array.from({ length: 5 }, (_, index) => (
+              <input {...api().getInputProps({ index })} />
             ))}
           </div>
         </div>
