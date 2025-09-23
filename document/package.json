@@ -74,6 +74,7 @@
     "@pagefind/default-ui": "catalog:theme",
     "@types/react": "catalog:types",
     "@types/react-dom": "catalog:types",
+    "@unocss/core": "^66.5.2",
     "@unocss/reset": "catalog:css",
     "@vueuse/core": "catalog:hook",
     "astro": "catalog:frontend",
