@@ -11,11 +11,21 @@ export default function Label() {
 
   return (
     <>
-      <div>
+      <div className="flex flex-wrap items-center gap-[15px] px-5">
         <label {...api.getRootProps()}>
           First name
         </label>
-        <input id="firstName" type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
+        <input
+          id="firstName"
+          className="bg-input border inline-flex h-[35px] w-[200px]
+          appearance-none items-center justify-center rounded-lg
+          px-[10px] text-sm leading-none shadow-sm outline-none
+          focus:shadow-[0_0_0_2px_black] text-foreground
+          selection:color-primary selection:bg-background"
+          type="text"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+        />
       </div>
     </>
   )
