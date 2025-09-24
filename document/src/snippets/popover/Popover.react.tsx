@@ -15,7 +15,7 @@ export default function Popover() {
   const api = popover.connect(state, send, normalizeProps)
 
   return (
-    <div className=" mt-0!">
+    <div className=" mt-0!" data-layout="sinppets">
       <button {...api.getTriggerProps()}>
         Open popover
       </button>

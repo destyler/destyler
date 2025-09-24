@@ -15,7 +15,7 @@
   const api = $derived(popover.connect(state, send, normalizeProps))
 </script>
 
-<div class=" mt-0!">
+<div class=" mt-0!" data-layout="sinppets">
   <button {...api.getTriggerProps()}>
     Open popover
   </button>

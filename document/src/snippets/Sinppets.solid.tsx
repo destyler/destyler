@@ -22,6 +22,7 @@ import NumberInput from './number-input/NumberInput.solid.tsx'
 import OtpInput from './otpInput/OtpInput.solid.tsx'
 import Pagination from './pagination/Pagination.solid.tsx'
 import Popover from './popover/Popover.solid.tsx'
+import Progress from './progress/Progress.solid.tsx'
 import QrCode from './qr-code/QRCode.solid.tsx'
 import Radio from './radio/Radio.solid.tsx'
 import Select from './select/Select.solid.tsx'
@@ -73,6 +74,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'number-input' && <NumberInput />}
       {props.name === 'pagination' && <Pagination />}
       {props.name === 'popover' && <Popover />}
+      {props.name === 'progress' && <Progress />}
       {props.name === 'signature' && <Signature />}
       {props.name === 'splitter' && <Splitter />}
       {props.name === 'steps' && <Steps className="w-450px!" />}

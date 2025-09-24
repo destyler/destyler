@@ -16,7 +16,7 @@ export default function Popover() {
   const api = createMemo(() => popover.connect(state, send, normalizeProps))
 
   return (
-    <div class=" mt-0!">
+    <div class=" mt-0!" data-layout="sinppets">
       <button {...api().getTriggerProps()}>
         Open popover
       </button>

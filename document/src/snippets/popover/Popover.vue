@@ -14,7 +14,7 @@ const api = computed(() => popover.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div class="mt-0!">
+  <div class="mt-0!" data-layout="sinppets">
     <button v-bind="api.getTriggerProps()">
       Open popover
     </button>

@@ -28,6 +28,7 @@
   import NumberInput from './number-input/NumberInput.svelte';
   import Pagination from './pagination/Pagination.svelte';
   import Popover from './popover/Popover.svelte';
+  import Progress from './progress/Progress.svelte'
   import Signature from './signature/Signature.svelte';
   import Splitter from './splitter/Splitter.svelte';
   import Steps from './steps/Steps.svelte';
@@ -126,6 +127,9 @@
   {/if}
   {#if name === 'popover'}
     <Popover />
+  {/if}
+  {#if name === 'progress'}
+    <Progress />
   {/if}
   {#if name === 'signature'}
     <Signature />
