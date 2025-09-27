@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as qrCode from '@destyler/qr-code'
   import { normalizeProps, useMachine } from '@destyler/svelte'
+  import '../../styles/components/qr-code.css'
 
   const id = $props.id()
 
@@ -17,9 +18,9 @@
   const api = $derived(qrCode.connect(state, send, normalizeProps))
 </script>
 
-<div {...api.getRootProps()} class="size-135px">
-  <svg {...api.getFrameProps()} class="size-135px bg-background">
-    <path {...api.getPatternProps()} class="fill-primary" />
+<div {...api.getRootProps()}>
+  <svg {...api.getFrameProps()}>
+    <path {...api.getPatternProps()} />
   </svg>
 </div>
 

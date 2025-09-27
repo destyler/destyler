@@ -1,10 +1,9 @@
 import * as qrCode from '@destyler/qr-code'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { useId } from 'react'
-
+import '../../styles/components/qr-code.css'
 
 export default function QrCode() {
-
   const [state, send] = useMachine(
     qrCode.machine({
       id: useId(),
@@ -19,9 +18,9 @@ export default function QrCode() {
 
   return (
     <>
-      <div {...api.getRootProps()} className="size-135px">
-        <svg {...api.getFrameProps()} className="size-135px bg-background">
-          <path {...api.getPatternProps()} className='fill-primary' />
+      <div {...api.getRootProps()}>
+        <svg {...api.getFrameProps()}>
+          <path {...api.getPatternProps()} />
         </svg>
       </div>
     </>

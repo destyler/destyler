@@ -2,6 +2,7 @@
 import * as qrCode from '@destyler/qr-code'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
+import '../../styles/components/qr-code.css'
 
 export default function QrCode() {
   const [state, send] = useMachine(
@@ -13,13 +14,13 @@ export default function QrCode() {
       },
     }),
   )
-  
+
   const api = createMemo(() => qrCode.connect(state, send, normalizeProps))
 
   return (
-    <div {...api().getRootProps()} class="size-135px">
-      <svg {...api().getFrameProps()} class="size-135px bg-background">
-        <path {...api().getPatternProps()} class="fill-primary" />
+    <div {...api().getRootProps()}>
+      <svg {...api().getFrameProps()}>
+        <path {...api().getPatternProps()} />
       </svg>
     </div>
   )

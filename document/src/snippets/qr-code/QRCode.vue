@@ -2,6 +2,7 @@
 import * as qrCode from '@destyler/qr-code'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import '../../styles/components/qr-code.css'
 
 const [state, send] = useMachine(
   qrCode.machine({
@@ -17,9 +18,9 @@ const api = computed(() => qrCode.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div v-bind="api.getRootProps()" class="size-135px">
-    <svg v-bind="api.getFrameProps()" class="size-135px bg-background">
-      <path v-bind="api.getPatternProps()" class="fill-primary" />
+  <div v-bind="api.getRootProps()">
+    <svg v-bind="api.getFrameProps()">
+      <path v-bind="api.getPatternProps()" />
     </svg>
   </div>
 </template>
