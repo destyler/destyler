@@ -2,6 +2,7 @@
 import * as radio from '@destyler/radio'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
+import '../../styles/components/radio.css'
 
 export default function Radio() {
   const items = [
@@ -18,29 +19,17 @@ export default function Radio() {
   const api = createMemo(() => radio.connect(state, send, normalizeProps))
 
   return (
-    <div {...api().getRootProps()} class="grid gap-2 mt-0!">
+    <div {...api().getRootProps()}>
       {items.map(opt => (
         <div
           class="flex items-center space-x-3 mt-0!"
         >
-          <label
-            {...api().getItemProps({ value: opt.id })}
-            class="flex items-center space-x-2 cursor-pointer"
-          >
+          <label {...api().getItemProps({ value: opt.id })}>
             <div class="relative mt-0!">
-              <input
-                {...api().getItemHiddenInputProps({ value: opt.id })}
-                class="peer sr-only"
-              />
-              <div
-                {...api().getItemControlProps({ value: opt.id })}
-                class="mt-0! h-4 w-4 rounded-full border border-primary shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary data-[state=checked]:bg-primary"
-              />
+              <input {...api().getItemHiddenInputProps({ value: opt.id })} />
+              <div {...api().getItemControlProps({ value: opt.id })} />
             </div>
-            <span
-              {...api().getItemTextProps({ value: opt.id })}
-              class="text-sm font-medium leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
+            <span {...api().getItemTextProps({ value: opt.id })}>
               {opt.label}
             </span>
           </label>
