@@ -26,36 +26,20 @@ export default function Select() {
   return (
     <>
       <div className="flex flex-col outline-none! mt-0!">
-        <button
-          {...api.getTriggerProps()}
-          className="group flex h-10 w-full items-center outline-none! justify-between rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <span className="text-foreground">{api.valueAsString || 'Select option'}</span>
-          <span className="i-carbon:chevron-down transition-transform duration-300 group-data-[state=open]:rotate--180 w-4 h-4 text-muted-foreground" />
+        <button {...api.getTriggerProps()}>
+          <span>{api.valueAsString || 'Select option'}</span>
+          <span />
         </button>
       </div>
 
       {api.open && createPortal(
-        <div
-          {...api.getPositionerProps()}
-          className="relative z-50! min-w-[8rem] w-[--reference-width]"
-        >
-          <ul
-            {...api.getContentProps()}
-            className="absolute w-full rounded-md border border-input! bg-popover p-1 text-popover-foreground shadow-lg animate-in fade-in-0 zoom-in-95"
-          >
+        <div data-layout="sinppets" {...api.getPositionerProps()}>
+          <ul {...api.getContentProps()}>
             {selectData.map(item => (
-              <li
-                key={item.value}
-                {...api.getItemProps({ item })}
-                className="relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-              >
+              <li key={item.value} {...api.getItemProps({ item })}>
                 <span>{item.label}</span>
-                <span
-                  {...api.getItemIndicatorProps({ item })}
-                  className="ml-auto pl-2 text-primary"
-                >
-                  <span className="i-lucide:check w-4 h-4" />
+                <span {...api.getItemIndicatorProps({ item })}>
+                  <span />
                 </span>
               </li>
             ))}
