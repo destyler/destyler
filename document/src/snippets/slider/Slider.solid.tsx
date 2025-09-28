@@ -2,6 +2,7 @@
 import * as slider from '@destyler/slider'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
+import '../../styles/components/slider.css'
 
 export default function Slider({ className = '' }: { className?: string }) {
   const [state, send] = useMachine(slider.machine({
@@ -12,22 +13,13 @@ export default function Slider({ className = '' }: { className?: string }) {
   const api = createMemo(() => slider.connect(state, send, normalizeProps))
 
   return (
-    <div {...api().getRootProps()} class={`flex w-full touch-none select-none items-center ${className}`}>
-      <div {...api().getControlProps()} class="w-full relative">
-        <div
-          {...api().getTrackProps()}
-          class="relative h-2 grow overflow-hidden rounded-full bg-secondary"
-        >
-          <div
-            {...api().getRangeProps()}
-            class="absolute h-full bg-primary"
-          />
+    <div {...api().getRootProps()} class={`${className}`}>
+      <div {...api().getControlProps()}>
+        <div {...api().getTrackProps()}>
+          <div {...api().getRangeProps()} />
         </div>
         {api().value.map((_, index) => (
-          <div
-            {...api().getThumbProps({ index })}
-            class="absolute top--1.5 cursor-pointer block h-5 w-5 mt-0! rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-          >
+          <div {...api().getThumbProps({ index })}>
             <input {...api().getHiddenInputProps({ index })} />
           </div>
         ))}

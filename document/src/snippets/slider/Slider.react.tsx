@@ -1,6 +1,7 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import * as slider from '@destyler/slider'
 import { useId } from 'react'
+import '../../styles/components/slider.css'
 
 export default function Slider({ className = '' }: { className?: string }) {
   const [state, send] = useMachine(slider.machine({
@@ -11,23 +12,13 @@ export default function Slider({ className = '' }: { className?: string }) {
   const api = slider.connect(state, send, normalizeProps)
 
   return (
-    <div {...api.getRootProps()} className={`flex touch-none select-none items-center ${className}`}>
-      <div {...api.getControlProps()} className="w-full relative">
-        <div
-          {...api.getTrackProps()}
-          className="relative h-2 grow overflow-hidden rounded-full bg-secondary"
-        >
-          <div
-            {...api.getRangeProps()}
-            className="absolute h-full bg-primary"
-          />
+    <div {...api.getRootProps()} className={`${className}`}>
+      <div {...api.getControlProps()}>
+        <div {...api.getTrackProps()}>
+          <div {...api.getRangeProps()} />
         </div>
         {api.value.map((_, index) => (
-          <div
-            key={index}
-            {...api.getThumbProps({ index })}
-            className="absolute top--1.5 cursor-pointer block h-5 w-5 mt-0! rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
-          >
+          <div key={index} {...api.getThumbProps({ index })}>
             <input {...api.getHiddenInputProps({ index })} />
           </div>
         ))}
