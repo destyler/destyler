@@ -1,6 +1,6 @@
 import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('signature-pad').parts(
+export const anatomy = createAnatomy('signature').parts(
   'root',
   'control',
   'segment',
