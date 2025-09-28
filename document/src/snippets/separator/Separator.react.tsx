@@ -1,6 +1,7 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import * as separator from '@destyler/separator'
 import React, { useId } from 'react'
+import '../../styles/components/separator.css'
 
 export default function Divider() {
   const items = [
@@ -10,7 +11,7 @@ export default function Divider() {
   ]
 
   const [state, send] = useMachine(separator.machine({ id: useId() }))
-  
+
   const api = separator.connect(state, send, normalizeProps)
 
   return (
@@ -21,10 +22,7 @@ export default function Divider() {
       <div className="text-primary text-sm mt-0!">
         unstyled component for react.
       </div>
-      <div
-        {...api.getRootProps()}
-        className="bg-stone-300/50 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-4"
-      />
+      <div {...api.getRootProps()} />
       <div className="flex h-5 items-center mt-0!">
         {items.map((item, index) => (
           <React.Fragment key={item.value}>
@@ -32,10 +30,7 @@ export default function Divider() {
               {item.label}
             </div>
             {index < items.length - 1 && (
-              <div
-                {...api.getRootProps('vertical')}
-                className="bg-stone-300/50 mt-0! data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px mx-4"
-              />
+              <div {...api.getRootProps('vertical')} />
             )}
           </React.Fragment>
         ))}
