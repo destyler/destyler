@@ -1,19 +1,15 @@
 <script setup lang="ts">
-// 移除样式相关逻辑
 import * as tabs from '@destyler/tabs'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { useStore } from '@nanostores/vue'
-import { computed, onMounted, ref, useId, watch } from 'vue'
+import { computed, ref, useId, watch } from 'vue'
 import { $framework } from '../../stores/framework'
-// 样式 store 已移除
 
 const props = defineProps<{
   files: Record<string, { code: CodeFile[] }>
 }>()
 
 const store = useStore($framework)
-
-// 已删除样式 store
 
 interface CodeFile {
   title: string
@@ -23,11 +19,8 @@ interface CodeFile {
   framework?: string
 }
 
-// 新的数据结构不再包含样式和 config
-
 const currentFramework = computed(() => store.value || 'vue')
 
-// 样式相关逻辑移除
 const currentSelectedFile = ref('0')
 
 const isCopied = ref(false)
@@ -57,8 +50,6 @@ const [state, send] = useMachine(tabs.machine({
 }))
 
 const api = computed(() => tabs.connect(state.value, send, normalizeProps))
-
-// 移除样式选择机器
 
 const fileData = computed(() => {
   const data: any[] = []
@@ -128,8 +119,6 @@ const fileData = computed(() => {
       })
     })
 
-  // 不再处理 config
-
   return data
 })
 
@@ -138,8 +127,6 @@ watch(() => api.value.value, (newValue) => {
     currentSelectedFile.value = newValue
   }
 })
-
-// 移除样式监听与初始化
 </script>
 
 <template>
@@ -183,7 +170,7 @@ watch(() => api.value.value, (newValue) => {
       >
         <div class="absolute mt-0! right-2 top-2 z-10">
           <button
-            class="inline-flex items-center justify-center rounded-md text-sm font-medium h-8 w-8 bg-primary/10 hover:bg-primary/20 transition-colors"
+            class="inline-flex items-center justify-center rounded-md text-sm font-medium h-8 w-8 bg-primary/0 hover:bg-primary/10 transition-colors"
             :aria-label="isCopied ? '已复制' : '复制代码'"
             @click="copyCode(file.content)"
           >
