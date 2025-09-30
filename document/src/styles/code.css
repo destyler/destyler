@@ -2,7 +2,6 @@
 .shiki-themes,
 .shiki{
   --at-apply: scrollbar-hide;
-  background-color: var(--shiki-dark-bg) !important;
   border: 1px solid hsl(var(--muted) / 1);
   color: rgba(219, 215, 202, 0.933) !important;
   scrollbar-width: none !important;
@@ -65,7 +64,6 @@
   padding-top: 8px !important;
   padding-bottom:8px !important;
   padding-left: 8px !important;
-  background-color: var(--shiki-dark-bg) !important;
 
 }
 .shiki-themes code::before,
