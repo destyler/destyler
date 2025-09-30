@@ -23,7 +23,7 @@ const nodeProps = computed(() => ({
 
 const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
 
-const getFileIcon = (fileName: string) => {
+function getFileIcon (fileName: string) {
   // Vue 文件
   if (fileName.endsWith('.vue')) return 'i-catppuccin-vue'
 
@@ -36,24 +36,24 @@ const getFileIcon = (fileName: string) => {
   // TypeScript/JavaScript 文件
   if (fileName.endsWith('.ts')) return 'i-catppuccin-typescript'
   if (fileName.endsWith('.js')) return 'i-catppuccin-javascript'
-  
+
   // 样式文件
   if (fileName.endsWith('.css')) return 'i-catppuccin-css'
-  
+
   // 图片文件
   if (fileName.endsWith('.svg')) return 'i-catppuccin-image'
   if (fileName.endsWith('.ico')) return 'i-catppuccin-image'
   if (fileName.match(/\.(png|jpg|jpeg|gif|webp)$/)) return 'i-catppuccin-image'
-  
+
   // 文档文件
   if (fileName.endsWith('.md')) return 'i-catppuccin-markdown-mdx'
   if (fileName.endsWith('.txt')) return 'i-catppuccin-text'
-  
+
   // 默认文件图标
   return 'i-catppuccin-file'
 }
 
-const getFolderIcon = (folderName: string) => {
+function getFolderIcon (folderName: string) {
   if (folderName === 'components') return 'i-catppuccin-folder-components'
   if (folderName === 'pages') return 'i-catppuccin-folder-packages'
   if (folderName === 'public') return 'i-catppuccin-folder-assets'
@@ -76,21 +76,21 @@ const getFolderIcon = (folderName: string) => {
           v-bind="api.getBranchIndicatorProps(nodeProps)"
           class="flex h-4 w-4 shrink-0 items-center justify-center text-muted-foreground/80 mt-0!"
         >
-          <div 
-            :class="{ 'rotate-90': nodeState.expanded }" 
+          <div
+            :class="{ 'rotate-90': nodeState.expanded }"
             class="i-carbon-chevron-right h-3.5 w-3.5 mt-0!"
           />
         </span>
         <div class="flex h-5 w-5 shrink-0 items-center justify-center mt-0!">
-          <div 
+          <div
             :class="[
-              getFolderIcon(node.name)
+              getFolderIcon(node.name),
             ]"
             class="h-4 w-4 mt-0!"
           />
         </div>
-        <span 
-          v-bind="api.getBranchTextProps(nodeProps)" 
+        <span
+          v-bind="api.getBranchTextProps(nodeProps)"
           class="text-foreground/95 font-medium mt-0!"
         >
           {{ node.name }}
@@ -119,7 +119,7 @@ const getFolderIcon = (folderName: string) => {
     >
       <div class="h-4 w-4 shrink-0 mt-0!" />
       <div class="flex h-4 w-4 shrink-0 items-center justify-center mt-0!">
-        <div 
+        <div
           :class="getFileIcon(node.name)"
           class="h-3.5 w-3.5 mt-0!"
         />
