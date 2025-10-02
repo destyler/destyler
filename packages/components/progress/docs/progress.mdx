@@ -1,0 +1,408 @@
+---
+head:
+  - tag: title
+    content: Progress - Destyler UI
+title: Progress
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> Linear progress is a simple progress bar that can be used to show the progress of a task such as downloading a file, 
+> uploading an image, etc.
+
+<PreviewCode name="progress"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for minimum and maximum values.',
+  'Support for indeterminate progress bars.'
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="progress" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as progress from "@destyler/progress"
+  import { normalizeProps, useMachine } from "@destyler/vue"
+  import { computed,useId } from "vue"
+
+  const [state, send] = useMachine(progress.machine({ 
+    id: useId(),
+    value: 30 
+  }))
+
+  const api = computed(() =>
+    progress.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getLabelProps()"></div>
+      <div v-bind="api.getTrackProps()">
+        <div v-bind="api.getRangeProps()" />
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as progress from '@destyler/progress'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Progress() {
+    const [state, send] = useMachine(progress.machine({
+      id: useId(),
+      value: 30, 
+    }))
+
+    const api = progress.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getLabelProps()}></div>
+        <div {...api.getTrackProps()}>
+          <div {...api.getRangeProps()}/>
+        </div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as progress from "@destyler/progress"
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(progress.machine({ 
+      id, 
+      value: 30 
+    }))
+
+    const api = $derived(progress.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <div {...api.getLabelProps()}></div>
+    <div {...api.getTrackProps()}>
+      <div {...api.getRangeProps()}></div>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as progress from '@destyler/progress'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Progress() {
+    const [state, send] = useMachine(progress.machine({
+      id: createUniqueId(),
+      value: 30,
+    }))
+
+    const api = createMemo(() => progress.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <div {...api().getLabelProps()}></div>
+        <div {...api().getTrackProps()}>
+          <div {...api().getRangeProps()}/>
+        </div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the value
+
+use the `api.setValue` method to set the value of the progress bar.
+
+```ts
+const [state, send] = useMachine(
+  progress.machine({
+    value: 50,
+  }),
+)
+```
+
+## Setting the min number and max number values
+
+By default, the progress bar has a min value of `0` and a max value of `100`. 
+You can change these values by passing the `min` and `max` options to the machine.
+
+```ts
+const [state, send] = useMachine(
+  progress.machine({
+    min: 0,
+    max: 1000,
+  }),
+)
+```
+
+## Use the indeterminate state
+
+The progress component is determinate by default, 
+with the value and max set to `50` and `100` respectively.
+
+Set `value` to `null` to indicate an indeterminate value for operations whose progress can't be determined (e.g., attempting to reconnect to a server).
+
+```ts
+const [state, send] = useMachine(
+  progress.machine({
+    value: null,
+  }),
+)
+```
+
+## Showing a value text
+
+Progress bars can only be interpreted by sighted users. 
+To include a text description to support assistive technologies like screen readers, 
+use the `valueText` part.
+
+```ts
+const [state, send] = useMachine(
+  progress.machine({
+    translations: {
+      valueText: ({ value, max }) =>
+        value == null ? "Loading..." : `${value} of ${max} items loaded`,
+    },
+  }),
+)
+```
+
+Then you need to render the `valueText` part in your component.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as progress from "@destyler/progress"
+  import { normalizeProps, useMachine } from "@destyler/vue"
+  import { computed,useId } from "vue"
+
+  const [state, send] = useMachine(progress.machine({ 
+    id: useId(),
+    value: 30,
+    translations: {
+      valueText: ({ value, max }) =>
+        value == null ? "Loading..." : `${value} of ${max} items loaded`,
+    },
+  }))
+
+  const api = computed(() =>
+    progress.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getValueTextProps()">
+      {{ api.valueAsString }}
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as progress from '@destyler/progress'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Progress() {
+    const [state, send] = useMachine(progress.machine({
+      id: useId(),
+      value: 30, 
+      translations: {
+        valueText: ({ value, max }) =>
+          value == null ? "Loading..." : `${value} of ${max} items loaded`,
+      },
+    }))
+
+    const api = progress.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getValueTextProps()}>
+        {api.valueAsString}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as progress from "@destyler/progress"
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(progress.machine({ 
+      id, 
+      value: 30,
+      translations: {
+        valueText: ({ value, max }) =>
+          value == null ? "Loading..." : `${value} of ${max} items loaded`,
+      },
+    }))
+
+    const api = $derived(progress.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getValueTextProps()}>
+    {api.valueAsString}
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as progress from '@destyler/progress'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Progress() {
+    const [state, send] = useMachine(progress.machine({
+      id: createUniqueId(),
+      value: 30,
+      translations: {
+        valueText: ({ value, max }) =>
+          value == null ? "Loading..." : `${value} of ${max} items loaded`,
+      },
+    }))
+
+    const api = createMemo(() => progress.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getValueTextProps()}>
+        {api().valueAsString}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Styling Guide
+
+> Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-scope="progress"][data-part="root"] {
+  /* Styles for the root part */
+}
+
+[data-scope="progress"][data-part="track"] {
+  /* Styles for the track part */
+}
+
+[data-scope="progress"][data-part="range"] {
+  /* Styles for the range part */
+}
+```
+
+### Indeterminate state
+
+To style the indeterminate state, you can use the `[data-state=indeterminate]` selector.
+
+```css
+[data-scope="progress"][data-part="root"][data-state="indeterminate"] {
+  /* Styles for the root indeterminate state */
+}
+
+[data-scope="progress"][data-part="track"][data-state="indeterminate"] {
+  /* Styles for the root indeterminate state */
+}
+
+[data-scope="progress"][data-part="range"][data-state="indeterminate"] {
+  /* Styles for the root indeterminate state */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The progress machine exposes the following context properties:
+
+<MachineTable name="progress"></MachineTable>
+
+### Machine API
+
+The progress `api` exposes the following methods:
+
+<APITable name="progress"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="progress" nodeType="root" />
+
+#### Label
+
+<StyleTable component="progress" nodeType="label" />
+
+#### Range
+
+<StyleTable component="progress" nodeType="range" />
+
+#### Circle Track
+
+<StyleTable component="progress" nodeType="circleTrack" />
+
+#### Circle Range
+
+<StyleTable component="progress" nodeType="circleRange" />
+
+#### View
+
+<StyleTable component="progress" nodeType="view" />

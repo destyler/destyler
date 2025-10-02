@@ -1,0 +1,247 @@
+---
+head:
+  - tag: title
+    content: Separator - Destyler UI
+title: Separator
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> Visually or semantically separates content.
+
+<PreviewCode name="separator"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Supports horizontal and vertical orientations.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="separator" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as separator from '@destyler/separator'
+  import { normalizeProps, useMachine } from "@destyler/vue"
+  import { computed, useId, ref } from "vue"
+
+  const [state, send] = useMachine(separator.machine({ id: useId() }))
+  const api = computed(() =>
+    separator.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()"/>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as separator from '@destyler/separator'
+  import { useId } from 'react'
+
+  export default function Divider() {
+
+    const [state, send] = useMachine(separator.machine({ id: useId() }))
+    const api = separator.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()} />
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as separator from '@destyler/separator'
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(separator.machine({ id }))
+    const api = $derived(separator.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()} ></div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as separator from '@destyler/separator'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo } from 'solid-js'
+
+  export default function Divider() {
+
+    const [state, send] = useMachine(separator.machine({ id: crypto.randomUUID() }))
+    const api = createMemo(() => separator.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()} />
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting a orientation value
+
+```ts
+const [state, send] = useMachine(
+  separator.machine({
+    id: createUniqueId(),
+    orientation: 'vertical', // default 'horizontal'
+  }),
+)
+```
+
+## Setting specific orientation values
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as separator from '@destyler/separator'
+  import { normalizeProps, useMachine } from "@destyler/vue"
+  import { computed, useId, ref } from "vue"
+
+  const [state, send] = useMachine(separator.machine({ id: useId() }))
+  const api = computed(() =>
+    separator.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()"/>
+    <div v-bind="api.getRootProps('vertical')"/>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as separator from '@destyler/separator'
+  import { useId } from 'react'
+
+  export default function Divider() {
+
+    const [state, send] = useMachine(separator.machine({ id: useId() }))
+    const api = separator.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()} />
+      <div {...api.getRootProps('vertical')} />
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as separator from '@destyler/separator'
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(separator.machine({ id }))
+    const api = $derived(separator.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()} ></div>
+  <div {...api.getRootProps('vertical')} ></div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as separator from '@destyler/separator'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo } from 'solid-js'
+
+  export default function Divider() {
+
+    const [state, send] = useMachine(separator.machine({ id: crypto.randomUUID() }))
+    const api = createMemo(() => separator.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()} />
+      <div {...api().getRootProps('vertical')} />
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Styling guide
+
+> Earlier, we mentioned that each Select part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-part="root"][data-orientation="horizontal"] {
+  /* Styles for the root part  */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The separator machine exposes the following context properties:
+
+<MachineTable name="separator"></MachineTable>
+
+### Machine API
+
+The separator `api` exposes the following methods:
+
+<APITable name="separator"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="separator" nodeType="root" />

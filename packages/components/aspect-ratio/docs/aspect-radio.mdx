@@ -1,0 +1,200 @@
+---
+head:
+  - tag: title
+    content: Aspect Ratio - Destyler UI
+title: Aspect Ratio
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> Displays content within a desired ratio.
+
+<PreviewCode name="aspect-ratio"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Accepts any custom ratio.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="aspect-ratio" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as aspectRatio from '@destyler/aspect-ratio'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(aspectRatio.machine({ 
+    id: useId(),
+  }))
+  const api = computed(() =>
+    aspectRatio.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getContentProps()">
+        <img >
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import type { FC } from 'react'
+  import * as aspectRatio from '@destyler/aspect-ratio'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default const AspectRatio: FC = () => {
+
+    const [state, send] = useMachine(aspectRatio.machine({
+      id: useId(),
+    }))
+
+    const api = aspectRatio.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getRootProps()}>
+          <div {...api.getContentProps()}>
+            <img/>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+  import * as aspectRatio from '@destyler/aspect-ratio'
+  import { normalizeProps, useMachine } from '@destyler/svelte'
+
+  const uid = $props.id();
+
+  const [state, send] = useMachine(aspectRatio.machine({
+    id: uid,
+  }))
+  const api = $derived(aspectRatio.connect(state, send, normalizeProps))
+  </script>
+
+  <main>
+    <div {...api.getRootProps()}>
+      <div {...api.getContentProps()}>
+        <img />
+      </div>
+    </div>
+  </main>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as aspectRatio from '@destyler/aspect-ratio'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function AspectRatio() {
+
+    const [state, send] = useMachine(aspectRatio.machine({
+      id: createUniqueId(),
+    }))
+    const api = createMemo(() => aspectRatio.connect(state, send, normalizeProps))
+    return (
+      <>
+        <div {...api().getRootProps()}>
+          <div {...api().getContentProps()}>
+            <img />
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Set desired ratio
+
+The component accepts any ratio. The default is 16:9.
+
+```tsx
+const [state, send] = useMachine(
+  aspectRatio.machine({
+    ratio: 16 / 9,
+  }),
+)
+```
+
+## Styling guide
+
+Earlier, we mentioned that each aspect ratio part has a `data-part` attribute added to them to 
+select and style them in the DOM.
+
+```css
+[data-part="root"] {
+  /* styles for root */
+}
+
+[data-part="content"] {
+  /* styles for content */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The aspect ratio machine exposes the following context properties:
+
+<MachineTable name="aspect-ratio"></MachineTable>
+
+### Machine API
+
+The aspect ratio `api` exposes the following methods:
+
+<APITable name="aspect-ratio"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="aspect-ratio" nodeType="root" />
+
+#### Content
+
+<StyleTable component="aspect-ratio" nodeType="content" />

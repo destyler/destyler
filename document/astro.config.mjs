@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import React from '@astrojs/react'
 import Solid from '@astrojs/solid-js'
 import starlight from '@astrojs/starlight'
@@ -7,6 +8,9 @@ import { defineConfig } from 'astro/config'
 import destylerTheme from 'starlight-theme-destyler'
 import injectComponents from 'starlight-theme-destyler/vite/inject-components'
 import UnoCSS from 'unocss/astro'
+
+const documentRoot = new URL('./', import.meta.url)
+const componentsDocsDir = new URL('../packages/components/', import.meta.url)
 
 export default defineConfig({
   markdown: {
@@ -112,7 +116,7 @@ export default defineConfig({
         {
           label: 'Overview',
           items: [
-            { slug: 'guide/introduction' },
+            // { slug: 'guide/introduction' },
             { slug: 'guide/getting-started' },
           ],
         },
@@ -192,6 +196,20 @@ export default defineConfig({
     }),
   ],
   vite: {
+    server: {
+      fs: {
+        allow: [
+          fileURLToPath(documentRoot),
+          fileURLToPath(componentsDocsDir),
+        ],
+      },
+    },
+    resolve: {
+      alias: {
+        '@docs': fileURLToPath(`${documentRoot}/src/`),
+        '@component-docs': fileURLToPath(componentsDocsDir),
+      },
+    },
     plugins: [
       injectComponents({
         Sidebar: './src/components/Sidebar.astro',

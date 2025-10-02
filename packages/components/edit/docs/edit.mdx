@@ -1,0 +1,333 @@
+---
+head:
+  - tag: title
+    content: Edit - Destyler UI
+title: Edit
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> Displays an input field used for editing a single line of text, rendering as static text on load. 
+> It transforms into a text input field when the edit interaction is triggered.
+
+<PreviewCode name="edit"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Use custom controls for the editable.',
+  'Pressing Enter commits the input value.',
+  'Pressing Esc reverts the value.',
+  'Activate edit mode by double-clicking or focusing on the preview text.',
+  'Auto-resize input to fit content',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="edit" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as edit from "@destyler/edit";
+  import { normalizeProps, useMachine } from "@destyler/vue";
+  import { computed, useId } from "vue";
+
+  const [state, send] = useMachine(edit.machine({
+    id: useId(),
+    placeholder: 'Type something...',
+  }));
+  const api = computed(() => edit.connect(state.value, send, normalizeProps));
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getAreaProps()">
+        <input v-bind="api.getInputProps()" />
+        <span v-bind="api.getPreviewProps()" />
+      </div>
+        <button v-bind="api.getSubmitTriggerProps()" ></button>
+        <button v-bind="api.getCancelTriggerProps()" ></button>
+        <button v-bind="api.getEditTriggerProps()" ></button>
+      </div>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as edit from '@destyler/edit'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Edit() {
+
+    const [state, send] = useMachine(edit.machine({
+      id: useId(),
+      placeholder: 'Type something...',
+    }))
+
+    const api = edit.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getRootProps()} >
+          <div {...api.getAreaProps()} >
+            <input {...api.getInputProps()} />
+            <span {...api.getPreviewProps()} />
+          </div>
+          <button {...api.getSubmitTriggerProps()} ></button>
+          <button {...api.getCancelTriggerProps()}></button>
+          <button {...api.getEditTriggerProps()}></button>
+        </div>
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as edit from "@destyler/edit";
+    import { normalizeProps, useMachine } from "@destyler/svelte";
+
+
+    const [state, send] = useMachine(edit.machine({
+      id: crypto.randomUUID(),
+      placeholder: 'Type something...',
+    }))
+
+    const api = $derived(edit.connect(state, send, normalizeProps));
+  </script>
+
+  <div {...api.getRootProps()} >
+    <div {...api.getAreaProps()}>
+      <input {...api.getInputProps()}/>
+      <span {...api.getPreviewProps()}></span>
+    </div>
+    <button {...api.getSubmitTriggerProps()}></button>
+    <button {...api.getCancelTriggerProps()}></button>
+    <button {...api.getEditTriggerProps()}></button>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as edit from '@destyler/edit'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Edit() {
+
+    const [state, send] = useMachine(edit.machine({
+      id: createUniqueId(),
+      placeholder: 'Type something...',
+    }))
+
+    const api = createMemo(() => edit.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()}>
+          <div {...api().getAreaProps()} >
+            <input {...api().getInputProps()} />
+            <span {...api().getPreviewProps()}/>
+          </div>
+          <button {...api().getSubmitTriggerProps()}></button>
+          <button {...api().getCancelTriggerProps()}></button>
+          <button {...api().getEditTriggerProps()}></button>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial value
+
+To set the initial value of the editable, pass the `value` property to the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  edit.machine({
+    value: "Hello World",
+  }),
+)
+```
+
+## Listening for value changes
+
+The editable machine supports two ways of listening for value changes:
+
+- `onValueChange`: called when value changes.
+
+- `onValueCommit`: called when the value is committed.
+
+```ts
+const [state, send] = useMachine(
+  edit.machine({
+    onValueChange(details) {
+      console.log("Value changed", details.value)
+    },
+    onValueCommit(details) {
+      console.log("Value submitted", details.value)
+    },
+  }),
+)
+```
+
+## Auto-resizing the editable
+
+To auto-grow the editable as the content changes, 
+pass the `autoResize: true` property to the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  edit.machine({
+    autoResize: true,
+  }),
+)
+```
+
+:::note
+When using autoresize, the input and preview elements should not have any styles. 
+Use `all: unset` if needed and pass any styles to the "area" element since its shared by the input and preview elements.
+:::
+
+## Setting a maxWidth
+
+It is a common pattern to set a maximum of the editable as it auto-grows. 
+To achieve this, set the `maxWidth` property of the machine's context to the desired value.
+
+```ts
+const [state, send] = useMachine(
+  edit.machine({
+    autoResize: true,
+    maxWidth: "320px",
+  }),
+)
+```
+
+When the editable reaches the specified max-width, it'll clip the preview text with an ellipsis.
+
+## Editing with double click
+
+he editable supports two modes of activating the "edit" state:
+
+- when the preview part is focused (with pointer or keyboard).
+
+- when the preview part is double-clicked.
+
+To change the mode to "double-click", set the `activationMode: 'dblclick'` property in the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  editable.machine({
+    activationMode: "dblclick",
+  }),
+)
+```
+
+## Styling guide
+
+Earlier, we mentioned that each hover card part has a `data-part` attribute added to them to 
+select and style them in the DOM.
+
+### Focused state
+
+When the editable is in the focused mode, we set a `data-focus` attribute on the "area" part.
+
+```css
+[data-part="area"][data-focus] {
+  /* CSS for the editable's focus state */
+}
+```
+
+### Empty state
+
+When the editable's value is empty, we set a `data-empty` attribute on the "area" part.
+
+```css
+[data-part="area"][data-empty] {
+  /* CSS for the editable's focus state */
+}
+```
+
+### Disabled state
+
+When the editable is disabled, we set a `data-disabled` attribute on the "area" part.
+
+```css
+[data-part="area"][data-disabled] {
+  /* CSS for the editable's focus state */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The edit machine exposes the following context properties:
+
+<MachineTable name="edit"></MachineTable>
+
+### Machine API
+
+The edit `api` exposes the following methods:
+
+<APITable name="edit"></APITable>
+
+### Data Attributes
+
+#### Area
+
+<StyleTable component="edit" nodeType="area" />
+
+#### Label
+
+<StyleTable component="edit" nodeType="label" />
+
+#### Input
+
+<StyleTable component="edit" nodeType="input" />
+
+#### Preview
+
+<StyleTable component="edit" nodeType="preview" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="edit"></KeyboardTable>

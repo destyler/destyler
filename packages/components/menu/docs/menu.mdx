@@ -1,0 +1,920 @@
+---
+head:
+  - tag: title
+    content: Menu - Destyler UI
+title: Menu
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> An accessible dropdown and context menu that is used to display a list of actions or options that a user can choose.
+
+<PreviewCode name="menu"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for items, labels, groups of items.',
+  'Focus is fully managed using aria-activedescendant pattern.',
+  'Typeahead to allow focusing items by typing text.',
+  'Keyboard navigation support including arrow keys, home/end, page up/down.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="menu" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, ref, useId } from 'vue'
+
+  const [state, send] = useMachine(menu.machine({
+    'id': useId(),
+    'aria-label': 'File',
+  }))
+  const api = computed(() => menu.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div>
+      <button v-bind="api.getTriggerProps()" />
+      <Teleport to="body">
+        <div v-if="api.open" v-bind="api.getPositionerProps()">
+          <ul v-bind="api.getContentProps()">
+            <li v-bind="api.getItemProps({ value: 'item1-1' })" />
+            <li v-bind="api.getItemProps({ value: 'item1-2' })" />
+            <li v-bind="api.getItemProps({ value: 'item1-3' })" />
+            <li v-bind="api.getItemProps({ value: 'item1-4' })" />
+            <li v-bind="api.getItemProps({ value: 'item1-5' })" />
+          </ul>
+          <ul v-bind="api.getContentProps()">
+            <li v-bind="api.getItemProps({ value: 'item2-1' })" />
+            <li v-bind="api.getItemProps({ value: 'item2-2' })" />
+            <li v-bind="api.getItemProps({ value: 'item2-3' })" />
+            <li v-bind="api.getItemProps({ value: 'item2-4' })" />
+            <li v-bind="api.getItemProps({ value: 'item2-5' })" />
+          </ul>
+        </div>
+      </Teleport>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+  import { createPortal } from 'react-dom'
+
+  export default function Menu() {
+
+    const [state, send] = useMachine(menu.machine({
+      'id': useId(),
+      'aria-label': 'File',
+    }))
+    const api = menu.connect(state, send, normalizeProps)
+
+    return (
+      <div>
+        <button {...api.getTriggerProps()}></button>
+        {api.open && createPortal(
+          <div {...api.getPositionerProps()}>
+            <ul {...api.getContentProps()} >
+              <li {...api.getItemProps({ value: 'item1-1' })} />
+              <li {...api.getItemProps({ value: 'item1-2' })} />
+              <li {...api.getItemProps({ value: 'item1-3' })} />
+              <li {...api.getItemProps({ value: 'item1-4' })} />
+              <li {...api.getItemProps({ value: 'item1-5' })} />
+            </ul>
+            <ul {...api.getContentProps()} >
+              <li {...api.getItemProps({ value: 'item2-1' })} />
+              <li {...api.getItemProps({ value: 'item2-2' })} />
+              <li {...api.getItemProps({ value: 'item2-3' })} />
+              <li {...api.getItemProps({ value: 'item2-4' })} />
+              <li {...api.getItemProps({ value: 'item2-5' })} />
+            </ul>
+          </div>,
+          document.body,
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as menu from '@destyler/menu'
+    import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(menu.machine({
+      id,
+      'aria-label': 'File',
+    }))
+
+    const api = $derived(menu.connect(state, send, normalizeProps))
+  </script>
+
+  <div>
+    <button {...api.getTriggerProps()} ></button>
+
+    {#if api.open}
+      <div use:portal>
+        <div {...api.getPositionerProps()}>
+            <ul {...api.getContentProps()}>
+              <li {...api.getItemProps({ value: 'item1-1' })}></li>
+              <li {...api.getItemProps({ value: 'item1-2' })}></li>
+              <li {...api.getItemProps({ value: 'item1-3' })}></li>
+              <li {...api.getItemProps({ value: 'item1-4' })}></li>
+              <li {...api.getItemProps({ value: 'item1-5' })}></li>
+            </ul>
+            <ul {...api.getContentProps()}>
+              <li {...api.getItemProps({ value: 'item2-1' })}></li>
+              <li {...api.getItemProps({ value: 'item2-2' })}></li>
+              <li {...api.getItemProps({ value: 'item2-3' })}></li>
+              <li {...api.getItemProps({ value: 'item2-4' })}></li>
+              <li {...api.getItemProps({ value: 'item2-5' })}></li>
+            </ul>
+        </div>
+      </div>
+      
+    {/if}
+  </div>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function Menu() {
+    const [state, send] = useMachine(menu.machine({
+      'id': createUniqueId(),
+      'aria-label': 'File',
+    }))
+    const api = createMemo(() => menu.connect(state, send, normalizeProps))
+
+    return (
+      <div>
+        <button {...api().getTriggerProps()} ></button>
+        {api().open && (
+          <Portal>
+            <div {...api().getPositionerProps()}>
+              <ul {...api().getContentProps()}>
+                <li {...api().getItemProps({ value: 'item1-1' })} ></li>
+                <li {...api().getItemProps({ value: 'item1-2' })} ></li>
+                <li {...api().getItemProps({ value: 'item1-3' })} ></li>
+                <li {...api().getItemProps({ value: 'item1-4' })} ></li>
+                <li {...api().getItemProps({ value: 'item1-5' })} ></li>
+              </ul>
+              <ul {...api().getContentProps()}>
+                <li {...api().getItemProps({ value: 'item2-1' })} ></li>
+                <li {...api().getItemProps({ value: 'item2-2' })} ></li>
+                <li {...api().getItemProps({ value: 'item2-3' })} ></li>
+                <li {...api().getItemProps({ value: 'item2-4' })} ></li>
+                <li {...api().getItemProps({ value: 'item2-5' })} ></li>
+              </ul>
+            </div>
+          </Portal>
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Listening for item selection
+
+When a menu item is clicked, the `onSelect` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  menu.machine({
+    onSelect(details) {
+      // details => { value: string }
+      console.log("selected value is ", details.value)
+    },
+  }),
+)
+```
+
+## Listening for open state changes
+
+When a menu is opened or closed, the `onOpenChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  menu.machine({
+    onOpenChange(details) {
+      // details => { open: boolean }
+      console.log("open state is ", details.open)
+    },
+  }),
+)
+```
+
+## Grouping menu items
+
+When the number of menu items gets much, it might be useful to group related menu items. To achieve this:
+
+- Wrap the menu items within an element.
+
+- Spread the `api.getGroupProps(...)` JSX properties unto the element, providing an `id`.
+
+- Render a label for the menu group, providing the `id` of the group element.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, ref, useId } from 'vue'
+
+  const [state, send] = useMachine(menu.machine({
+    'id': useId(),
+    'aria-label': 'File',
+  }))
+  const api = computed(() => menu.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div>
+      <button v-bind="api.getTriggerProps()" />
+      <Teleport to="body">
+        <div v-if="api.open" v-bind="api.getPositionerProps()">
+          <p v-bind="api.getLabelProps({ htmlFor: 'item' })">Item</p>
+          <ul v-bind="api.getContentProps({ id: 'item' })">
+            <li v-bind="api.getItemProps({ id:'item-1', value: 'item1' })" />
+            <li v-bind="api.getItemProps({ id:'item-2', value: 'item2' })" />
+            <li v-bind="api.getItemProps({ id:'item-3', value: 'item3' })" />
+            <li v-bind="api.getItemProps({ id:'item-4', value: 'item4' })" />
+            <li v-bind="api.getItemProps({ id:'item-5', value: 'item5' })" />
+          </ul>
+        </div>
+      </Teleport>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+  import { createPortal } from 'react-dom'
+
+  export default function Menu() {
+
+    const [state, send] = useMachine(menu.machine({
+      'id': useId(),
+      'aria-label': 'File',
+    }))
+    const api = menu.connect(state, send, normalizeProps)
+
+    return (
+      <div>
+        <button {...api.getTriggerProps()}></button>
+        {api.open && createPortal(
+          <div {...api.getPositionerProps()}>
+            <p {...api.getLabelProps({ htmlFor: 'item' })}>Item</p>
+            <ul {...api.getContentProps({ id: 'item' })} >
+              <li {...api.getItemProps({ id: 'item-1', value: 'item1' })} />
+              <li {...api.getItemProps({ id: 'item-2', value: 'item2' })} />
+              <li {...api.getItemProps({ id: 'item-3', value: 'item3' })} />
+              <li {...api.getItemProps({ id: 'item-4', value: 'item4' })} />
+              <li {...api.getItemProps({ id: 'item-5', value: 'item5' })} />
+            </ul>
+          </div>,
+          document.body,
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as menu from '@destyler/menu'
+    import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(menu.machine({
+      id,
+      'aria-label': 'File',
+    }))
+
+    const api = $derived(menu.connect(state, send, normalizeProps))
+  </script>
+
+  <div>
+    <button {...api.getTriggerProps()} ></button>
+
+    {#if api.open}
+      <div use:portal>
+        <div {...api.getPositionerProps()}>
+          <p {...api.getLabelProps({ htmlFor: 'item' })}>Item</p>
+          <ul {...api.getContentProps({ id: 'item' })} >
+            <li {...api.getItemProps({ id: 'item-1', value: 'item1' })}></li>
+            <li {...api.getItemProps({ id: 'item-2', value: 'item2' })}></li>
+            <li {...api.getItemProps({ id: 'item-3', value: 'item3' })}></li>
+            <li {...api.getItemProps({ id: 'item-4', value: 'item4' })}></li>
+            <li {...api.getItemProps({ id: 'item-5', value: 'item5' })}></li>
+          </ul>
+        </div>
+      </div>
+      
+    {/if}
+  </div>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function Menu() {
+    const [state, send] = useMachine(menu.machine({
+      'id': createUniqueId(),
+      'aria-label': 'File',
+    }))
+    const api = createMemo(() => menu.connect(state, send, normalizeProps))
+
+    return (
+      <div>
+        <button {...api().getTriggerProps()} ></button>
+        {api().open && (
+          <Portal>
+            <div {...api().getPositionerProps()}>
+              <p {...api().getLabelProps({ htmlFor: 'item' })}>Item</p>
+              <ul {...api().getContentProps()}>
+                <li {...api().getItemProps({ id: 'item-1', value: 'item1' })} ></li>
+                <li {...api().getItemProps({ id: 'item-2', value: 'item2' })} ></li>
+                <li {...api().getItemProps({ id: 'item-3', value: 'item3' })} ></li>
+                <li {...api().getItemProps({ id: 'item-4', value: 'item4' })} ></li>
+                <li {...api().getItemProps({ id: 'item-5', value: 'item5' })} ></li>
+              </ul>
+            </div>
+          </Portal>
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Checkbox and Radio option items
+
+To use checkbox or radio option items, you'll need to:
+
+- Add a `value` property to the machine's context whose value is an object describing the state of the option items.
+
+- Use the `api.getOptionItemProps(...)` function to get the props for the option item.
+
+A common requirement for the option item that you pass the `name`, `value` and `type` properties.
+
+- `type` — The type of option item. Either `"checkbox"` or `"radio"`.
+
+- `value` — The value of the option item.
+
+- `checked` — The checked state of the option item.
+
+- `onCheckedChange` — The callback to invoke when the checked state changes.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, ref, useId } from 'vue'
+
+  const data = ref({
+    radio: [
+      { label: "Ascending", value: "asc" },
+      { label: "Descending", value: "desc" },
+      { label: "None", value: "none" },
+    ],
+    checkbox: [
+      { label: "Email", value: "email" },
+      { label: "Phone", value: "phone" },
+      { label: "Address", value: "address" },
+    ],
+  })
+
+  const [state, send] = useMachine(menu.machine({
+    'id': useId(),
+    'aria-label': 'File',
+  }))
+
+  const api = computed(() => menu.connect(state.value, send, normalizeProps))
+
+  const radioRef = ref('')
+
+  const checkboxRef = ref([])
+
+  const radioDataList = computed(() =>
+    data.value.radio.map((item) => ({
+      label: item.label,
+      id: item.value,
+      type: "radio",
+      value: item.value,
+      checked: item.value === radioRef.value,
+      onCheckedChange(v) {
+        radioRef.value = v ? item.value : ""
+      },
+    })),
+  )
+
+  const checkboxDataList = computed(() =>
+    data.value.checkbox.map((item) => ({
+      id: item.value,
+      label: item.label,
+      type: "checkbox",
+      value: item.value,
+      checked: checkboxRef.value.includes(item.value),
+      onCheckedChange(v) {
+        checkboxRef.value = v
+          ? [...checkboxRef.value, item.value]
+          : checkboxRef.value.filter((x) => x !== item.value)
+      },
+    })),
+  )
+  </script>
+
+  <template>
+    <div>
+      <button v-bind="api.getTriggerProps()" />
+      <Teleport to="body">
+        <div v-if="api.open" v-bind="api.getPositionerProps()">
+          <div v-bind="api.getContentProps()">
+            <div v-for="item in radioDataList" :key="item.value" v-bind="api.getOptionItemProps(item)">
+              <span v-bind="api.getItemIndicatorProps(item)">√</span>
+              <span v-bind="api.getItemTextProps(item)">{{ item.label }}</span>
+            </div>
+            <hr v-bind="api.getSeparatorProps()" />
+            <div v-for="item in checkboxDataList" :key="item.value" v-bind="api.getOptionItemProps(item)">
+              <span v-bind="api.getItemIndicatorProps(item)">√</span>
+              <span v-bind="api.getItemTextProps(item)">{{ item.label }}</span>
+            </div>
+          </div>
+        </div>
+      </Teleport>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useState } from 'react'
+  import { createPortal } from 'react-dom'
+
+  const data = {
+    radio: [
+      { label: "Ascending", value: "asc" },
+      { label: "Descending", value: "desc" },
+      { label: "None", value: "none" },
+    ],
+    checkbox: [
+      { label: "Email", value: "email" },
+      { label: "Phone", value: "phone" },
+      { label: "Address", value: "address" },
+    ],
+  }
+
+  export default function Menu() {
+
+    const [radio, setRadio] = useState("")
+    const [checkbox, setCheckbox] = useState([])
+
+    const [state, send] = useMachine(menu.machine({
+      'id': useId(),
+      'aria-label': 'File',
+    }))
+    const api = menu.connect(state, send, normalizeProps)
+
+    const radioDataList = data.radio.map((item) => ({
+      type: "radio",
+      name: "order",
+      value: item.value,
+      label: item.label,
+      checked: radio === item.value,
+      onCheckedChange: (checked) => setRadio(checked ? item.value : ""),
+    }))
+
+    const checkboxDataList = data.checkbox.map((item) => ({
+      type: "checkbox",
+      name: "type",
+      value: item.value,
+      label: item.label,
+      checked: checkbox.includes(item.value),
+      onCheckedChange: (checked) =>
+        setCheckbox((prev) =>
+          checked ? [...prev, item.value] : prev.filter((x) => x !== item.value),
+        ),
+    }))
+
+    return (
+      <div>
+        <button {...api.getTriggerProps()}></button>
+        {api.open && createPortal(
+          <div {...api.getPositionerProps()}>
+            <div {...api.getContentProps()} >
+              {radioDataList.map((item) => {
+                return (
+                  <div key={item.value} {...api.getOptionItemProps(item)}>
+                    <span {...api.getItemIndicatorProps(item)}>√</span>
+                    <span {...api.getItemTextProps(item)}>{item.label}</span>
+                  </div>
+                )
+              })}
+              <hr {...api.getSeparatorProps()} />
+              {checkboxDataList.map((item) => {
+                return (
+                  <div key={item.value} {...api.getOptionItemProps(item)}>
+                    <span {...api.getItemIndicatorProps(item)}>√</span>
+                    <span {...api.getItemTextProps(item)}>{item.label}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>,
+          document.body,
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as menu from '@destyler/menu'
+    import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+
+    const data = {
+      radio: [
+        { label: "Ascending", value: "asc" },
+        { label: "Descending", value: "desc" },
+        { label: "None", value: "none" },
+      ],
+      checkbox: [
+        { label: "Email", value: "email" },
+        { label: "Phone", value: "phone" },
+        { label: "Address", value: "address" },
+      ],
+    }
+
+    let radio = $state("")
+    let checkbox = $state<string[]>([])
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(menu.machine({
+      id,
+      'aria-label': 'File',
+    }))
+
+    const api = $derived(menu.connect(state, send, normalizeProps))
+
+    const radioDataList = $derived(
+      data.radio.map((item) => ({
+        type: "radio" as const,
+        name: "order",
+        value: item.value,
+        label: item.label,
+        checked: radio === item.value,
+        onCheckedChange: (checked: boolean) => {
+          radio = checked ? item.value : ""
+        },
+      })),
+    )
+
+    const checkboxDataList = $derived(
+      data.checkbox.map((item) => ({
+        type: "checkbox" as const,
+        name: "type",
+        value: item.value,
+        label: item.label,
+        checked: checkbox.includes(item.value),
+        onCheckedChange: (checked: boolean) => {
+          checkbox = checked ? [...type, item.value] : checkbox.filter((x) => x !== item.value)
+        },
+      })),
+    )
+  </script>
+
+  <div>
+    <button {...api.getTriggerProps()} ></button>
+
+    {#if api.open}
+      <div use:portal>
+        <div {...api.getPositionerProps()}>
+          <div {...api.getContentProps()} >
+            {#each radioDataList as item}
+              <div {...api.getOptionItemProps(item)}>
+                <span {...api.getItemIndicatorProps(item)}>√</span>
+                <span {...api.getItemTextProps(item)}>{item.label}</span>
+              </div>
+            {/each}
+            <hr {...api.getSeparatorProps()} />
+            {#each checkboxDataList as item}
+              <div {...api.getOptionItemProps(item)}>
+                <span {...api.getItemIndicatorProps(item)}>√</span>
+                <span {...api.getItemTextProps(item)}>{item.label}</span>
+              </div>
+            {/each}
+          </div>
+        </div>
+      </div>
+      
+    {/if}
+  </div>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as menu from '@destyler/menu'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, createSignal, For } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  const data = {
+    radio: [
+      { label: "Ascending", value: "asc" },
+      { label: "Descending", value: "desc" },
+      { label: "None", value: "none" },
+    ],
+    checkbox: [
+      { label: "Email", value: "email" },
+      { label: "Phone", value: "phone" },
+      { label: "Address", value: "address" },
+    ],
+  }
+
+  export default function Menu() {
+
+    const [radio, setRadio] = createSignal("")
+    const [checkbox, setCheckbox] = createSignal([])
+
+    const [state, send] = useMachine(menu.machine({
+      'id': createUniqueId(),
+      'aria-label': 'File',
+    }))
+    const api = createMemo(() => menu.connect(state, send, normalizeProps))
+
+    const radioDataList = createMemo(() =>
+      data.radio.map((item) => ({
+        type: "radio",
+        value: item.value,
+        label: item.label,
+        checked: radio() === item.value,
+        onCheckedChange: (checked: boolean) =>
+          setRadio(checked ? item.value : ""),
+      })),
+    )
+
+    const checkboxDataList = createMemo(() =>
+      data.checkbox.map((item) => ({
+        type: "checkbox",
+        value: item.value,
+        label: item.label,
+        checked: checkbox().includes(item.value),
+        onCheckedChange: (checked: boolean) =>
+          setCheckbox((prev) =>
+            checked
+              ? [...prev, item.value]
+              : prev.filter((x) => x !== item.value),
+          ),
+      })),
+    )
+
+    return (
+      <div>
+        <button {...api().getTriggerProps()} ></button>
+        {api().open && (
+          <Portal>
+            <div {...api().getPositionerProps()}>
+              <div {...api().getContentProps()}>
+                <For each={radioDataList()}>
+                  {(item) => (
+                    <div {...api().getOptionItemProps(item)}>
+                      <span {...api().getItemIndicatorProps(item)}>√</span>
+                      <span {...api().getItemTextProps(item)}>
+                        {item.label}
+                      </span>
+                    </div>
+                  )}
+                </For>
+                <hr {...api().getSeparatorProps()} />
+                <For each={checkboxDataList()}>
+                  {(item) => (
+                    <div {...api().getOptionItemProps(item)}>
+                      <span {...api().getItemIndicatorProps(item)}>√</span>
+                      <span {...api().getItemTextProps(item)}>
+                        {item.label}
+                      </span>
+                    </div>
+                  )}
+                </For>
+              </div>
+            </div>
+          </Portal>
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Styling guide
+
+> Earlier, we mentioned that each QR Code part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Open and closed state
+
+When the menu is open or closed, the content and trigger parts will have the `data-state` attribute.
+
+```css
+[data-part="content"][data-state="open|closed"] {
+  /* styles for open or closed state */
+}
+
+[data-part="trigger"][data-state="open|closed"] {
+  /* styles for open or closed state */
+}
+```
+
+### Highlighted item state
+
+When an item is highlighted, via keyboard navigation or pointer, it is given a `data-highlighted` attribute.
+
+```css
+[data-part="item"][data-highlighted] {
+  /* styles for highlighted state */
+}
+
+[data-part="item"][data-type="radio|checkbox"][data-highlighted] {
+  /* styles for highlighted state */
+}
+```
+
+### Disabled item state
+
+When an item or an option item is disabled, it is given a `data-disabled` attribute.
+
+```css
+[data-part="item"][data-disabled] {
+  /* styles for disabled state */
+}
+
+[data-part="item"][data-type="radio|checkbox"][data-disabled] {
+  /* styles for disabled state */
+}
+```
+
+### Using arrows
+
+When using arrows within the menu, you can style it using css variables.
+
+```css
+[data-part="arrow"] {
+  --arrow-size: 20px;
+  --arrow-background: red;
+}
+```
+
+### Checked option item state
+
+When an option item is checked, it is given a `data-state` attribute.
+
+```css
+[data-part="item"][data-type="radio|checkbox"][data-state="checked"] {
+  /* styles for checked state */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The Menu machine exposes the following context properties:
+
+<MachineTable name="menu"></MachineTable>
+
+### Machine API
+
+The menu `api` exposes the following methods:
+
+<APITable name="menu"></APITable>
+
+### Data Attributes
+
+#### Trigger
+
+<StyleTable component="menu" nodeType="trigger" />
+
+#### Indicator
+
+<StyleTable component="menu" nodeType="indicator" />
+
+#### Content
+
+<StyleTable component="menu" nodeType="content" />
+
+#### Item
+
+<StyleTable component="menu" nodeType="item" />
+
+#### Option Item
+
+<StyleTable component="menu" nodeType="optionItem" />
+
+#### Item Indicator
+
+<StyleTable component="menu" nodeType="itemIndicator" />
+
+#### Item Text
+
+<StyleTable component="menu" nodeType="itemText" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="menu"></KeyboardTable>

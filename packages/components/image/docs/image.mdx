@@ -1,0 +1,197 @@
+---
+head:
+  - tag: title
+    content: Image - Destyler UI
+title: Image
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> Support for fallback text or elements when the image fails to load, or when the image is not provided.
+
+<PreviewCode name="image"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Automatic and manual control over when the image renders.',
+  'Fallback part accepts any children.',
+  'Optionally delay fallback rendering to avoid content flashing.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="image" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as image from '@destyler/image'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(image.machine({ id: useId() }))
+
+  const api = computed(() => image.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <img v-bind="api.getImageProps()" >
+      <div v-bind="api.getFallbackProps()" ></div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as image from '@destyler/image'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Image() {
+    const [state, send] = useMachine(image.machine({
+      id: useId(),
+    }))
+
+    const api = image.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <img {...api.getImageProps()}/>
+        <div {...api.getFallbackProps()}></div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as image from '@destyler/image'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(image.machine({ id }))
+
+    const api = $derived(image.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <img {...api.getImageProps()} />
+    <div {...api.getFallbackProps()} ></div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as image from '@destyler/image'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Image() {
+    const [state, send] = useMachine(image.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => image.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <img {...api().getImageProps()}/>
+        <div {...api().getFallbackProps()} ></div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Listening for loading status changes
+
+When the image has loaded or failed to load, the `onStatusChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  avatar.machine({
+    onStatusChange(details) {
+      // details => { status: "error" | "loaded" }
+    },
+  }),
+)
+```
+
+## Styling guide
+
+Earlier, we mentioned that each avatar part has a `data-part` attribute added to 
+them to select and style them in the DOM.
+
+```css
+[data-scope="avatar"][data-part="root"] {
+  /* Styles for the root part */
+}
+
+[data-scope="avatar"][data-part="image"] {
+  /* Styles for the image part */
+}
+
+[data-scope="avatar"][data-part="fallback"] {
+  /* Styles for the fallback part */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The image machine exposes the following context properties:
+
+<MachineTable name="image"></MachineTable>
+
+### Machine API
+
+The image `api` exposes the following methods:
+
+<APITable name="image"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="image" nodeType="root" />
+
+#### Image
+
+<StyleTable component="image" nodeType="image" />
+
+#### Fallback
+
+<StyleTable component="image" nodeType="fallback" />

@@ -1,0 +1,357 @@
+---
+head:
+  - tag: title
+    content: QR Code - Destyler UI
+title: QR Code
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> A QR (Quick Response) Code is used to provide information or link which can be accessed by 
+> scanning the code with an app or a smartphone.
+
+<PreviewCode name="qr-code"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Renders an SVG element (good for SSR)',
+  'Customize the size of the QR code in pixels',
+  'Set the error correction level',
+  'Customize the background and foreground color',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="qr-code" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+    import * as qrCode from "@destyler/qr-code"
+    import { normalizeProps, useMachine } from "@destyler/vue"
+    import { useId } from 'vue'
+
+    const [state, send] = useMachine(
+      qrCode.machine({
+        id: useId(),
+        value: "https://github.com/destyler",
+      }),
+    )
+
+    const api = computed(() => qrCode.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <svg v-bind="api.getFrameProps()">
+        <path v-bind="api.getPatternProps()" />
+      </svg>
+      <div v-bind="api.getOverlayProps()">
+        <img
+          src="https://github.com/destyler.png"
+          alt=""
+        />
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as qrCode from "@destyler/qr-code"
+  import { useMachine, normalizeProps } from "@destyler/react"
+  import { useId } from "react"
+
+  export function QRCode() {
+    const [state, send] = useMachine(
+      qrCode.machine({
+        id: useId(),
+        value: "https://github.com/destyler",
+      }),
+    )
+
+    const api = qrCode.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <svg {...api.getFrameProps()}>
+          <path {...api.getPatternProps()} />
+        </svg>
+        <div {...api.getOverlayProps()}>
+          <img
+            src="https://github.com/destyler.png"
+            alt=""
+          />
+        </div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as qrCode from "@destyler/qr-code"
+    import { normalizeProps, useMachine } from "@destyler/svelte"
+    import { qrCodeControls } from '@destyler/shared'
+
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(
+      qrCode.machine({
+        id
+      }),
+    )
+
+    const api = $derived(qrCode.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <svg {...api.getFrameProps()}>
+      <path {...api.getPatternProps()} />
+    </svg>
+    <div {...api.getOverlayProps()}>
+      <img
+        src="https://github.com/destyler.png"
+        alt=""
+      />
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as qrCode from '@destyler/qr-code'
+  import { qrCodeControls } from '@destyler/shared'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function QrCode() {
+    const controls = useControls(qrCodeControls)
+    const id = createUniqueId()
+
+    const [state, send] = useMachine(
+      qrCode.machine({
+        id,
+      }),
+    )
+
+    const api = createMemo(() => qrCode.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()} >
+          <svg {...api().getFrameProps()} >
+            <path {...api().getPatternProps()} />
+          </svg>
+          <div {...api().getOverlayProps()} >
+            <img
+              src="https://github.com/destyler.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the QR Code value
+
+To set the value of the QR code, pass the `value` property to the machine.
+
+```ts
+const [state, send] = useMachine(
+  qrCode.machine({
+    value: "https://example.com",
+  }),
+)
+```
+
+## Setting the correction level
+
+Error correction allows for the QR code to be blocked or resized while still recognizable. 
+In some cases where the link is too long or the logo overlay covers a significant area, 
+the error correction level can be increased.
+
+The QR Code accepts the following error correction levels:
+
+- `L`: Allows recovery of up to 7% data loss (default)
+- `M`: Allows recovery of up to 15% data loss
+- `Q`: Allows recovery of up to 25% data loss
+- `H`: Allows recovery of up to 30% data loss
+
+To set the error correction level, pass the `encoding.ecc` or `encoding.boostEcc` context property.
+
+```ts
+const [state, send] = useMachine(
+  qrCode.machine({
+    encoding: { ecc: "H" },
+  }),
+)
+```
+
+:::note
+The alternative is to enlarge the QR Code by increasing the size of the `svg` element.
+:::
+
+## Add an overlay logo
+
+To add a logo overlay to the QR code, render the image part. 
+The logo will be automatically centered within the QR code.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+  ```diff lang="vue"
+  <!-- ... -->
+  <template>
+    <div v-bind="api.getRootProps()">
+      <svg v-bind="api.getFrameProps()">
+        <path v-bind="api.getPatternProps()" />
+      </svg>
++      <div v-bind="api.getOverlayProps()">
++        <img src="..." alt="..." />
++      </div>
+    </div>
+  </template>
+  ```
+  </div>
+
+  <div slot='react'>
+  ```diff lang="tsx"
+  // ...
+  export function QRCode() {
+    return (
+      <div {...api.getRootProps()}>
+        <svg {...api.getFrameProps()}>
+          <path {...api.getPatternProps()} />
+        </svg>
++        <div {...api.getOverlayProps()}>
++          <img src="..." alt="..." />
++        </div>
+      </div>
+    )
+  }
+  ```
+  </div>
+
+  <div slot='svelte'>
+  ```diff lang="svelte"
+  // ...
+  <div {...api.getRootProps()}>
+    <svg {...api.getFrameProps()}>
+      <path {...api.getPatternProps()} />
+    </svg>
++    <div {...api.getOverlayProps()}>
++      <img src="..." alt="..." />
++    </div>
+  </div>
+  ```
+  </div>
+
+  <div slot='solid'>
+  ```diff lang="tsx"
+  // ...
+  export default function QrCode() {
+    return (
+      <>
+        <div {...api().getRootProps()} >
+          <svg {...api().getFrameProps()} >
+            <path {...api().getPatternProps()} />
+          </svg>
++          <div {...api().getOverlayProps()} >
++            <img src="..." alt="..." />
++          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+  </div>
+
+</FrameworkLayout>
+
+## Change the color
+
+To change the color of the QR Code, set the `fill` attribute on the `path` part.
+
+```css
+[data-scope="qr-code"][data-part="pattern"] {
+  fill: green;
+}
+```
+
+To change the background color of the QR code, set the `background-color` 
+
+```css
+[data-scope="qr-code"][data-part="frame"] {
+  background-color: white;
+}
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each QR Code part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-scope="qr-code"][data-part="root"] {
+  /* Styles for the root part */
+}
+
+[data-scope="qr-code"][data-part="frame"] {
+  /* Styles for the svg part */
+}
+
+[data-scope="qr-code"][data-part="pattern"] {
+  /* Styles for the path */
+}
+
+[data-scope="qr-code"][data-part="overlay"] {
+  /* Styles for the logo */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The QR Code machine exposes the following context properties:
+
+<MachineTable name="qr-code"></MachineTable>
+
+### Machine API
+
+The QR Code `api` exposes the following methods:
+
+<APITable name="qr-code"></APITable>

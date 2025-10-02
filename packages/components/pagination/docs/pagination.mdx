@@ -1,0 +1,275 @@
+---
+head:
+  - tag: title
+    content: Pagination - Destyler UI
+title: Pagination
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> Pagination is an interface that allows navigating between pages that contain split information, 
+> instead of being shown on a single page.
+
+<PreviewCode name="pagination"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Full keyboard navigation.',
+  'Optimized for screen readers.'
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="pagination" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as pagination from '@destyler/pagination'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(pagination.machine({ 
+    id: useId(), 
+    count: 1000 
+  }))
+
+  const api = computed(() => pagination.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <nav v-bind="api.getRootProps()">
+      <ul>
+        <li>
+          <a v-bind="api.getPrevTriggerProps()"></a>
+        </li>
+        <li v-for="(page, i) in api.pages" :key="page.type === 'page' ? page.value : `ellipsis-${i}`">
+          <span v-if="page.type === 'page'">
+            <a v-bind="api.getItemProps(page)" ></a>
+          </span>
+          <span v-else>
+            <span v-bind="api.getEllipsisProps({ index: i })" ></span>
+          </span>
+        </li>
+        <li>
+          <a v-bind="api.getNextTriggerProps()"></a>
+        </li>
+      </ul>
+    </nav>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as pagination from '@destyler/pagination'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Pagination() {
+    const [state, send] = useMachine(pagination.machine({
+      id: useId(),
+      count: 1000, 
+    }))
+
+    const api = pagination.connect(state, send, normalizeProps)
+
+    return (
+      <nav {...api.getRootProps()}>
+        <ul>
+          <li>
+            <a {...api.getPrevTriggerProps()}></a>
+          </li>
+          {api.pages.map((page, i) => (
+            <li key={page.type === 'page' ? page.value : `ellipsis-${i}`}>
+              {page.type === 'page'
+              ? (
+                <a {...api.getItemProps(page)}></a>
+              )
+              : (
+                <span {...api.getEllipsisProps({ index: i })}></span>
+              )}
+            </li>
+          ))}
+          <li>
+            <a {...api.getNextTriggerProps()}></a>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as pagination from '@destyler/pagination'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(pagination.machine({ id, count: 1000 }))
+
+    const api = $derived(pagination.connect(state, send, normalizeProps))
+  </script>
+
+  <nav {...api.getRootProps()}>
+    <ul>
+      <li>
+        <a {...api.getPrevTriggerProps()}></a>
+      </li>
+      {#each api.pages as page, i}
+        <li>
+          {#if page.type === 'page'}
+            <a {...api.getItemProps(page)}></a>
+          {:else}
+            <span {...api.getEllipsisProps({ index: i })}></span>
+          {/if}
+        </li>
+      {/each}
+      <li>
+        <a {...api.getNextTriggerProps()}></a>
+      </li>
+    </ul>
+  </nav>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as pagination from '@destyler/pagination'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Pagination() {
+    const [state, send] = useMachine(pagination.machine({
+      id: createUniqueId(),
+      count: 1000,
+    }))
+
+    const api = createMemo(() => pagination.connect(state, send, normalizeProps))
+
+    return (
+      <nav {...api().getRootProps()}>
+        <ul>
+          <li>
+            <a {...api().getPrevTriggerProps()}></a>
+          </li>
+          {api().pages.map((page, i) => (
+            <li>
+              {page.type === 'page'
+                ? (
+                    <a {...api().getItemProps(page)}></a>
+                  )
+                : (
+                    <span {...api().getEllipsisProps({ index: i })}></span>
+                  )}
+            </li>
+          ))}
+          <li>
+            <a {...api().getNextTriggerProps()}></a>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Styling Guide
+
+> Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-part="root"] {
+  /* styles for the pagination's root */
+}
+
+[data-part="item"] {
+  /* styles for the pagination's items */
+}
+
+[data-part="ellipsis"] {
+  /* styles for the pagination's ellipsis */
+}
+
+[data-part="prev-trigger"] {
+  /* styles for the pagination's previous page trigger */
+}
+
+[data-part="next-trigger"] {
+  /* styles for the pagination's next page trigger */
+}
+
+/* We add a data-disabled attribute to the prev/next items when on the first/last page  */
+
+[data-part="prev-trigger"][data-disabled] {
+  /* styles for the pagination's previous page trigger when on first page */
+}
+
+[data-part="next-trigger"][data-disabled] {
+  /* styles for the pagination's next page trigger when on first page */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The pagination machine exposes the following context properties:
+
+<MachineTable name="pagination"></MachineTable>
+
+### Machine API
+
+The pagination `api` exposes the following methods:
+
+<APITable name="pagination"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="pagination" nodeType="root" />
+
+#### Item
+
+<StyleTable component="pagination" nodeType="item" />
+
+#### Ellipsis
+
+<StyleTable component="pagination" nodeType="ellipsis" />
+
+#### Prev Trigger
+
+<StyleTable component="pagination" nodeType="prevTrigger" />
+
+#### Next Trigger
+
+<StyleTable component="pagination" nodeType="nextTrigger" />

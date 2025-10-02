@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { onMount } from 'svelte'
   import CheckboxExample from '../../snippets/checkbox/Checkbox.svelte'
   import CollapseExample from '../../snippets/collapse/Collapse.svelte'
@@ -100,4 +100,4 @@
     </div>
   </div>
 </div>
-{/if}
+{/if} -->

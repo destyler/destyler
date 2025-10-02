@@ -1,0 +1,545 @@
+---
+head:
+  - tag: title
+    content: Color Picker - Destyler UI
+title: Color Picker
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> The color picker is an input widget used to select a color value from a predefined list or a color area.
+>
+> This component builds on top of the native `<input type=color>` experience and provides a 
+> more customizable and consistent user experience.
+
+<PreviewCode name="color-picker"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for custom color area',
+  'Support for RGBA, HSLA, HEX, and HSBA formats',
+  'Support for channel inputs and sliders',
+  'Support for mouse, touch, and keyboard interactions',
+  'Support for form submission and reset events',
+  'Support for named css colors',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="color-picker" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as colorPicker from '@destyler/color-picker'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(colorPicker.machine({
+    id: useId(),
+    value: colorPicker.parse('hsl(240,5.9%,10%)'),
+  }))
+
+  const api = computed(() => colorPicker.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <input v-bind="api.getHiddenInputProps()">
+      <div v-bind="api.getControlProps()">
+        <button v-bind="api.getTriggerProps()" >
+          <div v-bind="api.getTransparencyGridProps({ size: '8px' })" />
+          <div v-bind="api.getSwatchProps({ value: api.value })" />
+        </button>
+        <input v-bind="api.getChannelInputProps({ channel: 'hex' })">
+        <input v-bind="api.getChannelInputProps({ channel: 'alpha' })">
+      </div>
+
+      <Teleport v-if="api.open" to="body">
+        <div v-bind="api.getPositionerProps()" >
+          <div v-bind="api.getContentProps()" >
+            <div v-bind="api.getAreaProps()" >
+              <div v-bind="api.getAreaBackgroundProps()" />
+              <div v-bind="api.getAreaThumbProps()" />
+            </div>
+
+            <div v-bind="api.getChannelSliderProps({ channel: 'hue' })" >
+              <div v-bind="api.getChannelSliderTrackProps({ channel: 'hue' })" />
+              <div v-bind="api.getChannelSliderThumbProps({ channel: 'hue' })" />
+            </div>
+
+            <div v-bind="api.getChannelSliderProps({ channel: 'alpha' })" >
+              <div v-bind="api.getTransparencyGridProps({ size: '8px' })" />
+              <div v-bind="api.getChannelSliderTrackProps({ channel: 'alpha' })" />
+              <div v-bind="api.getChannelSliderThumbProps({ channel: 'alpha' })" />
+            </div>
+          </div>
+        </div>
+      </Teleport>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as colorPicker from '@destyler/color-picker'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+  import { createPortal } from 'react-dom'
+
+  export default function ColorPicker() {
+    const id = useId()
+    const [state, send] = useMachine(colorPicker.machine({
+      id,
+      value: colorPicker.parse('hsl(240,5.9%,10%)'),
+    }))
+
+    const api = colorPicker.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()} >
+        <input {...api.getHiddenInputProps()} />
+        <div {...api.getControlProps()} >
+          <button {...api.getTriggerProps()}>
+            <div {...api.getTransparencyGridProps({ size: '8px' })} />
+            <div {...api.getSwatchProps({ value: api.value })} />
+          </button>
+          <input {...api.getChannelInputProps({ channel: 'hex' })}/>
+          <input {...api.getChannelInputProps({ channel: 'alpha' })}/>
+        </div>
+
+        {api.open && createPortal(
+          <div {...api.getPositionerProps()} >
+            <div {...api.getContentProps()} >
+              <div {...api.getAreaProps()} >
+                <div {...api.getAreaBackgroundProps()} />
+                <div {...api.getAreaThumbProps()} />
+              </div>
+
+              <div {...api.getChannelSliderProps({ channel: 'hue' })} >
+                <div {...api.getChannelSliderTrackProps({ channel: 'hue' })} />
+                <div {...api.getChannelSliderThumbProps({ channel: 'hue' })} />
+              </div>
+
+              <div {...api.getChannelSliderProps({ channel: 'alpha' })} >
+                <div {...api.getTransparencyGridProps({ size: '8px' })} />
+                <div {...api.getChannelSliderTrackProps({ channel: 'alpha' })} />
+                <div {...api.getChannelSliderThumbProps({ channel: 'alpha' })} />
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as colorPicker from '@destyler/color-picker'
+    import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(colorPicker.machine({
+      id,
+      value: colorPicker.parse('hsl(240,5.9%,10%)'),
+    }))
+
+    const api = $derived(colorPicker.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <input {...api.getHiddenInputProps()}>
+    <div {...api.getControlProps()}>
+      <button {...api.getTriggerProps()}>
+        <div {...api.getTransparencyGridProps({ size: '8px' })} ></div>
+        <div {...api.getSwatchProps({ value: api.value })} ></div>
+      </button>
+      <input {...api.getChannelInputProps({ channel: 'hex' })}>
+      <input {...api.getChannelInputProps({ channel: 'alpha' })}>
+    </div>
+
+    {#if api.open}
+      <div use:portal>
+        <div {...api.getPositionerProps()}>
+          <div {...api.getContentProps()} >
+            <div {...api.getAreaProps()} >
+              <div {...api.getAreaBackgroundProps()} ></div>
+              <div {...api.getAreaThumbProps()} ></div>
+            </div>
+    
+            <div {...api.getChannelSliderProps({ channel: 'hue' })} >
+              <div {...api.getChannelSliderTrackProps({ channel: 'hue' })} ></div>
+              <div {...api.getChannelSliderThumbProps({ channel: 'hue' })} ></div>
+            </div>
+    
+            <div {...api.getChannelSliderProps({ channel: 'alpha' })} >
+              <div {...api.getTransparencyGridProps({ size: '8px' })} ></div>
+              <div {...api.getChannelSliderTrackProps({ channel: 'alpha' })} ></div>
+              <div {...api.getChannelSliderThumbProps({ channel: 'alpha' })} ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as colorPicker from '@destyler/color-picker'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function ColorPicker() {
+    const [state, send] = useMachine(colorPicker.machine({
+      id: createUniqueId(),
+      value: colorPicker.parse('hsl(240,5.9%,10%)'),
+    }))
+
+    const api = createMemo(() => colorPicker.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <input {...api().getHiddenInputProps()} />
+        <div {...api().getControlProps()} >
+          <button {...api().getTriggerProps()}>
+            <div {...api().getTransparencyGridProps({ size: '8px' })} />
+            <div {...api().getSwatchProps({ value: api().value })} />
+          </button>
+          <input {...api().getChannelInputProps({ channel: 'hex' })}/>
+          <input {...api().getChannelInputProps({ channel: 'alpha' })}/>
+        </div>
+
+        {api().open && (
+          <Portal mount={document.body}>
+            <div {...api().getPositionerProps()} >
+              <div {...api().getContentProps()} >
+                <div {...api().getAreaProps()} >
+                  <div {...api().getAreaBackgroundProps()} />
+                  <div {...api().getAreaThumbProps()} />
+                </div>
+
+                <div {...api().getChannelSliderProps({ channel: 'hue' })} >
+                  <div {...api().getChannelSliderTrackProps({ channel: 'hue' })} />
+                  <div {...api().getChannelSliderThumbProps({ channel: 'hue' })} />
+                </div>
+
+                <div {...api().getChannelSliderProps({ channel: 'alpha' })}>
+                  <div {...api().getTransparencyGridProps({ size: '8px' })} />
+                  <div {...api().getChannelSliderTrackProps({ channel: 'alpha' })} />
+                  <div {...api().getChannelSliderThumbProps({ channel: 'alpha' })} />
+                </div>
+              </div>
+            </div>
+          </Portal>
+
+        )}
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial value
+
+To set the initial value of the color picker, use the `value` context property.
+
+```ts
+const [current, send] = useMachine(
+  colorPicker.machine({
+    value: colorPicker.parse("#ff0000"),
+  }),
+)
+```
+
+## Listening for change events
+
+When the user selects a color using the color picker, 
+the `onValueChange` and `onValueChangeEnd` events will be fired.
+
+- `onValueChange` — Fires in sync as the user selects a color
+
+- `onValueChangeEnd` — Fires when the user stops selecting a color (useful for debounced updates)
+
+```ts
+const [current, send] = useMachine(
+  colorPicker.machine({
+    onValueChange: (details) => {
+      // details => { value: Color, valueAsString: string }
+    },
+    onValueChangeEnd: (details) => {
+      // details => { value: Color, valueAsString: string }
+    },
+  }),
+)
+```
+
+:::note
+When using the `onValueChange` method in React.js, 
+you might need to use the `flushSync` method from `react-dom` to ensure the value is updated in sync
+:::
+
+## Using a custom color format
+`
+By default, the color picker's output format is rgba. 
+You can change this format to either `hsla` or `hsba` by using the `format` context property.
+
+When this property is set, 
+the `value` and `valueAsString` properties of the `onValueChange` event will be updated to reflect the new format.
+
+```ts
+const [current, send] = useMachine(
+  colorPicker.machine({
+    format: "hsla",
+    onValueChange: (details) => {
+      // details => { value: HSLAColor, valueAsString: string }
+    },
+  }),
+)
+```
+
+## Disabling the color picker
+
+To disable user interactions with the color picker, set the `disabled` context property to `true`.
+
+```ts
+const [current, send] = useMachine(
+  colorPicker.machine({
+    disabled: true,
+  }),
+)
+```
+
+## Controlling the open and closed state
+
+To control the open and closed state of the color picker, 
+use the `open` and `onOpenChange` context properties.
+
+```ts
+const [current, send] = useMachine(
+  colorPicker.machine({
+    open: true,
+    onOpenChange: (details) => {
+      // details => { open: boolean }
+    },
+  }),
+)
+```
+
+You can also leverage the `api.setOpen(...)` method to control the 
+open and closed state of the color picker.
+
+## Usage within forms
+
+To use the color picker within a form, add the `name` context property to the machine and render 
+the visually hidden input using the `hiddenInputProps`.
+
+```ts
+const [state, send] = useMachine(
+  colorPicker.machine({
+    name: "color-preference",
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Open and closed state
+
+When a color picker is expanded or collapsed, a `data-state` attribute is set on the root, 
+trigger and content elements. This attribute is removed when it is closed.
+
+```css
+[data-part="control"][data-state="open"] {
+  /* styles for control open or state */
+}
+
+[data-part="trigger"][data-state="open"] {
+  /* styles for control open or state */
+}
+
+[data-part="content"][data-state="open"] {
+  /* styles for control open or state */
+}
+```
+
+## Focused State
+
+When the color picker is focused, the `data-focus` attribute is added to the control and label parts.
+
+```css
+[data-part="control"][data-focus] {
+  /* styles for control focus state */
+}
+
+[data-part="label"][data-focus] {
+  /* styles for label focus state */
+}
+```
+
+## Disabled State
+
+When the color picker is disabled, 
+the `data-disabled` attribute is added to the label, control, trigger and option parts.
+
+```css
+[data-part="label"][data-disabled] {
+  /* styles for label disabled state */
+}
+
+[data-part="control"][data-disabled] {
+  /* styles for control disabled state */
+}
+
+[data-part="trigger"][data-disabled] {
+  /* styles for trigger disabled state */
+}
+
+[data-part="swatch-trigger"][data-disabled] {
+  /* styles for item disabled state */
+}
+```
+
+## Swatch State
+
+When a swatch's color value matches the color picker's value, 
+the `data-state=checked` attribute is added to the swatch part.
+
+```css
+[data-part="swatch-trigger"][data-state="checked|unchecked"] {
+  /* styles for swatch's checked state */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The color picker machine exposes the following context properties:
+
+<MachineTable name="color-picker"></MachineTable>
+
+### Machine API
+
+The color picker `api` exposes the following methods:
+
+<APITable name="color-picker"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="color-picker" nodeType="root" />
+
+#### Label
+
+<StyleTable component="color-picker" nodeType="label" />
+
+#### Control
+
+<StyleTable component="color-picker" nodeType="control" />
+
+#### Trigger
+
+<StyleTable component="color-picker" nodeType="trigger" />
+
+#### Content
+
+<StyleTable component="color-picker" nodeType="content" />
+
+#### ValueText
+
+<StyleTable component="color-picker" nodeType="value-text" />
+
+#### Area
+
+<StyleTable component="color-picker" nodeType="area" />
+
+#### AreaBackground
+
+<StyleTable component="color-picker" nodeType="area-background" />
+
+#### AreaThumb
+
+<StyleTable component="color-picker" nodeType="area-thumb" />
+
+#### ChannelSlider
+
+<StyleTable component="color-picker" nodeType="channel-slider" />
+
+#### ChannelSliderTrack
+
+<StyleTable component="color-picker" nodeType="channel-slider-track" />
+
+#### ChannelSliderLabel
+
+<StyleTable component="color-picker" nodeType="channel-slider-label" />
+
+#### ChannelSliderValueText
+
+<StyleTable component="color-picker" nodeType="channel-slider-value-text" />
+
+#### ChannelSliderThumb
+
+<StyleTable component="color-picker" nodeType="channel-slider-thumb" />
+
+#### ChannelInput
+
+<StyleTable component="color-picker" nodeType="channel-input" />
+
+#### EyeDropperTrigger
+
+<StyleTable component="color-picker" nodeType="eye-dropper-trigger" />
+
+#### SwatchTrigger
+
+<StyleTable component="color-picker" nodeType="swatch-trigger" />
+
+#### Swatch
+
+<StyleTable component="color-picker" nodeType="swatch" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="color-picker"></KeyboardTable>
+

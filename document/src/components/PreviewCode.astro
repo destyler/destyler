@@ -27,7 +27,7 @@ const sanitize = (code: string) => {
   return code
     // 去掉 solid-js jsxImportSource 注释
     .replace(/\/\*+\s*@jsxImportSource\s+solid-js\s*\*+\//g, '')
-    // 去掉样式引入 ../../styles/components/*.css
+    // 去掉样式引入 @docs/styles/components/*.css
     .replace(/import\s+['\"]\.\.\/\.\.\/styles\/components\/[A-Za-z0-9_-]+\.css['\"];?\n?/g, '')
     // 删除开头空行
     .replace(/^(\s*\n)+/, '')
@@ -36,7 +36,7 @@ const sanitize = (code: string) => {
 }
 
 // 预先静态收集 snippets 下所有相关文件（包括根级主文件）
-const allSnippets = import.meta.glob('../snippets/**/*', { query: '?raw', import: 'default' })
+const allSnippets = import.meta.glob('@component-docs/*/docs/snippets/**/*', { query: '?raw', import: 'default' })
 
 const loadFrameworkFile = async (framework: string) => {
   const allFiles: Record<string, () => Promise<any>> = allSnippets

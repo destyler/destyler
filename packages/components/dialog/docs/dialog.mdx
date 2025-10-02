@@ -1,0 +1,436 @@
+---
+head:
+  - tag: title
+    content: Dialog - Destyler UI
+title: Dialog
+---
+
+import Features from '/components/Features.astro'
+import PreviewCode from '/components/PreviewCode.astro'
+import FrameworkLayout from '/components/FrameworkLayout.astro'
+import InstallShell from '/components/InstallShell.astro'
+
+> A dialog is a window overlaid on either the primary window or another dialog window. 
+> Content behind a modal dialog is inert, meaning that users cannot interact with it.
+
+<PreviewCode name="dialog"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Supports modal and non-modal modes.',
+  'Focus is trapped and scrolling is blocked in the modal mode.',
+  'Provides screen reader announcements via rendered title and description.',
+  'Pressing `Esc` closes the dialog.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="dialog" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as dialog from '@destyler/dialog'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(dialog.machine({
+    id: useId(),
+  }))
+  const api = computed(() => dialog.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <div v-bind="api.getBackdropProps()" />
+    <div v-bind="api.getPositionerProps()">
+      <div v-bind="api.getContentProps()">
+        <h2 v-bind="api.getTitleProps()"></h2>
+        <p v-bind="api.getDescriptionProps()"></p>
+        <button v-bind="api.getCloseTriggerProps()"></button>
+      </div>
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as dialog from '@destyler/dialog'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Dialog() {
+    const [state, send] = useMachine(dialog.machine({
+      id: useId(),
+    }))
+
+    const api = dialog.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()}></button>
+        <div {...api.getBackdropProps()}/>
+        <div {...api.getPositionerProps()}>
+          <div {...api.getContentProps()}>
+            <h2 {...api.getTitleProps()}></h2>
+            <p {...api.getDescriptionProps()}></p>
+            <button {...api.getCloseTriggerProps()}></button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as dialog from '@destyler/dialog'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(dialog.machine({ id }))
+
+    const api = $derived(dialog.connect(state, send, normalizeProps))
+  </script>
+
+  <button {...api.getTriggerProps()}></button>
+  <div {...api.getBackdropProps()}></div>
+  <div {...api.getPositionerProps()}>
+    <div {...api.getContentProps()}>
+      <h2 {...api.getTitleProps()}></h2>
+      <p {...api.getDescriptionProps()}></p>
+      <button {...api.getCloseTriggerProps()}></button>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as dialog from '@destyler/dialog'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Dialog() {
+    const [state, send] = useMachine(dialog.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => dialog.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+        <div {...api().getBackdropProps()}/>
+        <div {...api().getPositionerProps()}>
+          <div {...api().getContentProps()}>
+            <h2 {...api().getTitleProps()}></h2>
+            <p {...api().getDescriptionProps()}></p>
+            <button {...api().getCloseTriggerProps()}></button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Managing focus within the dialog
+
+When the dialog opens, it automatically sets focus on the first focusable elements and traps focus within it, 
+so that tabbing is constrained to it.
+
+To control the element that should receive focus on open, pass the `initialFocusEl` context 
+(which can be an element or a function that returns an element)
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as dialog from '@destyler/dialog'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId , ref } from 'vue'
+
+  const inputRef = ref(null)
+
+  const [state, send] = useMachine(dialog.machine({
+    id: useId(),
+    initialFocusEl: () => inputRef.value,
+  }))
+  const api = computed(() => dialog.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <input ref="inputRef" />
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as dialog from '@destyler/dialog'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useRef } from 'react'
+
+  export default function Dialog() {
+    const [state, send] = useMachine(dialog.machine({
+      id: useId(),
+      initialFocusEl: () => inputRef.current,
+    }))
+
+    const api = dialog.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <input ref={inputRef} />
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as dialog from '@destyler/dialog'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    let inputRef: HTMLInputElement | null = null
+
+    const [state, send] = useMachine(dialog.machine({ 
+      id
+      initialFocusEl: () => inputRef,
+    }))
+
+    const api = $derived(dialog.connect(state, send, normalizeProps))
+  </script>
+
+  <input bind:this={inputRef} />
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as dialog from '@destyler/dialog'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, createSignal } from 'solid-js'
+
+  const [inputEl, setInputEl] = createSignal()
+
+  export default function Dialog() {
+    const [state, send] = useMachine(dialog.machine({
+      id: createUniqueId(),
+      initialFocusEl: inputEl,
+    }))
+
+    const api = createMemo(() => dialog.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <input ref={setInputEl} />
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+To set the element that receives focus when the dialog closes, 
+pass the `finalFocusEl` in the similar fashion as shown above.
+
+## Closing the dialog on interaction outside
+
+By default, the dialog closes when you click its overlay. 
+You can set `closeOnInteractOutside` to `false` if you want the modal to stay visible.
+
+```ts
+const [state, send] = useMachine(
+  dialog.machine({
+    closeOnInteractOutside: false,
+  }),
+)
+```
+
+You can also customize the behavior by passing a function to the `onInteractOutside` context and calling `event.preventDefault()`
+
+```ts
+const [state, send] = useMachine(
+  dialog.machine({
+    onInteractOutside(event) {
+      const target = event.target
+      if (target?.closest("<selector>")) {
+        return event.preventDefault()
+      }
+    },
+  }),
+)
+```
+
+## Listening for open state changes
+
+```ts
+const [state, send] = useMachine(
+  dialog.machine({
+    onOpenChange(details) {
+      // details => { open: boolean }
+      console.log("open:", details.open)
+    },
+  }),
+)
+```
+
+## Controlling the scroll behavior
+
+When the dialog is open, it prevents scrolling on the `body` element. 
+To disable this behavior, set the `preventScroll` context to `false`.
+
+```ts
+const [state, send] = useMachine(
+  dialog.machine({
+    preventScroll: false,
+  }),
+)
+```
+
+## Creating an alert dialog
+
+The dialog has support for dialog and alert dialog roles. It's set to `dialog` by default. 
+To change it's role, pass the `role: alertdialog` property to the machine's context.
+
+That's it! Now you have an alert dialog.
+
+```ts
+const [state, send] = useMachine(
+  dialog.machine({
+    role: "alertdialog",
+  }),
+)
+```
+
+:::note
+By definition, an alert dialog will contain two or more action buttons. 
+We recommended setting focus to the least destructive action via `initialFocusEl`
+:::
+
+## Styling guide
+
+Earlier, we mentioned that each accordion part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-part="trigger"] {
+  /* styles for the trigger element */
+}
+
+[data-part="backdrop"] {
+  /* styles for the backdrop element */
+}
+
+[data-part="positioner"] {
+  /* styles for the positioner element */
+}
+
+[data-part="content"] {
+  /* styles for the content element */
+}
+
+[data-part="title"] {
+  /* styles for the title element */
+}
+
+[data-part="description"] {
+  /* styles for the description element */
+}
+
+[data-part="close-trigger"] {
+  /* styles for the close trigger element */
+}
+```
+
+### Open and closed state
+
+The dialog has two states: `open` and `closed`. 
+You can use the `data-state` attribute to style the dialog or trigger based on its state.
+
+```css
+[data-part="content"][data-state="open"] {
+  /* styles for the open state */
+}
+
+[data-part="trigger"][data-state="open"] {
+  /* styles for the open state */
+}
+```
+
+import MachineTable from '/components/props/Machine.astro'
+import APITable from '/components/props/Api.astro'
+import StyleTable from '/components/props/Style.astro'
+import KeyboardTable from '/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The dialog machine exposes the following context properties:
+
+<MachineTable name="dialog"></MachineTable>
+
+### Machine API
+
+The dialog `api` exposes the following methods:
+
+<APITable name="dialog"></APITable>
+
+### Data Attributes
+
+#### Trigger
+
+<StyleTable component="dialog" nodeType="trigger" />
+
+#### Backdrop
+
+<StyleTable component="dialog" nodeType="backdrop" />
+
+#### Content
+
+<StyleTable component="dialog" nodeType="content" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="dialog"></KeyboardTable>
