@@ -1,7 +1,7 @@
-import type {Loader} from 'astro/loaders';
+import type { Loader } from 'astro/loaders'
 import { docsLoader } from '@astrojs/starlight/loaders'
 import { docsSchema } from '@astrojs/starlight/schema'
-import { glob  } from 'astro/loaders'
+import { glob } from 'astro/loaders'
 import { defineCollection } from 'astro:content'
 
 const packageComponentsDocs = glob({
@@ -20,7 +20,7 @@ function mergeLoaders(...loaders: Loader[]): Loader {
     name: 'destyler-merged-docs-loader',
     async load(context) {
       const results = await Promise.all(loaders.map(loader => loader.load(context)))
-      return results.flat()
+      return results
     },
   }
 }
