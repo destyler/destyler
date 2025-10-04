@@ -2,7 +2,7 @@
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import '../../style.css'
+import '../style.css'
 
 const [state, send] = useMachine(aspectRatio.machine({
   id: useId(),

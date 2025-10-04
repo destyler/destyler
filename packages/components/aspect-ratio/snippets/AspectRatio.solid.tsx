@@ -2,7 +2,7 @@
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import '@docs/styles/components/aspect-radio.css'
+import '../style.css'
 
 function AspectRatio() {
   const [state, send] = useMachine(aspectRatio.machine({
