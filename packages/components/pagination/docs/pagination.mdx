@@ -5,12 +5,12 @@ head:
 title: Pagination
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> Pagination is an interface that allows navigating between pages that contain split information, 
+> Pagination is an interface that allows navigating between pages that contain split information,
 > instead of being shown on a single page.
 
 <PreviewCode name="pagination"></PreviewCode>
@@ -43,9 +43,9 @@ Import all parts and piece them together.
   import { normalizeProps, useMachine } from '@destyler/vue'
   import { computed, useId } from 'vue'
 
-  const [state, send] = useMachine(pagination.machine({ 
-    id: useId(), 
-    count: 1000 
+  const [state, send] = useMachine(pagination.machine({
+    id: useId(),
+    count: 1000
   }))
 
   const api = computed(() => pagination.connect(state.value, send, normalizeProps))
@@ -84,7 +84,7 @@ Import all parts and piece them together.
   export default function Pagination() {
     const [state, send] = useMachine(pagination.machine({
       id: useId(),
-      count: 1000, 
+      count: 1000,
     }))
 
     const api = pagination.connect(state, send, normalizeProps)
@@ -233,10 +233,10 @@ Import all parts and piece them together.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

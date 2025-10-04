@@ -5,12 +5,12 @@ head:
 title: Combobox
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> A combobox is an input widget with an associated popup that enables 
+> A combobox is an input widget with an associated popup that enables
 > users to select a value from a collection of possible values.
 
 <PreviewCode name="combobox"></PreviewCode>
@@ -62,7 +62,7 @@ Import all parts and piece them together.
         <input v-bind="api.getInputProps()">
         <button v-bind="api.getTriggerProps()" />
       </div>
-      
+
       <div v-bind="api.getPositionerProps()">
         <ul v-bind="api.getContentProps()">
           <li v-bind="api.getItemProps({ item })" >
@@ -163,7 +163,7 @@ Import all parts and piece them together.
           <input {...api().getInputProps()} />
           <button {...api().getTriggerProps()} ></button>
         </div>
-        
+
         <div {...api().getPositionerProps()}>
           <ul {...api().getContentProps()} >
             <li {...api().getItemProps({ item })}></li>
@@ -208,7 +208,7 @@ const [state, send] = useMachine(
 
 ## Use custom object format
 
-By default, the combobox collection expects an array of items with `label` and `value` properties. 
+By default, the combobox collection expects an array of items with `label` and `value` properties.
 To use a custom object format, pass the `itemToString` and `itemToValue` properties to the collection function.
 
 - `itemToString` — A function that returns the string representation of an item. Used to compare items when filtering.
@@ -252,7 +252,7 @@ const [state, send] = useMachine(
 
 ## Rendering the selected values outside the combobox
 
-By default, the selected values of a combobox are displayed in the input element, 
+By default, the selected values of a combobox are displayed in the input element,
 when selecting multiple items, it is a better UX to render the selected value outside the combobox.
 
 To achieve this you need to:
@@ -303,8 +303,8 @@ const [state, send] = useMachine(
 
 ## Close on select
 
-This behaviour ensures that the menu is closed when an option is selected and is `true` by default. 
-It's only concerned with when an option is selected with pointer or enter key. 
+This behaviour ensures that the menu is closed when an option is selected and is `true` by default.
+It's only concerned with when an option is selected with pointer or enter key.
 To disable the behaviour, set the `closeOnSelect` property in the destyler's context to `false`.
 
 ```diff lang="ts"
@@ -329,7 +329,7 @@ const [state, send] = useMachine(
 
 ## Listening for highlight changes
 
-When an option is highlighted with the pointer or keyboard, 
+When an option is highlighted with the pointer or keyboard,
 use the `onHighlightChange` property to listen for this change and do something with it.
 
 ```diff lang="ts"
@@ -378,7 +378,7 @@ const [state, send] = useMachine(
 
 ## Allowing custom values
 
-By default, the combobox only allows selecting values from the collection. 
+By default, the combobox only allows selecting values from the collection.
 To allow custom values, set the `allowCustomValue` property in the machine's context to `true`.
 
 ```diff lang="ts"
@@ -395,7 +395,7 @@ const [state, send] = useMachine(
 
 ### Open and closed state
 
-When the combobox is open or closed, 
+When the combobox is open or closed,
 the `data-state` attribute is added to the content,control, input and control parts.
 
 ```css
@@ -494,10 +494,10 @@ When a combobox item is highlighted, the `data-highlighted` attribute is added t
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

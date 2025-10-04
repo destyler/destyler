@@ -5,10 +5,10 @@ head:
 title: Collapsible
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > A collapsible is a component which expands and collapses a panel.
 
@@ -156,7 +156,7 @@ const [state, send] = useMachine(
 
 ## Animating the collapsible
 
-Use CSS animations to animate the collapsible when it expands and collapses. 
+Use CSS animations to animate the collapsible when it expands and collapses.
 The `--destyler-height` and `--destyler-width` custom properties are attached to the content part.
 
 ```css
@@ -198,7 +198,7 @@ The `--destyler-height` and `--destyler-width` custom properties are attached to
 
 ### Open and closed state
 
-When a collapsible is expanded or collapsed, a `data-state` attribute is set on the root, 
+When a collapsible is expanded or collapsed, a `data-state` attribute is set on the root,
 trigger and content elements. This attribute is removed when it is closed.
 
 ```css
@@ -233,10 +233,10 @@ When a collapsible's trigger is focused, a `data-focus` attribute is set on the 
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

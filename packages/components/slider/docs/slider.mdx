@@ -5,12 +5,12 @@ head:
 title: Slider
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> A slider allows users to make selections from a range of values. 
+> A slider allows users to make selections from a range of values.
 > Think of it as a custom `<input type='range'/>` with the ability to achieve custom styling and accessibility.
 
 <PreviewCode name="slider"></PreviewCode>
@@ -175,11 +175,11 @@ Import all parts and piece them together.
 
 ## Changing the orientation
 
-By default, the slider is assumed to be horizontal. 
-To change the orientation to vertical, 
+By default, the slider is assumed to be horizontal.
+To change the orientation to vertical,
 set the `orientation` property in the destyler's context to `vertical`.
 
-In this mode, the slider will use the arrow up and down keys to 
+In this mode, the slider will use the arrow up and down keys to
 increment/decrement its value.
 
 :::tip
@@ -206,8 +206,8 @@ const [state, send] = useMachine(
 
 ## Specifying the minimum and maximum
 
-By default, the minimum is `0` and the maximum is `100`. 
-If that's not what you want, you can easily specify 
+By default, the minimum is `0` and the maximum is `100`.
+If that's not what you want, you can easily specify
 different bounds by changing the values of the min and/or max attributes.
 
 For example, to ask the user for a value between `-10` and `10`, you can use:
@@ -223,10 +223,10 @@ const [state, send] = useMachine(
 
 ## Setting the value's granularity
 
-By default, the granularity, is `1`, meaning that the value is always an integer. 
+By default, the granularity, is `1`, meaning that the value is always an integer.
 You can change the step attribute to control the granularity.
 
-For example, If you need a value between `5` and `10`, 
+For example, If you need a value between `5` and `10`,
 accurate to two decimal places, you should set the value of step to `0.01`:
 
 ```ts
@@ -241,8 +241,8 @@ const [state, send] = useMachine(
 
 ## Listening for changes
 
-When the slider value changes, 
-the `onValueChange` and `onValueChangeEnd` callbacks are invoked. 
+When the slider value changes,
+the `onValueChange` and `onValueChangeEnd` callbacks are invoked.
 You can use this to setup custom behaviors in your app.
 
 ```ts
@@ -260,11 +260,11 @@ const [state, send] = useMachine(
 
 ## Changing the start position
 
-By default, the slider's "zero position" is usually at 
+By default, the slider's "zero position" is usually at
 the start position (left in LTR and right in RTL).
 
-In scenarios where the value represents an offset (or relative value), 
-it might be useful to change the "zero position" to center. 
+In scenarios where the value represents an offset (or relative value),
+it might be useful to change the "zero position" to center.
 To do this, pass the `origin` context property to `center`.
 
 ```ts
@@ -277,7 +277,7 @@ const [state, send] = useMachine(
 
 ## Changing the thumb alignment
 
-By default, the thumb is aligned to the start of the track. Set the `thumbAlignment` 
+By default, the thumb is aligned to the start of the track. Set the `thumbAlignment`
 context property to `contain` or `center`.
 
 - `center`: the thumb will extend beyond the bounds of the slider track.
@@ -305,9 +305,9 @@ const [state, send] = useMachine(
 
 ## Usage within forms
 
-To use slider within forms, use the exposed `inputProps` from the `connect` 
-function and ensure you pass `name` value to the destyler's context. 
-It will render a hidden input and ensure the value changes get propagated 
+To use slider within forms, use the exposed `inputProps` from the `connect`
+function and ensure you pass `name` value to the destyler's context.
+It will render a hidden input and ensure the value changes get propagated
 to the form correctly.
 
 ```ts
@@ -320,8 +320,8 @@ const [state, send] = useMachine(
 
 ## RTL Support
 
-The slider has built-in support for RTL alignment and interaction. 
-In the RTL mode, operations are performed from right to left, meaning, 
+The slider has built-in support for RTL alignment and interaction.
+In the RTL mode, operations are performed from right to left, meaning,
 the left arrow key will increment and the right arrow key will decrement.
 
 To enable RTL support, pass the `dir: rtl` context property
@@ -340,7 +340,7 @@ While we take care of the interactions in RTL mode, you'll have to ensure you ap
 
 ## Using slider marks
 
-To show marks or ticks along the slider track, use the exposed `api.getMarkerProps()` 
+To show marks or ticks along the slider track, use the exposed `api.getMarkerProps()`
 method to position the slider marks relative to the track.
 
 <FrameworkLayout>
@@ -508,7 +508,7 @@ method to position the slider marks relative to the track.
 
 ### Focused State
 
-When the slider thumb is focused, the `data-focus` attribute is added to the root, 
+When the slider thumb is focused, the `data-focus` attribute is added to the root,
 control, thumb and label parts.
 
 ```css
@@ -617,10 +617,10 @@ When the slider is invalid, the `data-invalid` attribute is added to the root, t
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

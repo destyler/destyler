@@ -5,13 +5,13 @@ head:
 title: Steps
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> Step are used to guide users through a series of steps in a process. 
-> It's a great way to break down a complex process into smaller, 
+> Step are used to guide users through a series of steps in a process.
+> It's a great way to break down a complex process into smaller,
 > more manageable step.
 
 <PreviewCode name="steps"></PreviewCode>
@@ -295,7 +295,7 @@ const [state, send] = useMachine(
 
 ## Enforcing linear steps
 
-To enforce linear steps, you can set the `linear` prop to `true` when creating the steps machine. 
+To enforce linear steps, you can set the `linear` prop to `true` when creating the steps machine.
 This will prevent users from skipping steps.
 
 ```ts
@@ -308,7 +308,7 @@ const [state, send] = useMachine(
 
 ## Changing the orientation
 
-The steps machine supports both horizontal and vertical orientations. 
+The steps machine supports both horizontal and vertical orientations.
 You can set the `orientation` prop to `horizontal` or `vertical` to change the orientation of the steps.
 
 ```ts
@@ -391,10 +391,10 @@ To style the incomplete step, you can use the `data-incomplete` attribute.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

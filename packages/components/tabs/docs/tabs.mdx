@@ -5,15 +5,15 @@ head:
 title: Tabs
 ---
 
-import Features from '/components/Features.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
-import PreviewCode from '/components/PreviewCode.astro'
+import Features from '@docs/components/Features.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
 
-> An accessible tabs component that provides keyboard interactions and ARIA 
-> attributes described in the WAI-ARIA Tabs Design Pattern. 
-> Tabs consist of a tab list with one or more visually separated tabs. 
-> Each tab has associated content, 
+> An accessible tabs component that provides keyboard interactions and ARIA
+> attributes described in the WAI-ARIA Tabs Design Pattern.
+> Tabs consist of a tab list with one or more visually separated tabs.
+> Each tab has associated content,
 > and only the selected tab's content is shown.
 
 <PreviewCode name="tabs"></PreviewCode>
@@ -55,9 +55,9 @@ Import all parts and piece them together.
     { value: 'item-3', label: 'item-3'},
   ]
 
-  const [state, send] = useMachine(tabs.machine({ 
-    id: useId(), 
-    value: 'item-1' 
+  const [state, send] = useMachine(tabs.machine({
+    id: useId(),
+    value: 'item-1'
   }))
   const api = computed(() => tabs.connect(state.value, send, normalizeProps))
   </script>
@@ -102,7 +102,7 @@ Import all parts and piece them together.
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: useId(),
-      value: 'item-1', 
+      value: 'item-1',
     }))
 
     const api = tabs.connect(state, send, normalizeProps)
@@ -215,7 +215,7 @@ Import all parts and piece them together.
 
 ## Setting the selected tab
 
-To set the initially selected tab, 
+To set the initially selected tab,
 pass the `value` property to the machine's context.
 
 ```ts
@@ -230,7 +230,7 @@ Subsequently, you can use the `api.setValue` function to set the selected tab.
 
 ## Changing the orientation
 
-The default orientation of the tabs is horizontal. To change the `orientation`, 
+The default orientation of the tabs is horizontal. To change the `orientation`,
 set the orientation property in the machine's context to `"vertical"`.
 
 ```ts
@@ -243,7 +243,7 @@ const [state, send] = useMachine(
 
 ## Showing an indicator
 
-To show an active indicator when a tab is selected, 
+To show an active indicator when a tab is selected,
 you add the `tabIndicatorProps` object provided by the `connect` function.
 
 <FrameworkLayout>
@@ -262,9 +262,9 @@ you add the `tabIndicatorProps` object provided by the `connect` function.
     { value: 'item-3', label: 'item-3'},
   ]
 
-  const [state, send] = useMachine(tabs.machine({ 
-    id: useId(), 
-    value: 'item-1' 
+  const [state, send] = useMachine(tabs.machine({
+    id: useId(),
+    value: 'item-1'
   }))
   const api = computed(() => tabs.connect(state.value, send, normalizeProps))
   </script>
@@ -310,7 +310,7 @@ you add the `tabIndicatorProps` object provided by the `connect` function.
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: useId(),
-      value: 'item-1', 
+      value: 'item-1',
     }))
 
     const api = tabs.connect(state, send, normalizeProps)
@@ -446,9 +446,9 @@ When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
     { value: 'item-3', label: 'item-3', disabled: false},
   ]
 
-  const [state, send] = useMachine(tabs.machine({ 
-    id: useId(), 
-    value: 'item-1' 
+  const [state, send] = useMachine(tabs.machine({
+    id: useId(),
+    value: 'item-1'
   }))
   const api = computed(() => tabs.connect(state.value, send, normalizeProps))
   </script>
@@ -493,7 +493,7 @@ When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: useId(),
-      value: 'item-1', 
+      value: 'item-1',
     }))
 
     const api = tabs.connect(state, send, normalizeProps)
@@ -645,7 +645,7 @@ const [state, send] = useMachine(
 
 ### Selected state
 
-When a tab is selected, 
+When a tab is selected,
 a `data-selected` attribute is added to the trigger and content elements.
 
 ```css
@@ -670,7 +670,7 @@ When a tab is disabled, a `data-disabled` attribute is added to the trigger elem
 
 ### Focused state
 
-When a tab is focused, 
+When a tab is focused,
 you the `:focus` or `:focus-visible` pseudo-class to style it.
 
 ```css
@@ -689,7 +689,7 @@ When any tab is focused, the list is given a `data-focus` attribute.
 
 ### Orientation styles
 
-All parts of the tabs component have the `data-orientation` attribute. 
+All parts of the tabs component have the `data-orientation` attribute.
 You can use this to set the style for the horizontal or vertical tabs.
 
 ```css
@@ -710,10 +710,10 @@ You can use this to set the style for the horizontal or vertical tabs.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

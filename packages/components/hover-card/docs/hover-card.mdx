@@ -5,10 +5,10 @@ head:
 title: Hover Card
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > An hover card allows sighted users to preview content available behind a link.
 
@@ -176,7 +176,7 @@ const [state, send] = useMachine(
 
 ## Styling guide
 
-Earlier, we mentioned that each hover card part has a `data-part` attribute added to them to 
+Earlier, we mentioned that each hover card part has a `data-part` attribute added to them to
 select and style them in the DOM.
 
 ```css
@@ -191,7 +191,7 @@ select and style them in the DOM.
 
 ### Open and closed state
 
-The hover card exposes a `data-state` attribute that can be used to style 
+The hover card exposes a `data-state` attribute that can be used to style
 the hover card based on its open-close state.
 
 ```css
@@ -216,10 +216,10 @@ exposes some variable that can be used to style the arrow.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

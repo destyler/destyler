@@ -5,10 +5,10 @@ head:
 title:  Number Input
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > The number input provides controls for editing, incrementing or decrementing numeric values using the keyboard or pointer.
 
@@ -99,7 +99,7 @@ Import all parts and piece them together.
     import { normalizeProps, useMachine } from '@destyler/svelte'
 
     const id = $props.id()
-    
+
     const [state, send] = useMachine(numberInput.machine({
       id,
     }))
@@ -163,7 +163,7 @@ const [state, send] = useMachine(
 
 ## Setting a minimum and maximum value
 
-Pass the `min` prop or `max` prop to set an upper and lower limit for the input. By default, 
+Pass the `min` prop or `max` prop to set an upper and lower limit for the input. By default,
 the input will restrict the value to stay within the specified range.
 
 ```ts
@@ -181,10 +181,10 @@ To allow the value overflow the specified min or max, set the allowOverflow: tru
 
 ## Scrubbing the input value
 
-The number input machine supports the scrubber interaction pattern. 
+The number input machine supports the scrubber interaction pattern.
 The use this pattern, spread the `scrubberProps` from the `api` on to the scrubbing element.
 
-It uses the Pointer lock API and tracks the pointer movement. 
+It uses the Pointer lock API and tracks the pointer movement.
 It also renders a virtual cursor which mimics the real cursor's pointer.
 
 <FrameworkLayout>
@@ -251,7 +251,7 @@ It also renders a virtual cursor which mimics the real cursor's pointer.
     import { normalizeProps, useMachine } from '@destyler/svelte'
 
     const id = $props.id()
-    
+
     const [state, send] = useMachine(numberInput.machine({
       id,
     }))
@@ -301,7 +301,7 @@ It also renders a virtual cursor which mimics the real cursor's pointer.
 
 ## Using the mousewheel to change value
 
-The number input machine exposes a way to increment/decrement the value using the mouse wheel event. 
+The number input machine exposes a way to increment/decrement the value using the mouse wheel event.
 To activate this, pass the `allowMouseWheel` property to the machine's context.
 
 ```ts
@@ -314,7 +314,7 @@ const [state, send] = useMachine(
 
 ## Clamp value when user blurs the input
 
-In most cases, users can type custom values in the input field. 
+In most cases, users can type custom values in the input field.
 If the typed value is greater than the max, the value is reset to max when the user blur out of the input.
 
 To disable this behavior, pass `clampValueOnBlur` and set to `false`.
@@ -356,8 +356,8 @@ const [state, send] = useMachine(
 
 ## Adjusting the precision of the value
 
-To format the input value to be rounded to specific decimal points, 
-set the `formatOptions` and provide `Intl.NumberFormatOptions` 
+To format the input value to be rounded to specific decimal points,
+set the `formatOptions` and provide `Intl.NumberFormatOptions`
 such as `maximumFractionDigits` or `minimumFractionDigits`.
 
 ```ts
@@ -385,7 +385,7 @@ const [state, send] = useMachine(
 
 ## Format and parse value
 
-To apply custom formatting to the input's value, 
+To apply custom formatting to the input's value,
 set the `formatOptions` and provide `Intl.NumberFormatOptions` such as `style` and `currency`.
 
 ```ts
@@ -433,7 +433,7 @@ The increment and decrement spin buttons are disabled when the number input is d
 
 ### Invalid state
 
-The number input is invalid, either by passing `invalid: true` or when the value exceeds the max and `allowOverflow: true` is passed. 
+The number input is invalid, either by passing `invalid: true` or when the value exceeds the max and `allowOverflow: true` is passed.
 When this happens, the root, label and input parts will have `data-invalid` attribute added to them.
 
 ```css
@@ -474,10 +474,10 @@ The spin buttons can be styled individually with their respective `data-part` at
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

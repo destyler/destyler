@@ -116,7 +116,7 @@ export default defineConfig({
         {
           label: 'Overview',
           items: [
-            // { slug: 'guide/introduction' },
+            { slug: 'guide/introduction' },
             { slug: 'guide/getting-started' },
           ],
         },
@@ -207,7 +207,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@docs': fileURLToPath(`${documentRoot}/src/`),
-        '@component-docs': fileURLToPath(componentsDocsDir),
+        '@component': fileURLToPath(componentsDocsDir),
       },
     },
     plugins: [

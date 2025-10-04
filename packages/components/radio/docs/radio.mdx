@@ -5,10 +5,10 @@ head:
 title: Radio
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > A radio group allows users to make a single choice from a select number of option.
 
@@ -189,9 +189,9 @@ const [state, send] = useMachine(
 
 ## Usage within forms
 
-To use radio group within forms, use the exposed `inputProps` from the `connect` 
-function and ensure you pass `name` value to the destyler's context. 
-It will render a hidden input and ensure the value changes get propagated 
+To use radio group within forms, use the exposed `inputProps` from the `connect`
+function and ensure you pass `name` value to the destyler's context.
+It will render a hidden input and ensure the value changes get propagated
 to the form correctly.
 
 ```ts
@@ -226,7 +226,7 @@ When the radio input is checked, the `data-state` attribute is added to the
 
 ### Focused State
 
-When the radio input is focused, the `data-focus` attribute is added to the root, 
+When the radio input is focused, the `data-focus` attribute is added to the root,
 control and label parts.
 
 ```css
@@ -245,7 +245,7 @@ control and label parts.
 
 ### Disabled State
 
-When the radio is disabled, the `data-disabled` attribute is added to the root, 
+When the radio is disabled, the `data-disabled` attribute is added to the root,
 control and label parts.
 
 ```css
@@ -264,7 +264,7 @@ control and label parts.
 
 ### Invalid State
 
-When the radio is invalid, the `data-invalid` attribute is added to the root, 
+When the radio is invalid, the `data-invalid` attribute is added to the root,
 control and label parts.
 
 ```css
@@ -281,10 +281,10 @@ control and label parts.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

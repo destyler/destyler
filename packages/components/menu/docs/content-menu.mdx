@@ -5,12 +5,12 @@ head:
 title: Content Menu
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> An accessible dropdown and context menu that is used to display a list of actions or options that a user can choose when 
+> An accessible dropdown and context menu that is used to display a list of actions or options that a user can choose when
 > a trigger element is right-clicked or long pressed.
 
 <PreviewCode name="content-menu"></PreviewCode>
@@ -163,7 +163,7 @@ Import all parts and piece them together.
             </ul>
         </div>
       </div>
-      
+
     {/if}
   </div>
 
@@ -285,10 +285,10 @@ When an option item is checked, it is given a `data-state` attribute.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

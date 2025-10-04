@@ -5,12 +5,12 @@ head:
 title: Splitter
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> A splitter allow create dynamic layouts split into vertically or horizontally arranged panes. 
+> A splitter allow create dynamic layouts split into vertically or horizontally arranged panes.
 > Panes are separated by the splitter bars that allow dragging to resize or expand/collapse them.
 
 <PreviewCode name="splitter"></PreviewCode>
@@ -86,7 +86,7 @@ export default function SplitterDemo() {
         <div {...api.getPanelProps({ id: 'a' })}></div>
 
         <div {...api.getResizeTriggerProps({ id: 'a:b' })}></div>
-        
+
         <div {...api.getPanelProps({ id: 'b' })}></div>
       </div>
     </>
@@ -114,9 +114,9 @@ export default function SplitterDemo() {
 
   <div {...api.getRootProps()}>
     <div {...api.getPanelProps({ id: 'a' })}></div>
-    
+
     <div {...api.getResizeTriggerProps({ id: 'a:b' })}></div>
-    
+
     <div {...api.getPanelProps({ id: 'b' })}></div>
   </div>
   ```
@@ -143,9 +143,9 @@ export default function SplitterDemo() {
       <>
         <div {...api().getRootProps()}>
           <div {...api().getPanelProps({ id: 'a' })}></div>
-          
+
           <div {...api().getResizeTriggerProps({ id: 'a:b' })}></div>
-          
+
           <div {...api().getPanelProps({ id: 'b' })}></div>
         </div>
       </>
@@ -159,7 +159,7 @@ export default function SplitterDemo() {
 
 ## Listening for events
 
-When the resize trigger of splitter changes, 
+When the resize trigger of splitter changes,
 the `onSizeChangeStart` and `onSizeChangeEnd` callback is invoked.
 
 ```ts
@@ -177,8 +177,8 @@ const [state, send] = useMachine(
 
 ## Changing the orientation
 
-By default, the splitter is assumed to be horizontal. 
-To change the orientation to vertical, 
+By default, the splitter is assumed to be horizontal.
+To change the orientation to vertical,
 set the `orientation` property in the machine's context to `vertical`.
 
 ```ts
@@ -195,7 +195,7 @@ const [state, send] = useMachine(
 
 ### Resize trigger
 
-When an splitter item is horizontal or vertical, 
+When an splitter item is horizontal or vertical,
 a `data-state` attribute is set on the item and content elements.
 
 ```css
@@ -224,10 +224,10 @@ a `data-state` attribute is set on the item and content elements.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

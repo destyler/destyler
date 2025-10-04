@@ -5,15 +5,15 @@ head:
 title: Tree
 ---
 
-import Features from '/components/Features.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
-import PreviewCode from '/components/PreviewCode.astro'
+import Features from '@docs/components/Features.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
 
-> The Tree component provides a hierarchical view of data, 
-> similar to a file system explorer. 
-> It allows users to expand and collapse branches, 
-> select individual or multiple nodes, 
+> The Tree component provides a hierarchical view of data,
+> similar to a file system explorer.
+> It allows users to expand and collapse branches,
+> select individual or multiple nodes,
 > and traverse the hierarchy using keyboard navigation.
 
 <PreviewCode name="tree"></PreviewCode>
@@ -285,7 +285,7 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
         name: string
         children?: Node[]
       }
-      
+
       const collection = tree.collection<Node>({
         nodeToValue: node => node.id,
         nodeToString: node => node.name,
@@ -492,8 +492,8 @@ import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
 ## Expanding and Collapsing Nodes
 
-By default, the tree view will expand or collapse when clicking the branch control. 
-To control the expanded state of the tree view, 
+By default, the tree view will expand or collapse when clicking the branch control.
+To control the expanded state of the tree view,
 use the `api.expand` and `api.collapse` methods.
 
 ```ts
@@ -506,7 +506,7 @@ api.collapse() // collapse all nodes
 
 ## Multiple selection
 
-The tree view supports multiple selection. 
+The tree view supports multiple selection.
 To enable this, set the `selectionMode` to `multiple`.
 
 ```ts
@@ -569,10 +569,10 @@ const [state, send] = useMachine(
 )
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

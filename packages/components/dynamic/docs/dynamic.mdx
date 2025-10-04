@@ -5,13 +5,13 @@ head:
 title: Dynamic
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> Dynamic render tags inside an input, followed by an actual text input. 
-> By default, tags are added when text is typed in the input field and the `Enter` or `Comma` key is pressed. 
+> Dynamic render tags inside an input, followed by an actual text input.
+> By default, tags are added when text is typed in the input field and the `Enter` or `Comma` key is pressed.
 > Throughout the interaction, DOM focus remains on the input element.
 
 <PreviewCode name="dynamic"></PreviewCode>
@@ -197,7 +197,7 @@ Import all parts and piece them together.
 
 ## Removing all tags
 
-The tags input will remove all tags when the clear button is clicked. 
+The tags input will remove all tags when the clear button is clicked.
 To remove all tags, use the provided `clearButtonProps` function from the `api`.
 
 <FrameworkLayout>
@@ -278,11 +278,11 @@ const [state, send] = useMachine(
 
 ## Limiting the number of tags
 
-To limit the number of tags within the component, 
-you can set the `max` property to the limit you want. 
+To limit the number of tags within the component,
+you can set the `max` property to the limit you want.
 The default value is `Infinity`.
 
-When the tag reaches the limit, 
+When the tag reaches the limit,
 new tags cannot be added except the `allowOverflow` option is passed to the context.
 
 ```ts
@@ -328,7 +328,7 @@ const [state, send] = useMachine(
 
 ## Paste behavior
 
-To add a tag when a arbitrary value is pasted in the input element, 
+To add a tag when a arbitrary value is pasted in the input element,
 pass the `addOnPaste` option.
 
 When a value is pasted, the machine will:
@@ -347,7 +347,7 @@ const [state, send] = useMachine(
 
 ## Disable tag editing
 
-by default the tags can be edited by double clicking on the tag or focusing on them and pressing `Enter`. 
+by default the tags can be edited by double clicking on the tag or focusing on them and pressing `Enter`.
 To disable this behavior, pass the `allowEditTag: false`.
 
 ```ts
@@ -392,7 +392,7 @@ const [state, send] = useMachine(
 
 ### Focused state
 
-The combobox input is focused when the user clicks on the input element. 
+The combobox input is focused when the user clicks on the input element.
 In this focused state, the root, label, input.
 
 ```css
@@ -429,7 +429,7 @@ When the tags input is invalid by setting the `invalid: true` in the destyler's 
 
 ### Disabled state
 
-When the tags input is disabled by setting the `disabled: true` in the destyler's context, 
+When the tags input is disabled by setting the `disabled: true` in the destyler's context,
 the `data-disabled` attribute is set on the root, input, control and label.
 
 ```css
@@ -460,7 +460,7 @@ When a tag is disabled, the `data-disabled` attribute is set on the tag.
 
 ### Highlighted state
 
-When a tag is highlighted via the keyboard navigation or pointer hover, 
+When a tag is highlighted via the keyboard navigation or pointer hover,
 a `data-highlighted` attribute is set on the tag.
 
 ```css
@@ -471,7 +471,7 @@ a `data-highlighted` attribute is set on the tag.
 
 ### Readonly state
 
-When the tags input is in its readonly state, 
+When the tags input is in its readonly state,
 the `data-readonly` attribute is set on the root, label, input and control.
 
 ```css
@@ -492,10 +492,10 @@ the `data-readonly` attribute is set on the root, label, input and control.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

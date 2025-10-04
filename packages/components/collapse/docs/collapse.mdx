@@ -5,12 +5,12 @@ head:
 title: Collapse
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> An collapse is a vertically stacked set of interactive headings containing a title, 
+> An collapse is a vertically stacked set of interactive headings containing a title,
 > content snippet, or thumbnail representing a section of content.
 
 <PreviewCode name="collapse"></PreviewCode>
@@ -154,14 +154,14 @@ Import all parts and piece them together.
 </FrameworkLayout>
 
 :::note
-You may have noticed we wrapped each collapse trigger within an `h3`. 
-This is recommended by the [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#wai-aria-roles-states-and-properties) design pattern to ensure the collapse 
+You may have noticed we wrapped each collapse trigger within an `h3`.
+This is recommended by the [WAI-ARIA](https://www.w3.org/TR/wai-aria-practices-1.1/#wai-aria-roles-states-and-properties) design pattern to ensure the collapse
 has the appropriate hierarchy on the page.
 :::
 
 ## Open multiple collapse at once
 
-To allow multiple items to be expanded at once, set `multiple` to `true`. 
+To allow multiple items to be expanded at once, set `multiple` to `true`.
 This mode implicitly sets `collapsible` to `true` and ensures that each collapse can be expanded.
 
 ```ts
@@ -174,7 +174,7 @@ const [state, send] = useMachine(
 
 ## Opening specific collapse
 
-To set the value of the collapse that should be opened initially, 
+To set the value of the collapse that should be opened initially,
 pass the `value` property to the machine function.
 
 import { Tabs, TabItem } from '@astrojs/starlight/components'
@@ -203,7 +203,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
 
 ## Toggle each collapse item
 
-To collapse an already expanded collapse item by clicking on it, 
+To collapse an already expanded collapse item by clicking on it,
 set the context's `collapsible` property to `true`.
 
 :::note
@@ -235,7 +235,7 @@ const [state, send] = useMachine(
 
 ## Disabling an collapse item
 
-To disable a specific collapse item, pass the `disabled: true` property to the `getItemProps`, 
+To disable a specific collapse item, pass the `disabled: true` property to the `getItemProps`,
 `getItemTriggerProps` and `getItemContentProps`.
 
 When an collapse item is disabled, it is skipped from keyboard navigation and can't be interacted with.
@@ -321,7 +321,7 @@ const [state, send] = useMachine(
 
 ### Open and closed state
 
-When an collapse item is expanded or collapsed, a data-state attribute is set on the item, 
+When an collapse item is expanded or collapsed, a data-state attribute is set on the item,
 trigger and content elements. This attribute is removed when it is closed.
 
 ```css
@@ -356,10 +356,10 @@ When an collapse item's trigger is focused, a data-focus attribute is set on the
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

@@ -5,14 +5,14 @@ head:
 title: Color Picker
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > The color picker is an input widget used to select a color value from a predefined list or a color area.
 >
-> This component builds on top of the native `<input type=color>` experience and provides a 
+> This component builds on top of the native `<input type=color>` experience and provides a
 > more customizable and consistent user experience.
 
 <PreviewCode name="color-picker"></PreviewCode>
@@ -190,12 +190,12 @@ Import all parts and piece them together.
               <div {...api.getAreaBackgroundProps()} ></div>
               <div {...api.getAreaThumbProps()} ></div>
             </div>
-    
+
             <div {...api.getChannelSliderProps({ channel: 'hue' })} >
               <div {...api.getChannelSliderTrackProps({ channel: 'hue' })} ></div>
               <div {...api.getChannelSliderThumbProps({ channel: 'hue' })} ></div>
             </div>
-    
+
             <div {...api.getChannelSliderProps({ channel: 'alpha' })} >
               <div {...api.getTransparencyGridProps({ size: '8px' })} ></div>
               <div {...api.getChannelSliderTrackProps({ channel: 'alpha' })} ></div>
@@ -285,7 +285,7 @@ const [current, send] = useMachine(
 
 ## Listening for change events
 
-When the user selects a color using the color picker, 
+When the user selects a color using the color picker,
 the `onValueChange` and `onValueChangeEnd` events will be fired.
 
 - `onValueChange` — Fires in sync as the user selects a color
@@ -306,16 +306,16 @@ const [current, send] = useMachine(
 ```
 
 :::note
-When using the `onValueChange` method in React.js, 
+When using the `onValueChange` method in React.js,
 you might need to use the `flushSync` method from `react-dom` to ensure the value is updated in sync
 :::
 
 ## Using a custom color format
 `
-By default, the color picker's output format is rgba. 
+By default, the color picker's output format is rgba.
 You can change this format to either `hsla` or `hsba` by using the `format` context property.
 
-When this property is set, 
+When this property is set,
 the `value` and `valueAsString` properties of the `onValueChange` event will be updated to reflect the new format.
 
 ```ts
@@ -343,7 +343,7 @@ const [current, send] = useMachine(
 
 ## Controlling the open and closed state
 
-To control the open and closed state of the color picker, 
+To control the open and closed state of the color picker,
 use the `open` and `onOpenChange` context properties.
 
 ```ts
@@ -357,12 +357,12 @@ const [current, send] = useMachine(
 )
 ```
 
-You can also leverage the `api.setOpen(...)` method to control the 
+You can also leverage the `api.setOpen(...)` method to control the
 open and closed state of the color picker.
 
 ## Usage within forms
 
-To use the color picker within a form, add the `name` context property to the machine and render 
+To use the color picker within a form, add the `name` context property to the machine and render
 the visually hidden input using the `hiddenInputProps`.
 
 ```ts
@@ -379,7 +379,7 @@ const [state, send] = useMachine(
 
 ### Open and closed state
 
-When a color picker is expanded or collapsed, a `data-state` attribute is set on the root, 
+When a color picker is expanded or collapsed, a `data-state` attribute is set on the root,
 trigger and content elements. This attribute is removed when it is closed.
 
 ```css
@@ -412,7 +412,7 @@ When the color picker is focused, the `data-focus` attribute is added to the con
 
 ## Disabled State
 
-When the color picker is disabled, 
+When the color picker is disabled,
 the `data-disabled` attribute is added to the label, control, trigger and option parts.
 
 ```css
@@ -435,7 +435,7 @@ the `data-disabled` attribute is added to the label, control, trigger and option
 
 ## Swatch State
 
-When a swatch's color value matches the color picker's value, 
+When a swatch's color value matches the color picker's value,
 the `data-state=checked` attribute is added to the swatch part.
 
 ```css
@@ -444,10 +444,10 @@ the `data-state=checked` attribute is added to the swatch part.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

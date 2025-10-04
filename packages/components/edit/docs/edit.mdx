@@ -5,12 +5,12 @@ head:
 title: Edit
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> Displays an input field used for editing a single line of text, rendering as static text on load. 
+> Displays an input field used for editing a single line of text, rendering as static text on load.
 > It transforms into a text input field when the edit interaction is triggered.
 
 <PreviewCode name="edit"></PreviewCode>
@@ -204,7 +204,7 @@ const [state, send] = useMachine(
 
 ## Auto-resizing the editable
 
-To auto-grow the editable as the content changes, 
+To auto-grow the editable as the content changes,
 pass the `autoResize: true` property to the machine's context.
 
 ```ts
@@ -216,13 +216,13 @@ const [state, send] = useMachine(
 ```
 
 :::note
-When using autoresize, the input and preview elements should not have any styles. 
+When using autoresize, the input and preview elements should not have any styles.
 Use `all: unset` if needed and pass any styles to the "area" element since its shared by the input and preview elements.
 :::
 
 ## Setting a maxWidth
 
-It is a common pattern to set a maximum of the editable as it auto-grows. 
+It is a common pattern to set a maximum of the editable as it auto-grows.
 To achieve this, set the `maxWidth` property of the machine's context to the desired value.
 
 ```ts
@@ -256,7 +256,7 @@ const [state, send] = useMachine(
 
 ## Styling guide
 
-Earlier, we mentioned that each hover card part has a `data-part` attribute added to them to 
+Earlier, we mentioned that each hover card part has a `data-part` attribute added to them to
 select and style them in the DOM.
 
 ### Focused state
@@ -289,10 +289,10 @@ When the editable is disabled, we set a `data-disabled` attribute on the "area" 
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

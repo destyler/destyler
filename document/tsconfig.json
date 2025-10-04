@@ -8,7 +8,7 @@
     "moduleResolution": "nodenext",
     "paths": {
       "@docs/*": ["../src/*"],
-      "@component-docs/*": ["../packages/components/*"]
+      "@component/*": ["../packages/components/*"]
     },
     "allowJs": true,
     "strict": true,

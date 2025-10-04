@@ -5,12 +5,12 @@ head:
 title: Progress
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> Linear progress is a simple progress bar that can be used to show the progress of a task such as downloading a file, 
+> Linear progress is a simple progress bar that can be used to show the progress of a task such as downloading a file,
 > uploading an image, etc.
 
 <PreviewCode name="progress"></PreviewCode>
@@ -44,9 +44,9 @@ Import all parts and piece them together.
   import { normalizeProps, useMachine } from "@destyler/vue"
   import { computed,useId } from "vue"
 
-  const [state, send] = useMachine(progress.machine({ 
+  const [state, send] = useMachine(progress.machine({
     id: useId(),
-    value: 30 
+    value: 30
   }))
 
   const api = computed(() =>
@@ -75,7 +75,7 @@ Import all parts and piece them together.
   export default function Progress() {
     const [state, send] = useMachine(progress.machine({
       id: useId(),
-      value: 30, 
+      value: 30,
     }))
 
     const api = progress.connect(state, send, normalizeProps)
@@ -101,9 +101,9 @@ Import all parts and piece them together.
 
     const id = $props.id()
 
-    const [state, send] = useMachine(progress.machine({ 
-      id, 
-      value: 30 
+    const [state, send] = useMachine(progress.machine({
+      id,
+      value: 30
     }))
 
     const api = $derived(progress.connect(state, send, normalizeProps))
@@ -162,7 +162,7 @@ const [state, send] = useMachine(
 
 ## Setting the min number and max number values
 
-By default, the progress bar has a min value of `0` and a max value of `100`. 
+By default, the progress bar has a min value of `0` and a max value of `100`.
 You can change these values by passing the `min` and `max` options to the machine.
 
 ```ts
@@ -176,7 +176,7 @@ const [state, send] = useMachine(
 
 ## Use the indeterminate state
 
-The progress component is determinate by default, 
+The progress component is determinate by default,
 with the value and max set to `50` and `100` respectively.
 
 Set `value` to `null` to indicate an indeterminate value for operations whose progress can't be determined (e.g., attempting to reconnect to a server).
@@ -191,8 +191,8 @@ const [state, send] = useMachine(
 
 ## Showing a value text
 
-Progress bars can only be interpreted by sighted users. 
-To include a text description to support assistive technologies like screen readers, 
+Progress bars can only be interpreted by sighted users.
+To include a text description to support assistive technologies like screen readers,
 use the `valueText` part.
 
 ```ts
@@ -218,7 +218,7 @@ Then you need to render the `valueText` part in your component.
   import { normalizeProps, useMachine } from "@destyler/vue"
   import { computed,useId } from "vue"
 
-  const [state, send] = useMachine(progress.machine({ 
+  const [state, send] = useMachine(progress.machine({
     id: useId(),
     value: 30,
     translations: {
@@ -250,7 +250,7 @@ Then you need to render the `valueText` part in your component.
   export default function Progress() {
     const [state, send] = useMachine(progress.machine({
       id: useId(),
-      value: 30, 
+      value: 30,
       translations: {
         valueText: ({ value, max }) =>
           value == null ? "Loading..." : `${value} of ${max} items loaded`,
@@ -277,8 +277,8 @@ Then you need to render the `valueText` part in your component.
 
     const id = $props.id()
 
-    const [state, send] = useMachine(progress.machine({ 
-      id, 
+    const [state, send] = useMachine(progress.machine({
+      id,
       value: 30,
       translations: {
         valueText: ({ value, max }) =>
@@ -362,10 +362,10 @@ To style the indeterminate state, you can use the `[data-state=indeterminate]` s
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

@@ -1,5 +1,5 @@
 <!-- <script setup lang="ts">
-import CheckboxExample from '@component-docs/checkbox/docs/snippets/Checkbox.vue'
+import CheckboxExample from '@component/checkbox/docs/snippets/Checkbox.vue'
 import { onMounted, ref } from 'vue'
 // import CollapseExample from '../../snippets/collapse/Collapse.vue'
 // import ColorPickerExample from '../../snippets/color-picker/ColorPicker.vue'

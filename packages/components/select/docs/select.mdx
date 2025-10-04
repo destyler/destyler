@@ -5,10 +5,10 @@ head:
 title: Select
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > A Select component allows users pick a value from predefined options.
 
@@ -171,7 +171,7 @@ Import all parts and piece them together.
 To set the initial value of the select, pass the `value` property to the select destyler's context.
 
 :::tip
-The `value` property must be an array of strings. 
+The `value` property must be an array of strings.
 If selecting a single value, pass an array with a single string.
 :::
 
@@ -197,7 +197,7 @@ const [state, send] = useMachine(
 
 ## Use custom object format
 
-By default, the combobox collection expects an array of items with `label` and `value` properties. 
+By default, the combobox collection expects an array of items with `label` and `value` properties.
 To use a custom object format, pass the `itemToString` and `itemToValue` properties to the collection function.
 
 - `itemToString` — A function that returns the string representation of an item. Used to compare items when filtering.
@@ -405,9 +405,9 @@ const [state, send] = useMachine(
 
 ## Close on select
 
-This behaviour ensures that the menu is closed when an item is selected 
-and is `true` by default. It's only concerned with when an item is selected 
-with pointer, space key or enter key. To disable the behaviour, 
+This behaviour ensures that the menu is closed when an item is selected
+and is `true` by default. It's only concerned with when an item is selected
+with pointer, space key or enter key. To disable the behaviour,
 set the `closeOnSelect` property in the destyler's context to `false`.
 
 ```ts
@@ -420,9 +420,9 @@ const [state, send] = useMachine(
 
 ## Looping the keyboard navigation
 
-When navigating with the select using the arrow down and up keys, 
-the select stops at the first and last options. 
-If you need want the navigation to loop back to the first or last option, 
+When navigating with the select using the arrow down and up keys,
+the select stops at the first and last options.
+If you need want the navigation to loop back to the first or last option,
 set the `loop: true` in the destyler's context.
 
 ```ts
@@ -441,9 +441,9 @@ When an item is highlighted with the pointer or keyboard, use the `onHighlightCh
 const [state, send] = useMachine(
   select.machine({
     onHighlightChange(details) {
-      // details => { 
-      //   highlightedValue: string | null, 
-      //   highlightedItem: CollectionItem | null 
+      // details => {
+      //   highlightedValue: string | null,
+      //   highlightedItem: CollectionItem | null
       // }
       console.log(details)
     },
@@ -561,10 +561,10 @@ When no option is selected, the trigger is given a `data-placeholder-shown` attr
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

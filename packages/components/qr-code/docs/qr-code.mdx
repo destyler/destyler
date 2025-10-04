@@ -5,12 +5,12 @@ head:
 title: QR Code
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> A QR (Quick Response) Code is used to provide information or link which can be accessed by 
+> A QR (Quick Response) Code is used to provide information or link which can be accessed by
 > scanning the code with an app or a smartphone.
 
 <PreviewCode name="qr-code"></PreviewCode>
@@ -195,8 +195,8 @@ const [state, send] = useMachine(
 
 ## Setting the correction level
 
-Error correction allows for the QR code to be blocked or resized while still recognizable. 
-In some cases where the link is too long or the logo overlay covers a significant area, 
+Error correction allows for the QR code to be blocked or resized while still recognizable.
+In some cases where the link is too long or the logo overlay covers a significant area,
 the error correction level can be increased.
 
 The QR Code accepts the following error correction levels:
@@ -222,7 +222,7 @@ The alternative is to enlarge the QR Code by increasing the size of the `svg` el
 
 ## Add an overlay logo
 
-To add a logo overlay to the QR code, render the image part. 
+To add a logo overlay to the QR code, render the image part.
 The logo will be automatically centered within the QR code.
 
 <FrameworkLayout>
@@ -307,7 +307,7 @@ To change the color of the QR Code, set the `fill` attribute on the `path` part.
 }
 ```
 
-To change the background color of the QR code, set the `background-color` 
+To change the background color of the QR code, set the `background-color`
 
 ```css
 [data-scope="qr-code"][data-part="frame"] {
@@ -337,10 +337,10 @@ To change the background color of the QR code, set the `background-color`
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

@@ -5,12 +5,12 @@ head:
 title: Popover
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> A popover is a non-modal dialog that floats around a trigger. 
+> A popover is a non-modal dialog that floats around a trigger.
 > It is used to display contextual information to the user, and should be paired with a clickable trigger element.
 
 <PreviewCode name="popover"></PreviewCode>
@@ -52,7 +52,7 @@ Import all parts and piece them together.
     <button v-bind="api.getTriggerProps()"></button>
     <Teleport v-if="api.open" to="body">
       <div v-bind="api.getPositionerProps()">
-        
+
         <div v-bind="api.getArrowProps()">
           <div v-bind="api.getArrowTipProps()"></div>
         </div>
@@ -61,7 +61,7 @@ Import all parts and piece them together.
 
           <div v-bind="api.getTitleProps()"></div>
           <div v-bind="api.getDescriptionProps()"></div>
-          
+
           <button v-bind="api.getCloseTriggerProps()"/>
         </div>
 
@@ -93,7 +93,7 @@ Import all parts and piece them together.
 
         {api.open && createPortal(
           <div {...api.getPositionerProps()}>
-            
+
             <div {...api.getArrowProps()}>
               <div {...api.getArrowTipProps()} />
             </div>
@@ -123,9 +123,9 @@ Import all parts and piece them together.
     import { normalizeProps, useMachine,portal } from '@destyler/svelte'
 
     const id = $props.id()
-    
+
     const [state, send] = useMachine(popover.machine({ id }))
-    
+
     const api = $derived(popover.connect(state, send, normalizeProps))
   </script>
 
@@ -143,12 +143,12 @@ Import all parts and piece them together.
 
           <div {...api.getTitleProps()}></div>
           <div {...api.getDescriptionProps()}></div>
-  
+
           <button {...api.getCloseTriggerProps()}></button>
         </div>
       </div>
     </div>
-    
+
   {/if}
   ```
 
@@ -201,7 +201,7 @@ Import all parts and piece them together.
 
 ## Managing focus within popover
 
-When the popover open, focus is automatically set to the first focusable element within the popover. 
+When the popover open, focus is automatically set to the first focusable element within the popover.
 To customize the element that should get focus, set the `initialFocusEl` property in the machine's context.
 
 <FrameworkLayout>
@@ -216,7 +216,7 @@ To customize the element that should get focus, set the `initialFocusEl` propert
 
   const inputRef = ref(null)
 
-  const [state, send] = useMachine(popover.machine({ 
+  const [state, send] = useMachine(popover.machine({
     id: useId(),
     initialFocusEl: () => inputRef.value,
   }))
@@ -230,7 +230,7 @@ To customize the element that should get focus, set the `initialFocusEl` propert
         <div v-bind="api.getContentProps()">
 
           <input ref="inputRef"/>
-          
+
         </div>
       </div>
     </Teleport>
@@ -267,7 +267,7 @@ To customize the element that should get focus, set the `initialFocusEl` propert
             <div {...api.getContentProps()}>
 
               <input ref={inputRef} />
-              
+
             </div>
           </div>,
           document.body,
@@ -288,12 +288,12 @@ To customize the element that should get focus, set the `initialFocusEl` propert
     let inputRef: HTMLInputElement | null = null
 
     const id = $props.id()
-    
-    const [state, send] = useMachine(popover.machine({ 
+
+    const [state, send] = useMachine(popover.machine({
       id,
       initialFocusEl: () => inputRef,
     }))
-    
+
     const api = $derived(popover.connect(state, send, normalizeProps))
   </script>
 
@@ -305,11 +305,11 @@ To customize the element that should get focus, set the `initialFocusEl` propert
         <div {...api.getContentProps()}>
 
           <input bind:this={inputRef} />
-          
+
         </div>
       </div>
     </div>
-    
+
   {/if}
   ```
 
@@ -343,7 +343,7 @@ To customize the element that should get focus, set the `initialFocusEl` propert
               <div {...api().getContentProps()}>
 
                 <input ref={setInputRef} />
-                
+
               </div>
             </div>
           </Portal>
@@ -369,7 +369,7 @@ In some cases, you might want the popover to be modal. This means that it'll:
 
 - hide content behind the popover from screen readers
 
-To make the popover modal, set the `modal: true` property in the machine's context. 
+To make the popover modal, set the `modal: true` property in the machine's context.
 When `modal: true`, we set the `portalled` attribute to `true` as well.
 
 ```ts
@@ -384,7 +384,7 @@ const [state, send] = useMachine(
 
 The popover is designed to close on blur and when the `esc` key is pressed.
 
-To prevent it from closing on blur (clicking or focusing outside), 
+To prevent it from closing on blur (clicking or focusing outside),
 pass the `closeOnInteractOutside` property and set it to `false`.
 
 ```ts
@@ -481,7 +481,7 @@ The arrow element requires specific css variables to be set for it to show corre
 }
 ```
 
-A common technique for adding a shadow to the arrow is to use set `filter: drop-down(...)` css property on the content element. 
+A common technique for adding a shadow to the arrow is to use set `filter: drop-down(...)` css property on the content element.
 Alternatively, you can use the `--arrow-shadow-color` variable.
 
 ```css
@@ -490,10 +490,10 @@ Alternatively, you can use the `--arrow-shadow-color` variable.
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

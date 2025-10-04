@@ -5,10 +5,10 @@ head:
 title: File Upload
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > File upload component is used to upload multiple files.
 >
@@ -137,7 +137,7 @@ Import all parts and piece them together.
   <div {...api.getRootProps()}>
     <div {...api.getDropzoneProps()}>
       <input {...api.getHiddenInputProps()} />
-      
+
       <button {...api.getTriggerProps()} ></button>
     </div>
 
@@ -225,7 +225,7 @@ const [state, send] = useMachine(
 
 ## Setting the maximum number of files
 
-Use the `maxFiles` attribute to set the maximum number of files that can be uploaded. 
+Use the `maxFiles` attribute to set the maximum number of files that can be uploaded.
 This will set the `multiple` attribute on the underlying input element.
 
 ```ts
@@ -266,7 +266,7 @@ const [state, send] = useMachine(
 
 ## Usage within a form
 
-To use the file upload within a form, set the `name` attribute in the machine's context, 
+To use the file upload within a form, set the `name` attribute in the machine's context,
 and ensure you render the input element `api.getHiddenInputProps()`
 
 ```ts
@@ -279,7 +279,7 @@ const [state, send] = useMachine(
 
 ## Displaying image preview
 
-To display a preview of the uploaded image, 
+To display a preview of the uploaded image,
 use the built-in FileReader API to read the file and set the `src` attribute of an image element.
 
 ```ts
@@ -301,8 +301,8 @@ const [state, send] = useMachine(
 
 To apply custom validation, set the `validate` attribute to a function that returns an array of error strings.
 
-The returned array can contain any string as an error message. 
-While destyler supports default errors such as `TOO_MANY_FILES`, `FILE_INVALID_TYPE`, `FILE_TOO_LARGE`, or `FILE_TOO_SMALL`, 
+The returned array can contain any string as an error message.
+While destyler supports default errors such as `TOO_MANY_FILES`, `FILE_INVALID_TYPE`, `FILE_TOO_LARGE`, or `FILE_TOO_SMALL`,
 you can return any string that represents your custom validation errors.
 
 :::note
@@ -403,7 +403,7 @@ const [state, send] = useMachine(
 
 ## Styling guide
 
-Earlier, we mentioned that each file upload part has a `data-part` attribute added to them to 
+Earlier, we mentioned that each file upload part has a `data-part` attribute added to them to
 select and style them in the DOM.
 
 ```css
@@ -460,10 +460,10 @@ When the file upload is disabled, the `data-disabled` attribute is added to the 
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

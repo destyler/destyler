@@ -6,7 +6,7 @@ title: Styling
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components'
-import FrameworkLayout from '../../../components/FrameworkLayout.astro'
+import FrameworkLayout from '../../components/FrameworkLayout.astro'
 
 > Destyler are unstyled and compatible with any styling solution giving you complete control over styling.
 
@@ -14,18 +14,18 @@ import FrameworkLayout from '../../../components/FrameworkLayout.astro'
 
 ### Functional styles
 
-You are in control of all aspects of styling, including functional styles. 
-For example, by default, a [Dialog Overlay]() won't cover the entire viewport. 
+You are in control of all aspects of styling, including functional styles.
+For example, by default, a [Dialog Overlay]() won't cover the entire viewport.
 You're responsible for adding those styles, plus any presentation styles.
 
 ### Classes
 
-All components accept `class` attributes, just like normal component. 
+All components accept `class` attributes, just like normal component.
 This class will be passed through to the DOM element. You can use it in CSS as expected.
 
 ### Data attributes
 
-When components are stateful, their state will be exposed in a `data-state` attribute. 
+When components are stateful, their state will be exposed in a `data-state` attribute.
 For example, when an [Collapse Item]() is opened, it includes a `data-state="open"` attribute.
 
 ## Styling with CSS
@@ -52,9 +52,9 @@ You can style a component part by targeting the class that you provide.
 
     <template>
       <div v-bind="api.getRootProps()" >
-        <div 
-          class="collapse-item" 
-          v-bind="api.getItemProps({ value: 'item-1' })" 
+        <div
+          class="collapse-item"
+          v-bind="api.getItemProps({ value: 'item-1' })"
         />
         <!-- ... -->
       </div>
@@ -85,16 +85,16 @@ You can style a component part by targeting the class that you provide.
         return (
           <>
             <div {...api.getRootProps()} >
-              <div 
+              <div
                 className="collapse-item"
-                {...api.getItemProps({ value: item.title })} 
+                {...api.getItemProps({ value: item.title })}
               >
               </div>
               {/* ... */}
             </div>
           </>
         )
-      }    
+      }
       ```
       </TabItem>
       <TabItem label="App.css">
@@ -156,16 +156,16 @@ You can style a component part by targeting the class that you provide.
         return (
           <>
             <div {...api().getRootProps()} >
-              <div 
+              <div
                 class="collapse-item"
-                {...api().getItemProps({ value: item.title })} 
+                {...api().getItemProps({ value: item.title })}
               >
               </div>
               {/* ... */}
             </div>
           </>
         )
-      }   
+      }
       ```
       </TabItem>
       <TabItem label="App.css">
@@ -219,9 +219,9 @@ You can style a component part by targeting the `class`.
       <div
         v-bind="api.getRootProps()"
       >
-        <div 
-          class="border border-gray-400 rounded-2xl" 
-          v-bind="api.getItemProps({ value: 'item-1' })" 
+        <div
+          class="border border-gray-400 rounded-2xl"
+          v-bind="api.getItemProps({ value: 'item-1' })"
         />
         <!-- ... -->
       </div>
@@ -244,9 +244,9 @@ You can style a component part by targeting the `class`.
       return (
         <>
           <div {...api.getRootProps()} >
-            <div 
-              class="border border-gray-400 rounded-2xl" 
-              {...api.getItemProps({ value: item.title })} 
+            <div
+              class="border border-gray-400 rounded-2xl"
+              {...api.getItemProps({ value: item.title })}
             >
             </div>
             {/* ... */}
@@ -274,7 +274,7 @@ You can style a component part by targeting the `class`.
       {...api.getRootProps()}
     >
       <div
-        class="border border-gray-400 rounded-2xl" 
+        class="border border-gray-400 rounded-2xl"
         {...api.getItemProps({ value: item.title })}
       >
       </div>
@@ -298,9 +298,9 @@ You can style a component part by targeting the `class`.
       return (
         <>
           <div {...api().getRootProps()} >
-            <div 
+            <div
               class="border border-gray-400 rounded-2xl"
-              {...api().getItemProps({ value: item.title })} 
+              {...api().getItemProps({ value: item.title })}
             >
             </div>
             {/* ... */}
@@ -337,10 +337,10 @@ With Tailwind CSS's powerful variant selector, you can style a component state b
       <div
         v-bind="api.getRootProps()"
       >
-        <div 
+        <div
           class="border border-gray-400 rounded-2xl
-          data-[state=open]:border-b-2 data-[state=open]:border-gray-800" 
-          v-bind="api.getItemProps({ value: 'item-1' })" 
+          data-[state=open]:border-b-2 data-[state=open]:border-gray-800"
+          v-bind="api.getItemProps({ value: 'item-1' })"
         />
         <!-- ... -->
       </div>
@@ -364,10 +364,10 @@ With Tailwind CSS's powerful variant selector, you can style a component state b
       return (
         <>
           <div {...api.getRootProps()} >
-            <div 
+            <div
               class="border border-gray-400 rounded-2xl
-              data-[state=open]:border-b-2 data-[state=open]:border-gray-800" 
-              {...api.getItemProps({ value: item.title })} 
+              data-[state=open]:border-b-2 data-[state=open]:border-gray-800"
+              {...api.getItemProps({ value: item.title })}
             >
             </div>
           </div>
@@ -396,7 +396,7 @@ With Tailwind CSS's powerful variant selector, you can style a component state b
   >
     <div
       class="border border-gray-400 rounded-2xl
-      data-[state=open]:border-b-2 data-[state=open]:border-gray-800" 
+      data-[state=open]:border-b-2 data-[state=open]:border-gray-800"
       {...api.getItemProps({ value: item.title })}
     >
     </div>
@@ -421,10 +421,10 @@ With Tailwind CSS's powerful variant selector, you can style a component state b
     return (
       <>
         <div {...api().getRootProps()} >
-          <div 
+          <div
             class="border border-gray-400 rounded-2xl
             data-[state=open]:border-b-2 data-[state=open]:border-gray-800"
-            {...api().getItemProps({ value: item.title })} 
+            {...api().getItemProps({ value: item.title })}
           >
           </div>
           {/* ... */}

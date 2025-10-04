@@ -5,12 +5,12 @@ head:
 title: Timer
 ---
 
-import Features from '/components/Features.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
-import PreviewCode from '/components/PreviewCode.astro'
+import Features from '@docs/components/Features.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
 
-> The timer machine is used to record the time elapsed from zero or 
+> The timer machine is used to record the time elapsed from zero or
 > since a specified target time.
 
 <PreviewCode name="timer"></PreviewCode>
@@ -307,7 +307,7 @@ Import all parts and piece them together.
 
 ## Setting the start value
 
-Set the `startMs` property to the timer machine's context 
+Set the `startMs` property to the timer machine's context
 to set the start time in milliseconds.
 
 ```ts
@@ -318,7 +318,7 @@ const [state, send] = useMachine(
 )
 ```
 
-Alternatively, you can also use the `timer.parse` function to convert 
+Alternatively, you can also use the `timer.parse` function to convert
 a date time string or object into milliseconds
 
 ```ts
@@ -332,7 +332,7 @@ const [state, send] = useMachine(
 
 ## Auto starting the timer
 
-Set the `autoStart` property to `true` in the timer machine's context 
+Set the `autoStart` property to `true` in the timer machine's context
 to start the timer automatically when the component mounts.
 
 ```ts
@@ -345,7 +345,7 @@ const [state, send] = useMachine(
 
 ## Usage as countdown timer
 
-To use the timer as a countdown timer, 
+To use the timer as a countdown timer,
 set the `countdown` property to `true` in the timer machine's context.
 
 ```ts
@@ -358,11 +358,11 @@ const [state, send] = useMachine(
 
 ## Setting the target value
 
-To set the target value of the countdown timer, 
-pass the `targetMs` property in the timer machine's context. 
+To set the target value of the countdown timer,
+pass the `targetMs` property in the timer machine's context.
 The timer stops automatically when the `targetMs` is reached.
 
-When `targetMs` is set and `countdown=true`, 
+When `targetMs` is set and `countdown=true`,
 the timer ticks down to zero from the specified target time.
 
 ```ts
@@ -374,7 +374,7 @@ const [state, send] = useMachine(
 )
 ```
 
-When `targetMs` is set and `countdown=false`, 
+When `targetMs` is set and `countdown=false`,
 the timer ticks up to the specified target time.
 
 ```ts
@@ -399,7 +399,7 @@ const [state, send] = useMachine(
 
 ## Listening to tick events
 
-When the timer ticks, the `onTick` callback is invoke. 
+When the timer ticks, the `onTick` callback is invoke.
 You can listen to this event and update your UI accordingly.
 
 ```ts
@@ -457,10 +457,10 @@ To resume the timer, send the `api.resume()` callback
 api.resume()
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

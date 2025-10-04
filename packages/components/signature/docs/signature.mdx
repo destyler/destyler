@@ -5,12 +5,12 @@ head:
 title: Signature
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> The signature component allows users to draw handwritten signatures using touch or pointer devices. 
+> The signature component allows users to draw handwritten signatures using touch or pointer devices.
 > The signature can be saved as an image or cleared.
 
 <PreviewCode name="signature"></PreviewCode>
@@ -170,8 +170,8 @@ Import all parts and piece them together.
         <div
           {...api().getControlProps()}
         >
-          <svg 
-            {...api().getSegmentProps()} 
+          <svg
+            {...api().getSegmentProps()}
           >
             <For each={api().paths}>
               {(path, i) => (
@@ -223,7 +223,7 @@ const [state, send] = useMachine(
 ## Clearing the signature
 
 
-To clear the signature, use the `api.clear()`, 
+To clear the signature, use the `api.clear()`,
 or render the clear trigger button.
 
 <FrameworkLayout>
@@ -341,7 +341,7 @@ You can also leverage the `onDrawEnd` event to get the signature data URL.
 
     const imageURL = ref<string | null>(null)
 
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id: useId(),
       onDrawEnd(details) {
         details.getDataUrl("image/png").then((url) => {
@@ -372,7 +372,7 @@ You can also leverage the `onDrawEnd` event to get the signature data URL.
   export default function Signature() {
     const [imageURL, setImageURL] = useState<string | null>(null)
 
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id: useId(),
       onDrawEnd(details) {
         details.getDataUrl("image/png").then((url) => {
@@ -404,7 +404,7 @@ You can also leverage the `onDrawEnd` event to get the signature data URL.
     let imageURL: string | null = null
 
     const id = $props.id()
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id,
       onDrawEnd(details) {
         details.getDataUrl("image/png").then((url) => {
@@ -432,7 +432,7 @@ You can also leverage the `onDrawEnd` event to get the signature data URL.
     const id = createUniqueId()
     const [imageURL, setImageURL] = createSignal<string | null>(null)
 
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id,
       onDrawEnd(details) {
         details.getDataUrl("image/png").then((url) => {
@@ -458,7 +458,7 @@ You can also leverage the `onDrawEnd` event to get the signature data URL.
 
 ## Changing the stroke color
 
-To change the stroke color, 
+To change the stroke color,
 set the `drawing.fill` option to a valid CSS color.
 
 :::note
@@ -491,7 +491,7 @@ const [state, send] = useMachine(
 
 ## Simulating pressure sensitivity
 
-Pressure sensitivity is disabled by default. 
+Pressure sensitivity is disabled by default.
 To enable it, set the `drawing.simulatePressure` option to true.
 
 ```ts
@@ -520,7 +520,7 @@ To use the signature pad in a form, set the `name` context property.
 
     const imageURL = ref<string | null>(null)
 
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id: useId(),
       name: "signature",
       onDrawEnd(details) {
@@ -552,7 +552,7 @@ To use the signature pad in a form, set the `name` context property.
   export default function Signature() {
     const [imageURL, setImageURL] = useState<string | null>(null)
 
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id: useId(),
       name: "signature",
       onDrawEnd(details) {
@@ -585,7 +585,7 @@ To use the signature pad in a form, set the `name` context property.
     let imageURL: string | null = null
 
     const id = $props.id()
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id,
       name: "signature",
       onDrawEnd(details) {
@@ -614,7 +614,7 @@ To use the signature pad in a form, set the `name` context property.
     const id = createUniqueId()
     const [imageURL, setImageURL] = createSignal<string | null>(null)
 
-    const [state, send] = useMachine(signature.machine({ 
+    const [state, send] = useMachine(signature.machine({
       id,
       onDrawEnd(details) {
         details.getDataUrl("image/png").then((url) => {
@@ -662,10 +662,10 @@ const [state, send] = useMachine(
 )
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

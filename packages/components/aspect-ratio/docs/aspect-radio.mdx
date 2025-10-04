@@ -5,10 +5,10 @@ head:
 title: Aspect Ratio
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
 > Displays content within a desired ratio.
 
@@ -42,7 +42,7 @@ Import all parts and piece them together.
   import { normalizeProps, useMachine } from '@destyler/vue'
   import { computed, useId } from 'vue'
 
-  const [state, send] = useMachine(aspectRatio.machine({ 
+  const [state, send] = useMachine(aspectRatio.machine({
     id: useId(),
   }))
   const api = computed(() =>
@@ -157,7 +157,7 @@ const [state, send] = useMachine(
 
 ## Styling guide
 
-Earlier, we mentioned that each aspect ratio part has a `data-part` attribute added to them to 
+Earlier, we mentioned that each aspect ratio part has a `data-part` attribute added to them to
 select and style them in the DOM.
 
 ```css

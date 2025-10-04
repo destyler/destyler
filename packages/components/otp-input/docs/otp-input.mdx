@@ -5,14 +5,14 @@ head:
 title: OTP Input
 ---
 
-import Features from '/components/Features.astro'
-import PreviewCode from '/components/PreviewCode.astro'
-import FrameworkLayout from '/components/FrameworkLayout.astro'
-import InstallShell from '/components/InstallShell.astro'
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
 
-> The otp input is optimized for entering a sequence of digits or letters. 
-> The input fields allow one character at a time. 
-> When the digit or letter is entered, focus transfers to the next input 
+> The otp input is optimized for entering a sequence of digits or letters.
+> The input fields allow one character at a time.
+> When the digit or letter is entered, focus transfers to the next input
 > in the sequence, until every input is filled.
 
 <PreviewCode name="otpInput"></PreviewCode>
@@ -162,7 +162,7 @@ const [state, send] = useMachine(
 
 ## Changing the placeholder
 
-To customize the default otp input placeholder (○) for each input, 
+To customize the default otp input placeholder (○) for each input,
 pass the `placeholder` prop and set it to your desired value.
 
 ```ts
@@ -175,7 +175,7 @@ const [state, send] = useMachine(
 
 ## Blur on complete
 
-By default, the last input maintains focus when filled and we invoke the `onComplete` callback. 
+By default, the last input maintains focus when filled and we invoke the `onComplete` callback.
 To blur the last input when the user completes the input, set the `blurOnComplete: true` in the destyler's context.
 
 ```ts
@@ -188,8 +188,8 @@ const [state, send] = useMachine(
 
 ## Allowing alphanumeric values
 
-By default, the otp input accepts only number values but you can choose between `numeric`, 
-`alphanumeric` and `alphabetic` values. To change the input mode, pass the `type` 
+By default, the otp input accepts only number values but you can choose between `numeric`,
+`alphanumeric` and `alphabetic` values. To change the input mode, pass the `type`
 context property and set its value to `alphanumeric`.
 
 ```ts
@@ -202,8 +202,8 @@ const [state, send] = useMachine(
 
 ## Using OTP mode
 
-To trigger smartphone OTP auto-suggestion, it is recommended to set the 
-`autocomplete` attribute to "one-time-code". The pin-input machine provides 
+To trigger smartphone OTP auto-suggestion, it is recommended to set the
+`autocomplete` attribute to "one-time-code". The pin-input machine provides
 support for this automatically when you set the `otp` context property to `true`.
 
 ```ts
@@ -216,8 +216,8 @@ const [state, send] = useMachine(
 
 ## Securing the text input
 
-When collecting private or sensitive information using the otp input, 
-you might need to mask the value entered, similar to `<input type="password"/>`. 
+When collecting private or sensitive information using the otp input,
+you might need to mask the value entered, similar to `<input type="password"/>`.
 Pass the `mask` context property and set it to `true`.
 
 ```ts
@@ -259,7 +259,7 @@ const [state, send] = useMachine(
 
 ## RTL support
 
-The pin input machine supports RTL writing directions. 
+The pin input machine supports RTL writing directions.
 To set the `dir` property in the destyler's context.
 
 When this attribute is set, we attach a `dir` attribute to the root part.
@@ -314,10 +314,10 @@ When the pin-input is disabled, we attach a `data-disabled` attribute to the roo
 }
 ```
 
-import MachineTable from '/components/props/Machine.astro'
-import APITable from '/components/props/Api.astro'
-import StyleTable from '/components/props/Style.astro'
-import KeyboardTable from '/components/props/Keyboard.astro'
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
 
 ## Methods and Properties
 

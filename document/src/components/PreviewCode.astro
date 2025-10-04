@@ -36,7 +36,7 @@ const sanitize = (code: string) => {
 }
 
 // 预先静态收集 snippets 下所有相关文件（包括根级主文件）
-const allSnippets = import.meta.glob('@component-docs/*/docs/snippets/**/*', { query: '?raw', import: 'default' })
+const allSnippets = import.meta.glob('@component/*/docs/snippets/**/*', { query: '?raw', import: 'default' })
 
 const loadFrameworkFile = async (framework: string) => {
   const allFiles: Record<string, () => Promise<any>> = allSnippets
