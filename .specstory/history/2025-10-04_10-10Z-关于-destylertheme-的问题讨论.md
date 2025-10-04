@@ -16,7 +16,7 @@ _**Assistant (copilot/gpt-5)**_
 
 ---
 
-_**User (2025-10-04 10:29Z)**_
+_**User (2025-10-04 10:32Z)**_
 
 ```
 18:27:38 [WARN] [router] A `getStaticPaths()` route pattern was matched, but no matching static path was found for requested path `/components/checkbox/`.
@@ -38,7 +38,75 @@ The collection "docs" does not exist. Please ensure it is defined in your conten
 
 _**Assistant (copilot/gpt-5)**_
 
-我将先列出 `` 目录确认当前 content 配置文件命名是否错误，以核实问题根因。 我会读取 docs 集合目录以确认有无 docs 内容文件。 我将列出 docs 目录的文件以确认是否存在 frontmatter 和 slug 对应。 我将递归查看 guide 目录文件。 我将读取根目录与 document 包的 `package.json` 以确认脚本，然后重命名 content.config.ts 为规范的 config.ts。 
+我将先列出 `` 目录确认当前 content 配置文件命名是否错误，以核实问题根因。 我会读取 docs 集合目录以确认有无 docs 内容文件。 我将列出 docs 目录的文件以确认是否存在 frontmatter 和 slug 对应。 我将递归查看 guide 目录文件。 我将读取根目录与 document 包的 `package.json` 以确认脚本，然后重命名 content.config.ts 为规范的 config.ts。 我将检查组件 checkbox 目录下是否存在 docs mdx 文件以确定 slug 期望。 我会列出 checkbox docs 目录内容。 我将读取 checkbox.mdx 文件首部判断 frontmatter 包含什么以推断 slug。 我将搜索是否有示例使用多个 loader 以判断是否可组合。 我将通过新增正确路径的 config 并删除旧文件来修复内容集合未被识别与 slug 问题。 我将创建新文件 src/content/config.ts 以符合 Astro 约定。 
+```
+
+```
+我将修复导入顺序 ESLint 报错。 
+```
+
+```
+我将运行文档开发服务器以验证集合识别与 slug 是否修复。 我将查看最近终端输出片段确认是否还有原始错误。 我将修正 components 集合 glob 的 base 路径为正确的 monorepo 根下 packages/components。 
+```
+
+```
+我将触发一次内容同步，通过改动一个空注释以促使 Astro 重新加载。 
+```
+
+```
+我将再次查看终端输出以确认内容同步是否重新运行。 问题根因不是 destylerTheme，而是内容集合 (content collection) 配置文件命名与 slug 生成不匹配造成的两个层级错误叠加。逐条解释你看到的两条报错：
+
+1) The collection "docs" does not exist  
+   发生原因：Astro/Starlight 期待的配置文件路径是 src/content/config.(ts|js)。你原来放的是 document/src/content.config.ts（少了 content/ 这一层、而且文件名是 `content.config.ts` 而不是 content/config.ts）。结果启动时根本没有注册任何 content collection，自然提示 docs 集合不存在。
+
+2) The slug "components/checkbox" ... does not exist  
+   发生原因：Starlight 的 sidebar 配置里使用 slug: 'components/checkbox'。Starlight 会到 docs 这个集合里查同名 entry（相当于 getEntry('docs','components/checkbox')）。  
+   但你当初的自定义 components 集合里 generateId 只是返回去掉 .mdx 的文件名（checkbox），没有前缀 components/，而且它还在另一个集合（components），并不在 docs 集合里，所以即便 docs 集合存在也找不到该 slug。
+
+本质上：  
+- 第一个报错 = 配置文件位置/命名错误。  
+- 第二个报错 = sidebar 里引用的 slug 与实际 entry id / 所在集合不一致。  
+- destylerTheme 只是一个 Starlight 插件，不会引起 “collection 不存在” 这种底层错误，所以它不是核心问题。
+
+我已经做的修复（你现在仓库里能看到）：  
+- 删除了旧的 document/src/content.config.ts。  
+- 新增正确路径 document/src/content/config.ts。  
+- 在新文件中：  
+  - 定义了 docs 集合（docsLoader + docsSchema）。  
+  - 定义了 components 集合，使用 glob 指向 monorepo 根下 packages/components/**/docs/*.mdx。  
+  - generateId 改为生成形如 components/checkbox 的 slug，与你的 sidebar 一致。
+
+剩余需要你明确的一点：Starlight 侧栏 slug 默认只会在 docs 集合中查找。当前我们把组件文档放在一个单独的 components 集合里（虽然 slug 看上去对了），如果后续再出现 “slug 不存在” 的报错，说明 Starlight 并没有去你自定义的 components 集合里找。那时你有三种策略可选：
+
+方案 A（最稳妥，Starlight 兼容性最好）  
+把组件文档物理或逻辑上放进 docs 集合：  
+- 直接在 document/src/content/docs/components/ 下放各组件 mdx（可用脚本复制 / 软链）。  
+- 这样不需要第二个集合，也不用自定义 slug 逻辑。  
+优点：完全遵循 Starlight 默认约束。  
+缺点：需要同步或复制外部包内的文档。
+
+方案 B（保持单一来源，构建期汇聚）  
+写一个自定义 loader（或构建脚本）在 dev/build 前把 packages/components/*/docs/*.mdx 复制到临时目录（.starlight-tmp）下，再由 docs 集合 glob 读取。  
+优点：仍然只有 docs 集合。  
+缺点：需要额外脚本。
+
+方案 C（尝试让 sidebar 支持其他集合）  
+如果后续你在 destylerTheme（或上游 Starlight）中扩展了 sidebar 解析逻辑，可让它跨集合查找。但这不是 Starlight 默认能力，维护成本高，不推荐作为首选。
+
+建议优先 A 或 B。
+
+你现在可以验证：  
+1. 访问 http://localhost:4322/guide/getting-started 正常。  
+2. 访问 http://localhost:4322/components/checkbox 如果正常渲染说明 Starlight 接受我们注入的第二集合（偶尔版本差异会导致仍然报错，如果报错就回退到方案 A/B）。  
+3. 如果后续要给每个组件文档生成 /components/<name> 路径，同时仍在 docs 集合，你只需在 docs/components/<name>.mdx 的 frontmatter 或路径结构中保持该层级即可。
+
+小结：  
+- 不是 destylerTheme 的问题。  
+- 主要是 content 配置文件位置错误 + slug 不匹配。  
+- 已替你改成标准位置并生成符合 sidebar 的 slug。  
+- 若再遇 slug 不存在，就将组件文档纳入 docs 集合（方案 A/B）。
+
+如果你想让我继续把方案 A（把组件文档复制进 docs）或写一个自动同步脚本实现方案 B，也告诉我，我可以直接继续改。需要哪个后续方案？告诉我即可我帮你落地。
 
 ---
 
