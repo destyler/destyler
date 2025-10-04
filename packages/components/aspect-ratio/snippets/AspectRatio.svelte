@@ -2,7 +2,7 @@
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/svelte'
 import '@docs/styles/components/aspect-radio.css'
-import '../style.css'
+import './style.css'
 
 const uid = $props.id();
 

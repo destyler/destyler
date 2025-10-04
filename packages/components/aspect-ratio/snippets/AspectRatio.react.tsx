@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import * as aspectRatio from '@destyler/aspect-ratio'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { useId } from 'react'
-import '../style.css'
+import './style.css'
 
 const AspectRatio: FC = () => {
   const [state, send] = useMachine(aspectRatio.machine({

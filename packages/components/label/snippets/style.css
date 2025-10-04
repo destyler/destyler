@@ -1,0 +1,8 @@
+[data-layout="sinppets"] [data-scope="label"][data-part="root"]{
+  line-height: 35px;
+  font-weight: 600;
+  --un-text-opacity: 1;
+  color: hsl(var(--foreground) / var(--un-text-opacity));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
