@@ -20,7 +20,13 @@ const highlighter = await createHighlighter({
   langs: ['html', 'css', 'js', 'ts', 'vue', 'jsx', 'tsx', 'svelte']
 })
 
-interface CodeFile { title: string; content: string; highlighted: string; language: string; framework: string }
+interface CodeFile {
+  title: string;
+  content: string;
+  highlighted: string;
+  language: string;
+  framework: string
+}
 
 // 清理不需要展示的指令 / 引入
 const sanitize = (code: string) => {
@@ -28,20 +34,44 @@ const sanitize = (code: string) => {
     // 去掉 solid-js jsxImportSource 注释
     .replace(/\/\*+\s*@jsxImportSource\s+solid-js\s*\*+\//g, '')
     // 去掉 import '../../style.css'
-    .replace(/import\s+['\"]\.\.\/\.\.\/style\.css['\"];?\n?/g, '')
+    .replace(/import\s+['\"]\.\/style\.css['\"];?\n?/g, '')
     // 删除开头空行
     .replace(/^(\s*\n)+/, '')
     // 折叠 3 行及以上连续空行
     .replace(/\n{3,}/g, '\n\n')
 }
 
-// 预先静态收集 snippets 下所有相关文件（包括根级主文件）
-const allSnippets = import.meta.glob('@component/*/snippets/*', { query: '?raw', import: 'default' })
+// 预先静态收集 snippets 下所有相关文件（递归，以支持 menu 等存在多级子目录的组件变体）
+// 示例：packages/components/menu/snippets/menu/Menu.vue 或 packages/components/menu/snippets/content-menu/ContentMenu.vue
+const allSnippets = import.meta.glob('@component/*/snippets/**/*', { query: '?raw', import: 'default' })
 
 const loadFrameworkFile = async (framework: string) => {
   const allFiles: Record<string, () => Promise<any>> = allSnippets
+  const snippetPaths = Object.keys(allFiles)
 
-  // 仅根级主文件，不读取子目录
+  // 判定是否是“简单组件”还是“变体组件”调用
+  // 简单：/components/<name>/snippets/<PascalName>.vue 存在
+  const directPattern = new RegExp(`/components/${name}/snippets/${baseName}\\.`)
+  const hasDirect = snippetPaths.some(p => directPattern.test(p))
+
+  let rootComponentDir = name
+  let variantDir: string | null = null
+
+  if (!hasDirect) {
+    // 寻找形如 /components/<root>/snippets/<name>/ 的路径 => 说明 name 是一个变体
+    const variantMatch = snippetPaths.find(p => p.includes(`/snippets/${name}/`))
+    if (variantMatch) {
+      const segments = variantMatch.split('/')
+      const compIdx = segments.findIndex(s => s === 'components')
+      if (compIdx !== -1 && segments.length > compIdx + 2) {
+        rootComponentDir = segments[compIdx + 1] // 根组件目录
+        // name 已是变体目录（kebab-case）
+        variantDir = name
+      }
+    }
+  }
+
+  // 期望主文件集合（按当前 framework）
   const expectedFiles: string[] = []
   if (framework === 'vue') expectedFiles.push(`${baseName}.vue`)
   else if (framework === 'react') expectedFiles.push(`${baseName}.react.tsx`, `${baseName}.react.jsx`, `${baseName}.react.ts`, `${baseName}.react.js`)
@@ -49,18 +79,31 @@ const loadFrameworkFile = async (framework: string) => {
   else if (framework === 'svelte') expectedFiles.push(`${baseName}.svelte`)
 
   const result: CodeFile[] = []
-  const nameDirPattern = new RegExp(`/snippets/${name}/`)
+
+  // 匹配路径规则：
+  // 1) 简单组件：/components/<name>/snippets/<File>
+  // 2) 变体组件：/components/<rootComponentDir>/snippets/<variantDir>/<File>
+  const pathFilter = (p: string) => {
+    if (variantDir) {
+      return p.includes(`/components/${rootComponentDir}/snippets/${variantDir}/`)
+    }
+    return p.includes(`/components/${rootComponentDir}/snippets/`) && !/\/snippets\/[^/]+\//.test(p.replace(`/components/${rootComponentDir}/snippets/`, ''))
+  }
 
   for (const [path, importer] of Object.entries(allFiles)) {
-    if (!nameDirPattern.test(path)) continue
-  const segments = path.split('/')
-  const fileName = segments.pop() || ''
-  // 排除任何 path 中继续包含框架子目录的文件（保持只取根目录主文件）
-  if (segments.includes('vue') || segments.includes('react') || segments.includes('solid') || segments.includes('svelte')) continue
-  if (!expectedFiles.includes(fileName)) continue
+    if (!pathFilter(path)) continue
+
+    const segments = path.split('/')
+    const fileName = segments.pop() || ''
+
+    // 忽略样式 & api 辅助文件
+    if (fileName === 'style.css' || fileName === 'api.ts' || fileName === 'api.js') continue
+
+    if (!expectedFiles.includes(fileName)) continue
+
     try {
-  const raw = await importer()
-  const cleaned = sanitize(raw)
+      const raw = await importer()
+      const cleaned = sanitize(raw)
       const ext = fileName.split('.').pop() || ''
       let language = ext
       if (fileName.endsWith('.react.tsx') || fileName.endsWith('.solid.tsx')) language = 'tsx'
@@ -70,20 +113,19 @@ const loadFrameworkFile = async (framework: string) => {
       else if (ext === 'vue') language = 'vue'
       else if (ext === 'svelte') language = 'svelte'
 
-  const highlighted = highlighter.codeToHtml(cleaned, {
+      const highlighted = highlighter.codeToHtml(cleaned, {
         lang: language,
         theme: 'vitesse-dark',
         themes: { dark: 'vitesse-dark', light: 'vitesse-light' }
       })
 
-  // 推断框架（用于前端展示图标）
-  let frameworkName = ''
-  if (fileName.endsWith('.vue')) frameworkName = 'vue'
-  else if (/\.react\.(t|j)sx?$/.test(fileName)) frameworkName = 'react'
-  else if (/\.solid\.(t|j)sx?$/.test(fileName)) frameworkName = 'solid'
-  else if (fileName.endsWith('.svelte')) frameworkName = 'svelte'
+      let frameworkName = ''
+      if (fileName.endsWith('.vue')) frameworkName = 'vue'
+      else if (/\.react\.(t|j)sx?$/.test(fileName)) frameworkName = 'react'
+      else if (/\.solid\.(t|j)sx?$/.test(fileName)) frameworkName = 'solid'
+      else if (fileName.endsWith('.svelte')) frameworkName = 'svelte'
 
-  result.push({ title: fileName, content: cleaned, highlighted, language, framework: frameworkName })
+      result.push({ title: fileName, content: cleaned, highlighted, language, framework: frameworkName })
     } catch (e) {
       console.error(`Failed to load file ${path}`, e)
     }

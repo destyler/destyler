@@ -55,8 +55,8 @@ const props = defineProps<{
     <Slider v-if="props.name === 'slider'" class="w-450px!" />
     <Switch v-if="props.name === 'switch'" />
     <ToggleGroup v-if="props.name === 'toggleGroup'" />
-    <Calendar v-if="props.name === 'calendar'" />
-    <QRCode v-if="props.name === 'qr-code'" />
+    <!-- <Calendar v-if="props.name === 'calendar'" /> -->
+    <QrCode v-if="props.name === 'qr-code'" />
     <Collapsible v-if="props.name === 'collapsible'" />
     <Dialog v-if="props.name === 'dialog'" />
     <Image v-if="props.name === 'image'" />
