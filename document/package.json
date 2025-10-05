@@ -62,6 +62,7 @@
     "@astrojs/starlight": "catalog:frontend",
     "@astrojs/svelte": "catalog:frontend",
     "@astrojs/vue": "catalog:frontend",
+    "@destyler/docs": "workspace:*",
     "@fontsource/geist-mono": "catalog:font",
     "@fontsource/geist-sans": "catalog:font",
     "@iconify-json/carbon": "catalog:icon",
