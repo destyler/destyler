@@ -27,7 +27,7 @@
 <div {...api.getRootProps()} class={`${className}`}>
   {#each data as item (item.title)}
     <div {...api.getItemProps({ value: item.title })}>
-      <h3>
+      <h3 class="my-0!">
         <button {...api.getItemTriggerProps({ value: item.title })}>
           <span>{item.title}</span>
           <div></div>

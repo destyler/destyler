@@ -196,6 +196,9 @@ export default defineConfig({
     }),
   ],
   vite: {
+    ssr: {
+      noExternal: ['@astrojs/starlight', 'starlight-theme-destyler'],
+    },
     server: {
       fs: {
         allow: [
@@ -208,6 +211,7 @@ export default defineConfig({
       alias: {
         '@docs': fileURLToPath(`${documentRoot}/src/`),
         '@component': fileURLToPath(componentsDocsDir),
+        '@astrojs/starlight': fileURLToPath(new URL('./node_modules/@astrojs/starlight/', import.meta.url)),
       },
     },
     plugins: [

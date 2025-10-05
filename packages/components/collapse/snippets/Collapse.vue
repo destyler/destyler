@@ -33,7 +33,7 @@ const api = computed(() =>
       :key="item.title"
       v-bind="api.getItemProps({ value: item.title })"
     >
-      <h3>
+      <h3 class="my-0!">
         <button v-bind="api.getItemTriggerProps({ value: item.title })">
           <span>{{ item.title }}</span>
           <div />

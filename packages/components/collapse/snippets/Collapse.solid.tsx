@@ -30,7 +30,7 @@ export default function Collapse({ className = '' }: { className?: string }) {
     >
       {data.map(item => (
         <div {...api.getItemProps({ value: item.title })}>
-          <h3>
+          <h3 class="my-0!">
             <button {...api.getItemTriggerProps({ value: item.title })}>
               <span>{item.title}</span>
               <div />
