@@ -33,7 +33,7 @@ import Steps from '@component/steps/snippets/Steps.vue'
 import Switch from '@component/switch/snippets/Switch.vue'
 import Tabs from '@component/tabs/snippets/Tabs.vue'
 import Timer from '@component/timer/snippets/Timer.vue'
-import ToggleGroup from '@component/toggle/snippets/ToggleGroup.vue'
+import Toggle from '@component/toggle/snippets/Toggle.vue'
 import Tooltip from '@component/tooltip/snippets/Tooltip.vue'
 import Tree from '@component/tree/snippets/Tree.vue'
 
@@ -54,7 +54,7 @@ const props = defineProps<{
     <Select v-if="props.name === 'select'" />
     <Slider v-if="props.name === 'slider'" class="w-450px!" />
     <Switch v-if="props.name === 'switch'" />
-    <ToggleGroup v-if="props.name === 'toggleGroup'" />
+    <Toggle v-if="props.name === 'toggle'" />
     <!-- <Calendar v-if="props.name === 'calendar'" /> -->
     <QrCode v-if="props.name === 'qr-code'" />
     <Collapsible v-if="props.name === 'collapsible'" />

@@ -208,11 +208,13 @@ export default defineConfig({
       },
     },
     resolve: {
-      alias: {
-        '@docs': fileURLToPath(`${documentRoot}/src/`),
-        '@component': fileURLToPath(componentsDocsDir),
-        '@astrojs/starlight': fileURLToPath(new URL('./node_modules/@astrojs/starlight/', import.meta.url)),
-      },
+      alias: [
+        { find: '@docs', replacement: fileURLToPath(`${documentRoot}/src/`) },
+        { find: '@component', replacement: fileURLToPath(componentsDocsDir) },
+        { find: '@astrojs/starlight', replacement: fileURLToPath(new URL('./node_modules/@astrojs/starlight/', import.meta.url)) },
+        // Only match exact specifier (no trailing /index.js) to avoid self-aliasing inside shim.
+        { find: 'nanoid', replacement: fileURLToPath(new URL('../node_modules/nanoid/', import.meta.url)) },
+      ],
     },
     plugins: [
       injectComponents({

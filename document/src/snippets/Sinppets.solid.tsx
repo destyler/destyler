@@ -34,7 +34,7 @@ import Steps from '@component/steps/snippets/Steps.solid.tsx'
 import Switch from '@component/switch/snippets/Switch.solid.tsx'
 import Tabs from '@component/tabs/snippets/Tabs.solid.tsx'
 import Timer from '@component/timer/snippets/Timer.solid.tsx'
-import ToggleGroup from '@component/toggle/snippets/ToggleGroup.solid.tsx'
+import Toggle from '@component/toggle/snippets/Toggle.solid.tsx'
 import Tooltip from '@component/tooltip/snippets/Tooltip.solid.tsx'
 import Tree from '@component/tree/snippets/Tree.solid.tsx'
 
@@ -55,7 +55,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'select' && <Select />}
       {props.name === 'slider' && <Slider className="w-450px!" />}
       {props.name === 'switch' && <Switch />}
-      {props.name === 'toggleGroup' && <ToggleGroup />}
+      {props.name === 'toggle' && <Toggle />}
       {props.name === 'qr-code' && <QrCode />}
       {props.name === 'collapsible' && <Collapsible />}
       {props.name === 'dialog' && <Dialog />}

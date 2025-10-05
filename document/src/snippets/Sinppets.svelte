@@ -33,7 +33,7 @@
   import Switch from '@component/switch/snippets/Switch.svelte'
   import Tabs from '@component/tabs/snippets/Tabs.svelte'
   import Timer from '@component/timer/snippets/Timer.svelte'
-  import ToggleGroup from '@component/toggle/snippets/ToggleGroup.svelte'
+  import Toggle from '@component/toggle/snippets/Toggle.svelte'
   import Tooltip from '@component/tooltip/snippets/Tooltip.svelte'
   import Tree from '@component/tree/snippets/Tree.svelte'
 
@@ -71,8 +71,8 @@
   {#if name === 'switch'}
     <Switch />
   {/if}
-  {#if name === 'toggleGroup'}
-    <ToggleGroup />
+  {#if name === 'toggle'}
+    <Toggle />
   {/if}
   {#if name === 'qr-code'}
     <QrCode />

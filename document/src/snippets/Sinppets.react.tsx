@@ -32,7 +32,7 @@ import Steps from '@component/steps/snippets/Steps.react.tsx'
 import Switch from '@component/switch/snippets/Switch.react.tsx'
 import Tabs from '@component/tabs/snippets/Tabs.react.tsx'
 import Timer from '@component/timer/snippets/Timer.react.tsx'
-import ToggleGroup from '@component/toggle/snippets/ToggleGroup.react.tsx'
+import Toggle from '@component/toggle/snippets/Toggle.react.tsx'
 import Tooltip from '@component/tooltip/snippets/Tooltip.react.tsx'
 import Tree from '@component/tree/snippets/Tree.react.tsx'
 
@@ -53,7 +53,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'select' && <Select />}
       {name === 'slider' && <Slider className="w-450px!" />}
       {name === 'switch' && <Switch />}
-      {name === 'toggleGroup' && <ToggleGroup />}
+      {name === 'toggle' && <Toggle />}
       {name === 'qr-code' && <QrCode />}
       {name === 'collapsible' && <Collapsible />}
       {name === 'dialog' && <Dialog />}
