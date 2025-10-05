@@ -225,7 +225,7 @@
       "description": "Submits the value entered in the number input."
     }
   ],
-  "opt-input": [
+  "otp-input": [
     {
       "key": "ArrowLeft",
       "description": "Moves focus to the previous input"

@@ -43,6 +43,7 @@
     padding-bottom: 0.5rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
       "Liberation Mono", "Courier New", monospace;
+    margin-top: 0 !important;
   }
 }
 
