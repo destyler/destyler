@@ -165,6 +165,15 @@ async function main() {
     const widget = file.split(sep)[2]
     project.addSourceFileAtPath(file)
 
+    // Also attempt to load the component's anatomy file so we can fallback
+    // and still output at least the base part entries (data-scope / data-part)
+    // even if the connect.ts file doesn't declare any data-* literals (e.g. aspect-ratio)
+    const anatomyPath = `packages/components/${widget}/src/anatomy.ts`
+    try {
+      project.addSourceFileAtPath(anatomyPath)
+    }
+    catch {}
+
     const sourceFile = project.getSourceFile(file)
     if (!sourceFile)
       return
@@ -245,6 +254,33 @@ async function main() {
     })
 
     json[widget] = result
+
+    // Fallback: if we didn't collect any data attributes, create base entries for each part
+    if (Object.keys(result).length === 0) {
+      const anatomyFile = project.getSourceFile(anatomyPath)
+      if (anatomyFile) {
+        const partNames: string[] = []
+        anatomyFile.getDescendantsOfKind(SyntaxKind.CallExpression).forEach((call) => {
+          const exprText = call.getExpression().getText()
+          // Match something like: anatomy.parts('root', 'content') OR createAnatomy(...).parts('root','content')
+          if (/\.parts$/.test(exprText)) {
+            call.getArguments().forEach((arg) => {
+              if (Node.isStringLiteral(arg)) {
+                const val = arg.getLiteralValue()
+                partNames.push(titleCase(val))
+              }
+            })
+          }
+        })
+
+        partNames.forEach((part) => {
+          result[part] = {
+            'data-scope': widget,
+            'data-part': dashCase(part),
+          }
+        })
+      }
+    }
   })
 
   const outPath = join(process.cwd(), 'packages', 'docs', 'data', 'data-attr.json')
