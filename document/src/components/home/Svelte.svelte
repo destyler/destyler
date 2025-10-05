@@ -1,26 +1,26 @@
-<!-- <script lang="ts">
+<script lang="ts">
   import { onMount } from 'svelte'
-  import CheckboxExample from '../../snippets/checkbox/Checkbox.svelte'
-  import CollapseExample from '../../snippets/collapse/Collapse.svelte'
-  import ColorPickerExample from '../../snippets/color-picker/ColorPicker.svelte'
-  import ComboboxExample from '../../snippets/combobox/Combobox.svelte'
-  import DialogExample from '../../snippets/dialog/Dialog.svelte'
-  import FloatingPanelExample from '../../snippets/floating-panel/FloatingPanel.svelte'
-  import HoverCardExample from '../../snippets/hover-card/HoverCard.svelte'
-  import ImageExample from '../../snippets/image/Image.svelte'
-  import DropdownExample from '../../snippets/menu/Menu.svelte'
-  import NumberInputExample from '../../snippets/number-input/NumberInput.svelte'
-  import PaginationExample from '../../snippets/pagination/Pagination.svelte'
-  import PopoverExample from '../../snippets/popover/Popover.svelte'
-  import ProgressExample from '../../snippets/progress/Progress.svelte'
-  import RadioExample from '../../snippets/radio/Radio.svelte'
-  import SelectExample from '../../snippets/select/Select.svelte'
-  import SliderExample from '../../snippets/slider/Slider.svelte'
-  import StepsExample from '../../snippets/steps/Steps.svelte'
-  import SwitchExample from '../../snippets/switch/Switch.svelte'
-  import TabsExample from '../../snippets/tabs/Tabs.svelte'
-  import TimerExample from '../../snippets/timer/Timer.svelte'
-  import TreeExample from '../../snippets/tree/Tree.svelte'
+  import CheckboxExample from '@component/checkbox/snippets/Checkbox.svelte'
+  import CollapseExample from '@component/collapse/snippets/Collapse.svelte'
+  import ColorPickerExample from '@component/color-picker/snippets/ColorPicker.svelte'
+  import ComboboxExample from '@component/combobox/snippets/Combobox.svelte'
+  import DialogExample from '@component/dialog/snippets/Dialog.svelte'
+  import FloatingPanelExample from '@component/floating-panel/snippets/FloatingPanel.svelte'
+  import HoverCardExample from '@component/hover-card/snippets/HoverCard.svelte'
+  import ImageExample from '@component/image/snippets/Image.svelte'
+  import DropdownExample from '@component/menu/snippets/menu/Menu.svelte'
+  import NumberInputExample from '@component/number-input/snippets/NumberInput.svelte'
+  import PaginationExample from '@component/pagination/snippets/Pagination.svelte'
+  import PopoverExample from '@component/popover/snippets/Popover.svelte'
+  import ProgressExample from '@component/progress/snippets/Progress.svelte'
+  import RadioExample from '@component/radio/snippets/Radio.svelte'
+  import SelectExample from '@component/select/snippets/Select.svelte'
+  import SliderExample from '@component/slider/snippets/Slider.svelte'
+  import StepsExample from '@component/steps/snippets/Steps.svelte'
+  import SwitchExample from '@component/switch/snippets/Switch.svelte'
+  import TabsExample from '@component/tabs/snippets/Tabs.svelte'
+  import TimerExample from '@component/timer/snippets/Timer.svelte'
+  import TreeExample from '@component/tree/snippets/Tree.svelte'
 
   let refs: HTMLElement[] = []
   let show = false
@@ -100,4 +100,4 @@
     </div>
   </div>
 </div>
-{/if} -->
+{/if}

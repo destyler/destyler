@@ -19,9 +19,13 @@ hero:
 ---
 
 import FrameworkLayout from '../components/FrameworkLayout.astro'
+import HomeVue from '../components/home/Vue.vue'
+import HomeReact from '../components/home/React.react'
+import HomeSolid from '../components/home/Solid.solid'
+import HomeSvelte from '../components/home/Svelte.svelte'
 
 <FrameworkLayout>
-  {/* <div slot="vue">
+  <div slot="vue">
     <HomeVue client:idle />
   </div>
   <div slot="react">
@@ -32,5 +36,5 @@ import FrameworkLayout from '../components/FrameworkLayout.astro'
   </div>
   <div slot="solid">
     <HomeSolid client:only="solid-js" />
-  </div> */}
+  </div>
 </FrameworkLayout>
