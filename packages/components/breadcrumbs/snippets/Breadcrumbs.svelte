@@ -2,7 +2,6 @@
   import type { BreadcrumbItem } from '@destyler/breadcrumbs'
   import * as breadcrumbs from '@destyler/breadcrumbs'
   import { normalizeProps, useMachine } from '@destyler/svelte'
-  import '@docs/styles/components/breadcrumbs.css'
   import './style.css'
 
   let items: BreadcrumbItem[] = [

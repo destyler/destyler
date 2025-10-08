@@ -34,6 +34,8 @@
     "node-modules:dev": "node-modules-inspector",
     "node-modules:build": "node-modules-inspector build",
     "docs:dev": "pnpm -C document run dev",
+    "docs:build": "pnpm -C document run build",
+    "docs:preview": "pnpm -C document run preview",
     "docs:attr": "tsx ./scripts/data-attr.ts",
     "docs:type": "tsx ./scripts/typedocs.ts",
     "release": "bumpp package.json packages/**/*/package.json --commit --push --tag"
