@@ -100,8 +100,8 @@ export default function ReactDemo() {
             <div className="flex-shrink-0" data-layout="sinppets">
               <TreeExample />
             </div>
-            <div className="flex-1">
-              <StepsExample className="w-full!" data-layout="sinppets" />
+            <div className="flex-1" data-layout="sinppets">
+              <StepsExample className="w-full!" />
             </div>
           </div>
         </div>

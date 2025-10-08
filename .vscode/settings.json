@@ -13,5 +13,6 @@
     "./document"
   ],
   "tailwindCSS.codeActions": false,
-  "tailwindCSS.hovers": false
+  "tailwindCSS.hovers": false,
+  "pnpmCatalogLens.enabled": true
 }
