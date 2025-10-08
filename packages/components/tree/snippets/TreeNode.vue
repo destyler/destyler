@@ -23,44 +23,64 @@ const nodeProps = computed(() => ({
 
 const nodeState = computed(() => props.api.getNodeState(nodeProps.value))
 
-function getFileIcon (fileName: string) {
+function getFileIcon(fileName: string) {
   // Vue 文件
-  if (fileName.endsWith('.vue')) return 'i-catppuccin-vue'
+  if (fileName.endsWith('.vue'))
+    return 'i-catppuccin-vue'
 
   // 配置文件
-  if (fileName === 'package.json') return 'i-catppuccin-package-json'
-  if (fileName.includes('tsconfig')) return 'i-catppuccin-typescript-config'
-  if (fileName.includes('vite.config')) return 'i-catppuccin-vite'
-  if (fileName.includes('unocss.config')) return 'i-catppuccin-unocss'
+  if (fileName === 'package.json')
+    return 'i-catppuccin-package-json'
+  if (fileName.includes('tsconfig'))
+    return 'i-catppuccin-typescript-config'
+  if (fileName.includes('vite.config'))
+    return 'i-catppuccin-vite'
+  if (fileName.includes('unocss.config'))
+    return 'i-catppuccin-unocss'
 
   // TypeScript/JavaScript 文件
-  if (fileName.endsWith('.ts')) return 'i-catppuccin-typescript'
-  if (fileName.endsWith('.js')) return 'i-catppuccin-javascript'
+  if (fileName.endsWith('.ts'))
+    return 'i-catppuccin-typescript'
+  if (fileName.endsWith('.js'))
+    return 'i-catppuccin-javascript'
 
   // 样式文件
-  if (fileName.endsWith('.css')) return 'i-catppuccin-css'
+  if (fileName.endsWith('.css'))
+    return 'i-catppuccin-css'
 
   // 图片文件
-  if (fileName.endsWith('.svg')) return 'i-catppuccin-image'
-  if (fileName.endsWith('.ico')) return 'i-catppuccin-image'
-  if (fileName.match(/\.(png|jpg|jpeg|gif|webp)$/)) return 'i-catppuccin-image'
+  if (fileName.endsWith('.svg'))
+    return 'i-catppuccin-image'
+  if (fileName.endsWith('.ico'))
+    return 'i-catppuccin-image'
+  if (fileName.match(/\.(png|jpg|jpeg|gif|webp)$/))
+    return 'i-catppuccin-image'
 
   // 文档文件
-  if (fileName.endsWith('.md')) return 'i-catppuccin-markdown-mdx'
-  if (fileName.endsWith('.txt')) return 'i-catppuccin-text'
+  if (fileName.endsWith('.md'))
+    return 'i-catppuccin-markdown-mdx'
+  if (fileName.endsWith('.txt'))
+    return 'i-catppuccin-text'
 
   // 默认文件图标
   return 'i-catppuccin-file'
 }
 
-function getFolderIcon (folderName: string) {
-  if (folderName === 'components') return 'i-catppuccin-folder-components'
-  if (folderName === 'pages') return 'i-catppuccin-folder-packages'
-  if (folderName === 'public') return 'i-catppuccin-folder-assets'
-  if (folderName === 'src') return 'i-catppuccin-folder-src'
-  if (folderName === 'ui') return 'i-catppuccin-folder-themes'
-  if (folderName === 'layout') return 'i-catppuccin-folder-layouts'
-  if (folderName === 'snippets') return 'i-catppuccin-folder-templates'
+function getFolderIcon(folderName: string) {
+  if (folderName === 'components')
+    return 'i-catppuccin-folder-components'
+  if (folderName === 'pages')
+    return 'i-catppuccin-folder-packages'
+  if (folderName === 'public')
+    return 'i-catppuccin-folder-assets'
+  if (folderName === 'src')
+    return 'i-catppuccin-folder-src'
+  if (folderName === 'ui')
+    return 'i-catppuccin-folder-themes'
+  if (folderName === 'layout')
+    return 'i-catppuccin-folder-layouts'
+  if (folderName === 'snippets')
+    return 'i-catppuccin-folder-templates'
   return 'i-catppuccin-folder'
 }
 </script>

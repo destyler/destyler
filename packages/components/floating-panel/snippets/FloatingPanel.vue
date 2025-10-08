@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as floatingPanel from '@destyler/floating-panel'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed, onMounted, useId } from 'vue'
+import { computed, useId } from 'vue'
 
 const [state, send] = useMachine(floatingPanel.machine({
   id: useId(),

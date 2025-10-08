@@ -6,7 +6,7 @@ export default defineConfig({
     presetWind3(),
     presetDestyler() as any,
   ],
-  safelist:[
-    
-  ]
+  safelist: [
+
+  ],
 })

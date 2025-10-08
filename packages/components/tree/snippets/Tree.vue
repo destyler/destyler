@@ -81,7 +81,6 @@ const api = computed(() => tree.connect(state.value, send, normalizeProps))
 
 <template>
   <main class="relative max-w-300px rounded-2xl border border-border/40 bg-card p-2 text-card-foreground shadow-xl shadow-black/8 mt-0!">
-    
     <!-- 树形结构 -->
     <div v-bind="api.getRootProps()" class="w-full mt-0!">
       <div v-bind="api.getTreeProps()" class="space-y-1 mt-0!">
@@ -95,6 +94,5 @@ const api = computed(() => tree.connect(state.value, send, normalizeProps))
         />
       </div>
     </div>
-    
   </main>
 </template>

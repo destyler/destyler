@@ -29,7 +29,8 @@ onMount($framework, () => {
     else {
       $framework.set(framework)
     }
-  } else {
+  }
+  else {
     // 服务器端渲染时设置默认值
     $framework.set('react')
   }

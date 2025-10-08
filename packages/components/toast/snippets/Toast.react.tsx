@@ -1,6 +1,6 @@
-import { Portal, normalizeProps, useActor, useMachine } from "@destyler/react"
-import * as toast from "@destyler/toast"
-import { useId, useRef } from "react"
+import { normalizeProps, Portal, useActor, useMachine } from '@destyler/react'
+import * as toast from '@destyler/toast'
+import { useId, useRef } from 'react'
 
 function Toast({ actor }: { actor: toast.Service }) {
   const [state, send] = useActor(actor)
@@ -9,7 +9,11 @@ function Toast({ actor }: { actor: toast.Service }) {
     <div {...api.getRootProps()}>
       <span {...api.getGhostBeforeProps()} />
       <p {...api.getTitleProps()}>
-        [{api.type}] {api.title}
+        [
+        {api.type}
+        ]
+        {' '}
+        {api.title}
       </p>
       <button {...api.getCloseTriggerProps()}>
         {/* <HiX /> */}
@@ -24,11 +28,11 @@ export default function ToastGroup() {
     toast.group.machine({
       id: useId(),
       overlap: true,
-      offsets: "24px",
-      placement: "bottom-end",
+      offsets: '24px',
+      placement: 'bottom-end',
       removeDelay: 200,
       pauseOnPageIdle: false,
-      max:20
+      max: 20,
     }),
   )
 
@@ -42,8 +46,8 @@ export default function ToastGroup() {
           className="toast__trigger"
           onClick={() => {
             id.current = api.create({
-              title: "The Evil Rabbit jumped over the fence.",
-              type: "info",
+              title: 'The Evil Rabbit jumped over the fence.',
+              type: 'info',
             })
           }}
         >
@@ -53,10 +57,11 @@ export default function ToastGroup() {
         <button
           className="toast__trigger"
           onClick={() => {
-            if (!id.current) return
+            if (!id.current)
+              return
             api.update(id.current, {
-              title: "The Evil Rabbit is eating...",
-              type: "success",
+              title: 'The Evil Rabbit is eating...',
+              type: 'success',
             })
           }}
         >
@@ -65,12 +70,12 @@ export default function ToastGroup() {
       </div>
 
       <Portal>
-        {api.getPlacements().map((placement) => (
+        {api.getPlacements().map(placement => (
           <div
             key={placement}
             {...api.getGroupProps({ placement: placement as any })}
           >
-            {api.getToastsByPlacement(placement).map((toast) => (
+            {api.getToastsByPlacement(placement).map(toast => (
               <Toast key={toast.id} actor={toast} />
             ))}
           </div>
