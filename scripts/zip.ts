@@ -12,16 +12,16 @@ import archiver from 'archiver'
  */
 export async function zipDirectory(sourceDir: string, zipName: string): Promise<string> {
   if (!sourceDir)
-throw new Error('sourceDir is required')
+    throw new Error('sourceDir is required')
   const fullSource = resolve(process.cwd(), sourceDir)
   if (!existsSync(fullSource) || !statSync(fullSource).isDirectory()) {
     throw new Error(`Source directory not found: ${fullSource}`)
   }
 
   if (!zipName)
-zipName = `${basename(fullSource)}.zip`
+    zipName = `${basename(fullSource)}.zip`
   if (!zipName.endsWith('.zip'))
-zipName = `${zipName}.zip`
+    zipName = `${zipName}.zip`
 
   const outPath = join(process.cwd(), zipName)
   await mkdir(process.cwd(), { recursive: true })
@@ -42,10 +42,8 @@ zipName = `${zipName}.zip`
 if (process.argv[1] && process.argv[1].endsWith('zip.ts') && process.argv.length > 2) {
   const [, , dir, name] = process.argv
   zipDirectory(dir, name || '').then((p) => {
-
     console.log(`Created: ${p}`)
   }).catch((err) => {
-
     console.error(err)
     process.exit(1)
   })
