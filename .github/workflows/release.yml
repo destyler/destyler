@@ -61,3 +61,39 @@ jobs:
       - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+
+      - name: Set node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Build Document
+        run: pnpm run docs:build
+
+      - name: Zip Document
+        run: npx tsx scripts/zip.ts document/dist docs-dist
+
+      - name: Deploy Document
+        run: npx tsx scripts/deploy.ts ${ZEABUR_TOKEN} ${ZEABUR_DOCS_ENV} ${ZEABUR_DOCS_SERVICE} docs-dist.zip
+        env:
+          ZEABUR_TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ZEABUR_DOCS_ENV: ${{secrets.DOCS_ENVIRONMENT}}
+          ZEABUR_DOCS_SERVICE: ${{secrets.DOCS_SERVICE}}
