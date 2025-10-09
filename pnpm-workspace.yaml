@@ -101,6 +101,7 @@ catalogs:
     '@types/react-dom': ^19.1.7
     '@types/react-router-config': ^5.0.11
     '@types/react-router-dom': ^5.3.3
+    ts-morph: ^26.0.0
     typescript: ^5.9.2
   util:
     archiver: ^7.0.1

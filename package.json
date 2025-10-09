@@ -89,7 +89,7 @@
     "solid-js": "catalog:frontend",
     "svelte": "catalog:frontend",
     "taze": "catalog:script",
-    "ts-morph": "^26.0.0",
+    "ts-morph": "catalog:types",
     "tsdown": "catalog:build",
     "tsx": "catalog:script",
     "typescript": "catalog:types",
