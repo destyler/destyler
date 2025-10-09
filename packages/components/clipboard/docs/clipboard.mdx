@@ -1,0 +1,262 @@
+---
+head:
+  - tag: title
+    content: Clipboard - Destyler UI
+title: Clipboard
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> The clipboard machine allows users to quickly copy content to clipboard.
+
+<PreviewCode name="clipboard"></PreviewCode>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="clipboard" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as clipboard from '@destyler/clipboard'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(
+    clipboard.machine({
+      id: useId(),
+      value: 'https://github.com/destyler/destyler',
+    })
+  )
+
+  const api = computed(() =>
+    clipboard.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <label v-bind="api.getLabelProps()"></label>
+      <div v-bind="api.getControlProps()" >
+        <input v-bind="api.getInputProps()">
+        <button v-bind="api.getTriggerProps()"></button>
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as clipboard from '@destyler/clipboard'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Clipboard() {
+
+    const [state, send] = useMachine(
+      clipboard.machine({
+        id: useId(),
+        value: 'https://github.com/destyler/destyler',
+      })
+    )
+
+    const api = clipboard.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getRootProps()}>
+          <label {...api.getLabelProps()}></label>
+          <div {...api.getControlProps()}>
+            <input {...api.getInputProps()} />
+            <button {...api.getTriggerProps()}></button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as clipboard from '@destyler/clipboard'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(
+      clipboard.machine({
+        id: id,
+        value: 'https://github.com/destyler/destyler',
+      })
+    )
+
+    const api = $derived(clipboard.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()} >
+    <label {...api.getLabelProps()}></label>
+    <div {...api.getControlProps()}>
+      <input {...api.getInputProps()}/>
+      <button {...api.getTriggerProps()}></button>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as clipboard from '@destyler/clipboard'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Clipboard() {
+
+    const [state, send] = useMachine(
+      clipboard.machine({
+        id: createUniqueId(),
+        value: 'https://github.com/destyler/destyler',
+      })
+    )
+
+    const api = createMemo(() => clipboard.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()}>
+          <label {...api().getLabelProps()}></label>
+          <div {...api().getControlProps()}>
+            <input {...api().getInputProps()}/>
+            <button {...api().getTriggerProps()}></button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the value to copy
+
+You can set the value to copy by passing a `value` prop to the `machine` context.
+
+```ts
+const [state, send] = useMachine(
+  clipboard.machine({
+    value: "Hello, world!",
+  }),
+)
+```
+
+## Listening to copy events
+
+When the value is copied to the clipboard, the `onStatusChange` event is fired.
+You can listen to this event and perform any action you want.
+
+```ts
+const [state, send] = useMachine(
+  clipboard.machine({
+    onStatusChange: (details) => {
+      console.log("Copy status changed to", details.copied)
+    },
+  }),
+)
+```
+
+## Checking if the value is copied
+
+Use the `api.copied` property to check if the value is copied to the clipboard.
+
+```ts
+const api = clipboard.connect(state, send)
+
+if (api.copied) {
+  console.log("Value is copied to the clipboard")
+}
+```
+
+## Changing the timeout
+
+By default, the clipboard machine will automatically reset the state to `idle` after `3000ms`.
+You can change this timeout by passing a `timeout` option to the `machine` context.
+
+```ts
+const [state, send] = useMachine(
+  clipboard.machine({
+    timeout: 5000,
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-scope="clipboard"][data-part="root"] {
+  /* styles for the root part */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The clipboard machine exposes the following context properties:
+
+<MachineTable name="clipboard"></MachineTable>
+
+### Machine API
+
+The clipboard `api` exposes the following methods:
+
+<APITable name="clipboard"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="clipboard" nodeType="Root" />
+
+#### Label
+
+<StyleTable component="clipboard" nodeType="Label" />
+
+#### Control
+
+<StyleTable component="clipboard" nodeType="Control" />
+
+#### Input
+
+<StyleTable component="clipboard" nodeType="Input" />
+
+#### Trigger
+
+<StyleTable component="clipboard" nodeType="Trigger" />

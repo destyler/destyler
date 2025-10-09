@@ -21,6 +21,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.zip
 cache
 .output
 .vercel
@@ -34,3 +35,4 @@ test/results
 html
 __screenshots__
 .node-modules-inspector
+.astro

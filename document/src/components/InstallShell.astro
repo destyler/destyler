@@ -1,0 +1,66 @@
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components'
+import FrameworkLayout from "./FrameworkLayout.astro"
+import ShellOnlyPackage from './ShellOnlyPackage.astro'
+
+interface Props {
+  name: string
+}
+
+const { name } = Astro.props;
+---
+
+<FrameworkLayout>
+  <div slot="vue">
+    <Tabs syncKey="pkg">
+      <TabItem label="npm">
+        <ShellOnlyPackage packageType="npm" packageName={`@destyler/${name} @destyler/vue`} />
+      </TabItem>
+      <TabItem label="pnpm">
+        <ShellOnlyPackage packageType="pnpm" packageName={`@destyler/${name} @destyler/vue`} />
+      </TabItem>
+      <TabItem label="yarn">
+        <ShellOnlyPackage packageType="yarn" packageName={`@destyler/${name} @destyler/vue`} />
+      </TabItem>
+    </Tabs>
+  </div>
+  <div slot="react">
+    <Tabs syncKey="pkg">
+      <TabItem label="npm">
+        <ShellOnlyPackage packageType="npm" packageName={`@destyler/${name} @destyler/react`} />
+      </TabItem>
+      <TabItem label="pnpm">
+        <ShellOnlyPackage packageType="pnpm" packageName={`@destyler/${name} @destyler/react`} />
+      </TabItem>
+      <TabItem label="yarn">
+        <ShellOnlyPackage packageType="yarn" packageName={`@destyler/${name} @destyler/react`} />
+      </TabItem>
+    </Tabs>
+  </div>
+  <div slot="svelte">
+    <Tabs syncKey="pkg">
+      <TabItem label="npm">
+        <ShellOnlyPackage packageType="npm" packageName={`@destyler/${name} @destyler/svelte`} />
+      </TabItem>
+      <TabItem label="pnpm">
+        <ShellOnlyPackage packageType="pnpm" packageName={`@destyler/${name} @destyler/svelte`} />
+      </TabItem>
+      <TabItem label="yarn">
+        <ShellOnlyPackage packageType="yarn" packageName={`@destyler/${name} @destyler/svelte`} />
+      </TabItem>
+    </Tabs>
+  </div>
+  <div slot="solid">
+    <Tabs syncKey="pkg">
+      <TabItem label="npm">
+        <ShellOnlyPackage packageType="npm" packageName={`@destyler/${name} @destyler/solid`} />
+      </TabItem>
+      <TabItem label="pnpm">
+        <ShellOnlyPackage packageType="pnpm" packageName={`@destyler/${name} @destyler/solid`} />
+      </TabItem>
+      <TabItem label="yarn">
+        <ShellOnlyPackage packageType="yarn" packageName={`@destyler/${name} @destyler/solid`} />
+      </TabItem>
+    </Tabs>
+  </div>
+</FrameworkLayout>

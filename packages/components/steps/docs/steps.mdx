@@ -1,0 +1,445 @@
+---
+head:
+  - tag: title
+    content: Steps - Destyler UI
+title: Steps
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> Step are used to guide users through a series of steps in a process.
+> It's a great way to break down a complex process into smaller,
+> more manageable step.
+
+<PreviewCode name="steps"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Supports horizontal and vertical orientations.',
+  'Support for changing the active step with the keyboard and pointer.',
+  'Support for linear and non-linear steps.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="steps" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as steps from '@destyler/steps'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const stepsData = [
+    { title: 'Step 1' },
+    { title: 'Step 2' },
+    { title: 'Step 3' },
+  ]
+
+  const [state, send] = useMachine(
+    steps.machine({
+      id: useId(),
+      count: stepsData.length,
+    }),
+  )
+
+  const api = computed(() => steps.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getListProps()">
+        <div
+          v-for="(step, index) in stepsData"
+          :key="index"
+          v-bind="api.getItemProps({ index })"
+        >
+          <button v-bind="api.getTriggerProps({ index })">
+            <div v-bind="api.getIndicatorProps({ index })"></div>
+          </button>
+          <div v-bind="api.getSeparatorProps({ index })" />
+        </div>
+      </div>
+
+      <div
+        v-for="(step, index) in stepsData"
+        :key="index"
+        v-bind="api.getContentProps({ index })"
+      >
+        {{ step.title }}
+      </div>
+
+      <div v-bind="api.getContentProps({ index: stepsData.length })"></div>
+
+      <button v-bind="api.getPrevTriggerProps()"></button>
+      <button v-bind="api.getNextTriggerProps()"></button>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as steps from '@destyler/steps'
+  import { useId } from 'react'
+
+  const stepsData = [
+    { title: 'Step 1' },
+    { title: 'Step 2' },
+    { title: 'Step 3' },
+  ]
+
+  export default function Steps() {
+    const [state, send] = useMachine(
+      steps.machine({
+        id: useId(),
+        count: stepsData.length,
+      }),
+    )
+
+    const api = steps.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getListProps()}>
+          {stepsData.map((step, index) => (
+            <div key={index} {...api.getItemProps({ index })}>
+              <button {...api.getTriggerProps({ index })}>
+                <div {...api.getIndicatorProps({ index })}></div>
+              </button>
+              <div {...api.getSeparatorProps({ index })}/>
+            </div>
+          ))}
+        </div>
+
+        {stepsData.map((step, index) => (
+          <div key={index} {...api.getContentProps({ index })}></div>
+        ))}
+
+        <div {...api.getContentProps({ index: stepsData.length })}></div>
+
+        <button {...api.getPrevTriggerProps()}></button>
+        <button {...api.getNextTriggerProps()}></button>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+      import * as steps from '@destyler/steps'
+      import { normalizeProps, useMachine } from '@destyler/svelte'
+
+      const stepsData = [
+        { title: 'Step 1' },
+        { title: 'Step 2' },
+        { title: 'Step 3' },
+      ]
+
+      const [state, send] = useMachine(
+        steps.machine({
+          id: crypto.randomUUID(),
+          count: stepsData.length,
+        }),
+      )
+
+      const api = $derived(steps.connect(state, send, normalizeProps))
+    </script>
+
+    <div {...api.getRootProps()}>
+      <div {...api.getListProps()}>
+        {#each stepsData as step, index}
+          <div {...api.getItemProps({ index })}>
+            <button {...api.getTriggerProps({ index })}>
+              <div {...api.getIndicatorProps({ index })} ></div>
+            </button>
+            <div {...api.getSeparatorProps({ index })}></div>
+          </div>
+        {/each}
+      </div>
+
+      {#each stepsData as step, index}
+        <div {...api.getContentProps({ index })}></div>
+      {/each}
+
+      <div {...api.getContentProps({ index: stepsData.length })}></div>
+
+      <button {...api.getPrevTriggerProps()}></button>
+      <button {...api.getNextTriggerProps()}></button>
+    </div>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as steps from '@destyler/steps'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  const stepsData = [
+    { title: 'Step 1' },
+    { title: 'Step 2' },
+    { title: 'Step 3' },
+  ]
+
+  export default function Steps() {
+    const [state, send] = useMachine(
+      steps.machine({
+        id: createUniqueId(),
+        count: stepsData.length,
+      }),
+    )
+
+    const api = createMemo(() => steps.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()} >
+        <div {...api().getListProps()} >
+          {stepsData.map((step, index) => (
+            <div {...api().getItemProps({ index })}>
+              <button {...api().getTriggerProps({ index })} >
+                <div {...api().getIndicatorProps({ index })}></div>
+              </button>
+              <div {...api().getSeparatorProps({ index })}/>
+            </div>
+          ))}
+        </div>
+
+        {stepsData.map((step, index) => (
+          <div {...api().getContentProps({ index })}></div>
+        ))}
+
+        <div
+          {...api().getContentProps({ index: stepsData.length })}
+        >
+        </div>
+
+        <button {...api().getPrevTriggerProps()}></button>
+        <button {...api().getNextTriggerProps()}></button>
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial step
+
+Set the initial step by passing the `step` property to the machine context.
+
+:::tip
+The value of the `step` property is zero-based index.
+:::
+
+```ts
+const [state, send] = useMachine(
+  steps.machine({
+    step: 1,
+  }),
+)
+```
+
+## Listening for step change
+
+When the active step changes, the machine will invoke the `onStepChange` event
+
+```ts
+const [state, send] = useMachine(
+  steps.machine({
+    onStepChange(details) {
+      // details => { step: number }
+      console.log(`changed to ${details.step}`)
+    },
+  }),
+)
+```
+
+## Listening for steps completion
+
+When all steps are completed, the machine will invoke the `onStepComplete` event
+
+```ts
+const [state, send] = useMachine(
+  steps.machine({
+    onStepComplete() {
+      console.log("All steps are complete")
+    },
+  }),
+)
+```
+
+## Enforcing linear steps
+
+To enforce linear steps, you can set the `linear` prop to `true` when creating the steps machine.
+This will prevent users from skipping steps.
+
+```ts
+const [state, send] = useMachine(
+  steps.machine({
+    linear: true,
+  }),
+)
+```
+
+## Changing the orientation
+
+The steps machine supports both horizontal and vertical orientations.
+You can set the `orientation` prop to `horizontal` or `vertical` to change the orientation of the steps.
+
+```ts
+const [state, send] = useMachine(
+  steps.machine({
+    orientation: "vertical",
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each splitter part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-scope="steps"][data-part="root"] {
+  /* styles for the root part */
+}
+
+[data-scope="steps"][data-part="root"][data-orientation="horizontal"] {
+  /* styles for the root part based on orientation */
+}
+
+[data-scope="steps"][data-part="list"] {
+  /* styles for the list part */
+}
+
+[data-scope="steps"][data-part="list"][data-orientation="horizontal"] {
+  /* styles for the list part based on orientation */
+}
+
+[data-scope="steps"][data-part="separator"] {
+  /* styles for the separator part */
+}
+
+[data-scope="steps"][data-part="separator"][data-orientation="horizontal"] {
+  /* styles for the separator part based on orientation */
+}
+```
+
+### Current Step
+
+To style the current step, you can use the `data-current` attribute.
+
+```css
+[data-scope="steps"][data-part="item"][data-current] {
+  /* item styles for the current step */
+}
+
+[data-scope="steps"][data-part="separator"][data-current] {
+  /* separator styles for the current step */
+}
+```
+
+### Completed step
+
+To style the completed step, you can use the `data-complete` attribute.
+
+```css
+[data-scope="steps"][data-part="item"][data-complete] {
+  /* item styles for the completed step */
+}
+
+[data-scope="steps"][data-part="separator"][data-complete] {
+  /* separator styles for the completed step */
+}
+```
+
+### Incomplete step
+
+To style the incomplete step, you can use the `data-incomplete` attribute.
+
+```css
+[data-scope="steps"][data-part="item"][data-incomplete] {
+  /* item styles for the incomplete step */
+}
+
+[data-scope="steps"][data-part="separator"][data-incomplete] {
+  /* separator styles for the incomplete step */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The steps machine exposes the following context properties:
+
+<MachineTable name="steps" />
+
+### Machine API
+
+The steps `api` exposes the following methods:
+
+<APITable name="steps" />
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="steps" nodeType="Root" />
+
+#### List
+
+<StyleTable component="steps" nodeType="List" />
+
+#### Item
+
+<StyleTable component="steps" nodeType="Item" />
+
+#### Trigger
+
+<StyleTable component="steps" nodeType="Trigger" />
+
+#### Content
+
+<StyleTable component="steps" nodeType="Content" />
+
+#### Indicator
+
+<StyleTable component="steps" nodeType="Indicator" />
+
+#### Separator
+
+<StyleTable component="steps" nodeType="Separator" />
+
+#### Progress
+
+<StyleTable component="steps" nodeType="Progress" />

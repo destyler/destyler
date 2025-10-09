@@ -1,0 +1,7 @@
+.starlight-aside__title{
+  margin-top: 0 !important;
+}
+
+.sl-markdown-content p:not(:where(.not-content *)):not(li p):first-child {
+  margin-top: 0 !important;
+}

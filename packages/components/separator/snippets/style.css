@@ -1,0 +1,18 @@
+[data-layout="sinppets"] [data-scope="separator"][data-part="root"]{
+  & {
+    background-color: rgb(214 211 209 / 0.5) /* #d6d3d1 */;
+  }
+  &[data-orientation="horizontal"] {
+    height: 1px;
+    width: 100%;
+    margin-top: 1rem; /* 16px */
+    margin-bottom: 1rem; /* 16px */
+  }
+  &[data-orientation="vertical"] {
+    height: 100%;
+    width: 1px;
+    margin-top: 0rem !important; /* 16px */
+    margin-left: 1rem; /* 16px */
+    margin-right: 1rem; /* 16px */
+  }
+}

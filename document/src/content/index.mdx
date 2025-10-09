@@ -1,0 +1,40 @@
+---
+head:
+  - tag: title
+    content: Destyler UI
+template: splash
+editUrl: false
+title: Destyler UI
+description: <span> Destyler UI simplifies the creation of stunning and responsive web applications with its <br/> comprehensive collection of fully styled and customizable UI components designed for You. </span>
+hero:
+  title: A <span class="text-primary">Build UI</span> for <br/> Your design system
+  tagline: <a href="https://next.destyler.org/" target="_blank">Destyler UI v0.0.4 is comming!</a>
+  actions:
+    - text: Get Started
+      link: /guide/getting-started
+      icon: <svg xmlns="http://www.w3.org/2000/svg" class="size-4" width="32" height="32" viewBox="0 0 32 32"><!-- Icon from Carbon by IBM - undefined --><path fill="currentColor" d="m18 6l-1.43 1.393L24.15 15H4v2h20.15l-7.58 7.573L18 26l10-10z"/></svg>
+    - text: All Components
+      link: /components/checkbox
+      variant: minimal
+---
+
+import FrameworkLayout from '../components/FrameworkLayout.astro'
+import HomeVue from '../components/home/Vue.vue'
+import HomeReact from '../components/home/React.react'
+import HomeSolid from '../components/home/Solid.solid'
+import HomeSvelte from '../components/home/Svelte.svelte'
+
+<FrameworkLayout>
+  <div slot="vue">
+    <HomeVue client:idle />
+  </div>
+  <div slot="react">
+    <HomeReact client:only="react" />
+  </div>
+  <div slot="svelte">
+    <HomeSvelte client:idle />
+  </div>
+  <div slot="solid">
+    <HomeSolid client:only="solid-js" />
+  </div>
+</FrameworkLayout>

@@ -1,0 +1,562 @@
+---
+head:
+  - tag: title
+    content: Combobox - Destyler UI
+title: Combobox
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A combobox is an input widget with an associated popup that enables
+> users to select a value from a collection of possible values.
+
+<PreviewCode name="combobox"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for selecting multiple values',
+  'Support for disabled options',
+  'Support for custom user input values',
+  'Support for mouse, touch, and keyboard interactions',
+  'Keyboard support for opening the combo box list box using the arrow keys, including automatically focusing the first or last item accordingly'
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="combobox" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as combobox from '@destyler/combobox'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, ref, useId } from 'vue'
+
+  const [state, send] = useMachine(
+    combobox.machine({
+      id: useId(),
+    }),
+  )
+
+  const api = computed(() => combobox.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getControlProps()">
+        <input v-bind="api.getInputProps()">
+        <button v-bind="api.getTriggerProps()" />
+      </div>
+
+      <div v-bind="api.getPositionerProps()">
+        <ul v-bind="api.getContentProps()">
+          <li v-bind="api.getItemProps({ item })" >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as combobox from '@destyler/combobox'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as React from 'react'
+
+  export default function Combobox() {
+    const id = React.useId()
+
+    const [state, send] = useMachine(
+      combobox.machine({
+        id,
+      }),
+    )
+
+    const api = combobox.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getControlProps()}>
+          <input {...api.getInputProps()}/>
+          <button {...api.getTriggerProps()}></button>
+        </div>
+        <div {...api.getPositionerProps()} >
+          <ul {...api.getContentProps()} >
+            <li {...api.getItemProps({ item })}></li>
+          </ul>
+        </div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as combobox from '@destyler/combobox'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const [state, send] = useMachine(
+      combobox.machine({
+        id: crypto.randomUUID(),
+      }),
+    )
+
+    const api = $derived(combobox.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()} >
+    <div {...api.getControlProps()} >
+      <input {...api.getInputProps()}>
+      <button {...api.getTriggerProps()}></button>
+    </div>
+    <div {...api.getPositionerProps()}>
+      <ul {...api.getContentProps()} >
+        <li {...api.getItemProps({ item })}></li>
+      </ul>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as combobox from '@destyler/combobox'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Combobox() {
+    const id = createUniqueId()
+
+    const [state, send] = useMachine(
+      combobox.machine({
+        id,
+      }),
+    )
+
+    const api = createMemo(() => combobox.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <div {...api().getControlProps()}>
+          <input {...api().getInputProps()} />
+          <button {...api().getTriggerProps()} ></button>
+        </div>
+
+        <div {...api().getPositionerProps()}>
+          <ul {...api().getContentProps()} >
+            <li {...api().getItemProps({ item })}></li>
+          </ul>
+        </div>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial value
+
+To set the initial `value` of the combobox, pass the value property to the Destyler's context.
+
+:::tip
+The `value` property must be an array of strings. If selecting a single value, pass an array with a single string.
+:::
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    value: ["vue"],
+  }),
+)
+```
+
+## Selecting multiple values
+
+To allow selecting multiple values, set the `multiple` property in the destyler's context to `true`.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    multiple: true,
+  }),
+)
+```
+
+## Use custom object format
+
+By default, the combobox collection expects an array of items with `label` and `value` properties.
+To use a custom object format, pass the `itemToString` and `itemToValue` properties to the collection function.
+
+- `itemToString` — A function that returns the string representation of an item. Used to compare items when filtering.
+
+- `itemToValue` — A function that returns the unique value of an item.
+
+- `itemToDisabled` — A function that returns the disabled state of an item.
+
+```ts
+const collection = combobox.collection({
+  // custom object format
+  items: [
+    { id: 1, fruit: "Vue", available: true, quantity: 10 },
+    { id: 2, fruit: "React", available: false, quantity: 5 },
+    { id: 3, fruit: "Svelte", available: true, quantity: 3 },
+    { id: 4, fruit: "Solid", available: false, quantity: 0 },
+    //...
+  ],
+  // convert item to string
+  itemToString(item) {
+    return item.fruit
+  },
+  // convert item to value
+  itemToValue(item) {
+    return item.id
+  },
+  // convert item to disabled state
+  itemToDisabled(item) {
+    return !item.available || item.quantity === 0
+  },
+})
+
+// use the collection
+const [state, send] = useMachine(
+  combobox.machine({
+    id: useId(),
+    collection,
+  }),
+)
+```
+
+## Rendering the selected values outside the combobox
+
+By default, the selected values of a combobox are displayed in the input element,
+when selecting multiple items, it is a better UX to render the selected value outside the combobox.
+
+To achieve this you need to:
+
+- Set the `selectionBehavior` to `clear`, which clears the input value when an item is selected.
+
+- Set the `multiple` property to `true` to allow selecting multiple values.
+
+- Render the selected values outside the combobox.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    selectionBehavior: "clear",
++    multiple: true,
+  }),
+)
+```
+
+## Disabling the combobox
+
+To make a combobox disabled, set the context's `disabled` property to `true`.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    disabled: true,
+  }),
+)
+```
+
+## Disabling an option
+
+To make a combobox option disabled, pass the `isItemDisabled` property to the collection function.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
+    collection: combobox.collection({
+      items: countries,
++      isItemDisabled(item) {
++        return item.disabled
++      },
+    }),
+  }),
+)
+```
+
+## Close on select
+
+This behaviour ensures that the menu is closed when an option is selected and is `true` by default.
+It's only concerned with when an option is selected with pointer or enter key.
+To disable the behaviour, set the `closeOnSelect` property in the destyler's context to `false`.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    closeOnSelect: false,
+  }),
+)
+```
+
+## Making the combobox readonly
+
+To make a combobox readonly, set the context's `readOnly` property to `true`.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    readOnly: true,
+  }),
+)
+```
+
+## Listening for highlight changes
+
+When an option is highlighted with the pointer or keyboard,
+use the `onHighlightChange` property to listen for this change and do something with it.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    onHighlightChange(details) {
++      // details => { value: string | null; item: CollectionItem | null }
++      console.log(details)
++    },
+  }),
+)
+```
+
+## Listening for value changes
+
+When an item is selected, use `onValueChange` property to listen for this change and do something with it.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    onValueChange(details) {
++      // details => { value: string[]; items: CollectionItem[] }
++      console.log(details)
++    },
+  }),
+)
+```
+
+## Use within forms
+
+The combobox works when placed within a form and the form is submitted. We achieve this by:
+
+- ensuring we emit the input event as the value changes.
+
+- adding a `name` attribute to the input so the value can be accessed in the `FormData`.
+
+To get this feature working you need to pass a `name` option to the context.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    name: "combobox",
+  }),
+)
+```
+
+## Allowing custom values
+
+By default, the combobox only allows selecting values from the collection.
+To allow custom values, set the `allowCustomValue` property in the machine's context to `true`.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  combobox.machine({
++    allowCustomValue: true,
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each Combobox part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Open and closed state
+
+When the combobox is open or closed,
+the `data-state` attribute is added to the content,control, input and control parts.
+
+```css
+[data-part="control"][data-state="open"] {
+  /* styles for control open or state */
+}
+
+[data-part="input"][data-state="open"] {
+  /* styles for control open or state */
+}
+
+[data-part="trigger"][data-state="open"] {
+  /* styles for control open or state */
+}
+
+[data-part="content"][data-state="open"] {
+  /* styles for control open or state */
+}
+```
+
+### Focused State
+
+When the combobox is focused, the `data-focus` attribute is added to the control and label parts.
+
+```css
+[data-part="control"][data-focus] {
+  /* styles for control focus state */
+}
+
+[data-part="label"][data-focus] {
+  /* styles for label focus state */
+}
+```
+
+### Disabled State
+
+When the combobox is disabled, the `data-disabled` attribute is added to the label, control, trigger and option parts.
+
+```css
+[data-part="label"][data-disabled] {
+  /* styles for label disabled state */
+}
+
+[data-part="control"][data-disabled] {
+  /* styles for control disabled state */
+}
+
+[data-part="trigger"][data-disabled] {
+  /* styles for trigger disabled state */
+}
+
+[data-part="item"][data-disabled] {
+  /* styles for item disabled state */
+}
+```
+
+### Invalid State
+
+When the combobox is invalid, the `data-invalid` attribute is added to the root, label, control and input parts.
+
+```css
+[data-part="root"][data-invalid] {
+  /* styles for root invalid state */
+}
+
+[data-part="label"][data-invalid] {
+  /* styles for label invalid state */
+}
+
+[data-part="control"][data-invalid] {
+  /* styles for control invalid state */
+}
+
+[data-part="input"][data-invalid] {
+  /* styles for input invalid state */
+}
+```
+
+### Selected State
+
+When a combobox item is selected, the `data-selected` attribute is added to the item part.
+
+```css
+[data-part="item"][data-state="checked|unchecked"] {
+  /* styles for item selected state */
+}
+```
+
+### Highlighted State
+
+When a combobox item is highlighted, the `data-highlighted` attribute is added to the item part.
+
+```css
+[data-part="item"][data-highlighted] {
+  /* styles for item highlighted state */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The combobox machine exposes the following context properties:
+
+<MachineTable name="combobox"></MachineTable>
+
+### Machine API
+
+The combobox `api` exposes the following methods:
+
+<APITable name="combobox"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="combobox" nodeType="Root" />
+
+#### Label
+
+<StyleTable component="combobox" nodeType="Label" />
+
+#### Control
+
+<StyleTable component="combobox" nodeType="Control" />
+
+#### Input
+
+<StyleTable component="combobox" nodeType="Input" />
+
+#### Trigger
+
+<StyleTable component="combobox" nodeType="Trigger" />
+
+#### Content
+
+<StyleTable component="combobox" nodeType="Content" />
+
+#### ClearTrigger
+
+<StyleTable component="combobox" nodeType="ClearTrigger" />
+
+#### Item
+
+<StyleTable component="combobox" nodeType="Item" />
+
+#### ItemText
+
+<StyleTable component="combobox" nodeType="ItemText" />
+
+#### ItemIndicator
+
+<StyleTable component="combobox" nodeType="ItemIndicator" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="combobox"></KeyboardTable>

@@ -1,4 +1,4 @@
-import { apiJson, dataAttrJson } from './src/data'
+import { accessibilityJson, apiJson, dataAttrJson } from './src/data'
 
 export interface DataAttrEntry {
   [part: string]: Record<string, string>
@@ -39,6 +39,22 @@ export function getApiDoc(key: ApiDocKey): ApiDoc {
   }
 
   return data as ApiDoc
+}
+
+// Accessibility docs
+export interface AccessibilityEntry {
+  key: string
+  description: string
+}
+
+export type AccessibilityDocKey = keyof typeof accessibilityJson
+
+export function getAccessibilityDoc(key: AccessibilityDocKey): AccessibilityEntry[] {
+  const data = accessibilityJson[key]
+  if (!data) {
+    throw new Error(`No accessibility data found for ${key}`)
+  }
+  return data as AccessibilityEntry[]
 }
 
 export { apiJson }

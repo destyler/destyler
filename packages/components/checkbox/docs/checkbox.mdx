@@ -1,0 +1,323 @@
+---
+head:
+  - tag: title
+    content: Checkbox - Destyler UI
+title: Checkbox
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A checkbox allows users to make a binary choice, i.e. a choice between one of two possible mutually exclusive options.
+
+<PreviewCode name="checkbox"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Tri-state checkbox. i.e. indeterminate state',
+  'Syncs with disabled state of fieldset',
+  'Syncs with form reset events',
+  'Can be toggled programmatically'
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="checkbox" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as checkbox from '@destyler/checkbox'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(checkbox.machine({ id: useId() }))
+
+  const api = computed(() =>
+    checkbox.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <label v-bind="api.getRootProps()">
+      <div v-bind="api.getControlProps()" />
+      <span v-bind="api.getLabelProps()" />
+      <input v-bind="api.getHiddenInputProps()">
+    </label>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as checkbox from '@destyler/checkbox'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Checkbox() {
+    const [state, send] = useMachine(checkbox.machine({ id: useId() }))
+    const api = checkbox.connect(state, send, normalizeProps)
+
+    return (
+      <label {...api.getRootProps()}>
+        <div {...api.getControlProps()} />
+        <span {...api.getLabelProps()} />
+        <input {...api.getHiddenInputProps()} />
+      </label>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as checkbox from '@destyler/checkbox'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(checkbox.machine({ id }))
+
+    const api = $derived(checkbox.connect(state, send, normalizeProps))
+  </script>
+
+  <label {...api.getRootProps()}>
+    <div {...api.getControlProps()}></div>
+    <span {...api.getLabelProps()}></span>
+    <input {...api.getHiddenInputProps()}>
+  </label>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as checkbox from '@destyler/checkbox'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Checkbox() {
+    const [state, send] = useMachine(checkbox.machine({
+      name: 'checkbox',
+      id: createUniqueId(),
+    }))
+    const api = createMemo(() => checkbox.connect(state, send, normalizeProps))
+
+    return (
+      <label {...api().getRootProps()}>
+        <div {...api().getControlProps()} ></div>
+        <span {...api().getLabelProps()}></span>
+        <input {...api().getHiddenInputProps()} />
+      </label>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Indeterminate checkboxes
+
+To make a checkbox indeterminate, set the context's `indeterminate` property to true
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  checkbox.machine({
++    indeterminate: true,
+  }),
+)
+```
+
+## Disabling the checkbox
+
+To make a checkbox disabled, set the context's `disabled` property to `true`
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  checkbox.machine({
++    disabled: true,
+  }),
+)
+```
+
+## Making the checked by default
+
+To make a checkbox checked by default, set the context's `checked` property to `true`
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  checkbox.machine({
++    checked: true,
+  }),
+)
+```
+
+## Listening for changes
+
+When the checkbox value changes, the `onCheckChange` callback is invoked.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  checkbox.machine({
++    onCheckChange(details) {
++      // details => { checked: boolean }
++      console.log("checkbox is:", details.checked)
++    },
+  }),
+)
+```
+
+## Usage within forms
+
+To use checkbox within forms, use the exposed `hiddenInputProps` from
+the `connect` function and ensure you pass `name` value to the Destyler's context.
+It will render a hidden input and ensure the value changes get propagated
+to the form correctly.
+
+```diff lang="ts"
+const [state, send] = useMachine(
+  checkbox.machine({
++    name: "fruits",
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each checkbox part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Checked state
+
+When the checkbox input is checked, the `data-checked` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-state="checked"] {
+  /* styles for when checkbox is checked */
+}
+
+[data-part="control"][data-state="checked"] {
+  /* styles for when checkbox is checked */
+}
+
+[data-part="label"][data-state="checked"] {
+  /* styles for when checkbox is checked */
+}
+```
+
+### Focused state
+
+When the checkbox input is focused, the `data-focus` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-focus] {
+  /* styles for root focus state */
+}
+
+[data-part="control"][data-focus] {
+  /* styles for control focus state */
+}
+
+[data-part="label"][data-focus] {
+  /* styles for label focus state */
+}
+```
+
+### Disabled state
+
+When the checkbox is disabled, the `data-disabled` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-disabled] {
+  /* styles for root disabled state */
+}
+
+[data-part="control"][data-disabled] {
+  /* styles for control disabled state */
+}
+
+[data-part="label"][data-disabled] {
+  /* styles for label disabled state */
+}
+```
+
+### Invalid state
+
+When the checkbox is invalid, the `data-invalid` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-invalid] {
+  /* styles for root invalid state */
+}
+
+[data-part="control"][data-invalid] {
+  /* styles for control invalid state */
+}
+
+[data-part="label"][data-invalid] {
+  /* styles for label invalid state */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The checkbox machine exposes the following context properties:
+
+<MachineTable name="checkbox"></MachineTable>
+
+### Machine API
+
+The checkbox `api` exposes the following methods:
+
+<APITable name="checkbox"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="checkbox" nodeType="Root" />
+
+#### Label
+
+<StyleTable component="checkbox" nodeType="Label" />
+
+#### Control
+
+<StyleTable component="checkbox" nodeType="Control" />
+
+#### Indicator
+
+<StyleTable component="checkbox" nodeType="Indicator" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="checkbox"></KeyboardTable>

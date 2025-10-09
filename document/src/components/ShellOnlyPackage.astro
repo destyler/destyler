@@ -1,0 +1,38 @@
+---
+interface Props {
+  packageType: 'npm' | 'yarn' | 'pnpm';
+  packageName: string;
+}
+const { 
+  packageType, 
+  packageName 
+} = Astro.props;
+---
+
+<div class="expressive-code">
+  <figure class="frame is-terminal not-content">
+    <figcaption class="header">
+      <span class="title"></span>
+      <span class="sr-only">Terminal window</span>
+    </figcaption>
+    <pre data-language="sh">
+      <code class="inline-flex! items-center! h-[24.5px]! leading-[24.5px]! box-border! py-6!">
+        <div class="ec-line">
+          <div class="code flex!">
+            <span style="--0:#80A665;--1:#4B7231">{packageType}</span>
+            <span style="--0:#DBD7CAEE;--1:#393A34"> </span>
+            <span style="--0:#C98A7D;--1:#96574A">install</span>
+            <span style="--0:#DBD7CAEE;--1:#393A34"> </span>
+            <span style="--0:#C98A7D;--1:#96574A">{packageName}</span>
+          </div>
+        </div>
+      </code>
+    </pre>
+    <div class="copy">
+      <button title="Copy to clipboard" data-copied="Copied!" data-code={`${packageType} install ${packageName}`} class="copy-button">
+        <div></div>
+      </button>
+    </div>
+  </figure>
+</div>
+

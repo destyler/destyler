@@ -1,0 +1,33 @@
+---
+import FeaturesItem from './FeatureItem.vue'
+
+interface Props {
+  lists: string[]
+}
+
+const { lists } = Astro.props;
+---
+
+<ul class="features-list flex flex-col gap2 md:gap-3 mt-4! m-0! list-none!" dir="auto">
+  {lists.map((item, index) => (
+    <FeaturesItem client:only="vue" key={index}>
+      {item}
+    </FeaturesItem>
+  ))}
+</ul>
+
+<style>
+.features-list li {
+  padding-left: 0 !important;
+  list-style: none;
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+}
+.features-list li::before {
+  content: none;
+}
+.features-list {
+  padding: 0;
+}
+</style>

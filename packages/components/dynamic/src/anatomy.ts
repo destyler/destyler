@@ -1,6 +1,6 @@
 import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('tagsInput').parts(
+export const anatomy = createAnatomy('dynamic').parts(
   'root',
   'label',
   'control',

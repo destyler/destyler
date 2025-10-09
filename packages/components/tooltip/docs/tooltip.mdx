@@ -1,0 +1,504 @@
+---
+head:
+  - tag: title
+    content: Tooltip - Destyler UI
+title: Tooltip
+---
+
+import Features from '@docs/components/Features.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+
+> A tooltip is a brief, informative message that appears when a user interacts with an element.
+> Tooltips are usually initiated when a button is focused or hovered.
+
+<PreviewCode name="tooltip"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Show tooltip on hover and focus.',
+  'Hide tooltip on esc or pointer down.',
+  'Only one tooltip shows at a time.',
+  'Labeling support for screen readers via `aria-describedby`.',
+  'Custom show and hide delay support.',
+  'Matches native tooltip behavior with delay on hover of first tooltip and no delay on subsequent tooltips.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="tooltip" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as tooltip from "@destyler/tooltip";
+  import { normalizeProps, useMachine } from "@destyler/vue";
+  import { computed, useId } from "vue";
+
+  const [state, send] = useMachine(tooltip.machine({
+    id: useId(),
+    openDelay: 300,
+    closeDelay: 100,
+  }));
+  const api = computed(() => tooltip.connect(state.value, send, normalizeProps));
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <div v-bind="api.getPositionerProps()">
+      <div v-bind="api.getContentProps()"></div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as tooltip from '@destyler/tooltip'
+  import { useId } from 'react'
+
+  export default function TooltipDemo() {
+    const id = useId()
+    const [state, send] = useMachine(tooltip.machine({ id }))
+    const api = tooltip.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()}></button>
+        <div {...api.getPositionerProps()}>
+          <div {...api.getContentProps()}></div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as tooltip from "@destyler/tooltip";
+    import { normalizeProps, useMachine } from "@destyler/svelte";
+
+    const id = $props.id();
+    const [state, send] = useMachine(tooltip.machine({ id }));
+
+    const api = $derived(tooltip.connect(state, send, normalizeProps));
+  </script>
+
+  <button {...api.getTriggerProps()}></button>
+  <div {...api.getPositionerProps()}>
+    <div {...api.getContentProps()}></div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as tooltip from '@destyler/tooltip'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function TooltipDemo() {
+    const id = createUniqueId()
+    const [state, send] = useMachine(tooltip.machine({ id }))
+    const api = createMemo(()=>tooltip.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+        <div {...api().getPositionerProps()}>
+          <div {...api().getContentProps()}></div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Customizing the timings
+
+By default, the tooltip is designed to open after `1000ms` and close after `500ms`.
+You can customize this by passing the `openDelay` and `closeDelay` context properties.
+
+```ts
+const [state, send] = useMachine(
+  tooltip.machine({
+    openDelay: 500,
+    closeDelay: 200,
+  }),
+)
+```
+
+## Changing the placement
+
+The tooltip uses [floating-ui]() for dynamic positioning.
+You can change the placement of the tooltip by passing the `positioning.placement` context property to the machine.
+
+```ts
+const [state, send] = useMachine(
+  tooltip.machine({
+    positioning: {
+      placement: "bottom-start",
+    },
+  }),
+)
+```
+
+You can configure other position-related properties in the positioning object.
+Here's what the `positioning` API looks like:
+
+```ts
+interface PositioningOptions {
+  /**
+   * Whether the popover should be hidden when the reference element is detached
+   */
+  hideWhenDetached?: boolean | undefined;
+  /**
+   * The strategy to use for positioning
+   */
+  strategy?: "absolute" | "fixed" | undefined;
+  /**
+   * The initial placement of the floating element
+   */
+  placement?: Placement | undefined;
+  /**
+   * The offset of the floating element
+   */
+  offset?: {
+      mainAxis?: number;
+      crossAxis?: number;
+  } | undefined;
+  /**
+   * The main axis offset or gap between the reference and floating elements
+   */
+  gutter?: number | undefined;
+  /**
+   * The secondary axis offset or gap between the reference and floating elements
+   */
+  shift?: number | undefined;
+  /**
+   * The virtual padding around the viewport edges to check for overflow
+   */
+  overflowPadding?: number | undefined;
+  /**
+   * The minimum padding between the arrow and the floating element's corner.
+   * @default 4
+   */
+  arrowPadding?: number | undefined;
+  /**
+   * Whether to flip the placement
+   */
+  flip?: boolean | Placement[] | undefined;
+  /**
+   * Whether the popover should slide when it overflows.
+   */
+  slide?: boolean | undefined;
+  /**
+   * Whether the floating element can overlap the reference element
+   * @default false
+   */
+  overlap?: boolean | undefined;
+  /**
+   * Whether to make the floating element same width as the reference element
+   */
+  sameWidth?: boolean | undefined;
+  /**
+   * Whether the popover should fit the viewport.
+   */
+  fitViewport?: boolean | undefined;
+  /**
+   * The overflow boundary of the reference element
+   */
+  boundary?: (() => Boundary) | undefined;
+  /**
+   * Options to activate auto-update listeners
+   */
+  listeners?: boolean | AutoUpdateOptions | undefined;
+  /**
+   * Function called when the placement is computed
+   */
+  onComplete?: ((data: ComputePositionReturn) => void) | undefined;
+  /**
+   * Function called when the floating element is positioned or not
+   */
+  onPositioned?: ((data: {
+      placed: boolean;
+  }) => void) | undefined;
+  /**
+   *  Function that returns the anchor rect
+   */
+  getAnchorRect?: ((element: HTMLElement | VirtualElement | null) => AnchorRect | null) | undefined;
+  /**
+   * A callback that will be called when the popover needs to calculate its
+   * position.
+   */
+  updatePosition?: ((data: {
+      updatePosition: () => Promise<void>;
+  }) => void | Promise<void>) | undefined;
+}
+```
+
+## Adding an arrow
+
+To render an arrow within the tooltip, use the `api.getArrowProps()` and `api.getArrowTipProps()`.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as tooltip from "@destyler/tooltip";
+  import { normalizeProps, useMachine } from "@destyler/vue";
+  import { computed, useId } from "vue";
+
+  const [state, send] = useMachine(tooltip.machine({
+    id: useId(),
+    openDelay: 300,
+    closeDelay: 100,
+  }));
+  const api = computed(() => tooltip.connect(state.value, send, normalizeProps));
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <div v-bind="api.getPositionerProps()">
+      <div v-bind="api.getArrowProps()">
+        <div v-bind="api.getArrowTipProps()" />
+      </div>
+      <div v-bind="api.getContentProps()"></div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as tooltip from '@destyler/tooltip'
+  import { useId } from 'react'
+
+  export default function TooltipDemo() {
+    const id = useId()
+    const [state, send] = useMachine(tooltip.machine({ id }))
+    const api = tooltip.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()}></button>
+        <div {...api.getPositionerProps()}>
+          <div {...api.getArrowProps()}>
+            <div {...api.getArrowTipProps()} />
+          </div>
+          <div {...api.getContentProps()}></div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as tooltip from "@destyler/tooltip";
+    import { normalizeProps, useMachine } from "@destyler/svelte";
+
+    const id = $props.id();
+    const [state, send] = useMachine(tooltip.machine({ id }));
+
+    const api = $derived(tooltip.connect(state, send, normalizeProps));
+  </script>
+
+  <button {...api.getTriggerProps()}></button>
+  <div {...api.getPositionerProps()}>
+    <div {...api.getArrowProps()}>
+      <div {...api.getArrowTipProps()} />
+    </div>
+    <div {...api.getContentProps()}></div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as tooltip from '@destyler/tooltip'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function TooltipDemo() {
+    const id = createUniqueId()
+    const [state, send] = useMachine(tooltip.machine({ id }))
+    const api = createMemo(()=>tooltip.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+        <div {...api().getPositionerProps()}>
+          <div {...api().getArrowProps()}>
+            <div {...api().getArrowTipProps()} />
+          </div>
+          <div {...api().getContentProps()}></div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Pointerdown behavior
+
+By default, the tooltip will close when the pointer is down on its trigger.
+To prevent this behavior,
+pass the `closeOnPointerDown` context property and set it to `false`.
+
+```ts
+const [state, send] = useMachine(
+  tooltip.machine({
+    closeOnPointerDown: false,
+  }),
+)
+```
+
+## Close on esc
+
+The tooltip is designed to close when the escape key is pressed.
+To prevent this, pass the `closeOnEscape` context property and set it to `false`.
+
+```ts
+const [state, send] = useMachine(
+  tooltip.machine({
+    closeOnEsc: false,
+  }),
+)
+```
+
+## Making the tooltip interactive
+
+Set the `interactive` context property to `true` to make them interactive.
+
+When a tooltip is interactive,
+it'll remain open even the pointer leaves the trigger and move into the tooltip's content.
+
+```ts
+const [state, send] = useMachine(
+  tooltip.machine({
+    interactive: true,
+  }),
+)
+```
+
+## Listening for open state changes
+
+When the tooltip is opened or closed, the `onOpenChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  tooltip.machine({
+    onOpenChange(details) {
+      // details => { open: boolean }
+      console.log(details.open)
+    },
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Tooltip part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-part="trigger"] {
+  /* styles for the content */
+}
+
+[data-part="content"] {
+  /* styles for the content */
+}
+```
+
+### Open and close states
+
+When the tooltip is open, the `data-state` attribute is added to the trigger
+
+```css
+[data-part="trigger"][data-state="open"] {
+  /* styles for the trigger's expanded state */
+}
+
+[data-part="content"][data-state="open"] {
+  /* styles for the trigger's expanded state */
+}
+```
+
+### Styling the arrow
+
+When using arrows within the menu, you can style it using css variables.
+
+```css
+[data-part="arrow"] {
+  --arrow-size: 20px;
+  --arrow-background: red;
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The tooltip machine exposes the following context properties:
+
+<MachineTable name="tooltip"></MachineTable>
+
+### Machine API
+
+The tooltip `api` exposes the following methods:
+
+<APITable name="tooltip"></APITable>
+
+### Data Attributes
+
+#### Trigger
+
+<StyleTable component="tooltip" nodeType="Trigger" />
+
+#### Content
+
+<StyleTable component="tooltip" nodeType="Content" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="tooltip"></KeyboardTable>

@@ -1,0 +1,491 @@
+---
+head:
+  - tag: title
+    content: Timer - Destyler UI
+title: Timer
+---
+
+import Features from '@docs/components/Features.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+
+> The timer machine is used to record the time elapsed from zero or
+> since a specified target time.
+
+<PreviewCode name="timer"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Countdown from a specified time.',
+  'Use as stopwatch to record the time elapsed.',
+  'Control the timer with start, stop, and resume buttons.',
+  'Set the tick interval for the timer.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="timer" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as timer from '@destyler/timer'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(
+    timer.machine({
+      id: useId(),
+      countdown: true,
+      autoStart: true,
+      startMs: timer.parse({ days: 20, seconds: 1 }),
+    }),
+  )
+
+  const api = computed(() => timer.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getAreaProps()" >
+        <div v-bind="api.getItemProps({ type: 'days' })" >
+          {{ api.formattedTime.days }}
+        </div>
+        <div v-bind="api.getSeparatorProps()" >
+          :
+        </div>
+        <div v-bind="api.getItemProps({ type: 'hours' })" >
+          {{ api.formattedTime.hours }}
+        </div>
+        <div v-bind="api.getSeparatorProps()" >
+          :
+        </div>
+        <div v-bind="api.getItemProps({ type: 'minutes' })" >
+          {{ api.formattedTime.minutes }}
+        </div>
+        <div v-bind="api.getSeparatorProps()" >
+          :
+        </div>
+        <div v-bind="api.getItemProps({ type: 'seconds' })" >
+          {{ api.formattedTime.seconds }}
+        </div>
+      </div>
+
+      <div v-bind="api.getControlProps()">
+        <button v-bind="api.getActionTriggerProps({ action: 'start' })">
+          Start
+        </button>
+        <button v-bind="api.getActionTriggerProps({ action: 'pause' })">
+          Pause
+        </button>
+        <button v-bind="api.getActionTriggerProps({ action: 'resume' })">
+          Resume
+        </button>
+        <button v-bind="api.getActionTriggerProps({ action: 'reset' })">
+          Reset
+        </button>
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as timer from '@destyler/timer'
+  import { useId } from 'react'
+
+  export default function Timer() {
+    const [state, send] = useMachine(
+      timer.machine({
+        id: useId(),
+        countdown: true,
+        autoStart: true,
+        startMs: timer.parse({ days: 20, seconds: 1 }),
+      }),
+    )
+
+    const api = timer.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getRootProps()}>
+          <div {...api.getAreaProps()} >
+            <div {...api.getItemProps({ type: 'days' })} >
+              {api.formattedTime.days}
+            </div>
+            <div {...api.getSeparatorProps()} >
+              :
+            </div>
+            <div {...api.getItemProps({ type: 'hours' })} >
+              {api.formattedTime.hours}
+            </div>
+            <div {...api.getSeparatorProps()} >
+              :
+            </div>
+            <div {...api.getItemProps({ type: 'minutes' })} >
+              {api.formattedTime.minutes}
+            </div>
+            <div {...api.getSeparatorProps()} >
+              :
+            </div>
+            <div {...api.getItemProps({ type: 'seconds' })} >
+              {api.formattedTime.seconds}
+            </div>
+          </div>
+
+          <div {...api.getControlProps()}>
+            <button {...api.getActionTriggerProps({ action: "start" })}>
+              Start
+            </button>
+            <button {...api.getActionTriggerProps({ action: "pause" })}>
+              Pause
+            </button>
+            <button {...api.getActionTriggerProps({ action: "resume" })}>
+              Resume
+            </button>
+            <button {...api.getActionTriggerProps({ action: "reset" })}>
+              Reset
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as timer from '@destyler/timer'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(
+      timer.machine({
+        id,
+        countdown: true,
+        autoStart: true,
+        startMs: timer.parse({ days: 20, seconds: 1 }),
+      })
+    )
+
+    const api = $derived(timer.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()} >
+    <div {...api.getAreaProps()} >
+      <div {...api.getItemProps({ type: 'days' })} >
+        {api.formattedTime.days}
+      </div>
+      <div {...api.getSeparatorProps()} >
+        :
+      </div>
+      <div {...api.getItemProps({ type: 'hours' })} >
+        {api.formattedTime.hours}
+      </div>
+      <div {...api.getSeparatorProps()} >
+        :
+      </div>
+      <div {...api.getItemProps({ type: 'minutes' })} >
+        {api.formattedTime.minutes}
+      </div>
+      <div {...api.getSeparatorProps()} >
+        :
+      </div>
+      <div {...api.getItemProps({ type: 'seconds' })} >
+        {api.formattedTime.seconds}
+      </div>
+    </div>
+
+    <div {...api.getControlProps()}>
+      <button {...api.getActionTriggerProps({ action: "start" })}>
+        Start
+      </button>
+      <button {...api.getActionTriggerProps({ action: "pause" })}>
+        Pause
+      </button>
+      <button {...api.getActionTriggerProps({ action: "resume" })}>
+        Resume
+      </button>
+      <button {...api.getActionTriggerProps({ action: "reset" })}>
+        Reset
+      </button>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  /** @jsxImportSource solid-js */
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as timer from '@destyler/timer'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Timer() {
+    const [state, send] = useMachine(
+      timer.machine({
+        id: createUniqueId(),
+        countdown: true,
+        autoStart: true,
+        startMs: timer.parse({ days: 20, seconds: 1 }),
+      }),
+    )
+
+    const api = createMemo(() => timer.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getRootProps()} >
+          <div {...api().getAreaProps()}>
+            <div {...api().getItemProps({ type: 'days' })} >
+              {api().formattedTime.days}
+            </div>
+            <div {...api().getSeparatorProps()} >
+              :
+            </div>
+            <div {...api().getItemProps({ type: 'hours' })} >
+              {api().formattedTime.hours}
+            </div>
+            <div {...api().getSeparatorProps()} >
+              :
+            </div>
+            <div {...api().getItemProps({ type: 'minutes' })} >
+              {api().formattedTime.minutes}
+            </div>
+            <div {...api().getSeparatorProps()} >
+              :
+            </div>
+            <div {...api().getItemProps({ type: 'seconds' })} >
+              {api().formattedTime.seconds}
+            </div>
+          </div>
+
+          <div {...api().getControlProps()}>
+            <button {...api().getActionTriggerProps({ action: "start" })}>
+              Start
+            </button>
+            <button {...api().getActionTriggerProps({ action: "pause" })}>
+              Pause
+            </button>
+            <button {...api().getActionTriggerProps({ action: "resume" })}>
+              Resume
+            </button>
+            <button {...api().getActionTriggerProps({ action: "reset" })}>
+              Reset
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the start value
+
+Set the `startMs` property to the timer machine's context
+to set the start time in milliseconds.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    startMs: 1000 * 60 * 60, // 1 hour
+  }),
+)
+```
+
+Alternatively, you can also use the `timer.parse` function to convert
+a date time string or object into milliseconds
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    startMs: timer.parse("2021-01-01T12:00:00Z"),
+    // startMs: timer.parse({ hours: 12, minutes: 0, seconds: 0 }),
+  }),
+)
+```
+
+## Auto starting the timer
+
+Set the `autoStart` property to `true` in the timer machine's context
+to start the timer automatically when the component mounts.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    autoStart: true,
+  }),
+)
+```
+
+## Usage as countdown timer
+
+To use the timer as a countdown timer,
+set the `countdown` property to `true` in the timer machine's context.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    countdown: true,
+  }),
+)
+```
+
+## Setting the target value
+
+To set the target value of the countdown timer,
+pass the `targetMs` property in the timer machine's context.
+The timer stops automatically when the `targetMs` is reached.
+
+When `targetMs` is set and `countdown=true`,
+the timer ticks down to zero from the specified target time.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    countdown: true,
+    targetMs: 1000 * 60 * 60, // 1 hour
+  }),
+)
+```
+
+When `targetMs` is set and `countdown=false`,
+the timer ticks up to the specified target time.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    targetMs: 1000 * 60 * 60, // 1 hour
+  }),
+)
+```
+
+## Setting the tick interval
+
+Set the `interval` property to the timer machine's context to set the tick interval in milliseconds.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    interval: 1000, // 1 second
+  }),
+)
+```
+
+## Listening to tick events
+
+When the timer ticks, the `onTick` callback is invoke.
+You can listen to this event and update your UI accordingly.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    onTick(details) {
+      // details => { value, segments }
+      console.log(details)
+    },
+  }),
+)
+```
+
+## Listening for completion events
+
+When the timer reaches the target time, the `onComplete` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  timer.machine({
+    countdown: true,
+    targetMs: 1000 * 60 * 60, // 1 hour
+    onComplete() {
+      console.log("Timer completed")
+    },
+  }),
+)
+```
+
+## Starting and Stopping the timer
+
+To start the timer, send the `api.start()` callback
+
+```ts
+api.start()
+```
+
+To stop the timer, send the `api.stop()` callback
+
+```ts
+api.stop()
+```
+
+## Pausing and Resuming the timer
+
+To pause the timer, send the `api.pause()` callback
+
+```ts
+api.pause()
+```
+
+To resume the timer, send the `api.resume()` callback
+
+```ts
+api.resume()
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The timer machine exposes the following context properties:
+
+<MachineTable name="timer"></MachineTable>
+
+### Machine API
+
+The timer `api` exposes the following methods:
+
+<APITable name="timer"></APITable>
+
+### Data Attributes
+
+#### Item
+
+<StyleTable component="timer" nodeType="Item" />
+
+#### Item Label
+
+<StyleTable component="timer" nodeType="ItemLabel" />
+
+#### Item Value
+
+<StyleTable component="timer" nodeType="ItemValue" />

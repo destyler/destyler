@@ -1,0 +1,53 @@
+---
+import { getApiDoc } from '@destyler/docs'
+
+const { name } = Astro.props as { name: string }
+
+interface CtxItem {
+  name: string
+  type: string
+  desc: string
+  defaultValue?: string
+}
+
+let ctxItems: CtxItem[] = []
+try {
+  const doc = getApiDoc(name as any)
+  if (doc?.context) {
+    ctxItems = Object.entries(doc.context).map(([k, v]: any) => ({
+      name: k,
+      type: v.type || '',
+      desc: (v.description || '').trim(),
+      defaultValue: v.defaultValue,
+    }))
+  }
+} catch (error) {
+  console.error(`[ApiDoc] Failed to load context doc for "${name}" from @destyler/docs:`, error)
+
+}
+
+const hasData = ctxItems.length > 0
+---
+
+{hasData ? (
+  <div class="space-y-2 mt-0!">
+    {ctxItems.map((item) => (
+      <div class="py-2 border-b border-border last:border-none mt-0!">
+        <div class="mb-1 mt-0! flex items-start gap-2 flex-wrap">
+          <span class="font-mono font-bold text-primary">{item.name}</span>
+          {item.defaultValue && (
+            <span class="font-mono text-xs text-muted-foreground">(default: {item.defaultValue})</span>
+          )}
+        </div>
+        <div class="mb-1 mt-0! overflow-x-auto">
+          <code class="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground w-full! whitespace-pre">{item.type}</code>
+        </div>
+        <div class="text-sm text-foreground/80 mt-2!">{item.desc}</div>
+      </div>
+    ))}
+  </div>
+) : (
+  <div class="py-3 text-center text-muted-foreground mt-0!">
+    Unable to load API property information for "{name}"
+  </div>
+)}

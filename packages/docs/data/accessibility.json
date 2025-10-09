@@ -1,0 +1,522 @@
+{
+  "aspect-ratio": [],
+  "breadcrumbs": [],
+  "calendar": [],
+  "carousel": [],
+  "checkbox": [
+    {
+      "key": "Space",
+      "description": "Toggle the checkbox"
+    }
+  ],
+  "clipboard": [],
+  "collapse": [
+    {
+      "key": "Space",
+      "description": "When focus is on an trigger of a collapsed item, the item is expanded"
+    },
+    {
+      "key": "Enter",
+      "description": "When focus is on an trigger of a collapsed section, expands the section."
+    },
+    {
+      "key": "Tab",
+      "description": "Moves focus to the next focusable element"
+    },
+    {
+      "key": "Shift + Tab",
+      "description": "Moves focus to the previous focusable element"
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Moves focus to the next trigger"
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Moves focus to the previous trigger."
+    },
+    {
+      "key": "Home",
+      "description": "When focus is on an trigger, moves focus to the first trigger."
+    },
+    {
+      "key": "End",
+      "description": "When focus is on an trigger, moves focus to the last trigger."
+    }
+  ],
+  "collapsible": [
+    {
+      "key": "Space",
+      "description": "Opens/closes the collapsible."
+    },
+    {
+      "key": "Enter",
+      "description": "Opens/closes the collapsible."
+    }
+  ],
+  "color-picker": [
+    {
+      "key": "Enter",
+      "description": "When focus is on the trigger, opens the color picker. When focus is on a trigger of a swatch, selects the color (and closes the color picker). When focus is on the input or channel inputs, selects the color"
+    },
+    {
+      "key": "ArrowLeft",
+      "description": "When focus is on the color area, decreases the hue value of the color. When focus is on the channel sliders, decreases the value of the channel"
+    },
+    {
+      "key": "ArrowRight",
+      "description": "When focus is on the color area, increases the hue value of the color. When focus is on the channel sliders, increases the value of the channel"
+    },
+    {
+      "key": "ArrowUp",
+      "description": "When focus is on the color area, increases the saturation value of the color. When focus is on the channel sliders, increases the value of the channel"
+    },
+    {
+      "key": "ArrowDown",
+      "description": "When focus is on the color area, decreases the saturation value of the color. When focus is on the channel sliders, decreases the value of the channel"
+    },
+    {
+      "key": "Esc",
+      "description": "Closes the color picker and moves focus to the trigger"
+    }
+  ],
+  "combobox": [
+    {
+      "key": "ArrowDown",
+      "description": "When the combobox is closed, opens the listbox and highlights to the first option. When the combobox is open, moves focus to the next option."
+    },
+    {
+      "key": "ArrowUp",
+      "description": "When the combobox is closed, opens the listbox and highlights to the last option. When the combobox is open, moves focus to the previous option."
+    },
+    {
+      "key": "Home",
+      "description": "When the combobox is open, moves focus to the first option."
+    },
+    {
+      "key": "End",
+      "description": "When the combobox is open, moves focus to the last option."
+    },
+    {
+      "key": "Escape",
+      "description": "Closes the listbox."
+    },
+    {
+      "key": "Enter",
+      "description": "Selects the highlighted option and closes the combobox."
+    },
+    {
+      "key": "Esc",
+      "description": "Closes the combobox"
+    }
+  ],
+  "dialog": [
+    {
+      "key": "Enter",
+      "description": "When focus is on the trigger, opens the dialog."
+    },
+    {
+      "key": "Tab",
+      "description": "Moves focus to the next focusable element within the content. Focus is trapped within the dialog."
+    },
+    {
+      "key": "Shift + Tab",
+      "description": "Moves focus to the previous focusable element. Focus is trapped within the dialog."
+    },
+    {
+      "key": "Esc",
+      "description": "Closes the dialog and moves focus to trigger or the defined final focus element"
+    }
+  ],
+  "dynamic": [
+    {
+      "key": "ArrowLeft",
+      "description": "Moves focus to the previous tag item"
+    },
+    {
+      "key": "ArrowRight",
+      "description": "Moves focus to the next tag item"
+    },
+    {
+      "key": "Backspace",
+      "description": "Deletes the tag item that has visual focus or the last tag item"
+    },
+    {
+      "key": "Enter",
+      "description": "When a tag item has visual focus, it puts the tag in edit mode. When the input has focus, it adds the value to the list of tags"
+    },
+    {
+      "key": "Delete",
+      "description": "Deletes the tag item that has visual focus"
+    },
+    {
+      "key": "Control + V",
+      "description": "When `addOnPaste` is set. Adds the pasted value as a tags"
+    }
+  ],
+  "edit": [
+    {
+      "key": "Enter",
+      "description": "Saves the edited content and exits edit mode."
+    },
+    {
+      "key": "Escape",
+      "description": "Discards the changes and exits edit mode."
+    }
+  ],
+  "file-upload": [],
+  "floating-panel": [],
+  "hover-card": [],
+  "image": [],
+  "label": [],
+  "menu": [
+    {
+      "key": "Space",
+      "description": "Activates/Selects the highlighted item"
+    },
+    {
+      "key": "Enter",
+      "description": "Activates/Selects the highlighted item"
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Highlights the next item in the menu"
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Highlights the previous item in the menu"
+    },
+    {
+      "key": "ArrowRight/ArrowLeft",
+      "description": "When focus is on trigger, opens or closes the submenu depending on reading direction."
+    },
+    {
+      "key": "Esc",
+      "description": "Closes the menu and moves focus to the trigger"
+    }
+  ],
+  "number-input": [
+    {
+      "key": "ArrowUp",
+      "description": "Increments the value of the number input by a predefined step."
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Decrements the value of the number input by a predefined step."
+    },
+    {
+      "key": "PageUp",
+      "description": "Increments the value of the number input by a larger predefined step."
+    },
+    {
+      "key": "PageDown",
+      "description": "Decrements the value of the number input by a larger predefined step."
+    },
+    {
+      "key": "Home",
+      "description": "Sets the value of the number input to its minimum allowed value."
+    },
+    {
+      "key": "End",
+      "description": "Sets the value of the number input to its maximum allowed value."
+    },
+    {
+      "key": "Enter",
+      "description": "Submits the value entered in the number input."
+    }
+  ],
+  "otp-input": [
+    {
+      "key": "ArrowLeft",
+      "description": "Moves focus to the previous input"
+    },
+    {
+      "key": "ArrowRight",
+      "description": "Moves focus to the next input"
+    },
+    {
+      "key": "Backspace",
+      "description": "Deletes the value in the current input and moves focus to the previous input"
+    },
+    {
+      "key": "Delete",
+      "description": "Deletes the value in the current input"
+    },
+    {
+      "key": "Control + V",
+      "description": "Pastes the value into the input fields"
+    }
+  ],
+  "pagination": [],
+  "popover": [
+    {
+      "key": "Space",
+      "description": "Opens/closes the popover."
+    },
+    {
+      "key": "Enter",
+      "description": "Opens/closes the popover."
+    },
+    {
+      "key": "Tab",
+      "description": "Moves focus to the next focusable element within the content.\nNote: If there are no focusable elements, focus is moved to the next focusable element after the trigger."
+    },
+    {
+      "key": "Shift + Tab",
+      "description": "Moves focus to the previous focusable element within the content\nNote: If there are no focusable elements, focus is moved to the trigger."
+    },
+    {
+      "key": "Esc",
+      "description": "Closes the popover and moves focus to the trigger."
+    }
+  ],
+  "progress": [],
+  "qr-code": [],
+  "radio": [
+    {
+      "key": "Tab",
+      "description": "Moves focus to either the checked radio item or the first radio item in the group."
+    },
+    {
+      "key": "Space",
+      "description": "When focus is on an unchecked radio item, checks it."
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Moves focus and checks the next radio item in the group."
+    },
+    {
+      "key": "ArrowRight",
+      "description": "Moves focus and checks the next radio item in the group."
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Moves focus to the previous radio item in the group."
+    },
+    {
+      "key": "ArrowLeft",
+      "description": "Moves focus to the previous radio item in the group."
+    }
+  ],
+  "select": [
+    {
+      "key": "Space",
+      "description": "When focus is on trigger, opens the select and focuses the first selected item. When focus is on the content, selects the highlighted item."
+    },
+    {
+      "key": "Enter",
+      "description": "When focus is on trigger, opens the select and focuses the first selected item. When focus is on content, selects the focused item."
+    },
+    {
+      "key": "ArrowDown",
+      "description": "When focus is on trigger, opens the select. When focus is on content, moves focus to the next item."
+    },
+    {
+      "key": "ArrowUp",
+      "description": "When focus is on trigger, opens the select. When focus is on content, moves focus to the previous item."
+    },
+    {
+      "key": "Esc",
+      "description": "Closes the select and moves focus to trigger."
+    },
+    {
+      "key": "A-Z a-z",
+      "description": "When focus is on trigger, selects the item whose label starts with the typed character. When focus is on the listbox, moves focus to the next item with a label that starts with the typed character."
+    }
+  ],
+  "separator": [],
+  "signature": [],
+  "slider": [
+    {
+      "key": "ArrowRight",
+      "description": "Increments the slider based on defined step"
+    },
+    {
+      "key": "ArrowLeft",
+      "description": "Decrements the slider based on defined step"
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Increases the value by the step amount."
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Decreases the value by the step amount."
+    },
+    {
+      "key": "PageUp",
+      "description": "Increases the value by a larger step"
+    },
+    {
+      "key": "PageDown",
+      "description": "Decreases the value by a larger step"
+    },
+    {
+      "key": "Shift + ArrowUp",
+      "description": "Increases the value by a larger step"
+    },
+    {
+      "key": "Shift + ArrowDown",
+      "description": "Decreases the value by a larger step"
+    },
+    {
+      "key": "Home",
+      "description": "Sets the value to its minimum."
+    },
+    {
+      "key": "End",
+      "description": "Sets the value to its maximum."
+    }
+  ],
+  "splitter": [],
+  "steps": [],
+  "switch": [
+    {
+      "key": "Space Enter",
+      "description": "Toggle the switch"
+    }
+  ],
+  "tabs": [
+    {
+      "key": "Tab",
+      "description": "When focus moves onto the tabs, focuses the active trigger. When a trigger is focused, moves focus to the active content."
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Moves focus to the next trigger in vertical orientation and activates its associated content."
+    },
+    {
+      "key": "ArrowRight",
+      "description": "Moves focus to the next trigger in horizontal orientation and activates its associated content."
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Moves focus to the previous trigger in vertical orientation and activates its associated content."
+    },
+    {
+      "key": "ArrowLeft",
+      "description": "Moves focus to the previous trigger in horizontal orientation and activates its associated content."
+    },
+    {
+      "key": "Home",
+      "description": "Moves focus to the first trigger and activates its associated content."
+    },
+    {
+      "key": "End",
+      "description": "Moves focus to the last trigger and activates its associated content."
+    },
+    {
+      "key": "Enter + Space",
+      "description": "In manual mode, when a trigger is focused, moves focus to its associated content."
+    }
+  ],
+  "timer": [],
+  "toast": [],
+  "toggle": [
+    {
+      "key": "Tab",
+      "description": "Moves focus to either the pressed item or the first item in the group."
+    },
+    {
+      "key": "Space",
+      "description": "Activates/deactivates the item."
+    },
+    {
+      "key": "Enter",
+      "description": "Activates/deactivates the item."
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Moves focus to the next item in the group."
+    },
+    {
+      "key": "ArrowRight",
+      "description": "Moves focus to the next item in the group."
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Moves focus to the previous item in the group."
+    },
+    {
+      "key": "ArrowLeft",
+      "description": "Moves focus to the previous item in the group."
+    },
+    {
+      "key": "Home",
+      "description": "Moves focus to the first item."
+    },
+    {
+      "key": "End",
+      "description": "Moves focus to the last item."
+    }
+  ],
+  "tooltip": [
+    {
+      "key": "Tab",
+      "description": "Opens or Closes the tooltip without delay."
+    },
+    {
+      "key": "Escape",
+      "description": "If open, closes the tooltip without delay."
+    }
+  ],
+  "tour": [],
+  "tree": [
+    {
+      "key": "Tab",
+      "description": "Moves focus to the tree view, placing the first tree view item in focus."
+    },
+    {
+      "key": "Enter",
+      "description": "Selects the item or branch node"
+    },
+    {
+      "key": "Space",
+      "description": "Selects the item or branch node"
+    },
+    {
+      "key": "ArrowDown",
+      "description": "Moves focus to the next node"
+    },
+    {
+      "key": "ArrowUp",
+      "description": "Moves focus to the previous node"
+    },
+    {
+      "key": "ArrowRight",
+      "description": "When focus is on a closed branch node, opens the branch. When focus is on an open branch node, moves focus to the first item node."
+    },
+    {
+      "key": "ArrowLeft",
+      "description": "When focus is on an open branch node, closes the node. When focus is on an item or branch node, moves focus to its parent branch node."
+    },
+    {
+      "key": "Home",
+      "description": "Moves focus to first node without opening or closing a node."
+    },
+    {
+      "key": "End",
+      "description": "Moves focus to the last node that can be focused without expanding any nodes that are closed."
+    },
+    {
+      "key": "a-z, A-Z",
+      "description": "Focus moves to the next node with a key that starts with the typed character. The search logic ignores nodes that are descendants of closed branch."
+    },
+    {
+      "key": "*",
+      "description": "Expands all sibling nodes that are at the same depth as the focused node."
+    },
+    {
+      "key": "Shift + ArrowDown",
+      "description": "Moves focus to and toggles the selection state of the next node."
+    },
+    {
+      "key": "Shift + ArrowUp",
+      "description": "Moves focus to and toggles the selection state of the previous node."
+    },
+    {
+      "key": "Ctrl + A",
+      "description": "Selects all nodes in the tree. If all nodes are selected, unselects all nodes."
+    }
+  ]
+}

@@ -1,5 +1,14 @@
 {
-  "aspect-ratio": {},
+  "aspect-ratio": {
+    "Root": {
+      "data-scope": "aspect-ratio",
+      "data-part": "root"
+    },
+    "Content": {
+      "data-scope": "aspect-ratio",
+      "data-part": "content"
+    }
+  },
   "breadcrumbs": {
     "Link": {
       "data-scope": "breadcrumbs",
@@ -761,7 +770,12 @@
       "data-state": "\"hidden\" | \"visible\""
     }
   },
-  "label": {},
+  "label": {
+    "Root": {
+      "data-scope": "label",
+      "data-part": "root"
+    }
+  },
   "menu": {
     "Trigger": {
       "data-scope": "menu",
@@ -963,7 +977,28 @@
       "data-state": ""
     }
   },
-  "qr-code": {},
+  "qr-code": {
+    "Root": {
+      "data-scope": "qr-code",
+      "data-part": "root"
+    },
+    "Frame": {
+      "data-scope": "qr-code",
+      "data-part": "frame"
+    },
+    "Pattern": {
+      "data-scope": "qr-code",
+      "data-part": "pattern"
+    },
+    "Overlay": {
+      "data-scope": "qr-code",
+      "data-part": "overlay"
+    },
+    "DownloadTrigger": {
+      "data-scope": "qr-code",
+      "data-part": "download-trigger"
+    }
+  },
   "radio": {
     "Root": {
       "data-scope": "radio",

@@ -53,7 +53,7 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'pin-input',
+      id: 'otp-input',
       initial: 'idle',
       context: {
         value: [],

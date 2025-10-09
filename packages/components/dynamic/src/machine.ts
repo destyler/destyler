@@ -54,7 +54,7 @@ export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
     {
-      id: 'tags-input',
+      id: 'dynamic',
       initial: ctx.autoFocus ? 'focused:input' : 'idle',
       context: {
         inputValue: '',

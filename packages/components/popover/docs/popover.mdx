@@ -1,0 +1,530 @@
+---
+head:
+  - tag: title
+    content: Popover - Destyler UI
+title: Popover
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A popover is a non-modal dialog that floats around a trigger.
+> It is used to display contextual information to the user, and should be paired with a clickable trigger element.
+
+<PreviewCode name="popover"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Focus is managed and can be customized.',
+  'Supports modal and non-modal modes.',
+  'Ensures correct DOM order after tabbing out of the popover, whether it\'s portalled or not.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="popover" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as popover from '@destyler/popover'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(popover.machine({ id: useId() }))
+  const api = computed(() => popover.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <Teleport v-if="api.open" to="body">
+      <div v-bind="api.getPositionerProps()">
+
+        <div v-bind="api.getArrowProps()">
+          <div v-bind="api.getArrowTipProps()"></div>
+        </div>
+
+        <div v-bind="api.getContentProps()">
+
+          <div v-bind="api.getTitleProps()"></div>
+          <div v-bind="api.getDescriptionProps()"></div>
+
+          <button v-bind="api.getCloseTriggerProps()"/>
+        </div>
+
+      </div>
+    </Teleport>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as popover from '@destyler/popover'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+  import { createPortal } from 'react-dom'
+
+  export default function Popover() {
+    const [state, send] = useMachine(popover.machine({
+      id: useId(),
+    }))
+
+    const api = popover.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()}></button>
+
+        {api.open && createPortal(
+          <div {...api.getPositionerProps()}>
+
+            <div {...api.getArrowProps()}>
+              <div {...api.getArrowTipProps()} />
+            </div>
+
+            <div {...api.getContentProps()}>
+
+              <div {...api.getTitleProps()}></div>
+              <div {...api.getDescriptionProps()}></div>
+
+              <button {...api.getCloseTriggerProps()}/>
+            </div>
+
+          </div>,
+          document.body,
+        )}
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as popover from '@destyler/popover'
+    import { normalizeProps, useMachine,portal } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(popover.machine({ id }))
+
+    const api = $derived(popover.connect(state, send, normalizeProps))
+  </script>
+
+  <button {...api.getTriggerProps()}></button>
+
+  {#if api.open}
+    <div use:portal>
+      <div {...api.getPositionerProps()}>
+
+        <div {...api.getArrowProps()}>
+          <div {...api.getArrowTipProps()}></div>
+        </div>
+
+        <div {...api.getContentProps()}>
+
+          <div {...api.getTitleProps()}></div>
+          <div {...api.getDescriptionProps()}></div>
+
+          <button {...api.getCloseTriggerProps()}></button>
+        </div>
+      </div>
+    </div>
+
+  {/if}
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as popover from '@destyler/popover'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function Popover() {
+    const [state, send] = useMachine(popover.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => popover.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+
+        {api().open && (
+          <Portal mount={document.body}>
+            <div {...api().getPositionerProps()}>
+
+              <div {...api().getArrowProps()}>
+                <div {...api().getArrowTipProps()} />
+              </div>
+
+              <div {...api().getContentProps()}>
+
+                <div {...api().getTitleProps()}></div>
+                <div {...api().getDescriptionProps()}></div>
+
+                <button {...api().getCloseTriggerProps()}/>
+              </div>
+            </div>
+          </Portal>
+        )}
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Managing focus within popover
+
+When the popover open, focus is automatically set to the first focusable element within the popover.
+To customize the element that should get focus, set the `initialFocusEl` property in the machine's context.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as popover from '@destyler/popover'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId, ref } from 'vue'
+
+  const inputRef = ref(null)
+
+  const [state, send] = useMachine(popover.machine({
+    id: useId(),
+    initialFocusEl: () => inputRef.value,
+  }))
+  const api = computed(() => popover.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <Teleport v-if="api.open" to="body">
+      <div v-bind="api.getPositionerProps()">
+        <div v-bind="api.getContentProps()">
+
+          <input ref="inputRef"/>
+
+        </div>
+      </div>
+    </Teleport>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as popover from '@destyler/popover'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useRef } from 'react'
+  import { createPortal } from 'react-dom'
+
+  export default function Popover() {
+
+  const inputRef = useRef(null)
+
+    const [state, send] = useMachine(popover.machine({
+      id: useId(),
+      initialFocusEl: () => inputRef.current,
+    }))
+
+    const api = popover.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()}></button>
+
+        {api.open && createPortal(
+          <div {...api.getPositionerProps()}>
+            <div {...api.getContentProps()}>
+
+              <input ref={inputRef} />
+
+            </div>
+          </div>,
+          document.body,
+        )}
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as popover from '@destyler/popover'
+    import { normalizeProps, useMachine,portal } from '@destyler/svelte'
+
+    let inputRef: HTMLInputElement | null = null
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(popover.machine({
+      id,
+      initialFocusEl: () => inputRef,
+    }))
+
+    const api = $derived(popover.connect(state, send, normalizeProps))
+  </script>
+
+  <button {...api.getTriggerProps()}></button>
+
+  {#if api.open}
+    <div use:portal>
+      <div {...api.getPositionerProps()}>
+        <div {...api.getContentProps()}>
+
+          <input bind:this={inputRef} />
+
+        </div>
+      </div>
+    </div>
+
+  {/if}
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as popover from '@destyler/popover'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, createSignal } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function Popover() {
+
+    const [inputRef, setInputRef] = createSignal()
+
+    const [state, send] = useMachine(popover.machine({
+      id: createUniqueId(),
+      initialFocusEl: inputRef,
+    }))
+
+    const api = createMemo(() => popover.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+
+        {api().open && (
+          <Portal mount={document.body}>
+            <div {...api().getPositionerProps()}>
+              <div {...api().getContentProps()}>
+
+                <input ref={setInputRef} />
+
+              </div>
+            </div>
+          </Portal>
+        )}
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Changing the modality
+
+In some cases, you might want the popover to be modal. This means that it'll:
+
+- trap focus within its content
+
+- block scrolling on the `body`
+
+- disable pointer interactions outside the popover
+
+- hide content behind the popover from screen readers
+
+To make the popover modal, set the `modal: true` property in the machine's context.
+When `modal: true`, we set the `portalled` attribute to `true` as well.
+
+```ts
+const [state, send] = useMachine(
+  popover.machine({
+    modal: true,
+  }),
+)
+```
+
+## Close behavior
+
+The popover is designed to close on blur and when the `esc` key is pressed.
+
+To prevent it from closing on blur (clicking or focusing outside),
+pass the `closeOnInteractOutside` property and set it to `false`.
+
+```ts
+const [state, send] = useMachine(
+  popover.machine({
+    closeOnInteractOutside: true,
+  }),
+)
+```
+
+To prevent it from closing when the `esc` key is pressed, pass the `closeOnEscape` property and set it to `false`.
+
+```ts
+const [state, send] = useMachine(
+  popover.machine({
+    closeOnEscape: true,
+  }),
+)
+```
+
+## Changing the placement
+
+To change the placement of the popover, set the `positioning.placement` property in the machine's context.
+
+```ts
+const [state, send] = useMachine(
+  popover.machine({
+    positioning: {
+      placement: "top-start",
+    },
+  }),
+)
+```
+
+## Listening for open state changes
+
+When the popover is opened or closed, the `onOpenChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  popover.machine({
+    onOpenChange(details) {
+      // details => { open: boolean }
+      console.log("Popover", details.open)
+    },
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Open and closed state
+
+When the popover is expanded, we add a `data-state` and `data-placement` attribute to the trigger.
+
+```css
+[data-part="trigger"][data-state="open"] {
+  /* styles for the expanded state */
+}
+
+[data-part="content"][data-state="open"] {
+  /* styles for the expanded state */
+}
+
+[data-part="trigger"][data-placement="top-start"] {
+  /* styles for computed placement */
+}
+```
+
+### Position aware
+
+When the popover is expanded, we add a `data-state` and `data-placement` attribute to the trigger.
+
+```css
+[data-part="trigger"][data-placement=""] {
+  /* styles for computed placement */
+}
+
+[data-part="content"][data-placement="top-start"] {
+  /* styles for computed placement */
+}
+```
+
+## Arrow
+
+The arrow element requires specific css variables to be set for it to show correctly.
+
+```css
+[data-part="arrow"] {
+  --arrow-background: white;
+  --arrow-size: 16px;
+}
+```
+
+A common technique for adding a shadow to the arrow is to use set `filter: drop-down(...)` css property on the content element.
+Alternatively, you can use the `--arrow-shadow-color` variable.
+
+```css
+[data-part="arrow"] {
+  --arrow-shadow-color: gray;
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The popover machine exposes the following context properties:
+
+<MachineTable name="popover"></MachineTable>
+
+### Machine API
+
+The popover `api` exposes the following methods:
+
+<APITable name="popover"></APITable>
+
+### Data Attributes
+
+#### Trigger
+
+<StyleTable component="popover" nodeType="Trigger" />
+
+#### Indicator
+
+<StyleTable component="popover" nodeType="Indicator" />
+
+#### Content
+
+<StyleTable component="popover" nodeType="Content" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="popover"></KeyboardTable>

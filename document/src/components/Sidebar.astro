@@ -1,0 +1,21 @@
+---
+import ThemeSidebar from 'starlight-theme-destyler/overrides/Sidebar.astro'
+import SelectFramework from './SelectFramework.astro'
+
+interface Props {
+  custom?: boolean
+  classList?: string
+}
+
+const { custom, classList } = Astro.props as Props
+const isCustom = custom ?? false
+---
+
+<ThemeSidebar custom={isCustom} classList={classList}>
+  <div slot="header" class="mb-4">
+    <h4 class="text-sm font-semibold leading-5 px-2 py-1">Select Framework</h2>
+    <SelectFramework custom={custom} />
+  </div>
+</ThemeSidebar>
+
+

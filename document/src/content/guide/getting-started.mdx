@@ -1,0 +1,975 @@
+---
+head:
+  - tag: title
+    content: Getting Started - Destyler UI
+title: Getting Started
+---
+
+> A quick tutorial to get you up and running with Destyler.
+
+## Implementing a Popover​
+
+In this quick tutorial, we will install and style the [Popover](/components/popover) component.
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components'
+import InstallShell from '../../components/InstallShell.astro'
+import FrameworkLayout from '../../components/FrameworkLayout.astro'
+import Preview from '../../components/Preview.astro'
+import PopoverVue from '@component/popover/snippets/Popover.vue'
+import PopoverReact from '@component/popover/snippets/Popover.react'
+import PopoverSvelte from '@component/popover/snippets/Popover.svelte'
+import PopoverSolid from '@component/popover/snippets/Popover.solid'
+
+<Steps>
+
+1. Install the package
+
+    Install the component from your command line.
+
+    <InstallShell name="popover" />
+
+2.  Import the parts
+
+    Import and structure the parts.
+
+    <FrameworkLayout>
+      <div slot="vue">
+        ```vue
+        // Popover.vue
+        <script setup lang="ts">
+        import * as popover from "@destyler/popover"
+        import { normalizeProps, useMachine } from "@destyler/vue"
+        import { computed,useId } from "vue"
+
+        const [state, send] = useMachine(popover.machine({ id: useId() }))
+        const api = computed(() => popover.connect(state.value, send, normalizeProps))
+        </script>
+
+        <template>
+          <div>
+            <button v-bind="api.getTriggerProps()">
+              Click me
+            </button>
+
+            <div v-bind="api.getPositionerProps()">
+              <div v-bind="api.getContentProps()">
+                <div v-bind="api.getTitleProps()">
+                  Presenters
+                </div>
+
+                <div v-bind="api.getDescriptionProps()">
+                  Description
+                </div>
+
+                <button>
+                  Action Button
+                </button>
+
+                <button v-bind="api.getCloseTriggerProps()"/>
+              </div>
+            </div>
+          </div>
+        </template>
+        ```
+      </div>
+      <div slot="react">
+        ```tsx
+        // Popover.tsx
+        import * as popover from '@destyler/popover'
+        import { normalizeProps, useMachine } from '@destyler/react'
+        import { useId } from 'react'
+
+        export default function Popover() {
+          const [state, send] = useMachine(popover.machine({ id: useId() }))
+          const api = popover.connect(state, send, normalizeProps)
+
+          return (
+            <>
+              <div>
+                <button {...api.getTriggerProps()}>
+                  Click me
+                </button>
+
+                <div {...api.getPositionerProps()}>
+                  <div {...api.getContentProps()}>
+                    <div {...api.getTitleProps()}>
+                      Presenters
+                    </div>
+
+                    <div {...api.getDescriptionProps()}>
+                      Description
+                    </div>
+
+                    <button>
+                      Action Button
+                    </button>
+
+                    <button {...api.getCloseTriggerProps()}>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )
+        }
+        ```
+      </div>
+      <div slot="svelte">
+        ```svelte
+        // Popover.svelte
+        <script lang="ts">
+          import * as popover from "@destyler/popover"
+          import { normalizeProps, useMachine } from "@destyler/svelte"
+
+          const id = $props.id();
+
+          const [state, send] = useMachine(popover.machine({ id }));
+
+          const api = $derived(popover.connect(state, send, normalizeProps));
+        </script>
+
+        <div>
+          <button {...api.getTriggerProps()}>
+            Click me
+          </button>
+
+          <div {...api.getPositionerProps()}>
+            <div {...api.getContentProps()}>
+              <div {...api.getTitleProps()}>
+                Presenters
+              </div>
+
+              <div {...api.getDescriptionProps()}>
+                Description
+              </div>
+
+              <button>
+                Action Button
+              </button>
+
+              <button {...api.getCloseTriggerProps()}></button>
+            </div>
+          </div>
+        </div>
+        ```
+      </div>
+      <div slot="solid">
+        ```tsx
+        // Popover.tsx
+        import * as popover from '@destyler/popover'
+        import { normalizeProps, useMachine } from '@destyler/solid'
+        import { createMemo, createUniqueId } from 'solid-js'
+
+        export default function PopoverPage() {
+          const [state, send] = useMachine(popover.machine({ id: createUniqueId() }))
+
+          const api = createMemo(() => popover.connect(state, send, normalizeProps))
+
+          return (
+            <>
+              <div>
+                <button
+                  {...api().getTriggerProps()}
+                >
+                  Click me
+                </button>
+
+                <div {...api().getPositionerProps()}>
+                  <div
+                    {...api().getContentProps()}
+                  >
+                    <div
+                      {...api().getTitleProps()}
+                    >
+                      Presenters
+                    </div>
+
+                    <div
+                      {...api().getDescriptionProps()}
+                    >
+                      Description
+                    </div>
+
+                    <button>
+                      Action Button
+                    </button>
+
+                    <button
+                      {...api().getCloseTriggerProps()}
+                    >
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )
+        }
+        ```
+      </div>
+    </FrameworkLayout>
+
+3. Style the component
+
+    Style the component with CSS.
+
+    <FrameworkLayout>
+      <div slot="vue">
+        <Tabs syncKey="css">
+            <TabItem label="Popover.vue">
+              ```vue
+              <script setup lang="ts">
+              import * as popover from '@destyler/popover'
+              import { normalizeProps, useMachine } from '@destyler/vue'
+              import { computed, useId } from 'vue'
+              import './Popover.css'
+
+              const [state, send] = useMachine(popover.machine({ id: useId() }))
+              const api = computed(() => popover.connect(state.value, send, normalizeProps))
+              </script>
+
+              <template>
+                <div>
+                  <button
+                    class="popover-trigger"
+                    v-bind="api.getTriggerProps()"
+                  >
+                    View Details
+                  </button>
+
+                  <div
+                    class="popover-positioner"
+                    v-bind="api.getPositionerProps()"
+                  >
+                    <div
+                      class="popover-content"
+                      v-bind="api.getContentProps()"
+                    >
+                      <div
+                        class="popover-title"
+                        v-bind="api.getTitleProps()"
+                      >
+                        Essential Information
+                      </div>
+
+                      <div
+                        class="popover-description"
+                        v-bind="api.getDescriptionProps()"
+                      >
+                        Explore our minimalist interface designed for maximum efficiency and clarity.
+                      </div>
+
+                      <button class="popover-button primary">
+                        Continue
+                      </button>
+
+                      <button
+                        class="popover-button secondary"
+                        v-bind="api.getCloseTriggerProps()"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </template>
+              ```
+            </TabItem>
+            <TabItem label="Popover.css">
+              ```css
+              .popover-trigger {
+                padding: 12px 24px;
+                background: #000;
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 0.95em;
+                position: relative;
+                transition: all 0.3s ease;
+                box-shadow:
+                  0 2px 10px rgba(0, 0, 0, 0.1),
+                  0 10px 20px rgba(0, 0, 0, 0.05);
+              }
+
+              .popover-trigger::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 8px;
+                padding: 2px;
+                background: linear-gradient(45deg, #333, #000);
+                -webkit-mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+              }
+
+              .popover-trigger:hover {
+                background: #111;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:active {
+                transform: translateY(1px);
+              }
+
+              .popover-positioner {
+                position: absolute;
+                z-index: 50;
+              }
+
+              .popover-content {
+                background: #ffffff;
+                border-radius: 12px;
+                box-shadow:
+                  0 10px 30px rgba(0, 0, 0, 0.08),
+                  0 1px 8px rgba(0, 0, 0, 0.03);
+                padding: 24px;
+                width: 320px;
+                border: 1px solid #f3f3f3;
+                animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              @keyframes slide-up {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px) scale(0.98);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0) scale(1);
+                }
+              }
+
+              .popover-title {
+                font-size: 1.1em;
+                font-weight: 600;
+                color: #000000;
+                margin-bottom: 12px;
+                letter-spacing: -0.01em;
+              }
+
+              .popover-description {
+                color: #666666;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                font-size: 0.95em;
+              }
+
+              .popover-button {
+                padding: 8px 16px;
+                margin-right: 8px;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              }
+
+              .popover-button.primary {
+                background: #000000;
+                color: white;
+                border: none;
+              }
+
+              .popover-button.secondary {
+                background: transparent;
+                border: 1px solid #e0e0e0;
+                color: #333333;
+              }
+
+              .popover-button.primary:hover {
+                background: #171717;
+              }
+
+              .popover-button.secondary:hover {
+                background: #f8f8f8;
+                border-color: #d0d0d0;
+              }
+              ```
+            </TabItem>
+        </Tabs>
+      </div>
+      <div slot="react">
+          <Tabs syncKey="css">
+            <TabItem label="Popover.tsx">
+              ```tsx
+              import * as popover from '@destyler/popover'
+              import { normalizeProps, useMachine } from '@destyler/react'
+              import { useId } from 'react'
+              import './Popover.css'
+
+              export default function Popover() {
+                const [state, send] = useMachine(popover.machine({ id: useId() }))
+                const api = popover.connect(state, send, normalizeProps)
+
+                return (
+                  <div>
+                    <button className="popover-trigger" {...api.getTriggerProps()}>
+                      View Details
+                    </button>
+
+                    <div className="popover-positioner" {...api.getPositionerProps()}>
+                      <div className="popover-content" {...api.getContentProps()}>
+                        <div className="popover-title" {...api.getTitleProps()}>
+                          Essential Information
+                        </div>
+
+                        <div className="popover-description" {...api.getDescriptionProps()}>
+                          Explore our minimalist interface designed for maximum efficiency and clarity.
+                        </div>
+
+                        <button className="popover-button primary">
+                          Continue
+                        </button>
+
+                        <button
+                          className="popover-button secondary"
+                          {...api.getCloseTriggerProps()}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+              ```
+            </TabItem>
+            <TabItem label="Popover.css">
+              ```css
+              .popover-trigger {
+                padding: 12px 24px;
+                background: #000;
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 0.95em;
+                position: relative;
+                transition: all 0.3s ease;
+                box-shadow:
+                  0 2px 10px rgba(0, 0, 0, 0.1),
+                  0 10px 20px rgba(0, 0, 0, 0.05);
+              }
+
+              .popover-trigger::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 8px;
+                padding: 2px;
+                background: linear-gradient(45deg, #333, #000);
+                -webkit-mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+              }
+
+              .popover-trigger:hover {
+                background: #111;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:active {
+                transform: translateY(1px);
+              }
+
+              .popover-positioner {
+                position: absolute;
+                z-index: 50;
+              }
+
+              .popover-content {
+                background: #ffffff;
+                border-radius: 12px;
+                box-shadow:
+                  0 10px 30px rgba(0, 0, 0, 0.08),
+                  0 1px 8px rgba(0, 0, 0, 0.03);
+                padding: 24px;
+                width: 320px;
+                border: 1px solid #f3f3f3;
+                animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              @keyframes slide-up {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px) scale(0.98);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0) scale(1);
+                }
+              }
+
+              .popover-title {
+                font-size: 1.1em;
+                font-weight: 600;
+                color: #000000;
+                margin-bottom: 12px;
+                letter-spacing: -0.01em;
+              }
+
+              .popover-description {
+                color: #666666;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                font-size: 0.95em;
+              }
+
+              .popover-button {
+                padding: 8px 16px;
+                margin-right: 8px;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              }
+
+              .popover-button.primary {
+                background: #000000;
+                color: white;
+                border: none;
+              }
+
+              .popover-button.secondary {
+                background: transparent;
+                border: 1px solid #e0e0e0;
+                color: #333333;
+              }
+
+              .popover-button.primary:hover {
+                background: #171717;
+              }
+
+              .popover-button.secondary:hover {
+                background: #f8f8f8;
+                border-color: #d0d0d0;
+              }
+              ```
+            </TabItem>
+        </Tabs>
+      </div>
+      <div slot="svelte">
+          <Tabs syncKey="css">
+            <TabItem label="Popover.svelte">
+              ```svelte
+              <script lang="ts">
+                import * as popover from '@destyler/popover'
+                import { normalizeProps, useMachine } from '@destyler/svelte'
+
+                const id = $props.id();
+                const [state, send] = useMachine(popover.machine({ id }));
+                const api = $derived(popover.connect(state, send, normalizeProps));
+              </script>
+
+              <div>
+                <button
+                  class="popover-trigger"
+                  {...api.getTriggerProps()}
+                >
+                  View Details
+                </button>
+
+                <div
+                  class="popover-positioner"
+                  {...api.getPositionerProps()}
+                >
+                  <div
+                    class="popover-content"
+                    {...api.getContentProps()}
+                  >
+                    <div
+                      class="popover-title"
+                      {...api.getTitleProps()}
+                    >
+                      Essential Information
+                    </div>
+
+                    <div
+                      class="popover-description"
+                      {...api.getDescriptionProps()}
+                    >
+                      Explore our minimalist interface designed for maximum efficiency and clarity.
+                    </div>
+
+                    <button class="popover-button primary">
+                      Continue
+                    </button>
+
+                    <button
+                      class="popover-button secondary"
+                      {...api.getCloseTriggerProps()}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <style>
+              @import './Popover.css';
+              </style>
+              ```
+            </TabItem>
+            <TabItem label="Popover.css">
+              ```css
+              .popover-trigger {
+                padding: 12px 24px;
+                background: #000;
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 0.95em;
+                position: relative;
+                transition: all 0.3s ease;
+                box-shadow:
+                  0 2px 10px rgba(0, 0, 0, 0.1),
+                  0 10px 20px rgba(0, 0, 0, 0.05);
+              }
+
+              .popover-trigger::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 8px;
+                padding: 2px;
+                background: linear-gradient(45deg, #333, #000);
+                -webkit-mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+              }
+
+              .popover-trigger:hover {
+                background: #111;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:active {
+                transform: translateY(1px);
+              }
+
+              .popover-positioner {
+                position: absolute;
+                z-index: 50;
+              }
+
+              .popover-content {
+                background: #ffffff;
+                border-radius: 12px;
+                box-shadow:
+                  0 10px 30px rgba(0, 0, 0, 0.08),
+                  0 1px 8px rgba(0, 0, 0, 0.03);
+                padding: 24px;
+                width: 320px;
+                border: 1px solid #f3f3f3;
+                animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              @keyframes slide-up {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px) scale(0.98);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0) scale(1);
+                }
+              }
+
+              .popover-title {
+                font-size: 1.1em;
+                font-weight: 600;
+                color: #000000;
+                margin-bottom: 12px;
+                letter-spacing: -0.01em;
+              }
+
+              .popover-description {
+                color: #666666;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                font-size: 0.95em;
+              }
+
+              .popover-button {
+                padding: 8px 16px;
+                margin-right: 8px;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              }
+
+              .popover-button.primary {
+                background: #000000;
+                color: white;
+                border: none;
+              }
+
+              .popover-button.secondary {
+                background: transparent;
+                border: 1px solid #e0e0e0;
+                color: #333333;
+              }
+
+              .popover-button.primary:hover {
+                background: #171717;
+              }
+
+              .popover-button.secondary:hover {
+                background: #f8f8f8;
+                border-color: #d0d0d0;
+              }
+              ```
+            </TabItem>
+          </Tabs>
+      </div>
+      <div slot="solid">
+          <Tabs syncKey="css">
+            <TabItem label="Popover.tsx">
+              ```tsx
+              import * as popover from '@destyler/popover'
+              import { normalizeProps, useMachine } from '@destyler/solid'
+              import { createMemo, createUniqueId } from 'solid-js'
+              import './Popover.css'
+
+              export default function PopoverPage() {
+                const [state, send] = useMachine(popover.machine({ id: createUniqueId() }))
+
+                const api = createMemo(() => popover.connect(state, send, normalizeProps))
+
+                return (
+                  <div>
+                    <button class="popover-trigger" {...api().getTriggerProps()}>
+                      View Details
+                      </button>
+
+                    <div class="popover-positioner" {...api().getPositionerProps()}>
+                      <div class="popover-content" {...api().getContentProps()}>
+                        <div class="popover-title" {...api().getTitleProps()}>
+                          Essential Information
+                          </div>
+
+                        <div class="popover-description" {...api().getDescriptionProps()}>
+                          Explore our minimalist interface designed for maximum efficiency and clarity.
+                          </div>
+
+                        <button class="popover-button primary">
+                          Continue
+                          </button>
+
+                        <button
+                          class="popover-button secondary"
+                          {...api().getCloseTriggerProps()}
+                        >
+                          Close
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+              ```
+            </TabItem>
+            <TabItem label="Popover.css">
+              ```css
+              .popover-trigger {
+                padding: 12px 24px;
+                background: #000;
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                cursor: pointer;
+                font-weight: 500;
+                font-size: 0.95em;
+                position: relative;
+                transition: all 0.3s ease;
+                box-shadow:
+                  0 2px 10px rgba(0, 0, 0, 0.1),
+                  0 10px 20px rgba(0, 0, 0, 0.05);
+              }
+
+              .popover-trigger::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 8px;
+                padding: 2px;
+                background: linear-gradient(45deg, #333, #000);
+                -webkit-mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                mask:
+                  linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+              }
+
+              .popover-trigger:hover {
+                background: #111;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+              }
+
+              .popover-trigger:active {
+                transform: translateY(1px);
+              }
+
+              .popover-positioner {
+                position: absolute;
+                z-index: 50;
+              }
+
+              .popover-content {
+                background: #ffffff;
+                border-radius: 12px;
+                box-shadow:
+                  0 10px 30px rgba(0, 0, 0, 0.08),
+                  0 1px 8px rgba(0, 0, 0, 0.03);
+                padding: 24px;
+                width: 320px;
+                border: 1px solid #f3f3f3;
+                animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              }
+
+              @keyframes slide-up {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px) scale(0.98);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0) scale(1);
+                }
+              }
+
+              .popover-title {
+                font-size: 1.1em;
+                font-weight: 600;
+                color: #000000;
+                margin-bottom: 12px;
+                letter-spacing: -0.01em;
+              }
+
+              .popover-description {
+                color: #666666;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                font-size: 0.95em;
+              }
+
+              .popover-button {
+                padding: 8px 16px;
+                margin-right: 8px;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+              }
+
+              .popover-button.primary {
+                background: #000000;
+                color: white;
+                border: none;
+              }
+
+              .popover-button.secondary {
+                background: transparent;
+                border: 1px solid #e0e0e0;
+                color: #333333;
+              }
+
+              .popover-button.primary:hover {
+                background: #171717;
+              }
+
+              .popover-button.secondary:hover {
+                background: #f8f8f8;
+                border-color: #d0d0d0;
+              }
+              ```
+            </TabItem>
+          </Tabs>
+      </div>
+    </FrameworkLayout>
+
+4. Demo
+
+    Here’s a complete demo.
+
+    <FrameworkLayout>
+      <div slot="vue">
+        <Preview>
+          <PopoverVue client:idle />
+        </Preview>
+      </div>
+      <div slot="react">
+        <Preview>
+          <PopoverReact client:only="react" />
+        </Preview>
+      </div>
+      <div slot="svelte">
+        <Preview>
+          <PopoverSvelte client:idle />
+        </Preview>
+      </div>
+      <div slot="solid">
+        <Preview>
+          <PopoverSolid client:only="solid-js" />
+        </Preview>
+      </div>
+    </FrameworkLayout>
+
+</Steps>
+
+## Summary
+
+The steps above outline briefly what's involved in using a Destyler in your application.
+
+These components are low-level enough to give you control over how you want to wrap them. You're free to introduce your own high-level API to better suit the needs of your team and product.
+
+In a few simple steps, we've implemented a fully accessible Popover component, without having to worry about many of its complexities.
+
+- Adheres to [WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/) design pattern.
+
+- Can be controlled or uncontrolled.
+
+- Customize side, alignment, offsets, collision handling.
+
+- Focus is fully managed and customizable.
+
+- Dismissing and layering behavior is highly customizable.

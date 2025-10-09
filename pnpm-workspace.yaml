@@ -3,6 +3,7 @@ packages:
   - packages/*/*
   - examples/*
   - shared
+  - document
 
 catalogs:
   build:
@@ -10,12 +11,23 @@ catalogs:
     tsdown: ^0.14.1
     vite: ^7.1.3
   css:
+    '@unocss/core': ^66.5.2
     '@unocss/reset': ^66.4.2
     unocss: ^66.4.2
+    unocss-preset-animations: ^1.2.1
+  font:
+    '@fontsource/geist-mono': ^5.2.6
+    '@fontsource/geist-sans': ^5.2.5
   frontend:
+    '@astrojs/react': ^4.3.0
+    '@astrojs/solid-js': ^5.1.0
+    '@astrojs/starlight': ^0.35.2
+    '@astrojs/svelte': ^7.1.0
+    '@astrojs/vue': ^5.1.0
     '@solidjs/router': ^0.15.3
     '@tsconfig/svelte': ^5.0.5
     '@vue/tsconfig': ^0.8.1
+    astro: ^5.13.3
     react: ^19.1.1
     react-dom: ^19.1.1
     react-router: ^7.8.2
@@ -26,11 +38,21 @@ catalogs:
     svelte-routing: ^2.13.0
     vue: ^3.5.19
     vue-router: ^4.5.1
+  hook:
+    '@vueuse/core': ^13.7.0
   icon:
     '@iconify-json/carbon': ^1.2.13
+    '@iconify-json/catppuccin': ^1.2.16
+    '@iconify-json/lineicons': ^1.2.6
+    '@iconify-json/logos': ^1.2.9
+    '@iconify-json/lucide': ^1.2.63
+    '@iconify-json/vscode-icons': ^1.2.29
   lint:
     '@antfu/eslint-config': ^5.2.1
     eslint: ^9.34.0
+  markdown:
+    marked: ^16.2.0
+    shiki: ^3.11.0
   plugin:
     '@sveltejs/vite-plugin-svelte': ^6.1.3
     '@vitejs/plugin-react': ^5.0.1
@@ -55,6 +77,9 @@ catalogs:
     rimraf: ^6.0.1
     taze: ^19.3.0
     tsx: ^4.20.4
+  store:
+    '@nanostores/vue': ^1.0.1
+    nanostores: ^1.0.1
   test:
     '@vitest/browser': ^3.2.4
     '@vitest/eslint-plugin': ^1.3.4
@@ -66,22 +91,30 @@ catalogs:
     vitest-browser-solid: ^0.1.4
     vitest-browser-svelte: ^1.1.0
     vitest-browser-vue: ^1.1.0
+  theme:
+    '@pagefind/default-ui': ^1.3.0
+    starlight-theme-destyler: ^0.1.5
   types:
+    '@types/archiver': ^6.0.3
     '@types/node': ^24.3.0
     '@types/react': ^19.1.11
     '@types/react-dom': ^19.1.7
     '@types/react-router-config': ^5.0.11
     '@types/react-router-dom': ^5.3.3
+    ts-morph: ^26.0.0
     typescript: ^5.9.2
   util:
+    archiver: ^7.0.1
     cross-env: ^10.0.0
     fast-glob: ^3.3.3
     find-packages: ^10.0.4
     globals: ^16.3.0
     match-sorter: ^8.1.0
     nanoid: ^5.1.5
+    sharp: ^0.34.3
   visual:
     node-modules-inspector: ^1.1.1
 
 onlyBuiltDependencies:
   - esbuild
+  - sharp

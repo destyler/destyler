@@ -1,0 +1,300 @@
+---
+head:
+  - tag: title
+    content: Switch - Destyler UI
+title: Switch
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A switch allows users to turn an individual option on or off.
+
+<PreviewCode name="switch"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Syncs with disabled state of fieldset',
+  'Syncs with form reset events',
+  'Can be toggled programmatically',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="switch" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as switchs from '@destyler/switch'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(switchs.machine({
+    id: useId(),
+  }))
+
+  const api = computed(() =>
+    switchs.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <label v-bind="api.getRootProps()">
+      <input v-bind="api.getHiddenInputProps()">
+      <span v-bind="api.getControlProps()" >
+        <span v-bind="api.getThumbProps()" />
+      </span>
+    </label>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as switchs from '@destyler/switch'
+  import { useId } from 'react'
+
+  export default function Switch() {
+    const [state, send] = useMachine(switchs.machine({
+      id: useId(),
+    }))
+
+    const api = switchs.connect(state, send, normalizeProps)
+
+    return (
+      <label {...api.getRootProps()} >
+        <input {...api.getHiddenInputProps()} />
+        <span {...api.getControlProps()} >
+          <span {...api.getThumbProps()} />
+        </span>
+      </label>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as switchs from '@destyler/switch'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(switchs.machine({
+      id,
+    }))
+
+    const api = $derived(switchs.connect(state, send, normalizeProps))
+  </script>
+
+  <label {...api.getRootProps()}>
+    <input {...api.getHiddenInputProps()}>
+    <span {...api.getControlProps()} >
+      <span {...api.getThumbProps()} ></span>
+    </span>
+  </label>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as switchs from '@destyler/switch'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function Switch() {
+    const [state, send] = useMachine(switchs.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => switchs.connect(state, send, normalizeProps))
+
+    return (
+      <label {...api().getRootProps()} >
+        <input {...api().getHiddenInputProps()} />
+        <span {...api().getControlProps()} >
+          <span {...api().getThumbProps()} />
+        </span>
+      </label>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Disabling the switch
+
+To make a switch disabled, set the context's `disabled` property to true
+
+```ts
+const [state, send] = useMachine(
+  switch.machine({
+    disabled: true,
+  }),
+)
+```
+
+## Making it checked by default
+
+To make a switch checked by default, set the context's `checked` property to `true`
+
+```ts
+const [state, send] = useMachine(
+  switch.machine({
+    checked: true,
+  }),
+)
+```
+
+## Listening for changes
+
+When the switch value changes, the `onCheckedChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  switch.machine({
+    onCheckedChange(details) {
+      // details => { checked: boolean }
+      console.log("switch is:", details.checked ? "On" : "Off")
+    },
+  }),
+)
+```
+
+## Usage within forms
+
+To use switch within forms, use the exposed `inputProps` from the `connect`
+function and ensure you pass `name` value to the destyler's context. It will
+render a hidden input and ensure the value changes get propagated to the
+form correctly.
+
+```ts
+const [state, send] = useMachine(
+  switch.machine({
+    name: "feature",
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Switch part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Focused State
+
+When the switch input is focused, the `data-focus` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-focus] {
+  /* styles for root focus state */
+}
+
+[data-part="control"][data-focus] {
+  /* styles for control focus state */
+}
+
+[data-part="label"][data-focus] {
+  /* styles for label focus state */
+}
+```
+
+### Disabled State
+
+When the switch is disabled, the `data-disabled` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-disabled] {
+  /* styles for root disabled state */
+}
+
+[data-part="control"][data-disabled] {
+  /* styles for control disabled state */
+}
+
+[data-part="label"][data-disabled] {
+  /* styles for label disabled state */
+}
+```
+
+### Invalid State
+
+When the switch is invalid, the `data-invalid` attribute is added to the root, control and label parts.
+
+```css
+[data-part="root"][data-invalid] {
+  /* styles for root invalid state */
+}
+
+[data-part="control"][data-invalid] {
+  /* styles for control invalid state */
+}
+
+[data-part="label"][data-invalid] {
+  /* styles for label invalid state */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The switch machine exposes the following context properties:
+
+<MachineTable name="switch"></MachineTable>
+
+### Machine API
+
+The switch `api` exposes the following methods:
+
+<APITable name="switch"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="switch" nodeType="Root" />
+
+#### Label
+
+<StyleTable component="switch" nodeType="Label" />
+
+#### Thumb
+
+<StyleTable component="switch" nodeType="Thumb" />
+
+#### Control
+
+<StyleTable component="switch" nodeType="Control" />
+
+## Accessibility
+
+### Keyboard Interaction
+
+<KeyboardTable name="switch"></KeyboardTable>

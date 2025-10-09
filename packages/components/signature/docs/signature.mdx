@@ -1,0 +1,700 @@
+---
+head:
+  - tag: title
+    content: Signature - Destyler UI
+title: Signature
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> The signature component allows users to draw handwritten signatures using touch or pointer devices.
+> The signature can be saved as an image or cleared.
+
+<PreviewCode name="signature"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Draw signatures using touch or pointer devices.',
+  'Save the signature as an image.',
+  'Clear the signature.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="signature" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/vue"
+    import { computed, useId } from "vue"
+
+    const [state, send] = useMachine(signature.machine({ id: useId() }))
+
+    const api = computed(() =>
+      signature.connect(state.value, send, normalizeProps),
+    )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <label v-bind="api.getLabelProps()"></label>
+
+      <div v-bind="api.getControlProps()">
+        <svg v-bind="api.getSegmentProps()">
+          <path
+            v-for="(path, i) of api.paths"
+            :key="i"
+            v-bind="api.getSegmentPathProps({ path })"
+          />
+          <path
+            v-if="api.currentPath"
+            v-bind="api.getSegmentPathProps({ path: api.currentPath })"
+          />
+        </svg>
+        <button v-bind="api.getClearTriggerProps()"></button>
+        <div v-bind="api.getGuideProps()"></div>
+      </div>
+      <button v-bind="api.getClearTriggerProps()"/>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as signature from '@destyler/signature'
+  import { useId, useMemo } from 'react'
+
+  export default function Signature() {
+
+    const [state, send] = useMachine(signature.machine({ id: useId() }))
+
+    const api = useMemo(
+      () => signature.connect(state, send, normalizeProps),
+      [state, send],
+    )
+
+    return (
+      <div {...api.getRootProps()}>
+        <label {...api.getLabelProps()}></label>
+
+        <div {...api.getControlProps()}>
+          <svg {...api.getSegmentProps()} >
+            {api.paths.map((path, i) => (
+              <path key={i} {...api.getSegmentPathProps({ path })}/>
+            ))}
+            {api.currentPath && (
+              <path {...api.getSegmentPathProps({ path: api.currentPath })}/>
+            )}
+          </svg>
+          <button {...api.getClearTriggerProps()}></button>
+          <div {...api.getGuideProps()}></div>
+        </div>
+        <button {...api.getClearTriggerProps()}></button>
+      </div>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/svelte"
+
+    const id = $props.id()
+    const [state, send] = useMachine(signature.machine({ id }))
+
+    const api = $derived(signature.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <label {...api.getLabelProps()}></label>
+    <div {...api.getControlProps()}>
+      <svg {...api.getSegmentProps()} >
+        {#each api.paths as path, i}
+          <path {...api.getSegmentPathProps({ path })}/>
+        {/each}
+        {#if api.currentPath}
+          <path {...api.getSegmentPathProps({ path: api.currentPath })}/>
+        {/if}
+      </svg>
+      <button {...api.getClearTriggerProps()}></button>
+      <div {...api.getGuideProps()}></div>
+    </div>
+    <button {...api.getClearTriggerProps()}></button>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as signature from '@destyler/signature'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, For } from 'solid-js'
+
+  export default function Signature() {
+    const id = createUniqueId()
+
+    const [state, send] = useMachine(signature.machine({ id }))
+
+    const api = createMemo(() =>
+      signature.connect(state, send, normalizeProps),
+    )
+
+    return (
+      <div {...api().getRootProps()}>
+        <label {...api().getLabelProps()} ></label>
+
+        <div
+          {...api().getControlProps()}
+        >
+          <svg
+            {...api().getSegmentProps()}
+          >
+            <For each={api().paths}>
+              {(path, i) => (
+                <path {...api().getSegmentPathProps({ path })}/>
+              )}
+            </For>
+            {api().currentPath && (
+              <path {...api().getSegmentPathProps({ path: api().currentPath! })}/>
+            )}
+          </svg>
+          <button {...api().getClearTriggerProps()}></button>
+          <div {...api().getGuideProps()}>
+          </div>
+        </div>
+        <button {...api().getClearTriggerProps()}></button>
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Listening to drawing events
+
+The signature component emits the following events:
+
+- `onDraw`: Emitted when the user is drawing the signature.
+
+- `onDrawEnd`: Emitted when the user stops drawing the signature.
+
+```ts
+const [state, send] = useMachine(
+  signature.machine({
+    onDraw(details) {
+      // details => { path: string[] }
+      console.log("Drawing signature", details)
+    },
+    onDrawEnd(details) {
+      // details => { path: string[], toDataURL: () => string }
+      console.log("Signature drawn", details)
+    },
+  }),
+)
+```
+
+## Clearing the signature
+
+
+To clear the signature, use the `api.clear()`,
+or render the clear trigger button.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/vue"
+    import { computed, useId } from "vue"
+
+    const [state, send] = useMachine(signature.machine({ id: useId() }))
+
+    const api = computed(() =>
+      signature.connect(state.value, send, normalizeProps),
+    )
+  </script>
+
+  <template>
+    <button @click="api.clear()">clear</button>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import * as signature from '@destyler/signature'
+  import { useId, useMemo } from 'react'
+
+  export default function Signature() {
+
+    const [state, send] = useMachine(signature.machine({ id: useId() }))
+
+    const api = useMemo(
+      () => signature.connect(state, send, normalizeProps),
+      [state, send],
+    )
+
+    return (
+      <button onClick={() => api.clear()}>
+        clear
+      </button>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/svelte"
+
+    const id = $props.id()
+    const [state, send] = useMachine(signature.machine({ id }))
+
+    const api = $derived(signature.connect(state, send, normalizeProps))
+  </script>
+
+  <button on:click={() => api.clear()}>
+    clear
+  </button>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as signature from '@destyler/signature'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, For } from 'solid-js'
+
+  export default function Signature() {
+    const id = createUniqueId()
+
+    const [state, send] = useMachine(signature.machine({ id }))
+
+    const api = createMemo(() =>
+      signature.connect(state, send, normalizeProps),
+    )
+
+    return (
+      <button onClick={() => api().clear()}>
+        clear
+      </button>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Rendering an image preview
+
+Use the `api.getDataUrl()` method to get the signature as a data URL and render it as an image.
+
+:::tip
+You can also leverage the `onDrawEnd` event to get the signature data URL.
+:::
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/vue"
+    import { computed, useId, ref } from "vue"
+
+    const imageURL = ref<string | null>(null)
+
+    const [state, send] = useMachine(signature.machine({
+      id: useId(),
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          imageURL.value = url
+        })
+      },
+    }))
+
+    const api = computed(() =>
+      signature.connect(state.value, send, normalizeProps),
+    )
+  </script>
+
+  <template>
+    <img :src="imageURL" alt="Signature" />
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as signature from '@destyler/signature'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useMemo, useState } from 'react'
+
+  export default function Signature() {
+    const [imageURL, setImageURL] = useState<string | null>(null)
+
+    const [state, send] = useMachine(signature.machine({
+      id: useId(),
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          setImageURL(url)
+        })
+      },
+    }))
+
+    const api = useMemo(
+      () => signature.connect(state, send, normalizeProps),
+      [state, send],
+    )
+
+    return (
+      <img src={imageURL} alt="Signature" />
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/svelte"
+
+    let imageURL: string | null = null
+
+    const id = $props.id()
+    const [state, send] = useMachine(signature.machine({
+      id,
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          imageURL = url
+        })
+      },
+    }))
+
+    const api = $derived(signature.connect(state, send, normalizeProps))
+  </script>
+
+  <img src={imageURL} alt="Signature" />
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as signature from '@destyler/signature'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, createSignal } from 'solid-js'
+
+  export default function Signature() {
+    const id = createUniqueId()
+    const [imageURL, setImageURL] = createSignal<string | null>(null)
+
+    const [state, send] = useMachine(signature.machine({
+      id,
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          imageURL = url
+        })
+      },
+    }))
+
+    const api = createMemo(() =>
+      signature.connect(state, send, normalizeProps),
+    )
+
+    return (
+      <img src={imageURL} alt="Signature" />
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Changing the stroke color
+
+To change the stroke color,
+set the `drawing.fill` option to a valid CSS color.
+
+:::note
+You can't use a css variable as the stroke color.
+:::
+
+```ts
+const [state, send] = useMachine(
+  signature.machine({
+    drawing: {
+      fill: "blue",
+    },
+  }),
+)
+```
+
+## Changing the stroke width
+
+To change the stroke width, set the `drawing.size` option to a number.
+
+```ts
+const [state, send] = useMachine(
+  signature.machine({
+    drawing: {
+      size: 5,
+    },
+  }),
+)
+```
+
+## Simulating pressure sensitivity
+
+Pressure sensitivity is disabled by default.
+To enable it, set the `drawing.simulatePressure` option to true.
+
+```ts
+const [state, send] = useMachine(
+  signature.machine({
+    drawing: {
+      simulatePressure: true,
+    },
+  }),
+)
+```
+
+## Using in form
+
+To use the signature pad in a form, set the `name` context property.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/vue"
+    import { computed, useId, ref } from "vue"
+
+    const imageURL = ref<string | null>(null)
+
+    const [state, send] = useMachine(signature.machine({
+      id: useId(),
+      name: "signature",
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          imageURL.value = url
+        })
+      },
+    }))
+
+    const api = computed(() =>
+      signature.connect(state.value, send, normalizeProps),
+    )
+  </script>
+
+  <template>
+    <input v-bind="api.getHiddenInputProps({ value: imageURL })" />
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as signature from '@destyler/signature'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId, useMemo, useState } from 'react'
+
+  export default function Signature() {
+    const [imageURL, setImageURL] = useState<string | null>(null)
+
+    const [state, send] = useMachine(signature.machine({
+      id: useId(),
+      name: "signature",
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          setImageURL(url)
+        })
+      },
+    }))
+
+    const api = useMemo(
+      () => signature.connect(state, send, normalizeProps),
+      [state, send],
+    )
+
+    return (
+      <input {...api.getHiddenInputProps({ value: imageURL })} />
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as signature from "@destyler/signature"
+    import { useMachine, normalizeProps } from "@destyler/svelte"
+
+    let imageURL: string | null = null
+
+    const id = $props.id()
+    const [state, send] = useMachine(signature.machine({
+      id,
+      name: "signature",
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          imageURL = url
+        })
+      },
+    }))
+
+    const api = $derived(signature.connect(state, send, normalizeProps))
+  </script>
+
+  <input {...api.getHiddenInputProps({ value: imageURL })} />
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as signature from '@destyler/signature'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, createSignal } from 'solid-js'
+
+  export default function Signature() {
+    const id = createUniqueId()
+    const [imageURL, setImageURL] = createSignal<string | null>(null)
+
+    const [state, send] = useMachine(signature.machine({
+      id,
+      onDrawEnd(details) {
+        details.getDataUrl("image/png").then((url) => {
+          // set the image URL in local state
+          imageURL = url
+        })
+      },
+    }))
+
+    const api = createMemo(() =>
+      signature.connect(state, send, normalizeProps),
+    )
+
+    return (
+      <input {...api().getHiddenInputProps({ value: imageURL })} />
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Disabling the signature
+
+Set the `disabled` context property to `true` to disable the signature.
+
+```ts
+const [state, send] = useMachine(
+  signature.machine({
+    disabled: true,
+  }),
+)
+```
+
+## Make the signature read only
+
+Set the `readOnly` context property to `true` to make the signature pad read only.
+
+```ts
+const [state, send] = useMachine(
+  signature.machine({
+    readOnly: true,
+  }),
+)
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The signature machine exposes the following context properties:
+
+<MachineTable name="signature"></MachineTable>
+
+### Machine API
+
+The signature `api` exposes the following methods:
+
+<APITable name="signature"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="signature" nodeType="Root" />
+
+#### Label
+
+<StyleTable component="signature" nodeType="Label" />
+
+#### Control
+
+<StyleTable component="signature" nodeType="Control" />
+
+#### Guide
+
+<StyleTable component="signature" nodeType="Guide" />

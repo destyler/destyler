@@ -1,0 +1,248 @@
+---
+head:
+  - tag: title
+    content: Breadcrumbs - Destyler UI
+title: Breadcrumbs
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> Show hierarchy and navigational context for a user’s location within an application.
+
+<PreviewCode name="breadcrumbs"></PreviewCode>
+
+## Features
+
+<Features lists={[
+'Support for navigation links via <a> elements or custom element types via ARIA.',
+'Localized ARIA labeling support for landmark navigation region.',
+'Support for disabled breadcrumb links.',
+]} />
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="breadcrumbs" />
+
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+  import * as breadcrumbs from '@destyler/breadcrumbs'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(breadcrumbs.machine({
+    id: useId(),
+  }))
+  const api = computed(() => breadcrumbs.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <nav v-bind="api.getRootProps()">
+      <ol v-bind="api.getListProps()">
+        <li v-bind="api.getItemProps('item')" >
+          <a v-bind="api.getLinkProps('item')" ></a>
+          <span v-if="item.href" v-bind="api.getSeparatorProps()" ></span>
+        </li>
+      </ol>
+    </nav>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+  import * as breadcrumbs from '@destyler/breadcrumbs'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function Breadcrumbs() {
+
+    const [state, send] = useMachine(
+      breadcrumbs.machine({
+        id: useId(),
+      }),
+    )
+
+    const api = breadcrumbs.connect(state, send, normalizeProps)
+
+    return (
+      <nav {...api.getRootProps()}>
+        <ol {...api.getListProps()}>
+          <li {...api.getItemProps('item')}>
+            <a {...api.getLinkProps('item')}></a>
+            <span {...api.getSeparatorProps()} />
+          </li>
+        </ol>
+      </nav>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+    import * as breadcrumbs from '@destyler/breadcrumbs'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const uid = $props.id();
+
+    const [state, send] = useMachine(breadcrumbs.machine({
+      id: uid,
+    }))
+
+    const api = $derived(breadcrumbs.connect(state, send, normalizeProps))
+  </script>
+
+  <nav {...api.getRootProps()}>
+    <ol {...api.getListProps()}>
+      <li {...api.getItemProps('item')} >
+        <a {...api.getLinkProps('item')} ></a>
+        <span {...api.getSeparatorProps()}></span>
+      </li>
+    </ol>
+  </nav>
+
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+  import * as breadcrumbs from '@destyler/breadcrumbs'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, For } from 'solid-js'
+
+  export default function Breadcrumbs() {
+
+    const [state, send] = useMachine(
+      breadcrumbs.machine({
+        id: createUniqueId(),
+      }),
+    )
+
+    const api = createMemo(() => breadcrumbs.connect(state, send, normalizeProps))
+
+    return (
+      <nav {...api().getRootProps()}>
+        <ol {...api().getListProps()}>
+          <li {...api().getItemProps('item')}>
+            <a {...api().getLinkProps('item')}></a>
+            <span {...api().getSeparatorProps()}></span>
+          </li>
+        </ol>
+      </nav>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Set Breadcrumb Item
+
+```ts
+const [state, send] = useMachine(
+  breadcrumbs.machine({
+    id: createUniqueId(),
+    items:[
+      { id: '1', label: 'Home', href: '/' },
+      { id: '2', label: 'Components', href: '/components/checkbox' },
+      { id: '3', label: 'Breadcrumbs' },
+    ],
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each checkbox part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-part="root"] {
+  /* styles for root */
+}
+[data-part="list"]{
+  /* styles for list */
+}
+[data-part="item"]{
+  /* styles for item */
+}
+[data-part="link"]{
+  /* styles for link */
+}
+[data-part="separator"]{
+  /* styles for separator */
+}
+```
+
+### Current page state
+
+The current page is the last item in the breadcrumb list. It is not a link and has a `aria-current` attribute set to `page`.
+
+```css
+[data-part="link"][data-current="page"] {
+  /* styles for current page */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The breadcrumbs machine exposes the following context properties:
+
+<MachineTable name="breadcrumbs"></MachineTable>
+
+### Machine API
+
+The breadcrumbs `api` exposes the following methods:
+
+<APITable name="breadcrumbs"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="breadcrumbs" nodeType="Root" />
+
+#### List
+
+<StyleTable component="breadcrumbs" nodeType="List" />
+
+#### Item
+
+<StyleTable component="breadcrumbs" nodeType="Item" />
+
+#### Link
+
+<StyleTable component="breadcrumbs" nodeType="Link" />
+
+#### Separator
+
+<StyleTable component="breadcrumbs" nodeType="Separator" />

@@ -1,0 +1,85 @@
+/* code */
+.shiki-themes,
+.shiki{
+  --at-apply: scrollbar-hide;
+  border: 1px solid hsl(var(--muted) / 1);
+  color: rgba(219, 215, 202, 0.933) !important;
+  scrollbar-width: none !important;
+}
+
+.shiki-themes::-webkit-scrollbar,
+.shiki::-webkit-scrollbar {
+  display: none !important;
+}
+
+.article code {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  color: hsl(var(--primary) / 1);
+  background-color: hsl(var(--primary) / 0.2);
+  font-weight: 600;
+  font-size: 0.875em;
+}
+
+/* code by shiki */
+.article pre {
+  color: #e5e7eb;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  margin-top: 1.7142857em;
+  margin-bottom: 1.7142857em;
+  border-radius: var(--radius);
+  padding-top: 0.8571429em;
+  padding-right: 1.1428571em;
+  padding-bottom: 0.8571429em;
+  padding-left: 1.1428571em;
+}
+
+.article pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: 400;
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.article pre:not(.shiki-themes),
+.article pre:not(.shiki) {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.article .shiki-themes,
+.article .shiki {
+  font-family: 'DM Mono', 'Input Mono', 'Fira Code', monospace;
+  font-size: 0.92em;
+  line-height: 1.6;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 8px !important;
+  padding-bottom:8px !important;
+  padding-left: 8px !important;
+
+}
+.shiki-themes code::before,
+.shiki-themes code::after,
+.shiki code::before,
+.shiki code::after {
+  content: none;
+}
+
+html.dark .shiki-themes,
+html.dark .shiki,
+html.dark .shiki-themes span,
+html.dark .shiki span {
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+html.dark .shiki-themes span{
+  color: var(--shiki-dark) !important;
+}

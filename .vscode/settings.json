@@ -3,5 +3,16 @@
   "explorer.fileNesting.patterns": {
     "vitest.config.*": "vitest.*, tsconfig.*",
     "package.json": ".editorconfig, .npmrc, eslint.config.*, pnpm*.yaml, node-modules-inspector.config.*, plopfile.*"
-  }
+  },
+  "unocss.root": [
+    "./examples/react",
+    "./examples/svelte",
+    "./examples/solid",
+    "./examples/vue",
+    "./examples/vanilla",
+    "./document"
+  ],
+  "tailwindCSS.codeActions": false,
+  "tailwindCSS.hovers": false,
+  "pnpmCatalogLens.enabled": true
 }

@@ -1,0 +1,226 @@
+---
+head:
+  - tag: title
+    content: Composition - Destyler UI
+title: Composition
+---
+
+import FrameworkLayout from '../../components/FrameworkLayout.astro'
+
+## Event composition
+
+> Destyler encourages the use of spread props to ensure we automatically attach all the event handlers and properties to elements.
+>
+
+Sometimes, you may want to attach your own event handlers to the elements.
+To do that, import the `mergeProps` utility provided by Destyler for your framework.
+
+<FrameworkLayout>
+
+  <div slot="vue">
+
+  ```vue
+  <script setup lang="ts">
+  // HoverCard.vue
+  // 1. import the mergeProps utility
+  import * as hoverCard from "@destyler/hover-card"
+  import { mergeProps, normalizeProps, useMachine } from "@destyler/vue"
+  import { computed } from "vue"
+
+  const [state, send] = useMachine(hoverCard.machine({ id: '1' }))
+
+  const api = computed(() => hoverCard.connect(state.value, send, normalizeProps))
+
+  // 2. write your custom event handlers
+  function handleHover() {
+    // do something
+  }
+
+  // 3. merge the props
+  const triggerProps = mergeProps(api.value.getTriggerProps(), {
+    onPointerEnter: handleHover(),
+  })
+  </script>
+
+  <template>
+    <!-- 4. spread the props -->
+    <a href="https://github.com/destyler" v-bind="triggerProps" >
+      {{ api.open ? "Open" : "Close"}}
+    </a>
+  </template>
+  ```
+
+  </div>
+
+  <div slot="react">
+
+  ```tsx
+  // HoverCard.tsx
+  // 1. import mergeProps utility
+  import { useMachine, mergeProps } from "@destyler/react"
+  import * as hoverCard from "@destyler/hover-card"
+
+  export function Toggle() {
+    const [state, send] = useMachine(hoverCard.machine({ id: "1" }))
+
+    const api = hoverCard.connect(state, send)
+
+    // 2. write your custom event handlers
+    const handleHover = () => {
+      // do something
+    }
+
+    // 3. merge the props
+    const triggerProps = mergeProps(api.getTriggerProps(), {
+      onPointerEnter: handleHover,
+    })
+
+    return (
+      // 4. spread the props
+      <a href="https://github.com/destyler" {...triggerProps}>
+        {api.open ? "Open" : "Close"}
+      </a>
+    )
+  }
+  ```
+
+  </div>
+
+  <div slot="svelte">
+
+  ```svelte
+  // HoverCard.svelte
+  <script lang="ts">
+  // 1. import mergeProps utility
+  import { useMachine, mergeProps } from "@destyler/svelte"
+  import * as hoverCard from "@destyler/hover-card"
+
+  const [state, send] = useMachine(hoverCard.machine({ id: "1" }))
+
+  const api = $derived(popover.connect(state, send, normalizeProps))
+
+  // 2. write your custom event handlers
+  function handleHover() {
+    // do something
+  }
+
+  // 3. merge the props
+  $: triggerProps = mergeProps(api.getTriggerProps(), {
+    onPointerEnter: handleHover,
+  })
+  </script>
+
+  <!-- 4. spread the props -->
+  <a href="https://github.com/destyler" {...triggerProps}>
+    {$api.open ? "Open" : "Close"}
+  </a>
+  ```
+
+  </div>
+
+  <div slot="solid">
+
+  ```tsx
+  // HoverCard.tsx
+  // 1. import mergeProps utility
+  import { useMachine, mergeProps } from "@destyler/solid"
+  import * as hoverCard from "@destyler/hover-card"
+
+  export function Toggle() {
+    const [state, send] = useMachine(hoverCard.machine({ id: "1" }))
+    const api = hoverCard.connect(state, send)
+
+    // 2. write your custom event handlers
+    const handleHover = () => {
+      // do something
+    }
+
+    // 3. merge the props
+    const triggerProps = mergeProps(api.getTriggerProps(), {
+      onPointerEnter: handleHover,
+    })
+
+    return (
+      // 4. spread the props
+      <a href="https://github.com/destyler" {...triggerProps}>
+        {api.open() ? "Open" : "Close"}
+      </a>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Id composition
+
+> Destyler depends heavily on pure DOM queries to identify elements.
+> This means every element part needs to have a unique id.
+
+Each time you initiate the machine with the `useMachine` hook, you'll need to ensure that you provide a unique id.
+
+You can rely on framework-specific utilities to generate unique `ids`.
+React provides `useId()` hook and Solid.js provides a `createId()` function for this purpose.
+
+<FrameworkLayout>
+
+  <div slot="vue">
+
+  ```vue
+  // HoverCard.vue
+  <script setup lang="ts">
+  import { useId } from 'vue'
+  /// ...                                              👇 must be unique
+  const [state, send] = useMachine(hoverCard.machine({ id: useId() }))
+  /// ...
+  </script>
+  ```
+
+  </div>
+
+  <div slot="react">
+
+  ```tsx
+  // HoverCard.tsx
+  import { useId } from 'react'
+
+  export function Toggle() {
+    /// ...                                              👇 must be unique
+    const [state, send] = useMachine(hoverCard.machine({ id: useId() }))
+    /// ...
+  }
+  ```
+
+  </div>
+
+  <div slot="svelte">
+
+  ```svelte
+  // HoverCard.svelte
+  <script lang="ts">
+  const id = $props.id()
+  /// ...                                              👇 must be unique
+  const [state, send] = useMachine(hoverCard.machine({ id: id }))
+  /// ...
+  </script>
+  ```
+
+  </div>
+
+  <div slot="solid">
+
+  ```tsx
+  // HoverCard.tsx
+  import { createUniqueId } from 'solid-js'
+
+  export function Toggle() {
+    /// ...                                              👇 must be unique
+    const [state, send] = useMachine(hoverCard.machine({ id: createUniqueId() }))
+    /// ...
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
