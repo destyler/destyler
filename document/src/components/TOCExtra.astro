@@ -62,8 +62,8 @@ else {
   // Site docs (not component)
   const siteDocPath = `document/src/content${pathname}.mdx`
   openUrl = BLOB_BASE + siteDocPath
-  const siteDocDir = siteDocPath.split('/').slice(0, -1).join('/') || 'document/src/content'
-  viewUrl = TREE_BASE + siteDocDir
+  // For non-component pages, "View source" should point to the repo root
+  viewUrl = TREE_BASE
 }
 
 type Item = { label: string; href: string; icon: string }
