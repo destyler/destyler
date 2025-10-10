@@ -1,0 +1,95 @@
+---
+// Community section in TOC with helpful links
+// - Open this page (GitHub blob link)
+// - Star on GitHub (repo)
+// - npm package version (for component docs only)
+// - View source (component folder or doc file)
+
+// Current route (e.g. /components/checkbox)
+const pathname = Astro.url.pathname.replace(/\/$/, '')
+
+const REPO_BASE = 'https://github.com/destyler/destyler'
+const BLOB_BASE = `${REPO_BASE}/blob/main/`
+const TREE_BASE = `${REPO_BASE}/tree/main/`
+
+// Build a map:
+//   '/components/<docFileName>' -> { folder: '<packageFolder>', fileName: '<docFileName>' }
+// from packages/components/*/docs/*.mdx
+const docsGlob = import.meta.glob('../../../packages/components/*/docs/*.mdx', { eager: true })
+const docMap = new Map<string, { folder: string; fileName: string }>()
+for (const p in docsGlob) {
+  const parts = p.split('/')
+  const idx = parts.lastIndexOf('components')
+  const folder = parts[idx + 1]
+  const fileName = parts[parts.length - 1].replace(/\.mdx$/i, '')
+  docMap.set(`/components/${fileName}`, { folder, fileName })
+}
+
+// Build a map: '<packageFolder>' -> version
+const pkgsGlob = import.meta.glob('../../../packages/components/*/package.json', { eager: true })
+const versionMap = new Map<string, string>()
+for (const p in pkgsGlob) {
+  const mod: any = (pkgsGlob as any)[p]
+  const data = mod?.default ?? mod
+  const parts = p.split('/')
+  const idx = parts.lastIndexOf('components')
+  const folder = parts[idx + 1]
+  const version = data?.version as string | undefined
+  if (folder && version) versionMap.set(folder, version)
+}
+
+const entry = docMap.get(pathname)
+
+let openUrl = ''
+let viewUrl = ''
+const starUrl = REPO_BASE
+let npmUrl: string | undefined
+let npmLabel: string | undefined
+
+if (entry) {
+  // Component docs
+  const docPath = `packages/components/${entry.folder}/docs/${entry.fileName}.mdx`
+  openUrl = BLOB_BASE + docPath
+  viewUrl = TREE_BASE + `packages/components/${entry.folder}`
+
+  const version = versionMap.get(entry.folder)
+  if (version) {
+    npmUrl = `https://www.npmjs.com/package/@destyler/${entry.folder}`
+    npmLabel = `Version ${version}`
+  }
+}
+else {
+  // Site docs (not component)
+  const siteDocPath = `document/src/content${pathname}.mdx`
+  openUrl = BLOB_BASE + siteDocPath
+  const siteDocDir = siteDocPath.split('/').slice(0, -1).join('/') || 'document/src/content'
+  viewUrl = TREE_BASE + siteDocDir
+}
+
+type Item = { label: string; href: string; icon: string }
+const items: Item[] = [
+  { label: 'Edit this page', href: openUrl, icon: 'i-ph-note-pencil-duotone' },
+  { label: 'Star on GitHub', href: starUrl, icon: 'i-ph-star-four-duotone' },
+  ...(npmUrl && npmLabel ? [{ label: npmLabel, href: npmUrl, icon: 'i-catppuccin-npm' } as Item] : []),
+  { label: 'View source', href: viewUrl, icon: 'i-ph-code' },
+]
+---
+
+<div class="mt-4 border-t border-dashed border-border pt-4 mr-1">
+  <h4 class="mb-2 text-xs font-semibold tracking-wide mb-4">Community</h4>
+  <ul class="space-y-2">
+    {items.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noreferrer noopener"
+          class="group inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <span class={`${item.icon} text-base opacity-40 group-hover:opacity-100`} aria-hidden="true" />
+          <span>{item.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

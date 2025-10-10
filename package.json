@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "core script": "Group: Core build tasks",
-    "build": "pnpm run --filter \"./packages/**\" -r build",
+    "build": "pnpm run --filter \"./packages/**\" -r build && pnpm run docs:attr && pnpm run docs:type",
     "dev": "pnpm run --filter \"./packages/**\" -r watch",
     "clear script": "Group: Cleaning tasks",
     "clear:node_modules": "rm -rf ./node_modules && rm -rf pnpm-lock.yaml",
@@ -38,7 +38,7 @@
     "react": "pnpm --filter \"./examples/react\"",
     "solid": "pnpm --filter \"./examples/solid\"",
     "svelte": "pnpm --filter \"./examples/svelte\"",
-    "docs script": "Group: Documentation & API – docs:*",
+    "docs script": "Group: Documentation & API",
     "node-modules:dev": "node-modules-inspector",
     "node-modules:build": "node-modules-inspector build",
     "visualize script": "Group: Dependency visualization",

@@ -219,6 +219,7 @@ export default defineConfig({
     plugins: [
       injectComponents({
         Sidebar: './src/components/Sidebar.astro',
+        TOCExtra: './src/components/TOCExtra.astro',
       }),
     ],
   },

@@ -70,6 +70,7 @@
     "@iconify-json/lineicons": "catalog:icon",
     "@iconify-json/logos": "catalog:icon",
     "@iconify-json/lucide": "catalog:icon",
+    "@iconify-json/ph": "^1.2.2",
     "@iconify-json/vscode-icons": "catalog:icon",
     "@nanostores/vue": "catalog:store",
     "@pagefind/default-ui": "catalog:theme",
