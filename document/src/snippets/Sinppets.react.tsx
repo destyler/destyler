@@ -48,7 +48,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'combobox' && <Combobox />}
       {name === 'dynamic' && <Dynamic />}
       {name === 'label' && <Label />}
-      {name === 'otpInput' && <OtpInput />}
+      {name === 'otp-input' && <OtpInput />}
       {name === 'radio' && <Radio />}
       {name === 'select' && <Select />}
       {name === 'slider' && <Slider className="w-450px!" />}

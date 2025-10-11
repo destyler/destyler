@@ -50,7 +50,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'combobox' && <Combobox />}
       {props.name === 'dynamic' && <Dynamic />}
       {props.name === 'label' && <Label />}
-      {props.name === 'otpInput' && <OtpInput />}
+      {props.name === 'otp-input' && <OtpInput />}
       {props.name === 'radio' && <Radio />}
       {props.name === 'select' && <Select />}
       {props.name === 'slider' && <Slider className="w-450px!" />}

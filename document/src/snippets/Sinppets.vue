@@ -49,7 +49,7 @@ const props = defineProps<{
     <Combobox v-if="props.name === 'combobox'" />
     <Dynamic v-if="props.name === 'dynamic'" />
     <Label v-if="props.name === 'label'" />
-    <OtpInput v-if="props.name === 'otpInput'" />
+    <OtpInput v-if="props.name === 'otp-input'" />
     <Radio v-if="props.name === 'radio'" />
     <Select v-if="props.name === 'select'" />
     <Slider v-if="props.name === 'slider'" class="w-450px!" />

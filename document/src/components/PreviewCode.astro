@@ -71,12 +71,28 @@ const loadFrameworkFile = async (framework: string) => {
     }
   }
 
-  // 期望主文件集合（按当前 framework）
-  const expectedFiles: string[] = []
-  if (framework === 'vue') expectedFiles.push(`${baseName}.vue`)
-  else if (framework === 'react') expectedFiles.push(`${baseName}.react.tsx`, `${baseName}.react.jsx`, `${baseName}.react.ts`, `${baseName}.react.js`)
-  else if (framework === 'solid') expectedFiles.push(`${baseName}.solid.tsx`, `${baseName}.solid.ts`)
-  else if (framework === 'svelte') expectedFiles.push(`${baseName}.svelte`)
+    // 通过“规范化基名”匹配主文件集合（更宽松，兼容 QRCode/QrCode 等命名差异）
+    const baseNameNormalized = baseName.toLowerCase()
+
+    const matchesFrameworkFile = (fileName: string) => {
+      // 提取不含框架与扩展名的“文件基名”，用于与 baseName 进行无大小写比较
+      let core = fileName
+      if (/\.react\.(t|j)sx?$/.test(core)) core = core.replace(/\.react\.(t|j)sx?$/, '')
+      else if (/\.solid\.(t|j)sx?$/.test(core)) core = core.replace(/\.solid\.(t|j)sx?$/, '')
+      else if (core.endsWith('.vue')) core = core.replace(/\.vue$/, '')
+      else if (core.endsWith('.svelte')) core = core.replace(/\.svelte$/, '')
+
+      const coreNormalized = core.toLowerCase()
+
+      // 框架后缀必须匹配
+      const frameworkOk =
+        (framework === 'vue' && fileName.endsWith('.vue')) ||
+        (framework === 'svelte' && fileName.endsWith('.svelte')) ||
+        (framework === 'react' && /\.react\.(t|j)sx?$/.test(fileName)) ||
+        (framework === 'solid' && /\.solid\.(t|j)sx?$/.test(fileName))
+
+      return frameworkOk && coreNormalized === baseNameNormalized
+    }
 
   const result: CodeFile[] = []
 
@@ -99,7 +115,7 @@ const loadFrameworkFile = async (framework: string) => {
     // 忽略样式 & api 辅助文件
     if (fileName === 'style.css' || fileName === 'api.ts' || fileName === 'api.js') continue
 
-    if (!expectedFiles.includes(fileName)) continue
+  if (!matchesFrameworkFile(fileName)) continue
 
     try {
       const raw = await importer()

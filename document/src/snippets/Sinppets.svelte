@@ -56,7 +56,7 @@
   {#if name === 'label'}
     <Label />
   {/if}
-  {#if name === 'otpInput'}
+  {#if name === 'otp-input'}
     <OtpInput />
   {/if}
   {#if name === 'radio'}
