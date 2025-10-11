@@ -2,10 +2,13 @@
 import * as calendar from '@destyler/calendar'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
+import './style.css'
 
 const [state, send] = useMachine(
   calendar.machine({
     id: useId(),
+    locale: 'en',
+    selectionMode: 'single',
   }),
 )
 const api = computed(() =>
@@ -14,51 +17,28 @@ const api = computed(() =>
 </script>
 
 <template>
-  <div v-bind="api.getControlProps()" class="relative">
-    <input
-      v-bind="api.getInputProps()"
-      class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-    >
-    <button
-      v-bind="api.getTriggerProps()"
-      class="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm opacity-70 transition-opacity hover:opacity-100"
-    >
-      🗓
-    </button>
+  <div v-bind="api.getControlProps()">
+    <input v-bind="api.getInputProps()">
+    <button v-bind="api.getTriggerProps()" class="i-ph-calendar-dots-bold" />
   </div>
   <Teleport to="body">
-    <div v-bind="api.getPositionerProps()" class="z-101">
-      <div
-        v-bind="api.getContentProps()"
-        class="bg-background border border-border shadow-lg rounded-lg p-4 w-auto min-w-[280px]"
-      >
+    <div v-bind="api.getPositionerProps()" data-layout="sinppets">
+      <div v-bind="api.getContentProps()">
         <!-- Day View -->
-        <div v-show="api.view !== 'day'">
-          <div
-            v-bind="api.getViewControlProps({ view: 'year' })"
-            class="flex items-center justify-between mb-4"
-          >
-            <button
-              v-bind="api.getPrevTriggerProps()"
-              class="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted"
-            >
+        <div v-show="api.view === 'day'">
+          <div v-bind="api.getViewControlProps({ view: 'year' })">
+            <button v-bind="api.getPrevTriggerProps()">
               ←
             </button>
-            <button
-              v-bind="api.getViewTriggerProps()"
-              class="font-medium text-foreground hover:underline"
-            >
+            <button v-bind="api.getViewTriggerProps()">
               {{ api.visibleRangeText.start }}
             </button>
-            <button
-              v-bind="api.getNextTriggerProps()"
-              class="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted"
-            >
+            <button v-bind="api.getNextTriggerProps()">
               →
             </button>
           </div>
 
-          <table v-bind="api.getTableProps({ view: 'day' })" class="w-full border-collapse">
+          <table v-bind="api.getTableProps({ view: 'day' })">
             <thead v-bind="api.getTableHeaderProps({ view: 'day' })">
               <tr v-bind="api.getTableRowProps({ view: 'day' })">
                 <th v-for="(day, dayIndex) in api.weekDays" :key="dayIndex" scope="col" class="text-center text-xs font-medium text-muted-foreground p-1">
@@ -75,12 +55,9 @@ const api = computed(() =>
                 <td
                   v-for="(value, valueIndex) in week"
                   :key="valueIndex"
-                  v-bind="api.getDayTableCellProps({ value })" class="p-0"
+                  v-bind="api.getDayTableCellProps({ value })"
                 >
-                  <div
-                    v-bind="api.getDayTableCellTriggerProps({ value })"
-                    class="flex items-center justify-center w-8 h-8 rounded-md mx-auto text-sm hover:bg-muted aria-selected:bg-primary aria-selected:text-primary-foreground transition-colors"
-                  >
+                  <div v-bind="api.getDayTableCellTriggerProps({ value })">
                     {{ value.day }}
                   </div>
                 </td>
@@ -90,32 +67,20 @@ const api = computed(() =>
         </div>
 
         <!-- Month View -->
-        <div v-show="api.view !== 'month'">
-          <div
-            v-bind="api.getViewControlProps({ view: 'month' })"
-            class="flex items-center justify-between mb-4"
-          >
-            <button
-              v-bind="api.getPrevTriggerProps({ view: 'month' })"
-              class="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted"
-            >
+        <div v-show="api.view === 'month'">
+          <div v-bind="api.getViewControlProps({ view: 'month' })">
+            <button v-bind="api.getPrevTriggerProps({ view: 'month' })">
               ←
             </button>
-            <button
-              v-bind="api.getViewTriggerProps({ view: 'month' })"
-              class="font-medium text-foreground hover:underline"
-            >
+            <button v-bind="api.getViewTriggerProps({ view: 'month' })">
               {{ api.visibleRange.start.year }}
             </button>
-            <button
-              v-bind="api.getNextTriggerProps({ view: 'month' })"
-              class="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted"
-            >
+            <button v-bind="api.getNextTriggerProps({ view: 'month' })">
               →
             </button>
           </div>
 
-          <table v-bind="api.getTableProps({ view: 'month', columns: 4 })" class="w-full border-collapse">
+          <table v-bind="api.getTableProps({ view: 'month', columns: 4 })">
             <tbody v-bind="api.getTableBodyProps({ view: 'month' })">
               <tr
                 v-for="(months, monthsIndex) in api.getMonthsGrid({ columns: 4, format: 'short' })"
@@ -129,14 +94,12 @@ const api = computed(() =>
                     ...month,
                     columns: 4,
                   })"
-                  class="p-1"
                 >
                   <div
                     v-bind="api.getMonthTableCellTriggerProps({
                       ...month,
                       columns: 4,
                     })"
-                    class="flex items-center justify-center p-2 w-full rounded-md text-sm hover:bg-muted aria-selected:bg-primary aria-selected:text-primary-foreground transition-colors"
                   >
                     {{ month.label }}
                   </div>
@@ -147,29 +110,20 @@ const api = computed(() =>
         </div>
 
         <!-- Year View -->
-        <div v-show="api.view !== 'year'">
-          <div
-            v-bind="api.getViewControlProps({ view: 'year' })"
-            class="flex items-center justify-between mb-4"
-          >
-            <button
-              v-bind="api.getPrevTriggerProps({ view: 'year' })"
-              class="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted"
-            >
+        <div v-show="api.view === 'year'">
+          <div v-bind="api.getViewControlProps({ view: 'year' })">
+            <button v-bind="api.getPrevTriggerProps({ view: 'year' })">
               ←
             </button>
-            <span class="font-medium text-foreground">
+            <span>
               {{ api.getDecade().start }} - {{ api.getDecade().end }}
             </span>
-            <button
-              v-bind="api.getNextTriggerProps({ view: 'year' })"
-              class="rounded-md px-2 py-1 text-muted-foreground hover:bg-muted"
-            >
+            <button v-bind="api.getNextTriggerProps({ view: 'year' })">
               →
             </button>
           </div>
 
-          <table v-bind="api.getTableProps({ view: 'year', columns: 4 })" class="w-full border-collapse">
+          <table v-bind="api.getTableProps({ view: 'year', columns: 4 })">
             <tbody v-bind="api.getTableBodyProps()">
               <tr
                 v-for="(years, yearsIndex) in api.getYearsGrid({ columns: 4 })"
@@ -183,14 +137,12 @@ const api = computed(() =>
                     ...year,
                     columns: 4,
                   })"
-                  class="p-1"
                 >
                   <div
                     v-bind="api.getYearTableCellTriggerProps({
                       ...year,
                       columns: 4,
                     })"
-                    class="flex items-center justify-center p-2 w-full rounded-md text-sm hover:bg-muted aria-selected:bg-primary aria-selected:text-primary-foreground transition-colors"
                   >
                     {{ year.label }}
                   </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AspectRatio from '@component/aspect-ratio/snippets/AspectRatio.vue'
 import Breadcrumbs from '@component/breadcrumbs/snippets/Breadcrumbs.vue'
+import Calendar from '@component/calendar/snippets/Calendar.vue'
 import Carousel from '@component/carousel/snippets/Carousel.vue'
 import Checkbox from '@component/checkbox/snippets/Checkbox.vue'
 import Clipboard from '@component/clipboard/snippets/Clipboard.vue'
@@ -45,6 +46,7 @@ const props = defineProps<{
 <template>
   <div data-layout="sinppets" class="min-w-150px flex justify-center items-center mt-0!">
     <Checkbox v-if="props.name === 'checkbox'" />
+    <Calendar v-if="props.name === 'calendar'" />
     <Collapse v-if="props.name === 'collapse'" class="w-450px!" />
     <Combobox v-if="props.name === 'combobox'" />
     <Dynamic v-if="props.name === 'dynamic'" />
