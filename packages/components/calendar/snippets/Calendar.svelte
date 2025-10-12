@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as calendar from '../index'
+  import * as calendar from '@destyler/calendar'
   import { normalizeProps, useMachine, portal } from '@destyler/svelte'
   import './style.css'
 

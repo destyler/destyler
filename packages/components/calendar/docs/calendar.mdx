@@ -11,3 +11,754 @@ import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
 import InstallShell from '@docs/components/InstallShell.astro'
 
 <PreviewCode name="calendar"></PreviewCode>
+
+## Features
+
+<Features lists={[
+'Displays a calendar view for date selection',
+'Support for date range selection',
+'Support for disabling specific dates',
+'Localization support',
+'Provides keyboard accessibility for navigating the calendar.',
+]} />
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="calendar" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+<script setup lang="ts">
+import * as calendar from '@destyler/calendar'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, useId } from 'vue'
+
+const [state, send] = useMachine(
+  calendar.machine({
+    id: useId(),
+  }),
+)
+const api = computed(() =>
+  calendar.connect(state.value, send, normalizeProps),
+)
+</script>
+
+<template>
+  <div v-bind="api.getControlProps()">
+    <input v-bind="api.getInputProps()">
+    <button v-bind="api.getTriggerProps()" />
+  </div>
+  <Teleport to="body">
+    <div v-bind="api.getPositionerProps()">
+      <div v-bind="api.getContentProps()">
+        <div v-show="api.view === 'day'">
+          <div v-bind="api.getViewControlProps({ view: 'year' })">
+            <button v-bind="api.getPrevTriggerProps()"></button>
+            <button v-bind="api.getViewTriggerProps()">
+              {{ api.visibleRangeText.start }}
+            </button>
+            <button v-bind="api.getNextTriggerProps()"></button>
+          </div>
+
+          <table v-bind="api.getTableProps({ view: 'day' })">
+            <thead v-bind="api.getTableHeaderProps({ view: 'day' })">
+              <tr v-bind="api.getTableRowProps({ view: 'day' })">
+                <th v-for="(day, dayIndex) in api.weekDays" :key="dayIndex" scope="col">
+                  {{ day.narrow }}
+                </th>
+              </tr>
+            </thead>
+            <tbody v-bind="api.getTableBodyProps({ view: 'day' })">
+              <tr
+                v-for="(week, weekIndex) in api.weeks"
+                v-bind="api.getTableRowProps({ view: 'day' })"
+                :key="weekIndex"
+              >
+                <td
+                  v-for="(value, valueIndex) in week"
+                  :key="valueIndex"
+                  v-bind="api.getDayTableCellProps({ value })"
+                >
+                  <div v-bind="api.getDayTableCellTriggerProps({ value })">
+                    {{ value.day }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-show="api.view === 'month'">
+          <div v-bind="api.getViewControlProps({ view: 'month' })">
+            <button v-bind="api.getPrevTriggerProps({ view: 'month' })"></button>
+            <button v-bind="api.getViewTriggerProps({ view: 'month' })">
+              {{ api.visibleRange.start.year }}
+            </button>
+            <button v-bind="api.getNextTriggerProps({ view: 'month' })"></button>
+          </div>
+
+          <table v-bind="api.getTableProps({ view: 'month', columns: 4 })">
+            <tbody v-bind="api.getTableBodyProps({ view: 'month' })">
+              <tr
+                v-for="(months, monthsIndex) in api.getMonthsGrid({ columns: 4, format: 'short' })"
+                v-bind="api.getTableRowProps()"
+                :key="monthsIndex"
+              >
+                <td
+                  v-for="(month, monthIndex) in months"
+                  :key="monthIndex"
+                  v-bind="api.getMonthTableCellProps({
+                    ...month,
+                    columns: 4,
+                  })"
+                >
+                  <div
+                    v-bind="api.getMonthTableCellTriggerProps({
+                      ...month,
+                      columns: 4,
+                    })"
+                  >
+                    {{ month.label }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div v-show="api.view === 'year'">
+          <div v-bind="api.getViewControlProps({ view: 'year' })">
+            <button v-bind="api.getPrevTriggerProps({ view: 'year' })"></button>
+            <button v-bind="api.getNextTriggerProps({ view: 'year' })"></button>
+          </div>
+
+          <table v-bind="api.getTableProps({ view: 'year', columns: 4 })">
+            <tbody v-bind="api.getTableBodyProps()">
+              <tr
+                v-for="(years, yearsIndex) in api.getYearsGrid({ columns: 4 })"
+                :key="yearsIndex"
+                v-bind="api.getTableRowProps({ view: 'year' })"
+              >
+                <td
+                  v-for="(year, yearIndex) in years"
+                  :key="yearIndex"
+                  v-bind="api.getYearTableCellProps({
+                    ...year,
+                    columns: 4,
+                  })"
+                >
+                  <div
+                    v-bind="api.getYearTableCellTriggerProps({
+                      ...year,
+                      columns: 4,
+                    })"
+                  >
+                    {{ year.label }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </Teleport>
+</template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as calendar from '@destyler/calendar'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+  import { createPortal } from 'react-dom'
+
+  export default function Calendar() {
+    const [state, send] = useMachine(
+      calendar.machine({
+        id: useId(),
+      }),
+    )
+
+    const api = calendar.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getControlProps()}>
+          <input {...api.getInputProps()} />
+          <button {...api.getTriggerProps()}/>
+        </div>
+        {createPortal(
+          <div {...api.getPositionerProps()}>
+            <div {...api.getContentProps()}>
+              <div hidden={api.view !== 'day'}>
+                <div {...api.getViewControlProps({ view: 'year' })}>
+                  <button {...api.getPrevTriggerProps()}></button>
+                  <button {...api.getViewTriggerProps()}>
+                    {api.visibleRangeText.start}
+                  </button>
+                  <button {...api.getNextTriggerProps()}></button>
+                </div>
+
+                <table {...api.getTableProps({ view: 'day' })}>
+                  <thead {...api.getTableHeaderProps({ view: 'day' })}>
+                    <tr {...api.getTableRowProps({ view: 'day' })}>
+                      {api.weekDays.map(day => (
+                        <th key={day.narrow} scope="col">
+                          {day.narrow}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody {...api.getTableBodyProps({ view: 'day' })}>
+                    {api.weeks.map((week, weekIndex) => (
+                      <tr key={weekIndex} {...api.getTableRowProps({ view: 'day' })}>
+                        {week.map(value => (
+                          <td key={value.day} {...api.getDayTableCellProps({ value })}>
+                            <div {...api.getDayTableCellTriggerProps({ value })}>
+                              {value.day}
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div hidden={api.view !== 'month'}>
+                <div {...api.getViewControlProps({ view: 'month' })}>
+                  <button {...api.getPrevTriggerProps({ view: 'month' })}></button>
+                  <button {...api.getViewTriggerProps({ view: 'month' })}>
+                    {api.visibleRange.start.year}
+                  </button>
+                  <button {...api.getNextTriggerProps({ view: 'month' })}></button>
+                </div>
+
+                <table {...api.getTableProps({ view: 'month', columns: 4 })}>
+                  <tbody {...api.getTableBodyProps({ view: 'month' })}>
+                    {api.getMonthsGrid({ columns: 4, format: 'short' }).map((months, monthIndex) => (
+                      <tr key={monthIndex} {...api.getTableRowProps()}>
+                        {months.map(month => (
+                          <td
+                            key={month.label}
+                            {...api.getMonthTableCellProps({
+                              ...month,
+                              columns: 4,
+                            })}
+                          >
+                            <div
+                              {...api.getMonthTableCellTriggerProps({
+                                ...month,
+                                columns: 4,
+                              })}
+                            >
+                              {month.label}
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Year View */}
+              <div hidden={api.view !== 'year'}>
+                <div {...api.getViewControlProps({ view: 'year' })}>
+                  <button {...api.getPrevTriggerProps({ view: 'year' })}></button>
+                  <button {...api.getNextTriggerProps({ view: 'year' })}></button>
+                </div>
+
+                <table {...api.getTableProps({ view: 'year', columns: 4 })}>
+                  <tbody {...api.getTableBodyProps()}>
+                    {api.getYearsGrid({ columns: 4 }).map((years, yearIndex) => (
+                      <tr key={yearIndex} {...api.getTableRowProps({ view: 'year' })}>
+                        {years.map(year => (
+                          <td
+                            key={year.label}
+                            {...api.getYearTableCellProps({
+                              ...year,
+                              columns: 4,
+                            })}
+                          >
+                            <div
+                              {...api.getYearTableCellTriggerProps({
+                                ...year,
+                                columns: 4,
+                              })}
+                            >
+                              {year.label}
+                            </div>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as calendar from '@destyler/calendar'
+    import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+
+    const id = $props.id()
+    const [state, send] = useMachine(
+      calendar.machine({
+        id: id,
+      }),
+    )
+
+    const api = $derived(calendar.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getControlProps()}>
+    <input {...api.getInputProps()} />
+    <button {...api.getTriggerProps()} ></button>
+  </div>
+  <div use:portal>
+    <div {...api.getPositionerProps()}>
+      <div {...api.getContentProps()}>
+          {#if api.view === 'day'}
+            <div {...api.getViewControlProps({ view: 'year' })} hidden={api.view !== 'day'}>
+              <button {...api.getPrevTriggerProps()}></button>
+              <button {...api.getViewTriggerProps()}>{api.visibleRangeText.start}</button>
+              <button {...api.getNextTriggerProps()}></button>
+            </div>
+
+            <div hidden={api.view !== 'day'}>
+              <table {...api.getTableProps({ view: 'day' })}>
+                <thead {...api.getTableHeaderProps({ view: 'day' })}>
+                  <tr {...api.getTableRowProps({ view: 'day' })}>
+                    {#each api.weekDays as day, dayIndex}
+                      <th scope="col" >{day.narrow}</th>
+                    {/each}
+                  </tr>
+                </thead>
+                <tbody {...api.getTableBodyProps({ view: 'day' })}>
+                  {#each api.weeks as week, weekIndex}
+                    <tr {...api.getTableRowProps({ view: 'day' })}>
+                      {#each week as value, valueIndex}
+                        <td {...api.getDayTableCellProps({ value })}>
+                          <div {...api.getDayTableCellTriggerProps({ value })}>{value.day}</div>
+                        </td>
+                      {/each}
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+          {/if}
+
+          {#if api.view === 'month'}
+            <div {...api.getViewControlProps({ view: 'month' })} hidden={api.view !== 'month'}>
+              <button {...api.getPrevTriggerProps({ view: 'month' })}></button>
+              <button {...api.getViewTriggerProps({ view: 'month' })}>{api.visibleRange.start.year}</button>
+              <button {...api.getNextTriggerProps({ view: 'month' })}></button>
+            </div>
+
+            <div hidden={api.view !== 'month'}>
+              <table {...api.getTableProps({ view: 'month', columns: 4 })}>
+                <tbody {...api.getTableBodyProps({ view: 'month' })}>
+                  {#each api.getMonthsGrid({ columns: 4, format: 'short' }) as months, monthsIndex}
+                    <tr {...api.getTableRowProps()}>
+                      {#each months as month, monthIndex}
+                        <td {...api.getMonthTableCellProps({ ...month, columns: 4 })}>
+                          <div {...api.getMonthTableCellTriggerProps({ ...month, columns: 4 })}>{month.label}</div>
+                        </td>
+                      {/each}
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+          {/if}
+
+          {#if api.view === 'year'}
+            <div {...api.getViewControlProps({ view: 'year' })} hidden={api.view !== 'year'}>
+              <button {...api.getPrevTriggerProps({ view: 'year' })}></button>
+              <button {...api.getNextTriggerProps({ view: 'year' })}></button>
+            </div>
+
+            <div hidden={api.view !== 'year'}>
+              <table {...api.getTableProps({ view: 'year', columns: 4 })}>
+                <tbody {...api.getTableBodyProps()}>
+                  {#each api.getYearsGrid({ columns: 4 }) as years, yearsIndex}
+                    <tr {...api.getTableRowProps({ view: 'year' })}>
+                      {#each years as year, yearIndex}
+                        <td {...api.getYearTableCellProps({ ...year, columns: 4 })}>
+                          <div {...api.getYearTableCellTriggerProps({ ...year, columns: 4 })}>{year.label}</div>
+                        </td>
+                      {/each}
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+          {/if}
+      </div>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as calendar from '@destyler/calendar'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, For } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function Calendar() {
+    const [state, send] = useMachine(
+      calendar.machine({
+        id: createUniqueId(),
+      }),
+    )
+    const api = createMemo(() => calendar.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getControlProps()}>
+          <input {...api().getInputProps()} />
+          <button {...api().getTriggerProps()} />
+        </div>
+        <Portal>
+          <div {...api().getPositionerProps()}>
+            <div {...api().getContentProps()}>
+              {/* Day View */}
+              <div hidden={api().view !== 'day'}>
+                <div {...api().getViewControlProps({ view: 'year' })}>
+                  <button {...api().getPrevTriggerProps()}></button>
+                  <button {...api().getViewTriggerProps()}>
+                    {api().visibleRangeText.start}
+                  </button>
+                  <button {...api().getNextTriggerProps()}></button>
+                </div>
+
+                <table {...api().getTableProps({ view: 'day' })}>
+                  <thead {...api().getTableHeaderProps({ view: 'day' })}>
+                    <tr {...api().getTableRowProps({ view: 'day' })}>
+                      <For each={api().weekDays}>
+                        {day => (
+                          <th scope="col">
+                            {day.narrow}
+                          </th>
+                        )}
+                      </For>
+                    </tr>
+                  </thead>
+                  <tbody {...api().getTableBodyProps({ view: 'day' })}>
+                    <For each={api().weeks}>
+                      {week => (
+                        <tr {...api().getTableRowProps({ view: 'day' })}>
+                          <For each={week}>
+                            {value => (
+                              <td {...api().getDayTableCellProps({ value })}>
+                                <div {...api().getDayTableCellTriggerProps({ value })}>
+                                  {value.day}
+                                </div>
+                              </td>
+                            )}
+                          </For>
+                        </tr>
+                      )}
+                    </For>
+                  </tbody>
+                </table>
+              </div>
+
+              <div hidden={api().view !== 'month'}>
+                <div {...api().getViewControlProps({ view: 'month' })}>
+                  <button {...api().getPrevTriggerProps({ view: 'month' })}></button>
+                  <button {...api().getViewTriggerProps({ view: 'month' })}>
+                    {api().visibleRange.start.year}
+                  </button>
+                  <button {...api().getNextTriggerProps({ view: 'month' })}></button>
+                </div>
+
+                <table {...api().getTableProps({ view: 'month', columns: 4 })}>
+                  <tbody {...api().getTableBodyProps({ view: 'month' })}>
+                    <For each={api().getMonthsGrid({ columns: 4, format: 'short' })}>
+                      {months => (
+                        <tr {...api().getTableRowProps()}>
+                          <For each={months}>
+                            {month => (
+                              <td
+                                {...api().getMonthTableCellProps({
+                                  ...month,
+                                  columns: 4,
+                                })}
+                              >
+                                <div
+                                  {...api().getMonthTableCellTriggerProps({
+                                    ...month,
+                                    columns: 4,
+                                  })}
+                                >
+                                  {month.label}
+                                </div>
+                              </td>
+                            )}
+                          </For>
+                        </tr>
+                      )}
+                    </For>
+                  </tbody>
+                </table>
+              </div>
+
+              <div hidden={api().view !== 'year'}>
+                <div {...api().getViewControlProps({ view: 'year' })}>
+                  <button {...api().getPrevTriggerProps({ view: 'year' })}></button>
+                  <button {...api().getNextTriggerProps({ view: 'year' })}></button>
+                </div>
+
+                <table {...api().getTableProps({ view: 'year', columns: 4 })}>
+                  <tbody {...api().getTableBodyProps()}>
+                    <For each={api().getYearsGrid({ columns: 4 })}>
+                      {years => (
+                        <tr {...api().getTableRowProps({ view: 'year' })}>
+                          <For each={years}>
+                            {year => (
+                              <td
+                                {...api().getYearTableCellProps({
+                                  ...year,
+                                  columns: 4,
+                                })}
+                              >
+                                <div
+                                  {...api().getYearTableCellTriggerProps({
+                                    ...year,
+                                    columns: 4,
+                                  })}
+                                >
+                                  {year.label}
+                                </div>
+                              </td>
+                            )}
+                          </For>
+                        </tr>
+                      )}
+                    </For>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </Portal>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Setting the initial date
+
+To set the initial value that is rendered by the calendar, set the value property in the machine context.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    value: calendar.parse("2021-01-01"),
+  }),
+)
+```
+
+## Controlling the selected date
+
+Use the `api.setValue` method to control the selected date in the calendar component.
+
+```ts
+// parse the date string into a date object
+const nextValue = calendar.parse("2021-01-01")
+
+// set the new value
+api.setValue(nextValue)
+```
+
+:::tip
+Alternatively, you can also use the `value` and `onValueChange` callbacks to programmatically control the selected date.
+:::
+
+## Controlling the open state
+
+To manage the open state of the calendar dialog, we recommended using `api.setOpen` method.
+
+```ts
+// open the calendar
+api.setOpen(true)
+
+// close the calendar
+api.setOpen(false)
+```
+
+:::tip
+Alternatively, you can also use the `open` and `onOpenChange` callbacks to programmatically control the open state.
+:::
+
+## Setting the min and max dates
+
+To constrain the date range that can be selected by the user, set the `min` and `max` properties in the machine context.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    min: calendar.parse("2021-01-01"),
+    max: calendar.parse("2021-12-31"),
+  }),
+)
+```
+
+When the min or max date value is reached, the next and prev triggers will be disabled.
+
+## Changing the start of the week
+
+Set the `startOfWeek` property in the machine context to change the start of the week.
+The property accepts a number from `0` to `6`, where `0` is Sunday and `6` is Saturday.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    startOfWeek: 1, // Monday
+  }),
+)
+```
+
+## Disabling the calendar
+
+To disable the calendar, set the `disabled` property in the machine context to `true`.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    disabled: true,
+  }),
+)
+```
+
+## Rendering month and year pickers
+
+To render the month and year pickers,
+use the `api.getMonthSelectProps` and `api.getYearSelectProps` prop getters.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <template>
+    <div>
+      <select v-bind="api.getMonthSelectProps()">
+        <option
+          v-for="(month, i) in api.getMonths()"
+          :key="i"
+          :value="month.value"
+        >
+          {{ month.label }}
+        </option>
+      </select>
+
+      <select v-bind="api.getYearSelectProps()">
+        <option
+          v-for="(year, i) in getYearsRange({ from: 1_000, to: 4_000 })"
+          :key="i"
+          :value="year"
+        >
+          {{ year }}
+        </option>
+      </select>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  <div>
+    <select {...api.getMonthSelectProps()}>
+      {api.getMonths().map((month, i) => (
+        <option key={i} value={month.value}>
+          {month.label}
+        </option>
+      ))}
+    </select>
+
+    <select {...api.getYearSelectProps()}>
+      {getYearsRange({ from: 1_000, to: 4_000 }).map((year, i) => (
+        <option key={i} value={year}>
+          {year}
+        </option>
+      ))}
+    </select>
+  </div>
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <div>
+    <select {...api.getMonthSelectProps()}>
+      {#each api.getMonths() as month, i}
+        <option value={month.value}>{month.label}</option>
+      {/each}
+    </select>
+
+    <select {...api.getYearSelectProps()}>
+      {#each getYearsRange({ from: 1_000, to: 4_000 }) as year, i}
+        <option value={year}>{year}</option>
+      {/each}
+    </select>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  <div>
+    <select {...api().getMonthSelectProps()}>
+      {api().getMonths().map((month, i) => (
+        <option value={month.value}>{month.label}</option>
+      ))}
+    </select>
+
+    <select {...api().getYearSelectProps()}>
+      {getYearsRange({ from: 1_000, to: 4_000 }).map((year, i) => (
+        <option value={year}>{year}</option>
+      ))}
+    </select>
+  </div>
+  ```
+
+  </div>
+
+</FrameworkLayout>
