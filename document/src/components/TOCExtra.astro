@@ -84,9 +84,9 @@ const items: Item[] = [
           href={item.href}
           target="_blank"
           rel="noreferrer noopener"
-          class="group inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          class="group inline-flex items-center gap-2 text-sm opacity-80 hover:opacity-100 text-muted-foreground hover:text-foreground"
         >
-          <span class={`${item.icon} text-base opacity-40 group-hover:opacity-100`} aria-hidden="true" />
+          <span class={`${item.icon} text-base `} aria-hidden="true" />
           <span>{item.label}</span>
         </a>
       </li>
