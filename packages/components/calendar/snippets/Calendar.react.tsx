@@ -118,10 +118,10 @@ export default function Calendar() {
                 </button>
                 <span>
                   {api.getDecade().start}
-{' '}
--
-{' '}
-{api.getDecade().end}
+                  {' '}
+                  -
+                  {' '}
+                  {api.getDecade().end}
                 </span>
                 <button {...api.getNextTriggerProps({ view: 'year' })}>
                   →
