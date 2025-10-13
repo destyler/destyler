@@ -762,3 +762,320 @@ use the `api.getMonthSelectProps` and `api.getYearSelectProps` prop getters.
   </div>
 
 </FrameworkLayout>
+
+## Marking unavailable dates
+
+To mark specific dates as unavailable, set the `isDateUnavailable` function in the machine context.
+This function should return `true` for dates that are unavailable.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    isDateUnavailable: (date, locale) => {
+      // mark weekends as unavailable
+      return date.day === 0 || date.day === 6
+    },
+  }),
+)
+```
+
+You can also leverage the numerous helpers from [`@internationalized/date`](https://www.npmjs.com/package/@internationalized/date) to create more complex date availability rules.
+
+```ts
+import { isWeekend } from "@internationalized/date"
+
+const [state, send] = useMachine(
+  calendar.machine({
+    isDateUnavailable: (date, locale) => {
+      // mark weekends as unavailable
+      return isWeekend(date, locale)
+    },
+  }),
+)
+```
+
+## Setting the calendar starting view
+
+The calendar view is set to `day` by default. To change the starting `view` of the calendar,
+set the view property in the machine context to either `day`, `month`, or `year`.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    view: "month",
+  }),
+)
+```
+
+## Setting the read-only mode
+
+Set the `readOnly` property in the machine context to `true` to make the calendar read-only.
+This means that users can't change the selected date.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    readOnly: true,
+  }),
+)
+```
+
+## Setting the focused date
+
+The calendar focused date is set to either the first selected date or today's date by default.
+
+To change the focused date, set the `focusedDate` property in the machine context.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    focusedDate: calendar.parse("2022-01-01"),
+  }),
+)
+```
+
+## Rendering the calendar inline
+
+To render the calendar inline,
+we recommended setting the `open` property to `true` and `closeOnSelect` to `false`.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    open: true,
+    "open.controlled": true,
+    closeOnSelect: false,
+  }),
+)
+```
+
+## Usage within a form
+
+To use the calendar within a form, set the `name` property in the machine context.
+This property is used to identify the calendar in the form data.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    name: "date",
+  }),
+)
+```
+
+## Rendering fixed number of weeks
+
+The calendar will render the weeks needed to display all of the days in the month.
+Sometimes this can result in a jump in the UI when navigating between different sized months (e.g., February vs. March).
+
+To ensure the calendar renders the maximum number of weeks (6), you can set the `fixedWeeks` prop to `true`.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    fixedWeeks: true,
+  }),
+)
+```
+
+## Listening to date changes
+
+To listen to date changes, use the `onValueChange` callback in the machine context.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    onValueChange(details) {
+      // details => { value: DateValue[], valueAsString: string[], view: string }
+      console.log("selected date:", details.valueAsString)
+    },
+  }),
+)
+```
+
+## Listening to view changes
+
+When the calendar view changes by click on the view controls, the `onViewChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  calendar.machine({
+    onViewChange(details) {
+      // details => { view: string }
+      console.log("view changed to:", details.view)
+    },
+  }),
+)
+```
+
+## Styling Guide
+
+> Earlier, we mentioned that each calendar part has a `data-part` attribute added to them to select and style them in the DOM.
+
+```css
+[data-scope="calendar"][data-part="root"] {
+  /* styles for the root part */
+}
+
+[data-scope="calendar"][data-part="input"] {
+  /* styles for the input part */
+}
+
+[data-scope="calendar"][data-part="trigger"] {
+  /* styles for the trigger part */
+}
+
+[data-scope="calendar"][data-part="content"] {
+  /* styles for the input part */
+}
+```
+
+### Open State
+
+```css
+[data-scope="calendar"][data-part="trigger"] {
+  &[data-state="open"] {
+    /* styles for the open state */
+  }
+
+  &[data-state="closed"] {
+    /* styles for the closed state */
+  }
+}
+```
+
+### Cell States
+
+```css
+[data-scope="calendar"][data-part="table-cell-trigger"] {
+  /* styles for the cell */
+
+  &[data-selected] {
+    /* styles for the selected date */
+  }
+
+  &[data-focus] {
+    /* styles for the focused date */
+  }
+
+  &[data-disabled] {
+    /* styles for the disabled date */
+  }
+
+  &[data-unavailable] {
+    /* styles for the unavailable date */
+  }
+
+  &[data-today] {
+    /* styles for the today date */
+  }
+
+  &[data-weekend] {
+    /* styles for the weekend date */
+  }
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The calendar machine exposes the following context properties:
+
+<MachineTable name="calendar"></MachineTable>
+
+### Machine API
+
+The calendar `api` exposes the following methods:
+
+<APITable name="calendar"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="calendar" nodeType="Root" />
+
+#### Label
+
+<StyleTable component="calendar" nodeType="Label" />
+
+#### Control
+
+<StyleTable component="calendar" nodeType="Control" />
+
+#### Content
+
+<StyleTable component="calendar" nodeType="Content" />
+
+#### Table
+
+<StyleTable component="calendar" nodeType="Table" />
+
+#### Table Head
+
+<StyleTable component="calendar" nodeType="TableHead" />
+
+#### Table Header
+
+<StyleTable component="calendar" nodeType="TableHeader" />
+
+#### Table Body
+
+<StyleTable component="calendar" nodeType="TableBody" />
+
+#### Table Row
+
+<StyleTable component="calendar" nodeType="TableRow" />
+
+#### Day Table Cell
+
+<StyleTable component="calendar" nodeType="DayTableCell" />
+
+#### Day Table Cell Trigger
+
+<StyleTable component="calendar" nodeType="DayTableCellTrigger" />
+
+#### Month Table Cell
+
+<StyleTable component="calendar" nodeType="MonthTableCell" />
+
+#### Month Table Cell Trigger
+
+<StyleTable component="calendar" nodeType="MonthTableCellTrigger" />
+
+#### Year Table Cell
+
+<StyleTable component="calendar" nodeType="YearTableCell" />
+
+#### Year Table Cell Trigger
+
+<StyleTable component="calendar" nodeType="YearTableCellTrigger" />
+
+#### Next Trigger
+
+<StyleTable component="calendar" nodeType="NextTrigger" />
+
+#### Prev Trigger
+
+<StyleTable component="calendar" nodeType="PrevTrigger" />
+
+#### Trigger
+
+<StyleTable component="calendar" nodeType="Trigger" />
+
+#### View Trigger
+
+<StyleTable component="calendar" nodeType="ViewTrigger" />
+
+#### View Control
+
+<StyleTable component="calendar" nodeType="ViewControl" />
+
+#### Input
+
+<StyleTable component="calendar" nodeType="Input" />
