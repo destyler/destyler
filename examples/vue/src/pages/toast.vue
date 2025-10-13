@@ -29,12 +29,14 @@ function handleNotify() {
       Notify (Info)
     </button>
 
-    <div v-for="placement in api.getPlacements()" :key="placement" v-bind="api.getGroupProps({ placement })">
-      <ToastItem
-        v-for="toast in api.getToastsByPlacement(placement)"
-        :key="toast.id"
-        :actor="toast"
-      />
-    </div>
+    <Teleport to="body">
+      <div v-for="placement in api.getPlacements()" :key="placement" v-bind="api.getGroupProps({ placement })">
+        <ToastItem
+          v-for="toast in api.getToastsByPlacement(placement)"
+          :key="toast.id"
+          :actor="toast"
+        />
+      </div>
+    </Teleport>
   </div>
 </template>

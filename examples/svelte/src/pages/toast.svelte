@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as toast from '@destyler/toast'
-  import {normalizeProps, useMachine} from '@destyler/svelte'
+  import {normalizeProps, useMachine, portal} from '@destyler/svelte'
   import '@destyler/shared-private/styles/toast.css'
   import ToastItem from '../components/ToastItem.svelte';
 
@@ -18,19 +18,19 @@
   const api = $derived(toast.group.connect(state as any, send, normalizeProps))
 </script>
 
-<div>
-  <button
-    class="create-trigger"
-    onclick={() => {
-      api.create({
-        title: "Fetching data...",
-        type: "info",
-      })
-    }}
-  >
-    Notify
-  </button>
+<button
+  class="create-trigger"
+  onclick={() => {
+    api.create({
+      title: "Fetching data...",
+      type: "info",
+    })
+  }}
+>
+  Notify
+</button>
 
+<div use:portal>
   {#each api.getPlacements() as placement}
     <div {...api.getGroupProps({ placement })}>
       {#each api.getToastsByPlacement(placement) as toast (toast.id)}
