@@ -14,19 +14,17 @@ const api = computed(() => toast.connect(state.value, send, normalizeProps))
 </script>
 
 <template>
-  <div>
-    <div v-bind="api.getRootProps()">
-      <div v-bind="api.getGhostBeforeProps()" />
-      <p v-bind="api.getTitleProps()">
-        {{ api.title }}
-      </p>
-      <p v-bind="api.getDescriptionProps()">
-        {{ api.description }}
-      </p>
-      <button v-bind="api.getCloseTriggerProps()">
-        close
-      </button>
-      <div v-bind="api.getGhostAfterProps()" />
-    </div>
+  <div v-bind="api.getRootProps()">
+    <div v-bind="api.getGhostBeforeProps()" />
+    <p v-bind="api.getTitleProps()">
+      {{ api.title }}
+    </p>
+    <p v-bind="api.getDescriptionProps()">
+      {{ api.description }}
+    </p>
+    <button v-bind="api.getCloseTriggerProps()">
+      close
+    </button>
+    <div v-bind="api.getGhostAfterProps()" />
   </div>
 </template>
