@@ -35,6 +35,7 @@ import Step from '../pages/step.svelte'
 import Switch from '../pages/switch.svelte'
 import Tabs from '../pages/tabs.svelte'
 import Timer from '../pages/timer.svelte'
+import Toast from '../pages/toast.svelte'
 import Toggle from '../pages/toggle.svelte'
 import Tooltip from '../pages/tooltip.svelte'
 import Tour from '../pages/tour.svelte'
@@ -82,4 +83,5 @@ export const router = [
   { path: '/tooltip', component: Tooltip },
   { path: '/tour', component: Tour },
   { path: '/tree', component: Tree },
+  { path: '/toast', component: Toast },
 ]
