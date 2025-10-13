@@ -2,6 +2,7 @@
 import type { Component } from 'solid-js'
 import AspectRatio from '@component/aspect-ratio/snippets/AspectRatio.solid.tsx'
 import Breadcrumbs from '@component/breadcrumbs/snippets/Breadcrumbs.solid.tsx'
+import Calendar from '@component/calendar/snippets/Calendar.solid.tsx'
 import Carousel from '@component/carousel/snippets/Carousel.solid.tsx'
 import Checkbox from '@component/checkbox/snippets/Checkbox.solid.tsx'
 import Clipboard from '@component/clipboard/snippets/Clipboard.solid.tsx'
@@ -48,6 +49,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'checkbox' && <Checkbox />}
       {props.name === 'collapse' && <Collapse className="w-450px!" />}
       {props.name === 'combobox' && <Combobox />}
+      {props.name === 'calendar' && <Calendar />}
       {props.name === 'dynamic' && <Dynamic />}
       {props.name === 'label' && <Label />}
       {props.name === 'otp-input' && <OtpInput />}

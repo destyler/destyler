@@ -2,7 +2,7 @@ import type { ObjectLiteralElementLike, StringLiteral } from 'ts-morph'
 import { writeFileSync } from 'node:fs'
 import { join, sep } from 'node:path'
 import process from 'node:process'
-import * as fg from 'fast-glob'
+import fg from 'fast-glob'
 import { ModuleResolutionKind, Node, Project, SyntaxKind } from 'ts-morph'
 
 const docsMap = {

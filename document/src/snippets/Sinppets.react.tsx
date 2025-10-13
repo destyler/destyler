@@ -1,5 +1,6 @@
 import AspectRatio from '@component/aspect-ratio/snippets/AspectRatio.react.tsx'
 import Breadcrumbs from '@component/breadcrumbs/snippets/Breadcrumbs.react.tsx'
+import Calendar from '@component/calendar/snippets/Calendar.react.tsx'
 import Carousel from '@component/carousel/snippets/Carousel.react.tsx'
 import Checkbox from '@component/checkbox/snippets/Checkbox.react.tsx'
 import Clipboard from '@component/clipboard/snippets/Clipboard.react.tsx'
@@ -56,6 +57,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'toggle' && <Toggle />}
       {name === 'qr-code' && <QrCode />}
       {name === 'collapsible' && <Collapsible />}
+      {name === 'calendar' && <Calendar />}
       {name === 'dialog' && <Dialog />}
       {name === 'image' && <Image />}
       {name === 'hover-card' && <HoverCard />}

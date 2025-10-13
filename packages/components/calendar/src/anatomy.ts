@@ -1,6 +1,6 @@
 import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('date-picker').parts(
+export const anatomy = createAnatomy('calendar').parts(
   'root',
   'label',
   'clearTrigger',

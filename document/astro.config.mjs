@@ -149,7 +149,7 @@ export default defineConfig({
         {
           label: 'Dates',
           items: [
-          // { slug: 'components/calendar' },
+            { slug: 'components/calendar' },
             { slug: 'components/carousel' },
             { slug: 'components/qr-code' },
             { slug: 'components/timer' },

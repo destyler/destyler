@@ -36,6 +36,7 @@
   import Toggle from '@component/toggle/snippets/Toggle.svelte'
   import Tooltip from '@component/tooltip/snippets/Tooltip.svelte'
   import Tree from '@component/tree/snippets/Tree.svelte'
+  import Calendar from '@component/calendar/snippets/Calendar.svelte'
 
   export let name: string;
 </script>
@@ -49,6 +50,9 @@
   {/if}
   {#if name === 'combobox'}
     <Combobox />
+  {/if}
+  {#if name === 'calendar'}
+    <Calendar />
   {/if}
   {#if name === 'dynamic'}
     <Dynamic />
