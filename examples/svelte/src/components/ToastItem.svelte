@@ -14,6 +14,7 @@
 
 <div {...api.getRootProps()}>
   <div {...api.getGhostBeforeProps()}></div>
+  <div data-scope="toast" data-part="progressbar"></div>
   <p {...api.getTitleProps()}>{api.title}</p>
   <p {...api.getDescriptionProps()}>{api.description}</p>
   <button {...api.getCloseTriggerProps()}>
