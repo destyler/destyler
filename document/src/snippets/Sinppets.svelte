@@ -37,6 +37,7 @@
   import Tooltip from '@component/tooltip/snippets/Tooltip.svelte'
   import Tree from '@component/tree/snippets/Tree.svelte'
   import Calendar from '@component/calendar/snippets/Calendar.svelte'
+  import Toast from '@component/toast/snippets/Toast.svelte'
 
   export let name: string;
 </script>
@@ -155,5 +156,8 @@
   {/if}
   {#if name === 'tree'}
     <Tree />
+  {/if}
+  {#if name === 'toast'}
+    <Toast />
   {/if}
 </div>
