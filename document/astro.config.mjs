@@ -143,7 +143,7 @@ export default defineConfig({
             { slug: 'components/signature' },
             { slug: 'components/slider' },
             { slug: 'components/switch' },
-            { slug: 'components/toggle-group' },
+            { slug: 'components/toggle' },
           ],
         },
         {
@@ -158,7 +158,7 @@ export default defineConfig({
         {
           label: 'General',
           items: [
-            { slug: 'components/aspect-radio' },
+            { slug: 'components/aspect-ratio' },
             { slug: 'components/breadcrumbs' },
             { slug: 'components/collapse' },
             { slug: 'components/collapsible' },
