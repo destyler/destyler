@@ -37,9 +37,9 @@ module.exports = function main(plop) {
 
       actions.push({
         type: 'addMany',
-        templateFiles: 'plop/component/**',
+        templateFiles: 'templates/component/**',
         destination: `packages/components/{{dashCase machine}}`,
-        base: 'plop/component/',
+        base: 'templates/component/',
         data: { machine, name: machine },
         abortOnFail: true,
       })
@@ -67,9 +67,9 @@ module.exports = function main(plop) {
 
       actions.push({
         type: 'addMany',
-        templateFiles: 'plop/examples/**',
+        templateFiles: 'templates/examples/**',
         destination: `examples`,
-        base: 'plop/examples/',
+        base: 'templates/examples/',
         data: { machine, name: machine },
         abortOnFail: true,
       })
@@ -109,9 +109,9 @@ module.exports = function main(plop) {
 
       actions.push({
         type: 'addMany',
-        templateFiles: 'plop/shared/**',
+        templateFiles: 'templates/shared/**',
         destination: `packages/shareds/{{dashCase name}}`,
-        base: 'plop/shared/',
+        base: 'templates/shared/',
         data: { description, name },
         abortOnFail: true,
       })
