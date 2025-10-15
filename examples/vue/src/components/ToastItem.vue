@@ -22,7 +22,7 @@ const api = computed(() => toast.connect(state.value, send, normalizeProps))
       {{ api.description }}
     </p>
     <button v-bind="api.getCloseTriggerProps()">
-      <div class="i-carbon-close"></div>
+      <div class="i-carbon-close" />
     </button>
     <div v-bind="api.getGhostAfterProps()" />
   </div>

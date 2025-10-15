@@ -31,7 +31,7 @@ function handleNotify() {
     </button>
 
     <Teleport to="body">
-      <div v-for="placement in api.getPlacements()" data-layout="sinppets" :key="placement" v-bind="api.getGroupProps({ placement })">
+      <div v-for="placement in api.getPlacements()" :key="placement" data-layout="sinppets" v-bind="api.getGroupProps({ placement })">
         <Item
           v-for="toast in api.getToastsByPlacement(placement)"
           :key="toast.id"
