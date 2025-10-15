@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import * as toast from '@destyler/toast'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import * as toast from '../index'
-import Item from './Item.vue'
-import './style.css'
+import '@destyler/shared-private/styles/toast.css'
 
 const [state, send] = useMachine(
   toast.group.machine({
@@ -18,7 +17,7 @@ const api = computed(() => toast.group.connect(state.value as any, send, normali
 
 function handleNotify() {
   api.value.create({
-    title: 'What to say?',
+    title: 'Loading',
     type: 'info',
   })
 }
@@ -26,13 +25,13 @@ function handleNotify() {
 
 <template>
   <div>
-    <button class="btn" @click="handleNotify">
-      Notify
+    <button class="create-trigger" @click="handleNotify">
+      Notify (Info)
     </button>
 
     <Teleport to="body">
-      <div v-for="placement in api.getPlacements()" :key="placement" data-layout="sinppets" v-bind="api.getGroupProps({ placement })">
-        <Item
+      <div v-for="placement in api.getPlacements()" :key="placement" v-bind="api.getGroupProps({ placement })">
+        <ToastItem
           v-for="toast in api.getToastsByPlacement(placement)"
           :key="toast.id"
           :actor="toast"

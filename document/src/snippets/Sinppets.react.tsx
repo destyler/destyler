@@ -33,6 +33,7 @@ import Steps from '@component/steps/snippets/Steps.react.tsx'
 import Switch from '@component/switch/snippets/Switch.react.tsx'
 import Tabs from '@component/tabs/snippets/Tabs.react.tsx'
 import Timer from '@component/timer/snippets/Timer.react.tsx'
+import Toast from '@component/toast/snippets/Toast.react.tsx'
 import Toggle from '@component/toggle/snippets/Toggle.react.tsx'
 import Tooltip from '@component/tooltip/snippets/Tooltip.react.tsx'
 import Tree from '@component/tree/snippets/Tree.react.tsx'
@@ -82,6 +83,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'timer' && <Timer />}
       {name === 'tooltip' && <Tooltip />}
       {name === 'tree' && <Tree />}
+      {name === 'toast' && <Toast />}
     </div>
   )
 }

@@ -34,6 +34,7 @@ import Steps from '@component/steps/snippets/Steps.vue'
 import Switch from '@component/switch/snippets/Switch.vue'
 import Tabs from '@component/tabs/snippets/Tabs.vue'
 import Timer from '@component/timer/snippets/Timer.vue'
+import Toast from '@component/toast/snippets/Toast.vue'
 import Toggle from '@component/toggle/snippets/Toggle.vue'
 import Tooltip from '@component/tooltip/snippets/Tooltip.vue'
 import Tree from '@component/tree/snippets/Tree.vue'
@@ -84,5 +85,6 @@ const props = defineProps<{
     <Timer v-if="props.name === 'timer'" />
     <Tooltip v-if="props.name === 'tooltip'" />
     <Tree v-if="props.name === 'tree'" />
+    <Toast v-if="props.name === 'toast'" />
   </div>
 </template>

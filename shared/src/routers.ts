@@ -149,6 +149,10 @@ export const routes: RouteData[] = [
     label: 'Timer',
   },
   {
+    path: '/toast',
+    label: 'Toast',
+  },
+  {
     path: '/toggle',
     label: 'Toggle',
   },

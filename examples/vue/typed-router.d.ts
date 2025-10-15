@@ -55,6 +55,7 @@ declare module 'vue-router/auto-routes' {
     '/switch': RouteRecordInfo<'/switch', '/switch', Record<never, never>, Record<never, never>>,
     '/tabs': RouteRecordInfo<'/tabs', '/tabs', Record<never, never>, Record<never, never>>,
     '/timer': RouteRecordInfo<'/timer', '/timer', Record<never, never>, Record<never, never>>,
+    '/toast': RouteRecordInfo<'/toast', '/toast', Record<never, never>, Record<never, never>>,
     '/toggle': RouteRecordInfo<'/toggle', '/toggle', Record<never, never>, Record<never, never>>,
     '/tooltip': RouteRecordInfo<'/tooltip', '/tooltip', Record<never, never>, Record<never, never>>,
     '/tour': RouteRecordInfo<'/tour', '/tour', Record<never, never>, Record<never, never>>,
@@ -218,6 +219,10 @@ declare module 'vue-router/auto-routes' {
     }
     'src/pages/timer.vue': {
       routes: '/timer'
+      views: never
+    }
+    'src/pages/toast.vue': {
+      routes: '/toast'
       views: never
     }
     'src/pages/toggle.vue': {

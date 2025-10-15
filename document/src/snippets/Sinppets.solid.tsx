@@ -35,6 +35,7 @@ import Steps from '@component/steps/snippets/Steps.solid.tsx'
 import Switch from '@component/switch/snippets/Switch.solid.tsx'
 import Tabs from '@component/tabs/snippets/Tabs.solid.tsx'
 import Timer from '@component/timer/snippets/Timer.solid.tsx'
+import Toast from '@component/toast/snippets/Toast.solid.tsx'
 import Toggle from '@component/toggle/snippets/Toggle.solid.tsx'
 import Tooltip from '@component/tooltip/snippets/Tooltip.solid.tsx'
 import Tree from '@component/tree/snippets/Tree.solid.tsx'
@@ -84,6 +85,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'timer' && <Timer />}
       {props.name === 'tooltip' && <Tooltip />}
       {props.name === 'tree' && <Tree />}
+      {props.name === 'toast' && <Toast />}
     </div>
   )
 }

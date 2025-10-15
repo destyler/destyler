@@ -178,7 +178,7 @@ export default defineConfig({
             { slug: 'components/splitter' },
             { slug: 'components/steps' },
             { slug: 'components/tabs' },
-            // { slug: 'components/toast' },
+            { slug: 'components/toast' },
             // { slug: 'components/toolbar' },
             { slug: 'components/tooltip' },
             { slug: 'components/tree' },
