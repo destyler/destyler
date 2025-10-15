@@ -368,3 +368,265 @@ You can also use the `toast.upsert(...)` function which creates or updates a toa
 To update a toast programmatically, you need access to the unique identifier of the toast.
 
 This identifier can be either:
+
+- the `id` passed into `toast.create(...)` or,
+
+- the returned random `id` when the `toast.create(...)` is called.
+
+You can use any of the following methods to control a toast:
+
+- `toast.upsert(...)` — Creates or updates a toast.
+
+- `toast.update(...)` — Updates a toast.
+
+- `toast.remove(...)` — Removes a toast instantly without delay.
+
+- `toast.dismiss(...)` — Removes a toast with delay.
+
+- `toast.pause(...)` — Pauses a toast.
+
+- `toast.resume(...)` — Resumes a toast.
+
+```ts
+// grab the id from the created toast
+const id = toast.create({
+  title: "Hello World",
+  description: "This is a toast",
+  type: "info",
+  duration: 6000,
+  placement: "top-start",
+})
+
+// update the toast
+toast.update(id, {
+  title: "Hello World",
+  description: "This is a toast",
+  type: "success",
+})
+
+// remove the toast
+toast.remove(id)
+
+// dismiss the toast
+toast.dismiss(id)
+```
+
+## Handling promises
+
+The toast group API exposes a `toast.promise()` function to allow you update the toast when it resolves or rejects.
+
+:::tip
+With the promise API, you can pass the toast options for each promise lifecycle.
+:::
+
+```ts
+toast.promise(promise, {
+  loading: {
+    title: "Loading",
+    description: "Please wait...",
+  },
+  success: (data) => ({
+    title: "Success",
+    description: "An request has success",
+  }),
+  error: (err) => ({
+    title: "Error",
+    description: "An request has error",
+  }),
+})
+```
+
+## Pausing the toasts
+
+There are three scenarios we provide to pause a toast from timing out:
+
+- When the document loses focus or the page is idle (e.g. switching to a new browser tab), controlled via the `pauseOnPageIdle` context property.
+
+- When the `toast.pause(id)` provided by the `toast.group.connect(...)` is called.
+
+```ts
+// Global pause options
+const [state, send] = useMachine(
+  toast.group.machine({
+    pauseOnPageIdle: true,
+  }),
+)
+
+// Programmatically pause a toast (by `id`)
+// `id` is the return value of `api.create(...)`
+toast.pause(id)
+```
+
+## Limiting the number of toasts
+
+Toasts are great but displaying too many of them can sometimes hamper the user experience.
+To limit the number of visible toasts, pass the `max` property to the group machine's context.
+
+```ts
+const [state, send] = useMachine(
+  toast.group.machine({
+    max: 10,
+  }),
+)
+```
+
+## Focus Hotkey for toasts
+
+When a toast is created, you can focus the toast region by pressing the `alt + T`. This is useful for screen readers and keyboard navigation.
+
+Set the `hotkey` context property to change the underlying hotkey.
+
+```ts
+const [state, send] = useMachine(
+  toast.group.machine({
+    hotkey: ["F6"],
+  }),
+)
+```
+
+## Listening for toast lifecycle
+
+When a toast is created, you can listen for the status changes across its lifecycle using the `onStatusChange` callback when you call `toast.create(...)`.
+
+The status values are:
+
+- `visible` - The toast is mounted and rendered
+
+- `dismissed` - The toast is visually invisible but still mounted
+
+- `unmounted` - The toast has been completely unmounted and no longer exists
+
+```ts
+toast.info({
+  title: "Hello World",
+  description: "This is a toast",
+  type: "info",
+  onStatusChange: (details) => {
+    // details => { status: "visible" | "dismissed" | "unmounted" }
+    console.log("Toast status:", details)
+  },
+})
+```
+
+## Changing the gap between toasts
+
+When multiple toasts are rendered, a gap of `16px` is applied between each toast. To change this value, set the `gap` context property.
+
+```ts
+const [state, send] = useMachine(
+  toast.group.machine({
+    gap: 24,
+  }),
+)
+```
+
+## Changing the offset
+
+The toast region has a default `16px` offset from the viewport. Use the `offset` context property to change the offset.
+
+```ts
+const [state, send] = useMachine(
+  toast.group.machine({
+    offsets: "24px",
+  }),
+)
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Tabs part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Requirement
+
+The toast machine injects a bunch of css variables that are required for it to work.
+You need to connect these variables in your styles.
+
+```css
+[data-part="root"] {
+  translate: var(--x) var(--y);
+  scale: var(--scale);
+  z-index: var(--z-index);
+  height: var(--height);
+  opacity: var(--opacity);
+  will-change: translate, opacity, scale;
+}
+```
+
+To make it transition smoothly, you should includes `transition` properties.
+
+```css
+[data-part="root"] {
+  transition:
+    translate 400ms,
+    scale 400ms,
+    opacity 400ms;
+  transition-timing-function: cubic-bezier(0.21, 1.02, 0.73, 1);
+}
+
+[data-part="root"][data-state="closed"] {
+  transition:
+    translate 400ms,
+    scale 400ms,
+    opacity 200ms;
+  transition-timing-function: cubic-bezier(0.06, 0.71, 0.55, 1);
+}
+```
+
+### Toast styling
+
+When a toast is created and the `api.getRootProps()` from the `toast.connect` is used,
+the toast will have a `data-type` that matches the specified `type` at its creation.
+
+You can use this property to style the toast.
+
+```css
+[data-part="root"][data-type="info"] {
+  /* Styles for the specific toast type */
+}
+
+[data-part="root"][data-type="error"] {
+  /* Styles for the error toast type */
+}
+
+[data-part="root"][data-type="success"] {
+  /* Styles for the success toast type */
+}
+
+[data-part="root"][data-type="loading"] {
+  /* Styles for the loading toast type */
+}
+```
+
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The toast machine exposes the following context properties:
+
+<MachineTable name="toast"></MachineTable>
+
+### Machine API
+
+The switch `api` exposes the following methods:
+
+<APITable name="toast"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="toast" nodeType="Root" />
+
+#### Ghost Before
+
+<StyleTable component="toast" nodeType="GhostBefore" />
+
+#### Ghost After
+
+<StyleTable component="toast" nodeType="GhostAfter" />
