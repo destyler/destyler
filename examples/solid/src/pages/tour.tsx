@@ -1,6 +1,6 @@
+/** @jsxImportSource solid-js */
 import { tourControls, tourData } from '@destyler/shared-private'
 import { StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
-/** @jsxImportSource solid-js */
 import { normalizeProps, useMachine } from '@destyler/solid'
 import * as tour from '@destyler/tour'
 import { createMemo, createUniqueId, For, Show } from 'solid-js'

@@ -182,6 +182,7 @@ export default defineConfig({
             // { slug: 'components/toolbar' },
             { slug: 'components/tooltip' },
             { slug: 'components/tree' },
+            { slug: 'components/tour' },
           ],
         },
       ],

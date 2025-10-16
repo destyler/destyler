@@ -1,0 +1,575 @@
+---
+head:
+  - tag: title
+    content: Tour - Destyler UI
+title: Tour
+---
+
+import Features from '@docs/components/Features.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+
+<div class="sl-markdown-content">
+  <blockquote id="what-is-a-tour">
+    <p>A tour is an onboarding component used to guide users through a new product feature or series of steps.
+It is often used to boost feature discoverability or onboard new users by highlighting specific elements on the page.</p>
+  </blockquote>
+</div>
+
+<PreviewCode name="tour"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Support for different step types such as "dialog", "floating", "tooltip" or "wait".',
+  'Support for customizable content per step.',
+  'Wait steps for waiting for a specific selector to appear on the page before showing the next step.',
+  'Flexible positioning of the tour dialog per step.',
+  'Progress tracking shows users their progress through the tour.',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="tour" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as tour from '@destyler/tour'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(tour.machine({
+    id: useId(),
+  }))
+
+  const api = computed(() => tour.connect(state.value, send, normalizeProps))
+  const open = computed(() => api.value.open && api.value.step)
+
+  function start() {
+    api.value.start()
+  }
+  </script>
+
+  <template>
+    <div v-bind="api.getBackdropProps()" />
+    <div v-bind="api.getSpotlightProps()" />
+    <div v-bind="api.getPositionerProps()">
+      <div v-bind="api.getContentProps()">
+        <div v-bind="api.getArrowProps()">
+          <div v-bind="api.getArrowTipProps()" />
+        </div>
+        <p v-bind="api.getTitleProps()">
+          {{ api.step?.title }}
+        </p>
+        <div v-bind="api.getDescriptionProps()">
+          {{ api.step?.description }}
+        </div>
+        <div v-bind="api.getProgressTextProps()">
+          {{ api.getProgressText() }}
+        </div>
+        <button
+          v-for="action in api.step?.actions"
+          :key="action.label"
+          v-bind="api.getActionTriggerProps({ action })"
+        >
+          {{ action.label }}
+        </button>
+        <button v-bind="api.getCloseTriggerProps()">
+        </button>
+      </div>
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import { normalizeProps, Portal, useMachine } from '@destyler/react'
+  import * as tour from '@destyler/tour'
+  import { useId } from 'react'
+
+  export default function Page() {
+    const [state, send] = useMachine(
+      tour.machine({
+        id: useId(),
+      }),
+    )
+
+    const api = tour.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <div {...api.getBackdropProps()} />
+        <div {...api.getSpotlightProps()} />
+        <div {...api.getPositionerProps()}>
+          <div {...api.getContentProps()}>
+            <div {...api.getArrowProps()}>
+              <div {...api.getArrowTipProps()} />
+            </div>
+
+            <p {...api.getTitleProps()}>{api.step.title}</p>
+            <div {...api.getDescriptionProps()}>{api.step.description}</div>
+            <div {...api.getProgressTextProps()}>{api.getProgressText()}</div>
+
+            {api.step.actions.map(action => (
+              <button key={action.label} {...api.getActionTriggerProps({ action })}>
+                {action.label}
+              </button>
+            ))}
+
+            <button {...api.getCloseTriggerProps()}>
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as tour from "@destyler/tour";
+    import { useMachine, normalizeProps, portal } from "@destyler/svelte";
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(tour.machine({
+      id: id,
+    }))
+
+    const api = $derived(tour.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getBackdropProps()}></div>
+  <div {...api.getSpotlightProps()}></div>
+  <div {...api.getPositionerProps()}>
+    <div {...api.getContentProps()}>
+      <div {...api.getArrowProps()}>
+        <div {...api.getArrowTipProps()}></div>
+      </div>
+      <p {...api.getTitleProps()}>{api.step.title}</p>
+      <div {...api.getDescriptionProps()}>{api.step.description}</div>
+      {#each api.step.actions as action}
+        <button {...api.getActionTriggerProps({ action })}>{action.label}</button>
+      {/each}
+      <button {...api.getCloseTriggerProps()}>
+      </button>
+    </div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import * as tour from '@destyler/tour'
+  import { createMemo, createUniqueId, For, Show } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function Tour() {
+    const id = createUniqueId()
+    const [state, send] = useMachine(tour.machine({ id }))
+    const api = createMemo(()=>tour.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <div {...api().getBackdropProps()} />
+        <div {...api().getSpotlightProps()} />
+        <div {...api().getPositionerProps()}>
+          <div {...api().getContentProps()}>
+            <div {...api().getArrowProps()}>
+              <div {...api().getArrowTipProps()} />
+            </div>
+            <p {...api().getTitleProps()}>{api().step!.title}</p>
+            <div {...api().getDescriptionProps()}>{api().step!.description}</div>
+            <For each={api().step?.actions}>
+              {action => <button {...api().getActionTriggerProps({ action })}>{action.label}</button>}
+            </For>
+            <button {...api().getCloseTriggerProps()}>
+            </button>
+          </div>
+        </div>
+      </>
+    )
+  }
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Using step types
+
+The tour machine supports different types of steps,
+allowing you to create a diverse and interactive tour experience.
+The available step types are defined in the `StepType` type:
+
+- `"tooltip"`: Displays the step content as a tooltip, typically positioned near the target element.
+
+- `"dialog"`: Shows the step content in a modal dialog centered on screen, useful for starting or ending the tour. This usually don't have a target defined.
+
+- `"floating"`: Presents the step content as a floating element, which can be positioned flexibly on the screen. This usually don't have a target defined.
+
+- `"wait"`: A special type that waits for a specific condition before proceeding to the next step.
+
+```ts
+const steps: tour.StepDetails[] = [
+  // Tooltip
+  {
+    id: "step-1",
+    type: "tooltip",
+    placement: "top-start",
+    target: () => document.querySelector("#target-1"),
+    title: "Tooltip Step",
+    description: "This is a tooltip step",
+  },
+
+  // Dialog
+  {
+    id: "step-2",
+    type: "dialog",
+    title: "Dialog Step",
+    description: "This is a dialog step",
+  },
+
+  // Floating
+  {
+    id: "step-3",
+    type: "floating",
+    placement: "top-start",
+    title: "Floating Step",
+    description: "This is a floating step",
+  },
+
+  // Wait
+  {
+    id: "step-4",
+    type: "wait",
+    title: "Wait Step",
+    description: "This is a wait step",
+    effect({ next }) {
+      // do something and go next
+      // you can also return a cleanup
+    },
+  },
+]
+```
+
+## Configuring actions
+
+Every step supports a list of actions that are rendered in the step footer.Use the `actions` property to define each action.
+
+```ts
+const steps: tour.StepDetails[] = [
+  {
+    id: "step-1",
+    type: "dialog",
+    title: "Dialog Step",
+    description: "This is a dialog step",
+    actions: [
+      { label: "Show me a tour!", action: "next" }
+    ],
+  },
+]
+```
+
+## Changing tooltip placement
+
+Use the `placement` property to define the placement of the tooltip.
+
+```ts
+const steps: tour.StepDetails[] = [
+  {
+    id: "step-1",
+    type: "tooltip",
+    placement: "top-start",
+  },
+]
+```
+
+## Hiding the arrow
+
+Set `arrow: false` in the step property to hide the tooltip arrow.
+This is only useful for tooltip steps.
+
+```ts
+const steps: tour.StepDetails[] = [
+  {
+    id: "step-1",
+    type: "tooltip",
+    arrow: false,
+  },
+]
+```
+
+## Hiding the backdrop
+
+Set `backdrop: false` in the step property to hide the backdrop.
+This applies to all step types except the `wait` step.
+
+```ts
+const steps: tour.StepDetails[] = [
+  {
+    id: "step-1",
+    type: "dialog",
+    backdrop: false,
+  },
+]
+```
+
+## Step Effects
+
+Step effects are functions that are called before a step is opened.
+They are useful for adding custom logic to a step.
+
+This function provides the following methods:
+
+- `next()`: Call this method to move to the next step.
+
+- `show()`: Call this method to show the current step.
+
+- `update(details: StepDetails)`: Call this method to update the details of the current step (say, after data has been fetched).
+
+```ts
+const steps: tour.StepDetails[] = [
+  {
+    id: "step-1",
+    type: "tooltip",
+    effect({ next, show, update }) {
+      fetchData().then((res) => {
+        // update the step details
+        update({ title: res.title })
+        // then show show the step
+        show()
+      })
+
+      return () => {
+        // cleanup fetch data
+      }
+    },
+  },
+]
+```
+
+## Wait Steps
+
+Wait steps are useful when you need to wait for a specific condition before proceeding to the next step.
+
+Use the step `effect` function to perform an action and then call `next()` to move to the next step.
+
+:::note
+You cannot call `show()` in a wait step.
+:::
+
+```ts
+const steps: tour.StepDetails[] = [
+  {
+    id: "step-1",
+    type: "wait",
+    effect({ next }) {
+      const button = document.querySelector("#button")
+      const listener = () => next()
+      button.addEventListener("click", listener)
+      return () => button.removeEventListener("click", listener)
+    },
+  },
+]
+```
+
+## Tracking the lifecycle
+
+As the tour is progressed, events are fired and you can track the lifecycle of the tour. Here's are the events you can listen to:
+
+- `onStepChange`: Fires when the current step changes.
+
+- `onStatusChange`: Fires when the status of the tour changes.
+
+```ts
+const Lifecycle = () => {
+  const [state, send] = useMachine(
+    tour.machine({
+      steps: [],
+      onStepChange(details) {
+        // => { stepId: "step-1", stepIndex: 0, totalSteps: 3, complete: false, progress: 0 }
+        console.log(details)
+      },
+      onStatusChange(status) {
+        // => { status: "started" | "skipped" | "completed" | "dismissed" | "not-found" }
+        console.log(status)
+      },
+    }),
+  )
+
+  const api = tour.connect(state, send, normalizeProps)
+}
+```
+
+## Styling guide
+
+> Earlier, we mentioned that each Tooltip part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Prerequisites
+
+Ensure the `box-sizing` is set to `border-box` for the means of measuring the tour target.
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+Ensure the `body` has a `position` of `relative`.
+
+```css
+body {
+  position: relative;
+}
+```
+
+### Overview
+
+Each tour part has a `data-part` attribute that can be used to style them in the DOM.
+
+```css
+[data-scope="tour"][data-part="content"] {
+  /* styles for the content part */
+}
+
+[data-scope="tour"][data-part="positioner"] {
+  /* styles for the positioner part */
+}
+
+[data-scope="tour"][data-part="arrow"] {
+  /* styles for the arrow part */
+}
+
+[data-scope="tour"][data-part="title"] {
+  /* styles for the title part */
+}
+
+[data-scope="tour"][data-part="description"] {
+  /* styles for the description part */
+}
+
+[data-scope="tour"][data-part="progress-text"] {
+  /* styles for the progress text part */
+}
+
+[data-scope="tour"][data-part="action-trigger"] {
+  /* styles for the action trigger part */
+}
+
+[data-scope="tour"][data-part="backdrop"] {
+  /* styles for the backdrop part */
+}
+```
+
+### Step types
+
+The tour component supports two types: `dialog` and `floating`. You can apply specific styles based on the tour type:
+
+```css
+[data-scope="tour"][data-part="content"][data-type="dialog"] {
+  /* styles for content when step is dialog type */
+}
+
+[data-scope="tour"][data-part="content"][data-type="floating"] {
+  /* styles for content when step is floating type */
+}
+
+[data-scope="tour"][data-part="positioner"][data-type="dialog"] {
+  /* styles for positioner when step is dialog type */
+}
+
+[data-scope="tour"][data-part="positioner"][data-type="floating"] {
+  /* styles for positioner when step is floating type */
+}
+```
+
+### Placement Styles
+
+For floating type tours, you can style based on the placement using the `data-placement` attribute:
+
+```css
+[data-scope="tour"][data-part="positioner"][data-type="floating"][data-placement*="bottom"] {
+  /* styles for bottom placement */
+}
+
+[data-scope="tour"][data-part="positioner"][data-type="floating"][data-placement*="top"] {
+  /* styles for top placement */
+}
+
+[data-scope="tour"][data-part="positioner"][data-type="floating"][data-placement*="start"] {
+  /* styles for start placement */
+}
+
+[data-scope="tour"][data-part="positioner"][data-type="floating"][data-placement*="end"] {
+  /* styles for end placement */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The tour machine exposes the following context properties:
+
+<MachineTable name="tour"></MachineTable>
+
+### Machine API
+
+The tour `api` exposes the following methods:
+
+<APITable name="tour"></APITable>
+
+### Data Attributes
+
+#### Backdrop
+
+<StyleTable component="tour" nodeType="Backdrop" />
+
+#### Positioner
+
+<StyleTable component="tour" nodeType="Positioner" />
+
+#### Content
+
+<StyleTable component="tour" nodeType="Content" />
+
+#### Title
+
+<StyleTable component="tour" nodeType="Title" />
+
+#### Description
+
+<StyleTable component="tour" nodeType="Description" />
+
+#### Close Trigger
+
+<StyleTable component="tour" nodeType="CloseTrigger" />
+
+#### Action Trigger
+
+<StyleTable component="tour" nodeType="ActionTrigger" />
