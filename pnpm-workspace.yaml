@@ -4,6 +4,7 @@ packages:
   - examples/*
   - shared
   - document
+  - storybook
 
 catalogs:
   build:
@@ -46,6 +47,7 @@ catalogs:
     '@iconify-json/lineicons': ^1.2.6
     '@iconify-json/logos': ^1.2.9
     '@iconify-json/lucide': ^1.2.63
+    '@iconify-json/ph': ^1.2.2
     '@iconify-json/vscode-icons': ^1.2.29
   lint:
     '@antfu/eslint-config': ^5.2.1
@@ -80,6 +82,8 @@ catalogs:
   store:
     '@nanostores/vue': ^1.0.1
     nanostores: ^1.0.1
+  storybook:
+    astrobook: ^0.9.1
   test:
     '@vitest/browser': ^3.2.4
     '@vitest/eslint-plugin': ^1.3.4
@@ -114,7 +118,6 @@ catalogs:
     sharp: ^0.34.3
   visual:
     node-modules-inspector: ^1.1.1
-
 onlyBuiltDependencies:
   - esbuild
   - sharp

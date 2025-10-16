@@ -1,0 +1,29 @@
+{
+  "name": "@destyler/storybook",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "catalog:frontend",
+    "@astrojs/solid-js": "catalog:frontend",
+    "@astrojs/svelte": "catalog:frontend",
+    "@astrojs/vue": "catalog:frontend",
+    "astro": "catalog:frontend",
+    "astrobook": "catalog:storybook"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:types",
+    "@types/react-dom": "catalog:types",
+    "@unocss/core": "catalog:css",
+    "@unocss/reset": "catalog:css",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend",
+    "solid-js": "catalog:frontend",
+    "unocss": "catalog:css",
+    "vue": "catalog:frontend"
+  }
+}
