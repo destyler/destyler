@@ -12,6 +12,7 @@ import Dialog from '@component/dialog/snippets/Dialog.react.tsx'
 import Dynamic from '@component/dynamic/snippets/Dynamic.react.tsx'
 import Edit from '@component/edit/snippets/Edit.react.tsx'
 import FileUpload from '@component/file-upload/snippets/FileUpload.react.tsx'
+import FloatingPanel from '@component/floating-panel/snippets/FloatingPanel.react.tsx'
 import HoverCard from '@component/hover-card/snippets/HoverCard.react.tsx'
 import Image from '@component/image/snippets/Image.react.tsx'
 import Label from '@component/label/snippets/Label.react.tsx'
@@ -71,6 +72,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'separator' && <Separator />}
       {name === 'edit' && <Edit />}
       {name === 'file-upload' && <FileUpload />}
+      {name === 'floating-panel' && <FloatingPanel />}
       {name === 'menu' && <Menu />}
       {name === 'content-menu' && <ContentMenu />}
       {name === 'number-input' && <NumberInput />}

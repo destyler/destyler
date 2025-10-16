@@ -13,6 +13,7 @@ import Dialog from '@component/dialog/snippets/Dialog.vue'
 import Dynamic from '@component/dynamic/snippets/Dynamic.vue'
 import Edit from '@component/edit/snippets/Edit.vue'
 import FileUpload from '@component/file-upload/snippets/FileUpload.vue'
+import Floatingpanel from '@component/floating-panel/snippets/FloatingPanel.vue'
 import HoverCard from '@component/hover-card/snippets/HoverCard.vue'
 import Image from '@component/image/snippets/Image.vue'
 import Label from '@component/label/snippets/Label.vue'
@@ -73,6 +74,7 @@ const props = defineProps<{
     <Separator v-if="props.name === 'separator'" />
     <Edit v-if="props.name === 'edit'" />
     <FileUpload v-if="props.name === 'file-upload'" />
+    <Floatingpanel v-if="props.name === 'floating-panel'" />
     <Menu v-if="props.name === 'menu'" />
     <ContentMenu v-if="props.name === 'content-menu'" />
     <NumberInput v-if="props.name === 'number-input'" />
