@@ -38,6 +38,7 @@ import Timer from '@component/timer/snippets/Timer.solid.tsx'
 import Toast from '@component/toast/snippets/Toast.solid.tsx'
 import Toggle from '@component/toggle/snippets/Toggle.solid.tsx'
 import Tooltip from '@component/tooltip/snippets/Tooltip.solid.tsx'
+import Tour from '@component/tour/snippets/Tour.solid.tsx'
 import Tree from '@component/tree/snippets/Tree.solid.tsx'
 
 interface SnippetsProps {
@@ -86,6 +87,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'tooltip' && <Tooltip />}
       {props.name === 'tree' && <Tree />}
       {props.name === 'toast' && <Toast />}
+      {props.name === 'tour' && <Tour />}
     </div>
   )
 }

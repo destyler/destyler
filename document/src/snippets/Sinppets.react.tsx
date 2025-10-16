@@ -36,6 +36,7 @@ import Timer from '@component/timer/snippets/Timer.react.tsx'
 import Toast from '@component/toast/snippets/Toast.react.tsx'
 import Toggle from '@component/toggle/snippets/Toggle.react.tsx'
 import Tooltip from '@component/tooltip/snippets/Tooltip.react.tsx'
+import Tour from '@component/tour/snippets/Tour.react.tsx'
 import Tree from '@component/tree/snippets/Tree.react.tsx'
 
 interface SnippetsProps {
@@ -84,6 +85,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'tooltip' && <Tooltip />}
       {name === 'tree' && <Tree />}
       {name === 'toast' && <Toast />}
+      {name === 'tour' && <Tour />}
     </div>
   )
 }

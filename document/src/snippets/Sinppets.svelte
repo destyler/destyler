@@ -38,6 +38,7 @@
   import Tree from '@component/tree/snippets/Tree.svelte'
   import Calendar from '@component/calendar/snippets/Calendar.svelte'
   import Toast from '@component/toast/snippets/Toast.svelte'
+  import Tour from '@component/tour/snippets/Tour.svelte'
 
   export let name: string;
 </script>
@@ -159,5 +160,8 @@
   {/if}
   {#if name === 'toast'}
     <Toast />
+  {/if}
+  {#if name === 'tour'}
+    <Tour />
   {/if}
 </div>
