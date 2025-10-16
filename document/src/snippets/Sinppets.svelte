@@ -39,6 +39,7 @@
   import Calendar from '@component/calendar/snippets/Calendar.svelte'
   import Toast from '@component/toast/snippets/Toast.svelte'
   import Tour from '@component/tour/snippets/Tour.svelte'
+  import FloatingPanel from '@component/floating-panel/snippets/FloatingPanel.svelte'
 
   export let name: string;
 </script>
@@ -118,6 +119,9 @@
   {/if}
   {#if name === 'file-upload'}
     <FileUpload />
+  {/if}
+  {#if name === 'floating-panel'}
+    <FloatingPanel />
   {/if}
   {#if name === 'menu'}
     <Menu />

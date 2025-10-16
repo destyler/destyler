@@ -1,0 +1,517 @@
+---
+head:
+  - tag: title
+    content: Floating Panel- Destyler UI
+title: Floating Panel
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A floating panel is a detachable window that floats above the main interface,
+> typically used for displaying and editing properties.
+> The panel can be dragged, resized,
+> and positioned anywhere on the screen for optimal workflow.
+
+<PreviewCode name="floating-panel"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Allows interaction with the main content',
+  'Supports dragging and resizing',
+  'Support for minimizing and maximizing the panel',
+  'Controlled and uncontrolled size and position',
+  'Support for snapping to a grid',
+  'Support for locking the aspect ratio',
+  'Support for closing on escape key',
+  'Support for persisting the size and position when closed',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="floating-panel" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as floatingPanel from '@destyler/floating-panel'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(floatingPanel.machine({
+    id: useId(),
+  }))
+
+  const api = computed(() => floatingPanel.connect(state.value, send, normalizeProps))
+  </script>
+
+  <template>
+    <button v-bind="api.getTriggerProps()"></button>
+    <Teleport to="body">
+      <div v-bind="api.getPositionerProps()">
+        <div v-bind="api.getContentProps()">
+          <div v-bind="api.getDragTriggerProps()">
+            <div v-bind="api.getHeaderProps()">
+              <p v-bind="api.getTitleProps()"></p>
+              <button v-bind="api.getMinimizeTriggerProps()"></button>
+              <button v-bind="api.getMaximizeTriggerProps()"></button>
+              <button v-bind="api.getRestoreTriggerProps()"></button>
+              <button v-bind="api.getCloseTriggerProps()"></button>
+            </div>
+          </div>
+          <div v-bind="api.getBodyProps()"></div>
+          <div v-bind="api.getResizeTriggerProps({ axis: 'n' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 'e' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 'w' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 's' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 'ne' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 'se' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 'sw' })" />
+          <div v-bind="api.getResizeTriggerProps({ axis: 'nw' })" />
+        </div>
+      </div>
+    </Teleport>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as floatingPanel from '@destyler/floating-panel'
+  import { normalizeProps, Portal, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function FloatingPanel() {
+    const [state, send] = useMachine(floatingPanel.machine({
+      id: useId(),
+    }))
+
+    const api = floatingPanel.connect(state, send, normalizeProps)
+
+    return (
+      <>
+        <button {...api.getTriggerProps()}></button>
+        <Portal>
+          <div {...api.getPositionerProps()}>
+            <div {...api.getContentProps()}>
+              <div {...api.getDragTriggerProps()}>
+                <div {...api.getHeaderProps()}>
+                  <p {...api.getTitleProps()}></p>
+                  <button {...api.getMinimizeTriggerProps()}></button>
+                  <button {...api.getMaximizeTriggerProps()}></button>
+                  <button {...api.getRestoreTriggerProps()}></button>
+                  <button {...api.getCloseTriggerProps()}></button>
+                </div>
+              </div>
+              <div {...api.getBodyProps()}></div>
+              <div {...api.getResizeTriggerProps({ axis: 'n' })} />
+              <div {...api.getResizeTriggerProps({ axis: 'e' })} />
+              <div {...api.getResizeTriggerProps({ axis: 'w' })} />
+              <div {...api.getResizeTriggerProps({ axis: 's' })} />
+              <div {...api.getResizeTriggerProps({ axis: 'ne' })} />
+              <div {...api.getResizeTriggerProps({ axis: 'se' })} />
+              <div {...api.getResizeTriggerProps({ axis: 'sw' })} />
+              <div {...api.getResizeTriggerProps({ axis: 'nw' })} />
+            </div>
+          </div>
+        </Portal>
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+  import * as floatingPanel from '@destyler/floating-panel'
+  import { normalizeProps, useMachine, portal } from '@destyler/svelte'
+
+  const id = $props.id()
+
+  const [state, send] = useMachine(floatingPanel.machine({
+    id,
+  }))
+
+  const api = $derived(floatingPanel.connect(state, send, normalizeProps))
+</script>
+
+<button {...api.getTriggerProps()}></button>
+<div use:portal>
+  <div {...api.getPositionerProps()}>
+    <div {...api.getContentProps()}>
+      <div {...api.getDragTriggerProps()}>
+        <div {...api.getHeaderProps()}>
+          <p {...api.getTitleProps()}></p>
+          <button {...api.getMinimizeTriggerProps()}></button>
+          <button {...api.getMaximizeTriggerProps()}></button>
+          <button {...api.getRestoreTriggerProps()}></button>
+          <button {...api.getCloseTriggerProps()}></button>
+        </div>
+      </div>
+      <div {...api.getBodyProps()}></div>
+      <div {...api.getResizeTriggerProps({ axis: 'n' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 'e' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 'w' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 's' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 'ne' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 'se' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 'sw' })} ></div>
+      <div {...api.getResizeTriggerProps({ axis: 'nw' })} ></div>
+    </div>
+  </div>
+</div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as floatingPanel from '@destyler/floating-panel'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+  import { Portal } from 'solid-js/web'
+
+  export default function FloatingPanel() {
+    const [state, send] = useMachine(floatingPanel.machine({
+      id: createUniqueId(),
+    }))
+
+    const api = createMemo(() => floatingPanel.connect(state, send, normalizeProps))
+
+    return (
+      <>
+        <button {...api().getTriggerProps()}></button>
+        <Portal>
+          <div {...api().getPositionerProps()}>
+            <div {...api().getContentProps()}>
+              <div {...api().getDragTriggerProps()}>
+                <div {...api().getHeaderProps()}>
+                  <p {...api().getTitleProps()}></p>
+                  <button {...api().getMinimizeTriggerProps()}></button>
+                  <button {...api().getMaximizeTriggerProps()}></button>
+                  <button {...api().getRestoreTriggerProps()}></button>
+                  <button {...api().getCloseTriggerProps()}></button>
+                </div>
+              </div>
+              <div {...api().getBodyProps()}></div>
+              <div {...api().getResizeTriggerProps({ axis: 'n' })} />
+              <div {...api().getResizeTriggerProps({ axis: 'e' })} />
+              <div {...api().getResizeTriggerProps({ axis: 'w' })} />
+              <div {...api().getResizeTriggerProps({ axis: 's' })} />
+              <div {...api().getResizeTriggerProps({ axis: 'ne' })} />
+              <div {...api().getResizeTriggerProps({ axis: 'se' })} />
+              <div {...api().getResizeTriggerProps({ axis: 'sw' })} />
+              <div {...api().getResizeTriggerProps({ axis: 'nw' })} />
+            </div>
+          </div>
+        </Portal>
+      </>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Controlling the size
+
+To control the size of the floating panel programmatically, you can pass the `size` prop to the machine.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  size: { width: 300, height: 300 },
+}))
+```
+
+## Disable resizing
+
+By default, the panel can be resized by dragging its edges (resize handles). To disable this behavior,
+set the `resizable` prop to `false`.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  resizable: false,
+}))
+```
+
+## Setting size constraints
+
+You can also control the minimum allowed dimensions of the panel by using the `minSize` and `maxSize` props.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  minSize: { width: 100, height: 100 },
+  maxSize: { width: 500, height: 500 },
+}))
+```
+
+## Aspect ratio
+
+To lock the aspect ratio of the floating panel, set the `lockAspectRatio` prop.
+This will ensure the panel maintains a consistent aspect ratio while being resized.
+
+```ts
+
+const [state, send] = useMachine(floatingPanel.machine({
+  lockAspectRatio: true,
+}))
+```
+
+## Anchor position
+
+An alternative to setting the initial position is to provide a function that returns the anchor position.
+This function is called when the panel is opened and receives the `triggerRect` and `boundaryRect`.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  getAnchorPosition({ triggerRect, boundaryRect }) {
+    return {
+      x: boundaryRect.x + (boundaryRect.width - triggerRect.width) / 2,
+      y: boundaryRect.y + (boundaryRect.height - triggerRect.height) / 2,
+    }
+  },
+}))
+```
+
+## Controlling the position
+
+To control the position of the floating panel programmatically,
+you can pass the `position` and `onPositionChange` prop to the machine.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  position: { x: 500, y: 200 },
+}))
+```
+
+## Disable dragging
+
+The floating panel enables you to set its position and move it by dragging.
+To disable this behavior, set the `draggable` prop to `false`.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  draggable: false,
+}))
+```
+
+## Events
+
+The floating panel generates a variety of events that you can handle.
+
+### Open State
+
+When the floating panel is `opened` or `closed`, the `onOpenChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  onOpenChange(details) {
+    // details => { open: boolean }
+    console.log("floating panel is:", details.open ? "opened" : "closed")
+  },
+}))
+```
+
+### Position Change
+
+When the position of the floating panel changes, these callbacks are invoked:
+
+- `onPositionChange` — When the position of the floating panel changes.
+
+- `onPositionChangeEnd` — When the position of the floating panel changes ends.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  onPositionChange(details) {
+    // details => { position: { x: number, y: number } }
+    console.log("floating panel is:", details.position.x, details.position.y)
+  },
+  onPositionChangeEnd(details){
+    // details => { position: { x: number, y: number } }
+    console.log("floating panel is:", details.position.x, details.position.y)
+  }
+}))
+```
+
+### Resize
+
+When the size of the floating panel changes, these callbacks are invoked:
+
+- `onResize` — When the size of the floating panel changes.
+
+- `onResizeEnd` — When the size of the floating panel changes ends.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  onSizeChange(details){
+    // details => { size: { width: number, height: number } }
+    console.log("floating panel is:", details.size.width, details.size.height)
+  },
+  onSizeChangeEnd(details) {
+    // details => { size: { width: number, height: number } }
+    console.log("floating panel is:", details.size.width, details.size.height)
+  },
+}))
+```
+
+### Minimizing and Maximizing
+
+The floating panel can be minimized, default, and maximized by clicking the respective buttons in the header.
+We refer to this as the panel's `stage`.
+
+- When the panel is minimized, the body is hidden and the panel is resized to a minimum size.
+
+- When the panel is maximized, the panel scales to the match the size of the defined boundary rect (via `getBoundaryEl` prop).
+
+- When the panel is restored, the panel is resized back to the previously known size.
+
+When the stage changes, the `onStageChange` callback is invoked.
+
+```ts
+const [state, send] = useMachine(floatingPanel.machine({
+  onStageChange(details) {
+    // details => { stage: "minimized" | "maximized" | "default" }
+    console.log("floating panel is:", details.stage)
+  },
+}))
+```
+
+## Styling guide
+
+Earlier, we mentioned that each file upload part has a `data-part` attribute added to them to
+select and style them in the DOM.
+
+```css
+[data-scope="floating-panel"][data-part="content"] {
+  /* Add styles for the main panel container */
+}
+
+[data-scope="floating-panel"][data-part="body"] {
+  /* Add styles for the panel's content area */
+}
+
+[data-scope="floating-panel"][data-part="header"] {
+  /* Add styles for the panel's header */
+}
+
+[data-scope="floating-panel"][data-part="stage-trigger"] {
+  /* Add styles for state buttons in the header */
+}
+
+[data-scope="floating-panel"][data-part="resize-trigger"] {
+  /* Add styles for resize handles */
+}
+
+/* North and south resize handles */
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="n"],
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="s"] {
+  /* Add styles for north and south resize handles */
+}
+
+/* East and west resize handles */
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="e"],
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="w"] {
+  /* Add styles for east and west resize handles */
+}
+
+/* Corner resize handles */
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="ne"],
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="nw"],
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="se"],
+[data-scope="floating-panel"][data-part="resize-trigger"][data-axis="sw"] {
+  /* Add styles for corner resize handles */
+}
+```
+
+### Dragging
+
+When dragging the panel, the `[data-dragging]` attribute is applied to the panel.
+
+```css
+[data-scope="floating-panel"][data-part="content"][data-dragging] {
+  /* Add styles for dragging state */
+}
+```
+
+### Stacking
+
+
+The floating panel has several states that can be targeted using data attributes:
+
+```css
+/* When the panel is the topmost element */
+[data-scope="floating-panel"][data-part="content"][data-topmost] {
+  /* Add styles for topmost state */
+}
+
+/* When the panel is behind another panel */
+[data-scope="floating-panel"][data-part="content"][data-behind] {
+  /* Add styles for behind state */
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+import KeyboardTable from '@docs/components/props/Keyboard.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The floating panel machine exposes the following context properties:
+
+<MachineTable name="floating-panel"></MachineTable>
+
+### Machine API
+
+The floating panel `api` exposes the following methods:
+
+<APITable name="floating-panel"></APITable>
+
+### Data Attributes
+
+#### Trigger
+
+<StyleTable component="floating-panel" nodeType="Trigger" />
+
+#### Content
+
+<StyleTable component="floating-panel" nodeType="Content" />
+
+#### Resize Trigger
+
+<StyleTable component="floating-panel" nodeType="ResizeTrigger" />
+
+#### Drag Trigger
+
+<StyleTable component="floating-panel" nodeType="DragTrigger" />
+
+#### Header
+
+<StyleTable component="floating-panel" nodeType="Header" />
+
+#### Body
+
+<StyleTable component="floating-panel" nodeType="Body" />

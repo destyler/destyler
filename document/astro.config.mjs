@@ -170,6 +170,7 @@ export default defineConfig({
             // { slug: 'components/dropdown' },
             { slug: 'components/hover-card' },
             { slug: 'components/image' },
+            { slug: 'components/floating-panel' },
             { slug: 'components/menu' },
             { slug: 'components/pagination' },
             { slug: 'components/popover' },
