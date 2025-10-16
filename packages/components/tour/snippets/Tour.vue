@@ -38,7 +38,7 @@ const [state, send] = useMachine(tour.machine({
     },
     {
       type: 'dialog',
-      id: 'step-5',
+      id: 'step-3',
       title: 'Amazing! You got to the end',
       description: 'Like what you see? Now go ahead and use it in your project.',
       actions: [{ label: 'Finish', action: 'dismiss' }],
