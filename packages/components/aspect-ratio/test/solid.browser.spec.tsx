@@ -1,7 +1,7 @@
 /** @jsxImportSource solid-js */
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-solid'
-import AspectRatio from '~/solid/aspect-ratio'
+import AspectRatio from '../examples/AspectRatio.solid'
 import { AspectRatioTestSuite } from './spec'
 
 let Tests: AspectRatioTestSuite

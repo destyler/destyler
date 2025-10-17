@@ -1,6 +1,6 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-vue'
-import AspectRatio from '~/vue/aspect-ratio.vue'
+import AspectRatio from '../examples/AspectRatio.vue'
 import { AspectRatioTestSuite } from './spec'
 
 let Tests: AspectRatioTestSuite

@@ -1,6 +1,6 @@
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-svelte'
-import AspectRatio from '~/svelte/aspect-ratio.svelte'
+import AspectRatio from '../examples/AspectRatio.svelte'
 import { AspectRatioTestSuite } from './spec'
 
 let Tests: AspectRatioTestSuite
