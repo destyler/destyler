@@ -1,4 +1,4 @@
-import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+import type { BreadcrumbItem } from '../index'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'

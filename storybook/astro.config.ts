@@ -5,6 +5,7 @@ import svelte from '@astrojs/svelte'
 import vue from '@astrojs/vue'
 import { defineConfig } from 'astro/config'
 import astrobook from 'astrobook'
+import unocss from 'unocss/astro'
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,6 +38,9 @@ export default defineConfig({
       css: [
         './src/style/bootstrap.css',
       ],
+    }),
+    unocss({
+      injectReset: true,
     }),
   ],
 })

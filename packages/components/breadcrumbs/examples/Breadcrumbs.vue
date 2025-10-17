@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+import type { BreadcrumbItem } from '../index'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
