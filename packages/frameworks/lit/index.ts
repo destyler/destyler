@@ -1,0 +1,5 @@
+export { Component } from './src/components/component'
+export { spread, SpreadDirective, spreadEvents, SpreadEventsDirective, spreadProps, SpreadPropsDirective } from './src/directives/spread-props'
+export { normalizeProps } from './src/utils/normalize-props'
+export { mergeProps } from '@destyler/xstate'
+export type { ContextFrom, EventFrom, StateFrom } from '@destyler/xstate'

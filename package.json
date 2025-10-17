@@ -57,6 +57,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",
     "@destyler/dom": "workspace:*",
+    "@destyler/lit": "workspace:*",
     "@destyler/presence": "workspace:*",
     "@destyler/react": "workspace:*",
     "@destyler/shared-private": "workspace:*",
@@ -83,6 +84,7 @@
     "eslint": "catalog:lint",
     "fast-glob": "catalog:util",
     "find-packages": "catalog:util",
+    "lit": "catalog:frontend",
     "nanoid": "catalog:util",
     "node-modules-inspector": "catalog:visual",
     "playwright": "catalog:test",
