@@ -13,7 +13,7 @@ export function Toolbar({ viz, children, controls }: ToolbarProps) {
   const [activeState, setActiveState] = useState(viz ? 1 : !hasControls ? 1 : 0)
 
   return (
-    <div className="toolbar z-10 fixed right-0 top-0 bottom-0 w-80">
+    <div className="toolbar">
       <nav>
         {hasControls && (
           <button

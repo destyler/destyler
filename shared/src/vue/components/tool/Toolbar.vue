@@ -13,7 +13,7 @@ const activeState = ref(props.viz ? 1 : !controls ? 1 : 0)
 </script>
 
 <template>
-  <div class="toolbar z-10 fixed right-0 top-0 bottom-0 w-80">
+  <div class="toolbar">
     <nav>
       <button
         v-if="controls"

@@ -1,5 +1,6 @@
 import '../bootstrap.css'
 
+export * from './components/Layout'
 export * from './components/state-visualizer'
 export * from './components/toolbar'
 

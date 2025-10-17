@@ -1,5 +1,6 @@
 {
   "name": "@destyler/storybook",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

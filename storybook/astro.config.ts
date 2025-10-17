@@ -6,9 +6,6 @@ import vue from '@astrojs/vue'
 import { defineConfig } from 'astro/config'
 import astrobook from 'astrobook'
 
-const storybookRoot = new URL('./', import.meta.url)
-const componentsDocsDir = new URL('../packages/components/', import.meta.url)
-
 // https://astro.build/config
 export default defineConfig({
   server: {
@@ -18,24 +15,28 @@ export default defineConfig({
   // Enable many frameworks to support all different kinds of components.
   integrations: [
     react({ include: ['**/react/*'], experimentalReactChildren: true }),
-    solid({ include: ['**/solid/*'] }),
+    solid({
+      // Ensure Solid's JSX transform runs for our .solid.tsx stories and shared Solid TSX utilities
+      include: [
+        // Story files following .solid.tsx/.solid.ts conventions
+        '**/*.solid.tsx',
+        '**/*/*.solid.tsx',
+        '**/*.solid.ts',
+        '**/*/*.solid.ts',
+        // Shared Solid components/utilities consumed by stories
+        '**/shared/src/solid/**/*.{ts,tsx}',
+        // 3rd-party Solid components
+        '**/node_modules/@suid/material/**',
+      ],
+    }),
     svelte(),
     vue(),
-    astrobook({ directory: '../packages/components/**/storybook/' }),
-  ],
-  vite: {
-    server: {
-      fs: {
-        allow: [
-          fileURLToPath(storybookRoot),
-          fileURLToPath(componentsDocsDir),
-        ],
-      },
-    },
-    resolve: {
-      alias: [
-        { find: '@component', replacement: fileURLToPath(componentsDocsDir) },
+    astrobook({
+      directory: '../packages/components',
+      title: 'Destyler UI',
+      css: [
+        './src/style/bootstrap.css',
       ],
-    },
-  },
+    }),
+  ],
 })

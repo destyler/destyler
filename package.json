@@ -47,7 +47,10 @@
     "docs:preview": "pnpm -C document run preview",
     "docs:attr": "tsx ./scripts/data-attr.ts",
     "docs:type": "tsx ./scripts/typedocs.ts",
+    "storybook script": "Group: Storybook",
     "storybook:dev": "pnpm -C storybook run dev",
+    "storybook:build": "pnpm -C storybook run build",
+    "storybook:preview": "pnpm -C storybook run preview",
     "release script": "Group: Release",
     "release": "bumpp package.json packages/**/*/package.json --commit --push --tag"
   },
