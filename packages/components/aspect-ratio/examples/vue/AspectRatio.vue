@@ -3,8 +3,8 @@ import { aspectRatioControls } from '@destyler/shared-private'
 import { Controls, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
-import * as aspectRatio from '../index'
-import './style.css'
+import * as aspectRatio from '../../index'
+import '../style.css'
 
 const controls = useControls(aspectRatioControls)
 

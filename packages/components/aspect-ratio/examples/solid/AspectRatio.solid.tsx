@@ -3,8 +3,8 @@ import { aspectRatioControls } from '@destyler/shared-private'
 import { Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
-import * as aspectRatio from '../index'
-import './style.css'
+import * as aspectRatio from '../../index'
+import '../style.css'
 
 function AspectRatio() {
   const controls = useControls(aspectRatioControls)

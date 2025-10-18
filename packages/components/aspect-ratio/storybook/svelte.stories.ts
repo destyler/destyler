@@ -1,4 +1,4 @@
-import AspectRatio from '../examples/AspectRatio.svelte'
+import AspectRatio from '../examples/svelte/AspectRatio.svelte'
 
 export default {
   component: AspectRatio,

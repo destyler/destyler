@@ -1,9 +1,9 @@
 <script lang="ts">
-import * as aspectRatio from '../index'
+import * as aspectRatio from '../../index'
 import { normalizeProps, useMachine } from '@destyler/svelte'
 import { aspectRatioControls } from '@destyler/shared-private'
 import {useControls, Toolbar, StateVisualizer, Layout} from '@destyler/shared-private/svelte'
-import './style.css'
+import '../style.css'
 
 const controls = useControls(aspectRatioControls)
 

@@ -3,8 +3,8 @@ import { aspectRatioControls } from '@destyler/shared-private'
 import { ControlsController } from '@destyler/shared-private/lit'
 import { html, LitElement, unsafeCSS } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import * as aspectRatio from '../index'
-import styles from './style.css?inline'
+import * as aspectRatio from '../../index'
+import styles from '../style.css?inline'
 
 @customElement('aspect-ratio')
 export class AspectRatioElement extends LitElement {

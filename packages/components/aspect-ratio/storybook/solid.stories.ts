@@ -1,4 +1,4 @@
-import AspectRatio from '../examples/AspectRatio.solid'
+import AspectRatio from '../examples/solid/AspectRatio.solid'
 
 export default {
   component: AspectRatio,

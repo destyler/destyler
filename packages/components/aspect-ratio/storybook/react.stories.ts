@@ -1,4 +1,4 @@
-import AspectRatio from '../examples/AspectRatio.react'
+import AspectRatio from '../examples/react/AspectRatio.react'
 
 export default {
   component: AspectRatio,

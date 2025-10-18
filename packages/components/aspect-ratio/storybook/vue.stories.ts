@@ -1,4 +1,4 @@
-import AspectRatio from '../examples/AspectRatio.vue'
+import AspectRatio from '../examples/vue/AspectRatio.vue'
 
 export default {
   component: AspectRatio,

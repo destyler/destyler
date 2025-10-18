@@ -1,4 +1,4 @@
-import AspectRatio from '../examples/AspectRatio.astro'
+import AspectRatio from '../examples/lit/AspectRatio.astro'
 
 export default {
   component: AspectRatio,
