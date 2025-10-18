@@ -1,8 +1,7 @@
 import type { ControlsController } from '../controllers/ControlsController'
-import { dataAttr } from '@destyler/dom'
 import { html, LitElement, unsafeCSS } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import style from '../../bootstrap.css?inline'
+import style from '../../styles/layout.css?inline'
 
 @customElement('destyler-toolbar')
 export class DestylerToolbar extends LitElement {
@@ -55,24 +54,26 @@ export class DestylerToolbar extends LitElement {
         <nav>
           ${hasControls
             ? html`<button
-                data-active=${dataAttr(this.activeIndex === 0)}
+                ?data-active=${this.activeIndex === 0}
                 @click=${() => this.setActive(0)}
               >Controls</button>`
             : null}
           <button
-            data-active=${dataAttr(this.activeIndex === 1)}
+            ?data-active=${this.activeIndex === 1}
             @click=${() => this.setActive(1)}
           >Visualizer</button>
         </nav>
         <div>
-          ${hasControls
-            ? html`<div data-content data-active=${dataAttr(this.activeIndex === 0)}>
+          ${hasControls && this.activeIndex === 0
+            ? html`<div data-content data-active>
                 ${this.controls!.render()}
               </div>`
             : null}
-          <div data-content data-active=${dataAttr(this.activeIndex === 1)}>
-            <slot></slot>
-          </div>
+          ${this.activeIndex === 1
+            ? html`<div data-content data-active>
+                <slot></slot>
+              </div>`
+            : null}
         </div>
       </div>
     `
