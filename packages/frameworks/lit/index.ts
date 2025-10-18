@@ -1,4 +1,5 @@
 export { Component } from './src/components/component'
+export { MachineController } from './src/controllers/machine-controller'
 export { spread, SpreadDirective, spreadEvents, SpreadEventsDirective, spreadProps, SpreadPropsDirective } from './src/directives/spread-props'
 export { normalizeProps } from './src/utils/normalize-props'
 export { mergeProps } from '@destyler/xstate'

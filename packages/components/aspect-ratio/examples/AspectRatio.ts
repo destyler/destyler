@@ -1,30 +1,30 @@
-import type { PropTypes } from '@destyler/types'
-import { Component, normalizeProps, spread } from '@destyler/lit'
-import { html, unsafeCSS } from 'lit'
+import { MachineController, normalizeProps, spread } from '@destyler/lit'
+import { aspectRatioControls } from '@destyler/shared-private'
+import { ControlsController } from '@destyler/shared-private/lit'
+import { html, LitElement, unsafeCSS } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import * as aspectRatio from '../index'
 import styles from './style.css?inline'
-import '@destyler/shared-private/lit'
 
 @customElement('aspect-ratio')
-export class AspectRatioElement extends Component<aspectRatio.Context, aspectRatio.Api, aspectRatio.Service> {
-  initService(_context: aspectRatio.Context): aspectRatio.Service {
-    return aspectRatio.machine({
-      id: '1',
-      ratio: 16 / 9,
-    })
-  }
+export class AspectRatioElement extends LitElement {
+  private controls = new ControlsController(aspectRatioControls)
 
-  initApi(): aspectRatio.Api<PropTypes> {
-    return aspectRatio.connect(this.state, this.service.send, normalizeProps)
-  }
+  private machine = new MachineController(
+    this,
+    aspectRatio.machine({
+      id: '1',
+      ...this.controls.context,
+    }),
+  )
 
   render() {
+    const api = aspectRatio.connect(this.machine.state, this.machine.send, normalizeProps)
     return html`
     <destyler-layout>
       <div class="aspect-ratio-root">
-        <div ${spread(this.api.getRootProps())}>
-          <div ${spread(this.api.getContentProps())}>
+        <div ${spread(api.getRootProps())}>
+          <div ${spread(api.getContentProps())}>
             <img
               class="aspect-ratio-img"
               src="https://elonehoo.me/gallery/20_sun.jpg"
@@ -32,6 +32,9 @@ export class AspectRatioElement extends Component<aspectRatio.Context, aspectRat
           </div>
         </div>
       </div>
+      <destyler-toolbar .controls=${this.controls}>
+        <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
+      </destyler-toolbar>
     </destyler-layout>
     `
   }
