@@ -14,8 +14,13 @@ export class AspectRatioElement extends LitElement {
     this,
     aspectRatio.machine({
       id: '1',
-      ...this.controls.context,
     }),
+    {
+      context: {
+        get: () => this.controls.context,
+        subscribe: (fn: (ctx: Partial<aspectRatio.Context>) => void) => this.controls.subscribe(fn),
+      },
+    },
   )
 
   render() {
@@ -32,7 +37,7 @@ export class AspectRatioElement extends LitElement {
           </div>
         </div>
       </div>
-      <destyler-toolbar .controls=${this.controls}>
+      <destyler-toolbar .controls=${this.controls} accesskey="0">
         <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
       </destyler-toolbar>
     </destyler-layout>

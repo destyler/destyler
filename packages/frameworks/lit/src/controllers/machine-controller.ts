@@ -1,4 +1,4 @@
-import type { AnyEventObject, EventObject, HookOptions, Machine, StateInit, StateSchema, XState } from '@destyler/xstate'
+import type { AnyEventObject, EventObject, HookOptions, Machine, StateInit, StateSchema, UserContext, XState } from '@destyler/xstate'
 import type { ReactiveController, ReactiveControllerHost } from 'lit'
 import { snapshot, subscribe } from '@destyler/store'
 
@@ -8,6 +8,20 @@ import { snapshot, subscribe } from '@destyler/store'
  * - Mirrors React's useMachine ergonomics: exposes state, send, and service
  * - Triggers host.requestUpdate() when the machine state changes
  */
+export interface ContextSource<TContext> {
+  get?: () => Partial<TContext> | undefined
+  subscribe: (fn: (ctx: Partial<TContext>) => void) => () => void
+}
+
+type OptionsEx<TContext extends Record<string, any>, TState extends StateSchema, TEvent extends EventObject>
+  = Omit<HookOptions<TContext, TState, TEvent>, 'context'> & {
+    context?: UserContext<TContext> | ContextSource<TContext>
+  }
+
+function isContextSource<T>(value: unknown): value is ContextSource<T> {
+  return !!value && typeof value === 'object' && 'subscribe' in (value as any)
+}
+
 export class MachineController<
   TContext extends Record<string, any>,
   TState extends StateSchema,
@@ -18,12 +32,13 @@ export class MachineController<
 
   private unsubscribe?: () => void
   private _state!: XState<TContext, TState, TEvent>
-  private options?: HookOptions<TContext, TState, TEvent>
+  private options?: OptionsEx<TContext, TState, TEvent>
+  private contextUnsub?: () => void
 
   constructor(
     host: ReactiveControllerHost,
     machine: Machine<TContext, TState, TEvent> | (() => Machine<TContext, TState, TEvent>),
-    options?: HookOptions<TContext, TState, TEvent>,
+    options?: OptionsEx<TContext, TState, TEvent>,
   ) {
     this.host = host
     this.host.addController(this)
@@ -32,10 +47,19 @@ export class MachineController<
     const instance = typeof machine === 'function' ? machine() : machine
 
     // Apply initial context/options before created
-    if (options?.context)
-instance.setContext(options.context)
-    if (options?.actions)
-instance.setOptions({ actions: options.actions })
+    if (options?.context) {
+      if (isContextSource<TContext>(options.context)) {
+        const initial = options.context.get?.()
+        if (initial)
+instance.setContext(initial)
+      }
+      else {
+        instance.setContext(options.context as UserContext<TContext>)
+      }
+    }
+    if (options?.actions) {
+      instance.setOptions({ actions: options.actions })
+    }
 
     // Run `created` lifecycle before start (aligns with React hook behavior)
     instance._created()
@@ -68,6 +92,14 @@ instance.setOptions({ actions: options.actions })
       this.options?.sync,
     )
 
+    // external context subscription
+    if (this.options?.context && isContextSource<TContext>(this.options.context)) {
+      this.contextUnsub = this.options.context.subscribe((ctx) => {
+        this.service.setContext(ctx)
+        this.host.requestUpdate()
+      })
+    }
+
     // Start the machine last to ensure subscriptions are ready
     this.service.start(stateInit)
   }
@@ -76,9 +108,11 @@ instance.setOptions({ actions: options.actions })
   hostDisconnected(): void {
     try {
       this.unsubscribe?.()
+      this.contextUnsub?.()
     }
     finally {
       this.unsubscribe = undefined
+      this.contextUnsub = undefined
       this.service.stop()
     }
   }
@@ -86,11 +120,27 @@ instance.setOptions({ actions: options.actions })
   /**
    * Update controller options at runtime (actions/context). Safe to call anytime.
    */
-  public setOptions(options: Partial<HookOptions<TContext, TState, TEvent>>) {
+  public setOptions(options: Partial<OptionsEx<TContext, TState, TEvent>>) {
     this.options = { ...this.options, ...options }
-    if (options?.actions)
-this.service.setOptions({ actions: options.actions })
-    if (options?.context)
-this.service.setContext(options.context)
+    if (options?.actions) {
+      this.service.setOptions({ actions: options.actions })
+    }
+    if (options?.context) {
+      // swap subscriptions if necessary
+      this.contextUnsub?.()
+      this.contextUnsub = undefined
+      if (isContextSource<TContext>(options.context)) {
+        const initial = options.context.get?.()
+        if (initial)
+this.service.setContext(initial)
+        this.contextUnsub = options.context.subscribe((ctx) => {
+          this.service.setContext(ctx)
+          this.host.requestUpdate()
+        })
+      }
+      else {
+        this.service.setContext(options.context as UserContext<TContext>)
+      }
+    }
   }
 }
