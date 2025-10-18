@@ -24,6 +24,9 @@
     "./test": {
       "default": "./src/test/index.ts"
     },
+    "./lit": {
+      "default": "./src/lit/index.ts"
+    },
     "./styles/*": {
       "default": "./src/styles/components/*"
     },
