@@ -5,7 +5,7 @@ import { render } from '../examples/vanilla/AspectRatio'
 
 let el: HTMLElement
 
-describe('vanilla browser tests', () => {
+describe('[aspect ratio] browser tests', () => {
   beforeEach(async () => {
     el = document.createElement('div')
     document.body.appendChild(el)
