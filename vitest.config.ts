@@ -1,6 +1,7 @@
 /// <reference types="@vitest/browser/providers/playwright" />
 
 import { defineConfig } from 'vitest/config'
+import Browser from './vitest.browser.config'
 import React from './vitest.react.config'
 import Solid from './vitest.solid.config'
 import Svelte from './vitest.svelte.config'
@@ -15,6 +16,7 @@ export default defineConfig({
       React,
       Svelte,
       Solid,
+      Browser,
     ],
   },
 })
