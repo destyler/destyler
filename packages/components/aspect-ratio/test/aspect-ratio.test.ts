@@ -1,13 +1,12 @@
 import { beforeEach, describe, it } from 'vitest'
-import { render } from 'vitest-browser-react'
-import AspectRatio from '../examples/react/AspectRatio.react'
+import { render } from '../examples/vanilla/AspectRatio'
 import { AspectRatioTestSuite } from './spec'
 
 let Tests: AspectRatioTestSuite
 
-describe('react browser tests', () => {
+describe('vanilla browser tests', () => {
   beforeEach(async () => {
-    render(<AspectRatio />)
+    render()
     Tests = new AspectRatioTestSuite()
   })
 
