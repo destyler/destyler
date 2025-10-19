@@ -1,4 +1,4 @@
-import Breadcrumbs from '../examples/Breadcrumbs.vue'
+import Breadcrumbs from '../examples/vue/Breadcrumbs.vue'
 
 export default {
   component: Breadcrumbs,

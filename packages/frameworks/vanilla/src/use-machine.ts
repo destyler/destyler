@@ -1,4 +1,4 @@
-import type { AnyEventObject, EventObject, HookOptions, MachineSrc, StateSchema } from '@destyler/xstate'
+import type { AnyEventObject, Event, EventObject, HookOptions, Machine, MachineSrc, StateSchema, XState } from '@destyler/xstate'
 import { useService } from './hooks/use-service'
 import { useSnapshot } from './hooks/use-snapshot'
 
@@ -9,7 +9,11 @@ export function useMachine<
 >(
   machine: MachineSrc<TContext, TState, TEvent>,
   options?: HookOptions<TContext, TState, TEvent>,
-) {
+): {
+  state: XState<TContext, TState, TEvent>
+  send: (evt: Event<TEvent>) => void
+  service: Machine<TContext, TState, TEvent>
+} {
   // Scoped target object to isolate caches/subscriptions per call
   const target = {}
   const service = useService(target, machine, options)

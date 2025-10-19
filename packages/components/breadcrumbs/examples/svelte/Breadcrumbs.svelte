@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { BreadcrumbItem } from '../index'
-  import * as breadcrumbs from '../index'
+  import type { BreadcrumbItem } from '../../index'
+  import * as breadcrumbs from '../../index'
   import { normalizeProps, useMachine } from '@destyler/svelte'
   import {Toolbar, StateVisualizer, Layout} from '@destyler/shared-private/svelte'
-  import './style.css'
+  import '../style.css'
 
   let items: BreadcrumbItem[] = [
     { id: '1', label: 'one', href: '/' },

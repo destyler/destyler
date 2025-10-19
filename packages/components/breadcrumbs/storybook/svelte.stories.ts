@@ -1,4 +1,4 @@
-import Breadcrumbs from '../examples/Breadcrumbs.svelte'
+import Breadcrumbs from '../examples/svelte/Breadcrumbs.svelte'
 
 export default {
   component: Breadcrumbs,

@@ -1,10 +1,10 @@
 /** @jsxImportSource solid-js */
-import type { BreadcrumbItem } from '../index'
+import type { BreadcrumbItem } from '../../index'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
-import * as breadcrumbs from '../index'
-import './style.css'
+import * as breadcrumbs from '../../index'
+import '../style.css'
 
 export default function Breadcrumbs() {
   const items: BreadcrumbItem[] = [

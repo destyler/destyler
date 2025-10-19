@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { BreadcrumbItem } from '../index'
+import type { BreadcrumbItem } from '../../index'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, ref, useId } from 'vue'
-import * as breadcrumbs from '../index'
-import './style.css'
+import * as breadcrumbs from '../../index'
+import '../style.css'
 
 const items = ref<BreadcrumbItem[]>([
   { id: '1', label: 'one', href: '/' },

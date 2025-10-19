@@ -1,4 +1,4 @@
-import Breadcrumbs from '../examples/Breadcrumbs.react'
+import Breadcrumbs from '../examples/react/Breadcrumbs.react'
 
 export default {
   component: Breadcrumbs,

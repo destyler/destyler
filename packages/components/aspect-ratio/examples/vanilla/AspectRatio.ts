@@ -2,10 +2,8 @@ import { normalizeProps, spread, useMachine } from '@destyler/vanilla'
 import * as aspectRatio from '../../index'
 import '../style.css'
 
-let machine: any = null
-
 export function render(target: HTMLElement, ratio = 16 / 9) {
-  machine = useMachine(
+  const machine = useMachine(
     aspectRatio.machine({
       id: '1',
       ratio,

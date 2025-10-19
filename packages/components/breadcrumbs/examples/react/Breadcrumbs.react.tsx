@@ -1,9 +1,9 @@
-import type { BreadcrumbItem } from '../index'
+import type { BreadcrumbItem } from '../../index'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import * as breadcrumbs from '../index'
-import './style.css'
+import * as breadcrumbs from '../../index'
+import '../style.css'
 
 export default function Breadcrumbs() {
   const items: BreadcrumbItem[] = [

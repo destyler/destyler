@@ -1,4 +1,4 @@
-import Breadcrumbs from '../examples/solid/Breadcrumbs.solid'
+import Breadcrumbs from '../examples/lit/Breadcrumbs.astro'
 
 export default {
   component: Breadcrumbs,
