@@ -1,4 +1,4 @@
-import Calendar from '../examples/Calendar.react'
+import Calendar from '../examples/react/Calendar.react'
 
 export default {
   component: Calendar,

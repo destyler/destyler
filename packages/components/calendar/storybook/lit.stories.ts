@@ -1,4 +1,4 @@
-import Calendar from '../examples/svelte/Calendar.svelte'
+import Calendar from '../examples/lit/Calendar.astro'
 
 export default {
   component: Calendar,

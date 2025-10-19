@@ -3,8 +3,8 @@ import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/solid
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import * as calendar from '../index'
-import './style.css'
+import * as calendar from '../../index'
+import '../style.css'
 
 export default function Breadcrumbs() {
   const [state, send] = useMachine(

@@ -2,8 +2,8 @@
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, onMounted, ref, useId } from 'vue'
-import * as calendar from '../index'
-import './style.css'
+import * as calendar from '../../index'
+import '../style.css'
 
 const [state, send] = useMachine(
   calendar.machine({

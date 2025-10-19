@@ -1,4 +1,4 @@
-import Calendar from '../examples/Calendar.vue'
+import Calendar from '../examples/vue/Calendar.vue'
 
 export default {
   component: Calendar,

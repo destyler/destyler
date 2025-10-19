@@ -1,8 +1,8 @@
 import { normalizeProps, Portal, useMachine } from '@destyler/react'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/react'
 import { useId } from 'react'
-import * as calendar from '../index'
-import './style.css'
+import * as calendar from '../../index'
+import '../style.css'
 
 export default function Breadcrumbs() {
   const [state, send] = useMachine(

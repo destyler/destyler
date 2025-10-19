@@ -1,8 +1,8 @@
 <script lang="ts">
-  import * as calendar from '../index'
+  import * as calendar from '../../index'
+  import '../style.css'
   import { normalizeProps, useMachine, portal } from '@destyler/svelte'
   import {Toolbar, StateVisualizer, Layout} from '@destyler/shared-private/svelte'
-  import './style.css'
 
   const id = $props.id()
   const [state, send] = useMachine(

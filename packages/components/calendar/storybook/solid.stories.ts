@@ -1,4 +1,4 @@
-import Calendar from '../examples/Calendar.solid'
+import Calendar from '../examples/solid/Calendar.solid'
 
 export default {
   component: Calendar,
