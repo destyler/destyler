@@ -3,6 +3,7 @@ import { html, LitElement, unsafeCSS } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import * as calendar from '../../index'
 import styles from '../style.css?inline'
+import '../style.css'
 import '@destyler/shared-private/lit'
 
 @customElement('destyler-calendar')
@@ -18,7 +19,7 @@ export class CalendarElement extends LitElement {
     const api = calendar.connect(this.machine.state, this.machine.send, normalizeProps)
     return html`
     <destyler-layout>
-      <div ${spread(api.getRootProps())}>
+      <div ${spread(api.getControlProps())}>
         <input ${spread(api.getInputProps())} />
         <button ${spread(api.getTriggerProps())}>
           🗓
@@ -133,9 +134,9 @@ export class CalendarElement extends LitElement {
         </div>
         `, document.body)}
       </div>
-      <!-- <destyler-toolbar>
+      <destyler-toolbar>
         <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
-      </destyler-toolbar> -->
+      </destyler-toolbar>
     </destyler-layout>
     `
   }
