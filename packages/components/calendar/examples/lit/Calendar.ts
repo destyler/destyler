@@ -24,7 +24,9 @@ export class CalendarElement extends LitElement {
         <button ${spread(api.getTriggerProps())}>
           🗓
         </button>
-        ${portal(html`
+      </div>
+      ${api.open
+        ? portal(html`
           <div ${spread(api.getPositionerProps())}>
             <div ${spread(api.getContentProps())}>
               <!-- Day View -->
@@ -59,7 +61,7 @@ export class CalendarElement extends LitElement {
                     ${api.weeks.map((week, weekIndex) => html`
                       <tr key=${weekIndex} ${spread(api.getTableRowProps({ view: 'day' }))}>
                         ${week.map(value => html`
-                          <td ${spread(api.getTableRowProps({ view: 'day' }))}>
+                          <td ${spread(api.getDayTableCellProps({ value }))}>
                             <div ${api.getDayTableCellTriggerProps({ value })}>
                               ${value.day}
                             </div>
@@ -132,8 +134,9 @@ export class CalendarElement extends LitElement {
             </div>
           </div>
         </div>
-        `, document.body)}
-      </div>
+        `, document.body)
+        : ''}
+
       <destyler-toolbar>
         <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
       </destyler-toolbar>

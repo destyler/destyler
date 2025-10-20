@@ -1,6 +1,6 @@
 import type { BreadcrumbItem } from '../../index'
 import { normalizeProps, spread, useMachine } from '@destyler/vanilla'
-import * as aspectRatio from '../../index'
+import * as breadcrumb from '../../index'
 import '../style.css'
 
 export function render(target: HTMLElement) {
@@ -10,13 +10,13 @@ export function render(target: HTMLElement) {
     { id: '3', label: 'three' },
   ]
   const machine = useMachine(
-    aspectRatio.machine({
+    breadcrumb.machine({
       id: '1',
       items,
     }),
   )
 
-  const api = aspectRatio.connect(machine.state, machine.send, normalizeProps)
+  const api = breadcrumb.connect(machine.state, machine.send, normalizeProps)
 
   target.innerHTML = `
   <nav ${spread(api.getRootProps())}>
