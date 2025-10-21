@@ -1,4 +1,4 @@
-import Carousel from '../examples/Carousel.react'
+import Carousel from '../examples/react/Carousel.react'
 
 export default {
   component: Carousel,

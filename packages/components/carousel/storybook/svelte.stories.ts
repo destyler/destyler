@@ -1,4 +1,4 @@
-import Carousel from '../examples/Carousel.svelte'
+import Carousel from '../examples/svelte/Carousel.svelte'
 
 export default {
   component: Carousel,

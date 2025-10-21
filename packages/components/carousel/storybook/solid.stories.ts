@@ -1,4 +1,4 @@
-import Carousel from '../examples/Carousel.solid'
+import Carousel from '../examples/solid/Carousel.solid'
 
 export default {
   component: Carousel,

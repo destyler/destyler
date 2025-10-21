@@ -1,4 +1,4 @@
-import Carousel from '../examples/Carousel.vue'
+import Carousel from '../examples/vue/Carousel.vue'
 
 export default {
   component: Carousel,
