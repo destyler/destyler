@@ -21,26 +21,37 @@
 }
 
 .toolbar {
-  border-left: solid 1px #d7e0da;
+  border-left: solid 1px hsl(var(--border));
   width: 400px;
   display: flex;
   flex-direction: column;
+  z-index: 10;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .toolbar nav {
   padding: 16px;
   display: flex;
   gap: 24px;
-  border-bottom: solid 1px #d7e0da;
+  border-bottom: solid 1px hsl(var(--border));
 }
 
 .toolbar nav button {
   all: unset;
   font-weight: 500;
-}
+  color: hsl(var(--primary) / 0.6);
+  cursor: pointer;
 
-.toolbar nav button[data-active] {
-  color: green;
+  &:hover {
+    color: hsl(var(--primary) / 0.8);
+  }
+
+  &[data-active] {
+    color: hsl(var(--primary) / 1.0);
+  }
 }
 
 .toolbar > div {
@@ -63,10 +74,10 @@
   padding-left: 14px;
   flex: 1;
   overflow: auto;
-  border-bottom: solid 1px #d7e0da;
+  border-bottom: solid 1px hsl(var(--border));
 }
 
 .toolbar .viz summary {
-  margin-bottom: 24;
   font-weight: bold;
+  cursor: pointer;
 }
