@@ -45,7 +45,7 @@ export default function Carousel() {
           <button {...api.getPrevTriggerProps()}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="m20 24l-10-8l10-8z" /></svg>
           </button>
-          <div {...api.getIndicatorGroupProps()} className="carousel-indicator-group">
+          <div {...api.getIndicatorGroupProps()}>
             {Array.from({ length: api.pageSnapPoints.length }).map((_, index) => (
               <button key={index} {...api.getIndicatorProps({ index })} />
             ))}
