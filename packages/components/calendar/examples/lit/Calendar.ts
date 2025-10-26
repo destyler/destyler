@@ -62,7 +62,7 @@ export class CalendarElement extends LitElement {
                       <tr key=${weekIndex} ${spread(api.getTableRowProps({ view: 'day' }))}>
                         ${week.map(value => html`
                           <td ${spread(api.getDayTableCellProps({ value }))}>
-                            <div ${api.getDayTableCellTriggerProps({ value })}>
+                            <div ${spread(api.getDayTableCellTriggerProps({ value }))}>
                               ${value.day}
                             </div>
                           </td>
@@ -86,13 +86,13 @@ export class CalendarElement extends LitElement {
                   </button>
                 </div>
 
-                <table ${api.getTableProps({ view: 'month', columns: 4 })}>
-                  <tbody ${api.getTableBodyProps({ view: 'month' })}>
+                <table ${spread(api.getTableProps({ view: 'month', columns: 4 }))}>
+                  <tbody ${spread(api.getTableBodyProps({ view: 'month' }))}>
                     ${api.getMonthsGrid({ columns: 4, format: 'short' }).map((months, monthIndex) => html`
-                      <tr key=${monthIndex} ${api.getTableRowProps()}>
+                      <tr key=${monthIndex} ${spread(api.getTableRowProps())}>
                         ${months.map(month => html`
-                          <td ${api.getMonthTableCellProps({ ...month, columns: 4 })}>
-                            <div ${api.getMonthTableCellTriggerProps({ ...month, columns: 4 })}>
+                          <td ${spread(api.getMonthTableCellProps({ ...month, columns: 4 }))}>
+                            <div ${spread(api.getMonthTableCellTriggerProps({ ...month, columns: 4 }))}>
                               ${month.label}
                             </div>
                           </td>
@@ -116,13 +116,13 @@ export class CalendarElement extends LitElement {
                 </button>
               </div>
 
-              <table ${api.getTableProps({ view: 'year', columns: 4 })}>
-                <tbody ${api.getTableBodyProps({ view: 'year' })}>
+              <table ${spread(api.getTableProps({ view: 'year', columns: 4 }))}>
+                <tbody ${spread(api.getTableBodyProps({ view: 'year' }))}>
                   ${api.getYearsGrid({ columns: 4 }).map((years, yearIndex) => html`
-                    <tr key=${yearIndex} ${api.getTableRowProps({ view: 'year' })}>
+                    <tr key=${yearIndex} ${spread(api.getTableRowProps({ view: 'year' }))}>
                       ${years.map(year => html`
-                        <td ${api.getYearTableCellProps({ ...year, columns: 4 })}>
-                          <div ${api.getYearTableCellTriggerProps({ ...year, columns: 4 })}>
+                        <td ${spread(api.getYearTableCellProps({ ...year, columns: 4 }))}>
+                          <div ${spread(api.getYearTableCellTriggerProps({ ...year, columns: 4 }))}>
                             ${year.label}
                           </div>
                         </td>
@@ -134,7 +134,7 @@ export class CalendarElement extends LitElement {
             </div>
           </div>
         </div>
-        `, document.body)
+      `, this.renderRoot)
         : ''}
 
       <destyler-toolbar>

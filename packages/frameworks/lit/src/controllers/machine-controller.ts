@@ -51,11 +51,27 @@ export class MachineController<
       if (isContextSource<TContext>(options.context)) {
         const initial = options.context.get?.()
         if (initial)
-instance.setContext(initial)
+          instance.setContext(initial)
       }
       else {
         instance.setContext(options.context as UserContext<TContext>)
       }
+    }
+
+    // Ensure DOM queries inside machines (via createScope) work with Lit's shadowRoot.
+    // We only set this if the user hasn't provided a custom getRootNode.
+    const ctxWithRoot = instance.getState().context as Record<string, any>
+    if (ctxWithRoot && typeof ctxWithRoot.getRootNode !== 'function') {
+      // Prefer Lit host's renderRoot/shadowRoot, fall back to host.getRootNode(), then document.
+      instance.setContext({
+        getRootNode: () => (
+          (this.host as any)?.renderRoot
+          ?? (typeof (this.host as any)?.getRootNode === 'function'
+            ? (this.host as any).getRootNode()
+            : undefined)
+          ?? document
+        ),
+      } as unknown as UserContext<TContext>)
     }
     if (options?.actions) {
       instance.setOptions({ actions: options.actions })
@@ -132,7 +148,7 @@ instance.setContext(initial)
       if (isContextSource<TContext>(options.context)) {
         const initial = options.context.get?.()
         if (initial)
-this.service.setContext(initial)
+          this.service.setContext(initial)
         this.contextUnsub = options.context.subscribe((ctx) => {
           this.service.setContext(ctx)
           this.host.requestUpdate()
