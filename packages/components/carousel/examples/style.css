@@ -85,7 +85,8 @@
 }
 
 .carousel-spacer {
-  flex-grow: 1;
+  display: flex;
+  gap: 8px;
 }
 
 [data-scope="carousel"][data-part="autoplay-trigger"] svg {
