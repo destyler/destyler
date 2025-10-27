@@ -37,6 +37,7 @@ export default defineConfig({
       title: 'Destyler UI',
       css: [
         './src/style/bootstrap.css',
+        './src/style/reset.css',
       ],
     }),
     unocss({

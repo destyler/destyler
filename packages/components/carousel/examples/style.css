@@ -35,7 +35,7 @@
   justify-content: center;
   align-items: center;
   font-size: 24px;
- border: 1px solid lightgray;
+  border: 1px solid lightgray;
 }
 
 [data-scope="carousel"][data-part="item"] img {
@@ -85,8 +85,7 @@
 }
 
 .carousel-spacer {
-  display: flex;
-  gap: 8px;
+  flex-grow: 1;
 }
 
 [data-scope="carousel"][data-part="autoplay-trigger"] svg {

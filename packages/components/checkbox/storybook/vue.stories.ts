@@ -1,4 +1,4 @@
-import Checkbox from '../examples/Checkbox.vue'
+import Checkbox from '../examples/vue/Checkbox.vue'
 
 export default {
   component: Checkbox,
