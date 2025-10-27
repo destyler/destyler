@@ -40,8 +40,5 @@ export default defineConfig({
         './src/style/reset.css',
       ],
     }),
-    unocss({
-      injectReset: true,
-    }),
   ],
 })

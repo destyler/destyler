@@ -24,7 +24,7 @@ const api = computed(() =>
     </div>
     <p>{{ `Visible range: ${api.visibleRangeText.formatted}` }}</p>
 
-    <output class="date-output">
+    <output>
       <div>Selected: {{ api.valueAsString ?? "-" }}</div>
       <div>Focused: {{ api.focusedValueAsString }}</div>
     </output>

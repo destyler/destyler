@@ -17,96 +17,113 @@
 </script>
 
 <Layout>
+  <div>
+    <button>Outside Element</button>
+  </div>
+  <p>{`Visible range: ${api.visibleRangeText.formatted}`}</p>
+
+  <output>
+    <div>Selected: {api.valueAsString ?? "-"}</div>
+    <div>Focused: {api.focusedValueAsString}</div>
+  </output>
+
   <div {...api.getControlProps()}>
     <input {...api.getInputProps()} />
-    <button {...api.getTriggerProps()} >
-      🗓
-    </button>
+    <button {...api.getClearTriggerProps()}>❌</button>
+    <button {...api.getTriggerProps()}>🗓</button>
   </div>
-  <div use:portal>
-    <div {...api.getPositionerProps()} >
-      <div {...api.getContentProps()}>
-          {#if api.view === 'day'}
-            <!-- Day View -->
-            <div {...api.getViewControlProps({ view: 'year' })} hidden={api.view !== 'day'}>
-              <button {...api.getPrevTriggerProps()}>←</button>
-              <button {...api.getViewTriggerProps()}>{api.visibleRangeText.start}</button>
-              <button {...api.getNextTriggerProps()}>→</button>
-            </div>
 
-            <div hidden={api.view !== 'day'}>
-              <table {...api.getTableProps({ view: 'day' })}>
-                <thead {...api.getTableHeaderProps({ view: 'day' })}>
-                  <tr {...api.getTableRowProps({ view: 'day' })}>
-                    {#each api.weekDays as day, dayIndex}
-                      <th scope="col" class="text-center text-xs font-medium text-muted-foreground p-1">{day.narrow}</th>
-                    {/each}
-                  </tr>
-                </thead>
-                <tbody {...api.getTableBodyProps({ view: 'day' })}>
-                  {#each api.weeks as week, weekIndex}
-                    <tr {...api.getTableRowProps({ view: 'day' })}>
-                      {#each week as value, valueIndex}
-                        <td {...api.getDayTableCellProps({ value })}>
-                          <div {...api.getDayTableCellTriggerProps({ value })}>{value.day}</div>
-                        </td>
-                      {/each}
-                    </tr>
+  <div {...api.getPositionerProps()}>
+    <div {...api.getContentProps()}>
+      <div style="margin-bottom: 20px">
+        <select {...api.getMonthSelectProps()}>
+          {#each api.getMonths() as month, i (i)}
+            <option value={month.value}>{month.label}</option>
+          {/each}
+        </select>
+
+        <select {...api.getYearSelectProps()}>
+          {#each api.getYears() as year, i (i)}
+            <option value={year.value}>{year.label}</option>
+          {/each}
+        </select>
+      </div>
+
+      <div hidden={api.view !== "day"}>
+        <div {...api.getViewControlProps({ view: "year" })}>
+          <button {...api.getPrevTriggerProps()}>Prev</button>
+          <button {...api.getViewTriggerProps()}>{api.visibleRangeText.start}</button>
+          <button {...api.getNextTriggerProps()}>Next</button>
+        </div>
+
+        <table {...api.getTableProps({ view: "day" })}>
+          <thead {...api.getTableHeaderProps({ view: "day" })}>
+            <tr {...api.getTableRowProps({ view: "day" })}>
+              {#each api.weekDays as day, i (i)}
+                <th scope="col" aria-label={day.long}>{day.narrow}</th>
+              {/each}
+            </tr>
+          </thead>
+          <tbody {...api.getTableBodyProps({ view: "day" })}>
+            {#each api.weeks as week, i (i)}
+              <tr {...api.getTableRowProps({ view: "day" })}>
+                {#each week as value, i (i)}
+                  <td {...api.getDayTableCellProps({ value })}>
+                    <div {...api.getDayTableCellTriggerProps({ value })}>{value.day}</div>
+                  </td>
+                {/each}
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex; gap:40px;">
+        <div hidden={api.view !== "month"} style="width:100%;">
+          <div {...api.getViewControlProps({ view: "month" })}>
+            <button {...api.getPrevTriggerProps({ view: "month" })}>Prev</button>
+            <button {...api.getViewTriggerProps({ view: "month" })}>{api.visibleRange.start.year}</button>
+            <button {...api.getNextTriggerProps({ view: "month" })}>Next</button>
+          </div>
+
+          <table {...api.getTableProps({ view: "month", columns: 4 })}>
+            <tbody {...api.getTableBodyProps({ view: "month" })}>
+              {#each api.getMonthsGrid({ columns: 4, format: "short" }) as months, row (row)}
+                <tr {...api.getTableRowProps({ view: "month" })}>
+                  {#each months as month, index (index)}
+                    <td {...api.getMonthTableCellProps({ ...month, columns: 4 })}>
+                      <div {...api.getMonthTableCellTriggerProps({ ...month, columns: 4 })}>{month.label}</div>
+                    </td>
                   {/each}
-                </tbody>
-              </table>
-            </div>
-          {/if}
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
 
-          {#if api.view === 'month'}
-            <!-- Month View -->
-            <div {...api.getViewControlProps({ view: 'month' })} hidden={api.view !== 'month'}>
-              <button {...api.getPrevTriggerProps({ view: 'month' })}>←</button>
-              <button {...api.getViewTriggerProps({ view: 'month' })}>{api.visibleRange.start.year}</button>
-              <button {...api.getNextTriggerProps({ view: 'month' })}>→</button>
-            </div>
+        <div hidden={api.view !== "year"} style="width:100%;">
+          <div {...api.getViewControlProps({ view: "year" })}>
+            <button {...api.getPrevTriggerProps({ view: "year" })}>Prev</button>
+            <span>
+              {api.getDecade().start} - {api.getDecade().end}
+            </span>
+            <button {...api.getNextTriggerProps({ view: "year" })}>Next</button>
+          </div>
 
-            <div hidden={api.view !== 'month'}>
-              <table {...api.getTableProps({ view: 'month', columns: 4 })}>
-                <tbody {...api.getTableBodyProps({ view: 'month' })}>
-                  {#each api.getMonthsGrid({ columns: 4, format: 'short' }) as months, monthsIndex}
-                    <tr {...api.getTableRowProps()}>
-                      {#each months as month, monthIndex}
-                        <td {...api.getMonthTableCellProps({ ...month, columns: 4 })}>
-                          <div {...api.getMonthTableCellTriggerProps({ ...month, columns: 4 })}>{month.label}</div>
-                        </td>
-                      {/each}
-                    </tr>
+          <table {...api.getTableProps({ view: "year", columns: 4 })}>
+            <tbody {...api.getTableBodyProps()}>
+              {#each api.getYearsGrid({ columns: 4 }) as years, row (row)}
+                <tr {...api.getTableRowProps({ view: "year" })}>
+                  {#each years as year, index (index)}
+                    <td {...api.getYearTableCellProps({ ...year, columns: 4 })}>
+                      <div {...api.getYearTableCellTriggerProps({ ...year, columns: 4 })}>{year.label}</div>
+                    </td>
                   {/each}
-                </tbody>
-              </table>
-            </div>
-          {/if}
-
-          {#if api.view === 'year'}
-            <!-- Year View -->
-            <div {...api.getViewControlProps({ view: 'year' })} hidden={api.view !== 'year'}>
-              <button {...api.getPrevTriggerProps({ view: 'year' })}>←</button>
-              <span>{api.getDecade().start} - {api.getDecade().end}</span>
-              <button {...api.getNextTriggerProps({ view: 'year' })}>→</button>
-            </div>
-
-            <div hidden={api.view !== 'year'}>
-              <table {...api.getTableProps({ view: 'year', columns: 4 })}>
-                <tbody {...api.getTableBodyProps()}>
-                  {#each api.getYearsGrid({ columns: 4 }) as years, yearsIndex}
-                    <tr {...api.getTableRowProps({ view: 'year' })}>
-                      {#each years as year, yearIndex}
-                        <td {...api.getYearTableCellProps({ ...year, columns: 4 })}>
-                          <div {...api.getYearTableCellTriggerProps({ ...year, columns: 4 })}>{year.label}</div>
-                        </td>
-                      {/each}
-                    </tr>
-                  {/each}
-                </tbody>
-              </table>
-            </div>
-          {/if}
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

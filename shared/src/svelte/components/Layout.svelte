@@ -3,13 +3,26 @@
 </script>
 
 <div class="layout">
-  <slot />
+  <main class="layout-root">
+    <slot />
+  </main>
 </div>
 
 <style lang="css">
 .layout{
-  flex: 1 1 0%;
-  padding: 1.5rem; /* 24px */
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.layout-root {
+  flex: auto;
+  display: flex;
+  gap: 10px;
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px;
   overflow-y: auto;
 }
 </style>
