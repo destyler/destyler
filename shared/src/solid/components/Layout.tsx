@@ -22,7 +22,7 @@ export function Layout(props: { children: JSX.Element }) {
           overflow-y: auto;
         }`}
       </style>
-      <div class="layout">
+      <div data-story="book" class="layout">
         <main class="layout-root">
           {props.children}
         </main>

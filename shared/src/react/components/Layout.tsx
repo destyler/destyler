@@ -19,7 +19,7 @@ export function Layout({ children }: { children?: React.ReactNode }) {
           overflow-y: auto;
         }`}
       </style>
-      <div className="layout">
+      <div data-story="book" className="layout">
         <main className="layout-root">
           {children}
         </main>

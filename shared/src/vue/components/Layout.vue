@@ -5,7 +5,7 @@ defineOptions({
 </script>
 
 <template>
-  <div class="layout">
+  <div data-story="book" class="layout">
     <main class="layout-root">
       <slot />
     </main>
