@@ -9,12 +9,12 @@ const controls = useControls(aspectRatioControls)
 
 const uid = $props.id();
 
-const [snapshot, send] = useMachine(aspectRatio.machine({
+const [state, send] = useMachine(aspectRatio.machine({
   id: uid,
 }),{
   context:controls.context
 })
-const api = $derived(aspectRatio.connect(snapshot, send, normalizeProps))
+const api = $derived(aspectRatio.connect(state, send, normalizeProps))
 </script>
 
 <Layout>
@@ -31,6 +31,6 @@ const api = $derived(aspectRatio.connect(snapshot, send, normalizeProps))
   </div>
 
   <Toolbar {controls}>
-    <StateVisualizer state={snapshot} />
+    <StateVisualizer state={state} />
   </Toolbar>
 </Layout>

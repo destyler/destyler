@@ -1,4 +1,4 @@
-import Checkbox from '../examples/Checkbox.svelte'
+import Checkbox from '../examples/svelte/Checkbox.astro'
 
 export default {
   component: Checkbox,

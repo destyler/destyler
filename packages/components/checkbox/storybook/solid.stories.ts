@@ -1,4 +1,4 @@
-import Checkbox from '../examples/Checkbox.solid'
+import Checkbox from '../examples/solid/Checkbox.astro'
 
 export default {
   component: Checkbox,

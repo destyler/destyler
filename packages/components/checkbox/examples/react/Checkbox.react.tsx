@@ -1,6 +1,7 @@
 import { normalizeProps, useMachine } from '@destyler/react'
 import { checkboxControls } from '@destyler/shared-private'
 import { Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
+import { useId } from 'react'
 import * as checkbox from '../../index'
 import '../style.css'
 

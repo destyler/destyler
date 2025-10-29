@@ -1,4 +1,4 @@
-import Checkbox from '../examples/react/Checkbox.react'
+import Checkbox from '../examples/react/Checkbox.astro'
 
 export default {
   component: Checkbox,
