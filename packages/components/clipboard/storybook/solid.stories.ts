@@ -1,4 +1,4 @@
-import Clipboard from '../examples/Clipboard.solid'
+import Clipboard from '../examples/solid/Clipboard.astro'
 
 export default {
   component: Clipboard,

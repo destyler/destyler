@@ -1,4 +1,4 @@
-import Clipboard from '../examples/Clipboard.vue'
+import Clipboard from '../examples/vue/Clipboard.vue'
 
 export default {
   component: Clipboard,

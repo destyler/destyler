@@ -1,4 +1,4 @@
-import Clipboard from '../examples/Clipboard.react'
+import Clipboard from '../examples/react/Clipboard.astro'
 
 export default {
   component: Clipboard,
