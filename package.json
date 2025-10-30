@@ -56,6 +56,10 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:lint",
+    "@astrojs/react": "catalog:frontend",
+    "@astrojs/solid-js": "catalog:frontend",
+    "@astrojs/svelte": "catalog:frontend",
+    "@astrojs/vue": "catalog:frontend",
     "@destyler/dom": "workspace:*",
     "@destyler/lit": "workspace:*",
     "@destyler/presence": "workspace:*",
@@ -79,6 +83,7 @@
     "@vitest/eslint-plugin": "catalog:test",
     "@vitest/ui": "catalog:test",
     "archiver": "catalog:util",
+    "astro": "catalog:frontend",
     "bumpp": "catalog:script",
     "cross-env": "catalog:util",
     "eslint": "catalog:lint",
