@@ -2,7 +2,7 @@
 
 <!-- vscode Session c7943eb7-866f-4fa7-a3dd-f87a9a962abb (2025-10-30 16:09Z) -->
 
-#  (2025-10-30 16:09Z)
+# 配置 TypeScript tsconfig.json 的 include 选项 (2025-10-30 16:09Z)
 
 _**User (2025-10-30 16:10Z)**_
 
