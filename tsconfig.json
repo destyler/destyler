@@ -5,6 +5,7 @@
     "jsxImportSource": "react",
     "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
+    "rootDir": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
