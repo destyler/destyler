@@ -1,4 +1,4 @@
-import Collapsible from '../examples/Collapsible.svelte'
+import Collapsible from '../examples/svelte/Collapsible.svelte'
 
 export default {
   component: Collapsible,

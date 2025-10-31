@@ -1,4 +1,4 @@
-import Collapsible from '../examples/Collapsible.react'
+import Collapsible from '../examples/react/Collapsible.react'
 
 export default {
   component: Collapsible,

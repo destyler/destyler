@@ -1,4 +1,4 @@
-import Collapsible from '../examples/Collapsible.solid'
+import Collapsible from '../examples/solid/Collapsible.solid'
 
 export default {
   component: Collapsible,

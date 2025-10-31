@@ -1,4 +1,4 @@
-import Collapsible from '../examples/Collapsible.vue'
+import Collapsible from '../examples/vue/Collapsible.vue'
 
 export default {
   component: Collapsible,
