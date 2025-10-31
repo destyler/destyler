@@ -1,4 +1,4 @@
-import Collapse from '../examples/Collapse.vue'
+import Collapse from '../examples/vue/Collapse.vue'
 
 export default {
   component: Collapse,

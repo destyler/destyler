@@ -1,4 +1,4 @@
-import Collapse from '../examples/Collapse.react'
+import Collapse from '../examples/react/Collapse.react'
 
 export default {
   component: Collapse,

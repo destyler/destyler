@@ -1,4 +1,4 @@
-import Collapse from '../examples/Collapse.solid'
+import Collapse from '../examples/solid/Collapse.solid'
 
 export default {
   component: Collapse,

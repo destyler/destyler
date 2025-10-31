@@ -1,4 +1,4 @@
-import Collapse from '../examples/Collapse.svelte'
+import Collapse from '../examples/svelte/Collapse.svelte'
 
 export default {
   component: Collapse,
