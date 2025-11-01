@@ -1,4 +1,4 @@
-import Combobox from '../examples/Combobox.svelte'
+import Combobox from '../examples/svelte/Combobox.svelte'
 
 export default {
   component: Combobox,

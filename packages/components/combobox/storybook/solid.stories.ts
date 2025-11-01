@@ -1,4 +1,4 @@
-import Combobox from '../examples/Combobox.solid'
+import Combobox from '../examples/solid/Combobox.solid'
 
 export default {
   component: Combobox,

@@ -5,7 +5,6 @@ import { Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId } from 'solid-js'
 import { Index, Show } from 'solid-js/web'
-
 import * as colorPicker from '../../index'
 import '../style.css'
 
