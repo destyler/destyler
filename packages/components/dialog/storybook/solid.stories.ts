@@ -1,4 +1,4 @@
-import Dialog from '../examples/Dialog.solid'
+import Dialog from '../examples/solid/Dialog.solid'
 
 export default {
   component: Dialog,

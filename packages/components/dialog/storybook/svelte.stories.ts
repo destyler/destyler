@@ -1,4 +1,4 @@
-import Dialog from '../examples/Dialog.svelte'
+import Dialog from '../examples/svelte/Dialog.svelte'
 
 export default {
   component: Dialog,

@@ -1,4 +1,4 @@
-import Dialog from '../examples/Dialog.react'
+import Dialog from '../examples/react/Dialog.react'
 
 export default {
   component: Dialog,
