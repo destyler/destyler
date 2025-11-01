@@ -1,0 +1,26 @@
+[data-scope="edit"][data-part="area"] {
+  display: inline-block;
+  margin-right: 0.5em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+[data-scope="edit"][data-part="input"] {
+  width: auto;
+  background: transparent;
+  border: 1px solid #000 !important;
+
+
+  &[data-autoresize] {
+    all: unset;
+  }
+}
+
+[data-scope="edit"][data-part="preview"][data-empty] {
+  opacity: 0.7;
+}
+
+[data-scope="edit"][data-part="control"] {
+  display: flex;
+  gap: 0.5em;
+}

@@ -1,5 +1,23 @@
 import type { StepDetails } from '@destyler/tour'
 
+export const collapseData = [
+  {
+    id: 'watercraft',
+    title: 'Watercraft',
+    content: 'Experience the thrill of cutting-edge marine vessels, from luxury yachts to high-performance speedboats.',
+  },
+  {
+    id: 'automobiles',
+    title: 'Automobiles',
+    content: 'Discover our premium selection of automobiles, featuring the latest in automotive technology and design.',
+  },
+  {
+    id: 'aircraft',
+    title: 'Aircraft',
+    content: 'Explore our range of aircraft, from private jets to commercial airliners, all equipped with state-of-the-art technology.',
+  },
+]
+
 export const listData = [
   { label: 'Zambia', code: 'ZA' },
   { label: 'Benin', code: 'BN' },

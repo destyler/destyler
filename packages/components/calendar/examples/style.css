@@ -1,0 +1,78 @@
+[data-scope="calendar"][data-part="table-cell-trigger"] {
+  padding: 4px;
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 4px;
+  text-align: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"]:hover {
+  background: hsl(var(--muted));
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-focus] {
+  background: hsl(var(--primary-foreground) / 0.03);
+  color: hsl(var(--primary));
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-outside-range] {
+  visibility: hidden;
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-selected] {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--primary)) !important ;
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-in-range]:not([data-selected]) {
+  background: green;
+}
+
+[data-scope="calendar"][data-part="control"] {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-today] {
+  color: red;
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-unavailable] {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+[data-scope="calendar"][data-part="table-cell-trigger"][data-disabled] {
+  opacity: 0.4;
+}
+
+[data-scope="calendar"][data-part="content"] {
+  border: 1px solid hsl(var(--border));
+  padding: 1.5rem;
+  min-width: 320px;
+  background: hsl(var(--background));
+  border-radius: 8px;
+}
+
+[data-scope="calendar"][data-part="table"] {
+  min-width: 240px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+[data-scope="calendar"][data-part="view-trigger"] {
+  border: 0;
+  padding: 4px 20px;
+  border-radius: 4px;
+}
+
+[data-scope="calendar"][data-part="view-control"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 10px;
+}
