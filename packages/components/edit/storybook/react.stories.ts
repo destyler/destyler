@@ -1,4 +1,4 @@
-import Edit from '../examples/Edit.react'
+import Edit from '../examples/react/Edit.react'
 
 export default {
   component: Edit,

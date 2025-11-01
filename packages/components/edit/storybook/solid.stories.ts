@@ -1,4 +1,4 @@
-import Edit from '../examples/Edit.solid'
+import Edit from '../examples/solid/Edit.astro'
 
 export default {
   component: Edit,

@@ -1,4 +1,4 @@
-import Edit from '../examples/Edit.svelte'
+import Edit from '../examples/svelte/Edit.astro'
 
 export default {
   component: Edit,

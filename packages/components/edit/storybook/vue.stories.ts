@@ -1,4 +1,4 @@
-import Edit from '../examples/Edit.vue'
+import Edit from '../examples/vue/Edit.astro'
 
 export default {
   component: Edit,
