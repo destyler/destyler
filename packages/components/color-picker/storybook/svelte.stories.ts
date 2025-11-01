@@ -1,4 +1,4 @@
-import ColorPicker from '../examples/ColorPicker.svelte'
+import ColorPicker from '../examples/svelte/ColorPicker.svelte'
 
 export default {
   component: ColorPicker,

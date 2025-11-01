@@ -1,4 +1,4 @@
-import ColorPicker from '../examples/ColorPicker.react'
+import ColorPicker from '../examples/react/ColorPicker.react'
 
 export default {
   component: ColorPicker,

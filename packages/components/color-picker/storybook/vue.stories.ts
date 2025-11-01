@@ -1,4 +1,4 @@
-import ColorPicker from '../examples/ColorPicker.vue'
+import ColorPicker from '../examples/vue/ColorPicker.vue'
 
 export default {
   component: ColorPicker,

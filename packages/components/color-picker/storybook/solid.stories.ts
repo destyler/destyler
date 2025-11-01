@@ -1,4 +1,4 @@
-import ColorPicker from '../examples/ColorPicker.solid'
+import ColorPicker from '../examples/solid/ColorPicker.solid'
 
 export default {
   component: ColorPicker,
