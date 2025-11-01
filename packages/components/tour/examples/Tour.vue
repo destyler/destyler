@@ -1,5 +1,5 @@
 <template>
   <div data-component="Tour">
-Tour (Vue)
-</div>
+    Tour (Vue)
+  </div>
 </template>

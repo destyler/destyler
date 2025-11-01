@@ -47,7 +47,7 @@ export default function DynamicPage() {
                       {...api().getItemDeleteTriggerProps({ index: index(), value })}
                       data-testid={`${toDashCase(value)}-delete-trigger`}
                     >
-                    &#x2715;
+                      &#x2715;
                     </button>
                   </div>
                   <input

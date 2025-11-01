@@ -1,5 +1,5 @@
 <template>
   <div data-component="Separator">
-Separator
-</div>
+    Separator
+  </div>
 </template>

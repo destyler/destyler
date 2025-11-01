@@ -1,5 +1,5 @@
 <template>
   <div data-component="Popover">
-Popover
-</div>
+    Popover
+  </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
   <div data-component="Timer">
-Timer (Vue)
-</div>
+    Timer (Vue)
+  </div>
 </template>

@@ -19,14 +19,14 @@ const [state, send] = useMachine(floatingPanel.machine({
   position: getCenterPosition(320, 150),
   resizable: true,
   draggable: true,
-  onStageChange(details) {
+  onStageChange(_details) {
 
   },
-  onSizeChange(details){
+  onSizeChange(_details) {
 
   },
-  onSizeChangeEnd(details) {
-    
+  onSizeChangeEnd(_details) {
+
   },
 }))
 

@@ -1,5 +1,5 @@
 <template>
   <div data-component="Signature">
-Signature
-</div>
+    Signature
+  </div>
 </template>

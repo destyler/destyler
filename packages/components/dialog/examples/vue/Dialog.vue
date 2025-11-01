@@ -2,7 +2,7 @@
 import { dialogControls } from '@destyler/shared-private'
 import { Controls, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed, Transition, useId } from 'vue'
+import { computed, useId } from 'vue'
 import * as dialog from '../../index'
 import '../style.css'
 

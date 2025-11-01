@@ -1,5 +1,5 @@
 <template>
   <div data-component="Image">
-Image
-</div>
+    Image
+  </div>
 </template>

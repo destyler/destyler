@@ -1,5 +1,5 @@
 <template>
   <div data-component="NumberInput">
-NumberInput
-</div>
+    NumberInput
+  </div>
 </template>

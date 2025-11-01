@@ -1,5 +1,5 @@
 <template>
   <div data-component="Pagination">
-Pagination
-</div>
+    Pagination
+  </div>
 </template>

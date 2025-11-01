@@ -1,5 +1,5 @@
 <template>
   <div data-component="Progress">
-Progress
-</div>
+    Progress
+  </div>
 </template>

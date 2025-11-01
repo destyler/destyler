@@ -1,5 +1,5 @@
 <template>
   <div data-component="Slider">
-Slider
-</div>
+    Slider
+  </div>
 </template>

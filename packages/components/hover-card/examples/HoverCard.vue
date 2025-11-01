@@ -1,5 +1,5 @@
 <template>
   <div data-component="HoverCard">
-HoverCard
-</div>
+    HoverCard
+  </div>
 </template>

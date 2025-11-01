@@ -45,7 +45,7 @@ export const normalizeProps = createNormalizer<any>((props: Dict) => {
 
     let nextKey = toProp(key)
     if (nextKey.startsWith('on')) {
-      nextKey = `@${  nextKey.slice(2).toLowerCase()}`
+      nextKey = `@${nextKey.slice(2).toLowerCase()}`
     }
 
     normalized[nextKey] = value

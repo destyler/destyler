@@ -1,5 +1,5 @@
 <template>
   <div data-component="Tree">
-Tree (Vue)
-</div>
+    Tree (Vue)
+  </div>
 </template>

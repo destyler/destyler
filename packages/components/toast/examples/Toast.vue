@@ -1,5 +1,5 @@
 <template>
   <div data-component="Toast">
-Toast (Vue)
-</div>
+    Toast (Vue)
+  </div>
 </template>

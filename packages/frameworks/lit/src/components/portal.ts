@@ -42,7 +42,7 @@ function getTarget(targetOrSelector: TargetOrSelector): Node {
  * See [Lit docs on Custom Directives](https://lit.dev/docs/templates/custom-directives/).
  */
 export class PortalDirective extends AsyncDirective {
-  private containerId = `portal-${self.crypto.randomUUID()}`
+  private containerId = `portal-${globalThis.crypto.randomUUID()}`
   private container: HTMLElement | undefined
   private target: Node | undefined
 

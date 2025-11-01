@@ -1,5 +1,5 @@
 <template>
   <div data-component="Toggle">
-Toggle (Vue)
-</div>
+    Toggle (Vue)
+  </div>
 </template>

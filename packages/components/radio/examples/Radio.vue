@@ -1,5 +1,5 @@
 <template>
   <div data-component="Radio">
-Radio
-</div>
+    Radio
+  </div>
 </template>

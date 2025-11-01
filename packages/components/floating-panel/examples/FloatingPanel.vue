@@ -1,5 +1,5 @@
 <template>
   <div data-component="FloatingPanel">
-FloatingPanel
-</div>
+    FloatingPanel
+  </div>
 </template>

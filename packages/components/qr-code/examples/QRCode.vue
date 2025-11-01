@@ -1,5 +1,5 @@
 <template>
   <div data-component="QRCode">
-QRCode
-</div>
+    QRCode
+  </div>
 </template>

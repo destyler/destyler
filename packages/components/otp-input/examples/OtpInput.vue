@@ -1,5 +1,5 @@
 <template>
   <div data-component="OtpInput">
-OtpInput
-</div>
+    OtpInput
+  </div>
 </template>

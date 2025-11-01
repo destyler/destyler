@@ -1,5 +1,5 @@
 <template>
   <div data-component="FileUpload">
-FileUpload
-</div>
+    FileUpload
+  </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
   <div data-component="Tooltip">
-Tooltip (Vue)
-</div>
+    Tooltip (Vue)
+  </div>
 </template>

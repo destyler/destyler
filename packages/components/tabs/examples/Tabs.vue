@@ -1,5 +1,5 @@
 <template>
   <div data-component="Tabs">
-Tabs
-</div>
+    Tabs
+  </div>
 </template>

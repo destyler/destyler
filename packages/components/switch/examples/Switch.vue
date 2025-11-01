@@ -1,5 +1,5 @@
 <template>
   <div data-component="Switch">
-Switch
-</div>
+    Switch
+  </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
   <div data-component="Splitter">
-Splitter
-</div>
+    Splitter
+  </div>
 </template>

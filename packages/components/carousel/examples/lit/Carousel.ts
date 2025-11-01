@@ -1,7 +1,6 @@
 import { MachineController, normalizeProps, spread } from '@destyler/lit'
 import { carouselControls } from '@destyler/shared-private'
 import { ControlsController } from '@destyler/shared-private/lit'
-import { Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/react'
 import { html, LitElement, unsafeCSS } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import * as carousel from '../../index'
