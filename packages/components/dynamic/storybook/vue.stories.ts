@@ -1,4 +1,4 @@
-import Dynamic from '../examples/Dynamic.vue'
+import Dynamic from '../examples/vue/Dynamic.vue'
 
 export default {
   component: Dynamic,

@@ -1,4 +1,4 @@
-import Dynamic from '../examples/Dynamic.solid'
+import Dynamic from '../examples/solid/Dynamic.solid'
 
 export default {
   component: Dynamic,

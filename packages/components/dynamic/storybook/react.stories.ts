@@ -1,4 +1,4 @@
-import Dynamic from '../examples/Dynamic.react'
+import Dynamic from '../examples/react/Dynamic.react'
 
 export default {
   component: Dynamic,

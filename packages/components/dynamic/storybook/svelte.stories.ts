@@ -1,4 +1,4 @@
-import Dynamic from '../examples/Dynamic.svelte'
+import Dynamic from '../examples/svelte/Dynamic.svelte'
 
 export default {
   component: Dynamic,
