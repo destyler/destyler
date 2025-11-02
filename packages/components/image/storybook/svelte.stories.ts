@@ -1,4 +1,4 @@
-import Image from '../examples/Image.svelte'
+import Image from '../examples/svelte/Image.svelte'
 
 export default {
   component: Image,

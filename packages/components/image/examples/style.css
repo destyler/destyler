@@ -1,0 +1,36 @@
+[data-scope="image"][data-part="root"] {
+  width: 80px;
+  height: 80px;
+  border-radius: 9999px;
+}
+
+[data-scope="image"][data-part="image"] {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+[data-scope="image"][data-part="fallback"] {
+  width: 80px;
+  height: 80px;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 600;
+  color: white;
+  background-color: #777;
+  border-radius: inherit;
+}
+
+[data-scope="image"][data-part="fallback"][data-state="visible"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image .controls {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  gap: 8px;
+}

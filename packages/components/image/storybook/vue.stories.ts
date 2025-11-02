@@ -1,4 +1,4 @@
-import Image from '../examples/Image.vue'
+import Image from '../examples/vue/Image.vue'
 
 export default {
   component: Image,

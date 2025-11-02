@@ -1,4 +1,4 @@
-import Image from '../examples/Image.solid'
+import Image from '../examples/solid/Image.solid'
 
 export default {
   component: Image,

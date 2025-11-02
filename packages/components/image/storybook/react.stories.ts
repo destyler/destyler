@@ -1,4 +1,4 @@
-import Image from '../examples/Image.react'
+import Image from '../examples/react/Image.react'
 
 export default {
   component: Image,
