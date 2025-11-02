@@ -1,4 +1,4 @@
-import Menu from '../examples/Menu.vue'
+import Menu from '../examples/vue/Menu.astro'
 
 export default {
   component: Menu,

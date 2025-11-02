@@ -1,4 +1,4 @@
-import Menu from '../examples/Menu.solid'
+import Menu from '../examples/solid/Menu.solid'
 
 export default {
   component: Menu,

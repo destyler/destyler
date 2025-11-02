@@ -1,4 +1,4 @@
-import Menu from '../examples/Menu.react'
+import Menu from '../examples/react/Menu.react'
 
 export default {
   component: Menu,

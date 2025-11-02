@@ -1,4 +1,4 @@
-import Menu from '../examples/Menu.svelte'
+import Menu from '../examples/svelte/Menu.svelte'
 
 export default {
   component: Menu,
