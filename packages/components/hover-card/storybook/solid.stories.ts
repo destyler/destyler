@@ -1,4 +1,4 @@
-import HoverCard from '../examples/HoverCard.solid'
+import HoverCard from '../examples/solid/HoverCard.solid'
 
 export default {
   component: HoverCard,

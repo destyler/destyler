@@ -1,4 +1,4 @@
-import HoverCard from '../examples/HoverCard.react'
+import HoverCard from '../examples/react/HoverCard.react'
 
 export default {
   component: HoverCard,

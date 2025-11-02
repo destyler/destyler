@@ -1,4 +1,4 @@
-import HoverCard from '../examples/HoverCard.vue'
+import HoverCard from '../examples/vue/HoverCard.vue'
 
 export default {
   component: HoverCard,

@@ -1,4 +1,4 @@
-import HoverCard from '../examples/HoverCard.svelte'
+import HoverCard from '../examples/svelte/HoverCard.svelte'
 
 export default {
   component: HoverCard,
