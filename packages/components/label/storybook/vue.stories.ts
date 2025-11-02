@@ -1,4 +1,4 @@
-import Label from '../examples/Label.vue'
+import Label from '../examples/vue/Label.vue'
 
 export default {
   component: Label,

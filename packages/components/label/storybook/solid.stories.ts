@@ -1,4 +1,4 @@
-import Label from '../examples/Label.solid'
+import Label from '../examples/solid/Label.solid'
 
 export default {
   component: Label,

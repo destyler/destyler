@@ -1,4 +1,4 @@
-import Label from '../examples/Label.react'
+import Label from '../examples/react/Label.react'
 
 export default {
   component: Label,
@@ -7,3 +7,4 @@ export default {
 export const Default = {
   args: {},
 }
+

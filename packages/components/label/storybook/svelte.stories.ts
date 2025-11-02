@@ -1,4 +1,4 @@
-import Label from '../examples/Label.svelte'
+import Label from '../examples/svelte/Label.svelte'
 
 export default {
   component: Label,
