@@ -1,4 +1,4 @@
-import FloatingPanel from '../examples/FloatingPanel.react'
+import FloatingPanel from '../examples/react/FloatingPanel.react'
 
 export default {
   component: FloatingPanel,

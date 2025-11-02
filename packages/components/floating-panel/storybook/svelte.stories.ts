@@ -1,4 +1,4 @@
-import FloatingPanel from '../examples/FloatingPanel.svelte'
+import FloatingPanel from '../examples/svelte/FloatingPanel.svelte'
 
 export default {
   component: FloatingPanel,

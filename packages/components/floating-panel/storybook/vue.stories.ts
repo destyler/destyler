@@ -1,4 +1,4 @@
-import FloatingPanel from '../examples/FloatingPanel.vue'
+import FloatingPanel from '../examples/vue/FloatingPanel.vue'
 
 export default {
   component: FloatingPanel,

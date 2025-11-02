@@ -1,4 +1,4 @@
-import FloatingPanel from '../examples/FloatingPanel.solid'
+import FloatingPanel from '../examples/solid/FloatingPanel.solid'
 
 export default {
   component: FloatingPanel,
