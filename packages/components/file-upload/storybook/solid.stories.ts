@@ -1,4 +1,4 @@
-import FileUpload from '../examples/FileUpload.solid'
+import FileUpload from '../examples/solid/FileUpload.solid'
 
 export default {
   component: FileUpload,

@@ -1,4 +1,4 @@
-import FileUpload from '../examples/FileUpload.vue'
+import FileUpload from '../examples/vue/FileUpload.vue'
 
 export default {
   component: FileUpload,

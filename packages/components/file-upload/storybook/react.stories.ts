@@ -1,4 +1,4 @@
-import FileUpload from '../examples/FileUpload.react'
+import FileUpload from '../examples/react/FileUpload.react'
 
 export default {
   component: FileUpload,

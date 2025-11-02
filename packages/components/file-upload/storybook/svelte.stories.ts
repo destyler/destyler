@@ -1,4 +1,4 @@
-import FileUpload from '../examples/FileUpload.svelte'
+import FileUpload from '../examples/svelte/FileUpload.svelte'
 
 export default {
   component: FileUpload,
