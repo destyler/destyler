@@ -1,4 +1,4 @@
-import NumberInput from '../examples/NumberInput.solid'
+import NumberInput from '../examples/solid/NumberInput.solid'
 
 export default {
   component: NumberInput,

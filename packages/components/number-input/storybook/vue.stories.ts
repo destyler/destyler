@@ -1,4 +1,4 @@
-import NumberInput from '../examples/NumberInput.vue'
+import NumberInput from '../examples/vue/NumberInput.vue'
 
 export default {
   component: NumberInput,

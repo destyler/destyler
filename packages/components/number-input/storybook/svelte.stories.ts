@@ -1,4 +1,4 @@
-import NumberInput from '../examples/NumberInput.svelte'
+import NumberInput from '../examples/svelte/NumberInput.svelte'
 
 export default {
   component: NumberInput,

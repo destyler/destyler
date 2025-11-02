@@ -1,4 +1,4 @@
-import NumberInput from '../examples/NumberInput.react'
+import NumberInput from '../examples/react/NumberInput.react'
 
 export default {
   component: NumberInput,
