@@ -1,4 +1,4 @@
-import OtpInput from '../examples/OtpInput.react'
+import OtpInput from '../examples/react/OtpInput.react'
 
 export default {
   component: OtpInput,

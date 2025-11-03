@@ -144,7 +144,7 @@ export const numberInputControls = defineControls({
   },
 })
 
-export const pinInputControls = defineControls({
+export const otpInputControls = defineControls({
   mask: { type: 'boolean', defaultValue: false },
   otp: { type: 'boolean', defaultValue: false },
   blurOnComplete: { type: 'boolean', defaultValue: false },

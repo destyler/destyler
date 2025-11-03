@@ -1,4 +1,4 @@
-import OtpInput from '../examples/OtpInput.svelte'
+import OtpInput from '../examples/svelte/OtpInput.svelte'
 
 export default {
   component: OtpInput,

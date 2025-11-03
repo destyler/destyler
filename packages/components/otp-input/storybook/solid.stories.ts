@@ -1,4 +1,4 @@
-import OtpInput from '../examples/OtpInput.solid'
+import OtpInput from '../examples/solid/OtpInput.solid'
 
 export default {
   component: OtpInput,

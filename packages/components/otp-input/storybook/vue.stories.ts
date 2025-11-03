@@ -1,4 +1,4 @@
-import OtpInput from '../examples/OtpInput.vue'
+import OtpInput from '../examples/vue/OtpInput.vue'
 
 export default {
   component: OtpInput,
