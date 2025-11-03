@@ -2,13 +2,15 @@
 import { numberInputControls } from '@destyler/shared-private'
 import { Controls, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 import * as numberInput from '../../index'
 import '../style.css'
 
 const controls = useControls(numberInputControls)
 
-const [state, send] = useMachine(numberInput.machine({ id: '1' }), {
+const [state, send] = useMachine(numberInput.machine({
+  id: useId(),
+}), {
   context: controls.context,
 })
 
