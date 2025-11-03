@@ -1,4 +1,4 @@
-import Pagination from '../examples/Pagination.svelte'
+import Pagination from '../examples/svelte/Pagination.svelte'
 
 export default {
   component: Pagination,

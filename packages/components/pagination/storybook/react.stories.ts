@@ -1,4 +1,4 @@
-import Pagination from '../examples/Pagination.react'
+import Pagination from '../examples/react/Pagination.react'
 
 export default {
   component: Pagination,

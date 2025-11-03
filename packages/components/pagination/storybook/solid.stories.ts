@@ -1,4 +1,4 @@
-import Pagination from '../examples/Pagination.solid'
+import Pagination from '../examples/solid/Pagination.solid'
 
 export default {
   component: Pagination,
