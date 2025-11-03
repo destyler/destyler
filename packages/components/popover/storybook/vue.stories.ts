@@ -1,4 +1,4 @@
-import Popover from '../examples/Popover.vue'
+import Popover from '../examples/vue/Popover.astro'
 
 export default {
   component: Popover,

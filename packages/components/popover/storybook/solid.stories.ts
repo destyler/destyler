@@ -1,4 +1,4 @@
-import Popover from '../examples/Popover.solid'
+import Popover from '../examples/solid/Popover.solid'
 
 export default {
   component: Popover,

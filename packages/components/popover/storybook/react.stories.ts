@@ -1,4 +1,4 @@
-import Popover from '../examples/Popover.react'
+import Popover from '../examples/react/Popover.react'
 
 export default {
   component: Popover,

@@ -1,4 +1,4 @@
-import Popover from '../examples/Popover.svelte'
+import Popover from '../examples/svelte/Popover.svelte'
 
 export default {
   component: Popover,
