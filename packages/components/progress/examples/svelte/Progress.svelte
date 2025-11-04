@@ -7,7 +7,11 @@
 
   const controls = useControls(progressControls)
 
-  const [snapshot, send] = useMachine(progress.machine({ id: "1" }), {
+  const id = $props.id()
+
+  const [snapshot, send] = useMachine(progress.machine({
+    id
+  }), {
     context: controls.context,
   })
 
