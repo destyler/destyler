@@ -1,4 +1,4 @@
-import QRCode from '../examples/QRCode.vue'
+import QRCode from '../examples/vue/QRCode.vue'
 
 export default {
   component: QRCode,

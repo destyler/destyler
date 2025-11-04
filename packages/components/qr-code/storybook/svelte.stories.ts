@@ -1,4 +1,4 @@
-import QRCode from '../examples/QRCode.svelte'
+import QRCode from '../examples/svelte/QRCode.svelte'
 
 export default {
   component: QRCode,

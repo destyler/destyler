@@ -1,4 +1,4 @@
-import QRCode from '../examples/QRCode.solid'
+import QRCode from '../examples/solid/QRCode.solid'
 
 export default {
   component: QRCode,

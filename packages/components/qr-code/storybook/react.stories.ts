@@ -1,4 +1,4 @@
-import QRCode from '../examples/QRCode.react'
+import QRCode from '../examples/react/QRCode.react'
 
 export default {
   component: QRCode,
