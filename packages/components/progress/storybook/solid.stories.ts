@@ -1,4 +1,4 @@
-import Progress from '../examples/Progress.solid'
+import Progress from '../examples/solid/Progress.solid'
 
 export default {
   component: Progress,

@@ -1,4 +1,4 @@
-import Progress from '../examples/Progress.svelte'
+import Progress from '../examples/svelte/Progress.svelte'
 
 export default {
   component: Progress,

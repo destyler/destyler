@@ -1,4 +1,4 @@
-import Progress from '../examples/Progress.react'
+import Progress from '../examples/react/Progress.react'
 
 export default {
   component: Progress,

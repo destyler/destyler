@@ -1,4 +1,4 @@
-import Progress from '../examples/Progress.vue'
+import Progress from '../examples/vue/Progress.vue'
 
 export default {
   component: Progress,
