@@ -1,4 +1,4 @@
-import Radio from '../examples/Radio.svelte'
+import Radio from '../examples/svelet/Radio.svelte'
 
 export default {
   component: Radio,

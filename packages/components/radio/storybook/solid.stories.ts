@@ -1,4 +1,4 @@
-import Radio from '../examples/Radio.solid'
+import Radio from '../examples/solid/Radio.solid'
 
 export default {
   component: Radio,

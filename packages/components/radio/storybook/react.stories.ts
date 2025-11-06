@@ -1,4 +1,4 @@
-import Radio from '../examples/Radio.react'
+import Radio from '../examples/react/Radio.react'
 
 export default {
   component: Radio,
