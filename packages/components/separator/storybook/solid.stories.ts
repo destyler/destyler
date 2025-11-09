@@ -1,4 +1,4 @@
-import Separator from '../examples/Separator.solid'
+import Separator from '../examples/solid/Separator.solid'
 
 export default {
   component: Separator,

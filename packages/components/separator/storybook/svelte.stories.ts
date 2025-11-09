@@ -1,4 +1,4 @@
-import Separator from '../examples/Separator.svelte'
+import Separator from '../examples/svelte/Separator.svelte'
 
 export default {
   component: Separator,
