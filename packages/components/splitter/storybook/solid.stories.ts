@@ -1,4 +1,4 @@
-import Splitter from '../examples/Splitter.solid'
+import Splitter from '../examples/solid/Splitter.solid'
 
 export default {
   component: Splitter,

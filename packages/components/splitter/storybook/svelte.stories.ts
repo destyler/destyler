@@ -1,4 +1,4 @@
-import Splitter from '../examples/Splitter.svelte'
+import Splitter from '../examples/svelte/Splitter.svelte'
 
 export default {
   component: Splitter,

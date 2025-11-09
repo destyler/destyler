@@ -1,4 +1,4 @@
-import Splitter from '../examples/Splitter.vue'
+import Splitter from '../examples/vue/Splitter.vue'
 
 export default {
   component: Splitter,

@@ -1,4 +1,4 @@
-import Splitter from '../examples/Splitter.react'
+import Splitter from '../examples/react/Splitter.react'
 
 export default {
   component: Splitter,

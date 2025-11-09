@@ -7,9 +7,11 @@
 
   const controls = useControls(sliderControls)
 
+  const id = $props.id()
+
   const [snapshot, send] = useMachine(
     slider.machine({
-      id: "1",
+      id: id,
       name: "quantity",
       value: [0],
     }),
