@@ -1,4 +1,4 @@
-import Slider from '../examples/Slider.react'
+import Slider from '../examples/react/Slider.react'
 
 export default {
   component: Slider,

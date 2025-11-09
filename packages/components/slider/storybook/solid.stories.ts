@@ -1,4 +1,4 @@
-import Slider from '../examples/Slider.solid'
+import Slider from '../examples/solid/Slider.solid'
 
 export default {
   component: Slider,

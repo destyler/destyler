@@ -1,4 +1,4 @@
-import Slider from '../examples/Slider.svelte'
+import Slider from '../examples/svelte/Slider.svelte'
 
 export default {
   component: Slider,
