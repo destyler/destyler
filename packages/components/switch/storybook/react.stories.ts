@@ -1,4 +1,4 @@
-import Switch from '../examples/Switch.react'
+import Switch from '../examples/react/Switch.react'
 
 export default {
   component: Switch,

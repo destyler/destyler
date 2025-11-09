@@ -1,4 +1,4 @@
-import Switch from '../examples/Switch.solid'
+import Switch from '../examples/solid/Switch.solid'
 
 export default {
   component: Switch,

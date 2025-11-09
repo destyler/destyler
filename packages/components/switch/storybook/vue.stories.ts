@@ -1,4 +1,4 @@
-import Switch from '../examples/Switch.vue'
+import Switch from '../examples/vue/Switch.vue'
 
 export default {
   component: Switch,

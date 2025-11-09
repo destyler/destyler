@@ -1,4 +1,4 @@
-import Switch from '../examples/Switch.svelte'
+import Switch from '../examples/svelte/Switch.svelte'
 
 export default {
   component: Switch,
