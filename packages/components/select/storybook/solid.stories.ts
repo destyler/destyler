@@ -1,4 +1,4 @@
-import Select from '../examples/Select.solid'
+import Select from '../examples/solid/Select.solid'
 
 export default {
   component: Select,

@@ -1,4 +1,10 @@
 import type { StepDetails } from '@destyler/tour'
+import { countryList } from './country-list'
+
+export const selectData = countryList.map(country => ({
+  label: `${country.name} (${country.code})`,
+  value: country.code,
+}))
 
 export const collapseData = [
   {

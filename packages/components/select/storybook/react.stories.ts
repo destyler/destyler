@@ -1,4 +1,4 @@
-import Select from '../examples/Select.react'
+import Select from '../examples/react/Select.react'
 
 export default {
   component: Select,

@@ -1,4 +1,4 @@
-import Select from '../examples/Select.vue'
+import Select from '../examples/vue/Select.astro'
 
 export default {
   component: Select,

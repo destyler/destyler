@@ -1,4 +1,4 @@
-import Select from '../examples/Select.svelte'
+import Select from '../examples/svelte/Select.svelte'
 
 export default {
   component: Select,
