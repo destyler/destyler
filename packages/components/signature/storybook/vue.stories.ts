@@ -1,4 +1,4 @@
-import Signature from '../examples/Signature.vue'
+import Signature from '../examples/vue/Signature.vue'
 
 export default {
   component: Signature,

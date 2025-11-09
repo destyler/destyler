@@ -1,4 +1,4 @@
-import Signature from '../examples/Signature.solid'
+import Signature from '../examples/solid/Signature.solid'
 
 export default {
   component: Signature,

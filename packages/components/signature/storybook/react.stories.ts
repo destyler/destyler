@@ -1,4 +1,4 @@
-import Signature from '../examples/Signature.react'
+import Signature from '../examples/react/Signature.react'
 
 export default {
   component: Signature,

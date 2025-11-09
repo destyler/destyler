@@ -1,4 +1,4 @@
-import Signature from '../examples/Signature.svelte'
+import Signature from '../examples/svelte/Signature.svelte'
 
 export default {
   component: Signature,
