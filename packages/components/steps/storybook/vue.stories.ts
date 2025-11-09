@@ -1,4 +1,4 @@
-import Steps from '../examples/Steps.vue'
+import Steps from '../examples/vue/Steps.vue'
 
 export default {
   component: Steps,

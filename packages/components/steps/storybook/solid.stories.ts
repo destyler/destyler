@@ -1,4 +1,4 @@
-import Steps from '../examples/Steps.solid'
+import Steps from '../examples/solid/Steps.solid'
 
 export default {
   component: Steps,

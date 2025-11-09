@@ -1,4 +1,4 @@
-import Steps from '../examples/Steps.react'
+import Steps from '../examples/react/Steps.react'
 
 export default {
   component: Steps,

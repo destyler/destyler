@@ -6,6 +6,12 @@ export const selectData = countryList.map(country => ({
   value: country.code,
 }))
 
+export const stepsData = [
+  { value: 'first', title: 'First', description: 'Contact Info' },
+  { value: 'second', title: 'Second', description: 'Date & Time' },
+  { value: 'third', title: 'Third', description: 'Select Rooms' },
+]
+
 export const collapseData = [
   {
     id: 'watercraft',

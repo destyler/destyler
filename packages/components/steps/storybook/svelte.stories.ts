@@ -1,4 +1,4 @@
-import Steps from '../examples/Steps.svelte'
+import Steps from '../examples/svelte/Steps.svelte'
 
 export default {
   component: Steps,
