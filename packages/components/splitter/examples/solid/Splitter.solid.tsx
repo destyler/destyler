@@ -29,7 +29,7 @@ export default function Page() {
     <Layout>
       <main style={{
         'min-width': '400px',
-        "min-height": '200px',
+        'min-height': '200px',
       }}
       >
         <div {...api().getRootProps()}>

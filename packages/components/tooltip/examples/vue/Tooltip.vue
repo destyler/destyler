@@ -1,7 +1,7 @@
 <script setup>
 import { Layout } from '@destyler/shared-private/vue'
 import { normalizeProps, useMachine } from '@destyler/vue'
-import { computed, Teleport } from 'vue'
+import { computed } from 'vue'
 import * as tooltip from '../../index'
 import '../style.css'
 

@@ -1,6 +1,6 @@
 /** @jsxImportSource solid-js */
 import { fileUploadControls } from '@destyler/shared-private'
-import { Layout, StateVisualizer, Toolbar,useControls } from '@destyler/shared-private/solid'
+import { Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
 import { normalizeProps, useMachine } from '@destyler/solid'
 import { createMemo, createUniqueId, For } from 'solid-js'
 import * as fileUpload from '../../index'

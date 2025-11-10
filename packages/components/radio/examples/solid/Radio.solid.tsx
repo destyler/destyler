@@ -43,10 +43,10 @@ export default function Page() {
           {/*  */}
           <button type="reset">Reset</button>
           <button type="button" onClick={() => api().setValue('mango')}>
-              Set to Mangoes
+            Set to Mangoes
           </button>
           <button type="button" onClick={() => api().focus()}>
-              Focus
+            Focus
           </button>
         </fieldset>
       </main>

@@ -26,7 +26,7 @@ export default function FileUpload() {
           <button
             {...api.getTriggerProps()}
           >
-          Choose Files...
+            Choose Files...
           </button>
         </div>
 
@@ -46,7 +46,7 @@ export default function FileUpload() {
               <button
                 {...api.getItemDeleteTriggerProps({ file })}
               >
-              Delete
+                Delete
               </button>
             </li>
           ))}
