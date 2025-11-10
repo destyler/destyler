@@ -1,4 +1,4 @@
-import Tabs from '../examples/Tabs.react'
+import Tabs from '../examples/react/Tabs.react'
 
 export default {
   component: Tabs,

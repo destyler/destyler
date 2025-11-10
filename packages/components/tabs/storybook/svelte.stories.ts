@@ -1,4 +1,4 @@
-import Tabs from '../examples/Tabs.svelte'
+import Tabs from '../examples/svelte/Tabs.svelte'
 
 export default {
   component: Tabs,

@@ -1,4 +1,4 @@
-import Tabs from '../examples/Tabs.vue'
+import Tabs from '../examples/vue/Tabs.vue'
 
 export default {
   component: Tabs,

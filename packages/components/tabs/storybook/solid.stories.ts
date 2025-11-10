@@ -1,4 +1,4 @@
-import Tabs from '../examples/Tabs.solid'
+import Tabs from '../examples/solid/Tabs.solid'
 
 export default {
   component: Tabs,
