@@ -1,4 +1,4 @@
-import Tooltip from '../examples/Tooltip.solid'
+import Tooltip from '../examples/solid/Tooltip.solid'
 
 export default {
   component: Tooltip,

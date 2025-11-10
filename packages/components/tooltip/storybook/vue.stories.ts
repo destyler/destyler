@@ -1,4 +1,4 @@
-import Tooltip from '../examples/Tooltip.vue'
+import Tooltip from '../examples/vue/Tooltip.astro'
 
 export default {
   component: Tooltip,

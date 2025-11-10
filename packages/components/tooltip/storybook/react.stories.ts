@@ -1,4 +1,4 @@
-import Tooltip from '../examples/Tooltip.react'
+import Tooltip from '../examples/react/Tooltip.react'
 
 export default {
   component: Tooltip,

@@ -1,4 +1,4 @@
-import Tooltip from '../examples/Tooltip.svelte'
+import Tooltip from '../examples/svelte/Tooltip.svelte'
 
 export default {
   component: Tooltip,
