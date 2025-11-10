@@ -1,4 +1,4 @@
-import Toggle from '../examples/Toggle.solid'
+import Toggle from '../examples/solid/Toggle.solid'
 
 export default {
   component: Toggle,

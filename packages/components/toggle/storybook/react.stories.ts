@@ -1,4 +1,4 @@
-import Toggle from '../examples/Toggle.react'
+import Toggle from '../examples/react/Toggle.react'
 
 export default {
   component: Toggle,

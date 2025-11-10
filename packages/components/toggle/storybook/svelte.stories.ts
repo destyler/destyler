@@ -1,4 +1,4 @@
-import Toggle from '../examples/Toggle.svelte'
+import Toggle from '../examples/svelte/Toggle.svelte'
 
 export default {
   component: Toggle,

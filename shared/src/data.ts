@@ -12,6 +12,12 @@ export const stepsData = [
   { value: 'third', title: 'Third', description: 'Select Rooms' },
 ]
 
+export const toggleData = [
+  { value: 'bold', label: 'B' },
+  { value: 'italic', label: 'I' },
+  { value: 'underline', label: 'U' },
+]
+
 export const tabsData = [
   {
     id: 'nils',
