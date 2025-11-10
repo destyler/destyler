@@ -1,4 +1,4 @@
-import Timer from '../examples/Timer.solid'
+import Timer from '../examples/solid/Timer.solid'
 
 export default {
   component: Timer,

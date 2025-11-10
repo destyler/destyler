@@ -1,4 +1,4 @@
-import Timer from '../examples/Timer.vue'
+import Timer from '../examples/vue/Timer.vue'
 
 export default {
   component: Timer,

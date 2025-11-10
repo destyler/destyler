@@ -1,4 +1,4 @@
-import Timer from '../examples/Timer.react'
+import Timer from '../examples/react/Timer.react'
 
 export default {
   component: Timer,

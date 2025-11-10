@@ -1,4 +1,4 @@
-import Timer from '../examples/Timer.svelte'
+import Timer from '../examples/svelte/Timer.svelte'
 
 export default {
   component: Timer,
