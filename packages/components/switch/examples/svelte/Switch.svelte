@@ -2,16 +2,16 @@
   import { switchControls } from "@destyler/shared-private"
   import { normalizeProps, useMachine } from "@destyler/svelte"
   import {useControls, Toolbar, StateVisualizer, Layout} from '@destyler/shared-private/svelte'
-  import * as zagSwitch from "../../index"
+  import * as switchs from "../../index"
   import '../style.css'
 
   const controls = useControls(switchControls)
 
-  const [snapshot, send] = useMachine(zagSwitch.machine({ id: "1", name: "switch" }), {
+  const [snapshot, send] = useMachine(switchs.machine({ id: "1", name: "switch" }), {
     context: controls.context,
   })
 
-  const api = $derived(zagSwitch.connect(snapshot, send, normalizeProps))
+  const api = $derived(switchs.connect(snapshot, send, normalizeProps))
 </script>
 
 <Layout>
