@@ -1,0 +1,38 @@
+{
+  "name": "@destyler/lit",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "the lit wrapper for destyler",
+  "author": "Elone Hoo <elonehoo@gmail.com>",
+  "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist",
+    "clear:node_modules": "rimraf ./node_modules",
+    "prepublishOnly": "pnpm run build",
+    "build": "pnpm run clear && tsdown",
+    "watch": "tsdown --watch"
+  },
+  "peerDependencies": {
+    "lit": ">=3.2.0"
+  },
+  "dependencies": {
+    "@destyler/store": "workspace:*",
+    "@destyler/types": "workspace:*",
+    "@destyler/xstate": "workspace:*",
+    "proxy-compare": "catalog:prod"
+  },
+  "devDependencies": {
+    "@destyler/utils": "workspace:*",
+    "lit": "catalog:frontend"
+  }
+}

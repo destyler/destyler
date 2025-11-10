@@ -1,0 +1,66 @@
+/** @jsxImportSource solid-js */
+import type { ParentProps } from 'solid-js'
+import { popoverControls } from '@destyler/shared-private'
+import { Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/solid'
+import { normalizeProps, useMachine } from '@destyler/solid'
+import { createMemo, createUniqueId } from 'solid-js'
+import { Portal } from 'solid-js/web'
+
+import * as popover from '../../index'
+import '../style.css'
+
+function Wrapper(props: ParentProps<{ guard: boolean }>) {
+  return <>{props.guard ? <Portal mount={document.body}>{props.children}</Portal> : props.children}</>
+}
+
+export default function Page() {
+  const controls = useControls(popoverControls)
+
+  const [state, send] = useMachine(popover.machine({ id: createUniqueId() }), {
+    context: controls.context,
+  })
+
+  const api = createMemo(() => popover.connect(state, send, normalizeProps))
+
+  return (
+    <Layout>
+      <main class="popover">
+        <div data-part="root">
+          <button data-testid="button-before">Button :before</button>
+          <button data-testid="popover-trigger" {...api().getTriggerProps()}>
+            Click me
+            <div {...api().getIndicatorProps()}>{'>'}</div>
+          </button>
+          <Wrapper guard={api().portalled}>
+            <div {...api().getPositionerProps()}>
+              <div data-testid="popover-content" class="popover-content" {...api().getContentProps()}>
+                <div {...api().getArrowProps()}>
+                  <div {...api().getArrowTipProps()} />
+                </div>
+                <div data-testid="popover-title" {...api().getTitleProps()}>
+                  Popover Title
+                </div>
+                <div data-testid="popover-body" data-part="body">
+                  <a>Non-focusable Link</a>
+                  <a href="#" data-testid="focusable-link">
+                    Focusable Link
+                  </a>
+                  <input data-testid="input" placeholder="input" />
+                  <button data-testid="popover-close-button" {...api().getCloseTriggerProps()}>
+                    X
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Wrapper>
+          <span data-testid="plain-text">I am just text</span>
+          <button data-testid="button-after">Button :after</button>
+        </div>
+      </main>
+
+      <Toolbar controls={controls.ui}>
+        <StateVisualizer state={state} />
+      </Toolbar>
+    </Layout>
+  )
+}

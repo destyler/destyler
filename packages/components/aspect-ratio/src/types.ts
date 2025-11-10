@@ -1,5 +1,5 @@
 import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
-import type { AnyEventObject, XSend, XState } from '@destyler/xstate'
+import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export type ElementIds = Partial<{
   root: string
@@ -28,6 +28,8 @@ export interface MachineState {
 export type State = XState<MachineContext, MachineState>
 
 export type Send = XSend<AnyEventObject>
+
+export type Service = Machine<MachineContext, MachineState, AnyEventObject>
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
   /**

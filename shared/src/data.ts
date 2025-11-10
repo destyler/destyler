@@ -1,4 +1,86 @@
 import type { StepDetails } from '@destyler/tour'
+import { countryList } from './country-list'
+
+export const selectData = countryList.map(country => ({
+  label: `${country.name} (${country.code})`,
+  value: country.code,
+}))
+
+export const stepsData = [
+  { value: 'first', title: 'First', description: 'Contact Info' },
+  { value: 'second', title: 'Second', description: 'Date & Time' },
+  { value: 'third', title: 'Third', description: 'Select Rooms' },
+]
+
+export const toggleData = [
+  { value: 'bold', label: 'B' },
+  { value: 'italic', label: 'I' },
+  { value: 'underline', label: 'U' },
+]
+
+export const tabsData = [
+  {
+    id: 'nils',
+    label: 'Nils Frahm',
+    content: `
+    Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining
+            classical and electronic music and for an unconventional approach to the piano in which he mixes a grand
+            piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.
+    `,
+  },
+  {
+    id: 'agnes',
+    label: 'Agnes Obel',
+    content: `
+    Agnes Caroline Thaarup Obel is a Danish singer/songwriter. Her first album, Philharmonics, was released by
+            PIAS Recordings on 4 October 2010 in Europe. Philharmonics was certified gold in June 2011 by the Belgian
+            Entertainment Association (BEA) for sales of 10,000 Copies.
+    `,
+  },
+  {
+    id: 'joke',
+    label: 'Joke',
+    content: `
+    Fear of complicated buildings: A complex complex complex.
+    `,
+  },
+]
+
+export const collapseData = [
+  {
+    id: 'watercraft',
+    title: 'Watercraft',
+    content: 'Experience the thrill of cutting-edge marine vessels, from luxury yachts to high-performance speedboats.',
+  },
+  {
+    id: 'automobiles',
+    title: 'Automobiles',
+    content: 'Discover our premium selection of automobiles, featuring the latest in automotive technology and design.',
+  },
+  {
+    id: 'aircraft',
+    title: 'Aircraft',
+    content: 'Explore our range of aircraft, from private jets to commercial airliners, all equipped with state-of-the-art technology.',
+  },
+]
+
+export const radioData = [
+  { id: 'apple', label: 'Apples' },
+  { id: 'orange', label: 'Oranges' },
+  { id: 'mango', label: 'Mangoes' },
+  { id: 'grape', label: 'Grapes' },
+]
+
+export const imagesData = {
+  full: [
+    'https://images.unsplash.com/photo-1508791573065-57c595096106?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+    'https://plus.unsplash.com/premium_photo-1706838708757-90894d747ada?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1470',
+    'https://images.unsplash.com/photo-1620837953336-8274c0623a3c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+    'https://images.unsplash.com/photo-1621237023000-6a628c285938?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170',
+  ],
+  broken:
+    'https://images.unsplash.com/photo-1589558928675-a09badc3a9fd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1074',
+}
 
 export const listData = [
   { label: 'Zambia', code: 'ZA' },

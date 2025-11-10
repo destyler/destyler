@@ -19,7 +19,7 @@
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
-    "build": "pnpm run clear && svelte-package -i src && tsc --noEmit",
+    "build": "rimraf ./dist && svelte-package -i src",
     "watch": "tsdown --watch"
   },
   "peerDependencies": {

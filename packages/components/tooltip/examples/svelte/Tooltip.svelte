@@ -1,0 +1,39 @@
+<script lang="ts">
+  import { normalizeProps, useMachine, portal } from "@destyler/svelte"
+  import {Toolbar, StateVisualizer, Layout} from '@destyler/shared-private/svelte'
+  import * as tooltip from "../../index"
+  import '../style.css'
+
+  const id = "tip-1"
+  const id2 = "tip-2"
+
+  const [snapshot, send] = useMachine(tooltip.machine({ id }))
+  const [snapshot2, send2] = useMachine(tooltip.machine({ id: id2 }))
+
+  const api = $derived(tooltip.connect(snapshot, send, normalizeProps))
+  const api2 = $derived(tooltip.connect(snapshot2, send2, normalizeProps))
+</script>
+
+<Layout>
+  <main class="tooltip">
+    <div class="root">
+      <button data-testid={`${id}-trigger`} {...api.getTriggerProps()}> Hover me </button>
+      {#if api.open}
+        <div {...api.getPositionerProps()}>
+          <div class="tooltip-content" data-testid={`${id}-tooltip`} {...api.getContentProps()}>Tooltip</div>
+        </div>
+      {/if}
+      <button data-testid={`${id2}-trigger`} {...api2.getTriggerProps()}> Over me </button>
+      {#if api2.open}
+        <div use:portal {...api2.getPositionerProps()}>
+          <div class="tooltip-content" data-testid={`${id2}-tooltip`} {...api2.getContentProps()}>Tooltip 2</div>
+        </div>
+      {/if}
+    </div>
+  </main>
+
+  <Toolbar controls={null}>
+    <StateVisualizer state={snapshot} label="Tooltip 1" />
+    <StateVisualizer state={snapshot2} label="Tooltip 2" />
+  </Toolbar>
+</Layout>

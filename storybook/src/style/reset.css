@@ -1,0 +1,73 @@
+[data-story="book"]{
+  --ring-color: blue;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+
+  & input::-webkit-outer-spin-button,
+  & input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  & *:focus {
+    outline: 2px solid var(--ring-color);
+    outline-offset: 2px;
+  }
+
+  & button {
+    flex-shrink: 0;
+  }
+
+  & [hidden] {
+    display: none !important;
+  }
+
+  & ul {
+    padding-inline-start: 0;
+  }
+
+  & .pre {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    font-family: monospace;
+  }
+
+  & .index-nav {
+    line-height: 1em;
+    flex: 1;
+    padding: 40px;
+  }
+
+  & .index-nav ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    padding: 0;
+  }
+
+  & .index-nav a {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-transform: capitalize;
+    text-decoration: none;
+  }
+
+  & .backlink {
+    margin: 16px 12px;
+  }
+}
+
+body {
+  position: relative;
+}
+
+
+body {
+  margin: 0;
+  font-size: 14px;
+  overflow: hidden;
+}

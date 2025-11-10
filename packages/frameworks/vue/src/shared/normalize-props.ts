@@ -46,9 +46,8 @@ export const normalizeProps = createNormalizer<PropTypes>((props: Dict) => {
   for (const key in props) {
     const value = props[key]
     if (key === 'children') {
-      if (typeof value === 'string') {
-        normalized.innerHTML = value
-      }
+      if (typeof value === 'string' || typeof value === 'number')
+        normalized.textContent = String(value)
     }
     else {
       normalized[toVueProp(key)] = props[key]
