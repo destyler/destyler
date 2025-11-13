@@ -6,34 +6,68 @@ import { directive } from 'lit/directive.js'
  * The acceptable types used to specify a portal target.
  */
 export type TargetOrSelector = Node | string
+type TargetResolvable = TargetOrSelector | Promise<TargetOrSelector>
+
+const canUseDOM = () => typeof window !== 'undefined' && typeof document !== 'undefined'
+
+function createPortalId () {
+  return typeof globalThis.crypto?.randomUUID === 'function'
+    ? globalThis.crypto.randomUUID()
+    : Math.random().toString(36).slice(2)
+}
+
+function isPromiseLike (value: unknown): value is PromiseLike<unknown> {
+  return typeof (value as any)?.then === 'function'
+}
+
+function isDocumentNode (value: unknown): value is Document {
+  return typeof Document !== 'undefined' && value instanceof Document
+}
+
+function resolveDocument (root?: ShadowRoot | Document | Node | null): Document | null {
+  if (!canUseDOM())
+    return null
+  if (!root)
+    return document
+  if (isDocumentNode(root))
+    return root
+  return (root as Node).ownerDocument ?? document
+}
+
+function getDefaultTargetNode (doc: Document | null, root?: ShadowRoot | Document | Node | null): Node | null {
+  if (root && !isDocumentNode(root))
+    return root
+  if (!doc)
+    return null
+  return doc.body ?? doc.documentElement ?? null
+}
+
+function resolveTargetNode (targetOrSelector: TargetOrSelector, doc: Document): Node {
+  if (typeof targetOrSelector === 'string') {
+    const target = doc.querySelector(targetOrSelector)
+    if (!target) {
+      throw new Error(`Could not locate portal target with selector "${targetOrSelector}".`)
+    }
+    return target
+  }
+  return targetOrSelector
+}
 
 /**
- * @property placeholder - When provided, `placeholder` will be immediately rendered in the portal.
- * Assuming that `content` is a promise, it will replace the placeholder once it resolves.
- *
- * @property modifyContainer - When provided, the `modifyContainer` function will be called with
- * the portal's container given as the argument. This allows you to programmatically control the
- * container before the portal renders.
+ * @property placeholder - When provided, `placeholder` will be rendered while `content` promises are pending.
+ * @property modifyContainer - Hook to customize the internally created container element (e.g. class names).
+ * @property target - Explicit mount point for the portal. Accepts a node, selector, or promise.
+ * @property container - Alias for {@link PortalOptions.target} for parity with other frameworks.
+ * @property getRootNode - Function used to derive the document/root when no explicit target was provided.
+ * @property disabled - When true (or when the DOM is unavailable) the directive renders inline without portaling.
  */
 export interface PortalOptions {
   placeholder?: unknown
   modifyContainer?: (container: HTMLElement) => void
-}
-
-/**
- * Utility function to get an HTMLElement by reference or by a document query selector.
- */
-function getTarget(targetOrSelector: TargetOrSelector): Node {
-  let target = targetOrSelector
-  // Treat the argument as a query selector if it's a string.
-  if (typeof target === 'string') {
-    target = document.querySelector(target) as Node
-    if (target === null) {
-      throw new Error(`Could not locate portal target with selector "${targetOrSelector}".`)
-    }
-  }
-
-  return target
+  target?: TargetResolvable
+  container?: TargetResolvable
+  getRootNode?: () => ShadowRoot | Document | Node
+  disabled?: boolean
 }
 
 /**
@@ -42,9 +76,10 @@ function getTarget(targetOrSelector: TargetOrSelector): Node {
  * See [Lit docs on Custom Directives](https://lit.dev/docs/templates/custom-directives/).
  */
 export class PortalDirective extends AsyncDirective {
-  private containerId = `portal-${globalThis.crypto.randomUUID()}`
+  private readonly containerId = `portal-${createPortalId()}`
   private container: HTMLElement | undefined
   private target: Node | undefined
+  private renderToken = 0
 
   /**
    * Main render function for the directive.
@@ -92,77 +127,159 @@ export class PortalDirective extends AsyncDirective {
    */
   render(
     content: unknown | Promise<unknown>,
-    targetOrSelector: TargetOrSelector | Promise<TargetOrSelector>,
+    targetOrSelector?: TargetResolvable,
     options?: PortalOptions,
   ) {
-    // Resolve targetOrSelector first, because nothing can happen without that.
-    Promise.resolve(targetOrSelector).then(async (targetOrSelector) => {
-      if (!targetOrSelector) {
-        throw new Error(
-          'Target was falsy. Are you using a Lit ref before its value is defined? If so, try using Lit\'s @queryAsync decorator instead (https://lit.dev/docs/api/decorators/#queryAsync).',
-        )
-      }
-      const newTarget = getTarget(targetOrSelector)
+    const resolvedOptions = options ?? {}
 
-      // Create container if it doesn't already exist.
-      if (!this.container) {
-        const newContainer = document.createElement('div')
-        newContainer.id = this.containerId
-        if (options?.modifyContainer) {
-          options.modifyContainer(newContainer)
+    if (!canUseDOM() || resolvedOptions.disabled) {
+      this.renderToken++
+      this.reset(true)
+      return this.getInlineValue(content, resolvedOptions.placeholder)
+    }
+
+    const explicitTarget = targetOrSelector ?? resolvedOptions.target ?? resolvedOptions.container
+    const rootNode = resolvedOptions.getRootNode?.()
+    const doc = resolveDocument(rootNode)
+    const fallback = getDefaultTargetNode(doc, rootNode)
+
+    const candidate = explicitTarget ?? fallback
+    if (!candidate) {
+      console.warn('[@destyler/lit > portal] No portal target available; nothing will render.')
+      return nothing
+    }
+
+    const requestId = ++this.renderToken
+
+    void Promise.resolve(candidate)
+      .then(async (resolvedCandidate) => {
+        if (requestId !== this.renderToken)
+          return
+
+        if (!resolvedCandidate) {
+          console.warn('[@destyler/lit > portal] Resolved portal target was nullish; skipping render.')
+          return
         }
-        this.container = newContainer
-      }
 
-      // If we are getting a new target, then migrate the container.
-      if (this.target && this.target !== newTarget) {
-        this.target?.removeChild(this.container)
-        newTarget.appendChild(this.container)
-        this.target = newTarget
-      }
+        const resolvedDoc = typeof resolvedCandidate === 'string'
+          ? doc
+          : isDocumentNode(resolvedCandidate)
+            ? resolvedCandidate
+            : (resolvedCandidate as Node).ownerDocument ?? doc
 
-      // Set the target if it's undefined
-      if (!this.target) {
-        this.target = newTarget
-
-        // Render the placeholder if it's provided
-        if (options?.placeholder) {
-          // Only append the container to the target if we are about to render.
-          if (!this.target.contains(this.container)) {
-            this.target.appendChild(this.container)
-          }
-          litRender(options.placeholder, this.container)
+        if (!resolvedDoc) {
+          console.warn('[@destyler/lit > portal] Unable to determine document for portal target.')
+          return
         }
-      }
 
-      const resolvedContent = await Promise.resolve(content)
+        let targetNode: Node
+        try {
+          targetNode
+            = typeof resolvedCandidate === 'string'
+              ? resolveTargetNode(resolvedCandidate, resolvedDoc)
+              : resolvedCandidate
+        }
+        catch (error) {
+          console.error(error)
+          return
+        }
 
-      // Add the container to the target if it isn't included already.
-      if (!this.target.contains(this.container)) {
-        this.target.appendChild(this.container)
-      }
+        this.ensureContainer(resolvedDoc, resolvedOptions)
+        this.updateTarget(targetNode)
 
-      litRender(resolvedContent, this.container)
-    })
+        if (this.shouldShowPlaceholder(content, resolvedOptions.placeholder)) {
+          this.renderPlaceholder(resolvedOptions.placeholder)
+        }
+
+        await this.renderContent(content, requestId)
+      })
+      .catch((error) => {
+        console.error('[@destyler/lit > portal] Failed to resolve portal target', error)
+      })
 
     return nothing
   }
 
   /** Remove container from target when the directive is disconnected. */
   protected disconnected(): void {
-    if (this.target?.contains(this.container)) {
-      this.target?.removeChild(this.container)
-    }
-    else {
-      console.warn(
-        'portal directive was disconnected after the portal container was removed from the target.',
-      )
-    }
+    this.renderToken++
+    this.detachContainer(false)
   }
 
   /** Append container to target when the directive is reconnected. */
   protected reconnected(): void {
-    this.target?.appendChild(this.container)
+    this.appendContainer()
+  }
+
+  private ensureContainer(doc: Document, options?: PortalOptions) {
+    if (this.container && this.container.ownerDocument === doc)
+      return
+    this.detachContainer(true)
+    const newContainer = doc.createElement('div')
+    newContainer.id = this.containerId
+    options?.modifyContainer?.(newContainer)
+    this.container = newContainer
+  }
+
+  private updateTarget(target: Node) {
+    if (this.container && this.target && this.target !== target && this.target.contains(this.container)) {
+      this.target.removeChild(this.container)
+    }
+    this.target = target
+  }
+
+  private appendContainer() {
+    if (this.container && this.target && !this.target.contains(this.container)) {
+      this.target.appendChild(this.container)
+    }
+  }
+
+  private renderPlaceholder(placeholder: unknown) {
+    if (!this.container)
+      return
+    this.appendContainer()
+    litRender(placeholder as any, this.container)
+  }
+
+  private async renderContent(content: unknown | Promise<unknown>, requestId: number) {
+    try {
+      const resolvedContent = await Promise.resolve(content)
+      if (requestId !== this.renderToken)
+        return
+      if (!this.container) {
+        console.warn('[@destyler/lit > portal] Portal container was missing during render.')
+        return
+      }
+      this.appendContainer()
+      litRender(resolvedContent as any, this.container)
+    }
+    catch (error) {
+      console.error('[@destyler/lit > portal] Error rendering portal content', error)
+    }
+  }
+
+  private shouldShowPlaceholder(content: unknown, placeholder?: unknown) {
+    return placeholder !== undefined && isPromiseLike(content)
+  }
+
+  private getInlineValue(content: unknown, placeholder?: unknown) {
+    if (isPromiseLike(content))
+      return placeholder ?? nothing
+    return content ?? placeholder ?? nothing
+  }
+
+  private detachContainer(clearAll: boolean) {
+    if (this.container && this.target && this.target.contains(this.container)) {
+      this.target.removeChild(this.container)
+    }
+    if (clearAll) {
+      this.container = undefined
+      this.target = undefined
+    }
+  }
+
+  private reset(clearAll: boolean) {
+    this.detachContainer(clearAll)
   }
 }
 
