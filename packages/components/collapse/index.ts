@@ -9,6 +9,7 @@ export type {
   FocusChangeDetails,
   ItemProps,
   ItemState,
+  MachineState,
   Service,
   ValueChangeDetails,
 } from './src/types'

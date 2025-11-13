@@ -25,10 +25,10 @@
   "dependencies": {
     "@destyler/store": "workspace:*",
     "@destyler/types": "workspace:*",
+    "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*",
     "proxy-compare": "catalog:prod"
   },
   "devDependencies": {
-    "@destyler/utils": "workspace:*"
   }
 }
