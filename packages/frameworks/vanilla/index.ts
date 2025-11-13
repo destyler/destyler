@@ -1,7 +1,7 @@
 export { normalizeProps } from './src/normalize-props'
 export type { AttrMap } from './src/normalize-props'
 export { spread } from './src/spread'
-export { spreadProps } from './src/spread-props'
+export { spreadProps, hydrateSpreadProps } from './src/spread-props'
 export { Component } from './src/component'
 export type { ComponentOptions, ContextSource } from './src/component'
 export { createPortal, Portal } from './src/components/portal'

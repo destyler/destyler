@@ -15,7 +15,10 @@ interface ElementState {
   events: Map<string, EventInfo>
 }
 
+const SPREAD_ATTRIBUTE = 'data-destyler-spread'
+
 const spreadState = new WeakMap<Element, ElementState>()
+const pendingPropSets = new Map<string, SpreadAttributes>()
 
 const booleanAttributes = new Set([
   'checked',
@@ -32,13 +35,25 @@ const booleanAttributes = new Set([
   'inert',
 ])
 
-export function spreadProps<T extends Element>(element: T | null | undefined, props?: SpreadAttributes | null) {
+let spreadUid = 0
+
+function isElement(value: unknown): value is Element {
+  return typeof Element !== 'undefined' && value instanceof Element
+}
+
+function getPendingId(props: SpreadAttributes | null | undefined) {
+  spreadUid = (spreadUid + 1) % Number.MAX_SAFE_INTEGER
+  const id = `sp-${spreadUid}`
+  pendingPropSets.set(id, props ?? {})
+  return id
+}
+
+function applyPropsToElement<T extends Element>(element: T | null | undefined, props?: SpreadAttributes | null) {
   if (!element)
     return element
   const nextProps = props ?? {}
   const state = spreadState.get(element) ?? { props: {}, events: new Map() }
 
-  // Remove stale props
   for (const key of Object.keys(state.props)) {
     if (!(key in nextProps)) {
       removeProp(element, key, state)
@@ -46,7 +61,6 @@ export function spreadProps<T extends Element>(element: T | null | undefined, pr
     }
   }
 
-  // Apply new props
   for (const [key, value] of Object.entries(nextProps)) {
     if (state.props[key] === value)
       continue
@@ -56,6 +70,44 @@ export function spreadProps<T extends Element>(element: T | null | undefined, pr
 
   spreadState.set(element, state)
   return element
+}
+
+export function spreadProps<T extends Element>(element: T, props?: SpreadAttributes | null): T
+export function spreadProps(element: null | undefined, props?: SpreadAttributes | null): null | undefined
+export function spreadProps(props?: SpreadAttributes | null): string
+export function spreadProps(
+  elementOrProps?: Element | SpreadAttributes | null,
+  maybeProps?: SpreadAttributes | null,
+): Element | string | null | undefined {
+  if (isElement(elementOrProps)) {
+    return applyPropsToElement(elementOrProps, maybeProps)
+  }
+
+  if (elementOrProps == null) {
+    return applyPropsToElement(elementOrProps, maybeProps)
+  }
+
+  const id = getPendingId(elementOrProps)
+  return `${SPREAD_ATTRIBUTE}="${id}"`
+}
+
+export function hydrateSpreadProps(root?: ParentNode | null) {
+  if (typeof document === 'undefined')
+    return
+
+  const scope = root ?? document
+  const selector = `[${SPREAD_ATTRIBUTE}]`
+  const elements = scope.querySelectorAll<Element>(selector)
+
+  elements.forEach((element) => {
+    const id = element.getAttribute(SPREAD_ATTRIBUTE)
+    if (!id)
+      return
+    const props = pendingPropSets.get(id)
+    pendingPropSets.delete(id)
+    element.removeAttribute(SPREAD_ATTRIBUTE)
+    applyPropsToElement(element, props)
+  })
 }
 
 function applyProp(element: Element, key: string, value: any, state: ElementState) {

@@ -3,12 +3,6 @@ import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import * as collapsible from '../../index'
 import '../style.css'
 
-const sampleText = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat.
-`
-
 type CollapsibleMachineContext = ContextFrom<typeof collapsible.machine>
 
 class CollapsibleExample extends Component<
@@ -29,30 +23,40 @@ class CollapsibleExample extends Component<
     const rootEl = this.rootEl
     if (!rootEl)
       return
-    const triggerEl = rootEl.querySelector<HTMLButtonElement>('[data-collapsible-trigger]')
-    const contentEl = rootEl.querySelector<HTMLElement>('[data-collapsible-content]')
 
-    spreadProps(rootEl, this.api.getRootProps())
-    if (triggerEl)
-      spreadProps(triggerEl, this.api.getTriggerProps())
-    if (contentEl)
-      spreadProps(contentEl, this.api.getContentProps())
+    const rootProps = this.api.getRootProps()
+    const triggerProps = this.api.getTriggerProps()
+    const contentProps = this.api.getContentProps()
+
+    spreadProps(rootEl, {
+      ...rootProps,
+      class: ['collapsible-root', rootProps.class].filter(Boolean).join(' '),
+    })
+
+    rootEl.innerHTML = `
+      <button ${spreadProps(triggerProps)}>
+        Collapsible Trigger
+      </button>
+      <div ${spreadProps(contentProps)}>
+        <p>
+          Lorem dfd dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna sfsd. Ut enim ad minimdfd v eniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+          id est laborum.
+          <a href="#">Some Link</a>
+        </p>
+      </div>
+    `
   }
 }
 
 export function render(target: HTMLElement) {
   target.innerHTML = `
-    <div class="collapsible-root" data-collapsible-root>
-      <button class="collapsible-trigger" data-collapsible-trigger>
-        Collapsible Trigger
-      </button>
-      <div class="collapsible-content" data-collapsible-content>
-        <p>${sampleText}</p>
-      </div>
-    </div>
+    <div destyler-collapsible-root></div>
   `
 
-  const rootEl = target.querySelector<HTMLElement>('[data-collapsible-root]')
+  const rootEl = target.querySelector<HTMLElement>('[destyler-collapsible-root]')
   if (!rootEl)
     return
 

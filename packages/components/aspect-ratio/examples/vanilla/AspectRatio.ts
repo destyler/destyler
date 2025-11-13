@@ -1,6 +1,8 @@
-import { normalizeProps, spreadProps, useMachine } from '@destyler/vanilla'
+import { hydrateSpreadProps, normalizeProps, spreadProps, useMachine } from '@destyler/vanilla'
 import * as aspectRatio from '../../index'
 import '../style.css'
+
+const classNames = (...values: Array<string | null | undefined | false>) => values.filter(Boolean).join(' ')
 
 export function render(target: HTMLElement, ratio = 16 / 9) {
   const machine = useMachine(
@@ -11,11 +13,19 @@ export function render(target: HTMLElement, ratio = 16 / 9) {
   )
 
   const api = aspectRatio.connect(machine.state, machine.send, normalizeProps)
+  const rootProps = api.getRootProps()
+  const contentProps = api.getContentProps()
 
   target.innerHTML = `
     <div class="aspect-ratio-root">
-      <div class="aspect-ratio-node">
-        <div class="aspect-ratio-content">
+      <div class="aspect-ratio-node" ${spreadProps({
+        ...rootProps,
+        class: classNames('aspect-ratio-node', rootProps.class),
+      })}>
+        <div class="aspect-ratio-content" ${spreadProps({
+          ...contentProps,
+          class: classNames('aspect-ratio-content', contentProps.class),
+        })}>
           <img
             class="aspect-ratio-img"
             src="https://elonehoo.me/gallery/20_sun.jpg"
@@ -24,11 +34,5 @@ export function render(target: HTMLElement, ratio = 16 / 9) {
       </div>
     </div>
   `
-
-  const rootEl = target.querySelector<HTMLElement>('.aspect-ratio-node')
-  const contentEl = target.querySelector<HTMLElement>('.aspect-ratio-content')
-  if (rootEl)
-    spreadProps(rootEl, api.getRootProps())
-  if (contentEl)
-    spreadProps(contentEl, api.getContentProps())
+  hydrateSpreadProps(target)
 }

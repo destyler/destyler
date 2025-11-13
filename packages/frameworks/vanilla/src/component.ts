@@ -7,6 +7,7 @@ import type {
   UserContext,
   XState,
 } from '@destyler/xstate'
+import { hydrateSpreadProps } from './spread-props'
 
 export interface ContextSource<TContext> {
   get?: () => Partial<TContext> | undefined
@@ -71,12 +72,12 @@ export abstract class Component<
     this.service.start(this.options?.state)
 
     this.updateApi()
-    this.render()
+    this.performRender()
 
     this.unsubscribe = this.service.subscribe((state) => {
       this.updateApi()
       this.onTransition(state)
-      this.render()
+      this.performRender()
     })
   }
 
@@ -136,11 +137,16 @@ export abstract class Component<
       this.contextUnsubscribe = context.subscribe((ctx) => {
         this.service.setContext(ctx as Partial<TMachineContext>)
         this.updateApi()
-        this.render()
+        this.performRender()
       })
     }
     else {
       this.service.setContext(context as Partial<TMachineContext>)
     }
+  }
+
+  private performRender(): void {
+    this.render()
+    hydrateSpreadProps(this.rootEl)
   }
 }
