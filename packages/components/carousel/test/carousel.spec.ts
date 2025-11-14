@@ -1,6 +1,6 @@
 import { testHook } from '@destyler/shared-private/test'
-import { page, userEvent } from '@vitest/browser/context'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Carousel'
 
 let el: HTMLElement
@@ -16,7 +16,6 @@ describe('[carousel] browser tests', () => {
   })
 
   it('renders correctly', async () => {
-
     const items = testHook.getItemEls()
     expect(items.all().length).toBe(5)
     await expect.element(testHook.getIndicatorEl().nth(0)).toHaveAttribute('data-current', '')

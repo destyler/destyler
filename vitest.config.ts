@@ -1,5 +1,3 @@
-/// <reference types="@vitest/browser/providers/playwright" />
-
 import { defineConfig } from 'vitest/config'
 import Vanilla from './vitest.browser.config'
 // import React from './vitest.react.config'

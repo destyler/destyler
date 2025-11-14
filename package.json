@@ -80,6 +80,7 @@
     "@vitejs/plugin-react": "catalog:plugin",
     "@vitejs/plugin-vue": "catalog:plugin",
     "@vitest/browser": "catalog:test",
+    "@vitest/browser-playwright": "^4.0.9",
     "@vitest/eslint-plugin": "catalog:test",
     "@vitest/ui": "catalog:test",
     "archiver": "catalog:util",

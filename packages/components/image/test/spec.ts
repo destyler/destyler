@@ -1,5 +1,5 @@
 import { part, TestSuite } from '@destyler/shared-private/test'
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { expect } from 'vitest'
 
 export class ImageTestSuite extends TestSuite {

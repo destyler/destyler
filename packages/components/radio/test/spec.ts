@@ -1,5 +1,5 @@
 import { TestSuite } from '@destyler/shared-private/test'
-import { page, userEvent } from '@vitest/browser/context'
+import { page, userEvent } from 'vitest/browser'
 import { expect } from 'vitest'
 
 export class RadioTestSuite extends TestSuite {

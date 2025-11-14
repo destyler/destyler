@@ -1,3 +1,4 @@
+import { playwright } from '@vitest/browser-playwright'
 import { defineProject } from 'vitest/config'
 
 export default defineProject({
@@ -9,7 +10,7 @@ export default defineProject({
     environment: 'jsdom',
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
       ],
