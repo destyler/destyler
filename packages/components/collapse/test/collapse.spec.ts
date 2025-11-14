@@ -12,10 +12,10 @@ describe('[collapse] browser tests - single / keyboard', () => {
     }
     el = document.createElement('div')
     document.body.appendChild(el)
+    render(el)
   })
 
   it('arrow down, focus next trigger', async () => {
-    render(el)
     const trigger = testHook.getTrigger('watercraft')
     await trigger.click()
     await testHook.pressKey('ArrowDown')
@@ -23,7 +23,6 @@ describe('[collapse] browser tests - single / keyboard', () => {
   })
 
   it('arrow up, focus previous trigger', async () => {
-    render(el)
     const trigger = testHook.getTrigger('automobiles')
     await trigger.click()
     await testHook.pressKey('ArrowDown')
@@ -32,7 +31,6 @@ describe('[collapse] browser tests - single / keyboard', () => {
   })
 
   it('home key, focus first trigger', async () => {
-    render(el)
     const trigger = testHook.getTrigger('automobiles')
     await trigger.click()
     await testHook.pressKey('Home')
@@ -41,7 +39,6 @@ describe('[collapse] browser tests - single / keyboard', () => {
   })
 
   it('end key, focus last trigger', async () => {
-    render(el)
     const trigger = testHook.getTrigger('watercraft')
     await trigger.click()
     await testHook.pressKey('End')
@@ -57,17 +54,16 @@ describe('[collapse] browser tests - single / pointer', () => {
     }
     el = document.createElement('div')
     document.body.appendChild(el)
+    render(el)
   })
 
   it('should show content', async () => {
-    render(el)
     const trigger = testHook.getTrigger('watercraft')
     await trigger.click()
     await expect.element(testHook.getContent('watercraft')).toBeVisible()
   })
 
   it('then clicking the same trigger again: should not close the content', async () => {
-    render(el)
     const trigger = testHook.getTrigger('watercraft')
     await trigger.dblClick()
 
@@ -75,7 +71,6 @@ describe('[collapse] browser tests - single / pointer', () => {
   })
 
   it('then clicking another trigger: should close the previous content', async () => {
-    render(el)
     await testHook.getTrigger('watercraft').click()
     await testHook.getTrigger('automobiles').click()
     await expect.element(testHook.getContent('automobiles')).toBeVisible()
@@ -90,10 +85,10 @@ describe('[collapse] browser tests - multiple / keyboard', () => {
     }
     el = document.createElement('div')
     document.body.appendChild(el)
+    render(el)
   })
 
   it('[multiple=true] on arrow down, focus next trigger', async () => {
-    render(el)
     await page.getByTestId('multiple').click()
     const trigger = testHook.getTrigger('watercraft')
 
@@ -110,8 +105,6 @@ describe('[collapse] browser tests - multiple / keyboard', () => {
   })
 
   it('[multiple=true] clicking another trigger, should close the previous content', async () => {
-    render(el)
-
     await page.getByTestId('multiple').click()
     await testHook.getTrigger('watercraft').click()
     await testHook.getTrigger('automobiles').click()

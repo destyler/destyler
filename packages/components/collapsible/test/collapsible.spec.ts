@@ -12,10 +12,10 @@ describe('[collapsible] browser tests', () => {
     }
     el = document.createElement('div')
     document.body.appendChild(el)
+    render(el)
   })
 
   it('should be open when clicked', async () => {
-    render(el)
     const triggerEl = testHook.getTrigger('collapsible')
     await triggerEl.click()
 
@@ -27,7 +27,6 @@ describe('[collapsible] browser tests', () => {
   })
 
   it('content should not be reachable via tab key', async () => {
-    render(el)
     const triggerEl = testHook.getTrigger('collapsible')
     await triggerEl.click()
     await triggerEl.click()

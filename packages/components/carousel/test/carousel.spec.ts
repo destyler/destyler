@@ -12,10 +12,11 @@ describe('[carousel] browser tests', () => {
     }
     el = document.createElement('div')
     document.body.appendChild(el)
+    render(el)
   })
 
   it('renders correctly', async () => {
-    render(el)
+
     const items = testHook.getItemEls()
     expect(items.all().length).toBe(5)
     await expect.element(testHook.getIndicatorEl().nth(0)).toHaveAttribute('data-current', '')
@@ -23,7 +24,6 @@ describe('[carousel] browser tests', () => {
     await expect.element(items.nth(1)).toHaveAttribute('data-inview', 'false')
   })
   it('autoplay start/stop', async () => {
-    render(el)
     const autoplayTrigger = testHook.getAutoPlayEl()
     await autoplayTrigger.click()
     await expect.element(autoplayTrigger).toHaveTextContent('Stop')
@@ -36,7 +36,6 @@ describe('[carousel] browser tests', () => {
   })
 
   it('clicking indicator scrolls to correct slide', async () => {
-    render(el)
     const indicator = testHook.getIndicatorEl()
     await indicator.nth(1).click()
     await expect.element(indicator.nth(1)).toHaveAttribute('data-current', '')
@@ -45,20 +44,17 @@ describe('[carousel] browser tests', () => {
   })
 
   it('scroll to a specific index via button', async () => {
-    render(el)
     await page.getByRole('button', { name: 'Scroll to 1' }).click()
     await expect.element(testHook.getItemEls().nth(1)).toHaveAttribute('data-inview', 'true')
   })
 
   it('indicator keyboard navigation', async () => {
-    render(el)
     const indicator = testHook.getIndicatorEl()
     await userEvent.type(indicator.nth(0), '{arrowright}')
     await expect.element(testHook.getItemEls().nth(1)).toHaveAttribute('data-inview', 'true')
   })
 
   it('[loop=true] should loop slides', async () => {
-    render(el)
     await page.getByTestId('loop').click()
     const prevTrigger = testHook.getPrevEl()
     await expect.element(prevTrigger).toBeEnabled()
@@ -73,7 +69,6 @@ describe('[carousel] browser tests', () => {
   })
 
   it('next and prev buttons navigate carousel', async () => {
-    render(el)
     const prevTrigger = testHook.getPrevEl()
     await expect.element(prevTrigger).toBeDisabled()
     const nextTrigger = testHook.getNextEl()

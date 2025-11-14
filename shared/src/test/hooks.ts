@@ -3,16 +3,23 @@ import { vi } from 'vitest'
 
 export const testHook = {
 
-  part(part: string) {
-    return `[data-part=${this.esc(part)}]`
-  },
-
   esc(str: string) {
     return str.replace(/[-[\]{}()*+?:.,\\^$|#\s]/g, '\\$&')
   },
 
   testid(part: string) {
     return `[data-testid=${this.esc(part)}]`
+  },
+
+  get test() {
+    return {
+      hiddenInput: testHook.testid('hidden-input'),
+      disabledCheck: testHook.testid('disabled'),
+    }
+  },
+
+  part(part: string) {
+    return `[data-part=${this.esc(part)}]`
   },
 
   async pressKey(key: string, count: number = 1) {
@@ -52,6 +59,18 @@ export const testHook = {
 
   getNextEl() {
     return page.getByArticle(this.part('next-trigger'))
+  },
+
+  getRootEl() {
+    return page.getByArticle(this.part('root'))
+  },
+
+  getLabelEl() {
+    return page.getByArticle(this.part('label'))
+  },
+
+  getControlEl() {
+    return page.getByArticle(this.part('control'))
   },
 
   async waitFor() {
