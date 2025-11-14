@@ -118,7 +118,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'dir': state.context.dir,
         'role': 'group',
         'data-index': props.index,
-        'data-inview': dataAttr(isInView),
+        'data-inview': String(isInView),
         'aria-roledescription': 'slide',
         'data-orientation': state.context.orientation,
         'aria-label': state.context.slideCount ? translations.item(props.index, state.context.slideCount) : undefined,

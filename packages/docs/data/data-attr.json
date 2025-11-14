@@ -173,7 +173,7 @@
       "data-scope": "carousel",
       "data-part": "item",
       "data-index": "The index of the item",
-      "data-inview": "Present when in viewport",
+      "data-inview": "Indicates whether the item is in view (\"true\" or \"false\")",
       "data-orientation": "The orientation of the item"
     },
     "Control": {

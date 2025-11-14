@@ -1,4 +1,5 @@
 import { page, userEvent } from '@vitest/browser/context'
+import { vi } from 'vitest'
 
 export const testHook = {
 
@@ -31,5 +32,34 @@ export const testHook = {
 
   getContent(id: string) {
     return page.getByArticle(this.testid(`${id}:content`))
+  },
+
+  getItemEls() {
+    return page.getByArticle(this.part('item'))
+  },
+
+  getIndicatorEl() {
+    return page.getByArticle(this.part('indicator'))
+  },
+
+  getAutoPlayEl() {
+    return page.getByArticle(this.part('autoplay-trigger'))
+  },
+
+  getPrevEl() {
+    return page.getByArticle(this.part('prev-trigger'))
+  },
+
+  getNextEl() {
+    return page.getByArticle(this.part('next-trigger'))
+  },
+
+  async waitFor() {
+    await vi.waitFor(async () => {
+      return true
+    }, {
+      timeout: 5000,
+      interval: 50,
+    })
   },
 }
