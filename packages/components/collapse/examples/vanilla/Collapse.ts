@@ -1,8 +1,8 @@
 import type { ContextFrom } from '@destyler/vanilla'
+import type { State as CollapseState } from '../../index'
 import { collapseControls, collapseData } from '@destyler/shared-private'
 import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
-import type { State as CollapseState } from '../../index'
 import * as collapse from '../../index'
 import '../style.css'
 
@@ -28,7 +28,7 @@ class CollapseExample extends Component<
 
   constructor(rootEl: HTMLElement, context: collapse.Context, options?: any) {
     super(rootEl, context, options)
-    this.items = Array.from(rootEl.querySelectorAll<HTMLElement>('[data-collapse-item]')).map((itemEl) => ({
+    this.items = Array.from(rootEl.querySelectorAll<HTMLElement>('[data-collapse-item]')).map(itemEl => ({
       value: itemEl.dataset.value ?? '',
       itemEl,
       triggerEl: itemEl.querySelector<HTMLButtonElement>('[data-collapse-trigger]'),
@@ -137,7 +137,7 @@ export function render(target: HTMLElement) {
   const instance = new CollapseExample(rootEl, { id: 'collapse:vanilla' }, {
     context: {
       get: () => controls.context as Partial<CollapseMachineContext>,
-      subscribe: fn => controls.subscribe(fn),
+      subscribe: (fn: any) => controls.subscribe(fn),
     },
   })
   instance.init()

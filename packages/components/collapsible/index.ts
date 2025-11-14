@@ -8,5 +8,6 @@ export type {
   ElementIds,
   MachineState,
   OpenChangeDetails,
-  Service
+  Service,
+  State,
 } from './src/types'

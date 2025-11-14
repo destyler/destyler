@@ -1,8 +1,8 @@
 import type { ContextFrom } from '@destyler/vanilla'
+import type { State as CollapsibleState } from '../../index'
 import { collapsibleControls } from '@destyler/shared-private'
 import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
-import type { State as CollapsibleState } from '../../index'
 import * as collapsible from '../../index'
 import '../style.css'
 
@@ -101,7 +101,7 @@ export function render(target: HTMLElement) {
   const instance = new CollapsibleExample(rootEl, { id: 'collapsible:vanilla' }, {
     context: {
       get: () => controls.context as Partial<CollapsibleMachineContext>,
-      subscribe: fn => controls.subscribe(fn),
+      subscribe: (fn: any) => controls.subscribe(fn),
     },
   })
   instance.init()
