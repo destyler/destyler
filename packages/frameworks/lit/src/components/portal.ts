@@ -10,21 +10,21 @@ type TargetResolvable = TargetOrSelector | Promise<TargetOrSelector>
 
 const canUseDOM = () => typeof window !== 'undefined' && typeof document !== 'undefined'
 
-function createPortalId () {
+function createPortalId() {
   return typeof globalThis.crypto?.randomUUID === 'function'
     ? globalThis.crypto.randomUUID()
     : Math.random().toString(36).slice(2)
 }
 
-function isPromiseLike (value: unknown): value is PromiseLike<unknown> {
+function isPromiseLike(value: unknown): value is PromiseLike<unknown> {
   return typeof (value as any)?.then === 'function'
 }
 
-function isDocumentNode (value: unknown): value is Document {
+function isDocumentNode(value: unknown): value is Document {
   return typeof Document !== 'undefined' && value instanceof Document
 }
 
-function resolveDocument (root?: ShadowRoot | Document | Node | null): Document | null {
+function resolveDocument(root?: ShadowRoot | Document | Node | null): Document | null {
   if (!canUseDOM())
     return null
   if (!root)
@@ -34,7 +34,7 @@ function resolveDocument (root?: ShadowRoot | Document | Node | null): Document 
   return (root as Node).ownerDocument ?? document
 }
 
-function getDefaultTargetNode (doc: Document | null, root?: ShadowRoot | Document | Node | null): Node | null {
+function getDefaultTargetNode(doc: Document | null, root?: ShadowRoot | Document | Node | null): Node | null {
   if (root && !isDocumentNode(root))
     return root
   if (!doc)
@@ -42,7 +42,7 @@ function getDefaultTargetNode (doc: Document | null, root?: ShadowRoot | Documen
   return doc.body ?? doc.documentElement ?? null
 }
 
-function resolveTargetNode (targetOrSelector: TargetOrSelector, doc: Document): Node {
+function resolveTargetNode(targetOrSelector: TargetOrSelector, doc: Document): Node {
   if (typeof targetOrSelector === 'string') {
     const target = doc.querySelector(targetOrSelector)
     if (!target) {

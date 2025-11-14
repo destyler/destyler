@@ -91,7 +91,7 @@ export abstract class Component<
   /**
    * Allows subclasses to react to state changes before render.
    */
-  // eslint-disable-next-line ts/no-empty-function
+
   protected onTransition(_state: XState<TContext, TState, TEvent>): void {}
 
   protected abstract initService(context: TUserContext): Machine<TMachineContext, TState, TEvent>

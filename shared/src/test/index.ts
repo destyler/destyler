@@ -40,6 +40,4 @@ export async function repeat(count: number, fn: () => unknown) {
 
 export type SwipeDirection = 'left' | 'right' | 'up' | 'down'
 
-
-
 export * from './hooks'

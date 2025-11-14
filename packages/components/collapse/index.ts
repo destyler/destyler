@@ -12,5 +12,5 @@ export type {
   MachineState,
   Service,
   State,
-  ValueChangeDetails
+  ValueChangeDetails,
 } from './src/types'
