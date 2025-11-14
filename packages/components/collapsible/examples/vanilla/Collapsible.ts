@@ -24,20 +24,24 @@ class CollapsibleExample extends Component<
     if (!rootEl)
       return
 
-    const rootProps = this.api.getRootProps()
-    const triggerProps = this.api.getTriggerProps()
-    const contentProps = this.api.getContentProps()
+    const triggerEl = rootEl.querySelector<HTMLButtonElement>('[data-collapsible-trigger]')
+    const contentEl = rootEl.querySelector<HTMLElement>('[data-collapsible-content]')
 
-    spreadProps(rootEl, {
-      ...rootProps,
-      class: ['collapsible-root', rootProps.class].filter(Boolean).join(' '),
-    })
+    spreadProps(rootEl, this.api.getRootProps())
+    if (triggerEl)
+      spreadProps(triggerEl, this.api.getTriggerProps())
+    if (contentEl)
+      spreadProps(contentEl, this.api.getContentProps())
+  }
+}
 
-    rootEl.innerHTML = `
-      <button ${spreadProps(triggerProps)}>
+export function render(target: HTMLElement) {
+  target.innerHTML = `
+    <div class="collapsible-root" data-collapsible-root>
+      <button class="collapsible-trigger" data-collapsible-trigger>
         Collapsible Trigger
       </button>
-      <div ${spreadProps(contentProps)}>
+      <div class="collapsible-content" data-collapsible-content>
         <p>
           Lorem dfd dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
           magna sfsd. Ut enim ad minimdfd v eniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -47,16 +51,10 @@ class CollapsibleExample extends Component<
           <a href="#">Some Link</a>
         </p>
       </div>
-    `
-  }
-}
-
-export function render(target: HTMLElement) {
-  target.innerHTML = `
-    <div destyler-collapsible-root></div>
+    </div>
   `
 
-  const rootEl = target.querySelector<HTMLElement>('[destyler-collapsible-root]')
+  const rootEl = target.querySelector<HTMLElement>('[data-collapsible-root]')
   if (!rootEl)
     return
 

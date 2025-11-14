@@ -1,12 +1,10 @@
 import type { ContextFrom } from '@destyler/vanilla'
 import { collapseData } from '@destyler/shared-private'
-import { Component, hydrateSpreadProps, normalizeProps, spreadProps } from '@destyler/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import * as collapse from '../../index'
 import '../style.css'
 
 type CollapseMachineContext = ContextFrom<typeof collapse.machine>
-
-const classNames = (...values: Array<string | null | undefined | false>) => values.filter(Boolean).join(' ')
 
 class CollapseExample extends Component<
   collapse.Context,
@@ -25,58 +23,55 @@ class CollapseExample extends Component<
   render = () => {
     if (!this.rootEl)
       return
-    const rootProps = this.api.getRootProps()
-    spreadProps(this.rootEl, {
-      ...rootProps,
-      class: classNames('collapse-root', rootProps.class),
+
+    spreadProps(this.rootEl, this.api.getRootProps())
+
+    const itemNodes = Array.from(this.rootEl.querySelectorAll<HTMLElement>('[data-collapse-item]'))
+    itemNodes.forEach((itemEl) => {
+      const value = itemEl.dataset.value
+      if (!value)
+        return
+
+      const triggerEl = itemEl.querySelector<HTMLButtonElement>('[data-collapse-trigger]')
+      const contentEl = itemEl.querySelector<HTMLElement>('[data-collapse-content]')
+      const indicatorEl = itemEl.querySelector<HTMLElement>('[data-collapse-indicator]')
+
+      spreadProps(itemEl, this.api.getItemProps({ value }))
+      if (triggerEl)
+        spreadProps(triggerEl, this.api.getItemTriggerProps({ value }))
+      if (contentEl)
+        spreadProps(contentEl, this.api.getItemContentProps({ value }))
+      if (indicatorEl)
+        spreadProps(indicatorEl, this.api.getItemIndicatorProps({ value }))
     })
-
-    const itemsMarkup = collapseData
-      .map((item) => {
-        const itemProps = this.api.getItemProps({ value: item.id })
-        const triggerProps = this.api.getItemTriggerProps({ value: item.id })
-        const contentProps = this.api.getItemContentProps({ value: item.id })
-        const indicatorProps = this.api.getItemIndicatorProps({ value: item.id })
-
-        return `
-          <div class="collapse-item" ${spreadProps({
-            ...itemProps,
-            'class': classNames('collapse-item', itemProps.class),
-            'data-value': item.id,
-          })}>
-            <h3>
-              <button class="collapse-trigger" ${spreadProps({
-                ...triggerProps,
-                class: classNames('collapse-trigger', triggerProps.class),
-              })}>
-                ${item.title}
-                <span class="collapse-indicator" ${spreadProps({
-                  ...indicatorProps,
-                  class: classNames('collapse-indicator', indicatorProps.class),
-                })}>
-                  &gt;
-                </span>
-              </button>
-            </h3>
-            <div class="collapse-content" ${spreadProps({
-              ...contentProps,
-              class: classNames('collapse-content', contentProps.class),
-            })}>
-              ${item.content}
-            </div>
-          </div>
-        `
-      })
-      .join('')
-
-    this.rootEl.innerHTML = itemsMarkup
-    hydrateSpreadProps(this.rootEl)
   }
 }
 
 export function render(target: HTMLElement) {
+  const itemsMarkup = collapseData
+    .map(
+      item => `
+      <div class="collapse-item" data-collapse-item data-value="${item.id}">
+        <h3>
+          <button class="collapse-trigger" data-collapse-trigger>
+            ${item.title}
+            <span class="collapse-indicator" data-collapse-indicator>
+              &gt;
+            </span>
+          </button>
+        </h3>
+        <div class="collapse-content" data-collapse-content>
+          ${item.content}
+        </div>
+      </div>
+    `,
+    )
+    .join('')
+
   target.innerHTML = `
-    <div data-collapse-root></div>
+    <div class="collapse-root" data-collapse-root>
+      ${itemsMarkup}
+    </div>
   `
 
   const rootEl = target.querySelector<HTMLElement>('[data-collapse-root]')
