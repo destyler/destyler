@@ -1,5 +1,5 @@
-import { page, userEvent } from 'vitest/browser'
 import { vi } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
 import { part, testid } from '.'
 
 export class TestSuite {
@@ -119,7 +119,7 @@ export class TestSuite {
   } = {
     delay: 0,
     times: 1,
- }) {
+  }) {
     const triggerEl = this.getTrigger(id)
     for (let i = 0; i < opts.times; i++) {
       await userEvent.click(triggerEl, {

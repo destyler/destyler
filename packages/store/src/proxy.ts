@@ -83,12 +83,12 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
     return version
   }
   const createPropListener
-      = (prop: string | symbol): Listener =>
-        (op, nextVersion) => {
-          const newOp: Op = [...op]
-          newOp[1] = [prop, ...(newOp[1] as Path)]
-          notifyUpdate(newOp, nextVersion)
-        }
+    = (prop: string | symbol): Listener =>
+      (op, nextVersion) => {
+        const newOp: Op = [...op]
+        newOp[1] = [prop, ...(newOp[1] as Path)]
+        notifyUpdate(newOp, nextVersion)
+      }
   const addPropListener = (prop: string | symbol, propProxyState: ProxyState) => {
     if (listeners.size) {
       const remove = propProxyState[3](createPropListener(prop))

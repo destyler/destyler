@@ -1,6 +1,6 @@
 import { TestSuite } from '@destyler/shared-private/test'
-import { page, userEvent } from 'vitest/browser'
 import { expect } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
 
 export class TabsTestSuite extends TestSuite {
   getTabTrigger(id: string) {

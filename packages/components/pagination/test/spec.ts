@@ -1,6 +1,6 @@
 import { TestSuite } from '@destyler/shared-private/test'
-import { page } from 'vitest/browser'
 import { expect } from 'vitest'
+import { page } from 'vitest/browser'
 
 export class PaginationTestSuite extends TestSuite {
   getItem(text: string) {

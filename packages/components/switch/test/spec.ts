@@ -1,6 +1,6 @@
 import { TestSuite } from '@destyler/shared-private/test'
-import { page, userEvent } from 'vitest/browser'
 import { expect } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
 
 export class SwitchTestSuite extends TestSuite {
   async clickDisabled() {

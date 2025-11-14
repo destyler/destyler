@@ -1,6 +1,6 @@
 import { testHook } from '@destyler/shared-private/test'
-import { page, userEvent } from 'vitest/browser'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Checkbox'
 
 let el: HTMLElement
