@@ -8,12 +8,6 @@ import '../style.css'
 
 type CollapsibleMachineContext = ContextFrom<typeof collapsible.machine>
 
-const sampleText = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat.
-`
-
 const classNames = (...values: Array<string | null | undefined | false>) => values.filter(Boolean).join(' ')
 
 class CollapsibleExample extends Component<
@@ -71,6 +65,10 @@ class CollapsibleExample extends Component<
       })
     }
   }
+
+  setOpen(nextOpen: boolean) {
+    this.api.setOpen(nextOpen)
+  }
 }
 
 export function render(target: HTMLElement) {
@@ -81,12 +79,27 @@ export function render(target: HTMLElement) {
 
   layout.main.innerHTML = `
     <div class="collapsible-root" data-collapsible-root>
-      <button class="collapsible-trigger" data-collapsible-trigger>
+      <button class="collapsible-trigger" data-testid="collapsible:trigger" data-collapsible-trigger>
         Collapsible Trigger
       </button>
-      <div class="collapsible-content" data-collapsible-content>
-        <p>${sampleText}</p>
+      <div class="collapsible-content" data-testid="collapsible:content" data-collapsible-content>
+        <p>
+          Lorem dfd dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna sfsd. Ut enim ad minimdfd v eniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+          id est laborum.
+        </p>
       </div>
+    </div>
+    <div>
+      <div>Toggle Controls</div>
+      <button class="button" data-collapsible-open>
+        Open
+      </button>
+      <button class="button" data-collapsible-close>
+        Close
+      </button>
     </div>
   `
 
@@ -105,6 +118,12 @@ export function render(target: HTMLElement) {
     },
   })
   instance.init()
+
+  const openButton = layout.main.querySelector<HTMLButtonElement>('[data-collapsible-open]')
+  const closeButton = layout.main.querySelector<HTMLButtonElement>('[data-collapsible-close]')
+
+  openButton?.addEventListener('click', () => instance.setOpen(true))
+  closeButton?.addEventListener('click', () => instance.setOpen(false))
 
   const updateVisualizer = (state?: CollapsibleState) => {
     if (!state)

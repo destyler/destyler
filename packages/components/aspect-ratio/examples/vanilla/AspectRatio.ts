@@ -1,8 +1,8 @@
 import type { ContextFrom } from '@destyler/vanilla'
+import type { State as AspectRatioState } from '../../index'
 import { aspectRatioControls } from '@destyler/shared-private'
 import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
-import type { State as AspectRatioState } from '../../index'
 import * as aspectRatio from '../../index'
 import '../style.css'
 
@@ -91,7 +91,7 @@ export function render(target: HTMLElement, ratio = 16 / 9) {
   const instance = new AspectRatioExample(scopeEl, { id: 'aspect-ratio:vanilla', ratio }, {
     context: {
       get: () => controls.context,
-      subscribe: fn => controls.subscribe(fn),
+      subscribe: (fn: any) => controls.subscribe(fn),
     },
   })
   instance.init()

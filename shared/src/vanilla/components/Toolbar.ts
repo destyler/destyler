@@ -8,9 +8,9 @@ export interface ToolbarOptions {
 
 export interface ToolbarHandle {
   root: HTMLDivElement
-  setControlsSlot(slot?: () => HTMLElement): void
-  setVisualizerSlot(slot?: () => HTMLElement): void
-  setActive(tab: ToolbarTab): void
+  setControlsSlot: (slot?: () => HTMLElement) => void
+  setVisualizerSlot: (slot?: () => HTMLElement) => void
+  setActive: (tab: ToolbarTab) => void
 }
 
 export function Toolbar(params: ToolbarOptions = {}): ToolbarHandle {
@@ -33,7 +33,7 @@ export function Toolbar(params: ToolbarOptions = {}): ToolbarHandle {
 
   root.append(nav, contentWrapper)
 
-  let activeTab: ToolbarTab = params.active ?? (params.controlsSlot ? 'controls' : 'visualizer')
+  let activeTab: ToolbarTab = params.active ?? 'controls'
   let controlsSlot = params.controlsSlot
   let visualizerSlot = params.visualizerSlot
 
@@ -46,12 +46,7 @@ export function Toolbar(params: ToolbarOptions = {}): ToolbarHandle {
     if (visualizerSlot)
       visualizerContainer.appendChild(visualizerSlot())
 
-    if (controlsSlot) {
-      controlsButton.style.display = ''
-    }
-    else {
-      controlsButton.style.display = 'none'
-    }
+    controlsButton.style.display = controlsSlot ? '' : 'none'
 
     controlsContainer.toggleAttribute('data-active', activeTab === 'controls')
     visualizerContainer.toggleAttribute('data-active', activeTab === 'visualizer')
@@ -74,7 +69,11 @@ export function Toolbar(params: ToolbarOptions = {}): ToolbarHandle {
   return {
     root,
     setControlsSlot(slot) {
+      const hadSlot = !!controlsSlot
       controlsSlot = slot
+      if (!hadSlot && slot) {
+        activeTab = 'controls'
+      }
       renderSlots()
     },
     setVisualizerSlot(slot) {

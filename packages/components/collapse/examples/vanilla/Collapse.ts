@@ -105,14 +105,14 @@ export function render(target: HTMLElement) {
       item => `
       <div class="collapse-item" data-collapse-item data-value="${item.id}">
         <h3>
-          <button class="collapse-trigger" data-collapse-trigger>
+          <button data-testid="${item.id}:trigger" class="collapse-trigger" data-collapse-trigger>
             ${item.title}
             <span class="collapse-indicator" data-collapse-indicator>
               &gt;
             </span>
           </button>
         </h3>
-        <div class="collapse-content" data-collapse-content>
+        <div data-testid="${item.id}:content" class="collapse-content" data-collapse-content>
           ${item.content}
         </div>
       </div>

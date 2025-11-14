@@ -1,5 +1,4 @@
-import { part } from '@destyler/shared-private/test'
-import { page } from '@vitest/browser/context'
+import { testHook } from '@destyler/shared-private/test'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { render } from '../examples/vanilla/AspectRatio'
 
@@ -13,7 +12,7 @@ describe('[aspect ratio] browser tests', () => {
 
   it('renders correctly', async () => {
     render(el, 16 / 9)
-    const items = page.getByArticle(part('root'))
+    const items = testHook.getPart('root')
     await expect.element(items).toHaveStyle(`
       position: relative; width: 100%; padding-bottom: ${(9 / 16) * 100}%;
     `)

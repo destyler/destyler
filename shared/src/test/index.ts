@@ -1,3 +1,5 @@
+export * from './class'
+
 const esc = (str: string) => str.replace(/[-[\]{}()*+?:.,\\^$|#\s]/g, '\\$&')
 
 export const testid = (part: string) => `[data-testid=${esc(part)}]`
@@ -38,4 +40,6 @@ export async function repeat(count: number, fn: () => unknown) {
 
 export type SwipeDirection = 'left' | 'right' | 'up' | 'down'
 
-export * from './class'
+
+
+export * from './hooks'
