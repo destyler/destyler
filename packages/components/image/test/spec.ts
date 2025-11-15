@@ -1,6 +1,6 @@
 import { part, TestSuite } from '@destyler/shared-private/test'
-import { page } from '@vitest/browser/context'
 import { expect } from 'vitest'
+import { page } from 'vitest/browser'
 
 export class ImageTestSuite extends TestSuite {
   async ShouldRenderCorrectly() {

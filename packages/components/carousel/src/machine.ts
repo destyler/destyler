@@ -40,6 +40,29 @@ function getPageSnapPoints(totalSlides: number | undefined, slidesPerMove: numbe
   return snapPoints
 }
 
+function ensureItemGroupEl(ctx: MachineContext, fn: (el: HTMLElement) => void | (() => void)) {
+  const win = dom.getWin(ctx)
+  let rafId: number | null = null
+  let cleanup: void | (() => void)
+
+  const run = () => {
+    const el = dom.getItemGroupEl(ctx)
+    if (!el) {
+      rafId = win.requestAnimationFrame(run)
+      return
+    }
+    cleanup = fn(el)
+  }
+
+  run()
+
+  return () => {
+    if (rafId != null)
+      win.cancelAnimationFrame(rafId)
+    cleanup?.()
+  }
+}
+
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   return createMachine<MachineContext, MachineState>(
@@ -132,6 +155,11 @@ export function machine(userContext: UserDefinedContext) {
               target: 'autoplay',
               actions: ['invokeAutoplayStart'],
             },
+            'INVIEW.SET': {
+              target: 'idle',
+              internal: false,
+              actions: ['setSlidesInView'],
+            },
           },
         },
 
@@ -145,6 +173,11 @@ export function machine(userContext: UserDefinedContext) {
             'DRAGGING.END': {
               target: 'idle',
               actions: ['endDragging', 'invokeDraggingEnd'],
+            },
+            'INVIEW.SET': {
+              target: 'dragging',
+              internal: false,
+              actions: ['setSlidesInView'],
             },
           },
         },
@@ -161,6 +194,11 @@ export function machine(userContext: UserDefinedContext) {
               actions: ['invokeDragStart'],
             },
             'AUTOPLAY.PAUSE': 'idle',
+            'INVIEW.SET': {
+              target: 'autoplay',
+              internal: false,
+              actions: ['setSlidesInView'],
+            },
           },
         },
       },
@@ -168,81 +206,80 @@ export function machine(userContext: UserDefinedContext) {
     {
       activities: {
         trackSlideMutation(ctx, _evt, { send }) {
-          const el = dom.getItemGroupEl(ctx)
-          if (!el)
-            return
-          const win = dom.getWin(ctx)
-          const observer = new win.MutationObserver(() => {
-            send({ type: 'SNAP.REFRESH', src: 'slide.mutation' })
+          return ensureItemGroupEl(ctx, (el) => {
+            const win = dom.getWin(ctx)
+            const observer = new win.MutationObserver(() => {
+              send({ type: 'SNAP.REFRESH', src: 'slide.mutation' })
+              dom.syncTabIndex(ctx)
+            })
             dom.syncTabIndex(ctx)
+            observer.observe(el, { childList: true, subtree: true })
+            return () => observer.disconnect()
           })
-          dom.syncTabIndex(ctx)
-          observer.observe(el, { childList: true, subtree: true })
-          return () => observer.disconnect()
         },
 
         trackSlideResize(ctx, _evt, { send }) {
-          const el = dom.getItemGroupEl(ctx)
-          if (!el)
-            return
-          const win = dom.getWin(ctx)
-          const observer = new win.ResizeObserver(() => {
-            send({ type: 'SNAP.REFRESH', src: 'slide.resize' })
+          return ensureItemGroupEl(ctx, () => {
+            const win = dom.getWin(ctx)
+            const observer = new win.ResizeObserver(() => {
+              send({ type: 'SNAP.REFRESH', src: 'slide.resize' })
+            })
+            dom.getItemEls(ctx).forEach(slide => observer.observe(slide))
+            return () => observer.disconnect()
           })
-          dom.getItemEls(ctx).forEach(slide => observer.observe(slide))
-          return () => observer.disconnect()
         },
 
-        trackSlideIntersections(ctx) {
-          const el = dom.getItemGroupEl(ctx)
-          const win = dom.getWin(ctx)
+        trackSlideIntersections(ctx, _evt, { send }) {
+          return ensureItemGroupEl(ctx, (el) => {
+            const win = dom.getWin(ctx)
+            const observer = new win.IntersectionObserver(
+              (entries) => {
+                const slidesInView = entries.reduce((acc, entry) => {
+                  const target = entry.target as HTMLElement
+                  const index = Number(target.dataset.index ?? '-1')
+                  if (index == null || Number.isNaN(index) || index === -1)
+                    return acc
+                  return entry.isIntersecting ? add(acc, index) : remove(acc, index)
+                }, ctx.slidesInView)
 
-          const observer = new win.IntersectionObserver(
-            (entries) => {
-              const slidesInView = entries.reduce((acc, entry) => {
-                const target = entry.target as HTMLElement
-                const index = Number(target.dataset.index ?? '-1')
-                if (index == null || Number.isNaN(index) || index === -1)
-                  return acc
-                return entry.isIntersecting ? add(acc, index) : remove(acc, index)
-              }, ctx.slidesInView)
+                const nextSlides = uniq(slidesInView)
+                if (isEqual(ctx.slidesInView, nextSlides))
+                  return
+                send({ type: 'INVIEW.SET', slidesInView: nextSlides })
+              },
+              {
+                root: el,
+                threshold: ctx.inViewThreshold,
+              },
+            )
 
-              ctx.slidesInView = uniq(slidesInView)
-            },
-            {
-              root: el,
-              threshold: ctx.inViewThreshold,
-            },
-          )
-
-          dom.getItemEls(ctx).forEach(slide => observer.observe(slide))
-          return () => observer.disconnect()
+            dom.getItemEls(ctx).forEach(slide => observer.observe(slide))
+            return () => observer.disconnect()
+          })
         },
 
         trackScroll(ctx) {
-          const el = dom.getItemGroupEl(ctx)
-          if (!el)
-            return
+          return ensureItemGroupEl(ctx, (el) => {
+            const onScrollEnd = () => {
+              if (ctx.slidesInView.length === 0)
+                return
+              const scrollPosition = ctx.isHorizontal ? el.scrollLeft : el.scrollTop
+              const page = ctx.pageSnapPoints.findIndex(point => Math.abs(point - scrollPosition) < 1)
+              if (page === -1)
+                return
+              set.page(ctx, page)
+            }
 
-          const onScrollEnd = () => {
-            if (ctx.slidesInView.length === 0)
-              return
-            const scrollPosition = ctx.isHorizontal ? el.scrollLeft : el.scrollTop
-            const page = ctx.pageSnapPoints.findIndex(point => Math.abs(point - scrollPosition) < 1)
-            if (page === -1)
-              return
-            set.page(ctx, page)
-          }
+            // Not using `scrollend` as some browsers trigger it before snapping finishes
+            const onScroll = () => {
+              clearTimeout(ctx.timeoutRef.current)
+              ctx.timeoutRef.current = setTimeout(() => {
+                onScrollEnd?.()
+              }, 150)
+            }
 
-          // Not using `scrollend` as some browsers trigger it before snapping finishes
-          const onScroll = () => {
-            clearTimeout(ctx.timeoutRef.current)
-            ctx.timeoutRef.current = setTimeout(() => {
-              onScrollEnd?.()
-            }, 150)
-          }
-
-          return addDomEvent(el, 'scroll', onScroll, { passive: true })
+            return addDomEvent(el, 'scroll', onScroll, { passive: true })
+          })
         },
 
         trackDocumentVisibility(ctx, _evt, { send }) {
@@ -271,6 +308,8 @@ export function machine(userContext: UserDefinedContext) {
       actions: {
         resetScrollPosition(ctx) {
           const el = dom.getItemGroupEl(ctx)
+          if (!el)
+            return
           el.scrollTo(0, 0)
         },
         clearScrollEndTimer(ctx) {
@@ -380,6 +419,11 @@ export function machine(userContext: UserDefinedContext) {
         },
         invokeAutoplayEnd(ctx) {
           ctx.onAutoplayStatusChange?.({ type: 'autoplay.stop', isPlaying: false, page: ctx.page })
+        },
+        setSlidesInView(ctx, evt) {
+          if (evt.type !== 'INVIEW.SET')
+            return
+          ctx.slidesInView = evt.slidesInView
         },
       },
 

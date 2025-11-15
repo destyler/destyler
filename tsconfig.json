@@ -17,8 +17,7 @@
     },
     "resolveJsonModule": true,
     "types": [
-      "node",
-      "@vitest/browser/providers/playwright"
+      "node"
     ],
     "strict": true,
     "strictNullChecks": true,

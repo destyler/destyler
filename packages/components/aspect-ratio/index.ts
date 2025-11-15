@@ -6,5 +6,7 @@ export type {
   MachineApi as Api,
   UserDefinedContext as Context,
   ElementIds,
+  MachineState,
   Service,
+  State,
 } from './src/types'

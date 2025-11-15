@@ -1,7 +1,8 @@
 import type { AxeMatchers } from 'vitest-axe/matchers'
-import { locators } from '@vitest/browser/context'
+import type { Locator } from 'vitest/browser'
 import { expect } from 'vitest'
 import * as matchers from 'vitest-axe/matchers'
+import { locators } from 'vitest/browser'
 
 import './shared/src/bootstrap.css'
 
@@ -21,7 +22,7 @@ declare module 'vitest' {
   export interface AsymmetricMatchersContaining extends AxeMatchers {}
 }
 
-declare module '@vitest/browser/context' {
+declare module 'vitest/browser' {
   interface LocatorSelectors {
     getByArticle: (article: string) => Locator
     locatoring: (article: string) => Locator

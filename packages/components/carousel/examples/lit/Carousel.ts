@@ -1,3 +1,4 @@
+import type { ContextFrom } from '@destyler/lit'
 import { MachineController, normalizeProps, spread } from '@destyler/lit'
 import { carouselControls } from '@destyler/shared-private'
 import { ControlsController } from '@destyler/shared-private/lit'
@@ -6,8 +7,11 @@ import { customElement } from 'lit/decorators.js'
 import * as carousel from '../../index'
 import styles from '../style.css?inline'
 
+type CarouselMachineContext = ContextFrom<typeof carousel.machine>
+
 @customElement('destyler-carousel')
 export class CarouselElement extends LitElement {
+  private didSnapRefresh = false
   items = [
     'https://images.unsplash.com/photo-1620315808304-66597517f188?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1620837953336-8274c0623a3c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -27,10 +31,25 @@ export class CarouselElement extends LitElement {
       slidesPerPage: 1,
       autoplay: false,
     }),
+    {
+      context: {
+        get: () => this.controls.context as Partial<CarouselMachineContext>,
+        subscribe: (fn: (ctx: Partial<CarouselMachineContext>) => void) => this.controls.subscribe(fn as any),
+      },
+    },
   )
+
+  protected firstUpdated(): void {
+    // Ensure snap points are computed once the DOM is ready.
+    this.machine.service.send({ type: 'SNAP.REFRESH', src: 'lit.firstUpdated' } as any)
+  }
 
   render() {
     const api = carousel.connect(this.machine.state, this.machine.send, normalizeProps)
+    if (!this.didSnapRefresh) {
+      this.didSnapRefresh = true
+      queueMicrotask(() => api.refresh())
+    }
     return html`
     <destyler-layout>
       <div ${spread(api.getRootProps())}>
@@ -46,7 +65,7 @@ export class CarouselElement extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="currentColor" d="m20 24l-10-8l10-8z" /></svg>
           </button>
           <div ${spread(api.getIndicatorGroupProps())}>
-            ${Array.from({ length: api.pageSnapPoints.length }).map((_, index) => (
+            ${api.pageSnapPoints.map((_, index) => (
               html`<button ${spread(api.getIndicatorProps({ index }))} />`
             ))}
           </div>
@@ -63,6 +82,9 @@ export class CarouselElement extends LitElement {
           ${api.isPlaying ? 'Stop' : 'Play'}
         </button>
       </div>
+      <destyler-toolbar .controls=${this.controls}>
+        <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
+      </destyler-toolbar>
     </destyler-layout>
     `
   }
