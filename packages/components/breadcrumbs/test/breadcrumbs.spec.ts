@@ -44,4 +44,43 @@ describe('[breadcrumbs] browser tests', () => {
       await expect.element(separatorLocator.nth(index)).toHaveAttribute('aria-hidden', 'true')
     }
   })
+
+  it('sets hover data attributes on pointer transitions', async () => {
+    const root = testHook.getPart('root')
+    const linkLocator = testHook.getPart('link')
+    const firstLink = linkLocator.nth(0)
+    const secondLink = linkLocator.nth(1)
+
+    await expect.element(root).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).not.toHaveAttribute('data-hover')
+
+    await firstLink.hover()
+
+    await expect.element(root).toHaveAttribute('data-hover', '')
+    await expect.element(firstLink).toHaveAttribute('data-hover', '')
+
+    await secondLink.hover()
+
+    await expect.element(root).toHaveAttribute('data-hover', '')
+    await expect.element(firstLink).not.toHaveAttribute('data-hover')
+    await expect.element(secondLink).toHaveAttribute('data-hover', '')
+  })
+
+  it('sets focus data attributes when navigating with keyboard', async () => {
+    const root = testHook.getPart('root')
+    const linkLocator = testHook.getPart('link')
+
+    await expect.element(root).not.toHaveAttribute('data-focus')
+
+    await testHook.pressKey('Tab')
+
+    await expect.element(root).toHaveAttribute('data-focus', '')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', '')
+
+    await testHook.pressKey('Tab')
+
+    await expect.element(root).toHaveAttribute('data-focus', '')
+    await expect.element(linkLocator.nth(0)).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', '')
+  })
 })

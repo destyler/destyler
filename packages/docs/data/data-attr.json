@@ -10,10 +10,24 @@
     }
   },
   "breadcrumbs": {
+    "Root": {
+      "data-scope": "breadcrumbs",
+      "data-part": "root",
+      "data-hover": "Present when any breadcrumb is hovered",
+      "data-focus": "Present when a breadcrumb is focused"
+    },
+    "Item": {
+      "data-scope": "breadcrumbs",
+      "data-part": "item",
+      "data-hover": "Present when hovered",
+      "data-focus": "Present when focused"
+    },
     "Link": {
       "data-scope": "breadcrumbs",
       "data-part": "link",
-      "data-current": "Present when current"
+      "data-current": "Present when current",
+      "data-hover": "Present when hovered",
+      "data-focus": "Present when focused"
     }
   },
   "calendar": {

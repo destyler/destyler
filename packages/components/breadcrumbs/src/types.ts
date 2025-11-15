@@ -26,10 +26,14 @@ interface PublicContext extends CommonProperties, DirectionProperty {
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
 
-export interface MachineContext extends PublicContext {}
+export interface MachineContext extends PublicContext {
+  hoveredId: string | null
+  focusedId: string | null
+}
 
 export interface MachineState {
-  value: 'idle'
+  value: 'idle' | 'hovered' | 'focused'
+  tags: 'hovered' | 'focused'
 }
 
 export type State = XState<MachineContext, MachineState>
@@ -37,6 +41,8 @@ export type State = XState<MachineContext, MachineState>
 export type Send = XSend<AnyEventObject>
 
 export interface MachineApi<T extends PropTypes = PropTypes> {
+  hoveredId: string | null
+  focusedId: string | null
   items: BreadcrumbItem[]
   getRootProps: () => T['element']
   getListProps: () => T['element']
