@@ -22,6 +22,7 @@ export type {
   InputProps,
   IntlTranslations,
   LabelProps,
+  MachineState,
   MonthGridProps,
   OpenChangeDetails,
   PositioningOptions,
@@ -39,6 +40,6 @@ export type {
   VisibleRangeText,
   WeekDay,
   YearGridProps,
-  ZonedDateTime,
+  ZonedDateTime
 } from './src/types'
 export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/dismissable'

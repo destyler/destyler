@@ -11,7 +11,9 @@ export class CalendarElement extends LitElement {
   private machine = new MachineController(
     this,
     calendar.machine({
-      id: '1',
+      id: 'calendar:lit',
+      locale: 'en',
+      selectionMode: 'single',
     }),
   )
 
@@ -19,39 +21,43 @@ export class CalendarElement extends LitElement {
     const api = calendar.connect(this.machine.state, this.machine.send, normalizeProps)
     return html`
     <destyler-layout>
+      <p>${`Visible range: ${api.visibleRangeText.formatted}`}</p>
+      <output>
+        <div>Selected: ${api.valueAsString ?? '-'}</div>
+        <div>Focused: ${api.focusedValueAsString}</div>
+      </output>
+
       <div ${spread(api.getControlProps())}>
         <input ${spread(api.getInputProps())} />
-        <button ${spread(api.getTriggerProps())}>
-          🗓
-        </button>
+        <button ${spread(api.getClearTriggerProps())}>❌</button>
+        <button ${spread(api.getTriggerProps())}>🗓</button>
       </div>
+
       ${api.open
         ? portal(html`
           <div ${spread(api.getPositionerProps())}>
             <div ${spread(api.getContentProps())}>
-              <!-- Day View -->
+              <div style="margin-bottom: 20px; display: flex; gap: 12px;">
+                <select ${spread(api.getMonthSelectProps())}>
+                  ${api.getMonths().map(month => html`<option value=${month.value}>${month.label}</option>`)}
+                </select>
+                <select ${spread(api.getYearSelectProps())}>
+                  ${api.getYears().map(year => html`<option value=${year.value}>${year.label}</option>`)}
+                </select>
+              </div>
+
               <div ?hidden=${api.view !== 'day'}>
                 <div ${spread(api.getViewControlProps({ view: 'year' }))}>
-                  <button ${spread(api.getPrevTriggerProps())}>
-                    ←
-                  </button>
-                  <button ${spread(api.getViewTriggerProps())}>
-                    ${api.visibleRangeText.start}
-                  </button>
-                  <button ${spread(api.getNextTriggerProps())}>
-                    →
-                  </button>
+                  <button ${spread(api.getPrevTriggerProps())}>←</button>
+                  <button ${spread(api.getViewTriggerProps())}>${api.visibleRangeText.start}</button>
+                  <button ${spread(api.getNextTriggerProps())}>→</button>
                 </div>
 
                 <table ${spread(api.getTableProps({ view: 'day' }))}>
                   <thead ${spread(api.getTableHeaderProps({ view: 'day' }))}>
                     <tr ${spread(api.getTableRowProps({ view: 'day' }))}>
                       ${api.weekDays.map(day => html`
-                        <th
-                          key=${day.narrow}
-                          scope="col"
-                          class="text-center text-xs font-medium text-muted-foreground p-1"
-                        >
+                        <th scope="col">
                           ${day.narrow}
                         </th>
                       `)}
@@ -72,70 +78,64 @@ export class CalendarElement extends LitElement {
                   </tbody>
                 </table>
               </div>
-              <!-- Month view -->
-              <div ?hidden=${api.view !== 'month'}>
-                <div ${spread(api.getViewControlProps({ view: 'month' }))}>
-                  <button ${spread(api.getPrevTriggerProps())}>
-                    ←
-                  </button>
-                  <button ${spread(api.getViewTriggerProps())}>
-                    ${api.visibleRangeText.start}
-                  </button>
-                  <button ${spread(api.getNextTriggerProps())}>
-                    →
-                  </button>
+
+              <div style="display: flex; gap: 40px;">
+                <div ?hidden=${api.view !== 'month'} style="width: 100%;">
+                  <div ${spread(api.getViewControlProps({ view: 'month' }))}>
+                    <button ${spread(api.getPrevTriggerProps({ view: 'month' }))}>←</button>
+                    <button ${spread(api.getViewTriggerProps({ view: 'month' }))}>${api.visibleRange.start.year}</button>
+                    <button ${spread(api.getNextTriggerProps({ view: 'month' }))}>→</button>
+                  </div>
+
+                  <table ${spread(api.getTableProps({ view: 'month', columns: 4 }))}>
+                    <tbody ${spread(api.getTableBodyProps({ view: 'month' }))}>
+                      ${api.getMonthsGrid({ columns: 4, format: 'short' }).map((months, monthIndex) => html`
+                        <tr key=${monthIndex} ${spread(api.getTableRowProps({ view: 'month' }))}>
+                          ${months.map(month => html`
+                            <td ${spread(api.getMonthTableCellProps({ ...month, columns: 4 }))}>
+                              <div ${spread(api.getMonthTableCellTriggerProps({ ...month, columns: 4 }))}>
+                                ${month.label}
+                              </div>
+                            </td>
+                          `)}
+                        </tr>
+                      `)}
+                    </tbody>
+                  </table>
                 </div>
 
-                <table ${spread(api.getTableProps({ view: 'month', columns: 4 }))}>
-                  <tbody ${spread(api.getTableBodyProps({ view: 'month' }))}>
-                    ${api.getMonthsGrid({ columns: 4, format: 'short' }).map((months, monthIndex) => html`
-                      <tr key=${monthIndex} ${spread(api.getTableRowProps())}>
-                        ${months.map(month => html`
-                          <td ${spread(api.getMonthTableCellProps({ ...month, columns: 4 }))}>
-                            <div ${spread(api.getMonthTableCellTriggerProps({ ...month, columns: 4 }))}>
-                              ${month.label}
-                            </div>
-                          </td>
-                        `)}
-                      </tr>
-                    `)}
-                  </tbody>
-                </table>
-            </div>
-            <!-- Year View -->
-            <div ?hidden=${api.view !== 'year'}>
-              <div ${spread(api.getViewControlProps({ view: 'year' }))}>
-                <button ${spread(api.getPrevTriggerProps())}>
-                  ←
-                </button>
-                <button ${spread(api.getViewTriggerProps())}>
-                  ${api.visibleRangeText.start} - ${api.visibleRangeText.end}
-                </button>
-                <button ${spread(api.getNextTriggerProps())}>
-                  →
-                </button>
-              </div>
+                <div ?hidden=${api.view !== 'year'} style="width: 100%;">
+                  <div ${spread(api.getViewControlProps({ view: 'year' }))}>
+                    <button ${spread(api.getPrevTriggerProps({ view: 'year' }))}>←</button>
+                    <span>
+                      ${api.getDecade().start}
+                      -
+                      ${api.getDecade().end}
+                    </span>
+                    <button ${spread(api.getNextTriggerProps({ view: 'year' }))}>→</button>
+                  </div>
 
-              <table ${spread(api.getTableProps({ view: 'year', columns: 4 }))}>
-                <tbody ${spread(api.getTableBodyProps({ view: 'year' }))}>
-                  ${api.getYearsGrid({ columns: 4 }).map((years, yearIndex) => html`
-                    <tr key=${yearIndex} ${spread(api.getTableRowProps({ view: 'year' }))}>
-                      ${years.map(year => html`
-                        <td ${spread(api.getYearTableCellProps({ ...year, columns: 4 }))}>
-                          <div ${spread(api.getYearTableCellTriggerProps({ ...year, columns: 4 }))}>
-                            ${year.label}
-                          </div>
-                        </td>
+                  <table ${spread(api.getTableProps({ view: 'year', columns: 4 }))}>
+                    <tbody ${spread(api.getTableBodyProps({ view: 'year' }))}>
+                      ${api.getYearsGrid({ columns: 4 }).map((years, yearIndex) => html`
+                        <tr key=${yearIndex} ${spread(api.getTableRowProps({ view: 'year' }))}>
+                          ${years.map(year => html`
+                            <td ${spread(api.getYearTableCellProps({ ...year, columns: 4 }))}>
+                              <div ${spread(api.getYearTableCellTriggerProps({ ...year, columns: 4 }))}>
+                                ${year.label}
+                              </div>
+                            </td>
+                          `)}
+                        </tr>
                       `)}
-                    </tr>
-                  `)}
-                </tbody>
-              </table>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      `, this.renderRoot)
-        : ''}
+        `, document.body)
+        : null}
 
       <destyler-toolbar>
         <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
