@@ -40,6 +40,6 @@ export type {
   VisibleRangeText,
   WeekDay,
   YearGridProps,
-  ZonedDateTime
+  ZonedDateTime,
 } from './src/types'
 export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/dismissable'

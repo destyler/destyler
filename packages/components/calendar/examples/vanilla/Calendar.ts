@@ -135,7 +135,7 @@ class CalendarExample extends Component<
 
   private renderSelects(api: calendar.Api) {
     this.monthSelect.innerHTML = ''
-    api.getMonths().forEach(month => {
+    api.getMonths().forEach((month) => {
       const option = document.createElement('option')
       option.value = String(month.value)
       option.textContent = month.label
@@ -144,7 +144,7 @@ class CalendarExample extends Component<
     spreadProps(this.monthSelect, api.getMonthSelectProps())
 
     this.yearSelect.innerHTML = ''
-    api.getYears().forEach(year => {
+    api.getYears().forEach((year) => {
       const option = document.createElement('option')
       option.value = String(year.value)
       option.textContent = year.label
@@ -168,7 +168,7 @@ class CalendarExample extends Component<
     this.dayHead.innerHTML = ''
     const headRow = document.createElement('tr')
     spreadProps(headRow, api.getTableRowProps({ view: 'day' }))
-    api.weekDays.forEach(day => {
+    api.weekDays.forEach((day) => {
       const th = document.createElement('th')
       th.scope = 'col'
       th.textContent = day.narrow
@@ -177,10 +177,10 @@ class CalendarExample extends Component<
     this.dayHead.appendChild(headRow)
 
     this.dayBody.innerHTML = ''
-    api.weeks.forEach(week => {
+    api.weeks.forEach((week) => {
       const row = document.createElement('tr')
       spreadProps(row, api.getTableRowProps({ view: 'day' }))
-      week.forEach(value => {
+      week.forEach((value) => {
         const cell = document.createElement('td')
         spreadProps(cell, api.getDayTableCellProps({ value }))
         const trigger = document.createElement('button')
@@ -214,10 +214,10 @@ class CalendarExample extends Component<
     spreadProps(this.monthBody, api.getTableBodyProps({ view: 'month' }))
 
     this.monthBody.innerHTML = ''
-    api.getMonthsGrid({ columns: 4, format: 'short' }).forEach(months => {
+    api.getMonthsGrid({ columns: 4, format: 'short' }).forEach((months) => {
       const row = document.createElement('tr')
       spreadProps(row, api.getTableRowProps({ view: 'month' }))
-      months.forEach(month => {
+      months.forEach((month) => {
         const cell = document.createElement('td')
         spreadProps(cell, api.getMonthTableCellProps({ ...month, columns: 4 }))
         const trigger = document.createElement('button')
@@ -246,10 +246,10 @@ class CalendarExample extends Component<
     spreadProps(this.yearBody, api.getTableBodyProps({ view: 'year' }))
 
     this.yearBody.innerHTML = ''
-    api.getYearsGrid({ columns: 4 }).forEach(years => {
+    api.getYearsGrid({ columns: 4 }).forEach((years) => {
       const row = document.createElement('tr')
       spreadProps(row, api.getTableRowProps({ view: 'year' }))
-      years.forEach(year => {
+      years.forEach((year) => {
         const cell = document.createElement('td')
         spreadProps(cell, api.getYearTableCellProps({ ...year, columns: 4 }))
         const trigger = document.createElement('button')
