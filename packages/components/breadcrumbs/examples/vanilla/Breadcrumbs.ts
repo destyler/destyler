@@ -5,7 +5,7 @@ import { normalizeProps, spreadProps, useMachine } from '@destyler/vanilla'
 import * as breadcrumbs from '../../index'
 import '../style.css'
 
-type ItemNodes = {
+interface ItemNodes {
   itemEl: HTMLElement
   linkEl: HTMLAnchorElement | null
   separatorEl: HTMLElement | null
@@ -49,7 +49,7 @@ export function render(target: HTMLElement) {
     return
 
   const itemNodes = new Map<string, ItemNodes>()
-  layout.main.querySelectorAll<HTMLElement>('[data-breadcrumb-item]').forEach(itemEl => {
+  layout.main.querySelectorAll<HTMLElement>('[data-breadcrumb-item]').forEach((itemEl) => {
     const id = itemEl.dataset.itemId
     if (!id)
       return
@@ -86,7 +86,7 @@ export function render(target: HTMLElement) {
       class: classNames('breadcrumbs-list', listProps.class),
     })
 
-    api.items.forEach(item => {
+    api.items.forEach((item) => {
       const nodes = itemNodes.get(item.id)
       if (!nodes)
         return
