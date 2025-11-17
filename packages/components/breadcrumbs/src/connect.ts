@@ -1,6 +1,5 @@
 import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { BreadcrumbItem, MachineApi, Send, State } from './types'
-import { dataAttr } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
 
@@ -17,8 +16,6 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getRootId(state.context),
         'role': 'navigation',
         'aria-label': 'breadcrumbs',
-        'data-hover': dataAttr(state.context.hoveredId != null),
-        'data-focus': dataAttr(state.context.focusedId != null),
       })
     },
 
@@ -34,8 +31,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.item.attrs,
         'role': 'listitem',
         'aria-label': `breadcrumbs:listitem:${item.label}`,
-        'data-hover': dataAttr(state.context.hoveredId === item.id),
-        'data-focus': dataAttr(state.context.focusedId === item.id),
+        'data-hover': state.context.hoveredId === item.id ? 'true' : 'false',
+        'data-focus': state.context.focusedId === item.id ? 'true' : 'false',
       })
     },
 
@@ -47,8 +44,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'data-current': item.href ? undefined : 'page',
         'href': item.href,
         'tabIndex': item.href ? undefined : 0,
-        'data-hover': dataAttr(state.context.hoveredId === item.id),
-        'data-focus': dataAttr(state.context.focusedId === item.id),
+        'data-hover': state.context.hoveredId === item.id ? 'true' : 'false',
+        'data-focus': state.context.focusedId === item.id ? 'true' : 'false',
         onPointerEnter(event) {
           if (event.defaultPrevented)
             return

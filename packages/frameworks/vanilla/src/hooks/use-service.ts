@@ -1,4 +1,5 @@
 import type { AnyEventObject, EventObject, HookOptions, MachineSrc, StateSchema } from '@destyler/xstate'
+import { MachineStatus } from '@destyler/xstate'
 import { useConstant } from './use-constant'
 
 export function useService<
@@ -20,8 +21,9 @@ export function useService<
     return instance
   })
 
-  // 启动服务（如果还没有启动）
-  if (!service.state) {
+  // Start the service if it's not already running. `service.state` is always defined,
+  // so we need to rely on the machine status instead of the presence of state.
+  if (service.status !== MachineStatus.Running) {
     const stateInit = hydratedState
     service.start(stateInit)
   }

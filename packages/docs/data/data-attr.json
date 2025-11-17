@@ -10,12 +10,6 @@
     }
   },
   "breadcrumbs": {
-    "Root": {
-      "data-scope": "breadcrumbs",
-      "data-part": "root",
-      "data-hover": "Present when any breadcrumb is hovered",
-      "data-focus": "Present when a breadcrumb is focused"
-    },
     "Item": {
       "data-scope": "breadcrumbs",
       "data-part": "item",

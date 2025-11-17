@@ -52,18 +52,20 @@ describe('[breadcrumbs] browser tests', () => {
     const secondLink = linkLocator.nth(1)
 
     await expect.element(root).not.toHaveAttribute('data-hover')
-    await expect.element(firstLink).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).toHaveAttribute('data-hover', 'false')
+    await expect.element(secondLink).toHaveAttribute('data-hover', 'false')
 
     await firstLink.hover()
 
-    await expect.element(root).toHaveAttribute('data-hover', '')
-    await expect.element(firstLink).toHaveAttribute('data-hover', '')
+    await expect.element(root).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).toHaveAttribute('data-hover', 'true')
+    await expect.element(secondLink).toHaveAttribute('data-hover', 'false')
 
     await secondLink.hover()
 
-    await expect.element(root).toHaveAttribute('data-hover', '')
-    await expect.element(firstLink).not.toHaveAttribute('data-hover')
-    await expect.element(secondLink).toHaveAttribute('data-hover', '')
+    await expect.element(root).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).toHaveAttribute('data-hover', 'false')
+    await expect.element(secondLink).toHaveAttribute('data-hover', 'true')
   })
 
   it('sets focus data attributes when navigating with keyboard', async () => {
@@ -71,16 +73,19 @@ describe('[breadcrumbs] browser tests', () => {
     const linkLocator = testHook.getPart('link')
 
     await expect.element(root).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', 'false')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', 'false')
 
     await testHook.pressKey('Tab')
 
-    await expect.element(root).toHaveAttribute('data-focus', '')
-    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', '')
+    await expect.element(root).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', 'true')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', 'false')
 
     await testHook.pressKey('Tab')
 
-    await expect.element(root).toHaveAttribute('data-focus', '')
-    await expect.element(linkLocator.nth(0)).not.toHaveAttribute('data-focus')
-    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', '')
+    await expect.element(root).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', 'false')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', 'true')
   })
 })
