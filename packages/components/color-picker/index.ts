@@ -16,6 +16,7 @@ export type {
   UserDefinedContext as Context,
   ElementIds,
   FormatChangeDetails,
+  MachineState,
   OpenChangeDetails,
   PositioningOptions,
   Service,
@@ -23,7 +24,7 @@ export type {
   SwatchTriggerProps,
   SwatchTriggerState,
   TransparencyGridProps,
-  ValueChangeDetails,
+  ValueChangeDetails
 } from './src/types'
 
 export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/dismissable'
