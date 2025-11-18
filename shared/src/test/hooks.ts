@@ -81,4 +81,10 @@ export const testHook = {
       interval: 50,
     })
   },
+
+  async clickOutside() {
+    const outsideButton = page.getByTestId('outside')
+    await outsideButton.click()
+  },
+
 }

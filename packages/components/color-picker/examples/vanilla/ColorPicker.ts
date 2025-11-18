@@ -244,16 +244,17 @@ export function render(target: HTMLElement) {
     .join('')
 
   layout.main.innerHTML = `
+    <div data-testid="outside">out side</div>
     <form data-color-picker-form>
       <input data-color-picker-hidden type="hidden" />
       <div data-color-picker-root>
         <label data-color-picker-label>
           Select Color:
-          <span data-color-picker-value-text></span>
+          <span data-testid="value-text" data-color-picker-value-text></span>
         </label>
 
         <div data-color-picker-control>
-          <button type="button" data-color-picker-trigger>
+          <button type="button" data-testid="colorpicker:trigger" data-color-picker-trigger>
             <div data-color-picker-trigger-grid></div>
             <div data-color-picker-trigger-swatch></div>
           </button>
