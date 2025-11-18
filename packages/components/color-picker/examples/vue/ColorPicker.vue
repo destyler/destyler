@@ -103,7 +103,7 @@ const presets = ref(['#f47373', '#697689'])
               </div>
 
               <button v-bind="api.getEyeDropperTriggerProps()">
-                <EyeDropIcon />
+                Use Eye Dropper
               </button>
             </div>
           </div>

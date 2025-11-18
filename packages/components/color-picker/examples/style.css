@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 10px;
+  max-width: 400px;
 }
 
 [data-scope="color-picker"][data-part="control"] {
