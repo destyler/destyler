@@ -540,7 +540,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'data-disabled': dataAttr(disabled),
         'data-invalid': dataAttr(state.context.invalid),
         'data-readonly': dataAttr(state.context.readOnly),
-        ...(state.context.readOnly ? { 'readOnly': true } : {}),
+        ...(state.context.readOnly ? { readOnly: true } : {}),
         'defaultValue': getChannelValue(value, channel),
         'min': channelRange?.minValue,
         'max': channelRange?.maxValue,

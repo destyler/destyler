@@ -24,7 +24,7 @@ export type {
   SwatchTriggerProps,
   SwatchTriggerState,
   TransparencyGridProps,
-  ValueChangeDetails
+  ValueChangeDetails,
 } from './src/types'
 
 export type { FocusOutsideEvent, InteractOutsideEvent, PointerDownOutsideEvent } from '@destyler/dismissable'
