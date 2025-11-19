@@ -137,7 +137,7 @@ class ComboboxExample extends Component<
     this.currentItems.forEach((item, index) => {
       const li = items[index]
       if (!li)
-return
+        return
 
       spreadProps(li, {
         ...api.getItemProps({ item }),
@@ -163,13 +163,13 @@ return
     if (this.inputEl) {
       spreadProps(this.inputEl, {
         ...api.getInputProps(),
-        'data-testid': 'input',
+        'data-testid': 'combobox:input',
       })
     }
     if (this.triggerEl) {
       spreadProps(this.triggerEl, {
         ...api.getTriggerProps(),
-        'data-testid': 'trigger',
+        'data-testid': 'combobox:trigger',
       })
     }
     this.clearButtons.forEach(button => spreadProps(button, api.getClearTriggerProps()))
@@ -183,7 +183,7 @@ return
       else {
         spreadProps(this.contentEl, {
           ...api.getContentProps(),
-          'data-testid': 'combobox-content',
+          'data-testid': 'combobox:content',
         })
         this.renderItems(api)
       }
@@ -211,15 +211,15 @@ export function render(target: HTMLElement) {
         <div data-combobox-root>
           <label data-combobox-label>Select country</label>
           <div data-combobox-control>
-            <input data-testid="input" data-combobox-input />
-            <button type="button" data-testid="trigger" data-combobox-trigger>▼</button>
-            <button type="button" data-combobox-inline-clear>
+            <input data-testid="combobox:input" data-combobox-input />
+            <button type="button" data-testid="combobox:trigger" data-combobox-trigger>▼</button>
+            <button type="button" data-testid="combobox:clear" data-combobox-inline-clear>
               x
             </button>
           </div>
         </div>
         <div data-combobox-positioner>
-          <ul data-testid="combobox-content" data-combobox-content></ul>
+          <ul data-testid="combobox:content" data-combobox-content></ul>
         </div>
       </div>
     </main>

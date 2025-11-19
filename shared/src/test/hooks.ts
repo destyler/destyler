@@ -33,6 +33,19 @@ export const testHook = {
     return page.getByArticle(this.part(part))
   },
 
+  getInputEl(id: string) {
+    return page.getByArticle(this.testid(`${id}:input`))
+  },
+
+  getClearEl(id: string) {
+    return page.getByTestId(`${id}:clear`)
+  },
+
+  async focusInput(id: string) {
+    const inputEl = this.getInputEl(id)
+    await inputEl.fill('')
+  },
+
   getTrigger(id: string) {
     return page.getByArticle(this.testid(`${id}:trigger`))
   },
@@ -82,9 +95,27 @@ export const testHook = {
     })
   },
 
+  async type(id: string, text: string) {
+    const inputEl = this.getInputEl(id)
+
+    await userEvent.type(inputEl, text)
+  },
+
   async clickOutside() {
     const outsideButton = page.getByTestId('outside')
     await outsideButton.click()
+  },
+
+  async clickTrigger(opts: { delay?: number } = {}) {
+    const triggerEl = this.getTrigger('combobox')
+    await userEvent.click(triggerEl, {
+      delay: opts.delay,
+    })
+  },
+
+  async clickInput(id: string) {
+    const inputEl = this.getInputEl(id)
+    await inputEl.click()
   },
 
 }

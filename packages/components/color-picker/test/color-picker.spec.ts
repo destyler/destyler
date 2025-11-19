@@ -34,7 +34,7 @@ function channelSlider(channel: string) {
   return page.locatoring(`[data-part=channel-slider][data-channel=${channel}]`)
 }
 
-describe('color-picker vue browser tests', () => {
+describe('color-picker browser tests', () => {
   beforeEach(async () => {
     if (el) {
       document.body.removeChild(el)
