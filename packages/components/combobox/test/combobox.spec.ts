@@ -72,7 +72,7 @@ describe('combobox browser tests', () => {
   })
 
   it('should open combobox menu when arrow is clicked', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
 
     await seeDropdown()
 
@@ -80,7 +80,7 @@ describe('combobox browser tests', () => {
   })
 
   it('escape should close content', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
 
     await seeDropdown()
 
@@ -100,7 +100,7 @@ describe('combobox browser tests', () => {
   })
 
   it('pointer / selection', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
 
     await hoverItem('Zambia')
 
@@ -114,12 +114,12 @@ describe('combobox browser tests', () => {
   })
 
   it('select and select again', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
 
     await clickItem('Zambia')
     await seeInputHasValue('Zambia')
 
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
     await clickItem('Canada')
     await seeInputHasValue('Canada')
   })
@@ -171,7 +171,7 @@ describe('combobox browser tests', () => {
   })
 
   it('on home and end, when open, focus first and last option', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
 
     await testHook.pressKey('ArrowDown')
     await testHook.pressKey('ArrowDown')
@@ -241,17 +241,17 @@ describe('combobox browser tests', () => {
   })
 
   it('selects value on click', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
     await clickItem('Zambia')
 
     await seeItemIsChecked('Zambia')
   })
 
   it('can clear value', async () => {
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
     await clickItem('Zambia')
 
-    await testHook.clickTrigger()
+    await testHook.clickTrigger('combobox')
     await clickClearTrigger()
     await seeInputHasValue('')
     await seeItemIsNotChecked('Zambia')

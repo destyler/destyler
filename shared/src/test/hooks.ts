@@ -106,8 +106,8 @@ export const testHook = {
     await outsideButton.click()
   },
 
-  async clickTrigger(opts: { delay?: number } = {}) {
-    const triggerEl = this.getTrigger('combobox')
+  async clickTrigger(id: string, opts: { delay?: number } = {}) {
+    const triggerEl = this.getTrigger(id)
     await userEvent.click(triggerEl, {
       delay: opts.delay,
     })
