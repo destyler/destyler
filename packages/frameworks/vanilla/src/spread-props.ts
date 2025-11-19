@@ -52,7 +52,7 @@ function applyPropsToElement<T extends Element>(element: T | null | undefined, p
   if (!element)
     return element
   const nextProps = props ?? {}
-  const state = spreadState.get(element) ?? { props: {}, events: new Map() }
+  const state: ElementState = spreadState.get(element) ?? { props: {}, events: new Map() }
 
   for (const key of Object.keys(state.props)) {
     if (!(key in nextProps)) {
@@ -62,7 +62,7 @@ function applyPropsToElement<T extends Element>(element: T | null | undefined, p
   }
 
   for (const [key, value] of Object.entries(nextProps)) {
-    if (state.props[key] === value)
+    if (state.props[key] === value && !key.startsWith('on'))
       continue
     applyProp(element, key, value, state)
     state.props[key] = value
@@ -113,6 +113,12 @@ export function hydrateSpreadProps(root?: ParentNode | null) {
 function applyProp(element: Element, key: string, value: any, state: ElementState) {
   if (key === 'children' || key === 'dangerouslySetInnerHTML')
     return
+
+  if (key === 'value' && element instanceof HTMLInputElement) {
+    if (element.value === String(value)) {
+      return
+    }
+  }
 
   if (key === 'style') {
     if (typeof value === 'string') {
