@@ -118,4 +118,18 @@ export const testHook = {
     await inputEl.click()
   },
 
+  async clickTriggerById(id: string, opts: {
+    delay?: number
+    times: number
+  } = {
+    delay: 0,
+    times: 1,
+  }) {
+    const triggerEl = this.getTrigger(id)
+    for (let i = 0; i < opts.times; i++) {
+      await userEvent.click(triggerEl, {
+        delay: opts.delay,
+      })
+    }
+  },
 }
