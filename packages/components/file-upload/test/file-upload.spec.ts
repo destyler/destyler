@@ -76,8 +76,8 @@ async function toggleBooleanControl(testId: string) {
 
 describe('file-upload browser tests', () => {
   beforeEach(async () => {
-    if (host?.isConnected)
-      host.remove()
+    if (host)
+      document.body.removeChild(host)
 
     host = document.createElement('div')
     document.body.appendChild(host)

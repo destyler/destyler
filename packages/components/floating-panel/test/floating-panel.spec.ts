@@ -86,7 +86,7 @@ async function getPositionerCoords() {
 describe('floating-panel browser tests', () => {
   beforeEach(async () => {
     if (mount)
-      mount.remove()
+      document.body.removeChild(mount)
 
     mount = document.createElement('div')
     document.body.appendChild(mount)

@@ -103,8 +103,10 @@ export function render(target: HTMLElement) {
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
     <main data-hover-card-example>
       <div style="display: flex; gap: 50px;">
+        <span data-testid="hover-card-test-click">click</span>
         <a href="https://twitter.com/elonehoo" target="_blank" rel="noreferrer" data-hover-card-trigger>
           Twitter
         </a>
