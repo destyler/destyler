@@ -38,7 +38,7 @@ describe('hover-card browser tests', () => {
   })
 
   it('content should be hidden by default', async () => {
-    await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(document.body).not.toContainElement(contentEl())
   })
 
   it('should be opened after hovering trigger', async () => {
@@ -61,7 +61,7 @@ describe('hover-card browser tests', () => {
 
     await userEvent.tab()
     await waitForStability()
-    await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(document.body).not.toContainElement(contentEl())
   })
 
   it('should be closed after blurring trigger with keyboard', async () => {
@@ -72,7 +72,7 @@ describe('hover-card browser tests', () => {
 
     await userEvent.tab()
     await waitForStability()
-    await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(document.body).not.toContainElement(contentEl())
   })
 
   it('should remain open after blurring trigger if pointer opens card', async () => {
@@ -91,7 +91,7 @@ describe('hover-card browser tests', () => {
 
     await userEvent.hover(testClickEl())
     await waitForStability()
-    await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(document.body).not.toContainElement(contentEl())
   })
 
   it('should remain open after moving from trigger to content', async () => {
