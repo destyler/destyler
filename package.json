@@ -72,7 +72,6 @@
     "@destyler/vanilla": "workspace:*",
     "@destyler/vue": "workspace:*",
     "@sveltejs/vite-plugin-svelte": "catalog:plugin",
-    "@testing-library/user-event": "^14.6.1",
     "@types/archiver": "catalog:types",
     "@types/node": "catalog:types",
     "@types/react": "catalog:types",

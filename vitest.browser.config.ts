@@ -7,7 +7,7 @@ export default defineProject({
       label: 'browser',
       color: 'green',
     },
-    environment: 'jsdom',
+    environment: 'happy-dom',
     browser: {
       enabled: true,
       provider: playwright(),

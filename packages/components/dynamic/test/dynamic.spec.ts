@@ -40,7 +40,7 @@ async function seeTag(value: string) {
 
 async function dontSeeTag(value: string) {
   const tag = getTag(value)
-  await expect.element(document.body).not.toContainElement(tag)
+  await expect.element(tag).not.toBeInTheDocument()
 }
 
 async function seeInputHasValue(value: string) {

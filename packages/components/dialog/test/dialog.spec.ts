@@ -11,7 +11,7 @@ async function seeCloseIsFocused() {
 
 async function dontSeeContent() {
   const contentEl = testHook.getContent('dialog')
-  await expect.element(document.body).not.toContainElement(contentEl)
+  await expect.element(contentEl).not.toBeInTheDocument()
 }
 
 async function seeTriggerIsFocused() {
