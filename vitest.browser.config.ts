@@ -4,7 +4,7 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
   test: {
     name: {
-      label: 'vanilla',
+      label: 'browser',
       color: 'green',
     },
     environment: 'jsdom',
