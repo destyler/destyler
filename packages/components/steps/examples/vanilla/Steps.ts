@@ -29,6 +29,7 @@ class StepsExample extends Component<steps.Context, steps.Api, StepsMachineConte
     separator: this.rootEl.querySelector(`[data-steps-separator="${index}"]`),
     content: this.rootEl.querySelector(`[data-steps-content="${index}"]`),
   }))
+
   private readonly completeContentEl = this.rootEl.querySelector<HTMLElement>('[data-steps-content="complete"]')
   private readonly prevButton = this.rootEl.querySelector<HTMLButtonElement>('[data-steps-prev]')
   private readonly nextButton = this.rootEl.querySelector<HTMLButtonElement>('[data-steps-next]')
