@@ -1,8 +1,8 @@
 import { MachineController, normalizeProps, spread } from '@destyler/lit'
-import '@destyler/shared-private/lit'
 import { html, LitElement } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import * as label from '../../index'
+import '@destyler/shared-private/lit'
 
 @customElement('destyler-label')
 export class LabelElement extends LitElement {

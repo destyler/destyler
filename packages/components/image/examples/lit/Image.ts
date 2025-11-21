@@ -1,16 +1,13 @@
-import type { ContextFrom } from '@destyler/lit'
 import { MachineController, normalizeProps, spread } from '@destyler/lit'
+import { imagesData } from '@destyler/shared-private'
 import { html, LitElement, unsafeCSS } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import * as avatar from '../../index'
-import styles from '../style.css?inline'
 
-import { imagesData } from '@destyler/shared-private'
+import styles from '../style.css?inline'
 
 const images = imagesData.full
 const getRandomImage = () => images[Math.floor(Math.random() * images.length)]
-
-type ImageMachineContext = ContextFrom<typeof avatar.machine>
 
 @customElement('destyler-image')
 export class ImageElement extends LitElement {
@@ -36,7 +33,6 @@ export class ImageElement extends LitElement {
             <button type="button" @click=${() => { this.show = !this.show; this.requestUpdate() }}>Toggle Image</button>
           </div>
         </main>
-
         <destyler-toolbar>
           <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
         </destyler-toolbar>
