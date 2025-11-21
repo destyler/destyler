@@ -1,5 +1,6 @@
 [data-scope="splitter"][data-part="root"][data-orientation="horizontal"] {
   height: 300px;
+  width: 400px;
 }
 
 [data-scope="splitter"][data-part="root"][data-orientation="vertical"] {
