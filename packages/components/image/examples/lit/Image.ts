@@ -28,9 +28,18 @@ export class ImageElement extends LitElement {
           </div>
 
           <div class="controls">
-            <button type="button" @click=${() => { this.src = getRandomImage(); this.requestUpdate() }}>Change Image</button>
-            <button type="button" @click=${() => { this.src = imagesData.broken; this.requestUpdate() }}>Broken Image</button>
-            <button type="button" @click=${() => { this.show = !this.show; this.requestUpdate() }}>Toggle Image</button>
+            <button type="button" @click=${() => {
+              this.src = getRandomImage()
+              this.requestUpdate()
+            }}>Change Image</button>
+            <button type="button" @click=${() => {
+              this.src = imagesData.broken
+              this.requestUpdate()
+            }}>Broken Image</button>
+            <button type="button" @click=${() => {
+              this.show = !this.show
+              this.requestUpdate()
+            }}>Toggle Image</button>
           </div>
         </main>
         <destyler-toolbar>

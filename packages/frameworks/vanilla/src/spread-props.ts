@@ -35,6 +35,10 @@ const booleanAttributes = new Set([
   'inert',
 ])
 
+const propertyNameMap: Record<string, string> = {
+  readonly: 'readOnly',
+}
+
 let spreadUid = 0
 
 function isElement(value: unknown): value is Element {
@@ -242,9 +246,10 @@ function removeEventListener(element: Element, key: string, state: ElementState)
 
 function setProperty(element: Element, key: string, value: any) {
   const target = element as any
-  if (key in target) {
+  const propKey = propertyNameMap[key] ?? key
+  if (propKey in target) {
     try {
-      target[key] = value
+      target[propKey] = value
       return
     }
     catch {
