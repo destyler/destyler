@@ -1,6 +1,6 @@
 [data-scope="qr-code"][data-part="frame"] {
-  width: 120px;
-  height: 120px;
+  width: 270px;
+  height: 270px;
   background-color: white;
 }
 
@@ -12,6 +12,7 @@
   width: 25%;
   height: 25%;
   outline: 4px solid white;
+  z-index: 1;
 
   & img {
     width: 100%;
