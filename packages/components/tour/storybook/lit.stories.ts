@@ -1,4 +1,4 @@
-import Tour from '../examples/vue/Tour.vue'
+import Tour from '../examples/lit/Tour.astro'
 
 export default {
   component: Tour,

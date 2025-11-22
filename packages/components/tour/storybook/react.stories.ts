@@ -1,4 +1,4 @@
-import Tour from '../examples/Tour.react'
+import Tour from '../examples/react/Tour.react'
 
 export default {
   component: Tour,
