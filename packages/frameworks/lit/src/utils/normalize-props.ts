@@ -33,7 +33,7 @@ export const normalizeProps = createNormalizer<any>((props: Dict) => {
     }
 
     if (booleanAttrs.has(key)) {
-      value = value === false ? undefined : ''
+      value = value ? '' : undefined
     }
 
     if (key === 'children') {
