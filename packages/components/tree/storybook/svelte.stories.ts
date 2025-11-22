@@ -1,4 +1,4 @@
-import Tree from '../examples/Tree.svelte'
+import Tree from '../examples/svelte/Tree.svelte'
 
 export default {
   component: Tree,
