@@ -1,11 +1,12 @@
 .tree-example {
+  width: 400px;
   display: flex;
   justify-content: center;
   padding: 32px 0;
 }
 
 .tree-example__card {
-  width: min(360px, 100%);
+  width: min(360px, 360px);
   border-radius: 16px;
   border: 1px solid #e4e4e7;
   background: linear-gradient(180deg, #fff, #fdfdfd);
@@ -22,6 +23,13 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+}
+
+.tree-example__meta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
 }
 
 .tree-example__header h3 {
