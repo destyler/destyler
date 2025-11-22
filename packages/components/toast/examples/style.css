@@ -1,0 +1,112 @@
+[data-scope="toast"][data-part="root"] {
+  width: min(400px, 90vw);
+  border-radius: 0.5rem;
+  border: 1px solid #ededed;
+  padding: 1.5rem;
+  box-shadow: rgba(15, 23, 42, 0.12) 0px 10px 25px;
+  overflow-wrap: anywhere;
+  translate: var(--x) var(--y);
+  scale: var(--scale);
+  z-index: var(--z-index);
+  height: var(--height);
+  opacity: var(--opacity);
+  background: #ffffff;
+  color: #0f172a;
+  will-change: translate, opacity, scale;
+  transition:
+    translate 400ms cubic-bezier(0.21, 1.02, 0.73, 1),
+    scale 400ms cubic-bezier(0.21, 1.02, 0.73, 1),
+    opacity 400ms cubic-bezier(0.21, 1.02, 0.73, 1);
+  position: relative;
+}
+
+[data-scope="toast"][data-part="root"][data-type="success"] {
+  background: #38a169;
+  color: #ffffff;
+}
+
+[data-scope="toast"][data-part="root"][data-type="error"] {
+  background: #c53030;
+  color: #ffffff;
+}
+
+[data-scope="toast"][data-part="root"][data-type="loading"] {
+  background: #111827;
+  color: #ffffff;
+}
+
+[data-scope="toast"][data-part="root"][data-state="closed"] {
+  transition:
+    translate 400ms cubic-bezier(0.06, 0.71, 0.55, 1),
+    scale 400ms cubic-bezier(0.06, 0.71, 0.55, 1),
+    opacity 200ms cubic-bezier(0.06, 0.71, 0.55, 1);
+}
+
+[data-scope="toast"][data-part="close-trigger"] {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: currentColor;
+}
+
+.toast-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.toast-demo__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toast-demo__actions button {
+  appearance: none;
+  border: 1px solid #cbd5f5;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+.toast-demo__actions button.secondary {
+  background: #0f172a;
+}
+
+.toast-demo__actions button.ghost {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #cbd5f5;
+}
+
+.toast-demo__actions button:hover {
+  background: #1e40af;
+}
+
+.toast-demo__actions button.secondary:hover {
+  background: #020617;
+}
+
+.toast-demo__actions button.ghost:hover {
+  background: #e2e8f0;
+}
+
+.toast-demo__region {
+  pointer-events: none;
+}
+
+.toast-demo__region [data-scope="toast"][data-part="root"] {
+  pointer-events: auto;
+}

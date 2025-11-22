@@ -1,4 +1,4 @@
-import Toast from '../examples/Toast.svelte'
+import Toast from '../examples/svelte/Toast.svelte'
 
 export default {
   component: Toast,

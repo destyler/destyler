@@ -1,4 +1,4 @@
-import Toast from '../examples/Toast.react'
+import Toast from '../examples/react/Toast.react'
 
 export default {
   component: Toast,
