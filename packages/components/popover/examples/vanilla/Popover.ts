@@ -46,7 +46,7 @@ class PopoverExample extends Component<
     this.positionerEl = document.createElement('div')
     this.contentEl = document.createElement('div')
     this.contentEl.classList.add('popover-content')
-    this.contentEl.dataset.testid = 'popover-content'
+    this.contentEl.dataset.testid = 'popover:content'
 
     this.arrowEl = document.createElement('div')
     this.arrowTipEl = document.createElement('div')
@@ -73,7 +73,7 @@ class PopoverExample extends Component<
 
     this.closeButton = document.createElement('button')
     this.closeButton.type = 'button'
-    this.closeButton.dataset.testid = 'popover-close-button'
+    this.closeButton.dataset.testid = 'close:trigger'
     this.closeButton.textContent = 'X'
 
     this.bodyEl.append(this.nonFocusableLink, this.focusableLink, this.inputEl, this.closeButton)
@@ -91,10 +91,18 @@ class PopoverExample extends Component<
 
   onStateChange(listener: (state: PopoverState) => void) {
     this.stateListeners.add(listener)
+    return () => this.stateListeners.delete(listener)
   }
 
   protected override onTransition(state: PopoverState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.stateListeners.clear()
+    this.positionerEl.remove()
+    this.mountedParent = null
+    super.destroy()
   }
 
   private updatePositionerParent(portalled: boolean) {
@@ -119,7 +127,7 @@ class PopoverExample extends Component<
     if (this.triggerEl) {
       spreadProps(this.triggerEl, {
         ...api.getTriggerProps(),
-        'data-testid': 'popover-trigger',
+        'data-testid': 'popover:trigger',
       })
     }
 
@@ -138,7 +146,7 @@ class PopoverExample extends Component<
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(popoverControls)
   const layout = Layout()
 
@@ -146,9 +154,9 @@ export function render(target: HTMLElement) {
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
+    <div data-testid="outside">out side</div>
     <main class="popover" data-popover-example>
       <div data-part="root" data-popover-root>
-        <button type="button" data-testid="button-before">Button :before</button>
         <button type="button" data-testid="popover-trigger" data-popover-trigger>
           Click me
           <div data-popover-indicator>&gt;</div>
@@ -163,7 +171,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-popover-root]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -185,5 +193,10 @@ export function render(target: HTMLElement) {
   }
 
   updateVisualizer(instance.state as PopoverState)
-  instance.onStateChange(updateVisualizer)
+  const unsubscribeVisualizer = instance.onStateChange(updateVisualizer)
+
+  return () => {
+    unsubscribeVisualizer?.()
+    instance.destroy()
+  }
 }

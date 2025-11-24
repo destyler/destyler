@@ -204,7 +204,7 @@ Once each test starts from a clean DOM, the hover-card closes as expected and th
 
 ---
 
-_**User (2025-11-24 02:38Z)**_
+_**User (2025-11-24 02:43Z)**_
 
 直接帮我写一下
 
@@ -214,7 +214,48 @@ _**Agent (model copilot/gpt-5.1-codex)**_
 
 **Planning test cleanup implementation****Starting step 1 evaluation****Investigating component teardown methods****Correcting query parameter name****Reviewing toast example cleanup****Searching for toast test cleanup****Searching for renderWithCleanup usage****Searching for render export pattern****Investigating test cleanup patterns****Checking test cleanup methods****Investigating component cleanup patterns****Checking test cleanup for overlays****Designing cleanup for hover card tests****Planning render cleanup implementation**
 
-I’m thinking about changing the `render` function to return a cleanup function that destroys the instance, but I first want to confirm how Storybook uses the Astro file versus the TypeScript file. Since I don’t know if the
+I’m thinking about changing the `render` function to return a cleanup function that destroys the instance, but I first want to confirm how Storybook uses the Astro file versus the TypeScript file. Since I don’t know if the base `Component` class has a cleanup method, I’m considering adding my own `destroy` method in `HoverCardExample` to handle removing DOM nodes and unsubscribing listeners. To properly unsubscribe from `controls` and `stateListeners`, I want to check out the `Controls` interface and the `useControls` implementation, which likely involves subscribing and unsubscribing, so I’ll look into the `@destyler/shared-private/vanilla` package to find more details.**Searching for import file path****Searching for shared-private package****Investigating useControls implementation****Opening basic version****Analyzing subscription handling in hover-card render****Checking node_modules for package****Listing node_modules directory****Opening source file****Checking case sensitivity in index.ts****Locating component source file****Enhancing HoverCard cleanup and test teardown**
+
+I'm refining HoverCardExample to properly detach its overlay and clear state listeners on destroy, returning a cleanup function from render for tests to use. I'll adjust onStateChange to allow unsubscribing listeners, update tests to call cleanup after each run, and ensure DOM removals avoid duplicates while keeping TypeScript happy with consistent return types.**Implementing HoverCard cleanup and teardown**
+
+I'm planning to update `HoverCard.ts` by adding a `destroy` method to clear listeners and detach the hover card, modify `onStateChange` to return an unsubscribe function, and ensure the `render` function returns a cleanup callback properly typed. I'll also prepare to update the test file to handle cleanup after each test. This setup should help manage resources safely and prevent leaks.
+```
+
+```
+**Ensuring proper test cleanup setup**
+```
+
+```
+**Verifying TypeScript return types and cleanup****Considering running tests****Confirming test validation****Summarizing hover card updates and tests**
+
+I'll wrap up by listing the changes made to `hover-card/examples/vanilla/HoverCard.ts` and `hover-card/test/hover-card.spec.ts`, highlighting the new `render` cleanup return and how `afterEach` handles cleanup with `HoverCardExample`. I'll also note running the tests with Vitest on the hover-card spec file, confirming success, and suggesting the user might want to run the full component test suite next.**Hover Card Cleanup**
+- `HoverCard.ts`: added unsubscribe support to `onStateChange`, override `destroy()` to detach the floating card and clear listeners, and made `render()` return a teardown function that unsubscribes the visualizer listener and destroys the component so nothing is left in `document.body` between runs.
+- `hover-card.spec.ts`: track the cleanup function returned from `render`, add an `afterEach` that invokes it and removes the test mount, preventing leaked overlays that previously left multiple `[data-part=content]` nodes and caused flaky assertions.
+
+**Testing**
+- `vitest packages/components/hover-card/test/hover-card.spec.ts`
+
+---
+
+_**User (2025-11-24 03:42Z)**_
+
+帮我给这个测试类也增加 这个 cleanup 的能力
+
+---
+
+_**Agent (model copilot/gpt-5.1-codex)**_
+
+**Organizing todo list for test and example updates****Updating task status****Inspecting popover example file****Implementing cleanup and unsubscribe logic**
+
+I'll update the component to add unsubscribe returns on `onStateChange`, override the destroy method to clear listeners and remove DOM elements, adjust render to return cleanup functions, and modify tests to ensure proper mounting cleanup and watcher unsubscription, keeping the test hooks consistent with the new logic.
+```
+
+```
+**Updating test cases**
+```
+
+```
+**Updating todo statuses****Running tests for popover spec**
 
 ---
 
