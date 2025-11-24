@@ -88,14 +88,15 @@ export function render(target: HTMLElement) {
 
   layout.main.innerHTML = `
     <main>
+      <div data-testid="outside">out side</div>
       <div data-number-input-example>
         <div data-number-input-root>
           <div data-testid="scrubber" data-number-input-scrubber></div>
           <label data-testid="label" data-number-input-label>Enter number:</label>
           <div data-number-input-control>
-            <button data-testid="dec-button" data-number-input-decrement>DEC</button>
-            <input data-testid="input" data-number-input-input />
-            <button data-testid="inc-button" data-number-input-increment>INC</button>
+            <button data-testid="dec:trigger" data-number-input-decrement>DEC</button>
+            <input data-testid="number-input:input" data-number-input-input />
+            <button data-testid="inc:trigger" data-number-input-increment>INC</button>
           </div>
         </div>
       </div>
