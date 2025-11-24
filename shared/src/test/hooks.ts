@@ -50,6 +50,10 @@ export const testHook = {
     return page.getByArticle(this.testid(`${id}:trigger`))
   },
 
+  getItem(id: string) {
+    return page.getByArticle(this.testid(`${id}:item`))
+  },
+
   getContent(id: string) {
     return page.getByArticle(this.testid(`${id}:content`))
   },
@@ -106,9 +110,21 @@ export const testHook = {
     await outsideButton.click()
   },
 
-  async clickTrigger(id: string, opts: { delay?: number } = {}) {
+  async clickTrigger(id: string, opts: { count: number, delay?: number } = {
+    count: 1,
+    delay: 0,
+  }) {
     const triggerEl = this.getTrigger(id)
-    await userEvent.click(triggerEl, {
+    for (let i = 0; i < opts.count; i++) {
+      await userEvent.click(triggerEl, {
+        delay: opts.delay,
+      })
+    }
+  },
+
+  async clickItem(id: string, opts: { delay?: number } = {}) {
+    const el = this.getItem(id)
+    await userEvent.click(el, {
       delay: opts.delay,
     })
   },

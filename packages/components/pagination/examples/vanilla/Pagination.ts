@@ -59,6 +59,7 @@ class PaginationExample extends Component<
       if (page.type === 'page') {
         const anchor = document.createElement('a')
         anchor.textContent = String(page.value)
+        anchor.setAttribute('data-testid', `pagination-item-${page.value}:item`)
         spreadProps(anchor, api.getItemProps(page))
         li.appendChild(anchor)
       }
@@ -101,10 +102,10 @@ export function render(target: HTMLElement) {
         <nav data-pagination-root>
           <ul data-pagination-list style="display: flex;">
             <li data-pagination-prev-item>
-              <a data-pagination-prev-trigger>⬅️</a>
+              <a data-pagination-prev-trigger data-testid="prev:trigger">⬅️</a>
             </li>
             <li data-pagination-next-item>
-              <a data-pagination-next-trigger>➡️</a>
+              <a data-pagination-next-trigger data-testid="next:trigger">➡️</a>
             </li>
           </ul>
         </nav>
