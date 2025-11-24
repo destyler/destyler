@@ -13,6 +13,7 @@ class QRCodeExample extends Component<qrCode.Context, MachineApi, QRCodeMachineC
   private readonly frameEl = this.rootEl.querySelector<SVGSVGElement>('[data-qr-code-frame]')
   private readonly patternEl = this.rootEl.querySelector<SVGPathElement>('[data-qr-code-pattern]')
   private readonly overlayEl = this.rootEl.querySelector<HTMLElement>('[data-qr-code-overlay]')
+  private readonly downloadTriggerEl = this.rootEl.querySelector<HTMLButtonElement>('[data-qr-code-download]')
 
   private readonly stateListeners = new Set<(state: QRCodeState) => void>()
 
@@ -41,6 +42,18 @@ class QRCodeExample extends Component<qrCode.Context, MachineApi, QRCodeMachineC
       spreadProps(this.patternEl, this.api.getPatternProps())
     if (this.overlayEl)
       spreadProps(this.overlayEl, this.api.getOverlayProps())
+
+    if (this.downloadTriggerEl) {
+      spreadProps(this.downloadTriggerEl, {
+        ...this.api.getDownloadTriggerProps({
+          fileName: 'destyler-qr-code.png',
+          mimeType: 'image/png',
+          quality: 0.92,
+        }),
+        'data-testid': 'qr-code:download',
+      })
+      this.downloadTriggerEl.textContent = 'Download PNG'
+    }
   }
 }
 
@@ -59,6 +72,7 @@ export function render(target: HTMLElement) {
         <div data-qr-code-overlay>
           <img src="https://avatars.githubusercontent.com/u/143371546?s=88&v=4" alt="" />
         </div>
+        <button type="button" data-qr-code-download>Download PNG</button>
       </div>
     </div>
   `
