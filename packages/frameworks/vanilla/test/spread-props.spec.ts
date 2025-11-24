@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { hydrateSpreadProps, spreadProps } from './spread-props'
+import { hydrateSpreadProps, spreadProps } from '../index'
 
 describe('spreadProps string hydration', () => {
   it('hydrates event handlers on generated markup', () => {
