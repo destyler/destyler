@@ -1,5 +1,5 @@
-import type { FileNode } from '../data'
 import type { Api } from '../../index'
+import type { FileNode } from '../data'
 import { useMemo } from 'react'
 
 interface TreeNodeProps {
@@ -19,7 +19,11 @@ export default function TreeNode({ node, indexPath, api }: TreeNodeProps) {
         <div {...api.getBranchControlProps(nodeProps)}>
           <span {...api.getBranchIndicatorProps(nodeProps)} />
           <span {...api.getBranchTextProps(nodeProps)}>{node.name}</span>
-          <span className="tree-example__meta">{childCount} items</span>
+          <span className="tree-example__meta">
+            {childCount}
+            {' '}
+            items
+          </span>
         </div>
         {nodeState.expanded && (
           <div {...api.getBranchContentProps(nodeProps)}>

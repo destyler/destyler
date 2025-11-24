@@ -79,10 +79,10 @@ class ToastExample extends Component<any, toast.GroupApi> {
 
   private attachHandlers() {
     this.infoButton?.addEventListener('click', () =>
-      this.pushBasic('info', 'Your workspace was moved to the new region.'),    )
+      this.pushBasic('info', 'Your workspace was moved to the new region.'))
     this.successButton?.addEventListener('click', () => this.pushBasic('success'))
     this.errorButton?.addEventListener('click', () =>
-      this.pushBasic('error', 'We could not process the request. Please retry.'),    )
+      this.pushBasic('error', 'We could not process the request. Please retry.'))
     this.promiseButton?.addEventListener('click', () => this.pushPromise())
     this.longButton?.addEventListener('click', () =>
       this.api?.create({
@@ -90,7 +90,7 @@ class ToastExample extends Component<any, toast.GroupApi> {
         description: 'We will notify you once it finishes.',
         type: 'info',
         duration: 8000,
-      }),    )
+      }))
     this.dismissButton?.addEventListener('click', () => this.api?.dismiss())
   }
 

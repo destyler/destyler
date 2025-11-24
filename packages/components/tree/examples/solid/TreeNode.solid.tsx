@@ -1,7 +1,7 @@
+import type { Api } from '../../index'
 /** @jsxImportSource solid-js */
 import type { FileNode } from '../data'
-import type { Api } from '../../index'
-import { For, Show, createMemo } from 'solid-js'
+import { createMemo, For, Show } from 'solid-js'
 
 interface TreeNodeProps {
   node: FileNode
@@ -27,7 +27,11 @@ export default function TreeNode(props: TreeNodeProps) {
         <div {...props.api.getBranchControlProps(nodeProps())}>
           <span {...props.api.getBranchIndicatorProps(nodeProps())} />
           <span {...props.api.getBranchTextProps(nodeProps())}>{props.node.name}</span>
-          <span class="tree-example__meta">{props.node.children?.length ?? 0} items</span>
+          <span class="tree-example__meta">
+            {props.node.children?.length ?? 0}
+            {' '}
+            items
+          </span>
         </div>
         <Show when={nodeState().expanded}>
           <div {...props.api.getBranchContentProps(nodeProps())}>

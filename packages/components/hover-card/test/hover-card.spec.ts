@@ -1,9 +1,10 @@
 import { part, testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/HoverCard'
 
 let mount: HTMLElement | null = null
+let cleanup: (() => void) | undefined
 
 const triggerEl = () => page.getByArticle(part('trigger'))
 const contentEl = () => page.getByArticle(part('content'))
@@ -29,12 +30,20 @@ async function waitForStability(interval = 350) {
 
 describe('hover-card browser tests', () => {
   beforeEach(() => {
-    if (mount) {
-      document.body.removeChild(mount)
-    }
     mount = document.createElement('div')
     document.body.appendChild(mount)
-    render(mount)
+    cleanup = render(mount)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+
+    if (mount && mount.parentElement) {
+      document.body.removeChild(mount)
+    }
+
+    mount = null
   })
 
   it('content should be hidden by default', async () => {

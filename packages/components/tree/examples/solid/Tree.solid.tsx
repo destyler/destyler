@@ -41,10 +41,10 @@ export default function TreeExample() {
           <div class="tree-example__header">
             <h3 {...api().getLabelProps()}>Project files</h3>
             <span class="tree-example__meta">
-{api().expandedValue.length}
-{' '}
-open folders
-</span>
+              {api().expandedValue.length}
+              {' '}
+              open folders
+            </span>
           </div>
 
           <div class="tree-example__actions">

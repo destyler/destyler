@@ -57,10 +57,17 @@ class HoverCardExample extends Component<
 
   onStateChange(listener: (state: HoverCardState) => void) {
     this.stateListeners.add(listener)
+    return () => this.stateListeners.delete(listener)
   }
 
   protected override onTransition(state: HoverCardState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.stateListeners.clear()
+    this.detachHoverCard()
+    super.destroy()
   }
 
   private attachHoverCard() {
@@ -95,7 +102,7 @@ class HoverCardExample extends Component<
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(hoverCardControls)
   const layout = Layout()
 
@@ -117,7 +124,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-hover-card-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -139,5 +146,10 @@ export function render(target: HTMLElement) {
   }
 
   updateVisualizer(instance.state as HoverCardState)
-  instance.onStateChange(updateVisualizer)
+  const unsubscribeVisualizer = instance.onStateChange(updateVisualizer)
+
+  return () => {
+    unsubscribeVisualizer?.()
+    instance.destroy()
+  }
 }

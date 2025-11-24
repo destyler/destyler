@@ -1,6 +1,6 @@
-import { Fragment, useId } from 'react'
 import { normalizeProps, useMachine } from '@destyler/react'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/react'
+import { Fragment, useId } from 'react'
 import * as separator from '../../index'
 import '../style.css'
 

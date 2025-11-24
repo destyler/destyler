@@ -21,6 +21,7 @@ class OtpInputExample extends Component<
   private readonly inputEls = Array.from(this.rootEl.querySelectorAll<HTMLInputElement>('[data-otp-input]'))
   private readonly hiddenInput = this.rootEl.querySelector<HTMLInputElement>('[data-otp-hidden]')
   private readonly clearButton = this.rootEl.querySelector<HTMLButtonElement>('[data-otp-clear]')
+  private readonly focusButton = this.rootEl.querySelector<HTMLButtonElement>('[data-otp-focus]')
 
   private readonly stateListeners = new Set<(state: OtpInputState) => void>()
 
@@ -28,6 +29,10 @@ class OtpInputExample extends Component<
     super(rootEl, context, options)
     this.clearButton?.addEventListener('click', () => {
       this.api?.clearValue()
+    })
+
+    this.focusButton?.addEventListener('click', () => {
+      this.api?.focus()
     })
   }
 
@@ -82,6 +87,7 @@ export function render(target: HTMLElement) {
         `).join('')
 
   layout.main.innerHTML = `
+    <input data-testid="copy-text"></input>
     <main data-otp-example>
       <div data-otp-root>
         <label data-otp-label>Enter code:</label>
@@ -90,8 +96,11 @@ ${inputsMarkup}
         </div>
         <input data-otp-hidden />
       </div>
-      <button type="button" data-testid="clear-button" data-otp-clear>
+      <button type="button" data-testid="clear:trigger" data-otp-clear>
         Clear
+      </button>
+      <button type="button" data-testid="focus:trigger" data-otp-focus>
+        Focus
       </button>
     </main>
   `
