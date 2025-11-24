@@ -21,7 +21,7 @@ describe('svelte normalizeProps', () => {
   it('stringifies style objects and kebab-cases property names', () => {
     const normalized = normalizeProps.button({
       style: {
-        backgroundColor: 'black',
+        'backgroundColor': 'black',
         '--gap': '0.25rem',
       },
     } as any)

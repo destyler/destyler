@@ -5,7 +5,7 @@ describe('lit normalizeProps', () => {
   it('stringifies style objects with kebab-case keys', () => {
     const normalized = normalizeProps.button({
       style: {
-        backgroundColor: 'purple',
+        'backgroundColor': 'purple',
         '--gap': '8px',
       },
     } as any)

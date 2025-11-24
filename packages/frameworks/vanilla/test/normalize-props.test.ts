@@ -23,7 +23,7 @@ describe('normalizeProps', () => {
   })
 
   it('stringifies style objects using kebab-case keys', () => {
-    const normalized = normalizeProps.button({ style: { backgroundColor: 'black', '--gap': '2px' } })
+    const normalized = normalizeProps.button({ style: { 'backgroundColor': 'black', '--gap': '2px' } })
 
     expect(normalized.style).toBe('background-color:black;--gap:2px;')
   })

@@ -4,7 +4,7 @@ import { normalizeProps } from '../src/utils/normalize-props'
 describe('react normalizeProps', () => {
   it('returns the same object reference for intrinsic props', () => {
     const props = {
-      type: 'button',
+      'type': 'button',
       'data-scope': 'toolbar',
     } as any
 

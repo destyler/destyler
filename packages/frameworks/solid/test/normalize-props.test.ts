@@ -5,7 +5,7 @@ describe('solid normalizeProps', () => {
   it('hyphenates style keys but keeps CSS custom properties intact', () => {
     const normalized = normalizeProps.button({
       style: {
-        backgroundColor: 'rebeccapurple',
+        'backgroundColor': 'rebeccapurple',
         '--gap': '4px',
       },
     } as any)
