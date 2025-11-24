@@ -23,13 +23,14 @@ describe('normalizeProps', () => {
   })
 
   it('stringifies style objects using kebab-case keys', () => {
-    const normalized = normalizeProps.button({ style: { backgroundColor: 'black', '--gap': '2px' } })
+    const normalized = normalizeProps.button({ style: { 'backgroundColor': 'black', '--gap': '2px' } })
 
     expect(normalized.style).toBe('background-color:black;--gap:2px;')
   })
 
   it('maps DOM props to lower-case or explicit aliases', () => {
     const normalized = normalizeProps.label({
+      // @ts-expect-error testing purpose
       onChange: () => {},
       htmlFor: 'input-id',
     })
