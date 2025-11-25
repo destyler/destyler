@@ -120,8 +120,12 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
     if (this.rootNode)
       spreadProps(this.rootNode, api.getRootProps())
 
-    if (this.labelEl)
-      spreadProps(this.labelEl, api.getLabelProps())
+    if (this.labelEl) {
+      spreadProps(this.labelEl, {
+        ...api.getLabelProps(),
+        'data-testid': 'slider:label',
+      })
+    }
 
     if (this.valueTextEl) {
       spreadProps(this.valueTextEl, api.getValueTextProps())
@@ -166,11 +170,11 @@ export function render(target: HTMLElement) {
               <output data-slider-value-text data-testid="output"></output>
             </div>
             <div class="control-area">
-              <div data-slider-control>
+              <div data-testid="slider:control" data-slider-control>
                 <div data-slider-track data-testid="track">
                   <div data-slider-range></div>
                 </div>
-                <div data-slider-thumbs></div>
+                <div style="width:auto;height:100%;" data-slider-thumbs></div>
               </div>
               <div data-slider-marker-group>
                 <span data-slider-marker data-value="10">*</span>

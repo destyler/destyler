@@ -17,8 +17,8 @@ export default defineProject({
         // { browser: 'webkit' },
       ],
       viewport: {
-        width: 834,
-        height: 1112,
+        width: 1920,
+        height: 1080,
       },
     },
     setupFiles: [
