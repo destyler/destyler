@@ -1,4 +1,4 @@
-name: CI
+name: CI LINT
 
 on:
   push:
@@ -9,13 +9,8 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node: [20, 22, 24]
+  lint:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,9 +22,9 @@ jobs:
             !/.specstory/
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node }}
+          node-version: latest
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -37,11 +32,5 @@ jobs:
       - name: Install
         run: pnpm install --no-frozen-lockfile
 
-      - name: Install Playwright Browsers
-        run: pnpm playwright install --with-deps
-
-      - name: Build
-        run: pnpm run build
-
-      - name: Test
-        run: pnpm run test
+      - name: Lint
+        run: pnpm run lint
