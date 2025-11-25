@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name:  'Test: node-${{ matrix.node }}'
+    name: 'Test: node-${{ matrix.node }}'
     strategy:
       fail-fast: false
       matrix:
