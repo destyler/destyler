@@ -74,10 +74,16 @@ class SelectExample extends Component<
 
   onStateChange(listener: (state: SelectState) => void) {
     this.stateListeners.add(listener)
+    return () => this.stateListeners.delete(listener)
   }
 
   protected override onTransition(state: SelectState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.stateListeners.clear()
+    super.destroy()
   }
 
   private setupHiddenSelectOptions() {
@@ -110,7 +116,7 @@ class SelectExample extends Component<
       const indicatorEl = document.createElement('span')
       indicatorEl.textContent = '✓'
 
-      li.dataset.testid = `item-${item.label}`
+      li.dataset.testid = `${item.label}:item`
       li.appendChild(textEl)
       li.appendChild(indicatorEl)
       this.contentEl!.appendChild(li)
@@ -172,29 +178,30 @@ class SelectExample extends Component<
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(selectControls)
   const layout = Layout()
   target.innerHTML = ''
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
+    <div data-testid="outside">out side</div>
     <main class="select">
       <div data-select-example>
         <div data-select-root>
-          <label data-select-label>Label</label>
+          <label data-select-label data-testid="select:label">Label</label>
           <div data-select-control>
-            <button type="button" data-select-trigger>
+            <button type="button" data-testid="select:trigger" data-select-trigger>
               <span data-select-value-text>Select option</span>
               <span aria-hidden="true" data-select-indicator>▼</span>
             </button>
-            <button type="button" data-select-clear>X</button>
+            <button type="button" data-testid="select-clear:trigger" data-select-clear>X</button>
           </div>
           <form>
             <select data-select-hidden></select>
           </form>
           <div data-select-positioner>
-            <ul data-select-content></ul>
+            <ul data-testid="select:content" data-select-content></ul>
           </div>
         </div>
       </div>
@@ -203,7 +210,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-select-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -234,5 +241,10 @@ export function render(target: HTMLElement) {
   }
 
   updateVisualizer(instance.state as SelectState)
-  instance.onStateChange(updateVisualizer)
+  const unsubscribeVisualizer = instance.onStateChange(updateVisualizer)
+
+  return () => {
+    unsubscribeVisualizer?.()
+    instance.destroy()
+  }
 }

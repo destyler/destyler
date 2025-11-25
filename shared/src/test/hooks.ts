@@ -86,6 +86,10 @@ export const testHook = {
     return page.getByArticle(this.part('label'))
   },
 
+  getLabelById(id: string) {
+    return page.getByTestId(`${id}:label`)
+  },
+
   getControlEl() {
     return page.getByArticle(this.part('control'))
   },
@@ -129,9 +133,19 @@ export const testHook = {
     })
   },
 
+  async hoverItem(id: string) {
+    const el = this.getItem(id)
+    await el.hover()
+  },
+
   async clickInput(id: string) {
     const inputEl = this.getInputEl(id)
     await inputEl.click()
+  },
+
+  async clickLabel(id: string) {
+    const labelEl = this.getLabelById(id)
+    await labelEl.click()
   },
 
   async clickTriggerById(id: string, opts: {
