@@ -78,8 +78,9 @@ export function render(target: HTMLElement) {
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
     <label data-switch-root>
-      <input data-switch-hidden />
+      <input data-testid="hidden-input" data-switch-hidden />
       <span data-switch-control>
         <span data-switch-thumb></span>
       </span>

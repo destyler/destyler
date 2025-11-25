@@ -1,5 +1,5 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Slider'
 
