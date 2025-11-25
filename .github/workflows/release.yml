@@ -12,7 +12,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -21,7 +21,7 @@ jobs:
             !/.specstory/
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: latest
 
@@ -45,7 +45,7 @@ jobs:
   changelog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -54,7 +54,7 @@ jobs:
             !/.specstory/
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: latest
 
@@ -64,7 +64,7 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -73,7 +73,7 @@ jobs:
             !/.specstory/
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: latest
 
