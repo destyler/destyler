@@ -1,9 +1,10 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Dynamic'
 
-let el: HTMLElement
+let el: HTMLElement | null = null
+let cleanup: (() => void) | undefined
 
 async function paste(value: string) {
   const copyTextEl = page.getByTestId('copy-text')
@@ -100,12 +101,20 @@ async function dontSeeTagInput(value: string) {
 
 describe('dynamic browser tests', () => {
   beforeEach(async () => {
-    if (el) {
-      document.body.removeChild(el)
-    }
     el = document.createElement('div')
     document.body.appendChild(el)
-    render(el)
+    cleanup = render(el)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+
+    if (el && el.parentElement) {
+      document.body.removeChild(el)
+    }
+
+    el = null
   })
 
   it('should add new tag value', async () => {

@@ -1,5 +1,6 @@
 :root {
   --radius: 0.5rem;
+  --toolbar-width: 400px;
 }
 
 html {
@@ -79,7 +80,7 @@ html.dark {
 
 .toolbar {
   border-left: solid 1px hsl(var(--border));
-  width: 400px;
+  width: var(--toolbar-width, 400px);
   display: flex;
   flex-direction: column;
   z-index: 10;

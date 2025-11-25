@@ -10,6 +10,7 @@
 
 <style lang="css">
 .layout{
+  --toolbar-width: 400px;
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -23,6 +24,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 40px;
+  padding-right: calc(40px + var(--toolbar-width, 400px));
   overflow-y: auto;
 }
 </style>

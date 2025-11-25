@@ -42,10 +42,16 @@ class DynamicExample extends Component<
 
   onStateChange(listener: (state: DynamicState) => void) {
     this.stateListeners.add(listener)
+    return () => this.stateListeners.delete(listener)
   }
 
   protected override onTransition(state: DynamicState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.stateListeners.clear()
+    super.destroy()
   }
 
   private ensureItemNodes(count: number) {
@@ -129,7 +135,7 @@ class DynamicExample extends Component<
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(dynamicControls)
   const layout = Layout()
   target.innerHTML = ''
@@ -149,7 +155,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-dynamic-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -174,5 +180,10 @@ export function render(target: HTMLElement) {
   }
 
   updateVisualizer(instance.state as DynamicState)
-  instance.onStateChange(updateVisualizer)
+  const unsubscribeVisualizer = instance.onStateChange(updateVisualizer)
+
+  return () => {
+    unsubscribeVisualizer?.()
+    instance.destroy()
+  }
 }
