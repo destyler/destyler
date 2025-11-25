@@ -134,6 +134,7 @@ export function render(target: HTMLElement) {
   `).join('')
 
   layout.main.innerHTML = `
+    <div data-testid="outside">out side</div>
     <main class="radio">
       <div data-radio-example>
         <fieldset>

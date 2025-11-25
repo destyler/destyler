@@ -9,11 +9,11 @@ const layoutStyles = `
 .layout-root {
   flex: auto;
   display: flex;
-  gap: 10px;
+  gap: 1px;
   position: relative;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px;
+  padding: 4px;
   padding-right: calc(40px + var(--toolbar-width, 400px));
   overflow-y: auto;
 }
