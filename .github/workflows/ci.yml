@@ -45,3 +45,7 @@ jobs:
 
       - name: Test
         run: pnpm run test
+
+      - name: Report Coverage
+        if: always() && matrix.node == 24
+        uses: davelosert/vitest-coverage-report-action@v2
