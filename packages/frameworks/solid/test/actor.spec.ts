@@ -19,7 +19,7 @@ describe('solid useActor', () => {
       },
     })
 
-    let lastValue = ''
+    let lastValue: string | null = null
     let send!: (evt: any) => void
 
     const dispose = render(() => {
