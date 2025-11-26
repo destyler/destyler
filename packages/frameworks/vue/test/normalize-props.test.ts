@@ -7,7 +7,9 @@ describe('vue normalizeProps', () => {
       children: 'Vue Portal',
     } as any)
 
+    // @ts-expect-error textContent is not defined on HTMLSpanElement
     expect(normalized.textContent).toBe('Vue Portal')
+    // @ts-expect-error children is not defined on HTMLSpanElement
     expect(normalized.children).toBeUndefined()
   })
 

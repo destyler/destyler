@@ -32,7 +32,7 @@ describe('normalizeProps', () => {
     const normalized = normalizeProps.label({
       onChange: () => {},
       htmlFor: 'input-id',
-    })
+    } as any)
 
     expect(typeof normalized.oninput).toBe('function')
     expect(normalized.for).toBe('input-id')
