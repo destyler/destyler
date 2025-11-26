@@ -7,6 +7,13 @@ export default defineConfig({
     coverage: {
       enabled: true,
       provider: 'v8',
+      exclude: [
+        'packages/components/**/docs/**',
+        'packages/components/**/examples/**',
+        'packages/components/**/snippets/**',
+        'packages/components/**/storybook/**',
+        '**.css',
+      ],
     },
     projects: [
       Utils,

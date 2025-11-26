@@ -62,7 +62,11 @@ describe('clone', () => {
     })
 
     it('should clone objects with custom prototype', () => {
-      const proto = { greet() { return 'hello' } }
+      const proto = {
+        greet() {
+          return 'hello'
+        },
+      }
       const original = Object.create(proto)
       original.name = 'test'
 
