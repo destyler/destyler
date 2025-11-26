@@ -53,5 +53,5 @@ jobs:
         if: always() && matrix.node == 24
         uses: davelosert/vitest-coverage-report-action@v2
         with:
-          json-summary-path: './html/coverage/coverage-summary-backend.json'
-          json-final-path: './html/coverage/coverage-final-backend.json'
+          json-summary-path: './html/coverage/coverage-summary.json'
+          json-final-path: './html/coverage/coverage-final.json'
