@@ -82,7 +82,7 @@
     "@vitejs/plugin-react": "catalog:plugin",
     "@vitejs/plugin-vue": "catalog:plugin",
     "@vitest/browser": "catalog:test",
-    "@vitest/browser-playwright": "^4.0.9",
+    "@vitest/browser-playwright": "^4.0.14",
     "@vitest/coverage-v8": "^4.0.14",
     "@vitest/eslint-plugin": "catalog:test",
     "@vitest/ui": "catalog:test",
