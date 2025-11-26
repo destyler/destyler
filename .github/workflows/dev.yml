@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Dev Page
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+
+      - name: Set node
+        uses: actions/setup-node@v6
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - run: pnpm install
+
+      - name: Build Packages
+        run: pnpm run build
+
+      - name: Build Document
+        run: pnpm run docs:build
+
+      - name: Zip dev.destyler.org
+        run: npx tsx scripts/zip.ts document/dist docs-dist
+
+      - name: Deploy dev.destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} docs-dist.zip
+        env:
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.DEV_DESTYLER_ORG}}
+
+      - name: Build Test
+        run: pnpm run test:deploy
+
+      - name: Zip dev.test.destyler.org
+        run: npx tsx scripts/zip.ts html test-dist
+
+      - name: Deploy dev.test.destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} test-dist.zip
+        env:
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.DEV_TEST_DESTYLER_ORG}}
+
+      - name: Build Storybook
+        run: pnpm run storybook:build
+
+      - name: Zip dev.storybook.destyler.org
+        run: npx tsx scripts/zip.ts storybook/dist storybook-dist
+
+      - name: Deploy dev.test.destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} storybook-dist.zip
+        env:
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.DEV_STORYBOOK_ORG}}
