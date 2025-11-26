@@ -55,7 +55,7 @@ async function expectToastCount(expected: number) {
   expect(getToastCount()).toBe(expected)
 }
 
-describe('toast browser tests', () => {
+describe('[toast] browser tests', () => {
   beforeEach(() => {
     if (mountEl) {
       document.body.removeChild(mountEl)
