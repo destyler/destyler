@@ -75,14 +75,14 @@ class TabsExample extends Component<tabs.Context, tabs.Api, TabsMachineContext, 
     this.triggerNodes.forEach(({ value, element }) => {
       spreadProps(element, {
         ...api.getTriggerProps({ value }),
-        'data-testid': `${value}-tab`,
+        'data-testid': `${value}:trigger`,
       })
     })
 
     this.contentNodes.forEach(({ value, element }) => {
       spreadProps(element, {
         ...api.getContentProps({ value }),
-        'data-testid': `${value}-tab-panel`,
+        'data-testid': `${value}:panel`,
       })
     })
   }
@@ -96,7 +96,7 @@ export function render(target: HTMLElement) {
 
   const triggersMarkup = tabsData
     .map(data => `
-      <button type="button" data-tabs-trigger="${data.id}" data-testid="${data.id}-tab">
+      <button type="button" data-tabs-trigger="${data.id}" data-testid="${data.id}:trigger">
         ${data.label}
       </button>
     `)
@@ -104,7 +104,7 @@ export function render(target: HTMLElement) {
 
   const contentsMarkup = tabsData
     .map(data => `
-      <div data-tabs-content="${data.id}" data-testid="${data.id}-tab-panel">
+      <div data-tabs-content="${data.id}" data-testid="${data.id}:panel">
         <p>
           ${data.content}
         </p>
