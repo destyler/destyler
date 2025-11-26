@@ -12,6 +12,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: 'Test: node-${{ matrix.node }}'
+    permissions:
+      contents: read
+      pull-requests: write
     strategy:
       fail-fast: false
       matrix:
@@ -49,3 +52,6 @@ jobs:
       - name: Report Coverage
         if: always() && matrix.node == 24
         uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-summary-path: './html/coverage/coverage-summary-backend.json'
+          json-final-path: './html/coverage/coverage-final-backend.json'
