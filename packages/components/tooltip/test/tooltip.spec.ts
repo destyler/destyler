@@ -19,7 +19,7 @@ async function focusPage() {
 }
 
 async function seeTriggerIsFocused(id: string) {
-  await expect.element(testHook.getTrigger(id)).toHaveFocus()
+  await expect.element(testHook.getTrigger(id).first()).toHaveFocus()
 }
 
 describe('[tooltip] browser tests', () => {
