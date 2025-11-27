@@ -114,6 +114,14 @@ export const testHook = {
     await outsideButton.click()
   },
 
+  async hoverTrigger(id: string) {
+    await userEvent.hover(this.getTrigger(id))
+  },
+
+  async unhoverTrigger(id: string) {
+    await userEvent.unhover(this.getTrigger(id))
+  },
+
   async clickTrigger(id: string, opts: { count: number, delay?: number } = {
     count: 1,
     delay: 0,

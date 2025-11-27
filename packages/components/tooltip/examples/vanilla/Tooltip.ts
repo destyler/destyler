@@ -43,7 +43,7 @@ class TooltipInlineExample extends Component<
     if (this.triggerEl) {
       spreadProps(this.triggerEl, {
         ...api.getTriggerProps(),
-        'data-testid': 'tip-1-trigger',
+        'data-testid': 'tip-1:trigger',
       })
     }
 
@@ -55,7 +55,7 @@ class TooltipInlineExample extends Component<
     if (this.contentEl) {
       spreadProps(this.contentEl, {
         ...api.getContentProps(),
-        'data-testid': 'tip-1-tooltip',
+        'data-testid': 'tip-1:content',
       })
     }
   }
@@ -116,14 +116,14 @@ class TooltipPortalExample extends Component<
     if (this.triggerEl) {
       spreadProps(this.triggerEl, {
         ...api.getTriggerProps(),
-        'data-testid': 'tip-2-trigger',
+        'data-testid': 'tip-2:trigger',
       })
     }
 
     spreadProps(this.positionerEl, api.getPositionerProps())
     spreadProps(this.contentEl, {
       ...api.getContentProps(),
-      'data-testid': 'tip-2-tooltip',
+      'data-testid': 'tip-2:content',
     })
 
     if (api.open)
@@ -150,13 +150,19 @@ function mountVisualizer(toolbar: ReturnType<typeof Toolbar>, states: { first?: 
   })
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const layout = Layout()
 
   target.innerHTML = ''
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
+    <div data-testid="focus">
+      focus
+    </div>
+    <div data-testid="outside">
+      outside
+    </div>
     <main class="tooltip">
       <div class="root" data-tooltip-examples>
         <div data-tooltip-inline>
@@ -176,7 +182,7 @@ export function render(target: HTMLElement) {
   const portalScope = layout.main.querySelector<HTMLElement>('[data-tooltip-portal]')
 
   if (!inlineScope || !portalScope)
-    return
+    return () => {}
 
   const toolbar = Toolbar({ active: 'visualizer' })
   layout.root.appendChild(toolbar.root)
@@ -203,4 +209,9 @@ export function render(target: HTMLElement) {
     states.second = state
     mountVisualizer(toolbar, states)
   })
+
+  return () => {
+    inlineInstance.destroy()
+    portalInstance.destroy()
+  }
 }
