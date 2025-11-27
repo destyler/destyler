@@ -70,6 +70,11 @@ class TourExample extends Component<tour.Context, tour.Api, TourMachineContext, 
     this.overlayMounted = false
   }
 
+  override destroy(): void {
+    this.detachOverlay()
+    super.destroy()
+  }
+
   private renderActions(api: tour.Api) {
     const actions = api.step?.actions ?? []
     this.actionsWrapper.innerHTML = ''
@@ -89,6 +94,7 @@ class TourExample extends Component<tour.Context, tour.Api, TourMachineContext, 
   }
 
   render = () => {
+    this.attachOverlay()
     const api = this.api
 
     if (this.startButton && !this.startButton.dataset.bound) {
@@ -115,15 +121,10 @@ class TourExample extends Component<tour.Context, tour.Api, TourMachineContext, 
     this.backdropEl.hidden = !api.step?.backdrop
 
     this.renderActions(api)
-
-    if (api.open)
-      this.attachOverlay()
-    else
-      this.detachOverlay()
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(tourControls)
   const layout = Layout()
   target.innerHTML = ''
@@ -132,6 +133,7 @@ export function render(target: HTMLElement) {
   const iframeContent = `<!doctype html><body><div class="tour__frame-inner"><h1 id="step-2a">Iframe Content</h1><p>Even vanilla tours can highlight DOM in other documents.</p><p>Scroll around to see the overlay follow along.</p></div></body>`
 
   layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
     <main class="tour" data-tour-root>
       <section>
         <button type="button" class="tour__start" data-tour-start>Start Tour</button>
@@ -152,7 +154,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-tour-root]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -175,4 +177,11 @@ export function render(target: HTMLElement) {
 
   updateVisualizer(instance.state as TourState)
   instance.onStateChange(updateVisualizer)
+
+  return () => {
+    instance.destroy()
+    toolbar.setControlsSlot(undefined)
+    toolbar.setVisualizerSlot(undefined)
+    layout.root.remove()
+  }
 }

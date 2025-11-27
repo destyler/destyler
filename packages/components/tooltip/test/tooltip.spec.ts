@@ -7,11 +7,11 @@ let mountEl: HTMLElement
 let cleanup: (() => void) | undefined
 
 async function seeContent(id: string) {
-  await expect.element(testHook.getContent(id)).toBeVisible()
+  await expect.element(testHook.getContent(id).first()).toBeVisible()
 }
 
 async function dontSeeContent(id: string) {
-  await expect.element(testHook.getContent(id)).not.toBeVisible()
+  await expect.element(testHook.getContent(id).first()).not.toBeVisible()
 }
 
 async function focusPage() {

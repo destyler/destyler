@@ -28,7 +28,7 @@
     "lint:fix": "eslint . --fix",
     "taze": "taze",
     "test script": "Group: Testing",
-    "test": "vitest run --browser.headless",
+    "test": "vitest run --browser.headless --coverage",
     "test:dev": "vitest dev --browser.headless",
     "test:ui": "vitest --ui --open",
     "test:deploy": "vitest run --reporter=html --browser.headless",
