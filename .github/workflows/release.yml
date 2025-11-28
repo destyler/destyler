@@ -31,13 +31,18 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - run: pnpm install
+      - name: Install Dependencies
+        run: pnpm install --no-frozen-lockfile
 
       - name: Upgrade npm
         run: npm i -g npm@latest
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish to NPM
         run: pnpm run publish:ci
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   changelog:
     runs-on: ubuntu-latest
     name: Generate Changelog
