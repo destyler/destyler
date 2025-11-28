@@ -1,7 +1,7 @@
 {
   "name": "@destyler/edit",
   "type": "module",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "private": "false",
   "description": "a component that allows users to edit text in place.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

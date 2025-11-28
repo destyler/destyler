@@ -1,7 +1,7 @@
 {
   "name": "@destyler/floating-panel",
   "type": "module",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "private": "false",
   "description": "A floating panel component that can be dragged and resized.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

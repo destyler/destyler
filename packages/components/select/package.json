@@ -1,7 +1,7 @@
 {
   "name": "@destyler/select",
   "type": "module",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "private": "false",
   "description": "Displays a list of options for the user to pick from—triggered by a button.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
