@@ -2,7 +2,6 @@
   "name": "@destyler/dialog",
   "type": "module",
   "version": "0.2.0-beta.2",
-  "private": "false",
   "description": "before taking action, please confirm.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

@@ -2,7 +2,7 @@
   "name": "@destyler/tabs",
   "type": "module",
   "version": "0.2.0-beta.2",
-  "private": "false",
+
   "description": "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

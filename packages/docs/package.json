@@ -2,7 +2,7 @@
   "name": "@destyler/docs",
   "type": "module",
   "version": "0.2.0-beta.2",
-  "private": "false",
+
   "description": "Components Type for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

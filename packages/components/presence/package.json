@@ -2,7 +2,7 @@
   "name": "@destyler/presence",
   "type": "module",
   "version": "0.2.0-beta.2",
-  "private": "false",
+
   "description": "A presence component for Destyler UI that handles presence and availability states of elements",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

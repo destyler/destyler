@@ -2,7 +2,7 @@
   "name": "@destyler/size",
   "type": "module",
   "version": "0.2.0-beta.2",
-  "private": "false",
+
   "description": "Observer the size of an element over time",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
