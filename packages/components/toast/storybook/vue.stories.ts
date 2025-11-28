@@ -1,4 +1,4 @@
-import Toast from '../examples/Toast.vue'
+import Toast from '../examples/vue/Toast.astro'
 
 export default {
   component: Toast,

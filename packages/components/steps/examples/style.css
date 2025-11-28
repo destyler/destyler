@@ -44,7 +44,7 @@
   }
 
   &[data-orientation="horizontal"] {
-    width: 100%;
+    width: 12px;
     height: 2px;
     margin-inline: var(--steps-gutter);
   }

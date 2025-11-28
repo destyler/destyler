@@ -70,8 +70,8 @@ export function machine(userContext: UserDefinedContext) {
         isMaximized: ctx => ctx.stage === 'maximized',
         isMinimized: ctx => ctx.stage === 'minimized',
         isStaged: ctx => !!ctx.stage,
-        canResize: ctx => (ctx.resizable || !ctx.disabled) && !ctx.stage,
-        canDrag: ctx => (ctx.draggable || !ctx.disabled) && !ctx.isMaximized,
+        canResize: ctx => !!ctx.resizable && !ctx.disabled && !ctx.stage,
+        canDrag: ctx => !!ctx.draggable && !ctx.disabled && !ctx.isMaximized,
       },
 
       watch: {

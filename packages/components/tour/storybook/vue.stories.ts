@@ -1,4 +1,4 @@
-import Tour from '../examples/Tour.vue'
+import Tour from '../examples/vue/Tour.vue'
 
 export default {
   component: Tour,

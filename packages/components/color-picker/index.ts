@@ -16,6 +16,7 @@ export type {
   UserDefinedContext as Context,
   ElementIds,
   FormatChangeDetails,
+  MachineState,
   OpenChangeDetails,
   PositioningOptions,
   Service,

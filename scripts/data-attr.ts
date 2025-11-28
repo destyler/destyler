@@ -37,7 +37,7 @@ const docsMap = {
   'data-depth': 'The depth of the item',
   'data-expanded': 'Present when expanded',
   'data-valuetext': 'The human-readable value',
-  'data-inview': 'Present when in viewport',
+  'data-inview': 'Indicates whether the item is in view ("true" or "false")',
   'data-type': 'The type of the item',
   'data-selected': 'Present when selected',
   'data-mounted': 'Present when mounted',

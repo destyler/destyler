@@ -11,8 +11,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    name: Release Package
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -21,31 +22,26 @@ jobs:
             !/.specstory/
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: latest
+          registry-url: https://registry.npmjs.org/
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
       - run: pnpm install
 
-      - name: Build Packages
-        run: pnpm run build
+      - name: Upgrade npm
+        run: npm i -g npm@latest
 
-      - name: Set publishing config
-        run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-      - name: Publish Packages
-        run: pnpm -r publish --access public --no-git-checks
-        env:
-          NPM_CONFIG_PROVENANCE: false
+      - name: Publish to NPM
+        run: pnpm run publish:ci
   changelog:
     runs-on: ubuntu-latest
+    name: Generate Changelog
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -54,17 +50,18 @@ jobs:
             !/.specstory/
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: latest
 
       - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  docs:
+  deploy:
     runs-on: ubuntu-latest
+    name: Deploy Release Page
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -73,7 +70,7 @@ jobs:
             !/.specstory/
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: latest
 
@@ -88,12 +85,51 @@ jobs:
       - name: Build Document
         run: pnpm run docs:build
 
-      - name: Zip Document
+      - name: Zip destyler.org
         run: npx tsx scripts/zip.ts document/dist docs-dist
 
-      - name: Deploy Document
-        run: npx tsx scripts/deploy.ts ${ZEABUR_TOKEN} ${ZEABUR_DOCS_ENV} ${ZEABUR_DOCS_SERVICE} docs-dist.zip
+      - name: Deploy destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} docs-dist.zip
         env:
-          ZEABUR_TOKEN: ${{secrets.ZEABUR_TOKEN}}
-          ZEABUR_DOCS_ENV: ${{secrets.DOCS_ENVIRONMENT}}
-          ZEABUR_DOCS_SERVICE: ${{secrets.DOCS_SERVICE}}
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.DESTYLER_ORG}}
+
+      - name: Build Test
+        run: pnpm run test:deploy
+
+      - name: Zip test.destyler.org
+        run: npx tsx scripts/zip.ts html test-dist
+
+      - name: Deploy test.destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} test-dist.zip
+        env:
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.TEST_DESTYLER_ORG}}
+
+      - name: Build Storybook
+        run: pnpm run storybook:build
+
+      - name: Zip storybook.destyler.org
+        run: npx tsx scripts/zip.ts storybook/dist storybook-dist
+
+      - name: Deploy storybook.destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} storybook-dist.zip
+        env:
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.STORYBOOK_ORG}}
+
+      - name: Build Everything
+        run: pnpm run node-modules:build
+
+      - name: Zip storybook.destyler.org
+        run: npx tsx scripts/zip.ts .node-modules-inspector everything-dist
+
+      - name: Deploy storybook.destyler.org
+        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} everything-dist.zip
+        env:
+          TOKEN: ${{secrets.ZEABUR_TOKEN}}
+          ENV: ${{secrets.DESTYLER_ENV}}
+          SERVICE: ${{secrets.EVERYTHING_DESTYLER_ORG}}

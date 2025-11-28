@@ -5,6 +5,8 @@ import { dom } from './dom'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   return {
+    hoveredId: state.context.hoveredId,
+    focusedId: state.context.focusedId,
     items: state.context.items,
 
     getRootProps() {
@@ -29,6 +31,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.item.attrs,
         'role': 'listitem',
         'aria-label': `breadcrumbs:listitem:${item.label}`,
+        'data-hover': state.context.hoveredId === item.id ? 'true' : 'false',
+        'data-focus': state.context.focusedId === item.id ? 'true' : 'false',
       })
     },
 
@@ -39,6 +43,29 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'aria-current': item.href ? undefined : 'page',
         'data-current': item.href ? undefined : 'page',
         'href': item.href,
+        'tabIndex': item.href ? undefined : 0,
+        'data-hover': state.context.hoveredId === item.id ? 'true' : 'false',
+        'data-focus': state.context.focusedId === item.id ? 'true' : 'false',
+        onPointerEnter(event) {
+          if (event.defaultPrevented)
+            return
+          send({ type: 'ITEM.POINTER_OVER', id: item.id })
+        },
+        onPointerLeave(event) {
+          if (event.defaultPrevented)
+            return
+          send({ type: 'ITEM.POINTER_LEAVE', id: item.id })
+        },
+        onFocus(event) {
+          if (event.defaultPrevented)
+            return
+          send({ type: 'ITEM.FOCUS', id: item.id })
+        },
+        onBlur(event) {
+          if (event.defaultPrevented)
+            return
+          send({ type: 'ITEM.BLUR', id: item.id })
+        },
       })
     },
 

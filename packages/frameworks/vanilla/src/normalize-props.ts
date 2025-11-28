@@ -1,4 +1,5 @@
 import { createNormalizer } from '@destyler/types'
+import { toStyleString } from './utils/style'
 
 export interface AttrMap {
   [key: string]: string
@@ -11,34 +12,25 @@ export const propMap: AttrMap = {
   onDoubleClick: 'onDblclick',
   htmlFor: 'for',
   className: 'class',
-  defaultValue: 'value',
-  defaultChecked: 'checked',
 }
 
-function toStyleString(style: any) {
-  let string = ''
-  for (let key in style) {
-    const value = style[key]
-    if (value === null || value === undefined)
-      continue
-    if (!key.startsWith('--'))
-      key = key.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
-    string += `${key}:${value};`
-  }
-  return string
-}
+const preserveCaseKeys = new Set(['defaultValue', 'defaultChecked'])
 
 export const normalizeProps = createNormalizer((props: any) => {
   return Object.entries(props).reduce<any>((acc, [key, value]) => {
     if (value === undefined)
       return acc
 
-    if (key in propMap) {
+    if (key in propMap)
       key = propMap[key]
-    }
 
     if (key === 'style' && typeof value === 'object') {
       acc.style = toStyleString(value)
+      return acc
+    }
+
+    if (preserveCaseKeys.has(key)) {
+      acc[key] = value
       return acc
     }
 

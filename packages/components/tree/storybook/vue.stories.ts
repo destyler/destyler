@@ -1,4 +1,4 @@
-import Tree from '../examples/Tree.vue'
+import Tree from '../examples/vue/Tree.vue'
 
 export default {
   component: Tree,

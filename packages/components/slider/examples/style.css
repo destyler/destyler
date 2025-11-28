@@ -4,7 +4,8 @@
 
 [data-scope="slider"][data-part="root"] {
   max-width: 320px;
-  width: 100%;
+  min-width: 320px;
+  width: 320px;
   display: flex;
   flex-direction: column;
 }

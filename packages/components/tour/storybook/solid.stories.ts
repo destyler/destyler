@@ -1,4 +1,4 @@
-import Tour from '../examples/Tour.solid'
+import Tour from '../examples/solid/Tour.solid'
 
 export default {
   component: Tour,

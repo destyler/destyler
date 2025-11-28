@@ -1,4 +1,4 @@
-import Tree from '../examples/Tree.react'
+import Tree from '../examples/react/Tree.react'
 
 export default {
   component: Tree,

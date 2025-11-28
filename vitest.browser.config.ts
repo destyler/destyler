@@ -1,21 +1,24 @@
+import { playwright } from '@vitest/browser-playwright'
 import { defineProject } from 'vitest/config'
 
 export default defineProject({
   test: {
     name: {
-      label: 'vanilla',
+      label: 'browser',
       color: 'green',
     },
-    environment: 'jsdom',
+    environment: 'happy-dom',
     browser: {
       enabled: true,
-      provider: 'playwright',
+      provider: playwright(),
       instances: [
         { browser: 'chromium' },
+        // { browser: 'firefox' },
+        // { browser: 'webkit' },
       ],
       viewport: {
-        width: 834,
-        height: 1112,
+        width: 1920,
+        height: 1080,
       },
     },
     setupFiles: [

@@ -1,20 +1,35 @@
-/// <reference types="@vitest/browser/providers/playwright" />
-
 import { defineConfig } from 'vitest/config'
-import React from './vitest.react.config'
-import Solid from './vitest.solid.config'
-import Svelte from './vitest.svelte.config'
+import Browser from './vitest.browser.config'
 import Utils from './vitest.utils.config'
-import Vue from './vitest.vue.config'
 
 export default defineConfig({
   test: {
+    coverage: {
+      provider: 'v8',
+      reporter: [
+        'text',
+        'json-summary',
+        'json',
+        'html',
+      ],
+      reportsDirectory: './html/coverage',
+      reportOnFailure: true,
+      exclude: [
+        'packages/components/**/docs/**',
+        'packages/components/**/examples/**',
+        'packages/components/**/snippets/**',
+        'packages/components/**/storybook/**',
+        'packages/components/**/index.ts',
+        'packages/shareds/**/index.ts',
+        'packages/**/index.ts',
+        '**.css',
+        '**/dist/**',
+        'shared/**',
+      ],
+    },
     projects: [
       Utils,
-      Vue,
-      React,
-      Svelte,
-      Solid,
+      Browser,
     ],
   },
 })

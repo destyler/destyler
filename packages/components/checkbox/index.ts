@@ -8,5 +8,7 @@ export type {
   CheckedState,
   UserDefinedContext as Context,
   ElementIds,
+  MachineState,
   Service,
+  State,
 } from './src/types'

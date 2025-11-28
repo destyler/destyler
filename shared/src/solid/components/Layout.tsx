@@ -6,6 +6,7 @@ export function Layout(props: { children: JSX.Element }) {
     <>
       <style>
         {`.layout{
+          --toolbar-width: 400px;
           display: flex;
           height: 100vh;
           overflow: hidden;
@@ -19,6 +20,7 @@ export function Layout(props: { children: JSX.Element }) {
           flex-direction: column;
           align-items: flex-start;
           padding: 40px;
+          padding-right: calc(40px + var(--toolbar-width, 400px));
           overflow-y: auto;
         }`}
       </style>

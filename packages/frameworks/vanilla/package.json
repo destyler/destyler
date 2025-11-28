@@ -6,11 +6,11 @@
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.mjs"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
   "files": [
     "*.d.ts",
     "dist"
@@ -25,10 +25,10 @@
   "dependencies": {
     "@destyler/store": "workspace:*",
     "@destyler/types": "workspace:*",
+    "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*",
     "proxy-compare": "catalog:prod"
   },
   "devDependencies": {
-    "@destyler/utils": "workspace:*"
   }
 }

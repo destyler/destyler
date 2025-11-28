@@ -10,10 +10,18 @@
     }
   },
   "breadcrumbs": {
+    "Item": {
+      "data-scope": "breadcrumbs",
+      "data-part": "item",
+      "data-hover": "Present when hovered",
+      "data-focus": "Present when focused"
+    },
     "Link": {
       "data-scope": "breadcrumbs",
       "data-part": "link",
-      "data-current": "Present when current"
+      "data-current": "Present when current",
+      "data-hover": "Present when hovered",
+      "data-focus": "Present when focused"
     }
   },
   "calendar": {
@@ -173,7 +181,7 @@
       "data-scope": "carousel",
       "data-part": "item",
       "data-index": "The index of the item",
-      "data-inview": "Present when in viewport",
+      "data-inview": "Indicates whether the item is in view (\"true\" or \"false\")",
       "data-orientation": "The orientation of the item"
     },
     "Control": {

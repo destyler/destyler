@@ -11,7 +11,9 @@ export type {
   IndicatorProps,
   IntlTranslations,
   ItemProps,
+  MachineState,
   Orientation,
   PageChangeDetails,
   Service,
+  State,
 } from './src/types'

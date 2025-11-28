@@ -1,4 +1,4 @@
-import Toast from '../examples/Toast.solid'
+import Toast from '../examples/solid/Toast.solid'
 
 export default {
   component: Toast,

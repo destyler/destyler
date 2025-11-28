@@ -23,6 +23,8 @@
   user-select: none;
   user-select: none;
   content-visibility: auto;
+  transition: background-color 0.1s ease, color 0.1s ease;
+  cursor: pointer;
 
   &[data-highlighted] {
     background-color: blue;

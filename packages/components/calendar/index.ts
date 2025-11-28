@@ -22,6 +22,7 @@ export type {
   InputProps,
   IntlTranslations,
   LabelProps,
+  MachineState,
   MonthGridProps,
   OpenChangeDetails,
   PositioningOptions,

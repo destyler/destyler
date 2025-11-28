@@ -1,20 +1,7 @@
+import { toStyleString } from './utils/style'
+
 export interface Attrs {
   [key: string]: any
-}
-
-function toStyleString(style: any) {
-  if (!style)
-    return ''
-  let string = ''
-  for (let key in style) {
-    const value = style[key]
-    if (value === null || value === undefined)
-      continue
-    if (!key.startsWith('--'))
-      key = key.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
-    string += `${key}:${value};`
-  }
-  return string
 }
 
 export function spread(attrs?: Attrs) {

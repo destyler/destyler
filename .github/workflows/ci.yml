@@ -11,9 +11,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: 'Test: node-${{ matrix.node }}'
+    permissions:
+      contents: read
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           sparse-checkout-cone-mode: false
@@ -22,9 +30,9 @@ jobs:
             !/.specstory/
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: latest
+          node-version: ${{ matrix.node }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -40,28 +48,10 @@ jobs:
 
       - name: Test
         run: pnpm run test
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+
+      - name: Report Coverage
+        if: always() && matrix.node == 24
+        uses: davelosert/vitest-coverage-report-action@v2
         with:
-          fetch-depth: 0
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            /*
-            !/.specstory/
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Install
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Lint
-        run: pnpm run lint
+          json-summary-path: ./html/coverage/coverage-summary.json
+          json-final-path: ./html/coverage/coverage-final.json

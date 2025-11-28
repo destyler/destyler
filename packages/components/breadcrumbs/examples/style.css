@@ -30,6 +30,15 @@
   transition-duration: 150ms;
 }
 
+[data-scope="breadcrumbs"][data-part="link"][data-hover="true"],
+[data-scope="breadcrumbs"][data-part="link"][data-focus="true"]{
+  color: hsl(var(--foreground));
+}
+
+[data-scope="breadcrumbs"][data-part="link"][data-focus="true"]{
+  text-decoration-line: underline;
+}
+
 [data-scope="breadcrumbs"][data-part="link"][data-current="page"]{
   color: hsl(var(--foreground));
   cursor: default;

@@ -1,4 +1,4 @@
-import Tree from '../examples/Tree.solid'
+import Tree from '../examples/solid/Tree.solid'
 
 export default {
   component: Tree,

@@ -230,6 +230,20 @@ export const tabsControls = defineControls({
   orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'horizontal' },
 })
 
+export const toastControls = defineControls({
+  placement: {
+    type: 'select',
+    defaultValue: 'bottom-end',
+    options: ['top-start', 'top', 'top-end', 'bottom-start', 'bottom', 'bottom-end'] as const,
+  },
+  overlap: { type: 'boolean', defaultValue: true },
+  pauseOnPageIdle: { type: 'boolean', defaultValue: false },
+  gap: { type: 'number', defaultValue: 16 },
+  max: { type: 'number', defaultValue: 5 },
+  removeDelay: { type: 'number', defaultValue: 200 },
+  duration: { type: 'number', defaultValue: 4000 },
+})
+
 export const toggleControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   loopFocus: { type: 'boolean', defaultValue: true },
@@ -239,7 +253,7 @@ export const toggleControls = defineControls({
 
 export const tourControls = defineControls({
   keyboardNavigation: { type: 'boolean', defaultValue: true },
-  closeOnEsc: { type: 'boolean', defaultValue: true },
+  closeOnEscape: { type: 'boolean', defaultValue: true },
   closeOnInteractOutside: { type: 'boolean', defaultValue: true },
   preventInteraction: { type: 'boolean', defaultValue: true },
 })

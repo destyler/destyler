@@ -1,0 +1,91 @@
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { render } from '../examples/vanilla/Breadcrumbs'
+
+let el: HTMLElement
+
+describe('[breadcrumbs] browser tests', () => {
+  beforeEach(() => {
+    if (el)
+      document.body.removeChild(el)
+    el = document.createElement('div')
+    document.body.appendChild(el)
+    render(el)
+  })
+
+  it('applies navigation semantics to the root structure', async () => {
+    const root = testHook.getPart('root')
+    const list = testHook.getPart('list')
+
+    await expect.element(root).toHaveAttribute('role', 'navigation')
+    await expect.element(root).toHaveAttribute('aria-label', 'breadcrumbs')
+    await expect.element(list).toHaveAttribute('role', 'list')
+  })
+
+  it('marks the current breadcrumb and hides separators from assistive tech', async () => {
+    const linkLocator = testHook.getPart('link')
+    const separatorLocator = testHook.getPart('separator')
+
+    const links = linkLocator.all()
+    const separators = separatorLocator.all()
+
+    expect(links.length).toBe(3)
+    expect(separators.length).toBe(2)
+
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('href', '/')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('href', '/products')
+
+    const current = linkLocator.nth(2)
+    await expect.element(current).toHaveAttribute('aria-current', 'page')
+    await expect.element(current).toHaveAttribute('data-current', 'page')
+    await expect.element(current).not.toHaveAttribute('href')
+
+    for (let index = 0; index < separators.length; index++) {
+      await expect.element(separatorLocator.nth(index)).toHaveAttribute('aria-hidden', 'true')
+    }
+  })
+
+  it('sets hover data attributes on pointer transitions', async () => {
+    const root = testHook.getPart('root')
+    const linkLocator = testHook.getPart('link')
+    const firstLink = linkLocator.nth(0)
+    const secondLink = linkLocator.nth(1)
+
+    await expect.element(root).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).toHaveAttribute('data-hover', 'false')
+    await expect.element(secondLink).toHaveAttribute('data-hover', 'false')
+
+    await firstLink.hover()
+
+    await expect.element(root).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).toHaveAttribute('data-hover', 'true')
+    await expect.element(secondLink).toHaveAttribute('data-hover', 'false')
+
+    await secondLink.hover()
+
+    await expect.element(root).not.toHaveAttribute('data-hover')
+    await expect.element(firstLink).toHaveAttribute('data-hover', 'false')
+    await expect.element(secondLink).toHaveAttribute('data-hover', 'true')
+  })
+
+  it('sets focus data attributes when navigating with keyboard', async () => {
+    const root = testHook.getPart('root')
+    const linkLocator = testHook.getPart('link')
+
+    await expect.element(root).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', 'false')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', 'false')
+
+    await testHook.pressKey('Tab')
+
+    await expect.element(root).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', 'true')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', 'false')
+
+    await testHook.pressKey('Tab')
+
+    await expect.element(root).not.toHaveAttribute('data-focus')
+    await expect.element(linkLocator.nth(0)).toHaveAttribute('data-focus', 'false')
+    await expect.element(linkLocator.nth(1)).toHaveAttribute('data-focus', 'true')
+  })
+})

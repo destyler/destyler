@@ -1,4 +1,4 @@
-import Tour from '../examples/Tour.svelte'
+import Tour from '../examples/svelte/Tour.svelte'
 
 export default {
   component: Tour,

@@ -2,6 +2,7 @@ export { deepMerge } from './src/deep-merge'
 export { choose, guards } from './src/guard-utils'
 export * from './src/machine'
 export { mergeProps } from './src/merge-props'
+export { ActionTypes, MachineStatus, MachineType } from './src/type'
 export type {
   Action,
   ActionMap,
