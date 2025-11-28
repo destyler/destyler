@@ -1,7 +1,7 @@
 {
   "name": "@destyler/radio",
   "type": "module",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0-beta.4",
 
   "description": "A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
