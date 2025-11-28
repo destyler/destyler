@@ -8,6 +8,7 @@ import { customElement } from 'lit/decorators.js'
 import * as tree from '../../index'
 import { createFileTreeCollection, defaultExpandedBranches } from '../data'
 import styles from '../style.css?inline'
+import '../style.css'
 
 type TreeMachineContext = ContextFrom<typeof tree.machine>
 

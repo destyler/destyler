@@ -1,5 +1,5 @@
 import type { ContextFrom } from '@destyler/vanilla'
-import type { State as TreeState } from '../../src/types'
+import type { MachineState, State as TreeState } from '../../src/types'
 import type { FileNode } from '../data'
 import { treeControls } from '@destyler/shared-private'
 import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
@@ -10,137 +10,247 @@ import '../style.css'
 
 type TreeMachineContext = ContextFrom<typeof tree.machine>
 
-type TreeMachineSnapshot = Parameters<typeof tree.connect>[0]
-
-class TreeExample extends Component<any, tree.Api> {
+class TreeExample extends Component<
+  tree.Context,
+  tree.Api,
+  TreeMachineContext,
+  MachineState
+> {
   private collection = this.context.collection ?? createFileTreeCollection()
 
-  private readonly labelEl = this.rootEl.querySelector<HTMLHeadingElement>('[data-tree-label]')
-  private readonly rootNode = this.rootEl.querySelector<HTMLElement>('[data-tree-root]')
-  private readonly treeNode = this.rootEl.querySelector<HTMLElement>('[data-tree-tree]')
-  private readonly expandedMetaEl = this.rootEl.querySelector<HTMLElement>('[data-tree-meta]')
-
-  private readonly expandButton = this.rootEl.querySelector<HTMLButtonElement>('[data-tree-expand]')
-  private readonly collapseButton = this.rootEl.querySelector<HTMLButtonElement>('[data-tree-collapse]')
-  private readonly selectButton = this.rootEl.querySelector<HTMLButtonElement>('[data-tree-select]')
-  private readonly deselectButton = this.rootEl.querySelector<HTMLButtonElement>('[data-tree-deselect]')
+  private readonly rootNode: HTMLElement | null
+  private readonly labelEl: HTMLElement | null
+  private readonly metaEl: HTMLElement | null
+  private readonly treeEl: HTMLElement | null
+  private readonly expandAllBtn: HTMLButtonElement | null
+  private readonly collapseAllBtn: HTMLButtonElement | null
+  private readonly selectAllBtn: HTMLButtonElement | null
+  private readonly clearSelectionBtn: HTMLButtonElement | null
 
   private readonly stateListeners = new Set<(state: TreeState) => void>()
+  private nodeElements = new Map<string, HTMLElement>()
+
+  constructor(rootEl: HTMLElement, context: tree.Context, options?: any) {
+    super(rootEl, context, options)
+    this.rootNode = rootEl.querySelector('[data-tree-root]')
+    this.labelEl = rootEl.querySelector('[data-tree-label]')
+    this.metaEl = rootEl.querySelector('[data-tree-meta]')
+    this.treeEl = rootEl.querySelector('[data-tree-tree]')
+    this.expandAllBtn = rootEl.querySelector('[data-tree-expand-all]')
+    this.collapseAllBtn = rootEl.querySelector('[data-tree-collapse-all]')
+    this.selectAllBtn = rootEl.querySelector('[data-tree-select-all]')
+    this.clearSelectionBtn = rootEl.querySelector('[data-tree-clear-selection]')
+
+    this.expandAllBtn?.addEventListener('click', () => this.api?.expand())
+    this.collapseAllBtn?.addEventListener('click', () => this.api?.collapse())
+    this.selectAllBtn?.addEventListener('click', () => this.api?.select())
+    this.clearSelectionBtn?.addEventListener('click', () => this.api?.deselect())
+  }
 
   initService(context: tree.Context) {
     return tree.machine({
       ...context,
       collection: this.collection,
+      expandedValue: defaultExpandedBranches,
     }) as tree.Service
   }
 
   initApi() {
-    return tree.connect(this.service.state as TreeMachineSnapshot, this.service.send, normalizeProps)
+    return tree.connect(this.service.state, this.service.send, normalizeProps)
   }
 
   onStateChange(listener: (state: TreeState) => void) {
     this.stateListeners.add(listener)
   }
 
-  protected override onTransition(state: any) {
-    this.stateListeners.forEach(listener => listener(state as TreeState))
+  protected override onTransition(state: TreeState) {
+    this.stateListeners.forEach(listener => listener(state))
   }
 
-  private createBranchMeta(count: number) {
-    const meta = document.createElement('span')
-    meta.className = 'tree-example__meta'
-    meta.textContent = `${count} items`
-    return meta
-  }
-
-  private createNodeElement(node: FileNode, indexPath: number[], api: tree.Api): HTMLElement {
+  private renderNode(node: FileNode, indexPath: number[], container: HTMLElement): HTMLElement {
+    const api = this.api
     const nodeProps = { node, indexPath }
     const nodeState = api.getNodeState(nodeProps)
+    const nodeKey = node.id
+
+    // Check if we have an existing element for this node
+    const existingEl = this.nodeElements.get(nodeKey)
 
     if (nodeState.isBranch) {
-      const branch = document.createElement('div')
-      spreadProps(branch, api.getBranchProps(nodeProps))
+      const childCount = node.children?.length ?? 0
 
-      const control = document.createElement('div')
-      spreadProps(control, api.getBranchControlProps(nodeProps))
+      // Create or reuse branch element
+      let branchEl: HTMLElement
+      if (existingEl && existingEl.dataset.branch === nodeState.value) {
+        branchEl = existingEl
+      }
+      else {
+        branchEl = document.createElement('div')
+        this.nodeElements.set(nodeKey, branchEl)
+      }
+      spreadProps(branchEl, api.getBranchProps(nodeProps))
 
-      const indicator = document.createElement('span')
-      spreadProps(indicator, api.getBranchIndicatorProps(nodeProps))
+      // Create or reuse control element
+      let controlEl = branchEl.querySelector<HTMLElement>('[data-part="branch-control"]')
+      if (!controlEl) {
+        controlEl = document.createElement('div')
+        branchEl.appendChild(controlEl)
+      }
+      spreadProps(controlEl, api.getBranchControlProps(nodeProps))
 
-      const text = document.createElement('span')
-      text.textContent = node.name
-      spreadProps(text, api.getBranchTextProps(nodeProps))
+      // Create or reuse indicator element
+      let indicatorEl = controlEl.querySelector<HTMLElement>('[data-part="branch-indicator"]')
+      if (!indicatorEl) {
+        indicatorEl = document.createElement('span')
+        controlEl.appendChild(indicatorEl)
+      }
+      spreadProps(indicatorEl, api.getBranchIndicatorProps(nodeProps))
 
-      const meta = this.createBranchMeta(node.children?.length ?? 0)
+      // Create or reuse text element
+      let textEl = controlEl.querySelector<HTMLElement>('[data-part="branch-text"]')
+      if (!textEl) {
+        textEl = document.createElement('span')
+        textEl.textContent = node.name
+        controlEl.appendChild(textEl)
+      }
+      spreadProps(textEl, api.getBranchTextProps(nodeProps))
 
-      control.append(indicator, text, meta)
-      branch.appendChild(control)
+      // Create or reuse meta element
+      let metaEl = controlEl.querySelector<HTMLElement>('.tree-example__meta')
+      if (!metaEl) {
+        metaEl = document.createElement('span')
+        metaEl.className = 'tree-example__meta'
+        controlEl.appendChild(metaEl)
+      }
+      metaEl.textContent = `${childCount} items`
+
+      // Handle branch content (expanded/collapsed state)
+      let contentEl = branchEl.querySelector<HTMLElement>('[data-part="branch-content"]')
 
       if (nodeState.expanded) {
-        const content = document.createElement('div')
-        spreadProps(content, api.getBranchContentProps(nodeProps))
+        if (!contentEl) {
+          contentEl = document.createElement('div')
+          branchEl.appendChild(contentEl)
+        }
+        spreadProps(contentEl, api.getBranchContentProps(nodeProps))
 
-        const indent = document.createElement('div')
-        spreadProps(indent, api.getBranchIndentGuideProps(nodeProps))
-        content.appendChild(indent)
+        // Create or reuse indent guide
+        let indentGuideEl = contentEl.querySelector<HTMLElement>('[data-part="branch-indent-guide"]')
+        if (!indentGuideEl) {
+          indentGuideEl = document.createElement('div')
+          contentEl.insertBefore(indentGuideEl, contentEl.firstChild)
+        }
+        spreadProps(indentGuideEl, api.getBranchIndentGuideProps(nodeProps))
 
-        node.children?.forEach((child, childIndex) => {
-          content.appendChild(this.createNodeElement(child, [...indexPath, childIndex], api))
+        // Render children
+        const existingChildren = Array.from(contentEl.querySelectorAll<HTMLElement>(':scope > [data-part="branch"], :scope > [data-part="item"]'))
+        const childIds = new Set<string>()
+
+        node.children?.forEach((childNode, childIndex) => {
+          childIds.add(childNode.id)
+          const childEl = this.renderNode(childNode, [...indexPath, childIndex], contentEl!)
+          if (!childEl.parentElement) {
+            contentEl!.appendChild(childEl)
+          }
         })
 
-        branch.appendChild(content)
+        // Remove children that no longer exist
+        existingChildren.forEach((child) => {
+          const childValue = child.dataset.value
+          if (childValue && !childIds.has(childValue)) {
+            child.remove()
+            this.nodeElements.delete(childValue)
+          }
+        })
+      }
+      else if (contentEl) {
+        // Remove content when collapsed
+        contentEl.remove()
       }
 
-      return branch
+      if (!branchEl.parentElement) {
+        container.appendChild(branchEl)
+      }
+
+      return branchEl
     }
+    else {
+      // Leaf node (item)
+      let itemEl: HTMLElement
+      if (existingEl && existingEl.dataset.part === 'item') {
+        itemEl = existingEl
+      }
+      else {
+        itemEl = document.createElement('div')
+        this.nodeElements.set(nodeKey, itemEl)
+      }
+      spreadProps(itemEl, api.getItemProps(nodeProps))
 
-    const item = document.createElement('div')
-    spreadProps(item, api.getItemProps(nodeProps))
+      // Create or reuse indicator element
+      let indicatorEl = itemEl.querySelector<HTMLElement>('[data-part="item-indicator"]')
+      if (!indicatorEl) {
+        indicatorEl = document.createElement('span')
+        itemEl.appendChild(indicatorEl)
+      }
+      spreadProps(indicatorEl, api.getItemIndicatorProps(nodeProps))
 
-    const indicator = document.createElement('span')
-    spreadProps(indicator, api.getItemIndicatorProps(nodeProps))
+      // Create or reuse text element
+      let textEl = itemEl.querySelector<HTMLElement>('[data-part="item-text"]')
+      if (!textEl) {
+        textEl = document.createElement('span')
+        textEl.textContent = node.name
+        itemEl.appendChild(textEl)
+      }
+      spreadProps(textEl, api.getItemTextProps(nodeProps))
 
-    const text = document.createElement('span')
-    text.textContent = node.name
-    spreadProps(text, api.getItemTextProps(nodeProps))
+      if (!itemEl.parentElement) {
+        container.appendChild(itemEl)
+      }
 
-    item.append(indicator, text)
-    return item
+      return itemEl
+    }
   }
 
-  private renderTree(api: tree.Api) {
-    if (!this.treeNode)
+  private renderTree() {
+    if (!this.treeEl)
       return
 
-    this.treeNode.innerHTML = ''
-    const children = (api.collection.rootNode.children as FileNode[] | undefined) ?? []
-    children.forEach((node, index) => {
-      this.treeNode!.appendChild(this.createNodeElement(node, [index], api))
+    const api = this.api
+    const rootChildren = api.collection.rootNode.children as FileNode[] | undefined
+    const childIds = new Set<string>()
+
+    rootChildren?.forEach((node, index) => {
+      childIds.add(node.id)
+      this.renderNode(node, [index], this.treeEl!)
+    })
+
+    // Remove nodes that no longer exist at root level
+    const existingRootChildren = Array.from(this.treeEl.querySelectorAll<HTMLElement>(':scope > [data-part="branch"], :scope > [data-part="item"]'))
+    existingRootChildren.forEach((child) => {
+      const childValue = child.dataset.value
+      if (childValue && !childIds.has(childValue)) {
+        child.remove()
+        this.nodeElements.delete(childValue)
+      }
     })
   }
 
   render = () => {
     const api = this.api
 
-    if (this.labelEl)
-      spreadProps(this.labelEl, api.getLabelProps())
     if (this.rootNode)
       spreadProps(this.rootNode, api.getRootProps())
-    if (this.treeNode)
-      spreadProps(this.treeNode, api.getTreeProps())
-    if (this.expandedMetaEl)
-      this.expandedMetaEl.textContent = `${api.expandedValue.length} open folders`
 
-    if (this.expandButton)
-      this.expandButton.onclick = () => api.expand()
-    if (this.collapseButton)
-      this.collapseButton.onclick = () => api.collapse()
-    if (this.selectButton)
-      this.selectButton.onclick = () => api.select()
-    if (this.deselectButton)
-      this.deselectButton.onclick = () => api.deselect()
+    if (this.labelEl)
+      spreadProps(this.labelEl, api.getLabelProps())
 
-    this.renderTree(api)
+    if (this.metaEl)
+      this.metaEl.textContent = `${api.expandedValue.length} open folders`
+
+    if (this.treeEl)
+      spreadProps(this.treeEl, api.getTreeProps())
+
+    this.renderTree()
   }
 }
 
@@ -152,21 +262,18 @@ export function render(target: HTMLElement) {
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
-    <main class="tree-example" data-tree-example>
-      <section class="tree-example__card">
+    <main class="tree-example">
+      <section class="tree-example__card" data-tree-example>
         <div class="tree-example__header">
           <h3 data-tree-label>Project files</h3>
-          <div class="tree-example__meta-group">
-            <span class="tree-example__meta" data-tree-meta>0 open folders</span>
-            <span class="tree-example__meta" data-tree-mode>Mode: single</span>
-          </div>
+          <span class="tree-example__meta" data-tree-meta></span>
         </div>
 
         <div class="tree-example__actions">
-          <button type="button" data-tree-expand>Expand all</button>
-          <button type="button" data-tree-collapse>Collapse all</button>
-          <button type="button" data-tree-select>Select all</button>
-          <button type="button" data-tree-deselect>Clear selection</button>
+          <button type="button" data-tree-expand-all>Expand all</button>
+          <button type="button" data-tree-collapse-all>Collapse all</button>
+          <button type="button" data-tree-select-all>Select all</button>
+          <button type="button" data-tree-clear-selection>Clear selection</button>
         </div>
 
         <div data-tree-root>
@@ -180,44 +287,33 @@ export function render(target: HTMLElement) {
   if (!scope)
     return
 
-  const modeMetaEl = layout.main.querySelector<HTMLElement>('[data-tree-mode]')
-  const setModeMeta = (mode: typeof controls.context.selectionMode) => {
-    if (modeMetaEl)
-      modeMetaEl.textContent = `Mode: ${mode}`
-  }
-  setModeMeta(controls.context.selectionMode)
-
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
   const collection = createFileTreeCollection()
-  const mapControlsToContext = (ctx: typeof controls.context) => ({
-    dir: ctx.dir,
-    selectionMode: ctx.selectionMode,
-    expandOnClick: ctx.openOnClick,
-    collection,
-  })
-
   const contextSource = {
-    get: () => mapControlsToContext(controls.context),
+    get: () => {
+      const ctx = controls.context
+      return {
+        dir: ctx.dir,
+        selectionMode: ctx.selectionMode,
+        expandOnClick: ctx.openOnClick,
+        collection,
+      }
+    },
     subscribe: (fn: (ctx: Partial<TreeMachineContext>) => void) =>
-      controls.subscribe((ctx: typeof controls.context) => {
-        setModeMeta(ctx.selectionMode)
-        fn(mapControlsToContext(ctx))
+      controls.subscribe((ctx: any) => {
+        fn({
+          dir: ctx.dir,
+          selectionMode: ctx.selectionMode,
+          expandOnClick: ctx.openOnClick,
+          collection,
+        })
       }),
   }
 
-  const instance = new TreeExample(
-    scope,
-    {
-      id: 'tree:vanilla',
-      collection,
-      expandedValue: defaultExpandedBranches,
-    },
-    { context: contextSource },
-  )
-
+  const instance = new TreeExample(scope, { id: 'tree:vanilla', collection }, { context: contextSource })
   instance.init()
 
   const updateVisualizer = (state?: TreeState) => {
@@ -226,6 +322,6 @@ export function render(target: HTMLElement) {
     toolbar.setVisualizerSlot(() => StateVisualizer({ state, omit: ['collection'] }))
   }
 
-  updateVisualizer(instance.state as unknown as TreeState)
+  updateVisualizer(instance.state as TreeState)
   instance.onStateChange(updateVisualizer)
 }
