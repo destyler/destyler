@@ -9,10 +9,6 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "~/vue/*": ["examples/vue/src/pages/*"],
-      "~/react/*": ["examples/react/src/pages/*"],
-      "~/svelte/*": ["examples/svelte/src/pages/*"],
-      "~/solid/*": ["examples/solid/src/pages/*"],
       "@destyler/shared-private/*": ["shared/src/*"]
     },
     "resolveJsonModule": true,
