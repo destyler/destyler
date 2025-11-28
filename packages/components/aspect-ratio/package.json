@@ -2,9 +2,17 @@
   "name": "@destyler/aspect-ratio",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "displays content within a desired ratio.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/components/aspect-ratio"
+  },
+  "bugs": "https://github.com/destyler/destyler/issues",
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -15,6 +23,9 @@
     "*.d.ts",
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",

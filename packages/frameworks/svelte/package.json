@@ -2,9 +2,16 @@
   "name": "@destyler/svelte",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "the svelte wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/frameworks/svelte"
+  },
   "exports": {
     ".": "./dist/index.js"
   },
@@ -33,5 +40,8 @@
     "@destyler/utils": "workspace:*",
     "@sveltejs/package": "catalog:build",
     "svelte": "catalog:frontend"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

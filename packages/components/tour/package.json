@@ -2,9 +2,16 @@
   "name": "@destyler/tour",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "A guided tour that helps users understand the interface.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/components/tour"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -32,5 +39,8 @@
     "@destyler/types": "workspace:*",
     "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

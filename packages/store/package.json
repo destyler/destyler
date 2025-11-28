@@ -2,9 +2,16 @@
   "name": "@destyler/store",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "The reactive store package for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/store"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -24,5 +31,8 @@
   },
   "dependencies": {
     "proxy-compare": "catalog:prod"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

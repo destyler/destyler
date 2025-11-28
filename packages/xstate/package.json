@@ -2,9 +2,16 @@
   "name": "@destyler/xstate",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "a minimal implementation of xstate fsm for UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/xstate"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -25,5 +32,8 @@
   "dependencies": {
     "@destyler/store": "workspace:*",
     "@destyler/utils": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

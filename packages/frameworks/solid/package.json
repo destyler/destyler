@@ -2,9 +2,16 @@
   "name": "@destyler/solid",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "the solid wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/frameworks/solid"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -33,5 +40,8 @@
   "devDependencies": {
     "@destyler/utils": "workspace:*",
     "solid-js": "catalog:frontend"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

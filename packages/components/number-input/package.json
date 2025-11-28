@@ -2,9 +2,16 @@
   "name": "@destyler/number-input",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "a field that allows user input of numeric values.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/components/number-input"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -29,5 +36,8 @@
     "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*",
     "@internationalized/number": "catalog:prod"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -2,9 +2,16 @@
   "name": "@destyler/floating-panel",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "A floating panel component that can be dragged and resized.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/components/floating-panel"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -32,5 +39,8 @@
     "@destyler/types": "workspace:*",
     "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

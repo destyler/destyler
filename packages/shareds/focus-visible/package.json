@@ -2,9 +2,16 @@
   "name": "@destyler/focus-visible",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/shareds/focus-visible"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -24,5 +31,8 @@
   },
   "dependencies": {
     "@destyler/dom": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

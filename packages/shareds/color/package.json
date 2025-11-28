@@ -2,9 +2,16 @@
   "name": "@destyler/color",
   "type": "module",
   "version": "0.2.0-beta.1",
+  "private": "false",
   "description": "Color utilities for web",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/shareds/color"
+  },
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -24,5 +31,8 @@
   },
   "dependencies": {
     "@destyler/utils": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
