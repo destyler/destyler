@@ -82,8 +82,8 @@
     "@vitejs/plugin-react": "catalog:plugin",
     "@vitejs/plugin-vue": "catalog:plugin",
     "@vitest/browser": "catalog:test",
-    "@vitest/browser-playwright": "^4.0.14",
-    "@vitest/coverage-v8": "^4.0.14",
+    "@vitest/browser-playwright": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test",
     "@vitest/eslint-plugin": "catalog:test",
     "@vitest/ui": "catalog:test",
     "archiver": "catalog:util",
@@ -93,7 +93,7 @@
     "eslint": "catalog:lint",
     "fast-glob": "catalog:util",
     "find-packages": "catalog:util",
-    "happy-dom": "^20.0.10",
+    "happy-dom": "catalog:test",
     "lit": "catalog:frontend",
     "nanoid": "catalog:util",
     "node-modules-inspector": "catalog:visual",
@@ -113,10 +113,6 @@
     "vite-plugin-solid": "catalog:plugin",
     "vitest": "catalog:test",
     "vitest-axe": "catalog:test",
-    "vitest-browser-react": "catalog:test",
-    "vitest-browser-solid": "catalog:test",
-    "vitest-browser-svelte": "catalog:test",
-    "vitest-browser-vue": "catalog:test",
     "vue": "catalog:frontend"
   }
 }

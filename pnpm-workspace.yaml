@@ -86,15 +86,14 @@ catalogs:
     astrobook: ^0.11.2
   test:
     '@vitest/browser': ^4.0.14
+    '@vitest/browser-playwright': ^4.0.14
+    '@vitest/coverage-v8': ^4.0.14
     '@vitest/eslint-plugin': ^1.5.0
     '@vitest/ui': ^4.0.14
+    happy-dom: ^20.0.10
     playwright: ^1.57.0
     vitest: ^4.0.14
     vitest-axe: ^0.1.0
-    vitest-browser-react: ^2.0.2
-    vitest-browser-solid: ^1.0.1
-    vitest-browser-svelte: ^2.0.1
-    vitest-browser-vue: ^2.0.1
   theme:
     '@pagefind/default-ui': ^1.4.0
     starlight-theme-destyler: ^0.1.6
