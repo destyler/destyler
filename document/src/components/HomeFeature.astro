@@ -1,0 +1,40 @@
+---
+import HomeFeatureItem from './HomeFeatureItem.astro'
+---
+
+<div class="relative w-full max-w-[90rem] mx-auto px-4 md:px-8 py-16 md:py-24">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-24">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 justify-center items-center content-center h-full">
+      <HomeFeatureItem
+        title="Zero-Styling Freedom"
+        description="Your design system, your rules. Every component starts as a blank canvas ready for your creativity."
+      >
+        <div slot="icon" class="size-[20px] i-lucide-paintbrush"></div>
+      </HomeFeatureItem>
+
+      <HomeFeatureItem
+        title="Truly Composable"
+        description="Build complex UIs effortlessly with modular components that work seamlessly together."
+      >
+        <div slot="icon" class="size-20px i-lucide-braces"></div>
+      </HomeFeatureItem>
+
+      <HomeFeatureItem
+        title="Accessibility-First"
+        description="Ship with confidence. Every component is WCAG compliant and thoroughly tested for accessibility."
+      >
+        <div slot="icon" class="size-20px i-lucide-keyboard"></div>
+      </HomeFeatureItem>
+
+      <HomeFeatureItem
+        title="State Machine Powered"
+        description="Predictable behavior, fewer bugs. State machines ensure rock-solid component interactions."
+      >
+        <div slot="icon" class="size-20px i-lucide-orbit"></div>
+      </HomeFeatureItem>
+    </div>
+    <div class="border border-border bg-background overflow-hidden rounded-lg flex-col flex w-full">
+
+    </div>
+  </div>
+</div>

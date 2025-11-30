@@ -48,7 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="show" class="mt-0! py-24 sm:py-32 hidden lg:block !pt-12 bg-gradient-to-b from-background/900 to-background/950">
+  <div v-if="show" class="mt-0! py-24 sm:py-32 hidden lg:block pt-12! bg-gradient-to-b from-background/900 to-background/950">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl gap-16 sm:gap-y-24 flex flex-col mt-0!">
       <div class="flex flex-col lg:grid gap-8 relative lg:grid-cols-10 lg:gap-8 overflow-hidden p-px mt-0!">
         <div :ref="(el) => (refs[1] = el)" data-layout="sinppets" class="mt-0! col-span-8 flex items-center homeDemoAnimateTop p-10px">
@@ -100,7 +100,7 @@ onMounted(() => {
         </div>
 
         <div :ref="(el) => (refs[8] = el)" class="mt-0! col-span-7 row-span-6 flex items-start justify-between gap-4 homeDemoAnimateBottom">
-          <div class="flex-shrink-0" data-layout="sinppets">
+          <div class="shrink-0" data-layout="sinppets">
             <TreeExample />
           </div>
           <div class="flex-1">
