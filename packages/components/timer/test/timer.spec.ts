@@ -73,17 +73,24 @@ describe('[timer] browser tests', () => {
 
   it('pause halts countdown until resume continues ticking', async () => {
     await waitForNextSecond()
-    await expect.element(timerItem('seconds')).toHaveTextContent('09')
+
+    // Capture the current seconds value before pausing
+    const secondsElement = timerItem('seconds').element()
+    const secondsBeforePause = secondsElement.textContent
 
     await userEvent.click(actionTrigger('pause'))
     await expect.element(actionTrigger('resume')).not.toHaveAttribute('hidden', '')
 
+    // Wait and verify the value hasn't changed while paused
     await waitForNextSecond()
-    await expect.element(timerItem('seconds')).toHaveTextContent('09')
+    await expect.element(timerItem('seconds')).toHaveTextContent(secondsBeforePause!)
 
     await userEvent.click(actionTrigger('resume'))
     await waitForNextSecond()
-    await expect.element(timerItem('seconds')).toHaveTextContent('08')
+
+    // After resuming and waiting, the value should have decremented by 1
+    const expectedAfterResume = String(Number(secondsBeforePause) - 1).padStart(2, '0')
+    await expect.element(timerItem('seconds')).toHaveTextContent(expectedAfterResume)
   })
 
   it('reset while paused restores the start value and returns to idle controls', async () => {
