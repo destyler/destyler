@@ -21,17 +21,18 @@ try {
       defaultValue: v.defaultValue,
     }))
   }
-} catch (error) {
+}
+ catch (error) {
   console.error(`[ApiDoc] Failed to load api doc for "${name}" from @destyler/docs:`, error)
-
 }
 
 const hasData = apiItems.length > 0
 ---
 
-{hasData ? (
+{hasData
+? (
   <div class="space-y-2 mt-0!">
-    {apiItems.map((item) => (
+    {apiItems.map(item => (
       <div class="py-2 border-b border-border last:border-none mt-0!">
         <div class="mb-1 mt-0! flex items-start gap-2 flex-wrap">
           <span class="font-mono font-bold text-primary">{item.name}</span>
@@ -46,7 +47,8 @@ const hasData = apiItems.length > 0
       </div>
     ))}
   </div>
-) : (
+)
+: (
   <div class="py-3 text-center text-muted-foreground mt-0!">
     Unable to load API property information for "{name}"
   </div>

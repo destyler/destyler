@@ -1,12 +1,12 @@
 ---
-import SinppetsVue from '../snippets/Sinppets.vue'
+import { createHighlighter } from 'shiki'
 import SinppetsReact from '../snippets/Sinppets.react'
 import SinppetsSolid from '../snippets/Sinppets.solid'
 import SinppetsSvelte from '../snippets/Sinppets.svelte'
-import Preview from './Preview.astro'
+import SinppetsVue from '../snippets/Sinppets.vue'
 import FrameworkLayout from './FrameworkLayout.astro'
+import Preview from './Preview.astro'
 import CodeGroup from './preview/CodeGroup.vue'
-import { createHighlighter } from 'shiki'
 
 const { name } = Astro.props
 
@@ -16,25 +16,25 @@ const baseName = toPascalCase(name)
 
 // 高亮器（重复创建成本较大，复用单实例）
 const highlighter = await createHighlighter({
-  themes: ['vitesse-light','vitesse-dark'],
-  langs: ['html', 'css', 'js', 'ts', 'vue', 'jsx', 'tsx', 'svelte']
+  themes: ['vitesse-light', 'vitesse-dark'],
+  langs: ['html', 'css', 'js', 'ts', 'vue', 'jsx', 'tsx', 'svelte'],
 })
 
 interface CodeFile {
-  title: string;
-  content: string;
-  highlighted: string;
-  language: string;
+  title: string
+  content: string
+  highlighted: string
+  language: string
   framework: string
 }
 
 // 清理不需要展示的指令 / 引入
-const sanitize = (code: string) => {
+function sanitize(code: string) {
   return code
     // 去掉 solid-js jsxImportSource 注释
     .replace(/\/\*+\s*@jsxImportSource\s+solid-js\s*\*+\//g, '')
     // 去掉 import '../../style.css'
-    .replace(/import\s+['\"]\.\/style\.css['\"];?\n?/g, '')
+    .replace(/import\s+['"]\.\/style\.css['"];?\n?/g, '')
     // 删除开头空行
     .replace(/^(\s*\n)+/, '')
     // 折叠 3 行及以上连续空行
@@ -45,7 +45,7 @@ const sanitize = (code: string) => {
 // 示例：packages/components/menu/snippets/menu/Menu.vue 或 packages/components/menu/snippets/content-menu/ContentMenu.vue
 const allSnippets = import.meta.glob('@component/*/snippets/**/*', { query: '?raw', import: 'default' })
 
-const loadFrameworkFile = async (framework: string) => {
+async function loadFrameworkFile(framework: string) {
   const allFiles: Record<string, () => Promise<any>> = allSnippets
   const snippetPaths = Object.keys(allFiles)
 
@@ -77,19 +77,23 @@ const loadFrameworkFile = async (framework: string) => {
     const matchesFrameworkFile = (fileName: string) => {
       // 提取不含框架与扩展名的“文件基名”，用于与 baseName 进行无大小写比较
       let core = fileName
-      if (/\.react\.(t|j)sx?$/.test(core)) core = core.replace(/\.react\.(t|j)sx?$/, '')
-      else if (/\.solid\.(t|j)sx?$/.test(core)) core = core.replace(/\.solid\.(t|j)sx?$/, '')
-      else if (core.endsWith('.vue')) core = core.replace(/\.vue$/, '')
-      else if (core.endsWith('.svelte')) core = core.replace(/\.svelte$/, '')
+      if (/\.react\.(t|j)sx?$/.test(core))
+core = core.replace(/\.react\.(t|j)sx?$/, '')
+      else if (/\.solid\.(t|j)sx?$/.test(core))
+core = core.replace(/\.solid\.(t|j)sx?$/, '')
+      else if (core.endsWith('.vue'))
+core = core.replace(/\.vue$/, '')
+      else if (core.endsWith('.svelte'))
+core = core.replace(/\.svelte$/, '')
 
       const coreNormalized = core.toLowerCase()
 
       // 框架后缀必须匹配
-      const frameworkOk =
-        (framework === 'vue' && fileName.endsWith('.vue')) ||
-        (framework === 'svelte' && fileName.endsWith('.svelte')) ||
-        (framework === 'react' && /\.react\.(t|j)sx?$/.test(fileName)) ||
-        (framework === 'solid' && /\.solid\.(t|j)sx?$/.test(fileName))
+      const frameworkOk
+        = (framework === 'vue' && fileName.endsWith('.vue'))
+          || (framework === 'svelte' && fileName.endsWith('.svelte'))
+          || (framework === 'react' && /\.react\.(t|j)sx?$/.test(fileName))
+          || (framework === 'solid' && /\.solid\.(t|j)sx?$/.test(fileName))
 
       return frameworkOk && coreNormalized === baseNameNormalized
     }
@@ -107,42 +111,56 @@ const loadFrameworkFile = async (framework: string) => {
   }
 
   for (const [path, importer] of Object.entries(allFiles)) {
-    if (!pathFilter(path)) continue
+    if (!pathFilter(path))
+continue
 
     const segments = path.split('/')
     const fileName = segments.pop() || ''
 
     // 忽略样式 & api 辅助文件
-    if (fileName === 'style.css' || fileName === 'api.ts' || fileName === 'api.js') continue
+    if (fileName === 'style.css' || fileName === 'api.ts' || fileName === 'api.js')
+continue
 
-  if (!matchesFrameworkFile(fileName)) continue
+  if (!matchesFrameworkFile(fileName))
+continue
 
     try {
       const raw = await importer()
       const cleaned = sanitize(raw)
       const ext = fileName.split('.').pop() || ''
       let language = ext
-      if (fileName.endsWith('.react.tsx') || fileName.endsWith('.solid.tsx')) language = 'tsx'
-      else if (fileName.endsWith('.react.jsx')) language = 'jsx'
-      else if (fileName.endsWith('.react.ts')) language = 'ts'
-      else if (fileName.endsWith('.react.js')) language = 'js'
-      else if (ext === 'vue') language = 'vue'
-      else if (ext === 'svelte') language = 'svelte'
+      if (fileName.endsWith('.react.tsx') || fileName.endsWith('.solid.tsx'))
+language = 'tsx'
+      else if (fileName.endsWith('.react.jsx'))
+language = 'jsx'
+      else if (fileName.endsWith('.react.ts'))
+language = 'ts'
+      else if (fileName.endsWith('.react.js'))
+language = 'js'
+      else if (ext === 'vue')
+language = 'vue'
+      else if (ext === 'svelte')
+language = 'svelte'
 
       const highlighted = highlighter.codeToHtml(cleaned, {
         lang: language,
         theme: 'vitesse-dark',
-        themes: { dark: 'vitesse-dark', light: 'vitesse-light' }
+        themes: { dark: 'vitesse-dark', light: 'vitesse-light' },
       })
 
       let frameworkName = ''
-      if (fileName.endsWith('.vue')) frameworkName = 'vue'
-      else if (/\.react\.(t|j)sx?$/.test(fileName)) frameworkName = 'react'
-      else if (/\.solid\.(t|j)sx?$/.test(fileName)) frameworkName = 'solid'
-      else if (fileName.endsWith('.svelte')) frameworkName = 'svelte'
+      if (fileName.endsWith('.vue'))
+frameworkName = 'vue'
+      else if (/\.react\.(t|j)sx?$/.test(fileName))
+frameworkName = 'react'
+      else if (/\.solid\.(t|j)sx?$/.test(fileName))
+frameworkName = 'solid'
+      else if (fileName.endsWith('.svelte'))
+frameworkName = 'svelte'
 
       result.push({ title: fileName, content: cleaned, highlighted, language, framework: frameworkName })
-    } catch (e) {
+    }
+ catch (e) {
       console.error(`Failed to load file ${path}`, e)
     }
   }

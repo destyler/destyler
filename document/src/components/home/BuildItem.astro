@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string
+  description: string
+  link: string
+  imgSrc: string
+}
+
+const { title, description, link, imgSrc } = Astro.props
+---
+
+<a href={link} class="decoration-none! hover:decoration-none! border-px rounded-md overflow-hidden flex border-border hover:border-primary">
+  <div class="shadow-none flex flex-col overflow-hidden relative rounded-md bg-background">
+    <!-- img -->
+    <div class="px-4 pt-4 pb-3 max-h-13rem overflow-hidden p-6 gap-1">
+      <img class="rounded-1 m-0!" src={imgSrc}>
+    </div>
+    <!-- body -->
+    <div class="mt-0! flex-1 flex-col flex px-6 p-4">
+      <h3 class="text-600 text-foreground text-4 my-0!">
+        {title}
+      </h3>
+      <div class="text-sm text-foreground/60 my-0!">
+        {description}
+      </div>
+    </div>
+  </div>
+</a>

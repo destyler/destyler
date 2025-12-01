@@ -1,5 +1,6 @@
 ---
-import { getAccessibilityDoc, type AccessibilityEntry } from '@destyler/docs'
+import type { AccessibilityEntry } from '@destyler/docs'
+import { getAccessibilityDoc } from '@destyler/docs'
 
 const { name } = Astro.props
 
@@ -7,7 +8,8 @@ const { name } = Astro.props
 let accessibilityEntries: AccessibilityEntry[] = []
 try {
   accessibilityEntries = getAccessibilityDoc(name as any)
-} catch (error) {
+}
+ catch (error) {
   // Component name might not exist in docs; log for debugging but fail gracefully in UI
   console.error(`No accessibility (keyboard) data found for "${name}":`, error)
 }
@@ -26,7 +28,8 @@ const matchContext: KeyboardProps[] = accessibilityEntries.map(item => ({
 const hasData = matchContext.length > 0
 ---
 
-{hasData ? (
+{hasData
+? (
   <div class="w-full overflow-hidden mt-6 border border-border rounded-md">
     <div class="grid grid-cols-3 bg-background! mt-0!">
       <div class="col-span-1 py-3 px-4 font-medium text-left border-b border-b-border mt-0!">
@@ -37,7 +40,7 @@ const hasData = matchContext.length > 0
       </div>
     </div>
     <div class="w-full mt-0!">
-      {matchContext.map((item) => (
+      {matchContext.map(item => (
         <div class="grid mt-0! grid-cols-3 border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
           <div class="col-span-1 py-3 px-4 font-mono text-sm mt-0!">
             <code class="bg-muted/50 px-1.5 py-0.5 rounded break-all">{item.name}</code>
@@ -49,6 +52,7 @@ const hasData = matchContext.length > 0
       ))}
     </div>
   </div>
-) : (
+)
+: (
   <p class="text-muted-foreground mt-4">No keyboard accessibility data found for "{name}"</p>
 )}

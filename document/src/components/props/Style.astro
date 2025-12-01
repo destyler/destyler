@@ -10,7 +10,7 @@ const { component, nodeType } = Astro.props as Props
 
 // 使用 @destyler/docs 中 data-attr.json 的数据，根据组件与 nodeType (part 名) 展示可用 data-* 属性
 interface DataAttrEntry { [attr: string]: string }
-let entries: { name: string; desc: string }[] = []
+let entries: { name: string, desc: string }[] = []
 
 try {
   const doc = getDataAttrDoc(component as any)
@@ -18,21 +18,23 @@ try {
   if (partData) {
     entries = Object.entries(partData).map(([k, v]) => ({ name: k, desc: v || '' }))
   }
-} catch (e) {
+}
+ catch (e) {
   // 未找到对应数据，entries 维持为空
 }
 
 const hasData = entries.length > 0
 ---
 
-{hasData ? (
+{hasData
+? (
   <div class="w-full overflow-hidden mt-6 border border-border rounded-md">
     <div class="grid grid-cols-3 bg-background! mt-0!">
       <div class="col-span-1 p-3 font-medium text-left border-b border-b-border mt-0!">attribute</div>
       <div class="col-span-2 p-3 font-medium text-left border-b border-b-border border-l border-l-border mt-0!">description</div>
     </div>
     <div class="w-full mt-0!">
-      {entries.map((item) => (
+      {entries.map(item => (
         <div class="grid mt-0! grid-cols-3 border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
           <div class="col-span-1 p-3 font-mono text-sm mt-0!">
             <code class="bg-muted/50 px-1.5 py-0.5 rounded break-all">{item.name}</code>
@@ -42,6 +44,7 @@ const hasData = entries.length > 0
       ))}
     </div>
   </div>
-) : (
+)
+: (
   <p class="text-gray-500 dark:text-gray-400 mt-4">none</p>
 )}

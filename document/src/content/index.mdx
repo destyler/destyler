@@ -31,6 +31,7 @@ import HomeCodeSvelte from '../components/home/code/Svelte.astro'
 import HomeCodeSolid from '../components/home/code/Solid.astro'
 
 import HomeFeatureBanner from '../components/home/feature/Banner.astro'
+import HomeBuild from '../components/home/Build.astro'
 
 <HomeFeature>
   <FrameworkLayout>
@@ -65,3 +66,5 @@ import HomeFeatureBanner from '../components/home/feature/Banner.astro'
     <HomeSolid client:only="solid-js" />
   </div>
 </FrameworkLayout>
+
+<HomeBuild />

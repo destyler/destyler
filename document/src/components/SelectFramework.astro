@@ -1,5 +1,5 @@
 ---
-import { frameworkData } from '../stores/framework';
+import { frameworkData } from '../stores/framework'
 
 interface Props {
   custom?: boolean
@@ -12,7 +12,7 @@ const defaultItem = frameworkData.find(item => item.value === defaultValue) || f
 ---
 <div class="relative mt-2 select-framework-root" data-default-value={defaultValue}>
   <button
-    class="select-framework-trigger group flex items-center 
+    class="select-framework-trigger group flex items-center
     justify-between px-4 py-2 w-full
     bg-background border border-border rounded-md
     hover:bg-accent/10 transition-colors duration-200
@@ -32,22 +32,22 @@ const defaultItem = frameworkData.find(item => item.value === defaultValue) || f
     class="select-framework-positioner absolute z-50 w-full hidden mt-2"
   >
     <ul
-      class="select-framework-content mt-0 p-1 bg-popover border 
+      class="select-framework-content mt-0 p-1 bg-popover border
       border-border rounded-md shadow-lg
         animate-in fade-in-0 zoom-in-95"
     >
-      {frameworkData.map(item => {
+      {frameworkData.map((item) => {
         return (
         <li
           data-value={item.value}
-          class="select-framework-item flex justify-start items-center 
+          class="select-framework-item flex justify-start items-center
           gap-2 px-3 py-2 my-1 text-sm rounded-sm cursor-pointer
           text-popover-foreground hover:bg-accent transition-colors
           data-[selected=true]:bg-accent"
         >
           <span class:list={item.icon} class="w-5 h-5"></span>
           <span>{item.label}</span>
-        </li> 
+        </li>
         )
       })}
     </ul>
@@ -55,141 +55,145 @@ const defaultItem = frameworkData.find(item => item.value === defaultValue) || f
 </div>
 
 <script>
-import { $framework, type Framework } from '../stores/framework.ts';
+import type { Framework } from '../stores/framework.ts'
+import { $framework } from '../stores/framework.ts'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selectRoots = document.querySelectorAll('.select-framework-root');
-  
+  const selectRoots = document.querySelectorAll('.select-framework-root')
+
   // 更新列表项的选中状态
   function updateSelectedState(root: any, selectedValue: any) {
-    const items = root.querySelectorAll('.select-framework-item');
+    const items = root.querySelectorAll('.select-framework-item')
     items.forEach((item: any) => {
-      const itemValue = item.getAttribute('data-value');
+      const itemValue = item.getAttribute('data-value')
       if (itemValue === selectedValue) {
-        item.setAttribute('data-selected', 'true');
-      } else {
-        item.setAttribute('data-selected', 'false');
+        item.setAttribute('data-selected', 'true')
       }
-    });
+      else {
+        item.setAttribute('data-selected', 'false')
+      }
+    })
   }
 
   // 订阅 store 变化，同步更新所有选择框的显示
-  $framework.subscribe(frameworkValue => {
-    if (!frameworkValue) return;
-    
-    selectRoots.forEach(root => {
-      const item = Array.from(root.querySelectorAll('.select-framework-item'))
-        .find(item => item.getAttribute('data-value') === frameworkValue);
-      
-      if (item) {
-        const icon = item.querySelector('span:first-child')!.className;
-        const label = item.querySelector('span:last-child')!.textContent;
-        const selectedIcon = root.querySelector('.selected-icon');
-        const selectedLabel = root.querySelector('.selected-label');
-        
-        selectedIcon!.className = 'selected-icon w-5 h-5 ' + icon;
-        selectedLabel!.textContent = label;
-        
-        // 更新选中状态
-        updateSelectedState(root, frameworkValue);
-      }
-    });
-  });
+  $framework.subscribe((frameworkValue) => {
+    if (!frameworkValue)
+      return
 
-  selectRoots.forEach(root => {
-    const trigger = root.querySelector('.select-framework-trigger')!;
-    const positioner = root.querySelector('.select-framework-positioner')!;
-    const chevron = root.querySelector('.chevron')!;
-    const items = root.querySelectorAll('.select-framework-item')!;
-    const selectedIcon = root.querySelector('.selected-icon')!;
-    const selectedLabel = root.querySelector('.selected-label')!;
-    
-    let isOpen = false;
+    selectRoots.forEach((root) => {
+      const item = Array.from(root.querySelectorAll('.select-framework-item'))
+        .find(item => item.getAttribute('data-value') === frameworkValue)
+
+      if (item) {
+        const icon = item.querySelector('span:first-child')!.className
+        const label = item.querySelector('span:last-child')!.textContent
+        const selectedIcon = root.querySelector('.selected-icon')
+        const selectedLabel = root.querySelector('.selected-label')
+
+        selectedIcon!.className = `selected-icon w-5 h-5 ${icon}`
+        selectedLabel!.textContent = label
+
+        // 更新选中状态
+        updateSelectedState(root, frameworkValue)
+      }
+    })
+  })
+
+  selectRoots.forEach((root) => {
+    const trigger = root.querySelector('.select-framework-trigger')!
+    const positioner = root.querySelector('.select-framework-positioner')!
+    const chevron = root.querySelector('.chevron')!
+    const items = root.querySelectorAll('.select-framework-item')!
+    const selectedIcon = root.querySelector('.selected-icon')!
+    const selectedLabel = root.querySelector('.selected-label')!
+
+    let isOpen = false
 
     // 点击触发器切换下拉框
     trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      isOpen = !isOpen;
-      positioner.classList.toggle('hidden', !isOpen);
-      
+      e.stopPropagation()
+      isOpen = !isOpen
+      positioner.classList.toggle('hidden', !isOpen)
+
       if (isOpen) {
-        chevron.classList.add('rotate-90');
-        trigger.setAttribute('data-state', 'open');
-      } else {
-        chevron.classList.remove('rotate-90');
-        trigger.setAttribute('data-state', '');
+        chevron.classList.add('rotate-90')
+        trigger.setAttribute('data-state', 'open')
       }
-    });
+      else {
+        chevron.classList.remove('rotate-90')
+        trigger.setAttribute('data-state', '')
+      }
+    })
 
     // 点击选项
-    items.forEach(item => {
+    items.forEach((item) => {
       item.addEventListener('click', () => {
         // 获取选中项的值
-        const value = item.getAttribute('data-value');
+        const value = item.getAttribute('data-value')
         // 更新显示的图标和文本
-        const icon = item.querySelector('span:first-child')!.className;
-        const label = item.querySelector('span:last-child')!.textContent;
+        const icon = item.querySelector('span:first-child')!.className
+        const label = item.querySelector('span:last-child')!.textContent
 
-        selectedIcon.className = 'selected-icon w-5 h-5 ' + icon;
-        selectedLabel.textContent = label;
-        
+        selectedIcon.className = `selected-icon w-5 h-5 ${icon}`
+        selectedLabel.textContent = label
+
         // 关闭下拉框
-        isOpen = false;
-        positioner.classList.add('hidden');
-        chevron.classList.remove('rotate-90');
-        trigger.setAttribute('data-state', '');
-        
+        isOpen = false
+        positioner.classList.add('hidden')
+        chevron.classList.remove('rotate-90')
+        trigger.setAttribute('data-state', '')
+
         // 更新 store 中的框架选择
-        $framework.set((value || 'react') as Framework);
-        
+        $framework.set((value || 'react') as Framework)
+
         // 更新选中状态
-        updateSelectedState(root, value);
-        
+        updateSelectedState(root, value)
+
         // 触发自定义事件，方便外部获取选择的值
-        const event = new CustomEvent('framework-selected', { 
-          detail: { value, label }
-        });
-        root.dispatchEvent(event);
-      });
+        const event = new CustomEvent('framework-selected', {
+          detail: { value, label },
+        })
+        root.dispatchEvent(event)
+      })
 
       // 鼠标悬停效果
       item.addEventListener('mouseenter', () => {
-        items.forEach(i => i.removeAttribute('data-highlighted'));
-        item.setAttribute('data-highlighted', '');
-      });
-      
+        items.forEach(i => i.removeAttribute('data-highlighted'))
+        item.setAttribute('data-highlighted', '')
+      })
+
       item.addEventListener('mouseleave', () => {
-        item.removeAttribute('data-highlighted');
-      });
-    });
+        item.removeAttribute('data-highlighted')
+      })
+    })
 
     // 点击页面其他区域关闭下拉框
     document.addEventListener('click', (e: any) => {
       if (isOpen && !root.contains(e.target)) {
-        isOpen = false;
-        positioner.classList.add('hidden');
-        chevron.classList.remove('rotate-90');
-        trigger.setAttribute('data-state', '');
+        isOpen = false
+        positioner.classList.add('hidden')
+        chevron.classList.remove('rotate-90')
+        trigger.setAttribute('data-state', '')
       }
-    });
-    
+    })
+
     // 初始化时，从 store 读取当前框架值
-    const currentFramework = $framework.get();
+    const currentFramework = $framework.get()
     if (currentFramework) {
       const item = Array.from(items)
-        .find(item => item.getAttribute('data-value') === currentFramework);
-      
+        .find(item => item.getAttribute('data-value') === currentFramework)
+
       if (item) {
-        const icon = item.querySelector('span:first-child')!.className;
-        const label = item.querySelector('span:last-child')!.textContent;
-        
-        selectedIcon.className = 'selected-icon w-5 h-5 ' + icon;
-        selectedLabel.textContent = label;
-        
+        const icon = item.querySelector('span:first-child')!.className
+        const label = item.querySelector('span:last-child')!.textContent
+
+        selectedIcon.className = `selected-icon w-5 h-5 ${icon}`
+        selectedLabel.textContent = label
+
         // 初始化时设置选中状态
-        updateSelectedState(root, currentFramework);
+        updateSelectedState(root, currentFramework)
       }
     }
-  });
-});
+  })
+})
 </script>

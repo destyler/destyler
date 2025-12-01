@@ -32,7 +32,7 @@ import { $framework } from '../stores/framework.ts'
 
 document.addEventListener('DOMContentLoaded', () => {
   $framework.subscribe((value) => {
-    document.querySelectorAll('.framework-content').forEach((el:any) => {
+    document.querySelectorAll('.framework-content').forEach((el: any) => {
       el.style.display = el.dataset.framework === value ? 'block' : 'none'
     })
   })

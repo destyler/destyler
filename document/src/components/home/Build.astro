@@ -1,0 +1,29 @@
+---
+import { data } from '../../data/build.ts'
+import BuildItem from './BuildItem.astro'
+---
+
+<div class="relative w-full max-w-90rem mx-auto px-4 md:px-9 pb-16 md:pb-24">
+  <div class="flex flex-col gap-12 md:gap-16">
+    <!-- title -->
+    <div class="flex flex-col items-center gap-6 md:gap-8 text-center">
+      <div class="flex flex-col gap-4 md:gap-5">
+        <div class="flex flex-col gap-2 md:gap-3">
+          <p class="text-primary text-sm md:text-4 font-600">Build with Destyler</p>
+          <h2 class="text-3xl md:text-4xl text-foreground font-bold">
+            See What's Possible
+          </h2>
+        </div>
+        <p class="max-w-3xl text-foreground/50 text-4 md:text-lg">
+          Explore real-world applications built by developers who trust Destyler. From pepper to enterprises, see how our xstate components power modern web experiences.
+        </p>
+      </div>
+    </div>
+    <!-- content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4">
+      <div class="flex">
+        <BuildItem {...data[0]} />
+      </div>
+    </div>
+  </div>
+</div>
