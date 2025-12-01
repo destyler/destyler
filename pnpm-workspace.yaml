@@ -96,7 +96,7 @@ catalogs:
     vitest-axe: ^0.1.0
   theme:
     '@pagefind/default-ui': ^1.4.0
-    starlight-theme-destyler: ^0.1.6
+    starlight-theme-destyler: ^0.1.7
   types:
     '@types/archiver': ^7.0.0
     '@types/node': ^24.10.1
