@@ -25,7 +25,27 @@ import HomeSolid from '../components/home/Solid.solid'
 import HomeSvelte from '../components/home/Svelte.svelte'
 import HomeFeature from '../components/HomeFeature.astro'
 
-<HomeFeature />
+import HomeCodeVue from '../components/home/code/Vue.astro'
+import HomeCodeReact from '../components/home/code/React.astro'
+import HomeCodeSvelte from '../components/home/code/Svelte.astro'
+import HomeCodeSolid from '../components/home/code/Solid.astro'
+
+<HomeFeature>
+  <FrameworkLayout>
+    <div slot="vue">
+      <HomeCodeVue />
+    </div>
+    <div slot="react">
+      <HomeCodeReact />
+    </div>
+    <div slot="svelte">
+      <HomeCodeSvelte />
+    </div>
+    <div slot="solid">
+      <HomeCodeSolid />
+    </div>
+  </FrameworkLayout>
+</HomeFeature>
 
 <FrameworkLayout>
   <div slot="vue">
