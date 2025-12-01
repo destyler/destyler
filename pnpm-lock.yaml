@@ -203,6 +203,9 @@ catalogs:
     '@pagefind/default-ui':
       specifier: ^1.4.0
       version: 1.4.0
+    starlight-theme-destyler:
+      specifier: ^0.1.7
+      version: 0.1.7
   types:
     '@types/archiver':
       specifier: ^7.0.0
@@ -648,7 +651,7 @@ importers:
         specifier: catalog:frontend
         version: 1.9.10
       starlight-theme-destyler:
-        specifier: ^0.1.7
+        specifier: catalog:theme
         version: 0.1.7(@astrojs/starlight@0.36.3(astro@5.16.1(@types/node@24.10.1)(jiti@2.6.1)(rollup@4.53.3)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)))(@iconify-json/carbon@1.2.14)(@iconify-json/lineicons@1.2.6)(@iconify-json/logos@1.2.10)(@iconify-json/lucide@1.2.75)(@unocss/reset@66.5.9)(unocss-preset-animations@1.3.0(@unocss/preset-wind3@66.5.9)(unocss@66.5.9(postcss@8.5.6)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.20.6)(yaml@2.8.1))))(unocss@66.5.9(postcss@8.5.6)(vite@7.2.4(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.20.6)(yaml@2.8.1)))
       svelte:
         specifier: catalog:frontend
