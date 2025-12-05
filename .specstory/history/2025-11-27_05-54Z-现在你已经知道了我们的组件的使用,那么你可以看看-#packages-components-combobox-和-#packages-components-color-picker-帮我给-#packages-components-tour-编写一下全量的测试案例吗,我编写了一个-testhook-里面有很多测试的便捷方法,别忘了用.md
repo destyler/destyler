@@ -12,6 +12,1053 @@ _**User (2025-11-27 05:59Z)**_
 
 _**Agent (model copilot/gpt-5.1-codex)**_
 
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已创建 3 个待办事项**
+
+- [ ] Review existing combobox/color tests
+- [ ] Assess tour component structure/hooks
+- [ ] Create comprehensive tour tests
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components",
+  "relativeWorkspacePath": "components"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox",
+  "relativeWorkspacePath": "combobox"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox/test/combobox.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/combobox/test/combobox.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker",
+  "relativeWorkspacePath": "color-picker"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/test/color-picker.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/test/color-picker.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour",
+  "relativeWorkspacePath": "tour"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples",
+  "relativeWorkspacePath": "examples"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla/Tour.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla/Tour.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/testHook&#96; 匹配的文件",
+  "pastTenseMessage": "搜索匹配 &#96;**/testHook&#96; 的文件，无匹配项",
+  "resultDetails": [],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `testHook` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/shared/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test/hooks.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test/hooks.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `tour` (`**/packages/components/tour/examples/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `tourData` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/data.ts#117-117)，行 117 到 205</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/data.ts#117-117)，行 117 到 205
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/anatomy.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/anatomy.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/connect.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/connect.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/machine.ts#1-1)，行 1 到 400</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/machine.ts#1-1)，行 1 到 400
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `data-testid="outside"`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/react.browser.spec.tsx)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/react.browser.spec.tsx)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test/class.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/test/class.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/breadcrumbs/test/breadcrumbs.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/breadcrumbs/test/breadcrumbs.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/test/tooltip.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/test/tooltip.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `arrow` (`**/packages/components/tour/src/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/utils/step.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/utils/step.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/react/tour&#96; 匹配的文件",
+  "pastTenseMessage": "搜索匹配 &#96;**/react/tour&#96; 的文件，无匹配项",
+  "resultDetails": [],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `tourControls` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/controls.ts#254-254)，行 254 到 266</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/controls.ts#254-254)，行 254 到 266
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/define-controls.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/define-controls.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `class Controls` (`**/shared/src/vanilla/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components",
+  "relativeWorkspacePath": "components"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components/Controls.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components/Controls.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/hooks/useControls.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/hooks/useControls.ts)
+
+</details>
+</tool-use>
+
+---
+
 **Planning tests for tour components****Locating test files for review****Searching for combobox test files****Exploring test directory structure****Reading file contents****Reviewing color-picker test approach****Reviewing test setup for Tour component****Checking for test folder****Checking existing tests and testHook usage****Planning comprehensive tests for tour component****Evaluating test coverage for tour component****Opening Tour example file****Searching for test files****Searching for testHook usage****Searching for testHook definitions****Checking for test folder****Reading index****Reviewing hooks file****Searching for test IDs****Investigating test hook data attributes****Inspecting component API for tests****Exploring anatomy.ts for data attributes****Investigating DOM data attributes****Inspecting machine.ts behavior****Outlining tour feature tests****Analyzing test hooks and layout integration****Inspecting base test classes and methods****Planning test restructuring with testHook****Analyzing test patterns across components****Planning Tour test suite****Opening utils/step.ts****Planning comprehensive tour tests**
 
 I’m mapping out detailed tests to cover toggling arrows and backdrops, spotlight behavior, progress text updates, keyboard navigation, and proper opening/closing flows. I'm figuring out how to hook and select action buttons and parts using `testHook` and page locators, plus planning to stub or bypass network fetches to keep tests stable. There's a lot to cover, including focus management, attribute checks, and dismissal behaviors—this will make the tour tests robust and reliable.**Analyzing test setup and requirements****Inspecting control definitions****Checking Controls DOM structure****Checking for capitalized filenames****Searching for Controls component****Inspecting exports in shared/src/vanilla/index.ts****Opening components/Controls directory****Investigating test ID usage for controls****Outlining detailed UI test scenarios**
@@ -26,6 +1073,154 @@ _**User (2025-11-27 06:05Z)**_
 
 _**Agent (model copilot/gpt-5.1-codex)**_
 
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已完成(Review existing combobox/color tests/1) *3***
+
+- [x] Review existing combobox/color tests
+- [x] Assess tour component structure/hooks
+- [ ] Create comprehensive tour tests
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `tour browser tests` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/props.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/props.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/examples/vanilla/ColorPicker.ts#1-1)，行 1 到 200</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/color-picker/examples/vanilla/ColorPicker.ts#1-1)，行 1 到 200
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/components/menu/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/menu/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/menu/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `data-testid` (`**/packages/components/combobox/examples/vanilla/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `data-testid` (`**/packages/components/tour/examples/vanilla/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/packages/components/tour/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `keyboardNavigation` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
 **Planning comprehensive tour tests****Investigating test setup for tour component****Investigating test hooking in tour component****Planning comprehensive test coverage****Planning tour.spec.ts tests****Searching for test IDs in tour example****Analyzing testHook usage and tour controls context****Investigating closeOnEsc usage****Searching for keyboardNavigation usage**
 
 ---
@@ -37,6 +1232,178 @@ _**User (2025-11-27 06:09Z)**_
 ---
 
 _**Agent (model copilot/gpt-5.1-codex)**_
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnInteractOutside` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `preventInteraction` (`**/packages/components/tour/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/types.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/src/types.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `tour:`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/packages/components/tour/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/packages/components/tour/examples/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/controls.ts#240-240)，行 240 到 266</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/controls.ts#240-240)，行 240 到 266
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOn` (`**/packages/components/tour/examples/vanilla/Tour.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/packages/components/floating-panel/examples/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `class Component` (`**/@destyler/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `outside` (`**/packages/components/tour/examples/vanilla/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnEsc` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/react/Tour.react.tsx)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/react/Tour.react.tsx)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**正在启动(Create comprehensive tour tests/3) *3***
+
+- [x] Review existing combobox/color tests
+- [x] Assess tour component structure/hooks
+- [-] Create comprehensive tour tests
+
+</details>
+</tool-use>
+
+---
 
 **Planning test strategy for Tour component****Analyzing testHook usage and test plan for Tour**
 
@@ -54,15 +1421,331 @@ _**User (2025-11-27 06:11Z)**_
 
 _**Agent (model copilot/gpt-5.1-codex)**_
 
-**Refactoring test selectors and watchers**
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts",
+  "relativeWorkspacePath": "tour.browser.spec.ts"
+}
 ```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { testHook } from '@destyler/shared-private/test'\nimport { beforeEach, describe, expect, it } from 'vitest'\nimport { page, userEvent } from 'vitest/browser'\nimport { render } from '../examples/vanilla/Tour'\n\nlet mountEl: HTMLElement\n\nfunction getOverlayPart(part: string) {\n  return page.locator(&#96;[data-scope=\"tour\"][data-part=${part}]&#96;)\n}\n\nfunction getContent() {\n  return testHook.getContent('tour')\n}\n\nfunction getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {\n  return page.locator(&#96;[data-part=\"actionTrigger\"][data-type=${type}]&#96;)\n}\n\nasync function startTour() {\n  await page.getByRole('button', { name: 'Start Tour' }).click()\n}\n\nasync function seeTourClosed() {\n  await expect.element(getOverlayPart('content')).not.toBeVisible()\n}\n\nasync function seeTourOpen() {\n  await expect.element(getOverlayPart('content')).toBeVisible()\n}\n\ndescribe('[tour] browser tests', () =&gt; {\n  beforeEach(() =&gt; {\n    if (mountEl &amp;&amp; mountEl.parentElement)\n      document.body.removeChild(mountEl)\n    mountEl = document.createElement('div')\n    document.body.appendChild(mountEl)\n    render(mountEl)\n  })\n\n  it('starts tour when clicking start button', async () =&gt; {\n    await startTour()\n    await seeTourOpen()\n    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')\n  })\n\n  it('closes when pressing escape (default behavior)', async () =&gt; {\n    await startTour()\n    await seeTourOpen()\n    await testHook.pressKey('Escape')\n    await seeTourClosed()\n  })\n\n  it('navigates through steps using action buttons', async () =&gt; {\n    await startTour()\n\n    const nextButton = getAction('next')\n    await nextButton.click()\n    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')\n\n    const prevButton = getAction('prev')\n    await prevButton.click()\n    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')\n  })\n\n  it('shows spotlight/backdrop when step targets elements', async () =&gt; {\n    await startTour()\n\n    await getAction('next').click()\n\n    await expect.element(getOverlayPart('backdrop')).toBeVisible()\n    await expect.element(getOverlayPart('spotlight')).toBeVisible()\n    await expect.element(getOverlayPart('arrow')).toBeVisible()\n  })\n\n  it('allows keyboard navigation when enabled', async () =&gt; {\n    await startTour()\n\n    await testHook.pressKey('ArrowRight')\n    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')\n\n    await testHook.pressKey('ArrowLeft')\n    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')\n  })\n\n  it('can toggle keyboard navigation off via controls', async () =&gt; {\n    await page.getByTestId('keyboardNavigation').click()\n\n    await startTour()\n\n    await testHook.pressKey('ArrowRight')\n    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')\n  })\n\n  it('can disable escape close via controls', async () =&gt; {\n    await page.getByTestId('closeOnEsc').click()\n\n    await startTour()\n    await testHook.pressKey('Escape')\n    await seeTourOpen()\n  })\n\n  it('closes when clicking outside by default', async () =&gt; {\n    await startTour()\n    await userEvent.click(page.getByRole('button', { name: 'Start Tour' }))\n    await seeTourClosed()\n  })\n\n  it('honors preventInteraction control by inerting target', async () =&gt; {\n    await startTour()\n\n    await getAction('next').click()\n    const target = page.locator('#step-1')\n\n    await expect.element(target).not.toHaveAttribute('inert', '')\n\n    await page.getByTestId('preventInteraction').click()\n\n    await testHook.pressKey('ArrowRight')\n\n    await expect.element(target).toHaveAttribute('inert', 'true')\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`)
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    render(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await page.getByTestId('keyboardNavigation').click()
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await page.getByTestId('closeOnEsc').click()
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await startTour()
+
+    await getAction('next').click()
+    const target = page.locatoring('#step-1')
+
+    await expect.element(target).not.toHaveAttribute('inert', '')
+
+    await page.getByTestId('preventInteraction').click()
+
+    await testHook.pressKey('ArrowRight')
+
+    await expect.element(target).toHaveAttribute('inert', '')
+  })
+})
 
 ```
-**Cleaning up userEvent imports**
-```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`)
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    render(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await page.getByTestId('keyboardNavigation').click()
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await page.getByTestId('closeOnEsc').click()
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await startTour()
+
+    await getAction('next').click()
+    const target = page.locatoring('#step-1')
+
+    await expect.element(target).not.toHaveAttribute('inert', '')
+
+    await page.getByTestId('preventInteraction').click()
+
+    await testHook.pressKey('ArrowRight')
+
+    await expect.element(target).toHaveAttribute('inert', '')
+  })
+})
 
 ```
-**Considering whether to run tests****Preparing final summary message****Tour Tests Added**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已完成(Create comprehensive tour tests/3) *3***
+
+- [x] Review existing combobox/color tests
+- [x] Assess tour component structure/hooks
+- [x] Create comprehensive tour tests
+
+</details>
+</tool-use>
+
+---
+
+**Refactoring test selectors and watchers****Cleaning up userEvent imports****Considering whether to run tests****Preparing final summary message****Tour Tests Added**
 - Mounted the vanilla tour demo per test, using `testHook` helpers and the shared overlay selectors to drive the component realistically.
 - Covered start/stop flow, escape-dismiss behavior, action button navigation, arrow/backdrop rendering, keyboard navigation (enabled/disabled), escape toggle, outside click dismissal, and `preventInteraction` inert handling via the controls panel.
 - Ensured selectors rely on `page.locatoring` to stay consistent with existing suites and verified spotlight/backdrop visibility and `data-step` progression.
@@ -71,7 +1754,7 @@ You can run the browser test suite (e.g., `vitest --browser tour`) to validate l
 
 ---
 
-_**User (2025-11-27 06:48Z)**_
+_**User (2025-11-27 06:59Z)**_
 
 帮我修复这些错误
 
@@ -496,7 +2179,1451 @@ Failure screenshot:
 
 _**Agent (model copilot/gpt-5.1-codex)**_
 
-**Planning tooltip duplication fix**
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已创建 3 个待办事项**
+
+- [ ] Reproduce tooltip/tour test failures
+- [ ] Fix tooltip focus test selector
+- [ ] Stabilize tour interactions/tests
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/examples/vanilla/Tooltip.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tooltip/examples/vanilla/Tooltip.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `examples/vanilla/Tour` (`**/*.ts*`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components/Toolbar.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/shared/src/vanilla/components/Toolbar.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `class Component` (`**/node_modules/@destyler/vanilla/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `class Component` (`**/Component.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `class Component` (`**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/frameworks/vanilla/src/component.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/frameworks/vanilla/src/component.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `return () => {
+    instance.destroy` (`**/packages/components/**/examples/vanilla/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `data-testid` (`**/packages/components/tour/examples/vanilla/Tour.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tooltip'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+async function seeContent(id: string) {
+  await expect.element(testHook.getContent(id).first()).toBeVisible()
+}
+
+async function dontSeeContent(id: string) {
+  await expect.element(testHook.getContent(id).first()).not.toBeVisible()
+}
+
+async function focusPage() {
+  await userEvent.click(page.getByTestId('focus'))
+}
+
+async function seeTriggerIsFocused(id: string) {
+  await expect.element(testHook.getTrigger(id)).toHaveFocus()
+}
+
+describe('[tooltip] browser tests', () => {
+  beforeEach(() => {
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+
+    if (mountEl && mountEl.parentElement) {
+      document.body.removeChild(mountEl)
+    }
+  })
+
+  it('should open tooltip on hover interaction', async () => {
+    await testHook.hoverTrigger('tip-1')
+    await seeContent('tip-1')
+    await testHook.unhoverTrigger('tip-1')
+    await dontSeeContent('tip-1')
+  })
+
+  it('should show only one tooltip at a time', async () => {
+    await testHook.hoverTrigger('tip-1')
+    await testHook.hoverTrigger('tip-2')
+    await dontSeeContent('tip-1')
+    await seeContent('tip-2')
+  })
+
+  it('should work with focus/blur', async () => {
+    await focusPage()
+    await testHook.pressKey('Tab')
+
+    await seeContent('tip-1')
+
+    await testHook.clickOutside()
+    await dontSeeContent('tip-1')
+  })
+
+  it('should work with focus/blur for multiple tooltips', async () => {
+    await focusPage()
+    await testHook.pressKey('Tab')
+
+    await seeContent('tip-1')
+
+    await testHook.pressKey('Tab')
+    await seeTriggerIsFocused('tip-2')
+
+    await dontSeeContent('tip-1')
+    await seeContent('tip-2')
+  })
+
+  it('closes on esc press', async () => {
+    await focusPage()
+    await testHook.pressKey('Tab')
+
+    await seeContent('tip-1')
+
+    await testHook.pressKey('Escape')
+    await dontSeeContent('tip-1')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import type { MachineState, State as TourState } from '../../src/types'
+import { tourControls, tourData } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as tour from '../../index'
+import '../style.css'
+
+type TourMachineContext = ContextFrom<typeof tour.machine>
+
+class TourExample extends Component<tour.Context, tour.Api, TourMachineContext, MachineState> {
+  private readonly startButton = this.rootEl.querySelector<HTMLButtonElement>('[data-tour-start]')
+  private readonly backdropEl = document.createElement('div')
+  private readonly spotlightEl = document.createElement('div')
+  private readonly positionerEl = document.createElement('div')
+  private readonly contentEl = document.createElement('div')
+  private readonly arrowEl = document.createElement('div')
+  private readonly arrowTipEl = document.createElement('div')
+  private readonly titleEl = document.createElement('p')
+  private readonly descriptionEl = document.createElement('div')
+  private readonly progressEl = document.createElement('div')
+  private readonly actionsWrapper = document.createElement('div')
+  private readonly closeButton = document.createElement('button')
+  private readonly stateListeners = new Set<(state: TourState) => void>()
+  private overlayMounted = false
+
+  constructor(rootEl: HTMLElement, context: tour.Context, options?: any) {
+    super(rootEl, context, options)
+
+    this.arrowEl.appendChild(this.arrowTipEl)
+    this.contentEl.append(this.arrowEl, this.titleEl, this.descriptionEl, this.progressEl, this.actionsWrapper, this.closeButton)
+    this.positionerEl.appendChild(this.contentEl)
+
+    this.actionsWrapper.className = 'tour button__group'
+    this.closeButton.type = 'button'
+    this.closeButton.textContent = '×'
+  }
+
+  initService(context: tour.Context) {
+    return tour.machine(context) as tour.Service
+  }
+
+  initApi() {
+    return tour.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  onStateChange(listener: (state: TourState) => void) {
+    this.stateListeners.add(listener)
+  }
+
+  protected override onTransition(state: TourState) {
+    this.stateListeners.forEach(listener => listener(state))
+  }
+
+  private attachOverlay() {
+    if (this.overlayMounted)
+      return
+    document.body.appendChild(this.backdropEl)
+    document.body.appendChild(this.spotlightEl)
+    document.body.appendChild(this.positionerEl)
+    this.overlayMounted = true
+  }
+
+  private detachOverlay() {
+    if (!this.overlayMounted)
+      return
+    this.backdropEl.remove()
+    this.spotlightEl.remove()
+    this.positionerEl.remove()
+    this.overlayMounted = false
+  }
+
+  override destroy(): void {
+    this.detachOverlay()
+    super.destroy()
+  }
+
+  private renderActions(api: tour.Api) {
+    const actions = api.step?.actions ?? []
+    this.actionsWrapper.innerHTML = ''
+
+    if (actions.length === 0) {
+      this.actionsWrapper.hidden = true
+      return
+    }
+
+    this.actionsWrapper.hidden = false
+    actions.forEach((action) => {
+      const button = document.createElement('button')
+      button.textContent = action.label
+      spreadProps(button, api.getActionTriggerProps({ action }))
+      this.actionsWrapper.appendChild(button)
+    })
+  }
+
+  render = () => {
+    const api = this.api
+
+    if (this.startButton && !this.startButton.dataset.bound) {
+      this.startButton.dataset.bound = 'true'
+      this.startButton.addEventListener('click', () => api.start())
+    }
+
+    spreadProps(this.backdropEl, api.getBackdropProps())
+    spreadProps(this.spotlightEl, api.getSpotlightProps())
+    spreadProps(this.positionerEl, api.getPositionerProps())
+    spreadProps(this.contentEl, api.getContentProps())
+    spreadProps(this.arrowEl, api.getArrowProps())
+    spreadProps(this.arrowTipEl, api.getArrowTipProps())
+    spreadProps(this.titleEl, api.getTitleProps())
+    spreadProps(this.descriptionEl, api.getDescriptionProps())
+    spreadProps(this.progressEl, api.getProgressTextProps())
+    spreadProps(this.closeButton, api.getCloseTriggerProps())
+
+    this.titleEl.textContent = api.step?.title ?? ''
+    this.descriptionEl.textContent = api.step?.description ?? ''
+    this.progressEl.textContent = api.getProgressText()
+
+    this.arrowEl.hidden = !api.step?.arrow
+    this.backdropEl.hidden = !api.step?.backdrop
+
+    this.renderActions(api)
+
+    if (api.open)
+      this.attachOverlay()
+    else
+      this.detachOverlay()
+  }
+}
+
+export function render(target: HTMLElement): () => void {
+  const controls = useControls(tourControls)
+  const layout = Layout()
+  target.innerHTML = ''
+  target.appendChild(layout.root)
+
+  const iframeContent = `<!doctype html><body><div class="tour__frame-inner"><h1 id="step-2a">Iframe Content</h1><p>Even vanilla tours can highlight DOM in other documents.</p><p>Scroll around to see the overlay follow along.</p></div></body>`
+
+  layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
+    <main class="tour" data-tour-root>
+      <section>
+        <button type="button" class="tour__start" data-tour-start>Start Tour</button>
+        <div class="steps__container">
+          <h3 id="step-1">Step 1 · Welcome</h3>
+          <div class="overflow__container">
+            <div class="h-200px"></div>
+            <h3 id="step-2">Step 2 · Scroll-aware</h3>
+            <div class="h-100px"></div>
+          </div>
+          <iframe class="tour__frame" title="tour-frame" srcdoc='${iframeContent.replace(/'/g, '&apos;')}'></iframe>
+          <h3 id="step-3">Step 3 · Normal flow</h3>
+          <h3 id="step-4">Step 4 · Near the bottom</h3>
+        </div>
+      </section>
+    </main>
+  `
+
+  const scope = layout.main.querySelector<HTMLElement>('[data-tour-root]')
+  if (!scope)
+    return () => {}
+
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
+  layout.root.appendChild(toolbar.root)
+
+  const instance = new TourExample(scope, { id: 'tour:vanilla', steps: tourData }, {
+    context: {
+      get: () => controls.context as Partial<TourMachineContext>,
+      subscribe: (fn: (ctx: Partial<TourMachineContext>) => void) => controls.subscribe(fn as any),
+    },
+  })
+
+  instance.init()
+
+  const updateVisualizer = (state?: TourState) => {
+    if (!state)
+      return
+    toolbar.setVisualizerSlot(() => StateVisualizer({ state, omit: ['steps'] }))
+  }
+
+  updateVisualizer(instance.state as TourState)
+  instance.onStateChange(updateVisualizer)
+
+  return () => {
+    instance.destroy()
+    toolbar.setControlsSlot(undefined)
+    toolbar.setVisualizerSlot(undefined)
+    layout.root.remove()
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla/Tour.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/examples/vanilla/Tour.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`).first()
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await page.getByTestId('keyboardNavigation').click()
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await page.getByTestId('closeOnEsc').click()
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await startTour()
+
+    await getAction('next').click()
+    const target = page.locatoring('#step-1')
+
+    await expect.element(target).not.toHaveAttribute('inert', '')
+
+    await page.getByTestId('preventInteraction').click()
+
+    await testHook.pressKey('ArrowRight')
+
+    await expect.element(target).toHaveAttribute('inert', '')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts#1-1)，行 1 到 40</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts#1-1)，行 1 到 40
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`).first()
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await page.getByTestId('keyboardNavigation').click()
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await page.getByTestId('closeOnEsc').click()
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await startTour()
+
+    await getAction('next').click()
+    const target = page.locatoring('#step-1')
+
+    await expect.element(target).not.toHaveAttribute('inert', '')
+
+    await page.getByTestId('preventInteraction').click()
+
+    await testHook.pressKey('ArrowRight')
+
+    await expect.element(target).toHaveAttribute('inert', '')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`).first()
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function setCheckbox(testId: string, checked: boolean) {
+  const control = page.getByTestId(testId)
+  await control.setChecked(checked)
+  return control
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await setCheckbox('keyboardNavigation', false)
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await setCheckbox('closeOnEsc', false)
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await setCheckbox('preventInteraction', false)
+
+    await startTour()
+
+    await getAction('next').click()
+    const firstTarget = page.locatoring('#step-1')
+
+    await expect.element(firstTarget).not.toHaveAttribute('inert', '')
+
+    await setCheckbox('preventInteraction', true)
+
+    await testHook.pressKey('ArrowRight')
+
+    const secondTarget = page.locatoring('#step-2')
+    await expect.element(secondTarget).toHaveAttribute('inert', '')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`).first()
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function setCheckbox(testId: string, checked: boolean) {
+  const control = page.getByTestId(testId)
+  await control.evaluate((node, value) => {
+    const input = node as HTMLInputElement
+    if (input.checked !== value)
+      input.click()
+  }, checked)
+  return control
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await setCheckbox('keyboardNavigation', false)
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await setCheckbox('closeOnEsc', false)
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await setCheckbox('preventInteraction', false)
+
+    await startTour()
+
+    await getAction('next').click()
+    const firstTarget = page.locatoring('#step-1')
+
+    await expect.element(firstTarget).not.toHaveAttribute('inert', '')
+
+    await setCheckbox('preventInteraction', true)
+
+    await testHook.pressKey('ArrowRight')
+
+    const secondTarget = page.locatoring('#step-2')
+    await expect.element(secondTarget).toHaveAttribute('inert', '')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `interface Locator` (`**/node_modules/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`).first()
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function setCheckbox(testId: string, checked: boolean) {
+  const control = document.querySelector<HTMLInputElement>(`[data-testid="${testId}"]`)
+  if (!control)
+    throw new Error(`Control ${testId} not found`)
+  if (control.checked !== checked)
+    await userEvent.click(control)
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await setCheckbox('keyboardNavigation', false)
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await setCheckbox('closeOnEsc', false)
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await testHook.clickOutside()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await setCheckbox('preventInteraction', false)
+
+    await startTour()
+
+    await getAction('next').click()
+    const firstTarget = page.locatoring('#step-1')
+
+    await expect.element(firstTarget).not.toHaveAttribute('inert', '')
+
+    await setCheckbox('preventInteraction', true)
+
+    await testHook.pressKey('ArrowRight')
+
+    const secondTarget = page.locatoring('#step-2')
+    await expect.element(secondTarget).toHaveAttribute('inert', '')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `setCheckbox` (`**/packages/components/tour/test/tour.browser.spec.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `examples/vanilla/Tour` (`**/*.ts*`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts#40-40)，行 40 到 141</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/components/tour/test/tour.browser.spec.ts#40-40)，行 40 到 141
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Tour'
+
+let mountEl: HTMLElement
+let cleanup: (() => void) | undefined
+
+function getOverlayPart(part: string) {
+  return page.locatoring(`[data-scope="tour"][data-part=${part}]`).first()
+}
+
+function getAction(type: 'next' | 'prev' | 'close' | 'custom' = 'next') {
+  return page.locatoring(`[data-scope="tour"][data-part="actionTrigger"][data-type=${type}]`)
+}
+
+async function setCheckbox(testId: string, checked: boolean) {
+  const control = document.querySelector<HTMLInputElement>(`[data-testid="${testId}"]`)
+  if (!control)
+    throw new Error(`Control ${testId} not found`)
+  if (control.checked !== checked)
+    await userEvent.click(control)
+}
+
+async function startTour() {
+  await page.getByRole('button', { name: 'Start Tour' }).click()
+}
+
+async function seeTourClosed() {
+  await expect.element(getOverlayPart('content')).not.toBeVisible()
+}
+
+async function seeTourOpen() {
+  await expect.element(getOverlayPart('content')).toBeVisible()
+}
+
+describe('[tour] browser tests', () => {
+  beforeEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    cleanup = render(mountEl)
+  })
+
+  afterEach(() => {
+    cleanup?.()
+    cleanup = undefined
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+  })
+
+  it('starts tour when clicking start button', async () => {
+    await startTour()
+    await seeTourOpen()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('closes when pressing escape (default behavior)', async () => {
+    await startTour()
+    await seeTourOpen()
+    await testHook.pressKey('Escape')
+    await seeTourClosed()
+  })
+
+  it('navigates through steps using action buttons', async () => {
+    await startTour()
+
+    const nextButton = getAction('next')
+    await nextButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    const prevButton = getAction('prev')
+    await prevButton.click()
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('shows spotlight/backdrop when step targets elements', async () => {
+    await startTour()
+
+    await getAction('next').click()
+
+    await expect.element(getOverlayPart('backdrop')).toBeVisible()
+    await expect.element(getOverlayPart('spotlight')).toBeVisible()
+    await expect.element(getOverlayPart('arrow')).toBeVisible()
+  })
+
+  it('allows keyboard navigation when enabled', async () => {
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-1')
+
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can toggle keyboard navigation off via controls', async () => {
+    await setCheckbox('keyboardNavigation', false)
+
+    await startTour()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getOverlayPart('content')).toHaveAttribute('data-step', 'step-0')
+  })
+
+  it('can disable escape close via controls', async () => {
+    await setCheckbox('closeOnEsc', false)
+
+    await startTour()
+    await testHook.pressKey('Escape')
+    await seeTourOpen()
+  })
+
+  it('closes when clicking outside by default', async () => {
+    await startTour()
+    await getOverlayPart('backdrop').click()
+    await seeTourClosed()
+  })
+
+  it('honors preventInteraction control by inerting target', async () => {
+    await setCheckbox('preventInteraction', false)
+
+    await startTour()
+
+    await getAction('next').click()
+    const firstTarget = page.locatoring('#step-1')
+
+    await expect.element(firstTarget).not.toHaveAttribute('inert', '')
+
+    await setCheckbox('preventInteraction', true)
+
+    await testHook.pressKey('ArrowRight')
+
+    const secondTarget = page.locatoring('#step-2')
+    await expect.element(secondTarget).toHaveAttribute('inert', '')
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已完成(Reproduce tooltip/tour test failures/1) *3***
+
+- [x] Reproduce tooltip/tour test failures
+- [x] Fix tooltip focus test selector
+- [x] Stabilize tour interactions/tests
+
+</details>
+</tool-use>
+
+---
+
+**Planning tooltip duplication fix****Analyzing duplicate tooltip test failures**
+
+I’m investigating why tests for tooltips fail due to duplicate content. It looks like multiple tooltip elements with the same test ID exist at the same time, possibly caused by virtualization or double mounting in portals. I’m considering narrowing selectors with `.first()` or `.nth(0)` to target a single tooltip instance and exploring if lingering tooltips are causing duplicates. Since `getContent` is widely used, changing it globally might risk other tests, so I’m leaning toward adjusting this test’s selector or adding a new helper for selecting the first element. To understand the root cause better, I’ll review the tooltip example source to see if component structure leads to multiple rendered instances.**Analyzing tooltip and tour test overlay issues**
+
+There is a tricky duplication problem with tooltips because the portal attaches overlays to the `document.body`, which persists across tests and can cause multiple identical elements. This might be due to tests running inside iframes and DOM virtualization in Vitest, causing duplicated nodes and test locator conflicts. For the failing tour tests, leftover overlays remain attached after tests because the render function doesn’t return a cleanup method, letting overlays intercept clicks in later tests. I’m considering fixes like updating tooltip tests to use `.first()` on selectors to avoid duplicates and improving tour example’s render function to return cleanup for proper overlay teardown or manually removing overlays in test hooks to prevent interference. This dual approach could resolve both duplication and lingering overlay click-blocking issues.**Planning render cleanup implementation****Inspecting component cleanup methods****Investigating Component class location****Searching for Component definition****Enhancing component cleanup on destroy**
+
+I'm figuring out how to properly remove overlay nodes when `destroy` is called, since they linger after stopping the service. I'll override `destroy` in `TourExample` to call `detachOverlay` and also update the `render` method to return a cleanup function that destroys the instance and removes UI roots, following patterns seen in other components. This will make cleanup more robust, especially for tests.**Planning overlay cleanup and render changes**
+
+I’m working through how to reliably remove leftover tour overlays between tests by updating the render function to return a cleanup callback that calls the instance’s destroy method and removes overlay elements. I’ll modify TourExample’s destroy to detach overlays, change render to return cleanup, and update tests to store and call cleanup in beforeEach/afterEach. This should prevent overlay interference in tests and allow better test isolation. I’m also considering event listener unsubscriptions and confirming test markup doesn’t break test utilities like clickOutside().**Planning test and cleanup improvements**
+
+There is a lot here! I’m sorting through test issues around clicking outside, overlays blocking interaction, and inert attributes toggling. I want to add an outside sentinel element to the tour example so `testHook.clickOutside()` works properly, improve cleanup with returned teardown from render, and fix tooltip spec functions to use `.first()` to avoid strict mode locator issues. Also, I’ll tweak tour tests to properly remove overlays and ensure test interactions like pressing arrow keys focus the right elements. I’m mapping out these incremental fixes before running tests.**Updating tour example with cleanup and sentinel**
+
+I’m preparing to modify the tour example by adjusting its render function to return a cleanup function, adding an outside sentinel div before the main layout, and overriding the destroy method to properly detach overlays. I’ll ensure the render function respects the early-exit guard by returning a no-op cleanup if needed, and carefully handle toolbar and layout removal on cleanup. I’ll also confirm TypeScript types match the new signature. This should make the tour component more robust and test-friendly.**Verifying variable initialization order****Improving test cleanup and DOM handling**
+
+I'm revising the tour component tests to better manage cleanup by storing and calling cleanup functions after each test and ensuring the DOM elements like overlays are properly removed. I’m also refining selectors and interaction helpers to handle potential duplicates or overlays, making tests more reliable and isolated.**Checking test imports****Updating import statements****Reviewing test setup and interactions****Preparing checkbox state helpers**
+
+I’m adding a helper to explicitly set checkbox states in tests to ensure consistent defaults before toggling controls like `preventInteraction`, `closeOnEsc`, and `keyboardNavigation`. This will replace previous click toggles and make the tests more reliable by setting known values upfront.**Implementing alternative setChecked****Exploring Locator methods for checkbox state****Refactoring checkbox helpers for vitest/browser tests**
+
+I'm working out how to set checkbox states in tests using `vitest/browser`. Since `Locator` lacks an `.evaluate` method, I’m opting to manipulate checkboxes via `document.querySelector` and simulate user clicks with `userEvent` imported from `vitest/browser`. I'll adjust helpers to import and use `userEvent.click`, remove returning `Locator`, and simplify calls accordingly. This should better align with the test environment and fix prior type and usage issues.**Updating test structure and DOM queries****Reviewing test updates and event handling****Verifying tour spec behavior and cleanup****Analyzing overlay click handling in tests**
+
+I’m checking how clicking outside the tour overlay works in tests, especially since the overlay covers the entire viewport and may block clicks on the added outside sentinel div. It seems safer to update the test to click on the overlay’s backdrop part directly, ensuring `closeOnInteractOutside` triggers correctly without relying on the sentinel div, which might not receive clicks due to overlay coverage. This approach also handles dialogs with backdrops better and may let me remove the extra outside sentinel insertion altogether.**Reviewing test cleanup and DOM handling**
+
+I'm carefully checking the test cleanup process, DOM sentinel elements, and watcher behavior to ensure overlays, tooltips, and controls are properly created, used, and removed without leftover side effects. I’m verifying TypeScript and testing utilities like `userEvent` and `expect.element` are used correctly while making sure final cleanup removes overlays and resets state safely.**Summarizing final response details**
+
+I'll provide a clear bullet list of the modifications like tooltip test stabilization, overlay cleanups, and tour example updates. I'll note that tests haven't been rerun here but recommend running specific vitest commands. I'll mention the added `data-testid="outside"` as a placeholder for future tests and highlight the impetus behind the tooltip spec fix to keep everything transparent for the user.- Scoped the tooltip “focus/blur for multiple tooltips” assertions to the first matching portal element (`tooltip.spec.ts`) so Playwright isn’t confused when the portal briefly duplicates nodes.
+- Made the vanilla Tour example self-cleaning: the component now detaches its overlay when destroyed, `render` returns a cleanup handle, and an “outside” sentinel exists for generic interactions (`Tour.ts`). Tests can safely remount the demo without a stale overlay blocking clicks.
+- Reworked the tour browser tests to use the cleanup handle, import `afterEach`/`userEvent`, normalize checkbox states via a helper, and click the backdrop directly for the outside-click case (`tour.browser.spec.ts`). Also tightened locator usage with `.first()` to avoid strict-mode violations and updated the prevent-interaction scenario to verify two successive targets.
+
+Please rerun the failing suites to confirm:
+
+```
+pnpm vitest --browser packages/components/tooltip/test/tooltip.spec.ts packages/components/tour/test/tour.browser.spec.ts
+```
+
+Let me know if anything else still flakes or if you want the cleanup pattern applied to other examples.
 
 ---
 

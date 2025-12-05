@@ -12,33 +12,1127 @@ _**User (2025-11-26 09:00Z)**_
 
 _**Agent (model copilot/claude-opus-4.5)**_
 
-我来帮你为 `@destyler/store` 包编写完整的 Vitest 测试。首先让我查看一下各个源文件的内容。 现在我已经理解了所有源文件的内容。让我检查一下是否已经有测试目录： 让我查看其他包中测试的结构，以保持一致性： 现在我已经了解了测试的风格。让我创建完整的测试文件： 
-```
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/clone.ts)</summary>
 
-```
 
-```
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/clone.ts)
 
-```
+</details>
+</tool-use>
 
-```
+---
 
-```
-现在让我运行测试来验证所有测试是否通过： 我发现 `clone` 函数对于 `canProxy` 返回 true 的对象不会进行深度克隆。让我分析源代码来理解这个行为，并修正测试： 我看到了！`clone` 函数在 `set` 函数中只会递归克隆 `!canProxy(val.value)` 为 true 的值。这意味着普通对象和数组（`canProxy` 返回 `true` 的）不会被深度克隆——它们会保持原来的引用。这是为了与 proxy store 配合使用的特定行为。
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/global.ts)</summary>
 
-让我修改测试以匹配实际的实现行为： 
-```
 
-```
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/global.ts)
 
-```
+</details>
+</tool-use>
 
-```
-所有测试都通过了！让我查看一下测试覆盖率报告，发现 `global.ts` 和 `proxy.ts` 有一些未覆盖的行。让我添加更多测试来提高覆盖率： 我发现 `global.ts` 中有些代码是为了处理没有 `globalThis` 的环境（如旧版浏览器），这在 Node.js 测试环境中无法覆盖。另外 `proxy.ts` 的 120-122 行需要查看： 我看到了，这是当移除最后一个监听器时清理嵌套属性监听器的代码。让我添加一些测试来覆盖这部分： 
-```
+---
 
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy.ts#1-1)，行 1 到 200</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy.ts#1-1)，行 1 到 200
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy-computed.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy-computed.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/utils.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/utils.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy.ts#200-200)，行 200 到 259</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy.ts#200-200)，行 200 到 259
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/store",
+  "relativeWorkspacePath": "store"
+}
 ```
-现在让我创建一个入口文件的测试，确保导出功能正常： 非常好！所有 148 个测试都通过了，覆盖率达到了 97.65%！`proxy.ts` 现在是 100% 行覆盖率。`global.ts` 的未覆盖代码是用于处理没有 `globalThis` 的旧环境的回退代码，在 Node.js 测试环境中无法测试。
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/package.json)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/package.json)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/packages/**/test/*.test.ts&#96; 匹配的文件",
+  "pastTenseMessage": "搜索与 &#96;**/packages/**/test/*.test.ts&#96; 匹配的文件，20 匹配项",
+  "resultDetails": [
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/tree.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/tree.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/tree.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/list.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/list.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/list.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/grid.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/grid.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/collection/test/grid.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/list.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/list.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/list.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/date.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/date.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/date.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/byte.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/byte.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/i18n/test/byte.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/parse-date.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/parse-date.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/parse-date.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-month-names.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-month-names.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-month-names.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/stringify/test/format-highlight.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/stringify/test/format-highlight.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/stringify/test/format-highlight.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-decade-range.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-decade-range.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-decade-range.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/assertion.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/assertion.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/assertion.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/date.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/date.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/date.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-month-days.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-month-days.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-month-days.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-start-of-week.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-start-of-week.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/get-start-of-week.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/format.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/format.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/format.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/normalize-year.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/normalize-year.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/date/test/normalize-year.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/color/test/color.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/color/test/color.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/color/test/color.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/frameworks/react/test/normalize-props.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/frameworks/react/test/normalize-props.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/frameworks/react/test/normalize-props.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/rect/test/rect.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/rect/test/rect.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/rect/test/rect.test.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/xstate/test/machine-actions.test.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/xstate/test/machine-actions.test.ts",
+      "path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/xstate/test/machine-actions.test.ts",
+      "scheme": "file"
+    }
+  ],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/color/test/color.test.ts#1-1)，行 1 到 100</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/shareds/color/test/color.test.ts#1-1)，行 1 到 100
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/clone.test.ts",
+  "relativeWorkspacePath": "clone.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/clone.test.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/clone.test.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it } from 'vitest'\nimport { clone } from '../src/clone'\n\ndescribe('clone', () =&gt; {\n  describe('primitive values', () =&gt; {\n    it('should return primitive values as-is', () =&gt; {\n      expect(clone(42)).toBe(42)\n      expect(clone('hello')).toBe('hello')\n      expect(clone(true)).toBe(true)\n      expect(clone(false)).toBe(false)\n      expect(clone(null)).toBe(null)\n      expect(clone(undefined)).toBe(undefined)\n      expect(clone(Symbol.for('test'))).toBe(Symbol.for('test'))\n    })\n\n    it('should return NaN and Infinity correctly', () =&gt; {\n      expect(Number.isNaN(clone(Number.NaN))).toBe(true)\n      expect(clone(Number.POSITIVE_INFINITY)).toBe(Number.POSITIVE_INFINITY)\n      expect(clone(Number.NEGATIVE_INFINITY)).toBe(Number.NEGATIVE_INFINITY)\n    })\n  })\n\n  describe('plain objects', () =&gt; {\n    it('should clone a simple object', () =&gt; {\n      const original = { a: 1, b: 'hello', c: true }\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n    })\n\n    it('should clone nested objects', () =&gt; {\n      const original = {\n        a: 1,\n        b: {\n          c: 2,\n          d: {\n            e: 3,\n          },\n        },\n      }\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      expect(cloned.b).not.toBe(original.b)\n      expect(cloned.b.d).not.toBe(original.b.d)\n    })\n\n    it('should clone objects with null prototype', () =&gt; {\n      const original = Object.create(null)\n      original.a = 1\n      original.b = 2\n\n      const cloned = clone(original)\n\n      expect(cloned.a).toBe(1)\n      expect(cloned.b).toBe(2)\n      expect(Object.getPrototypeOf(cloned)).toBe(null)\n    })\n\n    it('should clone objects with custom prototype', () =&gt; {\n      const proto = { greet() { return 'hello' } }\n      const original = Object.create(proto)\n      original.name = 'test'\n\n      const cloned = clone(original)\n\n      expect(cloned.name).toBe('test')\n      expect(Object.getPrototypeOf(cloned)).toBe(proto)\n      expect(cloned.greet()).toBe('hello')\n    })\n\n    it('should handle non-enumerable properties', () =&gt; {\n      const original: { visible: number, hidden?: number } = { visible: 1 }\n      Object.defineProperty(original, 'hidden', {\n        value: 2,\n        enumerable: false,\n        configurable: true,\n        writable: true,\n      })\n\n      const cloned = clone(original)\n\n      expect(cloned.visible).toBe(1)\n      expect(cloned.hidden).toBe(2)\n      expect(Object.getOwnPropertyDescriptor(cloned, 'hidden')?.enumerable).toBe(false)\n    })\n\n    it('should handle getter and setter properties', () =&gt; {\n      let value = 10\n      const original: { value: number } = {} as any\n      Object.defineProperty(original, 'value', {\n        get() { return value },\n        set(v) { value = v },\n        enumerable: true,\n        configurable: true,\n      })\n\n      const cloned = clone(original)\n\n      expect(Object.getOwnPropertyDescriptor(cloned, 'value')?.get).toBeDefined()\n      expect(Object.getOwnPropertyDescriptor(cloned, 'value')?.set).toBeDefined()\n    })\n  })\n\n  describe('arrays', () =&gt; {\n    it('should clone a simple array', () =&gt; {\n      const original = [1, 2, 3, 4, 5]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n    })\n\n    it('should clone nested arrays', () =&gt; {\n      const original = [[1, 2], [3, [4, 5]]]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      expect(cloned[0]).not.toBe(original[0])\n      expect(cloned[1]).not.toBe(original[1])\n      expect(cloned[1][1]).not.toBe(original[1][1])\n    })\n\n    it('should clone arrays with mixed types', () =&gt; {\n      const original = [1, 'hello', true, { a: 1 }, [2, 3]]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      expect(cloned[3]).not.toBe(original[3])\n      expect(cloned[4]).not.toBe(original[4])\n    })\n\n    it('should preserve array length property', () =&gt; {\n      const original = [1, 2, 3]\n      const cloned = clone(original)\n\n      expect(cloned.length).toBe(original.length)\n    })\n\n    it('should clone sparse arrays', () =&gt; {\n      const original: (number | undefined)[] = []\n      original[0] = 1\n      original[5] = 5\n\n      const cloned = clone(original)\n\n      expect(cloned.length).toBe(6)\n      expect(cloned[0]).toBe(1)\n      expect(cloned[5]).toBe(5)\n      expect(1 in cloned).toBe(false)\n    })\n  })\n\n  describe('Set', () =&gt; {\n    it('should clone a Set with primitive values', () =&gt; {\n      const original = new Set([1, 2, 3, 'hello'])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Set)\n      expect(cloned).not.toBe(original)\n      expect(cloned.size).toBe(original.size)\n      expect(cloned.has(1)).toBe(true)\n      expect(cloned.has(2)).toBe(true)\n      expect(cloned.has(3)).toBe(true)\n      expect(cloned.has('hello')).toBe(true)\n    })\n\n    it('should clone a Set with object values', () =&gt; {\n      const obj1 = { a: 1 }\n      const obj2 = { b: 2 }\n      const original = new Set([obj1, obj2])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Set)\n      expect(cloned.size).toBe(2)\n\n      // Objects in the cloned Set should be clones, not the same references\n      const clonedArray = Array.from(cloned)\n      expect(clonedArray[0]).not.toBe(obj1)\n      expect(clonedArray[1]).not.toBe(obj2)\n    })\n  })\n\n  describe('Map', () =&gt; {\n    it('should clone a Map with primitive keys and values', () =&gt; {\n      const original = new Map&lt;string, number&gt;([\n        ['a', 1],\n        ['b', 2],\n        ['c', 3],\n      ])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Map)\n      expect(cloned).not.toBe(original)\n      expect(cloned.size).toBe(original.size)\n      expect(cloned.get('a')).toBe(1)\n      expect(cloned.get('b')).toBe(2)\n      expect(cloned.get('c')).toBe(3)\n    })\n\n    it('should clone a Map with object keys and values', () =&gt; {\n      const key1 = { id: 1 }\n      const key2 = { id: 2 }\n      const value1 = { name: 'one' }\n      const value2 = { name: 'two' }\n      const original = new Map([\n        [key1, value1],\n        [key2, value2],\n      ])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Map)\n      expect(cloned.size).toBe(2)\n\n      // Keys and values should be cloned\n      const clonedEntries = Array.from(cloned.entries())\n      expect(clonedEntries[0][0]).not.toBe(key1)\n      expect(clonedEntries[0][1]).not.toBe(value1)\n    })\n  })\n\n  describe('Date', () =&gt; {\n    it('should clone a Date object', () =&gt; {\n      const original = new Date('2023-01-15T12:00:00Z')\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Date)\n      expect(cloned).not.toBe(original)\n      expect(cloned.getTime()).toBe(original.getTime())\n    })\n\n    it('should clone Date with different timestamps', () =&gt; {\n      const dates = [\n        new Date(0),\n        new Date('1999-12-31T23:59:59Z'),\n        new Date('2099-06-15T10:30:00Z'),\n      ]\n\n      dates.forEach((original) =&gt; {\n        const cloned = clone(original)\n        expect(cloned.getTime()).toBe(original.getTime())\n        expect(cloned).not.toBe(original)\n      })\n    })\n  })\n\n  describe('RegExp', () =&gt; {\n    it('should clone a RegExp without flags', () =&gt; {\n      const original = /hello/\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(RegExp)\n      expect(cloned).not.toBe(original)\n      expect(cloned.source).toBe(original.source)\n      expect(cloned.flags).toBe(original.flags)\n    })\n\n    it('should clone a RegExp with flags', () =&gt; {\n      const original = /hello/gi\n      const cloned = clone(original)\n\n      expect(cloned.source).toBe('hello')\n      expect(cloned.flags).toBe('gi')\n    })\n\n    it('should clone complex RegExp patterns', () =&gt; {\n      const original = /^[a-z]+\\d{2,4}$/gim\n      const cloned = clone(original)\n\n      expect(cloned.source).toBe(original.source)\n      expect(cloned.flags).toBe(original.flags)\n      expect(cloned.test('abc123')).toBe(original.test('abc123'))\n    })\n  })\n\n  describe('ArrayBuffer and TypedArrays', () =&gt; {\n    it('should clone an ArrayBuffer', () =&gt; {\n      const original = new ArrayBuffer(8)\n      const view = new Uint8Array(original)\n      view.set([1, 2, 3, 4, 5, 6, 7, 8])\n\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(ArrayBuffer)\n      expect(cloned).not.toBe(original)\n      expect(cloned.byteLength).toBe(original.byteLength)\n\n      const clonedView = new Uint8Array(cloned)\n      expect(Array.from(clonedView)).toEqual([1, 2, 3, 4, 5, 6, 7, 8])\n    })\n\n    it('should clone Uint8Array', () =&gt; {\n      const original = new Uint8Array([1, 2, 3, 4, 5])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Uint8Array)\n      expect(cloned).not.toBe(original)\n      expect(Array.from(cloned)).toEqual(Array.from(original))\n    })\n\n    it('should clone Int32Array', () =&gt; {\n      const original = new Int32Array([100, 200, -300, 400])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Int32Array)\n      expect(cloned).not.toBe(original)\n      expect(Array.from(cloned)).toEqual(Array.from(original))\n    })\n\n    it('should clone Float64Array', () =&gt; {\n      const original = new Float64Array([1.1, 2.2, 3.3])\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Float64Array)\n      expect(cloned).not.toBe(original)\n      expect(Array.from(cloned)).toEqual(Array.from(original))\n    })\n  })\n\n  describe('DataView', () =&gt; {\n    it('should clone a DataView', () =&gt; {\n      const buffer = new ArrayBuffer(16)\n      const original = new DataView(buffer)\n      original.setInt32(0, 42)\n      original.setFloat32(4, 3.14)\n\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(DataView)\n      expect(cloned).not.toBe(original)\n      expect(cloned.buffer).not.toBe(original.buffer)\n      expect(cloned.getInt32(0)).toBe(42)\n      expect(cloned.getFloat32(4)).toBeCloseTo(3.14, 5)\n    })\n  })\n\n  describe('Blob', () =&gt; {\n    it('should clone a Blob', () =&gt; {\n      const original = new Blob(['hello world'], { type: 'text/plain' })\n      const cloned = clone(original)\n\n      expect(cloned).toBeInstanceOf(Blob)\n      expect(cloned).not.toBe(original)\n      expect(cloned.size).toBe(original.size)\n      expect(cloned.type).toBe(original.type)\n    })\n  })\n\n  describe('Symbol properties', () =&gt; {\n    it('should clone objects with symbol keys', () =&gt; {\n      const sym1 = Symbol('key1')\n      const sym2 = Symbol('key2')\n      const original = {\n        [sym1]: 'value1',\n        [sym2]: { nested: true },\n        regular: 'normal',\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned[sym1]).toBe('value1')\n      expect(cloned[sym2]).toEqual({ nested: true })\n      expect(cloned[sym2]).not.toBe(original[sym2])\n      expect(cloned.regular).toBe('normal')\n    })\n  })\n\n  describe('edge cases', () =&gt; {\n    it('should handle empty objects', () =&gt; {\n      expect(clone({})).toEqual({})\n    })\n\n    it('should handle empty arrays', () =&gt; {\n      expect(clone([])).toEqual([])\n    })\n\n    it('should handle deeply nested structures', () =&gt; {\n      const original = {\n        level1: {\n          level2: {\n            level3: {\n              level4: {\n                level5: { value: 'deep' },\n              },\n            },\n          },\n        },\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned.level1.level2.level3.level4.level5.value).toBe('deep')\n      expect(cloned.level1).not.toBe(original.level1)\n    })\n\n    it('should handle objects with __proto__ property', () =&gt; {\n      const original = { a: 1 }\n      Object.defineProperty(original, '__proto__', {\n        value: { custom: true },\n        enumerable: true,\n        configurable: true,\n        writable: true,\n      })\n\n      const cloned = clone(original)\n\n      expect(cloned.a).toBe(1)\n    })\n\n    it('should handle mixed complex structures', () =&gt; {\n      const original = {\n        array: [1, 2, { nested: true }],\n        set: new Set([1, 2, 3]),\n        map: new Map([['key', 'value']]),\n        date: new Date('2023-01-01'),\n        regex: /test/gi,\n        nested: {\n          array: [[1], [2]],\n        },\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned.array).toEqual(original.array)\n      expect(cloned.array).not.toBe(original.array)\n      expect(cloned.set).toEqual(original.set)\n      expect(cloned.set).not.toBe(original.set)\n      expect(cloned.map).toEqual(original.map)\n      expect(cloned.map).not.toBe(original.map)\n      expect(cloned.date.getTime()).toBe(original.date.getTime())\n      expect(cloned.date).not.toBe(original.date)\n      expect(cloned.regex.source).toBe(original.regex.source)\n      expect(cloned.regex).not.toBe(original.regex)\n    })\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_multiReplaceString">
+<details>
+<summary>Tool use: **copilot_multiReplaceString**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_multiReplaceString",
+  "isHidden": true
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"文件中的多替换字符串\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "&#96;&#96;&#96;typescript\n  describe('symbol properties', () =&gt; {\n  describe('blob', () =&gt; {\n  describe('dataView', () =&gt; {\n  describe('arrayBuffer and typedArrays', () =&gt; {\n  describe('regExp', () =&gt; {\n  describe('date', () =&gt; {\n  describe('map', () =&gt; {\n  describe('set', () =&gt; {\n&#96;&#96;&#96;\n\n",
+  "textEditContent": "  describe('symbol properties', () =&gt; {  describe('blob', () =&gt; {  describe('dataView', () =&gt; {  describe('arrayBuffer and typedArrays', () =&gt; {  describe('regExp', () =&gt; {  describe('date', () =&gt; {  describe('map', () =&gt; {  describe('set', () =&gt; {",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/global.test.ts",
+  "relativeWorkspacePath": "global.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/global.test.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/global.test.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it } from 'vitest'\nimport { globalRef, refSet } from '../src/global'\n\ndescribe('global', () =&gt; {\n  describe('globalRef', () =&gt; {\n    it('should return the value from the global object if it exists', () =&gt; {\n      const testKey = '__destyler__test_globalRef_1'\n      const value = { test: true }\n\n      // First call should create the value\n      const result1 = globalRef(testKey, () =&gt; value)\n      expect(result1).toBe(value)\n\n      // Second call should return the same value\n      const result2 = globalRef(testKey, () =&gt; ({ different: true }))\n      expect(result2).toBe(value)\n    })\n\n    it('should call the value factory only once', () =&gt; {\n      const testKey = '__destyler__test_globalRef_2'\n      let callCount = 0\n\n      globalRef(testKey, () =&gt; {\n        callCount++\n        return { count: callCount }\n      })\n\n      globalRef(testKey, () =&gt; {\n        callCount++\n        return { count: callCount }\n      })\n\n      expect(callCount).toBe(1)\n    })\n\n    it('should work with different value types', () =&gt; {\n      const numberKey = '__destyler__test_globalRef_number'\n      const stringKey = '__destyler__test_globalRef_string'\n      const arrayKey = '__destyler__test_globalRef_array'\n\n      expect(globalRef(numberKey, () =&gt; 42)).toBe(42)\n      expect(globalRef(stringKey, () =&gt; 'hello')).toBe('hello')\n      expect(globalRef(arrayKey, () =&gt; [1, 2, 3])).toEqual([1, 2, 3])\n    })\n\n    it('should store different values for different keys', () =&gt; {\n      const key1 = '__destyler__test_globalRef_different_1'\n      const key2 = '__destyler__test_globalRef_different_2'\n\n      const value1 = globalRef(key1, () =&gt; 'value1')\n      const value2 = globalRef(key2, () =&gt; 'value2')\n\n      expect(value1).toBe('value1')\n      expect(value2).toBe('value2')\n    })\n\n    it('should handle functions as values', () =&gt; {\n      const testKey = '__destyler__test_globalRef_function'\n      const fn = () =&gt; 'result'\n\n      const result = globalRef(testKey, () =&gt; fn)\n      expect(result).toBe(fn)\n      expect(result()).toBe('result')\n    })\n\n    it('should handle WeakMap as value', () =&gt; {\n      const testKey = '__destyler__test_globalRef_weakmap'\n\n      const result = globalRef(testKey, () =&gt; new WeakMap())\n      expect(result).toBeInstanceOf(WeakMap)\n\n      // Should return the same WeakMap\n      const result2 = globalRef(testKey, () =&gt; new WeakMap())\n      expect(result2).toBe(result)\n    })\n\n    it('should handle WeakSet as value', () =&gt; {\n      const testKey = '__destyler__test_globalRef_weakset'\n\n      const result = globalRef(testKey, () =&gt; new WeakSet())\n      expect(result).toBeInstanceOf(WeakSet)\n\n      // Should return the same WeakSet\n      const result2 = globalRef(testKey, () =&gt; new WeakSet())\n      expect(result2).toBe(result)\n    })\n  })\n\n  describe('refSet', () =&gt; {\n    it('should be a WeakSet', () =&gt; {\n      expect(refSet).toBeInstanceOf(WeakSet)\n    })\n\n    it('should be the same instance across multiple imports', () =&gt; {\n      // This tests that globalRef works correctly for refSet\n      const refSet2 = globalRef('__destyler__refSet', () =&gt; new WeakSet())\n      expect(refSet2).toBe(refSet)\n    })\n\n    it('should be able to add and check objects', () =&gt; {\n      const obj = { test: true }\n      refSet.add(obj)\n      expect(refSet.has(obj)).toBe(true)\n    })\n\n    it('should not have objects that were not added', () =&gt; {\n      const obj = { notAdded: true }\n      expect(refSet.has(obj)).toBe(false)\n    })\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/utils.test.ts",
+  "relativeWorkspacePath": "utils.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/utils.test.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/utils.test.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it } from 'vitest'\nimport { canProxy, isObject } from '../src/utils'\nimport { ref } from '../src/proxy'\n\ndescribe('utils', () =&gt; {\n  describe('isObject', () =&gt; {\n    it('should return true for plain objects', () =&gt; {\n      expect(isObject({})).toBe(true)\n      expect(isObject({ a: 1 })).toBe(true)\n      expect(isObject(Object.create(null))).toBe(true)\n    })\n\n    it('should return true for arrays', () =&gt; {\n      expect(isObject([])).toBe(true)\n      expect(isObject([1, 2, 3])).toBe(true)\n    })\n\n    it('should return true for other object types', () =&gt; {\n      expect(isObject(new Date())).toBe(true)\n      expect(isObject(new Map())).toBe(true)\n      expect(isObject(new Set())).toBe(true)\n      expect(isObject(/regex/)).toBe(true)\n      expect(isObject(new Error())).toBe(true)\n      expect(isObject(new WeakMap())).toBe(true)\n      expect(isObject(new WeakSet())).toBe(true)\n      expect(isObject(new ArrayBuffer(8))).toBe(true)\n      expect(isObject(Promise.resolve())).toBe(true)\n    })\n\n    it('should return false for null', () =&gt; {\n      expect(isObject(null)).toBe(false)\n    })\n\n    it('should return false for primitive values', () =&gt; {\n      expect(isObject(undefined)).toBe(false)\n      expect(isObject(42)).toBe(false)\n      expect(isObject('string')).toBe(false)\n      expect(isObject(true)).toBe(false)\n      expect(isObject(false)).toBe(false)\n      expect(isObject(Symbol('test'))).toBe(false)\n      expect(isObject(BigInt(123))).toBe(false)\n    })\n\n    it('should return false for functions', () =&gt; {\n      expect(isObject(() =&gt; {})).toBe(false)\n      expect(isObject(function () {})).toBe(false)\n      expect(isObject(async () =&gt; {})).toBe(false)\n    })\n  })\n\n  describe('canProxy', () =&gt; {\n    it('should return true for plain objects', () =&gt; {\n      expect(canProxy({})).toBe(true)\n      expect(canProxy({ a: 1, b: 2 })).toBe(true)\n      expect(canProxy(Object.create(null))).toBe(true)\n    })\n\n    it('should return true for arrays', () =&gt; {\n      expect(canProxy([])).toBe(true)\n      expect(canProxy([1, 2, 3])).toBe(true)\n      expect(canProxy(['a', 'b', 'c'])).toBe(true)\n    })\n\n    it('should return true for nested objects and arrays', () =&gt; {\n      expect(canProxy({ nested: { a: 1 } })).toBe(true)\n      expect(canProxy([[1, 2], [3, 4]])).toBe(true)\n      expect(canProxy({ arr: [1, 2, 3] })).toBe(true)\n    })\n\n    it('should return false for null', () =&gt; {\n      expect(canProxy(null)).toBe(false)\n    })\n\n    it('should return false for primitive values', () =&gt; {\n      expect(canProxy(undefined)).toBe(false)\n      expect(canProxy(42)).toBe(false)\n      expect(canProxy('string')).toBe(false)\n      expect(canProxy(true)).toBe(false)\n      expect(canProxy(Symbol('test'))).toBe(false)\n    })\n\n    it('should return false for WeakMap', () =&gt; {\n      expect(canProxy(new WeakMap())).toBe(false)\n    })\n\n    it('should return false for WeakSet', () =&gt; {\n      expect(canProxy(new WeakSet())).toBe(false)\n    })\n\n    it('should return false for Error', () =&gt; {\n      expect(canProxy(new Error('test'))).toBe(false)\n      expect(canProxy(new TypeError('type error'))).toBe(false)\n      expect(canProxy(new RangeError('range error'))).toBe(false)\n    })\n\n    it('should return false for Date', () =&gt; {\n      expect(canProxy(new Date())).toBe(false)\n      expect(canProxy(new Date('2023-01-01'))).toBe(false)\n    })\n\n    it('should return false for RegExp', () =&gt; {\n      expect(canProxy(/test/)).toBe(false)\n      expect(canProxy(new RegExp('pattern', 'gi'))).toBe(false)\n    })\n\n    it('should return false for ArrayBuffer', () =&gt; {\n      expect(canProxy(new ArrayBuffer(8))).toBe(false)\n    })\n\n    it('should return false for Promise', () =&gt; {\n      expect(canProxy(Promise.resolve())).toBe(false)\n      expect(canProxy(new Promise(() =&gt; {}))).toBe(false)\n    })\n\n    it('should return false for objects with Symbol.iterator (except arrays)', () =&gt; {\n      expect(canProxy(new Map())).toBe(false)\n      expect(canProxy(new Set())).toBe(false)\n      expect(canProxy('string')).toBe(false)\n    })\n\n    it('should return false for objects in refSet', () =&gt; {\n      const obj = { a: 1 }\n      expect(canProxy(obj)).toBe(true)\n\n      // After adding to refSet via ref()\n      ref(obj)\n      expect(canProxy(obj)).toBe(false)\n    })\n\n    it('should return false for react elements', () =&gt; {\n      const reactElement = {\n        $$typeof: Symbol.for('react.element'),\n        props: { children: 'test' },\n      }\n      expect(canProxy(reactElement)).toBe(false)\n    })\n\n    it('should return false for vue vnodes', () =&gt; {\n      const vueVNode = {\n        __v_isVNode: true,\n        type: 'div',\n        props: {},\n      }\n      expect(canProxy(vueVNode)).toBe(false)\n    })\n\n    it('should return false for DOM elements', () =&gt; {\n      // Mock a DOM element\n      const domElement = {\n        nodeType: 1,\n        nodeName: 'DIV',\n      }\n      expect(canProxy(domElement)).toBe(false)\n    })\n\n    it('should handle edge cases', () =&gt; {\n      // Object with custom prototype\n      const customProto = Object.create({ custom: true })\n      expect(canProxy(customProto)).toBe(true)\n\n      // Empty object\n      expect(canProxy({})).toBe(true)\n\n      // Object with only symbol keys\n      const symObj = { [Symbol('key')]: 'value' }\n      expect(canProxy(symObj)).toBe(true)\n    })\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_multiReplaceString">
+<details>
+<summary>Tool use: **copilot_multiReplaceString**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_multiReplaceString",
+  "isHidden": true
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"文件中的多替换字符串\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "&#96;&#96;&#96;typescript\n      expect(canProxy(/pattern/gi)).toBe(false)\n      expect(isObject(() =&gt; {})).toBe(false)\n      expect(isObject(() =&gt; {})).toBe(false)\n      expect(isObject(new Error('error message'))).toBe(true)\nimport { describe, expect, it } from 'vitest'\nimport { ref } from '../src/proxy'\nimport { canProxy, isObject } from '../src/utils'\n&#96;&#96;&#96;\n\n",
+  "textEditContent": "      expect(canProxy(/pattern/gi)).toBe(false)      expect(isObject(() =&gt; {})).toBe(false)\n      expect(isObject(() =&gt; {})).toBe(false)      expect(isObject(new Error('error message'))).toBe(true)import { describe, expect, it } from 'vitest'\nimport { ref } from '../src/proxy'\nimport { canProxy, isObject } from '../src/utils'",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy.test.ts",
+  "relativeWorkspacePath": "proxy.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy.test.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy.test.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it, vi } from 'vitest'\nimport { getVersion, proxy, ref, snapshot, subscribe } from '../src/proxy'\n\ndescribe('proxy', () =&gt; {\n  describe('proxy function', () =&gt; {\n    it('should create a proxy from a plain object', () =&gt; {\n      const state = proxy({ count: 0 })\n      expect(state.count).toBe(0)\n    })\n\n    it('should create a proxy from an empty object', () =&gt; {\n      const state = proxy({})\n      expect(state).toEqual({})\n    })\n\n    it('should create a proxy with default empty object', () =&gt; {\n      const state = proxy()\n      expect(state).toEqual({})\n    })\n\n    it('should throw error for non-object values', () =&gt; {\n      expect(() =&gt; proxy(42 as any)).toThrow('object required')\n      expect(() =&gt; proxy('string' as any)).toThrow('object required')\n      expect(() =&gt; proxy(null as any)).toThrow('object required')\n    })\n\n    it('should allow setting properties', () =&gt; {\n      const state = proxy({ count: 0 })\n      state.count = 10\n      expect(state.count).toBe(10)\n    })\n\n    it('should allow adding new properties', () =&gt; {\n      const state = proxy&lt;{ count: number, name?: string }&gt;({ count: 0 })\n      state.name = 'test'\n      expect(state.name).toBe('test')\n    })\n\n    it('should allow deleting properties', () =&gt; {\n      const state = proxy&lt;{ count: number, name?: string }&gt;({ count: 0, name: 'test' })\n      delete state.name\n      expect(state.name).toBeUndefined()\n    })\n\n    it('should handle nested objects', () =&gt; {\n      const state = proxy({\n        user: {\n          name: 'John',\n          age: 30,\n        },\n      })\n\n      expect(state.user.name).toBe('John')\n      state.user.name = 'Jane'\n      expect(state.user.name).toBe('Jane')\n    })\n\n    it('should handle arrays', () =&gt; {\n      const state = proxy({ items: [1, 2, 3] })\n      expect(state.items).toEqual([1, 2, 3])\n\n      state.items.push(4)\n      expect(state.items).toEqual([1, 2, 3, 4])\n\n      state.items[0] = 10\n      expect(state.items[0]).toBe(10)\n    })\n\n    it('should handle deeply nested structures', () =&gt; {\n      const state = proxy({\n        level1: {\n          level2: {\n            level3: {\n              value: 'deep',\n            },\n          },\n        },\n      })\n\n      expect(state.level1.level2.level3.value).toBe('deep')\n      state.level1.level2.level3.value = 'modified'\n      expect(state.level1.level2.level3.value).toBe('modified')\n    })\n\n    it('should return the same proxy for the same initial object', () =&gt; {\n      const initial = { count: 0 }\n      const proxy1 = proxy(initial)\n      const proxy2 = proxy(initial)\n\n      expect(proxy1).toBe(proxy2)\n    })\n\n    it('should handle objects with getters and setters', () =&gt; {\n      let _value = 10\n      const state = proxy({\n        get value() {\n          return _value\n        },\n        set value(v) {\n          _value = v\n        },\n      })\n\n      expect(state.value).toBe(10)\n      state.value = 20\n      expect(state.value).toBe(20)\n    })\n\n    it('should proxy nested objects automatically', () =&gt; {\n      const state = proxy({ data: null as { value: number } | null })\n      state.data = { value: 42 }\n\n      // The nested object should also be proxied\n      expect(state.data.value).toBe(42)\n      state.data.value = 100\n      expect(state.data.value).toBe(100)\n    })\n  })\n\n  describe('subscribe', () =&gt; {\n    it('should call callback when property changes', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      subscribe(state, callback)\n      state.count = 1\n\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1)\n    })\n\n    it('should batch multiple changes in one callback by default', async () =&gt; {\n      const state = proxy({ count: 0, name: 'test' })\n      const callback = vi.fn()\n\n      subscribe(state, callback)\n      state.count = 1\n      state.count = 2\n      state.name = 'updated'\n\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1)\n      expect(callback.mock.calls[0][0]).toHaveLength(3)\n    })\n\n    it('should call callback synchronously when notifyInSync is true', () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      subscribe(state, callback, true)\n      state.count = 1\n\n      expect(callback).toHaveBeenCalledTimes(1)\n    })\n\n    it('should provide operation details in callback', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      subscribe(state, callback, true)\n      state.count = 10\n\n      expect(callback).toHaveBeenCalledWith([\n        ['set', ['count'], 10, 0],\n      ])\n    })\n\n    it('should handle delete operations', async () =&gt; {\n      const state = proxy&lt;{ count: number, name?: string }&gt;({ count: 0, name: 'test' })\n      const callback = vi.fn()\n\n      subscribe(state, callback, true)\n      delete state.name\n\n      expect(callback).toHaveBeenCalled()\n      expect(callback.mock.calls[0][0][0][0]).toBe('delete')\n    })\n\n    it('should return unsubscribe function', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      const unsubscribe = subscribe(state, callback)\n      state.count = 1\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1)\n\n      unsubscribe()\n      state.count = 2\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1) // Still 1, not called again\n    })\n\n    it('should handle nested property changes', async () =&gt; {\n      const state = proxy({ user: { name: 'John' } })\n      const callback = vi.fn()\n\n      subscribe(state, callback, true)\n      state.user.name = 'Jane'\n\n      expect(callback).toHaveBeenCalled()\n      expect(callback.mock.calls[0][0][0][1]).toEqual(['user', 'name'])\n    })\n\n    it('should handle array modifications', async () =&gt; {\n      const state = proxy({ items: [1, 2, 3] })\n      const callback = vi.fn()\n\n      subscribe(state, callback, true)\n      state.items.push(4)\n\n      expect(callback).toHaveBeenCalled()\n    })\n\n    it('should not call callback after unsubscribe', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      const unsubscribe = subscribe(state, callback, true)\n      unsubscribe()\n\n      state.count = 1\n      expect(callback).not.toHaveBeenCalled()\n    })\n\n    it('should handle multiple subscribers', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback1 = vi.fn()\n      const callback2 = vi.fn()\n\n      subscribe(state, callback1, true)\n      subscribe(state, callback2, true)\n\n      state.count = 1\n\n      expect(callback1).toHaveBeenCalledTimes(1)\n      expect(callback2).toHaveBeenCalledTimes(1)\n    })\n\n    it('should not trigger callback when value is the same', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      subscribe(state, callback)\n      state.count = 0 // Same value\n\n      await Promise.resolve()\n      expect(callback).not.toHaveBeenCalled()\n    })\n  })\n\n  describe('snapshot', () =&gt; {\n    it('should create an immutable snapshot', () =&gt; {\n      const state = proxy({ count: 0 })\n      const snap = snapshot(state)\n\n      expect(snap.count).toBe(0)\n      expect(Object.isFrozen(snap)).toBe(true)\n    })\n\n    it('should reflect current state', () =&gt; {\n      const state = proxy({ count: 0 })\n\n      const snap1 = snapshot(state)\n      expect(snap1.count).toBe(0)\n\n      state.count = 10\n      const snap2 = snapshot(state)\n      expect(snap2.count).toBe(10)\n\n      // Old snapshot should still have old value\n      expect(snap1.count).toBe(0)\n    })\n\n    it('should handle nested objects', () =&gt; {\n      const state = proxy({\n        user: { name: 'John', age: 30 },\n      })\n\n      const snap = snapshot(state)\n      expect(snap.user.name).toBe('John')\n      expect(Object.isFrozen(snap.user)).toBe(true)\n    })\n\n    it('should handle arrays', () =&gt; {\n      const state = proxy({ items: [1, 2, 3] })\n      const snap = snapshot(state)\n\n      expect(snap.items).toEqual([1, 2, 3])\n      expect(Object.isFrozen(snap.items)).toBe(true)\n    })\n\n    it('should cache snapshots with same version', () =&gt; {\n      const state = proxy({ count: 0 })\n\n      const snap1 = snapshot(state)\n      const snap2 = snapshot(state)\n\n      expect(snap1).toBe(snap2)\n    })\n\n    it('should create new snapshot after state change', () =&gt; {\n      const state = proxy({ count: 0 })\n\n      const snap1 = snapshot(state)\n      state.count = 1\n      const snap2 = snapshot(state)\n\n      expect(snap1).not.toBe(snap2)\n      expect(snap1.count).toBe(0)\n      expect(snap2.count).toBe(1)\n    })\n\n    it('should handle ref values in snapshot', () =&gt; {\n      const refObj = ref({ special: true })\n      const state = proxy({ data: refObj })\n\n      const snap = snapshot(state)\n      // ref objects should be included as-is, not frozen\n      expect(snap.data).toBe(refObj)\n    })\n  })\n\n  describe('ref', () =&gt; {\n    it('should mark object as ref', () =&gt; {\n      const obj = { value: 42 }\n      const refObj = ref(obj)\n\n      expect(refObj).toBe(obj)\n    })\n\n    it('should prevent object from being proxied', () =&gt; {\n      const obj = { value: 42 }\n      const refObj = ref(obj)\n\n      const state = proxy({ data: refObj })\n\n      // Changes to refObj should not trigger proxy behavior\n      refObj.value = 100\n      expect(state.data.value).toBe(100)\n    })\n\n    it('should preserve reference equality', () =&gt; {\n      const obj = { value: 42 }\n      const refObj = ref(obj)\n\n      const state = proxy({ data: refObj })\n      const snap = snapshot(state)\n\n      expect(snap.data).toBe(obj)\n    })\n\n    it('should work with complex objects', () =&gt; {\n      const complexObj = {\n        nested: {\n          value: 'test',\n        },\n        array: [1, 2, 3],\n      }\n      const refObj = ref(complexObj)\n\n      const state = proxy({ data: refObj })\n      expect(state.data).toBe(complexObj)\n    })\n  })\n\n  describe('getVersion', () =&gt; {\n    it('should return version number for proxy', () =&gt; {\n      const state = proxy({ count: 0 })\n      const version = getVersion(state)\n\n      expect(typeof version).toBe('number')\n    })\n\n    it('should return undefined for non-proxy objects', () =&gt; {\n      const obj = { count: 0 }\n      const version = getVersion(obj)\n\n      expect(version).toBeUndefined()\n    })\n\n    it('should increase version after changes', async () =&gt; {\n      const state = proxy({ count: 0 })\n\n      // Subscribe to ensure version is tracked\n      const callback = vi.fn()\n      subscribe(state, callback)\n\n      const version1 = getVersion(state)\n      state.count = 1\n      await Promise.resolve()\n      const version2 = getVersion(state)\n\n      expect(version2).toBeGreaterThan(version1!)\n    })\n\n    it('should track nested changes', async () =&gt; {\n      const state = proxy({ user: { name: 'John' } })\n      const callback = vi.fn()\n      subscribe(state, callback)\n\n      const version1 = getVersion(state)\n      state.user.name = 'Jane'\n      await Promise.resolve()\n      const version2 = getVersion(state)\n\n      expect(version2).toBeGreaterThan(version1!)\n    })\n  })\n\n  describe('edge cases', () =&gt; {\n    it('should handle circular references carefully', () =&gt; {\n      interface CircularState {\n        name: string\n        self?: CircularState\n      }\n      const state = proxy&lt;CircularState&gt;({ name: 'root' })\n      state.self = state\n\n      expect(state.self).toBe(state)\n      expect(state.self.name).toBe('root')\n    })\n\n    it('should handle replacing nested proxy', async () =&gt; {\n      const state = proxy({\n        data: { value: 1 },\n      })\n\n      const callback = vi.fn()\n      subscribe(state, callback, true)\n\n      state.data = { value: 2 }\n      expect(callback).toHaveBeenCalled()\n      expect(state.data.value).toBe(2)\n    })\n\n    it('should handle array methods', async () =&gt; {\n      const state = proxy({ items: [3, 1, 2] })\n      const callback = vi.fn()\n      subscribe(state, callback, true)\n\n      state.items.sort()\n      expect(state.items).toEqual([1, 2, 3])\n    })\n\n    it('should handle splice operation', async () =&gt; {\n      const state = proxy({ items: [1, 2, 3, 4, 5] })\n\n      state.items.splice(2, 1)\n      expect(state.items).toEqual([1, 2, 4, 5])\n\n      state.items.splice(1, 0, 10, 20)\n      expect(state.items).toEqual([1, 10, 20, 2, 4, 5])\n    })\n\n    it('should handle Object.assign', () =&gt; {\n      const state = proxy({ a: 1, b: 2 })\n\n      Object.assign(state, { b: 20, c: 30 })\n      expect(state).toEqual({ a: 1, b: 20, c: 30 })\n    })\n\n    it('should handle spread operator for reading', () =&gt; {\n      const state = proxy({ a: 1, b: 2 })\n      const copy = { ...state }\n\n      expect(copy).toEqual({ a: 1, b: 2 })\n    })\n\n    it('should not proxy Date objects', () =&gt; {\n      const date = new Date('2023-01-01')\n      const state = proxy({ date })\n\n      expect(state.date).toBe(date)\n      expect(state.date instanceof Date).toBe(true)\n    })\n\n    it('should not proxy Map objects', () =&gt; {\n      const map = new Map([['key', 'value']])\n      const state = proxy({ map })\n\n      expect(state.map).toBe(map)\n      expect(state.map instanceof Map).toBe(true)\n    })\n\n    it('should not proxy Set objects', () =&gt; {\n      const set = new Set([1, 2, 3])\n      const state = proxy({ set })\n\n      expect(state.set).toBe(set)\n      expect(state.set instanceof Set).toBe(true)\n    })\n\n    it('should handle null values', () =&gt; {\n      const state = proxy&lt;{ value: null | { data: number } }&gt;({ value: null })\n\n      expect(state.value).toBe(null)\n      state.value = { data: 42 }\n      expect(state.value.data).toBe(42)\n    })\n\n    it('should handle undefined values', () =&gt; {\n      const state = proxy&lt;{ value?: number }&gt;({})\n\n      expect(state.value).toBeUndefined()\n      state.value = 42\n      expect(state.value).toBe(42)\n    })\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts",
+  "relativeWorkspacePath": "proxy-computed.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it } from 'vitest'\nimport { proxyWithComputed } from '../src/proxy-computed'\nimport { snapshot } from '../src/proxy'\n\ndescribe('proxyWithComputed', () =&gt; {\n  describe('basic computed properties', () =&gt; {\n    it('should create computed property from function', () =&gt; {\n      const state = proxyWithComputed(\n        { count: 1 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      expect(state.count).toBe(1)\n      expect(state.doubled).toBe(2)\n    })\n\n    it('should update computed when state changes', () =&gt; {\n      const state = proxyWithComputed(\n        { count: 1 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      expect(state.doubled).toBe(2)\n      state.count = 5\n      expect(state.doubled).toBe(10)\n    })\n\n    it('should handle multiple computed properties', () =&gt; {\n      const state = proxyWithComputed(\n        { count: 10 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n          tripled: snap =&gt; snap.count * 3,\n          isEven: snap =&gt; snap.count % 2 === 0,\n        },\n      )\n\n      expect(state.doubled).toBe(20)\n      expect(state.tripled).toBe(30)\n      expect(state.isEven).toBe(true)\n\n      state.count = 7\n      expect(state.doubled).toBe(14)\n      expect(state.tripled).toBe(21)\n      expect(state.isEven).toBe(false)\n    })\n\n    it('should handle computed properties depending on multiple state values', () =&gt; {\n      const state = proxyWithComputed(\n        { firstName: 'John', lastName: 'Doe' },\n        {\n          fullName: snap =&gt; &#96;${snap.firstName} ${snap.lastName}&#96;,\n        },\n      )\n\n      expect(state.fullName).toBe('John Doe')\n      state.firstName = 'Jane'\n      expect(state.fullName).toBe('Jane Doe')\n      state.lastName = 'Smith'\n      expect(state.fullName).toBe('Jane Smith')\n    })\n\n    it('should handle nested state properties', () =&gt; {\n      const state = proxyWithComputed(\n        {\n          user: {\n            name: 'John',\n            age: 30,\n          },\n        },\n        {\n          greeting: snap =&gt; &#96;Hello, ${snap.user.name}!&#96;,\n          isAdult: snap =&gt; snap.user.age &gt;= 18,\n        },\n      )\n\n      expect(state.greeting).toBe('Hello, John!')\n      expect(state.isAdult).toBe(true)\n\n      state.user.name = 'Jane'\n      expect(state.greeting).toBe('Hello, Jane!')\n\n      state.user.age = 15\n      expect(state.isAdult).toBe(false)\n    })\n  })\n\n  describe('computed with getter and setter', () =&gt; {\n    it('should support computed with get and set', () =&gt; {\n      const state = proxyWithComputed(\n        { count: 1 },\n        {\n          doubled: {\n            get: snap =&gt; snap.count * 2,\n            set: (state, newValue) =&gt; {\n              state.count = newValue / 2\n            },\n          },\n        },\n      )\n\n      expect(state.doubled).toBe(2)\n      state.doubled = 10\n      expect(state.count).toBe(5)\n      expect(state.doubled).toBe(10)\n    })\n\n    it('should handle multiple computed with setters', () =&gt; {\n      const state = proxyWithComputed(\n        { celsius: 0 },\n        {\n          fahrenheit: {\n            get: snap =&gt; snap.celsius * 9 / 5 + 32,\n            set: (state, newValue) =&gt; {\n              state.celsius = (newValue - 32) * 5 / 9\n            },\n          },\n          kelvin: {\n            get: snap =&gt; snap.celsius + 273.15,\n            set: (state, newValue) =&gt; {\n              state.celsius = newValue - 273.15\n            },\n          },\n        },\n      )\n\n      expect(state.celsius).toBe(0)\n      expect(state.fahrenheit).toBe(32)\n      expect(state.kelvin).toBe(273.15)\n\n      state.fahrenheit = 212\n      expect(state.celsius).toBe(100)\n      expect(state.kelvin).toBeCloseTo(373.15)\n\n      state.kelvin = 0\n      expect(state.celsius).toBeCloseTo(-273.15)\n    })\n\n    it('should work with only getter (no setter)', () =&gt; {\n      const state = proxyWithComputed(\n        { count: 5 },\n        {\n          squared: {\n            get: snap =&gt; snap.count ** 2,\n          },\n        },\n      )\n\n      expect(state.squared).toBe(25)\n      state.count = 3\n      expect(state.squared).toBe(9)\n    })\n  })\n\n  describe('error handling', () =&gt; {\n    it('should throw error if computed key already exists in initial object', () =&gt; {\n      expect(() =&gt; {\n        proxyWithComputed(\n          { count: 1, doubled: 2 },\n          {\n            doubled: snap =&gt; snap.count * 2,\n          },\n        )\n      }).toThrow('object property already defined')\n    })\n\n    it('should throw error for multiple conflicting keys', () =&gt; {\n      expect(() =&gt; {\n        proxyWithComputed(\n          { a: 1, b: 2 },\n          {\n            a: () =&gt; 10,\n          },\n        )\n      }).toThrow('object property already defined')\n    })\n  })\n\n  describe('integration with snapshot', () =&gt; {\n    it('should work with snapshot function', () =&gt; {\n      const state = proxyWithComputed(\n        { count: 5 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      const snap = snapshot(state)\n      expect(snap.count).toBe(5)\n      // Note: computed properties may not be included in snapshot\n      // depending on implementation\n    })\n  })\n\n  describe('complex computed scenarios', () =&gt; {\n    it('should handle array computations', () =&gt; {\n      const state = proxyWithComputed(\n        { items: [1, 2, 3, 4, 5] },\n        {\n          sum: snap =&gt; snap.items.reduce((a, b) =&gt; a + b, 0),\n          average: snap =&gt; snap.items.reduce((a, b) =&gt; a + b, 0) / snap.items.length,\n          count: snap =&gt; snap.items.length,\n        },\n      )\n\n      expect(state.sum).toBe(15)\n      expect(state.average).toBe(3)\n      expect(state.count).toBe(5)\n\n      state.items.push(6)\n      expect(state.sum).toBe(21)\n      expect(state.average).toBe(3.5)\n      expect(state.count).toBe(6)\n    })\n\n    it('should handle object computations', () =&gt; {\n      const state = proxyWithComputed(\n        {\n          items: [\n            { name: 'Apple', price: 1.5, quantity: 3 },\n            { name: 'Banana', price: 0.5, quantity: 5 },\n          ],\n        },\n        {\n          totalPrice: snap =&gt; snap.items.reduce((sum, item) =&gt; sum + item.price * item.quantity, 0),\n          totalQuantity: snap =&gt; snap.items.reduce((sum, item) =&gt; sum + item.quantity, 0),\n        },\n      )\n\n      expect(state.totalPrice).toBe(1.5 * 3 + 0.5 * 5)\n      expect(state.totalQuantity).toBe(8)\n\n      state.items[0].quantity = 10\n      expect(state.totalPrice).toBe(1.5 * 10 + 0.5 * 5)\n    })\n\n    it('should handle boolean computations', () =&gt; {\n      const state = proxyWithComputed(\n        { todos: [{ done: true }, { done: false }, { done: true }] },\n        {\n          allDone: snap =&gt; snap.todos.every(t =&gt; t.done),\n          anyDone: snap =&gt; snap.todos.some(t =&gt; t.done),\n          noneLeft: snap =&gt; snap.todos.filter(t =&gt; !t.done).length === 0,\n          remaining: snap =&gt; snap.todos.filter(t =&gt; !t.done).length,\n        },\n      )\n\n      expect(state.allDone).toBe(false)\n      expect(state.anyDone).toBe(true)\n      expect(state.noneLeft).toBe(false)\n      expect(state.remaining).toBe(1)\n\n      state.todos[1].done = true\n      expect(state.allDone).toBe(true)\n      expect(state.noneLeft).toBe(true)\n      expect(state.remaining).toBe(0)\n    })\n\n    it('should handle string computations', () =&gt; {\n      const state = proxyWithComputed(\n        { words: ['hello', 'world'] },\n        {\n          sentence: snap =&gt; snap.words.join(' '),\n          upperCase: snap =&gt; snap.words.join(' ').toUpperCase(),\n          wordCount: snap =&gt; snap.words.length,\n        },\n      )\n\n      expect(state.sentence).toBe('hello world')\n      expect(state.upperCase).toBe('HELLO WORLD')\n      expect(state.wordCount).toBe(2)\n\n      state.words.push('!')\n      expect(state.sentence).toBe('hello world !')\n      expect(state.wordCount).toBe(3)\n    })\n  })\n\n  describe('edge cases', () =&gt; {\n    it('should handle empty initial object', () =&gt; {\n      const state = proxyWithComputed(\n        {} as { value?: number },\n        {\n          computed: () =&gt; 'computed value',\n        },\n      )\n\n      expect(state.computed).toBe('computed value')\n    })\n\n    it('should handle computed returning undefined', () =&gt; {\n      const state = proxyWithComputed(\n        { value: null as number | null },\n        {\n          maybeDouble: snap =&gt; snap.value != null ? snap.value * 2 : undefined,\n        },\n      )\n\n      expect(state.maybeDouble).toBeUndefined()\n      state.value = 5\n      expect(state.maybeDouble).toBe(10)\n    })\n\n    it('should handle computed returning null', () =&gt; {\n      const state = proxyWithComputed(\n        { search: '' },\n        {\n          result: snap =&gt; snap.search.length &gt; 0 ? &#96;Found: ${snap.search}&#96; : null,\n        },\n      )\n\n      expect(state.result).toBeNull()\n      state.search = 'test'\n      expect(state.result).toBe('Found: test')\n    })\n\n    it('should handle computed returning objects', () =&gt; {\n      const state = proxyWithComputed(\n        { x: 1, y: 2 },\n        {\n          point: snap =&gt; ({ x: snap.x, y: snap.y }),\n          distance: snap =&gt; Math.sqrt(snap.x ** 2 + snap.y ** 2),\n        },\n      )\n\n      expect(state.point).toEqual({ x: 1, y: 2 })\n      expect(state.distance).toBeCloseTo(Math.sqrt(5))\n\n      state.x = 3\n      state.y = 4\n      expect(state.point).toEqual({ x: 3, y: 4 })\n      expect(state.distance).toBe(5)\n    })\n\n    it('should handle computed returning arrays', () =&gt; {\n      const state = proxyWithComputed(\n        { min: 1, max: 5 },\n        {\n          range: snap =&gt; Array.from({ length: snap.max - snap.min + 1 }, (_, i) =&gt; snap.min + i),\n        },\n      )\n\n      expect(state.range).toEqual([1, 2, 3, 4, 5])\n      state.max = 3\n      expect(state.range).toEqual([1, 2, 3])\n    })\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy-computed.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy-computed.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_replaceString">
+<details>
+<summary>Tool use: **copilot_replaceString**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_replaceString",
+  "isHidden": true
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"替换文件中的字符串\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "&#96;&#96;&#96;typescript\nimport { describe, expect, it } from 'vitest'\nimport { snapshot } from '../src/proxy'\nimport { proxyWithComputed } from '../src/proxy-computed'\n\ndescribe('proxyWithComputed', () =&gt; {\n  describe('basic computed properties', () =&gt; {\n    it('should create computed property from function', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { doubled: number }&gt;(\n        { count: 1 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      expect(state.count).toBe(1)\n      expect(state.doubled).toBe(2)\n    })\n\n    it('should update computed when state changes', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { doubled: number }&gt;(\n        { count: 1 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      expect(state.doubled).toBe(2)\n      state.count = 5\n      expect(state.doubled).toBe(10)\n    })\n\n    it('should handle multiple computed properties', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { count: number },\n        { doubled: number, tripled: number, isEven: boolean }\n      &gt;(\n        { count: 10 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n          tripled: snap =&gt; snap.count * 3,\n          isEven: snap =&gt; snap.count % 2 === 0,\n        },\n      )\n\n      expect(state.doubled).toBe(20)\n      expect(state.tripled).toBe(30)\n      expect(state.isEven).toBe(true)\n\n      state.count = 7\n      expect(state.doubled).toBe(14)\n      expect(state.tripled).toBe(21)\n      expect(state.isEven).toBe(false)\n    })\n\n    it('should handle computed properties depending on multiple state values', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { firstName: string, lastName: string },\n        { fullName: string }\n      &gt;(\n        { firstName: 'John', lastName: 'Doe' },\n        {\n          fullName: snap =&gt; &#96;${snap.firstName} ${snap.lastName}&#96;,\n        },\n      )\n\n      expect(state.fullName).toBe('John Doe')\n      state.firstName = 'Jane'\n      expect(state.fullName).toBe('Jane Doe')\n      state.lastName = 'Smith'\n      expect(state.fullName).toBe('Jane Smith')\n    })\n\n    it('should handle nested state properties', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { user: { name: string, age: number } },\n        { greeting: string, isAdult: boolean }\n      &gt;(\n        {\n          user: {\n            name: 'John',\n            age: 30,\n          },\n        },\n        {\n          greeting: snap =&gt; &#96;Hello, ${snap.user.name}!&#96;,\n          isAdult: snap =&gt; snap.user.age &gt;= 18,\n        },\n      )\n\n      expect(state.greeting).toBe('Hello, John!')\n      expect(state.isAdult).toBe(true)\n\n      state.user.name = 'Jane'\n      expect(state.greeting).toBe('Hello, Jane!')\n\n      state.user.age = 15\n      expect(state.isAdult).toBe(false)\n    })\n  })\n\n  describe('computed with getter and setter', () =&gt; {\n    it('should support computed with get and set', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { doubled: number }&gt;(\n        { count: 1 },\n        {\n          doubled: {\n            get: snap =&gt; snap.count * 2,\n            set: (state, newValue: number) =&gt; {\n              state.count = newValue / 2\n            },\n          },\n        },\n      )\n\n      expect(state.doubled).toBe(2)\n      state.doubled = 10\n      expect(state.count).toBe(5)\n      expect(state.doubled).toBe(10)\n    })\n\n    it('should handle multiple computed with setters', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { celsius: number },\n        { fahrenheit: number, kelvin: number }\n      &gt;(\n        { celsius: 0 },\n        {\n          fahrenheit: {\n            get: snap =&gt; snap.celsius * 9 / 5 + 32,\n            set: (state, newValue: number) =&gt; {\n              state.celsius = (newValue - 32) * 5 / 9\n            },\n          },\n          kelvin: {\n            get: snap =&gt; snap.celsius + 273.15,\n            set: (state, newValue: number) =&gt; {\n              state.celsius = newValue - 273.15\n            },\n          },\n        },\n      )\n\n      expect(state.celsius).toBe(0)\n      expect(state.fahrenheit).toBe(32)\n      expect(state.kelvin).toBe(273.15)\n\n      state.fahrenheit = 212\n      expect(state.celsius).toBe(100)\n      expect(state.kelvin).toBeCloseTo(373.15)\n\n      state.kelvin = 0\n      expect(state.celsius).toBeCloseTo(-273.15)\n    })\n\n    it('should work with only getter (no setter)', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { squared: number }&gt;(\n        { count: 5 },\n        {\n          squared: {\n            get: snap =&gt; snap.count ** 2,\n          },\n        },\n      )\n\n      expect(state.squared).toBe(25)\n      state.count = 3\n      expect(state.squared).toBe(9)\n    })\n  })\n&#96;&#96;&#96;\n\n",
+  "textEditContent": "import { describe, expect, it } from 'vitest'\nimport { snapshot } from '../src/proxy'\nimport { proxyWithComputed } from '../src/proxy-computed'\n\ndescribe('proxyWithComputed', () =&gt; {\n  describe('basic computed properties', () =&gt; {\n    it('should create computed property from function', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { doubled: number }&gt;(\n        { count: 1 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      expect(state.count).toBe(1)\n      expect(state.doubled).toBe(2)\n    })\n\n    it('should update computed when state changes', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { doubled: number }&gt;(\n        { count: 1 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n        },\n      )\n\n      expect(state.doubled).toBe(2)\n      state.count = 5\n      expect(state.doubled).toBe(10)\n    })\n\n    it('should handle multiple computed properties', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { count: number },\n        { doubled: number, tripled: number, isEven: boolean }\n      &gt;(\n        { count: 10 },\n        {\n          doubled: snap =&gt; snap.count * 2,\n          tripled: snap =&gt; snap.count * 3,\n          isEven: snap =&gt; snap.count % 2 === 0,\n        },\n      )\n\n      expect(state.doubled).toBe(20)\n      expect(state.tripled).toBe(30)\n      expect(state.isEven).toBe(true)\n\n      state.count = 7\n      expect(state.doubled).toBe(14)\n      expect(state.tripled).toBe(21)\n      expect(state.isEven).toBe(false)\n    })\n\n    it('should handle computed properties depending on multiple state values', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { firstName: string, lastName: string },\n        { fullName: string }\n      &gt;(\n        { firstName: 'John', lastName: 'Doe' },\n        {\n          fullName: snap =&gt; &#96;${snap.firstName} ${snap.lastName}&#96;,\n        },\n      )\n\n      expect(state.fullName).toBe('John Doe')\n      state.firstName = 'Jane'\n      expect(state.fullName).toBe('Jane Doe')\n      state.lastName = 'Smith'\n      expect(state.fullName).toBe('Jane Smith')\n    })\n\n    it('should handle nested state properties', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { user: { name: string, age: number } },\n        { greeting: string, isAdult: boolean }\n      &gt;(\n        {\n          user: {\n            name: 'John',\n            age: 30,\n          },\n        },\n        {\n          greeting: snap =&gt; &#96;Hello, ${snap.user.name}!&#96;,\n          isAdult: snap =&gt; snap.user.age &gt;= 18,\n        },\n      )\n\n      expect(state.greeting).toBe('Hello, John!')\n      expect(state.isAdult).toBe(true)\n\n      state.user.name = 'Jane'\n      expect(state.greeting).toBe('Hello, Jane!')\n\n      state.user.age = 15\n      expect(state.isAdult).toBe(false)\n    })\n  })\n\n  describe('computed with getter and setter', () =&gt; {\n    it('should support computed with get and set', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { doubled: number }&gt;(\n        { count: 1 },\n        {\n          doubled: {\n            get: snap =&gt; snap.count * 2,\n            set: (state, newValue: number) =&gt; {\n              state.count = newValue / 2\n            },\n          },\n        },\n      )\n\n      expect(state.doubled).toBe(2)\n      state.doubled = 10\n      expect(state.count).toBe(5)\n      expect(state.doubled).toBe(10)\n    })\n\n    it('should handle multiple computed with setters', () =&gt; {\n      const state = proxyWithComputed&lt;\n        { celsius: number },\n        { fahrenheit: number, kelvin: number }\n      &gt;(\n        { celsius: 0 },\n        {\n          fahrenheit: {\n            get: snap =&gt; snap.celsius * 9 / 5 + 32,\n            set: (state, newValue: number) =&gt; {\n              state.celsius = (newValue - 32) * 5 / 9\n            },\n          },\n          kelvin: {\n            get: snap =&gt; snap.celsius + 273.15,\n            set: (state, newValue: number) =&gt; {\n              state.celsius = newValue - 273.15\n            },\n          },\n        },\n      )\n\n      expect(state.celsius).toBe(0)\n      expect(state.fahrenheit).toBe(32)\n      expect(state.kelvin).toBe(273.15)\n\n      state.fahrenheit = 212\n      expect(state.celsius).toBe(100)\n      expect(state.kelvin).toBeCloseTo(373.15)\n\n      state.kelvin = 0\n      expect(state.celsius).toBeCloseTo(-273.15)\n    })\n\n    it('should work with only getter (no setter)', () =&gt; {\n      const state = proxyWithComputed&lt;{ count: number }, { squared: number }&gt;(\n        { count: 5 },\n        {\n          squared: {\n            get: snap =&gt; snap.count ** 2,\n          },\n        },\n      )\n\n      expect(state.squared).toBe(25)\n      state.count = 3\n      expect(state.squared).toBe(9)\n    })\n  })",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts#156-156)，行 156 到 300</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts#156-156)，行 156 到 300
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts#295-295)，行 295 到 365</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts#295-295)，行 295 到 365
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts",
+  "relativeWorkspacePath": "proxy-computed.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/proxy-computed.test.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "b06539cc-3893-4792-841a-4c6199e32d7b",
+  "terminalCommandId": "tool-da1236c2-a798-4cd9-a09d-f9470319a382",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-dev/destyler &amp;&amp; pnpm vitest run packages/store/test --reporter=verbose",
+    "toolEdited": "pnpm vitest run packages/store/test --reporter=verbose"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/clone.ts#1-1)，行 1 到 75</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/clone.ts#1-1)，行 1 到 75
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_replaceString">
+<details>
+<summary>Tool use: **copilot_replaceString**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_replaceString",
+  "isHidden": true
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"替换文件中的字符串\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "&#96;&#96;&#96;typescript\n    it('should clone nested objects', () =&gt; {\n      const original = {\n        a: 1,\n        b: {\n          c: 2,\n          d: {\n            e: 3,\n          },\n        },\n      }\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      // Note: nested objects that canProxy returns true for are NOT deep cloned\n      // They keep the same reference for use with proxy store\n      expect(cloned.b).toBe(original.b)\n      expect(cloned.b.d).toBe(original.b.d)\n    })\n&#96;&#96;&#96;\n\n",
+  "textEditContent": "    it('should clone nested objects', () =&gt; {\n      const original = {\n        a: 1,\n        b: {\n          c: 2,\n          d: {\n            e: 3,\n          },\n        },\n      }\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      // Note: nested objects that canProxy returns true for are NOT deep cloned\n      // They keep the same reference for use with proxy store\n      expect(cloned.b).toBe(original.b)\n      expect(cloned.b.d).toBe(original.b.d)\n    })",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_multiReplaceString">
+<details>
+<summary>Tool use: **copilot_multiReplaceString**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_multiReplaceString",
+  "isHidden": true
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"文件中的多替换字符串\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "&#96;&#96;&#96;typescript\n    it('should handle mixed complex structures', () =&gt; {\n      const original = {\n        array: [1, 2, { nested: true }],\n        set: new Set([1, 2, 3]),\n        map: new Map([['key', 'value']]),\n        date: new Date('2023-01-01'),\n        regex: /test/gi,\n        nested: {\n          array: [[1], [2]],\n        },\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned.array).toEqual(original.array)\n      // Note: arrays that canProxy returns true for are NOT deep cloned\n      expect(cloned.array).toBe(original.array)\n      expect(cloned.set).toEqual(original.set)\n      expect(cloned.set).not.toBe(original.set)\n      expect(cloned.map).toEqual(original.map)\n      expect(cloned.map).not.toBe(original.map)\n      expect(cloned.date.getTime()).toBe(original.date.getTime())\n      expect(cloned.date).not.toBe(original.date)\n      expect(cloned.regex.source).toBe(original.regex.source)\n      expect(cloned.regex).not.toBe(original.regex)\n    })\n    it('should handle deeply nested structures', () =&gt; {\n      const original = {\n        level1: {\n          level2: {\n            level3: {\n              level4: {\n                level5: { value: 'deep' },\n              },\n            },\n          },\n        },\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned.level1.level2.level3.level4.level5.value).toBe('deep')\n      // Note: nested objects that canProxy returns true for are NOT deep cloned\n      expect(cloned.level1).toBe(original.level1)\n    })\n  describe('symbol properties', () =&gt; {\n    it('should clone objects with symbol keys', () =&gt; {\n      const sym1 = Symbol('key1')\n      const sym2 = Symbol('key2')\n      const original = {\n        [sym1]: 'value1',\n        [sym2]: { nested: true },\n        regular: 'normal',\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned[sym1]).toBe('value1')\n      expect(cloned[sym2]).toEqual({ nested: true })\n      // Note: nested objects that canProxy returns true for are NOT deep cloned\n      expect(cloned[sym2]).toBe(original[sym2])\n      expect(cloned.regular).toBe('normal')\n    })\n  })\n    it('should clone sparse arrays', () =&gt; {\n      const original: (number | undefined)[] = []\n      original[0] = 1\n      original[5] = 5\n\n      const cloned = clone(original)\n\n      expect(cloned.length).toBe(6)\n      expect(cloned[0]).toBe(1)\n      expect(cloned[5]).toBe(5)\n      // Note: Array.from creates a dense array, so sparse holes become undefined\n      expect(cloned[1]).toBe(undefined)\n    })\n    it('should clone arrays with mixed types', () =&gt; {\n      const original = [1, 'hello', true, { a: 1 }, [2, 3]]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      // Note: nested objects/arrays that canProxy returns true for are NOT deep cloned\n      expect(cloned[3]).toBe(original[3])\n      expect(cloned[4]).toBe(original[4])\n    })\n    it('should clone nested arrays', () =&gt; {\n      const original = [[1, 2], [3, [4, 5]]]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      // Note: nested arrays that canProxy returns true for are NOT deep cloned\n      expect(cloned[0]).toBe(original[0])\n      expect(cloned[1]).toBe(original[1])\n      expect(cloned[1][1]).toBe(original[1][1])\n    })\n&#96;&#96;&#96;\n\n",
+  "textEditContent": "    it('should handle mixed complex structures', () =&gt; {\n      const original = {\n        array: [1, 2, { nested: true }],\n        set: new Set([1, 2, 3]),\n        map: new Map([['key', 'value']]),\n        date: new Date('2023-01-01'),\n        regex: /test/gi,\n        nested: {\n          array: [[1], [2]],\n        },\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned.array).toEqual(original.array)\n      // Note: arrays that canProxy returns true for are NOT deep cloned\n      expect(cloned.array).toBe(original.array)\n      expect(cloned.set).toEqual(original.set)\n      expect(cloned.set).not.toBe(original.set)\n      expect(cloned.map).toEqual(original.map)\n      expect(cloned.map).not.toBe(original.map)\n      expect(cloned.date.getTime()).toBe(original.date.getTime())\n      expect(cloned.date).not.toBe(original.date)\n      expect(cloned.regex.source).toBe(original.regex.source)\n      expect(cloned.regex).not.toBe(original.regex)\n    })    it('should handle deeply nested structures', () =&gt; {\n      const original = {\n        level1: {\n          level2: {\n            level3: {\n              level4: {\n                level5: { value: 'deep' },\n              },\n            },\n          },\n        },\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned.level1.level2.level3.level4.level5.value).toBe('deep')\n      // Note: nested objects that canProxy returns true for are NOT deep cloned\n      expect(cloned.level1).toBe(original.level1)\n    })  describe('symbol properties', () =&gt; {\n    it('should clone objects with symbol keys', () =&gt; {\n      const sym1 = Symbol('key1')\n      const sym2 = Symbol('key2')\n      const original = {\n        [sym1]: 'value1',\n        [sym2]: { nested: true },\n        regular: 'normal',\n      }\n\n      const cloned = clone(original)\n\n      expect(cloned[sym1]).toBe('value1')\n      expect(cloned[sym2]).toEqual({ nested: true })\n      // Note: nested objects that canProxy returns true for are NOT deep cloned\n      expect(cloned[sym2]).toBe(original[sym2])\n      expect(cloned.regular).toBe('normal')\n    })\n  })    it('should clone sparse arrays', () =&gt; {\n      const original: (number | undefined)[] = []\n      original[0] = 1\n      original[5] = 5\n\n      const cloned = clone(original)\n\n      expect(cloned.length).toBe(6)\n      expect(cloned[0]).toBe(1)\n      expect(cloned[5]).toBe(5)\n      // Note: Array.from creates a dense array, so sparse holes become undefined\n      expect(cloned[1]).toBe(undefined)\n    })    it('should clone arrays with mixed types', () =&gt; {\n      const original = [1, 'hello', true, { a: 1 }, [2, 3]]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      // Note: nested objects/arrays that canProxy returns true for are NOT deep cloned\n      expect(cloned[3]).toBe(original[3])\n      expect(cloned[4]).toBe(original[4])\n    })    it('should clone nested arrays', () =&gt; {\n      const original = [[1, 2], [3, [4, 5]]]\n      const cloned = clone(original)\n\n      expect(cloned).toEqual(original)\n      expect(cloned).not.toBe(original)\n      // Note: nested arrays that canProxy returns true for are NOT deep cloned\n      expect(cloned[0]).toBe(original[0])\n      expect(cloned[1]).toBe(original[1])\n      expect(cloned[1][1]).toBe(original[1][1])\n    })",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "70f3ed96-4bae-4b01-b57b-01a5e92c0312",
+  "terminalCommandId": "tool-cfbe8853-eeec-4092-91d4-f96f332cb7f2",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-dev/destyler &amp;&amp; pnpm vitest run packages/store/test --reporter=verbose",
+    "toolEdited": "pnpm vitest run packages/store/test --reporter=verbose"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/global.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/global.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy.ts#115-115)，行 115 到 130</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/src/proxy.ts#115-115)，行 115 到 130
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_replaceString">
+<details>
+<summary>Tool use: **copilot_replaceString**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_replaceString",
+  "isHidden": true
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"替换文件中的字符串\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "&#96;&#96;&#96;typescript\n    it('should return unsubscribe function', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      const unsubscribe = subscribe(state, callback)\n      state.count = 1\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1)\n\n      unsubscribe()\n      state.count = 2\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1) // Still 1, not called again\n    })\n\n    it('should clean up nested listeners when unsubscribing last listener', async () =&gt; {\n      const state = proxy({ nested: { value: 1 } })\n      const callback1 = vi.fn()\n      const callback2 = vi.fn()\n\n      const unsubscribe1 = subscribe(state, callback1, true)\n      const unsubscribe2 = subscribe(state, callback2, true)\n\n      state.nested.value = 2\n      expect(callback1).toHaveBeenCalledTimes(1)\n      expect(callback2).toHaveBeenCalledTimes(1)\n\n      unsubscribe1()\n      state.nested.value = 3\n      expect(callback1).toHaveBeenCalledTimes(1) // Not called again\n      expect(callback2).toHaveBeenCalledTimes(2)\n\n      // Unsubscribe the last listener - should clean up nested listeners\n      unsubscribe2()\n      state.nested.value = 4\n      expect(callback1).toHaveBeenCalledTimes(1)\n      expect(callback2).toHaveBeenCalledTimes(2)\n    })\n&#96;&#96;&#96;\n\n",
+  "textEditContent": "    it('should return unsubscribe function', async () =&gt; {\n      const state = proxy({ count: 0 })\n      const callback = vi.fn()\n\n      const unsubscribe = subscribe(state, callback)\n      state.count = 1\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1)\n\n      unsubscribe()\n      state.count = 2\n      await Promise.resolve()\n      expect(callback).toHaveBeenCalledTimes(1) // Still 1, not called again\n    })\n\n    it('should clean up nested listeners when unsubscribing last listener', async () =&gt; {\n      const state = proxy({ nested: { value: 1 } })\n      const callback1 = vi.fn()\n      const callback2 = vi.fn()\n\n      const unsubscribe1 = subscribe(state, callback1, true)\n      const unsubscribe2 = subscribe(state, callback2, true)\n\n      state.nested.value = 2\n      expect(callback1).toHaveBeenCalledTimes(1)\n      expect(callback2).toHaveBeenCalledTimes(1)\n\n      unsubscribe1()\n      state.nested.value = 3\n      expect(callback1).toHaveBeenCalledTimes(1) // Not called again\n      expect(callback2).toHaveBeenCalledTimes(2)\n\n      // Unsubscribe the last listener - should clean up nested listeners\n      unsubscribe2()\n      state.nested.value = 4\n      expect(callback1).toHaveBeenCalledTimes(1)\n      expect(callback2).toHaveBeenCalledTimes(2)\n    })",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/index.test.ts",
+  "relativeWorkspacePath": "index.test.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/index.test.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test/index.test.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it } from 'vitest'\nimport {\n  clone,\n  globalRef,\n  proxy,\n  proxyWithComputed,\n  ref,\n  snapshot,\n  subscribe,\n} from '../index'\n\ndescribe('index exports', () =&gt; {\n  it('should export clone function', () =&gt; {\n    expect(typeof clone).toBe('function')\n  })\n\n  it('should export globalRef function', () =&gt; {\n    expect(typeof globalRef).toBe('function')\n  })\n\n  it('should export proxy function', () =&gt; {\n    expect(typeof proxy).toBe('function')\n  })\n\n  it('should export ref function', () =&gt; {\n    expect(typeof ref).toBe('function')\n  })\n\n  it('should export snapshot function', () =&gt; {\n    expect(typeof snapshot).toBe('function')\n  })\n\n  it('should export subscribe function', () =&gt; {\n    expect(typeof subscribe).toBe('function')\n  })\n\n  it('should export proxyWithComputed function', () =&gt; {\n    expect(typeof proxyWithComputed).toBe('function')\n  })\n\n  describe('integration test', () =&gt; {\n    it('should work together as a reactive store', () =&gt; {\n      // Create initial state\n      const initialState = {\n        user: {\n          name: 'John',\n          age: 30,\n        },\n        items: [1, 2, 3],\n      }\n\n      // Clone to avoid mutation\n      const cloned = clone(initialState)\n      expect(cloned).toEqual(initialState)\n\n      // Create proxy state\n      const state = proxy(cloned)\n\n      // Create computed properties\n      const stateWithComputed = proxyWithComputed&lt;\n        typeof state,\n        { itemCount: number, isAdult: boolean }\n      &gt;(\n        { ...state },\n        {\n          itemCount: snap =&gt; snap.items.length,\n          isAdult: snap =&gt; snap.user.age &gt;= 18,\n        },\n      )\n\n      expect(stateWithComputed.itemCount).toBe(3)\n      expect(stateWithComputed.isAdult).toBe(true)\n\n      // Create ref object\n      const config = ref({ debug: true })\n      const stateWithRef = proxy({ config, data: { value: 1 } })\n\n      // Ref should maintain reference\n      expect(stateWithRef.config).toBe(config)\n\n      // Subscribe to changes\n      const changes: any[] = []\n      const unsubscribe = subscribe(stateWithRef, (ops) =&gt; {\n        changes.push(ops)\n      }, true)\n\n      stateWithRef.data.value = 2\n      expect(changes.length).toBe(1)\n\n      // Snapshot should be frozen\n      const snap = snapshot(stateWithRef)\n      expect(Object.isFrozen(snap)).toBe(true)\n\n      // Cleanup\n      unsubscribe()\n    })\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "0d73e326-c255-4b6c-9dcc-8de8b64a021d",
+  "terminalCommandId": "tool-0a0843d1-a6fd-47e3-9985-86f60e940127",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-dev/destyler &amp;&amp; pnpm vitest run packages/store/test --reporter=verbose",
+    "toolEdited": "pnpm vitest run packages/store/test --reporter=verbose"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-dev/destyler/packages/store/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+我来帮你为 `@destyler/store` 包编写完整的 Vitest 测试。首先让我查看一下各个源文件的内容。 现在我已经理解了所有源文件的内容。让我检查一下是否已经有测试目录： 让我查看其他包中测试的结构，以保持一致性： 现在我已经了解了测试的风格。让我创建完整的测试文件： 现在让我运行测试来验证所有测试是否通过： 我发现 `clone` 函数对于 `canProxy` 返回 true 的对象不会进行深度克隆。让我分析源代码来理解这个行为，并修正测试： 我看到了！`clone` 函数在 `set` 函数中只会递归克隆 `!canProxy(val.value)` 为 true 的值。这意味着普通对象和数组（`canProxy` 返回 `true` 的）不会被深度克隆——它们会保持原来的引用。这是为了与 proxy store 配合使用的特定行为。
+
+让我修改测试以匹配实际的实现行为： 所有测试都通过了！让我查看一下测试覆盖率报告，发现 `global.ts` 和 `proxy.ts` 有一些未覆盖的行。让我添加更多测试来提高覆盖率： 我发现 `global.ts` 中有些代码是为了处理没有 `globalThis` 的环境（如旧版浏览器），这在 Node.js 测试环境中无法覆盖。另外 `proxy.ts` 的 120-122 行需要查看： 我看到了，这是当移除最后一个监听器时清理嵌套属性监听器的代码。让我添加一些测试来覆盖这部分： 现在让我创建一个入口文件的测试，确保导出功能正常： 非常好！所有 148 个测试都通过了，覆盖率达到了 97.65%！`proxy.ts` 现在是 100% 行覆盖率。`global.ts` 的未覆盖代码是用于处理没有 `globalThis` 的旧环境的回退代码，在 Node.js 测试环境中无法测试。
 
 让我查看测试文件的结构： 测试已经全部完成了！让我给你总结一下创建的测试文件：
 
