@@ -1,7 +1,7 @@
 {
   "name": "@destyler/tree",
   "type": "module",
-  "version": "0.2.1-beta.1",
+  "version": "0.2.1-beta.2",
 
   "description": "A component that is used to show a tree hierarchy.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
