@@ -2,7 +2,9 @@
   "name": "@destyler/svelte",
   "type": "module",
   "version": "0.2.0",
-
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "the svelte wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
@@ -26,7 +28,7 @@
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
-    "build": "rimraf ./dist && svelte-package -i src",
+    "build": "rimraf ./dist && svelte-package -i src && node ./scripts/compile-runes.mjs",
     "watch": "tsdown --watch"
   },
   "peerDependencies": {
@@ -40,8 +42,5 @@
     "@destyler/utils": "workspace:*",
     "@sveltejs/package": "catalog:build",
     "svelte": "catalog:frontend"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
