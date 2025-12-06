@@ -14,21 +14,33 @@
     "url": "git+https://github.com/destyler/destyler.git",
     "directory": "packages/frameworks/svelte"
   },
+  "svelte": "./dist/index.js",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "browser": "./dist-client/index.js",
+      "import": "./dist-client/index.js",
+      "default": "./dist-client/index.js"
+    },
+    "./client": {
+      "import": "./dist-client/index.js",
+      "default": "./dist-client/index.js"
+    }
   },
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "./dist-client/index.js",
+  "module": "./dist-client/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "*.d.ts",
-    "dist"
+    "dist",
+    "dist-client"
   ],
   "scripts": {
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",
     "prepublishOnly": "pnpm run build",
-    "build": "rimraf ./dist && svelte-package -i src && node ./scripts/compile-runes.mjs",
+    "build": "rimraf ./dist && svelte-package -i src && node ./scripts/build-client.mjs",
     "watch": "tsdown --watch"
   },
   "peerDependencies": {

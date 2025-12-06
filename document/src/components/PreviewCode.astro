@@ -78,13 +78,13 @@ async function loadFrameworkFile(framework: string) {
       // 提取不含框架与扩展名的“文件基名”，用于与 baseName 进行无大小写比较
       let core = fileName
       if (/\.react\.(t|j)sx?$/.test(core))
-core = core.replace(/\.react\.(t|j)sx?$/, '')
+        core = core.replace(/\.react\.(t|j)sx?$/, '')
       else if (/\.solid\.(t|j)sx?$/.test(core))
-core = core.replace(/\.solid\.(t|j)sx?$/, '')
+        core = core.replace(/\.solid\.(t|j)sx?$/, '')
       else if (core.endsWith('.vue'))
-core = core.replace(/\.vue$/, '')
+        core = core.replace(/\.vue$/, '')
       else if (core.endsWith('.svelte'))
-core = core.replace(/\.svelte$/, '')
+        core = core.replace(/\.svelte$/, '')
 
       const coreNormalized = core.toLowerCase()
 
@@ -130,17 +130,17 @@ continue
       const ext = fileName.split('.').pop() || ''
       let language = ext
       if (fileName.endsWith('.react.tsx') || fileName.endsWith('.solid.tsx'))
-language = 'tsx'
+        language = 'tsx'
       else if (fileName.endsWith('.react.jsx'))
-language = 'jsx'
+        language = 'jsx'
       else if (fileName.endsWith('.react.ts'))
-language = 'ts'
+        language = 'ts'
       else if (fileName.endsWith('.react.js'))
-language = 'js'
+        language = 'js'
       else if (ext === 'vue')
-language = 'vue'
+        language = 'vue'
       else if (ext === 'svelte')
-language = 'svelte'
+        language = 'svelte'
 
       const highlighted = highlighter.codeToHtml(cleaned, {
         lang: language,
@@ -150,13 +150,13 @@ language = 'svelte'
 
       let frameworkName = ''
       if (fileName.endsWith('.vue'))
-frameworkName = 'vue'
+        frameworkName = 'vue'
       else if (/\.react\.(t|j)sx?$/.test(fileName))
-frameworkName = 'react'
+        frameworkName = 'react'
       else if (/\.solid\.(t|j)sx?$/.test(fileName))
-frameworkName = 'solid'
+        frameworkName = 'solid'
       else if (fileName.endsWith('.svelte'))
-frameworkName = 'svelte'
+        frameworkName = 'svelte'
 
       result.push({ title: fileName, content: cleaned, highlighted, language, framework: frameworkName })
     }
@@ -186,13 +186,13 @@ highlighter.dispose()
       <SinppetsVue name={name} client:idle />
     </div>
     <div slot="react">
-      <SinppetsReact name={name} client:only />
+      <SinppetsReact name={name} client:only="react" />
     </div>
     <div slot="solid">
       <SinppetsSolid name={name} client:idle />
     </div>
     <div slot="svelte">
-      <SinppetsSvelte name={name} client:idle />
+        <SinppetsSvelte name={name} client:only="svelte" />
     </div>
   </FrameworkLayout>
 
