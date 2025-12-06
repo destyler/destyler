@@ -35,7 +35,7 @@
     "@destyler/types": "workspace:*",
     "@destyler/utils": "workspace:*",
     "@destyler/xstate": "workspace:*",
-    "perfect-freehand": "^1.2.2"
+    "perfect-freehand": "catalog:prod"
   },
   "publishConfig": {
     "access": "public"
