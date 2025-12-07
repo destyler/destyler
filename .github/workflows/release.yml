@@ -86,9 +86,6 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Install Playwright Browsers
-        run: pnpm playwright install --with-deps
-
       - name: Build Packages
         run: pnpm run build
 
@@ -134,10 +131,10 @@ jobs:
       - name: Build Everything
         run: pnpm run node-modules:build
 
-      - name: Zip storybook.destyler.org
+      - name: Zip everything.destyler.org
         run: npx tsx scripts/zip.ts .node-modules-inspector everything-dist
 
-      - name: Deploy storybook.destyler.org
+      - name: Deploy everything.destyler.org
         run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} everything-dist.zip
         env:
           TOKEN: ${{secrets.ZEABUR_TOKEN}}
