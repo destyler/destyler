@@ -1,7 +1,7 @@
 {
   "name": "@destyler/collapse",
   "type": "module",
-  "version": "0.2.1-beta.3",
+  "version": "0.2.1",
   "description": "a vertically stacked set of interactive headings that each reveal a section of content.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

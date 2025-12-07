@@ -1,7 +1,7 @@
 {
   "name": "@destyler/size",
   "type": "module",
-  "version": "0.2.1-beta.3",
+  "version": "0.2.1",
 
   "description": "Observer the size of an element over time",
   "author": "Elone Hoo <elonehoo@gmail.com>",

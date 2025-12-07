@@ -1,7 +1,7 @@
 {
   "name": "@destyler/live-region",
   "type": "module",
-  "version": "0.2.1-beta.3",
+  "version": "0.2.1",
 
   "description": "live region for screen readers of UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",
