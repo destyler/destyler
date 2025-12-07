@@ -1,6 +1,6 @@
 import { createAnatomy } from '@destyler/anatomy'
 
-export const anatomy = createAnatomy('color-picker', [
+export const anatomy = createAnatomy('color-picker').parts(
   'root',
   'label',
   'control',
@@ -25,6 +25,6 @@ export const anatomy = createAnatomy('color-picker', [
   'eyeDropperTrigger',
   'formatTrigger',
   'formatSelect',
-])
+)
 
 export const parts = anatomy.build()
