@@ -60,6 +60,17 @@ describe('[carousel] browser tests', () => {
 
     const nextTrigger = testHook.getNextEl()
     await nextTrigger.click()
+    await expect.element(testHook.getItemEls().nth(1)).toHaveAttribute('data-inview', 'true')
+
+    await nextTrigger.click()
+    await expect.element(testHook.getItemEls().nth(2)).toHaveAttribute('data-inview', 'true')
+
+    await nextTrigger.click()
+    await expect.element(testHook.getItemEls().nth(3)).toHaveAttribute('data-inview', 'true')
+
+    await nextTrigger.click()
+    await expect.element(testHook.getItemEls().nth(4)).toHaveAttribute('data-inview', 'true')
+
     await nextTrigger.click()
     await expect.element(testHook.getItemEls().nth(0)).toHaveAttribute('data-inview', 'true')
 

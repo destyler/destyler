@@ -26,6 +26,8 @@ export const testHook = {
     for (let i = 0; i < count; i++) {
       await userEvent.keyboard(`{${key}}`)
       await userEvent.keyboard(`{/${key}}`)
+      // Wait for requestAnimationFrame to complete (used by many components for focus handling)
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))
     }
   },
 
