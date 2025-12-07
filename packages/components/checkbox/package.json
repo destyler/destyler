@@ -1,7 +1,7 @@
 {
   "name": "@destyler/checkbox",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "a control that allows the user to toggle between checked and not checked.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

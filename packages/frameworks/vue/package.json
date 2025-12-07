@@ -1,7 +1,7 @@
 {
   "name": "@destyler/vue",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.2",
 
   "description": "the vue wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
