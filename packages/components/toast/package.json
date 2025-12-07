@@ -1,7 +1,7 @@
 {
   "name": "@destyler/toast",
   "type": "module",
-  "version": "0.2.1-beta.2",
+  "version": "0.2.1-beta.3",
 
   "description": "A succinct message that is displayed temporarily.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
