@@ -1,7 +1,7 @@
 {
   "name": "@destyler/slider",
   "type": "module",
-  "version": "0.2.2",
+  "version": "0.2.3-beta.1",
 
   "description": "An input where the user selects a value from within a given range.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
