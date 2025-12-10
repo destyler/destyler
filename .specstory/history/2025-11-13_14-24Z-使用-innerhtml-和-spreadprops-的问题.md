@@ -25,6 +25,53 @@ _**User (2025-11-13 14:28Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/spreadProps&#96; 匹配的文件",
+  "pastTenseMessage": "搜索匹配 &#96;**/spreadProps&#96; 的文件，无匹配项",
+  "resultDetails": [],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
 **Evaluating spreadProps usage in template strings****Searching for spreadProps definition****Explaining spreadProps usage limitations**
 
 I’m clarifying that `spreadProps` returns void and modifies elements at runtime, so it can’t be embedded in template strings as attributes. Also, using `this.api` inside a template literal won’t work outside class context, making direct string interpolation invalid. Instead, it’s better to set data attributes in the template then call `spreadProps` afterward to apply handlers and refs.不能这么写：
@@ -45,49 +92,1744 @@ _**User (2025-11-13 14:40Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread-props.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread-props.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `spreadProps` (`**/packages/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/component.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/component.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/normalize-props.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/normalize-props.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `spreadProps(` (`**/packages/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { toStyleString } from './utils/style'
+
+export interface SpreadAttributes {
+  [key: string]: any
+}
+
+interface EventInfo {
+  name: string
+  options?: AddEventListenerOptions
+  handler: EventListenerOrEventListenerObject
+}
+
+interface ElementState {
+  props: Record<string, any>
+  events: Map<string, EventInfo>
+}
+
+const SPREAD_ATTRIBUTE = 'data-destyler-spread'
+
+const spreadState = new WeakMap<Element, ElementState>()
+const pendingPropSets = new Map<string, SpreadAttributes>()
+
+const booleanAttributes = new Set([
+  'checked',
+  'disabled',
+  'hidden',
+  'readonly',
+  'required',
+  'selected',
+  'multiple',
+  'open',
+  'autoplay',
+  'controls',
+  'default',
+  'inert',
+])
+
+let spreadUid = 0
+
+function isElement(value: unknown): value is Element {
+  return typeof Element !== 'undefined' && value instanceof Element
+}
+
+function getPendingId(props: SpreadAttributes | null | undefined) {
+  spreadUid = (spreadUid + 1) % Number.MAX_SAFE_INTEGER
+  const id = `sp-${spreadUid}`
+  pendingPropSets.set(id, props ?? {})
+  return id
+}
+
+function applyPropsToElement<T extends Element>(element: T | null | undefined, props?: SpreadAttributes | null) {
+  if (!element)
+    return element
+  const nextProps = props ?? {}
+  const state = spreadState.get(element) ?? { props: {}, events: new Map() }
+
+  for (const key of Object.keys(state.props)) {
+    if (!(key in nextProps)) {
+      removeProp(element, key, state)
+      delete state.props[key]
+    }
+  }
+
+  for (const [key, value] of Object.entries(nextProps)) {
+    if (state.props[key] === value)
+      continue
+    applyProp(element, key, value, state)
+    state.props[key] = value
+  }
+
+  spreadState.set(element, state)
+  return element
+}
+
+export function spreadProps(props?: SpreadAttributes | null): string
+export function spreadProps<T extends Element>(element: T | null | undefined, props?: SpreadAttributes | null): T | null | undefined
+export function spreadProps<T extends Element>(
+  elementOrProps?: T | SpreadAttributes | null,
+  maybeProps?: SpreadAttributes | null,
+): T | string | null | undefined {
+  if (isElement(elementOrProps) || elementOrProps == null) {
+    return applyPropsToElement(elementOrProps as T | null | undefined, maybeProps)
+  }
+
+  const id = getPendingId(elementOrProps)
+  return `${SPREAD_ATTRIBUTE}="${id}"`
+}
+
+export function hydrateSpreadProps(root?: ParentNode | null) {
+  if (typeof document === 'undefined')
+    return
+
+  const scope = root ?? document
+  const selector = `[${SPREAD_ATTRIBUTE}]`
+  const elements = scope.querySelectorAll<Element>(selector)
+
+  elements.forEach((element) => {
+    const id = element.getAttribute(SPREAD_ATTRIBUTE)
+    if (!id)
+      return
+    const props = pendingPropSets.get(id)
+    pendingPropSets.delete(id)
+    element.removeAttribute(SPREAD_ATTRIBUTE)
+    applyPropsToElement(element, props)
+  })
+}
+
+function applyProp(element: Element, key: string, value: any, state: ElementState) {
+  if (key === 'children' || key === 'dangerouslySetInnerHTML')
+    return
+
+  if (key === 'style') {
+    if (typeof value === 'string') {
+      element.setAttribute('style', value)
+    }
+    else if (value && typeof value === 'object') {
+      const styleString = toStyleString(value)
+      if (styleString)
+        element.setAttribute('style', styleString)
+      else
+        element.removeAttribute('style')
+    }
+    else {
+      element.removeAttribute('style')
+    }
+    return
+  }
+
+  if (key === 'ref' && typeof value === 'function') {
+    value(element)
+    return
+  }
+
+  if (key.startsWith('on') && typeof value === 'function') {
+    updateEventListener(element, key, value, state)
+    return
+  }
+
+  if (key === 'textcontent') {
+    element.textContent = value ?? ''
+    return
+  }
+
+  if (key === 'innerhtml') {
+    element.innerHTML = value ?? ''
+    return
+  }
+
+  if (booleanAttributes.has(key)) {
+    if (value) {
+      element.setAttribute(key, '')
+      setProperty(element, key, true)
+    }
+    else {
+      element.removeAttribute(key)
+      setProperty(element, key, false)
+    }
+    return
+  }
+
+  if (value === false || value === null || value === undefined) {
+    element.removeAttribute(key)
+    setProperty(element, key, undefined)
+    return
+  }
+
+  if (typeof value === 'object') {
+    element.removeAttribute(key)
+    setProperty(element, key, value)
+    return
+  }
+
+  const attrValue = typeof value === 'string' ? value : String(value)
+
+  if (key in (element as any)) {
+    setProperty(element, key, attrValue)
+  }
+  else {
+    element.setAttribute(key, attrValue)
+  }
+}
+
+function removeProp(element: Element, key: string, state: ElementState) {
+  if (key.startsWith('on')) {
+    removeEventListener(element, key, state)
+    return
+  }
+  if (key === 'style' || key === 'class' || key === 'textcontent' || key === 'innerhtml') {
+    element.removeAttribute(key)
+    return
+  }
+  element.removeAttribute(key)
+  setProperty(element, key, undefined)
+}
+
+function getEventName(key: string) {
+  let event = key.slice(2) // remove "on"
+  let capture = false
+  if (event.endsWith('capture')) {
+    capture = true
+    event = event.slice(0, -7)
+  }
+  event = event
+    .replace(/([A-Z])/g, match => `-${match.toLowerCase()}`)
+    .replace(/^-/, '')
+    .toLowerCase()
+  return { name: event, capture }
+}
+
+function updateEventListener(
+  element: Element,
+  key: string,
+  handler: EventListenerOrEventListenerObject,
+  state: ElementState,
+) {
+  removeEventListener(element, key, state)
+  const { name, capture } = getEventName(key)
+  const info: EventInfo = {
+    name,
+    handler,
+    options: capture ? { capture: true } : undefined,
+  }
+  element.addEventListener(name, handler, info.options)
+  state.events.set(key, info)
+}
+
+function removeEventListener(element: Element, key: string, state: ElementState) {
+  const info = state.events.get(key)
+  if (!info)
+    return
+  element.removeEventListener(info.name, info.handler, info.options)
+  state.events.delete(key)
+}
+
+function setProperty(element: Element, key: string, value: any) {
+  const target = element as any
+  if (key in target) {
+    try {
+      target[key] = value
+      return
+    }
+    catch {
+      // ignore assignment error and fallback to attribute
+    }
+  }
+  if (value === undefined) {
+    element.removeAttribute(key)
+  }
+  else {
+    element.setAttribute(key, typeof value === 'string' ? value : String(value))
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+export { normalizeProps } from './src/normalize-props'
+export type { AttrMap } from './src/normalize-props'
+export { spread } from './src/spread'
+export { spreadProps, hydrateSpreadProps } from './src/spread-props'
+export { Component } from './src/component'
+export type { ComponentOptions, ContextSource } from './src/component'
+export { createPortal, Portal } from './src/components/portal'
+export { useMachine } from './src/use-machine'
+export { useActor } from './src/hooks/use-actor'
+export { useService } from './src/hooks/use-service'
+export { useSnapshot } from './src/hooks/use-snapshot'
+export { mergeProps } from '@destyler/xstate'
+export type { ContextFrom, EventFrom, StateFrom } from '@destyler/xstate'
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type {
+  AnyEventObject,
+  EventObject,
+  HookOptions,
+  Machine,
+  StateSchema,
+  UserContext,
+  XState,
+} from '@destyler/xstate'
+import { hydrateSpreadProps } from './spread-props'
+
+export interface ContextSource<TContext> {
+  get?: () => Partial<TContext> | undefined
+  subscribe: (fn: (ctx: Partial<TContext>) => void) => () => void
+}
+
+export type ComponentOptions<
+  TUserContext extends Record<string, any>,
+  TMachineContext extends Record<string, any>,
+  TState extends StateSchema,
+  TEvent extends EventObject,
+> = Omit<HookOptions<TMachineContext, TState, TEvent>, 'context'> & {
+  context?: UserContext<TUserContext> | ContextSource<TUserContext>
+}
+
+function isContextSource<T>(value: any): value is ContextSource<T> {
+  return value && typeof value === 'object' && typeof value.subscribe === 'function'
+}
+
+export abstract class Component<
+  TUserContext extends Record<string, any>,
+  TApi,
+  TMachineContext extends Record<string, any> = TUserContext,
+  TState extends StateSchema = any,
+  TEvent extends EventObject = AnyEventObject,
+> {
+  protected service!: Machine<TMachineContext, TState, TEvent>
+  protected api!: TApi
+  protected options?: ComponentOptions<TUserContext, TMachineContext, TState, TEvent>
+
+  private unsubscribe?: () => void
+  private contextUnsubscribe?: () => void
+  private initialized = false
+
+  constructor(
+    protected rootEl: HTMLElement,
+    protected context: TUserContext,
+    options?: ComponentOptions<TUserContext, TMachineContext, TState, TEvent>,
+  ) {
+    this.options = options
+  }
+
+  /**
+   * Initialize the machine, subscribe to updates, and trigger the first render.
+   */
+  init(): void {
+    if (this.initialized)
+      return
+    this.initialized = true
+
+    this.service = this.initService(this.context)
+
+    if (this.options?.actions) {
+      this.service.setOptions({ actions: this.options.actions })
+    }
+
+    if (this.options?.context) {
+      this.applyContextOption(this.options.context)
+    }
+
+    this.service._created()
+    this.service.start(this.options?.state)
+
+    this.updateApi()
+    this.performRender()
+
+    this.unsubscribe = this.service.subscribe((state) => {
+      this.updateApi()
+      this.onTransition(state)
+      this.performRender()
+    })
+  }
+
+  destroy(): void {
+    this.unsubscribe?.()
+    this.contextUnsubscribe?.()
+    this.service?.stop()
+    this.initialized = false
+  }
+
+  /**
+   * Allows subclasses to react to state changes before render.
+   */
+  // eslint-disable-next-line ts/no-empty-function
+  protected onTransition(_state: XState<TContext, TState, TEvent>): void {}
+
+  protected abstract initService(context: TUserContext): Machine<TMachineContext, TState, TEvent>
+  protected abstract initApi(): TApi
+  protected abstract render(): void
+
+  protected updateApi(): void {
+    this.api = this.initApi()
+  }
+
+  protected applyContext(context: Partial<TUserContext>): void {
+    this.service?.setContext(context as Partial<TMachineContext>)
+  }
+
+  setOptions(options: Partial<ComponentOptions<TUserContext, TMachineContext, TState, TEvent>>): void {
+    this.options = { ...this.options, ...options }
+
+    if (options.actions) {
+      this.service?.setOptions({ actions: options.actions })
+    }
+
+    if (options.context) {
+      this.applyContextOption(options.context)
+    }
+  }
+
+  get state(): XState<TMachineContext, TState, TEvent> | undefined {
+    return this.service?.getState()
+  }
+
+  get send() {
+    return this.service?.send
+  }
+
+  private applyContextOption(context: UserContext<TUserContext> | ContextSource<TUserContext>) {
+    this.contextUnsubscribe?.()
+    this.contextUnsubscribe = undefined
+
+    if (isContextSource<TUserContext>(context)) {
+      const initial = context.get?.()
+      if (initial)
+        this.service.setContext(initial as Partial<TMachineContext>)
+      this.contextUnsubscribe = context.subscribe((ctx) => {
+        this.service.setContext(ctx as Partial<TMachineContext>)
+        this.updateApi()
+        this.performRender()
+      })
+    }
+    else {
+      this.service.setContext(context as Partial<TMachineContext>)
+    }
+  }
+
+  private performRender(): void {
+    this.render()
+    hydrateSpreadProps(this.rootEl)
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/src/props.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/src/props.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/src/connect.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/src/connect.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/style.css)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/style.css)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/src/anatomy.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/src/anatomy.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as collapsible from '../../index'
+import '../style.css'
+
+const sampleText = `
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat.
+`
+
+type CollapsibleMachineContext = ContextFrom<typeof collapsible.machine>
+
+class CollapsibleExample extends Component<
+  collapsible.Context,
+  collapsible.Api,
+  CollapsibleMachineContext,
+  collapsible.MachineState
+> {
+  initService(context: collapsible.Context) {
+    return collapsible.machine(context) as collapsible.Service
+  }
+
+  initApi() {
+    return collapsible.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  render = () => {
+    const rootEl = this.rootEl
+    if (!rootEl)
+      return
+
+    spreadProps(rootEl, {
+      class: 'collapsible-root',
+      ...this.api.getRootProps(),
+    })
+
+    rootEl.innerHTML = `
+      <button class="collapsible-trigger" ${spreadProps(this.api.getTriggerProps())}>
+        Collapsible Trigger
+      </button>
+      <div class="collapsible-content" ${spreadProps(this.api.getContentProps())}>
+        <p>${sampleText}</p>
+      </div>
+    `
+  }
+}
+
+export function render(target: HTMLElement) {
+  target.innerHTML = `
+    <div data-collapsible-root></div>
+  `
+
+  const rootEl = target.querySelector<HTMLElement>('[data-collapsible-root]')
+  if (!rootEl)
+    return
+
+  const instance = new CollapsibleExample(rootEl, { id: 'collapsible:vanilla' })
+  instance.init()
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { toStyleString } from './utils/style'
+
+export interface SpreadAttributes {
+  [key: string]: any
+}
+
+interface EventInfo {
+  name: string
+  options?: AddEventListenerOptions
+  handler: EventListenerOrEventListenerObject
+}
+
+interface ElementState {
+  props: Record<string, any>
+  events: Map<string, EventInfo>
+}
+
+const SPREAD_ATTRIBUTE = 'data-destyler-spread'
+
+const spreadState = new WeakMap<Element, ElementState>()
+const pendingPropSets = new Map<string, SpreadAttributes>()
+
+const booleanAttributes = new Set([
+  'checked',
+  'disabled',
+  'hidden',
+  'readonly',
+  'required',
+  'selected',
+  'multiple',
+  'open',
+  'autoplay',
+  'controls',
+  'default',
+  'inert',
+])
+
+let spreadUid = 0
+
+function isElement(value: unknown): value is Element {
+  return typeof Element !== 'undefined' && value instanceof Element
+}
+
+function getPendingId(props: SpreadAttributes | null | undefined) {
+  spreadUid = (spreadUid + 1) % Number.MAX_SAFE_INTEGER
+  const id = `sp-${spreadUid}`
+  pendingPropSets.set(id, props ?? {})
+  return id
+}
+
+function applyPropsToElement<T extends Element>(element: T | null | undefined, props?: SpreadAttributes | null) {
+  if (!element)
+    return element
+  const nextProps = props ?? {}
+  const state = spreadState.get(element) ?? { props: {}, events: new Map() }
+
+  for (const key of Object.keys(state.props)) {
+    if (!(key in nextProps)) {
+      removeProp(element, key, state)
+      delete state.props[key]
+    }
+  }
+
+  for (const [key, value] of Object.entries(nextProps)) {
+    if (state.props[key] === value)
+      continue
+    applyProp(element, key, value, state)
+    state.props[key] = value
+  }
+
+  spreadState.set(element, state)
+  return element
+}
+
+export function spreadProps<T extends Element>(element: T, props?: SpreadAttributes | null): T
+export function spreadProps(element: null | undefined, props?: SpreadAttributes | null): null | undefined
+export function spreadProps(props?: SpreadAttributes | null): string
+export function spreadProps(
+  elementOrProps?: Element | SpreadAttributes | null,
+  maybeProps?: SpreadAttributes | null,
+): Element | string | null | undefined {
+  if (isElement(elementOrProps) || elementOrProps == null) {
+    return applyPropsToElement(elementOrProps as Element | null | undefined, maybeProps)
+  }
+
+  const id = getPendingId(elementOrProps)
+  return `${SPREAD_ATTRIBUTE}="${id}"`
+}
+
+export function hydrateSpreadProps(root?: ParentNode | null) {
+  if (typeof document === 'undefined')
+    return
+
+  const scope = root ?? document
+  const selector = `[${SPREAD_ATTRIBUTE}]`
+  const elements = scope.querySelectorAll<Element>(selector)
+
+  elements.forEach((element) => {
+    const id = element.getAttribute(SPREAD_ATTRIBUTE)
+    if (!id)
+      return
+    const props = pendingPropSets.get(id)
+    pendingPropSets.delete(id)
+    element.removeAttribute(SPREAD_ATTRIBUTE)
+    applyPropsToElement(element, props)
+  })
+}
+
+function applyProp(element: Element, key: string, value: any, state: ElementState) {
+  if (key === 'children' || key === 'dangerouslySetInnerHTML')
+    return
+
+  if (key === 'style') {
+    if (typeof value === 'string') {
+      element.setAttribute('style', value)
+    }
+    else if (value && typeof value === 'object') {
+      const styleString = toStyleString(value)
+      if (styleString)
+        element.setAttribute('style', styleString)
+      else
+        element.removeAttribute('style')
+    }
+    else {
+      element.removeAttribute('style')
+    }
+    return
+  }
+
+  if (key === 'ref' && typeof value === 'function') {
+    value(element)
+    return
+  }
+
+  if (key.startsWith('on') && typeof value === 'function') {
+    updateEventListener(element, key, value, state)
+    return
+  }
+
+  if (key === 'textcontent') {
+    element.textContent = value ?? ''
+    return
+  }
+
+  if (key === 'innerhtml') {
+    element.innerHTML = value ?? ''
+    return
+  }
+
+  if (booleanAttributes.has(key)) {
+    if (value) {
+      element.setAttribute(key, '')
+      setProperty(element, key, true)
+    }
+    else {
+      element.removeAttribute(key)
+      setProperty(element, key, false)
+    }
+    return
+  }
+
+  if (value === false || value === null || value === undefined) {
+    element.removeAttribute(key)
+    setProperty(element, key, undefined)
+    return
+  }
+
+  if (typeof value === 'object') {
+    element.removeAttribute(key)
+    setProperty(element, key, value)
+    return
+  }
+
+  const attrValue = typeof value === 'string' ? value : String(value)
+
+  if (key in (element as any)) {
+    setProperty(element, key, attrValue)
+  }
+  else {
+    element.setAttribute(key, attrValue)
+  }
+}
+
+function removeProp(element: Element, key: string, state: ElementState) {
+  if (key.startsWith('on')) {
+    removeEventListener(element, key, state)
+    return
+  }
+  if (key === 'style' || key === 'class' || key === 'textcontent' || key === 'innerhtml') {
+    element.removeAttribute(key)
+    return
+  }
+  element.removeAttribute(key)
+  setProperty(element, key, undefined)
+}
+
+function getEventName(key: string) {
+  let event = key.slice(2) // remove "on"
+  let capture = false
+  if (event.endsWith('capture')) {
+    capture = true
+    event = event.slice(0, -7)
+  }
+  event = event
+    .replace(/([A-Z])/g, match => `-${match.toLowerCase()}`)
+    .replace(/^-/, '')
+    .toLowerCase()
+  return { name: event, capture }
+}
+
+function updateEventListener(
+  element: Element,
+  key: string,
+  handler: EventListenerOrEventListenerObject,
+  state: ElementState,
+) {
+  removeEventListener(element, key, state)
+  const { name, capture } = getEventName(key)
+  const info: EventInfo = {
+    name,
+    handler,
+    options: capture ? { capture: true } : undefined,
+  }
+  element.addEventListener(name, handler, info.options)
+  state.events.set(key, info)
+}
+
+function removeEventListener(element: Element, key: string, state: ElementState) {
+  const info = state.events.get(key)
+  if (!info)
+    return
+  element.removeEventListener(info.name, info.handler, info.options)
+  state.events.delete(key)
+}
+
+function setProperty(element: Element, key: string, value: any) {
+  const target = element as any
+  if (key in target) {
+    try {
+      target[key] = value
+      return
+    }
+    catch {
+      // ignore assignment error and fallback to attribute
+    }
+  }
+  if (value === undefined) {
+    element.removeAttribute(key)
+  }
+  else {
+    element.setAttribute(key, typeof value === 'string' ? value : String(value))
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { toStyleString } from './utils/style'
+
+export interface SpreadAttributes {
+  [key: string]: any
+}
+
+interface EventInfo {
+  name: string
+  options?: AddEventListenerOptions
+  handler: EventListenerOrEventListenerObject
+}
+
+interface ElementState {
+  props: Record<string, any>
+  events: Map<string, EventInfo>
+}
+
+const SPREAD_ATTRIBUTE = 'data-destyler-spread'
+
+const spreadState = new WeakMap<Element, ElementState>()
+const pendingPropSets = new Map<string, SpreadAttributes>()
+
+const booleanAttributes = new Set([
+  'checked',
+  'disabled',
+  'hidden',
+  'readonly',
+  'required',
+  'selected',
+  'multiple',
+  'open',
+  'autoplay',
+  'controls',
+  'default',
+  'inert',
+])
+
+let spreadUid = 0
+
+function isElement(value: unknown): value is Element {
+  return typeof Element !== 'undefined' && value instanceof Element
+}
+
+function getPendingId(props: SpreadAttributes | null | undefined) {
+  spreadUid = (spreadUid + 1) % Number.MAX_SAFE_INTEGER
+  const id = `sp-${spreadUid}`
+  pendingPropSets.set(id, props ?? {})
+  return id
+}
+
+function applyPropsToElement<T extends Element>(element: T | null | undefined, props?: SpreadAttributes | null) {
+  if (!element)
+    return element
+  const nextProps = props ?? {}
+  const state = spreadState.get(element) ?? { props: {}, events: new Map() }
+
+  for (const key of Object.keys(state.props)) {
+    if (!(key in nextProps)) {
+      removeProp(element, key, state)
+      delete state.props[key]
+    }
+  }
+
+  for (const [key, value] of Object.entries(nextProps)) {
+    if (state.props[key] === value)
+      continue
+    applyProp(element, key, value, state)
+    state.props[key] = value
+  }
+
+  spreadState.set(element, state)
+  return element
+}
+
+export function spreadProps<T extends Element>(element: T, props?: SpreadAttributes | null): T
+export function spreadProps(element: null | undefined, props?: SpreadAttributes | null): null | undefined
+export function spreadProps(props?: SpreadAttributes | null): string
+export function spreadProps(
+  elementOrProps?: Element | SpreadAttributes | null,
+  maybeProps?: SpreadAttributes | null,
+): Element | string | null | undefined {
+  if (isElement(elementOrProps)) {
+    return applyPropsToElement(elementOrProps, maybeProps)
+  }
+
+  if (elementOrProps == null) {
+    return applyPropsToElement(elementOrProps, maybeProps)
+  }
+
+  const id = getPendingId(elementOrProps)
+  return `${SPREAD_ATTRIBUTE}="${id}"`
+}
+
+export function hydrateSpreadProps(root?: ParentNode | null) {
+  if (typeof document === 'undefined')
+    return
+
+  const scope = root ?? document
+  const selector = `[${SPREAD_ATTRIBUTE}]`
+  const elements = scope.querySelectorAll<Element>(selector)
+
+  elements.forEach((element) => {
+    const id = element.getAttribute(SPREAD_ATTRIBUTE)
+    if (!id)
+      return
+    const props = pendingPropSets.get(id)
+    pendingPropSets.delete(id)
+    element.removeAttribute(SPREAD_ATTRIBUTE)
+    applyPropsToElement(element, props)
+  })
+}
+
+function applyProp(element: Element, key: string, value: any, state: ElementState) {
+  if (key === 'children' || key === 'dangerouslySetInnerHTML')
+    return
+
+  if (key === 'style') {
+    if (typeof value === 'string') {
+      element.setAttribute('style', value)
+    }
+    else if (value && typeof value === 'object') {
+      const styleString = toStyleString(value)
+      if (styleString)
+        element.setAttribute('style', styleString)
+      else
+        element.removeAttribute('style')
+    }
+    else {
+      element.removeAttribute('style')
+    }
+    return
+  }
+
+  if (key === 'ref' && typeof value === 'function') {
+    value(element)
+    return
+  }
+
+  if (key.startsWith('on') && typeof value === 'function') {
+    updateEventListener(element, key, value, state)
+    return
+  }
+
+  if (key === 'textcontent') {
+    element.textContent = value ?? ''
+    return
+  }
+
+  if (key === 'innerhtml') {
+    element.innerHTML = value ?? ''
+    return
+  }
+
+  if (booleanAttributes.has(key)) {
+    if (value) {
+      element.setAttribute(key, '')
+      setProperty(element, key, true)
+    }
+    else {
+      element.removeAttribute(key)
+      setProperty(element, key, false)
+    }
+    return
+  }
+
+  if (value === false || value === null || value === undefined) {
+    element.removeAttribute(key)
+    setProperty(element, key, undefined)
+    return
+  }
+
+  if (typeof value === 'object') {
+    element.removeAttribute(key)
+    setProperty(element, key, value)
+    return
+  }
+
+  const attrValue = typeof value === 'string' ? value : String(value)
+
+  if (key in (element as any)) {
+    setProperty(element, key, attrValue)
+  }
+  else {
+    element.setAttribute(key, attrValue)
+  }
+}
+
+function removeProp(element: Element, key: string, state: ElementState) {
+  if (key.startsWith('on')) {
+    removeEventListener(element, key, state)
+    return
+  }
+  if (key === 'style' || key === 'class' || key === 'textcontent' || key === 'innerhtml') {
+    element.removeAttribute(key)
+    return
+  }
+  element.removeAttribute(key)
+  setProperty(element, key, undefined)
+}
+
+function getEventName(key: string) {
+  let event = key.slice(2) // remove "on"
+  let capture = false
+  if (event.endsWith('capture')) {
+    capture = true
+    event = event.slice(0, -7)
+  }
+  event = event
+    .replace(/([A-Z])/g, match => `-${match.toLowerCase()}`)
+    .replace(/^-/, '')
+    .toLowerCase()
+  return { name: event, capture }
+}
+
+function updateEventListener(
+  element: Element,
+  key: string,
+  handler: EventListenerOrEventListenerObject,
+  state: ElementState,
+) {
+  removeEventListener(element, key, state)
+  const { name, capture } = getEventName(key)
+  const info: EventInfo = {
+    name,
+    handler,
+    options: capture ? { capture: true } : undefined,
+  }
+  element.addEventListener(name, handler, info.options)
+  state.events.set(key, info)
+}
+
+function removeEventListener(element: Element, key: string, state: ElementState) {
+  const info = state.events.get(key)
+  if (!info)
+    return
+  element.removeEventListener(info.name, info.handler, info.options)
+  state.events.delete(key)
+}
+
+function setProperty(element: Element, key: string, value: any) {
+  const target = element as any
+  if (key in target) {
+    try {
+      target[key] = value
+      return
+    }
+    catch {
+      // ignore assignment error and fallback to attribute
+    }
+  }
+  if (value === undefined) {
+    element.removeAttribute(key)
+  }
+  else {
+    element.setAttribute(key, typeof value === 'string' ? value : String(value))
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as collapsible from '../../index'
+import '../style.css'
+
+const sampleText = `
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat.
+`
+
+type CollapsibleMachineContext = ContextFrom<typeof collapsible.machine>
+
+class CollapsibleExample extends Component<
+  collapsible.Context,
+  collapsible.Api,
+  CollapsibleMachineContext,
+  collapsible.MachineState
+> {
+  initService(context: collapsible.Context) {
+    return collapsible.machine(context) as collapsible.Service
+  }
+
+  initApi() {
+    return collapsible.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  render = () => {
+    const rootEl = this.rootEl
+    if (!rootEl)
+      return
+
+    spreadProps(rootEl, {
+      ...this.api.getRootProps(),
+      class: ['collapsible-root', this.api.getRootProps().class].filter(Boolean).join(' '),
+    })
+
+    rootEl.innerHTML = `
+      <button class="collapsible-trigger" ${spreadProps(this.api.getTriggerProps())}>
+        Collapsible Trigger
+      </button>
+      <div class="collapsible-content" ${spreadProps(this.api.getContentProps())}>
+        <p>${sampleText}</p>
+      </div>
+    `
+  }
+}
+
+export function render(target: HTMLElement) {
+  target.innerHTML = `
+    <div data-collapsible-root></div>
+  `
+
+  const rootEl = target.querySelector<HTMLElement>('[data-collapsible-root]')
+  if (!rootEl)
+    return
+
+  const instance = new CollapsibleExample(rootEl, { id: 'collapsible:vanilla' })
+  instance.init()
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as collapsible from '../../index'
+import '../style.css'
+
+const sampleText = `
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat.
+`
+
+type CollapsibleMachineContext = ContextFrom<typeof collapsible.machine>
+
+class CollapsibleExample extends Component<
+  collapsible.Context,
+  collapsible.Api,
+  CollapsibleMachineContext,
+  collapsible.MachineState
+> {
+  initService(context: collapsible.Context) {
+    return collapsible.machine(context) as collapsible.Service
+  }
+
+  initApi() {
+    return collapsible.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  render = () => {
+    const rootEl = this.rootEl
+    if (!rootEl)
+      return
+
+    const rootProps = this.api.getRootProps()
+    const triggerProps = this.api.getTriggerProps()
+    const contentProps = this.api.getContentProps()
+
+    spreadProps(rootEl, {
+      ...rootProps,
+      class: ['collapsible-root', rootProps.class].filter(Boolean).join(' '),
+    })
+
+    rootEl.innerHTML = `
+      <button class="collapsible-trigger" ${spreadProps(triggerProps)}>
+        Collapsible Trigger
+      </button>
+      <div class="collapsible-content" ${spreadProps(contentProps)}>
+        <p>${sampleText}</p>
+      </div>
+    `
+  }
+}
+
+export function render(target: HTMLElement) {
+  target.innerHTML = `
+    <div data-collapsible-root></div>
+  `
+
+  const rootEl = target.querySelector<HTMLElement>('[data-collapsible-root]')
+  if (!rootEl)
+    return
+
+  const instance = new CollapsibleExample(rootEl, { id: 'collapsible:vanilla' })
+  instance.init()
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/package.json)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/package.json)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist",
+  "relativeWorkspacePath": "dist"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.d.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.d.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "ff8d9361-1359-4f3a-a22d-863ddfaea938",
+  "terminalCommandId": "tool-458bbe3d-fa5f-4d72-a8b7-1b500097d83f",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; pnpm --filter @destyler/vanilla build",
+    "toolEdited": "pnpm --filter @destyler/vanilla build"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.d.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.d.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js#200-200)，行 200 到 430</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js#200-200)，行 200 到 430
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js#120-120)，行 120 到 240</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js#120-120)，行 120 到 240
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js#40-40)，行 40 到 160</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/dist/index.js#40-40)，行 40 到 160
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/vanilla/Collapsible.ts",
+  "relativeWorkspacePath": "Collapsible.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/vanilla/Collapsible.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/vanilla/Collapsible.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "ac923bd4-1340-4b7e-97e4-d6e346b34638",
+  "terminalCommandId": "tool-d11bf4a2-a5bd-4d27-83c7-2ec8cc8c5185",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; git status -sb",
+    "toolEdited": "git status -sb"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;git status&#96;](command:_chat.openTerminalSettingsLink?%255B7%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
 **Inspecting package @destyler/vanilla****Considering attribute string helper****Correcting approach to use query****Investigating Vanilla framework usage****Considering attribute binding changes****Noticing unused helper functions****Designing spreadProps string overload with hydration**
 
 I'm exploring how to modify `spreadProps` so it can return a string of attributes when called with just props, enabling usage inside template strings, while preserving event handlers by deferring their attachment via a hydration step. This entails overloading `spreadProps` to accept either an element and props (existing behavior) or just props (new string output with a data attribute ID), then adding a global hydration function that attaches events after the HTML is inserted, ideally integrated into the component lifecycle for automatic hookup. This approach balances new syntax desires with backward compatibility and event handling complexity.**Designing dual-mode spreadProps API**
 
 I've outlined a plan to update spreadProps to support both returning an attribute string for templating and applying props directly to elements, handling SSR safely, and integrating hydration logic to bind event handlers after markup is set. This includes tracking pending spreads, applying them post-render, and updating Component rendering to invoke hydration automatically. It’s a detailed approach to enable clean templated markup with reactive behavior.**Refactoring spreadProps with hydration helper**
 
-I'm planning to add a `hydrateSpreadProps` function that scans for elements with the special data attribute and applies stored props, cleaning up afterward. To keep the code clean, I'll refactor the original element-based spreadProps logic into a separate internal function, then have the main spreadProps method branch appropriately between string and element modes. I’ll also ensure proper exports and consistent naming for the data attribute.**Planning new hydration helper export and integration**
-```
+I'm planning to add a `hydrateSpreadProps` function that scans for elements with the special data attribute and applies stored props, cleaning up afterward. To keep the code clean, I'll refactor the original element-based spreadProps logic into a separate internal function, then have the main spreadProps method branch appropriately between string and element modes. I’ll also ensure proper exports and consistent naming for the data attribute.**Planning new hydration helper export and integration****Reviewing hydration and SSR handling**
 
-```
-**Reviewing hydration and SSR handling**
+I'm carefully verifying how `pendingPropSets` handles props, especially ensuring safe defaults and proper attribute application during hydration. I'm also considering the subtleties of server-side rendering—how the map may accumulate without DOM, possible memory leaks, and how to detect the environment to prevent unwanted storage. I want to make sure the hydration logic works smoothly across SSR and client environments, and I'll export `hydrateSpreadProps` accordingly.**Updating component to use hydrateSpreadProps****Refactoring render method and hydrateSpreadProps usage**
 
-I'm carefully verifying how `pendingPropSets` handles props, especially ensuring safe defaults and proper attribute application during hydration. I'm also considering the subtleties of server-side rendering—how the map may accumulate without DOM, possible memory leaks, and how to detect the environment to prevent unwanted storage. I want to make sure the hydration logic works smoothly across SSR and client environments, and I'll export `hydrateSpreadProps` accordingly.
-```
-
-```
-**Updating component to use hydrateSpreadProps**
-```
-
-```
-**Refactoring render method and hydrateSpreadProps usage**
-
-I'm making sure `hydrateSpreadProps` handles `HTMLElement` correctly and removing unnecessary query selectors in the `render` method by setting `innerHTML` with hydrated props. I’ll verify that `getTriggerProps` and related API methods provide the needed attributes to replace manual data attributes while maintaining the component's structure and behavior.**Investigating data attribute handling****Examining data attribute usage****Checking component attributes****Adjusting markup and spreadProps usage**
-```
-
-```
-**Analyzing TypeScript overload resolution issues****Refining type safety in function implementation**
-```
-
-```
-**Refining generic return types**
-```
-
-```
-**Adjusting class merging in render**
-```
-
-```
-**Optimizing repeated API calls**
-```
-
-```
-**Investigating TypeScript type conflicts****Analyzing TypeScript type resolution issues****Checking for dist directory****Inspecting distribution index file****Reviewing dist updates for spreadProps****Preparing to rebuild distribution files**
+I'm making sure `hydrateSpreadProps` handles `HTMLElement` correctly and removing unnecessary query selectors in the `render` method by setting `innerHTML` with hydrated props. I’ll verify that `getTriggerProps` and related API methods provide the needed attributes to replace manual data attributes while maintaining the component's structure and behavior.**Investigating data attribute handling****Examining data attribute usage****Checking component attributes****Adjusting markup and spreadProps usage****Analyzing TypeScript overload resolution issues****Refining type safety in function implementation****Refining generic return types****Adjusting class merging in render****Optimizing repeated API calls****Investigating TypeScript type conflicts****Analyzing TypeScript type resolution issues****Checking for dist directory****Inspecting distribution index file****Reviewing dist updates for spreadProps****Preparing to rebuild distribution files**
 
 I need to update the distribution files to reflect new features, but editing them manually feels cumbersome. It’s probably better to run the build command using `pnpm` in the appropriate package to regenerate the dist files automatically, even though there isn’t a predefined task for it. I'll plan to run the build directly in the terminal to keep things aligned with the latest source changes.**Verifying updated distribution definitions****Checking distribution index.js for logic updates****Reviewing file start for pending logic****Checking file header for constants****Verifying TypeScript fixes****Verifying component hydration updates****Reviewing new auto-generated files and summarizing changes**
 
@@ -110,15 +1852,285 @@ _**User (2025-11-13 14:54Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
-**Refactoring render logic with string-based spreadProps**
-```
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/vanilla/AspectRatio.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/vanilla/AspectRatio.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { hydrateSpreadProps, normalizeProps, spreadProps, useMachine } from '@destyler/vanilla'
+import * as aspectRatio from '../../index'
+import '../style.css'
+
+const classNames = (...values: Array<string | null | undefined | false>) => values.filter(Boolean).join(' ')
+
+export function render(target: HTMLElement, ratio = 16 / 9) {
+  const machine = useMachine(
+    aspectRatio.machine({
+      id: '1',
+      ratio,
+    }),
+  )
+
+  const api = aspectRatio.connect(machine.state, machine.send, normalizeProps)
+  const rootProps = api.getRootProps()
+  const contentProps = api.getContentProps()
+
+  target.innerHTML = `
+    <div class="aspect-ratio-root">
+      <div class="aspect-ratio-node" ${spreadProps({
+        ...rootProps,
+        class: classNames('aspect-ratio-node', rootProps.class),
+      })}>
+        <div class="aspect-ratio-content" ${spreadProps({
+          ...contentProps,
+          class: classNames('aspect-ratio-content', contentProps.class),
+        })}>
+          <img
+            class="aspect-ratio-img"
+            src="https://elonehoo.me/gallery/20_sun.jpg"
+          >
+        </div>
+      </div>
+    </div>
+  `
+  hydrateSpreadProps(target)
+}
 
 ```
 
-```
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import { collapseData } from '@destyler/shared-private'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as collapse from '../../index'
+import '../style.css'
+
+type CollapseMachineContext = ContextFrom<typeof collapse.machine>
+
+const classNames = (...values: Array<string | null | undefined | false>) => values.filter(Boolean).join(' ')
+
+class CollapseExample extends Component<
+  collapse.Context,
+  collapse.Api,
+  CollapseMachineContext,
+  collapse.MachineState
+> {
+  initService(context: collapse.Context) {
+    return collapse.machine(context) as collapse.Service
+  }
+
+  initApi() {
+    return collapse.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  render = () => {
+    if (!this.rootEl)
+      return
+    const rootProps = this.api.getRootProps()
+    spreadProps(this.rootEl, {
+      ...rootProps,
+      class: classNames('collapse-root', rootProps.class),
+    })
+
+    const itemsMarkup = collapseData
+      .map((item) => {
+        const itemProps = this.api.getItemProps({ value: item.id })
+        const triggerProps = this.api.getItemTriggerProps({ value: item.id })
+        const contentProps = this.api.getItemContentProps({ value: item.id })
+        const indicatorProps = this.api.getItemIndicatorProps({ value: item.id })
+
+        return `
+          <div class="collapse-item" ${spreadProps({
+            ...itemProps,
+            class: classNames('collapse-item', itemProps.class),
+            'data-value': item.id,
+          })}>
+            <h3>
+              <button class="collapse-trigger" ${spreadProps({
+                ...triggerProps,
+                class: classNames('collapse-trigger', triggerProps.class),
+              })}>
+                ${item.title}
+                <span class="collapse-indicator" ${spreadProps({
+                  ...indicatorProps,
+                  class: classNames('collapse-indicator', indicatorProps.class),
+                })}>
+                  &gt;
+                </span>
+              </button>
+            </h3>
+            <div class="collapse-content" ${spreadProps({
+              ...contentProps,
+              class: classNames('collapse-content', contentProps.class),
+            })}>
+              ${item.content}
+            </div>
+          </div>
+        `
+      })
+      .join('')
+
+    this.rootEl.innerHTML = itemsMarkup
+  }
+}
+
+export function render(target: HTMLElement) {
+  target.innerHTML = `
+    <div data-collapse-root></div>
+  `
+
+  const rootEl = target.querySelector<HTMLElement>('[data-collapse-root]')
+  if (!rootEl)
+    return
+
+  const instance = new CollapseExample(rootEl, { id: 'collapse:vanilla' })
+  instance.init()
+}
 
 ```
-**Checking template indentation and hydrateSpreadProps call****Checking git status before finalizing****Summarizing recent updates**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/vanilla/AspectRatio.ts",
+  "relativeWorkspacePath": "AspectRatio.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/vanilla/AspectRatio.ts), [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/vanilla/AspectRatio.ts), [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "7493a8ba-1a89-4667-b9ba-eb47da5b25aa",
+  "terminalCommandId": "tool-0d02bc63-71d2-4938-b617-c58a2a12d2ec",
+  "commandLine": {
+    "original": "git status -sb"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;git status&#96;](command:_chat.openTerminalSettingsLink?%255B7%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+**Refactoring render logic with string-based spreadProps****Checking template indentation and hydrateSpreadProps call****Checking git status before finalizing****Summarizing recent updates**
 
 I'll explain the two main modifications: both now use string-based spreadProps, with aspect ratio calling hydrateSpreadProps to bind props, and collapse restructuring its rendering pattern with a root placeholder. I'll also mention watchers and suggest next steps like verifying interactions or migrating components, noting no tests were run yet.Converted the aspect ratio and collapse vanilla examples to the new template-friendly `spreadProps` flow. In `AspectRatio.ts` I build the markup with the string-returning form of `spreadProps`, merge existing classes, and call `hydrateSpreadProps(target)` right after `innerHTML` so listeners attach. In `Collapse.ts` the component now re-renders its whole structure via template strings: root/item/trigger/content/indicator props are merged with their classes, each block uses `spreadProps({...})`, and the exported `render` helper just seeds a placeholder div—`performRender` handles hydration.
 
@@ -134,13 +2146,346 @@ _**User (2025-11-13 15:14Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/connect.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/connect.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/dom.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/dom.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/anatomy.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/anatomy.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/types.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/src/types.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/style.css)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/style.css)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `collapseData` (`**/packages/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `collapseControls` (`**/packages/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/shared",
+  "relativeWorkspacePath": "shared"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/shared/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/data.ts#1-1)，行 1 到 201</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/data.ts#1-1)，行 1 到 201
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import { collapseData } from '@destyler/shared-private'
+import { Component, hydrateSpreadProps, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as collapse from '../../index'
+import '../style.css'
+
+type CollapseMachineContext = ContextFrom<typeof collapse.machine>
+
+const classNames = (...values: Array<string | null | undefined | false>) => values.filter(Boolean).join(' ')
+
+class CollapseExample extends Component<
+  collapse.Context,
+  collapse.Api,
+  CollapseMachineContext,
+  collapse.MachineState
+> {
+  initService(context: collapse.Context) {
+    return collapse.machine(context) as collapse.Service
+  }
+
+  initApi() {
+    return collapse.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  render = () => {
+    if (!this.rootEl)
+      return
+    const rootProps = this.api.getRootProps()
+    spreadProps(this.rootEl, {
+      ...rootProps,
+      class: classNames('collapse-root', rootProps.class),
+    })
+
+    const itemsMarkup = collapseData
+      .map((item) => {
+        const itemProps = this.api.getItemProps({ value: item.id })
+        const triggerProps = this.api.getItemTriggerProps({ value: item.id })
+        const contentProps = this.api.getItemContentProps({ value: item.id })
+        const indicatorProps = this.api.getItemIndicatorProps({ value: item.id })
+
+        return `
+          <div class="collapse-item" ${spreadProps({
+            ...itemProps,
+            "class": classNames('collapse-item', itemProps.class),
+            'data-value': item.id,
+          })}>
+            <h3>
+              <button class="collapse-trigger" ${spreadProps({
+                ...triggerProps,
+                class: classNames('collapse-trigger', triggerProps.class),
+              })}>
+                ${item.title}
+                <span class="collapse-indicator" ${spreadProps({
+                  ...indicatorProps,
+                  class: classNames('collapse-indicator', indicatorProps.class),
+                })}>
+                  &gt;
+                </span>
+              </button>
+            </h3>
+            <div class="collapse-content" ${spreadProps({
+              ...contentProps,
+              class: classNames('collapse-content', contentProps.class),
+            })}>
+              ${item.content}
+            </div>
+          </div>
+        `
+      })
+      .join('')
+
+    this.rootEl.innerHTML = itemsMarkup
+    hydrateSpreadProps(this.rootEl)
+  }
+}
+
+export function render(target: HTMLElement) {
+  target.innerHTML = `
+    <div data-collapse-root></div>
+  `
+
+  const rootEl = target.querySelector<HTMLElement>('[data-collapse-root]')
+  if (!rootEl)
+    return
+
+  const instance = new CollapseExample(rootEl, { id: 'collapse:vanilla' })
+  instance.init()
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts",
+  "relativeWorkspacePath": "Collapse.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
 **Analyzing collapse component event handling issue**
 
-There is a lot here! I'm working through how the collapse component uses spreadProps and hydration—checking if event handlers like onClick are properly applied after rendering innerHTML. I'm investigating possible conflicts with class and data attributes, and whether hydration runs correctly after innerHTML resets the DOM, causing events to fail. I'll dig into the getItemTriggerProps and connect files to see how attributes and event listeners should be wired.**Analyzing event attachment in hydration****Analyzing hydration and event binding issues****Analyzing event hydration issues****Analyzing event binding and attribute setting****Analyzing event hookup and attribute issues****Analyzing collapse event hydration issues****Searching for collapseData in shared-private****Searching for collapseData definition****Locating shared-private module****Analyzing event hydration issues in collapse component**
-```
-
-```
-**Triggering manual hydration and checking AspectRatio****Summarizing final fix**加了显式的 `hydrateSpreadProps(this.rootEl)` 调用，确保在用模板字符串插入子节点后立即把 `spreadProps` 真正挂到 DOM 上，事件现在会正常绑定。文件：`Collapse.ts`。
+There is a lot here! I'm working through how the collapse component uses spreadProps and hydration—checking if event handlers like onClick are properly applied after rendering innerHTML. I'm investigating possible conflicts with class and data attributes, and whether hydration runs correctly after innerHTML resets the DOM, causing events to fail. I'll dig into the getItemTriggerProps and connect files to see how attributes and event listeners should be wired.**Analyzing event attachment in hydration****Analyzing hydration and event binding issues****Analyzing event hydration issues****Analyzing event binding and attribute setting****Analyzing event hookup and attribute issues****Analyzing collapse event hydration issues****Searching for collapseData in shared-private****Searching for collapseData definition****Locating shared-private module****Analyzing event hydration issues in collapse component****Triggering manual hydration and checking AspectRatio****Summarizing final fix**加了显式的 `hydrateSpreadProps(this.rootEl)` 调用，确保在用模板字符串插入子节点后立即把 `spreadProps` 真正挂到 DOM 上，事件现在会正常绑定。文件：`Collapse.ts`。
 
 ---
 
@@ -151,6 +2496,93 @@ _**User (2025-11-13 15:23Z)**_
 ---
 
 _**Agent (model copilot/gpt-5-codex)**_
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `data-value` (`**/packages/components/collapse/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread-props.spec.ts",
+  "relativeWorkspacePath": "spread-props.spec.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread-props.spec.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/spread-props.spec.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { describe, expect, it, vi } from 'vitest'\nimport { hydrateSpreadProps, spreadProps } from './spread-props'\n\ndescribe('spreadProps string hydration', () =&gt; {\n  it('hydrates event handlers on generated markup', () =&gt; {\n    const root = document.createElement('div')\n    const handleClick = vi.fn()\n\n    root.innerHTML = &#96;&lt;button ${spreadProps({ onclick: handleClick })}&gt;&lt;/button&gt;&#96;\n\n    hydrateSpreadProps(root)\n\n    const button = root.querySelector('button')\n    expect(button).toBeTruthy()\n\n    button?.dispatchEvent(new window.Event('click', { bubbles: true }))\n    expect(handleClick).toHaveBeenCalled()\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="runTests">
+<details>
+<summary>Tool use: **runTests**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "runTests",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在运行测试...",
+  "isConfirmed": {
+    "type": 4
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
 
 **Investigating event hydration and rendering issues****Confirming hydration timing and build consistency**
 

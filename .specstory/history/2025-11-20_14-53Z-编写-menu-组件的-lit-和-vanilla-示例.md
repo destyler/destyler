@@ -12,21 +12,1472 @@ _**User (2025-11-20 15:04Z)**_
 
 _**Agent (model copilot/gpt-5.1-codex)**_
 
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已创建 4 个待办事项**
+
+- [ ] Inspect existing menu examples
+  > Review current examples for menu component (react/solid/vue/svelte) for parity reference
+- [ ] Add lit example for menu
+  > Create menu example in packages/components/menu/examples/lit similar to combobox/color-picker patterns
+- [ ] Add vanilla example for menu
+  > Create vanilla example and register assets similar to other components
+- [ ] Register new examples in storybook
+  > Ensure lit and vanilla menu examples are registered/linked within storybook configuration
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples",
+  "relativeWorkspacePath": "examples"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/react/Menu.react.tsx)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/react/Menu.react.tsx)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/style.css)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/style.css)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/solid/Menu.solid.tsx)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/solid/Menu.solid.tsx)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples",
+  "relativeWorkspacePath": "examples"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit",
+  "relativeWorkspacePath": "lit"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples",
+  "relativeWorkspacePath": "examples"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit",
+  "relativeWorkspacePath": "lit"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit/ColorPicker.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit/ColorPicker.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla/Combobox.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla/Combobox.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/vanilla/ColorPicker.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/vanilla/ColorPicker.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu",
+  "relativeWorkspacePath": "menu"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook",
+  "relativeWorkspacePath": "storybook"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook",
+  "relativeWorkspacePath": "storybook"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook/lit.stories.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook/lit.stories.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook/vanilla.stories.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/storybook/vanilla.stories.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.astro)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.astro)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla/Combobox.astro)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/vanilla/Combobox.astro)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/*/components/*/examples/lit/*.ts&#96; 匹配的文件",
+  "pastTenseMessage": "搜索与 &#96;**/*/components/*/examples/lit/*.ts&#96; 匹配的文件，18 匹配项",
+  "resultDetails": [
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/breadcrumbs/examples/lit/Breadcrumbs.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/breadcrumbs/examples/lit/Breadcrumbs.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/breadcrumbs/examples/lit/Breadcrumbs.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit/ColorPicker.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit/ColorPicker.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/examples/lit/ColorPicker.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/file-upload/examples/lit/FileUpload.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/file-upload/examples/lit/FileUpload.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/file-upload/examples/lit/FileUpload.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/floating-panel/examples/lit/FloatingPanel.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/floating-panel/examples/lit/FloatingPanel.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/floating-panel/examples/lit/FloatingPanel.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/lit/Collapsible.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/lit/Collapsible.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapsible/examples/lit/Collapsible.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/lit/Dialog.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/lit/Dialog.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/lit/Dialog.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/edit/examples/lit/Edit.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/edit/examples/lit/Edit.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/edit/examples/lit/Edit.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/lit/AspectRatio.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/lit/AspectRatio.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/aspect-ratio/examples/lit/AspectRatio.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/image/examples/lit/Image.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/image/examples/lit/Image.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/image/examples/lit/Image.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/examples/lit/Combobox.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/label/examples/lit/Label.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/label/examples/lit/Label.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/label/examples/lit/Label.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit/Collapse.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit/Collapse.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit/Collapse.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/lit/Checkbox.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/lit/Checkbox.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/lit/Checkbox.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/examples/lit/HoverCard.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/examples/lit/HoverCard.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/examples/lit/HoverCard.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/calendar/examples/lit/Calendar.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/calendar/examples/lit/Calendar.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/calendar/examples/lit/Calendar.ts",
+      "scheme": "file"
+    },
+    {
+      "$mid": 1,
+      "fsPath": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/dynamic/examples/lit/Dynamic.ts",
+      "external": "file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/dynamic/examples/lit/Dynamic.ts",
+      "path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/dynamic/examples/lit/Dynamic.ts",
+      "scheme": "file"
+    }
+  ],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/lit/Checkbox.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/lit/Checkbox.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vue/Menu.vue)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vue/Menu.vue)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/svelte/Menu.svelte)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/svelte/Menu.svelte)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已完成(Inspect existing menu examples/1) *4***
+
+- [x] Inspect existing menu examples
+  > Review current examples for menu component (react/solid/vue/svelte) for parity reference
+- [ ] Add lit example for menu
+  > Create menu example in packages/components/menu/examples/lit similar to combobox/color-picker patterns
+- [ ] Add vanilla example for menu
+  > Create vanilla example and register assets similar to other components
+- [ ] Register new examples in storybook
+  > Ensure lit and vanilla menu examples are registered/linked within storybook configuration
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `getPositionerProps\(\)` (`**/packages/components/**/examples/lit/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/lit/Dialog.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/lit/Dialog.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/floating-panel/examples/lit/FloatingPanel.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/floating-panel/examples/lit/FloatingPanel.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/examples/vanilla/HoverCard.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/examples/vanilla/HoverCard.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src/types.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src/types.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `isMounted` (`**/packages/components/**/examples/vanilla/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/vanilla/Dialog.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/dialog/examples/vanilla/Dialog.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `override destroy` (`**/packages/components/**/examples/vanilla/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/vanilla/Checkbox.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/checkbox/examples/vanilla/Checkbox.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/lit/Menu.ts",
+  "relativeWorkspacePath": "Menu.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/lit/Menu.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/lit/Menu.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import type { ContextFrom } from '@destyler/lit'\nimport { MachineController, normalizeProps, portal, spread } from '@destyler/lit'\nimport { menuControls } from '@destyler/shared-private'\nimport { ControlsController } from '@destyler/shared-private/lit'\nimport { html, LitElement, unsafeCSS } from 'lit'\nimport { customElement } from 'lit/decorators.js'\nimport * as menu from '../../index'\nimport styles from '../style.css?inline'\n\ntype MenuMachineContext = ContextFrom&lt;typeof menu.machine&gt;\n\nconst items = [\n  { value: 'edit', label: 'Edit' },\n  { value: 'duplicate', label: 'Duplicate' },\n  { value: 'delete', label: 'Delete' },\n  { value: 'export', label: 'Export...' },\n] as const\n\n@customElement('destyler-menu')\nexport class MenuElement extends LitElement {\n  private controls = new ControlsController(menuControls)\n\n  private machine = new MachineController(\n    this,\n    menu.machine({\n      id: 'menu:lit',\n      // eslint-disable-next-line no-console\n      onSelect: console.log,\n    }),\n    {\n      context: {\n        get: () =&gt; this.controls.context as Partial&lt;MenuMachineContext&gt;,\n        subscribe: (fn: (ctx: Partial&lt;MenuMachineContext&gt;) =&gt; void) =&gt; this.controls.subscribe(fn as any),\n      },\n    },\n  )\n\n  render() {\n    const api = menu.connect(this.machine.state, this.machine.send, normalizeProps)\n\n    return html&#96;\n      &lt;destyler-layout&gt;\n        &lt;main&gt;\n          &lt;button ${spread(api.getTriggerProps())}&gt;\n            Actions &lt;span ${spread(api.getIndicatorProps())}&gt;▾&lt;/span&gt;\n          &lt;/button&gt;\n          ${api.open\n            ? portal(\n                html&#96;\n                  &lt;div ${spread(api.getPositionerProps())}&gt;\n                    &lt;ul ${spread(api.getContentProps())}&gt;\n                      ${items.map(item =&gt; html&#96;&lt;li ${spread(api.getItemProps({ value: item.value }))}&gt;${item.label}&lt;/li&gt; &#96;)}\n                    &lt;/ul&gt;\n                  &lt;/div&gt;\n                &#96;,\n                document.body,\n              )\n            : null}\n        &lt;/main&gt;\n        &lt;destyler-toolbar .controls=${this.controls}&gt;\n          &lt;destyler-state-visualizer .state=${this.machine.state}&gt;&lt;/destyler-state-visualizer&gt;\n        &lt;/destyler-toolbar&gt;\n      &lt;/destyler-layout&gt;\n    &#96;\n  }\n\n  static styles = unsafeCSS(styles)\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'destyler-menu': MenuElement\n  }\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/lit'
+import { MachineController, normalizeProps, portal, spread } from '@destyler/lit'
+import { menuControls } from '@destyler/shared-private'
+import { ControlsController } from '@destyler/shared-private/lit'
+import { html, LitElement, unsafeCSS } from 'lit'
+import { customElement } from 'lit/decorators.js'
+import * as menu from '../../index'
+import styles from '../style.css?inline'
+
+type MenuMachineContext = ContextFrom<typeof menu.machine>
+
+const items = [
+  { value: 'edit', label: 'Edit' },
+  { value: 'duplicate', label: 'Duplicate' },
+  { value: 'delete', label: 'Delete' },
+  { value: 'export', label: 'Export...' },
+] as const
+
+@customElement('destyler-menu')
+export class MenuElement extends LitElement {
+  private controls = new ControlsController(menuControls)
+
+  private machine = new MachineController(
+    this,
+    menu.machine({
+      id: 'menu:lit',
+      // eslint-disable-next-line no-console
+      onSelect: console.log,
+    }),
+    {
+      context: {
+        get: () => this.controls.context as Partial<MenuMachineContext>,
+        subscribe: (fn: (ctx: Partial<MenuMachineContext>) => void) => this.controls.subscribe(fn as any),
+      },
+    },
+  )
+
+  render() {
+    const api = menu.connect(this.machine.state, this.machine.send, normalizeProps)
+
+    return html`
+      <destyler-layout>
+        <main>
+          <button ${spread(api.getTriggerProps())}>
+            Actions <span ${spread(api.getIndicatorProps())}>▾</span>
+          </button>
+          ${api.open
+            ? portal(
+                html`
+                  <div ${spread(api.getPositionerProps())}>
+                    <ul ${spread(api.getContentProps())}>
+                      ${items.map(item => html`<li ${spread(api.getItemProps({ value: item.value }))}>${item.label}</li>`)}
+                    </ul>
+                  </div>
+                `,
+                document.body,
+              )
+            : null}
+        </main>
+        <destyler-toolbar .controls=${this.controls}>
+          <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
+        </destyler-toolbar>
+      </destyler-layout>
+    `
+  }
+
+  static styles = unsafeCSS(styles)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'destyler-menu': MenuElement
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/lit/Menu.astro",
+  "relativeWorkspacePath": "Menu.astro"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/lit/Menu.astro)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/lit/Menu.astro)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "&lt;script&gt;\n  import './Menu'\n&lt;/script&gt;\n\n&lt;destyler-menu&gt;&lt;/destyler-menu&gt;\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.ts",
+  "relativeWorkspacePath": "Menu.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import type { ContextFrom } from '@destyler/vanilla'\nimport type { State as MenuState, MachineState } from '../../src/types'\nimport { menuControls } from '@destyler/shared-private'\nimport { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'\nimport { Component, normalizeProps, spreadProps } from '@destyler/vanilla'\nimport * as menu from '../../index'\nimport '../style.css'\n\ntype MenuMachineContext = ContextFrom&lt;typeof menu.machine&gt;\n\nconst items = [\n  { value: 'edit', label: 'Edit' },\n  { value: 'duplicate', label: 'Duplicate' },\n  { value: 'delete', label: 'Delete' },\n  { value: 'export', label: 'Export...' },\n] as const\n\ntype MenuItem = typeof items[number]\n\nclass MenuExample extends Component&lt;\n  menu.Context,\n  menu.Api,\n  MenuMachineContext,\n  MachineState\n&gt; {\n  private readonly triggerEl: HTMLButtonElement | null\n  private readonly indicatorEl: HTMLElement | null\n  private readonly positionerEl: HTMLDivElement\n  private readonly contentEl: HTMLUListElement\n  private readonly itemElements: Record&lt;MenuItem['value'], HTMLLIElement&gt;\n  private readonly stateListeners = new Set&lt;(state: MenuState) =&gt; void&gt;()\n  private isMounted = false\n\n  constructor(rootEl: HTMLElement, context: menu.Context, options?: any) {\n    super(rootEl, context, options)\n    this.triggerEl = rootEl.querySelector('[data-menu-trigger]')\n    this.indicatorEl = rootEl.querySelector('[data-menu-indicator]')\n\n    this.positionerEl = document.createElement('div')\n    this.contentEl = document.createElement('ul')\n    this.positionerEl.appendChild(this.contentEl)\n\n    this.itemElements = {} as Record&lt;MenuItem['value'], HTMLLIElement&gt;\n    items.forEach((item) =&gt; {\n      const element = document.createElement('li')\n      element.textContent = item.label\n      this.itemElements[item.value] = element\n      this.contentEl.appendChild(element)\n    })\n  }\n\n  initService(context: menu.Context) {\n    return menu.machine(context) as menu.Service\n  }\n\n  initApi() {\n    return menu.connect(this.service.state, this.service.send, normalizeProps)\n  }\n\n  onStateChange(listener: (state: MenuState) =&gt; void) {\n    this.stateListeners.add(listener)\n  }\n\n  protected override onTransition(state: MenuState) {\n    this.stateListeners.forEach(listener =&gt; listener(state))\n  }\n\n  private attachMenu() {\n    if (this.isMounted)\n      return\n    document.body.appendChild(this.positionerEl)\n    this.isMounted = true\n  }\n\n  private detachMenu() {\n    if (!this.isMounted)\n      return\n    this.positionerEl.remove()\n    this.isMounted = false\n  }\n\n  render = () =&gt; {\n    const api = this.api\n\n    if (this.triggerEl)\n      spreadProps(this.triggerEl, api.getTriggerProps())\n\n    if (this.indicatorEl)\n      spreadProps(this.indicatorEl, api.getIndicatorProps())\n\n    spreadProps(this.positionerEl, api.getPositionerProps())\n    spreadProps(this.contentEl, api.getContentProps())\n\n    items.forEach((item) =&gt; {\n      const element = this.itemElements[item.value]\n      spreadProps(element, api.getItemProps({ value: item.value }))\n    })\n\n    if (api.open)\n      this.attachMenu()\n    else\n      this.detachMenu()\n  }\n}\n\nexport function render(target: HTMLElement) {\n  const controls = useControls(menuControls)\n  const layout = Layout()\n\n  target.innerHTML = ''\n  target.appendChild(layout.root)\n\n  layout.main.innerHTML = &#96;\n    &lt;main data-menu-example&gt;\n      &lt;button type=\"button\" data-menu-trigger&gt;\n        Actions &lt;span data-menu-indicator&gt;▾&lt;/span&gt;\n      &lt;/button&gt;\n    &lt;/main&gt;\n  &#96;\n\n  const scope = layout.main.querySelector&lt;HTMLElement&gt;('[data-menu-example]')\n  if (!scope)\n    return\n\n  const toolbar = Toolbar()\n  toolbar.setControlsSlot(() =&gt; ControlsPanel(controls))\n  layout.root.appendChild(toolbar.root)\n\n  const instance = new MenuExample(scope, { id: 'menu:vanilla' }, {\n    context: {\n      get: () =&gt; controls.context as Partial&lt;MenuMachineContext&gt;,\n      subscribe: (fn: (ctx: Partial&lt;MenuMachineContext&gt;) =&gt; void) =&gt; controls.subscribe(fn as any),\n    },\n  })\n\n  instance.init()\n\n  const updateVisualizer = (state?: MenuState) =&gt; {\n    if (!state)\n      return\n    toolbar.setVisualizerSlot(() =&gt; StateVisualizer({ state }))\n  }\n\n  updateVisualizer(instance.state as MenuState)\n  instance.onStateChange(updateVisualizer)\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import type { MachineState, State as MenuState } from '../../src/types'
+import { menuControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as menu from '../../index'
+import '../style.css'
+
+type MenuMachineContext = ContextFrom<typeof menu.machine>
+
+const items = [
+  { value: 'edit', label: 'Edit' },
+  { value: 'duplicate', label: 'Duplicate' },
+  { value: 'delete', label: 'Delete' },
+  { value: 'export', label: 'Export...' },
+] as const
+
+type MenuItem = typeof items[number]
+
+class MenuExample extends Component<
+  menu.Context,
+  menu.Api,
+  MenuMachineContext,
+  MachineState
+> {
+  private readonly triggerEl: HTMLButtonElement | null
+  private readonly indicatorEl: HTMLElement | null
+  private readonly positionerEl: HTMLDivElement
+  private readonly contentEl: HTMLUListElement
+  private readonly itemElements: Record<MenuItem['value'], HTMLLIElement>
+  private readonly stateListeners = new Set<(state: MenuState) => void>()
+  private isMounted = false
+
+  constructor(rootEl: HTMLElement, context: menu.Context, options?: any) {
+    super(rootEl, context, options)
+    this.triggerEl = rootEl.querySelector('[data-menu-trigger]')
+    this.indicatorEl = rootEl.querySelector('[data-menu-indicator]')
+
+    this.positionerEl = document.createElement('div')
+    this.contentEl = document.createElement('ul')
+    this.positionerEl.appendChild(this.contentEl)
+
+    this.itemElements = {} as Record<MenuItem['value'], HTMLLIElement>
+    items.forEach((item) => {
+      const element = document.createElement('li')
+      element.textContent = item.label
+      this.itemElements[item.value] = element
+      this.contentEl.appendChild(element)
+    })
+  }
+
+  initService(context: menu.Context) {
+    return menu.machine(context) as menu.Service
+  }
+
+  initApi() {
+    return menu.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  onStateChange(listener: (state: MenuState) => void) {
+    this.stateListeners.add(listener)
+  }
+
+  protected override onTransition(state: MenuState) {
+    this.stateListeners.forEach(listener => listener(state))
+  }
+
+  private attachMenu() {
+    if (this.isMounted)
+      return
+    document.body.appendChild(this.positionerEl)
+    this.isMounted = true
+  }
+
+  private detachMenu() {
+    if (!this.isMounted)
+      return
+    this.positionerEl.remove()
+    this.isMounted = false
+  }
+
+  render = () => {
+    const api = this.api
+
+    if (this.triggerEl)
+      spreadProps(this.triggerEl, api.getTriggerProps())
+
+    if (this.indicatorEl)
+      spreadProps(this.indicatorEl, api.getIndicatorProps())
+
+    spreadProps(this.positionerEl, api.getPositionerProps())
+    spreadProps(this.contentEl, api.getContentProps())
+
+    items.forEach((item) => {
+      const element = this.itemElements[item.value]
+      spreadProps(element, api.getItemProps({ value: item.value }))
+    })
+
+    if (api.open)
+      this.attachMenu()
+    else
+      this.detachMenu()
+  }
+}
+
+export function render(target: HTMLElement) {
+  const controls = useControls(menuControls)
+  const layout = Layout()
+
+  target.innerHTML = ''
+  target.appendChild(layout.root)
+
+  layout.main.innerHTML = `
+    <main data-menu-example>
+      <button type="button" data-menu-trigger>
+        Actions <span data-menu-indicator>▾</span>
+      </button>
+    </main>
+  `
+
+  const scope = layout.main.querySelector<HTMLElement>('[data-menu-example]')
+  if (!scope)
+    return
+
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
+  layout.root.appendChild(toolbar.root)
+
+  const instance = new MenuExample(scope, { id: 'menu:vanilla' }, {
+    context: {
+      get: () => controls.context as Partial<MenuMachineContext>,
+      subscribe: (fn: (ctx: Partial<MenuMachineContext>) => void) => controls.subscribe(fn as any),
+    },
+  })
+
+  instance.init()
+
+  const updateVisualizer = (state?: MenuState) => {
+    if (!state)
+      return
+    toolbar.setVisualizerSlot(() => StateVisualizer({ state }))
+  }
+
+  updateVisualizer(instance.state as MenuState)
+  instance.onStateChange(updateVisualizer)
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.astro",
+  "relativeWorkspacePath": "Menu.astro"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.astro)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.astro)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "&lt;script&gt;\n  import { render } from './Menu'\n\n  const mount = document.getElementById('render')\n  if (mount) {\n    render(mount)\n  }\n&lt;/script&gt;\n\n&lt;div id=\"render\"&gt;&lt;/div&gt;\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook/lit.stories.ts",
+  "relativeWorkspacePath": "lit.stories.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook/lit.stories.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook/lit.stories.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import Menu from '../examples/lit/Menu.astro'\n\nexport default {\n  component: Menu,\n}\n\nexport const Default = {\n  args: {},\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook/vanilla.stories.ts",
+  "relativeWorkspacePath": "vanilla.stories.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook/vanilla.stories.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/storybook/vanilla.stories.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import Menu from '../examples/vanilla/Menu.astro'\n\nexport default {\n  component: Menu,\n}\n\nexport const Default = {\n  args: {},\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已完成(Add lit example for menu/2) *4***
+
+- [x] Inspect existing menu examples
+  > Review current examples for menu component (react/solid/vue/svelte) for parity reference
+- [x] Add lit example for menu
+  > Create menu example in packages/components/menu/examples/lit similar to combobox/color-picker patterns
+- [x] Add vanilla example for menu
+  > Create vanilla example and register assets similar to other components
+- [x] Register new examples in storybook
+  > Ensure lit and vanilla menu examples are registered/linked within storybook configuration
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "5a82b59a-ebfd-4528-bcfb-c4735634cfb9",
+  "terminalCommandId": "tool-330e3fc7-9942-4ce9-9ddc-5a31e500ba2f",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; git status -sb",
+    "toolEdited": "git status -sb"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;git status&#96;](command:_chat.openTerminalSettingsLink?%255B7%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
 **Preparing tasks for example creation****Inspecting menu example directories****Preparing new framework directories****Checking style file****Seeking structural example****Exploring component examples for parity****Reviewing example template****Checking for TypeScript files****Opening TypeScript file****Checking color-picker example****Planning vanilla combobox implementation****Inspecting vanilla component patterns****Inspecting menu component structure****Investigating menu component structure****Reviewing existing Storybook setups****Preparing to read story file****Checking for vanilla story file****Planning story files and examples****Preparing to create menu component****Preparing to create menu examples****Inspecting example component structure****Planning menu implementation****Checking Svelte example****Organizing task plan****Designing new menu examples for lit and vanilla**
 
 I'm figuring out how to create new lit and vanilla menu example directories with `Menu.astro` and `Menu.ts` files, following existing naming and style patterns. I'll implement controllers and machine context properly, including logging with lint disabling if needed. For the rendering, I want to incorporate the portal correctly, so I'll check how other lit examples handle portal usage and positioning props like `getPositionerProps`. Let's explore those details to make sure.**Investigating portal handling in Dialog****Investigating portal usage****Planning menu portal integration**
 
 I’m figuring out how to conditionally portal the menu’s positioner and content when `api.open` is true, mirroring React and other Lit examples. I’ll also handle styling imports, ESLint comments for console logs, and ensure this approach fits with existing vanilla components by inspecting a similar hover-card example.**Investigating menu component integration****Designing vanilla Menu component structure****Examining dialog vanilla example****Designing menu component with portal and state handling**
 
-I'm mapping out how to build the menu component by appending its positioner element directly to the body as a portal, managing elements like `trigger`, `indicator`, and `contentEl`, and creating list items. I want to handle spread props properly on various elements, ensure state visualization updates consistently, and carefully manage mounting/unmounting including possible cleanup on destroy to avoid leftover DOM nodes. I'll follow patterns established in similar components and integrate toolbar and controls context as needed.**Planning menu component integration****Checking menu package types****Preparing detailed implementation plan for menu examples****Cleaning up HTML template whitespace**
-```
-
-```
-**Verifying imports and constants before creating Menu.astro****Beginning Menu.ts implementation****Correcting import order**
-```
-
-```
-**Verifying type safety and element handling****Adding storybook files for menu component****Starting basic story****Updating storybook todo statuses****Planning to run git status****Preparing final summary for Menu examples**
+I'm mapping out how to build the menu component by appending its positioner element directly to the body as a portal, managing elements like `trigger`, `indicator`, and `contentEl`, and creating list items. I want to handle spread props properly on various elements, ensure state visualization updates consistently, and carefully manage mounting/unmounting including possible cleanup on destroy to avoid leftover DOM nodes. I'll follow patterns established in similar components and integrate toolbar and controls context as needed.**Planning menu component integration****Checking menu package types****Preparing detailed implementation plan for menu examples****Cleaning up HTML template whitespace****Verifying imports and constants before creating Menu.astro****Beginning Menu.ts implementation****Correcting import order****Verifying type safety and element handling****Adding storybook files for menu component****Starting basic story****Updating storybook todo statuses****Planning to run git status****Preparing final summary for Menu examples**
 
 I’m putting together a concise final message explaining the addition of Lit and vanilla Menu examples along with Storybook integration. I’ll highlight key files, mention testing wasn’t done, note how portals and props are handled, and suggest running Storybook as a natural next step to verify everything visually.Added Lit and vanilla Menu examples plus Storybook entries so the component now has parity with other frameworks.
 
@@ -40,7 +1491,7 @@ Next step: run Storybook to visually verify the new examples (`pnpm storybook` o
 
 ---
 
-_**User (2025-11-20 15:12Z)**_
+_**User (2025-11-20 15:23Z)**_
 
 现在你已经知道了我们的组件的使用,那么你可以看看 #packages/components/combobox 和 #packages/components/color-picker 帮我给 #packages/components/menu 编写一下全量的测试案例吗
 
@@ -48,7 +1499,1785 @@ _**User (2025-11-20 15:12Z)**_
 
 _**Agent (model copilot/gpt-5.1-codex)**_
 
-**Planning comprehensive tests****Checking tests directories****Locating test directories****Searching for tests in menu component**
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已创建 3 个待办事项**
+
+- [ ] Review existing component tests
+  > Examine combobox and color-picker test suites to understand expectations and structure for menu
+- [ ] Audit current menu tests
+  > Check existing tests for menu to know coverage gaps and files to update
+- [ ] Implement comprehensive menu tests
+  > Add full coverage test cases for menu component following patterns from combobox/color-picker
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu",
+  "relativeWorkspacePath": "menu"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/packages/components/menu/**test**&#96; 匹配的文件",
+  "pastTenseMessage": "搜索匹配 &#96;**/packages/components/menu/**test**&#96; 的文件，无匹配项",
+  "resultDetails": [],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/packages/components/combobox/**test**&#96; 匹配的文件",
+  "pastTenseMessage": "搜索匹配 &#96;**/packages/components/combobox/**test**&#96; 的文件，无匹配项",
+  "resultDetails": [],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索正则表达式 `describe\(\s*['"]combobox` (`**/packages/components/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox",
+  "relativeWorkspacePath": "combobox"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/test/combobox.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/combobox/test/combobox.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/test/color-picker.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/color-picker/test/color-picker.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_findFiles">
+<details>
+<summary>Tool use: **copilot_findFiles**</summary>
+
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_findFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在搜索与 &#96;**/shared-private/**/test.ts&#96; 匹配的文件",
+  "pastTenseMessage": "搜索匹配 &#96;**/shared-private/**/test.ts&#96; 的文件，无匹配项",
+  "resultDetails": [],
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `shared-private/test` (`**/packages/shared-private/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/shared",
+  "relativeWorkspacePath": "shared"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/shared/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/shared/src/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/class.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/class.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/hooks.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/hooks.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `menuControls`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/controls.ts#117-117)，行 117 到 250</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/controls.ts#117-117)，行 117 到 250
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src/machine.ts#1-1)，行 1 到 400</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src/machine.ts#1-1)，行 1 到 400
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src/connect.ts#1-1)，行 1 到 400</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/src/connect.ts#1-1)，行 1 到 400
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `hover-card browser tests` (`**/packages/components/**/test/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/test/hover-card.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/hover-card/test/hover-card.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `closeOnSelect` (`**/packages/components/**/test/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/select/test/spec.ts#1-1)，行 1 到 260</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/select/test/spec.ts#1-1)，行 1 到 260
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/examples/vanilla/Menu.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `export const comboboxControls` (`**/shared/src/controls.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/controls.ts#41-41)，行 41 到 116</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/controls.ts#41-41)，行 41 到 116
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import type { MachineState, State as MenuState } from '../../src/types'
+import { menuControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as menu from '../../index'
+import '../style.css'
+
+type MenuMachineContext = ContextFrom<typeof menu.machine>
+
+const items = [
+  { value: 'edit', label: 'Edit' },
+  { value: 'duplicate', label: 'Duplicate' },
+  { value: 'delete', label: 'Delete' },
+  { value: 'export', label: 'Export...' },
+] as const
+
+type MenuItem = typeof items[number]
+
+class MenuExample extends Component<
+  menu.Context,
+  menu.Api,
+  MenuMachineContext,
+  MachineState
+> {
+  private readonly triggerEl: HTMLButtonElement | null
+  private readonly indicatorEl: HTMLElement | null
+  private readonly positionerEl: HTMLDivElement
+  private readonly contentEl: HTMLUListElement
+  private readonly itemElements: Record<MenuItem['value'], HTMLLIElement>
+  private readonly stateListeners = new Set<(state: MenuState) => void>()
+  private isMounted = false
+
+  constructor(rootEl: HTMLElement, context: menu.Context, options?: any) {
+    super(rootEl, context, options)
+    this.triggerEl = rootEl.querySelector('[data-menu-trigger]')
+    this.indicatorEl = rootEl.querySelector('[data-menu-indicator]')
+
+    this.positionerEl = document.createElement('div')
+    this.contentEl = document.createElement('ul')
+    this.positionerEl.appendChild(this.contentEl)
+
+    this.itemElements = {} as Record<MenuItem['value'], HTMLLIElement>
+    items.forEach((item) => {
+      const element = document.createElement('li')
+      element.textContent = item.label
+      this.itemElements[item.value] = element
+      this.contentEl.appendChild(element)
+    })
+  }
+
+  initService(context: menu.Context) {
+    return menu.machine(context) as menu.Service
+  }
+
+  initApi() {
+    return menu.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  onStateChange(listener: (state: MenuState) => void) {
+    this.stateListeners.add(listener)
+  }
+
+  protected override onTransition(state: MenuState) {
+    this.stateListeners.forEach(listener => listener(state))
+  }
+
+  private attachMenu() {
+    if (this.isMounted)
+      return
+    document.body.appendChild(this.positionerEl)
+    this.isMounted = true
+  }
+
+  private detachMenu() {
+    if (!this.isMounted)
+      return
+    this.positionerEl.remove()
+    this.isMounted = false
+  }
+
+  render = () => {
+    const api = this.api
+
+    if (this.triggerEl)
+      spreadProps(this.triggerEl, {
+        ...api.getTriggerProps(),
+        'data-testid': 'menu:trigger',
+      })
+
+    if (this.indicatorEl)
+      spreadProps(this.indicatorEl, api.getIndicatorProps())
+
+    spreadProps(this.positionerEl, api.getPositionerProps())
+    spreadProps(this.contentEl, {
+      ...api.getContentProps(),
+      'data-testid': 'menu:content',
+    })
+
+    items.forEach((item) => {
+      const element = this.itemElements[item.value]
+      spreadProps(element, api.getItemProps({ value: item.value }))
+    })
+
+    if (api.open)
+      this.attachMenu()
+    else
+      this.detachMenu()
+  }
+}
+
+export function render(target: HTMLElement) {
+  const controls = useControls(menuControls)
+  const layout = Layout()
+
+  target.innerHTML = ''
+  target.appendChild(layout.root)
+
+  layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
+    <main data-menu-example>
+      <button type="button" data-menu-trigger>
+        Actions <span data-menu-indicator>▾</span>
+      </button>
+    </main>
+  `
+
+  const scope = layout.main.querySelector<HTMLElement>('[data-menu-example]')
+  if (!scope)
+    return
+
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
+  layout.root.appendChild(toolbar.root)
+
+  const instance = new MenuExample(scope, {
+    id: 'menu:vanilla',
+    // eslint-disable-next-line no-console
+    onSelect: console.log,
+  }, {
+    context: {
+      get: () => controls.context as Partial<MenuMachineContext>,
+      subscribe: (fn: (ctx: Partial<MenuMachineContext>) => void) => controls.subscribe(fn as any),
+    },
+  })
+
+  instance.init()
+
+  const updateVisualizer = (state?: MenuState) => {
+    if (!state)
+      return
+    toolbar.setVisualizerSlot(() => StateVisualizer({ state }))
+  }
+
+  updateVisualizer(instance.state as MenuState)
+  instance.onStateChange(updateVisualizer)
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import type { MachineState, State as MenuState } from '../../src/types'
+import { menuControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as menu from '../../index'
+import '../style.css'
+
+type MenuMachineContext = ContextFrom<typeof menu.machine>
+
+const items = [
+  { value: 'edit', label: 'Edit' },
+  { value: 'duplicate', label: 'Duplicate' },
+  { value: 'delete', label: 'Delete' },
+  { value: 'export', label: 'Export...' },
+] as const
+
+type MenuItem = typeof items[number]
+
+class MenuExample extends Component<
+  menu.Context,
+  menu.Api,
+  MenuMachineContext,
+  MachineState
+> {
+  private readonly triggerEl: HTMLButtonElement | null
+  private readonly indicatorEl: HTMLElement | null
+  private readonly positionerEl: HTMLDivElement
+  private readonly contentEl: HTMLUListElement
+  private readonly itemElements: Record<MenuItem['value'], HTMLLIElement>
+  private readonly stateListeners = new Set<(state: MenuState) => void>()
+  private isMounted = false
+
+  constructor(rootEl: HTMLElement, context: menu.Context, options?: any) {
+    super(rootEl, context, options)
+    this.triggerEl = rootEl.querySelector('[data-menu-trigger]')
+    this.indicatorEl = rootEl.querySelector('[data-menu-indicator]')
+
+    this.positionerEl = document.createElement('div')
+    this.contentEl = document.createElement('ul')
+    this.positionerEl.appendChild(this.contentEl)
+
+    this.itemElements = {} as Record<MenuItem['value'], HTMLLIElement>
+    items.forEach((item) => {
+      const element = document.createElement('li')
+      element.textContent = item.label
+      this.itemElements[item.value] = element
+      this.contentEl.appendChild(element)
+    })
+  }
+
+  initService(context: menu.Context) {
+    return menu.machine(context) as menu.Service
+  }
+
+  initApi() {
+    return menu.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  onStateChange(listener: (state: MenuState) => void) {
+    this.stateListeners.add(listener)
+  }
+
+  protected override onTransition(state: MenuState) {
+    this.stateListeners.forEach(listener => listener(state))
+  }
+
+  private attachMenu() {
+    if (this.isMounted)
+      return
+    document.body.appendChild(this.positionerEl)
+    this.isMounted = true
+  }
+
+  private detachMenu() {
+    if (!this.isMounted)
+      return
+    this.positionerEl.remove()
+    this.isMounted = false
+  }
+
+  render = () => {
+    const api = this.api
+
+    if (this.triggerEl) {
+      spreadProps(this.triggerEl, {
+        ...api.getTriggerProps(),
+        'data-testid': 'menu:trigger',
+      })
+    }
+
+    if (this.indicatorEl)
+      spreadProps(this.indicatorEl, api.getIndicatorProps())
+
+    spreadProps(this.positionerEl, api.getPositionerProps())
+    spreadProps(this.contentEl, {
+      ...api.getContentProps(),
+      'data-testid': 'menu:content',
+    })
+
+    items.forEach((item) => {
+      const element = this.itemElements[item.value]
+      spreadProps(element, api.getItemProps({ value: item.value }))
+    })
+
+    if (api.open)
+      this.attachMenu()
+    else
+      this.detachMenu()
+  }
+}
+
+export function render(target: HTMLElement) {
+  const controls = useControls(menuControls)
+  const layout = Layout()
+
+  target.innerHTML = ''
+  target.appendChild(layout.root)
+
+  layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
+    <main data-menu-example>
+      <button type="button" data-menu-trigger>
+        Actions <span data-menu-indicator>▾</span>
+      </button>
+    </main>
+  `
+
+  const scope = layout.main.querySelector<HTMLElement>('[data-menu-example]')
+  if (!scope)
+    return
+
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
+  layout.root.appendChild(toolbar.root)
+
+  const instance = new MenuExample(scope, {
+    id: 'menu:vanilla',
+    // eslint-disable-next-line no-console
+    onSelect: console.log,
+  }, {
+    context: {
+      get: () => controls.context as Partial<MenuMachineContext>,
+      subscribe: (fn: (ctx: Partial<MenuMachineContext>) => void) => controls.subscribe(fn as any),
+    },
+  })
+
+  instance.init()
+
+  const updateVisualizer = (state?: MenuState) => {
+    if (!state)
+      return
+    toolbar.setVisualizerSlot(() => StateVisualizer({ state }))
+  }
+
+  updateVisualizer(instance.state as MenuState)
+  instance.onStateChange(updateVisualizer)
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts",
+  "relativeWorkspacePath": "menu.spec.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { testHook } from '@destyler/shared-private/test'\nimport { beforeEach, describe, expect, it } from 'vitest'\nimport { page, userEvent } from 'vitest/browser'\nimport { render } from '../examples/vanilla/Menu'\n\nlet mount: HTMLElement | null = null\n\nfunction getItem(text: string) {\n  return testHook.getItemEls().filter({ hasText: text }).first()\n}\n\nasync function clickItem(text: string) {\n  await getItem(text).click()\n}\n\nasync function hoverItem(text: string) {\n  await getItem(text).hover()\n}\n\nasync function expectMenuOpen() {\n  await expect.element(testHook.getContent('menu')).toBeVisible()\n}\n\nasync function expectMenuClosed() {\n  await expect.element(testHook.getContent('menu')).not.toBeInTheDocument()\n}\n\nasync function expectItemHighlighted(text: string) {\n  await expect.element(getItem(text)).toHaveAttribute('data-highlighted', '')\n}\n\nasync function expectIndicatorState(state: 'open' | 'closed') {\n  await expect.element(testHook.getIndicatorEl()).toHaveAttribute('data-state', state)\n}\n\nasync function openMenu() {\n  await testHook.clickTrigger('menu')\n  await expectMenuOpen()\n}\n\nasync function focusTrigger() {\n  await openMenu()\n  await testHook.pressKey('Escape')\n  await expectMenuClosed()\n}\n\ndescribe('menu browser tests', () =&gt; {\n  beforeEach(() =&gt; {\n    if (mount) {\n      document.body.removeChild(mount)\n    }\n    mount = document.createElement('div')\n    document.body.appendChild(mount)\n    render(mount)\n  })\n\n  it('opens the menu when the trigger is clicked', async () =&gt; {\n    await openMenu()\n    await expectIndicatorState('open')\n  })\n\n  it('closes on escape', async () =&gt; {\n    await openMenu()\n    await testHook.pressKey('Escape')\n    await expectMenuClosed()\n    await expectIndicatorState('closed')\n  })\n\n  it('closes on outside click', async () =&gt; {\n    await openMenu()\n    await testHook.clickOutside()\n    await expectMenuClosed()\n  })\n\n  it('selecting an item closes the menu by default', async () =&gt; {\n    await openMenu()\n    await clickItem('Edit')\n    await expectMenuClosed()\n  })\n\n  it('respects closeOnSelect=false', async () =&gt; {\n    await page.getByTestId('closeOnSelect').click()\n\n    await openMenu()\n    await clickItem('Delete')\n    await expectMenuOpen()\n  })\n\n  it('arrow down opens the menu and highlights the first item', async () =&gt; {\n    await focusTrigger()\n\n    await testHook.pressKey('ArrowDown')\n\n    await expectMenuOpen()\n    await expectItemHighlighted('Edit')\n  })\n\n  it('arrow up opens the menu and highlights the last item', async () =&gt; {\n    await focusTrigger()\n\n    await testHook.pressKey('ArrowUp')\n\n    await expectMenuOpen()\n    await expectItemHighlighted('Export...')\n  })\n\n  it('loopFocus=true wraps navigation', async () =&gt; {\n    await page.getByTestId('loopFocus').click()\n\n    await focusTrigger()\n\n    await testHook.pressKey('ArrowDown')\n    await expectItemHighlighted('Edit')\n\n    await testHook.pressKey('ArrowUp')\n    await expectItemHighlighted('Export...')\n  })\n\n  it('typeahead highlights matching items', async () =&gt; {\n    await openMenu()\n\n    await userEvent.keyboard('Du')\n\n    await expectItemHighlighted('Duplicate')\n  })\n\n  it('enter selects the highlighted item', async () =&gt; {\n    await openMenu()\n    await hoverItem('Duplicate')\n    await expectItemHighlighted('Duplicate')\n\n    await testHook.pressKey('Enter')\n\n    await expectMenuClosed()\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "a9fe8104-0fd7-4661-9f29-93579a44bbd2",
+  "terminalCommandId": "tool-6f90dd0d-0a0c-4646-8dbe-2db957001184",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; git status -sb",
+    "toolEdited": "git status -sb"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;git status&#96;](command:_chat.openTerminalSettingsLink?%255B7%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list">
+<details>
+<summary>Tool use: **manage_todo_list** • 正在使用 "管理和跟踪待办事项以进行任务规划"</summary>
+
+**已完成(Review existing component tests/1) *3***
+
+- [x] Review existing component tests
+  > Examine combobox and color-picker test suites to understand expectations and structure for menu
+- [x] Audit current menu tests
+  > Check existing tests for menu to know coverage gaps and files to update
+- [x] Implement comprehensive menu tests
+  > Add full coverage test cases for menu component following patterns from combobox/color-picker
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "806c383e-8b38-4899-bf1d-049537be5481",
+  "terminalCommandId": "tool-4a54f1bc-0784-49a3-9717-e2c0b2f8dceb",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; pnpm vitest packages/components/menu/test/menu.spec.ts --config vitest.browser.config.ts",
+    "toolEdited": "pnpm vitest packages/components/menu/test/menu.spec.ts --config vitest.browser.config.ts"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "82888c97-bcdb-455d-a316-e38aa93c5c5a",
+  "terminalCommandId": "tool-e44cbe51-2958-45e6-b16a-be9eae30167f",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; pnpm vitest run packages/components/menu/test/menu.spec.ts --config vitest.browser.config.ts",
+    "toolEdited": "pnpm vitest run packages/components/menu/test/menu.spec.ts --config vitest.browser.config.ts"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Menu'
+
+let mount: HTMLElement | null = null
+
+function getItem(text: string) {
+  return testHook.getItemEls().filter({ hasText: text }).first()
+}
+
+async function clickItem(text: string) {
+  await getItem(text).click()
+}
+
+async function hoverItem(text: string) {
+  await getItem(text).hover()
+}
+
+async function expectMenuOpen() {
+  await expect.element(testHook.getContent('menu')).toBeVisible()
+}
+
+async function expectMenuClosed() {
+  await expect.element(testHook.getContent('menu')).not.toBeInTheDocument()
+}
+
+async function expectItemHighlighted(text: string) {
+  await expect.element(getItem(text)).toHaveAttribute('data-highlighted', '')
+}
+
+async function expectIndicatorState(state: 'open' | 'closed') {
+  await expect.element(testHook.getIndicatorEl()).toHaveAttribute('data-state', state)
+}
+
+async function openMenu() {
+  await testHook.clickTrigger('menu')
+  await expectMenuOpen()
+}
+
+async function focusTrigger() {
+  await openMenu()
+  await testHook.pressKey('Escape')
+  await expectMenuClosed()
+}
+
+describe('menu browser tests', () => {
+  beforeEach(() => {
+      document.querySelectorAll('[data-testid="menu:content"]').forEach((node) => {
+        node.parentElement?.remove()
+      })
+    if (mount) {
+      document.body.removeChild(mount)
+    }
+    mount = document.createElement('div')
+    document.body.appendChild(mount)
+    render(mount)
+  })
+
+  it('opens the menu when the trigger is clicked', async () => {
+    await openMenu()
+    await expectIndicatorState('open')
+  })
+
+  it('closes on escape', async () => {
+    await openMenu()
+    await testHook.pressKey('Escape')
+    await expectMenuClosed()
+    await expectIndicatorState('closed')
+  })
+
+  it('closes on outside click', async () => {
+    await openMenu()
+    await testHook.clickOutside()
+    await expectMenuClosed()
+  })
+
+  it('selecting an item closes the menu by default', async () => {
+    await openMenu()
+    await clickItem('Edit')
+    await expectMenuClosed()
+  })
+
+  it('respects closeOnSelect=false', async () => {
+    await page.getByTestId('closeOnSelect').click()
+
+    await openMenu()
+    await clickItem('Delete')
+    await expectMenuOpen()
+  })
+
+  it('arrow down opens the menu and highlights the first item', async () => {
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowDown')
+
+    await expectMenuOpen()
+    await expectItemHighlighted('Edit')
+  })
+
+  it('arrow up opens the menu and highlights the last item', async () => {
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowUp')
+
+    await expectMenuOpen()
+    await expectItemHighlighted('Export...')
+  })
+
+  it('loopFocus=true wraps navigation', async () => {
+    await page.getByTestId('loopFocus').click()
+
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowDown')
+    await expectItemHighlighted('Edit')
+
+    await testHook.pressKey('ArrowUp')
+    await expectItemHighlighted('Export...')
+  })
+
+  it('typeahead highlights matching items', async () => {
+    await openMenu()
+
+    await userEvent.keyboard('Du')
+
+    await expectItemHighlighted('Duplicate')
+  })
+
+  it('enter selects the highlighted item', async () => {
+    await openMenu()
+    await hoverItem('Duplicate')
+    await expectItemHighlighted('Duplicate')
+
+    await testHook.pressKey('Enter')
+
+    await expectMenuClosed()
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Menu'
+
+let mount: HTMLElement | null = null
+
+function getItem(text: string) {
+  return testHook.getItemEls().filter({ hasText: text }).first()
+}
+
+async function clickItem(text: string) {
+  await getItem(text).click()
+}
+
+async function hoverItem(text: string) {
+  await getItem(text).hover()
+}
+
+async function expectMenuOpen() {
+  await expect.element(testHook.getContent('menu')).toBeVisible()
+}
+
+async function expectMenuClosed() {
+  await expect.element(testHook.getContent('menu')).not.toBeInTheDocument()
+}
+
+async function expectItemHighlighted(text: string) {
+  await expect.element(getItem(text)).toHaveAttribute('data-highlighted', '')
+}
+
+async function expectIndicatorState(state: 'open' | 'closed') {
+  await expect.element(testHook.getIndicatorEl()).toHaveAttribute('data-state', state)
+}
+
+async function openMenu() {
+  await testHook.clickTrigger('menu')
+  await expectMenuOpen()
+}
+
+async function focusTrigger() {
+  await openMenu()
+  await testHook.pressKey('Escape')
+  await expectMenuClosed()
+}
+
+describe('menu browser tests', () => {
+  beforeEach(() => {
+      document.querySelectorAll('[data-testid="menu:content"]').forEach((node) => {
+        node.parentElement?.remove()
+      })
+    if (mount) {
+      document.body.removeChild(mount)
+    }
+    mount = document.createElement('div')
+    document.body.appendChild(mount)
+    render(mount)
+  })
+
+  it('opens the menu when the trigger is clicked', async () => {
+    await openMenu()
+    await expectIndicatorState('open')
+  })
+
+  it('closes on escape', async () => {
+    await openMenu()
+    await testHook.pressKey('Escape')
+    await expectMenuClosed()
+    await expectIndicatorState('closed')
+  })
+
+  it('closes on outside click', async () => {
+    await openMenu()
+    await testHook.clickOutside()
+    await expectMenuClosed()
+  })
+
+  it('selecting an item closes the menu by default', async () => {
+    await openMenu()
+    await clickItem('Edit')
+    await expectMenuClosed()
+  })
+
+  it('respects closeOnSelect=false', async () => {
+    await page.getByTestId('closeOnSelect').click()
+
+    await openMenu()
+    await clickItem('Delete')
+    await expectMenuOpen()
+  })
+
+  it('arrow down opens the menu and highlights the first item', async () => {
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowDown')
+
+    await expectMenuOpen()
+    await expectItemHighlighted('Edit')
+  })
+
+  it('arrow up opens the menu and highlights the last item', async () => {
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowUp')
+
+    await expectMenuOpen()
+    await expectItemHighlighted('Export...')
+  })
+
+  it('loopFocus=true wraps navigation', async () => {
+    await page.getByTestId('loopFocus').click()
+
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowDown')
+    await expectItemHighlighted('Edit')
+
+    await testHook.pressKey('ArrowUp')
+    await expectItemHighlighted('Export...')
+  })
+
+  it('typeahead highlights matching items', async () => {
+    await openMenu()
+
+    await userEvent.keyboard('Du')
+
+    await expectItemHighlighted('Duplicate')
+  })
+
+  it('enter selects the highlighted item', async () => {
+    await openMenu()
+    await hoverItem('Duplicate')
+    await expectItemHighlighted('Duplicate')
+
+    await testHook.pressKey('Enter')
+
+    await expectMenuClosed()
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts#1-1)，行 1 到 80</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts#1-1)，行 1 到 80
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { page, userEvent } from 'vitest/browser'
+import { render } from '../examples/vanilla/Menu'
+
+let mount: HTMLElement | null = null
+
+function getItem(text: string) {
+  return testHook.getItemEls().filter({ hasText: text }).first()
+}
+
+async function clickItem(text: string) {
+  await getItem(text).click()
+}
+
+async function hoverItem(text: string) {
+  await getItem(text).hover()
+}
+
+async function expectMenuOpen() {
+  await expect.element(testHook.getContent('menu')).toBeVisible()
+}
+
+async function expectMenuClosed() {
+  await expect.element(testHook.getContent('menu')).not.toBeInTheDocument()
+}
+
+async function expectItemHighlighted(text: string) {
+  await expect.element(getItem(text)).toHaveAttribute('data-highlighted', '')
+}
+
+async function expectIndicatorState(state: 'open' | 'closed') {
+  await expect.element(testHook.getIndicatorEl()).toHaveAttribute('data-state', state)
+}
+
+async function openMenu() {
+  await testHook.clickTrigger('menu')
+  await expectMenuOpen()
+}
+
+async function focusTrigger() {
+  await openMenu()
+  await testHook.pressKey('Escape')
+  await expectMenuClosed()
+}
+
+describe('menu browser tests', () => {
+  beforeEach(() => {
+    document.querySelectorAll('[data-testid="menu:content"]').forEach((node) => {
+      node.parentElement?.remove()
+    })
+    if (mount) {
+      document.body.removeChild(mount)
+    }
+    mount = document.createElement('div')
+    document.body.appendChild(mount)
+    render(mount)
+  })
+
+  it('opens the menu when the trigger is clicked', async () => {
+    await openMenu()
+    await expectIndicatorState('open')
+  })
+
+  it('closes on escape', async () => {
+    await openMenu()
+    await testHook.pressKey('Escape')
+    await expectMenuClosed()
+    await expectIndicatorState('closed')
+  })
+
+  it('closes on outside click', async () => {
+    await openMenu()
+    await testHook.clickOutside()
+    await expectMenuClosed()
+  })
+
+  it('selecting an item closes the menu by default', async () => {
+    await openMenu()
+    await clickItem('Edit')
+    await expectMenuClosed()
+  })
+
+  it('respects closeOnSelect=false', async () => {
+    await page.getByTestId('closeOnSelect').click()
+
+    await openMenu()
+    await clickItem('Delete')
+    await expectMenuOpen()
+  })
+
+  it('arrow down opens the menu and highlights the first item', async () => {
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowDown')
+
+    await expectMenuOpen()
+    await expectItemHighlighted('Edit')
+  })
+
+  it('arrow up opens the menu and highlights the last item', async () => {
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowUp')
+
+    await expectMenuOpen()
+    await expectItemHighlighted('Export...')
+  })
+
+  it('loopFocus=true wraps navigation', async () => {
+    await page.getByTestId('loopFocus').click()
+
+    await focusTrigger()
+
+    await testHook.pressKey('ArrowDown')
+    await expectItemHighlighted('Edit')
+
+    await testHook.pressKey('ArrowUp')
+    await expectItemHighlighted('Export...')
+  })
+
+  it('typeahead highlights matching items', async () => {
+    await openMenu()
+
+    await userEvent.keyboard('Du')
+
+    await expectItemHighlighted('Duplicate')
+  })
+
+  it('enter selects the highlighted item', async () => {
+    await openMenu()
+    await hoverItem('Duplicate')
+    await expectItemHighlighted('Duplicate')
+
+    await testHook.pressKey('Enter')
+
+    await expectMenuClosed()
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts#30-30)，行 30 到 70</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/menu/test/menu.spec.ts#30-30)，行 30 到 70
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="run_in_terminal">
+<details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+
+Parameters:
+
+```json
+{
+  "kind": "terminal",
+  "terminalToolSessionId": "29dfc18d-6f84-4fa4-8e8c-7e32d69d3cc6",
+  "terminalCommandId": "tool-600aaa6a-77c0-4eca-a3c0-8d0a5afb3526",
+  "commandLine": {
+    "original": "cd /Users/elonehoo/Developer/destyler-package/destyler &amp;&amp; pnpm vitest run packages/components/menu/test/menu.spec.ts --config vitest.browser.config.ts",
+    "toolEdited": "pnpm vitest run packages/components/menu/test/menu.spec.ts --config vitest.browser.config.ts"
+  },
+  "language": "sh",
+  "autoApproveInfo": {
+    "value": "Auto approved by rule [&#96;pnpm&#96;](command:_chat.openTerminalSettingsLink?%255B3%255D \"View rule in settings\")",
+    "isTrusted": {
+      "enabledCommands": [
+        "_chat.openTerminalSettingsLink"
+      ]
+    },
+    "supportThemeIcons": false,
+    "supportHtml": false,
+    "supportAlertSyntax": false
+  }
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "run_in_terminal",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在使用 \"在终端中运行\"",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+**Planning comprehensive tests****Checking tests directories****Locating test directories****Searching for tests in menu component****Checking test structures for components****Searching for combobox tests****Checking test directory for combobox****Checking combobox tests structure****Checking color-picker tests****Preparing to create menu tests****Searching for test location****Searching for module location****Checking shared-private package tests****Checking shared test modules****Checking for shared test files****Creating index.ts file****Reviewing testHook definitions in class.ts****Considering creation of hooks.ts****Planning test hooks and example adjustments****Investigating menu component testing scope****Planning menu interaction tests****Inspecting source files for test details****Planning menu test enhancements****Designing comprehensive menu tests**
+
+There's a lot here! I'm sorting through how the menu example manages DOM attachment, data-testid attributes, and hooks for testing. To cover features like open/close behavior, keyboard navigation, loopFocus toggling, closeOnSelect toggling, pointer selection, and typeahead, I’m planning detailed test cases modeled on combobox tests, plus helpers for interacting with and asserting menu state. Next, I’ll update the MenuExample to add test IDs and wiring for selection display, then create a new test file with these thorough scenarios.**Verifying closeOnSelect toggle behavior****Inspecting test file patterns****Preparing to update MenuExample for tests****Adding test attributes and planning menu tests****Planning menu loopFocus tests**
+
+I’m organizing a set of tests to verify the `loopFocus` behavior in menu controls, ensuring defaults are honored and toggling works as expected. I’ll check navigation wrapping and typeahead highlighting, update the example component to include test IDs, and prepare to run focused vitest tests with possible config tweaks. It’s good to cover both `loopFocus` true and false cases carefully!**Enforcing curly braces for if statements****Drafting detailed menu component tests**
+
+I'm working through how to organize and write comprehensive browser tests for the menu component using Vitest and Playwright-like utilities. I'm carefully figuring out how to handle focus, key presses, triggering the menu, verifying DOM states, and simulating user actions like hover, click, and keyboard input to cover important behaviors like opening, closing, typeahead, and keyboard navigation. I'll place tests in a new `test` folder next to the component and create helpers to manage the tricky focus and state scenarios. There's a lot here, but I want to ensure the tests truly reflect user interactions and work reliably.**Verifying menu test helpers and behaviors****Updating test tasks statuses****Preparing to run targeted tests****Analyzing test command behavior and termination****Resolving duplicate menu elements in tests**
+
+I’m working through why tests find two identical menu elements, and it seems leftover positioner elements appended to `document.body` aren’t cleaned up between tests. I want to fix this by removing all leftover menu content containers before each test so duplicates can’t accumulate, ensuring clean test runs without changing the component’s portal behavior too much.**Cleaning up string quoting in selectors****Checking string escaping issue****Correcting indentation and string quotes****Checking for lingering escape characters****Verifying string escaping in test selectors****Summarizing menu tests and modifications**
+
+I’m preparing a clear summary of the updates involving `MenuExample` and new tests. I adjusted the example to keep `onSelect` clean without console logs to reduce test output noise but maintained parity with other frameworks in mind. I’ll highlight added test hooks and data attributes in `packages/components/menu/examples/vanilla/Menu.ts`, the new test suite in `packages/components/menu/test/menu.spec.ts`, and cleaning up leftover portal nodes between tests to avoid duplicates. I’ll include test run details with `pnpm vitest` and suggest optionally extending tests to cover context-menu features or nested submenus as a natural next step.**Menu Tests**
+- `Menu.ts` now exposes `data-testid` hooks on the trigger/content and includes a dedicated `outside` element so browser tests can drive interactions. The spread logic stays the same, but the trigger block is wrapped in braces to satisfy lint rules.
+- `menu.spec.ts` is a new browser suite modeled after the combobox/color-picker patterns. Helpers cover opening/closing, highlighting, and selection so we can assert:
+  - trigger click vs. Escape/outside dismissal
+  - default vs. `closeOnSelect=false`
+  - keyboard navigation (ArrowUp/Down, loopFocus toggle, typeahead)
+  - selection via Enter when an item is highlighted
+  - cleanup removes any portalled menu remnants between tests to keep strict mode happy.
+
+Tests: `pnpm vitest run `menu.spec.ts` --config vitest.browser.config.ts`
+
+If you need broader coverage later, consider extending the suite for context-menu triggers or submenu chains.
 
 ---
 

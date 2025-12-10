@@ -12,6 +12,1363 @@ _**User (2025-11-17 14:36Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples",
+  "relativeWorkspacePath": "examples"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit",
+  "relativeWorkspacePath": "lit"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla/Carousel.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla/Carousel.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples",
+  "relativeWorkspacePath": "examples"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/react/Clipboard.tsx)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/react/Clipboard.tsx)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/solid/Clipboard.solid.tsx)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/solid/Clipboard.solid.tsx)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/svelte/Clipboard.svelte)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/svelte/Clipboard.svelte)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vue/Clipboard.vue)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vue/Clipboard.vue)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit",
+  "relativeWorkspacePath": "lit"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit/Collapse.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/lit/Collapse.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/examples/vanilla/Collapse.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.astro)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/lit/Carousel.astro)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla/Carousel.astro)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/examples/vanilla/Carousel.astro)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/style.css)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/style.css)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/types.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/types.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `clipboardControls` (`**/clipboard/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createDirectory">
+<details>
+<summary>Tool use: **copilot_createDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit",
+  "relativeWorkspacePath": "lit"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createDirectory">
+<details>
+<summary>Tool use: **copilot_createDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts",
+  "relativeWorkspacePath": "Clipboard.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import type { ContextFrom } from '@destyler/lit'\nimport { MachineController, normalizeProps, spread } from '@destyler/lit'\nimport { clipboardControls } from '@destyler/shared-private'\nimport { ControlsController } from '@destyler/shared-private/lit'\nimport { html, LitElement, unsafeCSS } from 'lit'\nimport { customElement } from 'lit/decorators.js'\nimport * as clipboard from '../../index'\nimport styles from '../style.css?inline'\n\ntype ClipboardMachineContext = ContextFrom&lt;typeof clipboard.machine&gt;\n\n@customElement('destyler-clipboard')\nexport class ClipboardElement extends LitElement {\n  private controls = new ControlsController(clipboardControls)\n\n  private machine = new MachineController(\n    this,\n    clipboard.machine({\n      id: 'clipboard:lit',\n      value: 'https://destyler.org',\n    }),\n    {\n      context: {\n        get: () =&gt; this.controls.context as Partial&lt;ClipboardMachineContext&gt;,\n        subscribe: (fn: (ctx: Partial&lt;ClipboardMachineContext&gt;) =&gt; void) =&gt; this.controls.subscribe(fn as any),\n      },\n    },\n  )\n\n  render() {\n    const api = clipboard.connect(this.machine.state, this.machine.send, normalizeProps)\n\n    return html&#96;\n    &lt;destyler-layout&gt;\n      &lt;main&gt;\n        &lt;div ${spread(api.getRootProps())}&gt;\n          &lt;label ${spread(api.getLabelProps())}&gt;Copy this link&lt;/label&gt;\n          &lt;div ${spread(api.getControlProps())}&gt;\n            &lt;input style=\"width: 100%;\" ${spread(api.getInputProps())} /&gt;\n            &lt;button ${spread(api.getTriggerProps())}&gt;\n              ${api.copied ? 'Copied' : 'Copy'}\n            &lt;/button&gt;\n          &lt;/div&gt;\n          &lt;div ${spread(api.getIndicatorProps({ copied: true }))}&gt;\n            Copied!\n          &lt;/div&gt;\n          &lt;div ${spread(api.getIndicatorProps({ copied: false }))}&gt;\n            Copy\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/main&gt;\n      &lt;destyler-toolbar .controls=${this.controls}&gt;\n        &lt;destyler-state-visualizer .state=${this.machine.state}&gt;&lt;/destyler-state-visualizer&gt;\n      &lt;/destyler-toolbar&gt;\n    &lt;/destyler-layout&gt;\n    &#96;\n  }\n\n  static styles = unsafeCSS(styles)\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'destyler-clipboard': ClipboardElement\n  }\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.astro",
+  "relativeWorkspacePath": "Clipboard.astro"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.astro)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.astro)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "&lt;script&gt;\n  import './Clipboard'\n&lt;/script&gt;\n\n&lt;destyler-clipboard&gt;&lt;/destyler-clipboard&gt;\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.ts",
+  "relativeWorkspacePath": "Clipboard.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import type { ContextFrom } from '@destyler/vanilla'\nimport type { State as ClipboardState } from '../../index'\nimport { clipboardControls } from '@destyler/shared-private'\nimport { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'\nimport { Component, normalizeProps, spreadProps } from '@destyler/vanilla'\nimport * as clipboard from '../../index'\nimport '../style.css'\n\ntype ClipboardMachineContext = ContextFrom&lt;typeof clipboard.machine&gt;\n\nclass ClipboardExample extends Component&lt;\n  clipboard.Context,\n  clipboard.Api,\n  ClipboardMachineContext,\n  clipboard.MachineState\n&gt; {\n  private readonly labelEl: HTMLLabelElement | null\n  private readonly controlEl: HTMLElement | null\n  private readonly inputEl: HTMLInputElement | null\n  private readonly triggerEl: HTMLButtonElement | null\n  private readonly copiedIndicatorEl: HTMLElement | null\n  private readonly idleIndicatorEl: HTMLElement | null\n  private readonly stateListeners = new Set&lt;(state: ClipboardState) =&gt; void&gt;()\n\n  constructor(rootEl: HTMLElement, context: clipboard.Context, options?: any) {\n    super(rootEl, context, options)\n    this.labelEl = rootEl.querySelector('[data-clipboard-label]')\n    this.controlEl = rootEl.querySelector('[data-clipboard-control]')\n    this.inputEl = rootEl.querySelector('[data-clipboard-input]')\n    this.triggerEl = rootEl.querySelector('[data-clipboard-trigger]')\n    this.copiedIndicatorEl = rootEl.querySelector('[data-clipboard-indicator][data-copied=\"true\"]')\n    this.idleIndicatorEl = rootEl.querySelector('[data-clipboard-indicator][data-copied=\"false\"]')\n  }\n\n  initService(context: clipboard.Context) {\n    return clipboard.machine(context) as clipboard.Service\n  }\n\n  initApi() {\n    return clipboard.connect(this.service.state, this.service.send, normalizeProps)\n  }\n\n  onStateChange(listener: (state: ClipboardState) =&gt; void) {\n    this.stateListeners.add(listener)\n  }\n\n  protected override onTransition(state: ClipboardState) {\n    this.stateListeners.forEach(listener =&gt; listener(state))\n  }\n\n  render = () =&gt; {\n    const api = this.api\n\n    spreadProps(this.rootEl, api.getRootProps())\n\n    if (this.labelEl) {\n      spreadProps(this.labelEl, api.getLabelProps())\n    }\n\n    if (this.controlEl) {\n      spreadProps(this.controlEl, api.getControlProps())\n    }\n\n    if (this.inputEl) {\n      spreadProps(this.inputEl, api.getInputProps())\n      this.inputEl.style.width = '100%'\n    }\n\n    if (this.triggerEl) {\n      spreadProps(this.triggerEl, {\n        ...api.getTriggerProps(),\n        textContent: api.copied ? 'Copied' : 'Copy',\n      })\n    }\n\n    if (this.copiedIndicatorEl) {\n      spreadProps(this.copiedIndicatorEl, {\n        ...api.getIndicatorProps({ copied: true }),\n        textContent: 'Copied!',\n      })\n    }\n\n    if (this.idleIndicatorEl) {\n      spreadProps(this.idleIndicatorEl, {\n        ...api.getIndicatorProps({ copied: false }),\n        textContent: 'Copy',\n      })\n    }\n  }\n}\n\nexport function render(target: HTMLElement) {\n  const controls = useControls(clipboardControls)\n  const layout = Layout()\n\n  target.innerHTML = ''\n  target.appendChild(layout.root)\n\n  layout.main.innerHTML = &#96;\n    &lt;div data-clipboard-root&gt;\n      &lt;label data-clipboard-label&gt;Copy this link&lt;/label&gt;\n      &lt;div data-clipboard-control&gt;\n        &lt;input data-clipboard-input value=\"https://destyler.org\" /&gt;\n        &lt;button data-clipboard-trigger type=\"button\"&gt;Copy&lt;/button&gt;\n      &lt;/div&gt;\n      &lt;div data-clipboard-indicator data-copied=\"true\"&gt;Copied!&lt;/div&gt;\n      &lt;div data-clipboard-indicator data-copied=\"false\"&gt;Copy&lt;/div&gt;\n    &lt;/div&gt;\n  &#96;\n\n  const rootEl = layout.main.querySelector&lt;HTMLElement&gt;('[data-clipboard-root]')\n  if (!rootEl)\n    return\n\n  const toolbar = Toolbar()\n  toolbar.setControlsSlot(() =&gt; ControlsPanel(controls))\n  layout.root.appendChild(toolbar.root)\n\n  const instance = new ClipboardExample(rootEl, {\n    id: 'clipboard:vanilla',\n    value: 'https://destyler.org',\n  }, {\n    context: {\n      get: () =&gt; controls.context as Partial&lt;ClipboardMachineContext&gt;,\n      subscribe: (fn: any) =&gt; controls.subscribe(fn),\n    },\n  })\n\n  instance.init()\n\n  const updateVisualizer = (state?: ClipboardState) =&gt; {\n    if (!state)\n      return\n    toolbar.setVisualizerSlot(() =&gt; StateVisualizer({ state }))\n  }\n\n  updateVisualizer(instance.state as ClipboardState)\n  instance.onStateChange(updateVisualizer)\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `Component<
+  clipboard.Context`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `class Component` (`**/packages/**/vanilla/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks",
+  "relativeWorkspacePath": "frameworks"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla",
+  "relativeWorkspacePath": "vanilla"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/index.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/index.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/tsconfig.json)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/tsconfig.json)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/tsconfig.json)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/tsconfig.json)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.astro",
+  "relativeWorkspacePath": "Clipboard.astro"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.astro)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.astro)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "&lt;script&gt;\n  import { render } from './Clipboard'\n\n  const mount = document.getElementById('render')\n  if (mount) {\n    render(mount)\n  }\n&lt;/script&gt;\n\n&lt;div id=\"render\"&gt;&lt;/div&gt;\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/component.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/src/component.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/types.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/types.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `/src/types` (`**/packages/components/**/examples/vanilla/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import type { MachineState, State as ClipboardState } from '../../src/types'
+import { clipboardControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as clipboard from '../../index'
+import '../style.css'
+
+type ClipboardMachineContext = ContextFrom<typeof clipboard.machine>
+
+class ClipboardExample extends Component<
+  clipboard.Context,
+  clipboard.Api,
+  ClipboardMachineContext,
+  MachineState
+> {
+  private readonly labelEl: HTMLLabelElement | null
+  private readonly controlEl: HTMLElement | null
+  private readonly inputEl: HTMLInputElement | null
+  private readonly triggerEl: HTMLButtonElement | null
+  private readonly copiedIndicatorEl: HTMLElement | null
+  private readonly idleIndicatorEl: HTMLElement | null
+  private readonly stateListeners = new Set<(state: ClipboardState) => void>()
+
+  constructor(rootEl: HTMLElement, context: clipboard.Context, options?: any) {
+    super(rootEl, context, options)
+    this.labelEl = rootEl.querySelector('[data-clipboard-label]')
+    this.controlEl = rootEl.querySelector('[data-clipboard-control]')
+    this.inputEl = rootEl.querySelector('[data-clipboard-input]')
+    this.triggerEl = rootEl.querySelector('[data-clipboard-trigger]')
+    this.copiedIndicatorEl = rootEl.querySelector('[data-clipboard-indicator][data-copied="true"]')
+    this.idleIndicatorEl = rootEl.querySelector('[data-clipboard-indicator][data-copied="false"]')
+  }
+
+  initService(context: clipboard.Context) {
+    return clipboard.machine(context) as clipboard.Service
+  }
+
+  initApi() {
+    return clipboard.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  onStateChange(listener: (state: ClipboardState) => void) {
+    this.stateListeners.add(listener)
+  }
+
+  protected override onTransition(state: ClipboardState) {
+    this.stateListeners.forEach(listener => listener(state))
+  }
+
+  render = () => {
+    const api = this.api
+
+    spreadProps(this.rootEl, api.getRootProps())
+
+    if (this.labelEl) {
+      spreadProps(this.labelEl, api.getLabelProps())
+    }
+
+    if (this.controlEl) {
+      spreadProps(this.controlEl, api.getControlProps())
+    }
+
+    if (this.inputEl) {
+      spreadProps(this.inputEl, api.getInputProps())
+      this.inputEl.style.width = '100%'
+    }
+
+    if (this.triggerEl) {
+      spreadProps(this.triggerEl, {
+        ...api.getTriggerProps(),
+        textContent: api.copied ? 'Copied' : 'Copy',
+      })
+    }
+
+    if (this.copiedIndicatorEl) {
+      spreadProps(this.copiedIndicatorEl, {
+        ...api.getIndicatorProps({ copied: true }),
+        textContent: 'Copied!',
+      })
+    }
+
+    if (this.idleIndicatorEl) {
+      spreadProps(this.idleIndicatorEl, {
+        ...api.getIndicatorProps({ copied: false }),
+        textContent: 'Copy',
+      })
+    }
+  }
+}
+
+export function render(target: HTMLElement) {
+  const controls = useControls(clipboardControls)
+  const layout = Layout()
+
+  target.innerHTML = ''
+  target.appendChild(layout.root)
+
+  layout.main.innerHTML = `
+    <div data-clipboard-root>
+      <label data-clipboard-label>Copy this link</label>
+      <div data-clipboard-control>
+        <input data-clipboard-input value="https://destyler.org" />
+        <button data-clipboard-trigger type="button">Copy</button>
+      </div>
+      <div data-clipboard-indicator data-copied="true">Copied!</div>
+      <div data-clipboard-indicator data-copied="false">Copy</div>
+    </div>
+  `
+
+  const rootEl = layout.main.querySelector<HTMLElement>('[data-clipboard-root]')
+  if (!rootEl)
+    return
+
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
+  layout.root.appendChild(toolbar.root)
+
+  const instance = new ClipboardExample(rootEl, {
+    id: 'clipboard:vanilla',
+    value: 'https://destyler.org',
+  }, {
+    context: {
+      get: () => controls.context as Partial<ClipboardMachineContext>,
+      subscribe: (fn: any) => controls.subscribe(fn),
+    },
+  })
+
+  instance.init()
+
+  const updateVisualizer = (state?: ClipboardState) => {
+    if (!state)
+      return
+    toolbar.setVisualizerSlot(() => StateVisualizer({ state }))
+  }
+
+  updateVisualizer(instance.state as ClipboardState)
+  instance.onStateChange(updateVisualizer)
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/vanilla'
+import type { State as ClipboardState, MachineState } from '../../src/types'
+import { clipboardControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
+import * as clipboard from '../../index'
+import '../style.css'
+
+type ClipboardMachineContext = ContextFrom<typeof clipboard.machine>
+
+class ClipboardExample extends Component<
+  clipboard.Context,
+  clipboard.Api,
+  ClipboardMachineContext,
+  MachineState
+> {
+  private readonly labelEl: HTMLLabelElement | null
+  private readonly controlEl: HTMLElement | null
+  private readonly inputEl: HTMLInputElement | null
+  private readonly triggerEl: HTMLButtonElement | null
+  private readonly copiedIndicatorEl: HTMLElement | null
+  private readonly idleIndicatorEl: HTMLElement | null
+  private readonly stateListeners = new Set<(state: ClipboardState) => void>()
+
+  constructor(rootEl: HTMLElement, context: clipboard.Context, options?: any) {
+    super(rootEl, context, options)
+    this.labelEl = rootEl.querySelector('[data-clipboard-label]')
+    this.controlEl = rootEl.querySelector('[data-clipboard-control]')
+    this.inputEl = rootEl.querySelector('[data-clipboard-input]')
+    this.triggerEl = rootEl.querySelector('[data-clipboard-trigger]')
+    this.copiedIndicatorEl = rootEl.querySelector('[data-clipboard-indicator][data-copied="true"]')
+    this.idleIndicatorEl = rootEl.querySelector('[data-clipboard-indicator][data-copied="false"]')
+  }
+
+  initService(context: clipboard.Context) {
+    return clipboard.machine(context) as clipboard.Service
+  }
+
+  initApi() {
+    return clipboard.connect(this.service.state, this.service.send, normalizeProps)
+  }
+
+  onStateChange(listener: (state: ClipboardState) => void) {
+    this.stateListeners.add(listener)
+  }
+
+  protected override onTransition(state: ClipboardState) {
+    this.stateListeners.forEach(listener => listener(state))
+  }
+
+  render = () => {
+    const api = this.api
+
+    spreadProps(this.rootEl, api.getRootProps())
+
+    if (this.labelEl) {
+      spreadProps(this.labelEl, api.getLabelProps())
+    }
+
+    if (this.controlEl) {
+      spreadProps(this.controlEl, api.getControlProps())
+    }
+
+    if (this.inputEl) {
+      spreadProps(this.inputEl, api.getInputProps())
+      this.inputEl.style.width = '100%'
+    }
+
+    if (this.triggerEl) {
+      spreadProps(this.triggerEl, {
+        ...api.getTriggerProps(),
+        textContent: api.copied ? 'Copied' : 'Copy',
+      })
+    }
+
+    if (this.copiedIndicatorEl) {
+      spreadProps(this.copiedIndicatorEl, {
+        ...api.getIndicatorProps({ copied: true }),
+        textContent: 'Copied!',
+      })
+    }
+
+    if (this.idleIndicatorEl) {
+      spreadProps(this.idleIndicatorEl, {
+        ...api.getIndicatorProps({ copied: false }),
+        textContent: 'Copy',
+      })
+    }
+  }
+}
+
+export function render(target: HTMLElement) {
+  const controls = useControls(clipboardControls)
+  const layout = Layout()
+
+  target.innerHTML = ''
+  target.appendChild(layout.root)
+
+  layout.main.innerHTML = `
+    <div data-clipboard-root>
+      <label data-clipboard-label>Copy this link</label>
+      <div data-clipboard-control>
+        <input data-clipboard-input value="https://destyler.org" />
+        <button data-clipboard-trigger type="button">Copy</button>
+      </div>
+      <div data-clipboard-indicator data-copied="true">Copied!</div>
+      <div data-clipboard-indicator data-copied="false">Copy</div>
+    </div>
+  `
+
+  const rootEl = layout.main.querySelector<HTMLElement>('[data-clipboard-root]')
+  if (!rootEl)
+    return
+
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
+  layout.root.appendChild(toolbar.root)
+
+  const instance = new ClipboardExample(rootEl, {
+    id: 'clipboard:vanilla',
+    value: 'https://destyler.org',
+  }, {
+    context: {
+      get: () => controls.context as Partial<ClipboardMachineContext>,
+      subscribe: (fn: any) => controls.subscribe(fn),
+    },
+  })
+
+  instance.init()
+
+  const updateVisualizer = (state?: ClipboardState) => {
+    if (!state)
+      return
+    toolbar.setVisualizerSlot(() => StateVisualizer({ state }))
+  }
+
+  updateVisualizer(instance.state as ClipboardState)
+  instance.onStateChange(updateVisualizer)
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.ts",
+  "relativeWorkspacePath": "Clipboard.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/vanilla/Clipboard.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts",
+  "relativeWorkspacePath": "Clipboard.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/examples/lit/Clipboard.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import type { ContextFrom } from '@destyler/lit'
+import { MachineController, normalizeProps, spread } from '@destyler/lit'
+import { clipboardControls } from '@destyler/shared-private'
+import { ControlsController } from '@destyler/shared-private/lit'
+import { html, LitElement, unsafeCSS } from 'lit'
+import { customElement } from 'lit/decorators.js'
+import * as clipboard from '../../index'
+import styles from '../style.css?inline'
+
+type ClipboardMachineContext = ContextFrom<typeof clipboard.machine>
+
+@customElement('destyler-clipboard')
+export class ClipboardElement extends LitElement {
+  private controls = new ControlsController(clipboardControls)
+
+  private machine = new MachineController(
+    this,
+    clipboard.machine({
+      id: 'clipboard:lit',
+      value: 'https://destyler.org',
+    }),
+    {
+      context: {
+        get: () => this.controls.context as Partial<ClipboardMachineContext>,
+        subscribe: (fn: (ctx: Partial<ClipboardMachineContext>) => void) => this.controls.subscribe(fn as any),
+      },
+    },
+  )
+
+  render() {
+    const api = clipboard.connect(this.machine.state, this.machine.send, normalizeProps)
+
+    return html`
+    <destyler-layout>
+      <div ${spread(api.getRootProps())}>
+        <label ${spread(api.getLabelProps())}>Copy this link</label>
+        <div ${spread(api.getControlProps())}>
+          <input style="width: 100%;" ${spread(api.getInputProps())} />
+          <button ${spread(api.getTriggerProps())}>
+            ${api.copied ? 'Copied' : 'Copy'}
+          </button>
+        </div>
+        <div ${spread(api.getIndicatorProps({ copied: true }))}>
+          Copied!
+        </div>
+        <div ${spread(api.getIndicatorProps({ copied: false }))}>
+          Copy
+        </div>
+      </div>
+      <destyler-toolbar .controls=${this.controls}>
+        <destyler-state-visualizer .state=${this.machine.state}></destyler-state-visualizer>
+      </destyler-toolbar>
+    </destyler-layout>
+    `
+  }
+
+  static styles = unsafeCSS(styles)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'destyler-clipboard': ClipboardElement
+  }
+}
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getChangedFiles">
+<details>
+<summary>Tool use: **copilot_getChangedFiles**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler",
+  "relativeWorkspacePath": "destyler"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getChangedFiles",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler) 中更改的文件",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler) 中更改的文件",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/package.json)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/frameworks/vanilla/package.json)
+
+</details>
+</tool-use>
+
+---
+
 **Inspecting example structures****Checking for TypeScript files****Listing items****Opening file****Noticing a simple example****Searching for clipboard examples****Checking for example directories****Verifying Solid framework presence****Checking Svelte framework styles****Identifying framework****Preparing analog versions****Considering a basic collapse example****Planning examples for clipboard component****Reviewing Carousel.astro file****Checking style.css for consistency****Preparing Lit and Vanilla clipboard examples**
 
 I'm planning to create clipboard examples for Lit and vanilla setups by aligning their CSS and controls with existing frameworks. I'll check shared types and replicate the pattern of using ControlsController, MachineController, and destyler-layout components, ensuring the correct imports and initial context are set for the clipboard machine. For vanilla, I'll follow patterns from other examples and verify types in the clipboard package.**Inspecting type definitions****Checking clipboardControls definition****Correcting parameter name****Planning vanilla Clipboard component implementation**
@@ -24,21 +1381,9 @@ I'm trying to understand why TypeScript complains about importing the `Component
 
 I'm investigating why the new file in components/clipboard isn't recognized by the TypeScript system, considering possible causes like path mapping in tsconfig, whether the `@destyler/vanilla` module is built, and if the new file's directory is included in the relevant tsconfig.json files. It looks like the unresolved import of `State` and missing exports also contribute to cascading type errors linked to module resolution failures. I'll check the clipboard package's tsconfig and root tsconfig includes to spot any mismatches.**Checking root tsconfig.json****Investigating module path and symlink issues****Resolving TypeScript typing and exports****Navigating TypeScript state typing challenges**
 
-I’m sorting out how to correctly type the `onTransition` method and the state passed to `StateVisualizer`. Since the expected `State` type isn’t straightforward to import, I’m investigating existing types like `MachineState` and `State` across related files to find a proper, maintainable solution while avoiding `any` where possible.**Checking import practices for State type****Refactoring imports and types for clipboard state**
-```
+I’m sorting out how to correctly type the `onTransition` method and the state passed to `StateVisualizer`. Since the expected `State` type isn’t straightforward to import, I’m investigating existing types like `MachineState` and `State` across related files to find a proper, maintainable solution while avoiding `any` where possible.**Checking import practices for State type****Refactoring imports and types for clipboard state****Reordering alphabetically****Reviewing component and state handling details****Checking Lit file for issues****Aligning layout structure in Lit components**
 
-```
-**Reordering alphabetically**
-```
-
-```
-**Reviewing component and state handling details****Checking Lit file for issues****Aligning layout structure in Lit components**
-
-I'm comparing how layouts use `<main>` across frameworks and Lit examples, noticing Lit components usually omit `<main>` inside `<destyler-layout>`. To keep consistency, I’m planning to remove `<main>` from our Lit layout and instead nest a div directly under `<destyler-layout>`. I’ll also fix the input’s style to have full width for better UI.
-```
-
-```
-**Reviewing component rendering and attribute consistency**
+I'm comparing how layouts use `<main>` across frameworks and Lit examples, noticing Lit components usually omit `<main>` inside `<destyler-layout>`. To keep consistency, I’m planning to remove `<main>` from our Lit layout and instead nest a div directly under `<destyler-layout>`. I’ll also fix the input’s style to have full width for better UI.**Reviewing component rendering and attribute consistency**
 
 I'm checking that the render function properly sets up the layout and elements, ensuring buttons use `type="button"` to prevent form submissions and subscriptions return unsubscribe functions correctly. I'm also verifying data attributes avoid conflicts during property spreading and that UI indicators toggle visibility properly. Finally, I plan to gather file changes for a summary before finalizing.**Noticing unexpected file changes****Summarizing clipboard example updates**
 
@@ -61,6 +1406,214 @@ _**User (2025-11-17 14:38Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook",
+  "relativeWorkspacePath": "storybook"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/react.stories.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/react.stories.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/solid.stories.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/solid.stories.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/storybook",
+  "relativeWorkspacePath": "storybook"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/storybook)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/storybook)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/storybook/lit.stories.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/storybook/lit.stories.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/lit.stories.ts",
+  "relativeWorkspacePath": "lit.stories.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/lit.stories.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/lit.stories.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import Clipboard from '../examples/lit/Clipboard.astro'\n\nexport default {\n  component: Clipboard,\n}\n\nexport const Default = {\n  args: {},\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/vanilla.stories.ts",
+  "relativeWorkspacePath": "vanilla.stories.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/vanilla.stories.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/storybook/vanilla.stories.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import Clipboard from '../examples/vanilla/Clipboard.astro'\n\nexport default {\n  component: Clipboard,\n}\n\nexport const Default = {\n  args: {},\n}\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
 **Inspecting Storybook structure****Inspecting existing story entries****Checking story registration patterns****Preparing to add story files****Requesting basic story****Preparing final summary****Storybook Update**
 - Added Lit story `lit.stories.ts` pointing at the new `Clipboard.astro`.
 - Added Vanilla story `vanilla.stories.ts` wired to `Clipboard.astro`.
@@ -77,21 +1630,810 @@ _**User (2025-11-17 14:48Z)**_
 
 _**Agent (model copilot/gpt-5-codex)**_
 
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel",
+  "relativeWorkspacePath": "carousel"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/test/carousel.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/carousel/test/carousel.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/test)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/test/collapse.spec.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/collapse/test/collapse.spec.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `clipboard` (`**/@destyler/shared-private/test`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `testHook` (`**/shared/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/hooks.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/test/hooks.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `getByArticle`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/vitest.browser.setup.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/vitest.browser.setup.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_listDirectory">
+<details>
+<summary>Tool use: **copilot_listDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src",
+  "relativeWorkspacePath": "src"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_listDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src)",
+  "pastTenseMessage": "读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/connect.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/connect.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/machine.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/machine.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `clipboard.spec`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `clipboardControls`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/controls.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/shared/src/controls.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `useFakeTimers` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/dom.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/dom.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `writeText` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `navigator.clipboard`</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `function dataAttr` (`**/dataAttr*`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `dataAttr` (`**/packages/**`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="read" data-tool-name="copilot_readFile">
+<details>
+<summary>Tool use: **copilot_readFile** • 正在读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/anatomy.ts)</summary>
+
+
+读取 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/src/anatomy.ts)
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `toHaveValue` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createDirectory">
+<details>
+<summary>Tool use: **copilot_createDirectory**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test",
+  "relativeWorkspacePath": "test"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createDirectory",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_createFile">
+<details>
+<summary>Tool use: **copilot_createFile**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "/Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts",
+  "relativeWorkspacePath": "clipboard.spec.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_createFile",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts)",
+  "pastTenseMessage": "已创建 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts)",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "import { testHook } from '@destyler/shared-private/test'\nimport { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'\nimport { page } from 'vitest/browser'\nimport { dom } from '../src/dom'\nimport { render } from '../examples/vanilla/Clipboard'\n\nlet mountEl: HTMLElement\nlet copySpy: ReturnType&lt;typeof vi.spyOn&lt;typeof dom, 'writeToClipboard'&gt;&gt;\n\ndescribe('[clipboard] browser tests', () =&gt; {\n  beforeEach(async () =&gt; {\n    copySpy?.mockRestore()\n    copySpy = vi.spyOn(dom, 'writeToClipboard').mockResolvedValue(undefined)\n\n    if (mountEl?.isConnected) {\n      mountEl.remove()\n    }\n\n    mountEl = document.createElement('div')\n    document.body.appendChild(mountEl)\n    render(mountEl)\n  })\n\n  afterEach(() =&gt; {\n    copySpy?.mockRestore()\n    if (mountEl?.isConnected) {\n      mountEl.remove()\n    }\n  })\n\n  it('renders default clipboard state', async () =&gt; {\n    await expect.element(testHook.getRootEl()).toBeVisible()\n    await expect.element(page.locator('[data-part=\"trigger\"]')).toHaveText('Copy')\n    await expect.element(page.locator('[data-part=\"input\"]')).toHaveValue('https://destyler.org')\n\n    await expect.element(page.locator('[data-clipboard-indicator][data-copied=\"true\"]')).not.toBeVisible()\n    await expect.element(page.locator('[data-clipboard-indicator][data-copied=\"false\"]')).toBeVisible()\n  })\n\n  it('copies value when trigger is clicked', async () =&gt; {\n    const trigger = page.locator('[data-part=\"trigger\"]')\n    await trigger.click()\n\n    expect(copySpy).toHaveBeenCalledTimes(1)\n    await expect.element(trigger).toHaveText('Copied')\n    await expect.element(page.locator('[data-clipboard-indicator][data-copied=\"true\"]')).toBeVisible()\n    await expect.element(page.locator('[data-clipboard-indicator][data-copied=\"false\"]')).not.toBeVisible()\n  })\n\n  it('shows copied state when input dispatches copy event', async () =&gt; {\n    const input = page.locator('[data-part=\"input\"]')\n\n    await input.evaluate(node =&gt; {\n      node.dispatchEvent(new Event('copy', { bubbles: true }))\n    })\n\n    expect(copySpy).not.toHaveBeenCalled()\n    await expect.element(page.locator('[data-part=\"trigger\"]')).toHaveText('Copied')\n    await expect.element(page.locator('[data-clipboard-indicator][data-copied=\"true\"]')).toBeVisible()\n    await expect.element(page.locator('[data-clipboard-indicator][data-copied=\"false\"]')).not.toBeVisible()\n  })\n})\n",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `page.locatoring` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `toHaveText(` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `.evaluate(` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="search" data-tool-name="copilot_findTextInFiles">
+<details>
+<summary>Tool use: **copilot_findTextInFiles** • 正在搜索文本 `page.evaluate` (`**/packages/components/**/test/**/*.ts`)</summary>
+
+
+No results found
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Clipboard'
+import { dom } from '../src/dom'
+
+let mountEl: HTMLElement
+let copySpy: ReturnType<typeof vi.spyOn> | undefined
+
+describe('[clipboard] browser tests', () => {
+  beforeEach(async () => {
+    copySpy?.mockRestore()
+    copySpy = vi.spyOn(dom, 'writeToClipboard').mockResolvedValue(undefined)
+
+    if (mountEl?.isConnected) {
+      mountEl.remove()
+    }
+
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    render(mountEl)
+  })
+
+  afterEach(() => {
+    copySpy?.mockRestore()
+    if (mountEl?.isConnected) {
+      mountEl.remove()
+    }
+  })
+
+  it('renders default clipboard state', async () => {
+    await expect.element(testHook.getRootEl()).toBeVisible()
+    await expect.element(page.locatoring('[data-part=trigger]')).toHaveTextContent('Copy')
+    await expect.element(page.locatoring('[data-part=input]')).toHaveValue('https://destyler.org')
+
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="true"]')).not.toBeVisible()
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="false"]')).toBeVisible()
+  })
+
+  it('copies value when trigger is clicked', async () => {
+    const trigger = page.locatoring('[data-part=trigger]')
+    await trigger.click()
+
+    expect(copySpy).toHaveBeenCalledTimes(1)
+    await expect.element(trigger).toHaveTextContent('Copied')
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="true"]')).toBeVisible()
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="false"]')).not.toBeVisible()
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts",
+  "relativeWorkspacePath": "clipboard.spec.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="write" data-tool-name="copilot_applyPatch">
+<details>
+<summary>Tool use: **copilot_applyPatch** • 正在使用 "应用修补程序"</summary>
+
+```typescript
+import { testHook } from '@destyler/shared-private/test'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from '../examples/vanilla/Clipboard'
+import { dom } from '../src/dom'
+
+let mountEl: HTMLElement
+let copySpy: ReturnType<typeof vi.spyOn> | undefined
+
+describe('[clipboard] browser tests', () => {
+  beforeEach(async () => {
+    copySpy?.mockRestore()
+    copySpy = vi.spyOn(dom, 'writeToClipboard').mockResolvedValue(undefined)
+
+    if (mountEl?.isConnected) {
+      mountEl.remove()
+    }
+
+    mountEl = document.createElement('div')
+    document.body.appendChild(mountEl)
+    render(mountEl)
+  })
+
+  afterEach(() => {
+    copySpy?.mockRestore()
+    if (mountEl?.isConnected) {
+      mountEl.remove()
+    }
+  })
+
+  it('renders default clipboard state', async () => {
+    await expect.element(testHook.getRootEl()).toBeVisible()
+    await expect.element(page.locatoring('[data-part=trigger]')).toHaveTextContent('Copy')
+    await expect.element(page.locatoring('[data-part=input]')).toHaveValue('https://destyler.org')
+
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="true"]')).not.toBeVisible()
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="false"]')).toBeVisible()
+  })
+
+  it('copies value when trigger is clicked', async () => {
+    const trigger = page.locatoring('[data-part=trigger]')
+    await trigger.click()
+
+    expect(copySpy).toHaveBeenCalledTimes(1)
+    await expect.element(trigger).toHaveTextContent('Copied')
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="true"]')).toBeVisible()
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="false"]')).not.toBeVisible()
+  })
+
+  it('enters copied state when the input emits a copy event', async () => {
+    const input = mountEl.querySelector<HTMLInputElement>('[data-part="input"]')
+    expect(input).not.toBeNull()
+    input?.dispatchEvent(new Event('copy', { bubbles: true }))
+
+    expect(copySpy).not.toHaveBeenCalled()
+    await expect.element(page.locatoring('[data-part=trigger]')).toHaveTextContent('Copied')
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="true"]')).toBeVisible()
+    await expect.element(page.locatoring('[data-clipboard-indicator][data-copied="false"]')).not.toBeVisible()
+  })
+})
+
+```
+
+
+</details>
+</tool-use>
+
+---
+
+<tool-use data-tool-type="unknown" data-tool-name="copilot_getErrors">
+<details>
+<summary>Tool use: **copilot_getErrors**</summary>
+
+
+Parameters:
+
+```json
+{
+  "file_path": "Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts",
+  "relativeWorkspacePath": "clipboard.spec.ts"
+}
+```
+Additional data:
+
+```json
+{
+  "vscodeToolId": "copilot_getErrors",
+  "isHidden": false
+}
+```
+Result:
+
+```json
+{
+  "invocationMessage": "正在检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts)",
+  "pastTenseMessage": "已检查 [](file:///Users/elonehoo/Developer/destyler-package/destyler/packages/components/clipboard/test/clipboard.spec.ts)，未发现问题",
+  "isConfirmed": {
+    "type": 1
+  },
+  "content": "",
+  "textEditContent": "",
+  "toolCallResult": null
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+---
+
 **Searching for clipboard tests****Checking test locations in components****Checking collapse tests****Preparing to test clipboard component****Searching for shared test utilities****Searching for getByArticle usage****Opening vitest browser setup****Exploring clipboard component structure****Reviewing machine.ts for test preparation****Reviewing DOM-related test setup****Planning clipboard copy tests**
 
 I’m thinking through how to test the main clipboard functionality by verifying initial states, toggle behavior on click, and timing out back to default. I want to check data attributes and indicator visibility, mock clipboard writes, and explore existing test utilities and controls for things like shortening the timeout. Let’s see what the shared-private and shared controls offer for supporting these tests.**Reviewing test setup and clipboard behavior**
 
 I’m examining how the vanilla example attaches necessary data attributes like `data-part` for test hooks and verifying that the clipboard indicators start in the correct visibility states. I’m also planning tests that simulate clicking the copy button and advancing timers using `vi.useFakeTimers` to confirm the proper toggling of attributes and indicators. Since controls allow timeout adjustment but might complicate DOM inspection, I’m focusing on simulating time passage programmatically for reliable testing.**Evaluating test timing and clipboard checks****Considering clipboard mocking in tests****Planning clipboard tests setup****Planning clipboard test strategy**
 
-I'm figuring out how to mock clipboard writes in Playwright-based tests despite browser security limits, leaning toward spying on the module’s `writeToClipboard` function using `vi.spyOn` so tests can run without triggering real clipboard actions. I'm also outlining how to set up tests in the clipboard package, considering imports and verifying DOM attributes carefully.**Inspecting package paths and exports****Searching for dataAttr usage****Analyzing data attribute behavior****Detailing clipboard component test strategy****Analyzing copy event tests and state transitions****Creating new file****Resolving TypeScript spy and locator issues****Investigating locator and expectation methods****Improving test matchers and locators****Examining evaluate usage in tests****Evaluating clipboard test strategies**
-```
-
-```
-**Removing obsolete test and re-running errors****Preparing to reintroduce copy event test**
-```
-
-```
-**Checking TypeScript for errors****Preparing final summary and test advice**Added Lit and Vanilla clipboard demos, wired Storybook entries, and covered the clipboard browser behaviors with new tests.
+I'm figuring out how to mock clipboard writes in Playwright-based tests despite browser security limits, leaning toward spying on the module’s `writeToClipboard` function using `vi.spyOn` so tests can run without triggering real clipboard actions. I'm also outlining how to set up tests in the clipboard package, considering imports and verifying DOM attributes carefully.**Inspecting package paths and exports****Searching for dataAttr usage****Analyzing data attribute behavior****Detailing clipboard component test strategy****Analyzing copy event tests and state transitions****Creating new file****Resolving TypeScript spy and locator issues****Investigating locator and expectation methods****Improving test matchers and locators****Examining evaluate usage in tests****Evaluating clipboard test strategies****Removing obsolete test and re-running errors****Preparing to reintroduce copy event test****Checking TypeScript for errors****Preparing final summary and test advice**Added Lit and Vanilla clipboard demos, wired Storybook entries, and covered the clipboard browser behaviors with new tests.
 
 - Created `Clipboard.ts` + `.astro` mirroring the carousel/collapse patterns (shared controls, trigger state swap, indicators).
 - Implemented `Clipboard.ts` + `.astro`, using the vanilla `Component` wrapper to sync state, indicators, and the toolbar visualizer.
