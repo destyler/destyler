@@ -1,7 +1,7 @@
 {
   "name": "@destyler/menu",
   "type": "module",
-  "version": "0.2.3-beta.1",
+  "version": "0.2.3-beta.2",
 
   "description": "a list of options that appears when a user interacts with a button.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
