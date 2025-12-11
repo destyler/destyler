@@ -1,7 +1,7 @@
 {
   "name": "@destyler/tour",
   "type": "module",
-  "version": "0.2.3-beta.2",
+  "version": "0.2.3-beta.3",
 
   "description": "A guided tour that helps users understand the interface.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
