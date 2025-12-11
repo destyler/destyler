@@ -1,7 +1,7 @@
 {
   "name": "@destyler/color",
   "type": "module",
-  "version": "0.2.3-beta.4",
+  "version": "0.2.3-beta.5",
 
   "description": "Color utilities for web",
   "author": "Elone Hoo <elonehoo@gmail.com>",

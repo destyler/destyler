@@ -1,7 +1,7 @@
 {
   "name": "@destyler/dom",
   "type": "module",
-  "version": "0.2.3-beta.4",
+  "version": "0.2.3-beta.5",
 
   "description": "The dom helper library for UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",

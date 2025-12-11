@@ -1,7 +1,7 @@
 {
   "name": "@destyler/anatomy",
   "type": "module",
-  "version": "0.2.3-beta.4",
+  "version": "0.2.3-beta.5",
   "description": "a minimal implementation of anatomy for UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
