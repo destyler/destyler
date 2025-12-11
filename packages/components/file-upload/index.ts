@@ -5,6 +5,7 @@ export * from './src/props'
 export type {
   MachineApi as Api,
   UserDefinedContext as Context,
+  DropzoneProps,
   ElementIds,
   FileAcceptDetails,
   FileChangeDetails,
