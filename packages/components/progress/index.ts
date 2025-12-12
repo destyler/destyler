@@ -12,5 +12,5 @@ export type {
   Service,
   ValueChangeDetails,
   ValueTranslationDetails,
-  ViewProps
+  ViewProps,
 } from './src/types'
