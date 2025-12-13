@@ -1,7 +1,7 @@
 {
   "name": "@destyler/signature",
   "type": "module",
-  "version": "0.2.3-beta.6",
+  "version": "0.2.3-beta.7",
 
   "description": "A component that allows users to draw a signature using a signature pad.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

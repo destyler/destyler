@@ -1,7 +1,7 @@
 {
   "name": "@destyler/progress",
   "type": "module",
-  "version": "0.2.3-beta.6",
+  "version": "0.2.3-beta.7",
 
   "description": "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

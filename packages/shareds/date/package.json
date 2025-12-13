@@ -1,7 +1,7 @@
 {
   "name": "@destyler/date",
   "type": "module",
-  "version": "0.2.3-beta.6",
+  "version": "0.2.3-beta.7",
 
   "description": "Date utilities for web",
   "author": "Elone Hoo <elonehoo@gmail.com>",
