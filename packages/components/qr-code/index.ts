@@ -4,4 +4,6 @@ export { machine } from './src/machine'
 export * from './src/props'
 export type {
   UserDefinedContext as Context,
+  QrCodeGenerateOptions,
+  ValueChangeDetails,
 } from './src/types'
