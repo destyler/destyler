@@ -1,5 +1,5 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { getRelativePoint, raf, trackPointerMove } from '@destyler/dom'
+import { raf, trackPointerMove } from '@destyler/dom'
 import { compact } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
@@ -21,6 +21,8 @@ export function machine(userContext: UserDefinedContext) {
           isAtMin: false,
           isAtMax: false,
         },
+        initialDragPoint: null,
+        initialDragSizes: null,
         ...ctx,
       },
 
@@ -121,7 +123,7 @@ export function machine(userContext: UserDefinedContext) {
 
         'dragging': {
           tags: ['focus'],
-          entry: 'focusResizeHandle',
+          entry: ['focusResizeHandle', 'storeInitialDragState'],
           activities: ['trackPointerMove'],
           on: {
             POINTER_MOVE: {
@@ -240,6 +242,17 @@ export function machine(userContext: UserDefinedContext) {
             dom.getActiveHandleEl(ctx)?.blur()
           })
         },
+        storeInitialDragState(ctx, evt) {
+          const panels = getHandlePanels(ctx)
+          if (!panels)
+            return
+          const { before, after } = panels
+          ctx.initialDragPoint = evt.point
+          ctx.initialDragSizes = {
+            before: before.size,
+            after: after.size,
+          }
+        },
         setPreviousPanels(ctx) {
           ctx.previousPanels = ctx.panels.slice()
         },
@@ -264,27 +277,48 @@ export function machine(userContext: UserDefinedContext) {
           if (!rootEl)
             return
 
-          const relativePoint = getRelativePoint(evt.point, rootEl)
-          const percentValue = relativePoint.getPercentValue({
-            dir: ctx.dir,
-            orientation: ctx.orientation,
-          })
-
-          let pointValue = percentValue * 100
-
-          // update active resize state here because we use `previousPanels` in the calculations
-          ctx.activeResizeState = {
-            isAtMin: pointValue < bounds.min,
-            isAtMax: pointValue > bounds.max,
-          }
-
-          pointValue = clamp(pointValue, bounds.min, bounds.max)
+          if (!ctx.initialDragPoint || !ctx.initialDragSizes)
+            return
 
           const { before, after } = panels
 
-          const offset = pointValue - before.end
-          ctx.size[before.index].size = before.size + offset
-          ctx.size[after.index].size = after.size - offset
+          // Calculate relative movement from initial drag position
+          const rootSize = ctx.isHorizontal ? rootEl.offsetWidth : rootEl.offsetHeight
+          const currentPos = ctx.isHorizontal ? evt.point.x : evt.point.y
+          const initialPos = ctx.isHorizontal ? ctx.initialDragPoint.x : ctx.initialDragPoint.y
+
+          // Handle RTL for horizontal orientation
+          const isRtl = ctx.dir === 'rtl' && ctx.isHorizontal
+          const deltaPixels = isRtl ? (initialPos - currentPos) : (currentPos - initialPos)
+          const deltaPercent = (deltaPixels / rootSize) * 100
+
+          // Calculate new sizes based on delta from initial sizes
+          let newBeforeSize = ctx.initialDragSizes.before + deltaPercent
+          let newAfterSize = ctx.initialDragSizes.after - deltaPercent
+
+          // Update active resize state
+          ctx.activeResizeState = {
+            isAtMin: newBeforeSize <= before.minSize,
+            isAtMax: newBeforeSize >= before.maxSize,
+          }
+
+          // Apply constraints
+          newBeforeSize = clamp(newBeforeSize, before.minSize, before.maxSize)
+          newAfterSize = clamp(newAfterSize, after.minSize, after.maxSize)
+
+          // Ensure total doesn't exceed available space
+          const totalSize = ctx.initialDragSizes.before + ctx.initialDragSizes.after
+          if (newBeforeSize + newAfterSize > totalSize) {
+            if (deltaPercent > 0) {
+              newAfterSize = totalSize - newBeforeSize
+            }
+            else {
+              newBeforeSize = totalSize - newAfterSize
+            }
+          }
+
+          ctx.size[before.index].size = newBeforeSize
+          ctx.size[after.index].size = newAfterSize
         },
       },
     },
