@@ -105,7 +105,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             event.preventDefault()
             return
           }
-          send({ type: 'POINTER_DOWN', id })
+          send({ type: 'POINTER_DOWN', id, point: { x: event.clientX, y: event.clientY } })
           event.currentTarget.setPointerCapture(event.pointerId)
           event.preventDefault()
           event.stopPropagation()

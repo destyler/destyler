@@ -69,6 +69,8 @@ interface PrivateContext {
   previousPanels: NormalizedPanelData
   activeResizeState: { isAtMin: boolean, isAtMax: boolean }
   initialSize: Array<Required<Pick<PanelSizeData, 'id' | 'size'>>>
+  initialDragPoint: { x: number, y: number } | null
+  initialDragSizes: { before: number, after: number } | null
 }
 
 export interface MachineContext extends PublicContext, ComputedContext, PrivateContext {}
