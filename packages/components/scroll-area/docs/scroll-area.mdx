@@ -1,0 +1,513 @@
+---
+head:
+  - tag: title
+    content: Scroll Area - Destyler UI
+title: Scroll Area
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A scroll area component with custom scrollbars that augments native scroll functionality for custom, cross-browser styling.
+
+<PreviewCode name="scroll-area"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Custom scrollbar styling across browsers',
+  'Virtual scrolling support for large lists',
+  'Configurable scrollbar visibility modes',
+  'RTL support',
+  'Touch-friendly scrollbar dragging',
+  'Keyboard accessible viewport',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="scroll-area" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as scrollArea from '@destyler/scroll-area'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(scrollArea.machine({ id: useId() }))
+
+  const api = computed(() =>
+    scrollArea.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getViewportProps()">
+        <div v-bind="api.getContentProps()">
+          <!-- Your content here -->
+        </div>
+      </div>
+
+      <div v-bind="api.getScrollbarProps({ orientation: 'vertical' })">
+        <div v-bind="api.getThumbProps({ orientation: 'vertical' })" />
+      </div>
+
+      <div v-bind="api.getScrollbarProps({ orientation: 'horizontal' })">
+        <div v-bind="api.getThumbProps({ orientation: 'horizontal' })" />
+      </div>
+
+      <div v-bind="api.getCornerProps()" />
+    </div>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as scrollArea from '@destyler/scroll-area'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function ScrollArea() {
+    const [state, send] = useMachine(scrollArea.machine({ id: useId() }))
+    const api = scrollArea.connect(state, send, normalizeProps)
+
+    return (
+      <div {...api.getRootProps()}>
+        <div {...api.getViewportProps()}>
+          <div {...api.getContentProps()}>
+            {/* Your content here */}
+          </div>
+        </div>
+
+        <div {...api.getScrollbarProps({ orientation: 'vertical' })}>
+          <div {...api.getThumbProps({ orientation: 'vertical' })} />
+        </div>
+
+        <div {...api.getScrollbarProps({ orientation: 'horizontal' })}>
+          <div {...api.getThumbProps({ orientation: 'horizontal' })} />
+        </div>
+
+        <div {...api.getCornerProps()} />
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as scrollArea from '@destyler/scroll-area'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(scrollArea.machine({ id }))
+
+    const api = $derived(scrollArea.connect(state, send, normalizeProps))
+  </script>
+
+  <div {...api.getRootProps()}>
+    <div {...api.getViewportProps()}>
+      <div {...api.getContentProps()}>
+        <!-- Your content here -->
+      </div>
+    </div>
+
+    <div {...api.getScrollbarProps({ orientation: 'vertical' })}>
+      <div {...api.getThumbProps({ orientation: 'vertical' })}></div>
+    </div>
+
+    <div {...api.getScrollbarProps({ orientation: 'horizontal' })}>
+      <div {...api.getThumbProps({ orientation: 'horizontal' })}></div>
+    </div>
+
+    <div {...api.getCornerProps()}></div>
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as scrollArea from '@destyler/scroll-area'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId } from 'solid-js'
+
+  export default function ScrollArea() {
+    const [state, send] = useMachine(scrollArea.machine({ id: createUniqueId() }))
+    const api = createMemo(() => scrollArea.connect(state, send, normalizeProps))
+
+    return (
+      <div {...api().getRootProps()}>
+        <div {...api().getViewportProps()}>
+          <div {...api().getContentProps()}>
+            {/* Your content here */}
+          </div>
+        </div>
+
+        <div {...api().getScrollbarProps({ orientation: 'vertical' })}>
+          <div {...api().getThumbProps({ orientation: 'vertical' })} />
+        </div>
+
+        <div {...api().getScrollbarProps({ orientation: 'horizontal' })}>
+          <div {...api().getThumbProps({ orientation: 'horizontal' })} />
+        </div>
+
+        <div {...api().getCornerProps()} />
+      </div>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Scrollbar visibility
+
+You can configure when the scrollbars are visible using the `type` property. The available options are:
+
+- `hover` (default): Scrollbars are visible when hovering over the scroll area or while scrolling
+- `scroll`: Scrollbars are visible only while scrolling
+- `always`: Scrollbars are always visible when content overflows
+- `auto`: Scrollbars are visible when content overflows
+
+```ts
+const [state, send] = useMachine(
+  scrollArea.machine({
+    type: 'always',
+  }),
+)
+```
+
+## Scrollbar hide delay
+
+When using `scroll` or `hover` visibility type, you can configure how long the scrollbars remain visible after the user stops interacting:
+
+```ts
+const [state, send] = useMachine(
+  scrollArea.machine({
+    type: 'scroll',
+    scrollHideDelay: 1000, // Hide after 1 second
+  }),
+)
+```
+
+## Listening for scroll changes
+
+When the scroll position changes, the `onScroll` callback is invoked.
+
+```ts
+const [state, send] = useMachine(
+  scrollArea.machine({
+    onScroll(details) {
+      // details => { scrollTop, scrollLeft, scrollHeight, scrollWidth, clientHeight, clientWidth }
+      console.log('Scroll position:', details.scrollTop, details.scrollLeft)
+    },
+  }),
+)
+```
+
+## Virtual scrolling
+
+For large lists, you can enable virtual scrolling to only render visible items. This significantly improves performance when dealing with thousands of items.
+
+```ts
+const [state, send] = useMachine(
+  scrollArea.machine({
+    virtual: {
+      count: 10000,        // Total number of items
+      itemSize: 50,        // Height of each item (in pixels)
+      overscan: 5,         // Extra items to render outside viewport
+      orientation: 'vertical', // 'vertical' or 'horizontal'
+    },
+  }),
+)
+
+// Then render virtual items
+const virtualItems = api.getVirtualItems()
+```
+
+### Rendering virtual items
+
+When using virtual scrolling, render items using the `getVirtualItems()` method:
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <template>
+    <div v-bind="api.getRootProps()">
+      <div v-bind="api.getViewportProps()">
+        <div v-bind="api.getContentProps()">
+          <div
+            v-for="item in api.getVirtualItems()"
+            :key="item.index"
+            :style="{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${item.size}px`,
+              transform: `translateY(${item.start}px)`,
+            }"
+          >
+            Item {{ item.index }}
+          </div>
+        </div>
+      </div>
+      <!-- scrollbars... -->
+    </div>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  <div {...api.getRootProps()}>
+    <div {...api.getViewportProps()}>
+      <div {...api.getContentProps()}>
+        {api.getVirtualItems().map(item => (
+          <div
+            key={item.index}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: `${item.size}px`,
+              transform: `translateY(${item.start}px)`,
+            }}
+          >
+            Item {item.index}
+          </div>
+        ))}
+      </div>
+    </div>
+    {/* scrollbars... */}
+  </div>
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <div {...api.getRootProps()}>
+    <div {...api.getViewportProps()}>
+      <div {...api.getContentProps()}>
+        {#each api.getVirtualItems() as item}
+          <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: {item.size}px; transform: translateY({item.start}px);"
+          >
+            Item {item.index}
+          </div>
+        {/each}
+      </div>
+    </div>
+    <!-- scrollbars... -->
+  </div>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  <div {...api().getRootProps()}>
+    <div {...api().getViewportProps()}>
+      <div {...api().getContentProps()}>
+        <For each={api().getVirtualItems()}>
+          {item => (
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: `${item.size}px`,
+                transform: `translateY(${item.start}px)`,
+              }}
+            >
+              Item {item.index}
+            </div>
+          )}
+        </For>
+      </div>
+    </div>
+    {/* scrollbars... */}
+  </div>
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+### Scroll to index
+
+You can programmatically scroll to a specific item index:
+
+```ts
+// Scroll to item at index 500
+api.scrollToIndex(500)
+
+// Scroll with alignment option
+api.scrollToIndex(500, { align: 'center' }) // 'start' | 'center' | 'end' | 'auto'
+```
+
+### Dynamic item sizes
+
+For items with varying heights, you can provide a function instead of a fixed size:
+
+```ts
+const [state, send] = useMachine(
+  scrollArea.machine({
+    virtual: {
+      count: 10000,
+      itemSize: (index) => {
+        // Return different sizes based on item type
+        return index % 10 === 0 ? 100 : 50
+      },
+    },
+  }),
+)
+```
+
+## Programmatic scrolling
+
+You can scroll to a specific position programmatically:
+
+```ts
+// Scroll to absolute position
+api.scrollTo({ top: 500 })
+
+// Scroll to position with smooth behavior
+api.scrollTo({ top: 500, behavior: 'smooth' })
+
+// Scroll horizontally
+api.scrollTo({ left: 200 })
+```
+
+## Styling Guide
+
+> Each scroll area part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Scrollbar visibility state
+
+When the scrollbar is visible or hidden, the `data-state` attribute is set:
+
+```css
+[data-scope="scroll-area"][data-part="scrollbar"][data-state="visible"] {
+  /* styles for visible scrollbar */
+}
+
+[data-scope="scroll-area"][data-part="scrollbar"][data-state="hidden"] {
+  /* styles for hidden scrollbar */
+}
+```
+
+### Scrollbar orientation
+
+Style scrollbars based on their orientation:
+
+```css
+[data-scope="scroll-area"][data-part="scrollbar"][data-orientation="vertical"] {
+  width: 10px;
+}
+
+[data-scope="scroll-area"][data-part="scrollbar"][data-orientation="horizontal"] {
+  height: 10px;
+}
+```
+
+### Thumb dragging state
+
+When the user is dragging the scrollbar thumb:
+
+```css
+[data-scope="scroll-area"][data-part="thumb"][data-dragging] {
+  /* styles while dragging */
+  background-color: rgba(0, 0, 0, 0.8);
+}
+```
+
+### Hiding native scrollbars
+
+The component automatically hides native scrollbars, but you can add additional styles for webkit browsers:
+
+```css
+[data-scope="scroll-area"][data-part="viewport"]::-webkit-scrollbar {
+  display: none;
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The scroll area machine exposes the following context properties:
+
+<MachineTable name="scroll-area"></MachineTable>
+
+### Machine API
+
+The scroll area `api` exposes the following methods:
+
+<APITable name="scroll-area"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="scroll-area" nodeType="Root" />
+
+#### Viewport
+
+<StyleTable component="scroll-area" nodeType="Viewport" />
+
+#### Content
+
+<StyleTable component="scroll-area" nodeType="Content" />
+
+#### Scrollbar
+
+<StyleTable component="scroll-area" nodeType="Scrollbar" />
+
+#### Thumb
+
+<StyleTable component="scroll-area" nodeType="Thumb" />
+
+#### Corner
+
+<StyleTable component="scroll-area" nodeType="Corner" />
+
+## Accessibility
+
+The scroll area component uses semantic ARIA attributes:
+
+- The viewport has `tabIndex={0}` for keyboard accessibility
+- Scrollbars have proper `role="scrollbar"` with `aria-controls`, `aria-orientation`, `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` attributes

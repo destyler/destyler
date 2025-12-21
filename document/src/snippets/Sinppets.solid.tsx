@@ -27,6 +27,7 @@ import Popover from '@component/popover/snippets/Popover.solid.tsx'
 import Progress from '@component/progress/snippets/Progress.solid.tsx'
 import QrCode from '@component/qr-code/snippets/QRCode.solid.tsx'
 import Radio from '@component/radio/snippets/Radio.solid.tsx'
+import ScrollArea from '@component/scroll-area/snippets/ScrollArea.solid.tsx'
 import Select from '@component/select/snippets/Select.solid.tsx'
 import Separator from '@component/separator/snippets/Separator.solid.tsx'
 import Signature from '@component/signature/snippets/Signature.solid.tsx'
@@ -90,6 +91,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'tree' && <Tree />}
       {props.name === 'toast' && <Toast />}
       {props.name === 'tour' && <Tour />}
+      {props.name === 'scroll-area' && <ScrollArea />}
     </div>
   )
 }

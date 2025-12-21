@@ -1032,6 +1032,41 @@
       "data-orientation": "The orientation of the indicator"
     }
   },
+  "scroll-area": {
+    "Root": {
+      "data-scope": "scroll-area",
+      "data-part": "root",
+      "data-orientation": "The orientation of the scroll-area"
+    },
+    "Viewport": {
+      "data-scope": "scroll-area",
+      "data-part": "viewport",
+      "data-orientation": "The orientation of the viewport"
+    },
+    "Content": {
+      "data-scope": "scroll-area",
+      "data-part": "content",
+      "data-orientation": "The orientation of the content"
+    },
+    "Scrollbar": {
+      "data-scope": "scroll-area",
+      "data-part": "scrollbar",
+      "data-orientation": "The orientation of the scrollbar",
+      "data-state": "\"visible\" | \"hidden\""
+    },
+    "Thumb": {
+      "data-scope": "scroll-area",
+      "data-part": "thumb",
+      "data-orientation": "The orientation of the thumb",
+      "data-state": "\"visible\" | \"hidden\"",
+      "data-dragging": "Present when in the dragging state"
+    },
+    "Corner": {
+      "data-scope": "scroll-area",
+      "data-part": "corner",
+      "data-state": "\"visible\" | \"hidden\""
+    }
+  },
   "select": {
     "Root": {
       "data-scope": "select",

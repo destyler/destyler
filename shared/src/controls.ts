@@ -263,3 +263,9 @@ export const treeControls = defineControls({
   selectionMode: { type: 'select', options: ['single', 'multiple'] as const, defaultValue: 'single' },
   openOnClick: { type: 'boolean', defaultValue: true },
 })
+
+export const scrollAreaControls = defineControls({
+  type: { type: 'select', options: ['auto', 'always', 'scroll', 'hover'] as const, defaultValue: 'hover' },
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  scrollHideDelay: { type: 'number', defaultValue: 600 },
+})

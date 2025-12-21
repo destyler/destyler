@@ -40,6 +40,7 @@
   import Toast from '@component/toast/snippets/Toast.svelte'
   import Tour from '@component/tour/snippets/Tour.svelte'
   import FloatingPanel from '@component/floating-panel/snippets/FloatingPanel.svelte'
+  import ScrollArea from '@component/scroll-area/snippets/ScrollArea.svelte'
 
   export let name: string;
 </script>
@@ -167,5 +168,8 @@
   {/if}
   {#if name === 'tour'}
     <Tour />
+  {/if}
+  {#if name === 'scroll-area'}
+    <ScrollArea />
   {/if}
 </div>

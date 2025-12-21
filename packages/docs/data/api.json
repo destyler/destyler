@@ -2963,6 +2963,107 @@
       }
     }
   },
+  "scroll-area": {
+    "api": {
+      "scrollTop": {
+        "type": "number",
+        "description": "\nThe current scroll position"
+      },
+      "hasOverflowX": {
+        "type": "boolean",
+        "description": "\nWhether there is overflow in each direction"
+      },
+      "scrollbarXVisible": {
+        "type": "boolean",
+        "description": "\nWhether scrollbars are currently visible"
+      },
+      "scrollTo": {
+        "type": "(options: ScrollToOptions) => void",
+        "description": "\nScroll to a specific position"
+      },
+      "scrollToIndex": {
+        "type": "(index: number, options?: { align?: \"auto\" | \"start\" | \"center\" | \"end\"; }) => void",
+        "description": "\nScroll to a specific item index (for virtual scrolling)"
+      },
+      "measureItem": {
+        "type": "(index: number, size: number) => void",
+        "description": "\nMeasure a specific item's size (for dynamic virtual scrolling)"
+      },
+      "getVirtualItems": {
+        "type": "() => VirtualItem[]",
+        "description": "\nGet virtual scroll state (when virtual scrolling is enabled)"
+      },
+      "getTotalSize": {
+        "type": "() => number",
+        "description": "\nGet the total size of all virtual items"
+      },
+      "getVisibleRange": {
+        "type": "() => VirtualRange",
+        "description": "\nGet the visible range of items"
+      },
+      "getRootProps": {
+        "type": "() => T[\"element\"]",
+        "description": "\nProps for the root element"
+      },
+      "getViewportProps": {
+        "type": "() => T[\"element\"]",
+        "description": "\nProps for the viewport element"
+      },
+      "getContentProps": {
+        "type": "() => T[\"element\"]",
+        "description": "\nProps for the content element (wrapper for virtual items)"
+      },
+      "getScrollbarProps": {
+        "type": "(options: ScrollbarProps) => T[\"element\"]",
+        "description": "\nProps for a scrollbar"
+      },
+      "getThumbProps": {
+        "type": "(options: ScrollbarProps) => T[\"element\"]",
+        "description": "\nProps for the scrollbar thumb"
+      },
+      "getCornerProps": {
+        "type": "() => T[\"element\"]",
+        "description": "\nProps for the corner element"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; viewport: string; content: string; scrollbarX: string; scrollbarY: string; thumbX: string; thumbY: string; corner: string; }>",
+        "description": "\nThe ids of the elements in the scroll area. Useful for composition."
+      },
+      "type": {
+        "type": "ScrollType",
+        "description": "\nDescribes the nature of scrollbar visibility\n- `auto`: Scrollbars are visible when content is overflowing\n- `always`: Scrollbars are always visible\n- `scroll`: Scrollbars are visible when the user is scrolling\n- `hover`: Scrollbars are visible when the user is hovering over the scroll area",
+        "defaultValue": "'hover'"
+      },
+      "scrollHideDelay": {
+        "type": "number",
+        "description": "\nIf type is set to either `scroll` or `hover`, this prop determines the length of time,\nin milliseconds, before the scrollbars are hidden after the user stops interacting with scrollbars.",
+        "defaultValue": "600"
+      },
+      "onScroll": {
+        "type": "(details: ScrollChangeDetails) => void",
+        "description": "\nCallback when scroll position changes"
+      },
+      "virtual": {
+        "type": "VirtualScrollOptions",
+        "description": "\nVirtual scroll configuration. When provided, enables virtual scrolling."
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
   "select": {
     "api": {
       "focused": {

@@ -26,6 +26,7 @@ import Popover from '@component/popover/snippets/Popover.vue'
 import Progress from '@component/progress/snippets/Progress.vue'
 import QrCode from '@component/qr-code/snippets/QRCode.vue'
 import Radio from '@component/radio/snippets/Radio.vue'
+import ScrollArea from '@component/scroll-area/snippets/ScrollArea.vue'
 import Select from '@component/select/snippets/Select.vue'
 import Separator from '@component/separator/snippets/Separator.vue'
 import Signature from '@component/signature/snippets/Signature.vue'
@@ -90,5 +91,6 @@ const props = defineProps<{
     <Tree v-if="props.name === 'tree'" />
     <Toast v-if="props.name === 'toast'" />
     <Tour v-if="props.name === 'tour'" />
+    <ScrollArea v-if="props.name === 'scroll-area'" />
   </div>
 </template>

@@ -175,6 +175,7 @@ export default defineConfig({
             { slug: 'components/pagination' },
             { slug: 'components/popover' },
             { slug: 'components/progress' },
+            { slug: 'components/scroll-area' },
             { slug: 'components/separator' },
             { slug: 'components/splitter' },
             { slug: 'components/steps' },
