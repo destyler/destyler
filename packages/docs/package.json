@@ -1,7 +1,7 @@
 {
   "name": "@destyler/docs",
   "type": "module",
-  "version": "0.2.6-beta.1",
+  "version": "0.2.6",
   "description": "Components Type for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

@@ -1,7 +1,7 @@
 {
   "name": "@destyler/carousel",
   "type": "module",
-  "version": "0.2.6-beta.1",
+  "version": "0.2.6",
   "description": "an interactive slideshow component for cycling through elements.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
