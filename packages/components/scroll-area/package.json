@@ -1,7 +1,7 @@
 {
   "name": "@destyler/scroll-area",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "exports": {

@@ -1,7 +1,7 @@
 {
   "name": "@destyler/steps",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.2.4",
 
   "description": "Used to guide users through a series of steps in a process",
   "author": "Elone Hoo <elonehoo@gmail.com>",

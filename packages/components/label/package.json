@@ -1,7 +1,7 @@
 {
   "name": "@destyler/label",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.2.4",
 
   "description": "renders an accessible label associated with controls.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

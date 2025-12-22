@@ -1,7 +1,7 @@
 {
   "name": "@destyler/pagination",
   "type": "module",
-  "version": "0.2.3",
+  "version": "0.2.4",
 
   "description": "displays data in paged format and provides navigation between pages.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
