@@ -102,19 +102,6 @@ jobs:
           ENV: ${{secrets.DESTYLER_ENV}}
           SERVICE: ${{secrets.DESTYLER_ORG}}
 
-      # - name: Build Test
-      #   run: pnpm run test:deploy
-
-      # - name: Zip test.destyler.org
-      #   run: npx tsx scripts/zip.ts html test-dist
-
-      # - name: Deploy test.destyler.org
-      #   run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} test-dist.zip
-      #   env:
-      #     TOKEN: ${{secrets.ZEABUR_TOKEN}}
-      #     ENV: ${{secrets.DESTYLER_ENV}}
-      #     SERVICE: ${{secrets.TEST_DESTYLER_ORG}}
-
       - name: Build Storybook
         run: pnpm run storybook:build
 
@@ -128,15 +115,3 @@ jobs:
           ENV: ${{secrets.DESTYLER_ENV}}
           SERVICE: ${{secrets.STORYBOOK_ORG}}
 
-      - name: Build Everything
-        run: pnpm run node-modules:build
-
-      - name: Zip everything.destyler.org
-        run: npx tsx scripts/zip.ts .node-modules-inspector everything-dist
-
-      - name: Deploy everything.destyler.org
-        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} everything-dist.zip
-        env:
-          TOKEN: ${{secrets.ZEABUR_TOKEN}}
-          ENV: ${{secrets.DESTYLER_ENV}}
-          SERVICE: ${{secrets.EVERYTHING_DESTYLER_ORG}}
