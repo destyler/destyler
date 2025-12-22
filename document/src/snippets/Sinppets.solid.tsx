@@ -20,6 +20,7 @@ import Image from '@component/image/snippets/Image.solid.tsx'
 import Label from '@component/label/snippets/Label.solid.tsx'
 import ContentMenu from '@component/menu/snippets/content-menu/ContentMenu.solid.tsx'
 import Menu from '@component/menu/snippets/menu/Menu.solid.tsx'
+import NavigationMenu from '@component/navigation-menu/snippets/NavigationMenu.solid.tsx'
 import NumberInput from '@component/number-input/snippets/NumberInput.solid.tsx'
 import OtpInput from '@component/otp-input/snippets/OtpInput.solid.tsx'
 import Pagination from '@component/pagination/snippets/Pagination.solid.tsx'
@@ -92,6 +93,7 @@ const Snippets: Component<SnippetsProps> = (props) => {
       {props.name === 'toast' && <Toast />}
       {props.name === 'tour' && <Tour />}
       {props.name === 'scroll-area' && <ScrollArea />}
+      {props.name === 'navigation-menu' && <NavigationMenu />}
     </div>
   )
 }

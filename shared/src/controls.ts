@@ -269,3 +269,12 @@ export const scrollAreaControls = defineControls({
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
   scrollHideDelay: { type: 'number', defaultValue: 600 },
 })
+
+export const navigationMenuControls = defineControls({
+  orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'horizontal' },
+  dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  openDelay: { type: 'number', defaultValue: 200 },
+  closeDelay: { type: 'number', defaultValue: 300 },
+  disableClickTrigger: { type: 'boolean', defaultValue: false },
+  disableHoverTrigger: { type: 'boolean', defaultValue: false },
+})

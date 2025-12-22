@@ -18,6 +18,7 @@ import Image from '@component/image/snippets/Image.react.tsx'
 import Label from '@component/label/snippets/Label.react.tsx'
 import ContentMenu from '@component/menu/snippets/content-menu/ContentMenu.react.tsx'
 import Menu from '@component/menu/snippets/menu/Menu.react.tsx'
+import NavigationMenu from '@component/navigation-menu/snippets/NavigationMenu.react.tsx'
 import NumberInput from '@component/number-input/snippets/NumberInput.react.tsx'
 import OtpInput from '@component/otp-input/snippets/OtpInput.react.tsx'
 import Pagination from '@component/pagination/snippets/Pagination.react.tsx'
@@ -90,6 +91,7 @@ export default function Snippets({ name }: SnippetsProps) {
       {name === 'toast' && <Toast />}
       {name === 'tour' && <Tour />}
       {name === 'scroll-area' && <ScrollArea />}
+      {name === 'navigation-menu' && <NavigationMenu />}
     </div>
   )
 }

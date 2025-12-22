@@ -30,6 +30,7 @@
     "@destyler/image": "workspace:*",
     "@destyler/label": "workspace:*",
     "@destyler/menu": "workspace:*",
+    "@destyler/navigation-menu": "workspace:*",
     "@destyler/number-input": "workspace:*",
     "@destyler/otp-input": "workspace:*",
     "@destyler/pagination": "workspace:*",
@@ -38,6 +39,7 @@
     "@destyler/qr-code": "workspace:*",
     "@destyler/radio": "workspace:*",
     "@destyler/react": "workspace:*",
+    "@destyler/scroll-area": "workspace:*",
     "@destyler/select": "workspace:*",
     "@destyler/separator": "workspace:*",
     "@destyler/signature": "workspace:*",
@@ -52,6 +54,7 @@
     "@destyler/toast": "workspace:*",
     "@destyler/toggle": "workspace:*",
     "@destyler/tooltip": "workspace:*",
+    "@destyler/tour": "workspace:*",
     "@destyler/tree": "workspace:*",
     "@destyler/vanilla": "workspace:*",
     "@destyler/vue": "workspace:*"

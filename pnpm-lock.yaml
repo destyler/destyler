@@ -487,6 +487,9 @@ importers:
       '@destyler/menu':
         specifier: workspace:*
         version: link:../packages/components/menu
+      '@destyler/navigation-menu':
+        specifier: workspace:*
+        version: link:../packages/components/navigation-menu
       '@destyler/number-input':
         specifier: workspace:*
         version: link:../packages/components/number-input
@@ -511,6 +514,9 @@ importers:
       '@destyler/react':
         specifier: workspace:*
         version: link:../packages/frameworks/react
+      '@destyler/scroll-area':
+        specifier: workspace:*
+        version: link:../packages/components/scroll-area
       '@destyler/select':
         specifier: workspace:*
         version: link:../packages/components/select
@@ -553,6 +559,9 @@ importers:
       '@destyler/tooltip':
         specifier: workspace:*
         version: link:../packages/components/tooltip
+      '@destyler/tour':
+        specifier: workspace:*
+        version: link:../packages/components/tour
       '@destyler/tree':
         specifier: workspace:*
         version: link:../packages/components/tree
@@ -1100,6 +1109,24 @@ importers:
       '@destyler/rect':
         specifier: workspace:*
         version: link:../../shareds/rect
+      '@destyler/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@destyler/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      '@destyler/xstate':
+        specifier: workspace:*
+        version: link:../../xstate
+
+  packages/components/navigation-menu:
+    dependencies:
+      '@destyler/anatomy':
+        specifier: workspace:*
+        version: link:../../anatomy
+      '@destyler/dom':
+        specifier: workspace:*
+        version: link:../../shareds/dom
       '@destyler/types':
         specifier: workspace:*
         version: link:../../types
