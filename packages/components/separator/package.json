@@ -1,7 +1,7 @@
 {
   "name": "@destyler/separator",
   "type": "module",
-  "version": "0.2.3-beta.7",
+  "version": "0.2.3",
 
   "description": "Visually or semantically separates content.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

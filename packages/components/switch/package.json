@@ -1,7 +1,7 @@
 {
   "name": "@destyler/switch",
   "type": "module",
-  "version": "0.2.3-beta.7",
+  "version": "0.2.3",
 
   "description": "A control that allows the user to toggle between checked and not checked.",
   "author": "Elone Hoo <elonehoo@gmail.com>",

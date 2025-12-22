@@ -1,7 +1,7 @@
 {
   "name": "@destyler/svelte",
   "type": "module",
-  "version": "0.2.3-beta.7",
+  "version": "0.2.3",
   "publishConfig": {
     "access": "public"
   },

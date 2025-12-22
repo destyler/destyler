@@ -1,7 +1,7 @@
 {
   "name": "@destyler/number-input",
   "type": "module",
-  "version": "0.2.3-beta.7",
+  "version": "0.2.3",
 
   "description": "a field that allows user input of numeric values.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
