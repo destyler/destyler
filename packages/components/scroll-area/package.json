@@ -4,6 +4,12 @@
   "version": "0.2.5",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/destyler/destyler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/destyler/destyler.git",
+    "directory": "packages/components/scroll-area"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.mts",
