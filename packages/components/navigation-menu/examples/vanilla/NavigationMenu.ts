@@ -75,7 +75,10 @@ class NavigationMenuExample extends Component<
 
     // Create getting-started content
     const gettingStartedContent = document.createElement('div')
-    spreadProps(gettingStartedContent, this.api.getContentProps({ value: 'getting-started' }))
+    spreadProps(gettingStartedContent, {
+      ...this.api.getContentProps({ value: 'getting-started' }),
+      'data-testid': 'getting-started:content',
+    })
     this.contentElements.set('getting-started', gettingStartedContent)
     gettingStartedContent.innerHTML = `
       <ul class="nav-content-list">
@@ -95,7 +98,10 @@ class NavigationMenuExample extends Component<
 
     // Create components content
     const componentsContent = document.createElement('div')
-    spreadProps(componentsContent, this.api.getContentProps({ value: 'components' }))
+    spreadProps(componentsContent, {
+      ...this.api.getContentProps({ value: 'components' }),
+      'data-testid': 'components:content',
+    })
     this.contentElements.set('components', componentsContent)
     componentsContent.innerHTML = `
       <ul class="nav-content-grid">
@@ -114,7 +120,10 @@ class NavigationMenuExample extends Component<
     allLinks.forEach((linkEl) => {
       const value = linkEl.getAttribute('data-link')
       if (value) {
-        spreadProps(linkEl, this.api.getLinkProps({ value }))
+        spreadProps(linkEl, {
+          ...this.api.getLinkProps({ value }),
+          'data-testid': `${value}:link`,
+        })
         this.linkElements.set(value, linkEl)
       }
     })
@@ -144,17 +153,26 @@ class NavigationMenuExample extends Component<
       spreadProps(this.listEl, api.getListProps())
 
     this.itemElements.forEach((el, value) => {
-      spreadProps(el, api.getItemProps({ value }))
+      spreadProps(el, {
+        ...api.getItemProps({ value }),
+        'data-testid': `${value}:item`,
+      })
     })
 
     this.triggerElements.forEach((el, value) => {
-      spreadProps(el, api.getTriggerProps({ value }))
+      spreadProps(el, {
+        ...api.getTriggerProps({ value }),
+        'data-testid': `${value}:trigger`,
+      })
     })
 
     // Handle docs link
     const docsLink = this.linkElements.get('docs')
     if (docsLink) {
-      spreadProps(docsLink, api.getLinkProps({ value: 'docs' }))
+      spreadProps(docsLink, {
+        ...api.getLinkProps({ value: 'docs' }),
+        'data-testid': 'docs:link',
+      })
     }
 
     // Handle viewport positioner
@@ -175,14 +193,17 @@ class NavigationMenuExample extends Component<
     }
 
     this.contentElements.forEach((el, value) => {
-      spreadProps(el, api.getContentProps({ value }))
+      spreadProps(el, {
+        ...api.getContentProps({ value }),
+        'data-testid': `${value}:content`,
+      })
     })
 
     this.wasOpen = isOpen
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(navigationMenuControls)
   const layout = Layout()
 
@@ -190,6 +211,7 @@ export function render(target: HTMLElement) {
   target.appendChild(layout.root)
 
   layout.main.innerHTML = `
+    <div data-testid="outside">outside</div>
     <main data-navigation-menu-example>
       <nav data-navigation-menu-root>
         <ul data-navigation-menu-list>
@@ -210,7 +232,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-navigation-menu-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -235,4 +257,8 @@ export function render(target: HTMLElement) {
 
   updateVisualizer(instance.state as NavigationMenuState)
   instance.onStateChange(updateVisualizer)
+
+  return () => {
+    instance.destroy()
+  }
 }
