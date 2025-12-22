@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import react from '@astrojs/react'
 import solid from '@astrojs/solid-js'
 import svelte from '@astrojs/svelte'
@@ -9,6 +10,18 @@ import astrobook from 'astrobook'
 export default defineConfig({
   server: {
     port: 54321,
+  },
+
+  vite: {
+    server: {
+      fs: {
+        allow: [
+          fileURLToPath(new URL('./', import.meta.url)),
+          fileURLToPath(new URL('../node_modules/', import.meta.url)),
+          fileURLToPath(new URL('../packages/', import.meta.url)),
+        ],
+      },
+    },
   },
 
   // Enable many frameworks to support all different kinds of components.

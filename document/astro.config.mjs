@@ -206,6 +206,7 @@ export default defineConfig({
         allow: [
           fileURLToPath(documentRoot),
           fileURLToPath(componentsDocsDir),
+          fileURLToPath(new URL('../node_modules/', import.meta.url)),
         ],
       },
     },

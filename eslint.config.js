@@ -2,6 +2,7 @@ import antfu from '@antfu/eslint-config'
 import vitest from '@vitest/eslint-plugin'
 
 export default antfu({
+  pnpm: false,
   test: true,
   rules: {
     'vue/no-template-shadow': 'off',
