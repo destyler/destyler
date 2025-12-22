@@ -1,0 +1,251 @@
+/* Root */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="root"] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  z-index: 10;
+  margin-top: 0 !important;
+}
+
+/* List */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="list"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--muted) / 0.3);
+  padding: 4px;
+  border-radius: calc(var(--radius) - 2px);
+  list-style: none;
+  margin: 0;
+  gap: 2px;
+  margin-top: 0 !important;
+}
+
+/* Item */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="item"] {
+  position: relative;
+  margin-top: 0 !important;
+}
+
+/* Trigger */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="trigger"] {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: calc(var(--radius) - 4px);
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+  gap: 4px;
+  margin-top: 0 !important;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="trigger"]:hover {
+  background-color: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="trigger"]:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="trigger"][data-state="open"] {
+  background-color: hsl(var(--muted));
+}
+
+/* Link in list */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="link"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: calc(var(--radius) - 4px);
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+  text-decoration: none;
+  margin-top: 0 !important;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="link"]:hover {
+  background-color: hsl(var(--muted));
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="link"]:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Link inside content (different style from top nav links) */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"] [data-part="link"] {
+  display: block;
+  padding: 10px;
+  border-radius: calc(var(--radius) - 4px);
+  text-decoration: none;
+  transition: background-color 150ms ease;
+  margin-top: 0 !important;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"] [data-part="link"]:hover {
+  background-color: hsl(var(--muted));
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"] [data-part="link"]:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Viewport Positioner */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="viewport-positioner"] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  perspective: 2000px;
+  padding-top: 6px;
+  width: 100%;
+  margin-top: 0 !important;
+}
+
+/* Viewport */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="viewport"] {
+  position: relative;
+  overflow: hidden;
+  background-color: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow:
+    0 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0 10px 20px -15px rgba(22, 23, 24, 0.2);
+  transform-origin: top center;
+  transition: width 200ms ease, height 200ms ease;
+  display: grid;
+  margin-top: 0 !important;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="viewport"] > * {
+  grid-area: 1 / 1;
+  margin-top: 0 !important;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="viewport"][data-state="open"] {
+  animation: snippetViewportEnter 200ms ease;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="viewport"][data-state="closed"] {
+  animation: snippetViewportExit 150ms ease forwards;
+}
+
+/* Content */
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"] {
+  padding: 12px;
+  box-sizing: border-box;
+  margin-top: 0 !important;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][data-state="open"] {
+  animation: snippetEnterFromRight 200ms ease;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][data-state="closed"] {
+  animation: snippetExitToLeft 200ms ease forwards;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][data-motion="from-start"] {
+  animation: snippetEnterFromLeft 200ms ease;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][data-motion="from-end"] {
+  animation: snippetEnterFromRight 200ms ease;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][data-motion="to-start"] {
+  animation: snippetExitToLeft 200ms ease forwards;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][data-motion="to-end"] {
+  animation: snippetExitToRight 200ms ease forwards;
+}
+
+[data-layout="sinppets"] [data-scope="navigation-menu"][data-part="content"][hidden] {
+  display: none;
+}
+
+/* Keyframe Animations */
+@keyframes snippetViewportEnter {
+  from {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes snippetViewportExit {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}
+
+@keyframes snippetEnterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes snippetEnterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes snippetExitToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+}
+
+@keyframes snippetExitToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}

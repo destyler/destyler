@@ -834,6 +834,68 @@
       "data-state": "\"checked\" | \"unchecked\""
     }
   },
+  "navigation-menu": {
+    "Root": {
+      "data-scope": "navigation-menu",
+      "data-part": "root",
+      "data-orientation": "The orientation of the navigation-menu"
+    },
+    "List": {
+      "data-scope": "navigation-menu",
+      "data-part": "list",
+      "data-orientation": "The orientation of the list"
+    },
+    "Item": {
+      "data-scope": "navigation-menu",
+      "data-part": "item",
+      "data-state": "\"open\" | \"closed\"",
+      "data-value": "The value of the item"
+    },
+    "Trigger": {
+      "data-scope": "navigation-menu",
+      "data-part": "trigger",
+      "data-disabled": "Present when disabled",
+      "data-state": "\"open\" | \"closed\"",
+      "data-value": "The value of the item"
+    },
+    "Content": {
+      "data-scope": "navigation-menu",
+      "data-part": "content",
+      "data-state": "\"open\" | \"closed\"",
+      "data-motion": "",
+      "data-value": "The value of the item",
+      "data-orientation": "The orientation of the content"
+    },
+    "Link": {
+      "data-scope": "navigation-menu",
+      "data-part": "link",
+      "data-active": "Present when active or pressed"
+    },
+    "Indicator": {
+      "data-scope": "navigation-menu",
+      "data-part": "indicator",
+      "data-state": "\"open\" | \"closed\"",
+      "data-orientation": "The orientation of the indicator"
+    },
+    "ViewportPositioner": {
+      "data-scope": "navigation-menu",
+      "data-part": "viewport-positioner",
+      "data-state": "\"open\" | \"closed\"",
+      "data-orientation": "The orientation of the viewportpositioner"
+    },
+    "Viewport": {
+      "data-scope": "navigation-menu",
+      "data-part": "viewport",
+      "data-state": "\"open\" | \"closed\"",
+      "data-orientation": "The orientation of the viewport"
+    },
+    "Arrow": {
+      "data-scope": "navigation-menu",
+      "data-part": "arrow",
+      "data-state": "\"open\" | \"closed\"",
+      "data-orientation": "The orientation of the arrow"
+    }
+  },
   "number-input": {
     "Root": {
       "data-scope": "number-input",

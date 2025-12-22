@@ -2191,6 +2191,99 @@
       }
     }
   },
+  "navigation-menu": {
+    "api": {
+      "value": {
+        "type": "string",
+        "description": "\nThe current active value"
+      },
+      "previousValue": {
+        "type": "string",
+        "description": "\nThe previously active value (for animation direction)"
+      },
+      "open": {
+        "type": "boolean",
+        "description": "\nWhether a menu item is currently open"
+      },
+      "setValue": {
+        "type": "(value: string) => void",
+        "description": "\nFunction to set the value"
+      },
+      "getTriggerState": {
+        "type": "(props: TriggerProps) => { open: boolean; disabled: boolean; }",
+        "description": "\nReturns the state of a trigger"
+      },
+      "getContentState": {
+        "type": "(props: ContentProps) => { open: boolean; motion: \"from-start\" | \"from-end\" | \"to-start\" | \"to-end\"; }",
+        "description": "\nReturns the state of a content"
+      }
+    },
+    "context": {
+      "ids": {
+        "type": "Partial<{ root: string; list: string; viewport: string; viewportPositioner: string; indicator: string; trigger: (value: string) => string; link: (value: string) => string; content: (value: string) => string; item: (value: string) => string; }>",
+        "description": "\nThe ids of the elements in the navigation menu. Useful for composition."
+      },
+      "value": {
+        "type": "string",
+        "description": "\nThe value of the currently active menu item."
+      },
+      "defaultValue": {
+        "type": "string",
+        "description": "\nThe initial value of the menu item to open when rendered."
+      },
+      "onValueChange": {
+        "type": "(details: ValueChangeDetails) => void",
+        "description": "\nFunction called when the active menu item changes."
+      },
+      "openDelay": {
+        "type": "number",
+        "description": "\nThe delay (in ms) before the navigation menu opens when hovering over a trigger.",
+        "defaultValue": "200"
+      },
+      "closeDelay": {
+        "type": "number",
+        "description": "\nThe delay (in ms) before the navigation menu closes when the pointer leaves.",
+        "defaultValue": "300"
+      },
+      "orientation": {
+        "type": "Orientation",
+        "description": "\nThe orientation of the navigation menu.",
+        "defaultValue": "\"horizontal\""
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the value is controlled by the user"
+      },
+      "disableClickTrigger": {
+        "type": "boolean",
+        "description": "\nWhether to disable click interaction on triggers.",
+        "defaultValue": "false"
+      },
+      "disableHoverTrigger": {
+        "type": "boolean",
+        "description": "\nWhether to disable hover interaction on triggers.",
+        "defaultValue": "false"
+      },
+      "disablePointerLeaveClose": {
+        "type": "boolean",
+        "description": "\nWhether to disable closing when the pointer leaves the menu.",
+        "defaultValue": "false"
+      },
+      "dir": {
+        "type": "\"ltr\" | \"rtl\"",
+        "description": "\nThe document's text/writing direction.",
+        "defaultValue": "\"ltr\""
+      },
+      "id": {
+        "type": "string",
+        "description": "\nThe unique identifier of the machine."
+      },
+      "getRootNode": {
+        "type": "() => ShadowRoot | Node | Document",
+        "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      }
+    }
+  },
   "number-input": {
     "api": {
       "focused": {

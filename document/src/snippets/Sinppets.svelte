@@ -41,6 +41,7 @@
   import Tour from '@component/tour/snippets/Tour.svelte'
   import FloatingPanel from '@component/floating-panel/snippets/FloatingPanel.svelte'
   import ScrollArea from '@component/scroll-area/snippets/ScrollArea.svelte'
+  import NavigateMenu from '@component/navigation-menu/snippets/NavigationMenu.svelte'
 
   export let name: string;
 </script>
@@ -171,5 +172,8 @@
   {/if}
   {#if name === 'scroll-area'}
     <ScrollArea />
+  {/if}
+  {#if name === 'navigation-menu'}
+    <NavigateMenu />
   {/if}
 </div>

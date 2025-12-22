@@ -170,6 +170,7 @@ export default defineConfig({
             { slug: 'components/image' },
             { slug: 'components/floating-panel' },
             { slug: 'components/menu' },
+            { slug: 'components/navigation-menu', badge: 'New' },
             { slug: 'components/pagination' },
             { slug: 'components/popover' },
             { slug: 'components/progress' },

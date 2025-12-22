@@ -1,0 +1,617 @@
+---
+head:
+  - tag: title
+    content: Navigation Menu - Destyler UI
+title: Navigation Menu
+---
+
+import Features from '@docs/components/Features.astro'
+import PreviewCode from '@docs/components/PreviewCode.astro'
+import FrameworkLayout from '@docs/components/FrameworkLayout.astro'
+import InstallShell from '@docs/components/InstallShell.astro'
+
+> A collection of links for navigating websites with support for dropdown menus and keyboard navigation.
+
+<PreviewCode name="navigation-menu"></PreviewCode>
+
+## Features
+
+<Features lists={[
+  'Supports horizontal and vertical orientations',
+  'Flexible trigger modes: hover or click',
+  'Shared viewport for smooth content transitions',
+  'Full keyboard navigation support',
+  'Motion-aware animations for sliding content',
+  'RTL support',
+  'WAI-ARIA compliant navigation pattern',
+]}>
+</Features>
+
+## Install
+
+Install the component from your command line.
+
+<InstallShell name="navigation-menu" />
+
+## Anatomy
+
+Import all parts and piece them together.
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <script setup lang="ts">
+  import * as navigationMenu from '@destyler/navigation-menu'
+  import { normalizeProps, useMachine } from '@destyler/vue'
+  import { computed, useId } from 'vue'
+
+  const [state, send] = useMachine(navigationMenu.machine({ id: useId() }))
+
+  const api = computed(() =>
+    navigationMenu.connect(state.value, send, normalizeProps),
+  )
+  </script>
+
+  <template>
+    <nav v-bind="api.getRootProps()">
+      <ul v-bind="api.getListProps()">
+        <li v-bind="api.getItemProps({ value: 'products' })">
+          <button v-bind="api.getTriggerProps({ value: 'products' })">
+            Products
+          </button>
+        </li>
+        <li v-bind="api.getItemProps({ value: 'docs' })">
+          <a v-bind="api.getLinkProps({ value: 'docs' })" href="#">
+            Documentation
+          </a>
+        </li>
+      </ul>
+
+      <div v-bind="api.getViewportPositionerProps()">
+        <div v-if="api.open" v-bind="api.getViewportProps()">
+          <div v-bind="api.getContentProps({ value: 'products' })">
+            <!-- Products content -->
+          </div>
+        </div>
+      </div>
+    </nav>
+  </template>
+
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  import * as navigationMenu from '@destyler/navigation-menu'
+  import { normalizeProps, useMachine } from '@destyler/react'
+  import { useId } from 'react'
+
+  export default function NavigationMenu() {
+    const [state, send] = useMachine(navigationMenu.machine({ id: useId() }))
+    const api = navigationMenu.connect(state, send, normalizeProps)
+
+    return (
+      <nav {...api.getRootProps()}>
+        <ul {...api.getListProps()}>
+          <li {...api.getItemProps({ value: 'products' })}>
+            <button {...api.getTriggerProps({ value: 'products' })}>
+              Products
+            </button>
+          </li>
+          <li {...api.getItemProps({ value: 'docs' })}>
+            <a {...api.getLinkProps({ value: 'docs' })} href="#">
+              Documentation
+            </a>
+          </li>
+        </ul>
+
+        <div {...api.getViewportPositionerProps()}>
+          {api.open && (
+            <div {...api.getViewportProps()}>
+              <div {...api.getContentProps({ value: 'products' })}>
+                {/* Products content */}
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+    )
+  }
+
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <script lang="ts">
+    import * as navigationMenu from '@destyler/navigation-menu'
+    import { normalizeProps, useMachine } from '@destyler/svelte'
+
+    const id = $props.id()
+
+    const [state, send] = useMachine(navigationMenu.machine({ id }))
+
+    const api = $derived(navigationMenu.connect(state, send, normalizeProps))
+  </script>
+
+  <nav {...api.getRootProps()}>
+    <ul {...api.getListProps()}>
+      <li {...api.getItemProps({ value: 'products' })}>
+        <button {...api.getTriggerProps({ value: 'products' })}>
+          Products
+        </button>
+      </li>
+      <li {...api.getItemProps({ value: 'docs' })}>
+        <a {...api.getLinkProps({ value: 'docs' })} href="#">
+          Documentation
+        </a>
+      </li>
+    </ul>
+
+    <div {...api.getViewportPositionerProps()}>
+      {#if api.open}
+        <div {...api.getViewportProps()}>
+          <div {...api.getContentProps({ value: 'products' })}>
+            <!-- Products content -->
+          </div>
+        </div>
+      {/if}
+    </div>
+  </nav>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  import * as navigationMenu from '@destyler/navigation-menu'
+  import { normalizeProps, useMachine } from '@destyler/solid'
+  import { createMemo, createUniqueId, Show } from 'solid-js'
+
+  export default function NavigationMenu() {
+    const [state, send] = useMachine(navigationMenu.machine({ id: createUniqueId() }))
+    const api = createMemo(() => navigationMenu.connect(state, send, normalizeProps))
+
+    return (
+      <nav {...api().getRootProps()}>
+        <ul {...api().getListProps()}>
+          <li {...api().getItemProps({ value: 'products' })}>
+            <button {...api().getTriggerProps({ value: 'products' })}>
+              Products
+            </button>
+          </li>
+          <li {...api().getItemProps({ value: 'docs' })}>
+            <a {...api().getLinkProps({ value: 'docs' })} href="#">
+              Documentation
+            </a>
+          </li>
+        </ul>
+
+        <div {...api().getViewportPositionerProps()}>
+          <Show when={api().open}>
+            <div {...api().getViewportProps()}>
+              <div {...api().getContentProps({ value: 'products' })}>
+                {/* Products content */}
+              </div>
+            </div>
+          </Show>
+        </div>
+      </nav>
+    )
+  }
+
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Trigger mode
+
+By default, menu items open on hover. You can change this to click-to-open behavior:
+
+```ts
+const [state, send] = useMachine(
+  navigationMenu.machine({
+    triggerMode: 'click',
+  }),
+)
+```
+
+## Orientation
+
+The navigation menu supports both horizontal and vertical layouts:
+
+```ts
+const [state, send] = useMachine(
+  navigationMenu.machine({
+    orientation: 'vertical',
+  }),
+)
+```
+
+## Controlling the open state
+
+You can control which menu item is open using the `value` property:
+
+```ts
+const [state, send] = useMachine(
+  navigationMenu.machine({
+    value: 'products', // Opens the products menu initially
+    onValueChange(details) {
+      console.log('Open menu changed to:', details.value)
+    },
+  }),
+)
+```
+
+## Using links without content
+
+For navigation items that are just links (no dropdown content), use the link pattern:
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <template>
+    <ul v-bind="api.getListProps()">
+      <!-- Item with dropdown -->
+      <li v-bind="api.getItemProps({ value: 'products' })">
+        <button v-bind="api.getTriggerProps({ value: 'products' })">Products</button>
+      </li>
+      <!-- Simple link (no dropdown) -->
+      <li v-bind="api.getItemProps({ value: 'docs' })">
+        <a v-bind="api.getLinkProps({ value: 'docs' })" href="/docs">
+          Documentation
+        </a>
+      </li>
+    </ul>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  <ul {...api.getListProps()}>
+    {/* Item with dropdown */}
+    <li {...api.getItemProps({ value: 'products' })}>
+      <button {...api.getTriggerProps({ value: 'products' })}>Products</button>
+    </li>
+    {/* Simple link (no dropdown) */}
+    <li {...api.getItemProps({ value: 'docs' })}>
+      <a {...api.getLinkProps({ value: 'docs' })} href="/docs">
+        Documentation
+      </a>
+    </li>
+  </ul>
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <ul {...api.getListProps()}>
+    <!-- Item with dropdown -->
+    <li {...api.getItemProps({ value: 'products' })}>
+      <button {...api.getTriggerProps({ value: 'products' })}>Products</button>
+    </li>
+    <!-- Simple link (no dropdown) -->
+    <li {...api.getItemProps({ value: 'docs' })}>
+      <a {...api.getLinkProps({ value: 'docs' })} href="/docs">
+        Documentation
+      </a>
+    </li>
+  </ul>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  <ul {...api().getListProps()}>
+    {/* Item with dropdown */}
+    <li {...api().getItemProps({ value: 'products' })}>
+      <button {...api().getTriggerProps({ value: 'products' })}>Products</button>
+    </li>
+    {/* Simple link (no dropdown) */}
+    <li {...api().getItemProps({ value: 'docs' })}>
+      <a {...api().getLinkProps({ value: 'docs' })} href="/docs">
+        Documentation
+      </a>
+    </li>
+  </ul>
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Viewport pattern
+
+For smooth transitions between content panels, use the viewport pattern. All content panels are rendered inside a shared viewport container:
+
+<FrameworkLayout>
+
+  <div slot='vue'>
+
+  ```vue
+  <template>
+    <nav v-bind="api.getRootProps()">
+      <ul v-bind="api.getListProps()">
+        <!-- triggers... -->
+      </ul>
+
+      <div v-bind="api.getViewportPositionerProps()">
+        <div v-if="api.open" v-bind="api.getViewportProps()">
+          <!-- All content panels stacked -->
+          <div v-bind="api.getContentProps({ value: 'products' })">
+            <!-- Products content -->
+          </div>
+          <div v-bind="api.getContentProps({ value: 'resources' })">
+            <!-- Resources content -->
+          </div>
+        </div>
+      </div>
+    </nav>
+  </template>
+  ```
+
+  </div>
+  <div slot='react'>
+
+  ```tsx
+  <nav {...api.getRootProps()}>
+    <ul {...api.getListProps()}>
+      {/* triggers... */}
+    </ul>
+
+    <div {...api.getViewportPositionerProps()}>
+      {api.open && (
+        <div {...api.getViewportProps()}>
+          {/* All content panels stacked */}
+          <div {...api.getContentProps({ value: 'products' })}>
+            {/* Products content */}
+          </div>
+          <div {...api.getContentProps({ value: 'resources' })}>
+            {/* Resources content */}
+          </div>
+        </div>
+      )}
+    </div>
+  </nav>
+  ```
+
+  </div>
+  <div slot='svelte'>
+
+  ```svelte
+  <nav {...api.getRootProps()}>
+    <ul {...api.getListProps()}>
+      <!-- triggers... -->
+    </ul>
+
+    <div {...api.getViewportPositionerProps()}>
+      {#if api.open}
+        <div {...api.getViewportProps()}>
+          <!-- All content panels stacked -->
+          <div {...api.getContentProps({ value: 'products' })}>
+            <!-- Products content -->
+          </div>
+          <div {...api.getContentProps({ value: 'resources' })}>
+            <!-- Resources content -->
+          </div>
+        </div>
+      {/if}
+    </div>
+  </nav>
+  ```
+
+  </div>
+  <div slot='solid'>
+
+  ```tsx
+  <nav {...api().getRootProps()}>
+    <ul {...api().getListProps()}>
+      {/* triggers... */}
+    </ul>
+
+    <div {...api().getViewportPositionerProps()}>
+      <Show when={api().open}>
+        <div {...api().getViewportProps()}>
+          {/* All content panels stacked */}
+          <div {...api().getContentProps({ value: 'products' })}>
+            {/* Products content */}
+          </div>
+          <div {...api().getContentProps({ value: 'resources' })}>
+            {/* Resources content */}
+          </div>
+        </div>
+      </Show>
+    </div>
+  </nav>
+  ```
+
+  </div>
+
+</FrameworkLayout>
+
+## Styling Guide
+
+> Each navigation menu part has a `data-part` attribute added to them to select and style them in the DOM.
+
+### Trigger states
+
+Style triggers based on their open/closed state:
+
+```css
+[data-scope="navigation-menu"][data-part="trigger"][data-state="open"] {
+  background-color: #f1f5f9;
+}
+
+[data-scope="navigation-menu"][data-part="trigger"][data-state="closed"] {
+  background-color: transparent;
+}
+```
+
+### Content animations
+
+The content panels have `data-motion` attribute for directional animations:
+
+```css
+/* Entering from left */
+[data-scope="navigation-menu"][data-part="content"][data-motion="from-start"] {
+  animation: enterFromLeft 200ms ease;
+}
+
+/* Entering from right */
+[data-scope="navigation-menu"][data-part="content"][data-motion="from-end"] {
+  animation: enterFromRight 200ms ease;
+}
+
+/* Exiting to left */
+[data-scope="navigation-menu"][data-part="content"][data-motion="to-start"] {
+  animation: exitToLeft 200ms ease;
+}
+
+/* Exiting to right */
+[data-scope="navigation-menu"][data-part="content"][data-motion="to-end"] {
+  animation: exitToRight 200ms ease;
+}
+```
+
+### Viewport animations
+
+Style the viewport container with 3D perspective animations:
+
+```css
+[data-scope="navigation-menu"][data-part="viewport"] {
+  transform-origin: top center;
+  transition: width 200ms ease, height 200ms ease;
+}
+
+[data-scope="navigation-menu"][data-part="viewport"][data-state="open"] {
+  animation: viewportEnter 200ms ease;
+}
+
+[data-scope="navigation-menu"][data-part="viewport"][data-state="closed"] {
+  animation: viewportExit 150ms ease;
+}
+
+@keyframes viewportEnter {
+  from {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+```
+
+### Grid stacking for smooth transitions
+
+Use CSS Grid to stack content panels for seamless transitions:
+
+```css
+[data-scope="navigation-menu"][data-part="viewport"] {
+  display: grid;
+}
+
+[data-scope="navigation-menu"][data-part="viewport"] > * {
+  grid-area: 1 / 1;
+}
+
+[data-scope="navigation-menu"][data-part="content"][hidden] {
+  display: none;
+}
+```
+
+import MachineTable from '@docs/components/props/Machine.astro'
+import APITable from '@docs/components/props/Api.astro'
+import StyleTable from '@docs/components/props/Style.astro'
+
+## Methods and Properties
+
+### Machine Context
+
+The navigation menu machine exposes the following context properties:
+
+<MachineTable name="navigation-menu"></MachineTable>
+
+### Machine API
+
+The navigation menu `api` exposes the following methods:
+
+<APITable name="navigation-menu"></APITable>
+
+### Data Attributes
+
+#### Root
+
+<StyleTable component="navigation-menu" nodeType="Root" />
+
+#### List
+
+<StyleTable component="navigation-menu" nodeType="List" />
+
+#### Item
+
+<StyleTable component="navigation-menu" nodeType="Item" />
+
+#### Trigger
+
+<StyleTable component="navigation-menu" nodeType="Trigger" />
+
+#### Link
+
+<StyleTable component="navigation-menu" nodeType="Link" />
+
+#### Content
+
+<StyleTable component="navigation-menu" nodeType="Content" />
+
+#### Viewport
+
+<StyleTable component="navigation-menu" nodeType="Viewport" />
+
+#### ViewportPositioner
+
+<StyleTable component="navigation-menu" nodeType="ViewportPositioner" />
+
+#### Indicator
+
+<StyleTable component="navigation-menu" nodeType="Indicator" />
+
+#### Arrow
+
+<StyleTable component="navigation-menu" nodeType="Arrow" />
+
+## Accessibility
+
+### Keyboard Interactions
+
+- `Tab`: Moves focus to the next focusable element
+- `Shift + Tab`: Moves focus to the previous focusable element
+- `Enter`: When focus is on a trigger, opens/closes the associated content. When focus is on a link, activates the link.
+- `Space`: When focus is on a trigger, opens/closes the associated content
+- `ArrowRight`: In horizontal orientation, moves focus to the next item
+- `ArrowLeft`: In horizontal orientation, moves focus to the previous item
+- `ArrowDown`: In vertical orientation, moves focus to the next item. When a dropdown is open, moves focus into the content.
+- `ArrowUp`: In vertical orientation, moves focus to the previous item
+- `Escape`: Closes any open content and returns focus to the trigger
+- `Home`: Moves focus to the first navigation item
+- `End`: Moves focus to the last navigation item
+
+### ARIA Attributes
+
+- The root element has `role="navigation"` for screen readers
+- Triggers have `aria-expanded` and `aria-controls` attributes
+- Content panels have proper `role` and `aria-labelledby` attributes
+- Links have `data-active` attribute when representing the current page

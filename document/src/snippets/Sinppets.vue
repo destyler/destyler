@@ -19,6 +19,7 @@ import Image from '@component/image/snippets/Image.vue'
 import Label from '@component/label/snippets/Label.vue'
 import ContentMenu from '@component/menu/snippets/content-menu/ContentMenu.vue'
 import Menu from '@component/menu/snippets/menu/Menu.vue'
+import NavigationMenu from '@component/navigation-menu/snippets/NavigationMenu.vue'
 import NumberInput from '@component/number-input/snippets/NumberInput.vue'
 import OtpInput from '@component/otp-input/snippets/OtpInput.vue'
 import Pagination from '@component/pagination/snippets/Pagination.vue'
@@ -92,5 +93,6 @@ const props = defineProps<{
     <Toast v-if="props.name === 'toast'" />
     <Tour v-if="props.name === 'tour'" />
     <ScrollArea v-if="props.name === 'scroll-area'" />
+    <NavigationMenu v-if="props.name === 'navigation-menu'" />
   </div>
 </template>
