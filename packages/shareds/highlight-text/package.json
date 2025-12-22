@@ -1,7 +1,7 @@
 {
   "name": "@destyler/highlight-text",
   "type": "module",
-  "version": "0.2.5",
+  "version": "0.2.6-beta.1",
 
   "description": "Highlight a portion of text in a string",
   "author": "Elone Hoo <elonehoo@gmail.com>",

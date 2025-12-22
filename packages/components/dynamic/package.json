@@ -1,7 +1,7 @@
 {
   "name": "@destyler/dynamic",
   "type": "module",
-  "version": "0.2.5",
+  "version": "0.2.6-beta.1",
 
   "description": "inputs render tags inside an input, followed by an actual text input.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
