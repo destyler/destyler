@@ -39,10 +39,30 @@ export default defineConfig({
     }),
     starlight({
       logo: {
-        dark: './src/assets/logo-dark.svg',
-        light: './src/assets/logo-light.svg',
+        dark: './public/logo-dark.svg',
+        light: './public/logo-light.svg',
         alt: 'Destyler UI',
       },
+      head: [
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            href: '/logo-light.svg',
+            type: 'image/x-icon',
+            media: '(prefers-color-scheme: light)',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            href: '/logo-dark.svg',
+            type: 'image/x-icon',
+            media: '(prefers-color-scheme: dark)',
+          },
+        },
+      ],
       editLink: {
         baseUrl: 'https://github.com/destyler/starlight-theme-destyler/edit/main/docs/',
       },
