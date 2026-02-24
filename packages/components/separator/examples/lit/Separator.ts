@@ -22,7 +22,7 @@ export class SeparatorElement extends LitElement {
       <destyler-layout>
         <section class="separator-example">
           <header class="separator-example__header">
-            <p class="separator-example__title">Destyler UI</p>
+            <p class="separator-example__title">Destyler</p>
             <p class="separator-example__subtitle">Unstyled components for Lit.</p>
           </header>
 

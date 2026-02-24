@@ -18,7 +18,7 @@ export default function Separator() {
     <Layout>
       <section className="separator-example">
         <header className="separator-example__header">
-          <p className="separator-example__title">Destyler UI</p>
+          <p className="separator-example__title">Destyler</p>
           <p className="separator-example__subtitle">Unstyled components for React.</p>
         </header>
 

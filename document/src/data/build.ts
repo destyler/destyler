@@ -7,7 +7,7 @@ export interface BuildData {
 
 export const data: BuildData[] = [
   {
-    title: 'Destyler UI',
+    title: 'Destyler',
     description: 'Build scalable design systems with unstyled, accessible UI components',
     link: 'https://github.com/destyler/ui',
     imgSrc: 'https://elonehoo.me/destyler/node',

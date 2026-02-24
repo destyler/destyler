@@ -17,7 +17,7 @@ export default function Divider() {
   return (
     <div className="w-full min-w-90 mx-4">
       <div className="text-primary text-sm font-semibold">
-        Destyler UI
+        Destyler
       </div>
       <div className="text-primary text-sm mt-0!">
         unstyled component for react.

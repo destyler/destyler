@@ -12,7 +12,7 @@ const api = computed(() => image.connect(state.value, send, normalizeProps))
 <template>
   <div v-bind="api.getRootProps()">
     <img
-      alt="Destyler UI"
+      alt="Destyler"
       src="https://github.com/destyler.png"
       v-bind="api.getImageProps()"
     >

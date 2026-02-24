@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.2.6",
 
-  "description": "A presence component for Destyler UI that handles presence and availability states of elements",
+  "description": "A presence component for Destyler that handles presence and availability states of elements",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/destyler/destyler",

@@ -13,7 +13,7 @@ export default function Image() {
   return (
     <div {...api.getRootProps()}>
       <img
-        alt="Destyler UI"
+        alt="Destyler"
         src="https://github.com/destyler.png"
         {...api.getImageProps()}
       />

@@ -45,7 +45,7 @@ export default defineConfig({
     vue(),
     astrobook({
       directory: '../packages/components',
-      title: 'Destyler UI',
+      title: 'Destyler',
       css: [
         './src/style/bootstrap.css',
         './src/style/reset.css',

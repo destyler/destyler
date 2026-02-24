@@ -17,7 +17,7 @@ export default function Divider() {
   return (
     <div class="w-full min-w-90 mx-4">
       <div class="text-primary text-sm font-semibold">
-        Destyler UI
+        Destyler
       </div>
       <div class="text-primary text-sm mt-0!">
         unstyled component for solid.

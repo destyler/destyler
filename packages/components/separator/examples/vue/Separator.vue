@@ -20,7 +20,7 @@ const api = computed(() => separator.connect(state.value, send, normalizeProps))
     <section class="separator-example">
       <header class="separator-example__header">
         <p class="separator-example__title">
-          Destyler UI
+          Destyler
         </p>
         <p class="separator-example__subtitle">
           Unstyled components for Vue.

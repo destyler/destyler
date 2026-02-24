@@ -41,7 +41,7 @@ export default defineConfig({
       logo: {
         dark: './public/logo-dark.svg',
         light: './public/logo-light.svg',
-        alt: 'Destyler UI',
+        alt: 'Destyler',
       },
       head: [
         {
@@ -214,7 +214,7 @@ export default defineConfig({
           href: 'https://github.com/destyler/destyler',
         },
       ],
-      title: 'Destyler <span class="text-primary">UI</span>',
+      title: 'De<span class="text-primary">style</span>r',
     }),
   ],
   vite: {
