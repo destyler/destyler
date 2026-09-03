@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -64,7 +65,7 @@ jobs:
       - name: Zip dev.storybook.destyler.org
         run: npx tsx scripts/zip.ts storybook/dist storybook-dist
 
-      - name: Deploy dev.test.destyler.org
+      - name: Deploy dev.storybook.destyler.org
         run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} storybook-dist.zip
         env:
           TOKEN: ${{secrets.ZEABUR_TOKEN}}
