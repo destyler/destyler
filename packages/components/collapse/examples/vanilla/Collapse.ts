@@ -25,6 +25,7 @@ class CollapseExample extends Component<
   }>
 
   private readonly stateListeners = new Set<(state: CollapseState) => void>()
+  private disabledItem = false
 
   constructor(rootEl: HTMLElement, context: collapse.Context, options?: any) {
     super(rootEl, context, options)
@@ -49,6 +50,11 @@ class CollapseExample extends Component<
     this.stateListeners.add(listener)
   }
 
+  setDisabledItem(value: boolean) {
+    this.disabledItem = value
+    this.render()
+  }
+
   protected override onTransition(state: CollapseState) {
     this.stateListeners.forEach(listener => listener(state))
   }
@@ -61,14 +67,15 @@ class CollapseExample extends Component<
     })
 
     this.items.forEach(({ value, itemEl, triggerEl, contentEl, indicatorEl }) => {
-      const itemProps = this.api.getItemProps({ value })
+      const itemDisabled = this.disabledItem && value === 'aircraft'
+      const itemProps = this.api.getItemProps({ value, disabled: itemDisabled })
       spreadProps(itemEl, {
         ...itemProps,
         class: classNames('collapse-item', itemProps.class),
       })
 
       if (triggerEl) {
-        const triggerProps = this.api.getItemTriggerProps({ value })
+        const triggerProps = this.api.getItemTriggerProps({ value, disabled: itemDisabled })
         spreadProps(triggerEl, {
           ...triggerProps,
           class: classNames('collapse-trigger', triggerProps.class),
@@ -76,7 +83,7 @@ class CollapseExample extends Component<
       }
 
       if (contentEl) {
-        const contentProps = this.api.getItemContentProps({ value })
+        const contentProps = this.api.getItemContentProps({ value, disabled: itemDisabled })
         spreadProps(contentEl, {
           ...contentProps,
           class: classNames('collapse-content', contentProps.class),
@@ -84,7 +91,7 @@ class CollapseExample extends Component<
       }
 
       if (indicatorEl) {
-        const indicatorProps = this.api.getItemIndicatorProps({ value })
+        const indicatorProps = this.api.getItemIndicatorProps({ value, disabled: itemDisabled })
         spreadProps(indicatorEl, {
           ...indicatorProps,
           class: classNames('collapse-indicator', indicatorProps.class),
@@ -134,13 +141,25 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const mapControlsContext = (): Partial<CollapseMachineContext> => {
+    const { disabledItem: _disabledItem, ...rest } = controls.context as Partial<CollapseMachineContext> & {
+      disabledItem?: boolean
+    }
+    return rest
+  }
+
   const instance = new CollapseExample(rootEl, { id: 'collapse:vanilla' }, {
     context: {
-      get: () => controls.context as Partial<CollapseMachineContext>,
-      subscribe: (fn: any) => controls.subscribe(fn),
+      get: () => mapControlsContext(),
+      subscribe: (fn: any) => controls.subscribe(() => {
+        const { disabledItem = false } = controls.context as { disabledItem?: boolean }
+        instance.setDisabledItem(Boolean(disabledItem))
+        fn(mapControlsContext())
+      }),
     },
   })
   instance.init()
+  instance.setDisabledItem(Boolean((controls.context as { disabledItem?: boolean }).disabledItem))
 
   const updateVisualizer = (state?: CollapseState) => {
     if (!state)

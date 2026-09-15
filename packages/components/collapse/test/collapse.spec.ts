@@ -67,11 +67,23 @@ describe('[collapse] browser tests - single / pointer', () => {
     await expect.element(trigger).toHaveAttribute('data-state', 'open')
   })
 
-  it('then clicking the same trigger again: should not close the content', async () => {
+  it('[collapsible=true] clicking the same open trigger closes the content', async () => {
+    // controls default collapsible=true
     const trigger = testHook.getTrigger('watercraft')
-    await trigger.dblClick()
-
+    await trigger.click()
+    await expect.element(testHook.getContent('watercraft')).toBeVisible()
+    await trigger.click()
     await expect.element(testHook.getContent('watercraft')).not.toBeVisible()
+  })
+
+  it('[collapsible=false] clicking the same open trigger keeps content open', async () => {
+    await page.getByTestId('collapsible').click()
+    const trigger = testHook.getTrigger('watercraft')
+    await trigger.click()
+    await expect.element(testHook.getContent('watercraft')).toBeVisible()
+    await trigger.click()
+    await expect.element(testHook.getContent('watercraft')).toBeVisible()
+    await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('then clicking another trigger: should close the previous content', async () => {
@@ -85,32 +97,56 @@ describe('[collapse] browser tests - single / pointer', () => {
   })
 })
 
-describe('[collapse] browser tests - multiple / keyboard', () => {
+describe('[collapse] browser tests - multiple', () => {
   beforeEach(mount)
   afterEach(unmount)
 
-  it('[multiple=true] on arrow down, focus next trigger', async () => {
+  it('[multiple=true] keyboard can open two items at once', async () => {
     await page.getByTestId('multiple').click()
     const trigger = testHook.getTrigger('watercraft')
 
-    await trigger.dblClick()
-
-    await testHook.pressKey('Enter')
-
+    await trigger.click()
     await testHook.pressKey('ArrowDown')
-
     await testHook.pressKey('Enter')
 
     await expect.element(testHook.getContent('watercraft')).toBeVisible()
     await expect.element(testHook.getContent('automobiles')).toBeVisible()
   })
 
-  it('[multiple=true] clicking another trigger, should close the previous content', async () => {
+  it('[multiple=true] clicking another trigger keeps the previous content open', async () => {
     await page.getByTestId('multiple').click()
     await testHook.getTrigger('watercraft').click()
     await testHook.getTrigger('automobiles').click()
 
     await expect.element(testHook.getContent('watercraft')).toBeVisible()
     await expect.element(testHook.getContent('automobiles')).toBeVisible()
+  })
+})
+
+describe('[collapse] browser tests - orientation / disabled item', () => {
+  beforeEach(mount)
+  afterEach(unmount)
+
+  it('[orientation=horizontal] uses ArrowRight/ArrowLeft for focus movement', async () => {
+    await page.getByTestId('orientation').selectOptions('horizontal')
+    await expect.element(testHook.getRootEl()).toHaveAttribute('data-orientation', 'horizontal')
+
+    const trigger = testHook.getTrigger('watercraft')
+    await trigger.click()
+    await testHook.pressKey('ArrowRight')
+    await expect.element(testHook.getTrigger('automobiles')).toHaveFocus()
+    await testHook.pressKey('ArrowLeft')
+    await expect.element(trigger).toHaveFocus()
+  })
+
+  it('[disabled item] aircraft trigger is not activatable', async () => {
+    await page.getByTestId('disabledItem').click()
+    const aircraft = testHook.getTrigger('aircraft')
+    // Trigger uses disabled/aria-disabled; data-disabled lives on the item part.
+    await expect.element(aircraft).toHaveAttribute('disabled', '')
+    await expect.element(aircraft).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(page.locatoring('[data-collapse-item][data-value="aircraft"]')).toHaveAttribute('data-disabled', '')
+    // Disabled buttons are not actionability-clickable in Playwright; content stays closed.
+    await expect.element(testHook.getContent('aircraft')).not.toBeVisible()
   })
 })

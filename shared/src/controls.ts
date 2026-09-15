@@ -32,6 +32,8 @@ export const collapseControls = defineControls({
   collapsible: { type: 'boolean', defaultValue: true },
   multiple: { type: 'boolean', defaultValue: false },
   orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'vertical' },
+  // Harness-only — marks the aircraft item disabled via getItemProps
+  disabledItem: { type: 'boolean', defaultValue: false },
 })
 
 export const collapsibleControls = defineControls({
@@ -287,7 +289,6 @@ export const tourControls = defineControls({
   closeOnInteractOutside: { type: 'boolean', defaultValue: true },
   preventInteraction: { type: 'boolean', defaultValue: true },
 })
-
 
 export const calendarControls = defineControls({
   selectionMode: {
