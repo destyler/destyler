@@ -173,6 +173,38 @@ function calculateVirtualState(ctx: MachineContext, scrollOffset: number): Virtu
   }
 }
 
+
+/* -----------------------------------------------------------------------------
+ * Ensure DOM parts exist (ids are spread by connect after machine start)
+ * ----------------------------------------------------------------------------- */
+
+function ensureViewportAndContent(
+  ctx: MachineContext,
+  fn: (viewport: HTMLElement, content: HTMLElement) => void | (() => void),
+) {
+  const win = dom.getWin(ctx)
+  let rafId: number | null = null
+  let cleanup: void | (() => void)
+
+  const run = () => {
+    const viewport = dom.getViewportEl(ctx)
+    const content = dom.getContentEl(ctx)
+    if (!viewport || !content) {
+      rafId = win.requestAnimationFrame(run)
+      return
+    }
+    cleanup = fn(viewport, content)
+  }
+
+  run()
+
+  return () => {
+    if (rafId != null)
+      win.cancelAnimationFrame(rafId)
+    cleanup?.()
+  }
+}
+
 /* -----------------------------------------------------------------------------
  * Machine
  * ----------------------------------------------------------------------------- */
@@ -236,9 +268,10 @@ export function machine(userContext: UserDefinedContext) {
         isVirtual: ctx => !!ctx.virtual,
       },
 
-      entry: ['setupResizeObserver', 'initVirtualState'],
+      // Track viewport/content size after connect spreads ids (see trackResize).
+      activities: ['trackResize'],
 
-      exit: ['cleanupResizeObserver'],
+      entry: ['initVirtualState'],
 
       on: {
         SCROLL: {
@@ -338,35 +371,38 @@ export function machine(userContext: UserDefinedContext) {
 
       guards: {},
 
+      activities: {
+        trackResize(ctx, _evt, { send }) {
+          return ensureViewportAndContent(ctx, (viewport, content) => {
+            const emitResize = () => {
+              // Virtual content height comes from style (totalSize); prefer max so
+              // overflow math works before/after virtual item paint.
+              const contentHeight = Math.max(
+                content.scrollHeight,
+                content.offsetHeight,
+                ctx.virtualState?.totalSize ?? 0,
+              )
+              const contentWidth = Math.max(content.scrollWidth, content.offsetWidth)
+              send({
+                type: 'RESIZE',
+                viewportWidth: viewport.clientWidth,
+                viewportHeight: viewport.clientHeight,
+                contentWidth,
+                contentHeight,
+              })
+            }
+
+            emitResize()
+            const win = dom.getWin(ctx)
+            const observer = new win.ResizeObserver(emitResize)
+            observer.observe(viewport)
+            observer.observe(content)
+            return () => observer.disconnect()
+          })
+        },
+      },
+
       actions: {
-        setupResizeObserver(ctx) {
-          const viewport = dom.getViewportEl(ctx)
-          const content = dom.getContentEl(ctx)
-          if (!viewport || !content)
-            return
-
-          const updateDimensions = () => {
-            ctx.viewportWidth = viewport.clientWidth
-            ctx.viewportHeight = viewport.clientHeight
-            ctx.contentWidth = content.scrollWidth
-            ctx.contentHeight = content.scrollHeight
-          }
-
-          updateDimensions()
-
-          const resizeObserver = new ResizeObserver(updateDimensions)
-          resizeObserver.observe(viewport)
-          resizeObserver.observe(content)
-
-          // Store for cleanup
-          ;(ctx as any)._resizeObserver = resizeObserver
-        },
-
-        cleanupResizeObserver(ctx) {
-          const observer = (ctx as any)._resizeObserver as ResizeObserver | undefined
-          observer?.disconnect()
-        },
-
         initVirtualState(ctx) {
           if (!ctx.virtual)
             return

@@ -74,33 +74,6 @@ class ScrollAreaExample extends Component<scrollArea.Context, scrollArea.Api, Sc
     this.stateListeners.forEach(listener => listener(state))
   }
 
-  /**
-   * Entry-time ResizeObserver often runs before connect spreads element ids.
-   * Re-measure from the known DOM refs and push a RESIZE event so overflow /
-   * scrollToIndex math have real viewport/content sizes.
-   */
-  measureAndSync() {
-    const viewport = this.viewportEl
-    const content = this.contentEl
-    if (!viewport || !content || !this.service)
-      return
-
-    const contentHeight = Math.max(
-      content.scrollHeight,
-      content.offsetHeight,
-      this.api.getTotalSize?.() ?? 0,
-    )
-    const contentWidth = Math.max(content.scrollWidth, content.offsetWidth)
-
-    this.service.send({
-      type: 'RESIZE',
-      viewportWidth: viewport.clientWidth,
-      viewportHeight: viewport.clientHeight,
-      contentWidth,
-      contentHeight,
-    })
-  }
-
   render = () => {
     const api = this.api
 
@@ -263,9 +236,6 @@ export function render(target: HTMLElement) {
   )
 
   instance.init()
-  // After first paint, ids/styles exist — sync measured dimensions for overflow.
-  instance.measureAndSync()
-  requestAnimationFrame(() => instance.measureAndSync())
 
   const updateVisualizer = (state?: ScrollAreaState) => {
     if (!state)
