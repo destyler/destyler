@@ -25,7 +25,7 @@ const api = computed(() =>
       <button v-bind="api.getTriggerProps()">
         Click Me
       </button>
-      <Transition to="body">
+      <Teleport to="body">
         <div v-if="api.open">
           <div v-bind="api.getBackdropProps()" />
           <div v-bind="api.getPositionerProps()">
@@ -46,7 +46,7 @@ const api = computed(() =>
             </div>
           </div>
         </div>
-      </Transition>
+      </Teleport>
     </main>
     <Toolbar>
       <StateVisualizer :state="state" />
