@@ -156,4 +156,32 @@ describe('popover browser tests', () => {
     await expect.element(page.getByTestId('button-after')).toHaveFocus()
     await dontSeeContent()
   })
+
+  it('[portalled=false] mounts content in the inline slot instead of document.body', async () => {
+    await page.getByTestId('portalled').click()
+    await testHook.clickTrigger('popover')
+    await seeContent()
+
+    const content = await testHook.getContent('popover').element()
+    const inlineSlot = document.querySelector('[data-popover-inline-slot]')
+    expect(inlineSlot?.contains(content)).toBe(true)
+    expect(content.parentElement?.parentElement === document.body).toBe(false)
+  })
+
+  it('[closeOnEscape=false] keeps the popover open on Escape', async () => {
+    await page.getByTestId('closeOnEscape').click()
+    await focusTrigger()
+    await testHook.pressKey('Enter')
+    await seeContent()
+    await testHook.pressKey('Escape')
+    await seeContent()
+    await expect.element(testHook.getTrigger('popover')).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('[initialFocusEl] focuses the mapped input when useInitialFocusEl is enabled', async () => {
+    await page.getByTestId('useInitialFocusEl').click()
+    await testHook.clickTrigger('popover')
+    await seeContent()
+    await expect.element(page.getByTestId('input')).toHaveFocus()
+  })
 })

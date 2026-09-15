@@ -177,10 +177,25 @@ export function render(target: HTMLElement): () => void {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const mapControlsContext = (): Partial<PopoverMachineContext> => {
+    const {
+      useInitialFocusEl,
+      ...rest
+    } = controls.context as Partial<PopoverMachineContext> & {
+      useInitialFocusEl?: boolean
+    }
+    const mapped: Partial<PopoverMachineContext> = { ...rest }
+    if (useInitialFocusEl) {
+      mapped.initialFocusEl = () => document.querySelector<HTMLElement>('[data-testid="input"]')
+    }
+    return mapped
+  }
+
   const instance = new PopoverExample(scope, { id: 'popover:vanilla' }, {
     context: {
-      get: () => controls.context as Partial<PopoverMachineContext>,
-      subscribe: (fn: (ctx: Partial<PopoverMachineContext>) => void) => controls.subscribe(fn as any),
+      get: () => mapControlsContext(),
+      subscribe: (fn: (ctx: Partial<PopoverMachineContext>) => void) =>
+        controls.subscribe(() => fn(mapControlsContext())),
     },
   })
 
