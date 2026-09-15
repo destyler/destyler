@@ -73,6 +73,11 @@ class DialogExample extends Component<
     this.stateListeners.forEach(listener => listener(state))
   }
 
+  override destroy(): void {
+    this.detachOverlay()
+    super.destroy()
+  }
+
   private attachOverlay() {
     if (this.isMounted)
       return
@@ -125,12 +130,13 @@ export function render(target: HTMLElement) {
   layout.main.innerHTML = `
     <main data-dialog-example>
       <button type="button" data-testid="dialog:trigger" data-dialog-trigger>Click me</button>
+      <button type="button" data-testid="outside">outside</button>
     </main>
   `
 
   const scope = layout.main.querySelector<HTMLElement>('[data-dialog-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -153,4 +159,8 @@ export function render(target: HTMLElement) {
 
   updateVisualizer(instance.state as DialogState)
   instance.onStateChange(updateVisualizer)
+
+  return () => {
+    instance.destroy()
+  }
 }

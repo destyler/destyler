@@ -59,6 +59,7 @@ export const dialogControls = defineControls({
   preventScroll: { type: 'boolean', defaultValue: true },
   closeOnEscape: { type: 'boolean', defaultValue: true },
   closeOnInteractOutside: { type: 'boolean', defaultValue: false },
+  modal: { type: 'boolean', defaultValue: true },
   role: {
     type: 'select',
     defaultValue: 'dialog',

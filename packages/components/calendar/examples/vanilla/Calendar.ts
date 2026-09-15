@@ -276,16 +276,16 @@ export function render(target: HTMLElement) {
     <div data-calendar-root>
       <p data-calendar-visible></p>
       <output>
-        <div>Selected: <span data-calendar-selected>-</span></div>
-        <div>Focused: <span data-calendar-focused>-</span></div>
+        <div>Selected: <span data-testid="calendar:selected" data-calendar-selected>-</span></div>
+        <div>Focused: <span data-testid="calendar:focused" data-calendar-focused>-</span></div>
       </output>
       <div data-calendar-control>
-        <input data-calendar-input />
-        <button data-calendar-clear>❌</button>
-        <button data-calendar-trigger>🗓</button>
+        <input data-testid="calendar:input" data-calendar-input />
+        <button data-testid="calendar:clear" data-calendar-clear>❌</button>
+        <button data-testid="calendar:trigger" data-calendar-trigger>🗓</button>
       </div>
       <div data-calendar-positioner>
-        <div data-calendar-content>
+        <div data-testid="calendar:content" data-calendar-content>
           <div style="margin-bottom: 20px; display: flex; gap: 12px;">
             <select data-calendar-month></select>
             <select data-calendar-year></select>
@@ -330,7 +330,7 @@ export function render(target: HTMLElement) {
 
   const rootEl = layout.main.querySelector<HTMLElement>('[data-calendar-root]')
   if (!rootEl)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   layout.root.appendChild(toolbar.root)
@@ -351,4 +351,8 @@ export function render(target: HTMLElement) {
 
   updateVisualizer(instance.state as CalendarState)
   instance.onStateChange(updateVisualizer)
+
+  return () => {
+    instance.destroy()
+  }
 }
