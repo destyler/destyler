@@ -15,6 +15,13 @@ export const checkboxControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   value: { type: 'string', defaultValue: 'on' },
   readOnly: { type: 'boolean', defaultValue: false },
+  invalid: { type: 'boolean', defaultValue: false },
+  required: { type: 'boolean', defaultValue: false },
+  checked: {
+    type: 'select',
+    options: ['false', 'true', 'indeterminate'] as const,
+    defaultValue: 'false',
+  },
 })
 
 export const clipboardControls = defineControls({

@@ -38,6 +38,10 @@ class CheckboxExample extends Component<
     return checkbox.connect(this.service.state, this.service.send, normalizeProps)
   }
 
+  getApi() {
+    return this.api
+  }
+
   onStateChange(listener: (state: checkbox.State) => void) {
     this.stateListeners.add(listener)
   }
@@ -68,8 +72,12 @@ class CheckboxExample extends Component<
         class: classNames('checkbox-label', labelProps.class),
       })
 
-      // Update label text
-      this.labelEl.innerHTML = `Input is ${this.api.checked ? ' checked' : ' unchecked'}`
+      const stateLabel = this.api.indeterminate
+        ? 'indeterminate'
+        : this.api.checked
+          ? 'checked'
+          : 'unchecked'
+      this.labelEl.innerHTML = `Input is ${stateLabel}`
     }
 
     if (this.inputEl) {
@@ -105,10 +113,24 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const mapControlsContext = (): Partial<CheckboxMachineContext> => {
+    const { checked, ...rest } = controls.context as Partial<CheckboxMachineContext> & {
+      checked?: 'false' | 'true' | 'indeterminate'
+    }
+    const mapped: Partial<CheckboxMachineContext> = { ...rest }
+    if (checked === 'indeterminate')
+      mapped.checked = 'indeterminate'
+    else if (checked === 'true')
+      mapped.checked = true
+    else if (checked === 'false')
+      mapped.checked = false
+    return mapped
+  }
+
   const instance = new CheckboxExample(rootEl, { id: 'checkbox:vanilla' }, {
     context: {
-      get: () => controls.context as Partial<CheckboxMachineContext>,
-      subscribe: (fn: any) => controls.subscribe(fn),
+      get: () => mapControlsContext(),
+      subscribe: (fn: any) => controls.subscribe(() => fn(mapControlsContext())),
     },
   })
   instance.init()

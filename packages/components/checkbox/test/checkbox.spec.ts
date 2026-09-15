@@ -82,4 +82,21 @@ describe('[checkbox] browser tests', () => {
     await testHook.getRootEl().click()
     await seeUnchecked()
   })
+
+  it('[indeterminate] sets data-state and hidden input.indeterminate', async () => {
+    await page.getByTestId('checked').selectOptions('indeterminate')
+    await expect.element(testHook.getRootEl()).toHaveAttribute('data-state', 'indeterminate')
+    await expect.element(testHook.getControlEl()).toHaveAttribute('data-state', 'indeterminate')
+    const input = await page.getByArticle(testHook.test.hiddenInput).element() as HTMLInputElement
+    expect(input.indeterminate).toBe(true)
+  })
+
+  it('[invalid][required] reflects validation attrs', async () => {
+    await page.getByTestId('invalid').click()
+    await page.getByTestId('required').click()
+    await expect.element(testHook.getRootEl()).toHaveAttribute('data-invalid', '')
+    const input = await page.getByArticle(testHook.test.hiddenInput).element()
+    expect(input.getAttribute('aria-invalid')).toBe('true')
+    expect((input as HTMLInputElement).required).toBe(true)
+  })
 })
