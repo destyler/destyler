@@ -64,7 +64,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getContentId(state.context),
         'tabIndex': -1,
         'data-state': open ? 'open' : 'closed',
-        'aria-modal': true,
+        'aria-modal': !!state.context.modal,
         'aria-label': ariaLabel || undefined,
         'aria-labelledby': ariaLabel || !rendered.title ? undefined : dom.getTitleId(state.context),
         'aria-describedby': rendered.description ? dom.getDescriptionId(state.context) : undefined,
