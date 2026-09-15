@@ -245,6 +245,8 @@ export const stepsControls = defineControls({
 export const switchControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   readOnly: { type: 'boolean', defaultValue: false },
+  invalid: { type: 'boolean', defaultValue: false },
+  required: { type: 'boolean', defaultValue: false },
 })
 
 export const tabsControls = defineControls({

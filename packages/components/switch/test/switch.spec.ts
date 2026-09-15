@@ -94,4 +94,13 @@ describe('[switch] browser tests', () => {
     await clickSwitch()
     await seeUnchecked()
   })
+
+  it('[invalid][required] reflects validation attrs', async () => {
+    await page.getByTestId('invalid').click()
+    await page.getByTestId('required').click()
+    await expect.element(testHook.getRootEl()).toHaveAttribute('data-invalid', '')
+    const input = await page.getByArticle(testHook.test.hiddenInput).element() as HTMLInputElement
+    expect(input.getAttribute('aria-invalid')).not.toBeNull()
+    expect(input.required).toBe(true)
+  })
 })
