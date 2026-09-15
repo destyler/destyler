@@ -18,7 +18,6 @@ async function focusPage() {
   await userEvent.click(page.getByTestId('focus'))
 }
 
-
 async function setNumberControl(id: string, value: number) {
   const control = page.getByTestId(id)
   await control.fill(String(value))

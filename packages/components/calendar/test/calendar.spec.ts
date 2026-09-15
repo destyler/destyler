@@ -171,7 +171,6 @@ describe('calendar browser tests', () => {
     }).toBe(true)
   })
 
-
   it('should switch between day, month, and year views', async () => {
     await testHook.clickTrigger('calendar')
     await seeContent()

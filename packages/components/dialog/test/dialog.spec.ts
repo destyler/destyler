@@ -38,7 +38,6 @@ async function setSelectControl(id: string, value: string) {
   await page.getByTestId(id).selectOptions(value)
 }
 
-
 describe('dialog browser tests', () => {
   beforeEach(() => {
     removeOrphanDialogPortals()

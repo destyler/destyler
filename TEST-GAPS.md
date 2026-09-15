@@ -2,10 +2,10 @@
 
 # Destyler 未测能力表（Untested Capability Table）
 
-**Repo:** `destyler/destyler`  
-**Tip:** `47922a20e7a427a2acf474bbf684416b84170078`（`test/strengthen-dialog-calendar-presence`；尚未合入 `main` @ `4518b55`）  
-**Local tree:** `/workspace/destyler-pr101`  
-**Date:** 2026-09-15（Asia/Shanghai）  
+**Repo:** `destyler/destyler`
+**Tip:** `47922a20e7a427a2acf474bbf684416b84170078`（`test/strengthen-dialog-calendar-presence`；尚未合入 `main` @ `4518b55`）
+**Local tree:** `/workspace/destyler-pr101`
+**Date:** 2026-09-15（Asia/Shanghai）
 **Method:** 对照 `packages/components/<name>/src/types.ts` + `props.ts` + machine defaults / connect 行为，与现有 `test/*.spec.ts`|`*.test.ts` 的 `describe`/`it` 覆盖；仅列 machine 已存在的能力缺口（非臆测功能）。
 
 ---

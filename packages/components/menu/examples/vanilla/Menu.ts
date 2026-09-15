@@ -396,7 +396,7 @@ export function render(target: HTMLElement): () => void {
   })
 
   const share = new ShareMenuExample(shareRoot, {
-    id: 'menu:vanilla:share',
+    'id': 'menu:vanilla:share',
     'aria-label': 'Share',
   })
 
