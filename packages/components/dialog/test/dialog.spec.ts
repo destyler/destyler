@@ -34,6 +34,11 @@ async function toggleControl(id: string) {
   await page.getByTestId(id).click()
 }
 
+async function setSelectControl(id: string, value: string) {
+  await page.getByTestId(id).selectOptions(value)
+}
+
+
 describe('dialog browser tests', () => {
   beforeEach(() => {
     removeOrphanDialogPortals()
@@ -135,5 +140,66 @@ describe('dialog browser tests', () => {
 
     await testHook.pressKey('Escape')
     await seeContent()
+  })
+
+  it('[role=alertdialog] should set role and focus the close trigger', async () => {
+    await setSelectControl('role', 'alertdialog')
+    await testHook.clickTrigger('dialog')
+    await seeContent()
+
+    await expect.element(testHook.getContent('dialog')).toHaveAttribute('role', 'alertdialog')
+    await expect.element(testHook.getClearEl('dialog')).toHaveFocus()
+  })
+
+  it('[trapFocus=false] should allow Tab to leave the dialog content', async () => {
+    await toggleControl('trapFocus')
+    await testHook.clickTrigger('dialog')
+    await seeContent()
+
+    // Land on the last focusable inside content, then Tab past it
+    await page.getByTestId('dialog:save').click()
+    await expect.element(page.getByTestId('dialog:save')).toHaveFocus()
+    await testHook.pressKey('Tab') // close trigger
+    await testHook.pressKey('Tab') // should leave content (no trap)
+
+    const content = await testHook.getContent('dialog').element()
+    await expect.poll(() => {
+      const active = document.activeElement
+      return !!active && !content.contains(active)
+    }).toBe(true)
+  })
+
+  it('[preventScroll=true] should lock body scroll while open', async () => {
+    await testHook.clickTrigger('dialog')
+    await seeContent()
+    expect(document.body.hasAttribute('data-scroll-lock')).toBe(true)
+
+    await testHook.pressKey('Escape')
+    await dontSeeContent()
+    expect(document.body.hasAttribute('data-scroll-lock')).toBe(false)
+  })
+
+  it('[preventScroll=false] should not lock body scroll while open', async () => {
+    await toggleControl('preventScroll')
+    await testHook.clickTrigger('dialog')
+    await seeContent()
+    expect(document.body.hasAttribute('data-scroll-lock')).toBe(false)
+  })
+
+  it('[useInitialFocusEl] should focus the configured initial focus element', async () => {
+    await toggleControl('useInitialFocusEl')
+    await testHook.clickTrigger('dialog')
+    await seeContent()
+    await expect.element(page.getByTestId('dialog:save')).toHaveFocus()
+  })
+
+  it('[useFinalFocusEl] should return focus to the configured final focus element', async () => {
+    await toggleControl('useFinalFocusEl')
+    await testHook.clickTrigger('dialog')
+    await seeContent()
+
+    await testHook.pressKey('Escape')
+    await dontSeeContent()
+    await expect.element(page.getByTestId('dialog:final-focus')).toHaveFocus()
   })
 })

@@ -45,6 +45,7 @@ class DialogExample extends Component<
     this.formInput.placeholder = 'Enter name...'
     this.formInput.setAttribute('data-testid', 'dialog:input')
     this.saveButton.type = 'button'
+    this.saveButton.dataset.testid = 'dialog:save'
     this.saveButton.textContent = 'Save'
 
     this.closeButton.type = 'button'
@@ -131,6 +132,7 @@ export function render(target: HTMLElement) {
     <main data-dialog-example>
       <button type="button" data-testid="dialog:trigger" data-dialog-trigger>Click me</button>
       <button type="button" data-testid="outside">outside</button>
+      <button type="button" data-testid="dialog:final-focus">final focus</button>
     </main>
   `
 
@@ -142,10 +144,36 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const mapControlsContext = (): Partial<DialogMachineContext> => {
+    const {
+      useInitialFocusEl,
+      useFinalFocusEl,
+      ...rest
+    } = controls.context as Partial<DialogMachineContext> & {
+      useInitialFocusEl?: boolean
+      useFinalFocusEl?: boolean
+    }
+
+    const mapped: Partial<DialogMachineContext> = { ...rest }
+    if (useInitialFocusEl) {
+      mapped.initialFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:save"]')
+    }
+    if (useFinalFocusEl) {
+      mapped.finalFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:final-focus"]')
+    }
+    // Mirror machine `setAlertDialogProps` for post-init role changes via controls
+    if (mapped.role === 'alertdialog') {
+      mapped.closeOnInteractOutside = false
+      mapped.initialFocusEl ||= () => document.querySelector<HTMLElement>('[data-testid="dialog:clear"]')
+    }
+    return mapped
+  }
+
   const instance = new DialogExample(scope, { id: 'dialog:vanilla' }, {
     context: {
-      get: () => controls.context as Partial<DialogMachineContext>,
-      subscribe: (fn: (ctx: Partial<DialogMachineContext>) => void) => controls.subscribe(fn as any),
+      get: () => mapControlsContext(),
+      subscribe: (fn: (ctx: Partial<DialogMachineContext>) => void) =>
+        controls.subscribe(() => fn(mapControlsContext())),
     },
   })
 

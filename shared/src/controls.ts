@@ -60,6 +60,10 @@ export const dialogControls = defineControls({
   closeOnEscape: { type: 'boolean', defaultValue: true },
   closeOnInteractOutside: { type: 'boolean', defaultValue: false },
   modal: { type: 'boolean', defaultValue: true },
+  trapFocus: { type: 'boolean', defaultValue: true },
+  // Harness-only flags — mapped to initialFocusEl/finalFocusEl in vanilla Dialog.ts
+  useInitialFocusEl: { type: 'boolean', defaultValue: false },
+  useFinalFocusEl: { type: 'boolean', defaultValue: false },
   role: {
     type: 'select',
     defaultValue: 'dialog',
@@ -257,6 +261,16 @@ export const tourControls = defineControls({
   closeOnEscape: { type: 'boolean', defaultValue: true },
   closeOnInteractOutside: { type: 'boolean', defaultValue: true },
   preventInteraction: { type: 'boolean', defaultValue: true },
+})
+
+
+export const calendarControls = defineControls({
+  selectionMode: {
+    type: 'select',
+    options: ['single', 'multiple', 'range'] as const,
+    defaultValue: 'single',
+  },
+  closeOnSelect: { type: 'boolean', defaultValue: true },
 })
 
 export const treeControls = defineControls({
