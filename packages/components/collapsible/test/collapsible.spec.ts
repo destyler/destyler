@@ -1,5 +1,5 @@
 import { testHook } from '@destyler/shared-private/test'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Collapsible'
 
@@ -94,5 +94,42 @@ describe('[collapsible] browser tests', () => {
 
     await trigger.click()
     await expectClosed()
+  })
+
+  it('calls onExitComplete after the closing animation path', async () => {
+    const exitStatus = page.getByTestId('exit-status')
+    await expect.element(exitStatus).toHaveAttribute('data-exit-count', '0')
+
+    await page.getByRole('button', { name: 'Open' }).click()
+    await expectOpen()
+
+    await page.getByRole('button', { name: 'Close' }).click()
+
+    // Content enters closing (data-state=closed while still visible) then unmounts.
+    await vi.waitFor(async () => {
+      await expect.element(exitStatus).toHaveAttribute('data-exit-count', '1')
+      await expectClosed()
+    }, { timeout: 3000 })
+  })
+
+  it('[open.controlled] trigger requests open but state follows context.open', async () => {
+    await page.getByTestId('openControlled').click()
+
+    const trigger = testHook.getTrigger('collapsible')
+    const openStatus = page.getByTestId('open-status')
+
+    await trigger.click()
+    await expect.element(openStatus).toHaveAttribute('data-open-requested', 'true')
+    // Controlled: machine stays closed until context.open is synced.
+    await expectClosed()
+
+    await page.getByRole('button', { name: 'Open' }).click()
+    await expectOpen()
+    await expect.element(testHook.getContent('collapsible')).toBeVisible()
+
+    await page.getByRole('button', { name: 'Close' }).click()
+    await vi.waitFor(async () => {
+      await expectClosed()
+    }, { timeout: 3000 })
   })
 })

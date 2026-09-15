@@ -39,6 +39,8 @@ export const collapseControls = defineControls({
 export const collapsibleControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  // Harness-only — maps to machine `open.controlled`
+  openControlled: { type: 'boolean', defaultValue: false },
 })
 
 export const colorPickerControls = defineControls({
