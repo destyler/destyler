@@ -161,11 +161,6 @@ export function render(target: HTMLElement) {
     if (useFinalFocusEl) {
       mapped.finalFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:final-focus"]')
     }
-    // Mirror machine `setAlertDialogProps` for post-init role changes via controls
-    if (mapped.role === 'alertdialog') {
-      mapped.closeOnInteractOutside = false
-      mapped.initialFocusEl ||= () => document.querySelector<HTMLElement>('[data-testid="dialog:clear"]')
-    }
     return mapped
   }
 

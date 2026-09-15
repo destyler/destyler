@@ -34,6 +34,8 @@ export function machine(userContext: UserDefinedContext) {
 
       watch: {
         open: ['toggleVisibility'],
+        // Re-apply when role flips via controls/context after init
+        role: ['setAlertDialogProps'],
       },
 
       states: {
