@@ -173,7 +173,6 @@ function calculateVirtualState(ctx: MachineContext, scrollOffset: number): Virtu
   }
 }
 
-
 /* -----------------------------------------------------------------------------
  * Ensure DOM parts exist (ids are spread by connect after machine start)
  * ----------------------------------------------------------------------------- */
