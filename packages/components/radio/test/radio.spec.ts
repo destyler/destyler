@@ -1,5 +1,5 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Radio'
 
@@ -9,6 +9,13 @@ async function expectToBeChecked(id: string) {
   await expect.element(page.getByTestId(`radio-${id}`)).toHaveAttribute('data-state', 'checked')
   await expect.element(page.getByTestId(`control-${id}`)).toHaveAttribute('data-state', 'checked')
   await expect.element(page.getByTestId(`label-${id}`)).toHaveAttribute('data-state', 'checked')
+  await expect.element(page.getByTestId(`input-${id}`)).toBeChecked()
+}
+
+async function expectToBeUnchecked(id: string) {
+  await expect.element(page.getByTestId(`radio-${id}`)).toHaveAttribute('data-state', 'unchecked')
+  await expect.element(page.getByTestId(`control-${id}`)).toHaveAttribute('data-state', 'unchecked')
+  await expect.element(page.getByTestId(`input-${id}`)).not.toBeChecked()
 }
 
 async function toggleDisabled() {
@@ -21,17 +28,27 @@ async function toggleReadonly() {
 
 describe('radio browser tests', () => {
   beforeEach(() => {
-    if (mount) {
-      document.body.removeChild(mount)
-    }
     mount = document.createElement('div')
     document.body.appendChild(mount)
     render(mount)
   })
 
-  it('should have aria-labelledby on root', async () => {
+  afterEach(() => {
+    if (mount && mount.parentElement)
+      document.body.removeChild(mount)
+    mount = null
+  })
+
+  it('should expose radiogroup semantics on root', async () => {
+    await expect.element(testHook.getRootEl()).toHaveAttribute('role', 'radiogroup')
     await expect.element(testHook.getRootEl()).toHaveAttribute('id')
     await expect.element(testHook.getRootEl()).toHaveAttribute('aria-labelledby')
+    await expect.element(testHook.getRootEl()).toHaveAttribute('aria-orientation', 'vertical')
+  })
+
+  it('should start with all items unchecked', async () => {
+    await expectToBeUnchecked('apple')
+    await expectToBeUnchecked('grape')
   })
 
   it('should be checked when clicked', async () => {
@@ -40,6 +57,15 @@ describe('radio browser tests', () => {
 
     await userEvent.click(page.getByTestId('radio-grape'))
     await expectToBeChecked('grape')
+    await expectToBeUnchecked('apple')
+  })
+
+  it('should clear selection via clear button', async () => {
+    await userEvent.click(page.getByTestId('radio-apple'))
+    await expectToBeChecked('apple')
+
+    await page.locatoring('[data-radio-clear]').click()
+    await expectToBeUnchecked('apple')
   })
 
   it('should be focused when page is tabbed', async () => {
@@ -63,6 +89,7 @@ describe('radio browser tests', () => {
 
     await expect.element(page.getByTestId('control-apple')).toHaveAttribute('data-disabled', '')
     await expect.element(page.getByTestId('input-apple')).toBeDisabled()
+    await expect.element(testHook.getRootEl()).toHaveAttribute('data-disabled', '')
   })
 
   it('should not be focusable when disabled', async () => {
@@ -100,5 +127,23 @@ describe('radio browser tests', () => {
     await testHook.pressKey('ArrowDown', 3)
 
     await expectToBeChecked('grape')
+    await expectToBeUnchecked('apple')
+  })
+
+  it('[orientation=horizontal] updates aria-orientation and ArrowRight navigation', async () => {
+    await page.getByTestId('orientation').selectOptions('horizontal')
+    await expect.element(testHook.getRootEl()).toHaveAttribute('aria-orientation', 'horizontal')
+
+    await userEvent.click(page.getByTestId('radio-apple'))
+    await expectToBeChecked('apple')
+    await testHook.pressKey('ArrowRight', 3)
+    await expectToBeChecked('grape')
+    await expectToBeUnchecked('apple')
+  })
+
+  it('[item invalid] marks grape with data-invalid', async () => {
+    await page.getByTestId('invalidItem').click()
+    await expect.element(page.getByTestId('radio-grape')).toHaveAttribute('data-invalid', '')
+    await expect.element(page.getByTestId('control-grape')).toHaveAttribute('data-invalid', '')
   })
 })

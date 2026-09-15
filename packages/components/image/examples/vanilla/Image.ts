@@ -1,5 +1,5 @@
 import type { ContextFrom } from '@destyler/vanilla'
-import type { State as ImageState, MachineState } from '../../src/types'
+import type { State as ImageState, MachineState, StatusChangeDetails } from '../../src/types'
 import { imagesData } from '@destyler/shared-private'
 import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/vanilla'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
@@ -8,6 +8,13 @@ import '../style.css'
 
 const images = imagesData.full
 const getRandomImage = () => images[Math.floor(Math.random() * images.length)]
+
+/** 1×1 PNG — deterministic load path for browser tests (no network). */
+export const TEST_OK_SRC
+  = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
+
+/** Invalid image payload — deterministic error path for browser tests. */
+export const TEST_BAD_SRC = 'data:image/png;base64,not-a-valid-image'
 
 type ImageMachineContext = ContextFrom<typeof avatar.machine>
 
@@ -19,10 +26,14 @@ class ImageExample extends Component<avatar.Context, avatar.Api, ImageMachineCon
   private readonly changeBtn: HTMLButtonElement | null
   private readonly brokenBtn: HTMLButtonElement | null
   private readonly toggleBtn: HTMLButtonElement | null
+  private readonly okBtn: HTMLButtonElement | null
+  private readonly badBtn: HTMLButtonElement | null
+  private readonly statusEl: HTMLElement | null
   private readonly stateListeners = new Set<(state: ImageState) => void>()
 
-  private src = images[0]
+  private src = TEST_OK_SRC
   private show = true
+  private lastStatusChange = ''
 
   constructor(rootEl: HTMLElement, context: avatar.Context, options?: any) {
     super(rootEl, context, options)
@@ -32,6 +43,9 @@ class ImageExample extends Component<avatar.Context, avatar.Api, ImageMachineCon
     this.changeBtn = rootEl.querySelector('[data-image-change]')
     this.brokenBtn = rootEl.querySelector('[data-image-broken]')
     this.toggleBtn = rootEl.querySelector('[data-image-toggle]')
+    this.okBtn = rootEl.querySelector('[data-image-ok]')
+    this.badBtn = rootEl.querySelector('[data-image-bad]')
+    this.statusEl = rootEl.ownerDocument.querySelector('[data-image-status]')
 
     this.changeBtn?.addEventListener('click', () => {
       this.setImageSource(getRandomImage())
@@ -41,12 +55,20 @@ class ImageExample extends Component<avatar.Context, avatar.Api, ImageMachineCon
       this.setImageSource(imagesData.broken)
     })
 
+    this.okBtn?.addEventListener('click', () => {
+      this.setImageSource(TEST_OK_SRC)
+    })
+
+    this.badBtn?.addEventListener('click', () => {
+      this.setImageSource(TEST_BAD_SRC)
+    })
+
     this.toggleBtn?.addEventListener('click', () => {
       this.show = !this.show
       this.applyImageVisibility()
     })
 
-    // ensure initial image source is reflected in DOM
+    // ensure initial image source is reflected in DOM before machine start
     this.setImageSource(this.src)
   }
 
@@ -63,7 +85,22 @@ class ImageExample extends Component<avatar.Context, avatar.Api, ImageMachineCon
   }
 
   protected override onTransition(state: ImageState) {
+    this.writeStatus(state)
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  recordStatusChange(details: StatusChangeDetails) {
+    this.lastStatusChange = details.status
+    this.writeStatus()
+  }
+
+  private writeStatus(state?: ImageState) {
+    if (!this.statusEl)
+      return
+    const machineStatus = state?.value ?? (this.service?.state.value as string | undefined) ?? ''
+    this.statusEl.dataset.machineStatus = String(machineStatus)
+    this.statusEl.dataset.statusChange = this.lastStatusChange
+    this.statusEl.textContent = `machine=${machineStatus};onStatusChange=${this.lastStatusChange}`
   }
 
   render = () => {
@@ -121,8 +158,11 @@ export function render(target: HTMLElement) {
         <div class="controls">
           <button type="button" data-image-change>Change Image</button>
           <button type="button" data-image-broken>Broken Image</button>
+          <button type="button" data-testid="image-ok" data-image-ok>OK Image</button>
+          <button type="button" data-testid="image-bad" data-image-bad>Bad Image</button>
           <button type="button" data-image-toggle>Toggle Image</button>
         </div>
+        <div data-testid="image-status" data-image-status data-machine-status="" data-status-change="">machine=;onStatusChange=</div>
       </div>
     </main>
   `
@@ -134,8 +174,15 @@ export function render(target: HTMLElement) {
   const toolbar = Toolbar()
   layout.root.appendChild(toolbar.root)
 
-  const instance = new ImageExample(scope, { id: 'image:vanilla' })
-  instance.init()
+  const harness: { current: ImageExample | null } = { current: null }
+  const example = new ImageExample(scope, {
+    id: 'image:vanilla',
+    onStatusChange(details) {
+      harness.current?.recordStatusChange(details)
+    },
+  })
+  harness.current = example
+  example.init()
 
   const updateVisualizer = (state?: ImageState) => {
     if (!state)
@@ -143,6 +190,6 @@ export function render(target: HTMLElement) {
     toolbar.setVisualizerSlot(() => StateVisualizer({ state }))
   }
 
-  updateVisualizer(instance.state as ImageState)
-  instance.onStateChange(updateVisualizer)
+  updateVisualizer(example.state as ImageState)
+  example.onStateChange(updateVisualizer)
 }

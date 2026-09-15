@@ -26,6 +26,7 @@ class RadioExample extends Component<radio.Context, radio.Api, RadioMachineConte
   private readonly focusButton: HTMLButtonElement | null
   private readonly items: RadioItemElements[]
   private readonly stateListeners = new Set<(state: RadioState) => void>()
+  private invalidItem = false
 
   constructor(rootEl: HTMLElement, context: radio.Context, options?: any) {
     super(rootEl, context, options)
@@ -62,6 +63,11 @@ class RadioExample extends Component<radio.Context, radio.Api, RadioMachineConte
     this.stateListeners.add(listener)
   }
 
+  setInvalidItem(value: boolean) {
+    this.invalidItem = value
+    this.render()
+  }
+
   protected override onTransition(state: RadioState) {
     this.stateListeners.forEach(listener => listener(state))
   }
@@ -82,9 +88,10 @@ class RadioExample extends Component<radio.Context, radio.Api, RadioMachineConte
       spreadProps(this.indicatorEl, api.getIndicatorProps())
 
     this.items.forEach(({ value, itemEl, controlEl, textEl, inputEl }) => {
+      const itemInvalid = this.invalidItem && value === 'grape'
       if (itemEl) {
         spreadProps(itemEl, {
-          ...api.getItemProps({ value }),
+          ...api.getItemProps({ value, invalid: itemInvalid }),
           'data-testid': `radio-${value}`,
         })
         itemEl.setAttribute('data-radio-item', value)
@@ -92,7 +99,7 @@ class RadioExample extends Component<radio.Context, radio.Api, RadioMachineConte
 
       if (controlEl) {
         spreadProps(controlEl, {
-          ...api.getItemControlProps({ value }),
+          ...api.getItemControlProps({ value, invalid: itemInvalid }),
           'data-testid': `control-${value}`,
         })
         controlEl.setAttribute('data-radio-control', value)
@@ -161,13 +168,26 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const mapControlsContext = (): Partial<RadioMachineContext> => {
+    const { invalidItem: _invalidItem, ...rest } = controls.context as Partial<RadioMachineContext> & {
+      invalidItem?: boolean
+    }
+    return rest
+  }
+
   const instance = new RadioExample(scope, { id: 'radio:vanilla', name: 'fruits' }, {
     context: {
-      get: () => controls.context as Partial<RadioMachineContext>,
-      subscribe: (fn: (ctx: Partial<RadioMachineContext>) => void) => controls.subscribe(fn),
+      get: () => mapControlsContext(),
+      subscribe: (fn: (ctx: Partial<RadioMachineContext>) => void) =>
+        controls.subscribe(() => {
+          const { invalidItem = false } = controls.context as { invalidItem?: boolean }
+          instance.setInvalidItem(Boolean(invalidItem))
+          fn(mapControlsContext())
+        }),
     },
   })
   instance.init()
+  instance.setInvalidItem(Boolean((controls.context as { invalidItem?: boolean }).invalidItem))
 
   const updateVisualizer = (state?: RadioState) => {
     if (!state)

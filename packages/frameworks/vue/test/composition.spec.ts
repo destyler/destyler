@@ -93,10 +93,9 @@ describe('vue composition adapters', () => {
     expect(stateRef?.value.value).toBe('active')
 
     contextRef.value = { ready: true }
-    await nextTick()
-
-    expect(setContextSpy).toHaveBeenLastCalledWith({ ready: true })
-    expect(service?.contextSnapshot.ready).toBe(true)
+    // watch(context) flushes async; under browser load a single nextTick can race
+    await expect.poll(() => setContextSpy.mock.calls.at(-1)?.[0]).toEqual({ ready: true })
+    await expect.poll(() => service?.contextSnapshot.ready).toBe(true)
 
     app.unmount()
   })

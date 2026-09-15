@@ -48,6 +48,7 @@ describe('hover-card browser tests', () => {
 
   it('content should be hidden by default', async () => {
     await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(triggerEl()).toHaveAttribute('data-state', 'closed')
   })
 
   it('should be opened after hovering trigger', async () => {
@@ -55,12 +56,15 @@ describe('hover-card browser tests', () => {
     await userEvent.hover(triggerEl())
     await waitForStability()
     await expect.element(contentEl()).toBeVisible()
+    await expect.element(triggerEl()).toHaveAttribute('data-state', 'open')
+    await expect.element(contentEl()).toHaveAttribute('data-state', 'open')
   })
 
   it('should be opened after focusing trigger', async () => {
     await focusTrigger()
     await waitForStability()
     await expect.element(contentEl()).toBeVisible()
+    await expect.element(triggerEl()).toHaveAttribute('data-state', 'open')
   })
 
   it('should be closed after blurring trigger', async () => {
@@ -71,6 +75,7 @@ describe('hover-card browser tests', () => {
     await userEvent.tab()
     await waitForStability()
     await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(triggerEl()).toHaveAttribute('data-state', 'closed')
   })
 
   it('should be closed after blurring trigger with keyboard', async () => {
@@ -113,5 +118,21 @@ describe('hover-card browser tests', () => {
 
     await content.hover()
     await expect.element(content).toBeVisible()
+    await expect.element(content).toHaveAttribute('data-state', 'open')
+  })
+
+  it('should close after pointer leaves content', async () => {
+    const trigger = triggerEl()
+    const content = contentEl()
+
+    await trigger.hover()
+    await waitForStability()
+    await expect.element(content).toBeVisible()
+
+    await content.hover()
+    await userEvent.hover(testClickEl())
+    await waitForStability()
+    await expect.element(contentEl()).not.toBeInTheDocument()
+    await expect.element(triggerEl()).toHaveAttribute('data-state', 'closed')
   })
 })

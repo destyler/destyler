@@ -45,6 +45,7 @@ class DialogExample extends Component<
     this.formInput.placeholder = 'Enter name...'
     this.formInput.setAttribute('data-testid', 'dialog:input')
     this.saveButton.type = 'button'
+    this.saveButton.dataset.testid = 'dialog:save'
     this.saveButton.textContent = 'Save'
 
     this.closeButton.type = 'button'
@@ -71,6 +72,11 @@ class DialogExample extends Component<
 
   protected override onTransition(state: DialogState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.detachOverlay()
+    super.destroy()
   }
 
   private attachOverlay() {
@@ -125,21 +131,44 @@ export function render(target: HTMLElement) {
   layout.main.innerHTML = `
     <main data-dialog-example>
       <button type="button" data-testid="dialog:trigger" data-dialog-trigger>Click me</button>
+      <button type="button" data-testid="outside">outside</button>
+      <button type="button" data-testid="dialog:final-focus">final focus</button>
     </main>
   `
 
   const scope = layout.main.querySelector<HTMLElement>('[data-dialog-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const mapControlsContext = (): Partial<DialogMachineContext> => {
+    const {
+      useInitialFocusEl,
+      useFinalFocusEl,
+      ...rest
+    } = controls.context as Partial<DialogMachineContext> & {
+      useInitialFocusEl?: boolean
+      useFinalFocusEl?: boolean
+    }
+
+    const mapped: Partial<DialogMachineContext> = { ...rest }
+    if (useInitialFocusEl) {
+      mapped.initialFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:save"]')
+    }
+    if (useFinalFocusEl) {
+      mapped.finalFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:final-focus"]')
+    }
+    return mapped
+  }
+
   const instance = new DialogExample(scope, { id: 'dialog:vanilla' }, {
     context: {
-      get: () => controls.context as Partial<DialogMachineContext>,
-      subscribe: (fn: (ctx: Partial<DialogMachineContext>) => void) => controls.subscribe(fn as any),
+      get: () => mapControlsContext(),
+      subscribe: (fn: (ctx: Partial<DialogMachineContext>) => void) =>
+        controls.subscribe(() => fn(mapControlsContext())),
     },
   })
 
@@ -153,4 +182,8 @@ export function render(target: HTMLElement) {
 
   updateVisualizer(instance.state as DialogState)
   instance.onStateChange(updateVisualizer)
+
+  return () => {
+    instance.destroy()
+  }
 }

@@ -61,8 +61,8 @@ export function Controls(control: Control): HTMLDivElement {
         const select = document.createElement('select')
         select.id = value.label || key
         select.dataset.testid = key
-        select.value = control.getState(key) || ''
         const optionEmpty = document.createElement('option')
+        optionEmpty.value = ''
         optionEmpty.textContent = '-----'
         select.append(optionEmpty)
         for (const option of value.options || []) {
@@ -71,6 +71,8 @@ export function Controls(control: Control): HTMLDivElement {
           opt.textContent = option
           select.append(opt)
         }
+        // Set value after options exist so the selection sticks on re-render
+        select.value = control.getState(key) ?? ''
         select.onchange = (e: Event) => control.setState(key, (e.target as HTMLSelectElement).value)
         el.append(label, select)
       }

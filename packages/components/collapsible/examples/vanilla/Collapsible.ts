@@ -18,12 +18,18 @@ class CollapsibleExample extends Component<
 > {
   private readonly triggerEl: HTMLButtonElement | null
   private readonly contentEl: HTMLElement | null
+  private readonly exitStatusEl: HTMLElement | null
+  private readonly openStatusEl: HTMLElement | null
   private readonly stateListeners = new Set<(state: CollapsibleState) => void>()
+  private controlledOpen = false
+  private exitCount = 0
 
   constructor(rootEl: HTMLElement, context: collapsible.Context, options?: any) {
     super(rootEl, context, options)
     this.triggerEl = rootEl.querySelector<HTMLButtonElement>('[data-collapsible-trigger]')
     this.contentEl = rootEl.querySelector<HTMLElement>('[data-collapsible-content]')
+    this.exitStatusEl = rootEl.ownerDocument.querySelector<HTMLElement>('[data-exit-status]')
+    this.openStatusEl = rootEl.ownerDocument.querySelector<HTMLElement>('[data-open-status]')
   }
 
   initService(context: collapsible.Context) {
@@ -40,6 +46,37 @@ class CollapsibleExample extends Component<
 
   protected override onTransition(state: CollapsibleState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  private writeExitStatus() {
+    if (!this.exitStatusEl)
+      return
+    this.exitStatusEl.dataset.exitCount = String(this.exitCount)
+    this.exitStatusEl.textContent = `exitCount=${this.exitCount}`
+  }
+
+  private writeOpenStatus(open: boolean | null) {
+    if (!this.openStatusEl)
+      return
+    this.openStatusEl.dataset.openRequested = open == null ? '' : String(open)
+    this.openStatusEl.textContent = `openRequested=${this.openStatusEl.dataset.openRequested}`
+  }
+
+  onExitComplete = () => {
+    this.exitCount += 1
+    this.writeExitStatus()
+  }
+
+  onOpenChange = (details: { open: boolean }) => {
+    this.writeOpenStatus(details.open)
+  }
+
+  getControlledOpen() {
+    return this.controlledOpen
+  }
+
+  setControlledOpen(next: boolean) {
+    this.controlledOpen = next
   }
 
   render = () => {
@@ -68,6 +105,10 @@ class CollapsibleExample extends Component<
 
   setOpen(nextOpen: boolean) {
     this.api.setOpen(nextOpen)
+  }
+
+  syncContext(context: Partial<CollapsibleMachineContext>) {
+    this.applyContext(context)
   }
 }
 
@@ -100,6 +141,8 @@ export function render(target: HTMLElement) {
       <button class="button" data-collapsible-close>
         Close
       </button>
+      <div data-testid="exit-status" data-exit-status data-exit-count="0">exitCount=0</div>
+      <div data-testid="open-status" data-open-status data-open-requested="">openRequested=</div>
     </div>
   `
 
@@ -111,19 +154,59 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
-  const instance = new CollapsibleExample(rootEl, { id: 'collapsible:vanilla' }, {
+  let instance: CollapsibleExample
+
+  const mapControlsContext = (): Partial<CollapsibleMachineContext> => {
+    const { openControlled = false, ...rest } = controls.context as Partial<CollapsibleMachineContext> & {
+      openControlled?: boolean
+    }
+    return {
+      ...rest,
+      'open.controlled': Boolean(openControlled),
+      ...(openControlled ? { open: instance.getControlledOpen() } : {}),
+      'onExitComplete': () => instance.onExitComplete(),
+      'onOpenChange': details => instance.onOpenChange(details),
+    }
+  }
+
+  instance = new CollapsibleExample(rootEl, {
+    id: 'collapsible:vanilla',
+    onExitComplete: () => {},
+    onOpenChange: () => {},
+  }, {
     context: {
-      get: () => controls.context as Partial<CollapsibleMachineContext>,
-      subscribe: (fn: any) => controls.subscribe(fn),
+      get: () => mapControlsContext(),
+      subscribe: (fn: any) => controls.subscribe(() => fn(mapControlsContext())),
     },
   })
+
+  // Replace stub callbacks now that instance exists
   instance.init()
+  instance.syncContext(mapControlsContext())
 
   const openButton = layout.main.querySelector<HTMLButtonElement>('[data-collapsible-open]')
   const closeButton = layout.main.querySelector<HTMLButtonElement>('[data-collapsible-close]')
 
-  openButton?.addEventListener('click', () => instance.setOpen(true))
-  closeButton?.addEventListener('click', () => instance.setOpen(false))
+  openButton?.addEventListener('click', () => {
+    const { openControlled = false } = controls.context as { openControlled?: boolean }
+    if (openControlled) {
+      instance.setControlledOpen(true)
+      instance.syncContext(mapControlsContext())
+    }
+    else {
+      instance.setOpen(true)
+    }
+  })
+  closeButton?.addEventListener('click', () => {
+    const { openControlled = false } = controls.context as { openControlled?: boolean }
+    if (openControlled) {
+      instance.setControlledOpen(false)
+      instance.syncContext(mapControlsContext())
+    }
+    else {
+      instance.setOpen(false)
+    }
+  })
 
   const updateVisualizer = (state?: CollapsibleState) => {
     if (!state)

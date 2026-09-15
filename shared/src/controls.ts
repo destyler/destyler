@@ -15,6 +15,13 @@ export const checkboxControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   value: { type: 'string', defaultValue: 'on' },
   readOnly: { type: 'boolean', defaultValue: false },
+  invalid: { type: 'boolean', defaultValue: false },
+  required: { type: 'boolean', defaultValue: false },
+  checked: {
+    type: 'select',
+    options: ['false', 'true', 'indeterminate'] as const,
+    defaultValue: 'false',
+  },
 })
 
 export const clipboardControls = defineControls({
@@ -25,11 +32,15 @@ export const collapseControls = defineControls({
   collapsible: { type: 'boolean', defaultValue: true },
   multiple: { type: 'boolean', defaultValue: false },
   orientation: { type: 'select', options: ['horizontal', 'vertical'] as const, defaultValue: 'vertical' },
+  // Harness-only — marks the aircraft item disabled via getItemProps
+  disabledItem: { type: 'boolean', defaultValue: false },
 })
 
 export const collapsibleControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
+  // Harness-only — maps to machine `open.controlled`
+  openControlled: { type: 'boolean', defaultValue: false },
 })
 
 export const colorPickerControls = defineControls({
@@ -59,6 +70,11 @@ export const dialogControls = defineControls({
   preventScroll: { type: 'boolean', defaultValue: true },
   closeOnEscape: { type: 'boolean', defaultValue: true },
   closeOnInteractOutside: { type: 'boolean', defaultValue: false },
+  modal: { type: 'boolean', defaultValue: true },
+  trapFocus: { type: 'boolean', defaultValue: true },
+  // Harness-only flags — mapped to initialFocusEl/finalFocusEl in vanilla Dialog.ts
+  useInitialFocusEl: { type: 'boolean', defaultValue: false },
+  useFinalFocusEl: { type: 'boolean', defaultValue: false },
   role: {
     type: 'select',
     defaultValue: 'dialog',
@@ -160,7 +176,20 @@ export const popoverControls = defineControls({
   modal: { type: 'boolean', defaultValue: false },
   portalled: { type: 'boolean', defaultValue: true },
   autoFocus: { type: 'boolean', defaultValue: true },
-  closeOnEsc: { type: 'boolean', defaultValue: true },
+  closeOnEscape: { type: 'boolean', defaultValue: true },
+  // Harness-only — mapped to initialFocusEl in vanilla Popover.ts
+  useInitialFocusEl: { type: 'boolean', defaultValue: false },
+})
+
+export const tooltipControls = defineControls({
+  interactive: { type: 'boolean', defaultValue: false },
+  disabled: { type: 'boolean', defaultValue: false },
+  openDelay: { type: 'number', defaultValue: 0 },
+  closeDelay: { type: 'number', defaultValue: 0 },
+  closeOnPointerDown: { type: 'boolean', defaultValue: true },
+  closeOnClick: { type: 'boolean', defaultValue: true },
+  closeOnEscape: { type: 'boolean', defaultValue: true },
+  closeOnScroll: { type: 'boolean', defaultValue: true },
 })
 
 export const progressControls = defineControls({
@@ -176,6 +205,9 @@ export const qrCodeControls = defineControls({
 export const radioControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   readOnly: { type: 'boolean', defaultValue: false },
+  orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'vertical' },
+  // Harness-only — marks the grape item invalid via getItemProps
+  invalidItem: { type: 'boolean', defaultValue: false },
 })
 
 export const selectControls = defineControls({
@@ -220,6 +252,8 @@ export const stepsControls = defineControls({
 export const switchControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   readOnly: { type: 'boolean', defaultValue: false },
+  invalid: { type: 'boolean', defaultValue: false },
+  required: { type: 'boolean', defaultValue: false },
 })
 
 export const tabsControls = defineControls({
@@ -256,6 +290,15 @@ export const tourControls = defineControls({
   closeOnEscape: { type: 'boolean', defaultValue: true },
   closeOnInteractOutside: { type: 'boolean', defaultValue: true },
   preventInteraction: { type: 'boolean', defaultValue: true },
+})
+
+export const calendarControls = defineControls({
+  selectionMode: {
+    type: 'select',
+    options: ['single', 'multiple', 'range'] as const,
+    defaultValue: 'single',
+  },
+  closeOnSelect: { type: 'boolean', defaultValue: true },
 })
 
 export const treeControls = defineControls({

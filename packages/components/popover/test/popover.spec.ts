@@ -64,6 +64,24 @@ describe('popover browser tests', () => {
     mount = null
   })
 
+  it('trigger starts closed without aria-expanded', async () => {
+    const trigger = testHook.getTrigger('popover')
+    // spreadProps omits false boolean attrs
+    const el = await trigger.element()
+    expect(el.getAttribute('aria-expanded')).not.toBe('true')
+    await expect.element(trigger).toHaveAttribute('data-state', 'closed')
+  })
+
+  it('marks trigger/content open while visible', async () => {
+    await testHook.clickTrigger('popover')
+    await seeContent()
+
+    const trigger = testHook.getTrigger('popover')
+    await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(trigger).toHaveAttribute('data-state', 'open')
+    await expect.element(testHook.getContent('popover')).toHaveAttribute('data-state', 'open')
+  })
+
   it('[autoFocus=true] should move focus inside the popover content to the first focusable element', async () => {
     await testHook.clickTrigger('popover')
     await seeContentIsNotFocused()
@@ -89,6 +107,8 @@ describe('popover browser tests', () => {
     await testHook.pressKey('Escape')
     await seeContentIsNotFocused()
     await seeTriggerIsFocused()
+    const trigger = await testHook.getTrigger('popover').element()
+    expect(trigger.getAttribute('aria-expanded')).not.toBe('true')
   })
 
   it('[keyboard / modal] on tab: should trap focus within popover content', async () => {
@@ -135,5 +155,33 @@ describe('popover browser tests', () => {
 
     await expect.element(page.getByTestId('button-after')).toHaveFocus()
     await dontSeeContent()
+  })
+
+  it('[portalled=false] mounts content in the inline slot instead of document.body', async () => {
+    await page.getByTestId('portalled').click()
+    await testHook.clickTrigger('popover')
+    await seeContent()
+
+    const content = await testHook.getContent('popover').element()
+    const inlineSlot = document.querySelector('[data-popover-inline-slot]')
+    expect(inlineSlot?.contains(content)).toBe(true)
+    expect(content.parentElement?.parentElement === document.body).toBe(false)
+  })
+
+  it('[closeOnEscape=false] keeps the popover open on Escape', async () => {
+    await page.getByTestId('closeOnEscape').click()
+    await focusTrigger()
+    await testHook.pressKey('Enter')
+    await seeContent()
+    await testHook.pressKey('Escape')
+    await seeContent()
+    await expect.element(testHook.getTrigger('popover')).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('[initialFocusEl] focuses the mapped input when useInitialFocusEl is enabled', async () => {
+    await page.getByTestId('useInitialFocusEl').click()
+    await testHook.clickTrigger('popover')
+    await seeContent()
+    await expect.element(page.getByTestId('input')).toHaveFocus()
   })
 })

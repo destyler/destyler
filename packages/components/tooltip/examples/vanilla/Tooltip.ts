@@ -1,6 +1,7 @@
 import type { ContextFrom } from '@destyler/vanilla'
 import type { MachineState, State as TooltipState } from '../../src/types'
-import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/vanilla'
+import { tooltipControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import * as tooltip from '../../index'
 import '../style.css'
@@ -57,6 +58,14 @@ class TooltipInlineExample extends Component<
         ...api.getContentProps(),
         'data-testid': 'tip-1:content',
       })
+      // Keep a stable interactive target for hover-stay assertions
+      if (!this.contentEl.querySelector('[data-testid="tip-1:content-inner"]')) {
+        const inner = document.createElement('span')
+        inner.dataset.testid = 'tip-1:content-inner'
+        inner.textContent = this.contentEl.textContent || 'Tooltip'
+        this.contentEl.textContent = ''
+        this.contentEl.appendChild(inner)
+      }
     }
   }
 }
@@ -151,6 +160,7 @@ function mountVisualizer(toolbar: ReturnType<typeof Toolbar>, states: { first?: 
 }
 
 export function render(target: HTMLElement): () => void {
+  const controls = useControls(tooltipControls)
   const layout = Layout()
 
   target.innerHTML = ''
@@ -184,11 +194,27 @@ export function render(target: HTMLElement): () => void {
   if (!inlineScope || !portalScope)
     return () => {}
 
-  const toolbar = Toolbar({ active: 'visualizer' })
+  const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
-  const inlineInstance = new TooltipInlineExample(inlineScope, { id: 'tooltip:vanilla:1' })
-  const portalInstance = new TooltipPortalExample(portalScope, { id: 'tooltip:vanilla:2' })
+  const contextSource = {
+    get: () => controls.context as Partial<TooltipMachineContext>,
+    subscribe: (fn: (ctx: Partial<TooltipMachineContext>) => void) => controls.subscribe(fn as any),
+  }
+
+  const inlineInstance = new TooltipInlineExample(inlineScope, {
+    id: 'tooltip:vanilla:1',
+    openDelay: 0,
+    closeDelay: 0,
+  }, {
+    context: contextSource,
+  })
+  const portalInstance = new TooltipPortalExample(portalScope, {
+    id: 'tooltip:vanilla:2',
+    openDelay: 0,
+    closeDelay: 0,
+  })
 
   inlineInstance.init()
   portalInstance.init()
