@@ -1,72 +1,97 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Switch'
 
-let el: HTMLElement
+let mount: HTMLElement | null = null
 
-async function clickCheckbox() {
-  const rootEl = testHook.getRootEl()
-  await userEvent.click(rootEl)
+async function clickSwitch() {
+  await userEvent.click(testHook.getRootEl())
 }
 
-async function seeCheckboxIsChecked() {
-  const inputEl = page.getByArticle(testHook.test.hiddenInput)
-  await expect.element(inputEl).toBeChecked()
+async function seeChecked() {
+  await expect.element(page.getByArticle(testHook.test.hiddenInput)).toBeChecked()
+  await expect.element(testHook.getRootEl()).toHaveAttribute('data-state', 'checked')
+  await expect.element(testHook.getControlEl()).toHaveAttribute('data-state', 'checked')
+  await expect.element(testHook.getLabelEl()).toHaveAttribute('data-state', 'checked')
 }
 
-async function focusCheckbox() {
+async function seeUnchecked() {
+  await expect.element(page.getByArticle(testHook.test.hiddenInput)).not.toBeChecked()
+  await expect.element(testHook.getRootEl()).toHaveAttribute('data-state', 'unchecked')
+  await expect.element(testHook.getControlEl()).toHaveAttribute('data-state', 'unchecked')
+}
+
+async function focusSwitch() {
   await testHook.clickOutside()
   await testHook.pressKey('Tab')
 }
 
-async function seeCheckboxIsFocused() {
-  const inputEl = page.getByArticle(testHook.test.hiddenInput)
-  await expect.element(inputEl).toHaveFocus()
-  const controlEl = testHook.getControlEl()
-  await expect.element(controlEl).toHaveAttribute('data-focus', '')
+async function seeFocused() {
+  await expect.element(page.getByArticle(testHook.test.hiddenInput)).toHaveFocus()
+  await expect.element(testHook.getControlEl()).toHaveAttribute('data-focus', '')
 }
 
-async function seeCheckboxIsDisabled() {
-  const inputEl = page.getByArticle(testHook.test.hiddenInput)
-  await expect.element(inputEl).toBeDisabled()
-  const controlEl = testHook.getControlEl()
-  await expect.element(controlEl).toHaveAttribute('data-disabled', '')
-}
-
-async function clickDisabled() {
-  const el = page.getByTestId('disabled')
-  await userEvent.click(el)
+async function seeDisabled() {
+  await expect.element(page.getByArticle(testHook.test.hiddenInput)).toBeDisabled()
+  await expect.element(testHook.getControlEl()).toHaveAttribute('data-disabled', '')
+  await expect.element(testHook.getRootEl()).toHaveAttribute('data-disabled', '')
 }
 
 describe('[switch] browser tests', () => {
-  beforeEach(async () => {
-    if (el) {
-      document.body.removeChild(el)
-    }
-    el = document.createElement('div')
-    document.body.appendChild(el)
-    render(el)
+  beforeEach(() => {
+    mount = document.createElement('div')
+    document.body.appendChild(mount)
+    render(mount)
+  })
+
+  afterEach(() => {
+    if (mount && mount.parentElement)
+      document.body.removeChild(mount)
+    mount = null
+  })
+
+  it('starts unchecked with data-state=unchecked', async () => {
+    await seeUnchecked()
   })
 
   it('should be checked when clicked', async () => {
-    await clickCheckbox()
-    await seeCheckboxIsChecked()
+    await clickSwitch()
+    await seeChecked()
+  })
+
+  it('should toggle back to unchecked on second click', async () => {
+    await clickSwitch()
+    await seeChecked()
+    await clickSwitch()
+    await seeUnchecked()
   })
 
   it('should be focused when page is tabbed', async () => {
-    await focusCheckbox()
-    await seeCheckboxIsFocused()
+    await focusSwitch()
+    await seeFocused()
   })
 
   it('should be checked when spacebar is pressed while focused', async () => {
-    await focusCheckbox()
+    await focusSwitch()
     await testHook.pressKey(' ')
-    await seeCheckboxIsChecked()
+    await seeChecked()
   })
 
   it('should have disabled attributes when disabled', async () => {
-    await clickDisabled()
-    await seeCheckboxIsDisabled()
+    await page.getByTestId('disabled').click()
+    await seeDisabled()
+  })
+
+  it('should not be focusable when disabled', async () => {
+    await page.getByTestId('disabled').click()
+    await focusSwitch()
+    await expect.element(page.getByArticle(testHook.test.hiddenInput)).not.toHaveFocus()
+  })
+
+  it('should not toggle when readOnly', async () => {
+    await page.getByTestId('readOnly').click()
+    await clickSwitch()
+    await seeUnchecked()
   })
 })
