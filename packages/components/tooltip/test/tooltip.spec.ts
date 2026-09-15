@@ -1,5 +1,5 @@
 import { testHook } from '@destyler/shared-private/test'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Tooltip'
 
@@ -16,6 +16,14 @@ async function dontSeeContent(id: string) {
 
 async function focusPage() {
   await userEvent.click(page.getByTestId('focus'))
+}
+
+
+async function setNumberControl(id: string, value: number) {
+  const control = page.getByTestId(id)
+  await control.fill(String(value))
+  const el = await control.element()
+  el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }))
 }
 
 async function seeTriggerIsFocused(id: string) {
@@ -106,5 +114,44 @@ describe('[tooltip] browser tests', () => {
     await testHook.pressKey('Escape')
     await dontSeeContent('tip-1')
     await expect.element(testHook.getTrigger('tip-1').first()).toHaveAttribute('data-state', 'closed')
+  })
+
+  it('[disabled] does not open on hover', async () => {
+    await page.getByTestId('disabled').click()
+    await testHook.hoverTrigger('tip-1')
+    await expect.element(testHook.getContent('tip-1').first(), { timeout: 300 }).not.toBeVisible()
+  })
+
+  it('[interactive=true] keeps content open while hovering tooltip content', async () => {
+    await page.getByTestId('interactive').click()
+    await setNumberControl('closeDelay', 200)
+
+    await testHook.hoverTrigger('tip-1')
+    await seeContent('tip-1')
+
+    await page.getByTestId('tip-1:content').first().hover()
+    await vi.waitFor(async () => {
+      await expect.element(testHook.getContent('tip-1').first()).toBeVisible()
+    }, { timeout: 1000 })
+    await expect.element(testHook.getContent('tip-1').first()).toHaveAttribute('data-state', 'open')
+  })
+
+  it('[openDelay] waits before opening on hover', async () => {
+    await setNumberControl('openDelay', 300)
+
+    await testHook.hoverTrigger('tip-1')
+    await expect.element(testHook.getContent('tip-1').first(), { timeout: 80 }).not.toBeVisible()
+    await seeContent('tip-1')
+  })
+
+  it('[closeOnPointerDown=false][closeOnClick=false] keeps tooltip open on trigger click', async () => {
+    await page.getByTestId('closeOnPointerDown').click()
+    await page.getByTestId('closeOnClick').click()
+
+    await testHook.hoverTrigger('tip-1')
+    await seeContent('tip-1')
+
+    await testHook.clickTrigger('tip-1')
+    await seeContent('tip-1')
   })
 })

@@ -170,6 +170,17 @@ export const popoverControls = defineControls({
   useInitialFocusEl: { type: 'boolean', defaultValue: false },
 })
 
+export const tooltipControls = defineControls({
+  interactive: { type: 'boolean', defaultValue: false },
+  disabled: { type: 'boolean', defaultValue: false },
+  openDelay: { type: 'number', defaultValue: 0 },
+  closeDelay: { type: 'number', defaultValue: 0 },
+  closeOnPointerDown: { type: 'boolean', defaultValue: true },
+  closeOnClick: { type: 'boolean', defaultValue: true },
+  closeOnEscape: { type: 'boolean', defaultValue: true },
+  closeOnScroll: { type: 'boolean', defaultValue: true },
+})
+
 export const progressControls = defineControls({
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
 })
