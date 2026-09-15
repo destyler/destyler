@@ -201,6 +201,9 @@ export const qrCodeControls = defineControls({
 export const radioControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   readOnly: { type: 'boolean', defaultValue: false },
+  orientation: { type: 'select', options: ['vertical', 'horizontal'] as const, defaultValue: 'vertical' },
+  // Harness-only — marks the grape item invalid via getItemProps
+  invalidItem: { type: 'boolean', defaultValue: false },
 })
 
 export const selectControls = defineControls({

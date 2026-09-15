@@ -129,4 +129,21 @@ describe('radio browser tests', () => {
     await expectToBeChecked('grape')
     await expectToBeUnchecked('apple')
   })
+
+  it('[orientation=horizontal] updates aria-orientation and ArrowRight navigation', async () => {
+    await page.getByTestId('orientation').selectOptions('horizontal')
+    await expect.element(testHook.getRootEl()).toHaveAttribute('aria-orientation', 'horizontal')
+
+    await userEvent.click(page.getByTestId('radio-apple'))
+    await expectToBeChecked('apple')
+    await testHook.pressKey('ArrowRight', 3)
+    await expectToBeChecked('grape')
+    await expectToBeUnchecked('apple')
+  })
+
+  it('[item invalid] marks grape with data-invalid', async () => {
+    await page.getByTestId('invalidItem').click()
+    await expect.element(page.getByTestId('radio-grape')).toHaveAttribute('data-invalid', '')
+    await expect.element(page.getByTestId('control-grape')).toHaveAttribute('data-invalid', '')
+  })
 })
