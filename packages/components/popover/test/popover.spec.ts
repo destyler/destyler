@@ -64,6 +64,24 @@ describe('popover browser tests', () => {
     mount = null
   })
 
+  it('trigger starts closed without aria-expanded', async () => {
+    const trigger = testHook.getTrigger('popover')
+    // spreadProps omits false boolean attrs
+    const el = await trigger.element()
+    expect(el.getAttribute('aria-expanded')).not.toBe('true')
+    await expect.element(trigger).toHaveAttribute('data-state', 'closed')
+  })
+
+  it('marks trigger/content open while visible', async () => {
+    await testHook.clickTrigger('popover')
+    await seeContent()
+
+    const trigger = testHook.getTrigger('popover')
+    await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(trigger).toHaveAttribute('data-state', 'open')
+    await expect.element(testHook.getContent('popover')).toHaveAttribute('data-state', 'open')
+  })
+
   it('[autoFocus=true] should move focus inside the popover content to the first focusable element', async () => {
     await testHook.clickTrigger('popover')
     await seeContentIsNotFocused()
@@ -89,6 +107,8 @@ describe('popover browser tests', () => {
     await testHook.pressKey('Escape')
     await seeContentIsNotFocused()
     await seeTriggerIsFocused()
+    const trigger = await testHook.getTrigger('popover').element()
+    expect(trigger.getAttribute('aria-expanded')).not.toBe('true')
   })
 
   it('[keyboard / modal] on tab: should trap focus within popover content', async () => {

@@ -38,11 +38,33 @@ describe('[tooltip] browser tests', () => {
     }
   })
 
+  it('trigger starts with data-state=closed', async () => {
+    await expect.element(testHook.getTrigger('tip-1').first()).toHaveAttribute('data-state', 'closed')
+  })
+
   it('should open tooltip on hover interaction', async () => {
     await testHook.hoverTrigger('tip-1')
     await seeContent('tip-1')
+    await expect.element(testHook.getTrigger('tip-1').first()).toHaveAttribute('data-state', 'open')
+    await expect.element(testHook.getContent('tip-1').first()).toHaveAttribute('data-state', 'open')
+    await expect.element(testHook.getContent('tip-1').first()).toHaveAttribute('role', 'tooltip')
+
     await testHook.unhoverTrigger('tip-1')
     await dontSeeContent('tip-1')
+    await expect.element(testHook.getTrigger('tip-1').first()).toHaveAttribute('data-state', 'closed')
+  })
+
+  it('sets aria-describedby on trigger while open', async () => {
+    await testHook.hoverTrigger('tip-1')
+    await seeContent('tip-1')
+
+    const trigger = await testHook.getTrigger('tip-1').first().element()
+    const content = await testHook.getContent('tip-1').first().element()
+    expect(trigger.getAttribute('aria-describedby')).toBe(content.id)
+
+    await testHook.unhoverTrigger('tip-1')
+    await dontSeeContent('tip-1')
+    expect(trigger.getAttribute('aria-describedby')).toBeNull()
   })
 
   it('should show only one tooltip at a time', async () => {
@@ -83,5 +105,6 @@ describe('[tooltip] browser tests', () => {
 
     await testHook.pressKey('Escape')
     await dontSeeContent('tip-1')
+    await expect.element(testHook.getTrigger('tip-1').first()).toHaveAttribute('data-state', 'closed')
   })
 })
