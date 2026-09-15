@@ -105,4 +105,34 @@ describe('[toggle] browser tests', () => {
     await expect.element(getItem('bold')).toHaveAttribute('data-disabled', '')
     await seeItemIsNotSelected(['bold'])
   })
+
+  it('[roving] ArrowRight / Home / End move focus', async () => {
+    await getItem('bold').click()
+    await expect.element(getItem('bold')).toHaveFocus()
+
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getItem('italic')).toHaveFocus()
+
+    await testHook.pressKey('End')
+    await expect.element(getItem('underline')).toHaveFocus()
+
+    await testHook.pressKey('Home')
+    await expect.element(getItem('bold')).toHaveFocus()
+  })
+
+  it('[roving][loopFocus] wraps from last to first', async () => {
+    // loopFocus defaults true
+    await getItem('underline').click()
+    await expect.element(getItem('underline')).toHaveFocus()
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getItem('bold')).toHaveFocus()
+  })
+
+  it('[rovingFocus=false] does not move focus on ArrowRight', async () => {
+    await page.getByTestId('rovingFocus').click()
+    await getItem('bold').click()
+    await expect.element(getItem('bold')).toHaveFocus()
+    await testHook.pressKey('ArrowRight')
+    await expect.element(getItem('bold')).toHaveFocus()
+  })
 })
