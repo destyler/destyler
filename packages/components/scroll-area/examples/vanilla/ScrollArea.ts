@@ -74,6 +74,33 @@ class ScrollAreaExample extends Component<scrollArea.Context, scrollArea.Api, Sc
     this.stateListeners.forEach(listener => listener(state))
   }
 
+  /**
+   * Entry-time ResizeObserver often runs before connect spreads element ids.
+   * Re-measure from the known DOM refs and push a RESIZE event so overflow /
+   * scrollToIndex math have real viewport/content sizes.
+   */
+  measureAndSync() {
+    const viewport = this.viewportEl
+    const content = this.contentEl
+    if (!viewport || !content || !this.service)
+      return
+
+    const contentHeight = Math.max(
+      content.scrollHeight,
+      content.offsetHeight,
+      this.api.getTotalSize?.() ?? 0,
+    )
+    const contentWidth = Math.max(content.scrollWidth, content.offsetWidth)
+
+    this.service.send({
+      type: 'RESIZE',
+      viewportWidth: viewport.clientWidth,
+      viewportHeight: viewport.clientHeight,
+      contentWidth,
+      contentHeight,
+    })
+  }
+
   render = () => {
     const api = this.api
 
@@ -194,6 +221,7 @@ export function render(target: HTMLElement) {
         </div>
 
         <div class="scroll-area-info" data-scroll-area-info></div>
+        <div data-testid="scroll-status" data-scroll-status data-scroll-top="0" data-scroll-left="0" data-scroll-count="0">scrollTop=0;count=0</div>
       </div>
     </main>
   `
@@ -206,6 +234,8 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  const scrollStatusEl = layout.main.querySelector<HTMLElement>('[data-scroll-status]')
+
   const instance = new ScrollAreaExample(
     scope,
     {
@@ -214,6 +244,14 @@ export function render(target: HTMLElement) {
         count: ITEM_COUNT,
         itemSize: ITEM_SIZE,
         overscan: 5,
+      },
+      onScroll(details) {
+        if (!scrollStatusEl)
+          return
+        scrollStatusEl.dataset.scrollTop = String(Math.round(details.scrollTop))
+        scrollStatusEl.dataset.scrollLeft = String(Math.round(details.scrollLeft))
+        scrollStatusEl.dataset.scrollCount = String(Number(scrollStatusEl.dataset.scrollCount || '0') + 1)
+        scrollStatusEl.textContent = `scrollTop=${Math.round(details.scrollTop)};count=${scrollStatusEl.dataset.scrollCount}`
       },
     },
     {
@@ -225,6 +263,9 @@ export function render(target: HTMLElement) {
   )
 
   instance.init()
+  // After first paint, ids/styles exist — sync measured dimensions for overflow.
+  instance.measureAndSync()
+  requestAnimationFrame(() => instance.measureAndSync())
 
   const updateVisualizer = (state?: ScrollAreaState) => {
     if (!state)
