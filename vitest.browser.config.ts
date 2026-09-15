@@ -20,6 +20,7 @@ const browserOptimizeDeps = [
 ]
 
 export default defineProject({
+  // Vue feature flags required when the browser suite mounts Vue (canary / adapters).
   define: {
     __VUE_OPTIONS_API__: true,
     __VUE_PROD_DEVTOOLS__: false,
@@ -34,11 +35,10 @@ export default defineProject({
       color: 'green',
     },
     environment: 'happy-dom',
-    // Browser Vitest shares one Vite server; mid-run dep discovery reloads
-    // the client and breaks in-flight imports / setupFiles. Prefer stability
-    // over file parallelism after the suite grew on this PR.
+    // One shared Vite server for the browser project: serialize files so a mid-run
+    // optimizeDeps reload cannot tear down another file's in-flight imports/setup.
     fileParallelism: false,
-    maxConcurrency: 4,
+    // Single retry absorbs rare leftover Vite reload races after optimizeDeps.include.
     retry: 1,
     browser: {
       enabled: true,
