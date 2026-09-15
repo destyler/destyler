@@ -94,3 +94,154 @@ describe('presence machine', () => {
     expect(apiOf(service).skip).toBe(false)
   })
 })
+
+function createAnimatedNode(styles: {
+  animationName: string
+  animationDuration: string
+  animationDelay?: string
+  display?: string
+}) {
+  const listeners = new Map<string, Set<EventListener>>()
+  const liveStyles = {
+    animationName: styles.animationName,
+    animationDuration: styles.animationDuration,
+    animationDelay: styles.animationDelay ?? '0s',
+    display: styles.display ?? 'block',
+  }
+  const win = {
+    getComputedStyle: () => liveStyles,
+  } as unknown as Window
+  const node = {
+    ownerDocument: { defaultView: win, visibilityState: 'visible' as DocumentVisibilityState },
+    addEventListener(type: string, listener: EventListener) {
+      if (!listeners.has(type))
+        listeners.set(type, new Set())
+      listeners.get(type)!.add(listener)
+    },
+    removeEventListener(type: string, listener: EventListener) {
+      listeners.get(type)?.delete(listener)
+    },
+    dispatch(type: string) {
+      const event = {
+        type,
+        target: node,
+        composedPath: () => [node],
+      } as unknown as AnimationEvent
+      listeners.get(type)?.forEach(listener => listener(event))
+    },
+  } as unknown as HTMLElement & { dispatch: (type: string) => void }
+
+  return { node, liveStyles, dispatch: (type: string) => (node as any).dispatch(type) }
+}
+
+describe('presence exit animation paths', () => {
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('enters unmountSuspended and unmounts on animationend', async () => {
+    const onExitComplete = vi.fn()
+    const service = createPresence({ present: true, immediate: true, onExitComplete })
+    const { node, liveStyles, dispatch } = createAnimatedNode({
+      animationName: 'none',
+      animationDuration: '0s',
+    })
+
+    apiOf(service).setNode(node)
+    await Promise.resolve()
+    // Capture prevAnimationName as "none", then switch to a real exit animation
+    liveStyles.animationName = 'fade-out'
+    liveStyles.animationDuration = '0.2s'
+
+    service.setContext({ present: false })
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+    expect(onExitComplete).not.toHaveBeenCalled()
+
+    dispatch('animationend')
+
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(apiOf(service).present).toBe(false)
+    expect(onExitComplete).toHaveBeenCalledTimes(1)
+  })
+
+  it('unmounts on animationcancel while suspended', async () => {
+    const onExitComplete = vi.fn()
+    const service = createPresence({ present: true, immediate: true, onExitComplete })
+    const { node, liveStyles, dispatch } = createAnimatedNode({
+      animationName: 'none',
+      animationDuration: '0s',
+    })
+
+    apiOf(service).setNode(node)
+    await Promise.resolve()
+    liveStyles.animationName = 'fade-out'
+    liveStyles.animationDuration = '0.2s'
+
+    service.setContext({ present: false })
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+    dispatch('animationcancel')
+
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledTimes(1)
+  })
+
+  it('with immediate=false waits for rAF before suspending/unmounting', async () => {
+    const rafCallbacks: FrameRequestCallback[] = []
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
+      rafCallbacks.push(cb)
+      return rafCallbacks.length
+    })
+
+    const onExitComplete = vi.fn()
+    const service = createPresence({ present: true, immediate: false, onExitComplete })
+
+    service.setContext({ present: false })
+    // context watchers notify on microtask
+    await Promise.resolve()
+    // syncPresence schedules via rAF — still mounted until the frame runs
+    expect(service.getState().matches('mounted')).toBe(true)
+    expect(rafCallbacks.length).toBeGreaterThan(0)
+
+    rafCallbacks.splice(0).forEach(cb => cb(0))
+    await Promise.resolve()
+
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledTimes(1)
+
+    vi.unstubAllGlobals()
+  })
+
+  it('falls back to ANIMATION_DURATION timeout when animationend never fires', async () => {
+    vi.useFakeTimers()
+    const onExitComplete = vi.fn()
+    const service = createPresence({ present: true, immediate: true, onExitComplete })
+    const { node, liveStyles } = createAnimatedNode({
+      animationName: 'none',
+      animationDuration: '0s',
+    })
+
+    apiOf(service).setNode(node)
+    await Promise.resolve()
+    liveStyles.animationName = 'fade-out'
+    liveStyles.animationDuration = '0.1s'
+    liveStyles.animationDelay = '0s'
+
+    service.setContext({ present: false })
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+
+    // parseMs(0.1s) + parseMs(0s) + 16.667 ≈ 116.667ms
+    await vi.advanceTimersByTimeAsync(150)
+
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledTimes(1)
+  })
+})
