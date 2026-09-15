@@ -1,6 +1,7 @@
 import type { ContextFrom } from '@destyler/vanilla'
 import type { State as CalendarState } from '../../index'
-import { Layout, StateVisualizer, Toolbar } from '@destyler/shared-private/vanilla'
+import { calendarControls } from '@destyler/shared-private'
+import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import * as calendar from '../../index'
 import '../style.css'
@@ -185,15 +186,6 @@ class CalendarExample extends Component<
         spreadProps(cell, api.getDayTableCellProps({ value }))
         const trigger = document.createElement('button')
         spreadProps(trigger, { type: 'button', ...api.getDayTableCellTriggerProps({ value }) })
-        trigger.onclick = (event) => {
-          event.preventDefault()
-          this.service.send({ type: 'CELL.CLICK', cell: 'day', value })
-        }
-        trigger.onpointermove = (event) => {
-          if (event.pointerType === 'touch')
-            return
-          this.service.send({ type: 'CELL.POINTER_MOVE', cell: 'day', value, focus: true })
-        }
         trigger.textContent = String(value.day)
         cell.appendChild(trigger)
         row.appendChild(cell)
@@ -222,10 +214,6 @@ class CalendarExample extends Component<
         spreadProps(cell, api.getMonthTableCellProps({ ...month, columns: 4 }))
         const trigger = document.createElement('button')
         spreadProps(trigger, { type: 'button', ...api.getMonthTableCellTriggerProps({ ...month, columns: 4 }) })
-        trigger.onclick = (event) => {
-          event.preventDefault()
-          this.service.send({ type: 'CELL.CLICK', cell: 'month', value: month.value })
-        }
         trigger.textContent = month.label
         cell.appendChild(trigger)
         row.appendChild(cell)
@@ -254,10 +242,6 @@ class CalendarExample extends Component<
         spreadProps(cell, api.getYearTableCellProps({ ...year, columns: 4 }))
         const trigger = document.createElement('button')
         spreadProps(trigger, { type: 'button', ...api.getYearTableCellTriggerProps({ ...year, columns: 4 }) })
-        trigger.onclick = (event) => {
-          event.preventDefault()
-          this.service.send({ type: 'CELL.CLICK', cell: 'year', value: year.value })
-        }
         trigger.textContent = year.label
         cell.appendChild(trigger)
         row.appendChild(cell)
@@ -290,29 +274,29 @@ export function render(target: HTMLElement) {
             <select data-calendar-month></select>
             <select data-calendar-year></select>
           </div>
-          <div data-calendar-day-view>
+          <div data-testid="calendar:day-view" data-calendar-day-view>
             <div data-calendar-day-control>
               <button data-calendar-prev>←</button>
-              <button data-calendar-view-trigger>Month</button>
+              <button data-testid="calendar:view-trigger" data-calendar-view-trigger>Month</button>
               <button data-calendar-next>→</button>
             </div>
-            <table data-calendar-day-table>
+            <table data-testid="calendar:day-table" data-calendar-day-table>
               <thead data-calendar-day-head></thead>
               <tbody data-calendar-day-body></tbody>
             </table>
           </div>
           <div style="display: flex; gap: 40px;">
-            <div data-calendar-month-view style="width: 100%;">
+            <div data-testid="calendar:month-view" data-calendar-month-view style="width: 100%;">
               <div data-calendar-month-control>
                 <button data-calendar-month-prev>←</button>
-                <button data-calendar-month-trigger></button>
+                <button data-testid="calendar:month-trigger" data-calendar-month-trigger></button>
                 <button data-calendar-month-next>→</button>
               </div>
               <table data-calendar-month-table>
                 <tbody data-calendar-month-body></tbody>
               </table>
             </div>
-            <div data-calendar-year-view style="width: 100%;">
+            <div data-testid="calendar:year-view" data-calendar-year-view style="width: 100%;">
               <div data-calendar-year-control>
                 <button data-calendar-year-prev>←</button>
                 <span data-calendar-decade></span>
@@ -332,13 +316,20 @@ export function render(target: HTMLElement) {
   if (!rootEl)
     return () => {}
 
+  const controls = useControls(calendarControls)
   const toolbar = Toolbar()
+  toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
   const instance = new CalendarExample(rootEl, {
     id: 'calendar:vanilla',
     locale: 'en',
     selectionMode: 'single',
+  }, {
+    context: {
+      get: () => controls.context as Partial<CalendarMachineContext>,
+      subscribe: (fn: (ctx: Partial<CalendarMachineContext>) => void) => controls.subscribe(fn as any),
+    },
   })
 
   instance.init()
