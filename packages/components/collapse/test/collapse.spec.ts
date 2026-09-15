@@ -1,19 +1,25 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
 import { render } from '../examples/vanilla/Collapse'
 
-let el: HTMLElement
+let el: HTMLElement | null = null
+
+function mount() {
+  el = document.createElement('div')
+  document.body.appendChild(el)
+  render(el)
+}
+
+function unmount() {
+  if (el && el.parentElement)
+    document.body.removeChild(el)
+  el = null
+}
 
 describe('[collapse] browser tests - single / keyboard', () => {
-  beforeEach(async () => {
-    if (el) {
-      document.body.removeChild(el)
-    }
-    el = document.createElement('div')
-    document.body.appendChild(el)
-    render(el)
-  })
+  beforeEach(mount)
+  afterEach(unmount)
 
   it('arrow down, focus next trigger', async () => {
     const trigger = testHook.getTrigger('watercraft')
@@ -48,19 +54,17 @@ describe('[collapse] browser tests - single / keyboard', () => {
 })
 
 describe('[collapse] browser tests - single / pointer', () => {
-  beforeEach(async () => {
-    if (el) {
-      document.body.removeChild(el)
-    }
-    el = document.createElement('div')
-    document.body.appendChild(el)
-    render(el)
-  })
+  beforeEach(mount)
+  afterEach(unmount)
 
-  it('should show content', async () => {
+  it('should show content with aria-expanded', async () => {
     const trigger = testHook.getTrigger('watercraft')
+    const closed = await trigger.element()
+    expect(closed.getAttribute('aria-expanded')).not.toBe('true')
     await trigger.click()
     await expect.element(testHook.getContent('watercraft')).toBeVisible()
+    await expect.element(trigger).toHaveAttribute('aria-expanded', 'true')
+    await expect.element(trigger).toHaveAttribute('data-state', 'open')
   })
 
   it('then clicking the same trigger again: should not close the content', async () => {
@@ -75,18 +79,15 @@ describe('[collapse] browser tests - single / pointer', () => {
     await testHook.getTrigger('automobiles').click()
     await expect.element(testHook.getContent('automobiles')).toBeVisible()
     await expect.element(testHook.getContent('watercraft')).not.toBeVisible()
+    const watercraft = await testHook.getTrigger('watercraft').element()
+    expect(watercraft.getAttribute('aria-expanded')).not.toBe('true')
+    await expect.element(testHook.getTrigger('automobiles')).toHaveAttribute('aria-expanded', 'true')
   })
 })
 
 describe('[collapse] browser tests - multiple / keyboard', () => {
-  beforeEach(async () => {
-    if (el) {
-      document.body.removeChild(el)
-    }
-    el = document.createElement('div')
-    document.body.appendChild(el)
-    render(el)
-  })
+  beforeEach(mount)
+  afterEach(unmount)
 
   it('[multiple=true] on arrow down, focus next trigger', async () => {
     await page.getByTestId('multiple').click()

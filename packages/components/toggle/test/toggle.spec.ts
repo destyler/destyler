@@ -1,9 +1,9 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Toggle'
 
-let mountEl: HTMLElement
+let mountEl: HTMLElement | null = null
 
 type Item = 'bold' | 'italic' | 'underline'
 
@@ -32,27 +32,40 @@ async function seeItemIsNotSelected(items: Item[]) {
 }
 
 async function clickMultiple() {
-  const el = page.getByTestId('multiple')
-  await userEvent.click(el)
+  await userEvent.click(page.getByTestId('multiple'))
 }
 
 describe('[toggle] browser tests', () => {
   beforeEach(() => {
-    if (mountEl) {
-      document.body.removeChild(mountEl)
-    }
     mountEl = document.createElement('div')
     document.body.appendChild(mountEl)
     render(mountEl)
   })
 
+  afterEach(() => {
+    if (mountEl && mountEl.parentElement)
+      document.body.removeChild(mountEl)
+    mountEl = null
+  })
+
+  it('[single] exposes radiogroup semantics', async () => {
+    await expect.element(testHook.getRootEl()).toHaveAttribute('role', 'radiogroup')
+    await expect.element(getItem('bold')).toHaveAttribute('role', 'radio')
+    await expect.element(getItem('bold')).toHaveAttribute('data-state', 'off')
+  })
+
   it('[single] should select on click', async () => {
     await clickItem('bold')
     await seeItemIsSelected(['bold'])
+    await expect.element(getItem('bold')).toHaveAttribute('aria-checked', 'true')
 
     await clickItem('italic')
     await seeItemIsSelected(['italic'])
     await seeItemIsNotSelected(['bold'])
+    // false boolean attrs are omitted by spreadProps
+    const bold = await getItem('bold').element()
+    expect(bold.getAttribute('aria-checked')).not.toBe('true')
+    await expect.element(getItem('italic')).toHaveAttribute('aria-checked', 'true')
   })
 
   it('[single] should select and deselect', async () => {
@@ -63,11 +76,33 @@ describe('[toggle] browser tests', () => {
     await seeItemIsNotSelected(['bold'])
   })
 
-  it('[multiple] should select multiple', async () => {
+  it('[single] should toggle with Space when focused', async () => {
+    await getItem('bold').click()
+    await seeItemIsSelected(['bold'])
+
+    await testHook.pressKey('Space')
+    await seeItemIsNotSelected(['bold'])
+  })
+
+  it('[multiple] should select multiple with aria-pressed', async () => {
     await clickMultiple()
+    await expect.element(testHook.getRootEl()).toHaveAttribute('role', 'group')
+
     await clickItem('bold')
     await clickItem('italic')
 
     await seeItemIsSelected(['bold', 'italic'])
+    await expect.element(getItem('bold')).toHaveAttribute('aria-pressed', 'true')
+    await expect.element(getItem('italic')).toHaveAttribute('aria-pressed', 'true')
+    const underline = await getItem('underline').element()
+    expect(underline.getAttribute('aria-pressed')).not.toBe('true')
+  })
+
+  it('[disabled] marks items disabled', async () => {
+    await page.getByTestId('disabled').click()
+    await expect.element(testHook.getRootEl()).toHaveAttribute('data-disabled', '')
+    await expect.element(getItem('bold')).toBeDisabled()
+    await expect.element(getItem('bold')).toHaveAttribute('data-disabled', '')
+    await seeItemIsNotSelected(['bold'])
   })
 })
