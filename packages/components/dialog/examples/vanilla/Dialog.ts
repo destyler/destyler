@@ -8,6 +8,8 @@ import '../style.css'
 
 type DialogMachineContext = ContextFrom<typeof dialog.machine>
 
+export type DialogRenderOptions = Partial<dialog.Context>
+
 class DialogExample extends Component<
   dialog.Context,
   dialog.Api,
@@ -23,12 +25,15 @@ class DialogExample extends Component<
   private readonly closeButton: HTMLButtonElement
   private readonly formInput: HTMLInputElement
   private readonly saveButton: HTMLButtonElement
+  private readonly openStatusEl: HTMLElement | null
   private readonly stateListeners = new Set<(state: DialogState) => void>()
   private isMounted = false
+  private controlledOpen = false
 
   constructor(rootEl: HTMLElement, context: dialog.Context, options?: any) {
     super(rootEl, context, options)
     this.triggerEl = rootEl.querySelector('[data-dialog-trigger]')
+    this.openStatusEl = rootEl.ownerDocument.querySelector('[data-open-status]')
 
     this.backdropEl = document.createElement('div')
     this.positionerEl = document.createElement('div')
@@ -56,6 +61,11 @@ class DialogExample extends Component<
 
     this.contentEl.append(this.titleEl, this.descriptionEl, actionRow, this.closeButton)
     this.positionerEl.appendChild(this.contentEl)
+
+    if (typeof context.open === 'boolean')
+      this.controlledOpen = context.open
+    else if (context.defaultOpen)
+      this.controlledOpen = true
   }
 
   initService(context: dialog.Context) {
@@ -77,6 +87,33 @@ class DialogExample extends Component<
   override destroy(): void {
     this.detachOverlay()
     super.destroy()
+  }
+
+  private writeOpenStatus(open: boolean | null) {
+    if (!this.openStatusEl)
+      return
+    this.openStatusEl.dataset.openRequested = open == null ? '' : String(open)
+    this.openStatusEl.textContent = `openRequested=${this.openStatusEl.dataset.openRequested}`
+  }
+
+  onOpenChange = (details: { open: boolean }) => {
+    this.writeOpenStatus(details.open)
+  }
+
+  getControlledOpen() {
+    return this.controlledOpen
+  }
+
+  setControlledOpen(next: boolean) {
+    this.controlledOpen = next
+  }
+
+  setOpen(nextOpen: boolean) {
+    this.api.setOpen(nextOpen)
+  }
+
+  syncContext(context: Partial<DialogMachineContext>) {
+    this.applyContext(context)
   }
 
   private attachOverlay() {
@@ -121,7 +158,7 @@ class DialogExample extends Component<
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement, initial?: DialogRenderOptions) {
   const controls = useControls(dialogControls)
   const layout = Layout()
 
@@ -133,6 +170,9 @@ export function render(target: HTMLElement) {
       <button type="button" data-testid="dialog:trigger" data-dialog-trigger>Click me</button>
       <button type="button" data-testid="outside">outside</button>
       <button type="button" data-testid="dialog:final-focus">final focus</button>
+      <button type="button" data-testid="dialog:parent-open" data-dialog-parent-open>Parent Open</button>
+      <button type="button" data-testid="dialog:parent-close" data-dialog-parent-close>Parent Close</button>
+      <div data-testid="open-status" data-open-status data-open-requested="">openRequested=</div>
     </main>
   `
 
@@ -144,14 +184,18 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
+  let instance: DialogExample
+
   const mapControlsContext = (): Partial<DialogMachineContext> => {
     const {
       useInitialFocusEl,
       useFinalFocusEl,
+      openControlled = false,
       ...rest
     } = controls.context as Partial<DialogMachineContext> & {
       useInitialFocusEl?: boolean
       useFinalFocusEl?: boolean
+      openControlled?: boolean
     }
 
     const mapped: Partial<DialogMachineContext> = { ...rest }
@@ -161,10 +205,20 @@ export function render(target: HTMLElement) {
     if (useFinalFocusEl) {
       mapped.finalFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:final-focus"]')
     }
+
+    mapped['open.controlled'] = Boolean(openControlled)
+    if (openControlled)
+      mapped.open = instance.getControlledOpen()
+    mapped.onOpenChange = details => instance.onOpenChange(details)
+
     return mapped
   }
 
-  const instance = new DialogExample(scope, { id: 'dialog:vanilla' }, {
+  instance = new DialogExample(scope, {
+    id: 'dialog:vanilla',
+    onOpenChange: () => {},
+    ...initial,
+  }, {
     context: {
       get: () => mapControlsContext(),
       subscribe: (fn: (ctx: Partial<DialogMachineContext>) => void) =>
@@ -173,6 +227,32 @@ export function render(target: HTMLElement) {
   })
 
   instance.init()
+  instance.syncContext(mapControlsContext())
+
+  const openButton = layout.main.querySelector<HTMLButtonElement>('[data-dialog-parent-open]')
+  const closeButton = layout.main.querySelector<HTMLButtonElement>('[data-dialog-parent-close]')
+
+  openButton?.addEventListener('click', () => {
+    const { openControlled = false } = controls.context as { openControlled?: boolean }
+    if (openControlled) {
+      instance.setControlledOpen(true)
+      instance.syncContext(mapControlsContext())
+    }
+    else {
+      instance.setOpen(true)
+    }
+  })
+
+  closeButton?.addEventListener('click', () => {
+    const { openControlled = false } = controls.context as { openControlled?: boolean }
+    if (openControlled) {
+      instance.setControlledOpen(false)
+      instance.syncContext(mapControlsContext())
+    }
+    else {
+      instance.setOpen(false)
+    }
+  })
 
   const updateVisualizer = (state?: DialogState) => {
     if (!state)

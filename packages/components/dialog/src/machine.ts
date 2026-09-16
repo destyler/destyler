@@ -4,16 +4,17 @@ import { trackDismissableElement } from '@destyler/dismissable'
 import { getComputedStyle, raf } from '@destyler/dom'
 import { trapFocus } from '@destyler/focus-trap'
 import { preventBodyScroll } from '@destyler/remove-scroll'
-import { compact } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'dialog',
-      initial: ctx.open ? 'open' : 'closed',
+      initial: initialOpen ? 'open' : 'closed',
 
       context: {
         role: 'dialog',
@@ -99,7 +100,8 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        // Phase 1: legacy open.controlled still wins (see resolveControllableOpen / #103)
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
       },
       activities: {
         trackDismissableElement(ctx, _evt, { send }) {

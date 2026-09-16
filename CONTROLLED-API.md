@@ -42,7 +42,7 @@ Two intentional paradigms coexist today. That split is **known and deliberate fo
 - select / combobox / color-picker / calendar (**open** only — see value family below)
 - floating-panel (aligned with dialog after [#102](https://github.com/destyler/destyler/pull/102))
 
-There is **no shared bindable helper** yet. Guards such as `isOpenControlled` and actions like `toggleVisibility` are **copy-pasted per machine**.
+Shared helper (Phase 1): `@destyler/utils` `resolveControllableOpen` / `isControlledByFlag` — piloted on **dialog** only. Other open-family machines still copy-paste guards for now.
 
 ### 2. Edit mode
 
@@ -84,13 +84,13 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 
 ### 7. Missing `defaultOpen` / `defaultChecked` / `defaultValue`
 
-Almost everywhere, machines lack `defaultOpen` / `defaultChecked` / `defaultValue`. The **navigation-menu `defaultValue` exception** is intentional historical shape, not a signal that other components forgot a prop.
+Almost everywhere, machines still lack `defaultOpen` / `defaultChecked` / `defaultValue`. **Exceptions:** navigation-menu `defaultValue` (historical), and **dialog `defaultOpen`** (Phase 1 pilot — see Migration Phase 1).
 
-Uncontrolled “start open” is typically seeded by setting `open: true` **without** `open.controlled`. That overloads `open` as both initial seed and controlled sync field — a **known gap**, tracked for unification in [#103](https://github.com/destyler/destyler/issues/103).
+Uncontrolled “start open” may still be seeded by setting `open: true` **without** `open.controlled` (compat). Prefer `defaultOpen` on dialog going forward. Unification for the rest of the open family is tracked in [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 8. Shared helpers
 
-None yet. No `createControllableProp` / `bindable`. Framework hooks (`useMachine` / `useService`) do **not** auto-infer or inject `*.controlled`. Adapters must pass `'open.controlled': true` (or the edit/nav-menu equivalents) explicitly when the parent owns state.
+Phase 1 introduces machine-layer helpers in `@destyler/utils` (`resolveControllableProp`, `resolveControllableOpen`, `isControlledByFlag`). This is **not** Zag’s framework `bindable` — Destyler still uses full xstate machines; adapters are unchanged. Framework hooks (`useMachine` / `useService`) still do **not** auto-infer or inject `*.controlled`. Adapters must pass `'open.controlled': true` (or the edit/nav-menu equivalents) explicitly when the parent owns state.
 
 ---
 
@@ -111,6 +111,25 @@ Checklist:
 For multi-state open trees (e.g. floating-panel `open` / `open.dragging` / `open.resizing`), duplicate the CONTROLLED / guarded CLOSE handlers on each open-tagged state, matching existing house style (tooltip, color-picker).
 
 ---
+
+---
+
+## Migration Phase 1 (dialog pilot — option C dual-track)
+
+Tracked in [#103](https://github.com/destyler/destyler/issues/103). **Long-term direction is option C** (split `default*` vs value, shared helper, eventual prop-presence detection). Phase 1 is **additive** and does **not** rewrite the status-quo contract above.
+
+What landed:
+
+| Piece | Change |
+|-------|--------|
+| Shared helper | `@destyler/utils` — `resolveControllableProp` / `resolveControllableOpen` / `isControlledByFlag` |
+| Dialog | public `defaultOpen?: boolean`; initial open = `defaultOpen ?? open ?? false` |
+| Controlled detection | **Still** `!!ctx['open.controlled']` (via `isControlledByFlag`) — do **not** rely on prop-presence yet |
+| Compat | Uncontrolled `open: true` seed without `open.controlled` still starts open |
+
+**Phase 1 controlled usage still requires `'open.controlled': true`.** Passing only `open` does not make the dialog controlled.
+
+Later phases (not this PR): migrate other open-family machines; eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded `open` seed once adapters adopt `defaultOpen`.
 
 ## Out of scope / future
 

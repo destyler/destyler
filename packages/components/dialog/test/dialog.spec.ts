@@ -1,3 +1,4 @@
+import type { DialogRenderOptions } from '../examples/vanilla/Dialog'
 import { testHook } from '@destyler/shared-private/test'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
@@ -36,6 +37,22 @@ async function toggleControl(id: string) {
 
 async function setSelectControl(id: string, value: string) {
   await page.getByTestId(id).selectOptions(value)
+}
+
+async function clickThroughOverlay(testId: string) {
+  // Dialog positioner is full-viewport fixed; Playwright hit-testing cannot reach
+  // sibling controls underneath. Dispatch a DOM click instead.
+  const el = await page.getByTestId(testId).element()
+  el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }))
+}
+
+function remount(initial?: DialogRenderOptions) {
+  cleanup?.()
+  cleanup = undefined
+  removeOrphanDialogPortals()
+  if (!mount)
+    throw new Error('mount missing')
+  cleanup = render(mount, initial)
 }
 
 describe('dialog browser tests', () => {
@@ -200,5 +217,46 @@ describe('dialog browser tests', () => {
     await testHook.pressKey('Escape')
     await dontSeeContent()
     await expect.element(page.getByTestId('dialog:final-focus')).toHaveFocus()
+  })
+
+  it('[defaultOpen=true] starts open uncontrolled', async () => {
+    remount({ defaultOpen: true })
+    await seeContent()
+    await expect.element(testHook.getContent('dialog')).toHaveAttribute('data-state', 'open')
+  })
+
+  it('[legacy open=true seed] starts open uncontrolled (compat)', async () => {
+    remount({ open: true })
+    await seeContent()
+    await expect.element(testHook.getContent('dialog')).toHaveAttribute('data-state', 'open')
+  })
+
+  it('[open.controlled] close requests onOpenChange but stays open until parent sets open=false', async () => {
+    await page.getByTestId('openControlled').click()
+
+    const openStatus = page.getByTestId('open-status')
+
+    await page.getByTestId('dialog:parent-open').click()
+    await seeContent()
+
+    await testHook.getClearEl('dialog').click()
+    await expect.element(openStatus).toHaveAttribute('data-open-requested', 'false')
+    await seeContent()
+
+    await clickThroughOverlay('dialog:parent-close')
+    await dontSeeContent()
+  })
+
+  it('[open.controlled] trigger requests open but state follows context.open', async () => {
+    await page.getByTestId('openControlled').click()
+
+    const openStatus = page.getByTestId('open-status')
+
+    await testHook.clickTrigger('dialog')
+    await expect.element(openStatus).toHaveAttribute('data-open-requested', 'true')
+    await dontSeeContent()
+
+    await page.getByTestId('dialog:parent-open').click()
+    await seeContent()
   })
 })
