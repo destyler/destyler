@@ -216,4 +216,44 @@ describe('floating-panel browser tests', () => {
 
     await expect.element(getDragTrigger()).toHaveAttribute('data-disabled', '')
   })
+
+  it('uncontrolled: open and close via trigger and close button', async () => {
+    await expect.element(getContent()).toHaveAttribute('data-state', 'closed')
+    await openPanel()
+    await closePanel()
+    await expect.element(getContent()).toHaveAttribute('data-state', 'closed')
+  })
+
+  it('[open.controlled] close requests onOpenChange but stays open until parent sets open=false', async () => {
+    await page.getByTestId('openControlled').click()
+
+    const openStatus = page.getByTestId('open-status')
+
+    // Parent drives open
+    await page.getByTestId('floating-panel:parent-open').click()
+    await expect.element(getContent()).toHaveAttribute('data-state', 'open')
+
+    // User close attempt: callback fires, machine stays open
+    await getCloseTrigger().click()
+    await expect.element(openStatus).toHaveAttribute('data-open-requested', 'false')
+    await expect.element(getContent()).toHaveAttribute('data-state', 'open')
+
+    // Parent syncs open=false → machine closes
+    await page.getByTestId('floating-panel:parent-close').click()
+    await expect.element(getContent()).toHaveAttribute('data-state', 'closed')
+  })
+
+  it('[open.controlled] trigger requests open but state follows context.open', async () => {
+    await page.getByTestId('openControlled').click()
+
+    const openStatus = page.getByTestId('open-status')
+
+    await getTrigger().click()
+    await expect.element(openStatus).toHaveAttribute('data-open-requested', 'true')
+    // Controlled: machine stays closed until context.open is synced
+    await expect.element(getContent()).toHaveAttribute('data-state', 'closed')
+
+    await page.getByTestId('floating-panel:parent-open').click()
+    await expect.element(getContent()).toHaveAttribute('data-state', 'open')
+  })
 })

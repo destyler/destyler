@@ -25,6 +25,7 @@ class FloatingPanelExample extends Component<
   private readonly maximizeTrigger = this.rootEl.querySelector<HTMLButtonElement>('[data-floating-panel-maximize]')
   private readonly restoreTrigger = this.rootEl.querySelector<HTMLButtonElement>('[data-floating-panel-restore]')
   private readonly closeTrigger = this.rootEl.querySelector<HTMLButtonElement>('[data-floating-panel-close]')
+  private readonly openStatusEl = this.rootEl.ownerDocument.querySelector<HTMLElement>('[data-open-status]')
   private readonly resizeTriggers = Array.from(
     this.rootEl.querySelectorAll<HTMLElement>('[data-floating-panel-resize-trigger]'),
   ).map(element => ({
@@ -33,6 +34,7 @@ class FloatingPanelExample extends Component<
   }))
 
   private readonly stateListeners = new Set<(state: FloatingPanelState) => void>()
+  private controlledOpen = false
 
   initService(context: floatingPanel.Context) {
     return floatingPanel.machine(context) as floatingPanel.Service
@@ -48,6 +50,33 @@ class FloatingPanelExample extends Component<
 
   protected override onTransition(state: FloatingPanelState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  private writeOpenStatus(open: boolean | null) {
+    if (!this.openStatusEl)
+      return
+    this.openStatusEl.dataset.openRequested = open == null ? '' : String(open)
+    this.openStatusEl.textContent = `openRequested=${this.openStatusEl.dataset.openRequested}`
+  }
+
+  onOpenChange = (details: { open: boolean }) => {
+    this.writeOpenStatus(details.open)
+  }
+
+  getControlledOpen() {
+    return this.controlledOpen
+  }
+
+  setControlledOpen(next: boolean) {
+    this.controlledOpen = next
+  }
+
+  setOpen(nextOpen: boolean) {
+    this.api.setOpen(nextOpen)
+  }
+
+  syncContext(context: Partial<FloatingPanelMachineContext>) {
+    this.applyContext(context)
   }
 
   render = () => {
@@ -104,6 +133,11 @@ export function render(target: HTMLElement) {
   layout.main.innerHTML = `
     <div data-testid="outside">outside</div>
     <main class="floating-panel">
+      <div>
+        <button class="button" type="button" data-testid="floating-panel:parent-open" data-floating-panel-open>Open</button>
+        <button class="button" type="button" data-testid="floating-panel:parent-close" data-floating-panel-close-btn>Close</button>
+        <div data-testid="open-status" data-open-status data-open-requested="">openRequested=</div>
+      </div>
       <div data-floating-panel-example>
         <button type="button" data-testid="floating-panel:trigger" data-floating-panel-trigger>Toggle Panel</button>
         <div data-floating-panel-positioner>
@@ -145,18 +179,62 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
-  const instance = new FloatingPanelExample(
+  let instance: FloatingPanelExample
+
+  const mapControlsContext = (): Partial<FloatingPanelMachineContext> => {
+    const { openControlled = false, ...rest } = controls.context as Partial<FloatingPanelMachineContext> & {
+      openControlled?: boolean
+    }
+    return {
+      ...rest,
+      'open.controlled': Boolean(openControlled),
+      ...(openControlled ? { open: instance.getControlledOpen() } : {}),
+      'onOpenChange': details => instance.onOpenChange(details),
+    }
+  }
+
+  instance = new FloatingPanelExample(
     scope,
-    { id: 'floating-panel:vanilla' },
+    {
+      id: 'floating-panel:vanilla',
+      onOpenChange: () => {},
+    },
     {
       context: {
-        get: () => controls.context as Partial<FloatingPanelMachineContext>,
-        subscribe: (fn: (ctx: Partial<FloatingPanelMachineContext>) => void) => controls.subscribe(fn as any),
+        get: () => mapControlsContext(),
+        subscribe: (fn: (ctx: Partial<FloatingPanelMachineContext>) => void) =>
+          controls.subscribe(() => fn(mapControlsContext())),
       },
     },
   )
 
   instance.init()
+  instance.syncContext(mapControlsContext())
+
+  const openButton = layout.main.querySelector<HTMLButtonElement>('[data-floating-panel-open]')
+  const closeButton = layout.main.querySelector<HTMLButtonElement>('[data-floating-panel-close-btn]')
+
+  openButton?.addEventListener('click', () => {
+    const { openControlled = false } = controls.context as { openControlled?: boolean }
+    if (openControlled) {
+      instance.setControlledOpen(true)
+      instance.syncContext(mapControlsContext())
+    }
+    else {
+      instance.setOpen(true)
+    }
+  })
+
+  closeButton?.addEventListener('click', () => {
+    const { openControlled = false } = controls.context as { openControlled?: boolean }
+    if (openControlled) {
+      instance.setControlledOpen(false)
+      instance.syncContext(mapControlsContext())
+    }
+    else {
+      instance.setOpen(false)
+    }
+  })
 
   const updateVisualizer = (state?: FloatingPanelState) => {
     if (!state)

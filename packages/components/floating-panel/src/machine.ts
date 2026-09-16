@@ -20,7 +20,7 @@ import { createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { panelStack } from './store'
 
-const { not } = guards
+const { and, not } = guards
 
 const set = {
   size(ctx: MachineContext, value: Size) {
@@ -75,6 +75,7 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       watch: {
+        open: ['toggleVisibility'],
         position: ['setPositionStyle'],
         size: ['setSizeStyle'],
       },
@@ -91,10 +92,20 @@ export function machine(userContext: UserDefinedContext) {
         'closed': {
           tags: ['closed'],
           on: {
-            OPEN: {
+            'CONTROLLED.OPEN': {
               target: 'open',
-              actions: ['invokeOnOpen', 'setAnchorPosition', 'setPositionStyle', 'setSizeStyle'],
+              actions: ['setAnchorPosition', 'setPositionStyle', 'setSizeStyle'],
             },
+            'OPEN': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnOpen'],
+              },
+              {
+                target: 'open',
+                actions: ['invokeOnOpen', 'setAnchorPosition', 'setPositionStyle', 'setSizeStyle'],
+              },
+            ],
           },
         },
 
@@ -103,35 +114,51 @@ export function machine(userContext: UserDefinedContext) {
           entry: ['bringToFrontOfPanelStack'],
           activities: ['trackBoundaryRect'],
           on: {
-            DRAG_START: {
+            'DRAG_START': {
               guard: not('isMaximized'),
               target: 'open.dragging',
               actions: ['setPrevPosition'],
             },
-            RESIZE_START: {
+            'RESIZE_START': {
               guard: not('isMinimized'),
               target: 'open.resizing',
               actions: ['setPrevSize'],
             },
-            CLOSE: {
+            'CONTROLLED.CLOSE': {
               target: 'closed',
-              actions: ['invokeOnClose', 'resetRect'],
+              actions: ['resetRect'],
             },
-            ESCAPE: {
-              guard: 'closeOnEsc',
-              target: 'closed',
-              actions: ['invokeOnClose', 'resetRect'],
-            },
-            MINIMIZE: {
+            'CLOSE': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose', 'resetRect'],
+              },
+            ],
+            'ESCAPE': [
+              {
+                guard: and('isOpenControlled', 'closeOnEsc'),
+                actions: ['invokeOnClose'],
+              },
+              {
+                guard: 'closeOnEsc',
+                target: 'closed',
+                actions: ['invokeOnClose', 'resetRect'],
+              },
+            ],
+            'MINIMIZE': {
               actions: ['setMinimized', 'invokeOnMinimize'],
             },
-            MAXIMIZE: {
+            'MAXIMIZE': {
               actions: ['setMaximized', 'invokeOnMaximize'],
             },
-            RESTORE: {
+            'RESTORE': {
               actions: ['setRestored'],
             },
-            MOVE: {
+            'MOVE': {
               actions: ['setPositionFromKeyboard'],
             },
           },
@@ -142,18 +169,28 @@ export function machine(userContext: UserDefinedContext) {
           activities: ['trackPointerMove'],
           exit: ['clearPrevPosition'],
           on: {
-            DRAG: {
+            'DRAG': {
               actions: ['setPosition'],
             },
-            DRAG_END: {
+            'DRAG_END': {
               target: 'open',
               actions: ['invokeOnDragEnd'],
             },
-            CLOSE: {
+            'CONTROLLED.CLOSE': {
               target: 'closed',
-              actions: ['invokeOnClose', 'resetRect'],
+              actions: ['resetRect'],
             },
-            ESCAPE: {
+            'CLOSE': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose', 'resetRect'],
+              },
+            ],
+            'ESCAPE': {
               target: 'open',
             },
           },
@@ -164,18 +201,28 @@ export function machine(userContext: UserDefinedContext) {
           activities: ['trackPointerMove'],
           exit: ['clearPrevSize'],
           on: {
-            DRAG: {
+            'DRAG': {
               actions: ['setSize'],
             },
-            DRAG_END: {
+            'DRAG_END': {
               target: 'open',
               actions: ['invokeOnResizeEnd'],
             },
-            CLOSE: {
+            'CONTROLLED.CLOSE': {
               target: 'closed',
-              actions: ['invokeOnClose', 'resetRect'],
+              actions: ['resetRect'],
             },
-            ESCAPE: {
+            'CLOSE': [
+              {
+                guard: 'isOpenControlled',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose', 'resetRect'],
+              },
+            ],
+            'ESCAPE': {
               target: 'open',
             },
           },
@@ -187,6 +234,7 @@ export function machine(userContext: UserDefinedContext) {
         closeOnEsc: ctx => !!ctx.closeOnEscape,
         isMaximized: ctx => ctx.isMaximized,
         isMinimized: ctx => ctx.isMinimized,
+        isOpenControlled: ctx => !!ctx['open.controlled'],
       },
       activities: {
         trackPointerMove(ctx, _evt, { send }) {
@@ -416,6 +464,9 @@ export function machine(userContext: UserDefinedContext) {
         },
         invokeOnClose(ctx) {
           ctx.onOpenChange?.({ open: false })
+        },
+        toggleVisibility(ctx, evt, { send }) {
+          send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
         },
         invokeOnDragEnd(ctx) {
           ctx.onPositionChangeEnd?.({ position: ctx.position })

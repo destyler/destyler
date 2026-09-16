@@ -37,102 +37,106 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the floating panel. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
    * The strategy to use for positioning
    * @default "absolute"
    */
-  strategy: 'absolute' | 'fixed'
+  'strategy': 'absolute' | 'fixed'
   /**
    * Whether the panel should be strictly contained within the boundary when dragging
    * @default true
    */
-  allowOverflow: boolean
+  'allowOverflow': boolean
   /**
    * Whether the panel is open
    */
-  open?: boolean | undefined
+  'open'?: boolean | undefined
+  /**
+   * Whether the panel is controlled by the user
+   */
+  'open.controlled'?: boolean | undefined
   /**
    * Whether the panel is draggable
    * @default true
    */
-  draggable?: boolean | undefined
+  'draggable'?: boolean | undefined
   /**
    * Whether the panel is resizable
    * @default true
    */
-  resizable?: boolean | undefined
+  'resizable'?: boolean | undefined
   /**
    * The size of the panel
    */
-  size: Size
+  'size': Size
   /**
    * The minimum size of the panel
    */
-  minSize?: Size | undefined
+  'minSize'?: Size | undefined
   /**
    * The maximum size of the panel
    */
-  maxSize?: Size | undefined
+  'maxSize'?: Size | undefined
   /**
    * The position of the panel
    */
-  position: Point
+  'position': Point
   /**
    * Function that returns the initial position of the panel when it is opened.
    * If provided, will be used instead of the default position.
    */
-  getAnchorPosition?: (details: AnchorPositionDetails) => Point
+  'getAnchorPosition'?: (details: AnchorPositionDetails) => Point
   /**
    * Whether the panel is locked to its aspect ratio
    */
-  lockAspectRatio?: boolean | undefined
+  'lockAspectRatio'?: boolean | undefined
   /**
    * Whether the panel should close when the escape key is pressed
    */
-  closeOnEscape?: boolean | undefined
+  'closeOnEscape'?: boolean | undefined
   /**
    * The boundary of the panel. Useful for recalculating the boundary rect when
    * the it is resized.
    */
-  getBoundaryEl?: () => HTMLElement | null
+  'getBoundaryEl'?: () => HTMLElement | null
   /**
    *  Whether the panel is disabled
    */
-  disabled?: boolean | undefined
+  'disabled'?: boolean | undefined
   /**
    * Function called when the position of the panel changes via dragging
    */
-  onPositionChange?: (details: PositionChangeDetails) => void
+  'onPositionChange'?: (details: PositionChangeDetails) => void
   /**
    * Function called when the position of the panel changes via dragging ends
    */
-  onPositionChangeEnd?: (details: PositionChangeDetails) => void
+  'onPositionChangeEnd'?: (details: PositionChangeDetails) => void
   /**
    * Function called when the panel is opened or closed
    */
-  onOpenChange?: (details: OpenChangeDetails) => void
+  'onOpenChange'?: (details: OpenChangeDetails) => void
   /**
    * Function called when the size of the panel changes via resizing
    */
-  onSizeChange?: (details: SizeChangeDetails) => void
+  'onSizeChange'?: (details: SizeChangeDetails) => void
   /**
    * Function called when the size of the panel changes via resizing ends
    */
-  onSizeChangeEnd?: (details: SizeChangeDetails) => void
+  'onSizeChangeEnd'?: (details: SizeChangeDetails) => void
   /**
    * Whether the panel size and position should be preserved when it is closed
    */
-  persistRect?: boolean | undefined
+  'persistRect'?: boolean | undefined
   /**
    * The snap grid for the panel
    * @default 1
    */
-  gridSize: number
+  'gridSize': number
   /**
    * Function called when the stage of the panel changes
    */
-  onStageChange?: (details: StageChangeDetails) => void
+  'onStageChange'?: (details: StageChangeDetails) => void
 }
 
 interface PrivateContext {
