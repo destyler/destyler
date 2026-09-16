@@ -62,7 +62,11 @@ Use `pnpm --filter "./packages/<name>" <command>` to target a specific package o
 
 ## Coding Guidelines
 
-- **Vue-first parity**: The Vue components are the source of truth. When syncing components across React, Solid, Svelte, Lit, Vanilla, etc., keep the same DOM structure, class names, and portal/teleport rules (`portalled` property).
+- **Framework-agnostic core**: Machines and shared utilities are the source of truth. Framework adapters should offer equal glue (`useMachine` / `normalizeProps` / `mergeProps`) rather than privileging one UI framework.
+- **Example DOM parity**: Where framework *examples* demonstrate the same primitive, keep DOM structure, class names, and `portalled` behavior consistent across React, Solid, Svelte, Lit, Vanilla, Vue, etc.
+- **Portal**: Vue and Solid use the framework’s native portal/teleport. Other adapters may export Destyler `Portal`. Do not add thin wrappers for Vue/Solid — see [CONTROLLED-API.md](./CONTROLLED-API.md).
+- **Controlled open / value**: Follow the MACHINE-layer conventions in [CONTROLLED-API.md](./CONTROLLED-API.md) (`open.controlled` for overlays; value/checked machines currently have no `*.controlled` flag).
+- **Polished component examples**: Vue-as-source-of-truth for polished, product-ready component examples lives in [destyler/ui](https://github.com/destyler/ui), not this core repo.
 - **TypeScript events**: When defining custom event interfaces, prefix them with `Synthetic` to avoid clashing with DOM event names (e.g., `SyntheticClipboardEvent`).
 - **HTML attributes**: Do not redeclare `onChange` in shared `DOMAttributes`. Extend specific element props instead to prevent conflicts.
 - **CSS migrations**: When moving styles out of SFCs or UnoCSS, keep styles component-scoped and prefer CSS custom properties for theming.
