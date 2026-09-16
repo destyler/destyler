@@ -123,6 +123,8 @@ export const floatingPanelControls = defineControls({
   lockAspectRatio: { type: 'boolean', defaultValue: false },
   closeOnEscape: { type: 'boolean', defaultValue: true },
   persistRect: { type: 'boolean', defaultValue: false },
+  // Harness-only — maps to machine `open.controlled`
+  openControlled: { type: 'boolean', defaultValue: false },
 })
 
 export const hoverCardControls = defineControls({
