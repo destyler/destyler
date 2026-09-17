@@ -4,12 +4,13 @@ import { trackDismissableElement } from '@destyler/dismissable'
 import { getComputedStyle, raf } from '@destyler/dom'
 import { trapFocus } from '@destyler/focus-trap'
 import { preventBodyScroll } from '@destyler/remove-scroll'
-import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
+import { compact, isControlled, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  // Phase 2: record user-provided `open` before compact drops undefined keys
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -100,8 +101,8 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        // Phase 1: legacy open.controlled still wins (see resolveControllableOpen / #103)
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
       activities: {
         trackDismissableElement(ctx, _evt, { send }) {

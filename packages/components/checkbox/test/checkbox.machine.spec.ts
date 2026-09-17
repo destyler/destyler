@@ -9,7 +9,7 @@ function createCheckbox(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('checkbox controllable checked (Phase 1)', () => {
+describe('checkbox controllable checked (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -36,9 +36,12 @@ describe('checkbox controllable checked (Phase 1)', () => {
     expect(service.state.context.checked).toBe(true)
   })
 
-  it('uncontrolled: legacy checked seed true (compat)', () => {
-    const service = start({ checked: true })
+  it('uncontrolled: defaultChecked alone still mutates on toggle', () => {
+    const onCheckedChange = vi.fn()
+    const service = start({ defaultChecked: false, onCheckedChange })
+    service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
     expect(service.state.context.checked).toBe(true)
+    expect(onCheckedChange).toHaveBeenCalledWith({ checked: true })
   })
 
   it('uncontrolled: neither defaultChecked nor checked starts false', () => {
@@ -46,8 +49,12 @@ describe('checkbox controllable checked (Phase 1)', () => {
     expect(service.state.context.checked).toBe(false)
   })
 
-  it('uncontrolled: defaultChecked preferred over checked seed for initial', () => {
-    const service = start({ defaultChecked: true, checked: false })
+  it('uncontrolled: defaultChecked preferred over checked for initial when flag false', () => {
+    const service = start({
+      'defaultChecked': true,
+      'checked': false,
+      'checked.controlled': false,
+    })
     expect(service.state.context.checked).toBe(true)
   })
 
@@ -56,9 +63,24 @@ describe('checkbox controllable checked (Phase 1)', () => {
     expect(service.state.context.checked).toBe('indeterminate')
   })
 
-  it('legacy: checked alone still mutates on toggle (no defer)', () => {
+  it('phase 2 presence: checked alone (no flag) defers mutation until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({ checked: false, onCheckedChange })
+    service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
+    expect(service.state.context.checked).toBe(false)
+    expect(onCheckedChange).toHaveBeenCalledWith({ checked: true })
+
+    service.setContext({ checked: true })
+    expect(service.state.context.checked).toBe(true)
+  })
+
+  it('phase 2: checked.controlled false overrides presence (legacy seed escape)', () => {
+    const onCheckedChange = vi.fn()
+    const service = start({
+      'checked': false,
+      'checked.controlled': false,
+      onCheckedChange,
+    })
     service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
     expect(service.state.context.checked).toBe(true)
     expect(onCheckedChange).toHaveBeenCalledWith({ checked: true })
