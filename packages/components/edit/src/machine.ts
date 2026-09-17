@@ -37,7 +37,7 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['value'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['value', 'edit'])) as typeof userContext
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
@@ -45,12 +45,19 @@ export function machine(userContext: UserDefinedContext) {
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: '',
   })
+  // No `defaultEdit`: uncontrolled edit-mode seed uses omit/`'edit.controlled': false`
+  const { initial: initialEdit } = resolveControllableProp({
+    value: ctx.edit,
+    controlledFlag: ctx['edit.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'edit'),
+    fallback: false,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'editable',
 
-      initial: ctx.edit ? 'edit' : 'preview',
-      entry: ctx.edit ? ['focusInput'] : undefined,
+      initial: initialEdit ? 'edit' : 'preview',
+      entry: initialEdit ? ['focusInput'] : undefined,
 
       context: {
         activationMode: 'focus',
@@ -152,7 +159,8 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isEditControlled: ctx => !!ctx['edit.controlled'],
+        // Phase 2 dual-track: explicit edit.controlled wins; else stamped prop presence (#103)
+        isEditControlled: ctx => isControlled(ctx, 'edit'),
         isSubmitEvent: (_ctx, evt) => evt.previousEvent?.type === 'SUBMIT',
       },
 

@@ -23,13 +23,14 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'ids'?: ElementIds | undefined
   /**
-   * The value of the currently active menu item.
+   * The controlled value of the currently active menu item.
+   * Prefer `defaultValue` for uncontrolled seeds (Phase 2 presence).
    */
-  'value': string | null
+  'value'?: string | null | undefined
   /**
-   * The initial value of the menu item to open when rendered.
+   * The initial value of the menu item to open when rendered (uncontrolled).
    */
-  'defaultValue'?: string | undefined
+  'defaultValue'?: string | null | undefined
   /**
    * Function called when the active menu item changes.
    */

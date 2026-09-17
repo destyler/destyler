@@ -46,18 +46,20 @@ Shared helper (Phase 2): `@destyler/utils` `resolveControllableOpen` / `isContro
 
 ### 2. Edit mode
 
-Same CONTROLLED pattern as open, with different names:
+Same CONTROLLED pattern as open, with different names (Phase 2 dual-track):
 
-- `edit.controlled` + `onEditChange`
+- `edit` + `edit.controlled` + `onEditChange`
 - Internal `CONTROLLED.*` + watch on `edit` (parallel to overlay open)
+- Detection: `isControlled(ctx, 'edit')` after stamping `edit` (alongside `value`) via `withControllableProvided`
+- **No `defaultEdit`:** uncontrolled start-in-edit uses `'edit.controlled': false` (or omit `edit` and enter via gestures). Presence of bare `{ edit }` without flag false is presence-controlled.
 
 ### 3. Navigation menu
 
-Openness is encoded as **which trigger is active** via `value`, not a boolean `open`:
+Openness is encoded as **which trigger is active** via `value`, not a boolean `open` (Phase 2 dual-track):
 
 - `value` + `value.controlled` + `defaultValue` + `onValueChange`
-
-Historically the only `default*` companion; checkbox/switch (`defaultChecked`) and radio (`defaultValue`) now share the Phase 1 pattern.
+- Detection: `isControlled(ctx, 'value')` after `withControllableProvided(..., ['value'])`
+- Prefer `defaultValue` for uncontrolled seeds; bare `{ value }` into `machine()` is presence-controlled
 
 ### 4. Value / checked / selection machines
 
@@ -77,7 +79,7 @@ Historically the only `default*` companion; checkbox/switch (`defaultChecked`) a
 - Uncontrolled (flag absent and prop not stamped, or `'*.controlled': false`): user gestures **mutate** context and invoke `on*Change`.
 - Controlled (flag true, or prop stamped without flag false): user gestures **only** invoke `on*Change` with the proposed value; parent must `setContext({ … })`. No `CONTROLLED.*` events — owned fields live in context (watch syncs DOM).
 
-**Phase 1 coverage (complete for shipping packages):** checkbox, switch, radio, tabs, collapse/accordion, toggle, select, combobox (+ `inputValue`), calendar, color-picker, slider, number-input, otp-input, pagination (`page` + `pageSize`), steps, carousel, edit **value** (edit mode already had `edit.controlled`), tree (`expandedValue` + `selectedValue`), splitter (`size`). No rating package. See [#103](https://github.com/destyler/destyler/issues/103).
+**Phase 1 coverage (complete for shipping packages):** checkbox, switch, radio, tabs, collapse/accordion, toggle, select, combobox (+ `inputValue`), calendar, color-picker, slider, number-input, otp-input, pagination (`page` + `pageSize`), steps, carousel, edit **value**, tree (`expandedValue` + `selectedValue`), splitter (`size`), navigation-menu (`value` + historical `defaultValue`). Edit **mode** and navigation-menu finished Phase 2 leftovers after #113. No rating package. See [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 5. Presence
 
@@ -98,7 +100,8 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 |--------|--------|
 | Open | `defaultOpen` on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (open side) |
 | Checked / value Phase 1 | `defaultChecked` on checkbox + switch; `defaultValue` on radio, tabs, collapse, toggle, select, combobox, calendar, color-picker, slider, number-input, otp-input, edit; combobox also `defaultInputValue`; pagination `defaultPage` / `defaultPageSize`; steps `defaultStep`; carousel `defaultPage`; tree `defaultExpandedValue` / `defaultSelectedValue`; splitter `defaultSize` |
-| Navigation menu | `defaultValue` (historical) |
+| Navigation menu | `defaultValue` (Phase 2 presence on `value`) |
+| Edit mode | no `defaultEdit` — use `'edit.controlled': false` for uncontrolled seed |
 
 Prefer `default*` for uncontrolled seeds. Passing `open` / `checked` / `value` into `machine()` without a flag is **presence-controlled** after Phase 2. Escape: `'*.controlled': false` or omit the key. See [#103](https://github.com/destyler/destyler/issues/103).
 
@@ -144,7 +147,7 @@ What landed:
 
 Passing `open` into `machine()` (stamped presence) **does** make it controlled unless `'open.controlled': false`. Prefer `defaultOpen` for uncontrolled.
 
-Skipped in Phase 1 open-family rollout: navigation-menu (already had `value.controlled`), presence, edit mode (`edit.controlled` — value side landed in wave 4).
+Skipped in Phase 1 open-family rollout: navigation-menu (already had `value.controlled`), presence, edit mode (`edit.controlled` — value side landed in wave 4; both later migrated in Phase 2 leftovers).
 
 ### Migration Phase 1 (value / checked)
 
@@ -208,9 +211,10 @@ Phase 2 is **rolled out** beyond the dialog/checkbox pilots:
 | Family | Machines / props |
 |--------|------------------|
 | Open | dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel; select / combobox / calendar / color-picker **`open`** |
-| Value / checked | checkbox, switch, radio, tabs, collapse, toggle, select / combobox (+ `inputValue`), calendar / color-picker **value**, slider, number-input, otp-input, pagination (`page` + `pageSize`), steps, carousel, edit **value**, tree (`expandedValue` + `selectedValue`), splitter (`size`) |
+| Value / checked | checkbox, switch, radio, tabs, collapse, toggle, select / combobox (+ `inputValue`), calendar / color-picker **value**, slider, number-input, otp-input, pagination (`page` + `pageSize`), steps, carousel, edit **value**, tree (`expandedValue` + `selectedValue`), splitter (`size`), **navigation-menu** (`value`) |
+| Edit mode | edit (`edit` — Phase 2 dual-track; no `defaultEdit`) |
 
-Skipped (not Phase-1 controllable targets here): navigation-menu (already had `value.controlled` + `defaultValue`), presence, edit **mode** (`edit.controlled` — still flag-only `!!ctx['edit.controlled']`).
+Skipped: presence (always parent-driven).
 
 Pattern per machine: `withControllableProvided(userContext, [...props])` **before** `compact()`; guards/setters use `isControlled`; `resolveControllableProp` / `resolveControllableOpen` pass `valueProvided`. CONTROLLED/watch/gating retained; `*.controlled` flags **not** removed (Phase 3).
 
@@ -229,7 +233,7 @@ Pattern per machine: `withControllableProvided(userContext, [...props])` **befor
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C**. **Phase 1 complete**; **Phase 2 rolled out** (prop-presence dual-track across open + value families; flags retained). Phase 3 remains open.
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C**. **Phase 1 complete**; **Phase 2 rolled out** (prop-presence dual-track across open + value families, plus navigation-menu `value` and edit **mode**; flags retained). Phase 3 remains open.
 
 ---
 
