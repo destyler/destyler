@@ -73,9 +73,18 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    */
   'ids'?: ElementIds | undefined
   /**
-   * The current value of the combobox's input
+   * The controlled value of the combobox's input
    */
-  'inputValue': string
+  'inputValue'?: string | undefined
+  /**
+   * The initial value of the combobox's input when it is not controlled.
+   * Prefer this over seeding with `inputValue` for uncontrolled usage.
+   */
+  'defaultInputValue'?: string | undefined
+  /**
+   * Whether the combobox input value is controlled by the user
+   */
+  'inputValue.controlled'?: boolean | undefined
   /**
    * The `name` attribute of the combobox's input. Useful for form submission
    */
@@ -110,9 +119,18 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    */
   'highlightedValue': string | null
   /**
-   * The keys of the selected items
+   * The controlled keys of the selected items
    */
-  'value': string[]
+  'value'?: string[] | undefined
+  /**
+   * The initial keys of the selected items when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string[] | undefined
+  /**
+   * Whether the combobox value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * Defines the auto-completion behavior of the combobox.
    *

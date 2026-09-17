@@ -130,9 +130,18 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'closeOnSelect'?: boolean | undefined
   /**
-   * The selected date(s).
+   * The controlled selected date(s).
    */
-  'value': DateValue[]
+  'value'?: DateValue[] | undefined
+  /**
+   * The initial selected date(s) when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: DateValue[] | undefined
+  /**
+   * Whether the calendar value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * The focused date.
    */

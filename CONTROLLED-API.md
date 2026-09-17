@@ -61,7 +61,7 @@ Historically the only `default*` companion; checkbox/switch (`defaultChecked`) a
 
 ### 4. Value / checked / selection machines
 
-**Phase 1 (checkbox, switch, radio, tabs, collapse/accordion, toggle):** same dual-track spirit as open family:
+**Phase 1 (checkbox, switch, radio, tabs, collapse/accordion, toggle, select, combobox, calendar, color-picker):** same dual-track spirit as open family:
 
 | Piece | Role |
 |-------|------|
@@ -77,7 +77,9 @@ Historically the only `default*` companion; checkbox/switch (`defaultChecked`) a
 - Uncontrolled (`*.controlled` falsy): user gestures **mutate** context and invoke `on*Change` (legacy default).
 - Controlled: user gestures **only** invoke `on*Change` with the proposed value; parent must `setContext({ checked | value })`. No `CONTROLLED.*` events — checked/value live in context (watch syncs DOM).
 
-**Still always-mutate (not yet migrated):** select/combobox/calendar/color-picker **value**, tree, slider, number-input, etc. See [#103](https://github.com/destyler/destyler/issues/103).
+**Phase 1 wave 3 (this PR):** select / combobox **value** (+ combobox `inputValue` / `defaultInputValue` / `inputValue.controlled`), calendar **value**, color-picker **value**.
+
+**Still always-mutate (not yet migrated):** tree, slider, number-input, otp, pagination, steps, carousel, etc. See [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 5. Presence
 
@@ -97,9 +99,9 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 | Family | Status |
 |--------|--------|
 | Open | `defaultOpen` on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (open side) |
-| Checked / value Phase 1 | `defaultChecked` on checkbox + switch; `defaultValue` on radio, tabs, collapse, toggle |
+| Checked / value Phase 1 | `defaultChecked` on checkbox + switch; `defaultValue` on radio, tabs, collapse, toggle, select, combobox, calendar, color-picker; combobox also `defaultInputValue` |
 | Navigation menu | `defaultValue` (historical) |
-| Remaining value machines | still missing `default*` (select/combobox value, tree, slider, …) |
+| Remaining value machines | still missing `default*` (tree, slider, number-input, …) |
 
 Uncontrolled seeds via `open` / `checked` / `value` without `*.controlled` remain supported (compat). Prefer `default*` going forward. See Migration Phase 1 / [#103](https://github.com/destyler/destyler/issues/103).
 
@@ -145,7 +147,7 @@ What landed:
 
 **Phase 1 controlled usage still requires `'open.controlled': true`.** Passing only `open` does not make the component controlled.
 
-Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), presence, edit (`edit.controlled`). Value/checked ownership on select/combobox/calendar/color-picker is unchanged.
+Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), presence, edit (`edit.controlled`). Value ownership on select/combobox/calendar/color-picker lands in value/checked wave 3 (this PR).
 
 ### Migration Phase 1 (value / checked)
 
@@ -154,17 +156,18 @@ Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), pr
 | checkbox / switch | `defaultChecked` + `checked.controlled`; gated `set.checked` via `isControlledByFlag` |
 | radio | `defaultValue` + `value.controlled`; gated `set.value` |
 | tabs / collapse / toggle | `defaultValue` + `value.controlled`; gated `set.value` (wave 2) |
+| select / combobox / calendar / color-picker | `defaultValue` + `value.controlled`; gated value setters (wave 3); combobox also `defaultInputValue` + `inputValue.controlled` |
 | Initial | `default* ?? value ?? fallback` via `resolveControllableProp` |
 | Controlled detection | **Still** explicit `*.controlled` flag — not prop-presence |
 | Compat | Absent flag → legacy always-mutate |
 
-**Deferred:** select/combobox **value**, tree, slider, number-input, etc.
+**Deferred:** tree, slider, number-input, otp, pagination, steps, carousel, etc.
 
 Later phases: eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded seed props once adapters adopt `default*`.
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). Open-family + value/checked Phase 1 (through tabs/collapse/toggle) have started; remaining value machines follow in later PRs.
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). Open-family + value/checked Phase 1 (through select/combobox/calendar/color-picker value) have started; remaining value machines follow in later PRs.
 
 Still open:
 
