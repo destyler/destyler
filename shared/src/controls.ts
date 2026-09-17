@@ -75,6 +75,8 @@ export const dialogControls = defineControls({
   // Harness-only flags — mapped to initialFocusEl/finalFocusEl in vanilla Dialog.ts
   useInitialFocusEl: { type: 'boolean', defaultValue: false },
   useFinalFocusEl: { type: 'boolean', defaultValue: false },
+  // Harness-only — maps to machine `open.controlled`
+  openControlled: { type: 'boolean', defaultValue: false },
   role: {
     type: 'select',
     defaultValue: 'dialog',

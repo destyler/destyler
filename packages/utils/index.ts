@@ -1,4 +1,5 @@
 export * from './src/array'
+export * from './src/controllable'
 export * from './src/equal'
 export * from './src/functions'
 export * from './src/guard'

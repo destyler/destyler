@@ -80,6 +80,11 @@ interface PublicContext
    */
   'open'?: boolean | undefined
   /**
+   * The initial open state of the dialog when it is not controlled.
+   * Prefer this over seeding with `open` for uncontrolled usage.
+   */
+  'defaultOpen'?: boolean | undefined
+  /**
    * Whether the dialog is controlled by the user
    */
   'open.controlled'?: boolean | undefined
