@@ -20,38 +20,47 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the accordion. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
    * Whether multiple accordion items can be expanded at the same time.
    * @default false
    */
-  multiple?: boolean | undefined
+  'multiple'?: boolean | undefined
   /**
    * Whether an accordion item can be closed after it has been expanded.
    * @default false
    */
-  collapsible?: boolean | undefined
+  'collapsible'?: boolean | undefined
   /**
-   * The `value` of the accordion items that are currently being expanded.
+   * The controlled `value` of the accordion items that are currently being expanded.
    */
-  value: string[]
+  'value'?: string[] | undefined
+  /**
+   * The initial expanded values when the accordion is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string[] | undefined
+  /**
+   * Whether the accordion value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * Whether the accordion items are disabled
    */
-  disabled?: boolean | undefined
+  'disabled'?: boolean | undefined
   /**
    * The callback fired when the state of expanded/collapsed accordion items changes.
    */
-  onValueChange?: (details: ValueChangeDetails) => void
+  'onValueChange'?: (details: ValueChangeDetails) => void
   /**
    * The callback fired when the focused accordion item changes.
    */
-  onFocusChange?: (details: FocusChangeDetails) => void
+  'onFocusChange'?: (details: FocusChangeDetails) => void
   /**
    *  The orientation of the accordion items.
    *  @default "vertical"
    */
-  orientation?: 'horizontal' | 'vertical' | undefined
+  'orientation'?: 'horizontal' | 'vertical' | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

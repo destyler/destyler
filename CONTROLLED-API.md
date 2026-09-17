@@ -61,7 +61,7 @@ Historically the only `default*` companion; checkbox/switch (`defaultChecked`) a
 
 ### 4. Value / checked / selection machines
 
-**Phase 1 (pilot — checkbox, switch, radio):** same dual-track spirit as open family:
+**Phase 1 (checkbox, switch, radio, tabs, collapse/accordion, toggle):** same dual-track spirit as open family:
 
 | Piece | Role |
 |-------|------|
@@ -77,7 +77,7 @@ Historically the only `default*` companion; checkbox/switch (`defaultChecked`) a
 - Uncontrolled (`*.controlled` falsy): user gestures **mutate** context and invoke `on*Change` (legacy default).
 - Controlled: user gestures **only** invoke `on*Change` with the proposed value; parent must `setContext({ checked | value })`. No `CONTROLLED.*` events — checked/value live in context (watch syncs DOM).
 
-**Still always-mutate (not yet migrated):** tabs, collapse/accordion, toggle, select/combobox/calendar/color-picker **value**, tree, slider, number-input, etc. See [#103](https://github.com/destyler/destyler/issues/103).
+**Still always-mutate (not yet migrated):** select/combobox/calendar/color-picker **value**, tree, slider, number-input, etc. See [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 5. Presence
 
@@ -97,9 +97,9 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 | Family | Status |
 |--------|--------|
 | Open | `defaultOpen` on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (open side) |
-| Checked / value pilot | `defaultChecked` on checkbox + switch; `defaultValue` on radio |
+| Checked / value Phase 1 | `defaultChecked` on checkbox + switch; `defaultValue` on radio, tabs, collapse, toggle |
 | Navigation menu | `defaultValue` (historical) |
-| Remaining value machines | still missing `default*` |
+| Remaining value machines | still missing `default*` (select/combobox value, tree, slider, …) |
 
 Uncontrolled seeds via `open` / `checked` / `value` without `*.controlled` remain supported (compat). Prefer `default*` going forward. See Migration Phase 1 / [#103](https://github.com/destyler/destyler/issues/103).
 
@@ -147,23 +147,24 @@ What landed:
 
 Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), presence, edit (`edit.controlled`). Value/checked ownership on select/combobox/calendar/color-picker is unchanged.
 
-### Migration Phase 1 (value / checked pilot)
+### Migration Phase 1 (value / checked)
 
 | Piece | Change |
 |-------|--------|
 | checkbox / switch | `defaultChecked` + `checked.controlled`; gated `set.checked` via `isControlledByFlag` |
 | radio | `defaultValue` + `value.controlled`; gated `set.value` |
+| tabs / collapse / toggle | `defaultValue` + `value.controlled`; gated `set.value` (wave 2) |
 | Initial | `default* ?? value ?? fallback` via `resolveControllableProp` |
 | Controlled detection | **Still** explicit `*.controlled` flag — not prop-presence |
 | Compat | Absent flag → legacy always-mutate |
 
-**Deferred:** tabs, collapse/accordion, toggle, select/combobox **value**, tree, slider, number-input, etc.
+**Deferred:** select/combobox **value**, tree, slider, number-input, etc.
 
 Later phases: eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded seed props once adapters adopt `default*`.
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). Open-family + checkbox/switch/radio Phase 1 have started; remaining value machines follow in later PRs.
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). Open-family + value/checked Phase 1 (through tabs/collapse/toggle) have started; remaining value machines follow in later PRs.
 
 Still open:
 

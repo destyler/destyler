@@ -1,14 +1,14 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { raf } from '@destyler/dom'
-import { add, compact, isEqual, remove } from '@destyler/utils'
+import { add, compact, isControlledByFlag, isEqual, remove, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and } = guards
 
 const invoke = {
-  change(ctx: MachineContext) {
-    ctx.onValueChange?.({ value: Array.from(ctx.value) })
+  change(ctx: MachineContext, value: string[]) {
+    ctx.onValueChange?.({ value: Array.from(value) })
   },
 }
 
@@ -16,25 +16,37 @@ const set = {
   value(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      invoke.change(ctx, value)
+      return
+    }
     ctx.value = value
-    invoke.change(ctx)
+    invoke.change(ctx, value)
   },
 }
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: [] as string[],
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'toggle-group',
       initial: 'idle',
 
       context: {
-        value: [],
         disabled: false,
         orientation: 'horizontal',
         rovingFocus: true,
         loopFocus: true,
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
         focusedId: null,
         isTabbingBackward: false,
         isClickFocus: false,

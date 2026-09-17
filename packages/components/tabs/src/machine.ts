@@ -1,17 +1,17 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { clickIfLink, getFocusables, isAnchorElement, nextTick, raf } from '@destyler/dom'
 import { trackElementRect } from '@destyler/element-rect'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not } = guards
 
 const invoke = {
-  change: (ctx: MachineContext) => {
-    if (ctx.value == null)
+  change: (ctx: MachineContext, value: string | null) => {
+    if (value == null)
       return
-    ctx.onValueChange?.({ value: ctx.value })
+    ctx.onValueChange?.({ value })
   },
   focusChange: (ctx: MachineContext) => {
     if (ctx.focusedValue == null)
@@ -24,8 +24,13 @@ const set = {
   value: (ctx: MachineContext, value: string | null) => {
     if (isEqual(value, ctx.value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      invoke.change(ctx, value)
+      return
+    }
     ctx.value = value
-    invoke.change(ctx)
+    invoke.change(ctx, value)
   },
   focusedValue: (ctx: MachineContext, value: string | null) => {
     if (isEqual(value, ctx.focusedValue))
@@ -37,6 +42,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: null as string | null,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       initial: 'idle',
@@ -45,14 +56,15 @@ export function machine(userContext: UserDefinedContext) {
         dir: 'ltr',
         orientation: 'horizontal',
         activationMode: 'automatic',
-        value: null,
         loopFocus: true,
         composite: true,
         navigate(details) {
           clickIfLink(details.node)
         },
         ...ctx,
-        focusedValue: ctx.value ?? null,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
+        focusedValue: initialValue ?? null,
         ssr: true,
         indicatorState: {
           rendered: false,
