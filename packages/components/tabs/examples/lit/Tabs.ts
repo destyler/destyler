@@ -17,7 +17,7 @@ export class TabsElement extends LitElement {
     this,
     tabs.machine({
       id: 'tabs:lit',
-      value: 'nils',
+      defaultValue: 'nils',
     }),
     {
       context: {

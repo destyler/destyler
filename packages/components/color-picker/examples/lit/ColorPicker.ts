@@ -21,7 +21,7 @@ export class ColorPickerElement extends LitElement {
       id: 'color-picker:lit',
       name: 'color',
       format: 'hsla',
-      value: colorPicker.parse('hsl(0, 100%, 50%)'),
+      defaultValue: colorPicker.parse('hsl(0, 100%, 50%)'),
     }),
     {
       context: {

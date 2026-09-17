@@ -137,7 +137,7 @@ export function render(target: HTMLElement) {
 
   const instance = new EditExample(rootEl, {
     id: 'edit:vanilla',
-    value: 'Hello World',
+    defaultValue: 'Hello World',
   }, {
     context: {
       get: () => controls.context as Partial<EditMachineContext>,

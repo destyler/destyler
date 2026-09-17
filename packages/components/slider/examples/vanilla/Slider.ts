@@ -196,7 +196,7 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
-  const instance = new SliderExample(scope, { id: 'slider:vanilla', name: 'quantity', value: [0] }, {
+  const instance = new SliderExample(scope, { id: 'slider:vanilla', name: 'quantity', defaultValue: [0] }, {
     context: {
       get: () => controls.context as Partial<SliderMachineContext>,
       subscribe: (fn: (ctx: Partial<SliderMachineContext>) => void) => controls.subscribe(fn as any),

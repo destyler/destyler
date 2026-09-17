@@ -17,7 +17,7 @@ export class EditElement extends LitElement {
     this,
     edit.machine({
       id: 'edit:lit',
-      value: 'Hello World',
+      defaultValue: 'Hello World',
     }),
     {
       context: {

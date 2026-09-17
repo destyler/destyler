@@ -32,7 +32,7 @@ export class SliderElement extends LitElement {
     slider.machine({
       id: 'slider:lit',
       name: 'quantity',
-      value: [0],
+      defaultValue: [0],
     }),
     {
       context: {

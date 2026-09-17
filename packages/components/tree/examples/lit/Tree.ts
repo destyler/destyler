@@ -34,7 +34,7 @@ export class TreeElement extends LitElement {
     tree.machine({
       id: 'tree:lit',
       collection: this.collection,
-      expandedValue: defaultExpandedBranches,
+      defaultExpandedValue: defaultExpandedBranches,
     }),
     {
       context: {

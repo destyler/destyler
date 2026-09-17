@@ -135,7 +135,7 @@ export function render(target: HTMLElement) {
   toolbar.setControlsSlot(() => ControlsPanel(controls))
   layout.root.appendChild(toolbar.root)
 
-  const instance = new TabsExample(scope, { id: 'tabs:vanilla', value: 'nils' }, {
+  const instance = new TabsExample(scope, { id: 'tabs:vanilla', defaultValue: 'nils' }, {
     context: {
       get: () => controls.context as Partial<TabsMachineContext>,
       subscribe: (fn: (ctx: Partial<TabsMachineContext>) => void) => controls.subscribe(fn as any),

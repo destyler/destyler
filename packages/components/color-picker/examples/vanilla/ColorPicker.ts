@@ -346,7 +346,7 @@ export function render(target: HTMLElement) {
     id: 'color-picker:vanilla',
     name: 'color',
     format: 'hsla',
-    value: colorPicker.parse('hsl(0, 100%, 50%)'),
+    defaultValue: colorPicker.parse('hsl(0, 100%, 50%)'),
   }, {
     context: {
       get: () => controls.context as Partial<ColorPickerMachineContext>,
