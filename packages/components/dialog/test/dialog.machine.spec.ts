@@ -10,7 +10,7 @@ function createDialog(ctx: Record<string, unknown> = {}) {
   return service
 }
 
-describe('dialog controllable open (Phase 1)', () => {
+describe('dialog controllable open (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -37,9 +37,12 @@ describe('dialog controllable open (Phase 1)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('uncontrolled: legacy open seed true starts open (compat)', () => {
-    const service = start({ open: true })
+  it('uncontrolled: defaultOpen alone does not defer transitions', () => {
+    const onOpenChange = vi.fn()
+    const service = start({ defaultOpen: false, onOpenChange })
+    service.send('OPEN')
     expect(service.state.matches('open')).toBe(true)
+    expect(onOpenChange).toHaveBeenCalledWith({ open: true })
   })
 
   it('uncontrolled: neither defaultOpen nor open starts closed', () => {
@@ -47,19 +50,37 @@ describe('dialog controllable open (Phase 1)', () => {
     expect(service.state.matches('closed')).toBe(true)
   })
 
-  it('uncontrolled: defaultOpen preferred over open seed for initial', () => {
-    const service = start({ defaultOpen: true, open: false })
+  it('uncontrolled: defaultOpen preferred over open for initial seed', () => {
+    const service = start({ defaultOpen: true, open: false, 'open.controlled': false })
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('controlled: open.controlled required — open alone does not defer transitions', () => {
+  it('Phase 2 presence: open alone (no flag) defers transitions', async () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('closed')).toBe(true)
 
     service.send('OPEN')
-    expect(service.state.matches('open')).toBe(true)
+    expect(service.state.matches('closed')).toBe(true)
     expect(onOpenChange).toHaveBeenCalledWith({ open: true })
+
+    service.setContext({ open: true })
+    await Promise.resolve()
+    expect(service.state.matches('open')).toBe(true)
+  })
+
+  it('Phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
+    const onOpenChange = vi.fn()
+    const service = start({
+      'open': true,
+      'open.controlled': false,
+      onOpenChange,
+    })
+    expect(service.state.matches('open')).toBe(true)
+
+    service.send('CLOSE')
+    expect(service.state.matches('closed')).toBe(true)
+    expect(onOpenChange).toHaveBeenCalledWith({ open: false })
   })
 
   it('controlled: with open.controlled, OPEN only invokes onOpenChange until parent syncs', async () => {

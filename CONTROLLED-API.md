@@ -139,10 +139,10 @@ What landed:
 | Shared helper | `@destyler/utils` — `resolveControllableProp` / `resolveControllableOpen` / `isControlledByFlag` |
 | Open family `defaultOpen` | dialog (pilot), then popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (**open** only) |
 | Initial open | `defaultOpen ?? open ?? false` via `resolveControllableOpen` (adapt open/closed state names per machine, e.g. menu/select `idle`, combobox `suggesting`) |
-| Controlled detection | **Still** `!!ctx['open.controlled']` (via `isControlledByFlag`) — do **not** rely on prop-presence yet |
+| Controlled detection | Most open machines: still `isControlledByFlag`. **Phase 2 pilots (dialog):** `isControlled` (flag + stamped presence) |
 | Compat | Uncontrolled `open: true` seed without `open.controlled` still starts open |
 
-**Phase 1 controlled usage still requires `'open.controlled': true`.** Passing only `open` does not make the component controlled.
+**Phase 1 (non-pilot) controlled usage still requires `'open.controlled': true`.** Dialog Phase 2 pilot: passing `open` into `machine()` (stamped presence) **does** make it controlled unless `'open.controlled': false`.
 
 Skipped in Phase 1 open-family rollout: navigation-menu (already had `value.controlled`), presence, edit mode (`edit.controlled` — value side landed in wave 4).
 
@@ -161,19 +161,71 @@ Skipped in Phase 1 open-family rollout: navigation-menu (already had `value.cont
 | tree | `defaultExpandedValue` + `expandedValue.controlled`; `defaultSelectedValue` + `selectedValue.controlled` (tree/splitter leftovers) |
 | splitter | `defaultSize` + `size.controlled`; gated `set.size` (tree/splitter leftovers) |
 | Initial | `default* ?? value ?? fallback` via `resolveControllableProp` |
-| Controlled detection | **Still** explicit `*.controlled` flag — not prop-presence |
+| Controlled detection | Most value machines: still `isControlledByFlag`. **Phase 2 pilots (checkbox):** `isControlled` (flag + stamped presence) |
 | Compat | Absent flag → legacy always-mutate |
 
-### What’s left (Phase 2 / 3)
+### Migration Phase 2 (prop-presence dual-track)
+
+Tracked in [#103](https://github.com/destyler/destyler/issues/103). Phase 2 extends `@destyler/utils` controllable helpers so **ownership** can come from **user prop presence**, without removing Phase 1 `*.controlled` flags.
+
+#### Rule (dual-track)
+
+1. Explicit `*.controlled === true` → **controlled**
+2. Explicit `*.controlled === false` → **uncontrolled** (escape hatch for legacy seed when the value key is also passed)
+3. Flag **absent** → controlled iff the prop was **user-provided** (own-key presence recorded before `compact()`)
+
+Initial value is unchanged: `default* ?? value ?? fallback`.
+
+#### Why a side channel (`controllable.provided`)
+
+`compact()` drops keys whose value is `undefined`, and adapters often merge reactive control bags that always include `open` / `checked`. Naive `hasProp(ctx, 'open')` on live machine context **false-positives**.
+
+**Smallest correct fix:** stamp `controllable.provided: string[]` onto the user context **before** `compact()` via `withControllableProvided(userContext, ['open'])`. The array survives compaction. Machine guards call `isControlled(ctx, prop)` which reads the flag first, then the stamp.
+
+#### Helpers (`@destyler/utils`)
+
+| Export | Role |
+|--------|------|
+| `resolveIsControlled(flag, valueProvided)` | Pure dual-track boolean |
+| `resolveControllableProp` | Initial + dual-track `isControlled` (`valueProvided` optional) |
+| `isControlled(ctx, prop)` | Guard/setter resolver (flag + stamped presence) |
+| `isControlledByFlag` | Phase 1 flag-only (still used by non-pilot machines) |
+| `withControllableProvided` / `collectUserProvidedProps` / `isPropUserProvided` | Record / read presence before compact |
+| `CONTROLLABLE_PROVIDED_KEY` | `'controllable.provided'` |
+
+#### Adapter guidance
+
+- Prefer passing controllable props into `machine({ open, checked, ... })` so pilots can stamp presence at init.
+- Or call `withControllableProvided(props, ['open'])` before `machine` / when building a context patch.
+- Do **not** always include `open` / `checked` in reactive context bags when the mode is uncontrolled — omit the key, use `default*`, or set `'*.controlled': false`.
+- Props that only arrive later via `setContext` / `useMachine({ context })` are **not** auto-detected unless the adapter stamps `controllable.provided` on that patch.
+- Legacy uncontrolled seed `{ open: true }` without a flag becomes **presence-controlled** on Phase 2 pilots — migrate to `defaultOpen` or `'open.controlled': false`.
+
+#### Pilots
+
+| Machine | Prop | Notes |
+|---------|------|-------|
+| dialog | `open` | Stamps presence; `isOpenControlled` → `isControlled`; CONTROLLED/watch gating unchanged |
+| checkbox | `checked` | Stamps presence; gated `set.checked` via `isControlled` |
+
+Other machines remain Phase 1 (`isControlledByFlag`) until rolled forward.
+
+#### Residual risks
+
+- **setContext-only injection:** examples that do `machine({ id })` + `useMachine({ context: controls })` will **not** get presence-controlled behavior unless they stamp or pass props into `machine()`.
+- **Always-present control keys:** e.g. checkbox story controls that always expose `checked` would false-positive if stamped from that bag — stamp only true user props.
+- **`open: undefined`:** counted as provided (own key) before compact; after compact the key is gone but the stamp remains. Zag uses `!= undefined` (undefined → uncontrolled); Destyler Phase 2 treats own-key undefined as provided.
+- **Phase 1 machines:** unchanged until they adopt `withControllableProvided` + `isControlled`.
+
+### What’s left (Phase 3)
 
 | Phase | Goal |
 |-------|------|
-| **Phase 2** | Prop-presence `isControlled` (dual-track with explicit `*.controlled`); shared detection helpers beyond flag-only |
-| **Phase 3** | Deprecate overloaded seed props / eventually remove explicit flags once adapters adopt `default*` + presence |
+| **Phase 3** | Deprecate overloaded seed props / eventually remove explicit `*.controlled` once adapters adopt `default*` + presence |
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). **Phase 1 open + value coverage is complete** for shipping machines (PRs #105–#110 + tree/splitter leftovers). Phase 2/3 remain open on that issue.
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C**. **Phase 1 complete**; **Phase 2** lands dual-track presence helpers + dialog/checkbox pilots (flags retained). Phase 3 remains open.
 
 ---
 
