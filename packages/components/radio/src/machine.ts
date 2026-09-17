@@ -2,43 +2,55 @@ import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { dispatchInputCheckedEvent, nextTick, trackFormControl } from '@destyler/dom'
 import { trackElementRect } from '@destyler/element-rect'
 import { trackFocusVisible } from '@destyler/focus-visible'
-import { compact, isEqual, isString } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, isString, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not } = guards
 
 const invoke = {
-  change: (ctx: MachineContext) => {
-    if (ctx.value == null)
+  change: (ctx: MachineContext, value: string | null) => {
+    if (value == null)
       return
-    ctx.onValueChange?.({ value: ctx.value })
+    ctx.onValueChange?.({ value })
   },
 }
 
 const set = {
-  value: (ctx: MachineContext, value: string) => {
+  value: (ctx: MachineContext, value: string | null) => {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      invoke.change(ctx, value)
+      return
+    }
     ctx.value = value
-    invoke.change(ctx)
+    invoke.change(ctx, value)
   },
 }
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: null as string | null,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'radio',
       initial: 'idle',
       context: {
-        value: null,
         activeValue: null,
         focusedValue: null,
         hoveredValue: null,
         disabled: false,
         orientation: 'vertical',
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
         indicatorRect: {},
         canIndicatorTransition: false,
         fieldsetDisabled: false,

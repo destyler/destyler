@@ -3,6 +3,7 @@ import { createProps } from '@destyler/types'
 import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
+  'defaultValue',
   'dir',
   'disabled',
   'form',
@@ -14,6 +15,7 @@ export const props = createProps<UserDefinedContext>()([
   'orientation',
   'readOnly',
   'value',
+  'value.controlled',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)
 

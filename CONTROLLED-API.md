@@ -1,6 +1,6 @@
 # Controlled API conventions (MACHINE layer)
 
-> **中文摘要：** 本文档约定 Destyler **核心状态机**（framework-agnostic）的受控 / 非受控约定，供适配层作者参考。短期以现状（option A）为准：遮罩类用 `open` + `open.controlled`；值 / 勾选类无 `*.controlled`、机器始终写 context 并触发 `on*Change`。统一价值范式见 [#103](https://github.com/destyler/destyler/issues/103)。
+> **中文摘要：** 本文档约定 Destyler **核心状态机**（framework-agnostic）的受控 / 非受控约定，供适配层作者参考。长期方向为 option C（双轨）：遮罩类已有 `defaultOpen` + `open.controlled`；值 / 勾选类 Phase 1 已在 checkbox / switch / radio 落地 `defaultChecked`/`defaultValue` + `*.controlled`。统一见 [#103](https://github.com/destyler/destyler/issues/103)。
 
 This document is the **source of truth** for Destyler’s **MACHINE-layer** controlled conventions. It is written for adapter authors (Vue, React, Solid, Svelte, Lit, vanilla) who glue `useMachine` / normalizeProps / mergeProps onto the framework-agnostic core.
 
@@ -8,9 +8,9 @@ Adapters should not invent a second ownership model. When in doubt, match the ma
 
 ---
 
-## Current contract (status quo — option A, short-term)
+## Current contract (option C dual-track in progress)
 
-Two intentional paradigms coexist today. That split is **known and deliberate for now**, not an accidental per-component omission. Longer-term unification is tracked in [#103](https://github.com/destyler/destyler/issues/103).
+Open family and a **value/checked pilot** (checkbox, switch, radio) share the explicit `*.controlled` + `default*` pattern. Remaining value/selection machines still always-mutate. Longer-term unification is tracked in [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 1. Overlay / open family
 
@@ -57,17 +57,27 @@ Openness is encoded as **which trigger is active** via `value`, not a boolean `o
 
 - `value` + `value.controlled` + `defaultValue` + `onValueChange`
 
-This is the **only** machine that ships a `default*` companion today.
+Historically the only `default*` companion; checkbox/switch (`defaultChecked`) and radio (`defaultValue`) now share the Phase 1 pattern.
 
-### 4. Value / checked / selection machines (dual paradigm)
+### 4. Value / checked / selection machines
 
-**Checkbox, switch, radio, tabs, collapse (accordion), toggle, select/combobox/calendar/color-picker *value*, tree expansion/selection, slider, number-input, and similar** use a **different** contract:
+**Phase 1 (pilot — checkbox, switch, radio):** same dual-track spirit as open family:
 
-- **No** `*.controlled` flag (`checked.controlled`, `value.controlled`, etc. do not exist on these machines).
-- The machine **always** mutates context (`ctx.checked`, `ctx.value`, …) and fires `onCheckedChange` / `onValueChange` / …
-- Adapters treat these as machine-owned context + change callbacks, not as “defer transition until parent sets the prop.”
+| Piece | Role |
+|-------|------|
+| `checked` / `value` | Controlled sync field **and** legacy uncontrolled seed |
+| `defaultChecked` / `defaultValue` | Preferred uncontrolled initial (`resolveControllableProp`) |
+| `checked.controlled` / `value.controlled` | Explicit flag: parent owns the value |
+| `onCheckedChange` / `onValueChange` | Fired when the machine requests a change |
 
-This dual paradigm (flagged open vs always-mutate value) is **intentional for the short term**. Do not add ad-hoc `*.controlled` flags to value machines without an agreed migration. See [#103](https://github.com/destyler/destyler/issues/103).
+**Detection:** `isControlledByFlag(ctx, 'checked' | 'value')`.
+
+**Behavior:**
+
+- Uncontrolled (`*.controlled` falsy): user gestures **mutate** context and invoke `on*Change` (legacy default).
+- Controlled: user gestures **only** invoke `on*Change` with the proposed value; parent must `setContext({ checked | value })`. No `CONTROLLED.*` events — checked/value live in context (watch syncs DOM).
+
+**Still always-mutate (not yet migrated):** tabs, collapse/accordion, toggle, select/combobox/calendar/color-picker **value**, tree, slider, number-input, etc. See [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 5. Presence
 
@@ -82,15 +92,20 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 
 **Do not** add thin Destyler Portal wrappers for Vue/Solid. DOM/`portalled` behavior in examples should still stay consistent across frameworks when they demonstrate the same primitive.
 
-### 7. Missing `defaultOpen` / `defaultChecked` / `defaultValue`
+### 7. `defaultOpen` / `defaultChecked` / `defaultValue`
 
-Value / checked machines still generally lack `defaultChecked` / `defaultValue`. **Open family:** `defaultOpen` is now available on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, and color-picker (open side only). **Also:** navigation-menu `defaultValue` (historical).
+| Family | Status |
+|--------|--------|
+| Open | `defaultOpen` on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (open side) |
+| Checked / value pilot | `defaultChecked` on checkbox + switch; `defaultValue` on radio |
+| Navigation menu | `defaultValue` (historical) |
+| Remaining value machines | still missing `default*` |
 
-Uncontrolled “start open” may still be seeded by setting `open: true` **without** `open.controlled` (compat). Prefer `defaultOpen` going forward. See Migration Phase 1 / [#103](https://github.com/destyler/destyler/issues/103).
+Uncontrolled seeds via `open` / `checked` / `value` without `*.controlled` remain supported (compat). Prefer `default*` going forward. See Migration Phase 1 / [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 8. Shared helpers
 
-Phase 1 introduces machine-layer helpers in `@destyler/utils` (`resolveControllableProp`, `resolveControllableOpen`, `isControlledByFlag`). This is **not** Zag’s framework `bindable` — Destyler still uses full xstate machines; adapters are unchanged. Framework hooks (`useMachine` / `useService`) still do **not** auto-infer or inject `*.controlled`. Adapters must pass `'open.controlled': true` (or the edit/nav-menu equivalents) explicitly when the parent owns state.
+Phase 1 introduces machine-layer helpers in `@destyler/utils` (`resolveControllableProp`, `resolveControllableOpen`, `isControlledByFlag`). This is **not** Zag’s framework `bindable` — Destyler still uses full xstate machines; adapters are unchanged. Framework hooks (`useMachine` / `useService`) still do **not** auto-infer or inject `*.controlled`. Adapters must pass `'open.controlled': true`, `'checked.controlled': true`, `'value.controlled': true` (or the edit/nav-menu equivalents) explicitly when the parent owns state.
 
 ---
 
@@ -132,19 +147,30 @@ What landed:
 
 Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), presence, edit (`edit.controlled`). Value/checked ownership on select/combobox/calendar/color-picker is unchanged.
 
-Later phases: eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded `open` seed once adapters adopt `defaultOpen`; value/checked `default*` as agreed in [#103](https://github.com/destyler/destyler/issues/103).
+### Migration Phase 1 (value / checked pilot)
+
+| Piece | Change |
+|-------|--------|
+| checkbox / switch | `defaultChecked` + `checked.controlled`; gated `set.checked` via `isControlledByFlag` |
+| radio | `defaultValue` + `value.controlled`; gated `set.value` |
+| Initial | `default* ?? value ?? fallback` via `resolveControllableProp` |
+| Controlled detection | **Still** explicit `*.controlled` flag — not prop-presence |
+| Compat | Absent flag → legacy always-mutate |
+
+**Deferred:** tabs, collapse/accordion, toggle, select/combobox **value**, tree, slider, number-input, etc.
+
+Later phases: eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded seed props once adapters adopt `default*`.
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103).
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). Open-family + checkbox/switch/radio Phase 1 have started; remaining value machines follow in later PRs.
 
-Expected discussion topics (not decided here):
+Still open:
 
-- Whether value/checked machines gain `*.controlled` / `default*` or move toward presence-of-prop / bindable-style helpers
-- Shared controllable helpers vs continued per-machine guards
-- Deprecating overloaded `open` seed semantics once `defaultOpen` (or equivalent) exists
-
-Until that RFC lands, **keep shipping option A** as documented above.
+- Rolling `default*` + `*.controlled` to remaining value/selection machines
+- Shared guards vs continued per-machine `set.*` gating
+- Deprecating overloaded seed semantics once adapters adopt `default*`
+- Phase 2 prop-presence `isControlled`
 
 ---
 

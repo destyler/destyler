@@ -1,7 +1,7 @@
 import type { CheckedState, MachineContext, MachineState, UserDefinedContext } from './types'
 import { dispatchInputCheckedEvent, setElementChecked, trackFormControl, trackPress } from '@destyler/dom'
 import { trackFocusVisible } from '@destyler/focus-visible'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -16,8 +16,8 @@ function isChecked(checked?: CheckedState): checked is boolean {
 }
 
 const invoke = {
-  change: (ctx: MachineContext) => {
-    ctx.onCheckedChange?.({ checked: ctx.checked })
+  change: (ctx: MachineContext, checked: CheckedState) => {
+    ctx.onCheckedChange?.({ checked })
   },
 }
 
@@ -25,23 +25,35 @@ const set = {
   checked: (ctx: MachineContext, checked: CheckedState) => {
     if (isEqual(ctx.checked, checked))
       return
+    // Dual-track: only defer context writes when checked.controlled is set
+    if (isControlledByFlag(ctx, 'checked')) {
+      invoke.change(ctx, checked)
+      return
+    }
     ctx.checked = checked
-    invoke.change(ctx)
+    invoke.change(ctx, checked)
   },
 }
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialChecked } = resolveControllableProp({
+    value: ctx.checked,
+    defaultValue: ctx.defaultChecked,
+    controlledFlag: ctx['checked.controlled'],
+    fallback: false as CheckedState,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'checkbox',
       initial: 'ready',
 
       context: {
-        checked: false,
         value: 'on',
         disabled: false,
         ...ctx,
+        // Resolve after spread so defaultChecked / legacy checked seed win consistently
+        checked: initialChecked,
         fieldsetDisabled: false,
         focusVisible: false,
       },

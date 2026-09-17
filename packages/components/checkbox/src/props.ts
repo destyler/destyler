@@ -4,6 +4,8 @@ import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'checked',
+  'checked.controlled',
+  'defaultChecked',
   'dir',
   'disabled',
   'form',
