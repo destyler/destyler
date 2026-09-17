@@ -23,7 +23,7 @@ import { trackDismissableElement } from '@destyler/dismissable'
 import { disableTextSelection, raf, restoreTextSelection } from '@destyler/dom'
 import { createLiveRegion } from '@destyler/live-region'
 import { getPlacement } from '@destyler/popper'
-import { compact, isControlledByFlag, isEqual, resolveControllableOpen } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableOpen, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { DateFormatter } from '@internationalized/date'
 import { dom } from './dom'
@@ -83,6 +83,15 @@ const set = {
   value(ctx: MachineContext, value: DateValue[]) {
     if (isDateEqualFn(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      ctx.onValueChange?.({
+        value: Array.from(value),
+        valueAsString: value.map(date => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone })),
+        view: ctx.view,
+      })
+      return
+    }
     ctx.value = value
     invoke.change(ctx)
   },
@@ -137,8 +146,14 @@ function transformContext(ctx: Partial<MachineContext>): MachineContext {
   const selectionMode = ctx.selectionMode || 'single'
   const numOfMonths = ctx.numOfMonths || 1
 
-  // sort and constrain dates
-  const value = sortDates(ctx.value || []).map(date => constrainValue(date, ctx.min, ctx.max))
+  // sort and constrain dates (defaultValue ?? value ?? [])
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: [] as DateValue[],
+  })
+  const value = sortDates(initialValue || []).map(date => constrainValue(date, ctx.min, ctx.max))
 
   // get initial focused value
   let focusedValue = value[0] || ctx.focusedValue || getTodayDate(timeZone)

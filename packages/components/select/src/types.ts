@@ -97,9 +97,18 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    */
   'positioning': PositioningOptions
   /**
-   * The keys of the selected items
+   * The controlled keys of the selected items
    */
-  'value': string[]
+  'value'?: string[] | undefined
+  /**
+   * The initial keys of the selected items when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string[] | undefined
+  /**
+   * Whether the select value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * The key of the highlighted item
    */

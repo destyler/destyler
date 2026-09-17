@@ -18,7 +18,7 @@ import {
   trackPointerMove,
 } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { compact, isControlledByFlag, resolveControllableOpen, tryCatch } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen, resolveControllableProp, tryCatch } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { parse } from './parse'
@@ -72,6 +72,15 @@ const set = {
   value(ctx: MachineContext, color: Color | ColorType | undefined) {
     if (!color || ctx.value.isEqual(color))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      const value = color.toFormat(ctx.format)
+      ctx.onValueChange?.({
+        value,
+        valueAsString: value.toString(ctx.format),
+      })
+      return
+    }
     ctx.value = color
     invoke.change(ctx)
   },
@@ -86,6 +95,12 @@ const set = {
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
   const { initialOpen } = resolveControllableOpen(ctx)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: parse('#000000'),
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'color-picker',
@@ -98,6 +113,8 @@ export function machine(userContext: UserDefinedContext) {
         closeOnSelect: false,
         openAutoFocus: true,
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
         activeId: null,
         activeChannel: null,
         activeOrientation: null,

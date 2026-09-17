@@ -18,6 +18,8 @@ export const props = createProps<UserDefinedContext>()([
   'ids',
   'inputBehavior',
   'inputValue',
+  'defaultInputValue',
+  'inputValue.controlled',
   'invalid',
   'loopFocus',
   'multiple',
@@ -45,6 +47,8 @@ export const props = createProps<UserDefinedContext>()([
   'selectionBehavior',
   'translations',
   'value',
+  'defaultValue',
+  'value.controlled',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)
 

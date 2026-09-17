@@ -3,7 +3,7 @@ import { ariaHidden } from '@destyler/aria-hidden'
 import { trackDismissableElement } from '@destyler/dismissable'
 import { clickIfLink, observeAttributes, observeChildren, raf, scrollIntoView } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { addOrRemove, compact, isArray, isBoolean, isControlledByFlag, isEqual, match, resolveControllableOpen } from '@destyler/utils'
+import { addOrRemove, compact, isArray, isBoolean, isControlledByFlag, isEqual, match, resolveControllableOpen, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -57,23 +57,48 @@ const invoke = {
   },
 }
 
+function proposeValueChange(ctx: MachineContext, value: string[]) {
+  const prevSelectedItems = ctx.selectedItems
+  const items = value.map((v) => {
+    const foundItem = prevSelectedItems.find(item => ctx.collection.getItemValue(item) === v)
+    if (foundItem)
+      return foundItem
+    return ctx.collection.find(v)
+  })
+  ctx.onValueChange?.({
+    value: Array.from(value),
+    items: Array.from(items),
+  })
+}
+
 const set = {
   value: (ctx: MachineContext, value: string | string[] | null | undefined, force = false) => {
     if (isEqual(ctx.value, value))
       return
     if (value == null && !force)
       return
-    if (value == null && force) {
-      ctx.value = []
-      invoke.valueChange(ctx)
+
+    let next: string[]
+    if (value == null) {
+      next = []
+    }
+    else if (isArray(value)) {
+      next = value
+    }
+    else {
+      next = ctx.multiple ? addOrRemove(ctx.value, value) : [value]
+    }
+
+    if (isEqual(ctx.value, next))
+      return
+
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      proposeValueChange(ctx, next)
       return
     }
-    if (isArray(value)) {
-      ctx.value = value
-    }
-    else if (value != null) {
-      ctx.value = ctx.multiple ? addOrRemove(ctx.value, value) : [value]
-    }
+
+    ctx.value = next
     invoke.valueChange(ctx)
   },
   highlightedValue: (ctx: MachineContext, value: string | null | undefined, force = false) => {
@@ -87,6 +112,11 @@ const set = {
   inputValue: (ctx: MachineContext, value: string) => {
     if (isEqual(ctx.inputValue, value))
       return
+    // Dual-track: only defer context writes when inputValue.controlled is set
+    if (isControlledByFlag(ctx, 'inputValue')) {
+      ctx.onInputValueChange?.({ inputValue: value })
+      return
+    }
     ctx.inputValue = value
     invoke.inputChange(ctx)
   },
@@ -95,6 +125,18 @@ const set = {
 export function machine<T extends CollectionItem>(userContext: UserDefinedContext<T>) {
   const ctx = compact(userContext)
   const { initialOpen } = resolveControllableOpen(ctx)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: [] as string[],
+  })
+  const { initial: initialInputValue } = resolveControllableProp({
+    value: ctx.inputValue,
+    defaultValue: ctx.defaultInputValue,
+    controlledFlag: ctx['inputValue.controlled'],
+    fallback: '',
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'combobox',
@@ -118,6 +160,9 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
           clickIfLink(node)
         },
         ...ctx,
+        // Resolve after spread so default* / legacy seeds win consistently
+        value: initialValue,
+        inputValue: initialInputValue,
         highlightedItem: null,
         selectedItems: [],
         valueAsString: '',

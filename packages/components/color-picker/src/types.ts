@@ -55,10 +55,20 @@ interface PublicContext extends CommonProperties, DirectionProperty, InteractOut
    */
   'ids'?: ElementIds | undefined
   /**
-   * The current color value
+   * The controlled color value
    * @default #000000
    */
-  'value': Color
+  'value'?: Color | undefined
+  /**
+   * The initial color value when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   * @default #000000
+   */
+  'defaultValue'?: Color | undefined
+  /**
+   * Whether the color picker value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * Whether the color picker is disabled
    */

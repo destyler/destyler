@@ -34,6 +34,8 @@ export const props = createProps<UserDefinedContext>()([
   'required',
   'readOnly',
   'value',
+  'defaultValue',
+  'value.controlled',
   'invalid',
   'openAutoFocus',
 ])

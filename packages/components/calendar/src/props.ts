@@ -42,6 +42,8 @@ export const props = createProps<UserDefinedContext>()([
   'timeZone',
   'translations',
   'value',
+  'defaultValue',
+  'value.controlled',
   'view',
   'minView',
   'maxView',
