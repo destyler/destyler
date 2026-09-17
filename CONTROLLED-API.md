@@ -1,6 +1,6 @@
 # Controlled API conventions (MACHINE layer)
 
-> **中文摘要：** 本文档约定 Destyler **核心状态机**（framework-agnostic）的受控 / 非受控约定，供适配层作者参考。长期方向为 option C（双轨）。Phase 1 已落地 `default*` + `*.controlled`；**Phase 2 已铺开** prop-presence（`withControllableProvided` + `isControlled`）覆盖 open / value 族（dialog/checkbox 试点之后的全量 rollout）。统一见 [#103](https://github.com/destyler/destyler/issues/103)。
+> **中文摘要：** 本文档约定 Destyler **核心状态机**（framework-agnostic）的受控 / 非受控约定，供适配层作者参考。长期方向为 option C（双轨）。Phase 1 已落地 `default*` + `*.controlled`；**Phase 2 已铺开** prop-presence（`withControllableProvided` + `isControlled`）；**Phase 3 soft** 仅文档 / JSDoc 弃用显式 `*.controlled`（行为不变，硬删除待 major）。统一见 [#103](https://github.com/destyler/destyler/issues/103)。
 
 This document is the **source of truth** for Destyler’s **MACHINE-layer** controlled conventions. It is written for adapter authors (Vue, React, Solid, Svelte, Lit, vanilla) who glue `useMachine` / normalizeProps / mergeProps onto the framework-agnostic core.
 
@@ -10,7 +10,7 @@ Adapters should not invent a second ownership model. When in doubt, match the ma
 
 ## Current contract (option C dual-track in progress)
 
-Open family and value/checked machines share Phase 2 dual-track ownership: explicit `*.controlled` **or** stamped prop presence, plus `default*` for uncontrolled seeds. Longer-term flag removal is Phase 3 ([#103](https://github.com/destyler/destyler/issues/103)).
+Open family and value/checked machines share Phase 2 dual-track ownership: explicit `*.controlled` **or** stamped prop presence, plus `default*` for uncontrolled seeds. **Phase 3 soft** deprecates explicit flags in docs/JSDoc but keeps them supported; hard flag removal is a future major ([#103](https://github.com/destyler/destyler/issues/103)).
 
 ### 1. Overlay / open family
 
@@ -225,15 +225,48 @@ Pattern per machine: `withControllableProvided(userContext, [...props])` **befor
 - **`open: undefined` / `value: undefined`:** counted as provided (own key) before compact; after compact the key is gone but the stamp remains. Zag uses `!= undefined` (undefined → uncontrolled); Destyler Phase 2 treats own-key undefined as provided.
 - **Behavior change:** bare `{ open }` / `{ value }` / `{ checked }` without flag is now **presence-controlled**. Migrate uncontrolled seeds to `default*` or `'*.controlled': false`.
 
-### What’s left (Phase 3)
+### Migration Phase 3 soft (deprecate flags — non-breaking)
 
-| Phase | Goal |
-|-------|------|
-| **Phase 3** | Deprecate overloaded seed props / eventually remove explicit `*.controlled` once adapters adopt `default*` + presence |
+Tracked in [#103](https://github.com/destyler/destyler/issues/103). **Soft** Phase 3 is **docs / JSDoc only**. Machine behavior is unchanged: dual-track still honors explicit `*.controlled`, and flags remain fully supported.
+
+#### Recommended API (adapters / consumers)
+
+| Mode | Prefer |
+|------|--------|
+| Controlled | Pass the value prop into `machine(...)` (or stamp via `withControllableProvided`) so Phase 2 presence marks it controlled; sync via `setContext` + `on*Change` |
+| Uncontrolled | Prefer `defaultOpen` / `defaultChecked` / `defaultValue` / … for the initial seed; **omit** the live value key |
+
+Do **not** rely on explicit `'*.controlled': true` for new code — presence + `default*` is the long-term contract.
+
+#### Explicit `*.controlled` — deprecated but supported
+
+Setting `'open.controlled' | 'checked.controlled' | 'value.controlled' | …` remains valid and wins over presence (Phase 2 dual-track). Soft Phase 3 marks these flags **@deprecated** in PublicContext JSDoc (sample: dialog `open.controlled`, checkbox `checked.controlled`; **other machines follow the same wording** when touched).
+
+#### Escape hatch (legacy seed)
+
+When a value key must be passed for historical seeding but ownership should stay uncontrolled:
+
+```ts
+{ open: true, 'open.controlled': false }       // or defaultOpen: true
+{ checked: true, 'checked.controlled': false } // or defaultChecked: true
+```
+
+`'*.controlled': false` still overrides stamped presence. Prefer migrating to `default*` instead of keeping the escape long-term.
+
+#### Hard Phase 3 (future major) — removal checklist
+
+Do **not** remove flags in this soft phase. Hard removal waits for a **major** semver and [destyler/ui](https://github.com/destyler/ui) adoption. Checklist before hard Phase 3:
+
+1. [ ] All shipping machines already on Phase 2 `isControlled` + `withControllableProvided`
+2. [ ] Adapters / examples / story controls use presence + `default*` (no required `'*.controlled': true`)
+3. [ ] destyler/ui wrappers migrated off explicit flags (or pass presence correctly)
+4. [ ] Audit playground / docs demos for leftover `'*.controlled': true` and legacy `{ open: true }` seeds without `default*`
+5. [ ] Major bump: drop `*.controlled` from PublicContext / props lists; keep only presence + `default*` (+ document any remaining escape if needed)
+6. [ ] Update this document: remove dual-track flag rules; Phase 3 soft section becomes historical
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C**. **Phase 1 complete**; **Phase 2 rolled out** (prop-presence dual-track across open + value families, plus navigation-menu `value` and edit **mode**; flags retained). Phase 3 remains open.
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C**. **Phase 1 complete**; **Phase 2 rolled out** (prop-presence dual-track across open + value families, plus navigation-menu `value` and edit **mode**). **Phase 3 soft** (this section): flags deprecated-but-supported in docs/JSDoc. **Hard Phase 3** (flag removal) remains a future major.
 
 ---
 
