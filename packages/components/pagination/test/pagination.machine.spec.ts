@@ -10,7 +10,7 @@ function createPagination(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('pagination controllable page (Phase 1)', () => {
+describe('pagination controllable page (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -58,9 +58,24 @@ describe('pagination controllable page (Phase 1)', () => {
     expect(service.state.context.pageSize).toBe(25)
   })
 
-  it('legacy: page alone still mutates on SET_PAGE', () => {
+  it('phase 2 presence: page alone (no flag) defers mutation until parent syncs', () => {
     const onPageChange = vi.fn()
     const service = start({ page: 1, onPageChange })
+    service.send({ type: 'SET_PAGE', page: 3 })
+    expect(service.state.context.page).toBe(1)
+    expect(onPageChange).toHaveBeenCalledWith({ page: 3, pageSize: 10 })
+
+    service.setContext({ page: 3 })
+    expect(service.state.context.page).toBe(3)
+  })
+
+  it('phase 2: page.controlled false overrides presence (legacy seed escape)', () => {
+    const onPageChange = vi.fn()
+    const service = start({
+      'page': 1,
+      'page.controlled': false,
+      onPageChange,
+    })
     service.send({ type: 'SET_PAGE', page: 3 })
     expect(service.state.context.page).toBe(3)
     expect(onPageChange).toHaveBeenCalledWith({ page: 3, pageSize: 10 })

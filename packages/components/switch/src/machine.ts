@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { dispatchInputCheckedEvent, trackFormControl, trackPress } from '@destyler/dom'
 import { trackFocusVisible } from '@destyler/focus-visible'
-import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
+import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -17,8 +17,8 @@ const set = {
   checked: (ctx: MachineContext, checked: boolean) => {
     if (isEqual(ctx.checked, checked))
       return
-    // Dual-track: only defer context writes when checked.controlled is set
-    if (isControlledByFlag(ctx, 'checked')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'checked')) {
       invoke.change(ctx, checked)
       return
     }
@@ -28,11 +28,12 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['checked'])) as typeof userContext
   const { initial: initialChecked } = resolveControllableProp({
     value: ctx.checked,
     defaultValue: ctx.defaultChecked,
     controlledFlag: ctx['checked.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'checked'),
     fallback: false,
   })
   return createMachine<MachineContext, MachineState>(

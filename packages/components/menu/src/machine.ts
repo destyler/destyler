@@ -13,7 +13,7 @@ import {
 } from '@destyler/dom'
 import { getPlacement, getPlacementSide } from '@destyler/popper'
 import { getElementPolygon, isPointInPolygon } from '@destyler/rect'
-import { cast, compact, isControlledByFlag, isEqual, resolveControllableOpen } from '@destyler/utils'
+import { cast, compact, isControlled, isEqual, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -37,7 +37,7 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -489,7 +489,8 @@ export function machine(userContext: UserDefinedContext) {
           return isPointInPolygon(ctx.intentPolygon, evt.point)
         },
         // guard assertions (for controlled mode)
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
         isArrowLeftEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_LEFT',
         isArrowUpEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_UP',
         isArrowDownEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_DOWN',

@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { getByTypeahead } from '@destyler/dom'
-import { add, addOrRemove, compact, first, isControlledByFlag, isEqual, remove, resolveControllableProp, uniq } from '@destyler/utils'
+import { add, addOrRemove, compact, first, isControlled, isEqual, isPropUserProvided, remove, resolveControllableProp, uniq, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -30,8 +30,8 @@ const set = {
   selected(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.selectedValue, value))
       return
-    // Dual-track: only defer context writes when selectedValue.controlled is set
-    if (isControlledByFlag(ctx, 'selectedValue')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'selectedValue')) {
       ctx.onSelectionChange?.({
         selectedValue: Array.from(value),
         focusedValue: ctx.focusedValue,
@@ -50,8 +50,8 @@ const set = {
   expanded(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.expandedValue, value))
       return
-    // Dual-track: only defer context writes when expandedValue.controlled is set
-    if (isControlledByFlag(ctx, 'expandedValue')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'expandedValue')) {
       ctx.onExpandedChange?.({
         expandedValue: Array.from(value),
         focusedValue: ctx.focusedValue,
@@ -64,17 +64,19 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['expandedValue', 'selectedValue'])) as typeof userContext
   const { initial: initialExpandedValue } = resolveControllableProp({
     value: ctx.expandedValue,
     defaultValue: ctx.defaultExpandedValue,
     controlledFlag: ctx['expandedValue.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'expandedValue'),
     fallback: [] as string[],
   })
   const { initial: initialSelectedValue } = resolveControllableProp({
     value: ctx.selectedValue,
     defaultValue: ctx.defaultSelectedValue,
     controlledFlag: ctx['selectedValue.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'selectedValue'),
     fallback: [] as string[],
   })
   return createMachine<MachineContext, MachineState>(

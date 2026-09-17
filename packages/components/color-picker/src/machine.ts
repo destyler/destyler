@@ -18,7 +18,7 @@ import {
   trackPointerMove,
 } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { compact, isControlledByFlag, resolveControllableOpen, resolveControllableProp, tryCatch } from '@destyler/utils'
+import { compact, isControlled, isPropUserProvided, resolveControllableOpen, resolveControllableProp, tryCatch, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { parse } from './parse'
@@ -72,8 +72,8 @@ const set = {
   value(ctx: MachineContext, color: Color | ColorType | undefined) {
     if (!color || ctx.value.isEqual(color))
       return
-    // Dual-track: only defer context writes when value.controlled is set
-    if (isControlledByFlag(ctx, 'value')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'value')) {
       const value = color.toFormat(ctx.format)
       ctx.onValueChange?.({
         value,
@@ -93,12 +93,13 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
     controlledFlag: ctx['value.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: parse('#000000'),
   })
   return createMachine<MachineContext, MachineState>(
@@ -424,7 +425,8 @@ export function machine(userContext: UserDefinedContext) {
     {
       guards: {
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {

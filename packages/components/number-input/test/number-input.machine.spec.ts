@@ -9,7 +9,7 @@ function createNumberInput(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('number-input controllable value (Phase 1)', () => {
+describe('number-input controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,12 +51,27 @@ describe('number-input controllable value (Phase 1)', () => {
     expect(service.state.context.value).toBe('1')
   })
 
-  it('legacy: value alone still mutates on VALUE.SET', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: '0', onValueChange })
     service.send({ type: 'VALUE.SET', value: '5' })
-    expect(service.state.context.value).toBe('5')
+    expect(service.state.context.value).toBe('0')
     expect(onValueChange).toHaveBeenCalled()
+    expect(onValueChange.mock.calls[0][0].value).toBe('5')
+
+    service.setContext({ value: '5' })
+    expect(service.state.context.value).toBe('5')
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': '0',
+      'value.controlled': false,
+      onValueChange,
+    })
+    service.send({ type: 'VALUE.SET', value: '5' })
+    expect(service.state.context.value).toBe('5')
     expect(onValueChange.mock.calls[0][0].value).toBe('5')
   })
 

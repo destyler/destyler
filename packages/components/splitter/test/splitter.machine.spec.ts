@@ -8,14 +8,16 @@ const defaultPanels = [
 ]
 
 function createSplitter(ctx: Record<string, unknown> = {}) {
+  const base: Record<string, unknown> = { id: 'splitter-test' }
+  if (!('size' in ctx) && !('defaultSize' in ctx))
+    base.defaultSize = defaultPanels
   return machine({
-    id: 'splitter-test',
-    size: defaultPanels,
+    ...base,
     ...ctx,
   } as any)
 }
 
-describe('splitter controllable size (Phase 1)', () => {
+describe('splitter controllable size (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -39,7 +41,6 @@ describe('splitter controllable size (Phase 1)', () => {
 
   it('uncontrolled: defaultSize seeds size', () => {
     const service = start({
-      size: undefined,
       defaultSize: [
         { id: 'a', size: 30 },
         { id: 'b', size: 70 },
@@ -75,14 +76,43 @@ describe('splitter controllable size (Phase 1)', () => {
     expect(service.state.context.size.map((p: any) => p.size)).toEqual([20, 80])
   })
 
-  it('legacy: size alone still mutates on SET_PANEL_SIZE', () => {
+  it('phase 2 presence: size alone (no flag) defers mutation until parent syncs', () => {
     const onSizeChange = vi.fn()
-    const service = start({ onSizeChange })
+    const service = start({
+      size: [
+        { id: 'a', size: 50 },
+        { id: 'b', size: 50 },
+      ],
+      onSizeChange,
+    })
     service.send({ type: 'SET_PANEL_SIZE', id: 'a', size: 25 })
-    expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(25)
+    expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(50)
     expect(onSizeChange).toHaveBeenCalled()
     const details = onSizeChange.mock.calls[0][0]
     expect(details.size.find((p: any) => p.id === 'a')?.size).toBe(25)
+
+    service.setContext({
+      size: [
+        { id: 'a', size: 25 },
+        { id: 'b', size: 75 },
+      ],
+    })
+    expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(25)
+  })
+
+  it('phase 2: size.controlled false overrides presence (legacy seed escape)', () => {
+    const onSizeChange = vi.fn()
+    const service = start({
+      'size': [
+        { id: 'a', size: 50 },
+        { id: 'b', size: 50 },
+      ],
+      'size.controlled': false,
+      onSizeChange,
+    })
+    service.send({ type: 'SET_PANEL_SIZE', id: 'a', size: 25 })
+    expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(25)
+    expect(onSizeChange).toHaveBeenCalled()
   })
 
   it('controlled: size.controlled defers until parent syncs', () => {

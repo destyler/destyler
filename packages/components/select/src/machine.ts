@@ -9,7 +9,7 @@ import {
   trackFormControl,
 } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { addOrRemove, compact, isControlledByFlag, isEqual, resolveControllableOpen, resolveControllableProp } from '@destyler/utils'
+import { addOrRemove, compact, isControlled, isEqual, isPropUserProvided, resolveControllableOpen, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -89,8 +89,8 @@ const set = {
     if (isEqual(ctx.value, next))
       return
 
-    // Dual-track: only defer context writes when value.controlled is set
-    if (isControlledByFlag(ctx, 'value')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'value')) {
       proposeValueChange(ctx, next)
       return
     }
@@ -102,8 +102,8 @@ const set = {
     if (isEqual(ctx.value, value))
       return
 
-    // Dual-track: only defer context writes when value.controlled is set
-    if (isControlledByFlag(ctx, 'value')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'value')) {
       proposeValueChange(ctx, value)
       return
     }
@@ -124,12 +124,13 @@ const set = {
 }
 
 export function machine<T extends CollectionItem>(userContext: UserDefinedContext<T>) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
     controlledFlag: ctx['value.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: [] as string[],
   })
   return createMachine<MachineContext, MachineState>(
@@ -459,7 +460,8 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         isLastItemHighlighted: ctx => ctx.highlightedValue === ctx.collection.lastValue,
         closeOnSelect: (ctx, evt) => !!(evt.closeOnSelect ?? ctx.closeOnSelect),
         // guard assertions (for controlled mode)
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
         isTriggerClickEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.CLICK',
         isTriggerEnterEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.ENTER',
         isTriggerArrowUpEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.ARROW_UP',

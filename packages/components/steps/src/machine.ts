@@ -1,5 +1,5 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { compact, isControlledByFlag, isEqual, isValueWithinRange, resolveControllableProp } from '@destyler/utils'
+import { compact, isControlled, isEqual, isPropUserProvided, isValueWithinRange, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 
 function validateStep(ctx: MachineContext, step: number) {
@@ -14,8 +14,8 @@ const set = {
       return
     validateStep(ctx, step)
 
-    // Dual-track: only defer context writes when step.controlled is set
-    if (isControlledByFlag(ctx, 'step')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'step')) {
       ctx.onStepChange?.({ step })
       if (step === ctx.count)
         ctx.onStepComplete?.()
@@ -32,11 +32,12 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['step'])) as typeof userContext
   const { initial: initialStep } = resolveControllableProp({
     value: ctx.step,
     defaultValue: ctx.defaultStep,
     controlledFlag: ctx['step.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'step'),
     fallback: 0,
   })
   return createMachine<MachineContext, MachineState>(

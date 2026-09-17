@@ -9,7 +9,7 @@ function createSwitch(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('switch controllable checked (Phase 1)', () => {
+describe('switch controllable checked (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -47,13 +47,32 @@ describe('switch controllable checked (Phase 1)', () => {
   })
 
   it('uncontrolled: defaultChecked preferred over checked seed for initial', () => {
-    const service = start({ defaultChecked: true, checked: false })
+    const service = start({
+      'defaultChecked': true,
+      'checked': false,
+      'checked.controlled': false,
+    })
     expect(service.state.context.checked).toBe(true)
   })
 
-  it('legacy: checked alone still mutates on toggle (no defer)', () => {
+  it('phase 2 presence: checked alone (no flag) defers mutation until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({ checked: false, onCheckedChange })
+    service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
+    expect(service.state.context.checked).toBe(false)
+    expect(onCheckedChange).toHaveBeenCalledWith({ checked: true })
+
+    service.setContext({ checked: true })
+    expect(service.state.context.checked).toBe(true)
+  })
+
+  it('phase 2: checked.controlled false overrides presence (legacy seed escape)', () => {
+    const onCheckedChange = vi.fn()
+    const service = start({
+      'checked': false,
+      'checked.controlled': false,
+      onCheckedChange,
+    })
     service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
     expect(service.state.context.checked).toBe(true)
     expect(onCheckedChange).toHaveBeenCalledWith({ checked: true })

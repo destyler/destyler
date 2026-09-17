@@ -5,12 +5,12 @@ import { getInitialFocus, proxyTabFocus, raf } from '@destyler/dom'
 import { trapFocus } from '@destyler/focus-trap'
 import { getPlacement } from '@destyler/popper'
 import { preventBodyScroll } from '@destyler/remove-scroll'
-import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
+import { compact, isControlled, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -117,7 +117,8 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
       activities: {
         trackPositioning(ctx) {

@@ -9,7 +9,7 @@ function createToggle(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('toggle-group controllable value (Phase 1)', () => {
+describe('toggle-group controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('toggle-group controllable value (Phase 1)', () => {
     expect(service.state.context.value).toEqual(['bold'])
   })
 
-  it('legacy: value alone still mutates on TOGGLE.CLICK (no defer)', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [], onValueChange })
+    service.send({ type: 'TOGGLE.CLICK', value: 'bold', id: 'toggle-bold' })
+    expect(service.state.context.value).toEqual([])
+    expect(onValueChange).toHaveBeenCalledWith({ value: ['bold'] })
+
+    service.setContext({ value: ['bold'] })
+    expect(service.state.context.value).toEqual(['bold'])
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': [],
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'TOGGLE.CLICK', value: 'bold', id: 'toggle-bold' })
     expect(service.state.context.value).toEqual(['bold'])
     expect(onValueChange).toHaveBeenCalledWith({ value: ['bold'] })

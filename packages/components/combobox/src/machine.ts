@@ -3,7 +3,7 @@ import { ariaHidden } from '@destyler/aria-hidden'
 import { trackDismissableElement } from '@destyler/dismissable'
 import { clickIfLink, observeAttributes, observeChildren, raf, scrollIntoView } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { addOrRemove, compact, isArray, isBoolean, isControlledByFlag, isEqual, match, resolveControllableOpen, resolveControllableProp } from '@destyler/utils'
+import { addOrRemove, compact, isArray, isBoolean, isControlled, isEqual, isPropUserProvided, match, resolveControllableOpen, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -92,8 +92,8 @@ const set = {
     if (isEqual(ctx.value, next))
       return
 
-    // Dual-track: only defer context writes when value.controlled is set
-    if (isControlledByFlag(ctx, 'value')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'value')) {
       proposeValueChange(ctx, next)
       return
     }
@@ -112,8 +112,8 @@ const set = {
   inputValue: (ctx: MachineContext, value: string) => {
     if (isEqual(ctx.inputValue, value))
       return
-    // Dual-track: only defer context writes when inputValue.controlled is set
-    if (isControlledByFlag(ctx, 'inputValue')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'inputValue')) {
       ctx.onInputValueChange?.({ inputValue: value })
       return
     }
@@ -123,18 +123,20 @@ const set = {
 }
 
 export function machine<T extends CollectionItem>(userContext: UserDefinedContext<T>) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value', 'inputValue'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
     controlledFlag: ctx['value.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: [] as string[],
   })
   const { initial: initialInputValue } = resolveControllableProp({
     value: ctx.inputValue,
     defaultValue: ctx.defaultInputValue,
     controlledFlag: ctx['inputValue.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'inputValue'),
     fallback: '',
   })
   return createMachine<MachineContext, MachineState>(
@@ -728,7 +730,8 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         allowCustomValue: ctx => !!ctx.allowCustomValue,
         hasHighlightedItem: ctx => ctx.highlightedValue != null,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
         openOnChange: (ctx, evt) => {
           if (isBoolean(ctx.openOnChange))
             return ctx.openOnChange

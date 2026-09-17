@@ -9,7 +9,7 @@ function createEdit(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('edit controllable value (Phase 1)', () => {
+describe('edit controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('edit controllable value (Phase 1)', () => {
     expect(service.state.context.value).toBe('a')
   })
 
-  it('legacy: value alone still mutates on VALUE.SET', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: '', onValueChange })
+    service.send({ type: 'VALUE.SET', value: 'x' })
+    expect(service.state.context.value).toBe('')
+    expect(onValueChange).toHaveBeenCalledWith({ value: 'x' })
+
+    service.setContext({ value: 'x' })
+    expect(service.state.context.value).toBe('x')
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': '',
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'VALUE.SET', value: 'x' })
     expect(service.state.context.value).toBe('x')
     expect(onValueChange).toHaveBeenCalledWith({ value: 'x' })

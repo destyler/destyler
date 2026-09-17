@@ -1,5 +1,5 @@
 import type { IntlTranslations, MachineContext, MachineState, UserDefinedContext } from './types'
-import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
+import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 
 const defaultTranslations: IntlTranslations = {
@@ -18,8 +18,8 @@ const set = {
   pageSize: (ctx: MachineContext, value: number) => {
     if (isEqual(ctx.pageSize, value))
       return
-    // Dual-track: only defer context writes when pageSize.controlled is set
-    if (isControlledByFlag(ctx, 'pageSize')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'pageSize')) {
       ctx.onPageSizeChange?.({ pageSize: value })
       return
     }
@@ -30,8 +30,8 @@ const set = {
     const page = clampPage(value, ctx.totalPages)
     if (isEqual(ctx.page, page))
       return
-    // Dual-track: only defer context writes when page.controlled is set
-    if (isControlledByFlag(ctx, 'page')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'page')) {
       ctx.onPageChange?.({ page, pageSize: ctx.pageSize })
       return
     }
@@ -41,17 +41,19 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['page', 'pageSize'])) as typeof userContext
   const { initial: initialPage } = resolveControllableProp({
     value: ctx.page,
     defaultValue: ctx.defaultPage,
     controlledFlag: ctx['page.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'page'),
     fallback: 1,
   })
   const { initial: initialPageSize } = resolveControllableProp({
     value: ctx.pageSize,
     defaultValue: ctx.defaultPageSize,
     controlledFlag: ctx['pageSize.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'pageSize'),
     fallback: 10,
   })
   return createMachine<MachineContext, MachineState>(
