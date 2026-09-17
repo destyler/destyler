@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { getByTypeahead } from '@destyler/dom'
-import { add, addOrRemove, compact, first, isEqual, remove, uniq } from '@destyler/utils'
+import { add, addOrRemove, compact, first, isControlledByFlag, isEqual, remove, resolveControllableProp, uniq } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -30,6 +30,14 @@ const set = {
   selected(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.selectedValue, value))
       return
+    // Dual-track: only defer context writes when selectedValue.controlled is set
+    if (isControlledByFlag(ctx, 'selectedValue')) {
+      ctx.onSelectionChange?.({
+        selectedValue: Array.from(value),
+        focusedValue: ctx.focusedValue,
+      })
+      return
+    }
     ctx.selectedValue = value
     invoke.selectionChange(ctx)
   },
@@ -42,6 +50,14 @@ const set = {
   expanded(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.expandedValue, value))
       return
+    // Dual-track: only defer context writes when expandedValue.controlled is set
+    if (isControlledByFlag(ctx, 'expandedValue')) {
+      ctx.onExpandedChange?.({
+        expandedValue: Array.from(value),
+        focusedValue: ctx.focusedValue,
+      })
+      return
+    }
     ctx.expandedValue = value
     invoke.expandedChange(ctx)
   },
@@ -49,6 +65,18 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialExpandedValue } = resolveControllableProp({
+    value: ctx.expandedValue,
+    defaultValue: ctx.defaultExpandedValue,
+    controlledFlag: ctx['expandedValue.controlled'],
+    fallback: [] as string[],
+  })
+  const { initial: initialSelectedValue } = resolveControllableProp({
+    value: ctx.selectedValue,
+    defaultValue: ctx.defaultSelectedValue,
+    controlledFlag: ctx['selectedValue.controlled'],
+    fallback: [] as string[],
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'tree-view',
@@ -63,6 +91,9 @@ export function machine(userContext: UserDefinedContext) {
         ...ctx,
         collection: ctx.collection ?? collection.empty(),
         typeaheadState: getByTypeahead.defaultOptions,
+        // Resolve after spread so default* / legacy seeds win consistently
+        expandedValue: Array.from(initialExpandedValue),
+        selectedValue: Array.from(initialSelectedValue),
       },
 
       computed: {
