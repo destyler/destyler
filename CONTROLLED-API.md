@@ -247,8 +247,14 @@ Setting `'open.controlled' | 'checked.controlled' | 'value.controlled' | …` re
 When a value key must be passed for historical seeding but ownership should stay uncontrolled:
 
 ```ts
-{ open: true, 'open.controlled': false }       // or defaultOpen: true
-{ checked: true, 'checked.controlled': false } // or defaultChecked: true
+const openSeed = {
+  'open': true,
+  'open.controlled': false,
+} // or defaultOpen: true
+const checkedSeed = {
+  'checked': true,
+  'checked.controlled': false,
+} // or defaultChecked: true
 ```
 
 `'*.controlled': false` still overrides stamped presence. Prefer migrating to `default*` instead of keeping the escape long-term.
