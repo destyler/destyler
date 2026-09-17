@@ -63,7 +63,7 @@ describe('checkbox controllable checked (Phase 2)', () => {
     expect(service.state.context.checked).toBe('indeterminate')
   })
 
-  it('Phase 2 presence: checked alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 2 presence: checked alone (no flag) defers mutation until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({ checked: false, onCheckedChange })
     service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
@@ -74,7 +74,7 @@ describe('checkbox controllable checked (Phase 2)', () => {
     expect(service.state.context.checked).toBe(true)
   })
 
-  it('Phase 2: checked.controlled false overrides presence (legacy seed escape)', () => {
+  it('phase 2: checked.controlled false overrides presence (legacy seed escape)', () => {
     const onCheckedChange = vi.fn()
     const service = start({
       'checked': false,

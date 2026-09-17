@@ -51,11 +51,11 @@ describe('dialog controllable open (Phase 2)', () => {
   })
 
   it('uncontrolled: defaultOpen preferred over open for initial seed', () => {
-    const service = start({ defaultOpen: true, open: false, 'open.controlled': false })
+    const service = start({ 'defaultOpen': true, 'open': false, 'open.controlled': false })
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('Phase 2 presence: open alone (no flag) defers transitions', async () => {
+  it('phase 2 presence: open alone (no flag) defers transitions', async () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('closed')).toBe(true)
@@ -69,7 +69,7 @@ describe('dialog controllable open (Phase 2)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('Phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
+  it('phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
     const onOpenChange = vi.fn()
     const service = start({
       'open': true,

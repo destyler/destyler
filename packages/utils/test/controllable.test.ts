@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
-  CONTROLLABLE_PROVIDED_KEY,
   collectUserProvidedProps,
+  CONTROLLABLE_PROVIDED_KEY,
   getControllableProvided,
   hasControllableProp,
   isControlled,
@@ -68,7 +68,7 @@ describe('resolveControllableProp()', () => {
     })).toEqual({ initial: true, isControlled: false })
   })
 
-  it('Phase 2: valueProvided alone makes controlled when flag absent', () => {
+  it('phase 2: valueProvided alone makes controlled when flag absent', () => {
     expect(resolveControllableProp({
       value: false,
       valueProvided: true,
@@ -181,9 +181,9 @@ describe('resolveControllableOpen()', () => {
     })
   })
 
-  it('Phase 2: stamped presence without flag is controlled', () => {
+  it('phase 2: stamped presence without flag is controlled', () => {
     expect(resolveControllableOpen({
-      'open': false,
+      open: false,
       [CONTROLLABLE_PROVIDED_KEY]: ['open'],
     })).toEqual({
       initialOpen: false,
