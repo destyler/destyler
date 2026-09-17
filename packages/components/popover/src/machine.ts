@@ -5,16 +5,17 @@ import { getInitialFocus, proxyTabFocus, raf } from '@destyler/dom'
 import { trapFocus } from '@destyler/focus-trap'
 import { getPlacement } from '@destyler/popper'
 import { preventBodyScroll } from '@destyler/remove-scroll'
-import { compact } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'popover',
-      initial: ctx.open ? 'open' : 'closed',
+      initial: initialOpen ? 'open' : 'closed',
       context: {
         closeOnInteractOutside: true,
         closeOnEscape: true,
@@ -116,7 +117,7 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
       },
       activities: {
         trackPositioning(ctx) {

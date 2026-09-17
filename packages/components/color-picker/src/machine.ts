@@ -18,7 +18,7 @@ import {
   trackPointerMove,
 } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { compact, tryCatch } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen, tryCatch } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { parse } from './parse'
@@ -85,10 +85,11 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'color-picker',
-      initial: ctx.open ? 'open' : 'idle',
+      initial: initialOpen ? 'open' : 'idle',
       context: {
         dir: 'ltr',
         value: parse('#000000'),
@@ -406,7 +407,7 @@ export function machine(userContext: UserDefinedContext) {
     {
       guards: {
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {

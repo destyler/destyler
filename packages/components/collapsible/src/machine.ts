@@ -1,15 +1,16 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { getComputedStyle, getEventTarget, raf } from '@destyler/dom'
-import { compact } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'collapsible',
-      initial: ctx.open ? 'open' : 'closed',
+      initial: initialOpen ? 'open' : 'closed',
 
       context: {
         ...ctx,
@@ -104,7 +105,7 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
       },
       activities: {
         trackEnterAnimation(ctx, _evt, { send }) {

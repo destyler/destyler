@@ -37,6 +37,11 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'open'?: boolean | undefined
   /**
+   * The initial open state of the hover card when it is not controlled.
+   * Prefer this over seeding with `open` for uncontrolled usage.
+   */
+  'defaultOpen'?: boolean | undefined
+  /**
    * Whether the hover card is controlled by the user
    */
   'open.controlled'?: boolean | undefined

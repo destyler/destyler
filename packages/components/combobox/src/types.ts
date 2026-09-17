@@ -60,6 +60,11 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    */
   'open'?: boolean | undefined
   /**
+   * The initial open state of the combobox when it is not controlled.
+   * Prefer this over seeding with `open` for uncontrolled usage.
+   */
+  'defaultOpen'?: boolean | undefined
+  /**
    * Whether the combobox open state is controlled by the user
    */
   'open.controlled'?: boolean | undefined

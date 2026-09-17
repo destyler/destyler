@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { trackDismissableElement } from '@destyler/dismissable'
 import { getPlacement } from '@destyler/popper'
-import { compact } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -9,10 +9,11 @@ const { not, and } = guards
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'hover-card',
-      initial: ctx.open ? 'open' : 'closed',
+      initial: initialOpen ? 'open' : 'closed',
       context: {
         openDelay: 700,
         closeDelay: 300,
@@ -168,7 +169,7 @@ export function machine(userContext: UserDefinedContext) {
 
       guards: {
         isPointer: ctx => !!ctx.isPointer,
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
       },
 
       activities: {

@@ -25,6 +25,7 @@ export const props = createProps<UserDefinedContext>()([
   'onStageChange',
   'open.controlled',
   'open',
+  'defaultOpen',
   'persistRect',
   'position',
   'resizable',

@@ -19,6 +19,7 @@ export const props = createProps<UserDefinedContext>()([
   'onPointerDownOutside',
   'open.controlled',
   'open',
+  'defaultOpen',
   'persistentElements',
   'portalled',
   'positioning',

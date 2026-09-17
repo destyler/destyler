@@ -25,6 +25,7 @@ export const props = createProps<UserDefinedContext>()([
   'onValueChange',
   'open.controlled',
   'open',
+  'defaultOpen',
   'composite',
   'positioning',
   'required',

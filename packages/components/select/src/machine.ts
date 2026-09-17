@@ -9,7 +9,7 @@ import {
   trackFormControl,
 } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { addOrRemove, compact, isEqual } from '@destyler/utils'
+import { addOrRemove, compact, isControlledByFlag, isEqual, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -101,6 +101,7 @@ const set = {
 
 export function machine<T extends CollectionItem>(userContext: UserDefinedContext<T>) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'select',
@@ -133,7 +134,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         isInteractive: ctx => !(ctx.isDisabled || ctx.readOnly),
       },
 
-      initial: ctx.open ? 'open' : 'idle',
+      initial: initialOpen ? 'open' : 'idle',
 
       created: ['syncCollection'],
 
@@ -426,7 +427,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         isLastItemHighlighted: ctx => ctx.highlightedValue === ctx.collection.lastValue,
         closeOnSelect: (ctx, evt) => !!(evt.closeOnSelect ?? ctx.closeOnSelect),
         // guard assertions (for controlled mode)
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
         isTriggerClickEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.CLICK',
         isTriggerEnterEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.ENTER',
         isTriggerArrowUpEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.ARROW_UP',

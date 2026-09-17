@@ -15,7 +15,7 @@ import {
 
   subtractPoints,
 } from '@destyler/rect'
-import { compact, isEqual, match, pick } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, match, pick, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { panelStack } from './store'
@@ -45,10 +45,11 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'floating-panel',
-      initial: ctx.open ? 'open' : 'closed',
+      initial: initialOpen ? 'open' : 'closed',
       context: {
         allowOverflow: true,
         strategy: 'absolute',
@@ -234,7 +235,7 @@ export function machine(userContext: UserDefinedContext) {
         closeOnEsc: ctx => !!ctx.closeOnEscape,
         isMaximized: ctx => ctx.isMaximized,
         isMinimized: ctx => ctx.isMinimized,
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
       },
       activities: {
         trackPointerMove(ctx, _evt, { send }) {

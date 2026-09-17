@@ -85,6 +85,11 @@ interface PublicContext extends DirectionProperty, CommonProperties, Dismissable
    */
   'open'?: boolean | undefined
   /**
+   * The initial open state of the menu when it is not controlled.
+   * Prefer this over seeding with `open` for uncontrolled usage.
+   */
+  'defaultOpen'?: boolean | undefined
+  /**
    * Function called when the menu opens or closes
    */
   'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
