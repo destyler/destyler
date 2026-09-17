@@ -95,3 +95,84 @@ describe('edit controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('via-api')
   })
 })
+
+describe('edit controllable mode (Phase 2)', () => {
+  const services: Array<ReturnType<typeof machine>> = []
+
+  afterEach(() => {
+    while (services.length) {
+      const s = services.pop()
+      try {
+        s?.stop()
+      }
+      catch {
+        // ignore
+      }
+    }
+  })
+
+  function start(ctx: Record<string, unknown> = {}) {
+    const service = createEdit(ctx)
+    services.push(service)
+    service.start()
+    return service
+  }
+
+  it('uncontrolled: omit edit starts in preview', () => {
+    const service = start({})
+    expect(service.state.matches('preview')).toBe(true)
+  })
+
+  it('uncontrolled: edit.controlled false seeds edit mode and allows transitions', () => {
+    const onEditChange = vi.fn()
+    const service = start({
+      'edit': true,
+      'edit.controlled': false,
+      onEditChange,
+    })
+    expect(service.state.matches('edit')).toBe(true)
+
+    service.send({ type: 'SUBMIT' })
+    expect(service.state.matches('preview')).toBe(true)
+    expect(onEditChange).toHaveBeenCalledWith({ edit: false })
+  })
+
+  it('phase 2 presence: edit alone (no flag) defers transitions until parent syncs', async () => {
+    const onEditChange = vi.fn()
+    const service = start({ edit: false, onEditChange })
+    expect(service.state.matches('preview')).toBe(true)
+
+    service.send({ type: 'EDIT' })
+    expect(service.state.matches('preview')).toBe(true)
+    expect(onEditChange).toHaveBeenCalledWith({ edit: true })
+
+    service.setContext({ edit: true })
+    await Promise.resolve()
+    expect(service.state.matches('edit')).toBe(true)
+  })
+
+  it('controlled: edit.controlled defers until parent syncs', async () => {
+    const onEditChange = vi.fn()
+    const service = start({
+      'edit': false,
+      'edit.controlled': true,
+      onEditChange,
+    })
+    service.send({ type: 'EDIT' })
+    expect(service.state.matches('preview')).toBe(true)
+    expect(onEditChange).toHaveBeenCalledWith({ edit: true })
+
+    service.setContext({ edit: true })
+    await Promise.resolve()
+    expect(service.state.matches('edit')).toBe(true)
+
+    onEditChange.mockClear()
+    service.send({ type: 'CANCEL' })
+    expect(service.state.matches('edit')).toBe(true)
+    expect(onEditChange).toHaveBeenCalledWith({ edit: false })
+
+    service.setContext({ edit: false })
+    await Promise.resolve()
+    expect(service.state.matches('preview')).toBe(true)
+  })
+})

@@ -76,11 +76,14 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
    */
   'submitMode': SubmitMode
   /**
-   * Whether the editable is in edit mode.
+   * Whether the editable is in edit mode (controlled sync field / legacy seed).
+   * Phase 2: presence of `edit` without `'edit.controlled': false` is presence-controlled.
+   * There is no `defaultEdit` — uncontrolled start-in-edit uses `'edit.controlled': false`.
    */
   'edit'?: boolean | undefined
   /**
-   * Whether the editable is controlled
+   * Whether edit mode is controlled by the parent.
+   * Explicit true/false wins over Phase 2 prop presence.
    */
   'edit.controlled'?: boolean | undefined
   /**

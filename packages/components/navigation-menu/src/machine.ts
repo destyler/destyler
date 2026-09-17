@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { raf } from '@destyler/dom'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -31,11 +31,19 @@ function clearCloseTimer(ctx: MachineContext) {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  // Phase 2: record user-provided `value` before compact drops undefined keys
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['value'])) as typeof userContext
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
+    fallback: null as string | null,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'navigation-menu',
-      initial: ctx.defaultValue ? 'open' : 'idle',
+      initial: initialValue ? 'open' : 'idle',
       context: {
         value: null,
         openDelay: 200,
@@ -45,6 +53,8 @@ export function machine(userContext: UserDefinedContext) {
         disableHoverTrigger: false,
         disablePointerLeaveClose: false,
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
         previousValue: null,
         openTimer: null,
         closeTimer: null,
@@ -57,8 +67,6 @@ export function machine(userContext: UserDefinedContext) {
         isHorizontal: ctx => ctx.orientation === 'horizontal',
         isOpen: ctx => ctx.value !== null,
       },
-
-      entry: ['setInitialValue'],
 
       watch: {
         value: 'syncValue',
@@ -209,7 +217,8 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isValueControlled: ctx => !!ctx['value.controlled'],
+        // Phase 2 dual-track: explicit value.controlled wins; else stamped prop presence (#103)
+        isValueControlled: ctx => isControlled(ctx, 'value'),
         isHoverDisabled: ctx => ctx.disableHoverTrigger,
         isClickDisabled: ctx => ctx.disableClickTrigger,
         isPointerLeaveCloseDisabled: ctx => ctx.disablePointerLeaveClose,
@@ -219,11 +228,6 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       actions: {
-        setInitialValue(ctx) {
-          if (ctx.defaultValue) {
-            set.value(ctx, ctx.defaultValue)
-          }
-        },
         setValue(ctx, evt) {
           set.value(ctx, evt.value)
         },
