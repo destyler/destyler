@@ -1,13 +1,13 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { add, compact, isEqual, remove } from '@destyler/utils'
+import { add, compact, isControlledByFlag, isEqual, remove, resolveControllableProp } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { and, not } = guards
 
 const invoke = {
-  change(ctx: MachineContext) {
-    ctx.onValueChange?.({ value: Array.from(ctx.value) })
+  change(ctx: MachineContext, value: string[]) {
+    ctx.onValueChange?.({ value: Array.from(value) })
   },
   focusChange(ctx: MachineContext) {
     ctx.onFocusChange?.({ value: ctx.focusedValue })
@@ -18,8 +18,13 @@ const set = {
   value(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      invoke.change(ctx, value)
+      return
+    }
     ctx.value = value
-    invoke.change(ctx)
+    invoke.change(ctx, value)
   },
   focusedValue(ctx: MachineContext, value: string | null) {
     if (isEqual(ctx.focusedValue, value))
@@ -31,6 +36,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: [] as string[],
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'accordion',
@@ -38,11 +49,12 @@ export function machine(userContext: UserDefinedContext) {
 
       context: {
         focusedValue: null,
-        value: [],
         collapsible: false,
         multiple: false,
         orientation: 'vertical',
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
       },
 
       watch: {

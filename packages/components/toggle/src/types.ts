@@ -14,38 +14,47 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the toggle. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
    * Whether the toggle is disabled.
    */
-  disabled?: boolean | undefined
+  'disabled'?: boolean | undefined
   /**
-   * The values of the toggles in the group.
+   * The controlled values of the toggles in the group.
    */
-  value: string[]
+  'value'?: string[] | undefined
+  /**
+   * The initial values when the toggle group is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string[] | undefined
+  /**
+   * Whether the toggle group value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * Function to call when the toggle is clicked.
    */
-  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
+  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * Whether to loop focus inside the toggle group.
    * @default true
    */
-  loopFocus: boolean
+  'loopFocus': boolean
   /**
    *  Whether to use roving tab index to manage focus.
    * @default true
    */
-  rovingFocus?: boolean | undefined
+  'rovingFocus'?: boolean | undefined
   /**
    * The orientation of the toggle group.
    * @default "horizontal"
    */
-  orientation: Orientation
+  'orientation': Orientation
   /**
    * Whether to allow multiple toggles to be selected.
    */
-  multiple?: boolean | undefined
+  'multiple'?: boolean | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

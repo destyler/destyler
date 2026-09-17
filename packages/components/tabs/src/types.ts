@@ -30,20 +30,29 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the tabs. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
    * Specifies the localized strings that identifies the accessibility elements and their states
    */
-  translations?: IntlTranslations | undefined
+  'translations'?: IntlTranslations | undefined
   /**
    * Whether the keyboard navigation will loop from last tab to first, and vice versa.
    * @default true
    */
-  loopFocus: boolean
+  'loopFocus': boolean
   /**
-   * The selected tab id
+   * The controlled selected tab id
    */
-  value: string | null
+  'value'?: string | null | undefined
+  /**
+   * The initial selected tab id when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string | null | undefined
+  /**
+   * Whether the tabs value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * The orientation of the tabs. Can be `horizontal` or `vertical`
    * - `horizontal`: only left and right arrow key navigation will work.
@@ -51,7 +60,7 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    *
    * @default "horizontal"
    */
-  orientation?: 'horizontal' | 'vertical' | undefined
+  'orientation'?: 'horizontal' | 'vertical' | undefined
   /**
    * The activation mode of the tabs. Can be `manual` or `automatic`
    * - `manual`: Tabs are activated when clicked or press `enter` key.
@@ -59,28 +68,28 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    *
    * @default "automatic"
    */
-  activationMode?: 'manual' | 'automatic' | undefined
+  'activationMode'?: 'manual' | 'automatic' | undefined
   /**
    * Callback to be called when the selected/active tab changes
    */
-  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
+  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * Callback to be called when the focused tab changes
    */
-  onFocusChange?: ((details: FocusChangeDetails) => void) | undefined
+  'onFocusChange'?: ((details: FocusChangeDetails) => void) | undefined
   /**
    * Whether the tab is composite
    */
-  composite: boolean
+  'composite': boolean
   /**
    * Whether the active tab can be deselected when clicking on it.
    */
-  deselectable?: boolean | undefined
+  'deselectable'?: boolean | undefined
   /**
    * Function to navigate to the selected tab when clicking on it.
    * Useful if tab triggers are anchor elements.
    */
-  navigate: (details: NavigateDetails) => void
+  'navigate': (details: NavigateDetails) => void
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>
