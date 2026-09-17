@@ -49,9 +49,18 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'form'?: string | undefined
   /**
-   * The value of the range slider
+   * The controlled value of the range slider
    */
-  'value': number[]
+  'value'?: number[] | undefined
+  /**
+   * The initial value when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: number[] | undefined
+  /**
+   * Whether the slider value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * Whether the slider is disabled
    */

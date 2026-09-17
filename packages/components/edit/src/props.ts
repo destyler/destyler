@@ -6,6 +6,7 @@ export const props = createProps<UserDefinedContext>()([
   'activationMode',
   'autoResize',
   'dir',
+  'defaultValue',
   'disabled',
   'finalFocusEl',
   'form',
@@ -31,6 +32,7 @@ export const props = createProps<UserDefinedContext>()([
   'submitMode',
   'translations',
   'value',
+  'value.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

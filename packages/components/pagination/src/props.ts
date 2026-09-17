@@ -4,6 +4,8 @@ import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'count',
+  'defaultPage',
+  'defaultPageSize',
   'dir',
   'getRootNode',
   'id',
@@ -11,7 +13,9 @@ export const props = createProps<UserDefinedContext>()([
   'onPageChange',
   'onPageSizeChange',
   'page',
+  'page.controlled',
   'pageSize',
+  'pageSize.controlled',
   'siblingCount',
   'translations',
   'type',

@@ -3,12 +3,14 @@ import { createProps } from '@destyler/types'
 import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
+  'defaultPage',
   'dir',
   'getRootNode',
   'id',
   'ids',
   'loop',
   'page',
+  'page.controlled',
   'onPageChange',
   'orientation',
   'slideCount',

@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { addDomEvent, raf, trackPointerMove } from '@destyler/dom'
 import { findSnapPoint, getScrollSnapPositions } from '@destyler/scroll-snap'
-import { add, compact, isEqual, isObject, nextIndex, prevIndex, remove, uniq } from '@destyler/utils'
+import { add, compact, isControlledByFlag, isEqual, isObject, nextIndex, prevIndex, remove, resolveControllableProp, uniq } from '@destyler/utils'
 import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -22,6 +22,14 @@ const set = {
     const page = clamp(value, 0, ctx.pageSnapPoints.length - 1)
     if (isEqual(ctx.page, page))
       return
+    // Dual-track: only defer context writes when page.controlled is set
+    if (isControlledByFlag(ctx, 'page')) {
+      ctx.onPageChange?.({
+        page,
+        pageSnapPoint: ctx.pageSnapPoints[page],
+      })
+      return
+    }
     ctx.page = page
     invoke.pageChange(ctx)
   },
@@ -65,6 +73,12 @@ function ensureItemGroupEl(ctx: MachineContext, fn: (el: HTMLElement) => void | 
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialPage } = resolveControllableProp({
+    value: ctx.page,
+    defaultValue: ctx.defaultPage,
+    controlledFlag: ctx['page.controlled'],
+    fallback: 0,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'carousel',
@@ -82,6 +96,8 @@ export function machine(userContext: UserDefinedContext) {
         allowMouseDrag: false,
         inViewThreshold: 0.6,
         ...ctx,
+        // Resolve after spread so defaultPage / legacy page seed win consistently
+        page: initialPage,
         timeoutRef: ref({ current: undefined }),
         translations: {
           nextTrigger: 'Next slide',

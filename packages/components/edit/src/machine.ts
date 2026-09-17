@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { contains, raf } from '@destyler/dom'
 import { trackInteractOutside } from '@destyler/interact-outside'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -26,6 +26,11 @@ const set = {
   value(ctx: MachineContext, value: string) {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      ctx.onValueChange?.({ value })
+      return
+    }
     ctx.value = value
     invoke.change(ctx)
   },
@@ -33,6 +38,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: '',
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'editable',
@@ -49,6 +60,9 @@ export function machine(userContext: UserDefinedContext) {
         disabled: false,
         readOnly: false,
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
+        previousValue: initialValue,
         translations: {
           input: 'editable input',
           edit: 'edit',
