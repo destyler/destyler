@@ -24,7 +24,7 @@ Two intentional paradigms coexist today. That split is **known and deliberate fo
 | `CONTROLLED.OPEN` / `CONTROLLED.CLOSE` | Internal events from `watch.open` |
 | `watch.open` → `toggleVisibility` | Parent `open` prop changes → send `CONTROLLED.*` (no re-invoke) |
 
-**Detection:** `isOpenControlled: ctx => !!ctx['open.controlled']`.
+**Detection:** `isOpenControlled: ctx => isControlledByFlag(ctx, 'open')` (Phase 1 still equals `!!ctx['open.controlled']`).
 
 **Behavior:**
 
@@ -42,7 +42,7 @@ Two intentional paradigms coexist today. That split is **known and deliberate fo
 - select / combobox / color-picker / calendar (**open** only — see value family below)
 - floating-panel (aligned with dialog after [#102](https://github.com/destyler/destyler/pull/102))
 
-Shared helper (Phase 1): `@destyler/utils` `resolveControllableOpen` / `isControlledByFlag` — piloted on **dialog** only. Other open-family machines still copy-paste guards for now.
+Shared helper (Phase 1): `@destyler/utils` `resolveControllableOpen` / `isControlledByFlag` — used across the **open family** (dialog + popover, tooltip, hover-card, collapsible, menu, floating-panel, and open-only on select / combobox / calendar / color-picker).
 
 ### 2. Edit mode
 
@@ -84,9 +84,9 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 
 ### 7. Missing `defaultOpen` / `defaultChecked` / `defaultValue`
 
-Almost everywhere, machines still lack `defaultOpen` / `defaultChecked` / `defaultValue`. **Exceptions:** navigation-menu `defaultValue` (historical), and **dialog `defaultOpen`** (Phase 1 pilot — see Migration Phase 1).
+Value / checked machines still generally lack `defaultChecked` / `defaultValue`. **Open family:** `defaultOpen` is now available on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, and color-picker (open side only). **Also:** navigation-menu `defaultValue` (historical).
 
-Uncontrolled “start open” may still be seeded by setting `open: true` **without** `open.controlled` (compat). Prefer `defaultOpen` on dialog going forward. Unification for the rest of the open family is tracked in [#103](https://github.com/destyler/destyler/issues/103).
+Uncontrolled “start open” may still be seeded by setting `open: true` **without** `open.controlled` (compat). Prefer `defaultOpen` going forward. See Migration Phase 1 / [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 8. Shared helpers
 
@@ -100,8 +100,8 @@ Use **dialog** as the canonical reference (`packages/components/dialog`).
 
 Checklist:
 
-1. **Types / props:** public `open?: boolean`, `'open.controlled'?: boolean`, `onOpenChange`.
-2. **Guards:** `isOpenControlled: ctx => !!ctx['open.controlled']`.
+1. **Types / props:** public `open?: boolean`, `defaultOpen?: boolean`, `'open.controlled'?: boolean`, `onOpenChange`.
+2. **Guards:** `isOpenControlled: ctx => isControlledByFlag(ctx, 'open')` (via `@destyler/utils`).
 3. **Transitions:** user `OPEN` / `CLOSE` — if controlled, invoke callback only; else transition + invoke. Add `CONTROLLED.OPEN` / `CONTROLLED.CLOSE` targets that always transition (parent-driven).
 4. **Watch:** `watch: { open: ['toggleVisibility'] }` where `toggleVisibility` sends `CONTROLLED.OPEN` or `CONTROLLED.CLOSE` from `ctx.open` (do not re-invoke change).
 5. **Connect:** `setOpen` / trigger handlers send `OPEN` / `CLOSE` the same way dialog does.
@@ -114,7 +114,7 @@ For multi-state open trees (e.g. floating-panel `open` / `open.dragging` / `open
 
 ---
 
-## Migration Phase 1 (dialog pilot — option C dual-track)
+## Migration Phase 1 (open family — option C dual-track)
 
 Tracked in [#103](https://github.com/destyler/destyler/issues/103). **Long-term direction is option C** (split `default*` vs value, shared helper, eventual prop-presence detection). Phase 1 is **additive** and does **not** rewrite the status-quo contract above.
 
@@ -123,13 +123,16 @@ What landed:
 | Piece | Change |
 |-------|--------|
 | Shared helper | `@destyler/utils` — `resolveControllableProp` / `resolveControllableOpen` / `isControlledByFlag` |
-| Dialog | public `defaultOpen?: boolean`; initial open = `defaultOpen ?? open ?? false` |
+| Open family `defaultOpen` | dialog (pilot), then popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (**open** only) |
+| Initial open | `defaultOpen ?? open ?? false` via `resolveControllableOpen` (adapt open/closed state names per machine, e.g. menu/select `idle`, combobox `suggesting`) |
 | Controlled detection | **Still** `!!ctx['open.controlled']` (via `isControlledByFlag`) — do **not** rely on prop-presence yet |
 | Compat | Uncontrolled `open: true` seed without `open.controlled` still starts open |
 
-**Phase 1 controlled usage still requires `'open.controlled': true`.** Passing only `open` does not make the dialog controlled.
+**Phase 1 controlled usage still requires `'open.controlled': true`.** Passing only `open` does not make the component controlled.
 
-Later phases (not this PR): migrate other open-family machines; eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded `open` seed once adapters adopt `defaultOpen`.
+Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), presence, edit (`edit.controlled`). Value/checked ownership on select/combobox/calendar/color-picker is unchanged.
+
+Later phases: eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded `open` seed once adapters adopt `defaultOpen`; value/checked `default*` as agreed in [#103](https://github.com/destyler/destyler/issues/103).
 
 ## Out of scope / future
 

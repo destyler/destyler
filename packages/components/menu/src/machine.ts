@@ -13,7 +13,7 @@ import {
 } from '@destyler/dom'
 import { getPlacement, getPlacementSide } from '@destyler/popper'
 import { getElementPolygon, isPointInPolygon } from '@destyler/rect'
-import { cast, compact, isEqual } from '@destyler/utils'
+import { cast, compact, isControlledByFlag, isEqual, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -38,10 +38,11 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'menu',
-      initial: ctx.open ? 'open' : 'idle',
+      initial: initialOpen ? 'open' : 'idle',
       context: {
         highlightedValue: null,
         loopFocus: false,
@@ -488,7 +489,7 @@ export function machine(userContext: UserDefinedContext) {
           return isPointInPolygon(ctx.intentPolygon, evt.point)
         },
         // guard assertions (for controlled mode)
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
         isArrowLeftEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_LEFT',
         isArrowUpEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_UP',
         isArrowDownEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_DOWN',

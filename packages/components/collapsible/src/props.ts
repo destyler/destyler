@@ -12,5 +12,6 @@ export const props = createProps<UserDefinedContext>()([
   'onOpenChange',
   'open.controlled',
   'open',
+  'defaultOpen',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

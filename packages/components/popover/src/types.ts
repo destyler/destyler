@@ -78,6 +78,11 @@ interface PublicContext
    */
   'open'?: boolean | undefined
   /**
+   * The initial open state of the popover when it is not controlled.
+   * Prefer this over seeding with `open` for uncontrolled usage.
+   */
+  'defaultOpen'?: boolean | undefined
+  /**
    * Whether the popover is controlled by the user
    */
   'open.controlled'?: boolean | undefined

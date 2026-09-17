@@ -23,6 +23,7 @@ export const props = createProps<UserDefinedContext>()([
   'onSelect',
   'open.controlled',
   'open',
+  'defaultOpen',
   'positioning',
   'typeahead',
 ])

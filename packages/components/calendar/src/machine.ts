@@ -23,7 +23,7 @@ import { trackDismissableElement } from '@destyler/dismissable'
 import { disableTextSelection, raf, restoreTextSelection } from '@destyler/dom'
 import { createLiveRegion } from '@destyler/live-region'
 import { getPlacement } from '@destyler/popper'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { DateFormatter } from '@internationalized/date'
 import { dom } from './dom'
@@ -188,10 +188,11 @@ function transformContext(ctx: Partial<MachineContext>): MachineContext {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'calendar',
-      initial: ctx.open ? 'open' : 'idle',
+      initial: initialOpen ? 'open' : 'idle',
       context: transformContext(ctx),
       computed: {
         isInteractive: ctx => !ctx.disabled && !ctx.readOnly,
@@ -662,7 +663,7 @@ export function machine(userContext: UserDefinedContext) {
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
         isSelectingEndDate: ctx => ctx.activeIndex === 1,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
         isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === 'INTERACT_OUTSIDE',
         isInputValueEmpty: (_ctx, evt) => evt.value.trim() === '',
         shouldFixOnBlur: (_ctx, evt) => !!evt.fixOnBlur,

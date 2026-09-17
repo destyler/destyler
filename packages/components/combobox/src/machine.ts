@@ -3,7 +3,7 @@ import { ariaHidden } from '@destyler/aria-hidden'
 import { trackDismissableElement } from '@destyler/dismissable'
 import { clickIfLink, observeAttributes, observeChildren, raf, scrollIntoView } from '@destyler/dom'
 import { getPlacement } from '@destyler/popper'
-import { addOrRemove, compact, isArray, isBoolean, isEqual, match } from '@destyler/utils'
+import { addOrRemove, compact, isArray, isBoolean, isControlledByFlag, isEqual, match, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
@@ -94,10 +94,11 @@ const set = {
 
 export function machine<T extends CollectionItem>(userContext: UserDefinedContext<T>) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'combobox',
-      initial: ctx.open ? 'suggesting' : 'idle',
+      initial: initialOpen ? 'suggesting' : 'idle',
       context: {
         loopFocus: true,
         openOnClick: false,
@@ -682,7 +683,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         allowCustomValue: ctx => !!ctx.allowCustomValue,
         hasHighlightedItem: ctx => ctx.highlightedValue != null,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
         openOnChange: (ctx, evt) => {
           if (isBoolean(ctx.openOnChange))
             return ctx.openOnChange

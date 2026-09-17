@@ -104,6 +104,11 @@ interface PublicContext extends CommonProperties, DirectionProperty, InteractOut
    */
   'open'?: boolean | undefined
   /**
+   * The initial open state of the color picker when it is not controlled.
+   * Prefer this over seeding with `open` for uncontrolled usage.
+   */
+  'defaultOpen'?: boolean | undefined
+  /**
    * Whether the color picker open state is controlled by the user
    */
   'open.controlled'?: boolean | undefined

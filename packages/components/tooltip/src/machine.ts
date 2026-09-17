@@ -2,7 +2,7 @@ import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { addDomEvent, getOverflowAncestors, isComposingEvent } from '@destyler/dom'
 import { trackFocusVisible } from '@destyler/focus-visible'
 import { getPlacement } from '@destyler/popper'
-import { compact } from '@destyler/utils'
+import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
 import { createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { store } from './store'
@@ -11,10 +11,11 @@ const { and, not } = guards
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
       id: 'tooltip',
-      initial: ctx.open ? 'open' : 'closed',
+      initial: initialOpen ? 'open' : 'closed',
 
       activities: ['trackFocusVisible'],
 
@@ -336,7 +337,7 @@ export function machine(userContext: UserDefinedContext) {
         isVisible: ctx => ctx.id === store.id,
         isInteractive: ctx => ctx.interactive,
         hasPointerMoveOpened: ctx => !!ctx.hasPointerMoveOpened,
-        isOpenControlled: ctx => !!ctx['open.controlled'],
+        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
       },
       delays: {
         OPEN_DELAY: ctx => ctx.openDelay,
