@@ -26,23 +26,41 @@ interface PublicContext<T = any> extends DirectionProperty, CommonProperties {
   /**
    * The tree collection data
    */
-  collection: TreeCollection<T>
+  'collection': TreeCollection<T>
   /**
    * The ids of the tree elements. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
-   * The id of the expanded nodes
+   * The controlled ids of the expanded nodes
    */
-  expandedValue: string[]
+  'expandedValue'?: string[] | undefined
   /**
-   * The id of the selected nodes
+   * The initial expanded node ids when not controlled.
+   * Prefer this over seeding with `expandedValue` for uncontrolled usage.
    */
-  selectedValue: string[]
+  'defaultExpandedValue'?: string[] | undefined
+  /**
+   * Whether the expanded value is controlled by the user
+   */
+  'expandedValue.controlled'?: boolean | undefined
+  /**
+   * The controlled ids of the selected nodes
+   */
+  'selectedValue'?: string[] | undefined
+  /**
+   * The initial selected node ids when not controlled.
+   * Prefer this over seeding with `selectedValue` for uncontrolled usage.
+   */
+  'defaultSelectedValue'?: string[] | undefined
+  /**
+   * Whether the selected value is controlled by the user
+   */
+  'selectedValue.controlled'?: boolean | undefined
   /**
    * The id of the focused node
    */
-  focusedValue: string | null
+  'focusedValue': string | null
   /**
    * Whether the tree supports multiple selection
    * - "single": only one node can be selected
@@ -50,29 +68,29 @@ interface PublicContext<T = any> extends DirectionProperty, CommonProperties {
    *
    * @default "single"
    */
-  selectionMode: 'single' | 'multiple'
+  'selectionMode': 'single' | 'multiple'
   /**
    * Called when the tree is opened or closed
    */
-  onExpandedChange?: ((details: ExpandedChangeDetails) => void) | undefined
+  'onExpandedChange'?: ((details: ExpandedChangeDetails) => void) | undefined
   /**
    * Called when the selection changes
    */
-  onSelectionChange?: ((details: SelectionChangeDetails) => void) | undefined
+  'onSelectionChange'?: ((details: SelectionChangeDetails) => void) | undefined
   /**
    * Called when the focused node changes
    */
-  onFocusChange?: ((details: FocusChangeDetails) => void) | undefined
+  'onFocusChange'?: ((details: FocusChangeDetails) => void) | undefined
   /**
    * Whether clicking on a branch should open it or not
    * @default true
    */
-  expandOnClick?: boolean | undefined
+  'expandOnClick'?: boolean | undefined
   /**
    * Whether the tree supports typeahead search
    * @default true
    */
-  typeahead?: boolean | undefined
+  'typeahead'?: boolean | undefined
 }
 
 interface PrivateContext {

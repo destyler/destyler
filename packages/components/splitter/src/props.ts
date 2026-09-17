@@ -3,6 +3,7 @@ import { createProps } from '@destyler/types'
 import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
+  'defaultSize',
   'dir',
   'getRootNode',
   'id',
@@ -11,6 +12,7 @@ export const props = createProps<UserDefinedContext>()([
   'onSizeChangeEnd',
   'orientation',
   'size',
+  'size.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

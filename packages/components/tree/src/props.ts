@@ -5,8 +5,11 @@ import { createSplitProps } from '@destyler/utils'
 export const props = createProps<UserDefinedContext>()([
   'ids',
   'collection',
+  'defaultExpandedValue',
+  'defaultSelectedValue',
   'dir',
   'expandedValue',
+  'expandedValue.controlled',
   'expandOnClick',
   'focusedValue',
   'getRootNode',
@@ -15,6 +18,7 @@ export const props = createProps<UserDefinedContext>()([
   'onFocusChange',
   'onSelectionChange',
   'selectedValue',
+  'selectedValue.controlled',
   'selectionMode',
   'typeahead',
 ])

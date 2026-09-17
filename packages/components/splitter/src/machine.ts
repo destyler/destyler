@@ -1,12 +1,46 @@
-import type { MachineContext, MachineState, UserDefinedContext } from './types'
+import type { MachineContext, MachineState, PanelSizeData, UserDefinedContext } from './types'
 import { raf, trackPointerMove } from '@destyler/dom'
-import { compact } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 import { clamp, getHandleBounds, getHandlePanels, getNormalizedPanels, getPanelBounds } from './utils'
 
+function cloneSize(size: PanelSizeData[]): PanelSizeData[] {
+  return size.map(panel => ({ ...panel }))
+}
+
+const invoke = {
+  sizeChange(ctx: MachineContext, size: PanelSizeData[]) {
+    ctx.onSizeChange?.({ size: cloneSize(size), activeHandleId: ctx.activeResizeId })
+  },
+  sizeChangeEnd(ctx: MachineContext) {
+    ctx.onSizeChangeEnd?.({ size: cloneSize(ctx.size ?? []), activeHandleId: ctx.activeResizeId })
+  },
+}
+
+const set = {
+  size(ctx: MachineContext, value: PanelSizeData[]) {
+    const next = cloneSize(value)
+    if (isEqual(ctx.size, next))
+      return
+    // Dual-track: only defer context writes when size.controlled is set
+    if (isControlledByFlag(ctx, 'size')) {
+      invoke.sizeChange(ctx, next)
+      return
+    }
+    ctx.size = next
+    invoke.sizeChange(ctx, ctx.size)
+  },
+}
+
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialSize } = resolveControllableProp({
+    value: ctx.size,
+    defaultValue: ctx.defaultSize,
+    controlledFlag: ctx['size.controlled'],
+    fallback: [] as PanelSizeData[],
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'splitter',
@@ -24,6 +58,8 @@ export function machine(userContext: UserDefinedContext) {
         initialDragPoint: null,
         initialDragSizes: null,
         ...ctx,
+        // Resolve after spread so defaultSize / legacy size seed win consistently
+        size: cloneSize(initialSize),
       },
 
       created: ['setPreviousPanels', 'setInitialSize'],
@@ -127,7 +163,7 @@ export function machine(userContext: UserDefinedContext) {
           activities: ['trackPointerMove'],
           on: {
             POINTER_MOVE: {
-              actions: ['setPointerValue', 'setGlobalCursor', 'invokeOnResize'],
+              actions: ['setPointerValue', 'setGlobalCursor'],
             },
             POINTER_UP: {
               target: 'focused',
@@ -167,11 +203,8 @@ export function machine(userContext: UserDefinedContext) {
         clearGlobalCursor(ctx) {
           dom.removeGlobalCursor(ctx)
         },
-        invokeOnResize(ctx) {
-          ctx.onSizeChange?.({ size: Array.from(ctx.size), activeHandleId: ctx.activeResizeId })
-        },
         invokeOnResizeEnd(ctx) {
-          ctx.onSizeChangeEnd?.({ size: Array.from(ctx.size), activeHandleId: ctx.activeResizeId })
+          invoke.sizeChangeEnd(ctx)
         },
         setActiveHandleId(ctx, evt) {
           ctx.activeResizeId = evt.id
@@ -187,50 +220,64 @@ export function machine(userContext: UserDefinedContext) {
         },
         setPanelSize(ctx, evt) {
           const { id, size } = evt
-          ctx.size = ctx.size.map((panel) => {
-            const panelSize = clamp(size, panel.minSize ?? 0, panel.maxSize ?? 100)
-            return panel.id === id ? { ...panel, size: panelSize } : panel
-          })
+          const next = cloneSize(ctx.size ?? [])
+          const index = next.findIndex(panel => panel.id === id)
+          if (index === -1)
+            return
+          const panel = next[index]
+          const panelSize = clamp(size, panel.minSize ?? 0, panel.maxSize ?? 100)
+          next[index] = { ...panel, size: panelSize }
+          set.size(ctx, next)
         },
         setStartPanelToMin(ctx) {
           const bounds = getPanelBounds(ctx)
           if (!bounds)
             return
           const { before, after } = bounds
-          ctx.size[before.index].size = before.min
-          ctx.size[after.index].size = after.min
+          const next = cloneSize(ctx.size ?? [])
+          next[before.index] = { ...next[before.index], size: before.min }
+          next[after.index] = { ...next[after.index], size: after.min }
+          set.size(ctx, next)
         },
         setStartPanelToMax(ctx) {
           const bounds = getPanelBounds(ctx)
           if (!bounds)
             return
           const { before, after } = bounds
-          ctx.size[before.index].size = before.max
-          ctx.size[after.index].size = after.max
+          const next = cloneSize(ctx.size ?? [])
+          next[before.index] = { ...next[before.index], size: before.max }
+          next[after.index] = { ...next[after.index], size: after.max }
+          set.size(ctx, next)
         },
         expandStartPanel(ctx, evt) {
           const bounds = getPanelBounds(ctx)
           if (!bounds)
             return
           const { before, after } = bounds
-          ctx.size[before.index].size = before.up(evt.step)
-          ctx.size[after.index].size = after.down(evt.step)
+          const next = cloneSize(ctx.size ?? [])
+          next[before.index] = { ...next[before.index], size: before.up(evt.step) }
+          next[after.index] = { ...next[after.index], size: after.down(evt.step) }
+          set.size(ctx, next)
         },
         shrinkStartPanel(ctx, evt) {
           const bounds = getPanelBounds(ctx)
           if (!bounds)
             return
           const { before, after } = bounds
-          ctx.size[before.index].size = before.down(evt.step)
-          ctx.size[after.index].size = after.up(evt.step)
+          const next = cloneSize(ctx.size ?? [])
+          next[before.index] = { ...next[before.index], size: before.down(evt.step) }
+          next[after.index] = { ...next[after.index], size: after.up(evt.step) }
+          set.size(ctx, next)
         },
         resetStartPanel(ctx, evt) {
           const bounds = getPanelBounds(ctx, evt.id)
           if (!bounds)
             return
           const { before, after } = bounds
-          ctx.size[before.index].size = ctx.initialSize[before.index].size
-          ctx.size[after.index].size = ctx.initialSize[after.index].size
+          const next = cloneSize(ctx.size ?? [])
+          next[before.index] = { ...next[before.index], size: ctx.initialSize[before.index].size }
+          next[after.index] = { ...next[after.index], size: ctx.initialSize[after.index].size }
+          set.size(ctx, next)
         },
         focusResizeHandle(ctx) {
           raf(() => {
@@ -317,8 +364,10 @@ export function machine(userContext: UserDefinedContext) {
             }
           }
 
-          ctx.size[before.index].size = newBeforeSize
-          ctx.size[after.index].size = newAfterSize
+          const next = cloneSize(ctx.size ?? [])
+          next[before.index] = { ...next[before.index], size: newBeforeSize }
+          next[after.index] = { ...next[after.index], size: newAfterSize }
+          set.size(ctx, next)
         },
       },
     },
