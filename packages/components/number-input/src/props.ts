@@ -7,6 +7,7 @@ export const props = createProps<UserDefinedContext>()([
   'allowOverflow',
   'clampValueOnBlur',
   'dir',
+  'defaultValue',
   'disabled',
   'focusInputOnChange',
   'form',
@@ -30,5 +31,6 @@ export const props = createProps<UserDefinedContext>()([
   'step',
   'translations',
   'value',
+  'value.controlled',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

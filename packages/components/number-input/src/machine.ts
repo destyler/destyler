@@ -14,10 +14,12 @@ import {
   compact,
   decrementValue,
   incrementValue,
+  isControlledByFlag,
   isEqual,
   isValueAtMax,
   isValueAtMin,
   isValueWithinRange,
+  resolveControllableProp,
 } from '@destyler/utils'
 import { choose, createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
@@ -56,6 +58,14 @@ const set = {
   value: (ctx: MachineContext, value: string) => {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      ctx.onValueChange?.({
+        value,
+        valueAsNumber: parseValue(ctx, value),
+      })
+      return
+    }
     ctx.value = value
     invoke.onChange(ctx)
   },
@@ -63,6 +73,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: '',
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'number-input',
@@ -84,6 +100,8 @@ export function machine(userContext: UserDefinedContext) {
         disabled: false,
         readOnly: false,
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: initialValue,
         hint: null,
         scrubberCursorPoint: null,
         fieldsetDisabled: false,

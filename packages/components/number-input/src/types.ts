@@ -48,106 +48,115 @@ interface PublicContext extends LocaleProperties, CommonProperties {
   /**
    * The ids of the elements in the number input. Useful for composition.
    */
-  ids?: ElementIds | undefined
+  'ids'?: ElementIds | undefined
   /**
    * The name attribute of the number input. Useful for form submission.
    */
-  name?: string | undefined
+  'name'?: string | undefined
   /**
    * The associate form of the input element.
    */
-  form?: string | undefined
+  'form'?: string | undefined
   /**
    * Whether the number input is disabled.
    */
-  disabled?: boolean | undefined
+  'disabled'?: boolean | undefined
   /**
    * Whether the number input is readonly
    */
-  readOnly?: boolean | undefined
+  'readOnly'?: boolean | undefined
   /**
    * Whether the number input value is invalid.
    */
-  invalid?: boolean | undefined
+  'invalid'?: boolean | undefined
   /**
    * Whether the number input is required
    */
-  required?: boolean | undefined
+  'required'?: boolean | undefined
   /**
    * The pattern used to check the <input> element's value against
    *
    * @default "[0-9]*(.[0-9]+)?"
    */
-  pattern: string
+  'pattern': string
   /**
-   * The value of the input
+   * The controlled value of the input
    */
-  value: string
+  'value'?: string | undefined
+  /**
+   * The initial value when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string | undefined
+  /**
+   * Whether the number input value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * The minimum value of the number input
    * @default Number.MIN_SAFE_INTEGER
    */
-  min: number
+  'min': number
   /**
    * The maximum value of the number input
    * @default Number.MAX_SAFE_INTEGER
    */
-  max: number
+  'max': number
   /**
    * The amount to increment or decrement the value by
    * @default 1
    */
-  step: number
+  'step': number
   /**
    * Whether to allow mouse wheel to change the value
    */
-  allowMouseWheel?: boolean | undefined
+  'allowMouseWheel'?: boolean | undefined
   /**
    * Whether to allow the value overflow the min/max range
    * @default true
    */
-  allowOverflow: boolean
+  'allowOverflow': boolean
   /**
    * Whether to clamp the value when the input loses focus (blur)
    * @default true
    */
-  clampValueOnBlur: boolean
+  'clampValueOnBlur': boolean
   /**
    * Whether to focus input when the value changes
    * @default true
    */
-  focusInputOnChange: boolean
+  'focusInputOnChange': boolean
   /**
    * Specifies the localized strings that identifies the accessibility elements and their states
    */
-  translations: IntlTranslations
+  'translations': IntlTranslations
   /**
    * The options to pass to the `Intl.NumberFormat` constructor
    */
-  formatOptions?: Intl.NumberFormatOptions | undefined
+  'formatOptions'?: Intl.NumberFormatOptions | undefined
   /**
    * Hints at the type of data that might be entered by the user. It also determines
    * the type of keyboard shown to the user on mobile devices
    * @default "decimal"
    */
-  inputMode: InputMode
+  'inputMode': InputMode
   /**
    * Function invoked when the value changes
    */
-  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
+  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * Function invoked when the value overflows or underflows the min/max range
    */
-  onValueInvalid?: ((details: ValueInvalidDetails) => void) | undefined
+  'onValueInvalid'?: ((details: ValueInvalidDetails) => void) | undefined
   /**
    * Function invoked when the number input is focused
    */
-  onFocusChange?: ((details: FocusChangeDetails) => void) | undefined
+  'onFocusChange'?: ((details: FocusChangeDetails) => void) | undefined
   /**
    * Whether to spin the value when the increment/decrement button is pressed
    * @default true
    */
-  spinOnPress?: boolean | undefined
+  'spinOnPress'?: boolean | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

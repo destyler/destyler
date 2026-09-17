@@ -4,6 +4,7 @@ import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
   'count',
+  'defaultStep',
   'dir',
   'getRootNode',
   'id',
@@ -13,6 +14,7 @@ export const props = createProps<UserDefinedContext>()([
   'onStepComplete',
   'orientation',
   'step',
+  'step.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

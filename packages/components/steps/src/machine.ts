@@ -1,5 +1,5 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { compact, isEqual, isValueWithinRange } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, isValueWithinRange, resolveControllableProp } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 
 function validateStep(ctx: MachineContext, step: number) {
@@ -14,6 +14,14 @@ const set = {
       return
     validateStep(ctx, step)
 
+    // Dual-track: only defer context writes when step.controlled is set
+    if (isControlledByFlag(ctx, 'step')) {
+      ctx.onStepChange?.({ step })
+      if (step === ctx.count)
+        ctx.onStepComplete?.()
+      return
+    }
+
     ctx.step = step
     ctx.onStepChange?.({ step })
 
@@ -25,6 +33,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialStep } = resolveControllableProp({
+    value: ctx.step,
+    defaultValue: ctx.defaultStep,
+    controlledFlag: ctx['step.controlled'],
+    fallback: 0,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'steps',
@@ -36,6 +50,8 @@ export function machine(userContext: UserDefinedContext) {
         linear: false,
         orientation: 'horizontal',
         ...ctx,
+        // Resolve after spread so defaultStep / legacy step seed win consistently
+        step: initialStep,
       },
 
       computed: {

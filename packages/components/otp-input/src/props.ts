@@ -6,6 +6,7 @@ export const props = createProps<UserDefinedContext>()([
   'autoFocus',
   'blurOnComplete',
   'dir',
+  'defaultValue',
   'disabled',
   'form',
   'getRootNode',
@@ -26,6 +27,7 @@ export const props = createProps<UserDefinedContext>()([
   'translations',
   'type',
   'value',
+  'value.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

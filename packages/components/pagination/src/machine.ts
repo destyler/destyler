@@ -1,5 +1,5 @@
 import type { IntlTranslations, MachineContext, MachineState, UserDefinedContext } from './types'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 
 const defaultTranslations: IntlTranslations = {
@@ -18,19 +18,42 @@ const set = {
   pageSize: (ctx: MachineContext, value: number) => {
     if (isEqual(ctx.pageSize, value))
       return
+    // Dual-track: only defer context writes when pageSize.controlled is set
+    if (isControlledByFlag(ctx, 'pageSize')) {
+      ctx.onPageSizeChange?.({ pageSize: value })
+      return
+    }
     ctx.pageSize = value
     ctx.onPageSizeChange?.({ pageSize: ctx.pageSize })
   },
   page: (ctx: MachineContext, value: number) => {
-    if (isEqual(ctx.page, value))
+    const page = clampPage(value, ctx.totalPages)
+    if (isEqual(ctx.page, page))
       return
-    ctx.page = clampPage(value, ctx.totalPages)
+    // Dual-track: only defer context writes when page.controlled is set
+    if (isControlledByFlag(ctx, 'page')) {
+      ctx.onPageChange?.({ page, pageSize: ctx.pageSize })
+      return
+    }
+    ctx.page = page
     ctx.onPageChange?.({ page: ctx.page, pageSize: ctx.pageSize })
   },
 }
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialPage } = resolveControllableProp({
+    value: ctx.page,
+    defaultValue: ctx.defaultPage,
+    controlledFlag: ctx['page.controlled'],
+    fallback: 1,
+  })
+  const { initial: initialPageSize } = resolveControllableProp({
+    value: ctx.pageSize,
+    defaultValue: ctx.defaultPageSize,
+    controlledFlag: ctx['pageSize.controlled'],
+    fallback: 10,
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'pagination',
@@ -45,6 +68,9 @@ export function machine(userContext: UserDefinedContext) {
           ...ctx.translations,
         },
         ...ctx,
+        // Resolve after spread so defaultPage(Size) / legacy seeds win consistently
+        page: initialPage,
+        pageSize: initialPageSize,
       },
 
       watch: {

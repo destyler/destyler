@@ -2,7 +2,7 @@ import type { ElementSize } from '@destyler/size'
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { raf, trackFormControl, trackPointerMove } from '@destyler/dom'
 import { trackElementsSize } from '@destyler/size'
-import { compact, getValuePercent, isEqual } from '@destyler/utils'
+import { compact, getValuePercent, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 import {
@@ -43,12 +43,24 @@ const set = {
   valueAtIndex: (ctx: MachineContext, index: number, value: number) => {
     if (isEqual(ctx.value[index], value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      const next = Array.from(ctx.value)
+      next[index] = value
+      ctx.onValueChange?.({ value: next })
+      return
+    }
     ctx.value[index] = value
     invoke.valueChange(ctx)
   },
   value: (ctx: MachineContext, value: number[]) => {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      ctx.onValueChange?.({ value: Array.from(value) })
+      return
+    }
     assignArray(ctx.value, value)
     invoke.valueChange(ctx)
   },
@@ -62,6 +74,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: [0] as number[],
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'slider',
@@ -81,6 +99,8 @@ export function machine(userContext: UserDefinedContext) {
         disabled: false,
         readOnly: false,
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: Array.from(initialValue),
         focusedIndex: -1,
         fieldsetDisabled: false,
       },

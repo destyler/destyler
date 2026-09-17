@@ -1,6 +1,6 @@
 # Controlled API conventions (MACHINE layer)
 
-> **中文摘要：** 本文档约定 Destyler **核心状态机**（framework-agnostic）的受控 / 非受控约定，供适配层作者参考。长期方向为 option C（双轨）：遮罩类已有 `defaultOpen` + `open.controlled`；值 / 勾选类 Phase 1 已在 checkbox / switch / radio 落地 `defaultChecked`/`defaultValue` + `*.controlled`。统一见 [#103](https://github.com/destyler/destyler/issues/103)。
+> **中文摘要：** 本文档约定 Destyler **核心状态机**（framework-agnostic）的受控 / 非受控约定，供适配层作者参考。长期方向为 option C（双轨）：遮罩类已有 `defaultOpen` + `open.controlled`；值 / 勾选类 Phase 1 已覆盖 checkbox / switch / radio / tabs / collapse / toggle / select / combobox / calendar / color-picker，以及 slider / number-input / otp-input / pagination / steps / carousel / edit。统一见 [#103](https://github.com/destyler/destyler/issues/103)。
 
 This document is the **source of truth** for Destyler’s **MACHINE-layer** controlled conventions. It is written for adapter authors (Vue, React, Solid, Svelte, Lit, vanilla) who glue `useMachine` / normalizeProps / mergeProps onto the framework-agnostic core.
 
@@ -10,7 +10,7 @@ Adapters should not invent a second ownership model. When in doubt, match the ma
 
 ## Current contract (option C dual-track in progress)
 
-Open family and a **value/checked pilot** (checkbox, switch, radio) share the explicit `*.controlled` + `default*` pattern. Remaining value/selection machines still always-mutate. Longer-term unification is tracked in [#103](https://github.com/destyler/destyler/issues/103).
+Open family and the **value/checked Phase 1** machines share the explicit `*.controlled` + `default*` pattern. A few multi-field machines (tree, splitter) remain always-mutate until a later PR. Longer-term unification is tracked in [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 1. Overlay / open family
 
@@ -61,25 +61,25 @@ Historically the only `default*` companion; checkbox/switch (`defaultChecked`) a
 
 ### 4. Value / checked / selection machines
 
-**Phase 1 (checkbox, switch, radio, tabs, collapse/accordion, toggle, select, combobox, calendar, color-picker):** same dual-track spirit as open family:
+**Phase 1 (value / checked / page / step):** same dual-track spirit as open family:
 
 | Piece | Role |
 |-------|------|
-| `checked` / `value` | Controlled sync field **and** legacy uncontrolled seed |
-| `defaultChecked` / `defaultValue` | Preferred uncontrolled initial (`resolveControllableProp`) |
-| `checked.controlled` / `value.controlled` | Explicit flag: parent owns the value |
-| `onCheckedChange` / `onValueChange` | Fired when the machine requests a change |
+| `checked` / `value` / `page` / `step` / `pageSize` / `inputValue` | Controlled sync field **and** legacy uncontrolled seed |
+| `defaultChecked` / `defaultValue` / `defaultPage` / `defaultStep` / `defaultPageSize` / `defaultInputValue` | Preferred uncontrolled initial (`resolveControllableProp`) |
+| `*.controlled` | Explicit flag: parent owns the field |
+| `onCheckedChange` / `onValueChange` / `onPageChange` / `onStepChange` / … | Fired when the machine requests a change |
 
-**Detection:** `isControlledByFlag(ctx, 'checked' | 'value')`.
+**Detection:** `isControlledByFlag(ctx, 'checked' | 'value' | 'page' | 'step' | 'pageSize' | 'inputValue')`.
 
 **Behavior:**
 
 - Uncontrolled (`*.controlled` falsy): user gestures **mutate** context and invoke `on*Change` (legacy default).
-- Controlled: user gestures **only** invoke `on*Change` with the proposed value; parent must `setContext({ checked | value })`. No `CONTROLLED.*` events — checked/value live in context (watch syncs DOM).
+- Controlled: user gestures **only** invoke `on*Change` with the proposed value; parent must `setContext({ … })`. No `CONTROLLED.*` events — owned fields live in context (watch syncs DOM).
 
-**Phase 1 wave 3 (this PR):** select / combobox **value** (+ combobox `inputValue` / `defaultInputValue` / `inputValue.controlled`), calendar **value**, color-picker **value**.
+**Phase 1 coverage (through wave 4):** checkbox, switch, radio, tabs, collapse/accordion, toggle, select, combobox (+ `inputValue`), calendar, color-picker, slider, number-input, otp-input, pagination (`page` + `pageSize`), steps, carousel, edit **value** (edit mode already had `edit.controlled`).
 
-**Still always-mutate (not yet migrated):** tree, slider, number-input, otp, pagination, steps, carousel, etc. See [#103](https://github.com/destyler/destyler/issues/103).
+**Still always-mutate (deferred):** tree (`expandedValue` / `selectedValue` multi-field), splitter (inline size mutations). No rating package. See [#103](https://github.com/destyler/destyler/issues/103).
 
 ### 5. Presence
 
@@ -99,9 +99,9 @@ Always parent-driven via `present`. There is **no uncontrolled mode**. Watch `pr
 | Family | Status |
 |--------|--------|
 | Open | `defaultOpen` on dialog, popover, tooltip, hover-card, collapsible, menu, floating-panel, select, combobox, calendar, color-picker (open side) |
-| Checked / value Phase 1 | `defaultChecked` on checkbox + switch; `defaultValue` on radio, tabs, collapse, toggle, select, combobox, calendar, color-picker; combobox also `defaultInputValue` |
+| Checked / value Phase 1 | `defaultChecked` on checkbox + switch; `defaultValue` on radio, tabs, collapse, toggle, select, combobox, calendar, color-picker, slider, number-input, otp-input, edit; combobox also `defaultInputValue`; pagination `defaultPage` / `defaultPageSize`; steps `defaultStep`; carousel `defaultPage` |
 | Navigation menu | `defaultValue` (historical) |
-| Remaining value machines | still missing `default*` (tree, slider, number-input, …) |
+| Deferred | tree / splitter still missing `default*` |
 
 Uncontrolled seeds via `open` / `checked` / `value` without `*.controlled` remain supported (compat). Prefer `default*` going forward. See Migration Phase 1 / [#103](https://github.com/destyler/destyler/issues/103).
 
@@ -147,34 +147,36 @@ What landed:
 
 **Phase 1 controlled usage still requires `'open.controlled': true`.** Passing only `open` does not make the component controlled.
 
-Skipped in Phase 1 open-family rollout: navigation-menu (`value.controlled`), presence, edit (`edit.controlled`). Value ownership on select/combobox/calendar/color-picker lands in value/checked wave 3 (this PR).
+Skipped in Phase 1 open-family rollout: navigation-menu (already had `value.controlled`), presence, edit mode (`edit.controlled` — value side landed in wave 4).
 
 ### Migration Phase 1 (value / checked)
 
 | Piece | Change |
 |-------|--------|
-| checkbox / switch | `defaultChecked` + `checked.controlled`; gated `set.checked` via `isControlledByFlag` |
-| radio | `defaultValue` + `value.controlled`; gated `set.value` |
-| tabs / collapse / toggle | `defaultValue` + `value.controlled`; gated `set.value` (wave 2) |
-| select / combobox / calendar / color-picker | `defaultValue` + `value.controlled`; gated value setters (wave 3); combobox also `defaultInputValue` + `inputValue.controlled` |
+| checkbox / switch | `defaultChecked` + `checked.controlled`; gated `set.checked` via `isControlledByFlag` (#107) |
+| radio | `defaultValue` + `value.controlled`; gated `set.value` (#107) |
+| tabs / collapse / toggle | `defaultValue` + `value.controlled`; gated `set.value` (#108) |
+| select / combobox / calendar / color-picker | `defaultValue` + `value.controlled`; gated value setters (#109); combobox also `defaultInputValue` + `inputValue.controlled` |
+| slider / number-input / otp-input / edit value | `defaultValue` + `value.controlled`; gated `set.value` (+ index setters) (wave 4) |
+| pagination | `defaultPage` + `page.controlled`; `defaultPageSize` + `pageSize.controlled` (wave 4) |
+| steps | `defaultStep` + `step.controlled` (wave 4) |
+| carousel | `defaultPage` + `page.controlled` (wave 4) |
 | Initial | `default* ?? value ?? fallback` via `resolveControllableProp` |
 | Controlled detection | **Still** explicit `*.controlled` flag — not prop-presence |
 | Compat | Absent flag → legacy always-mutate |
 
-**Deferred:** tree, slider, number-input, otp, pagination, steps, carousel, etc.
+**Deferred (Phase 1 leftovers):** tree (multi-field `expandedValue` / `selectedValue`), splitter (inline size mutations).
 
-Later phases: eventually switch `isControlled` to prop-presence while dual-tracking the explicit flag; deprecate overloaded seed props once adapters adopt `default*`.
+### What’s left (Phase 2 / 3)
+
+| Phase | Goal |
+|-------|------|
+| **Phase 2** | Prop-presence `isControlled` (dual-track with explicit `*.controlled`); shared detection helpers beyond flag-only |
+| **Phase 3** | Deprecate overloaded seed props / eventually remove explicit flags once adapters adopt `default*` + presence |
 
 ## Out of scope / future
 
-RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). Open-family + value/checked Phase 1 (through select/combobox/calendar/color-picker value) have started; remaining value machines follow in later PRs.
-
-Still open:
-
-- Rolling `default*` + `*.controlled` to remaining value/selection machines
-- Shared guards vs continued per-machine `set.*` gating
-- Deprecating overloaded seed semantics once adapters adopt `default*`
-- Phase 2 prop-presence `isControlled`
+RFC: **Controlled value ownership** — [#103](https://github.com/destyler/destyler/issues/103). Long-term direction is **option C** (dual-track → eventual prop-presence). **Phase 1 open + value coverage is complete** for high-value machines (PRs #105–#109 + wave 4); tree/splitter remain deferred. Phase 2/3 remain open on that issue.
 
 ---
 

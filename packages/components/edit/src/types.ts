@@ -89,9 +89,18 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
    */
   'selectOnFocus'?: boolean | undefined
   /**
-   * The value of the editable in both edit and preview mode
+   * The controlled value of the editable in both edit and preview mode
    */
-  'value': string
+  'value'?: string | undefined
+  /**
+   * The initial value when it is not controlled.
+   * Prefer this over seeding with `value` for uncontrolled usage.
+   */
+  'defaultValue'?: string | undefined
+  /**
+   * Whether the editable value is controlled by the user
+   */
+  'value.controlled'?: boolean | undefined
   /**
    * The maximum number of characters allowed in the editable
    */

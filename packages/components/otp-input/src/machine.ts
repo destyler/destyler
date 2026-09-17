@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { dispatchInputValueEvent, raf } from '@destyler/dom'
-import { compact, isEqual } from '@destyler/utils'
+import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
 import { choose, createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -38,12 +38,31 @@ const set = {
   value(ctx: MachineContext, value: string[]) {
     if (isEqual(ctx.value, value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      const next = Array.from(value)
+      ctx.onValueChange?.({
+        value: next,
+        valueAsString: next.join(''),
+      })
+      return
+    }
     assignValue(ctx, value)
     invoke.change(ctx)
   },
   valueAtIndex(ctx: MachineContext, index: number, value: string) {
     if (isEqual(ctx.value[index], value))
       return
+    // Dual-track: only defer context writes when value.controlled is set
+    if (isControlledByFlag(ctx, 'value')) {
+      const next = Array.from(ctx.value)
+      next[index] = value
+      ctx.onValueChange?.({
+        value: next,
+        valueAsString: next.join(''),
+      })
+      return
+    }
     ctx.value[index] = value
     invoke.change(ctx)
   },
@@ -51,6 +70,12 @@ const set = {
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(userContext)
+  const { initial: initialValue } = resolveControllableProp({
+    value: ctx.value,
+    defaultValue: ctx.defaultValue,
+    controlledFlag: ctx['value.controlled'],
+    fallback: [] as string[],
+  })
   return createMachine<MachineContext, MachineState>(
     {
       id: 'otp-input',
@@ -61,6 +86,8 @@ export function machine(userContext: UserDefinedContext) {
         otp: false,
         type: 'numeric',
         ...ctx,
+        // Resolve after spread so defaultValue / legacy value seed win consistently
+        value: Array.from(initialValue),
         focusedIndex: -1,
         translations: {
           inputLabel: (index, length) => `pin code ${index + 1} of ${length}`,
