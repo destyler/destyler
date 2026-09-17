@@ -10,7 +10,7 @@ function createSteps(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('steps controllable step (Phase 1)', () => {
+describe('steps controllable step (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -52,9 +52,24 @@ describe('steps controllable step (Phase 1)', () => {
     expect(service.state.context.step).toBe(2)
   })
 
-  it('legacy: step alone still mutates on STEP.SET (no defer)', () => {
+  it('phase 2 presence: step alone (no flag) defers mutation until parent syncs', () => {
     const onStepChange = vi.fn()
     const service = start({ step: 0, onStepChange })
+    service.send({ type: 'STEP.SET', value: 1 })
+    expect(service.state.context.step).toBe(0)
+    expect(onStepChange).toHaveBeenCalledWith({ step: 1 })
+
+    service.setContext({ step: 1 })
+    expect(service.state.context.step).toBe(1)
+  })
+
+  it('phase 2: step.controlled false overrides presence (legacy seed escape)', () => {
+    const onStepChange = vi.fn()
+    const service = start({
+      'step': 0,
+      'step.controlled': false,
+      onStepChange,
+    })
     service.send({ type: 'STEP.SET', value: 1 })
     expect(service.state.context.step).toBe(1)
     expect(onStepChange).toHaveBeenCalledWith({ step: 1 })

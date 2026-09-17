@@ -1,6 +1,6 @@
 import type { MachineContext, MachineState, PanelSizeData, UserDefinedContext } from './types'
 import { raf, trackPointerMove } from '@destyler/dom'
-import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
+import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 import { clamp, getHandleBounds, getHandlePanels, getNormalizedPanels, getPanelBounds } from './utils'
@@ -23,8 +23,8 @@ const set = {
     const next = cloneSize(value)
     if (isEqual(ctx.size, next))
       return
-    // Dual-track: only defer context writes when size.controlled is set
-    if (isControlledByFlag(ctx, 'size')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'size')) {
       invoke.sizeChange(ctx, next)
       return
     }
@@ -34,11 +34,12 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['size'])) as typeof userContext
   const { initial: initialSize } = resolveControllableProp({
     value: ctx.size,
     defaultValue: ctx.defaultSize,
     controlledFlag: ctx['size.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'size'),
     fallback: [] as PanelSizeData[],
   })
   return createMachine<MachineContext, MachineState>(

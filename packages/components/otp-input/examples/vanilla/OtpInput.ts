@@ -116,7 +116,7 @@ ${inputsMarkup}
   const instance = new OtpInputExample(scope, {
     id: 'otp-input:vanilla',
     name: 'otp',
-    value: Array.from({ length: INPUT_LENGTH }, () => ''),
+    defaultValue: Array.from({ length: INPUT_LENGTH }, () => ''),
   }, {
     context: {
       get: () => controls.context as Partial<OtpInputMachineContext>,

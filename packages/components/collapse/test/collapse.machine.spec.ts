@@ -9,7 +9,7 @@ function createCollapse(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('collapse controllable value (Phase 1)', () => {
+describe('collapse controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('collapse controllable value (Phase 1)', () => {
     expect(service.state.context.value).toEqual(['item-a'])
   })
 
-  it('legacy: value alone still mutates on VALUE.SET (no defer)', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [], onValueChange })
+    service.send({ type: 'VALUE.SET', value: ['item-a'] })
+    expect(service.state.context.value).toEqual([])
+    expect(onValueChange).toHaveBeenCalledWith({ value: ['item-a'] })
+
+    service.setContext({ value: ['item-a'] })
+    expect(service.state.context.value).toEqual(['item-a'])
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': [],
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'VALUE.SET', value: ['item-a'] })
     expect(service.state.context.value).toEqual(['item-a'])
     expect(onValueChange).toHaveBeenCalledWith({ value: ['item-a'] })

@@ -9,7 +9,7 @@ function createSlider(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('slider controllable value (Phase 1)', () => {
+describe('slider controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('slider controllable value (Phase 1)', () => {
     expect(service.state.context.value).toEqual([10])
   })
 
-  it('legacy: value alone still mutates on SET_VALUE', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [0], onValueChange })
+    service.send({ type: 'SET_VALUE', value: [50] })
+    expect(service.state.context.value).toEqual([0])
+    expect(onValueChange).toHaveBeenCalledWith({ value: [50] })
+
+    service.setContext({ value: [50] })
+    expect(service.state.context.value).toEqual([50])
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': [0],
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'SET_VALUE', value: [50] })
     expect(service.state.context.value).toEqual([50])
     expect(onValueChange).toHaveBeenCalledWith({ value: [50] })

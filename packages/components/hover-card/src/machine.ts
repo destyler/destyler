@@ -1,14 +1,14 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { trackDismissableElement } from '@destyler/dismissable'
 import { getPlacement } from '@destyler/popper'
-import { compact, isControlledByFlag, resolveControllableOpen } from '@destyler/utils'
+import { compact, isControlled, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and } = guards
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -169,7 +169,8 @@ export function machine(userContext: UserDefinedContext) {
 
       guards: {
         isPointer: ctx => !!ctx.isPointer,
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
 
       activities: {

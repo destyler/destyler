@@ -19,7 +19,7 @@ export class SplitterElement extends LitElement {
     splitter.machine({
       id: 'splitter:lit',
       orientation: 'horizontal',
-      size: [
+      defaultSize: [
         { id: 'a', size: 50 },
         { id: 'b', size: 50 },
       ],

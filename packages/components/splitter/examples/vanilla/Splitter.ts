@@ -96,7 +96,7 @@ export function render(target: HTMLElement) {
     scope,
     {
       id: 'splitter:vanilla',
-      size: [
+      defaultSize: [
         { id: 'a', size: 50 },
         { id: 'b', size: 50 },
       ],

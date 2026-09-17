@@ -9,7 +9,7 @@ function createOtp(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('otp-input controllable value (Phase 1)', () => {
+describe('otp-input controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('otp-input controllable value (Phase 1)', () => {
     expect(service.state.context.value).toEqual(['a'])
   })
 
-  it('legacy: value alone still mutates on VALUE.SET', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: ['', '', '', ''], onValueChange })
+    service.send({ type: 'VALUE.SET', value: ['1', '2', '3', '4'] })
+    expect(service.state.context.value).toEqual(['', '', '', ''])
+    expect(onValueChange).toHaveBeenCalled()
+
+    service.setContext({ value: ['1', '2', '3', '4'] })
+    expect(service.state.context.value).toEqual(['1', '2', '3', '4'])
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': ['', '', '', ''],
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'VALUE.SET', value: ['1', '2', '3', '4'] })
     expect(service.state.context.value).toEqual(['1', '2', '3', '4'])
     expect(onValueChange).toHaveBeenCalled()
@@ -77,7 +92,7 @@ describe('otp-input controllable value (Phase 1)', () => {
   })
 
   it('connect setValue still sends VALUE.SET', () => {
-    const service = start({ value: ['', '', '', ''] })
+    const service = start({ 'value': ['', '', '', ''], 'value.controlled': false })
     const api = connect(service.getState(), service.send, ((x: any) => x) as any)
     api.setValue(['5', '6', '7', '8'])
     expect(service.state.context.value).toEqual(['5', '6', '7', '8'])

@@ -9,7 +9,7 @@ function createTabs(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('tabs controllable value (Phase 1)', () => {
+describe('tabs controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('tabs controllable value (Phase 1)', () => {
     expect(service.state.context.value).toBe('tab-a')
   })
 
-  it('legacy: value alone still mutates on SET_VALUE (no defer)', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: null, onValueChange })
+    service.send({ type: 'SET_VALUE', value: 'tab-a' })
+    expect(service.state.context.value).toBe(null)
+    expect(onValueChange).toHaveBeenCalledWith({ value: 'tab-a' })
+
+    service.setContext({ value: 'tab-a' })
+    expect(service.state.context.value).toBe('tab-a')
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': null,
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'SET_VALUE', value: 'tab-a' })
     expect(service.state.context.value).toBe('tab-a')
     expect(onValueChange).toHaveBeenCalledWith({ value: 'tab-a' })

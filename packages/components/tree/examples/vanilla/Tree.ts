@@ -51,7 +51,7 @@ class TreeExample extends Component<
     return tree.machine({
       ...context,
       collection: this.collection,
-      expandedValue: defaultExpandedBranches,
+      defaultExpandedValue: defaultExpandedBranches,
     }) as tree.Service
   }
 

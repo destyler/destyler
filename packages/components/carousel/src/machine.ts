@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { addDomEvent, raf, trackPointerMove } from '@destyler/dom'
 import { findSnapPoint, getScrollSnapPositions } from '@destyler/scroll-snap'
-import { add, compact, isControlledByFlag, isEqual, isObject, nextIndex, prevIndex, remove, resolveControllableProp, uniq } from '@destyler/utils'
+import { add, compact, isControlled, isEqual, isObject, isPropUserProvided, nextIndex, prevIndex, remove, resolveControllableProp, uniq, withControllableProvided } from '@destyler/utils'
 import { createMachine, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -22,8 +22,8 @@ const set = {
     const page = clamp(value, 0, ctx.pageSnapPoints.length - 1)
     if (isEqual(ctx.page, page))
       return
-    // Dual-track: only defer context writes when page.controlled is set
-    if (isControlledByFlag(ctx, 'page')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'page')) {
       ctx.onPageChange?.({
         page,
         pageSnapPoint: ctx.pageSnapPoints[page],
@@ -72,11 +72,12 @@ function ensureItemGroupEl(ctx: MachineContext, fn: (el: HTMLElement) => void | 
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['page'])) as typeof userContext
   const { initial: initialPage } = resolveControllableProp({
     value: ctx.page,
     defaultValue: ctx.defaultPage,
     controlledFlag: ctx['page.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'page'),
     fallback: 0,
   })
   return createMachine<MachineContext, MachineState>(

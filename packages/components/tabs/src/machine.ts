@@ -1,7 +1,7 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { clickIfLink, getFocusables, isAnchorElement, nextTick, raf } from '@destyler/dom'
 import { trackElementRect } from '@destyler/element-rect'
-import { compact, isControlledByFlag, isEqual, resolveControllableProp } from '@destyler/utils'
+import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 
@@ -24,8 +24,8 @@ const set = {
   value: (ctx: MachineContext, value: string | null) => {
     if (isEqual(value, ctx.value))
       return
-    // Dual-track: only defer context writes when value.controlled is set
-    if (isControlledByFlag(ctx, 'value')) {
+    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    if (isControlled(ctx, 'value')) {
       invoke.change(ctx, value)
       return
     }
@@ -41,11 +41,12 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['value'])) as typeof userContext
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
     controlledFlag: ctx['value.controlled'],
+    valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: null as string | null,
   })
   return createMachine<MachineContext, MachineState>(

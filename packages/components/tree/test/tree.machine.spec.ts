@@ -28,7 +28,7 @@ function createTree(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('tree controllable expanded/selected (Phase 1)', () => {
+describe('tree controllable expanded/selected (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -79,24 +79,41 @@ describe('tree controllable expanded/selected (Phase 1)', () => {
     expect(service.state.context.selectedValue).toEqual(['README.md'])
   })
 
-  it('legacy: expandedValue alone still mutates on EXPANDED.SET', () => {
+  it('phase 2 presence: expandedValue alone defers until parent syncs', () => {
     const onExpandedChange = vi.fn()
     const service = start({ expandedValue: [], onExpandedChange })
     service.send({ type: 'EXPANDED.SET', value: ['node_modules'] })
-    expect(service.state.context.expandedValue).toEqual(['node_modules'])
+    expect(service.state.context.expandedValue).toEqual([])
     expect(onExpandedChange).toHaveBeenCalledWith(
       expect.objectContaining({ expandedValue: ['node_modules'] }),
     )
+
+    service.setContext({ expandedValue: ['node_modules'] })
+    expect(service.state.context.expandedValue).toEqual(['node_modules'])
   })
 
-  it('legacy: selectedValue alone still mutates on SELECTED.SET', () => {
+  it('phase 2 presence: selectedValue alone defers until parent syncs', () => {
     const onSelectionChange = vi.fn()
     const service = start({ selectedValue: [], onSelectionChange })
     service.send({ type: 'SELECTED.SET', value: ['README.md'] })
-    expect(service.state.context.selectedValue).toEqual(['README.md'])
+    expect(service.state.context.selectedValue).toEqual([])
     expect(onSelectionChange).toHaveBeenCalledWith(
       expect.objectContaining({ selectedValue: ['README.md'] }),
     )
+
+    service.setContext({ selectedValue: ['README.md'] })
+    expect(service.state.context.selectedValue).toEqual(['README.md'])
+  })
+
+  it('phase 2: expandedValue.controlled false overrides presence', () => {
+    const onExpandedChange = vi.fn()
+    const service = start({
+      'expandedValue': [],
+      'expandedValue.controlled': false,
+      onExpandedChange,
+    })
+    service.send({ type: 'EXPANDED.SET', value: ['node_modules'] })
+    expect(service.state.context.expandedValue).toEqual(['node_modules'])
   })
 
   it('controlled: expandedValue.controlled defers until parent syncs', () => {

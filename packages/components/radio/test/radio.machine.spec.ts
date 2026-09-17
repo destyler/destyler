@@ -9,7 +9,7 @@ function createRadio(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('radio controllable value (Phase 1)', () => {
+describe('radio controllable value (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,9 +51,24 @@ describe('radio controllable value (Phase 1)', () => {
     expect(service.state.context.value).toBe('apple')
   })
 
-  it('legacy: value alone still mutates on SET_VALUE (no defer)', () => {
+  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: null, onValueChange })
+    service.send({ type: 'SET_VALUE', value: 'apple', isTrusted: false })
+    expect(service.state.context.value).toBe(null)
+    expect(onValueChange).toHaveBeenCalledWith({ value: 'apple' })
+
+    service.setContext({ value: 'apple' })
+    expect(service.state.context.value).toBe('apple')
+  })
+
+  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+    const onValueChange = vi.fn()
+    const service = start({
+      'value': null,
+      'value.controlled': false,
+      onValueChange,
+    })
     service.send({ type: 'SET_VALUE', value: 'apple', isTrusted: false })
     expect(service.state.context.value).toBe('apple')
     expect(onValueChange).toHaveBeenCalledWith({ value: 'apple' })

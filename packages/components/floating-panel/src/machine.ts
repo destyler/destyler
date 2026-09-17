@@ -15,7 +15,7 @@ import {
 
   subtractPoints,
 } from '@destyler/rect'
-import { compact, isControlledByFlag, isEqual, match, pick, resolveControllableOpen } from '@destyler/utils'
+import { compact, isControlled, isEqual, match, pick, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { panelStack } from './store'
@@ -44,7 +44,7 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(userContext)
+  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -235,7 +235,8 @@ export function machine(userContext: UserDefinedContext) {
         closeOnEsc: ctx => !!ctx.closeOnEscape,
         isMaximized: ctx => ctx.isMaximized,
         isMinimized: ctx => ctx.isMinimized,
-        isOpenControlled: ctx => isControlledByFlag(ctx, 'open'),
+        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
       activities: {
         trackPointerMove(ctx, _evt, { send }) {

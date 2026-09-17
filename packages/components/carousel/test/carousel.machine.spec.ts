@@ -38,7 +38,7 @@ function createCarousel(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('carousel controllable page (Phase 1)', () => {
+describe('carousel controllable page (Phase 2)', () => {
   const services: Array<ReturnType<typeof machine>> = []
   const cleanups: Array<() => void> = []
 
@@ -87,12 +87,27 @@ describe('carousel controllable page (Phase 1)', () => {
     expect(service.state.context.page).toBe(2)
   })
 
-  it('legacy: page alone still mutates on PAGE.SET', () => {
+  it('phase 2 presence: page alone (no flag) defers mutation until parent syncs', () => {
     const onPageChange = vi.fn()
     const service = start({ page: 0, onPageChange })
     service.send({ type: 'PAGE.SET', index: 2 })
-    expect(service.state.context.page).toBe(2)
+    expect(service.state.context.page).toBe(0)
     expect(onPageChange).toHaveBeenCalled()
+    expect(onPageChange.mock.calls[0][0].page).toBe(2)
+
+    service.setContext({ page: 2 })
+    expect(service.state.context.page).toBe(2)
+  })
+
+  it('phase 2: page.controlled false overrides presence (legacy seed escape)', () => {
+    const onPageChange = vi.fn()
+    const service = start({
+      'page': 0,
+      'page.controlled': false,
+      onPageChange,
+    })
+    service.send({ type: 'PAGE.SET', index: 2 })
+    expect(service.state.context.page).toBe(2)
     expect(onPageChange.mock.calls[0][0].page).toBe(2)
   })
 
