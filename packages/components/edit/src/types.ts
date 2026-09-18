@@ -37,23 +37,23 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
   /**
    * The ids of the elements in the editable. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * Whether the input's value is invalid.
    */
-  'invalid'?: boolean | undefined
+  invalid?: boolean | undefined
   /**
    * The name attribute of the editable component. Used for form submission.
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The associate form of the underlying input.
    */
-  'form'?: string | undefined
+  form?: string | undefined
   /**
    * Whether the editable should auto-resize to fit the content.
    */
-  'autoResize'?: boolean | undefined
+  autoResize?: boolean | undefined
   /**
    * The activation mode for the preview element.
    *
@@ -63,7 +63,7 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
    *
    * @default "focus"
    */
-  'activationMode': ActivationMode
+  activationMode: ActivationMode
   /**
    * The action that triggers submit in the edit mode:
    *
@@ -74,81 +74,72 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
    *
    * @default "both"
    */
-  'submitMode': SubmitMode
+  submitMode: SubmitMode
   /**
    * Whether the editable is in edit mode (controlled sync field / legacy seed).
-   * Phase 2: presence of `edit` without `'edit.controlled': false` is presence-controlled.
-   * There is no `defaultEdit` — uncontrolled start-in-edit uses `'edit.controlled': false`.
+   * Phase 3: presence of `edit` is presence-controlled.
+   * There is no `defaultEdit` — omit `edit` and enter via gestures for uncontrolled usage.
    */
-  'edit'?: boolean | undefined
-  /**
-   * Whether edit mode is controlled by the parent.
-   * Explicit true/false wins over Phase 2 prop presence.
-   */
-  'edit.controlled'?: boolean | undefined
+  edit?: boolean | undefined
   /**
    * Whether to select the text in the input when it is focused.
    * @default true
    */
-  'selectOnFocus'?: boolean | undefined
+  selectOnFocus?: boolean | undefined
   /**
    * The controlled value of the editable in both edit and preview mode
    */
-  'value'?: string | undefined
+  value?: string | undefined
   /**
    * The initial value when it is not controlled.
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
-  'defaultValue'?: string | undefined
-  /**
-   * Whether the editable value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
+  defaultValue?: string | undefined
   /**
    * The maximum number of characters allowed in the editable
    */
-  'maxLength'?: number | undefined
+  maxLength?: number | undefined
   /**
    * Whether the editable is disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the editable is readonly
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * Whether the editable is required
    */
-  'required'?: boolean | undefined
+  required?: boolean | undefined
   /**
    * The callback that is called when the editable's value is changed
    */
-  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * The callback that is called when the esc key is pressed or the cancel button is clicked
    */
-  'onValueRevert'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueRevert?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * The callback that is called when the editable's value is submitted.
    */
-  'onValueCommit'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueCommit?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * The callback that is called when the edit mode is changed
    */
-  'onEditChange'?: ((details: EditChangeDetails) => void) | undefined
+  onEditChange?: ((details: EditChangeDetails) => void) | undefined
   /**
    * The placeholder value to show when the `value` is empty
    */
-  'placeholder'?: string | { edit: string, preview: string } | undefined
+  placeholder?: string | { edit: string, preview: string } | undefined
   /**
    * Specifies the localized strings that identifies the accessibility elements and their states
    */
-  'translations': IntlTranslations
+  translations: IntlTranslations
   /**
    * The element that should receive focus when the editable is closed.
    * By default, it will focus on the trigger element.
    */
-  'finalFocusEl'?: (() => HTMLElement | null) | undefined
+  finalFocusEl?: (() => HTMLElement | null) | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

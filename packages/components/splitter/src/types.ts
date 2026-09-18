@@ -26,32 +26,28 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The orientation of the splitter. Can be `horizontal` or `vertical`
    */
-  'orientation': 'horizontal' | 'vertical'
+  orientation: 'horizontal' | 'vertical'
   /**
    * The controlled size data of the panels
    */
-  'size'?: PanelSizeData[] | undefined
+  size?: PanelSizeData[] | undefined
   /**
    * The initial size data when it is not controlled.
    * Prefer this over seeding with `size` for uncontrolled usage.
    */
-  'defaultSize'?: PanelSizeData[] | undefined
-  /**
-   * Whether the size is controlled by the user
-   */
-  'size.controlled'?: boolean | undefined
+  defaultSize?: PanelSizeData[] | undefined
   /**
    * Function called when the splitter is resized.
    */
-  'onSizeChange'?: ((details: SizeChangeDetails) => void) | undefined
+  onSizeChange?: ((details: SizeChangeDetails) => void) | undefined
   /**
    * Function called when the splitter resize ends.
    */
-  'onSizeChangeEnd'?: ((details: SizeChangeDetails) => void) | undefined
+  onSizeChangeEnd?: ((details: SizeChangeDetails) => void) | undefined
   /**
    * The ids of the elements in the splitter. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

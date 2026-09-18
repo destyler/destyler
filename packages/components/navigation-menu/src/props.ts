@@ -7,7 +7,6 @@ export const props = createProps<UserDefinedContext>()([
   'dir',
   'getRootNode',
   'value',
-  'value.controlled',
   'defaultValue',
   'onValueChange',
   'openDelay',

@@ -84,15 +84,6 @@ interface PublicContext
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
   'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the dialog is controlled by the user.
-   *
-   * @deprecated Prefer prop presence of `open` (controlled) + `defaultOpen` (uncontrolled seed).
-   * Still supported (Phase 3 soft dual-track). Escape hatch for legacy seed: `'open.controlled': false`.
-   * Hard removal waits for a major + destyler/ui adoption. See CONTROLLED-API.md / #103.
-   * Other machines' `*.controlled` flags follow the same wording.
-   */
-  'open.controlled'?: boolean | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

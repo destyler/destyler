@@ -16,40 +16,36 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The custom ids for the stepper elements
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The controlled current step index
    */
-  'step'?: number | undefined
+  step?: number | undefined
   /**
    * The initial step index when it is not controlled.
    * Prefer this over seeding with `step` for uncontrolled usage.
    */
-  'defaultStep'?: number | undefined
-  /**
-   * Whether the steps value is controlled by the user
-   */
-  'step.controlled'?: boolean | undefined
+  defaultStep?: number | undefined
   /**
    * Callback to be called when the value changes
    */
-  'onStepChange'?: (details: StepChangeDetails) => void
+  onStepChange?: (details: StepChangeDetails) => void
   /**
    * Callback to be called when a step is completed
    */
-  'onStepComplete'?: VoidFunction | undefined
+  onStepComplete?: VoidFunction | undefined
   /**
    * If `true`, the stepper requires the user to complete the steps in order
    */
-  'linear'?: boolean | undefined
+  linear?: boolean | undefined
   /**
    * The orientation of the stepper
    */
-  'orientation'?: 'horizontal' | 'vertical' | undefined
+  orientation?: 'horizontal' | 'vertical' | undefined
   /**
    * The total number of steps
    */
-  'count': number
+  count: number
 }
 
 interface PrivateContext {}

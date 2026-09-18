@@ -2,6 +2,7 @@ import type { ContextFrom } from '@destyler/vanilla'
 import type { State as FloatingPanelState, MachineState } from '../../src/types'
 import { floatingPanelControls } from '@destyler/shared-private'
 import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
+import { CONTROLLABLE_PROVIDED_KEY } from '@destyler/utils'
 import { Component, normalizeProps, spreadProps } from '@destyler/vanilla'
 import * as floatingPanel from '../../index'
 import '../style.css'
@@ -187,9 +188,10 @@ export function render(target: HTMLElement) {
     }
     return {
       ...rest,
-      'open.controlled': Boolean(openControlled),
-      ...(openControlled ? { open: instance.getControlledOpen() } : {}),
-      'onOpenChange': details => instance.onOpenChange(details),
+      ...(openControlled
+        ? { open: instance.getControlledOpen(), [CONTROLLABLE_PROVIDED_KEY]: ['open'] }
+        : { [CONTROLLABLE_PROVIDED_KEY]: [] }),
+      onOpenChange: details => instance.onOpenChange(details),
     }
   }
 

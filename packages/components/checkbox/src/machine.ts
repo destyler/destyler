@@ -25,7 +25,7 @@ const set = {
   checked: (ctx: MachineContext, checked: CheckedState) => {
     if (isEqual(ctx.checked, checked))
       return
-    // Phase 2 dual-track: flag or stamped presence of `checked`
+    // Phase 3 HARD: stamped presence only
     if (isControlled(ctx, 'checked')) {
       invoke.change(ctx, checked)
       return
@@ -41,7 +41,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialChecked } = resolveControllableProp({
     value: ctx.checked,
     defaultValue: ctx.defaultChecked,
-    controlledFlag: ctx['checked.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'checked'),
     fallback: false as CheckedState,
   })

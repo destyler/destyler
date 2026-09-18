@@ -134,19 +134,14 @@ export function ControlledCheckbox() {
 
 ## Important: do not always pass `value` / `open` / `checked`
 
-:::caution[Phase 2 presence]
-After Phase 2, passing `open`, `checked`, or `value` into `machine(...)` (without `'*.controlled': false`) is treated as **controlled**. For demos and uncontrolled UIs, omit those keys and use `defaultOpen` / `defaultChecked` / `defaultValue` instead.
+:::caution[Phase 3 HARD — presence only]
+Passing `open`, `checked`, or `value` into `machine(...)` is treated as **controlled**. For demos and uncontrolled UIs, omit those keys and use `defaultOpen` / `defaultChecked` / `defaultValue` instead. Explicit `*.controlled` flags are **removed** (breaking major).
 :::
 
 | Intent | Pass into `machine(...)` |
 |--------|--------------------------|
-| Uncontrolled seed | `defaultOpen` / `defaultChecked` / `defaultValue` |
+| Uncontrolled seed | `defaultOpen` / `defaultChecked` / `defaultValue` (omit the live key) |
 | Controlled | `open` / `checked` / `value` + sync via `on*Change` and `context` / `setContext` |
-| Legacy seed with the value key | `'open.controlled': false` (or matching `*.controlled: false`) |
-
-## Dual-track / deprecated `*.controlled`
-
-Explicit flags such as `'open.controlled'` and `'checked.controlled'` still work (Phase 3 **soft** deprecation). Prefer prop presence + `default*` for new code. Hard removal waits for a major release.
 
 Machine authors and adapter writers should read the full MACHINE-layer contract:
 

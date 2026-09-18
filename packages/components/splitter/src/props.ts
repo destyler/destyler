@@ -12,7 +12,6 @@ export const props = createProps<UserDefinedContext>()([
   'onSizeChangeEnd',
   'orientation',
   'size',
-  'size.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

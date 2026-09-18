@@ -9,7 +9,7 @@ function createSlider(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('slider controllable value (Phase 2)', () => {
+describe('slider controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('slider controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual([10])
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [0], onValueChange })
     service.send({ type: 'SET_VALUE', value: [50] })
@@ -62,23 +62,10 @@ describe('slider controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual([50])
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [0],
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'SET_VALUE', value: [50] })
-    expect(service.state.context.value).toEqual([50])
-    expect(onValueChange).toHaveBeenCalledWith({ value: [50] })
-  })
-
-  it('controlled: value.controlled defers until parent syncs', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': [0],
-      'value.controlled': true,
+      value: [0],
       onValueChange,
     })
     service.send({ type: 'SET_VALUE', value: [75] })

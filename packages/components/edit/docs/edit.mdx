@@ -183,7 +183,7 @@ const [state, send] = useMachine(
 
 ## Controlled usage
 
-Edit supports controllable **value** (and edit **mode** via `edit` presence / soft-deprecated `edit.controlled`). Prefer `defaultValue` for an uncontrolled text seed. There is no `defaultEdit` — use `'edit.controlled': false` (or omit `edit`) to start uncontrolled in edit mode. See [Controllable State](/guide/controllable-state).
+Edit supports controllable **value** (and edit **mode** via `edit` presence). Prefer `defaultValue` for an uncontrolled text seed. There is no `defaultEdit` — omit `edit` and enter edit mode via gestures for uncontrolled usage. See [Controllable State](/guide/controllable-state).
 
 ```ts
 edit.machine({

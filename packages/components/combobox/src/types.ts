@@ -58,79 +58,67 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
   /**
    * Whether the combobox is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * The initial open state of the combobox when it is not controlled.
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
-  'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the combobox open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
+  defaultOpen?: boolean | undefined
   /**
    * The ids of the elements in the combobox. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The controlled value of the combobox's input
    */
-  'inputValue'?: string | undefined
+  inputValue?: string | undefined
   /**
    * The initial value of the combobox's input when it is not controlled.
    * Prefer this over seeding with `inputValue` for uncontrolled usage.
    */
-  'defaultInputValue'?: string | undefined
-  /**
-   * Whether the combobox input value is controlled by the user
-   */
-  'inputValue.controlled'?: boolean | undefined
+  defaultInputValue?: string | undefined
   /**
    * The `name` attribute of the combobox's input. Useful for form submission
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The associate form of the combobox.
    */
-  'form'?: string | undefined
+  form?: string | undefined
   /**
    * Whether the combobox is disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the combobox is readonly. This puts the combobox in a "non-editable" mode
    * but the user can still interact with it
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * Whether the combobox is invalid
    */
-  'invalid'?: boolean | undefined
+  invalid?: boolean | undefined
   /**
    * Whether the combobox is required
    */
-  'required'?: boolean | undefined
+  required?: boolean | undefined
   /**
    * The placeholder text of the combobox's input
    */
-  'placeholder'?: string | undefined
+  placeholder?: string | undefined
   /**
    * The active item's id. Used to set the `aria-activedescendant` attribute
    */
-  'highlightedValue': string | null
+  highlightedValue: string | null
   /**
    * The controlled keys of the selected items
    */
-  'value'?: string[] | undefined
+  value?: string[] | undefined
   /**
    * The initial keys of the selected items when it is not controlled.
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
-  'defaultValue'?: string[] | undefined
-  /**
-   * Whether the combobox value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
+  defaultValue?: string[] | undefined
   /**
    * Defines the auto-completion behavior of the combobox.
    *
@@ -139,7 +127,7 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    *
    * @default "none"
    */
-  'inputBehavior': 'autohighlight' | 'autocomplete' | 'none'
+  inputBehavior: 'autohighlight' | 'autocomplete' | 'none'
   /**
    * The behavior of the combobox input when an item is selected
    *
@@ -149,92 +137,92 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    *
    * @default "replace"
    */
-  'selectionBehavior': 'clear' | 'replace' | 'preserve'
+  selectionBehavior: 'clear' | 'replace' | 'preserve'
   /**
    * Whether to autofocus the input on mount
    */
-  'autoFocus'?: boolean | undefined
+  autoFocus?: boolean | undefined
   /**
    * Whether to open the combobox popup on initial click on the input
    * @default false
    */
-  'openOnClick'?: boolean | undefined
+  openOnClick?: boolean | undefined
   /**
    * Whether to show the combobox when the input value changes
    * @default true
    */
-  'openOnChange'?: boolean | ((details: InputValueChangeDetails) => boolean) | undefined
+  openOnChange?: boolean | ((details: InputValueChangeDetails) => boolean) | undefined
   /**
    * Whether to allow typing custom values in the input
    */
-  'allowCustomValue'?: boolean | undefined
+  allowCustomValue?: boolean | undefined
   /**
    * Whether to loop the keyboard navigation through the items
    * @default true
    */
-  'loopFocus'?: boolean | undefined
+  loopFocus?: boolean | undefined
   /**
    * The positioning options to dynamically position the menu
    */
-  'positioning': PositioningOptions
+  positioning: PositioningOptions
   /**
    * Function called when the input's value changes
    */
-  'onInputValueChange'?: ((details: InputValueChangeDetails) => void) | undefined
+  onInputValueChange?: ((details: InputValueChangeDetails) => void) | undefined
   /**
    * Function called when a new item is selected
    */
-  'onValueChange'?: ((details: ValueChangeDetails<T>) => void) | undefined
+  onValueChange?: ((details: ValueChangeDetails<T>) => void) | undefined
   /**
    * Function called when an item is highlighted using the pointer
    * or keyboard navigation.
    */
-  'onHighlightChange'?: ((details: HighlightChangeDetails<T>) => void) | undefined
+  onHighlightChange?: ((details: HighlightChangeDetails<T>) => void) | undefined
   /**
    * Function called when the popup is opened
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * Specifies the localized strings that identifies the accessibility elements and their states
    */
-  'translations': IntlTranslations
+  translations: IntlTranslations
   /**
    * The collection of items
    */
-  'collection': ListCollection<any>
+  collection: ListCollection<any>
   /**
    * Whether to allow multiple selection.
    *
    * **Good to know:** When `multiple` is `true`, the `selectionBehavior` is automatically set to `clear`.
    * It is recommended to render the selected items in a separate container.
    */
-  'multiple'?: boolean | undefined
+  multiple?: boolean | undefined
   /**
    * Whether to close the combobox when an item is selected.
    */
-  'closeOnSelect'?: boolean | undefined
+  closeOnSelect?: boolean | undefined
   /**
    * Whether to open the combobox on arrow key press
    * @default true
    */
-  'openOnKeyPress': boolean
+  openOnKeyPress: boolean
   /**
    * Function to scroll to a specific index
    */
-  'scrollToIndexFn'?: ((details: ScrollToIndexDetails) => void) | undefined
+  scrollToIndexFn?: ((details: ScrollToIndexDetails) => void) | undefined
   /**
    * Whether the combobox is a composed with other composite widgets like tabs
    * @default true
    */
-  'composite': boolean
+  composite: boolean
   /**
    * Whether to disable registering this a dismissable layer
    */
-  'disableLayer'?: boolean | undefined
+  disableLayer?: boolean | undefined
   /**
    * Function to navigate to the selected item
    */
-  'navigate': (details: NavigateDetails) => void
+  navigate: (details: NavigateDetails) => void
 }
 
 export type UserDefinedContext<T extends CollectionItem = CollectionItem> = RequiredBy<

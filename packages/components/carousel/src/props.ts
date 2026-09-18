@@ -10,7 +10,6 @@ export const props = createProps<UserDefinedContext>()([
   'ids',
   'loop',
   'page',
-  'page.controlled',
   'onPageChange',
   'orientation',
   'slideCount',

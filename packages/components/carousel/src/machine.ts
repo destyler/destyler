@@ -76,7 +76,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialPage } = resolveControllableProp({
     value: ctx.page,
     defaultValue: ctx.defaultPage,
-    controlledFlag: ctx['page.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'page'),
     fallback: 0,
   })

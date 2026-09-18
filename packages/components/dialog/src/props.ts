@@ -20,7 +20,6 @@ export const props = createProps<UserDefinedContext>()([
   'onInteractOutside',
   'onOpenChange',
   'onPointerDownOutside',
-  'open.controlled',
   'open',
   'defaultOpen',
   'persistentElements',

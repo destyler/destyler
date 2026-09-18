@@ -21,7 +21,6 @@ export const props = createProps<UserDefinedContext>()([
   'onOpenChange',
   'onPointerDownOutside',
   'onSelect',
-  'open.controlled',
   'open',
   'defaultOpen',
   'positioning',

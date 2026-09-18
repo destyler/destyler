@@ -32,7 +32,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialChecked } = resolveControllableProp({
     value: ctx.checked,
     defaultValue: ctx.defaultChecked,
-    controlledFlag: ctx['checked.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'checked'),
     fallback: false,
   })

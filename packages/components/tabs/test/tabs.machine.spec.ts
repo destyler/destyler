@@ -9,7 +9,7 @@ function createTabs(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('tabs controllable value (Phase 2)', () => {
+describe('tabs controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('tabs controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('tab-a')
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: null, onValueChange })
     service.send({ type: 'SET_VALUE', value: 'tab-a' })
@@ -62,23 +62,10 @@ describe('tabs controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('tab-a')
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: with value presence, SET_VALUE only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': null,
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'SET_VALUE', value: 'tab-a' })
-    expect(service.state.context.value).toBe('tab-a')
-    expect(onValueChange).toHaveBeenCalledWith({ value: 'tab-a' })
-  })
-
-  it('controlled: with value.controlled, SET_VALUE only invokes until parent syncs', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': null,
-      'value.controlled': true,
+      value: null,
       onValueChange,
     })
     expect(service.state.context.value).toBe(null)
@@ -94,8 +81,7 @@ describe('tabs controllable value (Phase 2)', () => {
   it('controlled: TAB_CLICK only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': 'tab-a',
-      'value.controlled': true,
+      value: 'tab-a',
       onValueChange,
     })
 

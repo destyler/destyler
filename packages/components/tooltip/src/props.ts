@@ -16,7 +16,6 @@ export const props = createProps<UserDefinedContext>()([
   'ids',
   'interactive',
   'onOpenChange',
-  'open.controlled',
   'open',
   'defaultOpen',
   'openDelay',

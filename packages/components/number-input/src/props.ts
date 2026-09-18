@@ -31,6 +31,5 @@ export const props = createProps<UserDefinedContext>()([
   'step',
   'translations',
   'value',
-  'value.controlled',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

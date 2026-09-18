@@ -89,67 +89,63 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * The locale (BCP 47 language tag) to use when formatting the date.
    * @default "en-US"
    */
-  'locale': string
+  locale: string
   /**
    * The localized messages to use.
    */
-  'translations'?: IntlTranslations | undefined
+  translations?: IntlTranslations | undefined
   /**
    * The ids of the elements in the date picker. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The `name` attribute of the input element.
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The time zone to use
    * @default "UTC"
    */
-  'timeZone': string
+  timeZone: string
   /**
    * Whether the calendar is disabled.
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the calendar is read-only.
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * The minimum date that can be selected.
    */
-  'min'?: DateValue | undefined
+  min?: DateValue | undefined
   /**
    * The maximum date that can be selected.
    */
-  'max'?: DateValue | undefined
+  max?: DateValue | undefined
   /**
    * Whether the calendar should close after the date selection is complete.
    * This is ignored when the selection mode is `multiple`.
    * @default true
    */
-  'closeOnSelect'?: boolean | undefined
+  closeOnSelect?: boolean | undefined
   /**
    * The controlled selected date(s).
    */
-  'value'?: DateValue[] | undefined
+  value?: DateValue[] | undefined
   /**
    * The initial selected date(s) when it is not controlled.
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
-  'defaultValue'?: DateValue[] | undefined
-  /**
-   * Whether the calendar value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
+  defaultValue?: DateValue[] | undefined
   /**
    * The focused date.
    */
-  'focusedValue': DateValue
+  focusedValue: DateValue
   /**
    * The number of months to display.
    */
-  'numOfMonths': number
+  numOfMonths: number
   /**
    * The first day of the week.
    *  `0` - Sunday
@@ -160,32 +156,32 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    *  `5` - Friday
    *  `6` - Saturday
    */
-  'startOfWeek'?: number | undefined
+  startOfWeek?: number | undefined
   /**
    * Whether the calendar should have a fixed number of weeks.
    * This renders the calendar with 6 weeks instead of 5 or 6.
    */
-  'fixedWeeks'?: boolean | undefined
+  fixedWeeks?: boolean | undefined
   /**
    * Function called when the value changes.
    */
-  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * Function called when the focused date changes.
    */
-  'onFocusChange'?: ((details: FocusChangeDetails) => void) | undefined
+  onFocusChange?: ((details: FocusChangeDetails) => void) | undefined
   /**
    * Function called when the view changes.
    */
-  'onViewChange'?: ((details: ViewChangeDetails) => void) | undefined
+  onViewChange?: ((details: ViewChangeDetails) => void) | undefined
   /**
    * Function called when the calendar opens or closes.
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * Returns whether a date of the calendar is available.
    */
-  'isDateUnavailable'?: ((date: DateValue, locale: string) => boolean) | undefined
+  isDateUnavailable?: ((date: DateValue, locale: string) => boolean) | undefined
   /**
    * The selection mode of the calendar.
    * - `single` - only one date can be selected
@@ -194,51 +190,47 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    *
    * @default "single"
    */
-  'selectionMode': SelectionMode
+  selectionMode: SelectionMode
   /**
    * The format of the date to display in the input.
    */
-  'format': (date: DateValue, details: LocaleDetails) => string
+  format: (date: DateValue, details: LocaleDetails) => string
   /**
    * Function to parse the date from the input back to a DateValue.
    */
-  'parse': (value: string, details: LocaleDetails) => DateValue | undefined
+  parse: (value: string, details: LocaleDetails) => DateValue | undefined
   /**
    * The placeholder text to display in the input.
    */
-  'placeholder'?: string | undefined
+  placeholder?: string | undefined
   /**
    * The view of the calendar
    * @default "day"
    */
-  'view': DateView
+  view: DateView
   /**
    * The minimum view of the calendar
    * @default "day"
    */
-  'minView': DateView
+  minView: DateView
   /**
    * The maximum view of the calendar
    * @default "year"
    */
-  'maxView': DateView
+  maxView: DateView
   /**
    * The user provided options used to position the date picker content
    */
-  'positioning': PositioningOptions
+  positioning: PositioningOptions
   /**
    * Whether the calendar is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * The initial open state of the calendar when it is not controlled.
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
-  'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the calendar open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
+  defaultOpen?: boolean | undefined
 }
 
 interface PrivateContext {

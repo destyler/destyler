@@ -224,7 +224,7 @@ describe('floating-panel browser tests', () => {
     await expect.element(getContent()).toHaveAttribute('data-state', 'closed')
   })
 
-  it('[open.controlled] close requests onOpenChange but stays open until parent sets open=false', async () => {
+  it('[open presence / openControlled] close requests onOpenChange but stays open until parent sets open=false', async () => {
     await page.getByTestId('openControlled').click()
 
     const openStatus = page.getByTestId('open-status')
@@ -243,7 +243,7 @@ describe('floating-panel browser tests', () => {
     await expect.element(getContent()).toHaveAttribute('data-state', 'closed')
   })
 
-  it('[open.controlled] trigger requests open but state follows context.open', async () => {
+  it('[open presence / openControlled] trigger requests open but state follows context.open', async () => {
     await page.getByTestId('openControlled').click()
 
     const openStatus = page.getByTestId('open-status')

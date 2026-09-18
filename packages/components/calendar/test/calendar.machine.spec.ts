@@ -2,7 +2,7 @@ import { CalendarDate } from '@internationalized/date'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { machine } from '../src/machine'
 
-describe('calendar controllable open (Phase 2)', () => {
+describe('calendar controllable open (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -37,7 +37,7 @@ describe('calendar controllable open (Phase 2)', () => {
     expect(service.state.matches('idle')).toBe(true)
   })
 
-  it('phase 2 presence: open alone (no flag) defers transitions', async () => {
+  it('phase 3 presence: open alone (no flag) defers transitions', async () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('idle')).toBe(true)
@@ -51,25 +51,10 @@ describe('calendar controllable open (Phase 2)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': true,
-      'open.controlled': false,
-      onOpenChange,
-    })
-    expect(service.state.matches('open')).toBe(true)
-
-    service.send('CLOSE')
-    expect(service.state.matches('idle')).toBe(true)
-    expect(onOpenChange).toHaveBeenCalledWith({ open: false })
-  })
-
-  it('controlled: with open.controlled, OPEN only invokes until parent syncs', async () => {
-    const onOpenChange = vi.fn()
-    const service = start({
-      'open': false,
-      'open.controlled': true,
+      open: false,
       onOpenChange,
     })
     expect(service.state.matches('idle')).toBe(true)
@@ -84,7 +69,7 @@ describe('calendar controllable open (Phase 2)', () => {
   })
 })
 
-describe('calendar controllable value (Phase 2)', () => {
+describe('calendar controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -123,7 +108,7 @@ describe('calendar controllable value (Phase 2)', () => {
     expect(service.state.context.value[0].toString()).toBe(d2.toString())
   })
 
-  it('phase 2 presence: value alone (no flag) defers VALUE.SET until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers VALUE.SET until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [], onValueChange })
     service.send({ type: 'VALUE.SET', value: [d1] })
@@ -134,23 +119,10 @@ describe('calendar controllable value (Phase 2)', () => {
     expect(service.state.context.value).toHaveLength(1)
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: value presence defers VALUE.SET until setContext', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: [d1] })
-    expect(service.state.context.value).toHaveLength(1)
-    expect(onValueChange).toHaveBeenCalled()
-  })
-
-  it('controlled: value.controlled defers VALUE.SET until setContext', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': [],
-      'value.controlled': true,
+      value: [],
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: [d1] })

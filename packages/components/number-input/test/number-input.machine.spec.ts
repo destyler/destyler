@@ -9,7 +9,7 @@ function createNumberInput(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('number-input controllable value (Phase 2)', () => {
+describe('number-input controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('number-input controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('1')
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: '0', onValueChange })
     service.send({ type: 'VALUE.SET', value: '5' })
@@ -63,23 +63,10 @@ describe('number-input controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('5')
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': '0',
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: '5' })
-    expect(service.state.context.value).toBe('5')
-    expect(onValueChange.mock.calls[0][0].value).toBe('5')
-  })
-
-  it('controlled: value.controlled defers until parent syncs', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': '0',
-      'value.controlled': true,
+      value: '0',
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: '9' })

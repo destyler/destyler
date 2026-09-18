@@ -36,7 +36,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialStep } = resolveControllableProp({
     value: ctx.step,
     defaultValue: ctx.defaultStep,
-    controlledFlag: ctx['step.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'step'),
     fallback: 0,
   })

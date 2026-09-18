@@ -169,7 +169,7 @@ export function machine(userContext: UserDefinedContext) {
 
       guards: {
         isPointer: ctx => !!ctx.isPointer,
-        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
 

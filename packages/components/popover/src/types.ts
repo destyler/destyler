@@ -26,7 +26,7 @@ interface PublicContext
   /**
    * The ids of the elements in the popover. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * Whether the popover should be modal. When set to `true`:
    * - interaction with outside elements will be disabled
@@ -36,56 +36,52 @@ interface PublicContext
    *
    * @default false
    */
-  'modal'?: boolean | undefined
+  modal?: boolean | undefined
   /**
    * Whether the popover is portalled. This will proxy the tabbing behavior regardless of the DOM position
    * of the popover content.
    *
    * @default true
    */
-  'portalled'?: boolean | undefined
+  portalled?: boolean | undefined
   /**
    * Whether to automatically set focus on the first focusable
    * content within the popover when opened.
    *
    * @default true
    */
-  'autoFocus'?: boolean | undefined
+  autoFocus?: boolean | undefined
   /**
    * The element to focus on when the popover is opened.
    */
-  'initialFocusEl'?: (() => HTMLElement | null) | undefined
+  initialFocusEl?: (() => HTMLElement | null) | undefined
   /**
    * Whether to close the popover when the user clicks outside of the popover.
    * @default true
    */
-  'closeOnInteractOutside'?: boolean | undefined
+  closeOnInteractOutside?: boolean | undefined
   /**
    * Whether to close the popover when the escape key is pressed.
    * @default true
    */
-  'closeOnEscape'?: boolean | undefined
+  closeOnEscape?: boolean | undefined
   /**
    * Function invoked when the popover opens or closes
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * The user provided options used to position the popover content
    */
-  'positioning': PositioningOptions
+  positioning: PositioningOptions
   /**
    * Whether the popover is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * The initial open state of the popover when it is not controlled.
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
-  'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the popover is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
+  defaultOpen?: boolean | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

@@ -112,7 +112,7 @@ describe('[collapsible] browser tests', () => {
     }, { timeout: 3000 })
   })
 
-  it('[open.controlled] trigger requests open but state follows context.open', async () => {
+  it('[open presence / openControlled] trigger requests open but state follows context.open', async () => {
     await page.getByTestId('openControlled').click()
 
     const trigger = testHook.getTrigger('collapsible')

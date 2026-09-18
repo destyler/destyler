@@ -14,7 +14,6 @@ export const props = createProps<UserDefinedContext>()([
   'onStepComplete',
   'orientation',
   'step',
-  'step.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

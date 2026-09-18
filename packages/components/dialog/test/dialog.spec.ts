@@ -225,13 +225,13 @@ describe('dialog browser tests', () => {
     await expect.element(testHook.getContent('dialog')).toHaveAttribute('data-state', 'open')
   })
 
-  it('[legacy open=true seed] starts open uncontrolled (compat)', async () => {
+  it('[open=true presence] starts open (presence-controlled)', async () => {
     remount({ open: true })
     await seeContent()
     await expect.element(testHook.getContent('dialog')).toHaveAttribute('data-state', 'open')
   })
 
-  it('[open.controlled] close requests onOpenChange but stays open until parent sets open=false', async () => {
+  it('[open presence / openControlled] close requests onOpenChange but stays open until parent sets open=false', async () => {
     await page.getByTestId('openControlled').click()
 
     const openStatus = page.getByTestId('open-status')
@@ -247,7 +247,7 @@ describe('dialog browser tests', () => {
     await dontSeeContent()
   })
 
-  it('[open.controlled] trigger requests open but state follows context.open', async () => {
+  it('[open presence / openControlled] trigger requests open but state follows context.open', async () => {
     await page.getByTestId('openControlled').click()
 
     const openStatus = page.getByTestId('open-status')

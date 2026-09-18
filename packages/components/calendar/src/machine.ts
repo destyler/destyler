@@ -150,7 +150,6 @@ function transformContext(ctx: Partial<MachineContext>): MachineContext {
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
-    controlledFlag: ctx['value.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: [] as DateValue[],
   })
@@ -679,7 +678,7 @@ export function machine(userContext: UserDefinedContext) {
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
         isSelectingEndDate: ctx => ctx.activeIndex === 1,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: ctx => isControlled(ctx, 'open'),
         isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === 'INTERACT_OUTSIDE',
         isInputValueEmpty: (_ctx, evt) => evt.value.trim() === '',

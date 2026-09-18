@@ -28,7 +28,7 @@ function createTree(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('tree controllable expanded/selected (Phase 2)', () => {
+describe('tree controllable expanded/selected (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -79,7 +79,7 @@ describe('tree controllable expanded/selected (Phase 2)', () => {
     expect(service.state.context.selectedValue).toEqual(['README.md'])
   })
 
-  it('phase 2 presence: expandedValue alone defers until parent syncs', () => {
+  it('phase 3 presence: expandedValue alone defers until parent syncs', () => {
     const onExpandedChange = vi.fn()
     const service = start({ expandedValue: [], onExpandedChange })
     service.send({ type: 'EXPANDED.SET', value: ['node_modules'] })
@@ -92,7 +92,7 @@ describe('tree controllable expanded/selected (Phase 2)', () => {
     expect(service.state.context.expandedValue).toEqual(['node_modules'])
   })
 
-  it('phase 2 presence: selectedValue alone defers until parent syncs', () => {
+  it('phase 3 presence: selectedValue alone defers until parent syncs', () => {
     const onSelectionChange = vi.fn()
     const service = start({ selectedValue: [], onSelectionChange })
     service.send({ type: 'SELECTED.SET', value: ['README.md'] })
@@ -105,22 +105,10 @@ describe('tree controllable expanded/selected (Phase 2)', () => {
     expect(service.state.context.selectedValue).toEqual(['README.md'])
   })
 
-  it('phase 2: expandedValue.controlled false overrides presence', () => {
+  it('controlled: expandedValue presence defers until parent syncs', () => {
     const onExpandedChange = vi.fn()
     const service = start({
-      'expandedValue': [],
-      'expandedValue.controlled': false,
-      onExpandedChange,
-    })
-    service.send({ type: 'EXPANDED.SET', value: ['node_modules'] })
-    expect(service.state.context.expandedValue).toEqual(['node_modules'])
-  })
-
-  it('controlled: expandedValue.controlled defers until parent syncs', () => {
-    const onExpandedChange = vi.fn()
-    const service = start({
-      'expandedValue': [],
-      'expandedValue.controlled': true,
+      expandedValue: [],
       onExpandedChange,
     })
     service.send({ type: 'EXPANDED.SET', value: ['node_modules'] })
@@ -132,11 +120,10 @@ describe('tree controllable expanded/selected (Phase 2)', () => {
     expect(service.state.context.expandedValue).toEqual(['node_modules'])
   })
 
-  it('controlled: selectedValue.controlled defers until parent syncs', () => {
+  it('controlled: selectedValue presence defers until parent syncs', () => {
     const onSelectionChange = vi.fn()
     const service = start({
-      'selectedValue': [],
-      'selectedValue.controlled': true,
+      selectedValue: [],
       onSelectionChange,
     })
     service.send({ type: 'SELECTED.SET', value: ['README.md'] })

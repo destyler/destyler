@@ -94,10 +94,6 @@ interface PublicContext extends DirectionProperty, CommonProperties, Dismissable
    */
   'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
   /**
-   *  Whether the menu's open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
-  /**
    * Whether the pressing printable characters should trigger typeahead navigation
    * @default true
    */

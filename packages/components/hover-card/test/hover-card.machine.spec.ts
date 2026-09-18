@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { machine } from '../src/machine'
 
-describe('hover-card controllable open (Phase 2)', () => {
+describe('hover-card controllable open (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -37,11 +37,11 @@ describe('hover-card controllable open (Phase 2)', () => {
   })
 
   it('uncontrolled: defaultOpen preferred over open for initial seed', () => {
-    const service = start({ 'defaultOpen': true, 'open': false, 'open.controlled': false })
+    const service = start({ defaultOpen: true })
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('phase 2 presence: open alone (no flag) — OPEN only invokes (stays in opening, not open)', () => {
+  it('phase 3 presence: open alone (no flag) — OPEN only invokes (stays in opening, not open)', () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('closed')).toBe(true)
@@ -52,25 +52,10 @@ describe('hover-card controllable open (Phase 2)', () => {
     expect(service.state.matches('open')).toBe(false)
   })
 
-  it('phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: with open presence, CLOSE from open only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': true,
-      'open.controlled': false,
-      onOpenChange,
-    })
-    expect(service.state.matches('open')).toBe(true)
-
-    service.send('CLOSE')
-    expect(service.state.matches('closed')).toBe(true)
-    expect(onOpenChange).toHaveBeenCalledWith({ open: false })
-  })
-
-  it('controlled: with open.controlled, CLOSE from open only invokes until parent syncs', async () => {
-    const onOpenChange = vi.fn()
-    const service = start({
-      'open': true,
-      'open.controlled': true,
+      open: true,
       onOpenChange,
     })
     expect(service.state.matches('open')).toBe(true)

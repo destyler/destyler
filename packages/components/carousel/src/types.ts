@@ -41,16 +41,16 @@ interface PublicContext extends DirectionProperty, CommonProperties, Orientation
   /**
    * The ids of the elements in the carousel. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The localized messages to use.
    */
-  'translations': IntlTranslations
+  translations: IntlTranslations
   /**
    * The number of slides to show at a time.
    * @default 1
    */
-  'slidesPerPage': number
+  slidesPerPage: number
   /**
    * The number of slides to scroll at a time.
    *
@@ -59,72 +59,68 @@ interface PublicContext extends DirectionProperty, CommonProperties, Orientation
    *
    * @default "auto"
    */
-  'slidesPerMove': number | 'auto'
+  slidesPerMove: number | 'auto'
   /**
    * Whether to scroll automatically. The default delay is 4000ms.
    * @default false
    */
-  'autoplay'?: boolean | { delay: number } | undefined
+  autoplay?: boolean | { delay: number } | undefined
   /**
    * Whether to allow scrolling via dragging with mouse
    * @default false
    */
-  'allowMouseDrag': boolean
+  allowMouseDrag: boolean
   /**
    * Whether the carousel should loop around.
    * @default false
    */
-  'loop': boolean
+  loop: boolean
   /**
    * The controlled index of the active page.
    */
-  'page'?: number | undefined
+  page?: number | undefined
   /**
    * The initial active page when it is not controlled.
    * Prefer this over seeding with `page` for uncontrolled usage.
    */
-  'defaultPage'?: number | undefined
-  /**
-   * Whether the carousel page is controlled by the user
-   */
-  'page.controlled'?: boolean | undefined
+  defaultPage?: number | undefined
   /**
    * The amount of space between items.
    * @default "0px"
    */
-  'spacing': string
+  spacing: string
   /**
    * Defines the extra space added around the scrollable area,
    * enabling nearby items to remain partially in view.
    */
-  'padding'?: string
+  padding?: string
   /**
    * Function called when the page changes.
    */
-  'onPageChange'?: ((details: PageChangeDetails) => void) | undefined
+  onPageChange?: ((details: PageChangeDetails) => void) | undefined
   /**
    * The threshold for determining if an item is in view.
    * @default 0.6
    */
-  'inViewThreshold': number | number[]
+  inViewThreshold: number | number[]
   /**
    * The snap type of the item.
    * @default "mandatory"
    */
-  'snapType': 'proximity' | 'mandatory'
+  snapType: 'proximity' | 'mandatory'
   /**
    * The total number of slides.
    * Useful for SSR to render the initial ating the snap points.
    */
-  'slideCount'?: number | undefined
+  slideCount?: number | undefined
   /**
    * Function called when the drag status changes.
    */
-  'onDragStatusChange'?: ((details: DragStatusDetails) => void) | undefined
+  onDragStatusChange?: ((details: DragStatusDetails) => void) | undefined
   /**
    * Function called when the autoplay status changes.
    */
-  'onAutoplayStatusChange'?: ((details: AutoplayStatusDetails) => void) | undefined
+  onAutoplayStatusChange?: ((details: AutoplayStatusDetails) => void) | undefined
 }
 
 interface PrivateContext {

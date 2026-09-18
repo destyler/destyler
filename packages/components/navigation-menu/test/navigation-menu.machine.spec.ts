@@ -9,7 +9,7 @@ function createNav(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('navigation-menu controllable value (Phase 2)', () => {
+describe('navigation-menu controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,14 +51,13 @@ describe('navigation-menu controllable value (Phase 2)', () => {
 
   it('uncontrolled: defaultValue preferred over value for initial seed', () => {
     const service = start({
-      'defaultValue': 'getting-started',
-      'value': 'components',
-      'value.controlled': false,
+      defaultValue: 'getting-started',
+      value: 'components',
     })
     expect(service.state.context.value).toBe('getting-started')
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', async () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', async () => {
     const onValueChange = vi.fn()
     const service = start({ value: null, onValueChange })
     expect(service.state.matches('idle')).toBe(true)
@@ -74,24 +73,10 @@ describe('navigation-menu controllable value (Phase 2)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: value presence defers until parent syncs', async () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': null,
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'TRIGGER_CLICK', value: 'components' })
-    expect(service.state.context.value).toBe('components')
-    expect(service.state.matches('open')).toBe(true)
-    expect(onValueChange).toHaveBeenCalledWith({ value: 'components' })
-  })
-
-  it('controlled: value.controlled defers until parent syncs', async () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': null,
-      'value.controlled': true,
+      value: null,
       onValueChange,
     })
     service.send({ type: 'TRIGGER_CLICK', value: 'docs' })
@@ -107,8 +92,7 @@ describe('navigation-menu controllable value (Phase 2)', () => {
   it('controlled: CLOSE only invokes until parent clears value', async () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': 'getting-started',
-      'value.controlled': true,
+      value: 'getting-started',
       onValueChange,
     })
     expect(service.state.matches('open')).toBe(true)

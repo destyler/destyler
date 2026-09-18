@@ -19,7 +19,6 @@ export const props = createProps<UserDefinedContext>()([
   'inputBehavior',
   'inputValue',
   'defaultInputValue',
-  'inputValue.controlled',
   'invalid',
   'loopFocus',
   'multiple',
@@ -33,7 +32,6 @@ export const props = createProps<UserDefinedContext>()([
   'onOpenChange',
   'onPointerDownOutside',
   'onValueChange',
-  'open.controlled',
   'open',
   'defaultOpen',
   'openOnChange',
@@ -48,7 +46,6 @@ export const props = createProps<UserDefinedContext>()([
   'translations',
   'value',
   'defaultValue',
-  'value.controlled',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)
 

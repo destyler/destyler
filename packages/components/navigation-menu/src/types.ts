@@ -21,54 +21,50 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the navigation menu. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The controlled value of the currently active menu item.
    * Prefer `defaultValue` for uncontrolled seeds (Phase 2 presence).
    */
-  'value'?: string | null | undefined
+  value?: string | null | undefined
   /**
    * The initial value of the menu item to open when rendered (uncontrolled).
    */
-  'defaultValue'?: string | null | undefined
+  defaultValue?: string | null | undefined
   /**
    * Function called when the active menu item changes.
    */
-  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * The delay (in ms) before the navigation menu opens when hovering over a trigger.
    * @default 200
    */
-  'openDelay': number
+  openDelay: number
   /**
    * The delay (in ms) before the navigation menu closes when the pointer leaves.
    * @default 300
    */
-  'closeDelay': number
+  closeDelay: number
   /**
    * The orientation of the navigation menu.
    * @default "horizontal"
    */
-  'orientation': Orientation
-  /**
-   * Whether the value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
+  orientation: Orientation
   /**
    * Whether to disable click interaction on triggers.
    * @default false
    */
-  'disableClickTrigger': boolean
+  disableClickTrigger: boolean
   /**
    * Whether to disable hover interaction on triggers.
    * @default false
    */
-  'disableHoverTrigger': boolean
+  disableHoverTrigger: boolean
   /**
    * Whether to disable closing when the pointer leaves the menu.
    * @default false
    */
-  'disablePointerLeaveClose': boolean
+  disablePointerLeaveClose: boolean
 }
 
 interface PrivateContext {

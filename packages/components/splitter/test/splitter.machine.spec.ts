@@ -17,7 +17,7 @@ function createSplitter(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('splitter controllable size (Phase 2)', () => {
+describe('splitter controllable size (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -76,7 +76,7 @@ describe('splitter controllable size (Phase 2)', () => {
     expect(service.state.context.size.map((p: any) => p.size)).toEqual([20, 80])
   })
 
-  it('phase 2 presence: size alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: size alone (no flag) defers mutation until parent syncs', () => {
     const onSizeChange = vi.fn()
     const service = start({
       size: [
@@ -100,29 +100,13 @@ describe('splitter controllable size (Phase 2)', () => {
     expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(25)
   })
 
-  it('phase 2: size.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: size presence defers until parent syncs', () => {
     const onSizeChange = vi.fn()
     const service = start({
-      'size': [
+      size: [
         { id: 'a', size: 50 },
         { id: 'b', size: 50 },
       ],
-      'size.controlled': false,
-      onSizeChange,
-    })
-    service.send({ type: 'SET_PANEL_SIZE', id: 'a', size: 25 })
-    expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(25)
-    expect(onSizeChange).toHaveBeenCalled()
-  })
-
-  it('controlled: size.controlled defers until parent syncs', () => {
-    const onSizeChange = vi.fn()
-    const service = start({
-      'size': [
-        { id: 'a', size: 50 },
-        { id: 'b', size: 50 },
-      ],
-      'size.controlled': true,
       onSizeChange,
     })
     service.send({ type: 'SET_PANEL_SIZE', id: 'a', size: 30 })

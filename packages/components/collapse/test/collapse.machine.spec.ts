@@ -9,7 +9,7 @@ function createCollapse(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('collapse controllable value (Phase 2)', () => {
+describe('collapse controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('collapse controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual(['item-a'])
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [], onValueChange })
     service.send({ type: 'VALUE.SET', value: ['item-a'] })
@@ -62,23 +62,10 @@ describe('collapse controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual(['item-a'])
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
+  it('controlled: with value presence, VALUE.SET only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: ['item-a'] })
-    expect(service.state.context.value).toEqual(['item-a'])
-    expect(onValueChange).toHaveBeenCalledWith({ value: ['item-a'] })
-  })
-
-  it('controlled: with value.controlled, VALUE.SET only invokes until parent syncs', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': [],
-      'value.controlled': true,
+      value: [],
       onValueChange,
     })
     expect(service.state.context.value).toEqual([])
@@ -94,9 +81,8 @@ describe('collapse controllable value (Phase 2)', () => {
   it('controlled: TRIGGER.CLICK expand only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
-      'collapsible': true,
-      'value.controlled': true,
+      value: [],
+      collapsible: true,
       onValueChange,
     })
 

@@ -1,18 +1,15 @@
 import { hasProp } from './guard'
 
 /**
- * Controllable / bindable-style helpers for MACHINE-layer dual-track (option C).
+ * Controllable / bindable-style helpers for MACHINE-layer ownership (option C).
  *
- * Phase 1: resolve **initial** value; **isControlled** from legacy `*.controlled` flags.
+ * **Phase 3 HARD (BREAKING):** controlledness is **prop presence only** —
+ * recorded via {@link CONTROLLABLE_PROVIDED_KEY} *before* `compact()` strips
+ * `undefined` keys. Explicit `*.controlled` flags are **removed** from the
+ * public API and are **not** honored at runtime.
  *
- * Phase 2 (see destyler/destyler#103): dual-track ownership —
- *   1. explicit `*.controlled === true`  → controlled
- *   2. explicit `*.controlled === false` → uncontrolled (escape hatch)
- *   3. flag absent → controlled iff the prop was **user-provided** (presence)
- *
- * Presence is recorded via {@link CONTROLLABLE_PROVIDED_KEY} *before* `compact()`
- * strips `undefined` keys. Do **not** infer presence from compacted machine context
- * after defaults/spread — reactive bags and control panels often always include keys.
+ * - Controlled → user provided the value prop (stamped presence)
+ * - Uncontrolled → omit the value key; seed with `default*` only
  *
  * Adapter guidance: pass controllable props into `machine(userContext)` (or stamp
  * with {@link withControllableProvided}) so presence is visible at init. Props that
@@ -29,13 +26,12 @@ export interface ResolveControllablePropParams<T> {
   /** Preferred uncontrolled initial (e.g. `defaultOpen`). */
   defaultValue?: T | undefined
   /**
-   * Legacy Destyler ownership flag (e.g. `ctx['open.controlled']`).
-   * `true` / `false` win over presence; absent → fall through to `valueProvided`.
+   * @deprecated Phase 3 HARD — ignored. Kept optional for call-site migration;
+   * remove at call sites. Controlledness is `valueProvided` only.
    */
   controlledFlag?: boolean | undefined
   /**
    * Whether the user provided the value prop (own-key / stamped presence).
-   * Phase 2: used only when `controlledFlag` is absent.
    */
   valueProvided?: boolean | undefined
   /** Fallback when neither defaultValue nor value is set. */
@@ -45,25 +41,18 @@ export interface ResolveControllablePropParams<T> {
 export interface ControllablePropResolved<T> {
   /** Value used to seed machine initial state / context. */
   initial: T
-  /** Whether the parent owns the value (Phase 2 dual-track). */
+  /** Whether the parent owns the value (presence only). */
   isControlled: boolean
 }
 
 /**
- * Dual-track controlledness (Phase 2).
- *
- * - `controlledFlag === true`  → controlled
- * - `controlledFlag === false` → uncontrolled
- * - flag absent → `!!valueProvided`
+ * Phase 3 HARD: controlledness = `!!valueProvided` only.
+ * `controlledFlag` is ignored (deprecated param kept for call-site churn).
  */
 export function resolveIsControlled(
-  controlledFlag?: boolean | undefined,
+  _controlledFlag?: boolean | undefined,
   valueProvided?: boolean | undefined,
 ): boolean {
-  if (controlledFlag === true)
-    return true
-  if (controlledFlag === false)
-    return false
   return !!valueProvided
 }
 
@@ -71,21 +60,21 @@ export function resolveIsControlled(
  * Resolve initial value and controlledness for a single prop pair.
  *
  * Initial: `defaultValue ?? value ?? fallback`
- * Controlled: {@link resolveIsControlled}(controlledFlag, valueProvided)
+ * Controlled: {@link resolveIsControlled}(ignoredFlag, valueProvided)
  */
 export function resolveControllableProp<T>(
   params: ResolveControllablePropParams<T>,
 ): ControllablePropResolved<T> {
-  const { value, defaultValue, controlledFlag, valueProvided, fallback } = params
+  const { value, defaultValue, valueProvided, fallback } = params
   return {
     initial: (defaultValue ?? value ?? fallback) as T,
-    isControlled: resolveIsControlled(controlledFlag, valueProvided),
+    isControlled: resolveIsControlled(undefined, valueProvided),
   }
 }
 
 /**
- * Phase 1 flag-only detection (`prop.controlled`). Prefer {@link isControlled}
- * for Phase 2 dual-track (flag + presence).
+ * @deprecated Phase 3 HARD — `*.controlled` flags removed. Use {@link isControlled}
+ * (stamped presence via {@link withControllableProvided}).
  */
 export function isControlledByFlag(
   ctx: Record<string, unknown>,
@@ -162,32 +151,24 @@ export function withControllableProvided<T extends Record<string, unknown>>(
 }
 
 /**
- * Phase 2 dual-track resolver for machine guards / gated setters.
- *
- * Explicit `*.controlled` wins; otherwise uses stamped {@link CONTROLLABLE_PROVIDED_KEY}.
+ * Phase 3 HARD: ownership from stamped {@link CONTROLLABLE_PROVIDED_KEY} only.
+ * Explicit `*.controlled` flags are ignored.
  */
 export function isControlled(
   ctx: Record<string, unknown>,
   prop: string,
 ): boolean {
-  const flag = ctx[`${prop}.controlled`]
-  if (flag === true)
-    return true
-  if (flag === false)
-    return false
   return isPropUserProvided(ctx, prop)
 }
 
 export interface ControllableOpenContext {
-  'open'?: boolean | undefined
-  'defaultOpen'?: boolean | undefined
-  'open.controlled'?: boolean | undefined
+  open?: boolean | undefined
+  defaultOpen?: boolean | undefined
   [CONTROLLABLE_PROVIDED_KEY]?: string[] | undefined
 }
 
 /**
- * Open-family convenience: `defaultOpen ?? open ?? false` + Phase 2 dual-track
- * `open.controlled` / stamped presence of `open`.
+ * Open-family convenience: `defaultOpen ?? open ?? false` + presence of `open`.
  */
 export function resolveControllableOpen(ctx: ControllableOpenContext): {
   initialOpen: boolean
@@ -196,7 +177,6 @@ export function resolveControllableOpen(ctx: ControllableOpenContext): {
   const resolved = resolveControllableProp({
     value: ctx.open,
     defaultValue: ctx.defaultOpen,
-    controlledFlag: ctx['open.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'open'),
     fallback: false,
   })
