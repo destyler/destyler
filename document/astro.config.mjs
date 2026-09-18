@@ -145,6 +145,7 @@ export default defineConfig({
           items: [
             { slug: 'guide/styling' },
             { slug: 'guide/composition' },
+            { slug: 'guide/controllable-state' },
           ],
         },
         {

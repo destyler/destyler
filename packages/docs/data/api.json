@@ -35,11 +35,11 @@
     "context": {
       "items": {
         "type": "BreadcrumbItem[]",
-        "description": "\n面包屑项目"
+        "description": "\n\u9762\u5305\u5c51\u9879\u76ee"
       },
       "ids": {
         "type": "Partial<{ root: string; list: string; separator: string; }>",
-        "description": "\nDOM 元素的 ID"
+        "description": "\nDOM \u5143\u7d20\u7684 ID"
       },
       "id": {
         "type": "string",
@@ -591,6 +591,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultChecked": {
+        "type": "CheckedState",
+        "description": "\nThe initial checked state of the checkbox when it is not controlled.\nPrefer this over seeding with `checked` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "checked.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the checkbox is controlled by the user.\n\n@deprecated Prefer prop presence of `checked` (controlled) + `defaultChecked` (uncontrolled seed).\nStill supported (Phase 3 soft dual-track).",
+        "defaultValue": null
       }
     }
   },
@@ -1271,7 +1281,7 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the dialog is controlled by the user"
+        "description": "\nWhether the component open state is controlled by the user.\n\n@deprecated Prefer prop presence of `open` (controlled) + `defaultOpen` (uncontrolled seed). Still supported (Phase 3 soft dual-track). See CONTROLLED-API.md / #103."
       },
       "dir": {
         "type": "\"ltr\" | \"rtl\"",
@@ -1305,6 +1315,11 @@
       "persistentElements": {
         "type": "(() => Element)[]",
         "description": "\nReturns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the dialog when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },
@@ -2512,7 +2527,7 @@
       "placeholder": {
         "type": "string",
         "description": "\nThe placeholder text for the input",
-        "defaultValue": "\"○\""
+        "defaultValue": "\"\u25cb\""
       },
       "autoFocus": {
         "type": "boolean",
@@ -2776,7 +2791,7 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the popover is controlled by the user"
+        "description": "\nWhether the component open state is controlled by the user.\n\n@deprecated Prefer prop presence of `open` (controlled) + `defaultOpen` (uncontrolled seed). Still supported (Phase 3 soft dual-track). See CONTROLLED-API.md / #103."
       },
       "id": {
         "type": "string",
@@ -2810,6 +2825,11 @@
       "persistentElements": {
         "type": "(() => Element)[]",
         "description": "\nReturns the persistent elements that:\n- should not have pointer-events disabled\n- should not trigger the dismiss event"
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the popover when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },
@@ -3325,7 +3345,7 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the select's open state is controlled by the user"
+        "description": "\nWhether the component open state is controlled by the user.\n\n@deprecated Prefer prop presence of `open` (controlled) + `defaultOpen` (uncontrolled seed). Still supported (Phase 3 soft dual-track). See CONTROLLED-API.md / #103."
       },
       "scrollToIndexFn": {
         "type": "(details: ScrollToIndexDetails) => void",
@@ -3364,6 +3384,16 @@
       "onInteractOutside": {
         "type": "(event: InteractOutsideEvent) => void",
         "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "defaultValue": {
+        "type": "string[]",
+        "description": "\nThe initial value of the select when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the select when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },

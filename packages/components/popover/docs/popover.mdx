@@ -419,6 +419,26 @@ const [state, send] = useMachine(
 )
 ```
 
+## Controlled usage
+
+Popover open state follows the same pattern as dialog. Use `defaultOpen` for an uncontrolled seed; pass `open` + `onOpenChange` (and sync via `context`) when you need controlled open. See [Controllable State](/guide/controllable-state).
+
+```ts
+popover.machine({
+  id: "1",
+  defaultOpen: false,
+})
+
+const open = false // your reactive state
+popover.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
+```
+
 ## Listening for open state changes
 
 When the popover is opened or closed, the `onOpenChange` callback is invoked.
