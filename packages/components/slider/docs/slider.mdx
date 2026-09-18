@@ -199,9 +199,29 @@ const [state, send] = useMachine(
 ```ts
 const [state, send] = useMachine(
   slider.machine({
-    value: [60],
+    defaultValue: [60],
   }),
 )
+```
+
+## Controlled usage
+
+Slider value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+slider.machine({
+  id: "1",
+  defaultValue: [60],
+})
+
+const value = [60] // your reactive state
+slider.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: number[] }
+  },
+})
 ```
 
 ## Specifying the minimum and maximum

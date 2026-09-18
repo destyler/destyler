@@ -180,18 +180,33 @@ Import all parts and piece them together.
 
 ## Setting the initial value
 
-To set the initial `value` of the combobox, pass the value property to the Destyler's context.
+To set the initial value **without** taking ownership of state, pass `defaultValue`. Prefer this over seeding with `value` (which is presence-controlled after Phase 2).
 
 :::tip
-The `value` property must be an array of strings. If selecting a single value, pass an array with a single string.
+The `defaultValue` / `value` property must be an array of strings. If selecting a single value, pass an array with a single string.
 :::
 
 ```diff lang="ts"
 const [state, send] = useMachine(
   combobox.machine({
-+    value: ["vue"],
++    defaultValue: ["vue"],
   }),
 )
+```
+
+## Controlled usage
+
+Combobox supports controllable **value**, **inputValue**, and **open**. Use `defaultValue` / `defaultInputValue` / `defaultOpen` for uncontrolled seeds. Pass `value` / `inputValue` / `open` and sync with `onValueChange` / `onInputValueChange` / `onOpenChange` when your app owns state. See [Controllable State](/guide/controllable-state).
+
+```ts
+const value = ["vue"] // your reactive state
+combobox.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string[] }
+  },
+})
 ```
 
 ## Selecting multiple values

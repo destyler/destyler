@@ -797,6 +797,26 @@ A common requirement for the option item that you pass the `name`, `value` and `
 
 </FrameworkLayout>
 
+## Controlled usage
+
+Menu open state can be **uncontrolled** or **controlled**. Prefer `defaultOpen` for an uncontrolled seed. Passing `open` into `machine(...)` is presence-controlled — sync with `onOpenChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+menu.machine({
+  id: "1",
+  defaultOpen: false,
+})
+
+const open = false // your reactive state
+menu.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
+```
+
 ## Styling guide
 
 > Earlier, we mentioned that each QR Code part has a `data-part` attribute added to them to select and style them in the DOM.

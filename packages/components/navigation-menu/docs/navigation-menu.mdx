@@ -236,17 +236,37 @@ const [state, send] = useMachine(
 
 ## Controlling the open state
 
-You can control which menu item is open using the `value` property:
+Prefer `defaultValue` to open a menu initially without taking ownership. Pass `value` + `onValueChange` when your app owns state (presence-controlled):
 
 ```ts
 const [state, send] = useMachine(
   navigationMenu.machine({
-    value: 'products', // Opens the products menu initially
+    defaultValue: 'products', // Opens the products menu initially (uncontrolled seed)
     onValueChange(details) {
       console.log('Open menu changed to:', details.value)
     },
   }),
 )
+```
+
+## Controlled usage
+
+Navigation menu openness is encoded as **value** (which trigger is active). Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+navigationMenu.machine({
+  id: "1",
+  defaultValue: "products",
+})
+
+const value = "products" // your reactive state
+navigationMenu.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string | null }
+  },
+})
 ```
 
 ## Using links without content

@@ -524,7 +524,7 @@ To set the default expanded nodes, use the `expandedValue` context property.
 ```ts
 const [state, send] = useMachine(
   tree.machine({
-    expandedValue: ["node_modules/unocss"],
+    defaultExpandedValue: ["node_modules/unocss"],
   }),
 )
 ```
@@ -536,9 +536,30 @@ To set the default selected nodes, use the `selectedValue` context property.
 ```ts
 const [state, send] = useMachine(
   tree.machine({
-    selectedValue: ["node_modules/unocss"],
+    defaultSelectedValue: ["node_modules/unocss"],
   }),
 )
+```
+
+## Controlled usage
+
+Tree supports controllable **expandedValue** and **selectedValue**. Prefer `defaultExpandedValue` / `defaultSelectedValue` for uncontrolled seeds. Passing those keys into `machine(...)` is presence-controlled — sync with `onExpandedChange` / `onSelectionChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+tree.machine({
+  id: "1",
+  defaultExpandedValue: ["node_modules"],
+  defaultSelectedValue: [],
+})
+
+const expandedValue = ["node_modules"] // your reactive state
+tree.machine({
+  id: "1",
+  expandedValue,
+  onExpandedChange(details) {
+    // details => { expandedValue: string[] }
+  },
+})
 ```
 
 ## Listening for selection

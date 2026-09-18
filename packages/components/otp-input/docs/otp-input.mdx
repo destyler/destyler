@@ -155,9 +155,29 @@ To set the initial value of the otp input, pass the `value` property to the dest
 ```ts
 const [state, send] = useMachine(
   otpInput.machine({
-    value: ["1", "2", ""],
+    defaultValue: ["1", "2", ""],
   }),
 )
+```
+
+## Controlled usage
+
+OTP input value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+otpInput.machine({
+  id: "1",
+  defaultValue: ["1", "2", ""],
+})
+
+const value = ["1", "2", ""] // your reactive state
+otpInput.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string[] }
+  },
+})
 ```
 
 ## Changing the placeholder

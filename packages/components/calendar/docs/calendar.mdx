@@ -581,14 +581,34 @@ const api = computed(() =>
 
 ## Setting the initial date
 
-To set the initial value that is rendered by the calendar, set the value property in the machine context.
+To set the initial value **without** taking ownership of state, pass `defaultValue`. Prefer this over seeding with `value` (presence-controlled after Phase 2).
 
 ```ts
 const [state, send] = useMachine(
   calendar.machine({
-    value: calendar.parse("2021-01-01"),
+    defaultValue: [calendar.parse("2021-01-01")],
   }),
 )
+```
+
+## Controlled usage
+
+Calendar supports controllable **value** and **open**. Prefer `defaultValue` / `defaultOpen` for uncontrolled seeds. Passing `value` / `open` into `machine(...)` is presence-controlled — sync with `onValueChange` / `onOpenChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+calendar.machine({
+  id: "1",
+  defaultValue: [calendar.parse("2021-01-01")],
+})
+
+const value = [calendar.parse("2021-01-01")] // your reactive state
+calendar.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: DateValue[] }
+  },
+})
 ```
 
 ## Controlling the selected date
@@ -842,7 +862,7 @@ we recommended setting the `open` property to `true` and `closeOnSelect` to `fal
 ```ts
 const [state, send] = useMachine(
   calendar.machine({
-    open: true,
+    defaultOpen: true,
     "open.controlled": true,
     closeOnSelect: false,
   }),

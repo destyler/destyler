@@ -127,6 +127,26 @@ Import all parts and piece them together.
 
 </FrameworkLayout>
 
+## Controlled usage
+
+Collapsible open state can be **uncontrolled** or **controlled**. Prefer `defaultOpen` when the machine should own open state. Passing `open` into `machine(...)` is presence-controlled — sync with `onOpenChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+collapsible.machine({
+  id: "1",
+  defaultOpen: true,
+})
+
+const open = false // your reactive state
+collapsible.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
+```
+
 ## Listening for changes
 
 When the collapsible state changes, the `onOpenChange` callback is invoked.

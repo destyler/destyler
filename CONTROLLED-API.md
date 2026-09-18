@@ -278,6 +278,8 @@ RFC: **Controlled value ownership** — [#103](https://github.com/destyler/desty
 
 ## Related
 
+End-user **Controlled usage** sections on shipping component MDX pages (open + value families) now document controllable APIs broadly; see the Astro guide [controllable-state](./document/src/content/guide/controllable-state.mdx).
+
 - [CONTRIBUTING.md](./CONTRIBUTING.md) — contribution workflow and framework-agnostic adapter guidance
 - [TEST-GAPS.md](./TEST-GAPS.md) — known test coverage gaps
 - Issue [#103](https://github.com/destyler/destyler/issues/103) — Controlled API unification

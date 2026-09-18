@@ -157,6 +157,29 @@ export default function SplitterDemo() {
 
 </FrameworkLayout>
 
+## Controlled usage
+
+Splitter **size** can be **uncontrolled** or **controlled**. Prefer `defaultSize` for an uncontrolled seed. Passing `size` into `machine(...)` is presence-controlled — sync with `onSizeChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+splitter.machine({
+  id: "1",
+  defaultSize: [
+    { id: "a", size: 50 },
+    { id: "b", size: 50 },
+  ],
+})
+
+const size = [{ id: "a", size: 50 }, { id: "b", size: 50 }] // your reactive state
+splitter.machine({
+  id: "1",
+  size,
+  onSizeChange(details) {
+    // details => { size: PanelSizeData[] }
+  },
+})
+```
+
 ## Listening for events
 
 When the resize trigger of splitter changes,

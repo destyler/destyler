@@ -234,6 +234,26 @@ Import all parts and piece them together.
 
 </FrameworkLayout>
 
+## Controlled usage
+
+Floating panel **open** state can be **uncontrolled** or **controlled**. Prefer `defaultOpen` when the machine should own open state. Passing `open` into `machine(...)` is presence-controlled — sync with `onOpenChange` and adapter `context`. Panel `size` / `position` remain programmatic props (not Phase 2 presence-controlled). See [Controllable State](/guide/controllable-state).
+
+```ts
+floatingPanel.machine({
+  id: "1",
+  defaultOpen: true,
+})
+
+const open = false // your reactive state
+floatingPanel.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
+```
+
 ## Controlling the size
 
 To control the size of the floating panel programmatically, you can pass the `size` prop to the machine.

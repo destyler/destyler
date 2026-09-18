@@ -53,7 +53,7 @@ Import all parts and piece them together.
 
   const [state, send] = useMachine(colorPicker.machine({
     id: useId(),
-    value: colorPicker.parse('hsl(240,5.9%,10%)'),
+    defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
   }))
 
   const api = computed(() => colorPicker.connect(state.value, send, normalizeProps))
@@ -109,7 +109,7 @@ Import all parts and piece them together.
     const id = useId()
     const [state, send] = useMachine(colorPicker.machine({
       id,
-      value: colorPicker.parse('hsl(240,5.9%,10%)'),
+      defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
     }))
 
     const api = colorPicker.connect(state, send, normalizeProps)
@@ -165,7 +165,7 @@ Import all parts and piece them together.
 
     const [state, send] = useMachine(colorPicker.machine({
       id,
-      value: colorPicker.parse('hsl(240,5.9%,10%)'),
+      defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
     }))
 
     const api = $derived(colorPicker.connect(state, send, normalizeProps))
@@ -220,7 +220,7 @@ Import all parts and piece them together.
   export default function ColorPicker() {
     const [state, send] = useMachine(colorPicker.machine({
       id: createUniqueId(),
-      value: colorPicker.parse('hsl(240,5.9%,10%)'),
+      defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
     }))
 
     const api = createMemo(() => colorPicker.connect(state, send, normalizeProps))
@@ -278,9 +278,29 @@ To set the initial value of the color picker, use the `value` context property.
 ```ts
 const [current, send] = useMachine(
   colorPicker.machine({
-    value: colorPicker.parse("#ff0000"),
+    defaultValue: colorPicker.parse("#ff0000"),
   }),
 )
+```
+
+## Controlled usage
+
+Color picker supports controllable **value** and **open**. Prefer `defaultValue` / `defaultOpen` for uncontrolled seeds. Passing `value` / `open` into `machine(...)` is presence-controlled — sync with `onValueChange` / `onOpenChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+colorPicker.machine({
+  id: "1",
+  defaultValue: colorPicker.parse("#ff0000"),
+})
+
+const open = false // your reactive state
+colorPicker.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
 ```
 
 ## Listening for change events
@@ -349,7 +369,7 @@ use the `open` and `onOpenChange` context properties.
 ```ts
 const [current, send] = useMachine(
   colorPicker.machine({
-    open: true,
+    defaultOpen: true,
     onOpenChange: (details) => {
       // details => { open: boolean }
     },

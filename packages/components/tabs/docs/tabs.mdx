@@ -57,7 +57,7 @@ Import all parts and piece them together.
 
   const [state, send] = useMachine(tabs.machine({
     id: useId(),
-    value: 'item-1'
+    defaultValue: 'item-1'
   }))
   const api = computed(() => tabs.connect(state.value, send, normalizeProps))
   </script>
@@ -102,7 +102,7 @@ Import all parts and piece them together.
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: useId(),
-      value: 'item-1',
+      defaultValue: 'item-1',
     }))
 
     const api = tabs.connect(state, send, normalizeProps)
@@ -148,7 +148,7 @@ Import all parts and piece them together.
     ]
 
     const id = $props.id()
-    const [state, send] = useMachine(tabs.machine({ id, value: 'item-1' }))
+    const [state, send] = useMachine(tabs.machine({ id, defaultValue: 'item-1' }))
     const api = $derived(tabs.connect(state, send, normalizeProps))
   </script>
 
@@ -185,7 +185,7 @@ Import all parts and piece them together.
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: createUniqueId(),
-      value: 'item-1',
+      defaultValue: 'item-1',
     }))
 
     const api = createMemo(() => tabs.connect(state, send, normalizeProps))
@@ -221,12 +221,32 @@ pass the `value` property to the machine's context.
 ```ts
 const [state, send] = useMachine(
   tabs.machine({
-    value: "tab-1",
+    defaultValue: "tab-1",
   }),
 )
 ```
 
 Subsequently, you can use the `api.setValue` function to set the selected tab.
+
+## Controlled usage
+
+Tabs value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+tabs.machine({
+  id: "1",
+  defaultValue: "tab-1",
+})
+
+const value = "tab-1" // your reactive state
+tabs.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string | null }
+  },
+})
+```
 
 ## Changing the orientation
 
@@ -264,7 +284,7 @@ you add the `tabIndicatorProps` object provided by the `connect` function.
 
   const [state, send] = useMachine(tabs.machine({
     id: useId(),
-    value: 'item-1'
+    defaultValue: 'item-1'
   }))
   const api = computed(() => tabs.connect(state.value, send, normalizeProps))
   </script>
@@ -310,7 +330,7 @@ you add the `tabIndicatorProps` object provided by the `connect` function.
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: useId(),
-      value: 'item-1',
+      defaultValue: 'item-1',
     }))
 
     const api = tabs.connect(state, send, normalizeProps)
@@ -357,7 +377,7 @@ you add the `tabIndicatorProps` object provided by the `connect` function.
     ]
 
     const id = $props.id()
-    const [state, send] = useMachine(tabs.machine({ id, value: 'item-1' }))
+    const [state, send] = useMachine(tabs.machine({ id, defaultValue: 'item-1' }))
     const api = $derived(tabs.connect(state, send, normalizeProps))
   </script>
 
@@ -395,7 +415,7 @@ you add the `tabIndicatorProps` object provided by the `connect` function.
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: createUniqueId(),
-      value: 'item-1',
+      defaultValue: 'item-1',
     }))
 
     const api = createMemo(() => tabs.connect(state, send, normalizeProps))
@@ -448,7 +468,7 @@ When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
 
   const [state, send] = useMachine(tabs.machine({
     id: useId(),
-    value: 'item-1'
+    defaultValue: 'item-1'
   }))
   const api = computed(() => tabs.connect(state.value, send, normalizeProps))
   </script>
@@ -493,7 +513,7 @@ When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: useId(),
-      value: 'item-1',
+      defaultValue: 'item-1',
     }))
 
     const api = tabs.connect(state, send, normalizeProps)
@@ -539,7 +559,7 @@ When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
     ]
 
     const id = $props.id()
-    const [state, send] = useMachine(tabs.machine({ id, value: 'item-1' }))
+    const [state, send] = useMachine(tabs.machine({ id, defaultValue: 'item-1' }))
     const api = $derived(tabs.connect(state, send, normalizeProps))
   </script>
 
@@ -576,7 +596,7 @@ When a Tab is `disabled`, it is skipped during keyboard navigation and it is not
   export default function Tabs() {
     const [state, send] = useMachine(tabs.machine({
       id: createUniqueId(),
-      value: 'item-1',
+      defaultValue: 'item-1',
     }))
 
     const api = createMemo(() => tabs.connect(state, send, normalizeProps))

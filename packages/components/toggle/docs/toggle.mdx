@@ -150,6 +150,26 @@ const [state, send] = useMachine(
 )
 ```
 
+## Controlled usage
+
+Toggle group value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+toggle.machine({
+  id: "1",
+  defaultValue: ["bold"],
+})
+
+const value = ["bold"] // your reactive state
+toggle.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string[] }
+  },
+})
+```
+
 ## Listening for value changes
 
 When the pressed toggle in the group changes, `onValueChange` callback is invoked.

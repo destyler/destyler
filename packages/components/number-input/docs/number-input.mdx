@@ -156,9 +156,29 @@ The value must be a string
 ```tsx
 const [state, send] = useMachine(
   numberInput.machine({
-    value: "66",
+    defaultValue: "66",
   }),
 )
+```
+
+## Controlled usage
+
+Number input value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+numberInput.machine({
+  id: "1",
+  defaultValue: "66",
+})
+
+const value = "66" // your reactive state
+numberInput.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string, valueAsNumber: number }
+  },
+})
 ```
 
 ## Setting a minimum and maximum value

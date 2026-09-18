@@ -197,6 +197,29 @@ Import all parts and piece them together.
 
 </FrameworkLayout>
 
+## Controlled usage
+
+Pagination supports controllable **page** and **pageSize**. Prefer `defaultPage` / `defaultPageSize` for uncontrolled seeds. Passing `page` / `pageSize` into `machine(...)` is presence-controlled — sync with `onPageChange` / `onPageSizeChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+pagination.machine({
+  id: "1",
+  count: 100,
+  defaultPage: 1,
+  defaultPageSize: 10,
+})
+
+const page = 1 // your reactive state
+pagination.machine({
+  id: "1",
+  count: 100,
+  page,
+  onPageChange(details) {
+    // details => { page: number, pageSize: number }
+  },
+})
+```
+
 ## Styling Guide
 
 > Earlier, we mentioned that each collapse part has a `data-part` attribute added to them to select and style them in the DOM.
