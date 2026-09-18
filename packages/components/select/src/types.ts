@@ -106,10 +106,6 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    */
   'defaultValue'?: string[] | undefined
   /**
-   * Whether the select value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * The key of the highlighted item
    */
   'highlightedValue': string | null
@@ -131,10 +127,6 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
   'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the select's open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
   /**
    * Function to scroll to a specific index
    */

@@ -36,7 +36,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
-    controlledFlag: ctx['value.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: null as string | null,
   })
@@ -217,7 +216,7 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        // Phase 2 dual-track: explicit value.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isValueControlled: ctx => isControlled(ctx, 'value'),
         isHoverDisabled: ctx => ctx.disableHoverTrigger,
         isClickDisabled: ctx => ctx.disableClickTrigger,

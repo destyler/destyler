@@ -77,15 +77,10 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
   'submitMode': SubmitMode
   /**
    * Whether the editable is in edit mode (controlled sync field / legacy seed).
-   * Phase 2: presence of `edit` without `'edit.controlled': false` is presence-controlled.
-   * There is no `defaultEdit` — uncontrolled start-in-edit uses `'edit.controlled': false`.
+   * Phase 3: presence of `edit` is presence-controlled.
+   * There is no `defaultEdit` — omit `edit` and enter via gestures for uncontrolled usage.
    */
   'edit'?: boolean | undefined
-  /**
-   * Whether edit mode is controlled by the parent.
-   * Explicit true/false wins over Phase 2 prop presence.
-   */
-  'edit.controlled'?: boolean | undefined
   /**
    * Whether to select the text in the input when it is focused.
    * @default true
@@ -100,10 +95,6 @@ interface PublicContext extends DirectionProperty, CommonProperties, InteractOut
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
   'defaultValue'?: string | undefined
-  /**
-   * Whether the editable value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
   /**
    * The maximum number of characters allowed in the editable
    */

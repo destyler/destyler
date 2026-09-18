@@ -27,10 +27,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultStep'?: number | undefined
   /**
-   * Whether the steps value is controlled by the user
-   */
-  'step.controlled'?: boolean | undefined
-  /**
    * Callback to be called when the value changes
    */
   'onStepChange'?: (details: StepChangeDetails) => void

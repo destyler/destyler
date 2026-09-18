@@ -10,7 +10,7 @@ function createPagination(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('pagination controllable page (Phase 2)', () => {
+describe('pagination controllable page (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -58,7 +58,7 @@ describe('pagination controllable page (Phase 2)', () => {
     expect(service.state.context.pageSize).toBe(25)
   })
 
-  it('phase 2 presence: page alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: page alone (no flag) defers mutation until parent syncs', () => {
     const onPageChange = vi.fn()
     const service = start({ page: 1, onPageChange })
     service.send({ type: 'SET_PAGE', page: 3 })
@@ -69,23 +69,11 @@ describe('pagination controllable page (Phase 2)', () => {
     expect(service.state.context.page).toBe(3)
   })
 
-  it('phase 2: page.controlled false overrides presence (legacy seed escape)', () => {
-    const onPageChange = vi.fn()
-    const service = start({
-      'page': 1,
-      'page.controlled': false,
-      onPageChange,
-    })
-    service.send({ type: 'SET_PAGE', page: 3 })
-    expect(service.state.context.page).toBe(3)
-    expect(onPageChange).toHaveBeenCalledWith({ page: 3, pageSize: 10 })
-  })
 
-  it('controlled: page.controlled defers until parent syncs', () => {
+  it('controlled: page presence defers until parent syncs', () => {
     const onPageChange = vi.fn()
     const service = start({
       'page': 1,
-      'page.controlled': true,
       onPageChange,
     })
     service.send({ type: 'SET_PAGE', page: 4 })
@@ -95,11 +83,10 @@ describe('pagination controllable page (Phase 2)', () => {
     expect(service.state.context.page).toBe(4)
   })
 
-  it('controlled: pageSize.controlled defers until parent syncs', () => {
+  it('controlled: pageSize presence defers until parent syncs', () => {
     const onPageSizeChange = vi.fn()
     const service = start({
       'pageSize': 10,
-      'pageSize.controlled': true,
       onPageSizeChange,
     })
     service.send({ type: 'SET_PAGE_SIZE', size: 20 })

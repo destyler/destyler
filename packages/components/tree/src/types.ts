@@ -41,10 +41,6 @@ interface PublicContext<T = any> extends DirectionProperty, CommonProperties {
    */
   'defaultExpandedValue'?: string[] | undefined
   /**
-   * Whether the expanded value is controlled by the user
-   */
-  'expandedValue.controlled'?: boolean | undefined
-  /**
    * The controlled ids of the selected nodes
    */
   'selectedValue'?: string[] | undefined
@@ -53,10 +49,6 @@ interface PublicContext<T = any> extends DirectionProperty, CommonProperties {
    * Prefer this over seeding with `selectedValue` for uncontrolled usage.
    */
   'defaultSelectedValue'?: string[] | undefined
-  /**
-   * Whether the selected value is controlled by the user
-   */
-  'selectedValue.controlled'?: boolean | undefined
   /**
    * The id of the focused node
    */

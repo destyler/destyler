@@ -68,14 +68,12 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialExpandedValue } = resolveControllableProp({
     value: ctx.expandedValue,
     defaultValue: ctx.defaultExpandedValue,
-    controlledFlag: ctx['expandedValue.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'expandedValue'),
     fallback: [] as string[],
   })
   const { initial: initialSelectedValue } = resolveControllableProp({
     value: ctx.selectedValue,
     defaultValue: ctx.defaultSelectedValue,
-    controlledFlag: ctx['selectedValue.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'selectedValue'),
     fallback: [] as string[],
   })

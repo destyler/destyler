@@ -23,7 +23,6 @@ export const props = createProps<UserDefinedContext>()([
   'onOpenChange',
   'onPointerDownOutside',
   'onValueChange',
-  'open.controlled',
   'open',
   'defaultOpen',
   'composite',
@@ -33,7 +32,6 @@ export const props = createProps<UserDefinedContext>()([
   'scrollToIndexFn',
   'value',
   'defaultValue',
-  'value.controlled',
 ])
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)
 

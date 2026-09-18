@@ -39,7 +39,7 @@ export const collapseControls = defineControls({
 export const collapsibleControls = defineControls({
   disabled: { type: 'boolean', defaultValue: false },
   dir: { type: 'select', options: ['ltr', 'rtl'] as const, defaultValue: 'ltr' },
-  // Harness-only — maps to machine `open.controlled`
+  // Harness-only — when true, demo passes live `open` (presence-controlled)
   openControlled: { type: 'boolean', defaultValue: false },
 })
 
@@ -75,7 +75,7 @@ export const dialogControls = defineControls({
   // Harness-only flags — mapped to initialFocusEl/finalFocusEl in vanilla Dialog.ts
   useInitialFocusEl: { type: 'boolean', defaultValue: false },
   useFinalFocusEl: { type: 'boolean', defaultValue: false },
-  // Harness-only — maps to machine `open.controlled`
+  // Harness-only — when true, demo passes live `open` (presence-controlled)
   openControlled: { type: 'boolean', defaultValue: false },
   role: {
     type: 'select',
@@ -125,7 +125,7 @@ export const floatingPanelControls = defineControls({
   lockAspectRatio: { type: 'boolean', defaultValue: false },
   closeOnEscape: { type: 'boolean', defaultValue: true },
   persistRect: { type: 'boolean', defaultValue: false },
-  // Harness-only — maps to machine `open.controlled`
+  // Harness-only — when true, demo passes live `open` (presence-controlled)
   openControlled: { type: 'boolean', defaultValue: false },
 })
 

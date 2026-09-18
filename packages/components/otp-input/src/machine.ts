@@ -73,7 +73,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
-    controlledFlag: ctx['value.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: [] as string[],
   })

@@ -41,10 +41,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: string[] | undefined
   /**
-   * Whether the accordion value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * Whether the accordion items are disabled
    */
   'disabled'?: boolean | undefined

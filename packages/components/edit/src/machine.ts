@@ -41,14 +41,12 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
-    controlledFlag: ctx['value.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: '',
   })
-  // No `defaultEdit`: uncontrolled edit-mode seed uses omit/`'edit.controlled': false`
+  // No `defaultEdit`: start uncontrolled in preview (omit `edit`); enter edit via gestures
   const { initial: initialEdit } = resolveControllableProp({
     value: ctx.edit,
-    controlledFlag: ctx['edit.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'edit'),
     fallback: false,
   })
@@ -159,7 +157,7 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        // Phase 2 dual-track: explicit edit.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isEditControlled: ctx => isControlled(ctx, 'edit'),
         isSubmitEvent: (_ctx, evt) => evt.previousEvent?.type === 'SUBMIT',
       },

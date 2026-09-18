@@ -18,7 +18,6 @@ export const props = createProps<UserDefinedContext>()([
   'orientation',
   'translations',
   'value',
-  'value.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

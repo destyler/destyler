@@ -38,7 +38,6 @@ export function machine(userContext: UserDefinedContext) {
   const { initial: initialSize } = resolveControllableProp({
     value: ctx.size,
     defaultValue: ctx.defaultSize,
-    controlledFlag: ctx['size.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'size'),
     fallback: [] as PanelSizeData[],
   })

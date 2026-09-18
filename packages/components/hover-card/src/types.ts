@@ -42,10 +42,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultOpen'?: boolean | undefined
   /**
-   * Whether the hover card is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
-  /**
    * The user provided options used to position the popover content
    */
   'positioning': PositioningOptions

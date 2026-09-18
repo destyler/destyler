@@ -9,7 +9,7 @@ function createOtp(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('otp-input controllable value (Phase 2)', () => {
+describe('otp-input controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('otp-input controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual(['a'])
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: ['', '', '', ''], onValueChange })
     service.send({ type: 'VALUE.SET', value: ['1', '2', '3', '4'] })
@@ -62,24 +62,12 @@ describe('otp-input controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual(['1', '2', '3', '4'])
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': ['', '', '', ''],
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: ['1', '2', '3', '4'] })
-    expect(service.state.context.value).toEqual(['1', '2', '3', '4'])
-    expect(onValueChange).toHaveBeenCalled()
-  })
 
-  it('controlled: value.controlled defers until parent syncs', () => {
+  it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
       'value': ['', '', '', ''],
-      'value.controlled': true,
-      onValueChange,
+            onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: ['1', '2', '3', '4'] })
     expect(service.state.context.value).toEqual(['', '', '', ''])
@@ -92,7 +80,7 @@ describe('otp-input controllable value (Phase 2)', () => {
   })
 
   it('connect setValue still sends VALUE.SET', () => {
-    const service = start({ 'value': ['', '', '', ''], 'value.controlled': false })
+    const service = start({ defaultValue: ['', '', '', ''] })
     const api = connect(service.getState(), service.send, ((x: any) => x) as any)
     api.setValue(['5', '6', '7', '8'])
     expect(service.state.context.value).toEqual(['5', '6', '7', '8'])

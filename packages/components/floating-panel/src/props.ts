@@ -23,7 +23,6 @@ export const props = createProps<UserDefinedContext>()([
   'onSizeChange',
   'onSizeChangeEnd',
   'onStageChange',
-  'open.controlled',
   'open',
   'defaultOpen',
   'persistRect',

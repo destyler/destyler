@@ -2,7 +2,7 @@ import { parseColor } from '@destyler/color'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { machine } from '../src/machine'
 
-describe('color-picker controllable open (Phase 2)', () => {
+describe('color-picker controllable open (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -37,7 +37,7 @@ describe('color-picker controllable open (Phase 2)', () => {
     expect(service.state.matches('idle')).toBe(true)
   })
 
-  it('phase 2 presence: open alone (no flag) defers transitions', async () => {
+  it('phase 3 presence: open alone (no flag) defers transitions', async () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('idle')).toBe(true)
@@ -51,25 +51,11 @@ describe('color-picker controllable open (Phase 2)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
-    const onOpenChange = vi.fn()
-    const service = start({
-      'open': true,
-      'open.controlled': false,
-      onOpenChange,
-    })
-    expect(service.state.matches('open')).toBe(true)
 
-    service.send('CLOSE')
-    expect(service.state.matches('idle')).toBe(true)
-    expect(onOpenChange).toHaveBeenCalledWith({ open: false })
-  })
-
-  it('controlled: with open.controlled, OPEN only invokes until parent syncs', async () => {
+  it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
       'open': false,
-      'open.controlled': true,
       onOpenChange,
     })
     expect(service.state.matches('idle')).toBe(true)
@@ -84,7 +70,7 @@ describe('color-picker controllable open (Phase 2)', () => {
   })
 })
 
-describe('color-picker controllable value (Phase 2)', () => {
+describe('color-picker controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -122,7 +108,7 @@ describe('color-picker controllable value (Phase 2)', () => {
     expect(service.state.context.value.toString('hex')).toBe(blue.toString('hex'))
   })
 
-  it('phase 2 presence: value alone (no flag) defers VALUE.SET until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers VALUE.SET until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: parseColor('#000000'), onValueChange })
     service.send({ type: 'VALUE.SET', value: red })
@@ -133,23 +119,11 @@ describe('color-picker controllable value (Phase 2)', () => {
     expect(service.state.context.value.toString('hex')).toBe(red.toString('hex'))
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': parseColor('#000000'),
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: red })
-    expect(service.state.context.value.toString('hex')).toBe(red.toString('hex'))
-    expect(onValueChange).toHaveBeenCalled()
-  })
 
-  it('controlled: value.controlled defers VALUE.SET until setContext', () => {
+  it('controlled: value presence defers VALUE.SET until setContext', () => {
     const onValueChange = vi.fn()
     const service = start({
       'value': parseColor('#000000'),
-      'value.controlled': true,
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: red })

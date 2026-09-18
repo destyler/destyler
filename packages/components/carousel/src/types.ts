@@ -85,10 +85,6 @@ interface PublicContext extends DirectionProperty, CommonProperties, Orientation
    */
   'defaultPage'?: number | undefined
   /**
-   * Whether the carousel page is controlled by the user
-   */
-  'page.controlled'?: boolean | undefined
-  /**
    * The amount of space between items.
    * @default "0px"
    */

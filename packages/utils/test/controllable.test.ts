@@ -5,7 +5,6 @@ import {
   getControllableProvided,
   hasControllableProp,
   isControlled,
-  isControlledByFlag,
   isPropUserProvided,
   resolveControllableOpen,
   resolveControllableProp,
@@ -15,16 +14,10 @@ import {
 import { compact } from '../src/object'
 
 describe('resolveIsControlled()', () => {
-  it('flag true wins', () => {
-    expect(resolveIsControlled(true, false)).toBe(true)
-    expect(resolveIsControlled(true, undefined)).toBe(true)
-  })
-
-  it('flag false wins over presence', () => {
-    expect(resolveIsControlled(false, true)).toBe(false)
-  })
-
-  it('flag absent uses valueProvided', () => {
+  it('ignores controlledFlag; uses valueProvided only (Phase 3 HARD)', () => {
+    expect(resolveIsControlled(true, false)).toBe(false)
+    expect(resolveIsControlled(true, undefined)).toBe(false)
+    expect(resolveIsControlled(false, true)).toBe(true)
     expect(resolveIsControlled(undefined, true)).toBe(true)
     expect(resolveIsControlled(undefined, false)).toBe(false)
     expect(resolveIsControlled(undefined, undefined)).toBe(false)
@@ -53,22 +46,22 @@ describe('resolveControllableProp()', () => {
     })).toEqual({ initial: false, isControlled: false })
   })
 
-  it('treats controlledFlag true/false as ownership override', () => {
+  it('ignores controlledFlag; presence only', () => {
     expect(resolveControllableProp({
       value: false,
       controlledFlag: true,
       fallback: false,
-    })).toEqual({ initial: false, isControlled: true })
+    })).toEqual({ initial: false, isControlled: false })
 
     expect(resolveControllableProp({
       value: true,
       controlledFlag: false,
       valueProvided: true,
       fallback: false,
-    })).toEqual({ initial: true, isControlled: false })
+    })).toEqual({ initial: true, isControlled: true })
   })
 
-  it('phase 2: valueProvided alone makes controlled when flag absent', () => {
+  it('phase 3: valueProvided alone makes controlled', () => {
     expect(resolveControllableProp({
       value: false,
       valueProvided: true,
@@ -82,14 +75,6 @@ describe('resolveControllableProp()', () => {
       valueProvided: false,
       fallback: false,
     })).toEqual({ initial: true, isControlled: false })
-  })
-})
-
-describe('isControlledByFlag()', () => {
-  it('reads prop.controlled from context', () => {
-    expect(isControlledByFlag({ 'open.controlled': true }, 'open')).toBe(true)
-    expect(isControlledByFlag({ 'open.controlled': false }, 'open')).toBe(false)
-    expect(isControlledByFlag({}, 'open')).toBe(false)
   })
 })
 
@@ -130,13 +115,13 @@ describe('collectUserProvidedProps / withControllableProvided', () => {
   })
 })
 
-describe('isControlled() dual-track', () => {
-  it('flag true / false / absent + presence matrix', () => {
-    expect(isControlled({ 'open.controlled': true }, 'open')).toBe(true)
+describe('isControlled() presence-only', () => {
+  it('ignores *.controlled flags; uses stamp only', () => {
+    expect(isControlled({ 'open.controlled': true }, 'open')).toBe(false)
     expect(isControlled({
       'open.controlled': false,
       [CONTROLLABLE_PROVIDED_KEY]: ['open'],
-    }, 'open')).toBe(false)
+    }, 'open')).toBe(true)
     expect(isControlled({
       [CONTROLLABLE_PROVIDED_KEY]: ['open'],
     }, 'open')).toBe(true)
@@ -163,13 +148,13 @@ describe('resolveControllableOpen()', () => {
     })
   })
 
-  it('honors open.controlled dual-track', () => {
+  it('ignores open.controlled; presence only', () => {
     expect(resolveControllableOpen({
       'open': false,
       'open.controlled': true,
     })).toEqual({
       initialOpen: false,
-      isOpenControlled: true,
+      isOpenControlled: false,
     })
     expect(resolveControllableOpen({
       'open': true,
@@ -177,11 +162,11 @@ describe('resolveControllableOpen()', () => {
       [CONTROLLABLE_PROVIDED_KEY]: ['open'],
     })).toEqual({
       initialOpen: true,
-      isOpenControlled: false,
+      isOpenControlled: true,
     })
   })
 
-  it('phase 2: stamped presence without flag is controlled', () => {
+  it('phase 3: stamped presence without flag is controlled', () => {
     expect(resolveControllableOpen({
       open: false,
       [CONTROLLABLE_PROVIDED_KEY]: ['open'],

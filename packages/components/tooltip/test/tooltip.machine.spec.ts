@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { machine } from '../src/machine'
 
-describe('tooltip controllable open (Phase 2)', () => {
+describe('tooltip controllable open (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -44,7 +44,7 @@ describe('tooltip controllable open (Phase 2)', () => {
     expect(service.state.matches('closed')).toBe(true)
   })
 
-  it('phase 2 presence: open alone (no flag) — OPEN only invokes until parent syncs', async () => {
+  it('phase 3 presence: open alone (no flag) — OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('closed')).toBe(true)
@@ -59,25 +59,11 @@ describe('tooltip controllable open (Phase 2)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-  it('phase 2: open.controlled false overrides presence (legacy seed escape)', () => {
-    const onOpenChange = vi.fn()
-    const service = start({
-      'open': true,
-      'open.controlled': false,
-      onOpenChange,
-    })
-    expect(service.state.matches('open')).toBe(true)
 
-    service.send('CLOSE')
-    expect(service.state.matches('closed')).toBe(true)
-    expect(onOpenChange).toHaveBeenCalledWith({ open: false })
-  })
-
-  it('controlled: with open.controlled, OPEN only invokes until parent syncs', async () => {
+  it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
       'open': false,
-      'open.controlled': true,
       onOpenChange,
     })
     expect(service.state.matches('closed')).toBe(true)

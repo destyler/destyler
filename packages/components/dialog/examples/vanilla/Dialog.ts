@@ -1,4 +1,5 @@
 import type { ContextFrom } from '@destyler/vanilla'
+import { CONTROLLABLE_PROVIDED_KEY } from '@destyler/utils'
 import type { State as DialogState, MachineState } from '../../src/types'
 import { dialogControls } from '@destyler/shared-private'
 import { Controls as ControlsPanel, Layout, StateVisualizer, Toolbar, useControls } from '@destyler/shared-private/vanilla'
@@ -205,10 +206,13 @@ export function render(target: HTMLElement, initial?: DialogRenderOptions) {
     if (useFinalFocusEl) {
       mapped.finalFocusEl = () => document.querySelector<HTMLElement>('[data-testid="dialog:final-focus"]')
     }
-
-    mapped['open.controlled'] = Boolean(openControlled)
-    if (openControlled)
+    if (openControlled) {
       mapped.open = instance.getControlledOpen()
+      ;(mapped as any)[CONTROLLABLE_PROVIDED_KEY] = ['open']
+    }
+    else {
+      ;(mapped as any)[CONTROLLABLE_PROVIDED_KEY] = []
+    }
     mapped.onOpenChange = details => instance.onOpenChange(details)
 
     return mapped

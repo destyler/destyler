@@ -80,10 +80,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: string[] | undefined
   /**
-   * Whether the otp-input value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * The type of value the pin-input should allow
    * @default "numeric"
    */

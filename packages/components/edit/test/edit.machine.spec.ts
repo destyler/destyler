@@ -9,7 +9,7 @@ function createEdit(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('edit controllable value (Phase 2)', () => {
+describe('edit controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('edit controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('a')
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: '', onValueChange })
     service.send({ type: 'VALUE.SET', value: 'x' })
@@ -62,23 +62,11 @@ describe('edit controllable value (Phase 2)', () => {
     expect(service.state.context.value).toBe('x')
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': '',
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: 'x' })
-    expect(service.state.context.value).toBe('x')
-    expect(onValueChange).toHaveBeenCalledWith({ value: 'x' })
-  })
 
-  it('controlled: value.controlled defers until parent syncs', () => {
+  it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
       'value': 'old',
-      'value.controlled': true,
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: 'new' })
@@ -96,7 +84,7 @@ describe('edit controllable value (Phase 2)', () => {
   })
 })
 
-describe('edit controllable mode (Phase 2)', () => {
+describe('edit controllable mode (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -123,21 +111,8 @@ describe('edit controllable mode (Phase 2)', () => {
     expect(service.state.matches('preview')).toBe(true)
   })
 
-  it('uncontrolled: edit.controlled false seeds edit mode and allows transitions', () => {
-    const onEditChange = vi.fn()
-    const service = start({
-      'edit': true,
-      'edit.controlled': false,
-      onEditChange,
-    })
-    expect(service.state.matches('edit')).toBe(true)
 
-    service.send({ type: 'SUBMIT' })
-    expect(service.state.matches('preview')).toBe(true)
-    expect(onEditChange).toHaveBeenCalledWith({ edit: false })
-  })
-
-  it('phase 2 presence: edit alone (no flag) defers transitions until parent syncs', async () => {
+  it('phase 3 presence: edit alone (no flag) defers transitions until parent syncs', async () => {
     const onEditChange = vi.fn()
     const service = start({ edit: false, onEditChange })
     expect(service.state.matches('preview')).toBe(true)
@@ -151,11 +126,10 @@ describe('edit controllable mode (Phase 2)', () => {
     expect(service.state.matches('edit')).toBe(true)
   })
 
-  it('controlled: edit.controlled defers until parent syncs', async () => {
+  it('controlled: edit presence defers until parent syncs', async () => {
     const onEditChange = vi.fn()
     const service = start({
       'edit': false,
-      'edit.controlled': true,
       onEditChange,
     })
     service.send({ type: 'EDIT' })

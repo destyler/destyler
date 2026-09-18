@@ -29,10 +29,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: string[] | undefined
   /**
-   * Whether the toggle group value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * Function to call when the toggle is clicked.
    */
   'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined

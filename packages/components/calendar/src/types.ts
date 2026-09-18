@@ -139,10 +139,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: DateValue[] | undefined
   /**
-   * Whether the calendar value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * The focused date.
    */
   'focusedValue': DateValue
@@ -235,10 +231,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
   'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the calendar open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
 }
 
 interface PrivateContext {

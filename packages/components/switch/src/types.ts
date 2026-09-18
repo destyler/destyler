@@ -52,10 +52,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultChecked'?: boolean | undefined
   /**
-   * Whether the switch is controlled by the user
-   */
-  'checked.controlled'?: boolean | undefined
-  /**
    * The name of the input field in a switch
    * (Useful for form submission).
    */

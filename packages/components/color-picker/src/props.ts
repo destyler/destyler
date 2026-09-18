@@ -27,7 +27,6 @@ export const props = createProps<UserDefinedContext>()([
   'onPointerDownOutside',
   'onValueChange',
   'onValueChangeEnd',
-  'open.controlled',
   'open',
   'defaultOpen',
   'positioning',
@@ -35,7 +34,6 @@ export const props = createProps<UserDefinedContext>()([
   'readOnly',
   'value',
   'defaultValue',
-  'value.controlled',
   'invalid',
   'openAutoFocus',
 ])

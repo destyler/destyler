@@ -489,7 +489,7 @@ export function machine(userContext: UserDefinedContext) {
           return isPointInPolygon(ctx.intentPolygon, evt.point)
         },
         // guard assertions (for controlled mode)
-        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: ctx => isControlled(ctx, 'open'),
         isArrowLeftEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_LEFT',
         isArrowUpEvent: (_ctx, evt) => evt.previousEvent?.type === 'ARROW_UP',

@@ -65,10 +65,6 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    */
   'defaultOpen'?: boolean | undefined
   /**
-   * Whether the combobox open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
-  /**
    * The ids of the elements in the combobox. Useful for composition.
    */
   'ids'?: ElementIds | undefined
@@ -81,10 +77,6 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    * Prefer this over seeding with `inputValue` for uncontrolled usage.
    */
   'defaultInputValue'?: string | undefined
-  /**
-   * Whether the combobox input value is controlled by the user
-   */
-  'inputValue.controlled'?: boolean | undefined
   /**
    * The `name` attribute of the combobox's input. Useful for form submission
    */
@@ -127,10 +119,6 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
   'defaultValue'?: string[] | undefined
-  /**
-   * Whether the combobox value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
   /**
    * Defines the auto-completion behavior of the combobox.
    *

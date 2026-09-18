@@ -85,10 +85,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
   'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the tooltip is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

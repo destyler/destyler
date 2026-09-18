@@ -28,11 +28,9 @@ export const props = createProps<UserDefinedContext>()([
   'required',
   'selectOnFocus',
   'edit',
-  'edit.controlled',
   'submitMode',
   'translations',
   'value',
-  'value.controlled',
 ])
 
 export const splitProps = createSplitProps<Partial<UserDefinedContext>>(props)

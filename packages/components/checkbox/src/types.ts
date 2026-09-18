@@ -41,15 +41,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultChecked'?: CheckedState | undefined
   /**
-   * Whether the checkbox is controlled by the user.
-   *
-   * @deprecated Prefer prop presence of `checked` (controlled) + `defaultChecked` (uncontrolled seed).
-   * Still supported (Phase 3 soft dual-track). Escape hatch for legacy seed: `'checked.controlled': false`.
-   * Hard removal waits for a major + destyler/ui adoption. See CONTROLLED-API.md / #103.
-   * Other machines' `*.controlled` flags follow the same wording.
-   */
-  'checked.controlled'?: boolean | undefined
-  /**
    * Whether the checkbox is read-only
    */
   'readOnly'?: boolean | undefined

@@ -82,10 +82,6 @@ interface PublicContext
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
   'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the popover is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

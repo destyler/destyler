@@ -51,10 +51,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'orientation': Orientation
   /**
-   * Whether the value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * Whether to disable click interaction on triggers.
    * @default false
    */

@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { machine } from '../src/machine'
 
-describe('combobox controllable open (Phase 2)', () => {
+describe('combobox controllable open (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -36,7 +36,7 @@ describe('combobox controllable open (Phase 2)', () => {
     expect(service.state.matches('idle')).toBe(true)
   })
 
-  it('phase 2 presence: open alone (no flag) defers OPEN (idle stays idle)', () => {
+  it('phase 3 presence: open alone (no flag) defers OPEN (idle stays idle)', () => {
     const onOpenChange = vi.fn()
     const service = start({ open: false, onOpenChange })
     expect(service.state.matches('idle')).toBe(true)
@@ -46,23 +46,11 @@ describe('combobox controllable open (Phase 2)', () => {
     expect(onOpenChange).toHaveBeenCalledWith({ open: true })
   })
 
-  it('phase 2: open.controlled false — OPEN goes to interacting', () => {
-    const onOpenChange = vi.fn()
-    const service = start({
-      'open': false,
-      'open.controlled': false,
-      onOpenChange,
-    })
-    service.send('OPEN')
-    expect(service.state.matches('interacting')).toBe(true)
-    expect(onOpenChange).toHaveBeenCalledWith({ open: true })
-  })
 
-  it('controlled: with open.controlled, OPEN only invokes until parent syncs', async () => {
+  it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
       'open': false,
-      'open.controlled': true,
       onOpenChange,
     })
     expect(service.state.matches('idle')).toBe(true)
@@ -78,7 +66,7 @@ describe('combobox controllable open (Phase 2)', () => {
   })
 })
 
-describe('combobox controllable value (Phase 2)', () => {
+describe('combobox controllable value (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -123,7 +111,7 @@ describe('combobox controllable value (Phase 2)', () => {
     expect(service.state.context.inputValue).toBe('world')
   })
 
-  it('phase 2 presence: value alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: value alone (no flag) defers mutation until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({ value: [], onValueChange })
     service.send({ type: 'VALUE.SET', value: ['apple'] })
@@ -134,19 +122,8 @@ describe('combobox controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual(['apple'])
   })
 
-  it('phase 2: value.controlled false overrides presence (legacy seed escape)', () => {
-    const onValueChange = vi.fn()
-    const service = start({
-      'value': [],
-      'value.controlled': false,
-      onValueChange,
-    })
-    service.send({ type: 'VALUE.SET', value: ['apple'] })
-    expect(service.state.context.value).toEqual(['apple'])
-    expect(onValueChange).toHaveBeenCalledWith(expect.objectContaining({ value: ['apple'] }))
-  })
 
-  it('phase 2 presence: inputValue alone (no flag) defers INPUT_VALUE.SET', () => {
+  it('phase 3 presence: inputValue alone (no flag) defers INPUT_VALUE.SET', () => {
     const onInputValueChange = vi.fn()
     const service = start({ inputValue: '', onInputValueChange })
     service.send({ type: 'INPUT_VALUE.SET', value: 'typed' })
@@ -157,11 +134,10 @@ describe('combobox controllable value (Phase 2)', () => {
     expect(service.state.context.inputValue).toBe('typed')
   })
 
-  it('controlled: value.controlled defers VALUE.SET until setContext', () => {
+  it('controlled: value presence defers VALUE.SET until setContext', () => {
     const onValueChange = vi.fn()
     const service = start({
       'value': [],
-      'value.controlled': true,
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: ['apple'] })
@@ -171,11 +147,10 @@ describe('combobox controllable value (Phase 2)', () => {
     expect(service.state.context.value).toEqual(['apple'])
   })
 
-  it('controlled: inputValue.controlled defers INPUT_VALUE.SET until setContext', () => {
+  it('controlled: inputValue presence defers INPUT_VALUE.SET until setContext', () => {
     const onInputValueChange = vi.fn()
     const service = start({
       'inputValue': '',
-      'inputValue.controlled': true,
       onInputValueChange,
     })
     service.send({ type: 'INPUT_VALUE.SET', value: 'typed' })

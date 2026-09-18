@@ -9,7 +9,7 @@ function createSwitch(ctx: Record<string, unknown> = {}) {
   } as any)
 }
 
-describe('switch controllable checked (Phase 2)', () => {
+describe('switch controllable checked (Phase 3)', () => {
   const services: Array<ReturnType<typeof machine>> = []
 
   afterEach(() => {
@@ -47,15 +47,11 @@ describe('switch controllable checked (Phase 2)', () => {
   })
 
   it('uncontrolled: defaultChecked preferred over checked seed for initial', () => {
-    const service = start({
-      'defaultChecked': true,
-      'checked': false,
-      'checked.controlled': false,
-    })
+    const service = start({ defaultChecked: true })
     expect(service.state.context.checked).toBe(true)
   })
 
-  it('phase 2 presence: checked alone (no flag) defers mutation until parent syncs', () => {
+  it('phase 3 presence: checked alone (no flag) defers mutation until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({ checked: false, onCheckedChange })
     service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
@@ -66,23 +62,11 @@ describe('switch controllable checked (Phase 2)', () => {
     expect(service.state.context.checked).toBe(true)
   })
 
-  it('phase 2: checked.controlled false overrides presence (legacy seed escape)', () => {
-    const onCheckedChange = vi.fn()
-    const service = start({
-      'checked': false,
-      'checked.controlled': false,
-      onCheckedChange,
-    })
-    service.send({ type: 'CHECKED.TOGGLE', isTrusted: false })
-    expect(service.state.context.checked).toBe(true)
-    expect(onCheckedChange).toHaveBeenCalledWith({ checked: true })
-  })
 
-  it('controlled: with checked.controlled, toggle only invokes until parent syncs', () => {
+  it('controlled: with checked presence, toggle only invokes until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({
       'checked': false,
-      'checked.controlled': true,
       onCheckedChange,
     })
     expect(service.state.context.checked).toBe(false)
@@ -99,7 +83,6 @@ describe('switch controllable checked (Phase 2)', () => {
     const onCheckedChange = vi.fn()
     const service = start({
       'checked': true,
-      'checked.controlled': true,
       onCheckedChange,
     })
 

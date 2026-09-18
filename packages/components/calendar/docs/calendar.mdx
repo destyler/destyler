@@ -862,8 +862,7 @@ we recommended setting the `open` property to `true` and `closeOnSelect` to `fal
 ```ts
 const [state, send] = useMachine(
   calendar.machine({
-    defaultOpen: true,
-    "open.controlled": true,
+    open: true,
     closeOnSelect: false,
   }),
 )

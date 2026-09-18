@@ -128,14 +128,12 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
-    controlledFlag: ctx['value.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: [] as string[],
   })
   const { initial: initialInputValue } = resolveControllableProp({
     value: ctx.inputValue,
     defaultValue: ctx.defaultInputValue,
-    controlledFlag: ctx['inputValue.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'inputValue'),
     fallback: '',
   })
@@ -730,7 +728,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         allowCustomValue: ctx => !!ctx.allowCustomValue,
         hasHighlightedItem: ctx => ctx.highlightedValue != null,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
-        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: ctx => isControlled(ctx, 'open'),
         openOnChange: (ctx, evt) => {
           if (isBoolean(ctx.openOnChange))

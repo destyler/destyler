@@ -58,10 +58,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: number[] | undefined
   /**
-   * Whether the slider value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * Whether the slider is disabled
    */
   'disabled'?: boolean | undefined

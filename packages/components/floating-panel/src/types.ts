@@ -58,10 +58,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultOpen'?: boolean | undefined
   /**
-   * Whether the panel is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
-  /**
    * Whether the panel is draggable
    * @default true
    */

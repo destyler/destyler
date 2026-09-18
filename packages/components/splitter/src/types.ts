@@ -37,10 +37,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultSize'?: PanelSizeData[] | undefined
   /**
-   * Whether the size is controlled by the user
-   */
-  'size.controlled'?: boolean | undefined
-  /**
    * Function called when the splitter is resized.
    */
   'onSizeChange'?: ((details: SizeChangeDetails) => void) | undefined

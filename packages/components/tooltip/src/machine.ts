@@ -337,7 +337,7 @@ export function machine(userContext: UserDefinedContext) {
         isVisible: ctx => ctx.id === store.id,
         isInteractive: ctx => ctx.interactive,
         hasPointerMoveOpened: ctx => !!ctx.hasPointerMoveOpened,
-        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
       delays: {

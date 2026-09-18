@@ -30,10 +30,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: string | null | undefined
   /**
-   * Whether the radio group value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * The name of the input fields in the radio
    * (Useful for form submission).
    */

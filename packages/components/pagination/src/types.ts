@@ -54,10 +54,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultPageSize'?: number | undefined
   /**
-   * Whether the page size is controlled by the user
-   */
-  'pageSize.controlled'?: boolean | undefined
-  /**
    * Number of pages to show beside active page
    * @default 1
    */
@@ -72,10 +68,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    * Prefer this over seeding with `page` for uncontrolled usage.
    */
   'defaultPage'?: number | undefined
-  /**
-   * Whether the page is controlled by the user
-   */
-  'page.controlled'?: boolean | undefined
   /**
    * Called when the page number is changed
    */

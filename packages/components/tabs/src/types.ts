@@ -50,10 +50,6 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   'defaultValue'?: string | null | undefined
   /**
-   * Whether the tabs value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * The orientation of the tabs. Can be `horizontal` or `vertical`
    * - `horizontal`: only left and right arrow key navigation will work.
    * - `vertical`: only up and down arrow key navigation will work.

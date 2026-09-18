@@ -129,7 +129,6 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
     defaultValue: ctx.defaultValue,
-    controlledFlag: ctx['value.controlled'],
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: [] as string[],
   })
@@ -460,7 +459,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         isLastItemHighlighted: ctx => ctx.highlightedValue === ctx.collection.lastValue,
         closeOnSelect: (ctx, evt) => !!(evt.closeOnSelect ?? ctx.closeOnSelect),
         // guard assertions (for controlled mode)
-        // Phase 2 dual-track: explicit open.controlled wins; else stamped prop presence (#103)
+        // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: ctx => isControlled(ctx, 'open'),
         isTriggerClickEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.CLICK',
         isTriggerEnterEvent: (_ctx, evt) => evt.previousEvent?.type === 'TRIGGER.ENTER',

@@ -89,10 +89,6 @@ interface PublicContext extends LocaleProperties, CommonProperties {
    */
   'defaultValue'?: string | undefined
   /**
-   * Whether the number input value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * The minimum value of the number input
    * @default Number.MIN_SAFE_INTEGER
    */

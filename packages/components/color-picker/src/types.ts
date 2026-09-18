@@ -66,10 +66,6 @@ interface PublicContext extends CommonProperties, DirectionProperty, InteractOut
    */
   'defaultValue'?: Color | undefined
   /**
-   * Whether the color picker value is controlled by the user
-   */
-  'value.controlled'?: boolean | undefined
-  /**
    * Whether the color picker is disabled
    */
   'disabled'?: boolean | undefined
@@ -118,10 +114,6 @@ interface PublicContext extends CommonProperties, DirectionProperty, InteractOut
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
   'defaultOpen'?: boolean | undefined
-  /**
-   * Whether the color picker open state is controlled by the user
-   */
-  'open.controlled'?: boolean | undefined
   /**
    * The color format to use
    * @default "rgba"
