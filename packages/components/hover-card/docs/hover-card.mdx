@@ -149,14 +149,34 @@ export default function HoverCard() {
 
 ## Making it opened initially
 
-To make an hover card open by default, set the context's `open` property to true
+To make a hover card open by default **without** taking ownership of state, use `defaultOpen`. Prefer this over seeding with `open` (which is presence-controlled after Phase 2).
 
 ```ts
 const [state, send] = useMachine(
   hoverCard.machine({
-    open: true,
+    defaultOpen: true,
   }),
 )
+```
+
+## Controlled usage
+
+Hover card open state follows the same pattern as popover. Use `defaultOpen` for an uncontrolled seed; pass `open` + `onOpenChange` (and sync via `context`) when you need controlled open. See [Controllable State](/guide/controllable-state).
+
+```ts
+hoverCard.machine({
+  id: "1",
+  defaultOpen: false,
+})
+
+const open = false // your reactive state
+hoverCard.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
 ```
 
 ## Listening for open state changes

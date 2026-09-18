@@ -35,11 +35,11 @@
     "context": {
       "items": {
         "type": "BreadcrumbItem[]",
-        "description": "\n\u9762\u5305\u5c51\u9879\u76ee"
+        "description": "\n面包屑项目"
       },
       "ids": {
         "type": "Partial<{ root: string; list: string; separator: string; }>",
-        "description": "\nDOM \u5143\u7d20\u7684 ID"
+        "description": "\nDOM 元素的 ID"
       },
       "id": {
         "type": "string",
@@ -333,7 +333,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the calendar open state is controlled by the user"
+        "description": "\nWhether the calendar open state is controlled by the user",
+        "defaultValue": null
       },
       "dir": {
         "type": "\"ltr\" | \"rtl\"",
@@ -347,6 +348,21 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the calendar when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultValue": {
+        "type": "DateValue[]",
+        "description": "\nThe initial selected date(s) when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the calendar value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -503,6 +519,16 @@
         "type": "Orientation",
         "description": "\nThe orientation of the element.",
         "defaultValue": "\"horizontal\""
+      },
+      "defaultPage": {
+        "type": "number",
+        "description": "\nThe initial active page when it is not controlled.\nPrefer this over seeding with `page` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "page.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the carousel page is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -718,6 +744,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "string[]",
+        "description": "\nThe initial expanded values when the accordion is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the accordion value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -767,7 +803,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\n Whether the collapsible open state is controlled by the user"
+        "description": "\n Whether the collapsible open state is controlled by the user",
+        "defaultValue": null
       },
       "dir": {
         "type": "\"ltr\" | \"rtl\"",
@@ -781,6 +818,11 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the collapsible when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },
@@ -895,7 +937,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the color picker open state is controlled by the user"
+        "description": "\nWhether the color picker open state is controlled by the user",
+        "defaultValue": null
       },
       "format": {
         "type": "ColorFormat",
@@ -940,6 +983,21 @@
       "onInteractOutside": {
         "type": "(event: InteractOutsideEvent) => void",
         "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the color picker when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultValue": {
+        "type": "Color",
+        "description": "\nThe initial color value when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.\n@default #000000",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the color picker value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -1045,7 +1103,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the combobox open state is controlled by the user"
+        "description": "\nWhether the combobox open state is controlled by the user",
+        "defaultValue": null
       },
       "ids": {
         "type": "Partial<{ root: string; label: string; control: string; input: string; content: string; trigger: string; clearTrigger: string; item: (id: string, index?: number) => string; positioner: string; itemGroup: (id: string | number) => string; itemGroupLabel: (id: string | number) => string; }>",
@@ -1206,6 +1265,31 @@
       "onInteractOutside": {
         "type": "(event: InteractOutsideEvent) => void",
         "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the combobox when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultValue": {
+        "type": "string[]",
+        "description": "\nThe initial keys of the selected items when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultInputValue": {
+        "type": "string",
+        "description": "\nThe initial value of the combobox's input when it is not controlled.\nPrefer this over seeding with `inputValue` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the combobox value is controlled by the user",
+        "defaultValue": null
+      },
+      "inputValue.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the combobox input value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -1582,7 +1666,8 @@
       },
       "edit.controlled": {
         "type": "boolean",
-        "description": "\nWhether the editable is controlled"
+        "description": "\nWhether edit mode is controlled by the parent.\nExplicit true/false wins over Phase 2 prop presence.",
+        "defaultValue": null
       },
       "selectOnFocus": {
         "type": "boolean",
@@ -1661,6 +1746,16 @@
       "onInteractOutside": {
         "type": "(event: InteractOutsideEvent) => void",
         "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "defaultValue": {
+        "type": "string",
+        "description": "\nThe initial value when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the editable value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -1946,6 +2041,16 @@
       "getRootNode": {
         "type": "() => Node | ShadowRoot | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the panel when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "open.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the panel is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -1989,7 +2094,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the hover card is controlled by the user"
+        "description": "\nWhether the hover card is controlled by the user",
+        "defaultValue": null
       },
       "positioning": {
         "type": "PositioningOptions",
@@ -2007,6 +2113,11 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the hover card when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },
@@ -2159,7 +2270,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\n Whether the menu's open state is controlled by the user"
+        "description": "\n Whether the menu's open state is controlled by the user",
+        "defaultValue": null
       },
       "typeahead": {
         "type": "boolean",
@@ -2203,6 +2315,11 @@
       "onInteractOutside": {
         "type": "(event: InteractOutsideEvent) => void",
         "description": "\nFunction called when an interaction happens outside the component"
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the menu when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },
@@ -2243,8 +2360,9 @@
         "description": "\nThe value of the currently active menu item."
       },
       "defaultValue": {
-        "type": "string",
-        "description": "\nThe initial value of the menu item to open when rendered."
+        "type": "string | null",
+        "description": "\nThe initial value of the menu item to open when rendered (uncontrolled).",
+        "defaultValue": null
       },
       "onValueChange": {
         "type": "(details: ValueChangeDetails) => void",
@@ -2267,7 +2385,8 @@
       },
       "value.controlled": {
         "type": "boolean",
-        "description": "\nWhether the value is controlled by the user"
+        "description": "\nWhether the value is controlled by the user",
+        "defaultValue": null
       },
       "disableClickTrigger": {
         "type": "boolean",
@@ -2469,6 +2588,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "string",
+        "description": "\nThe initial value when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the number input value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -2527,7 +2656,7 @@
       "placeholder": {
         "type": "string",
         "description": "\nThe placeholder text for the input",
-        "defaultValue": "\"\u25cb\""
+        "defaultValue": "\"○\""
       },
       "autoFocus": {
         "type": "boolean",
@@ -2598,6 +2727,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "string[]",
+        "description": "\nThe initial value when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the otp-input value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -2721,6 +2860,26 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultPage": {
+        "type": "number",
+        "description": "\nThe initial active page when it is not controlled.\nPrefer this over seeding with `page` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultPageSize": {
+        "type": "number",
+        "description": "\nThe initial page size when it is not controlled.\nPrefer this over seeding with `pageSize` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "page.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the page is controlled by the user",
+        "defaultValue": null
+      },
+      "pageSize.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the page size is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -3073,6 +3232,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "string | null",
+        "description": "\nThe initial value of the radio group when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the radio group value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -3394,6 +3563,11 @@
         "type": "boolean",
         "description": "\nThe initial open state of the select when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
         "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the select value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -3676,6 +3850,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "number[]",
+        "description": "\nThe initial value when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the slider value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -3743,6 +3927,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultSize": {
+        "type": "PanelSizeData[]",
+        "description": "\nThe initial size data when it is not controlled.\nPrefer this over seeding with `size` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "size.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the size is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -3834,6 +4028,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultStep": {
+        "type": "number",
+        "description": "\nThe initial step index when it is not controlled.\nPrefer this over seeding with `step` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "step.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the steps value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -3918,6 +4122,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultChecked": {
+        "type": "boolean",
+        "description": "\nThe initial checked state of the switch when it is not controlled.\nPrefer this over seeding with `checked` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "checked.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the switch is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -4024,6 +4238,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "string | null",
+        "description": "\nThe initial selected tab id when it is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the tabs value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -4306,6 +4530,16 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultValue": {
+        "type": "string[]",
+        "description": "\nThe initial values when the toggle group is not controlled.\nPrefer this over seeding with `value` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "value.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the toggle group value is controlled by the user",
+        "defaultValue": null
       }
     }
   },
@@ -4390,7 +4624,8 @@
       },
       "open.controlled": {
         "type": "boolean",
-        "description": "\nWhether the tooltip is controlled by the user"
+        "description": "\nWhether the tooltip is controlled by the user",
+        "defaultValue": null
       },
       "dir": {
         "type": "\"ltr\" | \"rtl\"",
@@ -4400,6 +4635,11 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultOpen": {
+        "type": "boolean",
+        "description": "\nThe initial open state of the tooltip when it is not controlled.\nPrefer this over seeding with `open` for uncontrolled usage.",
+        "defaultValue": null
       }
     }
   },
@@ -4683,6 +4923,26 @@
       "getRootNode": {
         "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
+      },
+      "defaultExpandedValue": {
+        "type": "string[]",
+        "description": "\nThe initial expanded node ids when not controlled.\nPrefer this over seeding with `expandedValue` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "defaultSelectedValue": {
+        "type": "string[]",
+        "description": "\nThe initial selected node ids when not controlled.\nPrefer this over seeding with `selectedValue` for uncontrolled usage.",
+        "defaultValue": null
+      },
+      "expandedValue.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the expanded value is controlled by the user",
+        "defaultValue": null
+      },
+      "selectedValue.controlled": {
+        "type": "boolean",
+        "description": "\nWhether the selected value is controlled by the user",
+        "defaultValue": null
       }
     }
   }

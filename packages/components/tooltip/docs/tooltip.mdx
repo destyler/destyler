@@ -414,6 +414,26 @@ const [state, send] = useMachine(
 )
 ```
 
+## Controlled usage
+
+Tooltip open state can be **uncontrolled** or **controlled**. Prefer `defaultOpen` when the machine should own open state. Passing `open` into `machine(...)` is presence-controlled — keep it in sync with `onOpenChange` and the adapter `context` option. See [Controllable State](/guide/controllable-state).
+
+```ts
+tooltip.machine({
+  id: "1",
+  defaultOpen: false,
+})
+
+const open = false // your reactive state
+tooltip.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+  },
+})
+```
+
 ## Listening for open state changes
 
 When the tooltip is opened or closed, the `onOpenChange` callback is invoked.

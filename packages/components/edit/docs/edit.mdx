@@ -176,9 +176,29 @@ To set the initial value of the editable, pass the `value` property to the machi
 ```ts
 const [state, send] = useMachine(
   edit.machine({
-    value: "Hello World",
+    defaultValue: "Hello World",
   }),
 )
+```
+
+## Controlled usage
+
+Edit supports controllable **value** (and edit **mode** via `edit` presence / soft-deprecated `edit.controlled`). Prefer `defaultValue` for an uncontrolled text seed. There is no `defaultEdit` — use `'edit.controlled': false` (or omit `edit`) to start uncontrolled in edit mode. See [Controllable State](/guide/controllable-state).
+
+```ts
+edit.machine({
+  id: "1",
+  defaultValue: "Hello World",
+})
+
+const value = "Hello World" // your reactive state
+edit.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string }
+  },
+})
 ```
 
 ## Listening for value changes

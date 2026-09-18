@@ -162,14 +162,29 @@ const [state, send] = useMachine(
 
 ## Setting the initial value
 
-To set the radio initial value, set the context's value property to the `value` of the radio item to be selected by default
+To set the radio initial value **without** taking ownership of state, use `defaultValue` (the value of the radio item to select). Prefer this over seeding with `value` (presence-controlled after Phase 2).
 
 ```ts
 const [state, send] = useMachine(
   radio.machine({
-    value: "apple",
+    defaultValue: "apple",
   }),
 )
+```
+
+## Controlled usage
+
+Radio group value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+const value = "apple" // your reactive state
+radio.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string | null }
+  },
+})
 ```
 
 ## Listening for changes

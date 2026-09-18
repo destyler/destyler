@@ -259,9 +259,31 @@ The value of the `step` property is zero-based index.
 ```ts
 const [state, send] = useMachine(
   steps.machine({
-    step: 1,
+    defaultStep: 1,
   }),
 )
+```
+
+## Controlled usage
+
+Steps **step** index can be **uncontrolled** or **controlled**. Prefer `defaultStep` for an uncontrolled seed. Passing `step` into `machine(...)` is presence-controlled — sync with `onStepChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+steps.machine({
+  id: "1",
+  count: 3,
+  defaultStep: 0,
+})
+
+const step = 0 // your reactive state
+steps.machine({
+  id: "1",
+  count: 3,
+  step,
+  onStepChange(details) {
+    // details => { step: number }
+  },
+})
 ```
 
 ## Listening for step change

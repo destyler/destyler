@@ -185,7 +185,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
   const [state, send] = useMachine(
     collapse.machine({
       multiple: true,
-      value: ["home"],
+      defaultValue: ["home"],
     }),
   )
   ```
@@ -194,12 +194,32 @@ import { Tabs, TabItem } from '@astrojs/starlight/components'
   ```ts
   const [state, send] = useMachine(
     collapse.machine({
-      value: ["home"],
+      defaultValue: ["home"],
     }),
   )
   ```
   </TabItem>
 </Tabs>
+
+## Controlled usage
+
+Collapse (accordion) value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+collapse.machine({
+  id: "1",
+  defaultValue: ["home"],
+})
+
+const value = ["home"] // your reactive state
+collapse.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string[] }
+  },
+})
+```
 
 ## Toggle each collapse item
 

@@ -221,9 +221,31 @@ It does not necessarily correspond to the index of the slide in the carousel.
 ```ts
 const [state, send] = useMachine(
   carousel.machine({
-    page: 2,
+    defaultPage: 2,
   }),
 )
+```
+
+## Controlled usage
+
+Carousel **page** can be **uncontrolled** or **controlled**. Prefer `defaultPage` for an uncontrolled seed. Passing `page` into `machine(...)` is presence-controlled — sync with `onPageChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
+
+```ts
+carousel.machine({
+  id: "1",
+  slideCount: 5,
+  defaultPage: 0,
+})
+
+const page = 0 // your reactive state
+carousel.machine({
+  id: "1",
+  slideCount: 5,
+  page,
+  onPageChange(details) {
+    // details => { page: number }
+  },
+})
 ```
 
 ## Setting the number of slides to show at a time
