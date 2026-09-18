@@ -53,86 +53,86 @@ interface PublicContext extends CommonProperties, DirectionProperty, InteractOut
   /**
    * The ids of the elements in the color picker. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The controlled color value
    * @default #000000
    */
-  'value'?: Color | undefined
+  value?: Color | undefined
   /**
    * The initial color value when it is not controlled.
    * Prefer this over seeding with `value` for uncontrolled usage.
    * @default #000000
    */
-  'defaultValue'?: Color | undefined
+  defaultValue?: Color | undefined
   /**
    * Whether the color picker is disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the color picker is read-only
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * Whether the color picker is required
    */
-  'required'?: boolean | undefined
+  required?: boolean | undefined
   /**
    * Whether the color picker is invalid
    */
-  'invalid'?: boolean | undefined
+  invalid?: boolean | undefined
   /**
    * Handler that is called when the value changes, as the user drags.
    */
-  'onValueChange'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueChange?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * Handler that is called when the user stops dragging.
    */
-  'onValueChangeEnd'?: ((details: ValueChangeDetails) => void) | undefined
+  onValueChangeEnd?: ((details: ValueChangeDetails) => void) | undefined
   /**
    * Handler that is called when the user opens or closes the color picker.
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * The name for the form input
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The positioning options for the color picker
    */
-  'positioning': PositioningOptions
+  positioning: PositioningOptions
   /**
    * The initial focus element when the color picker is opened.
    */
-  'initialFocusEl'?: (() => HTMLElement | null) | undefined
+  initialFocusEl?: (() => HTMLElement | null) | undefined
   /**
    * Whether the color picker is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * The initial open state of the color picker when it is not controlled.
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
-  'defaultOpen'?: boolean | undefined
+  defaultOpen?: boolean | undefined
   /**
    * The color format to use
    * @default "rgba"
    */
-  'format': ColorFormat
+  format: ColorFormat
   /**
    * Function called when the color format changes
    */
-  'onFormatChange'?: ((details: FormatChangeDetails) => void) | undefined
+  onFormatChange?: ((details: FormatChangeDetails) => void) | undefined
   /**
    * Whether to close the color picker when a swatch is selected
    * @default false
    */
-  'closeOnSelect'?: boolean | undefined
+  closeOnSelect?: boolean | undefined
   /**
    * Whether to auto focus the color picker when it is opened
    * @default true
    */
-  'openAutoFocus'?: boolean | undefined
+  openAutoFocus?: boolean | undefined
 }
 
 interface PrivateContext {

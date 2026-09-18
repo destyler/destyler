@@ -99,11 +99,10 @@ describe('carousel controllable page (Phase 3)', () => {
     expect(service.state.context.page).toBe(2)
   })
 
-
   it('controlled: page presence defers until parent syncs', () => {
     const onPageChange = vi.fn()
     const service = start({
-      'page': 0,
+      page: 0,
       onPageChange,
     })
     service.send({ type: 'PAGE.SET', index: 3 })

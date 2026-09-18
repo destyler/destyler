@@ -70,11 +70,10 @@ describe('checkbox controllable checked (Phase 3)', () => {
     expect(service.state.context.checked).toBe(true)
   })
 
-
   it('controlled: with checked presence, toggle only invokes until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({
-      'checked': false,
+      checked: false,
       onCheckedChange,
     })
     expect(service.state.context.checked).toBe(false)
@@ -90,7 +89,7 @@ describe('checkbox controllable checked (Phase 3)', () => {
   it('controlled: CHECKED.SET only invokes callback until parent syncs', () => {
     const onCheckedChange = vi.fn()
     const service = start({
-      'checked': true,
+      checked: true,
       onCheckedChange,
     })
 

@@ -100,15 +100,14 @@ describe('splitter controllable size (Phase 3)', () => {
     expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(25)
   })
 
-
   it('controlled: size presence defers until parent syncs', () => {
     const onSizeChange = vi.fn()
     const service = start({
-      'size': [
+      size: [
         { id: 'a', size: 50 },
         { id: 'b', size: 50 },
       ],
-            onSizeChange,
+      onSizeChange,
     })
     service.send({ type: 'SET_PANEL_SIZE', id: 'a', size: 30 })
     expect(service.state.context.size.find((p: any) => p.id === 'a')?.size).toBe(50)

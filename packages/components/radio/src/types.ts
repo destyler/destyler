@@ -19,42 +19,42 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the radio. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The controlled value of the checked radio
    */
-  'value'?: string | null | undefined
+  value?: string | null | undefined
   /**
    * The initial value of the radio group when it is not controlled.
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
-  'defaultValue'?: string | null | undefined
+  defaultValue?: string | null | undefined
   /**
    * The name of the input fields in the radio
    * (Useful for form submission).
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The associate form of the underlying input.
    */
-  'form'?: string | undefined
+  form?: string | undefined
   /**
    * If `true`, the radio group will be disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the checkbox is read-only
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * Function called once a radio is checked
    * @param value the value of the checked radio
    */
-  'onValueChange'?: (details: ValueChangeDetails) => void
+  onValueChange?: (details: ValueChangeDetails) => void
   /**
    * Orientation of the radio group
    */
-  'orientation'?: 'horizontal' | 'vertical' | undefined
+  orientation?: 'horizontal' | 'vertical' | undefined
 }
 
 interface PrivateContext {

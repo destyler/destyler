@@ -62,12 +62,11 @@ describe('otp-input controllable value (Phase 3)', () => {
     expect(service.state.context.value).toEqual(['1', '2', '3', '4'])
   })
 
-
   it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': ['', '', '', ''],
-            onValueChange,
+      value: ['', '', '', ''],
+      onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: ['1', '2', '3', '4'] })
     expect(service.state.context.value).toEqual(['', '', '', ''])

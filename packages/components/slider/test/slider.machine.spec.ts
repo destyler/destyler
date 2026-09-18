@@ -62,11 +62,10 @@ describe('slider controllable value (Phase 3)', () => {
     expect(service.state.context.value).toEqual([50])
   })
 
-
   it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [0],
+      value: [0],
       onValueChange,
     })
     service.send({ type: 'SET_VALUE', value: [75] })

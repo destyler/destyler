@@ -14,28 +14,28 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the collapsible. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * Function called when the animation ends in the closed state.
    */
-  'onExitComplete'?: (() => void) | undefined
+  onExitComplete?: (() => void) | undefined
   /**
    * Function called when the popup is opened
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * Whether the collapsible is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * The initial open state of the collapsible when it is not controlled.
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
-  'defaultOpen'?: boolean | undefined
+  defaultOpen?: boolean | undefined
   /**
    * Whether the collapsible is disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
 }
 
 type ComputedContext = Readonly<{}>

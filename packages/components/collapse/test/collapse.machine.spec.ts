@@ -62,11 +62,10 @@ describe('collapse controllable value (Phase 3)', () => {
     expect(service.state.context.value).toEqual(['item-a'])
   })
 
-
   it('controlled: with value presence, VALUE.SET only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
+      value: [],
       onValueChange,
     })
     expect(service.state.context.value).toEqual([])
@@ -82,8 +81,8 @@ describe('collapse controllable value (Phase 3)', () => {
   it('controlled: TRIGGER.CLICK expand only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
-      'collapsible': true,
+      value: [],
+      collapsible: true,
       onValueChange,
     })
 

@@ -18,50 +18,50 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the checkbox. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * Whether the checkbox is disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the checkbox is invalid
    */
-  'invalid'?: boolean | undefined
+  invalid?: boolean | undefined
   /**
    * Whether the checkbox is required
    */
-  'required'?: boolean | undefined
+  required?: boolean | undefined
   /**
    * The controlled checked state of the checkbox
    */
-  'checked'?: CheckedState | undefined
+  checked?: CheckedState | undefined
   /**
    * The initial checked state of the checkbox when it is not controlled.
    * Prefer this over seeding with `checked` for uncontrolled usage.
    */
-  'defaultChecked'?: CheckedState | undefined
+  defaultChecked?: CheckedState | undefined
   /**
    * Whether the checkbox is read-only
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * The callback invoked when the checked state changes.
    */
-  'onCheckedChange'?: (details: CheckedChangeDetails) => void
+  onCheckedChange?: (details: CheckedChangeDetails) => void
   /**
    * The name of the input field in a checkbox.
    * Useful for form submission.
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The id of the form that the checkbox belongs to.
    */
-  'form'?: string | undefined
+  form?: string | undefined
   /**
    * The value of checkbox input. Useful for form submission.
    * @default "on"
    */
-  'value': string
+  value: string
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

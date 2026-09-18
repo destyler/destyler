@@ -52,11 +52,10 @@ describe('hover-card controllable open (Phase 3)', () => {
     expect(service.state.matches('open')).toBe(false)
   })
 
-
   it('controlled: with open presence, CLOSE from open only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': true,
+      open: true,
       onOpenChange,
     })
     expect(service.state.matches('open')).toBe(true)

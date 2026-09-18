@@ -46,102 +46,102 @@ interface PublicContext<T extends CollectionItem = CollectionItem>
   /**
    * The item collection
    */
-  'collection': ListCollection<CollectionItem>
+  collection: ListCollection<CollectionItem>
   /**
    * The ids of the elements in the select. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * The `name` attribute of the underlying select.
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The associate form of the underlying select.
    */
-  'form'?: string | undefined
+  form?: string | undefined
   /**
    * Whether the select is disabled
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * Whether the select is invalid
    */
-  'invalid'?: boolean | undefined
+  invalid?: boolean | undefined
   /**
    * Whether the select is read-only
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * Whether the select is required
    */
-  'required'?: boolean | undefined
+  required?: boolean | undefined
   /**
    * Whether the select should close after an item is selected
    * @default true
    */
-  'closeOnSelect'?: boolean | undefined
+  closeOnSelect?: boolean | undefined
   /**
    * The callback fired when the highlighted item changes.
    */
-  'onHighlightChange'?: ((details: HighlightChangeDetails<T>) => void) | undefined
+  onHighlightChange?: ((details: HighlightChangeDetails<T>) => void) | undefined
   /**
    * The callback fired when the selected item changes.
    */
-  'onValueChange'?: ((details: ValueChangeDetails<T>) => void) | undefined
+  onValueChange?: ((details: ValueChangeDetails<T>) => void) | undefined
   /**
    * Function called when the popup is opened
    */
-  'onOpenChange'?: ((details: OpenChangeDetails) => void) | undefined
+  onOpenChange?: ((details: OpenChangeDetails) => void) | undefined
   /**
    * The positioning options of the menu.
    */
-  'positioning': PositioningOptions
+  positioning: PositioningOptions
   /**
    * The controlled keys of the selected items
    */
-  'value'?: string[] | undefined
+  value?: string[] | undefined
   /**
    * The initial keys of the selected items when it is not controlled.
    * Prefer this over seeding with `value` for uncontrolled usage.
    */
-  'defaultValue'?: string[] | undefined
+  defaultValue?: string[] | undefined
   /**
    * The key of the highlighted item
    */
-  'highlightedValue': string | null
+  highlightedValue: string | null
   /**
    * Whether to loop the keyboard navigation through the options
    * @default false
    */
-  'loopFocus'?: boolean | undefined
+  loopFocus?: boolean | undefined
   /**
    * Whether to allow multiple selection
    */
-  'multiple'?: boolean | undefined
+  multiple?: boolean | undefined
   /**
    * Whether the select menu is open
    */
-  'open'?: boolean | undefined
+  open?: boolean | undefined
   /**
    * The initial open state of the select when it is not controlled.
    * Prefer this over seeding with `open` for uncontrolled usage.
    */
-  'defaultOpen'?: boolean | undefined
+  defaultOpen?: boolean | undefined
   /**
    * Function to scroll to a specific index
    */
-  'scrollToIndexFn'?: ((details: ScrollToIndexDetails) => void) | undefined
+  scrollToIndexFn?: ((details: ScrollToIndexDetails) => void) | undefined
   /**
    * Whether the select is a composed with other composite widgets like tabs or combobox
    * @default true
    */
-  'composite': boolean
+  composite: boolean
   /**
    * Whether the value can be cleared by clicking the selected item.
    *
    * **Note:** this is only applicable for single selection
    */
-  'deselectable'?: boolean | undefined
+  deselectable?: boolean | undefined
 }
 
 interface PrivateContext<T extends CollectionItem = CollectionItem> {

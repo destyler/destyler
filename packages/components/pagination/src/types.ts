@@ -34,53 +34,53 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the accordion. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * Specifies the localized strings that identifies the accessibility elements and their states
    */
-  'translations': IntlTranslations
+  translations: IntlTranslations
   /**
    * Total number of data items
    */
-  'count': number
+  count: number
   /**
    * Number of data items per page (controlled sync field)
    * @default 10
    */
-  'pageSize'?: number | undefined
+  pageSize?: number | undefined
   /**
    * The initial page size when it is not controlled.
    * Prefer this over seeding with `pageSize` for uncontrolled usage.
    */
-  'defaultPageSize'?: number | undefined
+  defaultPageSize?: number | undefined
   /**
    * Number of pages to show beside active page
    * @default 1
    */
-  'siblingCount': number
+  siblingCount: number
   /**
    * The controlled active page
    * @default 1
    */
-  'page'?: number | undefined
+  page?: number | undefined
   /**
    * The initial active page when it is not controlled.
    * Prefer this over seeding with `page` for uncontrolled usage.
    */
-  'defaultPage'?: number | undefined
+  defaultPage?: number | undefined
   /**
    * Called when the page number is changed
    */
-  'onPageChange'?: ((details: PageChangeDetails) => void) | undefined
+  onPageChange?: ((details: PageChangeDetails) => void) | undefined
   /**
    * Called when the page size is changed
    */
-  'onPageSizeChange'?: ((details: PageSizeChangeDetails) => void) | undefined
+  onPageSizeChange?: ((details: PageSizeChangeDetails) => void) | undefined
   /**
    * The type of the trigger element
    * @default "button"
    */
-  'type': 'button' | 'link'
+  type: 'button' | 'link'
 }
 
 interface PrivateContext {}

@@ -63,11 +63,10 @@ describe('steps controllable step (Phase 3)', () => {
     expect(service.state.context.step).toBe(1)
   })
 
-
   it('controlled: with step presence, STEP.SET only invokes until parent syncs', () => {
     const onStepChange = vi.fn()
     const service = start({
-      'step': 0,
+      step: 0,
       onStepChange,
     })
     expect(service.state.context.step).toBe(0)

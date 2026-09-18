@@ -17,54 +17,54 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   /**
    * The ids of the elements in the switch. Useful for composition.
    */
-  'ids'?: ElementIds | undefined
+  ids?: ElementIds | undefined
   /**
    * Specifies the localized strings that identifies the accessibility elements and their states
    */
-  'label': string
+  label: string
   /**
    * Whether the switch is disabled.
    */
-  'disabled'?: boolean | undefined
+  disabled?: boolean | undefined
   /**
    * If `true`, the switch is marked as invalid.
    */
-  'invalid'?: boolean | undefined
+  invalid?: boolean | undefined
   /**
    * If `true`, the switch input is marked as required,
    */
-  'required'?: boolean | undefined
+  required?: boolean | undefined
   /**
    * Whether the switch is read-only
    */
-  'readOnly'?: boolean | undefined
+  readOnly?: boolean | undefined
   /**
    * Function to call when the switch is clicked.
    */
-  'onCheckedChange'?: ((details: CheckedChangeDetails) => void) | undefined
+  onCheckedChange?: ((details: CheckedChangeDetails) => void) | undefined
   /**
    * The controlled checked state of the switch.
    */
-  'checked'?: boolean | undefined
+  checked?: boolean | undefined
   /**
    * The initial checked state of the switch when it is not controlled.
    * Prefer this over seeding with `checked` for uncontrolled usage.
    */
-  'defaultChecked'?: boolean | undefined
+  defaultChecked?: boolean | undefined
   /**
    * The name of the input field in a switch
    * (Useful for form submission).
    */
-  'name'?: string | undefined
+  name?: string | undefined
   /**
    * The id of the form that the switch belongs to
    */
-  'form'?: string | undefined
+  form?: string | undefined
   /**
    * The value of switch input. Useful for form submission.
    * @default "on"
    */
-  'value'?: string | number | undefined
+  value?: string | number | undefined
 }
 
 export type UserDefinedContext = RequiredBy<PublicContext, 'id'>

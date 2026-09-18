@@ -46,11 +46,10 @@ describe('combobox controllable open (Phase 3)', () => {
     expect(onOpenChange).toHaveBeenCalledWith({ open: true })
   })
 
-
   it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': false,
+      open: false,
       onOpenChange,
     })
     expect(service.state.matches('idle')).toBe(true)
@@ -122,7 +121,6 @@ describe('combobox controllable value (Phase 3)', () => {
     expect(service.state.context.value).toEqual(['apple'])
   })
 
-
   it('phase 3 presence: inputValue alone (no flag) defers INPUT_VALUE.SET', () => {
     const onInputValueChange = vi.fn()
     const service = start({ inputValue: '', onInputValueChange })
@@ -137,7 +135,7 @@ describe('combobox controllable value (Phase 3)', () => {
   it('controlled: value presence defers VALUE.SET until setContext', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
+      value: [],
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: ['apple'] })
@@ -150,7 +148,7 @@ describe('combobox controllable value (Phase 3)', () => {
   it('controlled: inputValue presence defers INPUT_VALUE.SET until setContext', () => {
     const onInputValueChange = vi.fn()
     const service = start({
-      'inputValue': '',
+      inputValue: '',
       onInputValueChange,
     })
     service.send({ type: 'INPUT_VALUE.SET', value: 'typed' })

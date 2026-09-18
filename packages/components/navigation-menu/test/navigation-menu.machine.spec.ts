@@ -51,9 +51,9 @@ describe('navigation-menu controllable value (Phase 3)', () => {
 
   it('uncontrolled: defaultValue preferred over value for initial seed', () => {
     const service = start({
-      'defaultValue': 'getting-started',
-      'value': 'components',
-          })
+      defaultValue: 'getting-started',
+      value: 'components',
+    })
     expect(service.state.context.value).toBe('getting-started')
   })
 
@@ -73,11 +73,10 @@ describe('navigation-menu controllable value (Phase 3)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-
   it('controlled: value presence defers until parent syncs', async () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': null,
+      value: null,
       onValueChange,
     })
     service.send({ type: 'TRIGGER_CLICK', value: 'docs' })
@@ -93,7 +92,7 @@ describe('navigation-menu controllable value (Phase 3)', () => {
   it('controlled: CLOSE only invokes until parent clears value', async () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': 'getting-started',
+      value: 'getting-started',
       onValueChange,
     })
     expect(service.state.matches('open')).toBe(true)

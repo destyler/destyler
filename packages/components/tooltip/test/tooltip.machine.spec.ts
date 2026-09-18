@@ -59,11 +59,10 @@ describe('tooltip controllable open (Phase 3)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-
   it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': false,
+      open: false,
       onOpenChange,
     })
     expect(service.state.matches('closed')).toBe(true)

@@ -51,11 +51,10 @@ describe('calendar controllable open (Phase 3)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-
   it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': false,
+      open: false,
       onOpenChange,
     })
     expect(service.state.matches('idle')).toBe(true)
@@ -120,11 +119,10 @@ describe('calendar controllable value (Phase 3)', () => {
     expect(service.state.context.value).toHaveLength(1)
   })
 
-
   it('controlled: value presence defers VALUE.SET until setContext', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
+      value: [],
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: [d1] })

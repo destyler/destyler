@@ -69,11 +69,10 @@ describe('pagination controllable page (Phase 3)', () => {
     expect(service.state.context.page).toBe(3)
   })
 
-
   it('controlled: page presence defers until parent syncs', () => {
     const onPageChange = vi.fn()
     const service = start({
-      'page': 1,
+      page: 1,
       onPageChange,
     })
     service.send({ type: 'SET_PAGE', page: 4 })
@@ -86,7 +85,7 @@ describe('pagination controllable page (Phase 3)', () => {
   it('controlled: pageSize presence defers until parent syncs', () => {
     const onPageSizeChange = vi.fn()
     const service = start({
-      'pageSize': 10,
+      pageSize: 10,
       onPageSizeChange,
     })
     service.send({ type: 'SET_PAGE_SIZE', size: 20 })

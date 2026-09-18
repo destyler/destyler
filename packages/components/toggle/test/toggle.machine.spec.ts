@@ -62,11 +62,10 @@ describe('toggle-group controllable value (Phase 3)', () => {
     expect(service.state.context.value).toEqual(['bold'])
   })
 
-
   it('controlled: with value presence, TOGGLE.CLICK only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
+      value: [],
       onValueChange,
     })
     expect(service.state.context.value).toEqual([])
@@ -82,8 +81,8 @@ describe('toggle-group controllable value (Phase 3)', () => {
   it('controlled: multiple TOGGLE.CLICK only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': ['bold'],
-      'multiple': true,
+      value: ['bold'],
+      multiple: true,
       onValueChange,
     })
 

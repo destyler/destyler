@@ -62,11 +62,10 @@ describe('radio controllable value (Phase 3)', () => {
     expect(service.state.context.value).toBe('apple')
   })
 
-
   it('controlled: with value presence, SET_VALUE only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': null,
+      value: null,
       onValueChange,
     })
     expect(service.state.context.value).toBe(null)

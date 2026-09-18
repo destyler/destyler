@@ -50,11 +50,10 @@ describe('select controllable open (Phase 3)', () => {
     expect(service.state.matches('open')).toBe(true)
   })
 
-
   it('controlled: with open presence, OPEN only invokes until parent syncs', async () => {
     const onOpenChange = vi.fn()
     const service = start({
-      'open': false,
+      open: false,
       onOpenChange,
     })
     expect(service.state.matches('idle')).toBe(true)
@@ -125,11 +124,10 @@ describe('select controllable value (Phase 3)', () => {
     expect(service.state.context.value).toEqual(['apple'])
   })
 
-
   it('controlled: with value presence, VALUE.SET only invokes until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': [],
+      value: [],
       onValueChange,
     })
     expect(service.state.context.value).toEqual([])

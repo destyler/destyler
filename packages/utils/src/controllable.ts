@@ -162,8 +162,8 @@ export function isControlled(
 }
 
 export interface ControllableOpenContext {
-  'open'?: boolean | undefined
-  'defaultOpen'?: boolean | undefined
+  open?: boolean | undefined
+  defaultOpen?: boolean | undefined
   [CONTROLLABLE_PROVIDED_KEY]?: string[] | undefined
 }
 

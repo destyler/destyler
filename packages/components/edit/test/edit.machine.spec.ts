@@ -62,11 +62,10 @@ describe('edit controllable value (Phase 3)', () => {
     expect(service.state.context.value).toBe('x')
   })
 
-
   it('controlled: value presence defers until parent syncs', () => {
     const onValueChange = vi.fn()
     const service = start({
-      'value': 'old',
+      value: 'old',
       onValueChange,
     })
     service.send({ type: 'VALUE.SET', value: 'new' })
@@ -111,7 +110,6 @@ describe('edit controllable mode (Phase 3)', () => {
     expect(service.state.matches('preview')).toBe(true)
   })
 
-
   it('phase 3 presence: edit alone (no flag) defers transitions until parent syncs', async () => {
     const onEditChange = vi.fn()
     const service = start({ edit: false, onEditChange })
@@ -129,7 +127,7 @@ describe('edit controllable mode (Phase 3)', () => {
   it('controlled: edit presence defers until parent syncs', async () => {
     const onEditChange = vi.fn()
     const service = start({
-      'edit': false,
+      edit: false,
       onEditChange,
     })
     service.send({ type: 'EDIT' })
