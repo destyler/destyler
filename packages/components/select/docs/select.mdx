@@ -168,19 +168,34 @@ Import all parts and piece them together.
 
 ## Setting the initial value
 
-To set the initial value of the select, pass the `value` property to the select destyler's context.
+To set the initial value **without** taking ownership of state, pass `defaultValue`. Prefer this over seeding with `value` (which is presence-controlled after Phase 2).
 
 :::tip
-The `value` property must be an array of strings.
+The `defaultValue` / `value` property must be an array of strings.
 If selecting a single value, pass an array with a single string.
 :::
 
 ```ts
 const [state, send] = useMachine(
   select.machine({
-    value: ["vue"],
+    defaultValue: ["vue"],
   }),
 )
+```
+
+## Controlled usage
+
+Select supports controllable **value** and **open**. Use `defaultValue` / `defaultOpen` for uncontrolled seeds. Pass `value` / `open` and sync with `onValueChange` / `onOpenChange` when your app owns state. See [Controllable State](/guide/controllable-state).
+
+```ts
+const value = ["vue"] // your reactive state
+select.machine({
+  id: "1",
+  value,
+  onValueChange(details) {
+    // details => { value: string[] }
+  },
+})
 ```
 
 ## Selecting multiple values

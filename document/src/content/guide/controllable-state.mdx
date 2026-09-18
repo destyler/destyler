@@ -1,0 +1,159 @@
+---
+head:
+  - tag: title
+    content: Controllable State - Destyler
+title: Controllable State
+---
+
+> Most Destyler machines can be **uncontrolled** (the machine owns state) or **controlled** (your app owns state and syncs it back). This guide covers the end-user API.
+
+## Uncontrolled (default)
+
+Prefer `defaultOpen`, `defaultChecked`, or `defaultValue` for the initial seed. The machine keeps the value afterward and still fires `onOpenChange` / `onCheckedChange` / `onValueChange` if you want to observe changes.
+
+```ts
+// Dialog / popover — start open once, machine owns open afterward
+dialog.machine({ id: '1', defaultOpen: true })
+
+// Checkbox — start checked, machine owns checked afterward
+checkbox.machine({ id: '1', defaultChecked: true })
+
+// Select — start with a selection, machine owns value afterward
+select.machine({ id: '1', defaultValue: ['vue'] })
+```
+
+## Controlled
+
+Pass `open` / `checked` / `value` into `machine(...)` so prop **presence** marks the field as controlled (Phase 2). Keep that prop in sync when the machine requests a change via `on*Change`, using the adapter’s reactive `context` option (or `setContext` in lower-level adapters).
+
+### Dialog open — Vue
+
+```vue
+<script setup lang="ts">
+import * as dialog from '@destyler/dialog'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
+
+const open = ref(false)
+
+const [state, send] = useMachine(
+  dialog.machine({
+    id: useId(),
+    open: open.value,
+    onOpenChange(details) {
+      open.value = details.open
+    },
+  }),
+  {
+    context: computed(() => ({ open: open.value })),
+  },
+)
+
+const api = computed(() => dialog.connect(state.value, send, normalizeProps))
+</script>
+```
+
+### Dialog open — React
+
+```tsx
+import * as dialog from '@destyler/dialog'
+import { normalizeProps, useMachine } from '@destyler/react'
+import { useId, useState } from 'react'
+
+export function ControlledDialog() {
+  const [open, setOpen] = useState(false)
+
+  const [state, send] = useMachine(
+    dialog.machine({
+      id: useId(),
+      open,
+      onOpenChange(details) {
+        setOpen(details.open)
+      },
+    }),
+    { context: { open } },
+  )
+
+  const api = dialog.connect(state, send, normalizeProps)
+  // …render with api.getTriggerProps(), etc.
+}
+```
+
+### Checkbox checked — Vue
+
+```vue
+<script setup lang="ts">
+import * as checkbox from '@destyler/checkbox'
+import { normalizeProps, useMachine } from '@destyler/vue'
+import { computed, ref, useId } from 'vue'
+
+const checked = ref(false)
+
+const [state, send] = useMachine(
+  checkbox.machine({
+    id: useId(),
+    checked: checked.value,
+    onCheckedChange(details) {
+      checked.value = details.checked
+    },
+  }),
+  {
+    context: computed(() => ({ checked: checked.value })),
+  },
+)
+
+const api = computed(() => checkbox.connect(state.value, send, normalizeProps))
+</script>
+```
+
+### Checkbox checked — React
+
+```tsx
+import * as checkbox from '@destyler/checkbox'
+import { normalizeProps, useMachine } from '@destyler/react'
+import { useId, useState } from 'react'
+
+export function ControlledCheckbox() {
+  const [checked, setChecked] = useState(false)
+
+  const [state, send] = useMachine(
+    checkbox.machine({
+      id: useId(),
+      checked,
+      onCheckedChange(details) {
+        setChecked(details.checked)
+      },
+    }),
+    { context: { checked } },
+  )
+
+  const api = checkbox.connect(state, send, normalizeProps)
+  // …render with api.getRootProps(), etc.
+}
+```
+
+## Important: do not always pass `value` / `open` / `checked`
+
+:::caution[Phase 2 presence]
+After Phase 2, passing `open`, `checked`, or `value` into `machine(...)` (without `'*.controlled': false`) is treated as **controlled**. For demos and uncontrolled UIs, omit those keys and use `defaultOpen` / `defaultChecked` / `defaultValue` instead.
+:::
+
+| Intent | Pass into `machine(...)` |
+|--------|--------------------------|
+| Uncontrolled seed | `defaultOpen` / `defaultChecked` / `defaultValue` |
+| Controlled | `open` / `checked` / `value` + sync via `on*Change` and `context` / `setContext` |
+| Legacy seed with the value key | `'open.controlled': false` (or matching `*.controlled: false`) |
+
+## Dual-track / deprecated `*.controlled`
+
+Explicit flags such as `'open.controlled'` and `'checked.controlled'` still work (Phase 3 **soft** deprecation). Prefer prop presence + `default*` for new code. Hard removal waits for a major release.
+
+Machine authors and adapter writers should read the full MACHINE-layer contract:
+
+[CONTROLLED-API.md](https://github.com/destyler/destyler/blob/main/CONTROLLED-API.md) · tracked in [#103](https://github.com/destyler/destyler/issues/103)
+
+## Related
+
+- [Getting Started](/guide/getting-started)
+- [Composition](/guide/composition)
+- Component pages: [Dialog](/components/dialog), [Checkbox](/components/checkbox), [Popover](/components/popover), [Select](/components/select)

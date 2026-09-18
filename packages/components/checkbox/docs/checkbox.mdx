@@ -163,24 +163,39 @@ const [state, send] = useMachine(
 
 ## Making the checked by default
 
-To make a checkbox checked by default, set the context's `checked` property to `true`
+To make a checkbox checked by default **without** taking ownership of state, use `defaultChecked`. Prefer this over seeding with `checked` (which is presence-controlled after Phase 2).
 
 ```diff lang="ts"
 const [state, send] = useMachine(
   checkbox.machine({
-+    checked: true,
++    defaultChecked: true,
   }),
 )
 ```
 
+## Controlled usage
+
+To control the checked state from your app, pass `checked` into `machine(...)` and sync with `onCheckedChange` (plus the adapter `context` option). Use `defaultChecked` for uncontrolled demos instead of always passing `checked`. See [Controllable State](/guide/controllable-state).
+
+```ts
+const checked = false // your reactive state
+checkbox.machine({
+  id: "1",
+  checked,
+  onCheckedChange(details) {
+    // details => { checked: boolean | "indeterminate" }
+  },
+})
+```
+
 ## Listening for changes
 
-When the checkbox value changes, the `onCheckChange` callback is invoked.
+When the checkbox value changes, the `onCheckedChange` callback is invoked.
 
 ```diff lang="ts"
 const [state, send] = useMachine(
   checkbox.machine({
-+    onCheckChange(details) {
++    onCheckedChange(details) {
 +      // details => { checked: boolean }
 +      console.log("checkbox is:", details.checked)
 +    },

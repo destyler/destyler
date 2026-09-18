@@ -301,6 +301,29 @@ const [state, send] = useMachine(
 )
 ```
 
+## Controlled usage
+
+Dialog open state can be **uncontrolled** or **controlled**. Prefer `defaultOpen` when the machine should own open state. Passing `open` into `machine(...)` is presence-controlled — keep it in sync with `onOpenChange` and the adapter `context` option. See [Controllable State](/guide/controllable-state).
+
+```ts
+// Uncontrolled — start open once
+dialog.machine({
+  id: "1",
+  defaultOpen: true,
+})
+
+// Controlled — parent owns `open`
+const open = false // your reactive state
+dialog.machine({
+  id: "1",
+  open,
+  onOpenChange(details) {
+    // details => { open: boolean }
+    // set your open state to details.open, then pass it back via useMachine({ context: { open } })
+  },
+})
+```
+
 ## Listening for open state changes
 
 ```ts
