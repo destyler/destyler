@@ -1,8 +1,7 @@
 {
   "name": "@destyler/utils",
   "type": "module",
-  "version": "0.2.6",
-
+  "version": "0.2.7",
   "description": "a collection of utility functions and types for JavaScript applications.",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

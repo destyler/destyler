@@ -1,8 +1,7 @@
 {
   "name": "@destyler/xstate",
   "type": "module",
-  "version": "0.2.6",
-
+  "version": "0.2.7",
   "description": "a minimal implementation of xstate fsm for UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",
