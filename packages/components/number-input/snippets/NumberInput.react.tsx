@@ -6,7 +6,7 @@ import './style.css'
 export default function NumberInput() {
   const [state, send] = useMachine(numberInput.machine({
     id: useId(),
-    value: '66',
+    defaultValue: '66',
     allowMouseWheel: true,
   }))
 

@@ -7,7 +7,7 @@ export default function SplitterDemo() {
   const [state, send] = useMachine(
     splitter.machine({
       id: useId(),
-      size: [
+      defaultSize: [
         { id: 'a', size: 30, minSize: 15 },
         { id: 'b', size: 70, minSize: 0 },
       ],

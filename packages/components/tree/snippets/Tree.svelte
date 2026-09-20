@@ -76,7 +76,7 @@
   const [state, send] = useMachine(tree.machine({
     id: crypto.randomUUID(),
     collection,
-    expandedValue: ['node_modules', 'node_modules/@destyler'],
+    defaultExpandedValue: ['node_modules', 'node_modules/@destyler'],
   }))
 
   const api = $derived(tree.connect(state, send, normalizeProps))

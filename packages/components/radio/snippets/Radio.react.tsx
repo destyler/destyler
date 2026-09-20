@@ -12,7 +12,7 @@ export default function Radio() {
 
   const [state, send] = useMachine(radio.machine({
     id: useId(),
-    value: 'default',
+    defaultValue: 'default',
   }))
 
   const api = radio.connect(state, send, normalizeProps)

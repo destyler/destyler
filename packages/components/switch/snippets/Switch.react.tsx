@@ -6,7 +6,7 @@ import './style.css'
 export default function Switch() {
   const [state, send] = useMachine(switchs.machine({
     id: useId(),
-    checked: true,
+    defaultChecked: true,
   }))
 
   const api = switchs.connect(state, send, normalizeProps)

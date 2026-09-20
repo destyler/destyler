@@ -8,7 +8,7 @@ export default function TogglePage() {
   const [state, send] = useMachine(toggle.machine({
     id: createUniqueId(),
     multiple: true,
-    value: ['bold'],
+    defaultValue: ['bold'],
   }))
 
   const api = createMemo(() => toggle.connect(state, send, normalizeProps))

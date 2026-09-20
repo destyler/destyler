@@ -14,7 +14,7 @@ const data = [
 export default function Tabs() {
   const [state, send] = useMachine(tabs.machine({
     id: createUniqueId(),
-    value: 'account',
+    defaultValue: 'account',
   }))
 
   const api = createMemo(() => tabs.connect(state, send, normalizeProps))

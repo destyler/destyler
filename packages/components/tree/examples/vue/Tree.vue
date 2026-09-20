@@ -21,7 +21,7 @@ const [state, send] = useMachine(
   tree.machine({
     id: useId(),
     collection,
-    expandedValue: defaultExpandedBranches,
+    defaultExpandedValue: defaultExpandedBranches,
   }),
   {
     context: controlContext,

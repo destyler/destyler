@@ -11,7 +11,7 @@
   ]
 
   const id = $props.id()
-  const [state, send] = useMachine(tabs.machine({ id, value: 'account' }))
+  const [state, send] = useMachine(tabs.machine({ id, defaultValue: 'account' }))
   const api = $derived(tabs.connect(state, send, normalizeProps))
 </script>
 

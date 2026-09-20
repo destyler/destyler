@@ -12,7 +12,7 @@
   const [snapshot, send] = useMachine(
     splitter.machine({
       id: id,
-      size: [
+      defaultSize: [
         { id: "a", size: 50 },
         { id: "b", size: 50 },
       ],

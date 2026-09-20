@@ -13,7 +13,7 @@
 
   const [state, send] = useMachine(radio.machine({
     id,
-    value: 'default',
+    defaultValue: 'default',
   }))
 
   const api = $derived(radio.connect(state, send, normalizeProps))

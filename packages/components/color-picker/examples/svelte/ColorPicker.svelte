@@ -16,7 +16,7 @@ const [snapshot, send] = useMachine(
     id: id,
     name: "color",
     format: "hsla",
-    value: colorPicker.parse("hsl(0, 100%, 50%)"),
+    defaultValue: colorPicker.parse("hsl(0, 100%, 50%)"),
   }),
   {
     context: controls.context,

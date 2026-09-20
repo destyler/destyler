@@ -11,7 +11,7 @@ const data = [
   { value: 'password', label: 'Password', component: Password },
 ]
 
-const [state, send] = useMachine(tabs.machine({ id: useId(), value: 'account' }))
+const [state, send] = useMachine(tabs.machine({ id: useId(), defaultValue: 'account' }))
 const api = computed(() => tabs.connect(state.value, send, normalizeProps))
 </script>
 

@@ -6,7 +6,7 @@ import './style.css'
 
 const [state, send] = useMachine(switchs.machine({
   id: useId(),
-  checked: true,
+  defaultChecked: true,
 }))
 
 const api = computed(() =>

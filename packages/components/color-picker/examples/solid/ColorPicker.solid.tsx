@@ -18,7 +18,7 @@ export default function Page() {
       id: createUniqueId(),
       name: 'color',
       format: 'hsla',
-      value: colorPicker.parse('hsl(0, 100%, 50%)'),
+      defaultValue: colorPicker.parse('hsl(0, 100%, 50%)'),
     }),
     {
       context: controls.context,

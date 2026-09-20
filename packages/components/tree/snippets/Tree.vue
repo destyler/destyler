@@ -74,7 +74,7 @@ const collection = tree.collection<Node>({
 const [state, send] = useMachine(tree.machine({
   id: useId(),
   collection,
-  expandedValue: ['src'],
+  defaultExpandedValue: ['src'],
 }))
 const api = computed(() => tree.connect(state.value, send, normalizeProps))
 </script>

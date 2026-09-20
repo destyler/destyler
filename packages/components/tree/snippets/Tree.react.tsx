@@ -76,7 +76,7 @@ export default function Tree() {
   const [state, send] = useMachine(tree.machine({
     id: useId(),
     collection,
-    expandedValue: ['node_modules', 'node_modules/@destyler'],
+    defaultExpandedValue: ['node_modules', 'node_modules/@destyler'],
   }))
 
   const api = tree.connect(state, send, normalizeProps)

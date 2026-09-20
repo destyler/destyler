@@ -10,7 +10,7 @@ import '../style.css'
 export default function Page() {
   const controls = useControls(tabsControls)
 
-  const [state, send] = useMachine(tabs.machine({ id: createUniqueId(), value: 'nils' }), {
+  const [state, send] = useMachine(tabs.machine({ id: createUniqueId(), defaultValue: 'nils' }), {
     context: controls.context,
   })
 

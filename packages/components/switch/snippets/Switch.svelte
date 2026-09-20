@@ -7,7 +7,7 @@
 
   const [state, send] = useMachine(switchs.machine({
     id,
-    checked: true
+    defaultChecked: true
   }))
 
   const api = $derived(switchs.connect(state, send, normalizeProps))
