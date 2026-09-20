@@ -11,7 +11,7 @@
 
   const [state, send] = useMachine(edit.machine({
     id: id,
-    value: 'Hello World',
+    defaultValue: 'Hello World',
   }),{
     context: controls.context,
   })

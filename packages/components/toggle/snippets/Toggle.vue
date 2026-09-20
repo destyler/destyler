@@ -7,7 +7,7 @@ import './style.css'
 const [state, send] = useMachine(toggle.machine({
   id: useId(),
   multiple: true,
-  value: ['bold'],
+  defaultValue: ['bold'],
 }))
 const api = computed(() => toggle.connect(state.value, send, normalizeProps))
 </script>

@@ -7,7 +7,7 @@
   const [state, send] = useMachine(toggle.machine({
     id,
     multiple: true,
-    value: ['bold'],
+    defaultValue: ['bold'],
   }));
 
   const api = $derived(toggle.connect(state, send, normalizeProps));

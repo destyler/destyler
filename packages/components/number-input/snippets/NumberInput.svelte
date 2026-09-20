@@ -7,7 +7,7 @@
 
   const [state, send] = useMachine(numberInput.machine({
     id,
-    value: '66',
+    defaultValue: '66',
     allowMouseWheel: true,
   }))
 

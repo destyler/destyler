@@ -6,7 +6,7 @@
   const { className = '' } = $props()
 
   const id = $props.id()
-  const [state, send] = useMachine(slider.machine({ id, value: [60] }))
+  const [state, send] = useMachine(slider.machine({ id, defaultValue: [60] }))
   const api = $derived(slider.connect(state, send, normalizeProps))
 </script>
 

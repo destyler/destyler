@@ -8,7 +8,7 @@ import './style.css'
 export default function ColorPicker() {
   const [state, send] = useMachine(colorPicker.machine({
     id: createUniqueId(),
-    value: colorPicker.parse('hsl(240,5.9%,10%)'),
+    defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
   }))
 
   const api = createMemo(() => colorPicker.connect(state, send, normalizeProps))

@@ -8,7 +8,7 @@ import '../style.css'
 
 const controls = useControls(tabsControls)
 
-const [state, send] = useMachine(tabs.machine({ id: useId(), value: 'nils' }), {
+const [state, send] = useMachine(tabs.machine({ id: useId(), defaultValue: 'nils' }), {
   context: controls.context,
 })
 

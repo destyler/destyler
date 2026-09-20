@@ -6,7 +6,7 @@
   const [state, send] = useMachine(
     splitter.machine({
       id: crypto.randomUUID(),
-      size: [
+      defaultSize: [
         { id: "a", size: 30, minSize: 15 },
         { id: "b", size: 70, minSize: 0 },
       ]

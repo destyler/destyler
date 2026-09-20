@@ -6,7 +6,7 @@ import './style.css'
 
 const [state, send] = useMachine(colorPicker.machine({
   id: useId(),
-  value: colorPicker.parse('hsl(240,5.9%,10%)'),
+  defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
 }))
 
 const api = computed(() => colorPicker.connect(state.value, send, normalizeProps))

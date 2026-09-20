@@ -10,7 +10,7 @@
   const [snapshot, send] = useMachine(
     tabs.machine({
       id: "1",
-      value: "nils",
+      defaultValue: "nils",
     }),
     {
       context: controls.context,

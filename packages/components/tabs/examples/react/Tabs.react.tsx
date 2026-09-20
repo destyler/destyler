@@ -11,7 +11,7 @@ export default function Page() {
   const [state, send] = useMachine(
     tabs.machine({
       id: useId(),
-      value: 'nils',
+      defaultValue: 'nils',
     }),
     {
       context: controls.context,

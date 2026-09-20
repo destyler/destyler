@@ -4,7 +4,7 @@ import { normalizeProps, useMachine } from '@destyler/vue'
 import { computed, useId } from 'vue'
 import './style.css'
 
-const [state, send] = useMachine(slider.machine({ id: useId(), value: [60] }))
+const [state, send] = useMachine(slider.machine({ id: useId(), defaultValue: [60] }))
 const api = computed(() => slider.connect(state.value, send, normalizeProps))
 </script>
 

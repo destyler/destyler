@@ -10,7 +10,7 @@ import '../style.css'
 export default function Page() {
   const controls = useControls(sliderControls)
 
-  const [state, send] = useMachine(slider.machine({ id: createUniqueId(), value: [0] }), {
+  const [state, send] = useMachine(slider.machine({ id: createUniqueId(), defaultValue: [0] }), {
     context: controls.context,
   })
 

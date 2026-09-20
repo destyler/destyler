@@ -12,7 +12,7 @@ const [state, send] = useMachine(
   slider.machine({
     id: useId(),
     name: 'quantity',
-    value: [0],
+    defaultValue: [0],
   }),
   { context: controls.context },
 )

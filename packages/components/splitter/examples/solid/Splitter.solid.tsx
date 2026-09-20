@@ -13,7 +13,7 @@ export default function Page() {
   const [state, send] = useMachine(
     splitter.machine({
       id: createUniqueId(),
-      size: [
+      defaultSize: [
         { id: 'a', size: 50 },
         { id: 'b', size: 50 },
       ],

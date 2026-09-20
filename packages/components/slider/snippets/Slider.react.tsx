@@ -6,7 +6,7 @@ import './style.css'
 export default function Slider({ className = '' }: { className?: string }) {
   const [state, send] = useMachine(slider.machine({
     id: useId(),
-    value: [60],
+    defaultValue: [60],
   }))
 
   const api = slider.connect(state, send, normalizeProps)

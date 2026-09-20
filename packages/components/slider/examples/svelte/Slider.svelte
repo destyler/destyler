@@ -13,7 +13,7 @@
     slider.machine({
       id: id,
       name: "quantity",
-      value: [0],
+      defaultValue: [0],
     }),
     {
       context: controls.context,

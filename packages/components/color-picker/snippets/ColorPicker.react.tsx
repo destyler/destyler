@@ -8,7 +8,7 @@ export default function ColorPicker() {
   const id = useId()
   const [state, send] = useMachine(colorPicker.machine({
     id,
-    value: colorPicker.parse('hsl(240,5.9%,10%)'),
+    defaultValue: colorPicker.parse('hsl(240,5.9%,10%)'),
   }))
 
   const api = colorPicker.connect(state, send, normalizeProps)

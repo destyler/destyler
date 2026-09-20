@@ -46,7 +46,7 @@ function copyCode(code: string) {
 
 const [state, send] = useMachine(tabs.machine({
   id: useId(),
-  value: '0',
+  defaultValue: '0',
 }))
 
 const api = computed(() => tabs.connect(state.value, send, normalizeProps))

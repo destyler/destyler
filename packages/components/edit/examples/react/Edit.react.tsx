@@ -10,7 +10,7 @@ export default function EditPage() {
 
   const [state, send] = useMachine(edit.machine({
     id: useId(),
-    value: 'Hello World',
+    defaultValue: 'Hello World',
   }), {
     context: controls.context,
   })

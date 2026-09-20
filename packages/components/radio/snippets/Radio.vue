@@ -12,7 +12,7 @@ const items = [
 
 const [state, send] = useMachine(radio.machine({
   id: useId(),
-  value: 'default',
+  defaultValue: 'default',
 }))
 
 const api = computed(() => radio.connect(state.value, send, normalizeProps))

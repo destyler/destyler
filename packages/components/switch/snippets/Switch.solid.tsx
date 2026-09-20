@@ -7,7 +7,7 @@ import './style.css'
 export default function Switch() {
   const [state, send] = useMachine(switchs.machine({
     id: createUniqueId(),
-    checked: true,
+    defaultChecked: true,
   }))
 
   const api = createMemo(() => switchs.connect(state, send, normalizeProps))

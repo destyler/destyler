@@ -7,7 +7,7 @@ import './style.css'
 export default function Slider({ className = '' }: { className?: string }) {
   const [state, send] = useMachine(slider.machine({
     id: createUniqueId(),
-    value: [60],
+    defaultValue: [60],
   }))
 
   const api = createMemo(() => slider.connect(state, send, normalizeProps))

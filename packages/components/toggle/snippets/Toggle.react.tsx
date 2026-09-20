@@ -7,7 +7,7 @@ export default function TogglePage() {
   const [state, send] = useMachine(toggle.machine({
     id: useId(),
     multiple: true,
-    value: ['bold'],
+    defaultValue: ['bold'],
   }))
 
   const api = toggle.connect(state, send, normalizeProps)

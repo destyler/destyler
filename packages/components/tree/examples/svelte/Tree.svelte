@@ -21,7 +21,7 @@
     tree.machine({
       id,
       collection,
-      expandedValue: defaultExpandedBranches,
+      defaultExpandedValue: defaultExpandedBranches,
     }),
     {
       context: controlContext,

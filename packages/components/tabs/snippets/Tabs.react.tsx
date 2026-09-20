@@ -13,7 +13,7 @@ const data = [
 export default function Tabs() {
   const [state, send] = useMachine(tabs.machine({
     id: useId(),
-    value: 'account',
+    defaultValue: 'account',
   }))
 
   const api = tabs.connect(state, send, normalizeProps)

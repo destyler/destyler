@@ -12,7 +12,7 @@ export default function Edit() {
 
   const [state, send] = useMachine(edit.machine({
     id: createUniqueId(),
-    value: 'Hello World',
+    defaultValue: 'Hello World',
   }), {
     context: controls.context,
   })
