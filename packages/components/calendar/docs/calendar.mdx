@@ -857,12 +857,12 @@ const [state, send] = useMachine(
 ## Rendering the calendar inline
 
 To render the calendar inline,
-we recommended setting the `open` property to `true` and `closeOnSelect` to `false`.
+we recommended setting the `defaultOpen` property to `true` and `closeOnSelect` to `false`.
 
 ```ts
 const [state, send] = useMachine(
   calendar.machine({
-    open: true,
+    defaultOpen: true,
     closeOnSelect: false,
   }),
 )
