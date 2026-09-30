@@ -791,15 +791,17 @@ export class Machine<
   }
 
   public transition = (state: TState['value'] | StateInfo<TContext, TState, TEvent> | null, evt: Event<TEvent>) => {
+    if (this.status === MachineStatus.Stopped) {
+      console.warn('[@destyler/xstate > transition] Cannot transition a stopped machine')
+      return
+    }
+
     const stateNode = isString(state) ? this.getStateNode(state) : state?.stateNode
 
     const event = toEvent(evt)
 
     if (!stateNode && !this.config.on) {
-      const msg
-        = this.status === MachineStatus.Stopped
-          ? '[@destyler/xstate > transition] Cannot transition a stopped machine'
-          : `[destyler/xstate > transition] State does not have a definition for \`state\`: ${state}, \`event\`: ${event.type}`
+      const msg = `[destyler/xstate > transition] State does not have a definition for \`state\`: ${state}, \`event\`: ${event.type}`
       console.warn(msg)
       return
     }
