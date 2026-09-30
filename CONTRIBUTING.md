@@ -18,13 +18,13 @@ If you are unsure whether your idea fits, open a GitHub Discussion or issue befo
 ## Prerequisites
 
 - **Node.js**: v20 or newer is recommended.
-- **pnpm**: `10.18.3` (the workspace is pinned via the `packageManager` field).
+- **pnpm**: `10.26.1` (the workspace is pinned via the `packageManager` field).
 - **Git**: any modern version that supports worktrees.
 
 Install pnpm globally if you have not already:
 
 ```bash
-corepack enable pnpm@10.18.3
+npm install --global pnpm@10.26.1
 ```
 
 ## Repository Overview
@@ -48,7 +48,7 @@ Most commands are orchestrated via root-level pnpm scripts and `--filter` select
    ```
 2. **Install dependencies**
    ```bash
-   pnpm install
+   pnpm install --frozen-lockfile
    ```
 3. **Start developing**
    - Build every package: `pnpm build`
@@ -65,7 +65,7 @@ Use `pnpm --filter "./packages/<name>" <command>` to target a specific package o
 - **Framework-agnostic core**: Machines and shared utilities are the source of truth. Framework adapters should offer equal glue (`useMachine` / `normalizeProps` / `mergeProps`) rather than privileging one UI framework.
 - **Example DOM parity**: Where framework *examples* demonstrate the same primitive, keep DOM structure, class names, and `portalled` behavior consistent across React, Solid, Svelte, Lit, Vanilla, Vue, etc.
 - **Portal**: Vue and Solid use the framework’s native portal/teleport. Other adapters may export Destyler `Portal`. Do not add thin wrappers for Vue/Solid — see [CONTROLLED-API.md](./CONTROLLED-API.md).
-- **Controlled open / value**: Follow the MACHINE-layer conventions in [CONTROLLED-API.md](./CONTROLLED-API.md) (Phase 2 presence + `default*`; `*.controlled` still supported, Phase 3 soft-deprecated). End-user guide: `document/src/content/guide/controllable-state.mdx`.
+- **Controlled open / value**: Follow the MACHINE-layer conventions in [CONTROLLED-API.md](./CONTROLLED-API.md) (Phase 3 HARD: live-prop presence controls ownership; `default*` seeds uncontrolled state; explicit `*.controlled` flags are removed). See the [end-user migration guide](./document/src/content/guide/controllable-state.mdx). Raw machine props and UI wrapper props have different `undefined` normalization rules; follow the contract of the layer you are changing.
 - **Polished component examples**: Vue-as-source-of-truth for polished, product-ready component examples lives in [destyler/ui](https://github.com/destyler/ui), not this core repo.
 - **TypeScript events**: When defining custom event interfaces, prefix them with `Synthetic` to avoid clashing with DOM event names (e.g., `SyntheticClipboardEvent`).
 - **HTML attributes**: Do not redeclare `onChange` in shared `DOMAttributes`. Extend specific element props instead to prevent conflicts.
