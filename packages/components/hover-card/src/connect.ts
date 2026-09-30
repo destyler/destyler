@@ -15,8 +15,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   return {
     open,
     setOpen(nextOpen) {
-      if (nextOpen === open)
-        return
+      // The current tag does not describe pending opening/closing delays.
+      // Let the machine handle no-ops and cancel any superseded transition.
       send(nextOpen ? 'OPEN' : 'CLOSE')
     },
     reposition(options = {}) {
