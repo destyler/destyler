@@ -81,6 +81,7 @@ Quality gates run in CI. Please run the relevant checks locally before opening a
 pnpm lint
 pnpm test
 pnpm build
+pnpm test:workflows
 ```
 
 - Use `pnpm test:dev` for watch mode and `pnpm test:ui` for Vitest UI debugging.
@@ -88,6 +89,21 @@ pnpm build
 - Add regression tests whenever you fix a bug or introduce a new feature. Cover normal, boundary, and error cases, especially for utilities like color and date libraries.
 - When working on color utilities, follow the testing guidance in `shareds/color` (format conversions, transparency, hue wrapping, etc.).
 - For date utilities, include range boundaries (`minValue`, `maxValue`) and navigation behavior in your tests.
+
+### Release verification
+
+Pull requests and tag releases share the non-publishing build and test action in
+`.github/actions/verify`. Release verification runs against the exact commit that
+triggered the tag push, using the same Node.js matrix as CI, and also requires
+lint on Node.js 24. Publishing packages, generating the GitHub changelog, and
+deploying release sites wait for every verification job to succeed and check out
+that same commit. A failed, skipped, or cancelled verification prevents those
+release jobs from starting.
+
+All workflow workspace installs use the frozen pnpm lockfile. When editing
+workflows, run `pnpm test:workflows` to check YAML parsing, the job dependency graph,
+exact-SHA checkouts, and the shared verification contract. This command does not
+publish packages or deploy sites; browser tests still run separately in CI.
 
 ## Documentation & Typedocs
 
