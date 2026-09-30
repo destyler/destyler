@@ -109,7 +109,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'form': state.context.form,
         'id': dom.getInputId(state.context),
         'role': 'spinbutton',
-        'defaultValue': state.context.formattedValue,
+        // Match the machine's input synchronization while a native edit is active.
+        // Solid normalizes defaultValue to a live value, so formatting here
+        // would overwrite the draft before the machine records its cursor.
+        'defaultValue': state.event.type === 'INPUT.CHANGE' ? state.context.value : state.context.formattedValue,
         'pattern': state.context.pattern,
         'inputMode': state.context.inputMode,
         'aria-invalid': ariaAttr(invalid),
