@@ -6,6 +6,11 @@ import { createRequire } from 'node:module'
 import path from 'node:path'
 import process from 'node:process'
 
+// Manual usage: prepare <ui-root> <tarball> <extracted-package> <evidence-dir>,
+// install the disposable override, then verify with the same arguments.
+// Complete commands and pinned tools from the consumed one-shot workflow:
+// https://github.com/destyler/destyler/blob/1a370290e9a360866302c435a50b648e2c7b03e0/.github/workflows/carousel-downstream.yml
+// Successful observation: https://github.com/destyler/destyler/actions/runs/36755572953
 const [mode, consumerArg, tarballArg, extractedArg, evidenceArg] = process.argv.slice(2)
 assert(['prepare', 'verify'].includes(mode), 'Expected prepare or verify')
 const consumer = path.resolve(consumerArg)
