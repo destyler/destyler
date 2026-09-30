@@ -127,7 +127,7 @@ export function machine(userContext: UserDefinedContext) {
       watch: {
         slidesPerPage: ['setSnapPoints'],
         slidesPerMove: ['setSnapPoints'],
-        page: ['scrollToPage', 'focusIndicatorEl'],
+        page: ['clearScrollEndTimer', 'scrollToPage', 'focusIndicatorEl'],
         orientation: ['setSnapPoints', 'scrollToPage'],
       },
 
