@@ -1,5 +1,5 @@
 import { mergeProps as PropsMerge } from '@destyler/xstate'
-import { toStyleString } from './normalize-props'
+import { toStyleString } from './normalize-props.js'
 
 const CSS_REGEX = /((?:--)?(?:\w+-?)+)\s*:\s*([^;]*)/g
 

@@ -34,6 +34,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Check packed Svelte adapter
+        run: pnpm exec node scripts/test-svelte-package.mjs
+
       - name: Upgrade npm
         run: npm i -g npm@latest
         env:
