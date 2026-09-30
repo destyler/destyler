@@ -134,14 +134,14 @@ export class Machine<
 
   // Starts the interpreted machine.
   public start = (init?: StateInit<TContext, TState>) => {
-    // reset state back to empty (for SSR, we had to set state.value to initial value)
-    this.state.value = ''
-    this.state.tags = []
-
     // Don't start if it's already running
     if (this.status === MachineStatus.Running) {
       return this
     }
+
+    // reset state back to empty (for SSR, we had to set state.value to initial value)
+    this.state.value = ''
+    this.state.tags = []
 
     this.status = MachineStatus.Running
 
