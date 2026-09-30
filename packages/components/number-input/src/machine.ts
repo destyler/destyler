@@ -13,6 +13,7 @@ import { choose, createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { createFormatter, createParser, formatValue, parseValue } from './utils'
 import { recordCursor, restoreCursor } from './utils/cursor'
+import { scheduleInputSync } from './utils/input-sync'
 
 const { not, and } = guards
 
@@ -394,9 +395,26 @@ export function machine(userContext: UserDefinedContext) {
           const value = formatValue(ctx, clampValue(parsedValue, ctx.min, ctx.max))
           set.value(ctx, value)
         },
-        setValue(ctx, evt) {
+        setValue(ctx, evt, { getState }) {
           const value = evt.target?.value ?? evt.value
           set.value(ctx, value)
+          if (!isControlled(ctx as unknown as Record<string, unknown>, 'value') || !evt.target)
+            return
+
+          const inputEl: HTMLInputElement = evt.target
+          // A veto leaves context.value unchanged, so its watcher cannot repair
+          // the native edit. Read after the parent has had a chance to sync.
+          scheduleInputSync(inputEl, () => {
+            const state = getState()
+            if (!state.value || !inputEl.isConnected || dom.getInputEl(ctx) !== inputEl)
+              return
+            const value = (state.event.type.endsWith('CHANGE') ? ctx.value : ctx.formattedValue) ?? ''
+            if (inputEl.value === value)
+              return
+            const selection = recordCursor(inputEl)
+            setElementValue(inputEl, value)
+            restoreCursor(inputEl, selection)
+          })
         },
         clearValue(ctx) {
           set.value(ctx, '')
