@@ -461,6 +461,7 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
       const { id } = props
       return normalize.element({
         ...parts.itemGroup.attrs,
+        'role': 'group',
         'dir': state.context.dir,
         'id': dom.getItemGroupId(state.context, id),
         'aria-labelledby': dom.getItemGroupLabelId(state.context, id),
@@ -473,7 +474,6 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
         ...parts.itemGroupLabel.attrs,
         dir: state.context.dir,
         id: dom.getItemGroupLabelId(state.context, htmlFor),
-        role: 'group',
       })
     },
   }
