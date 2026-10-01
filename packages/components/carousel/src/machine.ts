@@ -336,7 +336,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         scrollToPage(ctx, evt) {
           const behavior = evt.instant ? 'instant' : 'smooth'
-          const index = clamp(evt.index ?? ctx.page, 0, ctx.pageSnapPoints.length - 1)
+          const index = clamp(ctx.page ?? 0, 0, ctx.pageSnapPoints.length - 1)
           const el = dom.getItemGroupEl(ctx)
           const axis = ctx.isHorizontal ? 'left' : 'top'
           el.scrollTo({ [axis]: ctx.pageSnapPoints[index], behavior })
