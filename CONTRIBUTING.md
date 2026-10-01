@@ -102,6 +102,15 @@ deploying release sites wait for every verification job to succeed and check out
 that same commit. A failed, skipped, or cancelled verification prevents those
 release jobs from starting.
 
+The packed Svelte consumer gate builds and packs the adapter's complete runtime
+workspace dependency closure from the same checkout. Isolated npm consumers use
+those tarballs, verify package identity, version, integrity and dependency origin,
+and reject workspace symlinks or registry fallback. Strict Bundler/NodeNext type
+checks and runtime imports run with Svelte 5.0.0 and 5.46.0. The same checks repeat
+with a disposable unpublished-version workspace to cover a lockstep release bump
+before any packages exist on npm; the checkout's versions are never changed.
+Run this gate locally with `pnpm exec node scripts/test-svelte-package.mjs`.
+
 All workflow workspace installs use the frozen pnpm lockfile. When editing
 workflows, run `pnpm test:workflows` to check YAML parsing, the job dependency graph,
 exact-SHA checkouts, and the shared verification contract. This command does not
