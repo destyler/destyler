@@ -13,7 +13,7 @@ import {
 import { roundToDpr } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
-import { setInputComposing } from './utils/input-sync'
+import { isInputComposing, setInputComposing } from './utils/input-sync'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const focused = state.hasTag('focus')
@@ -103,6 +103,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     },
 
     getInputProps() {
+      const input = state.event.type === 'INPUT.CHANGE' ? state.event.target as HTMLInputElement | undefined : undefined
+      // A composing input owns its native draft until composition ends, even
+      // when the parent rejects it. Solid applies defaultValue as a live value.
+      const value = input?.isConnected && isInputComposing(input)
+        ? input.value
+        : state.event.type === 'INPUT.CHANGE' ? state.context.value : state.context.formattedValue
+
       return normalize.input({
         ...parts.input.attrs,
         'dir': state.context.dir,
@@ -110,7 +117,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'form': state.context.form,
         'id': dom.getInputId(state.context),
         'role': 'spinbutton',
-        'defaultValue': state.context.formattedValue,
+        'defaultValue': value,
         'pattern': state.context.pattern,
         'inputMode': state.context.inputMode,
         'aria-invalid': ariaAttr(invalid),

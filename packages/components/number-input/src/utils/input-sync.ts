@@ -3,6 +3,10 @@ import { raf } from '@destyler/dom'
 const composing = new WeakSet<HTMLInputElement>()
 const pending = new WeakMap<HTMLInputElement, VoidFunction>()
 
+export function isInputComposing(input: HTMLInputElement) {
+  return composing.has(input)
+}
+
 export function scheduleInputSync(input: HTMLInputElement, sync: VoidFunction) {
   pending.set(input, sync)
   raf(() => {
