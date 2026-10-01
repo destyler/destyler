@@ -18,13 +18,13 @@ If you are unsure whether your idea fits, open a GitHub Discussion or issue befo
 ## Prerequisites
 
 - **Node.js**: v20 or newer is recommended.
-- **pnpm**: `10.18.3` (the workspace is pinned via the `packageManager` field).
+- **pnpm**: `10.26.1` (the workspace is pinned via the `packageManager` field).
 - **Git**: any modern version that supports worktrees.
 
 Install pnpm globally if you have not already:
 
 ```bash
-corepack enable pnpm@10.18.3
+npm install --global pnpm@10.26.1
 ```
 
 ## Repository Overview
@@ -48,7 +48,7 @@ Most commands are orchestrated via root-level pnpm scripts and `--filter` select
    ```
 2. **Install dependencies**
    ```bash
-   pnpm install
+   pnpm install --frozen-lockfile
    ```
 3. **Start developing**
    - Build every package: `pnpm build`
@@ -65,7 +65,7 @@ Use `pnpm --filter "./packages/<name>" <command>` to target a specific package o
 - **Framework-agnostic core**: Machines and shared utilities are the source of truth. Framework adapters should offer equal glue (`useMachine` / `normalizeProps` / `mergeProps`) rather than privileging one UI framework.
 - **Example DOM parity**: Where framework *examples* demonstrate the same primitive, keep DOM structure, class names, and `portalled` behavior consistent across React, Solid, Svelte, Lit, Vanilla, Vue, etc.
 - **Portal**: Vue and Solid use the framework’s native portal/teleport. Other adapters may export Destyler `Portal`. Do not add thin wrappers for Vue/Solid — see [CONTROLLED-API.md](./CONTROLLED-API.md).
-- **Controlled open / value**: Follow the MACHINE-layer conventions in [CONTROLLED-API.md](./CONTROLLED-API.md) (Phase 2 presence + `default*`; `*.controlled` still supported, Phase 3 soft-deprecated). End-user guide: `document/src/content/guide/controllable-state.mdx`.
+- **Controlled open / value**: Follow the MACHINE-layer conventions in [CONTROLLED-API.md](./CONTROLLED-API.md) (Phase 3 HARD: live-prop presence controls ownership; `default*` seeds uncontrolled state; explicit `*.controlled` flags are removed). See the [end-user migration guide](./document/src/content/guide/controllable-state.mdx). Raw machine props and UI wrapper props have different `undefined` normalization rules; follow the contract of the layer you are changing.
 - **Polished component examples**: Vue-as-source-of-truth for polished, product-ready component examples lives in [destyler/ui](https://github.com/destyler/ui), not this core repo.
 - **TypeScript events**: When defining custom event interfaces, prefix them with `Synthetic` to avoid clashing with DOM event names (e.g., `SyntheticClipboardEvent`).
 - **HTML attributes**: Do not redeclare `onChange` in shared `DOMAttributes`. Extend specific element props instead to prevent conflicts.
@@ -80,14 +80,32 @@ Quality gates run in CI. Please run the relevant checks locally before opening a
 ```bash
 pnpm lint
 pnpm test
+pnpm test:types
 pnpm build
+pnpm test:workflows
 ```
 
+- `pnpm test:types` checks the compile-time assertions in `packages/types/test/*.test-d.ts`; runtime tests do not execute these files.
 - Use `pnpm test:dev` for watch mode and `pnpm test:ui` for Vitest UI debugging.
 - For browser-based components, consider `pnpm test:deploy` or `pnpm test:coverage` to ensure no regressions.
 - Add regression tests whenever you fix a bug or introduce a new feature. Cover normal, boundary, and error cases, especially for utilities like color and date libraries.
 - When working on color utilities, follow the testing guidance in `shareds/color` (format conversions, transparency, hue wrapping, etc.).
 - For date utilities, include range boundaries (`minValue`, `maxValue`) and navigation behavior in your tests.
+
+### Release verification
+
+Pull requests and tag releases share the non-publishing build and test action in
+`.github/actions/verify`. Release verification runs against the exact commit that
+triggered the tag push, using the same Node.js matrix as CI, and also requires
+lint on Node.js 24. Publishing packages, generating the GitHub changelog, and
+deploying release sites wait for every verification job to succeed and check out
+that same commit. A failed, skipped, or cancelled verification prevents those
+release jobs from starting.
+
+All workflow workspace installs use the frozen pnpm lockfile. When editing
+workflows, run `pnpm test:workflows` to check YAML parsing, the job dependency graph,
+exact-SHA checkouts, and the shared verification contract. This command does not
+publish packages or deploy sites; browser tests still run separately in CI.
 
 ## Documentation & Typedocs
 

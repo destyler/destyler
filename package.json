@@ -33,6 +33,8 @@
     "test:ui": "vitest --ui --open",
     "test:deploy": "vitest run --reporter=html --browser.headless",
     "test:coverage": "vitest run --coverage",
+    "test:workflows": "node --test scripts/test/workflows.test.mjs",
+    "test:types": "tsc --project tsconfig.type-tests.json",
     "examples script": "Group: Example workspace filters",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
     "vue": "pnpm --filter \"./examples/vue\"",
@@ -113,6 +115,7 @@
     "vite-plugin-solid": "catalog:plugin",
     "vitest": "catalog:test",
     "vitest-axe": "catalog:test",
-    "vue": "catalog:frontend"
+    "vue": "catalog:frontend",
+    "yaml": "catalog:test"
   }
 }

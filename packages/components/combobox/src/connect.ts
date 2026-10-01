@@ -357,7 +357,7 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
       return normalize.element({
         ...parts.list.attrs,
         'role': !composite ? 'listbox' : undefined,
-        'aria-labelledby': dom.getLabelId(state.context),
+        'aria-labelledby': !composite ? dom.getLabelId(state.context) : undefined,
         'aria-multiselectable': state.context.multiple && !composite ? true : undefined,
       })
     },
@@ -461,6 +461,7 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
       const { id } = props
       return normalize.element({
         ...parts.itemGroup.attrs,
+        'role': 'group',
         'dir': state.context.dir,
         'id': dom.getItemGroupId(state.context, id),
         'aria-labelledby': dom.getItemGroupLabelId(state.context, id),
@@ -473,7 +474,6 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
         ...parts.itemGroupLabel.attrs,
         dir: state.context.dir,
         id: dom.getItemGroupLabelId(state.context, htmlFor),
-        role: 'group',
       })
     },
   }

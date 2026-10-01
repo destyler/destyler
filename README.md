@@ -10,6 +10,14 @@
 <a href="https://github.com/destyler/destyler/stargazers" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/destyler/destyler?style=social"></a>
 </p>
 
+## Choose your starting point
+
+- Use [Destyler UI](https://github.com/destyler/ui) for compound components in React, Vue, Solid, or Svelte. Add your own styles.
+- Use this repository for framework-agnostic component state machines, framework adapters, and custom rendering. Start with the [core getting-started guide](https://destyler.org/guide/getting-started).
+- For controlled state and upgrades, read the [machine-layer contract](./CONTROLLED-API.md) and [migration guide](./document/src/content/guide/controllable-state.mdx). UI wrappers document their own normalization and defaults in the [UI state guide](https://github.com/destyler/ui/blob/main/docs/src/content/docs/overview/controllable-state.mdx).
+
+The packages provide interaction and accessibility building blocks. Application-level accessibility still requires testing of the composed UI, content, and styles.
+
 ## Features
 
 - On demand Import - Provide resolver to automatically import only used components.

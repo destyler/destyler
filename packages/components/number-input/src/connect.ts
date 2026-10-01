@@ -13,6 +13,7 @@ import {
 import { roundToDpr } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
+import { isInputComposing, setInputComposing } from './utils/input-sync'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const focused = state.hasTag('focus')
@@ -102,6 +103,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     },
 
     getInputProps() {
+      const input = state.event.type === 'INPUT.CHANGE' ? state.event.target as HTMLInputElement | undefined : undefined
+      // A composing input owns its native draft until composition ends, even
+      // when the parent rejects it. Solid applies defaultValue as a live value.
+      const value = input?.isConnected && isInputComposing(input)
+        ? input.value
+        : state.event.type === 'INPUT.CHANGE' ? state.context.value : state.context.formattedValue
+
       return normalize.input({
         ...parts.input.attrs,
         'dir': state.context.dir,
@@ -109,10 +117,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'form': state.context.form,
         'id': dom.getInputId(state.context),
         'role': 'spinbutton',
-        // Match the machine's input synchronization while a native edit is active.
-        // Solid normalizes defaultValue to a live value, so formatting here
-        // would overwrite the draft before the machine records its cursor.
-        'defaultValue': state.event.type === 'INPUT.CHANGE' ? state.context.value : state.context.formattedValue,
+        'defaultValue': value,
         'pattern': state.context.pattern,
         'inputMode': state.context.inputMode,
         'aria-invalid': ariaAttr(invalid),
@@ -133,10 +138,19 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         onFocus() {
           send('INPUT.FOCUS')
         },
-        onBlur() {
+        onBlur(event) {
           send('INPUT.BLUR')
+          setInputComposing(event.currentTarget, false)
+        },
+        onCompositionStart(event) {
+          setInputComposing(event.currentTarget, true)
+        },
+        onCompositionEnd(event) {
+          setInputComposing(event.currentTarget, false)
         },
         onInput(event) {
+          if (isComposingEvent(event))
+            setInputComposing(event.currentTarget, true)
           send({ type: 'INPUT.CHANGE', target: event.currentTarget, hint: 'set' })
         },
         onBeforeInput(event) {
