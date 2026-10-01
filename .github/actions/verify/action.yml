@@ -1,0 +1,20 @@
+name: Verify packages
+description: Non-publishing checks shared by pull requests and tag releases
+runs:
+  using: composite
+  steps:
+    - name: Check release workflow contracts
+      shell: bash
+      run: pnpm run test:workflows
+
+    - name: Build
+      shell: bash
+      run: pnpm run build
+
+    - name: Test public type contracts
+      shell: bash
+      run: pnpm run test:types
+
+    - name: Test
+      shell: bash
+      run: pnpm run test

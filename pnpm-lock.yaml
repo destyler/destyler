@@ -202,6 +202,9 @@ catalogs:
     vitest-axe:
       specifier: ^0.1.0
       version: 0.1.0
+    yaml:
+      specifier: ^2.8.2
+      version: 2.8.2
   theme:
     '@pagefind/default-ui':
       specifier: ^1.4.0
@@ -427,6 +430,9 @@ importers:
       vue:
         specifier: catalog:frontend
         version: 3.5.26(typescript@5.9.3)
+      yaml:
+        specifier: catalog:test
+        version: 2.8.2
 
   document:
     dependencies:

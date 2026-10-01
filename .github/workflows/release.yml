@@ -10,12 +10,56 @@ on:
       - 'v*'
 
 jobs:
+  verify:
+    runs-on: ubuntu-latest
+    name: 'Verify Release: node-${{ matrix.node }}'
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - name: Checkout release commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        if: matrix.node == 24
+        run: pnpm run lint
+
+      - name: Install Playwright Browsers
+        run: pnpm playwright install --with-deps
+
+      - name: Verify packages
+        uses: ./.github/actions/verify
+
   release:
+    needs: verify
     runs-on: ubuntu-latest
     name: Release Package
     steps:
       - uses: actions/checkout@v6
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
           sparse-checkout-cone-mode: false
           sparse-checkout: |
@@ -32,10 +76,7 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Install Dependencies
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Test public type contracts
-        run: pnpm run test:types
+        run: pnpm install --frozen-lockfile
 
       - name: Upgrade npm
         run: npm i -g npm@latest
@@ -47,11 +88,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   changelog:
+    needs: verify
     runs-on: ubuntu-latest
     name: Generate Changelog
     steps:
       - uses: actions/checkout@v6
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
           sparse-checkout-cone-mode: false
           sparse-checkout: |
@@ -61,17 +104,19 @@ jobs:
       - name: Set node
         uses: actions/setup-node@v6
         with:
-          node-version: latest
+          node-version: 24
 
       - run: npx changelogithub
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   deploy:
+    needs: verify
     runs-on: ubuntu-latest
     name: Deploy Release Page
     steps:
       - uses: actions/checkout@v6
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
           sparse-checkout-cone-mode: false
           sparse-checkout: |
@@ -81,13 +126,13 @@ jobs:
       - name: Set node
         uses: actions/setup-node@v6
         with:
-          node-version: latest
+          node-version: 24
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
       - name: Install Dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Build Packages
         run: pnpm run build
