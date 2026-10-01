@@ -84,6 +84,7 @@ catalogs:
     playwright: ^1.57.0
     vitest: ^4.0.16
     vitest-axe: ^0.1.0
+    yaml: ^2.8.2
   theme:
     '@pagefind/default-ui': ^1.4.0
     starlight-theme-destyler: ^0.1.7
