@@ -320,8 +320,8 @@ export function machine(userContext: UserDefinedContext) {
           if (!indexPath)
             return
           const nodes = ctx.collection.getSiblingNodes(indexPath)
-          const values = nodes.map(node => ctx.collection.getNodeValue(node))
-          set.expanded(ctx, uniq(values))
+          const values = nodes.filter(node => ctx.collection.isBranchNode(node)).map(node => ctx.collection.getNodeValue(node))
+          set.expanded(ctx, uniq([...(ctx.expandedValue ?? []), ...values]))
         },
         extendSelectionToNode(ctx, evt) {
           const anchorValue = first(ctx.selectedValue) || ctx.collection.getNodeValue(ctx.collection.getFirstNode())
