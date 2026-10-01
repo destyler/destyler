@@ -13,6 +13,7 @@ import {
 import { roundToDpr } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
+import { setInputComposing } from './utils/input-sync'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const focused = state.hasTag('focus')
@@ -130,10 +131,19 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         onFocus() {
           send('INPUT.FOCUS')
         },
-        onBlur() {
+        onBlur(event) {
           send('INPUT.BLUR')
+          setInputComposing(event.currentTarget, false)
+        },
+        onCompositionStart(event) {
+          setInputComposing(event.currentTarget, true)
+        },
+        onCompositionEnd(event) {
+          setInputComposing(event.currentTarget, false)
         },
         onInput(event) {
+          if (isComposingEvent(event))
+            setInputComposing(event.currentTarget, true)
           send({ type: 'INPUT.CHANGE', target: event.currentTarget, hint: 'set' })
         },
         onBeforeInput(event) {

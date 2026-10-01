@@ -134,14 +134,14 @@ export class Machine<
 
   // Starts the interpreted machine.
   public start = (init?: StateInit<TContext, TState>) => {
-    // reset state back to empty (for SSR, we had to set state.value to initial value)
-    this.state.value = ''
-    this.state.tags = []
-
     // Don't start if it's already running
     if (this.status === MachineStatus.Running) {
       return this
     }
+
+    // reset state back to empty (for SSR, we had to set state.value to initial value)
+    this.state.value = ''
+    this.state.tags = []
 
     this.status = MachineStatus.Running
 
@@ -791,15 +791,17 @@ export class Machine<
   }
 
   public transition = (state: TState['value'] | StateInfo<TContext, TState, TEvent> | null, evt: Event<TEvent>) => {
+    if (this.status === MachineStatus.Stopped) {
+      console.warn('[@destyler/xstate > transition] Cannot transition a stopped machine')
+      return
+    }
+
     const stateNode = isString(state) ? this.getStateNode(state) : state?.stateNode
 
     const event = toEvent(evt)
 
     if (!stateNode && !this.config.on) {
-      const msg
-        = this.status === MachineStatus.Stopped
-          ? '[@destyler/xstate > transition] Cannot transition a stopped machine'
-          : `[destyler/xstate > transition] State does not have a definition for \`state\`: ${state}, \`event\`: ${event.type}`
+      const msg = `[destyler/xstate > transition] State does not have a definition for \`state\`: ${state}, \`event\`: ${event.type}`
       console.warn(msg)
       return
     }

@@ -165,6 +165,8 @@ const [state, send] = useMachine(
 
 Number input value can be **uncontrolled** or **controlled**. Prefer `defaultValue` for an uncontrolled seed. Passing `value` into `machine(...)` is presence-controlled — sync with `onValueChange` and adapter `context`. See [Controllable State](/guide/controllable-state).
 
+Native text edits also request a value change. If the parent keeps its current value, the input text is reconciled with that value on the next animation frame, after queued parent updates can run. Correction of a rejected edit waits until composition ends (or the input blurs) while an IME is active. A later asynchronous parent update still applies normally. Sync accepted drafts promptly when you want uninterrupted typing.
+
 ```ts
 numberInput.machine({
   id: "1",

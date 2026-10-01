@@ -152,6 +152,19 @@ export function machine(userContext: UserDefinedContext) {
           on: {
             'CONTROLLED.CLOSE': 'closed',
             'CONTROLLED.OPEN': 'open',
+            'OPEN': 'open',
+            'CLOSE': [
+              {
+                guard: 'isOpenControlled',
+                // Cancel the close timer while the parent owns visibility.
+                target: 'open',
+                actions: ['invokeOnClose'],
+              },
+              {
+                target: 'closed',
+                actions: ['invokeOnClose'],
+              },
+            ],
             'POINTER_ENTER': {
               target: 'open',
               // no need to invokeOnOpen here because it's still open (but about to close)
