@@ -12,7 +12,33 @@ function parseMs(value: string | undefined) {
 // Extra frame margin to account for event loop slowdowns
 const ANIMATION_TIMEOUT_MARGIN = 16.667
 
+// Microtasks cannot be unscheduled, so guard them as well as cancelling frames.
+function defer(immediate: boolean | undefined, callback: () => void) {
+  let active = true
+  let frame: number | undefined
+  const run = () => {
+    if (!active)
+      return
+    active = false
+    callback()
+  }
+  if (immediate)
+    queueMicrotask(run)
+  else
+    frame = requestAnimationFrame(run)
+
+  return () => {
+    if (!active)
+      return
+    active = false
+    if (frame !== undefined)
+      cancelAnimationFrame(frame)
+  }
+}
+
 export function machine(ctx: Partial<UserDefinedContext>) {
+  let cancelMount: (() => void) | undefined
+  let cancelUnmount: (() => void) | undefined
   return createMachine<MachineContext, MachineState>(
     {
       initial: ctx.present ? 'mounted' : 'unmounted',
@@ -27,7 +53,7 @@ export function machine(ctx: Partial<UserDefinedContext>) {
         ...ctx,
       },
 
-      exit: ['clearInitial', 'cleanupNode'],
+      exit: ['cancelPendingTasks', 'clearInitial', 'cleanupNode'],
 
       watch: {
         present: ['setInitial', 'syncPresence'],
@@ -42,6 +68,7 @@ export function machine(ctx: Partial<UserDefinedContext>) {
       states: {
         mounted: {
           on: {
+            'MOUNT': { actions: ['setPrevAnimationName'] },
             'UNMOUNT': {
               target: 'unmounted',
               actions: ['invokeOnExitComplete'],
@@ -71,7 +98,7 @@ export function machine(ctx: Partial<UserDefinedContext>) {
           },
         },
         unmounted: {
-          entry: ['clearPrevAnimationName'],
+          entry: ['cancelPendingTasks', 'clearPrevAnimationName'],
           on: {
             MOUNT: {
               target: 'mounted',
@@ -88,6 +115,10 @@ export function machine(ctx: Partial<UserDefinedContext>) {
         },
       },
       actions: {
+        cancelPendingTasks() {
+          cancelMount?.()
+          cancelUnmount?.()
+        },
         setInitial(ctx) {
           ctx.initial = true
         },
@@ -109,20 +140,23 @@ export function machine(ctx: Partial<UserDefinedContext>) {
           ctx.styles = ref(win.getComputedStyle(evt.node))
         },
         syncPresence(ctx, _evt, { send }) {
+          cancelUnmount?.()
           if (ctx.present) {
             send({ type: 'MOUNT', src: 'presence.changed' })
             return
           }
 
-          if (!ctx.present && ctx.node?.ownerDocument.visibilityState === 'hidden') {
+          // A mount callback must not sample styles from the following exit.
+          cancelMount?.()
+          if (ctx.node?.ownerDocument.visibilityState === 'hidden') {
             send({ type: 'UNMOUNT', src: 'visibilitychange' })
             return
           }
 
           const animationName = getAnimationName(ctx.styles)
-          const exec = ctx.immediate ? queueMicrotask : requestAnimationFrame
-
-          exec(() => {
+          cancelUnmount = defer(ctx.immediate, () => {
+            if (ctx.present)
+              return
             ctx.unmountAnimationName = animationName
             if (
               animationName === 'none'
@@ -138,9 +172,12 @@ export function machine(ctx: Partial<UserDefinedContext>) {
           })
         },
         setPrevAnimationName(ctx) {
-          const exec = ctx.immediate ? queueMicrotask : requestAnimationFrame
-          exec(() => {
-            ctx.prevAnimationName = getAnimationName(ctx.styles)
+          cancelMount?.()
+          // A new mount must not inherit an animation sampled during the previous exit.
+          ctx.prevAnimationName = null
+          cancelMount = defer(ctx.immediate, () => {
+            if (ctx.present)
+              ctx.prevAnimationName = getAnimationName(ctx.styles)
           })
         },
         clearPrevAnimationName(ctx) {

@@ -245,3 +245,232 @@ describe('presence exit animation paths', () => {
     expect(onExitComplete).toHaveBeenCalledTimes(1)
   })
 })
+
+// Control only presence's scheduler. Context watchers still run on real microtasks.
+function controlPresenceTasks(immediate: boolean) {
+  const tasks = new Map<number, () => void>()
+  let nextId = 0
+  const schedule = (callback: () => void) => {
+    tasks.set(++nextId, callback)
+    return nextId
+  }
+  if (immediate) {
+    vi.stubGlobal('queueMicrotask', schedule)
+  }
+  else {
+    vi.stubGlobal('requestAnimationFrame', schedule)
+    vi.stubGlobal('cancelAnimationFrame', (id: number) => tasks.delete(id))
+  }
+  return () => {
+    const callbacks = [...tasks.values()]
+    tasks.clear()
+    callbacks.forEach(callback => callback())
+  }
+}
+
+describe.each([false, true])('presence deferred tasks (immediate=%s)', (immediate) => {
+  const services: ReturnType<typeof machine>[] = []
+
+  function setup() {
+    const flush = controlPresenceTasks(immediate)
+    const onExitComplete = vi.fn()
+    const service = createPresence({ present: false, immediate, onExitComplete })
+    services.push(service)
+    const animated = createAnimatedNode({ animationName: 'enter', animationDuration: '60s' })
+    apiOf(service).setNode(animated.node)
+    return { service, flush, onExitComplete, ...animated }
+  }
+
+  afterEach(() => {
+    services.splice(0).forEach(service => service.stop())
+    vi.unstubAllGlobals()
+  })
+
+  it('retains the exit animation when closed before the mount callback', async () => {
+    const { service, flush, onExitComplete, liveStyles, dispatch } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+
+    liveStyles.animationName = 'exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    flush()
+
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+    expect(service.getState().context.unmountAnimationName).toBe('exit')
+    expect(onExitComplete).not.toHaveBeenCalled()
+
+    dispatch('animationend')
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('still unmounts when the recorded animation has not changed', async () => {
+    const { service, flush, onExitComplete } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    flush()
+    expect(service.getState().context.prevAnimationName).toBe('enter')
+
+    service.setContext({ present: false })
+    await Promise.resolve()
+    flush()
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('unmounts without waiting for an animation in a hidden document', async () => {
+    const { service, flush, onExitComplete, liveStyles, node } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    flush()
+    liveStyles.animationName = 'exit'
+    Object.defineProperty(node.ownerDocument, 'visibilityState', { value: 'hidden' })
+    service.setContext({ present: false })
+    await Promise.resolve()
+
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledOnce()
+    flush()
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('ignores a pending exit after reopening', async () => {
+    const { service, flush, onExitComplete, liveStyles } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    flush()
+    liveStyles.animationName = 'exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    service.setContext({ present: true })
+    liveStyles.animationName = 'enter'
+    await Promise.resolve()
+    flush()
+
+    expect(service.getState().matches('mounted')).toBe(true)
+    expect(service.getState().context.unmountAnimationName).toBeNull()
+    expect(onExitComplete).not.toHaveBeenCalled()
+  })
+
+  it('records the enter animation after reopening before the first mount callback', async () => {
+    const { service, flush, onExitComplete, liveStyles } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    liveStyles.animationName = 'exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    liveStyles.animationName = 'enter'
+    service.setContext({ present: true })
+    await Promise.resolve()
+    flush()
+
+    expect(service.getState().context.prevAnimationName).toBe('enter')
+    // Keeping the enter animation on close must not be mistaken for a new exit animation.
+    service.setContext({ present: false })
+    await Promise.resolve()
+    flush()
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('uses only the latest exit after close, reopen, and close', async () => {
+    const { service, flush, onExitComplete, liveStyles, dispatch } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    flush()
+    liveStyles.animationName = 'first-exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    liveStyles.animationName = 'enter'
+    service.setContext({ present: true })
+    await Promise.resolve()
+    liveStyles.animationName = 'second-exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    flush()
+
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+    expect(service.getState().context.unmountAnimationName).toBe('second-exit')
+    expect(onExitComplete).not.toHaveBeenCalled()
+    dispatch('animationend')
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('does not reuse the previous exit animation after reopening and closing again', async () => {
+    const { service, flush, onExitComplete, liveStyles, dispatch } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    flush()
+    liveStyles.animationName = 'exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    flush()
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+    dispatch('animationstart')
+    expect(service.getState().context.prevAnimationName).toBe('exit')
+
+    liveStyles.animationName = 'enter'
+    service.setContext({ present: true })
+    await Promise.resolve()
+    liveStyles.animationName = 'exit'
+    service.setContext({ present: false })
+    await Promise.resolve()
+    flush()
+
+    expect(service.getState().matches('unmountSuspended')).toBe(true)
+    expect(onExitComplete).not.toHaveBeenCalled()
+    dispatch('animationend')
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('does not record a stale mount animation after a forced unmount', async () => {
+    const { service, flush } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    apiOf(service).unmount()
+    flush()
+
+    expect(service.getState().matches('unmounted')).toBe(true)
+    expect(service.getState().context.prevAnimationName).toBeNull()
+  })
+
+  it.each(['mount', 'exit'])('discards a pending %s callback after stop', async (pending) => {
+    const { service, flush, onExitComplete, liveStyles } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    if (pending === 'exit') {
+      flush()
+      liveStyles.animationName = 'exit'
+      service.setContext({ present: false })
+      await Promise.resolve()
+    }
+    service.stop()
+    const stoppedContext = service.getState().context
+    flush()
+    expect(service.getState().context).toEqual(stoppedContext)
+    expect(onExitComplete).not.toHaveBeenCalled()
+  })
+
+  it.each(['mount', 'exit'])('does not run an old %s callback in a restarted machine', async (pending) => {
+    const { service, flush, onExitComplete, liveStyles, node } = setup()
+    service.setContext({ present: true })
+    await Promise.resolve()
+    if (pending === 'exit') {
+      flush()
+      liveStyles.animationName = 'exit'
+      service.setContext({ present: false })
+      await Promise.resolve()
+    }
+    service.stop()
+    service.setContext({ present: true })
+    service.start({ value: 'mounted' })
+    apiOf(service).setNode(node)
+    liveStyles.animationName = 'restarted-enter'
+    const restartedContext = service.getState().context
+    flush()
+    expect(service.getState().matches('mounted')).toBe(true)
+    expect(service.getState().context).toEqual(restartedContext)
+    expect(onExitComplete).not.toHaveBeenCalled()
+  })
+})
