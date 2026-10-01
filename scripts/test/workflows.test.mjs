@@ -106,6 +106,7 @@ test('pull requests exercise the same non-publishing build and tests as releases
   assert.deepEqual(verification.runs.steps.map(step => step.run), [
     'pnpm run test:workflows',
     'pnpm run build',
+    'pnpm run test:types',
     'pnpm run test',
   ])
   for (const step of verification.runs.steps) {

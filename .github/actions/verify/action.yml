@@ -11,6 +11,10 @@ runs:
       shell: bash
       run: pnpm run build
 
+    - name: Test public type contracts
+      shell: bash
+      run: pnpm run test:types
+
     - name: Test
       shell: bash
       run: pnpm run test
