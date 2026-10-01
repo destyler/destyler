@@ -15,6 +15,10 @@ runs:
       shell: bash
       run: pnpm run test:types
 
+    - name: Check packed Svelte adapter
+      shell: bash
+      run: pnpm exec node scripts/test-svelte-package.mjs
+
     - name: Test
       shell: bash
       run: pnpm run test

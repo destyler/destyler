@@ -1,6 +1,6 @@
 import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyler/xstate'
 import { onDestroy } from 'svelte'
-import { reflect } from '../utils/reflect'
+import { reflect } from '../utils/reflect.js'
 
 export function useSnapshot<
   TContext extends Record<string, any>,

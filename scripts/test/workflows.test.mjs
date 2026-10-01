@@ -107,6 +107,7 @@ test('pull requests exercise the same non-publishing build and tests as releases
     'pnpm run test:workflows',
     'pnpm run build',
     'pnpm run test:types',
+    'pnpm exec node scripts/test-svelte-package.mjs',
     'pnpm run test',
   ])
   for (const step of verification.runs.steps) {
