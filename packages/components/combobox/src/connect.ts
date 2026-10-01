@@ -357,7 +357,7 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
       return normalize.element({
         ...parts.list.attrs,
         'role': !composite ? 'listbox' : undefined,
-        'aria-labelledby': dom.getLabelId(state.context),
+        'aria-labelledby': !composite ? dom.getLabelId(state.context) : undefined,
         'aria-multiselectable': state.context.multiple && !composite ? true : undefined,
       })
     },
