@@ -34,6 +34,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Test public type contracts
+        run: pnpm run test:types
+
       - name: Upgrade npm
         run: npm i -g npm@latest
         env:

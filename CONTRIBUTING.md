@@ -80,9 +80,11 @@ Quality gates run in CI. Please run the relevant checks locally before opening a
 ```bash
 pnpm lint
 pnpm test
+pnpm test:types
 pnpm build
 ```
 
+- `pnpm test:types` checks the compile-time assertions in `packages/types/test/*.test-d.ts`; runtime tests do not execute these files.
 - Use `pnpm test:dev` for watch mode and `pnpm test:ui` for Vitest UI debugging.
 - For browser-based components, consider `pnpm test:deploy` or `pnpm test:coverage` to ensure no regressions.
 - Add regression tests whenever you fix a bug or introduce a new feature. Cover normal, boundary, and error cases, especially for utilities like color and date libraries.
