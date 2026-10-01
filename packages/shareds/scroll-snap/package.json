@@ -1,7 +1,7 @@
 {
   "name": "@destyler/scroll-snap",
   "type": "module",
-  "version": "0.2.7",
+  "version": "0.2.8",
 
   "description": "Scroll snap util",
   "author": "Elone Hoo <elonehoo@gmail.com>",
