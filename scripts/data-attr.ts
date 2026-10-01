@@ -284,7 +284,7 @@ async function main() {
   })
 
   const outPath = join(process.cwd(), 'packages', 'docs', 'data', 'data-attr.json')
-  writeFileSync(outPath, JSON.stringify(json, null, 2))
+  writeFileSync(outPath, `${JSON.stringify(json, null, 2)}\n`)
 }
 
 main()
