@@ -80,7 +80,7 @@ export function machine(userContext: UserDefinedContext) {
       },
       actions: {
         addPoint(ctx, evt) {
-          ctx.currentPoints.push(evt.point)
+          ctx.currentPoints.push({ ...evt.point, pressure: evt.pressure })
           const stroke = getStroke(ctx.currentPoints, ctx.drawing)
           ctx.currentPath = getSvgPathFromStroke(stroke)
         },
