@@ -9,8 +9,6 @@ const { not } = guards
 
 const invoke = {
   change: (ctx: MachineContext, value: string | null) => {
-    if (value == null)
-      return
     ctx.onValueChange?.({ value })
   },
   focusChange: (ctx: MachineContext) => {
