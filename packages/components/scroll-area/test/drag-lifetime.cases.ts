@@ -94,15 +94,19 @@ describe('scroll-area drag ownership probes', () => {
   })
 
   it('removes the drag pointer listeners when the service stops', () => {
-    const { service, down, registrations } = dragFixture()
-    const remove = vi.spyOn(document, 'removeEventListener')
+    const { service, down, thumb, registrations } = dragFixture()
+    const removals = [
+      { target: document, spy: vi.spyOn(document, 'removeEventListener') },
+      { target: thumb, spy: vi.spyOn(thumb, 'removeEventListener') },
+    ]
     service.send('POINTER_ENTER')
     down()
     expect(registrations.length).toBeGreaterThanOrEqual(2)
     service.stop()
     for (const { target, type, listener, options } of registrations) {
-      if (target === document)
-        expect(remove.mock.calls.some(([removedType, removedListener, removedOptions]) => removedType === type && removedListener === listener && removedOptions === options)).toBe(true)
+      const removal = removals.find(item => item.target === target)?.spy
+      expect(removal).toBeDefined()
+      expect(removal!.mock.calls.some(([removedType, removedListener, removedOptions]) => removedType === type && removedListener === listener && removedOptions === options)).toBe(true)
     }
   })
 
@@ -185,16 +189,19 @@ describe('scroll-area drag ownership probes', () => {
   })
 
   it('preserves the pre-transition state if the browser rejects pointer capture', () => {
-    const { service, thumb, api, capture, registrations } = dragFixture()
+    const { service, thumb, api, capture } = dragFixture()
     service.send('POINTER_ENTER')
     capture.mockImplementationOnce(() => {
       throw new DOMException('Pointer is no longer active', 'NotFoundError')
     })
+    const documentAdd = vi.spyOn(document, 'addEventListener')
+    const thumbAdd = vi.spyOn(thumb, 'addEventListener')
     const handler = api().getThumbProps({ orientation: 'vertical' }).onPointerDown!
     expect(() => handler({ currentTarget: thumb, pointerId: 1, preventDefault() {}, stopPropagation() {} } as any)).toThrow('Pointer is no longer active')
     expect(service.getState().value).toBe('hovering')
     expect(service.getState().context.isDragging).toBe(false)
-    expect(registrations).toEqual([])
+    expect(documentAdd).not.toHaveBeenCalled()
+    expect(thumbAdd).not.toHaveBeenCalled()
   })
 
   it('ends the session if pointer capture is lost', () => {
@@ -243,7 +250,7 @@ describe('scroll-area drag ownership probes', () => {
   })
 
   it('old pointer events cannot control a restarted service', () => {
-    const { service, down, owner, viewport } = dragFixture()
+    const { service, down, owner, viewport, thumb } = dragFixture()
     service.send('POINTER_ENTER')
     down(1)
     service.stop()
@@ -251,6 +258,8 @@ describe('scroll-area drag ownership probes', () => {
     service.send({ type: 'RESIZE', viewportHeight: 100, viewportWidth: 100, contentHeight: 1000, contentWidth: 1000 })
     service.send('POINTER_ENTER')
     down(2)
+    thumb.dispatchEvent(new PointerEvent('lostpointercapture', { pointerId: 1, bubbles: true }))
+    expect(service.getState().value).toBe('dragging')
     owner.dispatchEvent(new PointerEvent('pointermove', { pointerId: 1, clientY: 10 }))
     expect(viewport.scrollTop).toBe(0)
     owner.dispatchEvent(new PointerEvent('pointerup', { pointerId: 1 }))
