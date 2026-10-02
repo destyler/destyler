@@ -9,18 +9,23 @@ export function getWindowFrames(win: Window) {
     },
 
     addEventListener(event: string, listener: any, options?: any) {
+      const cleanups: VoidFunction[] = []
       frames.each((frame) => {
         try {
-          frame.document.addEventListener(event, listener, options)
+          const doc = frame.document
+          doc.addEventListener(event, listener, options)
+          cleanups.push(() => doc.removeEventListener(event, listener, options))
         }
         catch {}
       })
 
       return () => {
-        try {
-          frames.removeEventListener(event, listener, options)
-        }
-        catch {}
+        cleanups.splice(0).forEach((cleanup) => {
+          try {
+            cleanup()
+          }
+          catch {}
+        })
       }
     },
 
