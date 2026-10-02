@@ -192,7 +192,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               if (node.matches('[data-disabled]'))
                 return
 
-              if (isTypingAhead) {
+              if (state.context.typeahead && isTypingAhead) {
+                event.preventDefault()
                 send({ type: 'TREE.TYPEAHEAD', key: event.key })
               }
               else {

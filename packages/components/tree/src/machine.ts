@@ -90,13 +90,14 @@ export function machine(userContext: UserDefinedContext) {
         typeahead: true,
         ...ctx,
         collection: ctx.collection ?? collection.empty(),
-        typeaheadState: getByTypeahead.defaultOptions,
+        typeaheadState: { ...getByTypeahead.defaultOptions },
         // Resolve after spread so default* / legacy seeds win consistently
         expandedValue: Array.from(initialExpandedValue),
         selectedValue: Array.from(initialSelectedValue),
       },
 
       computed: {
+        isTypingAhead: ctx => ctx.typeaheadState.keysSoFar.length > 0,
         isMultipleSelection: ctx => ctx.selectionMode === 'multiple',
       },
 
