@@ -291,8 +291,10 @@ export class ListCollection<T extends CollectionItem = CollectionItem> {
       return
     if (fromIndex === toIndex)
       return
-    const [removed] = this.items.splice(fromIndex, 1)
-    this.items.splice(toIndex, 0, removed)
+    const removed = this.items.splice(fromIndex, 1)
+    if (removed.length === 0)
+      return
+    this.items.splice(toIndex, 0, removed[0])
   }
 
   json() {
