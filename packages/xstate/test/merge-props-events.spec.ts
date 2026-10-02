@@ -49,6 +49,23 @@ describe('mergeProps event receiver', () => {
     expect(next.onRequest).toBe(second)
   })
 
+  it.each(['own apply property', 'null prototype'])('invokes frozen callable handlers with %s directly', (shape) => {
+    const calls: string[] = []
+    const handler = function () {
+      calls.push('consumer')
+    }
+    if (shape === 'own apply property')
+      Object.defineProperty(handler, 'apply', { value: 'metadata', enumerable: true })
+    else
+      Object.setPrototypeOf(handler, null)
+    Object.freeze(handler)
+    const merged = mergeProps({ onClick: () => calls.push('internal') }, { onClick: handler })
+
+    merged.onClick()
+    expect(calls).toEqual(['consumer', 'internal'])
+    expect(Object.isFrozen(handler)).toBe(true)
+  })
+
   it('passes defaultPrevented through without imposing a new cancellation policy', () => {
     const calls: string[] = []
     const event = new Event('request', { cancelable: true })

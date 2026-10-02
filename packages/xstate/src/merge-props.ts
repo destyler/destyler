@@ -2,7 +2,7 @@ import { isString } from '@destyler/utils'
 
 function composeEventHandlers(...handlers: ((...args: any[]) => void)[]) {
   return function (this: unknown, ...args: any[]) {
-    handlers.forEach(handler => handler.apply(this, args))
+    handlers.forEach(handler => Reflect.apply(handler, this, args))
   }
 }
 
