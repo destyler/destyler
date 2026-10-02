@@ -14,7 +14,7 @@ it('renders, updates, and hydrates supported enumerated attributes using the act
   try {
     for (const mode of ['server', 'client']) {
       const conditions = mode === 'client' ? ['--conditions=browser'] : []
-      const { stdout } = await run(process.execPath, [...conditions, '--test', fixture], {
+      const { stdout } = await run(process.execPath, [...conditions, '--test', '--test-reporter=tap', fixture], {
         timeout: 20000,
         env: { ...process.env, AUDIT_ENUM_MODE: mode, AUDIT_ENUM_HYDRATION_FILE: join(directory, 'hydration.json') },
       })
