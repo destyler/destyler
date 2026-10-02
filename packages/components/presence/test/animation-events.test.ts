@@ -27,8 +27,9 @@ describe('presence animation event identity', () => {
       },
     } as unknown as HTMLElement
     const onExitComplete = vi.fn()
-    const service = machine({ present: true, immediate: true, onExitComplete }).start()
+    const service = machine({ present: true, immediate: true, onExitComplete })
     services.push(service)
+    service.start()
     const api = () => connect(service.getState(), service.send, null as any)
     api().setNode(node)
     const flush = async () => {
@@ -173,6 +174,7 @@ describe('presence animation event identity', () => {
     ['"exit part"', 'exit part'],
     ['"none"', 'none'],
     ['pr\u00E9sence', 'pr\u00E9sence'],
+    ['presence\u00A0exit', 'presence\u00A0exit'],
     ['"presence\\"exit"', 'presence"exit'],
     ['"presence\\\\exit"', 'presence\\exit'],
     ['presence\\ ', 'presence '],

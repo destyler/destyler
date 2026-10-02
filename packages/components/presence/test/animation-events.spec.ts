@@ -20,17 +20,18 @@ describe('presence native animation identity', () => {
     const node = document.createElement('div')
     node.textContent = 'Presence animation target'
     node.style.animation = 'presence-enter 60s linear'
-    document.head.append(style)
-    document.body.append(node)
-    const onExitComplete = vi.fn()
-    const service = machine({ present: true, immediate: true, onExitComplete }).start()
-    const api = () => connect(service.getState(), service.send, null as any)
-    api().setNode(node)
     cleanups.push(() => {
-      service.stop()
       node.remove()
       style.remove()
     })
+    document.head.append(style)
+    document.body.append(node)
+    const onExitComplete = vi.fn()
+    const service = machine({ present: true, immediate: true, onExitComplete })
+    cleanups.push(() => service.stop())
+    service.start()
+    const api = () => connect(service.getState(), service.send, null as any)
+    api().setNode(node)
     const events: AnimationEvent[] = []
     for (const type of ['animationstart', 'animationend', 'animationcancel'] as const) {
       const listener = (event: AnimationEvent) => events.push(event)
@@ -116,38 +117,14 @@ describe('presence native animation identity', () => {
   })
 
   it.each([
-    [
-      '"presence,exit"',
-      'presence,exit',
-    ],
-    [
-      'presence\\2c exit',
-      'presence,exit',
-    ],
-    [
-      'presence\\ exit',
-      'presence exit',
-    ],
-    [
-      '"none"',
-      'none',
-    ],
-    [
-      'pr\u00E9sence',
-      'pr\u00E9sence',
-    ],
-    [
-      '"presence\\"exit"',
-      'presence"exit',
-    ],
-    [
-      '"presence\\\\exit"',
-      'presence\\exit',
-    ],
-    [
-      'presence\\ ',
-      'presence ',
-    ],
+    ['presence\\,exit', 'presence,exit'],
+    ['presence\\2c exit', 'presence,exit'],
+    ['presence\\ exit', 'presence exit'],
+    ['pr\u00E9sence', 'pr\u00E9sence'],
+    ['presence\u00A0exit', 'presence\u00A0exit'],
+    ['presence\\"exit', 'presence"exit'],
+    ['presence\\\\exit', 'presence\\exit'],
+    ['presence\\ ', 'presence '],
   ])('completes the native CSS animation serialized as %s', async (serializedName, name) => {
     const { node, service, onExitComplete, close, waitForEvent } = setup()
     await waitForEvent('animationstart', 'presence-enter')
@@ -155,8 +132,8 @@ describe('presence native animation identity', () => {
     await waitForEvent('animationend', 'presence-enter')
     const style = document.createElement('style')
     style.textContent = `@keyframes ${serializedName} { from { opacity: 1 } to { opacity: 0.9 } }`
-    document.head.append(style)
     cleanups.push(() => style.remove())
+    document.head.append(style)
     await close(serializedName)
     const started = await waitForEvent('animationstart', name)
     expect(started.isTrusted).toBe(true)
