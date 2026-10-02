@@ -1,9 +1,9 @@
-import type { PropTypes } from '../../../types/index'
+import type { PropTypes } from '../types/index'
 import { expect, it, vi } from 'vitest'
-import { connect } from '../../../components/tabs/src/connect'
-import { machine } from '../../../components/tabs/src/machine'
-import { createNormalizer } from '../../../types/index'
-import { createMachine } from '../../../xstate/index'
+import { connect } from '../components/tabs/src/connect'
+import { machine } from '../components/tabs/src/machine'
+import { createNormalizer } from '../types/index'
+import { createMachine } from '../xstate/index'
 
 it('stopping actual Tabs inside a rectangle notification does not leave an endless global loop', () => {
   const frames = new Map<number, FrameRequestCallback>()
