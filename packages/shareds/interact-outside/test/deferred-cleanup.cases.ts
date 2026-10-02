@@ -43,9 +43,17 @@ function setup(defer = true) {
 }
 
 function fireOutside(target: HTMLElement, type: 'focus' | 'pointer') {
+  const rect = target.getBoundingClientRect()
   const event = type === 'focus'
     ? new FocusEvent('focusin', { bubbles: true })
-    : new PointerEvent('pointerdown', { bubbles: true, pointerType: 'mouse', clientX: 0, clientY: 0 })
+    : new PointerEvent('pointerdown', {
+        bubbles: true,
+        pointerType: 'mouse',
+        // CSS resets can place the protected node at (0, 0). Use the actual
+        // outside target's center so the browser exercises an outside gesture.
+        clientX: rect.left + rect.width / 2,
+        clientY: rect.top + rect.height / 2,
+      })
   target.dispatchEvent(event)
 }
 
