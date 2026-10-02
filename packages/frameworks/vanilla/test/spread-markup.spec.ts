@@ -12,7 +12,7 @@ describe('vanilla spread markup values', () => {
 
   it('keeps quoted style values inside their attribute', () => {
     const root = document.createElement('div')
-    const style = { fontFamily: '"Open Sans", sans-serif', content: '"hello & goodbye"', '--encoded': '&quot;' }
+    const style = { 'fontFamily': '"Open Sans", sans-serif', 'content': '"hello & goodbye"', '--encoded': '&quot;' }
     root.innerHTML = `<span ${spread({ style })}></span>`
     expect(root.firstElementChild?.getAttribute('style')).toBe(toStyleString(style))
     expect(root.firstElementChild?.attributes.length).toBe(1)
