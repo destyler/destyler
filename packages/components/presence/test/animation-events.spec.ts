@@ -18,6 +18,7 @@ describe('presence native animation identity', () => {
       @keyframes presence-second-exit { from { opacity: 1 } to { opacity: 0.7 } }
     `
     const node = document.createElement('div')
+    node.textContent = 'Presence animation target'
     node.style.animation = 'presence-enter 60s linear'
     document.head.append(style)
     document.body.append(node)
@@ -31,7 +32,7 @@ describe('presence native animation identity', () => {
       style.remove()
     })
     const events: AnimationEvent[] = []
-    for (const type of ['animationstart', 'animationend', 'animationcancel']) {
+    for (const type of ['animationstart', 'animationend', 'animationcancel'] as const) {
       const listener = (event: AnimationEvent) => events.push(event)
       node.addEventListener(type, listener)
       cleanups.push(() => node.removeEventListener(type, listener))
@@ -40,12 +41,18 @@ describe('presence native animation identity', () => {
       await expect.poll(() => events.some(event => event.type === type && event.animationName === name)).toBe(true)
       return events.find(event => event.type === type && event.animationName === name)!
     }
-    const close = async (name = 'presence-exit') => {
+    const close = async (name = 'presence-exit', native = true) => {
       node.style.animationName = name
       service.setContext({ present: false })
       await Promise.resolve()
       await Promise.resolve()
       expect(service.state.value).toBe('unmountSuspended')
+      // Force CSS animation resolution, then wait for its real playback timeline.
+      if (native) {
+        const animations = node.getAnimations()
+        expect(animations).toHaveLength(1)
+        await animations[0].ready
+      }
     }
     return { node, service, api, onExitComplete, events, close, waitForEvent }
   }
@@ -108,10 +115,78 @@ describe('presence native animation identity', () => {
     expect(onExitComplete).toHaveBeenCalledOnce()
   })
 
+  it.each([
+    [
+      '"presence,exit"',
+      'presence,exit',
+    ],
+    [
+      'presence\\2c exit',
+      'presence,exit',
+    ],
+    [
+      'presence\\ exit',
+      'presence exit',
+    ],
+    [
+      '"none"',
+      'none',
+    ],
+    [
+      'pr\u00E9sence',
+      'pr\u00E9sence',
+    ],
+    [
+      '"presence\\"exit"',
+      'presence"exit',
+    ],
+    [
+      '"presence\\\\exit"',
+      'presence\\exit',
+    ],
+    [
+      'presence\\ ',
+      'presence ',
+    ],
+  ])('completes the native CSS animation serialized as %s', async (serializedName, name) => {
+    const { node, service, onExitComplete, close, waitForEvent } = setup()
+    await waitForEvent('animationstart', 'presence-enter')
+    node.getAnimations()[0].finish()
+    await waitForEvent('animationend', 'presence-enter')
+    const style = document.createElement('style')
+    style.textContent = `@keyframes ${serializedName} { from { opacity: 1 } to { opacity: 0.9 } }`
+    document.head.append(style)
+    cleanups.push(() => style.remove())
+    await close(serializedName)
+    const started = await waitForEvent('animationstart', name)
+    expect(started.isTrusted).toBe(true)
+    expect((node.getAnimations()[0] as CSSAnimation).animationName).toBe(name)
+    expect(getComputedStyle(node).animationName).not.toBe('none')
+    expect(service.state.value).toBe('unmountSuspended')
+    expect(onExitComplete).not.toHaveBeenCalled()
+    node.getAnimations()[0].finish()
+    expect((await waitForEvent('animationend', name)).isTrusted).toBe(true)
+    expect(service.state.value).toBe('unmounted')
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it.each([
+    ['animationend', 'generic'],
+    ['animationcancel', 'generic'],
+    ['animationend', 'empty-name'],
+    ['animationcancel', 'empty-name'],
+  ])('preserves %s %s manual DOM controls', async (type, kind) => {
+    const { node, service, onExitComplete, close } = setup()
+    await close('presence-exit', false)
+    node.dispatchEvent(kind === 'generic' ? new Event(type) : new AnimationEvent(type))
+    expect(service.state.value).toBe('unmounted')
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
   it.each(['animationend', 'animationcancel'])('ignores matching %s from actual light/shadow descendants', async (type) => {
     const { node, service, onExitComplete, close } = setup()
     // These events intentionally exercise DOM delivery, not native CSS scheduling.
-    await close()
+    await close('presence-exit', false)
     const child = document.createElement('span')
     node.append(child)
     child.dispatchEvent(new AnimationEvent(type, { animationName: 'presence-exit', bubbles: true }))

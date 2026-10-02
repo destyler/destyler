@@ -158,10 +158,44 @@ describe('presence animation event identity', () => {
     const { service, styles, dispatch, onExitComplete } = await setup()
     styles.animationName = 'replacement'
     dispatch('animationend', 'exit')
+    dispatch('animationend', 'replacement')
     expect(service.state.value).toBe('unmountSuspended')
     expect(onExitComplete).not.toHaveBeenCalled()
     styles.animationName = 'exit'
     dispatch('animationend', 'exit')
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it.each([
+    ['"exit, part"', 'exit, part'],
+    ['exit\\,part', 'exit,part'],
+    ['\\65 xit', 'exit'],
+    ['"exit part"', 'exit part'],
+    ['"none"', 'none'],
+    ['pr\u00E9sence', 'pr\u00E9sence'],
+    ['"presence\\"exit"', 'presence"exit'],
+    ['"presence\\\\exit"', 'presence\\exit'],
+    ['presence\\ ', 'presence '],
+  ])('preserves CSS name serialization %s', async (serializedName, name) => {
+    const { service, styles, dispatch, onExitComplete } = await setup()
+    styles.animationName = serializedName
+    service.setContext({ unmountAnimationName: serializedName })
+    await Promise.resolve()
+    dispatch('animationend', name)
+    expect(service.state.value).toBe('unmounted')
+    expect(onExitComplete).toHaveBeenCalledOnce()
+  })
+
+  it('matches individual names without accepting substrings within a list', async () => {
+    const { service, styles, dispatch, onExitComplete } = await setup()
+    styles.animationName = 'first-exit, "exit, part"'
+    service.setContext({ unmountAnimationName: styles.animationName })
+    await Promise.resolve()
+    dispatch('animationend', 'exit')
+    expect(service.state.value).toBe('unmountSuspended')
+    expect(onExitComplete).not.toHaveBeenCalled()
+    dispatch('animationend', 'exit, part')
+    expect(service.state.value).toBe('unmounted')
     expect(onExitComplete).toHaveBeenCalledOnce()
   })
 
