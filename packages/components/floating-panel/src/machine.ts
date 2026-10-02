@@ -151,10 +151,10 @@ export function machine(userContext: UserDefinedContext) {
               },
             ],
             'MINIMIZE': {
-              actions: ['setMinimized', 'invokeOnMinimize'],
+              actions: ['setMinimized'],
             },
             'MAXIMIZE': {
-              actions: ['setMaximized', 'invokeOnMaximize'],
+              actions: ['setMaximized'],
             },
             'RESTORE': {
               actions: ['setRestored'],
@@ -475,12 +475,6 @@ export function machine(userContext: UserDefinedContext) {
         },
         invokeOnResizeEnd(ctx) {
           ctx.onSizeChangeEnd?.({ size: ctx.size })
-        },
-        invokeOnMinimize(ctx) {
-          ctx.onStageChange?.({ stage: 'minimized' })
-        },
-        invokeOnMaximize(ctx) {
-          ctx.onStageChange?.({ stage: 'maximized' })
         },
       },
     },
