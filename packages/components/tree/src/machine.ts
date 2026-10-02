@@ -4,7 +4,7 @@ import { add, addOrRemove, compact, first, isControlled, isEqual, isPropUserProv
 import { createMachine, guards } from '@destyler/xstate'
 import { collection } from './collection'
 import { dom } from './dom'
-import { getVisibleNodes, skipFn } from './utils'
+import { getLastVisibleNode, getVisibleNodes, skipFn } from './utils'
 
 const { and } = guards
 
@@ -273,8 +273,8 @@ export function machine(userContext: UserDefinedContext) {
           dom.focusNode(ctx, firstValue)
         },
         focusTreeLastNode(ctx) {
-          const lastNode = ctx.collection.getLastNode()
-          const lastValue = ctx.collection.getNodeValue(lastNode)
+          const lastNode = getLastVisibleNode(ctx)
+          const lastValue = lastNode == null ? undefined : ctx.collection.getNodeValue(lastNode)
           dom.focusNode(ctx, lastValue)
         },
         focusBranchFirstNode(ctx, evt) {
@@ -291,8 +291,8 @@ export function machine(userContext: UserDefinedContext) {
         },
         focusTreePrevNode(ctx, evt) {
           let prevNode = ctx.collection.getPreviousNode(evt.id, { skip: skipFn(ctx) })
-          prevNode = prevNode ?? ctx.collection.getLastNode()
-          const prevValue = ctx.collection.getNodeValue(prevNode)
+          prevNode = prevNode ?? getLastVisibleNode(ctx)
+          const prevValue = prevNode == null ? undefined : ctx.collection.getNodeValue(prevNode)
           dom.focusNode(ctx, prevValue)
         },
         focusBranchNode(ctx, evt) {

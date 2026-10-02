@@ -18,3 +18,7 @@ export function getVisibleNodes(ctx: MachineContext) {
   })
   return nodes
 }
+
+export function getLastVisibleNode(ctx: MachineContext) {
+  return getVisibleNodes(ctx).reverse().find(({ node }) => !ctx.collection.getNodeDisabled(node))?.node
+}
