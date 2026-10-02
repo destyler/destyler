@@ -216,6 +216,8 @@ export class FocusTrap {
   private removeListeners() {
     if (!this.state.active)
       return
+    clearTimeout(this.state.delayInitialFocusTimer)
+    this.state.delayInitialFocusTimer = undefined
     this.listenerCleanups.forEach(cleanup => cleanup())
     this.listenerCleanups = []
     return this
@@ -474,9 +476,6 @@ export class FocusTrap {
       checkCanReturnFocus: this.config.checkCanReturnFocus,
       ...deactivateOptions,
     }
-
-    clearTimeout(this.state.delayInitialFocusTimer)
-    this.state.delayInitialFocusTimer = undefined
 
     this.removeListeners()
     this.state.active = false
