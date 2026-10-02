@@ -101,6 +101,8 @@ async function assertProvenance(consumer, packed) {
     assert.equal(path.resolve(consumer, entry.resolved.slice(5)), tarball)
     assert.equal(entry.integrity, integrity)
     const installedManifest = await manifest(installed)
+    assert.equal(installedManifest.name, name)
+    assert.equal(installedManifest.version, source.version)
     const require = createRequire(path.join(installed, 'package.json'))
     for (const field of runtimeFields) {
       for (const dependency of Object.keys(source[field] ?? {})) {
