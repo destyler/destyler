@@ -6,12 +6,13 @@ import { trapFocus } from '@destyler/focus-trap'
 import { getPlacement } from '@destyler/popper'
 import { preventBodyScroll } from '@destyler/remove-scroll'
 import { compact, isControlled, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
-import { createMachine } from '@destyler/xstate'
+import { ActionTypes, createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
+  const cancelRenderedElements = new WeakMap<MachineContext, VoidFunction>()
   return createMachine<MachineContext, MachineState>(
     {
       id: 'popover',
@@ -46,6 +47,7 @@ export function machine(userContext: UserDefinedContext) {
 
       states: {
         closed: {
+          activities: ['trackRenderedElements'],
           on: {
             'CONTROLLED.OPEN': {
               target: 'open',
@@ -76,6 +78,7 @@ export function machine(userContext: UserDefinedContext) {
 
         open: {
           activities: [
+            'trackRenderedElements',
             'trapFocus',
             'preventScroll',
             'hideContentBelow',
@@ -121,6 +124,16 @@ export function machine(userContext: UserDefinedContext) {
         isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
       activities: {
+        trackRenderedElements(ctx, evt, meta) {
+          // The root entry already checks once on startup. Only accepted opens
+          // refresh the snapshot; closing can leave content mounted for an exit.
+          if (meta.state.matches('open') && evt.type !== ActionTypes.Init)
+            meta.getAction('checkRenderedElements')?.(ctx, evt, meta)
+          return () => {
+            cancelRenderedElements.get(ctx)?.()
+            cancelRenderedElements.delete(ctx)
+          }
+        },
         trackPositioning(ctx) {
           ctx.currentPlacement = ctx.positioning.placement
           const anchorEl = dom.getAnchorEl(ctx) ?? dom.getTriggerEl(ctx)
@@ -215,12 +228,14 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         checkRenderedElements(ctx) {
-          raf(() => {
+          cancelRenderedElements.get(ctx)?.()
+          cancelRenderedElements.set(ctx, raf(() => {
+            cancelRenderedElements.delete(ctx)
             Object.assign(ctx.renderedElements, {
               title: !!dom.getTitleEl(ctx),
               description: !!dom.getDescriptionEl(ctx),
             })
-          })
+          }))
         },
         setInitialFocus(ctx) {
           // handoff to `trapFocus` activity for initial focus
