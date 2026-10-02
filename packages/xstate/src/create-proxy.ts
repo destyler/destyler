@@ -2,6 +2,7 @@ import type { Dict, EventObject, MachineConfig, StateSchema, TComputedContext, X
 import { proxy, proxyWithComputed } from '@destyler/store'
 import { cast } from '@destyler/utils'
 import { ActionTypes } from './type'
+import { toArray } from './utils'
 
 export function createProxy<TContext extends Dict, TState extends StateSchema, TEvent extends EventObject>(
   config: MachineConfig<TContext, TState, TEvent>,
@@ -17,7 +18,7 @@ export function createProxy<TContext extends Dict, TState extends StateSchema, T
     previousEvent: cast<Dict>({}),
     context: proxyWithComputed(initialContext, computedContext),
     done: false,
-    tags: (initialTags ?? []) as Array<TState['tags']>,
+    tags: toArray(initialTags) as Array<TState['tags']>,
     hasTag(tag: TState['tags']): boolean {
       return this.tags.includes(tag)
     },
@@ -33,7 +34,7 @@ export function createProxy<TContext extends Dict, TState extends StateSchema, T
       return Object.keys({ ...stateEvents, ...globalEvents })
     },
     get changed() {
-      if (this.event.value === ActionTypes.Init || !this.previousValue)
+      if (this.event.type === ActionTypes.Init || !this.previousValue)
         return false
       return this.value !== this.previousValue
     },
