@@ -18,7 +18,10 @@ it('renders, updates, and hydrates supported enumerated attributes using the act
         timeout: 20000,
         env: { ...process.env, AUDIT_ENUM_MODE: mode, AUDIT_ENUM_HYDRATION_FILE: join(directory, 'hydration.json') },
       })
-      expect(stdout).toContain('# fail 0')
+      const expectedCount = mode === 'server' ? 6 : 7
+      expect(stdout).toMatch(new RegExp(`^# tests ${expectedCount}\\r?$`, 'm'))
+      expect(stdout).toMatch(new RegExp(`^# pass ${expectedCount}\\r?$`, 'm'))
+      expect(stdout).toMatch(/^# fail 0\r?$/m)
     }
   }
   catch (error) {
