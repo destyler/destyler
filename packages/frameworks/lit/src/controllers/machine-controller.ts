@@ -34,6 +34,7 @@ export class MachineController<
   private _state!: XState<TContext, TState, TEvent>
   private options?: OptionsEx<TContext, TState, TEvent>
   private contextUnsub?: () => void
+  private connected = false
 
   constructor(
     host: ReactiveControllerHost,
@@ -41,7 +42,6 @@ export class MachineController<
     options?: OptionsEx<TContext, TState, TEvent>,
   ) {
     this.host = host
-    this.host.addController(this)
     this.options = options
 
     const instance = typeof machine === 'function' ? machine() : machine
@@ -82,6 +82,8 @@ export class MachineController<
 
     this.service = instance
     this._state = this.service.getState()
+    // An already connected Lit host invokes hostConnected synchronously here.
+    this.host.addController(this)
   }
 
   /** Current immutable state snapshot */
@@ -96,6 +98,9 @@ export class MachineController<
 
   /** Start service and subscribe to state changes when host is connected */
   hostConnected(): void {
+    if (this.connected)
+      return
+    this.connected = true
     const stateInit: StateInit<TContext, TState> | undefined = this.options?.state
 
     // Subscribe to store updates; notify in sync if requested
@@ -110,6 +115,9 @@ export class MachineController<
 
     // external context subscription
     if (this.options?.context && isContextSource<TContext>(this.options.context)) {
+      const initial = this.options.context.get?.()
+      if (initial)
+        this.service.setContext(initial)
       this.contextUnsub = this.options.context.subscribe((ctx) => {
         this.service.setContext(ctx)
         this.host.requestUpdate()
@@ -122,6 +130,9 @@ export class MachineController<
 
   /** Stop service and cleanup when host is disconnected */
   hostDisconnected(): void {
+    if (!this.connected)
+      return
+    this.connected = false
     try {
       this.unsubscribe?.()
       this.contextUnsub?.()
@@ -141,7 +152,7 @@ export class MachineController<
     if (options?.actions) {
       this.service.setOptions({ actions: options.actions })
     }
-    if (options?.context) {
+    if ('context' in options) {
       // swap subscriptions if necessary
       this.contextUnsub?.()
       this.contextUnsub = undefined
@@ -149,12 +160,14 @@ export class MachineController<
         const initial = options.context.get?.()
         if (initial)
           this.service.setContext(initial)
-        this.contextUnsub = options.context.subscribe((ctx) => {
-          this.service.setContext(ctx)
-          this.host.requestUpdate()
-        })
+        if (this.connected) {
+          this.contextUnsub = options.context.subscribe((ctx) => {
+            this.service.setContext(ctx)
+            this.host.requestUpdate()
+          })
+        }
       }
-      else {
+      else if (options.context) {
         this.service.setContext(options.context as UserContext<TContext>)
       }
     }
