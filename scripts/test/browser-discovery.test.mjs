@@ -7,7 +7,7 @@ import path from 'node:path'
 import process from 'node:process'
 // eslint-disable-next-line test/no-import-node-test -- Exercise actual Vitest discovery without launching a browser.
 import { test } from 'node:test'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { fileURLToPath } from 'node:url'
 
 const repository = fileURLToPath(new URL('../../', import.meta.url))
 const require = createRequire(import.meta.url)
@@ -71,7 +71,7 @@ for (const [label, filter] of [
   test(`discovery contract rejects ${label}`, () => {
     withFixture((root) => {
       const mutant = path.join(root, 'mutant.config.ts')
-      writeFileSync(mutant, `import config from ${JSON.stringify(pathToFileURL(config).href)}\nexport default { ...config, test: { ...config.test, exclude: config.test.exclude.filter(${filter}) } }\n`)
+      writeFileSync(mutant, `import config from ${JSON.stringify(config)}\nexport default { ...config, test: { ...config.test, exclude: config.test.exclude.filter(${filter}) } }\n`)
       const files = discover(root, mutant)
       assert.throws(() => assertCanonical(files, root), assert.AssertionError)
     })
