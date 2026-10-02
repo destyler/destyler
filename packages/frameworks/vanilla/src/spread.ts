@@ -4,6 +4,8 @@ export interface Attrs {
   [key: string]: any
 }
 
+const booleanishAttributes = new Set(['contenteditable', 'draggable', 'spellcheck'])
+
 export function spread(attrs?: Attrs) {
   if (!attrs)
     return ''
@@ -13,7 +15,7 @@ export function spread(attrs?: Attrs) {
       continue
     if (typeof value === 'function')
       continue
-    if (typeof value === 'boolean') {
+    if (typeof value === 'boolean' && !booleanishAttributes.has(key.toLowerCase())) {
       if (value)
         parts.push(key)
       continue
