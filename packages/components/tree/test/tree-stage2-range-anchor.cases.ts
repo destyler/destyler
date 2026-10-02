@@ -71,10 +71,11 @@ describe('Tree coincident shift-range endpoints', () => {
     expect(onExpandedChange).not.toHaveBeenCalled()
   })
 
-  it.each([[], ['branch']])('does not select later visible nodes when the default anchor is also the target (%j)', (expanded) => {
+  it.each([{ expanded: [] }, { expanded: ['branch'] }])('does not select later visible nodes when the default anchor is also the target ($expanded)', ({ expanded }) => {
     const { service, shiftClick, onSelectionChange } = setupRangeAnchor({ defaultExpandedValue: expanded })
     shiftClick('first')
     expect(service.state.context.selectedValue).toEqual(['first'])
+    expect(service.state.context.expandedValue).toEqual(expanded)
     expect(onSelectionChange).toHaveBeenCalledExactlyOnceWith({ selectedValue: ['first'], focusedValue: null })
   })
 
