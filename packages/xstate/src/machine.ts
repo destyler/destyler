@@ -717,11 +717,10 @@ export class Machine<
   }
 
   private performTransitionEffects = (
-    transitions: Transitions<TContext, TState, TEvent> | undefined,
+    transition: StateInfo<TContext, TState, TEvent>['transition'],
     event: TEvent,
   ) => {
-    // execute transition actions
-    const transition = this.determineTransition(transitions, event)
+    // Execute the transition selected before exit effects changed the context.
     this.executeActions(transition?.actions, event)
   }
 
