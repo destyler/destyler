@@ -65,7 +65,7 @@ export class Machine<
   public type: MachineType = MachineType.Machine
 
   // Cleanup function map (per state)
-  private activityEvents = new Map<string, Map<string, VoidFunction>>()
+  private activityEvents = new Map<string, Map<string, VoidFunction[]>>()
   private delayedEvents = new Map<string, VoidFunction[]>()
 
   // state update listeners the user can opt-in for
@@ -255,14 +255,14 @@ export class Machine<
   private stopActivities = (state?: TState['value']) => {
     // stop activities for a state
     if (state) {
-      this.activityEvents.get(state)?.forEach(stop => stop())
+      this.activityEvents.get(state)?.forEach(cleanups => cleanups.forEach(stop => stop()))
       this.activityEvents.get(state)?.clear()
       this.activityEvents.delete(state)
     }
     else {
       // stop every running activity
       this.activityEvents.forEach((state) => {
-        state.forEach(stop => stop())
+        state.forEach(cleanups => cleanups.forEach(stop => stop()))
         state.clear()
       })
       this.activityEvents.clear()
@@ -331,7 +331,7 @@ export class Machine<
     if (!this.state.value)
       return
     const cleanups = this.activityEvents.get(this.state.value)
-    cleanups?.get(key)?.() // cleanup
+    cleanups?.get(key)?.forEach(cleanup => cleanup()) // cleanup
     cleanups?.delete(key) // remove from map
   }
 
@@ -339,10 +339,13 @@ export class Machine<
     if (!state)
       return
     if (!this.activityEvents.has(state)) {
-      this.activityEvents.set(state, new Map([[key, cleanup]]))
+      this.activityEvents.set(state, new Map([[key, [cleanup]]]))
     }
     else {
-      this.activityEvents.get(state)?.set(key, cleanup)
+      const cleanups = this.activityEvents.get(state)!
+      const existing = cleanups.get(key) ?? []
+      existing.push(cleanup)
+      cleanups.set(key, existing)
     }
   }
 
