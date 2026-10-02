@@ -130,9 +130,9 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
   const handler: ProxyHandler<T> = {
     deleteProperty(target: T, prop: string | symbol) {
       const prevValue = Reflect.get(target, prop)
-      removePropListener(prop)
       const deleted = Reflect.deleteProperty(target, prop)
       if (deleted) {
+        removePropListener(prop)
         notifyUpdate(['delete', [prop], prevValue])
       }
       return deleted
@@ -146,11 +146,11 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
       ) {
         return true
       }
-      removePropListener(prop)
       if (isObject(value)) {
         value = getUntracked(value) || value
       }
       let nextValue = value
+      let childProxyState: ProxyState | undefined
       if (Object.getOwnPropertyDescriptor(target, prop)?.set) {
         // do nothing
       }
@@ -158,14 +158,26 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
         if (!proxyStateMap.has(value) && canProxy(value)) {
           nextValue = proxy(value)
         }
-        const childProxyState = !refSet.has(nextValue) && proxyStateMap.get(nextValue)
-        if (childProxyState) {
-          addPropListener(prop, childProxyState)
-        }
+        childProxyState = refSet.has(nextValue) ? undefined : proxyStateMap.get(nextValue)
       }
-      Reflect.set(target, prop, nextValue, receiver)
-      notifyUpdate(['set', [prop], value, prevValue])
-      return true
+      const succeeded = Reflect.set(target, prop, nextValue, receiver)
+      const isArrayLength = Array.isArray(target) && prop === 'length'
+      const actualValue = isArrayLength ? target.length : value
+      // A rejected length assignment can still remove entries before hitting a non-configurable index.
+      if (!succeeded && (!isArrayLength || objectIs(prevValue, actualValue)))
+        return false
+      removePropListener(prop)
+      if (isArrayLength) {
+        propProxyStates.forEach((_state, key) => {
+          if (!Object.prototype.hasOwnProperty.call(target, key))
+            removePropListener(key)
+        })
+      }
+      else if (childProxyState) {
+        addPropListener(prop, childProxyState)
+      }
+      notifyUpdate(['set', [prop], actualValue, prevValue])
+      return succeeded
     },
   }
   const proxyObject = newProxy(baseObject, handler)
