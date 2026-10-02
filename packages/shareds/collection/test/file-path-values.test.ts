@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { filePathToTree } from '../src/tree'
 
 describe('file path collection values', () => {
-  it.each(['a/a', 'src/components/src/index.ts', 'x/x/x'])('retains the full prefix for every segment of %s', (path) => {
+  it.each(['a/a', 'src/components/src/index.ts', 'x/x/x', '/'])('retains the full prefix for every segment of %s', (path) => {
     const tree = filePathToTree([path])
     const parts = path.split('/')
     const expected = parts.map((_, index) => parts.slice(0, index + 1).join('/'))
