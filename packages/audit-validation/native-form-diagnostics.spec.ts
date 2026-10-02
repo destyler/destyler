@@ -314,3 +314,82 @@ it.each(['form', 'ancestor'] as const)('trusted reset-button cancellation at a l
   expect(input.checked).toBe(true)
   expect(onFormReset).not.toHaveBeenCalled()
 })
+
+it('platform: trusted canceled activation rolls back a microtask checkedness write', async () => {
+  const { form, input } = platformForm('<label><input type="checkbox"></label>')
+  input.dataset.testid = 'audit-native-input'
+  let trusted = false
+  const order: string[] = []
+  input.addEventListener('click', (event) => {
+    trusted = event.isTrusted
+    order.push('input listener')
+    queueMicrotask(() => {
+      input.checked = true
+      order.push(`microtask:${input.checked}`)
+    })
+  })
+  form.querySelector('label')!.addEventListener('click', (event) => {
+    order.push(`ancestor listener:${input.checked}`)
+    event.preventDefault()
+  })
+  await page.getByTestId('audit-native-input').click()
+  await settle()
+  expect(trusted).toBe(true)
+  expect(order).toEqual(['input listener', 'microtask:true', 'ancestor listener:true'])
+  expect(input.checked).toBe(false)
+})
+
+for (const cancel of [false, true]) {
+  for (const ownership of ['accept', 'veto'] as const) {
+    it.each(['checkbox', 'switch'] as const)(`%s trusted activation with ${ownership} and later cancellation ${cancel} matches accepted native/form state`, async (kind) => {
+      let view: ReturnType<typeof mountToggle>
+      const changes = vi.fn(({ checked }: { checked: boolean }) => {
+        if (ownership === 'accept')
+          view.service.setContext({ checked })
+      })
+      view = mountToggle(kind, { checked: false, onCheckedChange: changes })
+      view.input.dataset.testid = 'audit-native-input'
+      let trusted = false
+      view.input.addEventListener('click', (event) => {
+        trusted = event.isTrusted
+      })
+      if (cancel) {
+        // Same root target as the connector listener: stopPropagation does not
+        // suppress this later listener, so native canceled activation still runs.
+        view.input.parentElement!.addEventListener('click', event => event.preventDefault())
+      }
+      await page.getByTestId('audit-native-input').click()
+      await settle()
+      const accepted = ownership === 'accept'
+      expect(trusted).toBe(true)
+      expect(changes.mock.calls).toEqual([[{ checked: true }]])
+      expect(view.service.state.context.checked).toBe(accepted)
+      expect({ checked: view.input.checked, submitted: new FormData(view.form).get('flag') })
+        .toEqual({ checked: accepted, submitted: accepted ? 'on' : null })
+    })
+
+    it(`radio trusted activation with ${ownership} and later cancellation ${cancel} matches accepted native/form state`, async () => {
+      let view: ReturnType<typeof mountRadio>
+      const changes = vi.fn(({ value }: { value: string }) => {
+        if (ownership === 'accept')
+          view.service.setContext({ value })
+      })
+      view = mountRadio({ value: 'a', onValueChange: changes })
+      view.inputs[1].dataset.testid = 'audit-native-input'
+      let trusted = false
+      view.inputs[1].addEventListener('click', (event) => {
+        trusted = event.isTrusted
+      })
+      if (cancel)
+        view.inputs[1].parentElement!.addEventListener('click', event => event.preventDefault())
+      await page.getByTestId('audit-native-input').click()
+      await settle()
+      const accepted = ownership === 'accept' ? 'b' : 'a'
+      expect(trusted).toBe(true)
+      expect(changes.mock.calls).toEqual([[{ value: 'b' }]])
+      expect(view.service.state.context.value).toBe(accepted)
+      expect({ checked: view.inputs.map(input => input.checked), submitted: new FormData(view.form).get('choice') })
+        .toEqual({ checked: accepted === 'b' ? [false, true] : [true, false], submitted: accepted })
+    })
+  }
+}
