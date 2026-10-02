@@ -12,7 +12,7 @@ interface ObservedData {
   callbacks: Fn[]
 }
 
-let rafId: number
+let rafId: number | undefined
 
 const observedElements = new Map<HTMLElement, ObservedData>()
 
@@ -60,8 +60,9 @@ export function trackElementRect(el: HTMLElement, options: ElementRectOptions) {
     if (data.callbacks.length === 0) {
       observedElements.delete(el)
 
-      if (observedElements.size === 0) {
+      if (observedElements.size === 0 && rafId !== undefined) {
         cancelAnimationFrame(rafId)
+        rafId = undefined
       }
     }
   }
@@ -71,6 +72,7 @@ function getLoopFn(options: Required<Omit<ElementRectOptions, 'onChange'>>) {
   const { scope, getRect } = options
   const isEqual = getEqualityFn(scope)
   return function loop() {
+    rafId = undefined
     const changedRectsData: Array<ObservedData> = []
 
     observedElements.forEach((data, element) => {
@@ -86,7 +88,8 @@ function getLoopFn(options: Required<Omit<ElementRectOptions, 'onChange'>>) {
       data.callbacks.forEach(callback => callback(data.rect))
     })
 
-    rafId = requestAnimationFrame(loop)
+    if (observedElements.size > 0 && rafId === undefined)
+      rafId = requestAnimationFrame(loop)
   }
 }
 
