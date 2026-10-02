@@ -35,6 +35,8 @@ const booleanAttributes = new Set([
   'inert',
 ])
 
+const enumeratedAttributes = new Set(['contenteditable', 'draggable', 'spellcheck', 'translate'])
+
 const propertyNameMap: Record<string, string> = {
   readonly: 'readOnly',
 }
@@ -117,6 +119,14 @@ export function hydrateSpreadProps(root?: ParentNode | null) {
 function applyProp(element: Element, key: string, value: any, state: ElementState) {
   if (key === 'children' || key === 'dangerouslySetInnerHTML')
     return
+
+  if (enumeratedAttributes.has(key.toLowerCase())) {
+    if (value == null)
+      element.removeAttribute(key)
+    else
+      element.setAttribute(key, String(value))
+    return
+  }
 
   if (key === 'value' && element instanceof HTMLInputElement) {
     if (element.value === String(value)) {
@@ -205,7 +215,8 @@ function removeProp(element: Element, key: string, state: ElementState) {
     return
   }
   element.removeAttribute(key)
-  setProperty(element, key, undefined)
+  if (!enumeratedAttributes.has(key.toLowerCase()))
+    setProperty(element, key, undefined)
 }
 
 function getEventName(key: string) {
