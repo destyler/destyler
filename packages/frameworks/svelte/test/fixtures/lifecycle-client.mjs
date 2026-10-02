@@ -8,6 +8,8 @@ const window = new Window()
 for (const name of ['window', 'document', 'Element', 'HTMLElement', 'SVGElement', 'Node', 'Text', 'Comment', 'Document', 'DocumentFragment', 'Event', 'CustomEvent', 'MutationObserver']) {
   globalThis[name] = name === 'window' ? window : window[name]
 }
+// Always use the DOM navigator; Node 20 has none and newer Node versions expose a getter.
+Object.defineProperty(globalThis, 'navigator', { configurable: true, value: window.navigator })
 let flushSync, mount, tick, unmount, component, cleanup
 before(async () => {
   ({ flushSync, mount, tick, unmount } = await import('svelte'))

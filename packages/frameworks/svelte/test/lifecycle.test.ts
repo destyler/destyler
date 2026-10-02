@@ -12,7 +12,20 @@ describe('svelte source-hook lifecycle', () => {
     // adding a framework transform to the shared utility/browser test projects.
     const fixture = fileURLToPath(new URL(`./fixtures/lifecycle-${mode}.mjs`, import.meta.url))
     const conditions = mode === 'client' ? ['--conditions=browser'] : []
-    const { stdout } = await run(process.execPath, [...conditions, '--test', '--test-reporter=tap', fixture], { timeout: 20000 })
-    expect(stdout).toContain('# fail 0')
+    try {
+      const { stdout } = await run(process.execPath, [...conditions, '--test', '--test-reporter=tap', fixture], { timeout: 20000 })
+      expect(stdout).toContain('# fail 0')
+    }
+    catch (error) {
+      const failure = error as Error & { stdout?: string, stderr?: string }
+      throw new Error([
+        `Svelte ${mode} lifecycle child failed on ${process.version}`,
+        failure.message,
+        'stdout:',
+        failure.stdout || '(empty)',
+        'stderr:',
+        failure.stderr || '(empty)',
+      ].join('\n'), { cause: error })
+    }
   }, 30000)
 })
