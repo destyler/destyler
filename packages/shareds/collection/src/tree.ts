@@ -456,12 +456,12 @@ export function filePathToTree(paths: string[]): TreeCollection<FilePathTreeNode
     const parts = path.split('/')
     let currentNode = rootNode
 
-    parts.forEach((part) => {
+    parts.forEach((part, index) => {
       let childNode = currentNode.children?.find((child: any) => child.label === part)
 
       if (!childNode) {
         childNode = {
-          value: parts.slice(0, parts.indexOf(part) + 1).join('/'),
+          value: parts.slice(0, index + 1).join('/'),
           label: part,
         }
         currentNode.children ||= []
