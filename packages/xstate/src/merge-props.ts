@@ -38,6 +38,18 @@ type TupleTypes<T extends any[]> = T[number]
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never
 
+function hasEventOptions(handler: (...args: any[]) => void) {
+  return 'capture' in handler || 'once' in handler || 'passive' in handler || 'signal' in handler
+}
+
+function composeEventHandlers(...handlers: Array<(...args: any[]) => void>) {
+  return function (this: unknown, ...args: any[]) {
+    for (const handler of handlers) {
+      Reflect.apply(handler, this, args)
+    }
+  }
+}
+
 export function mergeProps<T extends Props>(...args: T[]): UnionToIntersection<TupleTypes<T[]>> {
   const result: Props = {}
 
@@ -45,6 +57,12 @@ export function mergeProps<T extends Props>(...args: T[]): UnionToIntersection<T
     for (const key in result) {
       if (key.startsWith('on') && typeof result[key] === 'function' && typeof props[key] === 'function') {
         result[key] = callAll(props[key], result[key])
+        continue
+      }
+
+      if (key.startsWith('@') && typeof result[key] === 'function' && typeof props[key] === 'function'
+        && !hasEventOptions(result[key]) && !hasEventOptions(props[key])) {
+        result[key] = composeEventHandlers(props[key], result[key])
         continue
       }
 
