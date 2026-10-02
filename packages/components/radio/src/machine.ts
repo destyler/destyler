@@ -79,7 +79,7 @@ export function machine(userContext: UserDefinedContext) {
             actions: ['setValue', 'dispatchChangeEvent'],
           },
           {
-            actions: ['setValue'],
+            actions: ['setValue', 'syncInputElements'],
           },
         ],
         SET_HOVERED: {
@@ -133,7 +133,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.focusVisible = evt.focusVisible
         },
         syncInputElements(ctx) {
-          const inputs = dom.getInputEls(ctx)
+          const inputs = dom.getInputEls(ctx, true)
           inputs.forEach((input: any) => {
             input.checked = input.value === ctx.value
           })

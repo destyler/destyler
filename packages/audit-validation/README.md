@@ -1,20 +1,23 @@
-# Native form diagnostics: validation only, do not merge
+# Native form comparison: validation only, do not merge
 
-This temporary test-only branch keeps production source at baseline `346dfee0a6c2c243900ffcabf0648a1d58b6f4a6` and runs correct-behavior assertions in real Chromium. Baseline failures are expected and remain visible; no `skip`, `fails`, or weakened wrong-behavior expectations are used.
+This temporary validation branch retains immutable baseline evidence and now compares a narrow accepted-state resynchronization candidate against it. Do not merge this branch or treat its expected diagnostic failures as an implementation readiness signal. Keep it open until cleanup is explicitly authorized.
 
-The cases distinguish:
+## Current candidate scope
 
-- Bare native platform controls for reset ordering/cancellation, fieldset successful values, first-legend exemption and Event trust
-- Component accepted-state versus native checkedness/form values, with uncontrolled and synchronous controlled-acceptance controls
-- Checkbox indeterminate initialization, synthetic-click feedback and reset callbacks/defaults
-- Shared reset cancellation and ancestor-fieldset tracking
+Only Checkbox/Switch trusted CHECKED.SET handlers, Radio trusted SET_VALUE/input synchronization, and Radio's synchronization-only includeDisabled selector option change. The candidate reuses existing synchronization actions after a proposal. Dispatch and focus filters retain their defaults. No reset timing, initial mount, accepted-update/late-cancellation, dependency, configuration or version change is included.
 
-`HTMLInputElement.click()` exercises native activation for the component cases; those cases do not claim trusted pointer or keyboard input, adapter rendering, layout, or assistive-technology coverage. The separate reset-button ordering/cancellation probes use the real-browser locator click and assert that the button click is trusted. They distinguish scripted reset dispatch from native event-loop microtask checkpoints; no component-wide trusted-input claim is added. Form controls are mounted through their real machine/connector input handlers. The file lives outside a workspace package to avoid counting pnpm alias discoveries as unique cases.
+The same 43 diagnostic assertions are byte-identical to baseline commit `ac0bed51431d4bef2ffd7d3288195fad79f20a8a` (test SHA256 `13feeafba9ebf28b81764d9da4f3631f10adcfc049541f6d27722b16fc99d149`). Compare each case, not just totals. Every baseline-passing case that newly fails blocks the candidate. Unchanged baseline failures must remain visible and explicitly unresolved.
 
-The DOM emulator fails some bare-platform sentinels, so emulated results alone are not native evidence. The Chromium run is the purpose of this draft. Existing press-lifecycle fixes in PR #158 are separate and are not duplicated here.
+## Immutable baseline evidence
 
-Keep this validation draft open until cleanup is explicitly authorized. Do not merge it or treat expected baseline-red CI as a production-fix failure or readiness signal. No production code, dependencies, lockfiles, release versions, or repository test configuration changes are included.
+- `5d68e0049a4d781316b68055547b93830cde6ae1`: original 26 cases, 12 expected contract failures and 14 passes on Node 20/22/24 in Chromium; all six original platform sentinels pass.
+- `501db29b750623486b39d7f76f5623133c291252`: 30 cases, 14 expected failures and 16 passes on all three Node versions; scripted versus trusted reset-button microtask ordering controls pass.
+- `ac0bed51431d4bef2ffd7d3288195fad79f20a8a`: 43 cases, 20 expected failures and 23 passes with identical per-case results on all three Node versions; all nine platform controls pass. Ordinary trusted acceptance and veto-with-late-cancellation pass; ordinary veto and acceptance-with-late-cancellation fail for all three components.
 
-The reset-order expansion has 30 canonical cases. Its first 26 were verified at commit `5d68e0049a4d781316b68055547b93830cde6ae1`: 12 expected baseline library failures and 14 passes on Node 20/22/24 in Chromium. Four later reset-button/order probes require their own exact-head native evidence; their results must not be inferred from the earlier run.
+All those baseline commits retain production source from `346dfee0a6c2c243900ffcabf0648a1d58b6f4a6`. The current candidate must not be described as unchanged-baseline production.
 
-The next expansion adds 13 trusted activation/cancellation cases (43 total): a bare canceled-activation rollback sentinel and Checkbox/Switch/Radio acceptance-veto matrices with and without a later ancestor cancellation. Every browser locator click checks trust. The prior 30-case commit `501db29b750623486b39d7f76f5623133c291252` verified 14 expected contract failures/16 passes on Node 20/22/24, including both reset-order platform controls. Results from that head are not evidence for these new component cases.
+## Harness limits
+
+Component cases using HTMLInputElement.click exercise programmatic native activation. The separately named trusted cases use actual browser-locator clicks and assert event.isTrusted. They compare final native checkedness/FormData with accepted context, without demanding retroactive removal of an already-delivered proposal. No adapter rendering, layout, assistive-technology or general mount-order guarantee is inferred.
+
+Platform-order controls are distinct from normative library-contract assertions. No skip/fails or wrong-behavior assertions hide a defect. Tests settle an event-loop turn; canceled-reset cases still require zero callbacks. The DOM emulator has known native-reset errors, so local observations alone are not native evidence. The spec lives outside a workspace package to avoid duplicate pnpm alias discoveries. Existing press draft #158 and independent implementation drafts #205/#209 remain separate.
