@@ -401,6 +401,8 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
         'aria-labelledby': dom.getLabelId(state.context),
         'tabIndex': 0,
         onKeyDown(event) {
+          if (event.defaultPrevented)
+            return
           if (!interactive)
             return
           if (!isSelfTarget(event))
