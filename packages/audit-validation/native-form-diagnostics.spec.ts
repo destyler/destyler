@@ -1,6 +1,7 @@
 // Validation-only: normative baseline diagnostics, intentionally expected to fail.
 // No production behavior change. Do not merge this diagnostic branch.
 import { afterEach, expect, it, vi } from 'vitest'
+import { page } from 'vitest/browser'
 import { connect as checkboxConnect } from '../components/checkbox/src/connect'
 import { machine as checkboxMachine } from '../components/checkbox/src/machine'
 import { connect as radioConnect } from '../components/radio/src/connect'
@@ -260,4 +261,56 @@ it('fieldset tracking observes changes to an outer ancestor', async () => {
   await settle()
   expect(input.matches(':disabled')).toBe(true)
   expect(onFieldsetDisabledChange).toHaveBeenLastCalledWith(true)
+})
+
+function resetButtonForm() {
+  const { form, input } = platformForm('<input type="checkbox"><button type="reset">Audit reset order</button>')
+  const button = form.querySelector('button')!
+  let trustedClick = false
+  button.addEventListener('click', (event) => {
+    trustedClick = event.isTrusted
+  })
+  return { form, input, wasTrusted: () => trustedClick }
+}
+
+it('platform: scripted form.reset retains its JS stack through every listener', async () => {
+  const { form } = resetButtonForm()
+  const order: string[] = []
+  form.addEventListener('reset', () => {
+    order.push('first listener')
+    queueMicrotask(() => order.push('microtask'))
+  })
+  form.addEventListener('reset', () => order.push('later listener'))
+  form.reset()
+  await settle()
+  expect(order).toEqual(['first listener', 'later listener', 'microtask'])
+})
+
+it('platform: trusted reset-button activation checkpoints microtasks between listeners', async () => {
+  const { form, wasTrusted } = resetButtonForm()
+  const order: string[] = []
+  form.addEventListener('reset', () => {
+    order.push('first listener')
+    queueMicrotask(() => order.push('microtask'))
+  })
+  form.addEventListener('reset', () => order.push('later listener'))
+  await page.getByRole('button', { name: 'Audit reset order' }).click()
+  await settle()
+  expect(wasTrusted()).toBe(true)
+  expect(order).toEqual(['first listener', 'microtask', 'later listener'])
+})
+
+it.each(['form', 'ancestor'] as const)('trusted reset-button cancellation at a later %s listener suppresses the helper callback', async (location) => {
+  const { form, input, wasTrusted } = resetButtonForm()
+  input.checked = true
+  const { onFormReset } = track(input)
+  const target = location === 'form' ? form : document.body
+  const cancel = (event: Event) => event.preventDefault()
+  target.addEventListener('reset', cancel)
+  cleanups.push(() => target.removeEventListener('reset', cancel))
+  await page.getByRole('button', { name: 'Audit reset order' }).click()
+  await settle()
+  expect(wasTrusted()).toBe(true)
+  expect(input.checked).toBe(true)
+  expect(onFormReset).not.toHaveBeenCalled()
 })
