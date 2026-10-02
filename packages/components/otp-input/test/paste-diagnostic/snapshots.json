@@ -1,0 +1,76 @@
+{
+  "baseline_commit": "346dfee0a6c2c243900ffcabf0648a1d58b6f4a6",
+  "baseline_files": [
+    {
+      "path": "packages/components/otp-input/src/anatomy.ts",
+      "blob": "c711d076c9b6e393c441bec4123852484fc3b011",
+      "sha256": "63deed7b6dea0883548ca9736a3202f17d6721d7d504025178f64b103c70cca8"
+    },
+    {
+      "path": "packages/components/otp-input/src/connect.ts",
+      "blob": "2c5a45641b53fa1293f3c405631973de134ff409",
+      "sha256": "d07fe3ae2dcb293d7eb3753dad7f4c84bf8d3a958992c88ca94bfdd2ca9aaac4"
+    },
+    {
+      "path": "packages/components/otp-input/src/dom.ts",
+      "blob": "3a4865e8374cbf60293d8229ca8e2eac3df550d5",
+      "sha256": "0f2f8ded5294a808b9808723dc5975efa380c0a8506450f4bf4eaa09b8ba4745"
+    },
+    {
+      "path": "packages/components/otp-input/src/machine.ts",
+      "blob": "dea4677d2998612efa5755c6f633808854336218",
+      "sha256": "f01f4919c7c3ac1e80425fa3fa38aa5715389be26038353d4a49cfe86f93c91f"
+    },
+    {
+      "path": "packages/components/otp-input/src/props.ts",
+      "blob": "7e19b2599f87bca9fe8c55f24cd88a876e129aa9",
+      "sha256": "3396ff9e278bc6f3cfdb1df612ae7023103af8acc487f1c5581b428ba1186b15"
+    },
+    {
+      "path": "packages/components/otp-input/src/types.ts",
+      "blob": "9a785cbbf84c05e0269b89acf25abc209a7cdccc",
+      "sha256": "fd473bda92af29544d18d03738a6860e29c54536ac58045707147faa42432b74"
+    },
+    {
+      "path": "packages/components/otp-input/src/utils.ts",
+      "blob": "a93da7684c7b6fa1613a921e6393f844cb6ccd57",
+      "sha256": "11e723e4f3f0d16f62da8947b08af5e7dbf36ba64f93237080a08898fda2f9d5"
+    }
+  ],
+  "candidate_changes": [
+    "connect: restore accepted visible value after scheduling",
+    "connect: include actual input index in paste event",
+    "machine: capture paste index at receipt with focus fallback",
+    "machine: own four deferred actions per live context"
+  ],
+  "candidate_files": [
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/anatomy.ts",
+      "sha256": "63deed7b6dea0883548ca9736a3202f17d6721d7d504025178f64b103c70cca8"
+    },
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/connect.ts",
+      "sha256": "bbf00ea62aa724cdeac768d028dda18aed2bd6d6f4dbecdcabbdcfe981a6385c"
+    },
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/dom.ts",
+      "sha256": "0f2f8ded5294a808b9808723dc5975efa380c0a8506450f4bf4eaa09b8ba4745"
+    },
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/machine.ts",
+      "sha256": "db7020b8c0c6d96ac09b93838bd2fa6f31e00678ce627a2a22e8ef84ab4b6f25"
+    },
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/props.ts",
+      "sha256": "3396ff9e278bc6f3cfdb1df612ae7023103af8acc487f1c5581b428ba1186b15"
+    },
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/types.ts",
+      "sha256": "fd473bda92af29544d18d03738a6860e29c54536ac58045707147faa42432b74"
+    },
+    {
+      "path": "packages/components/otp-input/test/paste-diagnostic/candidate/utils.ts",
+      "sha256": "11e723e4f3f0d16f62da8947b08af5e7dbf36ba64f93237080a08898fda2f9d5"
+    }
+  ]
+}
