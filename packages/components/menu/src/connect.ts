@@ -408,7 +408,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getOptionItemState,
 
     getOptionItemProps(props) {
-      const { type, disabled, onCheckedChange, closeOnSelect } = props
+      const { type, disabled, closeOnSelect } = props
 
       const option = getOptionItemProps(props)
       const itemState = getOptionItemState(props)
@@ -432,7 +432,6 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               return
             const target = event.currentTarget
             send({ type: 'ITEM_CLICK', target, option, closeOnSelect })
-            onCheckedChange?.(!itemState.checked)
           },
         }),
       }
