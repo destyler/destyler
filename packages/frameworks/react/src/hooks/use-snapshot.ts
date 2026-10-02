@@ -27,7 +27,7 @@ export function useSnapshot<
   const lastAffected = useRef<WeakMap<object, unknown>>(undefined)
 
   const currSnapshot = useSyncExternalStore(
-    useCallback(callback => subscribe(service.state, callback, notifyInSync), [notifyInSync]),
+    useCallback(callback => subscribe(service.state, callback, notifyInSync), [service, notifyInSync]),
     () => {
       const nextSnapshot = snapshot(service.state)
       try {
