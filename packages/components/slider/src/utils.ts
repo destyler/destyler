@@ -15,7 +15,7 @@ export function normalizeValues(ctx: Ctx, nextValues: number[]) {
 }
 
 export function getRangeAtIndex(ctx: Ctx, index: number) {
-  return getValueRanges(ctx.value, ctx.min, ctx.max, ctx.minStepsBetweenThumbs)[index]
+  return getValueRanges(ctx.value, ctx.min, ctx.max, ctx.minStepsBetweenThumbs * ctx.step)[index]
 }
 
 export function constrainValue(ctx: Ctx, value: number, index: number) {
@@ -53,6 +53,7 @@ export function getClosestIndex(ctx: Ctx, pointValue: number) {
 }
 
 export function assignArray(current: number[], next: number[]) {
+  current.length = next.length
   for (let i = 0; i < next.length; i++) {
     const value = next[i]
     current[i] = value
