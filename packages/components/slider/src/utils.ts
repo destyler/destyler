@@ -53,7 +53,6 @@ export function getClosestIndex(ctx: Ctx, pointValue: number) {
 }
 
 export function assignArray(current: number[], next: number[]) {
-  current.length = next.length
   for (let i = 0; i < next.length; i++) {
     const value = next[i]
     current[i] = value

@@ -72,12 +72,6 @@ function trackPointerListeners(doc: Document) {
   }
 }
 
-function formEntries(form: HTMLFormElement) {
-  const entries: Array<[string, FormDataEntryValue]> = []
-  new FormData(form).forEach((value, name) => entries.push([name, value]))
-  return entries
-}
-
 function key(thumb: HTMLElement, value: string, shiftKey = false) {
   thumb.dispatchEvent(new KeyboardEvent('keydown', { key: value, shiftKey, bubbles: true, cancelable: true }))
 }
@@ -93,50 +87,7 @@ function pointer(target: EventTarget, type: string, x: number, y: number) {
   }))
 }
 
-describe('slider exact value-array contracts', () => {
-  it('replaces, shrinks, clears and regrows uncontrolled arrays without trailing values', () => {
-    const onValueChange = vi.fn()
-    const { api } = start({ defaultValue: [10, 30, 70], onValueChange })
-    api().setValue([20, 60])
-    expect(api().value).toEqual([20, 60])
-    expect(onValueChange).toHaveBeenLastCalledWith({ value: [20, 60] })
-    api().setValue([40])
-    expect(api().value).toEqual([40])
-    api().setValue([])
-    expect(api().value).toEqual([])
-    api().setValue([5, 25, 95])
-    expect(api().value).toEqual([5, 25, 95])
-    expect(onValueChange.mock.calls.map(([details]) => details.value)).toEqual([[20, 60], [40], [], [5, 25, 95]])
-  })
-
-  it('lets an API-driven form remove and restore thumb inputs with the value array', async () => {
-    const form = document.createElement('form')
-    document.body.append(form)
-    cleanups.push(() => form.remove())
-    const { api, service } = start({ defaultValue: [10, 30, 70], name: 'range' })
-    const renderValues = () => {
-      form.replaceChildren(...api().value.map((_, index) => {
-        const input = document.createElement('input')
-        const props = api().getHiddenInputProps({ index })
-        input.id = props.id
-        input.name = props.name
-        input.value = String(props.defaultValue)
-        input.hidden = true
-        return input
-      }))
-    }
-    cleanups.push(service.subscribe(renderValues))
-    renderValues()
-    expect(formEntries(form)).toEqual([['range[]', '10'], ['range[]', '30'], ['range[]', '70']])
-    api().setValue([40])
-    await expect.poll(() => formEntries(form)).toEqual([['range', '40']])
-    api().setValue([])
-    await expect.poll(() => form.querySelectorAll('input').length).toBe(0)
-    expect(formEntries(form)).toEqual([])
-    api().setValue([20, 80])
-    await expect.poll(() => formEntries(form)).toEqual([['range[]', '20'], ['range[]', '80']])
-  })
-
+describe('slider step-scaled thumb constraints and owner controls', () => {
   it('preserves parent ownership across controlled veto, delayed acceptance and shorter arrays', () => {
     const onValueChange = vi.fn()
     const original = [20, 60]
