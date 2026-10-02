@@ -144,13 +144,31 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
   }
 
   const pointerdownCleanups: Set<VoidFunction> = new Set()
+  const pendingFrames = new Set<VoidFunction>()
+  let disposed = false
+
+  function scheduleOutside(callback: VoidFunction) {
+    if (disposed)
+      return
+    if (!defer) {
+      callback()
+      return
+    }
+    const cancel = raf(() => {
+      pendingFrames.delete(cancel)
+      if (!disposed)
+        callback()
+    })
+    pendingFrames.add(cancel)
+  }
 
   function onPointerDown(event: PointerEvent) {
+    if (disposed)
+      return
     //
     function handler() {
-      const func = defer ? raf : (v: any) => v()
       const composedPath = event.composedPath?.() ?? [event.target]
-      func(() => {
+      scheduleOutside(() => {
         if (!node || !isEventOutside(event))
           return
 
@@ -193,8 +211,7 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
 
   function onFocusin(event: FocusEvent) {
     //
-    const func = defer ? raf : (v: any) => v()
-    func(() => {
+    scheduleOutside(() => {
       if (!node || !isEventOutside(event))
         return
 
@@ -220,9 +237,16 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
   cleanups.add(frames.addEventListener('focusin', onFocusin, true))
 
   return () => {
+    if (disposed)
+      return
+    disposed = true
+    pendingFrames.forEach(cancel => cancel())
+    pendingFrames.clear()
     clearTimeout(timer)
     pointerdownCleanups.forEach(fn => fn())
+    pointerdownCleanups.clear()
     cleanups.forEach(fn => fn())
+    cleanups.clear()
   }
 }
 
