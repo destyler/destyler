@@ -54,12 +54,16 @@ const invoke = {
       valueAsString: ctx.valueAsString,
     })
   },
-  change(ctx: MachineContext) {
+  change(ctx: MachineContext, isCurrent?: () => boolean) {
     const value = ctx.value.toFormat(ctx.format)
     ctx.onValueChange?.({
       value,
       valueAsString: ctx.valueAsString,
     })
+
+    // An async request can lose ownership while the consumer handles the change.
+    if (isCurrent && !isCurrent())
+      return
 
     dispatchInputValueEvent(dom.getHiddenInputEl(ctx), { value: ctx.valueAsString })
   },
@@ -69,7 +73,7 @@ const invoke = {
 }
 
 const set = {
-  value(ctx: MachineContext, color: Color | ColorType | undefined) {
+  value(ctx: MachineContext, color: Color | ColorType | undefined, isCurrent?: () => boolean) {
     if (!color || ctx.value.isEqual(color))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
@@ -82,7 +86,7 @@ const set = {
       return
     }
     ctx.value = color
-    invoke.change(ctx)
+    invoke.change(ctx, isCurrent)
   },
   format(ctx: MachineContext, format: ColorFormat) {
     if (ctx.format === format)
@@ -101,6 +105,9 @@ export function machine(userContext: UserDefinedContext) {
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: parse('#000000'),
   })
+  let eyeDropperGeneration = 0
+  const eyeDropperControllers = new Set<AbortController>()
+
   return createMachine<MachineContext, MachineState>(
     {
       id: 'color-picker',
@@ -137,7 +144,7 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
 
-      activities: ['trackFormControl'],
+      activities: ['trackFormControl', 'trackEyeDropper'],
 
       watch: {
         value: ['syncInputElements'],
@@ -429,6 +436,14 @@ export function machine(userContext: UserDefinedContext) {
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {
+        trackEyeDropper() {
+          eyeDropperGeneration++
+          return () => {
+            eyeDropperGeneration++
+            eyeDropperControllers.forEach(controller => controller.abort())
+            eyeDropperControllers.clear()
+          }
+        },
         trackPositioning(ctx) {
           ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getTriggerEl(ctx)
@@ -493,15 +508,30 @@ export function machine(userContext: UserDefinedContext) {
             return
           const win = dom.getWin(ctx)
           const picker = new win.EyeDropper()
-          picker
-            .open()
-            .then(({ sRGBHex }: any) => {
-              const format = ctx.value.getFormat()
-              const color = parseColor(sRGBHex).toFormat(format) as Color
-              set.value(ctx, color)
-              ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
-            })
-            .catch(() => void 0)
+          const controller = new win.AbortController()
+          const generation = eyeDropperGeneration
+          const isCurrent = () => generation === eyeDropperGeneration && !controller.signal.aborted
+          eyeDropperControllers.add(controller)
+          try {
+            picker
+              .open({ signal: controller.signal })
+              .then(({ sRGBHex }: any) => {
+                if (!isCurrent())
+                  return
+                const format = ctx.value.getFormat()
+                const color = parseColor(sRGBHex).toFormat(format) as Color
+                set.value(ctx, color, isCurrent)
+                if (!isCurrent())
+                  return
+                ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
+              })
+              .catch(() => void 0)
+              .finally(() => eyeDropperControllers.delete(controller))
+          }
+          catch (error) {
+            eyeDropperControllers.delete(controller)
+            throw error
+          }
         },
         setActiveChannel(ctx, evt) {
           ctx.activeId = evt.id
