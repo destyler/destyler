@@ -1,4 +1,4 @@
-import type { Color } from '@destyler/color'
+import type { Color, ColorChannel } from '@destyler/color'
 import type {
   ColorFormat,
   ColorType,
@@ -44,6 +44,14 @@ const sync = {
       dom.setValue(selectEl, ctx.format)
     })
   },
+}
+
+function getChannelColor(ctx: MachineContext, channel: ColorChannel, format?: ColorFormat) {
+  // Alpha is independent of color space; preserve the other stored channels.
+  const value = ctx.value!
+  if (channel === 'alpha')
+    return value
+  return format ? value.toFormat(format) : ctx.areaValue
 }
 
 const invoke = {
@@ -594,11 +602,11 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, color)
         },
         incrementChannel(ctx, evt) {
-          const color = ctx.value.incrementChannel(evt.channel, evt.step)
+          const color = getChannelColor(ctx, evt.channel, evt.format).incrementChannel(evt.channel, evt.step)
           set.value(ctx, color)
         },
         decrementChannel(ctx, evt) {
-          const color = ctx.value.decrementChannel(evt.channel, evt.step)
+          const color = getChannelColor(ctx, evt.channel, evt.format).decrementChannel(evt.channel, evt.step)
           set.value(ctx, color)
         },
         incrementAreaXChannel(ctx, evt) {
@@ -622,13 +630,15 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, color)
         },
         setChannelToMax(ctx, evt) {
-          const range = ctx.value.getChannelRange(evt.channel)
-          const color = ctx.value.withChannelValue(evt.channel, range.maxValue)
+          const value = getChannelColor(ctx, evt.channel, evt.format)
+          const range = value.getChannelRange(evt.channel)
+          const color = value.withChannelValue(evt.channel, range.maxValue)
           set.value(ctx, color)
         },
         setChannelToMin(ctx, evt) {
-          const range = ctx.value.getChannelRange(evt.channel)
-          const color = ctx.value.withChannelValue(evt.channel, range.minValue)
+          const value = getChannelColor(ctx, evt.channel, evt.format)
+          const range = value.getChannelRange(evt.channel)
+          const color = value.withChannelValue(evt.channel, range.minValue)
           set.value(ctx, color)
         },
         focusAreaThumb(ctx) {
