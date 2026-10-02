@@ -42,6 +42,8 @@ export function toStyleString(style: Record<string, number | string>) {
   return string
 }
 
+const enumeratedAttrs = new Set(['contentEditable', 'draggable', 'spellCheck'])
+
 const preserveKeys
   = 'viewBox,className,preserveAspectRatio,fillRule,clipPath,clipRule,strokeWidth,strokeLinecap,strokeLinejoin,strokeDasharray,strokeDashoffset,strokeMiterlimit'.split(
     ',',
@@ -58,6 +60,8 @@ function toSvelteProp(key: string) {
 function toSveltePropValue(key: string, value: Dict[string]) {
   if (key === 'style' && typeof value === 'object')
     return toStyleString(value)
+  if (typeof value === 'boolean' && enumeratedAttrs.has(key))
+    return String(value)
   if (value === false)
     return
 
