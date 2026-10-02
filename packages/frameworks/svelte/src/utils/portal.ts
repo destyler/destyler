@@ -9,7 +9,8 @@ export function portal(node: HTMLElement, props: PortalActionProps = {}) {
     const { container, disabled, getRootNode } = props
     if (disabled)
       return
-    const doc = getRootNode?.().ownerDocument ?? document
+    const root = getRootNode?.()
+    const doc = root?.nodeType === 9 ? root as Document : root?.ownerDocument ?? document
     const mountNode = container ?? doc.body
     mountNode.appendChild(node)
   }
