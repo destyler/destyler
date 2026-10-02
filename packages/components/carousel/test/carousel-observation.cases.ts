@@ -90,6 +90,8 @@ async function start(context: Partial<UserDefinedContext> = {}, doc = document) 
   }
   doc.body.appendChild(group)
   nodes.push(group)
+  const addEventListener = vi.spyOn(group, 'addEventListener')
+  const removeEventListener = vi.spyOn(group, 'removeEventListener')
   const service = machine({ id, slideCount: 3, getRootNode: () => doc, ...context })
   services.push(service)
   service.start()
@@ -97,10 +99,36 @@ async function start(context: Partial<UserDefinedContext> = {}, doc = document) 
   await Promise.resolve()
   expect(service.state.context.pageSnapPoints).toEqual([0, 300, 600])
   scrollTo.mockClear()
-  return { service, group, scrollTo, scrollBy, indicators }
+  return { service, group, scrollTo, scrollBy, indicators, addEventListener, removeEventListener }
 }
 
 describe('carousel activity ownership', () => {
+  it('preserves the idle scroll listener and pending completion through view updates', async () => {
+    const onPageChange = vi.fn()
+    const { service, group, addEventListener, removeEventListener } = await start({ onPageChange })
+    const registrations = () => addEventListener.mock.calls.filter(([type]) => type === 'scroll')
+    expect(registrations()).toHaveLength(1)
+    const listener = registrations()[0][1]
+    service.send({ type: 'INVIEW.SET', slidesInView: [0] })
+    group.scrollLeft = 300
+    group.dispatchEvent(new Event('scroll'))
+    vi.advanceTimersByTime(75)
+    service.send({ type: 'INVIEW.SET', slidesInView: [1] })
+    expect(registrations()).toHaveLength(1)
+    expect(removeEventListener).not.toHaveBeenCalled()
+    vi.advanceTimersByTime(75)
+    expect(onPageChange).toHaveBeenCalledExactlyOnceWith({ page: 1, pageSnapPoint: 300 })
+    await Promise.resolve()
+    group.scrollLeft = 600
+    service.send({ type: 'INVIEW.SET', slidesInView: [2] })
+    group.dispatchEvent(new Event('scroll'))
+    vi.advanceTimersByTime(150)
+    expect(onPageChange).toHaveBeenLastCalledWith({ page: 2, pageSnapPoint: 600 })
+    expect(onPageChange).toHaveBeenCalledTimes(2)
+    service.stop()
+    expect(removeEventListener).toHaveBeenCalledExactlyOnceWith('scroll', listener, { passive: true })
+  })
+
   it('keeps the autoplay deadline and emits no stop when slides enter view', async () => {
     const onAutoplayStatusChange = vi.fn()
     const { service } = await start({ autoplay: { delay: 1000 }, loop: true, onAutoplayStatusChange })
