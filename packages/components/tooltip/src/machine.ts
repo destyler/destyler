@@ -192,6 +192,7 @@ export function machine(userContext: UserDefinedContext) {
           on: {
             'CONTROLLED.CLOSE': 'closed',
             'CONTROLLED.OPEN': 'open',
+            'OPEN': 'open',
             'CLOSE': [
               {
                 guard: 'isOpenControlled',
