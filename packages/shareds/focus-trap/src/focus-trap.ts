@@ -72,6 +72,7 @@ export class FocusTrap {
   private trapStack: FocusTrap[]
   private config: FocusTrapOptions
   private doc: Document
+  private activationId = 0
 
   private state: FocusTrapState = {
     containers: [],
@@ -436,9 +437,15 @@ export class FocusTrap {
     const onPostActivate = this.getOption(activateOptions, 'onPostActivate')
     const checkCanFocusTrap = this.getOption(activateOptions, 'checkCanFocusTrap')
 
+    const activationId = ++this.activationId
+    const isCurrentActivation = () => this.state.active && this.activationId === activationId
+
     if (!checkCanFocusTrap) {
       this.updateTabbableNodes()
     }
+
+    if (this.activationId !== activationId)
+      return this
 
     this.state.active = true
     this.state.paused = false
@@ -446,7 +453,13 @@ export class FocusTrap {
 
     onActivate?.()
 
+    if (!isCurrentActivation())
+      return this
+
     const finishActivation = () => {
+      if (!isCurrentActivation())
+        return
+
       if (checkCanFocusTrap) {
         this.updateTabbableNodes()
       }
