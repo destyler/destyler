@@ -111,6 +111,11 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           }
 
           const key = getEventKey(event, state.context)
+          if (isHorizontal && (key === 'ArrowUp' || key === 'ArrowDown'))
+            return
+          if (isVertical && (key === 'ArrowLeft' || key === 'ArrowRight'))
+            return
+
           const exec = keyMap[key]
 
           if (exec) {
