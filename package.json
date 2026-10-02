@@ -33,7 +33,7 @@
     "test:ui": "vitest --ui --open",
     "test:deploy": "vitest run --reporter=html --browser.headless",
     "test:coverage": "vitest run --coverage",
-    "test:workflows": "node --test scripts/test/workflows.test.mjs",
+    "test:workflows": "node --test scripts/test/workflows.test.mjs scripts/test/browser-discovery.test.mjs",
     "test:types": "tsc --project tsconfig.type-tests.json",
     "examples script": "Group: Example workspace filters",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
