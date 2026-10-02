@@ -186,6 +186,20 @@ describe('tabs keyboard event and context controls', () => {
     }
   })
 
+  it('detaches fixture event listeners before actor stop and repeated disposal', async () => {
+    const fixture = setup()
+    fixture.focus('a')
+    await fixture.cleanup()
+    await fixture.cleanup()
+    const before = fixture.sent.slice()
+    const trigger = fixture.triggers.get('a')!
+    trigger.dispatchEvent(new FocusEvent('focus'))
+    trigger.click()
+    fixture.key('ArrowRight', {}, trigger)
+    expect(fixture.sent).toEqual(before)
+    expect(fixture.root.isConnected).toBe(false)
+  })
+
   it.each([' ', 'Tab', 'PageDown', 'Escape', 'x'])('leaves the existing unmapped %s behavior unchanged', async (key) => {
     const fixture = setup({ activationMode: 'manual' })
     fixture.focus('b')

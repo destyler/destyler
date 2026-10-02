@@ -35,6 +35,8 @@ export function createKeyboardFixture(context: Partial<UserDefinedContext> = {},
   { value: 'c' },
 ]) {
   const service = machine({ id: `tabs-keyboard-${++fixtureId}`, defaultValue: 'a', ...context })
+  const events = new AbortController()
+  let disposed = false
   const sent: Array<Parameters<typeof service.send>[0]> = []
   const send: typeof service.send = (event) => {
     sent.push(event)
@@ -58,9 +60,9 @@ export function createKeyboardFixture(context: Partial<UserDefinedContext> = {},
     trigger.textContent = item.value
     triggers.set(item.value, trigger)
     list.append(trigger)
-    trigger.addEventListener('focus', event => invoke(api().getTriggerProps(item).onFocus, trigger, event))
-    trigger.addEventListener('blur', event => invoke(api().getTriggerProps(item).onBlur, trigger, event))
-    trigger.addEventListener('click', event => invoke(api().getTriggerProps(item).onClick, trigger, event))
+    trigger.addEventListener('focus', event => invoke(api().getTriggerProps(item).onFocus, trigger, event), { signal: events.signal })
+    trigger.addEventListener('blur', event => invoke(api().getTriggerProps(item).onBlur, trigger, event), { signal: events.signal })
+    trigger.addEventListener('click', event => invoke(api().getTriggerProps(item).onClick, trigger, event), { signal: events.signal })
     const panel = document.createElement('div')
     panel.textContent = `Panel ${item.value}`
     panels.set(item.value, panel)
@@ -71,7 +73,7 @@ export function createKeyboardFixture(context: Partial<UserDefinedContext> = {},
     // Reconnect from the current snapshot, as the framework adapters do.
     invoke(api().getListProps().onKeyDown, list, event)
     keyboardEvents.push({ event, target: event.target, currentTarget: event.currentTarget, defaultPrevented: event.defaultPrevented })
-  })
+  }, { signal: events.signal })
 
   function render() {
     const current = api()
@@ -107,7 +109,11 @@ export function createKeyboardFixture(context: Partial<UserDefinedContext> = {},
       return event
     },
     async cleanup() {
+      if (disposed)
+        return
+      disposed = true
       await settleKeyboard()
+      events.abort()
       unsubscribe()
       service.stop()
       root.remove()
