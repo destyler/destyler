@@ -7,8 +7,10 @@ import { machine } from '../src/machine'
 const normalize = createNormalizer(props => props)
 const cleanups: Array<() => void> = []
 
-afterEach(() => {
+afterEach(async () => {
   cleanups.splice(0).reverse().forEach(cleanup => cleanup())
+  // Drain the existing uncancelled focus RAF after detached fixtures are removed.
+  await new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
   vi.restoreAllMocks()
 })
 
@@ -49,6 +51,25 @@ function mount(props: Partial<UserDefinedContext> = {}, doc = document) {
   })
   control.addEventListener('pointerdown', event => result.api().getControlProps().onPointerDown(event))
   return { ...result, root, control, thumbs }
+}
+
+function trackPointerListeners(doc: Document) {
+  const add = vi.spyOn(doc, 'addEventListener')
+  const remove = vi.spyOn(doc, 'removeEventListener')
+  const types = ['pointermove', 'pointerup', 'pointercancel', 'contextmenu']
+  const registrations = () => add.mock.calls.filter(([type]) => types.includes(type))
+  cleanups.push(() => {
+    registrations().forEach(([type, callback, options]) => doc.removeEventListener(type, callback, options))
+  })
+  return () => {
+    expect(registrations().map(([type]) => type).sort()).toEqual([...types].sort())
+    for (const [type, callback, options] of registrations()) {
+      expect(options).toBe(false)
+      expect(remove.mock.calls.filter(([removedType, removedCallback, removedOptions]) => (
+        removedType === type && removedCallback === callback && removedOptions === options
+      ))).toHaveLength(1)
+    }
+  }
 }
 
 function formEntries(form: HTMLFormElement) {
@@ -206,6 +227,7 @@ describe('slider exact value-array contracts', () => {
   it('constrains dragging and removes document listeners after pointer cancellation', () => {
     const onValueChangeEnd = vi.fn()
     const { api, control, thumbs } = mount({ defaultValue: [20, 60], step: 5, minStepsBetweenThumbs: 2, onValueChangeEnd })
+    const assertListenersReleased = trackPointerListeners(document)
     const { x, y } = control.getBoundingClientRect()
     pointer(thumbs[0], 'pointerdown', x + 40, y + 20)
     expect(api().dragging).toBe(true)
@@ -213,6 +235,7 @@ describe('slider exact value-array contracts', () => {
     expect(api().value).toEqual([50, 60])
     pointer(document, 'pointercancel', x + 190, y + 20)
     expect(api().dragging).toBe(false)
+    assertListenersReleased()
     expect(onValueChangeEnd).toHaveBeenCalledExactlyOnceWith({ value: [50, 60] })
     pointer(document, 'pointermove', x + 10, y + 20)
     expect(api().value).toEqual([50, 60])
@@ -224,6 +247,7 @@ describe('slider exact value-array contracts', () => {
     cleanups.push(() => iframe.remove())
     const doc = iframe.contentDocument!
     const { service, api, control, thumbs } = mount({ defaultValue: [20, 60] }, doc)
+    const assertListenersReleased = trackPointerListeners(doc)
     const { x, y } = control.getBoundingClientRect()
     pointer(thumbs[1], 'pointerdown', x + 120, y + 20)
     pointer(document, 'pointermove', x + 180, y + 20)
@@ -231,6 +255,7 @@ describe('slider exact value-array contracts', () => {
     pointer(doc, 'pointermove', x + 180, y + 20)
     expect(api().value).toEqual([20, 90])
     service.stop()
+    assertListenersReleased()
     pointer(doc, 'pointermove', x + 150, y + 20)
     expect(api().value).toEqual([20, 90])
   })
