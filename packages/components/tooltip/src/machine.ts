@@ -18,6 +18,7 @@ export function machine(userContext: UserDefinedContext) {
       initial: initialOpen ? 'open' : 'closed',
 
       activities: ['trackFocusVisible'],
+      exit: ['clearGlobalId'],
 
       context: {
         openDelay: 1000,
