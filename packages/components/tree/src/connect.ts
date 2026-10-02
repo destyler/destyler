@@ -165,13 +165,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               send({ type: 'NODE.ARROW_UP', id: nodeId, shiftKey: event.shiftKey })
             },
             ArrowLeft(event) {
-              if (isModifierKey(event) || node.dataset.disabled)
+              if (isModifierKey(event) || node.matches('[data-disabled]'))
                 return
               event.preventDefault()
               send({ type: isBranchNode ? 'BRANCH_NODE.ARROW_LEFT' : 'NODE.ARROW_LEFT', id: nodeId })
             },
             ArrowRight(event) {
-              if (!isBranchNode || node.dataset.disabled)
+              if (!isBranchNode || node.matches('[data-disabled]'))
                 return
               event.preventDefault()
               send({ type: 'BRANCH_NODE.ARROW_RIGHT', id: nodeId })
@@ -189,7 +189,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               send({ type: 'NODE.END', id: nodeId, shiftKey: event.shiftKey })
             },
             Space(event) {
-              if (node.dataset.disabled)
+              if (node.matches('[data-disabled]'))
                 return
 
               if (isTypingAhead) {
@@ -200,7 +200,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               }
             },
             Enter(event) {
-              if (node.dataset.disabled)
+              if (node.matches('[data-disabled]'))
                 return
 
               const isLink = target?.closest('a[href]')
@@ -210,13 +210,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               send({ type: isBranchNode ? 'BRANCH_NODE.CLICK' : 'NODE.CLICK', id: nodeId, src: 'keyboard' })
             },
             '*': function (event) {
-              if (node.dataset.disabled)
+              if (node.matches('[data-disabled]'))
                 return
               event.preventDefault()
               send({ type: 'SIBLINGS.EXPAND', id: nodeId })
             },
             a(event) {
-              if (!event.metaKey || node.dataset.disabled)
+              if (!event.metaKey || node.matches('[data-disabled]'))
                 return
               event.preventDefault()
               send({ type: 'SELECTED.ALL', moveFocus: true })
