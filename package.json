@@ -1,7 +1,7 @@
 {
   "name": "@destyler/monorepo",
   "type": "module",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "private": true,
   "packageManager": "pnpm@10.26.1",
   "author": "Elone Hoo <elonehoo@gmail.com>",
