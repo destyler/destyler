@@ -44,6 +44,14 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
+  let anchorGeneration = 0
+  let cancelAnchorFrame: VoidFunction | undefined
+  const clearAnchorPosition = () => {
+    anchorGeneration++
+    cancelAnchorFrame?.()
+    cancelAnchorFrame = undefined
+  }
+
   const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
@@ -82,6 +90,7 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       activities: ['trackPanelStack'],
+      exit: ['clearAnchorPosition'],
 
       on: {
         WINDOW_FOCUS: {
@@ -296,17 +305,25 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
       actions: {
+        clearAnchorPosition,
         setAnchorPosition(ctx) {
+          clearAnchorPosition()
           // if we persisted the rect, we don't need to set the anchor position
           if (ctx.persistRect && (ctx.prevPosition || ctx.prevSize))
             return
-          raf(() => {
+          const generation = anchorGeneration
+          cancelAnchorFrame = raf(() => {
+            if (generation !== anchorGeneration)
+              return
             const triggerRect = dom.getTriggerEl(ctx)
             const boundaryRect = dom.getBoundaryRect(ctx, false)
             const anchorPosition = ctx.getAnchorPosition?.({
               triggerRect: triggerRect ? DOMRect.fromRect(getElementRect(triggerRect)) : null,
               boundaryRect: DOMRect.fromRect(boundaryRect),
             })
+            if (generation !== anchorGeneration)
+              return
+            cancelAnchorFrame = undefined
             if (!anchorPosition)
               return
             ctx.position = anchorPosition
@@ -340,6 +357,7 @@ export function machine(userContext: UserDefinedContext) {
           el?.style.setProperty('--y', `${ctx.position.y}px`)
         },
         resetRect(ctx, _evt, { initialContext }) {
+          clearAnchorPosition()
           ctx.stage = undefined
           if (!ctx.persistRect) {
             set.position(ctx, initialContext.position)
