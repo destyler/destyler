@@ -342,13 +342,12 @@ export class TreeCollection<T = TreeNode> {
         const nodeValue = this.getNodeValue(node)
         if (opts.skip?.({ value: nodeValue, node, indexPath }))
           return 'skip'
-        if (this.getNodeChildren(node).length > 0 && this.isSameDepth(indexPath, opts.depth)) {
+        if (this.getNodeChildren(node).length > 0 && this.isSameDepth(indexPath, opts.depth) && indexPath.length > 0) {
           values.push(this.getNodeValue(node))
         }
       },
     })
-    // remove the root node
-    return values.slice(1)
+    return values
   }
 
   flatten = (rootNode = this.rootNode): FlatTreeNode[] => {
