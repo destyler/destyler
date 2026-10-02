@@ -327,6 +327,11 @@ export function machine(userContext: UserDefinedContext) {
           const anchorValue = first(ctx.selectedValue) || ctx.collection.getNodeValue(ctx.collection.getFirstNode())
           const targetValue = evt.id
 
+          if (anchorValue === targetValue) {
+            set.selected(ctx, [anchorValue])
+            return
+          }
+
           const values: string[] = [anchorValue, targetValue]
 
           let hits = 0
