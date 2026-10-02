@@ -41,6 +41,7 @@ export abstract class Component<
   private unsubscribe?: () => void
   private contextUnsubscribe?: () => void
   private initialized = false
+  private ready = false
 
   constructor(
     protected rootEl: HTMLElement,
@@ -70,6 +71,7 @@ export abstract class Component<
 
     this.service._created()
     this.service.start(this.options?.state)
+    this.ready = true
 
     this.updateApi()
     this.performRender()
@@ -82,10 +84,25 @@ export abstract class Component<
   }
 
   destroy(): void {
-    this.unsubscribe?.()
-    this.contextUnsubscribe?.()
-    this.service?.stop()
+    if (!this.initialized)
+      return
     this.initialized = false
+    this.ready = false
+    const unsubscribe = this.unsubscribe
+    const contextUnsubscribe = this.contextUnsubscribe
+    this.unsubscribe = undefined
+    this.contextUnsubscribe = undefined
+    try {
+      unsubscribe?.()
+    }
+    finally {
+      try {
+        contextUnsubscribe?.()
+      }
+      finally {
+        this.service?.stop()
+      }
+    }
   }
 
   /**
@@ -108,12 +125,14 @@ export abstract class Component<
 
   setOptions(options: Partial<ComponentOptions<TUserContext, TMachineContext, TState, TEvent>>): void {
     this.options = { ...this.options, ...options }
+    if (!this.initialized)
+      return
 
     if (options.actions) {
       this.service?.setOptions({ actions: options.actions })
     }
 
-    if (options.context) {
+    if ('context' in options) {
       this.applyContextOption(options.context)
     }
   }
@@ -126,9 +145,11 @@ export abstract class Component<
     return this.service?.send
   }
 
-  private applyContextOption(context: UserContext<TUserContext> | ContextSource<TUserContext>) {
+  private applyContextOption(context: UserContext<TUserContext> | ContextSource<TUserContext> | undefined) {
     this.contextUnsubscribe?.()
     this.contextUnsubscribe = undefined
+    if (!context)
+      return
 
     if (isContextSource<TUserContext>(context)) {
       const initial = context.get?.()
@@ -136,6 +157,9 @@ export abstract class Component<
         this.service.setContext(initial as Partial<TMachineContext>)
       this.contextUnsubscribe = context.subscribe((ctx) => {
         this.service.setContext(ctx as Partial<TMachineContext>)
+        // Some sources emit during subscribe, before created/start initialize the API.
+        if (!this.ready)
+          return
         this.updateApi()
         this.performRender()
       })
