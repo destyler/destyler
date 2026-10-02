@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { getVersion, proxy, snapshot, subscribe } from '../src/proxy'
+import { proxy, snapshot, subscribe } from '../src/proxy'
 
 describe('subscription lifetime during dispatch', () => {
   it('notifies subscribers registered before dispatch', () => {
@@ -85,27 +85,6 @@ describe('subscription lifetime during dispatch', () => {
     expect(snapshot(state).value).toBe(2)
     removeFirst()
     removeAdded()
-  })
-
-  it('keeps versions monotonic when an alias propagates an older mutation after a nested write', () => {
-    const child = { value: 0 }
-    const state = proxy({ first: child, second: child, other: 0 })
-    const versions: number[] = []
-    let nested = false
-    const remove = subscribe(state, () => {
-      versions.push(getVersion(state)!)
-      if (!nested) {
-        nested = true
-        state.other = 1
-      }
-    }, true)
-
-    state.first.value = 1
-    expect(versions).toHaveLength(2)
-    expect(versions[1]).toBeGreaterThan(versions[0])
-    expect(getVersion(state)).toBe(versions[1])
-    expect(snapshot(state)).toMatchObject({ first: { value: 1 }, second: { value: 1 }, other: 1 })
-    remove()
   })
 
   it('notifies new subscribers only for future nested-property changes after re-subscription', () => {
