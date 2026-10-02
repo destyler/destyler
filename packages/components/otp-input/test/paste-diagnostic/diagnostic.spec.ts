@@ -23,7 +23,7 @@ async function clipboard(view: PasteFixture, value: string) {
   await userEvent.copy()
 }
 for (const implementation of implementations) {
-  const fixed = implementation.name === 'candidate'
+  const fixed = implementation.name !== 'baseline'
   describe(`diagnostic-only native ${implementation.name}`, () => {
     for (const ownership of ['uncontrolled', 'accept', 'veto'] as const) {
       for (const empty of [false, true]) {
@@ -40,14 +40,15 @@ for (const implementation of implementations) {
           expect(view.inputEvents[0].inputType).toBe('insertFromPaste')
           expect(view.timeline.map(row => row.phase)).toEqual(['input-before', 'input-after', 'request'])
           const inputAfter = view.timeline[1]
-          const firstFrame = fixed ? initial : ['9', ...initial.slice(1)]
+          const restoreBeforeFrame = implementation.name === 'candidate' || (implementation.name === 'controlled-preframe' && ownership !== 'uncontrolled')
+          const firstFrame = restoreBeforeFrame ? initial : ['9', ...initial.slice(1)]
           expect(inputAfter.values).toEqual(firstFrame)
           expect(inputAfter.accepted).toEqual(initial)
-          expect(inputAfter.caret).toBe(fixed ? initial[0].length : 1)
+          expect(inputAfter.caret).toBe(restoreBeforeFrame ? initial[0].length : 1)
           expect(view.changes).toEqual([{ value: ['9', '8', '7'], valueAsString: '987' }])
           const accepted = ownership === 'veto' ? initial : ['9', '8', '7']
           expect(view.api().value).toEqual(accepted)
-          expect(view.inputs.map(input => input.value)).toEqual(ownership === 'veto' ? firstFrame : accepted)
+          expect(view.inputs.map(input => input.value)).toEqual(ownership === 'veto' && !fixed ? firstFrame : accepted)
           view.observe('post-frame')
           if (ownership === 'veto') {
             view.service.setContext({ value: ['9', '8', '7'] })
@@ -60,6 +61,48 @@ for (const implementation of implementations) {
           console.info('OTP_PASTE_DIAGNOSTIC', JSON.stringify({ source: implementation.name, ownership, empty, timeline: view.timeline }))
         })
       }
+    }
+    it('preserves caller DOM after onValueChange stops and restarts the actor', async () => {
+      const view = createPasteFixture('veto', {}, implementation)
+      views.push(view)
+      view.service.setContext({ onValueChange(details) {
+        view.changes.push(details)
+        view.service.stop()
+        view.service.start()
+        view.inputs[0].value = 'caller-owned'
+      } })
+      view.paste(0, '987')
+      await settle()
+      expect(view.changes).toHaveLength(1)
+      expect(view.api().value).toEqual(['1', '2', '3'])
+      expect(view.inputs[0].value).toBe('caller-owned')
+    })
+    if (implementation.name === 'controlled-postframe') {
+      it('rechecks generation after a caller root resolver restarts the actor', async () => {
+        let armed = false
+        let resolvedAfterCallback = false
+        const view = createPasteFixture('veto', { getRootNode() {
+          if (armed) {
+            armed = false
+            resolvedAfterCallback = true
+            view.service.stop()
+            view.service.start()
+            view.inputs[0].value = 'caller-owned'
+          }
+          return document
+        } }, implementation)
+        views.push(view)
+        view.service.setContext({ onValueChange(details) {
+          view.changes.push(details)
+          armed = true
+        } })
+        view.paste(0, '987')
+        await settle()
+        expect(resolvedAfterCallback).toBe(true)
+        expect(view.changes).toHaveLength(1)
+        expect(view.api().value).toEqual(['1', '2', '3'])
+        expect(view.inputs[0].value).toBe('caller-owned')
+      })
     }
     it('routes trusted clipboard text when a consumer moves focus during the input event', async () => {
       const view = createPasteFixture('uncontrolled', {}, implementation)

@@ -72,5 +72,67 @@
       "path": "packages/components/otp-input/test/paste-diagnostic/candidate/utils.ts",
       "sha256": "11e723e4f3f0d16f62da8947b08af5e7dbf36ba64f93237080a08898fda2f9d5"
     }
-  ]
+  ],
+  "additional_experiments": {
+    "controlled-preframe": [
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/anatomy.ts",
+        "sha256": "63deed7b6dea0883548ca9736a3202f17d6721d7d504025178f64b103c70cca8"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/connect.ts",
+        "sha256": "9f3ed4d328ffcb72e5467db2c5ea1a3895290ade168caca497d40f1e45901028"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/dom.ts",
+        "sha256": "0f2f8ded5294a808b9808723dc5975efa380c0a8506450f4bf4eaa09b8ba4745"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/machine.ts",
+        "sha256": "db7020b8c0c6d96ac09b93838bd2fa6f31e00678ce627a2a22e8ef84ab4b6f25"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/props.ts",
+        "sha256": "3396ff9e278bc6f3cfdb1df612ae7023103af8acc487f1c5581b428ba1186b15"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/types.ts",
+        "sha256": "fd473bda92af29544d18d03738a6860e29c54536ac58045707147faa42432b74"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-preframe/utils.ts",
+        "sha256": "11e723e4f3f0d16f62da8947b08af5e7dbf36ba64f93237080a08898fda2f9d5"
+      }
+    ],
+    "controlled-postframe": [
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/anatomy.ts",
+        "sha256": "63deed7b6dea0883548ca9736a3202f17d6721d7d504025178f64b103c70cca8"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/connect.ts",
+        "sha256": "2a483a1bf0b52a20c4d95b5b519bcec3101a3803f31523d4e4714b2955955f75"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/dom.ts",
+        "sha256": "0f2f8ded5294a808b9808723dc5975efa380c0a8506450f4bf4eaa09b8ba4745"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/machine.ts",
+        "sha256": "f95d7721d343c12dcae1ad6220f1c3d0046c404c44a22ed61949df0d55983590"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/props.ts",
+        "sha256": "3396ff9e278bc6f3cfdb1df612ae7023103af8acc487f1c5581b428ba1186b15"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/types.ts",
+        "sha256": "fd473bda92af29544d18d03738a6860e29c54536ac58045707147faa42432b74"
+      },
+      {
+        "path": "packages/components/otp-input/test/paste-diagnostic/controlled-postframe/utils.ts",
+        "sha256": "11e723e4f3f0d16f62da8947b08af5e7dbf36ba64f93237080a08898fda2f9d5"
+      }
+    ]
+  }
 }

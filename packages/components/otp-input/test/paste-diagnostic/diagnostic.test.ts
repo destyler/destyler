@@ -26,7 +26,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 for (const implementation of implementations) {
-  const fixed = implementation.name === 'candidate'
+  const fixed = implementation.name !== 'baseline'
   describe(`diagnostic-only ${implementation.name}`, () => {
     for (const ownership of ['uncontrolled', 'accept', 'veto'] as const) {
       for (const empty of [false, true]) {
@@ -38,14 +38,15 @@ for (const implementation of implementations) {
           view.paste(0, '987')
           expect(view.changes).toEqual([])
           expect(view.timeline.map(row => row.phase)).toEqual(['input-before', 'input-after'])
-          const firstFrame = fixed ? initial : ['9', ...initial.slice(1)]
+          const restoreBeforeFrame = implementation.name === 'candidate' || (implementation.name === 'controlled-preframe' && ownership !== 'uncontrolled')
+          const firstFrame = restoreBeforeFrame ? initial : ['9', ...initial.slice(1)]
           expect(view.inputs.map(input => input.value)).toEqual(firstFrame)
-          expect(view.inputs[0].selectionStart).toBe(fixed ? initial[0].length : 1)
+          expect(view.inputs[0].selectionStart).toBe(restoreBeforeFrame ? initial[0].length : 1)
           flushFrame()
           expect(view.changes).toEqual([{ value: ['9', '8', '7'], valueAsString: '987' }])
           const accepted = ownership === 'veto' ? initial : ['9', '8', '7']
           expect(view.api().value).toEqual(accepted)
-          await expect.poll(() => view.inputs.map(input => input.value)).toEqual(ownership === 'veto' ? firstFrame : accepted)
+          await expect.poll(() => view.inputs.map(input => input.value)).toEqual(ownership === 'veto' && !fixed ? firstFrame : accepted)
           if (ownership === 'veto') {
             view.service.setContext({ value: ['9', '8', '7'] })
             await expect.poll(() => view.inputs.map(input => input.value)).toEqual(['9', '8', '7'])
@@ -70,6 +71,50 @@ for (const implementation of implementations) {
         view.focus(2)
         flushFrame()
         expect(view.changes[0].value).toEqual(fixed ? ['9', '8', '7'] : ['1', '2', '9'])
+      })
+    }
+    it('preserves caller DOM after onValueChange stops and restarts the actor', () => {
+      clock()
+      const view = createPasteFixture('veto', {}, implementation)
+      views.push(view)
+      view.service.setContext({ onValueChange(details) {
+        view.changes.push(details)
+        view.service.stop()
+        view.service.start()
+        view.inputs[0].value = 'caller-owned'
+      } })
+      view.paste(0, '987')
+      flushFrame()
+      expect(view.changes).toHaveLength(1)
+      expect(view.api().value).toEqual(['1', '2', '3'])
+      expect(view.inputs[0].value).toBe('caller-owned')
+    })
+    if (implementation.name === 'controlled-postframe') {
+      it('rechecks generation after a caller root resolver restarts the actor', () => {
+        clock()
+        let armed = false
+        let resolvedAfterCallback = false
+        const view = createPasteFixture('veto', { getRootNode() {
+          if (armed) {
+            armed = false
+            resolvedAfterCallback = true
+            view.service.stop()
+            view.service.start()
+            view.inputs[0].value = 'caller-owned'
+          }
+          return document
+        } }, implementation)
+        views.push(view)
+        view.service.setContext({ onValueChange(details) {
+          view.changes.push(details)
+          armed = true
+        } })
+        view.paste(0, '987')
+        flushFrame()
+        expect(resolvedAfterCallback).toBe(true)
+        expect(view.changes).toHaveLength(1)
+        expect(view.api().value).toEqual(['1', '2', '3'])
+        expect(view.inputs[0].value).toBe('caller-owned')
       })
     }
     it('keeps direct machine callers without index on the focus fallback', () => {
