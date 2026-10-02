@@ -71,6 +71,10 @@ export function machine(userContext: UserDefinedContext) {
                 target: 'opening',
               },
               {
+                guard: and('isOpenControlled', not('hasPointerMoveOpened')),
+                actions: ['setPointerMoveOpened', 'invokeOnOpen'],
+              },
+              {
                 guard: not('hasPointerMoveOpened'),
                 target: 'open',
                 actions: ['setPointerMoveOpened', 'invokeOnOpen'],
