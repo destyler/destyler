@@ -27,6 +27,9 @@ function isContextSource<T>(value: any): value is ContextSource<T> {
   return value && typeof value === 'object' && typeof value.subscribe === 'function'
 }
 
+const readyKey = Symbol('component.ready')
+const destroyingKey = Symbol('component.destroying')
+
 export abstract class Component<
   TUserContext extends Record<string, any>,
   TApi,
@@ -41,6 +44,8 @@ export abstract class Component<
   private unsubscribe?: () => void
   private contextUnsubscribe?: () => void
   private initialized = false
+  private [readyKey] = false
+  private [destroyingKey] = false
 
   constructor(
     protected rootEl: HTMLElement,
@@ -54,7 +59,7 @@ export abstract class Component<
    * Initialize the machine, subscribe to updates, and trigger the first render.
    */
   init(): void {
-    if (this.initialized)
+    if (this.initialized || this[destroyingKey])
       return
     this.initialized = true
 
@@ -70,6 +75,7 @@ export abstract class Component<
 
     this.service._created()
     this.service.start(this.options?.state)
+    this[readyKey] = true
 
     this.updateApi()
     this.performRender()
@@ -82,10 +88,32 @@ export abstract class Component<
   }
 
   destroy(): void {
-    this.unsubscribe?.()
-    this.contextUnsubscribe?.()
-    this.service?.stop()
+    if (!this.initialized)
+      return
     this.initialized = false
+    this[readyKey] = false
+    this[destroyingKey] = true
+    const service = this.service
+    const unsubscribe = this.unsubscribe
+    const contextUnsubscribe = this.contextUnsubscribe
+    this.unsubscribe = undefined
+    this.contextUnsubscribe = undefined
+    try {
+      unsubscribe?.()
+    }
+    finally {
+      try {
+        contextUnsubscribe?.()
+      }
+      finally {
+        try {
+          service?.stop()
+        }
+        finally {
+          this[destroyingKey] = false
+        }
+      }
+    }
   }
 
   /**
@@ -108,12 +136,14 @@ export abstract class Component<
 
   setOptions(options: Partial<ComponentOptions<TUserContext, TMachineContext, TState, TEvent>>): void {
     this.options = { ...this.options, ...options }
+    if (!this.initialized)
+      return
 
     if (options.actions) {
       this.service?.setOptions({ actions: options.actions })
     }
 
-    if (options.context) {
+    if ('context' in options) {
       this.applyContextOption(options.context)
     }
   }
@@ -126,9 +156,11 @@ export abstract class Component<
     return this.service?.send
   }
 
-  private applyContextOption(context: UserContext<TUserContext> | ContextSource<TUserContext>) {
+  private applyContextOption(context: UserContext<TUserContext> | ContextSource<TUserContext> | undefined) {
     this.contextUnsubscribe?.()
     this.contextUnsubscribe = undefined
+    if (!context)
+      return
 
     if (isContextSource<TUserContext>(context)) {
       const initial = context.get?.()
@@ -136,6 +168,9 @@ export abstract class Component<
         this.service.setContext(initial as Partial<TMachineContext>)
       this.contextUnsubscribe = context.subscribe((ctx) => {
         this.service.setContext(ctx as Partial<TMachineContext>)
+        // Some sources emit during subscribe, before created/start initialize the API.
+        if (!this[readyKey])
+          return
         this.updateApi()
         this.performRender()
       })
