@@ -82,6 +82,10 @@ export function machine(userContext: UserDefinedContext) {
         'idle': {
           entry: ['clearActiveHandleId'],
           on: {
+            POINTER_DOWN: {
+              target: 'dragging',
+              actions: ['setActiveHandleId'],
+            },
             POINTER_OVER: {
               target: 'hover:temp',
               actions: ['setActiveHandleId'],
@@ -161,13 +165,14 @@ export function machine(userContext: UserDefinedContext) {
           tags: ['focus'],
           entry: ['focusResizeHandle', 'storeInitialDragState'],
           activities: ['trackPointerMove'],
+          exit: ['clearGlobalCursor'],
           on: {
             POINTER_MOVE: {
               actions: ['setPointerValue', 'setGlobalCursor'],
             },
             POINTER_UP: {
               target: 'focused',
-              actions: ['setPreviousPanels', 'clearGlobalCursor', 'blurResizeHandle', 'invokeOnResizeEnd'],
+              actions: ['setPreviousPanels', 'blurResizeHandle', 'invokeOnResizeEnd'],
             },
           },
         },
@@ -339,29 +344,16 @@ export function machine(userContext: UserDefinedContext) {
           const deltaPixels = isRtl ? (initialPos - currentPos) : (currentPos - initialPos)
           const deltaPercent = (deltaPixels / rootSize) * 100
 
-          // Calculate new sizes based on delta from initial sizes
-          let newBeforeSize = ctx.initialDragSizes.before + deltaPercent
-          let newAfterSize = ctx.initialDragSizes.after - deltaPercent
-
-          // Update active resize state
-          ctx.activeResizeState = {
-            isAtMin: newBeforeSize <= before.minSize,
-            isAtMax: newBeforeSize >= before.maxSize,
-          }
-
-          // Apply constraints
-          newBeforeSize = clamp(newBeforeSize, before.minSize, before.maxSize)
-          newAfterSize = clamp(newAfterSize, after.minSize, after.maxSize)
-
-          // Ensure total doesn't exceed available space
+          // Clamp the shared boundary so both panel limits and the pair total hold.
           const totalSize = ctx.initialDragSizes.before + ctx.initialDragSizes.after
-          if (newBeforeSize + newAfterSize > totalSize) {
-            if (deltaPercent > 0) {
-              newAfterSize = totalSize - newBeforeSize
-            }
-            else {
-              newBeforeSize = totalSize - newAfterSize
-            }
+          const min = Math.max(before.minSize, totalSize - after.maxSize)
+          const max = Math.min(before.maxSize, totalSize - after.minSize)
+          const newBeforeSize = clamp(ctx.initialDragSizes.before + deltaPercent, min, max)
+          const newAfterSize = totalSize - newBeforeSize
+
+          ctx.activeResizeState = {
+            isAtMin: newBeforeSize === min,
+            isAtMax: newBeforeSize === max,
           }
 
           const next = cloneSize(ctx.size ?? [])

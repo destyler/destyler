@@ -2,6 +2,8 @@ import type { CSSProperties, Style } from '@destyler/types'
 import type { MachineContext as Ctx, PanelId } from './types'
 import { createScope, queryAll } from '@destyler/dom'
 
+const cursorStyles = new WeakMap<Ctx, HTMLStyleElement>()
+
 export const dom = createScope({
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `splitter:${ctx.id}`,
   getResizeTriggerId: (ctx: Ctx, id: string) => ctx.ids?.resizeTrigger?.(id) ?? `splitter:${ctx.id}:splitter:${id}`,
@@ -46,20 +48,19 @@ export const dom = createScope({
   },
 
   setupGlobalCursor(ctx: Ctx) {
-    const styleEl = dom.getById(ctx, dom.getGlobalCursorId(ctx))
-    const textContent = `* { cursor: ${dom.getCursor(ctx)} !important; }`
-    if (styleEl) {
-      styleEl.textContent = textContent
-    }
-    else {
-      const style = dom.getDoc(ctx).createElement('style')
+    let style = cursorStyles.get(ctx)
+    if (!style) {
+      style = dom.getDoc(ctx).createElement('style')
       style.id = dom.getGlobalCursorId(ctx)
-      style.textContent = textContent
-      dom.getDoc(ctx).head.appendChild(style)
+      cursorStyles.set(ctx, style)
     }
+    style.textContent = `* { cursor: ${dom.getCursor(ctx)} !important; }`
+    if (!style.isConnected)
+      dom.getDoc(ctx).head.appendChild(style)
   },
 
   removeGlobalCursor(ctx: Ctx) {
-    dom.getById(ctx, dom.getGlobalCursorId(ctx))?.remove()
+    cursorStyles.get(ctx)?.remove()
+    cursorStyles.delete(ctx)
   },
 })
