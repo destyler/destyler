@@ -27,6 +27,9 @@ function isContextSource<T>(value: any): value is ContextSource<T> {
   return value && typeof value === 'object' && typeof value.subscribe === 'function'
 }
 
+const readyKey = Symbol('component.ready')
+const destroyingKey = Symbol('component.destroying')
+
 export abstract class Component<
   TUserContext extends Record<string, any>,
   TApi,
@@ -41,7 +44,8 @@ export abstract class Component<
   private unsubscribe?: () => void
   private contextUnsubscribe?: () => void
   private initialized = false
-  private ready = false
+  private [readyKey] = false
+  private [destroyingKey] = false
 
   constructor(
     protected rootEl: HTMLElement,
@@ -55,7 +59,7 @@ export abstract class Component<
    * Initialize the machine, subscribe to updates, and trigger the first render.
    */
   init(): void {
-    if (this.initialized)
+    if (this.initialized || this[destroyingKey])
       return
     this.initialized = true
 
@@ -71,7 +75,7 @@ export abstract class Component<
 
     this.service._created()
     this.service.start(this.options?.state)
-    this.ready = true
+    this[readyKey] = true
 
     this.updateApi()
     this.performRender()
@@ -87,7 +91,9 @@ export abstract class Component<
     if (!this.initialized)
       return
     this.initialized = false
-    this.ready = false
+    this[readyKey] = false
+    this[destroyingKey] = true
+    const service = this.service
     const unsubscribe = this.unsubscribe
     const contextUnsubscribe = this.contextUnsubscribe
     this.unsubscribe = undefined
@@ -100,7 +106,12 @@ export abstract class Component<
         contextUnsubscribe?.()
       }
       finally {
-        this.service?.stop()
+        try {
+          service?.stop()
+        }
+        finally {
+          this[destroyingKey] = false
+        }
       }
     }
   }
@@ -158,7 +169,7 @@ export abstract class Component<
       this.contextUnsubscribe = context.subscribe((ctx) => {
         this.service.setContext(ctx as Partial<TMachineContext>)
         // Some sources emit during subscribe, before created/start initialize the API.
-        if (!this.ready)
+        if (!this[readyKey])
           return
         this.updateApi()
         this.performRender()
