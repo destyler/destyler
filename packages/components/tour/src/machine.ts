@@ -287,7 +287,7 @@ export function machine(userContext: UserDefinedContext) {
           node?.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })
         },
         setStep(ctx, evt) {
-          set.step(ctx, evt.value)
+          set.step(ctx, findStepIndex(ctx.steps, evt.value))
         },
         clearStep(ctx) {
           ctx.targetRect = ref({ width: 0, height: 0, x: 0, y: 0 })
