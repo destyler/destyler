@@ -42,7 +42,7 @@ function hasEventOptions(handler: (...args: any[]) => void) {
   return 'capture' in handler || 'once' in handler || 'passive' in handler || 'signal' in handler
 }
 
-function composeEventHandlers(...handlers: Array<(...args: any[]) => void>) {
+function composeLitEventHandlers(...handlers: Array<(...args: any[]) => void>) {
   return function (this: unknown, ...args: any[]) {
     for (const handler of handlers) {
       Reflect.apply(handler, this, args)
@@ -62,7 +62,7 @@ export function mergeProps<T extends Props>(...args: T[]): UnionToIntersection<T
 
       if (key.startsWith('@') && typeof result[key] === 'function' && typeof props[key] === 'function'
         && !hasEventOptions(result[key]) && !hasEventOptions(props[key])) {
-        result[key] = composeEventHandlers(props[key], result[key])
+        result[key] = composeLitEventHandlers(props[key], result[key])
         continue
       }
 
