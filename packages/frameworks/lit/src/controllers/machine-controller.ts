@@ -22,6 +22,8 @@ function isContextSource<T>(value: unknown): value is ContextSource<T> {
   return !!value && typeof value === 'object' && 'subscribe' in (value as any)
 }
 
+const connectedKey = Symbol('machine-controller.connected')
+
 export class MachineController<
   TContext extends Record<string, any>,
   TState extends StateSchema,
@@ -34,7 +36,7 @@ export class MachineController<
   private _state!: XState<TContext, TState, TEvent>
   private options?: OptionsEx<TContext, TState, TEvent>
   private contextUnsub?: () => void
-  private connected = false
+  private [connectedKey] = false
 
   constructor(
     host: ReactiveControllerHost,
@@ -98,9 +100,9 @@ export class MachineController<
 
   /** Start service and subscribe to state changes when host is connected */
   hostConnected(): void {
-    if (this.connected)
+    if (this[connectedKey])
       return
-    this.connected = true
+    this[connectedKey] = true
     const stateInit: StateInit<TContext, TState> | undefined = this.options?.state
 
     // Subscribe to store updates; notify in sync if requested
@@ -130,9 +132,9 @@ export class MachineController<
 
   /** Stop service and cleanup when host is disconnected */
   hostDisconnected(): void {
-    if (!this.connected)
+    if (!this[connectedKey])
       return
-    this.connected = false
+    this[connectedKey] = false
     try {
       this.unsubscribe?.()
       this.contextUnsub?.()
@@ -160,7 +162,7 @@ export class MachineController<
         const initial = options.context.get?.()
         if (initial)
           this.service.setContext(initial)
-        if (this.connected) {
+        if (this[connectedKey]) {
           this.contextUnsub = options.context.subscribe((ctx) => {
             this.service.setContext(ctx)
             this.host.requestUpdate()
