@@ -34,7 +34,7 @@
     "test:deploy": "vitest run --reporter=html --browser.headless",
     "test:coverage": "vitest run --coverage",
     "test:workflows": "node --test scripts/test/workflows.test.mjs scripts/test/browser-discovery.test.mjs",
-    "test:types": "tsc --project tsconfig.type-tests.json",
+    "test:types": "tsc --project tsconfig.type-tests.json && tsc --project packages/frameworks/vanilla/test/types/tsconfig.json && tsc --project packages/frameworks/vanilla/test/types/tsconfig.json --moduleResolution NodeNext --module NodeNext",
     "examples script": "Group: Example workspace filters",
     "vanilla": "pnpm --filter \"./examples/vanilla\"",
     "vue": "pnpm --filter \"./examples/vue\"",
