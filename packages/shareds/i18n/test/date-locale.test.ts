@@ -27,7 +27,8 @@ describe('date formatter locale-safe timezone extraction', () => {
   })
 
   it('preserves existing en-US date and offset output', () => {
-    expect(formatDate(date, 'yyyy-MM-dd HH:mm:ss z', 'en-US', 'UTC')).toBe(`2024-01-02 03:4:5 ${zone(date, 'en-US', 'UTC', 'shortOffset')}`)
+    const localDate = new Date(2024, 0, 2, 3, 4, 5)
+    expect(formatDate(localDate, 'yyyy-MM-dd HH:mm:ss z', 'en-US', 'UTC')).toBe(`2024-01-02 03:4:5 ${zone(localDate, 'en-US', 'UTC', 'shortOffset')}`)
   })
 
   it('uses the supplied date when an offset changes across DST', () => {
