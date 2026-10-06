@@ -151,7 +151,8 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
       }
       let nextValue = value
       let childProxyState: ProxyState | undefined
-      if (Object.getOwnPropertyDescriptor(target, prop)?.set) {
+      const setter = Object.getOwnPropertyDescriptor(target, prop)?.set
+      if (setter) {
         // do nothing
       }
       else {
@@ -166,6 +167,13 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
       // A rejected length assignment can still remove entries before hitting a non-configurable index.
       if (!succeeded && (!isArrayLength || objectIs(prevValue, actualValue)))
         return false
+      if (setter) {
+        // A setter can replace itself through a nested mutation. Track its final data value.
+        const descriptor = Object.getOwnPropertyDescriptor(target, prop)
+        if (descriptor && 'value' in descriptor) {
+          childProxyState = refSet.has(descriptor.value) ? undefined : proxyStateMap.get(descriptor.value)
+        }
+      }
       removePropListener(prop)
       if (isArrayLength) {
         propProxyStates.forEach((_state, key) => {
