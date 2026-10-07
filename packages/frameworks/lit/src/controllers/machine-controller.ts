@@ -1,6 +1,7 @@
 import type { AnyEventObject, EventObject, HookOptions, Machine, StateInit, StateSchema, UserContext, XState } from '@destyler/xstate'
 import type { ReactiveController, ReactiveControllerHost } from 'lit'
 import { snapshot, subscribe } from '@destyler/store'
+import { MachineStatus } from '@destyler/xstate'
 
 /**
  * MachineController
@@ -32,6 +33,8 @@ const connectedKey = Symbol('machine-controller.connected')
 const contextOwnerKey = Symbol('machine-controller.context-owner')
 const interruptedStartKey = Symbol('machine-controller.interrupted-start')
 const refreshContextKey = Symbol('machine-controller.refresh-context')
+const stopServiceKey = Symbol('machine-controller.stop-service')
+const stopOwnerKey = Symbol('machine-controller.stop-owner')
 
 export class MachineController<
   TContext extends Record<string, any>,
@@ -46,6 +49,7 @@ export class MachineController<
   private [connectedKey]?: Connection
   private [contextOwnerKey] = Symbol('initial-context')
   private [interruptedStartKey] = false
+  private [stopOwnerKey]?: symbol
 
   constructor(
     host: ReactiveControllerHost,
@@ -151,10 +155,8 @@ export class MachineController<
   hostDisconnected(): void {
     const connection = this[connectedKey]
     if (!connection) {
-      if (this[interruptedStartKey]) {
-        this[interruptedStartKey] = false
-        this.service.stop()
-      }
+      if (this[interruptedStartKey])
+        this[stopServiceKey]()
       return
     }
     this[connectedKey] = undefined
@@ -173,8 +175,24 @@ export class MachineController<
       finally {
         // Cleanup callbacks may have connected a new owner already.
         if (!this[connectedKey])
-          this.service.stop()
+          this[stopServiceKey]()
       }
+    }
+  }
+
+  private [stopServiceKey]() {
+    const owner = Symbol('stop-owner')
+    this[stopOwnerKey] = owner
+    this[interruptedStartKey] = false
+    try {
+      this.service.stop()
+      if (!this[connectedKey] && this.service.status === MachineStatus.Stopped)
+        this[interruptedStartKey] = false
+    }
+    catch (error) {
+      if (this[stopOwnerKey] === owner && !this[connectedKey] && this.service.status !== MachineStatus.Stopped)
+        this[interruptedStartKey] = true
+      throw error
     }
   }
 
