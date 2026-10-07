@@ -1,8 +1,11 @@
 import { isString } from '@destyler/utils'
 
-function composeEventHandlers(...handlers: ((...args: any[]) => void)[]) {
+function composeEventHandlers(...handlers: (((...args: any[]) => void) | null | undefined)[]) {
   return function (this: unknown, ...args: any[]) {
-    handlers.forEach(handler => Reflect.apply(handler, this, args))
+    handlers.forEach((handler) => {
+      if (handler !== undefined && handler !== null)
+        Reflect.apply(handler, this, args)
+    })
   }
 }
 
