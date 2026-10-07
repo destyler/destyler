@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { proxy, snapshot, subscribe } from '../src/proxy'
+import { proxy, ref, snapshot, subscribe } from '../src/proxy'
 
 describe('failed mutations', () => {
   it.each([undefined, true, false])('preserves child ownership installed by a reentrant setter (sync: %s)', async (sync) => {
@@ -80,6 +80,171 @@ describe('failed mutations', () => {
     next.value = 11
     expect(snapshot(state).child.value).toBe(11)
     expect(callback).toHaveBeenCalledExactlyOnceWith([['set', ['child', 'value'], 11, 10]])
+    unsubscribe()
+  })
+
+  it.each([undefined, true, false])('tracks a child replaced by a receiver after committing the requested value (sync: %s)', async (sync) => {
+    const old = proxy({ value: 0 })
+    const requested = proxy({ value: 10 })
+    const actual = proxy({ value: 20 })
+    const state = proxy({ child: old })
+    const callback = vi.fn()
+    const unsubscribe = sync === undefined ? () => {} : subscribe(state, callback, sync)
+    const receiver = new Proxy(state, {
+      defineProperty(target, prop, descriptor) {
+        const result = Reflect.defineProperty(target, prop, descriptor)
+        state.child = actual
+        return result
+      },
+    })
+
+    expect(Reflect.set(state, 'child', requested, receiver)).toBe(true)
+    expect(state.child).toBe(actual)
+    await Promise.resolve()
+    const before = snapshot(state)
+    callback.mockClear()
+
+    actual.value = 21
+    await Promise.resolve()
+    const after = snapshot(state)
+    expect(after.child.value).toBe(21)
+    expect(before.child.value).toBe(20)
+    if (sync !== undefined)
+      expect(callback).toHaveBeenCalledExactlyOnceWith([['set', ['child', 'value'], 21, 20]])
+
+    callback.mockClear()
+    old.value = 1
+    requested.value = 11
+    await Promise.resolve()
+    expect(callback).not.toHaveBeenCalled()
+    expect(snapshot(state)).toBe(after)
+    unsubscribe()
+  })
+
+  it.each(['delete', 'primitive', 'ref'] as const)('does not retain a requested child after the receiver commits then replaces it with %s', (replacement) => {
+    const requested = proxy({ value: 10 })
+    const referenced = ref(proxy({ value: 20 }))
+    const state = proxy<{ child?: { value: number } | number }>({ child: { value: 0 } })
+    const callback = vi.fn()
+    const unsubscribe = subscribe(state, callback, true)
+    const receiver = new Proxy(state, {
+      defineProperty(target, prop, descriptor) {
+        const result = Reflect.defineProperty(target, prop, descriptor)
+        if (replacement === 'delete')
+          Reflect.deleteProperty(state, prop)
+        else
+          state.child = replacement === 'primitive' ? 1 : referenced
+        return result
+      },
+    })
+
+    expect(Reflect.set(state, 'child', requested, receiver)).toBe(true)
+    expect(state.child).toBe(replacement === 'delete' ? undefined : replacement === 'primitive' ? 1 : referenced)
+    const before = snapshot(state)
+    callback.mockClear()
+
+    requested.value = 11
+    referenced.value = 21
+    expect(callback).not.toHaveBeenCalled()
+    expect(snapshot(state)).toBe(before)
+    unsubscribe()
+  })
+
+  it('does not read an own accessor again to determine ownership after a write', () => {
+    const get = vi.fn(() => ({ value: 0 }))
+    const set = vi.fn()
+    const state = proxy(Object.defineProperty({}, 'child', { get, set, configurable: true }))
+    get.mockClear()
+
+    expect(Reflect.set(state, 'child', { value: 1 })).toBe(true)
+    expect(get).toHaveBeenCalledTimes(1)
+    expect(set).toHaveBeenCalledTimes(1)
+  })
+
+  it.each([
+    { failure: 'false', sync: undefined },
+    { failure: 'false', sync: true },
+    { failure: 'false', sync: false },
+    { failure: 'throw', sync: undefined },
+    { failure: 'throw', sync: true },
+    { failure: 'throw', sync: false },
+  ])('keeps committed child ownership when the receiver reports $failure (sync: $sync)', async ({ failure, sync }) => {
+    const old = proxy({ value: 0 })
+    const committed = proxy({ value: 10 })
+    const state = proxy({ child: old })
+    const callback = vi.fn()
+    const unsubscribe = sync === undefined ? () => {} : subscribe(state, callback, sync)
+    const before = snapshot(state)
+    const originalError = new Error('receiver failed after committing')
+    const receiver = new Proxy(state, {
+      defineProperty(target, prop, descriptor) {
+        Reflect.defineProperty(target, prop, descriptor)
+        if (failure === 'throw')
+          throw originalError
+        return false
+      },
+    })
+
+    let result: boolean | undefined
+    let caught: unknown
+    try {
+      result = Reflect.set(state, 'child', committed, receiver)
+    }
+    catch (error) {
+      caught = error
+    }
+    expect(result).toBe(failure === 'throw' ? undefined : false)
+    expect(caught).toBe(failure === 'throw' ? originalError : undefined)
+    expect(state.child).toBe(committed)
+    await Promise.resolve()
+    expect(callback).toHaveBeenCalledTimes(failure === 'throw' || sync === undefined ? 0 : 1)
+    if (failure === 'false')
+      expect(snapshot(state).child.value).toBe(10)
+    callback.mockClear()
+
+    committed.value = 11
+    await Promise.resolve()
+    const after = snapshot(state)
+    expect(after.child.value).toBe(11)
+    expect(before.child.value).toBe(0)
+    if (sync !== undefined)
+      expect(callback).toHaveBeenCalledExactlyOnceWith([['set', ['child', 'value'], 11, 10]])
+    callback.mockClear()
+
+    old.value = 1
+    await Promise.resolve()
+    expect(callback).not.toHaveBeenCalled()
+    expect(snapshot(state)).toBe(after)
+    unsubscribe()
+  })
+
+  it.each([undefined, true, false])('retains the target child when the write is forwarded to a separate receiver (sync: %s)', async (sync) => {
+    const retained = proxy({ value: 0 })
+    const requested = proxy({ value: 10 })
+    const state = proxy({ child: retained })
+    const receiver: { child?: { value: number } } = {}
+    const callback = vi.fn()
+    const unsubscribe = sync === undefined ? () => {} : subscribe(state, callback, sync)
+
+    expect(Reflect.set(state, 'child', requested, receiver)).toBe(true)
+    expect(state.child).toBe(retained)
+    expect(receiver.child).toBe(requested)
+    await Promise.resolve()
+    // Preserve the existing successful-set notification without inventing extra delivery.
+    expect(callback).toHaveBeenCalledTimes(sync === undefined ? 0 : 1)
+    callback.mockClear()
+    const before = snapshot(state)
+
+    requested.value = 11
+    await Promise.resolve()
+    expect(callback).not.toHaveBeenCalled()
+    expect(snapshot(state)).toBe(before)
+    retained.value = 1
+    await Promise.resolve()
+    expect(snapshot(state).child.value).toBe(1)
+    expect(before.child.value).toBe(0)
+    if (sync !== undefined)
+      expect(callback).toHaveBeenCalledExactlyOnceWith([['set', ['child', 'value'], 1, 0]])
     unsubscribe()
   })
 
