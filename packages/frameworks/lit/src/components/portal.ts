@@ -1,3 +1,4 @@
+import type { RootPart } from 'lit'
 import { render as litRender, nothing } from 'lit'
 import { AsyncDirective } from 'lit/async-directive.js'
 import { directive } from 'lit/directive.js'
@@ -80,6 +81,9 @@ export class PortalDirective extends AsyncDirective {
   private container: HTMLElement | undefined
   private target: Node | undefined
   private renderToken = 0
+  private renderPending = false
+  private rootPart: RootPart | undefined
+  private latestRender: [unknown, TargetResolvable | undefined, PortalOptions | undefined] | undefined
 
   /**
    * Main render function for the directive.
@@ -130,30 +134,40 @@ export class PortalDirective extends AsyncDirective {
     targetOrSelector?: TargetResolvable,
     options?: PortalOptions,
   ) {
+    this.latestRender = [content, targetOrSelector, options]
+    const requestId = ++this.renderToken
     const resolvedOptions = options ?? {}
+    // Observe rejected content even while disabled, resolving a target, or disconnected.
+    const pendingContent = Promise.resolve(content)
+    void pendingContent.catch(() => {})
+    this.renderPending = false
 
     if (!canUseDOM() || resolvedOptions.disabled) {
-      this.renderToken++
       this.reset(true)
       return this.getInlineValue(content, resolvedOptions.placeholder)
     }
 
+    this.renderPending = true
     const explicitTarget = targetOrSelector ?? resolvedOptions.target ?? resolvedOptions.container
+    if (!this.isConnected) {
+      void Promise.resolve(explicitTarget).catch(() => {})
+      return nothing
+    }
+
     const rootNode = resolvedOptions.getRootNode?.()
     const doc = resolveDocument(rootNode)
     const fallback = getDefaultTargetNode(doc, rootNode)
 
     const candidate = explicitTarget ?? fallback
     if (!candidate) {
+      this.renderPending = false
       console.warn('[@destyler/lit > portal] No portal target available; nothing will render.')
       return nothing
     }
 
-    const requestId = ++this.renderToken
-
     void Promise.resolve(candidate)
       .then(async (resolvedCandidate) => {
-        if (requestId !== this.renderToken)
+        if (!this.isConnected || requestId !== this.renderToken)
           return
 
         if (!resolvedCandidate) {
@@ -191,10 +205,14 @@ export class PortalDirective extends AsyncDirective {
           this.renderPlaceholder(resolvedOptions.placeholder)
         }
 
-        await this.renderContent(content, requestId)
+        await this.renderContent(pendingContent, requestId)
       })
       .catch((error) => {
         console.error('[@destyler/lit > portal] Failed to resolve portal target', error)
+      })
+      .finally(() => {
+        if (requestId === this.renderToken)
+          this.renderPending = false
       })
 
     return nothing
@@ -209,6 +227,9 @@ export class PortalDirective extends AsyncDirective {
   /** Append container to target when the directive is reconnected. */
   protected reconnected(): void {
     this.appendContainer()
+    this.rootPart?.setConnected(true)
+    if (this.renderPending && this.latestRender)
+      this.render(...this.latestRender)
   }
 
   private ensureContainer(doc: Document, options?: PortalOptions) {
@@ -229,7 +250,7 @@ export class PortalDirective extends AsyncDirective {
   }
 
   private appendContainer() {
-    if (this.container && this.target && !this.target.contains(this.container)) {
+    if (this.isConnected && this.container && this.target && !this.target.contains(this.container)) {
       this.target.appendChild(this.container)
     }
   }
@@ -238,20 +259,20 @@ export class PortalDirective extends AsyncDirective {
     if (!this.container)
       return
     this.appendContainer()
-    litRender(placeholder as any, this.container)
+    this.rootPart = litRender(placeholder as any, this.container)
   }
 
   private async renderContent(content: unknown | Promise<unknown>, requestId: number) {
     try {
       const resolvedContent = await Promise.resolve(content)
-      if (requestId !== this.renderToken)
+      if (!this.isConnected || requestId !== this.renderToken)
         return
       if (!this.container) {
         console.warn('[@destyler/lit > portal] Portal container was missing during render.')
         return
       }
       this.appendContainer()
-      litRender(resolvedContent as any, this.container)
+      this.rootPart = litRender(resolvedContent as any, this.container)
     }
     catch (error) {
       console.error('[@destyler/lit > portal] Error rendering portal content', error)
@@ -269,10 +290,15 @@ export class PortalDirective extends AsyncDirective {
   }
 
   private detachContainer(clearAll: boolean) {
+    this.rootPart?.setConnected(false)
+    // A nested disconnect callback can synchronously reconnect the parent.
+    if (!clearAll && this.isConnected)
+      return
     if (this.container && this.target && this.target.contains(this.container)) {
       this.target.removeChild(this.container)
     }
     if (clearAll) {
+      this.rootPart = undefined
       this.container = undefined
       this.target = undefined
     }
