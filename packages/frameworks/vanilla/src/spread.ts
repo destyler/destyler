@@ -4,6 +4,10 @@ export interface Attrs {
   [key: string]: any
 }
 
+function escapeAttribute(value: unknown) {
+  return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+}
+
 export function spread(attrs?: Attrs) {
   if (!attrs)
     return ''
@@ -21,10 +25,10 @@ export function spread(attrs?: Attrs) {
     if (key === 'style' && typeof value === 'object') {
       const css = toStyleString(value)
       if (css)
-        parts.push(`style="${css}"`)
+        parts.push(`style="${escapeAttribute(css)}"`)
       continue
     }
-    const escaped = String(value).replace(/"/g, '&quot;')
+    const escaped = escapeAttribute(value)
     parts.push(`${key}="${escaped}` + `"`)
   }
   return parts.join(' ')
