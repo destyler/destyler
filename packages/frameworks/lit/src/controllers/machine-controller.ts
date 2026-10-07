@@ -22,7 +22,16 @@ function isContextSource<T>(value: unknown): value is ContextSource<T> {
   return !!value && typeof value === 'object' && 'subscribe' in (value as any)
 }
 
+interface Connection {
+  unsubscribe?: () => void
+  contextUnsub?: () => void
+  disconnected: boolean
+}
+
 const connectedKey = Symbol('machine-controller.connected')
+const contextOwnerKey = Symbol('machine-controller.context-owner')
+const interruptedStartKey = Symbol('machine-controller.interrupted-start')
+const refreshContextKey = Symbol('machine-controller.refresh-context')
 
 export class MachineController<
   TContext extends Record<string, any>,
@@ -32,11 +41,11 @@ export class MachineController<
   private host: ReactiveControllerHost
   public service: Machine<TContext, TState, TEvent>
 
-  private unsubscribe?: () => void
   private _state!: XState<TContext, TState, TEvent>
   private options?: OptionsEx<TContext, TState, TEvent>
-  private contextUnsub?: () => void
-  private [connectedKey] = false
+  private [connectedKey]?: Connection
+  private [contextOwnerKey] = Symbol('initial-context')
+  private [interruptedStartKey] = false
 
   constructor(
     host: ReactiveControllerHost,
@@ -102,47 +111,119 @@ export class MachineController<
   hostConnected(): void {
     if (this[connectedKey])
       return
-    this[connectedKey] = true
+    const connection: Connection = { disconnected: false }
+    this[connectedKey] = connection
+    this[interruptedStartKey] = false
     const stateInit: StateInit<TContext, TState> | undefined = this.options?.state
 
-    // Subscribe to store updates; notify in sync if requested
-    this.unsubscribe = subscribe(
+    const unsubscribe = subscribe(
       this.service.state,
       () => {
+        if (this[connectedKey] !== connection)
+          return
         this._state = snapshot(this.service.state)
         this.host.requestUpdate()
       },
       this.options?.sync,
     )
-
-    // external context subscription
-    if (this.options?.context && isContextSource<TContext>(this.options.context)) {
-      const initial = this.options.context.get?.()
-      if (initial)
-        this.service.setContext(initial)
-      this.contextUnsub = this.options.context.subscribe((ctx) => {
-        this.service.setContext(ctx)
-        this.host.requestUpdate()
-      })
+    if (this[connectedKey] !== connection) {
+      unsubscribe()
+      return
     }
+    connection.unsubscribe = unsubscribe
 
-    // Start the machine last to ensure subscriptions are ready
-    this.service.start(stateInit)
+    this[refreshContextKey](connection, false)
+    if (this[connectedKey] !== connection)
+      return
+
+    try {
+      this.service.start(stateInit)
+    }
+    finally {
+      // A synchronous core start can continue after a callback disconnects it.
+      // Preserve the existing ability to explicitly stop that resumed run.
+      if (connection.disconnected && !this[connectedKey])
+        this[interruptedStartKey] = true
+    }
   }
 
   /** Stop service and cleanup when host is disconnected */
   hostDisconnected(): void {
-    if (!this[connectedKey])
+    const connection = this[connectedKey]
+    if (!connection) {
+      if (this[interruptedStartKey]) {
+        this[interruptedStartKey] = false
+        this.service.stop()
+      }
       return
-    this[connectedKey] = false
+    }
+    this[connectedKey] = undefined
+    this[contextOwnerKey] = Symbol('disconnected-context')
+    connection.disconnected = true
+    const { unsubscribe, contextUnsub } = connection
+    connection.unsubscribe = undefined
+    connection.contextUnsub = undefined
     try {
-      this.unsubscribe?.()
-      this.contextUnsub?.()
+      unsubscribe?.()
     }
     finally {
-      this.unsubscribe = undefined
-      this.contextUnsub = undefined
-      this.service.stop()
+      try {
+        contextUnsub?.()
+      }
+      finally {
+        // Cleanup callbacks may have connected a new owner already.
+        if (!this[connectedKey])
+          this.service.stop()
+      }
+    }
+  }
+
+  private [refreshContextKey](connection = this[connectedKey], applyPlainContext = true) {
+    const previousOwner = this[contextOwnerKey]
+    const owner = Symbol('context-owner')
+    this[contextOwnerKey] = owner
+    const isCurrent = () => this[connectedKey] === connection && this[contextOwnerKey] === owner
+    const previousUnsubscribe = connection?.contextUnsub
+    if (connection)
+      connection.contextUnsub = undefined
+    try {
+      previousUnsubscribe?.()
+    }
+    catch (error) {
+      if (isCurrent() && connection) {
+        connection.contextUnsub = previousUnsubscribe
+        this[contextOwnerKey] = previousOwner
+      }
+      throw error
+    }
+    if (!isCurrent())
+      return
+
+    const context = this.options?.context
+    if (!isCurrent())
+      return
+    if (isContextSource<TContext>(context)) {
+      const initial = context.get?.()
+      if (!isCurrent())
+        return
+      if (initial)
+        this.service.setContext(initial)
+      if (!isCurrent() || !connection)
+        return
+      const unsubscribe = context.subscribe((ctx) => {
+        if (!isCurrent())
+          return
+        this.service.setContext(ctx)
+        if (isCurrent())
+          this.host.requestUpdate()
+      })
+      if (isCurrent())
+        connection.contextUnsub = unsubscribe
+      else
+        unsubscribe()
+    }
+    else if (applyPlainContext && context) {
+      this.service.setContext(context as UserContext<TContext>)
     }
   }
 
@@ -154,24 +235,7 @@ export class MachineController<
     if (options?.actions) {
       this.service.setOptions({ actions: options.actions })
     }
-    if ('context' in options) {
-      // swap subscriptions if necessary
-      this.contextUnsub?.()
-      this.contextUnsub = undefined
-      if (isContextSource<TContext>(options.context)) {
-        const initial = options.context.get?.()
-        if (initial)
-          this.service.setContext(initial)
-        if (this[connectedKey]) {
-          this.contextUnsub = options.context.subscribe((ctx) => {
-            this.service.setContext(ctx)
-            this.host.requestUpdate()
-          })
-        }
-      }
-      else if (options.context) {
-        this.service.setContext(options.context as UserContext<TContext>)
-      }
-    }
+    if ('context' in options)
+      this[refreshContextKey]()
   }
 }
