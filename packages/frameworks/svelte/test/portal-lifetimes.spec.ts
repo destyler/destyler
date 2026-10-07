@@ -92,4 +92,37 @@ describe('svelte portal lifetimes', () => {
     action.update({})
     expect(node.parentNode).toBeNull()
   })
+
+  it('retains iframe Document ownership through disabling, re-enabling and destruction', () => {
+    const { parent, before, node, after } = elements()
+    const frame = document.createElement('iframe')
+    document.body.append(frame)
+    const doc = frame.contentDocument!
+    const getRootNode = () => doc
+    const action = portal(node, { getRootNode })
+    try {
+      expect(node.parentNode).toBe(doc.body)
+      expect(node.ownerDocument).toBe(doc)
+
+      action.update({ disabled: true, getRootNode })
+      expect(Array.from(parent.children)).toEqual([before, node, after])
+      expect(node.ownerDocument).toBe(document)
+      expect(doc.body.childNodes.length).toBe(0)
+
+      action.update({ getRootNode })
+      expect(node.parentNode).toBe(doc.body)
+      expect(node.ownerDocument).toBe(doc)
+
+      action.destroy()
+      action.destroy()
+      action.update({ getRootNode })
+      expect(node.parentNode).toBeNull()
+      expect(Array.from(parent.childNodes)).toEqual([before, after])
+      expect(doc.body.childNodes.length).toBe(0)
+    }
+    finally {
+      action.destroy()
+      frame.remove()
+    }
+  })
 })
