@@ -120,7 +120,7 @@ export abstract class Component<
    * Allows subclasses to react to state changes before render.
    */
 
-  protected onTransition(_state: XState<TContext, TState, TEvent>): void {}
+  protected onTransition(_state: XState<TMachineContext, TState, TEvent>): void {}
 
   protected abstract initService(context: TUserContext): Machine<TMachineContext, TState, TEvent>
   protected abstract initApi(): TApi
