@@ -146,8 +146,11 @@ function applyProp(element: Element, key: string, value: any, state: ElementStat
     return
   }
 
-  if (key.startsWith('on') && typeof value === 'function') {
-    updateEventListener(element, key, value, state)
+  if (key.startsWith('on')) {
+    if (typeof value === 'function')
+      updateEventListener(element, key, value, state)
+    else
+      removeEventListener(element, key, state)
     return
   }
 
@@ -209,13 +212,12 @@ function removeProp(element: Element, key: string, state: ElementState) {
 }
 
 function getEventName(key: string) {
-  let event = key.slice(2) // remove "on"
+  let event = key.slice(2).toLowerCase() // remove "on"
   let capture = false
-  if (event.endsWith('Capture')) {
+  if (event.endsWith('capture') && event !== 'gotpointercapture' && event !== 'lostpointercapture') {
     capture = true
     event = event.slice(0, -7)
   }
-  event = event.replace(/[A-Z]/g, match => match.toLowerCase())
   return { name: event, capture }
 }
 
