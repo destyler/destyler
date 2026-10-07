@@ -291,6 +291,9 @@ export class PortalDirective extends AsyncDirective {
 
   private detachContainer(clearAll: boolean) {
     this.rootPart?.setConnected(false)
+    // A nested disconnect callback can synchronously reconnect the parent.
+    if (!clearAll && this.isConnected)
+      return
     if (this.container && this.target && this.target.contains(this.container)) {
       this.target.removeChild(this.container)
     }
