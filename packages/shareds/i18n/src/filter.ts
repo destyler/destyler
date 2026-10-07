@@ -37,6 +37,8 @@ export function filter(options?: FilterOptions): FilterReturn {
       return true
     string = normalize(string)
     substring = normalize(substring)
+    if (substring.length === 0)
+      return true
     return collator.compare(string.slice(-substring.length), substring) === 0
   }
 

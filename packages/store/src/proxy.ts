@@ -66,7 +66,10 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
   const notifyUpdate = (op: Op, nextVersion = ++versionHolder[0]) => {
     if (version !== nextVersion) {
       version = nextVersion
-      listeners.forEach(listener => listener(op, nextVersion))
+      Array.from(listeners).forEach((listener) => {
+        if (listeners.has(listener))
+          listener(op, nextVersion)
+      })
     }
   }
   let checkVersion = versionHolder[1]
