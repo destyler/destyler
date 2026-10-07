@@ -8,6 +8,8 @@ function escapeAttribute(value: unknown) {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;')
 }
 
+const booleanishAttributes = new Set(['contenteditable', 'draggable', 'spellcheck'])
+
 export function spread(attrs?: Attrs) {
   if (!attrs)
     return ''
@@ -17,7 +19,7 @@ export function spread(attrs?: Attrs) {
       continue
     if (typeof value === 'function')
       continue
-    if (typeof value === 'boolean' && !key.startsWith('aria-') && !key.startsWith('data-')) {
+    if (typeof value === 'boolean' && !key.startsWith('aria-') && !key.startsWith('data-') && !booleanishAttributes.has(key.toLowerCase())) {
       if (value)
         parts.push(key)
       continue
