@@ -88,7 +88,7 @@ export abstract class Component<
   }
 
   destroy(): void {
-    if (!this.initialized)
+    if (this[destroyingKey])
       return
     this.initialized = false
     this[readyKey] = false
