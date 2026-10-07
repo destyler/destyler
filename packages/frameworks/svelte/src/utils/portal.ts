@@ -24,7 +24,8 @@ export function portal(node: HTMLElement, props: PortalActionProps = {}) {
       mountNode = undefined
       return
     }
-    const doc = getRootNode?.().ownerDocument ?? document
+    const root = getRootNode?.()
+    const doc = root?.nodeType === 9 ? root as Document : root?.ownerDocument ?? document
     const nextMountNode = container ?? doc.body
     nextMountNode.appendChild(node)
     mountNode = nextMountNode
