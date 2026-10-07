@@ -1,6 +1,6 @@
 import type { ComponentOptions } from '@destyler/vanilla'
 import type { Machine, XState } from '@destyler/xstate'
-import { Component } from '@destyler/vanilla'
+import { Component, Portal } from '@destyler/vanilla'
 import { createMachine } from '@destyler/xstate'
 
 interface UserContext {
@@ -63,3 +63,12 @@ instance.send?.('INCREMENT')
 // @ts-expect-error unsupported events must not become accepted through declarations
 instance.send?.('UNKNOWN')
 instance.destroy()
+
+// Public subclasses may own a cleanup member without sharing portal internals.
+class ApplicationPortal extends Portal {
+  cleanup = () => 'application cleanup'
+}
+
+const applicationPortal = new ApplicationPortal(document.createElement('span'))
+const applicationCleanup: string = applicationPortal.cleanup()
+void applicationCleanup
