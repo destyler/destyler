@@ -19,6 +19,10 @@ runs:
       shell: bash
       run: pnpm exec node scripts/test-svelte-package.mjs
 
+    - name: Check packed package entry contracts
+      shell: bash
+      run: pnpm exec node scripts/test-package-entries.mjs
+
     - name: Test
       shell: bash
       run: pnpm run test
