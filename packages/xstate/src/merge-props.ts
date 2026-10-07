@@ -69,9 +69,15 @@ export function mergeProps<T extends Props>(...args: T[]): UnionToIntersection<T
         continue
       }
 
-      if (key.startsWith('@') && typeof result[key] === 'function' && typeof props[key] === 'function'
-        && !hasEventOptions(result[key]) && !hasEventOptions(props[key])) {
-        result[key] = composeLitEventHandlers(props[key], result[key])
+      if (key.startsWith('@') && typeof result[key] === 'function') {
+        if (props[key] === undefined)
+          continue
+
+        // Match ordinary replacement reads before classifying the selected listener.
+        const handler = props[key]
+        result[key] = typeof handler === 'function' && !hasEventOptions(result[key]) && !hasEventOptions(handler)
+          ? composeLitEventHandlers(handler, result[key])
+          : handler
         continue
       }
 
