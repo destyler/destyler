@@ -60,6 +60,8 @@ function toSvelteProp(key: string) {
 function toSveltePropValue(key: string, value: Dict[string]) {
   if (key === 'style' && typeof value === 'object')
     return toStyleString(value)
+  if (typeof value === 'boolean' && (key.startsWith('aria-') || key.startsWith('data-')))
+    return String(value)
   if (typeof value === 'boolean' && enumeratedAttrs.has(key))
     return String(value)
   if (value === false)
