@@ -22,7 +22,7 @@ function isPromiseLike(value: unknown): value is PromiseLike<unknown> {
 }
 
 function isDocumentNode(value: unknown): value is Document {
-  return typeof Document !== 'undefined' && value instanceof Document
+  return (value as Node | null | undefined)?.nodeType === 9
 }
 
 function resolveDocument(root?: ShadowRoot | Document | Node | null): Document | null {
