@@ -118,6 +118,9 @@ function applyProp(element: Element, key: string, value: any, state: ElementStat
   if (key === 'children' || key === 'dangerouslySetInnerHTML')
     return
 
+  if (typeof value === 'boolean' && (key.startsWith('aria-') || key.startsWith('data-')))
+    value = String(value)
+
   if (key === 'value' && element instanceof HTMLInputElement) {
     if (element.value === String(value)) {
       return
