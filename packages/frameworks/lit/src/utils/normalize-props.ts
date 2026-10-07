@@ -1,3 +1,4 @@
+import type { PropTypes } from '@destyler/types'
 import { createNormalizer } from '@destyler/types'
 import { isObject, isString } from '@destyler/utils'
 
@@ -21,7 +22,7 @@ function toProp(prop: string) {
 
 type Dict = Record<string, any>
 
-export const normalizeProps = createNormalizer<any>((props: Dict) => {
+export const normalizeProps = createNormalizer<PropTypes>((props: Dict) => {
   const normalized: Dict = {}
 
   for (const key in props) {
