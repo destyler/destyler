@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest'
+import { Portal } from '../index'
 import { createPortal } from '../src/components/portal'
 
 afterEach(() => document.body.replaceChildren())
@@ -14,6 +15,45 @@ function elements() {
 }
 
 describe('vanilla portal lifetimes', () => {
+  it('preserves mount and unmount through a transparent consumer proxy', () => {
+    const { parent, before, node, after } = elements()
+    const portal = new Proxy(createPortal(node), {})
+    const cleanup = portal.mount()
+    expect(node.parentNode).toBe(document.body)
+    portal.unmount()
+    expect(Array.from(parent.childNodes)).toEqual([before, node, after])
+    const current = portal.mount()
+    cleanup()
+    expect(node.parentNode).toBe(document.body)
+    current()
+    expect(Array.from(parent.childNodes)).toEqual([before, node, after])
+  })
+
+  it('keeps a public subclass cleanup member independent from mount cleanup', () => {
+    let calls = 0
+    class ApplicationPortal extends Portal {
+      cleanup = () => { calls++ }
+    }
+    const { parent, before, node, after } = elements()
+    const portal = new ApplicationPortal(node)
+    const applicationCleanup = portal.cleanup
+    const first = portal.mount()
+    expect(node.parentNode).toBe(document.body)
+    expect(portal.mount()).toBe(first)
+    expect(portal.cleanup).toBe(applicationCleanup)
+    portal.unmount()
+    expect(Array.from(parent.childNodes)).toEqual([before, node, after])
+    const second = portal.mount()
+    first()
+    expect(node.parentNode).toBe(document.body)
+    second()
+    second()
+    expect(Array.from(parent.childNodes)).toEqual([before, node, after])
+    expect(calls).toBe(0)
+    portal.cleanup()
+    expect(calls).toBe(1)
+  })
+
   it('rolls back earlier moves and every anchor if a later append rejects a hierarchy cycle', () => {
     const first = elements()
     const second = elements()

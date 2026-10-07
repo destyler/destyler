@@ -4,8 +4,10 @@ export interface PortalOptions {
   getRootNode?: () => ShadowRoot | Document | Node
 }
 
+const cleanupKey = Symbol('portal.cleanup')
+
 export class Portal {
-  private cleanup: (() => void) | undefined
+  private [cleanupKey]: { cleanup?: () => void } | undefined
   private children: HTMLElement[] = []
 
   constructor(
@@ -17,8 +19,9 @@ export class Portal {
 
   /** Repeated mounts share one cleanup until the current mount is released. */
   mount(): () => void {
-    if (this.cleanup)
-      return this.cleanup
+    const activeCleanup = this[cleanupKey]?.cleanup
+    if (activeCleanup)
+      return activeCleanup
     const { container, disabled, getRootNode } = this.options
 
     const isServer = typeof window === 'undefined'
@@ -33,33 +36,49 @@ export class Portal {
     const origins = [...new Set(this.children)].map((child) => {
       const anchor = child.ownerDocument.createComment('portal')
       child.before(anchor)
-      return { child, anchor }
+      return { child, anchor, restored: false }
     })
+    const owner: { cleanup?: () => void } = {}
+    let cleanupStarted = false
     const cleanup = () => {
-      if (this.cleanup !== cleanup)
+      if (!owner.cleanup)
         return
-      this.cleanup = undefined
-      for (const { child, anchor } of origins) {
-        // A node moved elsewhere is no longer owned by this mount.
-        if (child.parentNode === mountNode) {
-          if (anchor.parentNode)
-            anchor.replaceWith(child)
-          else
-            child.remove()
+      cleanupStarted = true
+      owner.cleanup = undefined
+      try {
+        for (const origin of origins) {
+          const { child, anchor } = origin
+          // A newer mount or an external move releases ownership of the node.
+          if (!origin.restored && this[cleanupKey] === owner) {
+            if (child.parentNode === mountNode) {
+              if (anchor.parentNode)
+                anchor.replaceWith(child)
+              else
+                child.remove()
+            }
+            origin.restored = true
+          }
+          anchor.remove()
         }
-        anchor.remove()
+      }
+      catch (error) {
+        // Retain explicit retry without replacing a newer mount's owner.
+        owner.cleanup = cleanup
+        throw error
       }
     }
-    this.cleanup = cleanup
+    owner.cleanup = cleanup
+    this[cleanupKey] = owner
     try {
       for (const { child } of origins) {
-        if (this.cleanup !== cleanup)
+        if (this[cleanupKey] !== owner || cleanupStarted)
           break
         mountNode.appendChild(child)
       }
     }
     catch (error) {
-      cleanup()
+      if (!cleanupStarted)
+        cleanup()
       throw error
     }
     return cleanup
@@ -67,7 +86,7 @@ export class Portal {
 
   /** Restore owned nodes without reclaiming externally moved or removed nodes. */
   unmount(): void {
-    this.cleanup?.()
+    this[cleanupKey]?.cleanup?.()
   }
 }
 
