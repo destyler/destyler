@@ -17,7 +17,7 @@ export function spread(attrs?: Attrs) {
       continue
     if (typeof value === 'function')
       continue
-    if (typeof value === 'boolean') {
+    if (typeof value === 'boolean' && !key.startsWith('aria-') && !key.startsWith('data-')) {
       if (value)
         parts.push(key)
       continue
