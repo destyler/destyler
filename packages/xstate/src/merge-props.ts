@@ -1,4 +1,13 @@
-import { callAll, isString } from '@destyler/utils'
+import { isString } from '@destyler/utils'
+
+function composeEventHandlers(...handlers: (((...args: any[]) => void) | null | undefined)[]) {
+  return function (this: unknown, ...args: any[]) {
+    handlers.forEach((handler) => {
+      if (handler !== undefined && handler !== null)
+        Reflect.apply(handler, this, args)
+    })
+  }
+}
 
 interface Props {
   [key: string]: any
@@ -44,7 +53,7 @@ export function mergeProps<T extends Props>(...args: T[]): UnionToIntersection<T
   for (const props of args) {
     for (const key in result) {
       if (key.startsWith('on') && typeof result[key] === 'function' && typeof props[key] === 'function') {
-        result[key] = callAll(props[key], result[key])
+        result[key] = composeEventHandlers(props[key], result[key])
         continue
       }
 
