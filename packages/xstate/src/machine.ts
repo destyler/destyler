@@ -142,7 +142,6 @@ export class Machine<
     // reset state back to empty (for SSR, we had to set state.value to initial value)
     this.state.value = ''
     this.state.tags = []
-    this.state.done = false
 
     this.status = MachineStatus.Running
 
