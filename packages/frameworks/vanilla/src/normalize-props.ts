@@ -21,8 +21,11 @@ export const normalizeProps = createNormalizer((props: any) => {
     if (value === undefined)
       return acc
 
-    if (key in propMap)
-      key = propMap[key]
+    const capture = key.startsWith('on') && key.endsWith('Capture')
+      && key !== 'onGotPointerCapture' && key !== 'onLostPointerCapture'
+    const mappedKey = capture ? key.slice(0, -7) : key
+    if (mappedKey in propMap)
+      key = propMap[mappedKey] + (capture ? 'Capture' : '')
 
     if (key === 'style' && typeof value === 'object') {
       acc.style = toStyleString(value)
