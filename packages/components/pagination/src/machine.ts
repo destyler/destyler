@@ -79,8 +79,8 @@ export function machine(userContext: UserDefinedContext) {
 
       computed: {
         totalPages: ctx => Math.ceil(ctx.count / ctx.pageSize),
-        previousPage: ctx => (ctx.page === 1 ? null : ctx.page - 1),
-        nextPage: ctx => (ctx.page === ctx.totalPages ? null : ctx.page + 1),
+        previousPage: ctx => (ctx.totalPages > 0 && ctx.page! > 1 ? clampPage(ctx.page! - 1, ctx.totalPages) : null),
+        nextPage: ctx => (ctx.totalPages > 0 && ctx.page! < ctx.totalPages ? clampPage(ctx.page! + 1, ctx.totalPages) : null),
         pageRange: (ctx) => {
           const start = (ctx.page - 1) * ctx.pageSize
           const end = Math.min(start + ctx.pageSize, ctx.count)
@@ -130,8 +130,8 @@ export function machine(userContext: UserDefinedContext) {
       guards: {
         isValidPage: (ctx, evt) => evt.page >= 1 && evt.page <= ctx.totalPages,
         isValidCount: (ctx, evt) => ctx.page! > Math.max(1, Math.ceil(evt.count / ctx.pageSize!)),
-        canGoToNextPage: ctx => ctx.page < ctx.totalPages,
-        canGoToPrevPage: ctx => ctx.page > 1,
+        canGoToNextPage: ctx => ctx.nextPage !== null,
+        canGoToPrevPage: ctx => ctx.previousPage !== null,
       },
       actions: {
         setCount(ctx, evt) {
