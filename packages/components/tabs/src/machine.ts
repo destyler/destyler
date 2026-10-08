@@ -34,8 +34,6 @@ function scheduleEffect(ctx: MachineContext, callback: VoidFunction, schedule = 
 
 const invoke = {
   change: (ctx: MachineContext, value: string | null) => {
-    if (value == null)
-      return
     ctx.onValueChange?.({ value })
   },
   focusChange: (ctx: MachineContext) => {
