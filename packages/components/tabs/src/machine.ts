@@ -7,6 +7,31 @@ import { dom } from './dom'
 
 const { not } = guards
 
+const scheduledEffects = new WeakMap<MachineContext, Set<VoidFunction>>()
+
+function trackScheduledEffects(ctx: MachineContext) {
+  const pending = new Set<VoidFunction>()
+  scheduledEffects.set(ctx, pending)
+  return () => {
+    if (scheduledEffects.get(ctx) === pending)
+      scheduledEffects.delete(ctx)
+    pending.forEach(cleanup => cleanup())
+    pending.clear()
+  }
+}
+
+function scheduleEffect(ctx: MachineContext, callback: VoidFunction, schedule = raf) {
+  const pending = scheduledEffects.get(ctx)
+  if (!pending)
+    return
+  const cleanup = schedule(() => {
+    pending.delete(cleanup)
+    if (scheduledEffects.get(ctx) === pending)
+      callback()
+  })
+  pending.add(cleanup)
+}
+
 const invoke = {
   change: (ctx: MachineContext, value: string | null) => {
     ctx.onValueChange?.({ value })
@@ -94,6 +119,8 @@ export function machine(userContext: UserDefinedContext) {
 
       created: ['syncFocusedValue'],
 
+      activities: [trackScheduledEffects],
+
       entry: ['checkRenderedElements', 'syncIndicatorRect', 'syncTabIndex', 'syncSsr'],
 
       exit: ['cleanupObserver'],
@@ -180,7 +207,7 @@ export function machine(userContext: UserDefinedContext) {
           }
         },
         selectFocusedTab(ctx) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             const nullable = ctx.deselectable && ctx.value === ctx.focusedValue
             const value = nullable ? null : ctx.focusedValue
             set.value(ctx, value)
@@ -195,7 +222,7 @@ export function machine(userContext: UserDefinedContext) {
           set.focusedValue(ctx, null)
         },
         setValue(ctx, evt) {
-          const nullable = ctx.deselectable && ctx.value === ctx.focusedValue
+          const nullable = ctx.deselectable && evt.type === 'TAB_CLICK' && ctx.value === evt.value
           const value = nullable ? null : evt.value
           set.value(ctx, value)
         },
@@ -203,20 +230,20 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, null)
         },
         focusFirstTab(ctx) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             dom.getFirstTriggerEl(ctx)?.focus()
           })
         },
         focusLastTab(ctx) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             dom.getLastTriggerEl(ctx)?.focus()
           })
         },
         focusNextTab(ctx) {
-          if (!ctx.focusedValue)
+          if (ctx.focusedValue == null)
             return
           const triggerEl = dom.getNextTriggerEl(ctx, ctx.focusedValue)
-          raf(() => {
+          scheduleEffect(ctx, () => {
             if (ctx.composite) {
               triggerEl?.focus()
             }
@@ -226,10 +253,10 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         focusPrevTab(ctx) {
-          if (!ctx.focusedValue)
+          if (ctx.focusedValue == null)
             return
           const triggerEl = dom.getPrevTriggerEl(ctx, ctx.focusedValue)
-          raf(() => {
+          scheduleEffect(ctx, () => {
             if (ctx.composite) {
               triggerEl?.focus()
             }
@@ -242,7 +269,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.indicatorState.rendered = !!dom.getIndicatorEl(ctx)
         },
         syncTabIndex(ctx) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             const contentEl = dom.getSelectedContentEl(ctx)
             if (!contentEl)
               return
@@ -263,7 +290,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setIndicatorRect(ctx, evt) {
           const value = evt.id ?? ctx.value
-          if (!ctx.indicatorState.rendered || !value)
+          if (!ctx.indicatorState.rendered || value == null)
             return
 
           const triggerEl = dom.getTriggerEl(ctx, value)
@@ -271,9 +298,9 @@ export function machine(userContext: UserDefinedContext) {
             return
 
           ctx.indicatorState.rect = dom.getRectById(ctx, value)
-          nextTick(() => {
+          scheduleEffect(ctx, () => {
             ctx.indicatorState.transition = false
-          })
+          }, nextTick)
         },
         syncSsr(ctx) {
           ctx.ssr = false
@@ -282,7 +309,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.indicatorCleanup?.()
 
           const value = ctx.value
-          if (!ctx.indicatorState.rendered || !value)
+          if (!ctx.indicatorState.rendered || value == null)
             return
 
           const triggerEl = dom.getSelectedTriggerEl(ctx)
@@ -295,9 +322,9 @@ export function machine(userContext: UserDefinedContext) {
             },
             onChange(rect) {
               ctx.indicatorState.rect = dom.resolveRect(rect)
-              nextTick(() => {
+              scheduleEffect(ctx, () => {
                 ctx.indicatorState.transition = false
-              })
+              }, nextTick)
             },
           })
         },
