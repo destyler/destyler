@@ -68,10 +68,14 @@ const activeFocusTraps = {
 
 const sharedTrapStack: FocusTrap[] = []
 
+// Avoid reserving a string property name in subclasses or requiring private-field brands.
+const activationIdKey = Symbol('activationId')
+
 export class FocusTrap {
   private trapStack: FocusTrap[]
   private config: FocusTrapOptions
   private doc: Document
+  private [activationIdKey] = 0
 
   private state: FocusTrapState = {
     containers: [],
@@ -438,9 +442,15 @@ export class FocusTrap {
     const onPostActivate = this.getOption(activateOptions, 'onPostActivate')
     const checkCanFocusTrap = this.getOption(activateOptions, 'checkCanFocusTrap')
 
+    const activationId = ++this[activationIdKey]
+    const isCurrentActivation = () => this.state.active && this[activationIdKey] === activationId
+
     if (!checkCanFocusTrap) {
       this.updateTabbableNodes()
     }
+
+    if (this[activationIdKey] !== activationId)
+      return this
 
     this.state.active = true
     this.state.paused = false
@@ -448,7 +458,13 @@ export class FocusTrap {
 
     onActivate?.()
 
+    if (!isCurrentActivation())
+      return this
+
     const finishActivation = () => {
+      if (!isCurrentActivation())
+        return
+
       if (checkCanFocusTrap) {
         this.updateTabbableNodes()
       }
