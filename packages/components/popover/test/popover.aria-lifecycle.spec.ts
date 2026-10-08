@@ -362,4 +362,143 @@ describe('popover rendered-element lifecycle', () => {
     expect(second.service.state.matches('open')).toBe(true)
     second.expectReferences(false, true)
   })
+  it.each([false, true])('does not resume an accepted open after its callback stops the run (restart=%s)', async (restart) => {
+    let fixture: ReturnType<typeof setup>
+    const onOpenChange = vi.fn(() => {
+      fixture.service.stop()
+      if (restart)
+        fixture.service.start()
+    })
+    fixture = setup({ onOpenChange })
+    fixture.service.start()
+    await flushFrame()
+    fixture.mountContent({ title: false, description: true })
+    fixture.service.send('OPEN')
+    expect(onOpenChange).toHaveBeenCalledExactlyOnceWith({ open: true })
+    expect(fixture.service.status).toBe(restart ? 'Running' : 'Stopped')
+    expect(fixture.service.state.matches('open')).toBe(false)
+    expect(frames.size).toBe(restart ? 1 : 0)
+    await flushFrame()
+    fixture.expectReferences(false, restart)
+  })
+
+  it.each([false, true])('owns only its run when an accepted-open action override stops during activity acquisition (restart=%s)', async (restart) => {
+    const fixture = setup()
+    fixture.service.start()
+    await flushFrame()
+    const original = fixture.service.options.actions!.checkRenderedElements!
+    let first = true
+    fixture.service.setOptions({ actions: {
+      setInitialFocus() {},
+      checkRenderedElements(ctx, evt, meta) {
+        original(ctx, evt, meta)
+        if (first) {
+          first = false
+          fixture.service.stop()
+          if (restart)
+            fixture.service.start()
+        }
+      },
+    } })
+    fixture.mountContent()
+    fixture.service.send('OPEN')
+    expect(fixture.service.status).toBe(restart ? 'Running' : 'Stopped')
+    expect(frames.size).toBe(restart ? 1 : 0)
+    await flushFrame()
+    fixture.expectReferences(restart, restart)
+  })
+
+  it.each([false, true])('cancels startup ARIA work when its action override stops before state activities (restart=%s)', async (restart) => {
+    const fixture = setup()
+    const original = fixture.service.options.actions!.checkRenderedElements!
+    let first = true
+    fixture.service.setOptions({ actions: {
+      checkRenderedElements(ctx, evt, meta) {
+        original(ctx, evt, meta)
+        if (first) {
+          first = false
+          fixture.service.stop()
+          if (restart)
+            fixture.service.start()
+        }
+      },
+    } })
+    fixture.service.start()
+    expect(fixture.service.status).toBe(restart ? 'Running' : 'Stopped')
+    expect(frames.size).toBe(restart ? 1 : 0)
+    fixture.mountContent({ title: true, description: false })
+    await flushFrame()
+    fixture.expectReferences(true, !restart)
+  })
+  it('allocates one closed-startup frame and performs no continuing polling', async () => {
+    const fixture = setup()
+    const schedule = vi.mocked(globalThis.requestAnimationFrame)
+    fixture.service.start()
+    fixture.service.start()
+    expect(schedule).toHaveBeenCalledTimes(1)
+    expect(frames.size).toBe(1)
+    await flushFrame()
+    expect(frames.size).toBe(0)
+    await flushFrame()
+    expect(schedule).toHaveBeenCalledTimes(1)
+    fixture.service.stop()
+    fixture.service.start()
+    expect(schedule).toHaveBeenCalledTimes(2)
+    expect(frames.size).toBe(1)
+    fixture.service.stop()
+    expect(frames.size).toBe(0)
+  })
+
+  it('retries a failed cancellation before acquiring the restarted run', async () => {
+    const fixture = setup()
+    fixture.service.start()
+    const oldFrame = [...frames.keys()][0]
+    const failure = new Error('cancel failed')
+    const cancel = vi.mocked(globalThis.cancelAnimationFrame)
+    cancel.mockImplementationOnce(() => {
+      throw failure
+    })
+    expect(() => fixture.service.stop()).toThrow(failure)
+    expect(frames.has(oldFrame)).toBe(true)
+    expect(fixture.service.status).toBe('Running')
+    fixture.service.stop()
+    expect(fixture.service.status).toBe('Stopped')
+    expect(frames.has(oldFrame)).toBe(false)
+    fixture.service.start()
+    const currentFrame = [...frames.keys()].find(id => id !== oldFrame)!
+    expect(currentFrame).toBeDefined()
+    fixture.service.stop()
+    expect(frames.size).toBe(0)
+    expect(cancel.mock.calls.filter(([id]) => id === oldFrame)).toHaveLength(2)
+    expect(cancel.mock.calls.filter(([id]) => id === currentFrame)).toHaveLength(1)
+    fixture.service.stop()
+    await flushFrame()
+    fixture.expectReferences(true, true)
+  })
+  it('disposes state ownership before root ownership and cancels the shared frame once', () => {
+    const fixture = setup()
+    const activity = fixture.service.options.activities!.trackRenderedElements!
+    const trace: string[] = []
+    fixture.service.setOptions({ activities: {
+      trackRenderedElements(ctx, evt, meta) {
+        trace.push(`acquire:${evt.type}`)
+        const cleanup = activity(ctx, evt, meta)
+        return () => {
+          trace.push(`dispose:${evt.type}`)
+          cleanup?.()
+        }
+      },
+    } })
+    fixture.service.start()
+    const frame = [...frames.keys()][0]
+    fixture.service.stop()
+    expect(trace).toEqual([
+      'acquire:machine.start',
+      'acquire:machine.init',
+      'dispose:machine.init',
+      'dispose:machine.start',
+    ])
+    expect(globalThis.cancelAnimationFrame).toHaveBeenCalledExactlyOnceWith(frame)
+    expect(frames.size).toBe(0)
+  })
 })

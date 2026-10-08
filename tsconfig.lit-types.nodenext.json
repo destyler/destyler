@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.lit-types.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  }
+}

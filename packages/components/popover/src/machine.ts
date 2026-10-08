@@ -12,7 +12,7 @@ import { dom } from './dom'
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
-  const cancelRenderedElements = new WeakMap<MachineContext, VoidFunction>()
+  const renderedElementChecks = new WeakMap<MachineContext, { cancel?: VoidFunction }>()
   return createMachine<MachineContext, MachineState>(
     {
       id: 'popover',
@@ -43,6 +43,7 @@ export function machine(userContext: UserDefinedContext) {
         open: ['toggleVisibility'],
       },
 
+      activities: ['trackRenderedElements'],
       entry: ['checkRenderedElements'],
 
       states: {
@@ -125,13 +126,18 @@ export function machine(userContext: UserDefinedContext) {
       },
       activities: {
         trackRenderedElements(ctx, evt, meta) {
+          // Root ownership starts before startup actions and stays separate for
+          // each run, including a restart inside an action override.
+          if (evt.type === ActionTypes.Start)
+            renderedElementChecks.set(ctx, {})
+          const checks = renderedElementChecks.get(ctx)!
           // The root entry already checks once on startup. Only accepted opens
           // refresh the snapshot; closing can leave content mounted for an exit.
           if (meta.state.matches('open') && evt.type !== ActionTypes.Init)
             meta.getAction('checkRenderedElements')?.(ctx, evt, meta)
           return () => {
-            cancelRenderedElements.get(ctx)?.()
-            cancelRenderedElements.delete(ctx)
+            checks.cancel?.()
+            delete checks.cancel
           }
         },
         trackPositioning(ctx) {
@@ -228,14 +234,16 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         checkRenderedElements(ctx) {
-          cancelRenderedElements.get(ctx)?.()
-          cancelRenderedElements.set(ctx, raf(() => {
-            cancelRenderedElements.delete(ctx)
+          const checks = renderedElementChecks.get(ctx) ?? {}
+          renderedElementChecks.set(ctx, checks)
+          checks.cancel?.()
+          checks.cancel = raf(() => {
+            delete checks.cancel
             Object.assign(ctx.renderedElements, {
               title: !!dom.getTitleEl(ctx),
               description: !!dom.getDescriptionEl(ctx),
             })
-          }))
+          })
         },
         setInitialFocus(ctx) {
           // handoff to `trapFocus` activity for initial focus
