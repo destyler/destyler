@@ -10,6 +10,8 @@ interface Rect {
 interface ObservedData {
   rect: Rect
   callbacks: Fn[]
+  getRect: (el: HTMLElement) => Rect
+  isEqual: (a: Rect, b: Rect) => boolean
 }
 
 let rafId: number | undefined
@@ -28,7 +30,7 @@ const getRectFn = (el: HTMLElement) => el.getBoundingClientRect()
 
 export function trackElementRect(el: HTMLElement, options: ElementRectOptions) {
   const { scope = 'rect', getRect = getRectFn, onChange } = options
-  const loop = getLoopFn({ scope, getRect })
+  const loop = getLoopFn()
 
   const data = observedElements.get(el)
 
@@ -36,6 +38,8 @@ export function trackElementRect(el: HTMLElement, options: ElementRectOptions) {
     observedElements.set(el, {
       rect: {} as Rect,
       callbacks: [onChange],
+      getRect,
+      isEqual: getEqualityFn(scope),
     })
 
     if (observedElements.size === 1) {
@@ -68,14 +72,13 @@ export function trackElementRect(el: HTMLElement, options: ElementRectOptions) {
   }
 }
 
-function getLoopFn(options: Required<Omit<ElementRectOptions, 'onChange'>>) {
-  const { scope, getRect } = options
-  const isEqual = getEqualityFn(scope)
+function getLoopFn() {
   return function loop() {
     rafId = undefined
     const changedRectsData: Array<ObservedData> = []
 
     observedElements.forEach((data, element) => {
+      const { getRect, isEqual } = data
       const newRect = getRect(element)
 
       if (!isEqual(data.rect, newRect)) {
