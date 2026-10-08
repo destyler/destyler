@@ -322,16 +322,24 @@ describe('menu option callback boundaries', () => {
 
   it('emits one proposal per reentrant activation and keeps checked consumer-owned', async () => {
     const fixture = setup({ closeOnSelect: false })
+    const clicks: Event[] = []
+    const reentrantClick = new MouseEvent('click', { bubbles: true, cancelable: true })
+    fixture.item.addEventListener('click', event => clicks.push(event), { capture: true })
     fixture.props.onCheckedChange = vi.fn((checked) => {
       if (fixture.onCheckedChange.mock.calls.length === 0) {
         fixture.onCheckedChange(checked)
-        fixture.item.click()
+        // A fresh event reaches the connector while this activation is in progress.
+        // HTMLElement.click() would suppress same-element reentry in native browsers.
+        fixture.item.dispatchEvent(reentrantClick)
       }
       else {
         fixture.onCheckedChange(checked)
       }
     })
     await activate(fixture, 'pointer')
+    expect(clicks).toHaveLength(2)
+    expect(clicks[0]).not.toBe(reentrantClick)
+    expect(clicks[1]).toBe(reentrantClick)
     expect(fixture.onCheckedChange.mock.calls).toEqual([[true], [true]])
     expect(fixture.onSelect).toHaveBeenCalledTimes(2)
     expect(fixture.props.checked).toBe(false)
