@@ -1,7 +1,7 @@
 import type { Time, TimePart } from './types'
 import { isObject } from '@destyler/utils'
 
-const segments = new Set<TimePart>(['days', 'hours', 'minutes', 'seconds'])
+const segments = new Set<TimePart>(['days', 'hours', 'minutes', 'seconds', 'milliseconds'])
 
 function isTimeSegment(date: any): date is Time {
   return isObject(date) && Object.keys(date).some(key => segments.has(key as any))

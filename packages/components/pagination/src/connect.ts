@@ -18,8 +18,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   const type = state.context.type
   const isButton = type === 'button'
 
-  const isFirstPage = page === 1
-  const isLastPage = page === totalPages
+  const isPrevDisabled = previousPage === null
+  const isNextDisabled = nextPage === null
   const pages = getTransformedRange(state.context)
 
   return {
@@ -99,12 +99,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getPrevTriggerId(state.context),
         ...parts.prevTrigger.attrs,
         'dir': state.context.dir,
-        'data-disabled': dataAttr(isFirstPage),
+        'data-disabled': dataAttr(isPrevDisabled),
         'aria-label': getTranslation(translations, 'prevTriggerLabel'),
         onClick() {
           send({ type: 'PREVIOUS_PAGE' })
         },
-        ...(isButton && { disabled: isFirstPage, type: 'button' }),
+        ...(isButton && { disabled: isPrevDisabled, type: 'button' }),
       })
     },
 
@@ -113,12 +113,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getNextTriggerId(state.context),
         ...parts.nextTrigger.attrs,
         'dir': state.context.dir,
-        'data-disabled': dataAttr(isLastPage),
+        'data-disabled': dataAttr(isNextDisabled),
         'aria-label': getTranslation(translations, 'nextTriggerLabel'),
         onClick() {
           send({ type: 'NEXT_PAGE' })
         },
-        ...(isButton && { disabled: isLastPage, type: 'button' }),
+        ...(isButton && { disabled: isNextDisabled, type: 'button' }),
       })
     },
   }
