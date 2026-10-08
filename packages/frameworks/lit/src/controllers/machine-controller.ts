@@ -20,7 +20,13 @@ type OptionsEx<TContext extends Record<string, any>, TState extends StateSchema,
   }
 
 function isContextSource<T>(value: unknown): value is ContextSource<T> {
-  return !!value && typeof value === 'object' && 'subscribe' in (value as any)
+  if (!value || typeof value !== 'object')
+    return false
+  const source = value as ContextSource<T>
+  if (typeof source.subscribe !== 'function')
+    return false
+  const get = source.get
+  return get == null || typeof get === 'function'
 }
 
 interface Connection {
