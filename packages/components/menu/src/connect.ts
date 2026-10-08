@@ -408,10 +408,17 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getOptionItemState,
 
     getOptionItemProps(props) {
-      const { type, disabled, closeOnSelect } = props
+      const { type, disabled, onCheckedChange, closeOnSelect } = props
 
       const option = getOptionItemProps(props)
       const itemState = getOptionItemState(props)
+      // Preserve declared fields that object spread omits without rereading getters.
+      if (!Object.prototype.hasOwnProperty.call(option, 'type') && 'type' in props)
+        option.type = type
+      if (!Object.prototype.hasOwnProperty.call(option, 'checked') && 'checked' in props)
+        option.checked = itemState.checked
+      if (!Object.prototype.hasOwnProperty.call(option, 'onCheckedChange') && onCheckedChange !== undefined)
+        option.onCheckedChange = onCheckedChange
 
       return {
         ...getItemProps(option),
