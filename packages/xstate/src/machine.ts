@@ -1046,14 +1046,11 @@ export class Machine<
   }
 
   private performTransitionEffects = (
-    transitions: Transitions<TContext, TState, TEvent> | undefined,
+    transition: StateInfo<TContext, TState, TEvent>['transition'],
     event: TEvent,
     continueAfterStop?: () => boolean,
   ) => {
-    const version = this[lifecycleVersionKey]
-    const transition = this.determineTransition(transitions, event)
-    if (version !== this[lifecycleVersionKey] && !continueAfterStop?.())
-      return
+    // Execute the transition selected before exit effects changed the context.
     this.executeActions(transition?.actions, event, continueAfterStop)
   }
 
