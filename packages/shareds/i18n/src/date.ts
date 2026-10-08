@@ -100,8 +100,9 @@ function pad(num: number, length: number) {
   return String(num).padStart(length, '0')
 }
 
-function zone(str: string) {
-  return str.split(/AM|PM/)[1].trim()
+function zone(date: Date, locale: string, timeZone: string | undefined, timeZoneName: 'shortOffset' | 'longOffset') {
+  const formatter = new Intl.DateTimeFormat(locale, { timeZone, timeZoneName })
+  return formatter.formatToParts(date).find(part => part.type === 'timeZoneName')?.value ?? ''
 }
 
 function getFormat(date: Date, options: FormatDateOptions) {
@@ -245,10 +246,10 @@ function getFormat(date: Date, options: FormatDateOptions) {
     case 'z':
     case 'zz':
     case 'zzz': {
-      return zone(date.toLocaleString(locale, { timeZone, timeZoneName: 'shortOffset' }))
+      return zone(date, locale, timeZone, 'shortOffset')
     }
     case 'zzzz':
-      return zone(date.toLocaleString(locale, { timeZone, timeZoneName: 'longOffset' }))
+      return zone(date, locale, timeZone, 'longOffset')
 
     default:
       throw new Error(`Unknown format: ${format}`)

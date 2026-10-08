@@ -12,13 +12,13 @@ const defaultTranslations: IntlTranslations = {
   },
 }
 
-const clampPage = (page: number, totalPages: number) => Math.min(Math.max(page, 1), totalPages)
+const clampPage = (page: number, totalPages: number) => Math.max(1, Math.min(page, totalPages))
 
 const set = {
   pageSize: (ctx: MachineContext, value: number) => {
     if (isEqual(ctx.pageSize, value))
       return
-    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    // Presence-controlled values only propose changes.
     if (isControlled(ctx, 'pageSize')) {
       ctx.onPageSizeChange?.({ pageSize: value })
       return
@@ -30,7 +30,7 @@ const set = {
     const page = clampPage(value, ctx.totalPages)
     if (isEqual(ctx.page, page))
       return
-    // Phase 2 dual-track: flag or stamped prop presence (#103)
+    // Presence-controlled values only propose changes.
     if (isControlled(ctx, 'page')) {
       ctx.onPageChange?.({ page, pageSize: ctx.pageSize })
       return
@@ -68,7 +68,7 @@ export function machine(userContext: UserDefinedContext) {
           ...ctx.translations,
         },
         ...ctx,
-        // Resolve after spread so defaultPage(Size) / legacy seeds win consistently
+        // Seed initial values after applying the user context.
         page: initialPage,
         pageSize: initialPageSize,
       },
@@ -79,8 +79,8 @@ export function machine(userContext: UserDefinedContext) {
 
       computed: {
         totalPages: ctx => Math.ceil(ctx.count / ctx.pageSize),
-        previousPage: ctx => (ctx.totalPages > 0 && ctx.page > 1 ? clampPage(ctx.page - 1, ctx.totalPages) : null),
-        nextPage: ctx => (ctx.totalPages > 0 && ctx.page < ctx.totalPages ? clampPage(ctx.page + 1, ctx.totalPages) : null),
+        previousPage: ctx => (ctx.totalPages > 0 && ctx.page! > 1 ? clampPage(ctx.page! - 1, ctx.totalPages) : null),
+        nextPage: ctx => (ctx.totalPages > 0 && ctx.page! < ctx.totalPages ? clampPage(ctx.page! + 1, ctx.totalPages) : null),
         pageRange: (ctx) => {
           const start = (ctx.page - 1) * ctx.pageSize
           const end = Math.min(start + ctx.pageSize, ctx.count)
@@ -129,7 +129,7 @@ export function machine(userContext: UserDefinedContext) {
     {
       guards: {
         isValidPage: (ctx, evt) => evt.page >= 1 && evt.page <= ctx.totalPages,
-        isValidCount: (ctx, evt) => ctx.page > evt.count,
+        isValidCount: (ctx, evt) => ctx.page! > Math.max(1, Math.ceil(evt.count / ctx.pageSize!)),
         canGoToNextPage: ctx => ctx.nextPage !== null,
         canGoToPrevPage: ctx => ctx.previousPage !== null,
       },
