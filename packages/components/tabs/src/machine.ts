@@ -215,7 +215,7 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         focusNextTab(ctx) {
-          if (!ctx.focusedValue)
+          if (ctx.focusedValue == null)
             return
           const triggerEl = dom.getNextTriggerEl(ctx, ctx.focusedValue)
           raf(() => {
@@ -228,7 +228,7 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         focusPrevTab(ctx) {
-          if (!ctx.focusedValue)
+          if (ctx.focusedValue == null)
             return
           const triggerEl = dom.getPrevTriggerEl(ctx, ctx.focusedValue)
           raf(() => {
@@ -265,7 +265,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setIndicatorRect(ctx, evt) {
           const value = evt.id ?? ctx.value
-          if (!ctx.indicatorState.rendered || !value)
+          if (!ctx.indicatorState.rendered || value == null)
             return
 
           const triggerEl = dom.getTriggerEl(ctx, value)
@@ -284,7 +284,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.indicatorCleanup?.()
 
           const value = ctx.value
-          if (!ctx.indicatorState.rendered || !value)
+          if (!ctx.indicatorState.rendered || value == null)
             return
 
           const triggerEl = dom.getSelectedTriggerEl(ctx)
