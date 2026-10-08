@@ -197,7 +197,7 @@ export function machine(userContext: UserDefinedContext) {
           set.focusedValue(ctx, null)
         },
         setValue(ctx, evt) {
-          const nullable = ctx.deselectable && ctx.value === ctx.focusedValue
+          const nullable = ctx.deselectable && evt.type === 'TAB_CLICK' && ctx.value === evt.value
           const value = nullable ? null : evt.value
           set.value(ctx, value)
         },
