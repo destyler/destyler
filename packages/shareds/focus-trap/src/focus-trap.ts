@@ -68,11 +68,14 @@ const activeFocusTraps = {
 
 const sharedTrapStack: FocusTrap[] = []
 
+// Avoid reserving a string property name in subclasses or requiring private-field brands.
+const activationIdKey = Symbol('activationId')
+
 export class FocusTrap {
   private trapStack: FocusTrap[]
   private config: FocusTrapOptions
   private doc: Document
-  private activationId = 0
+  private [activationIdKey] = 0
 
   private state: FocusTrapState = {
     containers: [],
@@ -217,6 +220,8 @@ export class FocusTrap {
   private removeListeners() {
     if (!this.state.active)
       return
+    clearTimeout(this.state.delayInitialFocusTimer)
+    this.state.delayInitialFocusTimer = undefined
     this.listenerCleanups.forEach(cleanup => cleanup())
     this.listenerCleanups = []
     return this
@@ -437,14 +442,14 @@ export class FocusTrap {
     const onPostActivate = this.getOption(activateOptions, 'onPostActivate')
     const checkCanFocusTrap = this.getOption(activateOptions, 'checkCanFocusTrap')
 
-    const activationId = ++this.activationId
-    const isCurrentActivation = () => this.state.active && this.activationId === activationId
+    const activationId = ++this[activationIdKey]
+    const isCurrentActivation = () => this.state.active && this[activationIdKey] === activationId
 
     if (!checkCanFocusTrap) {
       this.updateTabbableNodes()
     }
 
-    if (this.activationId !== activationId)
+    if (this[activationIdKey] !== activationId)
       return this
 
     this.state.active = true
@@ -487,9 +492,6 @@ export class FocusTrap {
       checkCanReturnFocus: this.config.checkCanReturnFocus,
       ...deactivateOptions,
     }
-
-    clearTimeout(this.state.delayInitialFocusTimer)
-    this.state.delayInitialFocusTimer = undefined
 
     this.removeListeners()
     this.state.active = false

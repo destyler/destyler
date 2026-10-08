@@ -22,7 +22,7 @@ const set = {
   value(ctx: MachineContext, value: number | null) {
     if (isEqual(ctx.value, value))
       return
-    ctx.value = value === null ? null : Math.max(0, Math.min(value, ctx.max))
+    ctx.value = value === null ? null : Math.max(ctx.min, Math.min(value, ctx.max))
     ctx.onValueChange?.({ value })
   },
 }
