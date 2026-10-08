@@ -9,23 +9,35 @@ export function getWindowFrames(win: Window) {
     },
 
     addEventListener(event: string, listener: any, options?: any) {
-      const cleanups: VoidFunction[] = []
+      const cleanups = new Set<VoidFunction>()
       frames.each((frame) => {
         try {
           const doc = frame.document
           doc.addEventListener(event, listener, options)
-          cleanups.push(() => doc.removeEventListener(event, listener, options))
+          cleanups.add(() => doc.removeEventListener(event, listener, options))
         }
         catch {}
       })
 
-      return () => {
-        cleanups.splice(0).forEach((cleanup) => {
-          try {
-            cleanup()
-          }
-          catch {}
-        })
+      let cleaning = false
+      return (): void | false => {
+        if (cleaning)
+          return false
+        cleaning = true
+        try {
+          cleanups.forEach((cleanup) => {
+            try {
+              cleanup()
+              cleanups.delete(cleanup)
+            }
+            catch {}
+          })
+          if (cleanups.size > 0)
+            return false
+        }
+        finally {
+          cleaning = false
+        }
       }
     },
 
@@ -50,11 +62,13 @@ export function getParentWindow(win: Window) {
         parent?.addEventListener(event, listener, options)
       }
       catch {}
-      return () => {
+      return (): void | false => {
         try {
           parent?.removeEventListener(event, listener, options)
         }
-        catch {}
+        catch {
+          return false
+        }
       }
     },
     removeEventListener: (event: string, listener: any, options?: any) => {

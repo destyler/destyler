@@ -69,6 +69,60 @@ describe('frame listener target ownership', () => {
     first.removeEventListener('audit', callback)
   })
 
+  it('retries a failed removal on its original document without replaying successful removals', () => {
+    const [first, second] = createDocuments()
+    const frames = [{ document: first }, { document: second }]
+    const callback = vi.fn()
+    const originalRemove = first.removeEventListener.bind(first)
+    const failedRemove = vi.spyOn(first, 'removeEventListener')
+      .mockImplementationOnce(() => { throw new Error('temporary removal failure') })
+      .mockImplementation(originalRemove)
+    const successfulRemove = vi.spyOn(second, 'removeEventListener')
+    const cleanup = getWindowFrames({ frames } as unknown as Window).addEventListener('audit', callback, true)
+    try {
+      expect(cleanup).not.toThrow()
+      expect(failedRemove).toHaveBeenCalledTimes(1)
+      expect(successfulRemove).toHaveBeenCalledTimes(1)
+      frames.length = 0
+      expect(cleanup).not.toThrow()
+      expect(failedRemove).toHaveBeenCalledTimes(2)
+      expect(successfulRemove).toHaveBeenCalledTimes(1)
+      cleanup()
+      expect(failedRemove).toHaveBeenCalledTimes(2)
+      first.dispatchEvent(new Event('audit'))
+      second.dispatchEvent(new Event('audit'))
+      expect(callback).not.toHaveBeenCalled()
+    }
+    finally {
+      failedRemove.mockRestore()
+      successfulRemove.mockRestore()
+      cleanup()
+    }
+  })
+
+  it('does not reenter an in-progress frame removal', () => {
+    const [first] = createDocuments()
+    const callback = vi.fn()
+    const originalRemove = first.removeEventListener.bind(first)
+    const cleanup = getWindowFrames({ frames: [{ document: first }] } as unknown as Window).addEventListener('audit', callback)
+    const remove = vi.spyOn(first, 'removeEventListener').mockImplementation((event, listener, options) => {
+      cleanup()
+      originalRemove(event, listener, options)
+    })
+    try {
+      expect(cleanup).not.toThrow()
+      expect(remove).toHaveBeenCalledTimes(1)
+      cleanup()
+      expect(remove).toHaveBeenCalledTimes(1)
+      first.dispatchEvent(new Event('audit'))
+      expect(callback).not.toHaveBeenCalled()
+    }
+    finally {
+      remove.mockRestore()
+      cleanup()
+    }
+  })
+
   it('preserves capture identity, other listeners, and repeated cleanup for a stable frame', () => {
     const [first] = createDocuments()
     const callback = vi.fn()
