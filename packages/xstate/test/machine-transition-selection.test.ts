@@ -22,7 +22,7 @@ describe('transition selection', () => {
         order.push('transition')
       },
     }
-    const machine = createMachine({
+    const machine = createMachine<{ allowed: boolean }>({
       context: { allowed: true },
       initial: 'idle',
       states: {
