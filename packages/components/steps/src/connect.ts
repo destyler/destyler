@@ -85,6 +85,9 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'dir': state.context.dir,
         'aria-current': itemState.current ? 'step' : undefined,
         'data-orientation': state.context.orientation,
+        'data-complete': dataAttr(itemState.completed),
+        'data-current': dataAttr(itemState.current),
+        'data-incomplete': dataAttr(itemState.incomplete),
       })
     },
 
