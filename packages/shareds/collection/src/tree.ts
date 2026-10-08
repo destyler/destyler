@@ -183,6 +183,8 @@ export class TreeCollection<T = TreeNode> {
   contains = (parentIndexPath: IndexPath, valueIndexPath: IndexPath) => {
     if (!parentIndexPath || !valueIndexPath)
       return false
+    if (parentIndexPath.length > valueIndexPath.length)
+      return false
     return valueIndexPath.slice(0, parentIndexPath.length).every((_, i) => parentIndexPath[i] === valueIndexPath[i])
   }
 
