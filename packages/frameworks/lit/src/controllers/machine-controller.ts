@@ -64,9 +64,17 @@ export class MachineController<
     // Apply initial context/options before created
     if (options?.context) {
       if (isContextSource<TContext>(options.context)) {
-        const initial = options.context.get?.()
-        if (initial)
-          instance.setContext(initial)
+        const context = options.context
+        const get = context.get
+        // document.all remains callable despite its legacy typeof 'undefined'.
+        if (get !== null && typeof get !== 'undefined' && typeof get !== 'function') {
+          instance.setContext(context as unknown as UserContext<TContext>)
+        }
+        else {
+          const initial = get === undefined || get === null ? undefined : Reflect.apply(get, context, [])
+          if (initial)
+            instance.setContext(initial)
+        }
       }
       else {
         instance.setContext(options.context as UserContext<TContext>)
@@ -221,7 +229,13 @@ export class MachineController<
     if (!isCurrent())
       return
     if (isContextSource<TContext>(context)) {
-      const initial = context.get?.()
+      const get = context.get
+      if (get !== null && typeof get !== 'undefined' && typeof get !== 'function') {
+        if (isCurrent() && applyPlainContext)
+          this.service.setContext(context as unknown as UserContext<TContext>)
+        return
+      }
+      const initial = get === undefined || get === null ? undefined : Reflect.apply(get, context, [])
       if (!isCurrent())
         return
       if (initial)
