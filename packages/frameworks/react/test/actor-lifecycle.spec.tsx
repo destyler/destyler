@@ -1,5 +1,5 @@
+import type { subscribe } from '@destyler/store'
 import type { AnyMachine } from '@destyler/xstate'
-import { subscribe } from '@destyler/store'
 import { createMachine } from '@destyler/xstate'
 import { act } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -9,11 +9,15 @@ import { useActor } from '../src/hooks/use-actor'
 // @ts-expect-error - React testing flag
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
+const { subscribeSpy } = vi.hoisted(() => ({
+  subscribeSpy: vi.fn<typeof subscribe>(),
+}))
+
 vi.mock('@destyler/store', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@destyler/store')>()
   return {
     ...actual,
-    subscribe: vi.fn((...args: Parameters<typeof actual.subscribe>) => vi.fn(actual.subscribe(...args))),
+    subscribe: subscribeSpy.mockImplementation((...args: Parameters<typeof actual.subscribe>) => vi.fn(actual.subscribe(...args))),
   }
 })
 
@@ -35,6 +39,7 @@ describe('react actor lifecycle', () => {
     const second = createActor('react.actor.second', count)
     const container = document.createElement('div')
     const root = createRoot(container)
+    const subscriptionsBeforeMount = subscribeSpy.mock.calls.length
     let renders = 0
 
     function View({ actor }: { actor: AnyMachine }) {
@@ -46,7 +51,11 @@ describe('react actor lifecycle', () => {
     try {
       await act(async () => root.render(<View actor={first} />))
       expect(container.textContent).toBe('0')
-      const firstUnsubscribe = vi.mocked(subscribe).mock.results.at(-1)!.value
+      const firstSubscriptions = subscribeSpy.mock.calls.flatMap((args, index) => index >= subscriptionsBeforeMount && args[0] === first.state
+        ? [subscribeSpy.mock.results[index].value]
+        : [])
+      expect(firstSubscriptions).toHaveLength(1)
+      const [firstUnsubscribe] = firstSubscriptions
 
       await act(async () => root.render(<View actor={second} />))
       expect(firstUnsubscribe).toHaveBeenCalledTimes(1)
