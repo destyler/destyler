@@ -93,6 +93,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       return normalize.button({
         ...parts.trigger.attrs,
         'id': itemState.triggerId,
+        'type': 'button',
         'role': 'tab',
         'dir': state.context.dir,
         'tabIndex': !state.context.linear || itemState.current ? 0 : -1,

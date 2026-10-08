@@ -31,8 +31,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       send({ type: 'CLEAR_VALUE' })
     },
     setIndicatorRect(value) {
-      const id = dom.getTriggerId(state.context, value)
-      send({ type: 'SET_INDICATOR_RECT', id })
+      send({ type: 'SET_INDICATOR_RECT', id: value })
     },
     syncTabIndex() {
       send('SYNC_TAB_INDEX')
