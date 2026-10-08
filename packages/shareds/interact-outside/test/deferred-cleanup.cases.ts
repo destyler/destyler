@@ -119,3 +119,109 @@ describe('deferred outside interaction cleanup', () => {
     expect(callback).not.toHaveBeenCalled()
   })
 })
+
+describe.each([false, true])('outside cleanup retries with defer=%s', (defer) => {
+  it('does not reenter listener removal while cleanup is in progress', () => {
+    const { cleanup } = setup(defer)
+    if (defer)
+      flushFrame()
+    vi.runOnlyPendingTimers()
+
+    const originalRemove = document.removeEventListener.bind(document)
+    let removals = 0
+    const remove = vi.spyOn(document, 'removeEventListener').mockImplementation((event, listener, options) => {
+      if (event === 'focusin' || event === 'pointerdown') {
+        removals++
+        cleanup()
+      }
+      originalRemove(event, listener, options)
+    })
+    try {
+      expect(cleanup).not.toThrow()
+      expect(removals).toBe(2)
+      cleanup()
+      expect(removals).toBe(2)
+    }
+    finally {
+      remove.mockRestore()
+      cleanup()
+    }
+  })
+
+  it('retires successful removals and preserves the exact error for a later failure', () => {
+    const { cleanup } = setup(defer)
+    if (defer)
+      flushFrame()
+    vi.runOnlyPendingTimers()
+
+    const originalRemove = document.removeEventListener.bind(document)
+    const failure = new Error('retry only the remaining listener')
+    const removals: string[] = []
+    let pointerAttempts = 0
+    const remove = vi.spyOn(document, 'removeEventListener').mockImplementation((event, listener, options) => {
+      removals.push(event)
+      if (event === 'pointerdown' && ++pointerAttempts === 1)
+        throw failure
+      originalRemove(event, listener, options)
+    })
+    try {
+      let thrown: unknown
+      try {
+        cleanup()
+      }
+      catch (error) {
+        thrown = error
+      }
+      expect(thrown).toBe(failure)
+      expect(removals).toEqual(['focusin', 'pointerdown'])
+      cleanup()
+      expect(removals).toEqual(['focusin', 'pointerdown', 'pointerdown'])
+      cleanup()
+      expect(removals).toEqual(['focusin', 'pointerdown', 'pointerdown'])
+    }
+    finally {
+      remove.mockRestore()
+      cleanup()
+    }
+  })
+
+  it.each(['focusin', 'pointerdown', 'click'] as const)('retries a failed %s listener removal', (type) => {
+    const { outside, callback, cleanup } = setup(defer)
+    if (defer)
+      flushFrame()
+    vi.runOnlyPendingTimers()
+    if (type === 'click') {
+      outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }))
+    }
+
+    const originalRemove = document.removeEventListener.bind(document)
+    const error = new Error('temporary listener removal failure')
+    let attempts = 0
+    const remove = vi.spyOn(document, 'removeEventListener').mockImplementation((event, listener, options) => {
+      if (event === type && ++attempts === 1)
+        throw error
+      originalRemove(event, listener, options)
+    })
+
+    try {
+      expect(cleanup).toThrow(error)
+      fireOutside(outside, 'focus')
+      fireOutside(outside, 'pointer')
+      flushFrame()
+      expect(callback).not.toHaveBeenCalled()
+
+      expect(cleanup).not.toThrow()
+      expect(attempts).toBe(2)
+      cleanup()
+      expect(attempts).toBe(2)
+      fireOutside(outside, 'focus')
+      fireOutside(outside, 'pointer')
+      flushFrame()
+      expect(callback).not.toHaveBeenCalled()
+    }
+    finally {
+      remove.mockRestore()
+      cleanup()
+    }
+  })
+})

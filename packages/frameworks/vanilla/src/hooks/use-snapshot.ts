@@ -1,7 +1,7 @@
 import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, XState } from '@destyler/xstate'
 import { globalRef, snapshot } from '@destyler/store'
 import { compact, isEqual } from '@destyler/utils'
-import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
+import { createProxy as createProxyToCompare } from 'proxy-compare'
 
 const targetCache = globalRef('__destyler__targetCache', () => new WeakMap())
 const snapshotCache = new WeakMap<object, any>()
@@ -21,7 +21,7 @@ export function useSnapshot<
   if (!snapshotCache.has(target)) {
     snapshotCache.set(target, {
       lastSnapshot: undefined,
-      lastAffected: undefined,
+      proxy: undefined,
     })
   }
 
@@ -51,24 +51,15 @@ export function useSnapshot<
 
   const nextSnapshot = snapshot(service.state)
 
-  try {
-    if (
-      cache.lastSnapshot
-      && cache.lastAffected
-      && !isChanged(cache.lastSnapshot, nextSnapshot, cache.lastAffected, new WeakMap())
-    ) {
-      return cache.lastSnapshot
-    }
-  }
-  catch {
-    // ignore if a promise or something is thrown
-  }
+  // Explicit reads must expose the current version, including previously unread fields.
+  if (cache.lastSnapshot === nextSnapshot)
+    return cache.proxy
 
   const currAffected = new WeakMap()
   cache.lastSnapshot = nextSnapshot
-  cache.lastAffected = currAffected
 
   const proxyCache = new WeakMap() // per-hook proxyCache
 
-  return createProxyToCompare(nextSnapshot, currAffected, proxyCache, targetCache) as any
+  cache.proxy = createProxyToCompare(nextSnapshot, currAffected, proxyCache, targetCache)
+  return cache.proxy
 }

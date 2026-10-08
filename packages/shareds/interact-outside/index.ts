@@ -146,6 +146,8 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
   const pointerdownCleanups: Set<VoidFunction> = new Set()
   const pendingFrames = new Set<VoidFunction>()
   let disposed = false
+  let cleaning = false
+  let cleaned = false
 
   function scheduleOutside(callback: VoidFunction) {
     if (disposed)
@@ -237,16 +239,29 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
   cleanups.add(frames.addEventListener('focusin', onFocusin, true))
 
   return () => {
-    if (disposed)
+    if (cleaning || cleaned)
       return
     disposed = true
-    pendingFrames.forEach(cancel => cancel())
-    pendingFrames.clear()
-    clearTimeout(timer)
-    pointerdownCleanups.forEach(fn => fn())
-    pointerdownCleanups.clear()
-    cleanups.forEach(fn => fn())
-    cleanups.clear()
+    cleaning = true
+    try {
+      pendingFrames.forEach((cancel) => {
+        cancel()
+        pendingFrames.delete(cancel)
+      })
+      clearTimeout(timer)
+      pointerdownCleanups.forEach((cleanup) => {
+        cleanup()
+        pointerdownCleanups.delete(cleanup)
+      })
+      cleanups.forEach((cleanup) => {
+        cleanup()
+        cleanups.delete(cleanup)
+      })
+      cleaned = true
+    }
+    finally {
+      cleaning = false
+    }
   }
 }
 
