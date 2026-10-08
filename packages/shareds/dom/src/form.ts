@@ -97,16 +97,29 @@ function trackFormReset(el: HTMLElement | null | undefined, callback: VoidFuncti
 }
 
 function trackFieldsetDisabled(el: HTMLElement | null | undefined, callback: (disabled: boolean) => void) {
-  const fieldset = el?.closest('fieldset')
-  if (!fieldset)
+  if (!el)
     return
-  callback(fieldset.disabled)
-  const win = getWindow(fieldset)
-  const obs = new win.MutationObserver(() => callback(fieldset.disabled))
-  obs.observe(fieldset, {
+  const fieldsets: HTMLFieldSetElement[] = []
+  let fieldset = el.closest('fieldset')
+  while (fieldset) {
+    fieldsets.push(fieldset)
+    fieldset = fieldset.parentElement?.closest('fieldset') ?? null
+  }
+  if (!fieldsets.length)
+    return
+  const isDisabled = () => fieldsets.some((fieldset) => {
+    if (!fieldset.disabled)
+      return false
+    const firstLegend = Array.from(fieldset.children).find(child => child.tagName === 'LEGEND')
+    return !firstLegend?.contains(el)
+  })
+  callback(isDisabled())
+  const win = getWindow(el)
+  const obs = new win.MutationObserver(() => callback(isDisabled()))
+  fieldsets.forEach(fieldset => obs.observe(fieldset, {
     attributes: true,
     attributeFilter: ['disabled'],
-  })
+  }))
   return () => obs.disconnect()
 }
 
