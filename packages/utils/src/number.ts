@@ -134,7 +134,7 @@ function countDecimals(value: number) {
     return 0
   let e = 1
   let p = 0
-  while (Math.round(value * e) / e !== value) {
+  while (Number.isFinite(e) && Math.round(value * e) / e !== value) {
     e *= 10
     p += 1
   }
@@ -145,6 +145,8 @@ function decimalOp(a: number, op: '-' | '+', b: number): number {
   let result = op === '+' ? a + b : a - b
   if (a % 1 !== 0 || b % 1 !== 0) {
     const multiplier = 10 ** Math.max(countDecimals(a), countDecimals(b))
+    if (!Number.isFinite(multiplier))
+      return result
     a = Math.round(a * multiplier)
     b = Math.round(b * multiplier)
     result = op === '+' ? a + b : a - b
