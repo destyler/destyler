@@ -542,7 +542,8 @@ export class Machine<
       clear(this.state.tags)
     }
     else {
-      this.state.tags = toArray(stateNode?.tags)
+      const tags = stateNode?.tags
+      this.state.tags = typeof tags === 'string' ? [tags] : toArray(tags)
     }
   }
 
