@@ -225,3 +225,109 @@ describe.each([false, true])('outside cleanup retries with defer=%s', (defer) =>
     }
   })
 })
+
+describe.each([false, true])('frame cleanup retries with defer=%s', (defer) => {
+  it.each([false, true, 0, 'pending', null])('ignores external removeEventListener return value %s', (value) => {
+    const frame = document.createElement('iframe')
+    document.body.append(frame)
+    const frameDocument = frame.contentDocument!
+    const { cleanup } = setup(defer)
+    if (defer)
+      flushFrame()
+    vi.runOnlyPendingTimers()
+
+    const originalRemove = document.removeEventListener.bind(document)
+    const originalFrameRemove = frameDocument.removeEventListener.bind(frameDocument)
+    const remove = vi.spyOn(document, 'removeEventListener').mockImplementation((...args) => {
+      originalRemove(...args)
+      return value
+    })
+    const removeFrame = vi.spyOn(frameDocument, 'removeEventListener').mockImplementation((...args) => {
+      originalFrameRemove(...args)
+      return value
+    })
+    try {
+      expect(cleanup()).toBeUndefined()
+      expect(remove).toHaveBeenCalledTimes(2)
+      expect(removeFrame).toHaveBeenCalledTimes(2)
+      expect(cleanup()).toBeUndefined()
+      expect(remove).toHaveBeenCalledTimes(2)
+      expect(removeFrame).toHaveBeenCalledTimes(2)
+    }
+    finally {
+      remove.mockRestore()
+      removeFrame.mockRestore()
+      cleanup()
+    }
+  })
+
+  it.each(['focusin', 'pointerdown', 'click'] as const)('retains a failed parent-window %s removal for public cleanup retry', (type) => {
+    const frame = document.createElement('iframe')
+    document.body.append(frame)
+    const inside = frame.contentDocument!.createElement('button')
+    frame.contentDocument!.body.append(inside)
+    const outside = document.createElement('button')
+    document.body.append(outside)
+    const cleanup = trackInteractOutside(inside, { defer })
+    cleanups.push(cleanup)
+    if (defer)
+      flushFrame()
+    vi.runOnlyPendingTimers()
+    if (type === 'click')
+      outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }))
+
+    const parent = frame.contentWindow!.parent
+    const originalRemove = parent.removeEventListener.bind(parent)
+    let attempts = 0
+    const remove = vi.spyOn(parent, 'removeEventListener').mockImplementation((event, listener, options) => {
+      if (event === type && ++attempts === 1)
+        throw new Error('temporary parent removal failure')
+      originalRemove(event, listener, options)
+    })
+    try {
+      expect(cleanup()).toBeUndefined()
+      expect(attempts).toBe(1)
+      expect(cleanup()).toBeUndefined()
+      expect(attempts).toBe(2)
+      expect(cleanup()).toBeUndefined()
+      expect(attempts).toBe(2)
+    }
+    finally {
+      remove.mockRestore()
+      cleanup()
+    }
+  })
+
+  it.each(['focusin', 'pointerdown', 'click'] as const)('retains a failed child-frame %s removal for public cleanup retry', (type) => {
+    const frame = document.createElement('iframe')
+    document.body.append(frame)
+    const frameDocument = frame.contentDocument!
+    const { outside, cleanup } = setup(defer)
+    if (defer)
+      flushFrame()
+    vi.runOnlyPendingTimers()
+    if (type === 'click')
+      outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }))
+
+    const originalRemove = frameDocument.removeEventListener.bind(frameDocument)
+    let attempts = 0
+    const remove = vi.spyOn(frameDocument, 'removeEventListener').mockImplementation((event, listener, options) => {
+      if (event === type && ++attempts === 1)
+        throw new Error('temporary frame removal failure')
+      originalRemove(event, listener, options)
+    })
+    try {
+      expect(cleanup).not.toThrow()
+      expect(attempts).toBe(1)
+      frame.remove()
+      expect(cleanup).not.toThrow()
+      expect(attempts).toBe(2)
+      cleanup()
+      expect(attempts).toBe(2)
+    }
+    finally {
+      remove.mockRestore()
+      cleanup()
+    }
+  })
+})

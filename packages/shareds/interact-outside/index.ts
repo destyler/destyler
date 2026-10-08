@@ -143,7 +143,7 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
     return !exclude?.(target)
   }
 
-  const pointerdownCleanups: Set<VoidFunction> = new Set()
+  const pointerdownCleanups = new Set<() => void | false>()
   const pendingFrames = new Set<VoidFunction>()
   let disposed = false
   let cleaning = false
@@ -203,7 +203,7 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
       handler()
     }
   }
-  const cleanups = new Set<VoidFunction>()
+  const cleanups = new Set<() => void | false>()
 
   const timer = setTimeout(() => {
     cleanups.add(addDomEvent(doc, 'pointerdown', onPointerDown, true))
@@ -250,14 +250,14 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
       })
       clearTimeout(timer)
       pointerdownCleanups.forEach((cleanup) => {
-        cleanup()
-        pointerdownCleanups.delete(cleanup)
+        if (cleanup() !== false)
+          pointerdownCleanups.delete(cleanup)
       })
       cleanups.forEach((cleanup) => {
-        cleanup()
-        cleanups.delete(cleanup)
+        if (cleanup() !== false)
+          cleanups.delete(cleanup)
       })
-      cleaned = true
+      cleaned = pointerdownCleanups.size === 0 && cleanups.size === 0
     }
     finally {
       cleaning = false
