@@ -59,11 +59,6 @@ const exitingStateKey = Symbol('exitingState')
 const stopPhaseKey = Symbol('stopPhase')
 const pendingStopsKey = Symbol('pendingStops')
 
-interface ActivityCleanup {
-  cleanup: VoidFunction
-  retry: boolean
-}
-
 interface ExitWork {
   prepare?: () => VoidFunction[]
   tasks?: VoidFunction[]
@@ -107,7 +102,7 @@ export class Machine<
   public type: MachineType = MachineType.Machine
 
   // Cleanup function map (per state)
-  private activityEvents = new Map<string, Map<string, ActivityCleanup[]>>()
+  private activityEvents = new Map<string, Map<string, VoidFunction[]>>()
   private delayedEvents = new Map<string, VoidFunction[]>()
 
   // state update listeners the user can opt-in for
@@ -416,7 +411,7 @@ export class Machine<
       try {
         for (const [key, callbacks] of cleanups) {
           while (callbacks.length > 0) {
-            callbacks[0].cleanup()
+            callbacks[0]()
             callbacks.shift()
           }
           cleanups.delete(key)
@@ -426,7 +421,7 @@ export class Machine<
         for (const [pendingState, pending] of activities.slice(index)) {
           for (const [key, callbacks] of pending ?? []) {
             for (const cleanup of callbacks)
-              this.addActivityCleanup(pendingState, key, cleanup.cleanup, true)
+              this.addActivityCleanup(pendingState, key, cleanup)
           }
         }
         throw error
@@ -506,31 +501,27 @@ export class Machine<
       return
     try {
       while (callbacks.length > 0) {
-        callbacks[0].cleanup()
+        callbacks[0]()
         callbacks.shift()
       }
     }
     catch (error) {
       for (const cleanup of callbacks)
-        this.addActivityCleanup(state, key, cleanup.cleanup, true)
+        this.addActivityCleanup(state, key, cleanup)
       throw error
     }
   }
 
-  private addActivityCleanup = (state: TState['value'] | null, key: string, cleanup: VoidFunction, retainExisting = false) => {
+  private addActivityCleanup = (state: TState['value'] | null, key: string, cleanup: VoidFunction) => {
     if (!state)
       return
     if (!this.activityEvents.has(state)) {
-      this.activityEvents.set(state, new Map([[key, [{ cleanup, retry: retainExisting }]]]))
+      this.activityEvents.set(state, new Map([[key, [cleanup]]]))
     }
     else {
       const cleanups = this.activityEvents.get(state)!
-      // Ordinary same-name registration retains its legacy replacement behavior.
-      // Failed or unattempted cleanup still belongs to an earlier teardown and
-      // cannot be overwritten when a later run acquires the same activity.
-      const previous = cleanups.get(key) ?? []
-      const existing = retainExisting ? previous : previous.filter(item => item.retry)
-      existing.push({ cleanup, retry: retainExisting })
+      const existing = cleanups.get(key) ?? []
+      existing.push(cleanup)
       cleanups.set(key, existing)
     }
   }
@@ -835,7 +826,7 @@ export class Machine<
         catch (error) {
           if (cleanup) {
             const key = isString(activity) ? activity : activity.name || uuid()
-            this.addActivityCleanup(state || ActionTypes.Start, key, cleanup, true)
+            this.addActivityCleanup(state || ActionTypes.Start, key, cleanup)
           }
           throw error
         }

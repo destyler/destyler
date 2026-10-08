@@ -103,6 +103,50 @@ it('retains a restarted run initiated by an onDone listener and clears its compl
   machine.stop()
 })
 
+it('cleans same-name instances once when the first cleanup reenters stop', () => {
+  const order: number[] = []
+  let count = 0
+  const activity = (_ctx: unknown, _evt: unknown, { self }: any) => {
+    const id = ++count
+    return () => {
+      order.push(id)
+      if (id === 1)
+        self.stop()
+    }
+  }
+  const machine = createMachine({ initial: 'idle', states: { idle: { activities: [activity, activity], on: { GO: 'next' } }, next: {} } }).start()
+  machine.send('GO')
+  expect(order).toEqual([1, 2])
+  expect(machine.status).toBe(MachineStatus.Stopped)
+})
+
+it.each(['root', 'state', 'named'] as const)('retains failed and unattempted same-name cleanup ownership on %s cancellation', (location) => {
+  const order: number[] = []
+  let acquired = 0
+  let failure = true
+  const activity = () => {
+    const id = ++acquired
+    return () => {
+      order.push(id)
+      if (id === 2 && failure) {
+        failure = false
+        throw new Error('cleanup')
+      }
+    }
+  }
+  const machine = createMachine({ initial: 'idle', activities: location === 'root' ? [activity, activity, activity] : undefined, states: { idle: {
+    activities: location === 'root' ? undefined : ['test', 'test', 'test'],
+    on: { CANCEL: { actions: (_ctx, _evt, { self }) => self.stopActivity('test') } },
+  } } }, { activities: { test: activity } }).start()
+  const cancel = () => location === 'named' ? machine.send('CANCEL') : machine.stop()
+  expect(cancel).toThrow('cleanup')
+  expect(order).toEqual([1, 2])
+  cancel()
+  expect(order).toEqual([1, 2, 2, 3])
+  machine.stop()
+  expect(order).toEqual([1, 2, 2, 3])
+})
+
 it('does not hide errors from a cleanup returned by a self-stopping activity', () => {
   const error = new Error('late cleanup')
   const machine = createMachine({ initial: 'idle', activities: [(_ctx, _evt, { self }) => {
