@@ -1,4 +1,4 @@
-import { subscribe } from '@destyler/store'
+import type { subscribe } from '@destyler/store'
 import { createMachine } from '@destyler/xstate'
 import { act, createElement, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -9,11 +9,17 @@ import { useMachine } from '../src/hooks/use-machine'
 // @ts-expect-error - React testing flag
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
+// Keep the observation handle local: browser module interception must still
+// route both StrictMode subscriptions through this exact spy.
+const { subscribeSpy } = vi.hoisted(() => ({
+  subscribeSpy: vi.fn<typeof subscribe>(),
+}))
+
 vi.mock('@destyler/store', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@destyler/store')>()
   return {
     ...actual,
-    subscribe: vi.fn((...args: Parameters<typeof actual.subscribe>) => {
+    subscribe: subscribeSpy.mockImplementation((...args: Parameters<typeof actual.subscribe>) => {
       const notify = vi.fn(args[1])
       const unsubscribe = vi.fn(actual.subscribe(args[0], notify, args[2]))
       return Object.assign(unsubscribe, { notify })
@@ -149,7 +155,7 @@ describe('react StrictMode resource lifecycle', () => {
     const stop = vi.spyOn(service, 'stop')
     const container = document.createElement('div')
     const root = createRoot(container)
-    const subscriptionsBeforeMount = vi.mocked(subscribe).mock.calls.length
+    const subscriptionsBeforeMount = subscribeSpy.mock.calls.length
     let renders = 0
     function View() {
       const [state] = useActor(service)
@@ -158,12 +164,23 @@ describe('react StrictMode resource lifecycle', () => {
     }
     try {
       await act(async () => root.render(createElement(StrictMode, null, createElement(View))))
-      const relevant = vi.mocked(subscribe).mock.calls.flatMap((args, index) => index >= subscriptionsBeforeMount && args[0] === service.state
-        ? [vi.mocked(subscribe).mock.results[index].value as ReturnType<typeof subscribe> & { notify: ReturnType<typeof vi.fn> }]
+      const relevant = subscribeSpy.mock.calls.flatMap((args, index) => index >= subscriptionsBeforeMount && args[0] === service.state
+        ? [subscribeSpy.mock.results[index].value as ReturnType<typeof subscribe> & { notify: ReturnType<typeof vi.fn> }]
         : [])
       expect(relevant).toHaveLength(2)
       expect(relevant[0]).toHaveBeenCalledTimes(1)
       expect(relevant[1]).not.toHaveBeenCalled()
+      expect(container.textContent).toBe('0')
+
+      // Prove the active lease forwards real notifications before checking
+      // cancellation; a detached or inert observation hook must not pass.
+      await act(async () => service.send('INC'))
+      expect(relevant[0].notify).not.toHaveBeenCalled()
+      expect(relevant[1].notify).toHaveBeenCalledTimes(1)
+      expect(container.textContent).toBe('1')
+      await act(async () => service.setContext({ count: 0 }))
+      expect(relevant[1].notify).toHaveBeenCalledTimes(2)
+      expect(container.textContent).toBe('0')
       relevant.forEach(unsubscribe => unsubscribe.notify.mockClear())
       const rendersBeforeUnmount = renders
 
