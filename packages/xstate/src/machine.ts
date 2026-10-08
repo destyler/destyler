@@ -49,6 +49,40 @@ import {
 } from './type'
 import { toArray, toEvent } from './utils'
 
+// These keys stay private to each implementation, including subclass and proxy users.
+const stoppingKey = Symbol('stopping')
+const startingKey = Symbol('starting')
+const lifecycleVersionKey = Symbol('lifecycleVersion')
+const runVersionKey = Symbol('runVersion')
+const exitingStateKey = Symbol('exitingState')
+
+const stopPhaseKey = Symbol('stopPhase')
+const pendingStopsKey = Symbol('pendingStops')
+
+interface ActivityCleanup {
+  cleanup: VoidFunction
+  retry: boolean
+}
+
+interface ExitWork {
+  prepare?: () => VoidFunction[]
+  tasks?: VoidFunction[]
+  selecting: boolean
+  running: Set<number>
+  completed: Set<number>
+}
+
+interface StopPhase {
+  stateExit?: string
+  stateWork?: ExitWork
+  rootWork: ExitWork
+  cleanup: number
+}
+
+function createExitWork(): ExitWork {
+  return { selecting: false, running: new Set(), completed: new Set() }
+}
+
 export class Machine<
   TContext extends Dict,
   TState extends StateSchema,
@@ -57,9 +91,13 @@ export class Machine<
   public status: MachineStatus = MachineStatus.NotStarted
   public readonly state: XState<TContext, TState, TEvent>
 
-  private stopping = false
-  private lifecycleVersion = 0
-  private exitingState: { value: string, version: number } | undefined
+  private [stoppingKey] = false
+  private [startingKey] = false
+  private [stopPhaseKey]: StopPhase | undefined
+  private [pendingStopsKey]: StopPhase[] = []
+  private [lifecycleVersionKey] = 0
+  private [runVersionKey] = 0
+  private [exitingStateKey]: { value: string, version: number, work: ExitWork } | undefined
 
   public initialState: StateInfo<TContext, TState, TEvent> | undefined
   public initialContext: TContext
@@ -69,7 +107,7 @@ export class Machine<
   public type: MachineType = MachineType.Machine
 
   // Cleanup function map (per state)
-  private activityEvents = new Map<string, Map<string, VoidFunction>>()
+  private activityEvents = new Map<string, Map<string, ActivityCleanup[]>>()
   private delayedEvents = new Map<string, VoidFunction[]>()
 
   // state update listeners the user can opt-in for
@@ -139,24 +177,47 @@ export class Machine<
   // Starts the interpreted machine.
   public start = (init?: StateInit<TContext, TState>) => {
     // Don't start if it's already running
-    if (this.status === MachineStatus.Running || this.stopping) {
+    if (this.status === MachineStatus.Running || this[stoppingKey] || this[startingKey]) {
       return this
     }
 
-    // reset state back to empty (for SSR, we had to set state.value to initial value)
-    this.state.value = ''
-    this.state.tags = []
+    if (this[stopPhaseKey]) {
+      this[pendingStopsKey].push(this[stopPhaseKey])
+      this[stopPhaseKey] = undefined
+    }
 
+    // Claim this attempt before reset writes can call start or stop again, while
+    // preserving the existing status seen by synchronous reset subscribers.
+    const version = ++this[lifecycleVersionKey]
+    const runVersion = ++this[runVersionKey]
+    this[startingKey] = true
+    try {
+      // reset state back to empty (for SSR, we had to set state.value to initial value)
+      this.state.value = ''
+      if (version !== this[lifecycleVersionKey])
+        return this
+      this.state.tags = []
+      if (version !== this[lifecycleVersionKey])
+        return this
+      this.state.done = false
+      if (version !== this[lifecycleVersionKey])
+        return this
+    }
+    finally {
+      this[startingKey] = false
+    }
     this.status = MachineStatus.Running
-    const version = ++this.lifecycleVersion
 
     // subscribe to state changes
     this.removeStateListener = subscribe(
       this.state,
       () => {
+        if (runVersion !== this[runVersionKey])
+          return
+        const version = this[lifecycleVersionKey]
         for (const listener of this.stateListeners) {
           listener(this.stateSnapshot)
-          if (version !== this.lifecycleVersion)
+          if (version !== this[lifecycleVersionKey])
             return
         }
       },
@@ -167,10 +228,10 @@ export class Machine<
 
     // execute initial actions and activities
     this.executeActivities(toEvent<TEvent>(ActionTypes.Start), toArray(this.config.activities), ActionTypes.Start)
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey])
       return this
     this.executeActions(this.config.entry, toEvent<TEvent>(ActionTypes.Start))
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey])
       return this
 
     // start transition
@@ -181,7 +242,7 @@ export class Machine<
 
     if (context) {
       this.setContext(context as Partial<TContext>)
-      if (version !== this.lifecycleVersion)
+      if (version !== this[lifecycleVersionKey])
         return this
     }
 
@@ -204,20 +265,23 @@ export class Machine<
       return
 
     let prev = snapshot(this.state.context)
-    const version = this.lifecycleVersion
+    const runVersion = this[runVersionKey]
 
     const cleanup = subscribe(this.state.context, () => {
+      if (runVersion !== this[runVersionKey])
+        return
+      const version = this[lifecycleVersionKey]
       const next = snapshot(this.state.context)
 
       for (const [key, fn] of Object.entries(watch)) {
         const isEqual = this.options.compareFns?.[key] ?? Object.is
         const equal = isEqual(prev[key], next[key])
-        if (version !== this.lifecycleVersion)
+        if (version !== this[lifecycleVersionKey])
           return
         if (equal)
           continue
         this.executeActions(fn, this.state.event as TEvent)
-        if (version !== this.lifecycleVersion)
+        if (version !== this[lifecycleVersionKey])
           return
       }
 
@@ -229,34 +293,93 @@ export class Machine<
 
   // Stops the interpreted machine
   stop = () => {
-    // Keep teardown idempotent even when exit effects call back into the machine.
-    if (this.status === MachineStatus.Stopped || this.stopping)
+    const isStopped = () => this.status === MachineStatus.Stopped
+    const wasStopped = isStopped()
+    if (wasStopped && this[startingKey]) {
+      this[lifecycleVersionKey]++
+      this[startingKey] = false
+    }
+    if (wasStopped && !this[stopPhaseKey] && this[pendingStopsKey].length === 0
+      && this.children.size === 0 && this.activityEvents.size === 0
+      && this.delayedEvents.size === 0 && this.contextWatchers.size === 0) {
       return
+    }
 
-    this.stopping = true
+    const ownsStop = !this[stoppingKey]
+    const phase = this[stopPhaseKey] ?? {
+      rootWork: wasStopped ? { ...createExitWork(), tasks: [] } : createExitWork(),
+      cleanup: wasStopped ? 6 : 0,
+    }
+    const runVersion = this[runVersionKey]
+    const canContinueStop = () => runVersion === this[runVersionKey]
+    this[stopPhaseKey] = phase
+    this[stoppingKey] = true
+    let failed = false
     try {
-      // exit current state
-      this.performExitEffects(this.state.value!, toEvent<TEvent>(ActionTypes.Stop))
+      // Old failed exit callbacks remain owned across an explicit restart, but
+      // must never stand in for the restarted run's own teardown phases.
+      while (this[pendingStopsKey].length > 0) {
+        const pending = this[pendingStopsKey][0]
+        if (pending.stateWork)
+          this.executeActions(undefined, toEvent<TEvent>(ActionTypes.Stop), canContinueStop, pending.stateWork)
+        this.executeActions(undefined, toEvent<TEvent>(ActionTypes.Stop), canContinueStop, pending.rootWork)
+        if (pending.stateWork?.selecting || pending.stateWork?.running.size
+          || pending.rootWork.selecting || pending.rootWork.running.size) {
+          break
+        }
+        this[pendingStopsKey].shift()
+      }
 
-      // execute root stop or exit actions
-      this.executeActions(this.config.exit, toEvent<TEvent>(ActionTypes.Stop))
+      // A nested stop may finish the pending teardown, but never replays exits
+      // already executing or completed by the same synchronous stop attempt.
+      if (phase.stateWork)
+        this.executeActions(undefined, toEvent<TEvent>(ActionTypes.Stop), canContinueStop, phase.stateWork)
+      const currentState = this.state.value!
+      if (phase.cleanup === 0 && phase.stateExit !== currentState) {
+        this.performExitEffects(currentState, toEvent<TEvent>(ActionTypes.Stop))
+        phase.stateExit = currentState
+      }
+      this.executeActions(this.config.exit, toEvent<TEvent>(ActionTypes.Stop), canContinueStop, phase.rootWork)
 
-      this.setState('')
-      this.setEvent(ActionTypes.Stop)
-
-      // cleanups
-      this.stopStateListeners()
-      this.stopChildren()
-      this.stopActivities()
-      this.stopDelayedEvents()
-      this.stopContextWatchers()
+      // Claim each observable step before invoking it. A synchronous callback
+      // can finish the remaining steps without repeating the in-flight write.
+      const cleanups = [
+        () => { this.state.previousValue = this.state.value },
+        () => { this.state.value = '' },
+        () => { this.state.tags = [] },
+        () => { this.state.previousEvent = this.state.event },
+        () => { this.state.event = ref(toEvent<TEvent>(ActionTypes.Stop)) },
+        this.stopStateListeners,
+        this.stopChildren,
+        this.stopActivities,
+        this.stopDelayedEvents,
+        this.stopContextWatchers,
+      ]
+      while (phase.cleanup < cleanups.length) {
+        const index = phase.cleanup++
+        try {
+          cleanups[index]()
+        }
+        catch (error) {
+          phase.cleanup = Math.min(phase.cleanup, index)
+          throw error
+        }
+      }
 
       this.status = MachineStatus.Stopped
       return this
     }
+    catch (error) {
+      failed = true
+      throw error
+    }
     finally {
-      this.lifecycleVersion++
-      this.stopping = false
+      this[lifecycleVersionKey]++
+      if (ownsStop) {
+        this[stoppingKey] = false
+        if (!failed)
+          this[stopPhaseKey] = undefined
+      }
     }
   }
 
@@ -277,17 +400,37 @@ export class Machine<
     this.delayedEvents.clear()
   }
 
-  // Cleanup running activities (e.g `setInterval`, invoked callbacks, promises)
+  // Detach ownership before invoking user code. If teardown throws, retain the
+  // failed and unattempted disposers so a later explicit stop can retry them.
   private stopActivities = (state?: TState['value']) => {
-    if (state) {
-      const cleanups = this.activityEvents.get(state)
-      this.activityEvents.delete(state)
-      cleanups?.forEach(stop => stop())
-    }
-    else {
-      const activities = Array.from(this.activityEvents.values())
-      this.activityEvents.clear()
-      activities.forEach(cleanups => cleanups.forEach(stop => stop()))
+    const activities = state
+      ? [[state, this.activityEvents.get(state)]] as const
+      : Array.from(this.activityEvents.entries())
+    for (const [value] of activities)
+      this.activityEvents.delete(value)
+
+    for (let index = 0; index < activities.length; index++) {
+      const [, cleanups] = activities[index]
+      if (!cleanups)
+        continue
+      try {
+        for (const [key, callbacks] of cleanups) {
+          while (callbacks.length > 0) {
+            callbacks[0].cleanup()
+            callbacks.shift()
+          }
+          cleanups.delete(key)
+        }
+      }
+      catch (error) {
+        for (const [pendingState, pending] of activities.slice(index)) {
+          for (const [key, callbacks] of pending ?? []) {
+            for (const cleanup of callbacks)
+              this.addActivityCleanup(pendingState, key, cleanup.cleanup, true)
+          }
+        }
+        throw error
+      }
     }
   }
 
@@ -311,8 +454,10 @@ export class Machine<
     if (!this.children.has(id)) {
       throw new Error(`[@destyler.xstate > stop-child] Cannot stop unknown child ${id}`)
     }
-    this.children.get(id)!.stop()
-    this.children.delete(id)
+    const child = this.children.get(id)!
+    child.stop()
+    if (this.children.get(id) === child)
+      this.children.delete(id)
   }
 
   public removeChild = (id: string) => {
@@ -342,7 +487,8 @@ export class Machine<
 
     actor
       .onDone(() => {
-        this.removeChild(actor.id)
+        if (this.children.get(actor.id) === cast<AnyMachine>(actor))
+          this.removeChild(actor.id)
       })
       .start()
 
@@ -352,30 +498,50 @@ export class Machine<
   private stopActivity = (key: string) => {
     if (!this.state.value)
       return
-    const cleanups = this.activityEvents.get(this.state.value)
-    const cleanup = cleanups?.get(key)
+    const state = this.state.value
+    const cleanups = this.activityEvents.get(state)
+    const callbacks = cleanups?.get(key)
     cleanups?.delete(key)
-    cleanup?.()
+    if (!callbacks)
+      return
+    try {
+      while (callbacks.length > 0) {
+        callbacks[0].cleanup()
+        callbacks.shift()
+      }
+    }
+    catch (error) {
+      for (const cleanup of callbacks)
+        this.addActivityCleanup(state, key, cleanup.cleanup, true)
+      throw error
+    }
   }
 
-  private addActivityCleanup = (state: TState['value'] | null, key: string, cleanup: VoidFunction) => {
+  private addActivityCleanup = (state: TState['value'] | null, key: string, cleanup: VoidFunction, retainExisting = false) => {
     if (!state)
       return
     if (!this.activityEvents.has(state)) {
-      this.activityEvents.set(state, new Map([[key, cleanup]]))
+      this.activityEvents.set(state, new Map([[key, [{ cleanup, retry: retainExisting }]]]))
     }
     else {
-      this.activityEvents.get(state)?.set(key, cleanup)
+      const cleanups = this.activityEvents.get(state)!
+      // Ordinary same-name registration retains its legacy replacement behavior.
+      // Failed or unattempted cleanup still belongs to an earlier teardown and
+      // cannot be overwritten when a later run acquires the same activity.
+      const previous = cleanups.get(key) ?? []
+      const existing = retainExisting ? previous : previous.filter(item => item.retry)
+      existing.push({ cleanup, retry: retainExisting })
+      cleanups.set(key, existing)
     }
   }
 
   private setState = (target: TState['value'] | null) => {
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
     this.state.previousValue = this.state.value
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey])
       return
     this.state.value = target
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey])
       return
 
     const stateNode = this.getStateNode(target)
@@ -445,9 +611,9 @@ export class Machine<
     return {
       entry: () => {
         id = globalThis.setTimeout(() => {
-          const version = this.lifecycleVersion
+          const version = this[lifecycleVersionKey]
           const next = this.getNextStateInfo(transition, this.state.event)
-          if (version !== this.lifecycleVersion)
+          if (version !== this[lifecycleVersionKey])
             return
           this.performStateChangeEffects(current, next, this.state.event)
         }, delay)
@@ -465,8 +631,8 @@ export class Machine<
    * To achieve this, we split the `after` definition into `entry` and `exit`
    *  functions and append them to the state's `entry` and `exit` actions
    */
-  private getDelayedEventActions = (state: TState['value']) => {
-    const version = this.lifecycleVersion
+  private getDelayedEventActions = (state: TState['value'], continueAfterStop?: () => boolean) => {
+    const version = this[lifecycleVersionKey]
     const stateNode = this.getStateNode(state)
     const event = this.state.event
 
@@ -480,7 +646,7 @@ export class Machine<
       //
       const transition = this.determineTransition(stateNode.after, event)
 
-      if (!transition || version !== this.lifecycleVersion)
+      if (!transition || (version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
         return
 
       if (!hasProp(transition, 'delay')) {
@@ -489,7 +655,7 @@ export class Machine<
 
       const determineDelay = determineDelayFn((transition as any).delay, this.delayMap)
       const __delay = determineDelay(this.contextSnapshot, event)
-      if (version !== this.lifecycleVersion)
+      if ((version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
         return
 
       const actions = this.getAfterActions(transition, __delay)
@@ -507,7 +673,7 @@ export class Machine<
 
         const determineDelay = determineDelayFn(delay, this.delayMap)
         const __delay = determineDelay(this.contextSnapshot, event)
-        if (version !== this.lifecycleVersion)
+        if ((version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
           return
 
         const actions = this.getAfterActions(transition, __delay)
@@ -572,20 +738,68 @@ export class Machine<
    * Function to executes defined actions. It can accept actions as string
    * (referencing `options.actions`) or actual functions.
    */
-  private executeActions = (actions: Actions<TContext, TState, TEvent> | undefined, event: TEvent) => {
-    const version = this.lifecycleVersion
-    const pickedActions = determineActionsFn(actions, this.guardMap)(this.contextSnapshot, event, this.guardMeta)
-    if (version !== this.lifecycleVersion)
+  private executeActions = (
+    actions: Actions<TContext, TState, TEvent> | undefined,
+    event: TEvent,
+    continueAfterStop?: () => boolean,
+    work?: ExitWork,
+  ) => {
+    if (work) {
+      if (work.selecting)
+        return
+      if (!work.tasks) {
+        work.selecting = true
+        try {
+          if (!work.prepare) {
+            work.prepare = () => {
+              const picked = determineActionsFn(actions, this.guardMap)(this.contextSnapshot, event, this.guardMeta)
+              return toArray(picked).map(action => () => this.executeActions(action, event, continueAfterStop))
+            }
+          }
+          work.tasks = work.prepare()
+        }
+        finally {
+          work.selecting = false
+        }
+      }
+      for (let index = 0; index < work.tasks.length; index++) {
+        if (work.running.has(index) || work.completed.has(index))
+          continue
+        work.running.add(index)
+        try {
+          work.tasks[index]()
+          work.completed.add(index)
+        }
+        finally {
+          work.running.delete(index)
+        }
+      }
       return
+    }
+    let version = this[lifecycleVersionKey]
+    const pickedActions = determineActionsFn(actions, this.guardMap)(this.contextSnapshot, event, this.guardMeta)
+    if (version !== this[lifecycleVersionKey]) {
+      if (!continueAfterStop?.())
+        return
+      version = this[lifecycleVersionKey]
+    }
     for (const action of toArray(pickedActions)) {
       const fn = isString(action) ? this.actionMap?.[action] : action
+      if (version !== this[lifecycleVersionKey]) {
+        if (!continueAfterStop?.())
+          return
+        version = this[lifecycleVersionKey]
+      }
       if (isString(action) && !fn) {
         console.warn(`[@destyler/xstate > execute-actions] No implementation found for action: \`${action}\``)
       }
 
       fn?.(this.state.context, event, this.meta)
-      if (version !== this.lifecycleVersion)
-        return
+      if (version !== this[lifecycleVersionKey]) {
+        if (!continueAfterStop?.())
+          return
+        version = this[lifecycleVersionKey]
+      }
     }
   }
 
@@ -597,10 +811,16 @@ export class Machine<
     event: TEvent,
     activities: Array<Activity<TContext, TState, TEvent>>,
     state?: TState['value'],
+    continueAfterStop?: () => boolean,
   ) => {
-    const version = this.lifecycleVersion
+    let version = this[lifecycleVersionKey]
     for (const activity of activities) {
       const fn = isString(activity) ? this.activityMap?.[activity] : activity
+      if (version !== this[lifecycleVersionKey]) {
+        if (!continueAfterStop?.())
+          return
+        version = this[lifecycleVersionKey]
+      }
 
       if (!fn) {
         console.warn(`[@destyler/xstate > execute-activity] No implementation found for activity: \`${activity}\``)
@@ -608,11 +828,21 @@ export class Machine<
       }
 
       const cleanup = fn(this.state.context, event, this.meta)
-      if (version !== this.lifecycleVersion) {
-        cleanup?.()
+      if (version !== this[lifecycleVersionKey] && !continueAfterStop?.()) {
+        try {
+          cleanup?.()
+        }
+        catch (error) {
+          if (cleanup) {
+            const key = isString(activity) ? activity : activity.name || uuid()
+            this.addActivityCleanup(state || ActionTypes.Start, key, cleanup, true)
+          }
+          throw error
+        }
         return
       }
 
+      version = this[lifecycleVersionKey]
       if (cleanup) {
         const key = isString(activity) ? activity : activity.name || uuid()
         this.addActivityCleanup(state ?? this.state.value, key, cleanup)
@@ -628,21 +858,22 @@ export class Machine<
   private createEveryActivities = (
     every: StateNode<TContext, TState, TEvent>['every'] | undefined,
     callbackfn: (activity: Activity<TContext, TState, TEvent>) => void,
+    continueAfterStop?: () => boolean,
   ) => {
     if (!every)
       return
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
 
     // every: [{ interval: 2000, actions: [...], guard: "isValid" },  { interval: 1000, actions: [...] }]
     if (isArray(every)) {
       // picked = { interval: string | number | <ref>, actions: [...], guard: ... }
       const picked = toArray(every).find((transition) => {
-        if (version !== this.lifecycleVersion)
+        if ((version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
           return false
         const delayOrFn = transition.delay
         const determineDelay = determineDelayFn(delayOrFn, this.delayMap)
         const delay = determineDelay(this.contextSnapshot, this.state.event)
-        if (version !== this.lifecycleVersion)
+        if ((version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
           return false
 
         const determineGuard = determineGuardFn(transition.guard, this.guardMap)
@@ -651,12 +882,12 @@ export class Machine<
         return guard ?? delay != null
       })
 
-      if (!picked || version !== this.lifecycleVersion)
+      if (!picked || (version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
         return
 
       const determineDelay = determineDelayFn(picked.delay, this.delayMap)
       const delay = determineDelay(this.contextSnapshot, this.state.event)
-      if (version !== this.lifecycleVersion)
+      if ((version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
         return
 
       const activity = () => {
@@ -678,7 +909,7 @@ export class Machine<
         // interval could be a `ref` not the actual interval value, let's determine the actual value
         const determineDelay = determineDelayFn(interval, this.delayMap)
         const delay = determineDelay(this.contextSnapshot, this.state.event)
-        if (version !== this.lifecycleVersion)
+        if ((version !== this[lifecycleVersionKey] && !continueAfterStop?.()))
           return
 
         // create the activity to run for each `every` reaction
@@ -696,51 +927,79 @@ export class Machine<
   }
 
   private setEvent = (event: TEvent | TEvent['type']) => {
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
     this.state.previousEvent = this.state.event
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey])
       return
     this.state.event = ref(toEvent(event))
   }
 
   private performExitEffects = (current: TState['value'] | undefined, event: TEvent) => {
     const currentState = this.state.value!
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
+    const runVersion = this[runVersionKey]
+    const stopPhase = this[stopPhaseKey]
+    const canContinueStop = () => runVersion === this[runVersionKey]
+    const existing = this[exitingStateKey]
 
-    // Root effects are handled by stop(). Do not repeat an exit already in progress.
-    if (currentState === '' || (this.stopping && this.exitingState?.value === currentState && this.exitingState.version === version))
+    if (currentState === '')
       return
+    if (this[stoppingKey] && existing?.value === currentState && existing.version === version) {
+      if (stopPhase)
+        stopPhase.stateWork = existing.work
+      this.executeActions(undefined, event, canContinueStop, existing.work)
+      return
+    }
 
-    const previousExit = this.exitingState
+    const previousExit = existing
+    const work = createExitWork()
     try {
       const stateNode = current ? this.getStateNode(current) : undefined
 
-      this.stopActivities(currentState)
-      if (version !== this.lifecycleVersion)
+      try {
+        this.stopActivities(currentState)
+      }
+      catch (error) {
+        if (stopPhase)
+          stopPhase.cleanup = Math.min(stopPhase.cleanup, 7)
+        throw error
+      }
+      if (version !== this[lifecycleVersionKey])
         return
 
-      this.exitingState = { value: currentState, version }
-      const _exit = determineActionsFn(stateNode?.exit, this.guardMap)(this.contextSnapshot, event, this.guardMeta)
-      if (version !== this.lifecycleVersion)
+      this[exitingStateKey] = { value: currentState, version, work }
+      if (stopPhase) {
+        stopPhase.stateWork = work
+        stopPhase.stateExit = currentState
+      }
+      work.prepare = () => {
+        const picked = determineActionsFn(stateNode?.exit, this.guardMap)(this.contextSnapshot, event, this.guardMeta)
+        if (version !== this[lifecycleVersionKey] && !stopPhase)
+          return []
+        const exitActions = toArray(picked)
+        const afterExitActions = this.delayedEvents.get(currentState)
+        if (afterExitActions)
+          exitActions.push(...afterExitActions)
+        return exitActions.map(action => () => this.executeActions(action, event, canContinueStop))
+      }
+      this.executeActions(undefined, event, canContinueStop, work)
+      if (version !== this[lifecycleVersionKey] && !stopPhase)
         return
-      const exitActions = toArray(_exit)
-      const afterExitActions = this.delayedEvents.get(currentState)
-      if (afterExitActions)
-        exitActions.push(...afterExitActions)
 
-      this.executeActions(exitActions, event)
-      if (version !== this.lifecycleVersion)
-        return
       this.delayedEvents.delete(currentState)
     }
     finally {
-      this.exitingState = previousExit
+      this[exitingStateKey] = previousExit
     }
   }
 
   private performEntryEffects = (next: TState['value'], event: TEvent) => {
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
     const stateNode = this.getStateNode(next)
+    const runVersion = this[runVersionKey]
+    const canCompleteAfterStop = () => stateNode?.type === 'final'
+      && runVersion === this[runVersionKey]
+      && this.status === MachineStatus.Stopped
 
     // execute activities for next state
     const activities = toArray(stateNode?.activities)
@@ -748,13 +1007,13 @@ export class Machine<
     // if `every` is defined, create an activity and append to activities
     this.createEveryActivities(stateNode?.every, (activity) => {
       activities.unshift(activity)
-    })
-    if (version !== this.lifecycleVersion)
+    }, canCompleteAfterStop)
+    if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
       return
 
     if (activities.length > 0) {
-      this.executeActivities(event, activities)
-      if (version !== this.lifecycleVersion)
+      this.executeActivities(event, activities, stateNode?.type === 'final' ? next : undefined, canCompleteAfterStop)
+      if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
         return
     }
 
@@ -764,12 +1023,12 @@ export class Machine<
       event,
       this.guardMeta,
     )
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
       return
     const entryActions = toArray(pickedActions)
 
-    const afterActions = this.getDelayedEventActions(next)
-    if (version !== this.lifecycleVersion)
+    const afterActions = this.getDelayedEventActions(next, canCompleteAfterStop)
+    if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
       return
 
     if (stateNode?.after && afterActions) {
@@ -778,17 +1037,17 @@ export class Machine<
     }
 
     // execute entry actions for next state
-    this.executeActions(entryActions, event)
-    if (version !== this.lifecycleVersion)
+    this.executeActions(entryActions, event, canCompleteAfterStop)
+    if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
       return
 
     if (stateNode?.type === 'final') {
       this.state.done = true
-      if (version !== this.lifecycleVersion)
+      if (runVersion !== this[runVersionKey])
         return
       for (const listener of this.doneListeners) {
         listener(this.stateSnapshot)
-        if (version !== this.lifecycleVersion)
+        if (runVersion !== this[runVersionKey])
           return
       }
       this.stop()
@@ -798,10 +1057,13 @@ export class Machine<
   private performTransitionEffects = (
     transitions: Transitions<TContext, TState, TEvent> | undefined,
     event: TEvent,
+    continueAfterStop?: () => boolean,
   ) => {
-    // execute transition actions
+    const version = this[lifecycleVersionKey]
     const transition = this.determineTransition(transitions, event)
-    this.executeActions(transition?.actions, event)
+    if (version !== this[lifecycleVersionKey] && !continueAfterStop?.())
+      return
+    this.executeActions(transition?.actions, event, continueAfterStop)
   }
 
   /**
@@ -816,28 +1078,43 @@ export class Machine<
     next: StateInfo<TContext, TState, TEvent>,
     event: TEvent,
   ) => {
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
+    const runVersion = this[runVersionKey]
+    const canCompleteAfterStop = () => next.stateNode?.type === 'final'
+      && runVersion === this[runVersionKey]
+      && this.status === MachineStatus.Stopped
     // update event
     this.setEvent(event)
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
       return
 
     const changed = next.changed || next.reenter
 
     if (changed) {
       this.performExitEffects(current, event)
-      if (version !== this.lifecycleVersion)
+      if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
         return
     }
 
-    // execute transition actions
-    this.performTransitionEffects(next.transition, event)
-    if (version !== this.lifecycleVersion)
+    // Preserve existing same-run final completion after a successful stop.
+    // Toast relies on teardown preceding unmounted entry and onDone, including
+    // copied configs and user-overridden removal actions. A restart or failed
+    // stop never grants that continuation; non-final work is still cancelled.
+    this.performTransitionEffects(next.transition, event, canCompleteAfterStop)
+    if (version !== this[lifecycleVersionKey]) {
+      if (!canCompleteAfterStop())
+        return
+      const completionVersion = this[lifecycleVersionKey]
+      this.setState(next.target)
+      if (completionVersion !== this[lifecycleVersionKey] && !canCompleteAfterStop())
+        return
+      this.performEntryEffects(next.target, event)
       return
+    }
 
     // go to next state
     this.setState(next.target)
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey] && !canCompleteAfterStop())
       return
 
     if (changed) {
@@ -879,12 +1156,12 @@ export class Machine<
   }
 
   public transition = (state: TState['value'] | StateInfo<TContext, TState, TEvent> | null, evt: Event<TEvent>) => {
-    if (this.status === MachineStatus.Stopped || this.stopping) {
+    if (this.status === MachineStatus.Stopped || this[stoppingKey]) {
       console.warn('[@destyler/xstate > transition] Cannot transition a stopped machine')
       return
     }
 
-    const version = this.lifecycleVersion
+    const version = this[lifecycleVersionKey]
     const stateNode = isString(state) ? this.getStateNode(state) : state?.stateNode
 
     const event = toEvent(evt)
@@ -900,7 +1177,7 @@ export class Machine<
       = stateNode?.on?.[event.type] ?? this.config.on?.[event.type]
 
     const next = this.getNextStateInfo(transitions, event)
-    if (version !== this.lifecycleVersion)
+    if (version !== this[lifecycleVersionKey])
       return
     this.performStateChangeEffects(this.state.value!, next, event)
 

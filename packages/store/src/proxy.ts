@@ -133,9 +133,9 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
   const handler: ProxyHandler<T> = {
     deleteProperty(target: T, prop: string | symbol) {
       const prevValue = Reflect.get(target, prop)
-      removePropListener(prop)
       const deleted = Reflect.deleteProperty(target, prop)
       if (deleted) {
+        removePropListener(prop)
         notifyUpdate(['delete', [prop], prevValue])
       }
       return deleted
@@ -149,26 +149,54 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
       ) {
         return true
       }
-      removePropListener(prop)
       if (isObject(value)) {
         value = getUntracked(value) || value
       }
       let nextValue = value
-      if (Object.getOwnPropertyDescriptor(target, prop)?.set) {
+      const previousDescriptor = Object.getOwnPropertyDescriptor(target, prop)
+      const setter = previousDescriptor?.set
+      if (setter) {
         // do nothing
       }
       else {
         if (!proxyStateMap.has(value) && canProxy(value)) {
           nextValue = proxy(value)
         }
-        const childProxyState = !refSet.has(nextValue) && proxyStateMap.get(nextValue)
-        if (childProxyState) {
-          addPropListener(prop, childProxyState)
+      }
+      const isArrayLength = Array.isArray(target) && prop === 'length'
+      let succeeded = false
+      let targetChanged = false
+      try {
+        succeeded = Reflect.set(target, prop, nextValue, receiver)
+      }
+      finally {
+        // Setters and receivers can commit a different value, even before failing.
+        const descriptor = Object.getOwnPropertyDescriptor(target, prop)
+        const hadOwnValue = !!previousDescriptor && 'value' in previousDescriptor
+        const hasOwnValue = !!descriptor && 'value' in descriptor
+        targetChanged = hadOwnValue !== hasOwnValue
+          || (hasOwnValue && !objectIs(previousDescriptor?.value, descriptor.value))
+        if (succeeded || targetChanged) {
+          const childProxyState = hasOwnValue && !refSet.has(descriptor.value)
+            ? proxyStateMap.get(descriptor.value)
+            : undefined
+          removePropListener(prop)
+          if (isArrayLength) {
+            propProxyStates.forEach((_state, key) => {
+              if (!Object.prototype.hasOwnProperty.call(target, key))
+                removePropListener(key)
+            })
+          }
+          else if (childProxyState) {
+            addPropListener(prop, childProxyState)
+          }
         }
       }
-      Reflect.set(target, prop, nextValue, receiver)
-      notifyUpdate(['set', [prop], value, prevValue])
-      return true
+      if (!succeeded && !targetChanged)
+        return false
+      const actualValue = isArrayLength ? target.length : value
+      notifyUpdate(['set', [prop], actualValue, prevValue])
+      return succeeded
     },
   }
   const proxyObject = newProxy(baseObject, handler)
