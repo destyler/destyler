@@ -3,7 +3,7 @@ import type { MachineApi, Send, State } from './types'
 import { dataAttr } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
-import { getTransformedRange } from './utils'
+import { defaultTranslations, getTransformedRange, getTranslation } from './utils'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const totalPages = state.context.totalPages
@@ -61,7 +61,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getRootId(state.context),
         ...parts.root.attrs,
         'dir': state.context.dir,
-        'aria-label': translations.rootLabel,
+        'aria-label': getTranslation(translations, 'rootLabel'),
       })
     },
 
@@ -84,7 +84,9 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'data-index': index,
         'data-selected': dataAttr(isCurrentPage),
         'aria-current': isCurrentPage ? 'page' : undefined,
-        'aria-label': translations.itemLabel?.({ page: index, totalPages }),
+        'aria-label': 'itemLabel' in translations
+          ? translations.itemLabel?.({ page: index, totalPages })
+          : defaultTranslations.itemLabel?.({ page: index, totalPages }),
         onClick() {
           send({ type: 'SET_PAGE', page: index })
         },
@@ -98,7 +100,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.prevTrigger.attrs,
         'dir': state.context.dir,
         'data-disabled': dataAttr(isPrevDisabled),
-        'aria-label': translations.prevTriggerLabel,
+        'aria-label': getTranslation(translations, 'prevTriggerLabel'),
         onClick() {
           send({ type: 'PREVIOUS_PAGE' })
         },
@@ -112,7 +114,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.nextTrigger.attrs,
         'dir': state.context.dir,
         'data-disabled': dataAttr(isNextDisabled),
-        'aria-label': translations.nextTriggerLabel,
+        'aria-label': getTranslation(translations, 'nextTriggerLabel'),
         onClick() {
           send({ type: 'NEXT_PAGE' })
         },

@@ -1,16 +1,7 @@
-import type { IntlTranslations, MachineContext, MachineState, UserDefinedContext } from './types'
+import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine } from '@destyler/xstate'
-
-const defaultTranslations: IntlTranslations = {
-  rootLabel: 'pagination',
-  prevTriggerLabel: 'previous page',
-  nextTriggerLabel: 'next page',
-  itemLabel({ page, totalPages }) {
-    const isLastPage = totalPages > 1 && page === totalPages
-    return `${isLastPage ? 'last page, ' : ''}page ${page}`
-  },
-}
+import { defaultTranslations } from './utils'
 
 const clampPage = (page: number, totalPages: number) => Math.max(1, Math.min(page, totalPages))
 
