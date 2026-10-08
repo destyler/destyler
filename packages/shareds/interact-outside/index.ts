@@ -144,13 +144,33 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
   }
 
   const pointerdownCleanups: Set<VoidFunction> = new Set()
+  const pendingFrames = new Set<VoidFunction>()
+  let disposed = false
+  let cleaning = false
+  let cleaned = false
+
+  function scheduleOutside(callback: VoidFunction) {
+    if (disposed)
+      return
+    if (!defer) {
+      callback()
+      return
+    }
+    const cancel = raf(() => {
+      pendingFrames.delete(cancel)
+      if (!disposed)
+        callback()
+    })
+    pendingFrames.add(cancel)
+  }
 
   function onPointerDown(event: PointerEvent) {
+    if (disposed)
+      return
     //
     function handler() {
-      const func = defer ? raf : (v: any) => v()
       const composedPath = event.composedPath?.() ?? [event.target]
-      func(() => {
+      scheduleOutside(() => {
         if (!node || !isEventOutside(event))
           return
 
@@ -193,8 +213,7 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
 
   function onFocusin(event: FocusEvent) {
     //
-    const func = defer ? raf : (v: any) => v()
-    func(() => {
+    scheduleOutside(() => {
       if (!node || !isEventOutside(event))
         return
 
@@ -220,9 +239,29 @@ function trackInteractOutsideImpl(node: MaybeElement, options: InteractOutsideOp
   cleanups.add(frames.addEventListener('focusin', onFocusin, true))
 
   return () => {
-    clearTimeout(timer)
-    pointerdownCleanups.forEach(fn => fn())
-    cleanups.forEach(fn => fn())
+    if (cleaning || cleaned)
+      return
+    disposed = true
+    cleaning = true
+    try {
+      pendingFrames.forEach((cancel) => {
+        cancel()
+        pendingFrames.delete(cancel)
+      })
+      clearTimeout(timer)
+      pointerdownCleanups.forEach((cleanup) => {
+        cleanup()
+        pointerdownCleanups.delete(cleanup)
+      })
+      cleanups.forEach((cleanup) => {
+        cleanup()
+        cleanups.delete(cleanup)
+      })
+      cleaned = true
+    }
+    finally {
+      cleaning = false
+    }
   }
 }
 
