@@ -86,6 +86,9 @@ const set = {
       return
     }
     ctx.value = color
+    // Synchronous subscribers can stop or restart the owner during assignment.
+    if (isCurrent && !isCurrent())
+      return
     invoke.change(ctx, isCurrent)
   },
   format(ctx: MachineContext, format: ColorFormat) {
@@ -105,8 +108,15 @@ export function machine(userContext: UserDefinedContext) {
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: parse('#000000'),
   })
-  let eyeDropperGeneration = 0
-  const eyeDropperControllers = new Set<AbortController>()
+  const eyeDropperOwners = new WeakMap<MachineContext, { generation: number, controllers: Set<AbortController> }>()
+  const getEyeDropperOwner = (ctx: MachineContext) => {
+    let owner = eyeDropperOwners.get(ctx)
+    if (!owner) {
+      owner = { generation: 0, controllers: new Set() }
+      eyeDropperOwners.set(ctx, owner)
+    }
+    return owner
+  }
 
   return createMachine<MachineContext, MachineState>(
     {
@@ -436,12 +446,13 @@ export function machine(userContext: UserDefinedContext) {
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {
-        trackEyeDropper() {
-          eyeDropperGeneration++
+        trackEyeDropper(ctx) {
+          const owner = getEyeDropperOwner(ctx)
+          owner.generation++
           return () => {
-            eyeDropperGeneration++
-            eyeDropperControllers.forEach(controller => controller.abort())
-            eyeDropperControllers.clear()
+            owner.generation++
+            owner.controllers.forEach(controller => controller.abort())
+            owner.controllers.clear()
           }
         },
         trackPositioning(ctx) {
@@ -509,9 +520,10 @@ export function machine(userContext: UserDefinedContext) {
           const win = dom.getWin(ctx)
           const picker = new win.EyeDropper()
           const controller = new win.AbortController()
-          const generation = eyeDropperGeneration
-          const isCurrent = () => generation === eyeDropperGeneration && !controller.signal.aborted
-          eyeDropperControllers.add(controller)
+          const owner = getEyeDropperOwner(ctx)
+          const generation = owner.generation
+          const isCurrent = () => generation === owner.generation && !controller.signal.aborted
+          owner.controllers.add(controller)
           try {
             picker
               .open({ signal: controller.signal })
@@ -526,10 +538,10 @@ export function machine(userContext: UserDefinedContext) {
                 ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
               })
               .catch(() => void 0)
-              .finally(() => eyeDropperControllers.delete(controller))
+              .finally(() => owner.controllers.delete(controller))
           }
           catch (error) {
-            eyeDropperControllers.delete(controller)
+            owner.controllers.delete(controller)
             throw error
           }
         },
