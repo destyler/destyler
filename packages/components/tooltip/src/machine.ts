@@ -3,11 +3,14 @@ import { addDomEvent, getOverflowAncestors, isComposingEvent } from '@destyler/d
 import { trackFocusVisible } from '@destyler/focus-visible'
 import { getPlacement } from '@destyler/popper'
 import { compact, isControlled, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
-import { createMachine, guards, subscribe } from '@destyler/xstate'
+import { ActionTypes, createMachine, guards, subscribe } from '@destyler/xstate'
 import { dom } from './dom'
 import { store } from './store'
 
 const { and, not } = guards
+
+const ownerKeys = new WeakMap<MachineContext, symbol>()
+let visibleOwnerKey: symbol | undefined
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
@@ -18,6 +21,7 @@ export function machine(userContext: UserDefinedContext) {
       initial: initialOpen ? 'open' : 'closed',
 
       activities: ['trackFocusVisible'],
+      exit: ['clearGlobalId'],
 
       context: {
         openDelay: 1000,
@@ -69,6 +73,10 @@ export function machine(userContext: UserDefinedContext) {
               {
                 guard: and('noVisibleTooltip', not('hasPointerMoveOpened')),
                 target: 'opening',
+              },
+              {
+                guard: and('isOpenControlled', not('hasPointerMoveOpened')),
+                actions: ['setPointerMoveOpened', 'invokeOnOpen'],
               },
               {
                 guard: not('hasPointerMoveOpened'),
@@ -291,10 +299,19 @@ export function machine(userContext: UserDefinedContext) {
       },
       actions: {
         setGlobalId(ctx) {
+          let ownerKey = ownerKeys.get(ctx)
+          if (!ownerKey) {
+            ownerKey = Symbol('tooltip-owner')
+            ownerKeys.set(ctx, ownerKey)
+          }
+          visibleOwnerKey = ownerKey
           store.setId(ctx.id)
         },
-        clearGlobalId(ctx) {
+        clearGlobalId(ctx, event) {
+          if (event.type === ActionTypes.Stop && ownerKeys.get(ctx) !== visibleOwnerKey)
+            return
           if (ctx.id === store.id) {
+            visibleOwnerKey = undefined
             store.setId(null)
           }
         },
