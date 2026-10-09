@@ -483,28 +483,28 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
           const keyMap: EventKeyMap = {
             ArrowUp() {
-              send({ type: 'CHANNEL_SLIDER.ARROW_UP', channel, step })
+              send({ type: 'CHANNEL_SLIDER.ARROW_UP', channel, format, step })
             },
             ArrowDown() {
-              send({ type: 'CHANNEL_SLIDER.ARROW_DOWN', channel, step })
+              send({ type: 'CHANNEL_SLIDER.ARROW_DOWN', channel, format, step })
             },
             ArrowLeft() {
-              send({ type: 'CHANNEL_SLIDER.ARROW_LEFT', channel, step })
+              send({ type: 'CHANNEL_SLIDER.ARROW_LEFT', channel, format, step })
             },
             ArrowRight() {
-              send({ type: 'CHANNEL_SLIDER.ARROW_RIGHT', channel, step })
+              send({ type: 'CHANNEL_SLIDER.ARROW_RIGHT', channel, format, step })
             },
             PageUp() {
-              send({ type: 'CHANNEL_SLIDER.PAGE_UP', channel })
+              send({ type: 'CHANNEL_SLIDER.PAGE_UP', channel, format, step })
             },
             PageDown() {
-              send({ type: 'CHANNEL_SLIDER.PAGE_DOWN', channel })
+              send({ type: 'CHANNEL_SLIDER.PAGE_DOWN', channel, format, step })
             },
             Home() {
-              send({ type: 'CHANNEL_SLIDER.HOME', channel })
+              send({ type: 'CHANNEL_SLIDER.HOME', channel, format })
             },
             End() {
-              send({ type: 'CHANNEL_SLIDER.END', channel })
+              send({ type: 'CHANNEL_SLIDER.END', channel, format })
             },
             Escape(event) {
               event.stopPropagation()
