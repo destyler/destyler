@@ -317,7 +317,7 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       guards: {
-        isInputRelatedTarget: (ctx, evt) => evt.relatedTarget === dom.getInputEl(ctx),
+        isInputRelatedTarget: (ctx, evt) => evt.relatedTarget != null && evt.relatedTarget === dom.getInputEl(ctx),
         isAtMax: ctx => ctx.isAtMax,
         hasHighlightedTag: ctx => ctx.highlightedTagId !== null,
         isFirstTagHighlighted: (ctx) => {
