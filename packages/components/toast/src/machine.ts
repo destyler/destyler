@@ -81,6 +81,7 @@ export function createToastMachine<T>(options: Options<T>) {
         },
 
         'visible': {
+          entry: ['setCreatedAt'],
           tags: ['visible'],
           after: {
             VISIBLE_DURATION: 'dismissing',
