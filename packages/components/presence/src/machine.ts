@@ -5,6 +5,23 @@ function getAnimationName(styles?: CSSStyleDeclaration | null) {
   return styles?.animationName || 'none'
 }
 
+function hasAnimationName(animationNames: string, name: string) {
+  // Decode valid computed CSS names, preserving quoted/escaped commas and spaces.
+  const names = animationNames.match(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|(?:\\(?:[\da-f]{1,6}[\t\n\f\r ]?|[^\da-f])|[^\t\n\f\r ,\\])+/gi) ?? []
+  return names.some((value) => {
+    let nameValue = value
+    if (nameValue[0] === '"' || nameValue[0] === '\'')
+      nameValue = nameValue.slice(1, -1)
+    nameValue = nameValue.replace(/\\(?:([\da-f]{1,6})[\t\n\f\r ]?|([^\da-f]))/gi, (_, hex, character) => {
+      if (!hex)
+        return character
+      const point = Number.parseInt(hex, 16)
+      return String.fromCodePoint(point === 0 || point > 0x10FFFF || (point >= 0xD800 && point <= 0xDFFF) ? 0xFFFD : point)
+    })
+    return nameValue === name
+  })
+}
+
 function parseMs(value: string | undefined) {
   return Number.parseFloat(value || '0') * 1000
 }
@@ -200,7 +217,9 @@ export function machine(ctx: Partial<UserDefinedContext>) {
           const onEnd = (event: AnimationEvent) => {
             const animationName = getAnimationName(ctx.styles)
             const target = event.composedPath?.()?.[0] ?? event.target
-            if (target === node && animationName === ctx.unmountAnimationName) {
+            // Preserve generic/manual events that do not identify an animation.
+            const isCurrentAnimation = !event.animationName || hasAnimationName(animationName, event.animationName)
+            if (target === node && animationName === ctx.unmountAnimationName && isCurrentAnimation) {
               send({ type: 'UNMOUNT', src: 'animationend' })
             }
           }

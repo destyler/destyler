@@ -106,3 +106,100 @@ it.each([false, true])('allows a later Escape after a veto with controlledRoot=%
   expect(root.api().open).toBe(false)
   expect(leaf.api().open).toBe(false)
 })
+
+it('observes an earlier document-capture veto before attempting to close ancestors', async () => {
+  const prevent = (event: KeyboardEvent) => event.preventDefault()
+  document.addEventListener('keydown', prevent, { capture: true })
+  try {
+    const [root, leaf] = setup(2, false, false)
+    await vi.advanceTimersByTimeAsync(48)
+    const observations: boolean[] = []
+    leaf.service.setContext({ onEscapeKeyDown: event => observations.push(event.defaultPrevented) })
+    const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+    leaf.content.dispatchEvent(event)
+    expect(observations).toEqual([true])
+    expect(root.onOpenChange).not.toHaveBeenCalled()
+    expect(root.api().open).toBe(true)
+    expect(leaf.api().open).toBe(true)
+  }
+  finally {
+    document.removeEventListener('keydown', prevent, { capture: true })
+  }
+})
+
+it('calls the leaf callback before internally preventing Escape and closing the root', async () => {
+  const [root, leaf] = setup(2, true, false)
+  await vi.advanceTimersByTimeAsync(48)
+  const order: Array<string | boolean> = []
+  leaf.service.setContext({ onEscapeKeyDown: event => order.push('escape', event.defaultPrevented, root.api().open) })
+  root.service.setContext({ onOpenChange: () => order.push('close') })
+  const event = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+  leaf.content.dispatchEvent(event)
+  expect(order).toEqual(['escape', false, true, 'close'])
+  expect(event.defaultPrevented).toBe(true)
+  expect(root.api().open).toBe(true)
+})
+
+it('allows checked activation after a veto and does not issue a delayed close', async () => {
+  const [root, leaf] = setup(2, false, true)
+  await vi.advanceTimersByTimeAsync(48)
+  leaf.content.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }))
+  const checked = vi.fn()
+  const item = document.createElement('div')
+  leaf.content.append(item)
+  leaf.api().getOptionItemProps({ value: 'still-open', checked: false, type: 'checkbox', closeOnSelect: false, onCheckedChange: checked }).onClick({ currentTarget: item })
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(checked.mock.calls).toEqual([[true]])
+  expect(root.onOpenChange).not.toHaveBeenCalled()
+  expect(root.api().open).toBe(true)
+  expect(leaf.api().open).toBe(true)
+})
+
+it('does not close the root when the vetoing callback stops the leaf', async () => {
+  const [root, leaf] = setup(2, false, false)
+  await vi.advanceTimersByTimeAsync(48)
+  leaf.service.setContext({ onEscapeKeyDown(event) {
+    event.preventDefault()
+    leaf.service.stop()
+  } })
+  leaf.content.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }))
+  expect(root.onOpenChange).not.toHaveBeenCalled()
+  expect(root.api().open).toBe(true)
+})
+
+it('does not undo an explicit callback-driven close when the event is vetoed', async () => {
+  const [root, leaf] = setup(2, false, false)
+  await vi.advanceTimersByTimeAsync(48)
+  leaf.service.setContext({ onEscapeKeyDown(event) {
+    event.preventDefault()
+    root.api().setOpen(false)
+  } })
+  leaf.content.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }))
+  expect(root.onOpenChange.mock.calls).toEqual([[{ open: false }]])
+  expect(root.api().open).toBe(false)
+})
+
+it('preserves separately dispatched reentrant Escape decisions', async () => {
+  const [root, leaf] = setup(2, true, false)
+  await vi.advanceTimersByTimeAsync(48)
+  let calls = 0
+  leaf.service.setContext({ onEscapeKeyDown(event) {
+    calls++
+    if (calls === 1) {
+      event.preventDefault()
+      leaf.content.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }))
+    }
+  } })
+  leaf.content.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }))
+  expect(calls).toBe(2)
+  expect(root.onOpenChange.mock.calls).toEqual([[{ open: false }]])
+  expect(root.api().open).toBe(true)
+})
+
+it.each(['Escape-composing', 'Enter'] as const)('ignores %s at the dismissable boundary', async (kind) => {
+  const [root, leaf] = setup(2, false, false)
+  await vi.advanceTimersByTimeAsync(48)
+  leaf.content.dispatchEvent(new KeyboardEvent('keydown', { key: kind === 'Enter' ? 'Enter' : 'Escape', isComposing: kind !== 'Enter', bubbles: true, cancelable: true }))
+  expect(leaf.onEscapeKeyDown).not.toHaveBeenCalled()
+  expect(root.onOpenChange).not.toHaveBeenCalled()
+})
