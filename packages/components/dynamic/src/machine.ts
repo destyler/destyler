@@ -489,7 +489,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setValueAtIndex(ctx, evt) {
           if (evt.value) {
-            ctx.value[evt.index] = evt.value
+            set.valueAtIndex(ctx, evt.index, evt.value)
             // log
             ctx.log.prev = ctx.log.current
             ctx.log.current = { type: 'update', value: evt.value }
