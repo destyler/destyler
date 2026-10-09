@@ -156,6 +156,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             return
           if (isModifierKey(event))
             return
+          if (state.context.readOnly && (event.key === 'Backspace' || event.key === 'Delete'))
+            return
 
           const keyMap: EventKeyMap = {
             Backspace() {
