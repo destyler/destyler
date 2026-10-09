@@ -382,6 +382,6 @@ describe('guards', () => {
     })
 
     machine.start().send('TEST')
-    expect(evaluationOrder).toEqual([1, 2, 2])
+    expect(evaluationOrder).toEqual([1, 2])
   })
 })
