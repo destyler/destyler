@@ -282,7 +282,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getScrubberId(state.context),
         'role': 'presentation',
         onMouseDown(event) {
-          if (disabled)
+          if (disabled || readOnly)
             return
 
           const point = getEventPoint(event)
