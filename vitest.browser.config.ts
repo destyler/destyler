@@ -1,6 +1,5 @@
 import { playwright } from '@vitest/browser-playwright'
 import { configDefaults, defineProject } from 'vitest/config'
-import { core238ProtocolStart, core238ProtocolWaitForDuplicate } from './scripts/core238-protocol-diagnostic'
 
 // Pre-bundle framework deps so Vite does not rediscover them mid-suite
 // (that triggers "optimized dependencies changed. reloading" and flakes
@@ -44,7 +43,6 @@ export default defineProject({
     browser: {
       enabled: true,
       provider: playwright(),
-      commands: { core238ProtocolStart, core238ProtocolWaitForDuplicate },
       instances: [
         { browser: 'chromium' },
         // { browser: 'firefox' },

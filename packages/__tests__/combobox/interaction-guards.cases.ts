@@ -38,7 +38,16 @@ function setup(context: Partial<UserDefinedContext> = {}, itemDisabled = false, 
   if (asLink)
     option.setAttribute('href', '#combobox-item')
   option.id = api().getItemProps({ item }).id
-  option.addEventListener('click', event => api().getItemProps({ item }).onClick(event))
+  const clickEntryStates: boolean[] = []
+  const clickExitStates: boolean[] = []
+  option.addEventListener('click', (event) => {
+    clickEntryStates.push(event.defaultPrevented)
+    api().getItemProps({ item }).onClick(event)
+    clickExitStates.push(event.defaultPrevented)
+  })
+  // Contain native anchor navigation after the connector has seen the original event.
+  if (asLink)
+    option.addEventListener('click', event => event.preventDefault())
   option.addEventListener('pointermove', () => api().getItemProps({ item }).onPointerMove())
   option.addEventListener('pointerleave', () => api().getItemProps({ item }).onPointerLeave())
   content.append(option)
@@ -50,7 +59,7 @@ function setup(context: Partial<UserDefinedContext> = {}, itemDisabled = false, 
   service._created()
   service.start()
   cleanups.push(() => root.remove(), () => service.stop())
-  return { service, api, option, trigger, item, onValueChange, onOpenChange, onHighlightChange }
+  return { service, api, option, trigger, item, onValueChange, onOpenChange, onHighlightChange, clickEntryStates, clickExitStates }
 }
 
 function click(target: HTMLElement, init: MouseEventInit = {}) {
@@ -141,9 +150,25 @@ describe('combobox item interaction guards', () => {
     expect(f.onOpenChange).not.toHaveBeenCalled()
   })
 
+  it('selects an ordinary anchor option before fixture navigation is cancelled', () => {
+    const f = setup({}, false, true)
+    const event = click(f.option)
+    expect(f.clickEntryStates).toEqual([false])
+    expect(f.clickExitStates).toEqual([false])
+    expect(event.defaultPrevented).toBe(true)
+    expect(f.api().value).toEqual(['b'])
+    expect(f.api().inputValue).toBe('Beta')
+    expect(f.api().open).toBe(false)
+    expect(f.onValueChange).toHaveBeenCalledTimes(1)
+    expect(f.onOpenChange).toHaveBeenCalledTimes(1)
+  })
+
   it.each([{ altKey: true }, { ctrlKey: true, metaKey: true }, { button: 2 }])('retains modified/context click handling for %o', (init) => {
     const f = setup({}, false, true)
-    click(f.option, init)
+    const event = click(f.option, init)
+    expect(f.clickEntryStates).toEqual([false])
+    expect(f.clickExitStates).toEqual([false])
+    expect(event.defaultPrevented).toBe(true)
     expect(f.onValueChange).not.toHaveBeenCalled()
     expect(f.api().value).toEqual(['a'])
   })
