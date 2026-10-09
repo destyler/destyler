@@ -23,6 +23,7 @@ export function machine(userContext: UserDefinedContext) {
       initial: 'idle',
       context: {
         value: '',
+        encoding: {},
         ...ctx,
         pixelSize: 10,
       },

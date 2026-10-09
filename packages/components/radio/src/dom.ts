@@ -22,9 +22,9 @@ export const dom = createScope({
   getFirstEnabledAndCheckedInputEl: (ctx: Ctx) =>
     dom.getRootEl(ctx)?.querySelector<HTMLInputElement>('input:not(:disabled):checked'),
 
-  getInputEls: (ctx: Ctx) => {
+  getInputEls: (ctx: Ctx, includeDisabled = false) => {
     const ownerId = CSS.escape(dom.getRootId(ctx))
-    const selector = `input[type=radio][data-ownedby='${ownerId}']:not([disabled])`
+    const selector = `input[type=radio][data-ownedby='${ownerId}']${includeDisabled ? '' : ':not([disabled])'}`
     return queryAll<HTMLInputElement>(dom.getRootEl(ctx), selector)
   },
 
