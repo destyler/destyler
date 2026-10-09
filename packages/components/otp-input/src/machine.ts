@@ -295,7 +295,7 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         setPastedValue(ctx, evt) {
-          scheduleEffect(ctx, () => {
+          scheduleEffect(ctx, (isActive) => {
             const startIndex = Math.min(ctx.focusedIndex, ctx.filledValueLength)
 
             // keep value left of cursor
@@ -306,6 +306,19 @@ export function machine(userContext: UserDefinedContext) {
             const value = left + right
 
             set.value(ctx, value.split(''))
+
+            // Retain existing pre-request text/caret and paste routing. After
+            // the request, controlled fields reflect the current parent value.
+            if (!isActive() || !isControlled(ctx as Pick<MachineContext, keyof MachineContext>, 'value'))
+              return
+            const inputs = dom.getInputEls(ctx)
+            for (const [index, input] of inputs.entries()) {
+              if (!isActive())
+                return
+              const accepted = (ctx.value as string[])[index]
+              if (accepted != null && input.value !== accepted)
+                dom.setValue(input, accepted)
+            }
           })
         },
         setValueAtIndex(ctx, evt) {
