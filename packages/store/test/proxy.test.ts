@@ -491,6 +491,18 @@ describe('proxy', () => {
       expect(copy).toEqual({ a: 1, b: 2 })
     })
 
+    it('preserves DataView native accessors and methods in context snapshots', () => {
+      const view = new DataView(new Uint8Array([10, 20, 30, 40]).buffer, 1, 2)
+      const state = proxy({ view })
+
+      expect(state.view).toBe(view)
+      expect(state.view.byteLength).toBe(2)
+      expect(state.view.getUint8(0)).toBe(20)
+      expect(snapshot(state).view).toBe(view)
+      state.view.setUint8(0, 99)
+      expect(view.getUint8(0)).toBe(99)
+    })
+
     it('should not proxy Date objects', () => {
       const date = new Date('2023-01-01')
       const state = proxy({ date })
