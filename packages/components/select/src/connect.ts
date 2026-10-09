@@ -276,7 +276,7 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
         onClick(event) {
           if (event.defaultPrevented)
             return
-          if (itemState.disabled)
+          if (!interactive || itemState.disabled)
             return
           send({ type: 'ITEM.CLICK', src: 'pointerup', value: itemState.value })
         },
@@ -350,6 +350,8 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
         'dir': state.context.dir,
         onClick(event) {
           if (event.defaultPrevented)
+            return
+          if (!interactive)
             return
           send('CLEAR.CLICK')
         },
