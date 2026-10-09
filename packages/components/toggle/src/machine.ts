@@ -148,7 +148,7 @@ export function machine(userContext: UserDefinedContext) {
             set.value(ctx, Array.from(evt.value))
             return
           }
-          if (!evt.value)
+          if (evt.value == null)
             return
           let next = Array.from(ctx.value)
           if (ctx.multiple) {
