@@ -25,5 +25,6 @@ export function canProxy(x: unknown) {
     && !(typeof x === 'string')
     && !(x instanceof RegExp)
     && !(x instanceof ArrayBuffer)
+    && !ArrayBuffer.isView(x)
     && !(x instanceof Promise)
 }

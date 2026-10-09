@@ -71,6 +71,7 @@ export function trackPress(options: TrackPressOptions) {
   }
 
   function cancelPress(event: PointerEvent) {
+    removeEndListeners()
     onPressEnd?.(getInfo(event))
   }
 
@@ -78,6 +79,7 @@ export function trackPress(options: TrackPressOptions) {
     removeEndListeners()
 
     const endPointerPress = (endEvent: PointerEvent) => {
+      removeEndListeners()
       const target = getEventTarget<Element>(endEvent)
       if (contains(pointerNode, target)) {
         onPress?.(getInfo(endEvent))
@@ -105,6 +107,7 @@ export function trackPress(options: TrackPressOptions) {
   removeStartListeners = pipe(removePointerListener, removeFocusListener)
 
   function startAccessiblePress() {
+    removeAccessibleListeners()
     const handleKeydown = (keydownEvent: KeyboardEvent) => {
       if (!isValidKey(keydownEvent))
         return
@@ -112,6 +115,7 @@ export function trackPress(options: TrackPressOptions) {
       const handleKeyup = (keyupEvent: KeyboardEvent) => {
         if (!isValidKey(keyupEvent))
           return
+        removeEndListeners()
         const evt = new win.PointerEvent('pointerup')
         const info = getInfo(evt)
         onPress?.(info)
@@ -126,6 +130,7 @@ export function trackPress(options: TrackPressOptions) {
     }
 
     const handleBlur = () => {
+      removeAccessibleListeners()
       const evt = new win.PointerEvent('pointercancel')
       cancelPress(evt)
     }
@@ -135,6 +140,9 @@ export function trackPress(options: TrackPressOptions) {
 
     removeAccessibleListeners = pipe(removeKeydownListener, removeBlurListener)
   }
+
+  if (doc.activeElement === keyboardNode)
+    startAccessiblePress()
 
   return () => {
     removeStartListeners()
