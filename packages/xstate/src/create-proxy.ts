@@ -17,7 +17,7 @@ export function createProxy<TContext extends Dict, TState extends StateSchema, T
     previousEvent: cast<Dict>({}),
     context: proxyWithComputed(initialContext, computedContext),
     done: false,
-    tags: (initialTags ?? []) as Array<TState['tags']>,
+    tags: (typeof initialTags === 'string' ? [initialTags] : initialTags ?? []) as Array<TState['tags']>,
     hasTag(tag: TState['tags']): boolean {
       return this.tags.includes(tag)
     },
@@ -33,7 +33,7 @@ export function createProxy<TContext extends Dict, TState extends StateSchema, T
       return Object.keys({ ...stateEvents, ...globalEvents })
     },
     get changed() {
-      if (this.event.value === ActionTypes.Init || !this.previousValue)
+      if (this.event.type === ActionTypes.Init || !this.previousValue)
         return false
       return this.value !== this.previousValue
     },
