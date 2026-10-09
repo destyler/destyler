@@ -4,6 +4,31 @@ import { compact, isControlled, isEqual, isPropUserProvided, resolveControllable
 import { choose, createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
+const scheduledEffects = new WeakMap<MachineContext, Set<VoidFunction>>()
+
+function trackScheduledEffects(ctx: MachineContext) {
+  const pending = new Set<VoidFunction>()
+  scheduledEffects.set(ctx, pending)
+  return () => {
+    if (scheduledEffects.get(ctx) === pending)
+      scheduledEffects.delete(ctx)
+    pending.forEach(cleanup => cleanup())
+    pending.clear()
+  }
+}
+
+function scheduleEffect(ctx: MachineContext, callback: VoidFunction) {
+  const pending = scheduledEffects.get(ctx)
+  if (!pending)
+    return
+  const cleanup = raf(() => {
+    pending.delete(cleanup)
+    if (scheduledEffects.get(ctx) === pending)
+      callback()
+  })
+  pending.add(cleanup)
+}
+
 function assignValue(ctx: MachineContext, value: string | string[]) {
   const arr = Array.isArray(value) ? value : value.split('').filter(Boolean)
   arr.forEach((value, index) => {
@@ -102,6 +127,8 @@ export function machine(userContext: UserDefinedContext) {
         valueAsString: ctx => ctx.value.join(''),
         focusedValue: ctx => ctx.value[ctx.focusedIndex] || '',
       },
+
+      activities: [trackScheduledEffects],
 
       entry: choose([
         {
@@ -215,7 +242,7 @@ export function machine(userContext: UserDefinedContext) {
         selectInputIfNeeded(ctx) {
           if (!ctx.selectOnFocus || ctx.focusedIndex === -1)
             return
-          raf(() => {
+          scheduleEffect(ctx, () => {
             dom.getFocusedInputEl(ctx)?.select()
           })
         },
@@ -261,7 +288,7 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         setPastedValue(ctx, evt) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             const startIndex = Math.min(ctx.focusedIndex, ctx.filledValueLength)
 
             // keep value left of cursor
@@ -295,14 +322,14 @@ export function machine(userContext: UserDefinedContext) {
           ctx.focusedIndex = Math.max(ctx.focusedIndex - 1, 0)
         },
         setLastValueFocusIndex(ctx) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             ctx.focusedIndex = Math.min(ctx.filledValueLength, ctx.valueLength - 1)
           })
         },
         blurFocusedInputIfNeeded(ctx) {
           if (!ctx.blurOnComplete)
             return
-          raf(() => {
+          scheduleEffect(ctx, () => {
             dom.getFocusedInputEl(ctx)?.blur()
           })
         },
