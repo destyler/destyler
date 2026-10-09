@@ -233,33 +233,17 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           event.preventDefault()
           event.stopPropagation()
 
-          // Set pointer capture
+          // Preserve capture failure ordering: a rejected capture must not start a drag.
           event.currentTarget.setPointerCapture(event.pointerId)
 
           send({
             type: 'THUMB_POINTER_DOWN',
             orientation,
+            target: event.currentTarget,
+            pointerId: event.pointerId,
             clientX: event.clientX,
             clientY: event.clientY,
           })
-
-          // Add global event listeners
-          const onPointerMove = (e: PointerEvent) => {
-            send({
-              type: 'POINTER_MOVE',
-              clientX: e.clientX,
-              clientY: e.clientY,
-            })
-          }
-
-          const onPointerUp = () => {
-            send('POINTER_UP')
-            document.removeEventListener('pointermove', onPointerMove)
-            document.removeEventListener('pointerup', onPointerUp)
-          }
-
-          document.addEventListener('pointermove', onPointerMove)
-          document.addEventListener('pointerup', onPointerUp)
         },
       })
     },

@@ -216,4 +216,95 @@ describe('carousel activity ownership', () => {
     vi.advanceTimersByTime(5000)
     expect(onAutoplayStatusChange).toHaveBeenCalledTimes(count)
   })
+
+  it('reacquires one idle scroll listener after restart and preserves its identity through view updates', async () => {
+    const onPageChange = vi.fn()
+    const { service, group, addEventListener, removeEventListener } = await start({ onPageChange })
+    const registrations = () => addEventListener.mock.calls.filter(([type]) => type === 'scroll')
+    const firstListener = registrations()[0][1]
+    group.scrollLeft = 300
+    group.dispatchEvent(new Event('scroll'))
+    vi.advanceTimersByTime(75)
+    service.stop()
+    expect(removeEventListener).toHaveBeenCalledExactlyOnceWith('scroll', firstListener, { passive: true })
+    group.dispatchEvent(new Event('scroll'))
+    vi.advanceTimersByTime(1000)
+    expect(onPageChange).not.toHaveBeenCalled()
+    service.start()
+    await Promise.resolve()
+    await Promise.resolve()
+    expect(registrations()).toHaveLength(2)
+    const secondListener = registrations()[1][1]
+    expect(secondListener).not.toBe(firstListener)
+    service.send({ type: 'INVIEW.SET', slidesInView: [1] })
+    group.dispatchEvent(new Event('scroll'))
+    vi.advanceTimersByTime(75)
+    service.send({ type: 'INVIEW.SET', slidesInView: [1, 2] })
+    expect(registrations()).toHaveLength(2)
+    expect(removeEventListener).toHaveBeenCalledTimes(1)
+    vi.advanceTimersByTime(75)
+    expect(onPageChange).toHaveBeenCalledExactlyOnceWith({ page: 1, pageSnapPoint: 300 })
+    service.stop()
+    expect(removeEventListener.mock.calls).toEqual([
+      ['scroll', firstListener, { passive: true }],
+      ['scroll', secondListener, { passive: true }],
+    ])
+  })
+
+  it('honors callback stop at the uninterrupted autoplay deadline without continuing the old tick', async () => {
+    const onPageChange = vi.fn()
+    const onAutoplayStatusChange = vi.fn()
+    const { service } = await start({ autoplay: { delay: 1000 }, loop: true, onPageChange, onAutoplayStatusChange })
+    onPageChange.mockImplementationOnce(() => service.stop())
+    vi.advanceTimersByTime(900)
+    service.send({ type: 'INVIEW.SET', slidesInView: [0] })
+    expect(onAutoplayStatusChange).not.toHaveBeenCalled()
+    vi.advanceTimersByTime(100)
+    expect(onPageChange).toHaveBeenCalledExactlyOnceWith({ page: 1, pageSnapPoint: 300 })
+    expect(service.state.value).toBe('')
+    expect(onAutoplayStatusChange.mock.calls).toEqual([
+      [{ type: 'autoplay.stop', isPlaying: false, page: 1 }],
+    ])
+    vi.advanceTimersByTime(5000)
+    expect(onPageChange).toHaveBeenCalledTimes(1)
+    expect(onAutoplayStatusChange).toHaveBeenCalledTimes(1)
+  })
+
+  it('gives callback restart its own autoplay deadline without continuing or duplicating the old tick', async () => {
+    const onPageChange = vi.fn()
+    const onAutoplayStatusChange = vi.fn()
+    const { service } = await start({ autoplay: { delay: 1000 }, loop: true, onPageChange, onAutoplayStatusChange })
+    onPageChange.mockImplementationOnce(() => {
+      service.stop()
+      service.start()
+    })
+    vi.advanceTimersByTime(900)
+    service.send({ type: 'INVIEW.SET', slidesInView: [0] })
+    expect(onAutoplayStatusChange).not.toHaveBeenCalled()
+    vi.advanceTimersByTime(100)
+    expect(onPageChange).toHaveBeenCalledExactlyOnceWith({ page: 1, pageSnapPoint: 300 })
+    expect(service.state.matches('autoplay')).toBe(true)
+    expect(onAutoplayStatusChange.mock.calls).toEqual([
+      [{ type: 'autoplay.stop', isPlaying: false, page: 1 }],
+    ])
+    await Promise.resolve()
+    await Promise.resolve()
+    vi.advanceTimersByTime(900)
+    service.send({ type: 'INVIEW.SET', slidesInView: [1] })
+    vi.advanceTimersByTime(99)
+    expect(onPageChange).toHaveBeenCalledTimes(1)
+    vi.advanceTimersByTime(1)
+    expect(onPageChange.mock.calls).toEqual([
+      [{ page: 1, pageSnapPoint: 300 }],
+      [{ page: 2, pageSnapPoint: 600 }],
+    ])
+    vi.advanceTimersByTime(1000)
+    expect(onPageChange).toHaveBeenCalledTimes(3)
+    expect(onPageChange).toHaveBeenLastCalledWith({ page: 0, pageSnapPoint: 0 })
+    expect(onAutoplayStatusChange.mock.calls).toEqual([
+      [{ type: 'autoplay.stop', isPlaying: false, page: 1 }],
+      [{ type: 'autoplay', isPlaying: true, page: 2 }],
+      [{ type: 'autoplay', isPlaying: true, page: 0 }],
+    ])
+  })
 })
