@@ -266,7 +266,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           send({ type: 'TAG_INPUT_TYPE', value: event.currentTarget.value })
         },
         onBlur(event) {
-          send({ type: 'TAG_INPUT_BLUR', target: event.relatedTarget, id: itemState.id })
+          send({ type: 'TAG_INPUT_BLUR', relatedTarget: event.relatedTarget, id: itemState.id })
         },
         onKeyDown(event) {
           if (event.defaultPrevented)

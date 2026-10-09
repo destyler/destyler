@@ -78,8 +78,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     },
     format: state.context.format,
     setFormat(format) {
-      const formatValue = value.toFormat(format)
-      send({ type: 'VALUE.SET', value: formatValue, src: 'set-format' })
+      send({ type: 'FORMAT.SET', format: assertFormat(format), src: 'set-format' })
     },
     alpha: value.getChannelValue('alpha'),
     setAlpha(alphaValue) {
@@ -714,7 +713,7 @@ function getNextFormat(format: ColorFormat) {
 }
 
 function assertFormat(format: string) {
-  if (formatRegex.test(format))
+  if (typeof format === 'string' && formatRegex.test(format))
     return format as ColorFormat
   throw new Error(`Unsupported color format: ${format}`)
 }
