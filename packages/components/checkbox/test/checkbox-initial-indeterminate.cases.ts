@@ -165,7 +165,10 @@ it('restart initializes the mounted replacement from current state without repla
   await settle()
   service.stop()
   input.remove()
-  const replacement = input.cloneNode() as HTMLInputElement
+  // A fresh mount needs fresh native state; cloneNode() copies indeterminacy.
+  const replacement = document.createElement('input')
+  for (const { name, value } of input.attributes)
+    replacement.setAttribute(name, value)
   form.append(replacement)
   expect(replacement.indeterminate).toBe(false)
   service.start()
