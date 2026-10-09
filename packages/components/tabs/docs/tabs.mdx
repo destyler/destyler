@@ -238,15 +238,56 @@ tabs.machine({
   defaultValue: "tab-1",
 })
 
-const value = "tab-1" // your reactive state
+const value: string | null = "tab-1" // your reactive state
 tabs.machine({
   id: "1",
   value,
   onValueChange(details) {
-    // details => { value: string | null }
+    if (details.value === null) {
+      // Accept clearing by syncing null through your adapter context.
+      return
+    }
+    // Accept selection by syncing details.value through your adapter context.
   },
 })
 ```
+
+### Migration: nullable value-change notifications
+
+`onValueChange` now reports `{ value: null }` when `api.clearValue()` clears a
+selection, or when a selected tab is deselected with `deselectable: true`.
+Deselection includes clicking the selected trigger and pressing `Enter` in
+manual activation mode. `ValueChangeDetails.value` is now `string | null` to
+match the selected-value API.
+
+Previously, null notifications were suppressed and the callback type only
+accepted `string`. Strict TypeScript consumers with an explicitly string-only
+handler may need to widen its parameter and handle the null branch:
+
+```ts
+import type { ValueChangeDetails } from '@destyler/tabs'
+
+function onValueChange({ value }: ValueChangeDetails): void {
+  if (value === null) {
+    console.log('No tab selected')
+    return
+  }
+  console.log('Selected tab:', value)
+}
+```
+
+For a controlled machine, this callback is a change request. The accepted
+selection stays unchanged until the parent syncs `value`, including `null`,
+through `setContext` or the adapter context. A parent can accept immediately,
+accept later, or veto the request. Repeating a vetoed deselection can therefore
+report null again; syncing the parent value does not echo another callback.
+
+For an uncontrolled machine, the selection is already cleared when the
+callback runs. Calling `clearValue()` when the accepted value is already null
+remains a no-op. Continue to omit `value` and use `defaultValue` for uncontrolled
+initial selection. At the raw machine layer, a present `value: undefined` key
+still marks the value as controlled; this change does not alter initialization
+or ownership rules.
 
 ## Changing the orientation
 
@@ -638,7 +679,11 @@ const [state, send] = useMachine(
       console.log("focused tab:", details.value)
     },
     onValueChange(details) {
-      // details => { value: string }
+      // details => { value: string | null }
+      if (details.value === null) {
+        console.log("no tab selected")
+        return
+      }
       console.log("selected tab:", details.value)
     },
   }),

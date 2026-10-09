@@ -144,6 +144,10 @@ export function machine(userContext: UserDefinedContext) {
           ctx.focusedId = null
         },
         setValue(ctx, evt) {
+          if (evt.type === 'VALUE.SET') {
+            set.value(ctx, Array.from(evt.value))
+            return
+          }
           if (!evt.value)
             return
           let next = Array.from(ctx.value)
