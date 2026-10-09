@@ -324,8 +324,13 @@ export function machine(userContext: UserDefinedContext) {
           set.expanded(ctx, uniq([...(ctx.expandedValue ?? []), ...values]))
         },
         extendSelectionToNode(ctx, evt) {
-          const anchorValue = first(ctx.selectedValue) || ctx.collection.getNodeValue(ctx.collection.getFirstNode())
+          const anchorValue = first(ctx.selectedValue) ?? ctx.collection.getNodeValue(ctx.collection.getFirstNode())
           const targetValue = evt.id
+
+          if (anchorValue === targetValue) {
+            set.selected(ctx, [anchorValue])
+            return
+          }
 
           const values: string[] = [anchorValue, targetValue]
 
