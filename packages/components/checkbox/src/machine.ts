@@ -82,7 +82,7 @@ export function machine(userContext: UserDefinedContext) {
             actions: ['setChecked', 'dispatchChangeEvent'],
           },
           {
-            actions: ['setChecked'],
+            actions: ['setChecked', 'syncInputElement'],
           },
         ],
         'CONTEXT.SET': {
