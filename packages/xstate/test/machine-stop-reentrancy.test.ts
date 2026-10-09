@@ -112,7 +112,7 @@ it('does not start target effects when a transition action stops', () => {
   const entry = vi.fn()
   const machine = createMachine({ initial: 'idle', states: {
     idle: { on: { GO: { target: 'active', actions: (_ctx, _evt, { self }) => self.stop() } } },
-    active: { entry, every: { 10: vi.fn() } },
+    active: { entry, every: { 10: vi.fn<() => void>() } },
   } }).start()
 
   machine.send('GO')

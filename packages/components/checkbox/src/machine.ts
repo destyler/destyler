@@ -128,7 +128,7 @@ export function machine(userContext: UserDefinedContext) {
               ctx.fieldsetDisabled = disabled
             },
             onFormReset() {
-              send({ type: 'CHECKED.SET', checked: !!initialContext.checked })
+              send({ type: 'CHECKED.SET', checked: initialContext.checked })
             },
           })
         },
@@ -160,6 +160,8 @@ export function machine(userContext: UserDefinedContext) {
         },
         dispatchChangeEvent(ctx) {
           const inputEl = dom.getHiddenInputEl(ctx)
+          if (inputEl)
+            inputEl.indeterminate = ctx.isIndeterminate
           dispatchInputCheckedEvent(inputEl, { checked: isChecked(ctx.checked) })
         },
       },
