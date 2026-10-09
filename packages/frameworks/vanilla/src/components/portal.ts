@@ -4,8 +4,10 @@ export interface PortalOptions {
   getRootNode?: () => ShadowRoot | Document | Node
 }
 
+const cleanupKey = Symbol('portal.cleanup')
+
 export class Portal {
-  private originalParent: HTMLElement | null = null
+  private [cleanupKey]: { cleanup?: () => void } | undefined
   private children: HTMLElement[] = []
 
   constructor(
@@ -15,7 +17,11 @@ export class Portal {
     this.children = Array.isArray(elements) ? elements : [elements]
   }
 
+  /** Repeated mounts share one cleanup until the current mount is released. */
   mount(): () => void {
+    const activeCleanup = this[cleanupKey]?.cleanup
+    if (activeCleanup)
+      return activeCleanup
     const { container, disabled, getRootNode } = this.options
 
     const isServer = typeof window === 'undefined'
@@ -23,36 +29,64 @@ export class Portal {
       return () => {}
     }
 
-    // 保存原始父节点
-    if (this.children.length > 0) {
-      this.originalParent = this.children[0].parentElement
-    }
-
-    const doc = getRootNode?.().ownerDocument ?? document
+    const root = getRootNode?.()
+    const doc = root?.nodeType === 9 ? root as Document : root?.ownerDocument ?? document
     const mountNode = container ?? doc.body
 
-    // 移动元素到目标容器
-    this.children.forEach((child) => {
-      mountNode.appendChild(child)
+    const origins = [...new Set(this.children)].map((child) => {
+      const anchor = child.ownerDocument.createComment('portal')
+      child.before(anchor)
+      return { child, anchor, restored: false }
     })
-
-    return () => this.unmount()
+    const owner: { cleanup?: () => void } = {}
+    let cleanupStarted = false
+    const cleanup = () => {
+      if (!owner.cleanup)
+        return
+      cleanupStarted = true
+      owner.cleanup = undefined
+      try {
+        for (const origin of origins) {
+          const { child, anchor } = origin
+          // A newer mount or an external move releases ownership of the node.
+          if (!origin.restored && this[cleanupKey] === owner) {
+            if (child.parentNode === mountNode) {
+              if (anchor.parentNode)
+                anchor.replaceWith(child)
+              else
+                child.remove()
+            }
+            origin.restored = true
+          }
+          anchor.remove()
+        }
+      }
+      catch (error) {
+        // Retain explicit retry without replacing a newer mount's owner.
+        owner.cleanup = cleanup
+        throw error
+      }
+    }
+    owner.cleanup = cleanup
+    this[cleanupKey] = owner
+    try {
+      for (const { child } of origins) {
+        if (this[cleanupKey] !== owner || cleanupStarted)
+          break
+        mountNode.appendChild(child)
+      }
+    }
+    catch (error) {
+      if (!cleanupStarted)
+        cleanup()
+      throw error
+    }
+    return cleanup
   }
 
+  /** Restore owned nodes without reclaiming externally moved or removed nodes. */
   unmount(): void {
-    if (this.originalParent) {
-      this.children.forEach((child) => {
-        if (child.parentElement) {
-          this.originalParent?.appendChild(child)
-        }
-      })
-    }
-    else {
-      // 如果没有原始父节点，从 DOM 中移除
-      this.children.forEach((child) => {
-        child.remove()
-      })
-    }
+    this[cleanupKey]?.cleanup?.()
   }
 }
 

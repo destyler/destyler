@@ -323,6 +323,8 @@ export function machine(userContext: UserDefinedContext) {
             return
 
           function onWheel(event: WheelEvent) {
+            if (ctx.readOnly || ctx.isDisabled)
+              return
             event.preventDefault()
             const dir = Math.sign(event.deltaY) * -1
             if (dir === 1) {
@@ -344,7 +346,7 @@ export function machine(userContext: UserDefinedContext) {
           const doc = dom.getDoc(ctx)
 
           function onMousemove(event: MouseEvent) {
-            if (!ctx.scrubberCursorPoint)
+            if (!ctx.scrubberCursorPoint || ctx.readOnly || ctx.isDisabled)
               return
             const value = dom.getMousemoveValue(ctx, event)
             if (!value.hint)
