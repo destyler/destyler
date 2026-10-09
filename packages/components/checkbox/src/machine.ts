@@ -97,7 +97,9 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       states: {
-        ready: {},
+        ready: {
+          entry: 'syncInputIndeterminate',
+        },
       },
     },
     {
@@ -137,6 +139,13 @@ export function machine(userContext: UserDefinedContext) {
       actions: {
         setContext(ctx, evt) {
           Object.assign(ctx, evt.context)
+        },
+        syncInputIndeterminate(ctx, evt, { getState }) {
+          const inputEl = dom.getHiddenInputEl(ctx)
+          // A custom root lookup may stop or restart the machine.
+          const state = getState()
+          if (inputEl && state.matches('ready') && state.event === evt)
+            inputEl.indeterminate = ctx.isIndeterminate
         },
         syncInputElement(ctx) {
           const inputEl = dom.getHiddenInputEl(ctx)
