@@ -19,6 +19,9 @@ export function machine(userContext: UserDefinedContext) {
       context: ctx,
 
       on: {
+        'SRC.SET': {
+          actions: ['setSrc'],
+        },
         'SRC.CHANGE': {
           target: 'loading',
         },
@@ -96,6 +99,9 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
       actions: {
+        setSrc(ctx, evt) {
+          dom.getImageEl(ctx)?.setAttribute('src', evt.src)
+        },
         invokeOnLoad(ctx) {
           ctx.onStatusChange?.({ status: 'loaded' })
         },
