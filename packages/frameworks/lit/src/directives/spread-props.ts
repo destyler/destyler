@@ -111,22 +111,26 @@ export class SpreadEventsDirective extends SpreadPropsDirective {
   }
 
   applyEvent(eventName: string, eventValue: EventListenerWithOptions) {
-    const { prevData, element } = this
-    this.eventData[eventName] = eventValue
-    const prevHandler = prevData[eventName]
+    const { element } = this
+    const prevHandler = this.eventData[eventName] as EventListenerWithOptions | undefined
     if (prevHandler) {
-      element.removeEventListener(eventName, this, eventValue)
+      element.removeEventListener(eventName, this, prevHandler)
     }
-    element.addEventListener(eventName, this, eventValue)
+    if (!eventValue) {
+      delete this.eventData[eventName]
+      return
+    }
+    this.eventData[eventName] = eventValue
+    if (this.isConnected)
+      element.addEventListener(eventName, this, eventValue)
   }
 
   groom(data: { [key: string]: unknown }) {
-    const { prevData, element } = this
+    const { prevData } = this
     if (!prevData)
       return
     for (const key in prevData) {
-      // @ts-expect-error error
-      if (!data || (!(key in data) && element[key] === prevData[key])) {
+      if (!data || !(key in data)) {
         this.groomEvent(key, prevData[key] as EventListenerWithOptions)
       }
     }
@@ -154,9 +158,8 @@ export class SpreadEventsDirective extends SpreadPropsDirective {
     const { eventData, element } = this
     for (const key in eventData) {
       // event listener
-      const name = key.slice(1)
       const value = eventData[key] as EventListenerWithOptions
-      element.removeEventListener(name, this, value)
+      element.removeEventListener(key, this, value)
     }
   }
 
@@ -164,9 +167,8 @@ export class SpreadEventsDirective extends SpreadPropsDirective {
     const { eventData, element } = this
     for (const key in eventData) {
       // event listener
-      const name = key.slice(1)
       const value = eventData[key] as EventListenerWithOptions
-      element.addEventListener(name, this, value)
+      element.addEventListener(key, this, value)
     }
   }
 }
@@ -205,7 +207,6 @@ export class SpreadDirective extends SpreadEventsDirective {
       const name = key.slice(1)
       switch (key[0]) {
         case '@': // event listener
-          this.eventData[name] = value
           this.applyEvent(name, value as EventListenerWithOptions)
           break
         case '.': // property
@@ -239,15 +240,17 @@ export class SpreadDirective extends SpreadEventsDirective {
       return
     for (const key in prevData) {
       const name = key.slice(1)
-      // @ts-expect-error error
-      if (!data || (!(key in data) && element[name] === prevData[key])) {
+      if (!data || !(key in data)) {
         switch (key[0]) {
           case '@': // event listener
             this.groomEvent(name, prevData[key] as EventListenerWithOptions)
             break
           case '.': // property
             // @ts-expect-error error
-            element[name] = undefined
+            if (element[name] === prevData[key]) {
+              // @ts-expect-error error
+              element[name] = undefined
+            }
             break
           case '?': // boolean attribute
             element.removeAttribute(name)

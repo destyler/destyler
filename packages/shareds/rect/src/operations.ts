@@ -20,7 +20,7 @@ export function expand(r: Rect, v: number | SymmetricRectInset): Rect {
 }
 
 export function shrink(r: Rect, v: number | SymmetricRectInset): Rect {
-  const value = typeof v === 'number' ? { dx: -v, dy: -v } : v
+  const value = typeof v === 'number' ? { dx: v, dy: v } : v
   return inset(r, value)
 }
 
