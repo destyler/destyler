@@ -1,7 +1,8 @@
 // TEMPORARY DIAGNOSTIC: remove before accepting a repair candidate.
-// Observe the existing Playwright context; do not change browser/test behavior.
+// Observe the existing Playwright context; the readiness command deliberately changes scheduling.
 import type { BrowserContext, Page } from 'playwright'
 import process from 'node:process'
+import { setTimeout as delay } from 'node:timers/promises'
 import { defineBrowserCommand } from '@vitest/browser-playwright'
 
 interface CollectorOptions {
@@ -113,6 +114,14 @@ function installCollector(options: CollectorOptions) {
 }
 
 const armed = new WeakSet<BrowserContext>()
+const collectors = new WeakMap<BrowserContext, {
+  sessionId: string
+  fixturePath: string
+  origin: string
+  page: Page
+  id: (value: Page) => number | undefined
+  emit: (event: string, detail: Record<string, unknown>) => void
+}>()
 export const core238ProtocolStart = defineBrowserCommand(async ({ context, page, frame, sessionId, testPath }) => {
   if (!testPath?.endsWith('/packages/__tests__/combobox/interaction-guards.spec.ts'))
     throw new Error('The #238 collector may only be armed by its browser fixture.')
@@ -201,7 +210,49 @@ export const core238ProtocolStart = defineBrowserCommand(async ({ context, page,
   // Future popups receive this before Vitest's tester modules initialize.
   await context.addInitScript(installCollector, options)
   // The test iframe already exists; instrument it before the first assertion runs.
-  await (await frame()).evaluate(installCollector, options)
+  const fixtureFrame = await frame()
+  await fixtureFrame.evaluate(installCollector, options)
+  // Native navigation provenance remains available even for a no-opener new tab.
+  const cdp = await context.newCDPSession(page)
+  cdp.on('Page.windowOpen', (event) => {
+    const location = safeUrl(event.url)
+    if (location && !('kind' in location)) {
+      emit('native-window-open', {
+        sourcePage: id(page),
+        location,
+        userGesture: event.userGesture,
+      })
+    }
+  })
+  cdp.on('Page.frameRequestedNavigation', (event) => {
+    const location = safeUrl(event.url)
+    if (location && !('kind' in location)) {
+      emit('native-navigation-request', {
+        sourcePage: id(page),
+        frameId: event.frameId,
+        reason: event.reason,
+        disposition: event.disposition,
+        location,
+      })
+    }
+  })
+  await cdp.send('Page.enable')
+  const frameTree = await cdp.send('Page.getFrameTree')
+  const recordFrame = (tree: { frame: { id: string, url: string }, childFrames?: typeof tree[] }) => {
+    const location = safeUrl(tree.frame.url)
+    if (location && !('kind' in location))
+      emit('native-frame-map', { page: id(page), frameId: tree.frame.id, location })
+    tree.childFrames?.forEach(recordFrame)
+  }
+  recordFrame(frameTree.frameTree)
+  collectors.set(context, {
+    sessionId,
+    fixturePath: testPath,
+    origin: new URL(fixtureFrame.url()).origin,
+    page,
+    id,
+    emit,
+  })
   emit('collector-armed', {
     page: id(page),
     browserVersion: context.browser()?.version(),
@@ -210,8 +261,82 @@ export const core238ProtocolStart = defineBrowserCommand(async ({ context, page,
   })
 })
 
+// Deliberate scheduling experiment: retain the existing fixture until a naturally
+// created matching tester has initialized. This is never a canonical timing claim.
+export const core238ProtocolWaitForDuplicate = defineBrowserCommand(async ({ context, sessionId, testPath }) => {
+  const state = collectors.get(context)
+  if (!state || state.sessionId !== sessionId || state.fixturePath !== testPath)
+    throw new Error('Inconclusive #238 diagnostic: no matching armed collector.')
+  const started = Date.now()
+  const totalBudget = 5000
+  const discoveryBudget = 1000
+  state.emit('readiness-barrier-discovery-start', {
+    deliberateSchedulingExperiment: true,
+    totalBudget,
+    discoveryBudget,
+    action: 'Observe only pages naturally created by the original fixture clicks.',
+  })
+  let duplicate: Page | undefined
+  while (Date.now() - started < discoveryBudget) {
+    duplicate = context.pages().find((target) => {
+      if (target === state.page || target.isClosed())
+        return false
+      const url = new URL(target.url())
+      return url.origin === state.origin
+        && url.searchParams.get('sessionId') === sessionId
+        && url.searchParams.get('iframeId') === testPath
+    })
+    if (duplicate)
+      break
+    await delay(20)
+  }
+  if (!duplicate) {
+    state.emit('readiness-barrier-inconclusive', { phase: 'discovery', elapsed: Date.now() - started })
+    throw new Error('Inconclusive #238 diagnostic: no naturally created matching duplicate page within discovery budget.')
+  }
+  state.emit('readiness-barrier-initialization-start', {
+    page: state.id(duplicate),
+    elapsed: Date.now() - started,
+    remainingBudget: totalBudget - (Date.now() - started),
+  })
+  try {
+    // In pinned Vitest 4.0.16, iframeId is assigned after the tester's channel listener is registered.
+    const identity = await duplicate.waitForFunction(({ sessionId, fixturePath }) => {
+      const runner = (window as unknown as Record<string, any>).__vitest_browser_runner__
+      if (window.self !== window.top || runner?.type !== 'tester'
+        || runner.sessionId !== sessionId || runner.iframeId !== fixturePath) {
+        return false
+      }
+      return {
+        type: runner.type,
+        sessionId: runner.sessionId,
+        iframeId: runner.iframeId,
+        testerId: runner.testerId,
+        embedded: false,
+      }
+    }, { sessionId, fixturePath: state.fixturePath }, {
+      polling: 20,
+      timeout: Math.max(1, totalBudget - (Date.now() - started)),
+    })
+    const observed = await identity.jsonValue()
+    await identity.dispose()
+    state.emit('readiness-barrier-release', {
+      page: state.id(duplicate),
+      elapsed: Date.now() - started,
+      identity: observed,
+      deliberateSchedulingExperiment: true,
+    })
+  }
+  catch {
+    // This catches only the diagnostic readiness wait; normal runner errors stay enabled.
+    state.emit('readiness-barrier-inconclusive', { phase: 'initialization', elapsed: Date.now() - started })
+    throw new Error('Inconclusive #238 diagnostic: the naturally created duplicate did not become ready within total budget.')
+  }
+})
+
 declare module 'vitest/browser' {
   interface BrowserCommands {
     core238ProtocolStart: () => Promise<void>
+    core238ProtocolWaitForDuplicate: () => Promise<void>
   }
 }
