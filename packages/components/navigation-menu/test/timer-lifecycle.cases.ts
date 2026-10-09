@@ -220,4 +220,21 @@ describe('NavigationMenu actual platform timer handles', () => {
     expect(fired).toHaveBeenCalledTimes(1)
     expect(dispatch).toHaveBeenCalledTimes(1)
   })
+  it.each([false, true])('does not resurrect a timer transition after notification stops its run (restart=%s)', async (restart) => {
+    let service: ReturnType<typeof machine>
+    const onValueChange = vi.fn(() => {
+      service.stop()
+      if (restart)
+        service.start()
+    })
+    service = machine({ id: 'reentrant-notification', openDelay: 10, onValueChange }).start()
+    services.push(service)
+    service.send({ type: 'TRIGGER_ENTER', value: 'a' })
+    await platformWait(30)
+    expect(onValueChange).toHaveBeenCalledExactlyOnceWith({ value: 'a' })
+    expect(service.status).toBe(restart ? 'Running' : 'Stopped')
+    expect(service.state.matches('open')).toBe(false)
+    expect(service.state.context.openTimer).toBe(null)
+    service.stop()
+  })
 })

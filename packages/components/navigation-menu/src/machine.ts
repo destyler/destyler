@@ -85,7 +85,7 @@ export function machine(userContext: UserDefinedContext) {
             actions: ['invokeOnValueChange'],
           },
           {
-            actions: ['setValue', 'invokeOnValueChange'],
+            actions: ['setValue'],
           },
         ],
         'CLOSE': [
@@ -95,7 +95,7 @@ export function machine(userContext: UserDefinedContext) {
           },
           {
             target: 'idle',
-            actions: ['clearValue', 'invokeOnClose'],
+            actions: ['clearValue'],
           },
         ],
         'ARROW_NEXT': {
