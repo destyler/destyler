@@ -4,6 +4,31 @@ import { compact, isControlled, isEqual, isPropUserProvided, resolveControllable
 import { choose, createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
+const scheduledEffects = new WeakMap<MachineContext, Set<VoidFunction>>()
+
+function trackScheduledEffects(ctx: MachineContext) {
+  const pending = new Set<VoidFunction>()
+  scheduledEffects.set(ctx, pending)
+  return () => {
+    if (scheduledEffects.get(ctx) === pending)
+      scheduledEffects.delete(ctx)
+    pending.forEach(cleanup => cleanup())
+    pending.clear()
+  }
+}
+
+function scheduleEffect(ctx: MachineContext, callback: (isActive: () => boolean) => void) {
+  const pending = scheduledEffects.get(ctx)
+  if (!pending)
+    return
+  const cleanup = raf(() => {
+    pending.delete(cleanup)
+    if (scheduledEffects.get(ctx) === pending)
+      callback(() => scheduledEffects.get(ctx) === pending)
+  })
+  pending.add(cleanup)
+}
+
 function assignValue(ctx: MachineContext, value: string | string[]) {
   const arr = Array.isArray(value) ? value : value.split('').filter(Boolean)
   arr.forEach((value, index) => {
@@ -22,14 +47,19 @@ function getNextValue(current: string, next: string) {
 
 const invoke = {
   change(ctx: MachineContext) {
+    const run = scheduledEffects.get(ctx)
     // callback
     ctx.onValueChange?.({
       value: Array.from(ctx.value),
       valueAsString: ctx.valueAsString,
     })
 
-    // form event
+    if (run && scheduledEffects.get(ctx) !== run)
+      return
+    // Resolving the caller root may also end the run.
     const inputEl = dom.getHiddenInputEl(ctx)
+    if (run && scheduledEffects.get(ctx) !== run)
+      return
     dispatchInputValueEvent(inputEl, { value: ctx.valueAsString })
   },
 }
@@ -102,6 +132,8 @@ export function machine(userContext: UserDefinedContext) {
         valueAsString: ctx => ctx.value.join(''),
         focusedValue: ctx => ctx.value[ctx.focusedIndex] || '',
       },
+
+      activities: [trackScheduledEffects],
 
       entry: choose([
         {
@@ -215,8 +247,10 @@ export function machine(userContext: UserDefinedContext) {
         selectInputIfNeeded(ctx) {
           if (!ctx.selectOnFocus || ctx.focusedIndex === -1)
             return
-          raf(() => {
-            dom.getFocusedInputEl(ctx)?.select()
+          scheduleEffect(ctx, (isActive) => {
+            const input = dom.getFocusedInputEl(ctx)
+            if (isActive())
+              input?.select()
           })
         },
         invokeOnComplete(ctx) {
@@ -261,7 +295,7 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         setPastedValue(ctx, evt) {
-          raf(() => {
+          scheduleEffect(ctx, (isActive) => {
             const startIndex = Math.min(ctx.focusedIndex, ctx.filledValueLength)
 
             // keep value left of cursor
@@ -272,6 +306,19 @@ export function machine(userContext: UserDefinedContext) {
             const value = left + right
 
             set.value(ctx, value.split(''))
+
+            // Retain existing pre-request text/caret and paste routing. After
+            // the request, controlled fields reflect the current parent value.
+            if (!isActive() || !isControlled(ctx as Pick<MachineContext, keyof MachineContext>, 'value'))
+              return
+            const inputs = dom.getInputEls(ctx)
+            for (const [index, input] of inputs.entries()) {
+              if (!isActive())
+                return
+              const accepted = (ctx.value as string[])[index]
+              if (accepted != null && input.value !== accepted)
+                dom.setValue(input, accepted)
+            }
           })
         },
         setValueAtIndex(ctx, evt) {
@@ -295,15 +342,17 @@ export function machine(userContext: UserDefinedContext) {
           ctx.focusedIndex = Math.max(ctx.focusedIndex - 1, 0)
         },
         setLastValueFocusIndex(ctx) {
-          raf(() => {
+          scheduleEffect(ctx, () => {
             ctx.focusedIndex = Math.min(ctx.filledValueLength, ctx.valueLength - 1)
           })
         },
         blurFocusedInputIfNeeded(ctx) {
           if (!ctx.blurOnComplete)
             return
-          raf(() => {
-            dom.getFocusedInputEl(ctx)?.blur()
+          scheduleEffect(ctx, (isActive) => {
+            const input = dom.getFocusedInputEl(ctx)
+            if (isActive())
+              input?.blur()
           })
         },
         requestFormSubmit(ctx) {
