@@ -17,14 +17,14 @@ function trackScheduledEffects(ctx: MachineContext) {
   }
 }
 
-function scheduleEffect(ctx: MachineContext, callback: VoidFunction) {
+function scheduleEffect(ctx: MachineContext, callback: (isActive: () => boolean) => void) {
   const pending = scheduledEffects.get(ctx)
   if (!pending)
     return
   const cleanup = raf(() => {
     pending.delete(cleanup)
     if (scheduledEffects.get(ctx) === pending)
-      callback()
+      callback(() => scheduledEffects.get(ctx) === pending)
   })
   pending.add(cleanup)
 }
@@ -47,14 +47,19 @@ function getNextValue(current: string, next: string) {
 
 const invoke = {
   change(ctx: MachineContext) {
+    const run = scheduledEffects.get(ctx)
     // callback
     ctx.onValueChange?.({
       value: Array.from(ctx.value),
       valueAsString: ctx.valueAsString,
     })
 
-    // form event
+    if (run && scheduledEffects.get(ctx) !== run)
+      return
+    // Resolving the caller root may also end the run.
     const inputEl = dom.getHiddenInputEl(ctx)
+    if (run && scheduledEffects.get(ctx) !== run)
+      return
     dispatchInputValueEvent(inputEl, { value: ctx.valueAsString })
   },
 }
@@ -242,8 +247,10 @@ export function machine(userContext: UserDefinedContext) {
         selectInputIfNeeded(ctx) {
           if (!ctx.selectOnFocus || ctx.focusedIndex === -1)
             return
-          scheduleEffect(ctx, () => {
-            dom.getFocusedInputEl(ctx)?.select()
+          scheduleEffect(ctx, (isActive) => {
+            const input = dom.getFocusedInputEl(ctx)
+            if (isActive())
+              input?.select()
           })
         },
         invokeOnComplete(ctx) {
@@ -329,8 +336,10 @@ export function machine(userContext: UserDefinedContext) {
         blurFocusedInputIfNeeded(ctx) {
           if (!ctx.blurOnComplete)
             return
-          scheduleEffect(ctx, () => {
-            dom.getFocusedInputEl(ctx)?.blur()
+          scheduleEffect(ctx, (isActive) => {
+            const input = dom.getFocusedInputEl(ctx)
+            if (isActive())
+              input?.blur()
           })
         },
         requestFormSubmit(ctx) {

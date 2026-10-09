@@ -105,3 +105,73 @@ it('preserves the existing direct-event focus fallback', () => {
   flushFrame()
   expect(view.api().value).toEqual(['1', '9', '8'])
 })
+for (const restart of [false, true]) {
+  it(`value callback stop with restart=${restart} cannot dispatch an old hidden-input event`, () => {
+    const view = fixture()
+    const input = vi.fn()
+    view.hidden.addEventListener('input', input)
+    view.service.setContext({ onValueChange(details) {
+      view.changes.push(details)
+      view.service.stop()
+      if (restart)
+        view.service.start()
+    } })
+    view.paste(0, '987')
+    flushFrame()
+    expect(view.changes).toHaveLength(1)
+    expect(input).not.toHaveBeenCalled()
+  })
+}
+it('rechecks run ownership after resolving a hidden-input root', () => {
+  let armed = false
+  let resolved = false
+  const view = fixture({ getRootNode() {
+    if (armed) {
+      armed = false
+      resolved = true
+      view.service.stop()
+      view.service.start()
+    }
+    return document
+  } })
+  const input = vi.fn()
+  view.hidden.addEventListener('input', input)
+  view.service.setContext({ onValueChange(details) {
+    view.changes.push(details)
+    armed = true
+  } })
+  view.paste(0, '987')
+  flushFrame()
+  expect(resolved).toBe(true)
+  expect(view.changes).toHaveLength(1)
+  expect(input).not.toHaveBeenCalled()
+})
+for (const action of ['select', 'blur'] as const) {
+  it(`root resolution cannot ${action} a field after ending its run`, async () => {
+    let armed = false
+    let resolved = false
+    const view = fixture({
+      selectOnFocus: action === 'select',
+      blurOnComplete: action === 'blur',
+      defaultValue: ['', '', ''],
+      getRootNode() {
+        if (armed) {
+          armed = false
+          resolved = true
+          view.service.stop()
+          view.service.start()
+        }
+        return document
+      },
+    })
+    view.focus(0)
+    const effect = vi.spyOn(view.inputs[0], action)
+    if (action === 'blur')
+      view.api().setValue(['1', '2', '3'])
+    await Promise.resolve()
+    armed = true
+    flushFrame()
+    expect(resolved).toBe(true)
+    expect(effect).not.toHaveBeenCalled()
+  })
+}
