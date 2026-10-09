@@ -22,6 +22,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     getListProps() {
       return normalize.element({
         ...parts.list.attrs,
+        id: state.context.ids?.list,
         role: 'list',
       })
     },

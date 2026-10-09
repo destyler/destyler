@@ -186,7 +186,7 @@ export interface MachineApi<T extends PropTypes = PropTypes> {
    */
   slice: <V>(data: V[]) => V[]
   /**
-   * Function to set the total number of pages.
+   * Function to set the total number of data items.
    */
   setCount: (count: number) => void
   /**
