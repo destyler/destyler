@@ -521,6 +521,8 @@ export function machine(userContext: UserDefinedContext) {
             onFocusOutside: ctx.onFocusOutside,
             onEscapeKeyDown(event) {
               ctx.onEscapeKeyDown?.(event)
+              if (event.defaultPrevented)
+                return
               if (ctx.isSubmenu)
                 event.preventDefault()
               closeRootMenu(ctx)
