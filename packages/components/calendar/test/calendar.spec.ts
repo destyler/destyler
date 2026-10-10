@@ -171,23 +171,93 @@ describe('calendar browser tests', () => {
     }).toBe(true)
   })
 
-  it('should switch between day, month, and year views', async () => {
-    await testHook.clickTrigger('calendar')
-    await seeContent()
+  it('should switch between day, month, and year views', async ({ task }) => {
+    // Temporary observation only: retain the original operations and retry policy.
+    const retryCount = task.result?.retryCount ?? null
+    const repeatCount = task.result?.repeatCount ?? null
+    const startedAt = performance.now()
+    const attemptMount = mount
+    let stage = 'start'
 
-    const dayView = page.getByTestId('calendar:day-view')
-    const monthView = page.getByTestId('calendar:month-view')
-    const yearView = page.getByTestId('calendar:year-view')
+    function record(nextStage: string, event: 'stage' | 'pass' | 'failure' = 'stage', error?: unknown) {
+      stage = nextStage
+      try {
+        const elementState = (element: Element | null) => element && ({
+          tag: element.tagName,
+          id: element.id.slice(0, 120),
+          testId: element.getAttribute('data-testid')?.slice(0, 120) ?? null,
+          connected: element.isConnected,
+          inMount: mount?.contains(element) ?? false,
+          hidden: element instanceof HTMLElement ? element.hidden : null,
+          state: element.getAttribute('data-state')?.slice(0, 120) ?? null,
+          ariaHidden: element.getAttribute('aria-hidden')?.slice(0, 120) ?? null,
+        })
+        const elements = ['content', 'day-view', 'month-view', 'year-view', 'view-trigger', 'month-trigger'].map((part) => {
+          const matches = document.querySelectorAll(`[data-testid="calendar:${part}"]`)
+          return { part, count: matches.length, firstTwo: Array.from(matches).slice(0, 2).map(elementState) }
+        })
+        const failure = error !== null && typeof error === 'object'
+          ? error as { name?: unknown, message?: unknown, stack?: unknown }
+          : null
+        console.warn('[calendar-view-retry]', JSON.stringify({
+          taskId: task.id,
+          retryCount,
+          repeatCount,
+          event,
+          stage,
+          at: new Date().toISOString(),
+          elapsedMs: performance.now() - startedAt,
+          mount: { connected: mount?.isConnected ?? false, children: mount?.childElementCount ?? 0, cleanupPresent: typeof cleanup === 'function', changed: mount !== attemptMount, attemptConnected: attemptMount?.isConnected ?? false },
+          calendarRoots: document.querySelectorAll('[data-calendar-root]').length,
+          elements,
+          activeElement: elementState(document.activeElement),
+          retainedErrorsAtEntry: stage === 'click-calendar-trigger' && event === 'stage'
+            ? { count: task.result?.errors?.length ?? 0, firstThree: task.result?.errors?.slice(0, 3).map(({ name, message, stack }) => ({ name, message, stack })) ?? [] }
+            : undefined,
+          error: event === 'failure'
+            ? { name: String(failure?.name ?? typeof error), message: String(failure?.message ?? error), stack: failure?.stack == null ? null : String(failure.stack) }
+            : undefined,
+        }))
+      }
+      catch {
+        // Telemetry failure must not replace an original test result or error.
+      }
+    }
 
-    await expect.poll(async () => (await dayView.element()).hidden).toBe(false)
-    await expect.poll(async () => (await monthView.element()).hidden).toBe(true)
+    try {
+      record('click-calendar-trigger')
+      await testHook.clickTrigger('calendar')
+      record('see-content')
+      await seeContent()
 
-    await page.getByTestId('calendar:view-trigger').click()
-    await expect.poll(async () => (await dayView.element()).hidden).toBe(true)
-    await expect.poll(async () => (await monthView.element()).hidden).toBe(false)
+      record('create-view-locators')
+      const dayView = page.getByTestId('calendar:day-view')
+      const monthView = page.getByTestId('calendar:month-view')
+      const yearView = page.getByTestId('calendar:year-view')
 
-    await page.getByTestId('calendar:month-trigger').click()
-    await expect.poll(async () => (await monthView.element()).hidden).toBe(true)
-    await expect.poll(async () => (await yearView.element()).hidden).toBe(false)
+      record('expect-initial-day-visible')
+      await expect.poll(async () => (await dayView.element()).hidden).toBe(false)
+      record('expect-initial-month-hidden')
+      await expect.poll(async () => (await monthView.element()).hidden).toBe(true)
+
+      record('click-day-view-trigger')
+      await page.getByTestId('calendar:view-trigger').click()
+      record('expect-day-hidden')
+      await expect.poll(async () => (await dayView.element()).hidden).toBe(true)
+      record('expect-month-visible')
+      await expect.poll(async () => (await monthView.element()).hidden).toBe(false)
+
+      record('click-month-view-trigger')
+      await page.getByTestId('calendar:month-trigger').click()
+      record('expect-month-hidden')
+      await expect.poll(async () => (await monthView.element()).hidden).toBe(true)
+      record('expect-year-visible')
+      await expect.poll(async () => (await yearView.element()).hidden).toBe(false)
+      record('complete', 'pass')
+    }
+    catch (error) {
+      record(stage, 'failure', error)
+      throw error
+    }
   })
 })
