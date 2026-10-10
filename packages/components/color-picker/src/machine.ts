@@ -1,4 +1,4 @@
-import type { Color } from '@destyler/color'
+import type { Color, ColorChannel } from '@destyler/color'
 import type {
   ColorFormat,
   ColorType,
@@ -46,6 +46,14 @@ const sync = {
   },
 }
 
+function getChannelColor(ctx: MachineContext, channel: ColorChannel, format?: ColorFormat) {
+  // Alpha is independent of color space; preserve the other stored channels.
+  const value = ctx.value!
+  if (channel === 'alpha')
+    return value
+  return format ? value.toFormat(format) : ctx.areaValue
+}
+
 const invoke = {
   changeEnd(ctx: MachineContext) {
     const value = ctx.value.toFormat(ctx.format)
@@ -54,12 +62,16 @@ const invoke = {
       valueAsString: ctx.valueAsString,
     })
   },
-  change(ctx: MachineContext) {
+  change(ctx: MachineContext, isCurrent?: () => boolean) {
     const value = ctx.value.toFormat(ctx.format)
     ctx.onValueChange?.({
       value,
       valueAsString: ctx.valueAsString,
     })
+
+    // An async request can lose ownership while the consumer handles the change.
+    if (isCurrent && !isCurrent())
+      return
 
     dispatchInputValueEvent(dom.getHiddenInputEl(ctx), { value: ctx.valueAsString })
   },
@@ -69,7 +81,7 @@ const invoke = {
 }
 
 const set = {
-  value(ctx: MachineContext, color: Color | ColorType | undefined) {
+  value(ctx: MachineContext, color: Color | ColorType | undefined, isCurrent?: () => boolean) {
     if (!color || ctx.value.isEqual(color))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
@@ -82,7 +94,10 @@ const set = {
       return
     }
     ctx.value = color
-    invoke.change(ctx)
+    // Synchronous subscribers can stop or restart the owner during assignment.
+    if (isCurrent && !isCurrent())
+      return
+    invoke.change(ctx, isCurrent)
   },
   format(ctx: MachineContext, format: ColorFormat) {
     if (ctx.format === format)
@@ -101,6 +116,16 @@ export function machine(userContext: UserDefinedContext) {
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: parse('#000000'),
   })
+  const eyeDropperOwners = new WeakMap<MachineContext, { generation: number, controllers: Set<AbortController> }>()
+  const getEyeDropperOwner = (ctx: MachineContext) => {
+    let owner = eyeDropperOwners.get(ctx)
+    if (!owner) {
+      owner = { generation: 0, controllers: new Set() }
+      eyeDropperOwners.set(ctx, owner)
+    }
+    return owner
+  }
+
   return createMachine<MachineContext, MachineState>(
     {
       id: 'color-picker',
@@ -137,7 +162,7 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
 
-      activities: ['trackFormControl'],
+      activities: ['trackFormControl', 'trackEyeDropper'],
 
       watch: {
         value: ['syncInputElements'],
@@ -429,6 +454,15 @@ export function machine(userContext: UserDefinedContext) {
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {
+        trackEyeDropper(ctx) {
+          const owner = getEyeDropperOwner(ctx)
+          owner.generation++
+          return () => {
+            owner.generation++
+            owner.controllers.forEach(controller => controller.abort())
+            owner.controllers.clear()
+          }
+        },
         trackPositioning(ctx) {
           ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getTriggerEl(ctx)
@@ -493,15 +527,31 @@ export function machine(userContext: UserDefinedContext) {
             return
           const win = dom.getWin(ctx)
           const picker = new win.EyeDropper()
-          picker
-            .open()
-            .then(({ sRGBHex }: any) => {
-              const format = ctx.value.getFormat()
-              const color = parseColor(sRGBHex).toFormat(format) as Color
-              set.value(ctx, color)
-              ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
-            })
-            .catch(() => void 0)
+          const controller = new win.AbortController()
+          const owner = getEyeDropperOwner(ctx)
+          const generation = owner.generation
+          const isCurrent = () => generation === owner.generation && !controller.signal.aborted
+          owner.controllers.add(controller)
+          try {
+            picker
+              .open({ signal: controller.signal })
+              .then(({ sRGBHex }: any) => {
+                if (!isCurrent())
+                  return
+                const format = ctx.value.getFormat()
+                const color = parseColor(sRGBHex).toFormat(format) as Color
+                set.value(ctx, color, isCurrent)
+                if (!isCurrent())
+                  return
+                ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
+              })
+              .catch(() => void 0)
+              .finally(() => owner.controllers.delete(controller))
+          }
+          catch (error) {
+            owner.controllers.delete(controller)
+            throw error
+          }
         },
         setActiveChannel(ctx, evt) {
           ctx.activeId = evt.id
@@ -594,11 +644,11 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, color)
         },
         incrementChannel(ctx, evt) {
-          const color = ctx.value.incrementChannel(evt.channel, evt.step)
+          const color = getChannelColor(ctx, evt.channel, evt.format).incrementChannel(evt.channel, evt.step)
           set.value(ctx, color)
         },
         decrementChannel(ctx, evt) {
-          const color = ctx.value.decrementChannel(evt.channel, evt.step)
+          const color = getChannelColor(ctx, evt.channel, evt.format).decrementChannel(evt.channel, evt.step)
           set.value(ctx, color)
         },
         incrementAreaXChannel(ctx, evt) {
@@ -622,13 +672,15 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, color)
         },
         setChannelToMax(ctx, evt) {
-          const range = ctx.value.getChannelRange(evt.channel)
-          const color = ctx.value.withChannelValue(evt.channel, range.maxValue)
+          const value = getChannelColor(ctx, evt.channel, evt.format)
+          const range = value.getChannelRange(evt.channel)
+          const color = value.withChannelValue(evt.channel, range.maxValue)
           set.value(ctx, color)
         },
         setChannelToMin(ctx, evt) {
-          const range = ctx.value.getChannelRange(evt.channel)
-          const color = ctx.value.withChannelValue(evt.channel, range.minValue)
+          const value = getChannelColor(ctx, evt.channel, evt.format)
+          const range = value.getChannelRange(evt.channel)
+          const color = value.withChannelValue(evt.channel, range.minValue)
           set.value(ctx, color)
         },
         focusAreaThumb(ctx) {
