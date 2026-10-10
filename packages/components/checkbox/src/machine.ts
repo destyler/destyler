@@ -1,5 +1,5 @@
 import type { CheckedState, MachineContext, MachineState, UserDefinedContext } from './types'
-import { dispatchInputCheckedEvent, setElementChecked, trackFormControl, trackPress } from '@destyler/dom'
+import { dispatchInputCheckedEvent, setElementChecked, trackCanceledInputClick, trackFormControl, trackPress } from '@destyler/dom'
 import { trackFocusVisible } from '@destyler/focus-visible'
 import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
@@ -64,7 +64,7 @@ export function machine(userContext: UserDefinedContext) {
         checked: 'syncInputElement',
       },
 
-      activities: ['trackFormControlState', 'trackPressEvent', 'trackFocusVisible'],
+      activities: ['trackCanceledInputClick', 'trackFormControlState', 'trackPressEvent', 'trackFocusVisible'],
 
       on: {
         'CHECKED.TOGGLE': [
@@ -82,7 +82,7 @@ export function machine(userContext: UserDefinedContext) {
             actions: ['setChecked', 'dispatchChangeEvent'],
           },
           {
-            actions: ['setChecked'],
+            actions: ['setChecked', 'syncInputElement'],
           },
         ],
         'CONTEXT.SET': {
@@ -97,7 +97,9 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       states: {
-        ready: {},
+        ready: {
+          entry: 'syncInputIndeterminate',
+        },
       },
     },
     {
@@ -105,6 +107,15 @@ export function machine(userContext: UserDefinedContext) {
         isTrusted: (_ctx, evt) => !!evt.isTrusted,
       },
       activities: {
+        trackCanceledInputClick(ctx) {
+          const input = dom.getHiddenInputEl(ctx)
+          return trackCanceledInputClick(input, (target) => {
+            if (target !== input)
+              return
+            setElementChecked(target, ctx.isChecked)
+            target.indeterminate = ctx.isIndeterminate
+          })
+        },
         trackPressEvent(ctx) {
           if (ctx.isDisabled)
             return
@@ -128,7 +139,7 @@ export function machine(userContext: UserDefinedContext) {
               ctx.fieldsetDisabled = disabled
             },
             onFormReset() {
-              send({ type: 'CHECKED.SET', checked: !!initialContext.checked })
+              send({ type: 'CHECKED.SET', checked: initialContext.checked })
             },
           })
         },
@@ -137,6 +148,13 @@ export function machine(userContext: UserDefinedContext) {
       actions: {
         setContext(ctx, evt) {
           Object.assign(ctx, evt.context)
+        },
+        syncInputIndeterminate(ctx, evt, { getState }) {
+          const inputEl = dom.getHiddenInputEl(ctx)
+          // A custom root lookup may stop or restart the machine.
+          const state = getState()
+          if (inputEl && state.matches('ready') && state.event === evt)
+            inputEl.indeterminate = ctx.isIndeterminate
         },
         syncInputElement(ctx) {
           const inputEl = dom.getHiddenInputEl(ctx)
@@ -160,6 +178,8 @@ export function machine(userContext: UserDefinedContext) {
         },
         dispatchChangeEvent(ctx) {
           const inputEl = dom.getHiddenInputEl(ctx)
+          if (inputEl)
+            inputEl.indeterminate = ctx.isIndeterminate
           dispatchInputCheckedEvent(inputEl, { checked: isChecked(ctx.checked) })
         },
       },
