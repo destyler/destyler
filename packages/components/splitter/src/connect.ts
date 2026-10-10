@@ -101,6 +101,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           [horizontal ? 'minHeight' : 'minWidth']: '0',
         },
         onPointerDown(event) {
+          if (event.defaultPrevented || event.button !== 0 || event.isPrimary === false)
+            return
           if (disabled) {
             event.preventDefault()
             return
