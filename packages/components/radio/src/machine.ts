@@ -1,5 +1,5 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { dispatchInputCheckedEvent, nextTick, trackFormControl } from '@destyler/dom'
+import { dispatchInputCheckedEvent, nextTick, trackCanceledInputClick, trackFormControl } from '@destyler/dom'
 import { trackElementRect } from '@destyler/element-rect'
 import { trackFocusVisible } from '@destyler/focus-visible'
 import { compact, isControlled, isEqual, isPropUserProvided, isString, resolveControllableProp, withControllableProvided } from '@destyler/utils'
@@ -66,7 +66,7 @@ export function machine(userContext: UserDefinedContext) {
 
       exit: ['cleanupObserver'],
 
-      activities: ['trackFormControlState', 'trackFocusVisible'],
+      activities: ['trackCanceledInputClick', 'trackFormControlState', 'trackFocusVisible'],
 
       watch: {
         value: ['setIndicatorTransition', 'syncIndicatorRect', 'syncInputElements'],
@@ -103,6 +103,18 @@ export function machine(userContext: UserDefinedContext) {
         isTrusted: (_ctx, evt) => !!evt.isTrusted,
       },
       activities: {
+        trackCanceledInputClick(ctx) {
+          const root = dom.getRootEl(ctx)
+          return trackCanceledInputClick(root, (target) => {
+            if (target.getAttribute('data-ownedby') !== dom.getRootId(ctx))
+              return
+            const inputs = root?.querySelectorAll<HTMLInputElement>('input[type="radio"]')
+            inputs?.forEach((input) => {
+              if (input.getAttribute('data-ownedby') === dom.getRootId(ctx))
+                input.checked = input.value === ctx.value
+            })
+          })
+        },
         trackFormControlState(ctx, _evt, { send, initialContext }) {
           return trackFormControl(dom.getRootEl(ctx), {
             onFieldsetDisabledChange(disabled) {

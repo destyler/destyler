@@ -232,7 +232,7 @@ export function machine(userContext: UserDefinedContext) {
           on: {
             'TARGET.RESOLVED': {
               target: 'target.scrolling',
-              actions: ['setResolvedTarget'],
+              actions: ['setResolvedTarget', 'syncTargetAttrs'],
             },
           },
         },
@@ -287,7 +287,7 @@ export function machine(userContext: UserDefinedContext) {
           node?.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' })
         },
         setStep(ctx, evt) {
-          set.step(ctx, evt.value)
+          set.step(ctx, findStepIndex(ctx.steps, evt.value))
         },
         clearStep(ctx) {
           ctx.targetRect = ref({ width: 0, height: 0, x: 0, y: 0 })
@@ -343,14 +343,22 @@ export function machine(userContext: UserDefinedContext) {
           if (!targetEl)
             return
 
-          if (ctx.preventInteraction)
+          const preventInteraction = ctx.preventInteraction
+          const inert = targetEl.inert
+          const highlighted = targetEl.getAttribute('data-tour-highlighted')
+          if (preventInteraction)
             targetEl.inert = true
           targetEl.setAttribute('data-tour-highlighted', '')
 
           ctx._targetCleanup = () => {
-            if (ctx.preventInteraction)
-              targetEl.inert = false
-            targetEl.removeAttribute('data-tour-highlighted')
+            if (preventInteraction && targetEl.inert)
+              targetEl.inert = inert
+            if (targetEl.getAttribute('data-tour-highlighted') === '') {
+              if (highlighted == null)
+                targetEl.removeAttribute('data-tour-highlighted')
+              else
+                targetEl.setAttribute('data-tour-highlighted', highlighted)
+            }
           }
         },
         cleanupFns(ctx) {
@@ -409,7 +417,7 @@ export function machine(userContext: UserDefinedContext) {
           const doc = dom.getDoc(ctx)
 
           const onResize = () => {
-            const width = visualViewport?.width ?? win.innerWidth
+            const width = win.visualViewport?.width ?? win.innerWidth
             const height = doc.documentElement.scrollHeight
             ctx.boundarySize = { width, height }
           }
