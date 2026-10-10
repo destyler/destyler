@@ -14,6 +14,7 @@ export function connect<T extends PropTypes>(
     getRootProps() {
       return normalize.element({
         ...parts.root.attrs,
+        id: state.context.ids?.root,
         dir: state.context.dir,
         style: {
           userSelect: 'none',
