@@ -152,10 +152,10 @@ export function machine(userContext: UserDefinedContext) {
               },
             ],
             'MINIMIZE': {
-              actions: ['setMinimized', 'invokeOnMinimize'],
+              actions: ['setMinimized'],
             },
             'MAXIMIZE': {
-              actions: ['setMaximized', 'invokeOnMaximize'],
+              actions: ['setMaximized'],
             },
             'RESTORE': {
               actions: ['setRestored'],
@@ -255,8 +255,9 @@ export function machine(userContext: UserDefinedContext) {
         trackBoundaryRect(ctx) {
           const win = dom.getWin(ctx)
 
-          // ResizeObserver fires immediately on init, so we need to skip the first call
-          let skip = true
+          const boundaryEl = ctx.getBoundaryEl?.()
+          // Only ResizeObserver fires immediately; the first window resize is real.
+          let skip = isHTMLElement(boundaryEl)
 
           const exec = () => {
             if (skip) {
@@ -274,8 +275,6 @@ export function machine(userContext: UserDefinedContext) {
             set.size(ctx, pick(boundaryRect, ['width', 'height']))
             set.position(ctx, pick(boundaryRect, ['x', 'y']))
           }
-
-          const boundaryEl = ctx.getBoundaryEl?.()
 
           if (isHTMLElement(boundaryEl)) {
             const obs = new win.ResizeObserver(exec)
@@ -480,12 +479,6 @@ export function machine(userContext: UserDefinedContext) {
         },
         invokeOnResizeEnd(ctx) {
           ctx.onSizeChangeEnd?.({ size: ctx.size })
-        },
-        invokeOnMinimize(ctx) {
-          ctx.onStageChange?.({ stage: 'minimized' })
-        },
-        invokeOnMaximize(ctx) {
-          ctx.onStageChange?.({ stage: 'maximized' })
         },
       },
     },

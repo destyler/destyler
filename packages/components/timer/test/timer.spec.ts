@@ -74,22 +74,21 @@ describe('[timer] browser tests', () => {
   it('pause halts countdown until resume continues ticking', async () => {
     await waitForNextSecond()
 
-    // Capture the current seconds value before pausing
-    const secondsElement = timerItem('seconds').element()
-    const secondsBeforePause = secondsElement.textContent
-
     await userEvent.click(actionTrigger('pause'))
     await expect.element(actionTrigger('resume')).not.toHaveAttribute('hidden', '')
 
+    // Capture the value after the paused controls confirm the transition
+    const secondsWhilePaused = timerItem('seconds').element().textContent
+
     // Wait and verify the value hasn't changed while paused
     await waitForNextSecond()
-    await expect.element(timerItem('seconds')).toHaveTextContent(secondsBeforePause!)
+    await expect.element(timerItem('seconds')).toHaveTextContent(secondsWhilePaused!)
 
     await userEvent.click(actionTrigger('resume'))
     await waitForNextSecond()
 
     // After resuming and waiting, the value should have decremented by 1
-    const expectedAfterResume = String(Number(secondsBeforePause) - 1).padStart(2, '0')
+    const expectedAfterResume = String(Number(secondsWhilePaused) - 1).padStart(2, '0')
     await expect.element(timerItem('seconds')).toHaveTextContent(expectedAfterResume)
   })
 
