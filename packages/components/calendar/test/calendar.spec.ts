@@ -230,6 +230,7 @@ describe('calendar browser tests', () => {
       const registrations: { type: string, listener: EventListener, capture: boolean }[] = []
       let fixedTrigger: HTMLElement | null = null
       let fixedContent: HTMLElement | null = null
+      let fixedClear: HTMLElement | null = null
       let observer: MutationObserver | undefined
       let disposed = false
       let abortRegistered = false
@@ -262,23 +263,36 @@ describe('calendar browser tests', () => {
           inFixedMount: attemptMount?.contains(element) ?? false,
           isFixedTrigger: element === fixedTrigger,
           isFixedContent: element === fixedContent,
+          isFixedClear: element === fixedClear,
         }
       }
 
-      function state() {
+      function rect(element: HTMLElement | null) {
+        if (!element)
+          return null
+        const { x, y, width, height } = element.getBoundingClientRect()
+        return { x, y, width, height }
+      }
+
+      function state(includeGeometry = false) {
         const triggerMatches = attemptMount?.querySelectorAll('[data-testid="calendar:trigger"]')
         const contentMatches = attemptMount?.querySelectorAll('[data-testid="calendar:content"]')
+        const clearMatches = attemptMount?.querySelectorAll('[data-testid="calendar:clear"]')
         const triggerStillResolved = triggerMatches?.length === 1 && triggerMatches[0] === fixedTrigger
         const contentStillResolved = contentMatches?.length === 1 && contentMatches[0] === fixedContent
+        const clearStillResolved = clearMatches?.length === 1 && clearMatches[0] === fixedClear
         if (!attemptMount?.isConnected || mount !== attemptMount)
           gap('fixed-mount-detached-or-changed')
         if (!fixedTrigger?.isConnected || !triggerStillResolved)
           gap('fixed-trigger-missing-or-replaced')
         if (!fixedContent?.isConnected || !contentStillResolved)
           gap('fixed-content-missing-or-replaced')
+        if (!fixedClear?.isConnected || !clearStillResolved)
+          gap('fixed-clear-missing-or-replaced')
         return {
           triggerStillResolved,
           contentStillResolved,
+          clearStillResolved,
           trigger: identity(fixedTrigger),
           triggerDisabled: fixedTrigger?.hasAttribute('disabled') ?? null,
           triggerAriaDisabled: fixedTrigger?.getAttribute('aria-disabled')?.slice(0, 120) ?? null,
@@ -288,6 +302,11 @@ describe('calendar browser tests', () => {
           contentHidden: fixedContent?.hidden ?? null,
           contentState: fixedContent?.getAttribute('data-state')?.slice(0, 120) ?? null,
           activeElement: identity(document.activeElement),
+          clear: identity(fixedClear),
+          clearHidden: fixedClear?.hidden ?? null,
+          clearState: fixedClear?.getAttribute('data-state')?.slice(0, 120) ?? null,
+          // Synchronous layout reads may perturb the timing being observed.
+          geometry: includeGeometry ? { trigger: rect(fixedTrigger), clear: rect(fixedClear) } : undefined,
         }
       }
 
@@ -301,7 +320,7 @@ describe('calendar browser tests', () => {
             attribute: change.attributeName,
             oldValue: change.oldValue?.slice(0, 120) ?? null,
             // Delivery-time values are not per-mutation new values or paint evidence.
-            deliveredState: state(),
+            deliveredState: state(change.target === fixedClear),
           })
         }
       }
@@ -326,7 +345,9 @@ describe('calendar browser tests', () => {
             buttons: event instanceof MouseEvent ? event.buttons : null,
             detail: event instanceof MouseEvent ? event.detail : null,
             pointerType: event instanceof PointerEvent ? event.pointerType : null,
-            state: state(),
+            clientX: event instanceof MouseEvent ? event.clientX : null,
+            clientY: event instanceof MouseEvent ? event.clientY : null,
+            state: state(event.type === 'focusout' || (phase === 'capture' && ['pointerdown', 'pointerup', 'click'].includes(event.type))),
           })
         }
         catch {
@@ -377,7 +398,7 @@ describe('calendar browser tests', () => {
           }
         }
         try {
-          append('final-state', { reason, state: state() })
+          append('final-state', { reason, state: state(true) })
         }
         catch {
           gap('final-snapshot-error')
@@ -400,8 +421,9 @@ describe('calendar browser tests', () => {
         }
         fixedTrigger = attemptMount?.querySelector<HTMLElement>('[data-testid="calendar:trigger"]') ?? null
         fixedContent = attemptMount?.querySelector<HTMLElement>('[data-testid="calendar:content"]') ?? null
-        append('initial-state', { state: state() })
-        if (!attemptMount || !fixedTrigger || !fixedContent || gaps.size) {
+        fixedClear = attemptMount?.querySelector<HTMLElement>('[data-testid="calendar:clear"]') ?? null
+        append('initial-state', { state: state(true) })
+        if (!attemptMount || !fixedTrigger || !fixedContent || !fixedClear || gaps.size) {
           gap('setup-nodes-unavailable')
           dispose('unavailable')
           return dispose
@@ -418,6 +440,7 @@ describe('calendar browser tests', () => {
         })
         observer.observe(fixedContent, { attributes: true, attributeOldValue: true, attributeFilter: ['hidden', 'data-state'] })
         observer.observe(fixedTrigger, { attributes: true, attributeOldValue: true, attributeFilter: ['disabled', 'aria-disabled', 'data-disabled', 'data-state'] })
+        observer.observe(fixedClear, { attributes: true, attributeOldValue: true, attributeFilter: ['hidden', 'data-state'] })
         for (const type of ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'click', 'focusin', 'focusout']) {
           for (const capture of [true, false]) {
             const listener: EventListener = event => captureEvent(event, capture ? 'capture' : 'bubble')
