@@ -92,6 +92,7 @@ export function machine(userContext: UserDefinedContext) {
       states: {
         'closed': {
           tags: ['closed'],
+          entry: ['removeFromPanelStack'],
           on: {
             'CONTROLLED.OPEN': {
               target: 'open',
@@ -456,6 +457,10 @@ export function machine(userContext: UserDefinedContext) {
         },
         addToPanelStack(ctx) {
           panelStack.add(ctx.id)
+        },
+        removeFromPanelStack(ctx) {
+          panelStack.remove(ctx.id)
+          ctx.isTopmost = false
         },
         bringToFrontOfPanelStack(ctx) {
           panelStack.bringToFront(ctx.id)
