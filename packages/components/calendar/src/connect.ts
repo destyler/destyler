@@ -45,6 +45,7 @@ import {
   isDateWithinRange,
   isValidCharacter,
 } from './utils'
+import { getResolvedCalendarValue } from './utils/get-resolved-calendar-value'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const startValue = state.context.startValue
@@ -53,7 +54,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   const focusedValue = state.context.focusedValue
 
   const hoveredValue = state.context.hoveredValue
-  const hoveredRangeValue = hoveredValue ? adjustStartAndEndDate([selectedValue[0], hoveredValue]) : []
+  const hoveredRangeValue = hoveredValue ? adjustStartAndEndDate([getResolvedCalendarValue(selectedValue)[0], hoveredValue]) : []
 
   const disabled = state.context.disabled
   const readOnly = state.context.readOnly
@@ -118,7 +119,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     const cellState = {
       focused: focusedValue.year === props.value,
       selectable: isValueWithinRange(value, min?.year ?? 0, max?.year ?? 9999),
-      selected: !!selectedValue.find(date => date.year === value),
+      selected: !!getResolvedCalendarValue(selectedValue).find(date => date.year === value),
       valueText: value.toString(),
       get disabled() {
         return disabled || !cellState.selectable
@@ -134,7 +135,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     const cellState = {
       focused: focusedValue.month === props.value,
       selectable: !isDateInvalid(normalized, min, max),
-      selected: !!selectedValue.find(date => date.month === value && date.year === focusedValue.year),
+      selected: !!getResolvedCalendarValue(selectedValue).find(date => date.month === value && date.year === focusedValue.year),
       valueText: formatter.format(normalized.toDate(timeZone)),
       get disabled() {
         return disabled || !cellState.selectable
@@ -156,13 +157,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     const cellState = {
       invalid: isDateInvalid(value, min, max),
       disabled: disabled || isDateDisabled(value, visibleRange.start, end, min, max),
-      selected: selectedValue.some(date => isDateEqual(value, date)),
+      selected: getResolvedCalendarValue(selectedValue).some(date => isDateEqual(value, date)),
       unavailable: isDateUnavailable(value, isDateUnavailableFn, locale, min, max) && !disabled,
       outsideRange: isDateOutsideVisibleRange(value, visibleRange.start, end),
       inRange:
-        isRangePicker && (isDateWithinRange(value, selectedValue) || isDateWithinRange(value, hoveredRangeValue)),
-      firstInRange: isRangePicker && isDateEqual(value, selectedValue[0]),
-      lastInRange: isRangePicker && isDateEqual(value, selectedValue[1]),
+        isRangePicker && (isDateWithinRange(value, getResolvedCalendarValue(selectedValue)) || isDateWithinRange(value, hoveredRangeValue)),
+      firstInRange: isRangePicker && isDateEqual(value, getResolvedCalendarValue(selectedValue)[0]),
+      lastInRange: isRangePicker && isDateEqual(value, getResolvedCalendarValue(selectedValue)[1]),
       today: isToday(value, timeZone),
       weekend: isWeekend(value, locale),
       formattedDate: formatter.format(value.toDate(timeZone)),
@@ -206,8 +207,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     weeks: getMonthWeeks(),
     weekDays: getWeekDays(getTodayDate(timeZone), startOfWeek, timeZone, locale),
     visibleRangeText: state.context.visibleRangeText,
-    value: selectedValue,
-    valueAsDate: selectedValue.map(date => date.toDate(timeZone)),
+    value: getResolvedCalendarValue(selectedValue),
+    valueAsDate: getResolvedCalendarValue(selectedValue).map(date => date.toDate(timeZone)),
     valueAsString: state.context.valueAsString,
     focusedValue,
     focusedValueAsDate: focusedValue?.toDate(timeZone),
@@ -618,7 +619,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'dir': state.context.dir,
         'type': 'button',
         'aria-label': translations.clearTrigger,
-        'hidden': !state.context.value.length,
+        'hidden': !getResolvedCalendarValue(state.context.value).length,
         onClick(event) {
           if (event.defaultPrevented)
             return
