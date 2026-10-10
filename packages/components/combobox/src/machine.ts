@@ -353,8 +353,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
             'INPUT.ARROW_UP': [
               // == group 1 ==
               {
-                guard: 'autoComplete',
-                target: 'interacting',
+                guard: and('isOpenControlled', 'autoComplete'),
                 actions: 'invokeOnOpen',
               },
               {
@@ -364,7 +363,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
               },
               // == group 2 ==
               {
-                target: 'interacting',
+                guard: 'isOpenControlled',
                 actions: ['highlightLastOrSelectedItem', 'invokeOnOpen'],
               },
               {
@@ -929,7 +928,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
           ctx.selectedItems = selectedItems
           ctx.valueAsString = valueAsString
 
-          if (ctx.inputValue.trim() || ctx.multiple)
+          if (isControlled(ctx as MachineContext & Record<string, unknown>, 'inputValue') || ctx.inputValue.trim() || ctx.multiple)
             return
 
           ctx.inputValue = match(ctx.selectionBehavior, {
