@@ -36,6 +36,7 @@ export function machine(userContext: UserDefinedContext) {
 
       on: {
         CLEAR: {
+          target: 'idle',
           actions: ['clearPoints', 'invokeOnDrawEnd', 'focusCanvasEl'],
         },
       },
@@ -90,6 +91,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.currentPath = null
         },
         clearPoints(ctx) {
+          ctx.currentPath = null
           ctx.currentPoints = []
           ctx.paths = []
         },
