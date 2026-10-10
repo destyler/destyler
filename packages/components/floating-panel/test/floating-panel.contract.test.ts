@@ -42,6 +42,54 @@ afterEach(() => {
   for (const node of nodes.splice(0)) node.remove()
 })
 
+const pointerTypes = ['pointermove', 'pointerup', 'pointercancel', 'contextmenu']
+interface ListenerRecord { doc: Document, type: string, callback: EventListenerOrEventListenerObject, capture: boolean }
+const normalizeCapture = (options?: boolean | EventListenerOptions) => typeof options === 'boolean' ? options : !!options?.capture
+
+function trackListeners(doc: Document) {
+  const active: ListenerRecord[] = []
+  const added: ListenerRecord[] = []
+  const removed: ListenerRecord[] = []
+  const add = doc.addEventListener.bind(doc)
+  const remove = doc.removeEventListener.bind(doc)
+  vi.spyOn(doc, 'addEventListener').mockImplementation((type, callback, options) => {
+    add(type, callback, options)
+    if (!pointerTypes.includes(type))
+      return
+    const record = { doc, type, callback: callback as EventListenerOrEventListenerObject, capture: normalizeCapture(options) }
+    added.push(record)
+    if (!active.some(item => item.doc === doc && item.type === type && item.callback === callback && item.capture === record.capture))
+      active.push(record)
+  })
+  vi.spyOn(doc, 'removeEventListener').mockImplementation((type, callback, options) => {
+    remove(type, callback, options)
+    if (!pointerTypes.includes(type))
+      return
+    const record = { doc, type, callback: callback as EventListenerOrEventListenerObject, capture: normalizeCapture(options) }
+    removed.push(record)
+    const index = active.findIndex(item => item.doc === doc && item.type === type && item.callback === callback && item.capture === record.capture)
+    if (index !== -1)
+      active.splice(index, 1)
+  })
+  return {
+    active,
+    added,
+    removed,
+    expectGesture() {
+      expect(active.map(item => item.type).sort()).toEqual([...pointerTypes].sort())
+      expect(active.every(item => item.doc === doc && item.capture === false)).toBe(true)
+    },
+    expectReleased() {
+      expect(active).toEqual([])
+      for (const record of added) {
+        expect(removed.some(item => item.doc === record.doc && item.type === record.type && item.callback === record.callback && item.capture === record.capture)).toBe(true)
+      }
+    },
+  }
+}
+
+afterEach(() => vi.restoreAllMocks())
+
 describe('floating-panel geometry and controlled contract controls', () => {
   it.each(['n', 's', 'w', 'e', 'nw', 'ne', 'sw', 'se'] as const)('resizes %s from an independent opposite-edge oracle', (axis) => {
     const panel = createPanel()
@@ -105,24 +153,30 @@ describe('floating-panel geometry and controlled contract controls', () => {
   it('controlled closing during a drag preserves veto and ends resources only when accepted', async () => {
     const onOpenChange = vi.fn()
     const onPositionChangeEnd = vi.fn()
+    const listeners = trackListeners(document)
     const panel = createPanel({ open: true, onOpenChange, onPositionChangeEnd })
     panel.service.send({ type: 'DRAG_START', position: { x: 100, y: 80 } })
     panel.api().setOpen(false)
     await flush()
     expect(panel.api().dragging).toBe(true)
+    listeners.expectGesture()
     expect(onOpenChange.mock.calls).toEqual([[{ open: false }]])
     panel.service.setContext({ open: false })
     await flush()
     expect(panel.api().open).toBe(false)
     expect(panel.api().dragging).toBe(false)
     expect(onPositionChangeEnd).not.toHaveBeenCalled()
+    listeners.expectReleased()
   })
 
   it.each(['drag', 'resize'] as const)('%s pointer cancellation emits one end payload and removes listeners', (kind) => {
     const end = vi.fn()
+    const listeners = trackListeners(document)
     const panel = createPanel({ onPositionChangeEnd: end, onSizeChangeEnd: end })
     panel.service.send({ type: kind === 'drag' ? 'DRAG_START' : 'RESIZE_START', axis: 'se', position: { x: 100, y: 80 } })
+    listeners.expectGesture()
     document.dispatchEvent(new PointerEvent('pointercancel', { pointerType: 'touch', pointerId: 1 }))
+    listeners.expectReleased()
     expect(panel.service.state.value).toBe('open')
     expect(end.mock.calls).toEqual([[kind === 'drag' ? { position: { x: 100, y: 80 } } : { size: { width: 300, height: 200 } }]])
     document.dispatchEvent(new PointerEvent('pointermove', { pointerType: 'touch', pointerId: 1, clientX: 500, clientY: 300, buttons: 1 }))
@@ -135,15 +189,62 @@ describe('floating-panel geometry and controlled contract controls', () => {
     const iframe = document.createElement('iframe')
     document.body.appendChild(iframe)
     const doc = iframe.contentDocument!
+    const ownerListeners = trackListeners(doc)
+    const parentListeners = trackListeners(document)
     const panel = createPanel({ getRootNode: () => doc })
     panel.service.send({ type: 'DRAG_START', position: { x: 100, y: 80 } })
+    ownerListeners.expectGesture()
+    parentListeners.expectReleased()
     document.dispatchEvent(new PointerEvent('pointermove', { pointerType: 'touch', clientX: 200, clientY: 100, buttons: 1 }))
     expect(panel.service.state.context.position).toEqual({ x: 100, y: 80 })
     doc.dispatchEvent(new PointerEvent('pointermove', { pointerType: 'touch', clientX: 200, clientY: 100, buttons: 1 }))
     expect(panel.service.state.context.position).toEqual({ x: 200, y: 100 })
     panel.service.stop()
+    ownerListeners.expectReleased()
+    parentListeners.expectReleased()
     doc.dispatchEvent(new PointerEvent('pointermove', { pointerType: 'touch', clientX: 300, clientY: 150, buttons: 1 }))
     expect(panel.service.state.context.position).toEqual({ x: 200, y: 100 })
     iframe.remove()
+  })
+
+  it('releases every repeated gesture and reacquires only the current lifetime after restart', () => {
+    const listeners = trackListeners(document)
+    // DOM removal matches normalized capture; omitted and false are equivalent.
+    const callback = () => {}
+    document.addEventListener('pointermove', callback, { capture: false })
+    document.removeEventListener('pointermove', callback)
+    listeners.expectReleased()
+    document.addEventListener('pointermove', callback, true)
+    document.removeEventListener('pointermove', callback, false)
+    expect(listeners.active).toEqual([{ doc: document, type: 'pointermove', callback, capture: true }])
+    document.removeEventListener('pointermove', callback, { capture: true })
+    listeners.expectReleased()
+    listeners.added.length = 0
+    listeners.removed.length = 0
+    const end = vi.fn()
+    const panel = createPanel({ onPositionChangeEnd: end, onSizeChangeEnd: end })
+    for (const type of ['DRAG_START', 'RESIZE_START', 'DRAG_START']) {
+      panel.service.send({ type, axis: 'se', position: { x: 100, y: 80 } })
+      listeners.expectGesture()
+      document.dispatchEvent(new PointerEvent('pointerup', { pointerType: 'touch' }))
+      listeners.expectReleased()
+    }
+    expect(end).toHaveBeenCalledTimes(3)
+    panel.service.send({ type: 'DRAG_START', position: { x: 100, y: 80 } })
+    listeners.expectGesture()
+    panel.service.stop()
+    listeners.expectReleased()
+    expect(end).toHaveBeenCalledTimes(3)
+    panel.service.start()
+    listeners.expectReleased()
+    panel.service.send({ type: 'RESIZE_START', axis: 'se', position: { x: 100, y: 80 } })
+    listeners.expectGesture()
+    document.dispatchEvent(new PointerEvent('pointercancel', { pointerType: 'touch' }))
+    listeners.expectReleased()
+    expect(end).toHaveBeenCalledTimes(4)
+    expect(listeners.added).toHaveLength(20)
+    expect(listeners.removed).toHaveLength(20)
+    for (const type of pointerTypes)
+      expect(new Set(listeners.added.filter(record => record.type === type).map(record => record.callback)).size).toBe(5)
   })
 })
