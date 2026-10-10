@@ -81,7 +81,7 @@ const invoke = {
 }
 
 const set = {
-  value(ctx: MachineContext, color: Color | ColorType | undefined, isCurrent?: () => boolean) {
+  value(ctx: Pick<MachineContext, keyof MachineContext>, color: Color | ColorType | undefined, isCurrent?: () => boolean) {
     if (!color || ctx.value.isEqual(color))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
@@ -108,7 +108,7 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext, ['open', 'value']))
   const { initialOpen } = resolveControllableOpen(ctx)
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
@@ -450,7 +450,7 @@ export function machine(userContext: UserDefinedContext) {
       guards: {
         closeOnSelect: ctx => !!ctx.closeOnSelect,
         // Phase 3 HARD: stamped prop presence only (#103)
-        isOpenControlled: ctx => isControlled(ctx, 'open'),
+        isOpenControlled: (ctx: Pick<MachineContext, keyof MachineContext>) => isControlled(ctx, 'open'),
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {
