@@ -23,7 +23,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       panelIds,
       min: panels?.min,
       max: panels?.max,
-      value: 0,
+      value: state.context.panels.find(panel => String(panel.id) === ids[0])?.end ?? 0,
     }
   }
 

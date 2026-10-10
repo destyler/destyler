@@ -49,7 +49,6 @@ export function machine(userContext: UserDefinedContext) {
         orientation: 'horizontal',
         activeResizeId: null,
         previousPanels: [],
-        size: [],
         initialSize: [],
         activeResizeState: {
           isAtMin: false,
@@ -65,7 +64,7 @@ export function machine(userContext: UserDefinedContext) {
       created: ['setPreviousPanels', 'setInitialSize'],
 
       watch: {
-        size: ['setActiveResizeState'],
+        size: ['setPreviousPanels', 'setActiveResizeState'],
       },
 
       computed: {

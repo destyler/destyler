@@ -36,6 +36,7 @@ export function machine(userContext: UserDefinedContext) {
 
       on: {
         CLEAR: {
+          target: 'idle',
           actions: ['clearPoints', 'invokeOnDrawEnd', 'focusCanvasEl'],
         },
       },
@@ -80,7 +81,7 @@ export function machine(userContext: UserDefinedContext) {
       },
       actions: {
         addPoint(ctx, evt) {
-          ctx.currentPoints.push(evt.point)
+          ctx.currentPoints.push({ ...evt.point, pressure: evt.pressure })
           const stroke = getStroke(ctx.currentPoints, ctx.drawing)
           ctx.currentPath = getSvgPathFromStroke(stroke)
         },
@@ -90,6 +91,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.currentPath = null
         },
         clearPoints(ctx) {
+          ctx.currentPath = null
           ctx.currentPoints = []
           ctx.paths = []
         },
