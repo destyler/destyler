@@ -42,9 +42,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.positioner.attrs,
         id: dom.getPositionerId(state.context),
         style: {
-          position: 'absolute',
-          top: 'var(--y)',
-          left: 'var(--x)',
+          '--x': `${state.context.position.x}px`,
+          '--y': `${state.context.position.y}px`,
+          '--width': `${state.context.size.width}px`,
+          '--height': `${state.context.size.height}px`,
+          'position': 'absolute',
+          'top': 'var(--y)',
+          'left': 'var(--x)',
         },
       })
     },
