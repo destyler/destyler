@@ -38,13 +38,14 @@ import {
   isValidDate,
   sortDates,
 } from './utils'
+import { getResolvedCalendarValue } from './utils/get-resolved-calendar-value'
 
 const { and } = guards
 
 const invoke = {
   change(ctx: MachineContext) {
     ctx.onValueChange?.({
-      value: Array.from(ctx.value),
+      value: Array.from(getResolvedCalendarValue(ctx.value)),
       valueAsString: Array.from(ctx.valueAsString),
       view: ctx.view,
     })
@@ -52,7 +53,7 @@ const invoke = {
   focusChange(ctx: MachineContext) {
     ctx.onFocusChange?.({
       focusedValue: ctx.focusedValue,
-      value: Array.from(ctx.value),
+      value: Array.from(getResolvedCalendarValue(ctx.value)),
       valueAsString: Array.from(ctx.valueAsString),
       view: ctx.view,
     })
@@ -62,10 +63,13 @@ const invoke = {
   },
 }
 
-function isDateEqualFn(a: DateValue[], b: DateValue[]) {
-  if (a.length !== b.length)
+function isDateEqualFn(a: DateValue[] | undefined, b: DateValue[] | undefined) {
+  const first = getResolvedCalendarValue(a)
+  const firstLength = first.length
+  const second = getResolvedCalendarValue(b)
+  if (firstLength !== second.length)
     return false
-  return a.every((date, index) => isDateEqual(date, b[index]))
+  return first.every((date, index) => isDateEqual(date, second[index]))
 }
 
 function normalizeValue(ctx: MachineContext, value: number | DateValue) {
@@ -80,7 +84,7 @@ function normalizeValue(ctx: MachineContext, value: number | DateValue) {
 }
 
 const set = {
-  value(ctx: MachineContext, value: DateValue[]) {
+  value(ctx: Pick<MachineContext, keyof MachineContext>, value: DateValue[]) {
     if (isDateEqualFn(ctx.value, value))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
@@ -202,7 +206,7 @@ function transformContext(ctx: Partial<MachineContext>): MachineContext {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext, ['open', 'value']))
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -224,7 +228,7 @@ export function machine(userContext: UserDefinedContext) {
         isPrevVisibleRangeValid: ctx => !isPreviousVisibleRangeInvalid(ctx.startValue, ctx.min, ctx.max),
         isNextVisibleRangeValid: ctx => !isNextVisibleRangeInvalid(ctx.endValue, ctx.min, ctx.max),
         valueAsString(ctx) {
-          return ctx.value.map(date => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone }))
+          return getResolvedCalendarValue(ctx.value).map(date => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone }))
         },
       },
 
@@ -673,13 +677,13 @@ export function machine(userContext: UserDefinedContext) {
         isMonthView: (ctx, evt) => (evt.view || ctx.view) === 'month',
         isYearView: (ctx, evt) => (evt.view || ctx.view) === 'year',
         isRangePicker: ctx => ctx.selectionMode === 'range',
-        hasSelectedRange: ctx => ctx.value.length === 2,
+        hasSelectedRange: ctx => getResolvedCalendarValue(ctx.value).length === 2,
         isMultiPicker: ctx => ctx.selectionMode === 'multiple',
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
         isSelectingEndDate: ctx => ctx.activeIndex === 1,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
         // Phase 3 HARD: stamped prop presence only (#103)
-        isOpenControlled: ctx => isControlled(ctx, 'open'),
+        isOpenControlled: (ctx: Pick<MachineContext, keyof MachineContext>) => isControlled(ctx, 'open'),
         isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === 'INTERACT_OUTSIDE',
         isInputValueEmpty: (_ctx, evt) => evt.value.trim() === '',
         shouldFixOnBlur: (_ctx, evt) => !!evt.fixOnBlur,
@@ -740,7 +744,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.restoreFocus = true
         },
         announceValueText(ctx) {
-          const announceText = ctx.value.map(date => formatSelectedDate(date, null, ctx.locale, ctx.timeZone))
+          const announceText = getResolvedCalendarValue(ctx.value).map(date => formatSelectedDate(date, null, ctx.locale, ctx.timeZone))
           ctx.announcer?.announce(announceText.join(','), 3000)
         },
         announceVisibleRange(ctx) {
@@ -754,9 +758,9 @@ export function machine(userContext: UserDefinedContext) {
           restoreTextSelection({ doc: dom.getDoc(ctx), target: dom.getContentEl(ctx)! })
         },
         focusFirstSelectedDate(ctx) {
-          if (!ctx.value.length)
+          if (!getResolvedCalendarValue(ctx.value).length)
             return
-          set.focusedValue(ctx, ctx.value[0])
+          set.focusedValue(ctx, getResolvedCalendarValue(ctx.value)[0])
         },
         syncInputElement(ctx) {
           raf(() => {
@@ -789,20 +793,20 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, [])
         },
         setSelectedDate(ctx, evt) {
-          const values = Array.from(ctx.value)
+          const values = Array.from(getResolvedCalendarValue(ctx.value))
           values[ctx.activeIndex] = normalizeValue(ctx, evt.value ?? ctx.focusedValue)
           set.value(ctx, adjustStartAndEndDate(values))
         },
         toggleSelectedDate(ctx, evt) {
           const currentValue = normalizeValue(ctx, evt.value ?? ctx.focusedValue)
-          const index = ctx.value.findIndex(date => isDateEqual(date, currentValue))
+          const index = getResolvedCalendarValue(ctx.value).findIndex(date => isDateEqual(date, currentValue))
 
           if (index === -1) {
-            const values = [...ctx.value, currentValue]
+            const values = [...getResolvedCalendarValue(ctx.value), currentValue]
             set.value(ctx, sortDates(values))
           }
           else {
-            const values = Array.from(ctx.value)
+            const values = Array.from(getResolvedCalendarValue(ctx.value))
             values.splice(index, 1)
             set.value(ctx, sortDates(values))
           }
@@ -814,7 +818,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.hoveredValue = null
         },
         selectFocusedDate(ctx) {
-          const values = Array.from(ctx.value)
+          const values = Array.from(getResolvedCalendarValue(ctx.value))
           values[ctx.activeIndex] = ctx.focusedValue.copy()
           set.value(ctx, adjustStartAndEndDate(values))
 
@@ -1031,7 +1035,7 @@ export function machine(userContext: UserDefinedContext) {
           if (!date)
             return
 
-          const values = Array.from(ctx.value)
+          const values = Array.from(getResolvedCalendarValue(ctx.value))
           values[evt.index] = date
 
           set.value(ctx, values)
