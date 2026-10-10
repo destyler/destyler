@@ -56,7 +56,7 @@ export function machine(userContext: UserDefinedContext) {
       anchorRequests.delete(ctx)
   }
 
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext, ['open']))
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -250,7 +250,7 @@ export function machine(userContext: UserDefinedContext) {
         isMaximized: ctx => ctx.isMaximized,
         isMinimized: ctx => ctx.isMinimized,
         // Phase 3 HARD: stamped prop presence only (#103)
-        isOpenControlled: ctx => isControlled(ctx, 'open'),
+        isOpenControlled: (ctx: Pick<MachineContext, keyof MachineContext>) => isControlled(ctx, 'open'),
       },
       activities: {
         trackPointerMove(ctx, _evt, { send }) {
