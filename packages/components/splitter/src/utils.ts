@@ -11,7 +11,11 @@ export function getNormalizedPanels(ctx: Ctx): NormalizedPanelData {
   let totalSize = 0
   let totalMinSize = 0
 
-  const panels = ctx.size.map((panel) => {
+  const size = ctx.size
+  if (size === undefined)
+    throw new TypeError('Splitter size must be initialized before normalizing panels')
+
+  const panels = size.map((panel) => {
     const minSize = panel.minSize ?? 0
     const maxSize = panel.maxSize ?? 100
 
