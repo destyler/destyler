@@ -30,9 +30,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'data-dragging': dataAttr(dragging),
         'aria-controls': dom.getContentId(state.context),
         onClick(event) {
-          if (event.defaultPrevented)
-            return
-          if (state.context.disabled)
+          if (event.defaultPrevented || state.context.disabled)
             return
           send({ type: 'OPEN' })
         },
@@ -44,9 +42,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.positioner.attrs,
         id: dom.getPositionerId(state.context),
         style: {
-          position: 'absolute',
-          top: 'var(--y)',
-          left: 'var(--x)',
+          '--x': `${state.context.position.x}px`,
+          '--y': `${state.context.position.y}px`,
+          '--width': `${state.context.size.width}px`,
+          '--height': `${state.context.size.height}px`,
+          'position': 'absolute',
+          'top': 'var(--y)',
+          'left': 'var(--x)',
         },
       })
     },
@@ -73,7 +75,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           send({ type: 'WINDOW_FOCUS' })
         },
         onKeyDown(event) {
-          if (event.defaultPrevented)
+          if (event.defaultPrevented || state.context.disabled)
             return
           if (!isSelfTarget(event))
             return
@@ -99,7 +101,11 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             },
           }
 
-          const handler = keyMap[getEventKey(event, state.context)]
+          const key = getEventKey(event, state.context)
+          if (key !== 'Escape' && getEventTarget(event) !== event.currentTarget)
+            return
+
+          const handler = keyMap[key]
 
           if (handler) {
             event.preventDefault()
@@ -116,7 +122,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'aria-label': 'Close Window',
         'type': 'button',
         onClick(event) {
-          if (event.defaultPrevented)
+          if (event.defaultPrevented || state.context.disabled)
             return
           send('CLOSE')
         },
@@ -131,7 +137,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'hidden': state.context.isStaged,
         'type': 'button',
         onClick(event) {
-          if (event.defaultPrevented)
+          if (event.defaultPrevented || state.context.disabled)
             return
           send('MINIMIZE')
         },
@@ -146,7 +152,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'hidden': state.context.isStaged,
         'type': 'button',
         onClick(event) {
-          if (event.defaultPrevented)
+          if (event.defaultPrevented || state.context.disabled)
             return
           send('MAXIMIZE')
         },
@@ -161,7 +167,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'hidden': !state.context.isStaged,
         'type': 'button',
         onClick(event) {
-          if (event.defaultPrevented)
+          if (event.defaultPrevented || state.context.disabled)
             return
           send('RESTORE')
         },
@@ -174,7 +180,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'data-disabled': dataAttr(!state.context.canResize),
         'data-axis': props.axis,
         onPointerDown(event) {
-          if (!state.context.canResize || event.button === 2)
+          if (event.defaultPrevented || !state.context.canResize || event.button !== 0)
             return
 
           event.currentTarget.setPointerCapture(event.pointerId)
@@ -207,7 +213,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         ...parts.dragTrigger.attrs,
         'data-disabled': dataAttr(!state.context.canDrag),
         onPointerDown(event) {
-          if (!state.context.canDrag || event.button === 2)
+          if (event.defaultPrevented || !state.context.canDrag || event.button !== 0)
             return
 
           const target = getEventTarget<HTMLElement>(event)
@@ -232,7 +238,9 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             node.releasePointerCapture(event.pointerId)
           }
         },
-        onDoubleClick() {
+        onDoubleClick(event) {
+          if (event.defaultPrevented || state.context.disabled)
+            return
           send(state.context.isMaximized ? 'RESTORE' : 'MAXIMIZE')
         },
         'style': {

@@ -44,6 +44,18 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
+  const anchorRequests = new WeakMap<MachineContext, { active: boolean, cancel?: VoidFunction }>()
+  const clearAnchorPosition = (ctx: MachineContext) => {
+    const request = anchorRequests.get(ctx)
+    if (!request)
+      return
+    // Invalidate delivery first. A throwing cleanup remains owned for retry.
+    request.active = false
+    request.cancel?.()
+    if (anchorRequests.get(ctx) === request)
+      anchorRequests.delete(ctx)
+  }
+
   const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
@@ -82,6 +94,7 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       activities: ['trackPanelStack'],
+      exit: ['clearAnchorPosition'],
 
       on: {
         WINDOW_FOCUS: {
@@ -92,6 +105,7 @@ export function machine(userContext: UserDefinedContext) {
       states: {
         'closed': {
           tags: ['closed'],
+          entry: ['removeFromPanelStack'],
           on: {
             'CONTROLLED.OPEN': {
               target: 'open',
@@ -151,10 +165,10 @@ export function machine(userContext: UserDefinedContext) {
               },
             ],
             'MINIMIZE': {
-              actions: ['setMinimized', 'invokeOnMinimize'],
+              actions: ['setMinimized'],
             },
             'MAXIMIZE': {
-              actions: ['setMaximized', 'invokeOnMaximize'],
+              actions: ['setMaximized'],
             },
             'RESTORE': {
               actions: ['setRestored'],
@@ -254,8 +268,9 @@ export function machine(userContext: UserDefinedContext) {
         trackBoundaryRect(ctx) {
           const win = dom.getWin(ctx)
 
-          // ResizeObserver fires immediately on init, so we need to skip the first call
-          let skip = true
+          const boundaryEl = ctx.getBoundaryEl?.()
+          // Only ResizeObserver fires immediately; the first window resize is real.
+          let skip = isHTMLElement(boundaryEl)
 
           const exec = () => {
             if (skip) {
@@ -273,8 +288,6 @@ export function machine(userContext: UserDefinedContext) {
             set.size(ctx, pick(boundaryRect, ['width', 'height']))
             set.position(ctx, pick(boundaryRect, ['x', 'y']))
           }
-
-          const boundaryEl = ctx.getBoundaryEl?.()
 
           if (isHTMLElement(boundaryEl)) {
             const obs = new win.ResizeObserver(exec)
@@ -296,20 +309,40 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
       actions: {
+        clearAnchorPosition,
         setAnchorPosition(ctx) {
+          clearAnchorPosition(ctx)
+          // A later request created during cleanup already owns this actor.
+          if (anchorRequests.has(ctx))
+            return
           // if we persisted the rect, we don't need to set the anchor position
           if (ctx.persistRect && (ctx.prevPosition || ctx.prevSize))
             return
-          raf(() => {
-            const triggerRect = dom.getTriggerEl(ctx)
+          const request: { active: boolean, cancel?: VoidFunction } = { active: true }
+          anchorRequests.set(ctx, request)
+          const isCurrent = () => request.active && anchorRequests.get(ctx) === request
+          request.cancel = raf(() => {
+            if (!isCurrent())
+              return
+            // This frame has been delivered; only its continuation is still live.
+            request.cancel = undefined
+            const triggerEl = dom.getTriggerEl(ctx)
+            if (!isCurrent())
+              return
             const boundaryRect = dom.getBoundaryRect(ctx, false)
+            if (!isCurrent())
+              return
+            const triggerRect = triggerEl ? DOMRect.fromRect(getElementRect(triggerEl)) : null
+            if (!isCurrent())
+              return
             const anchorPosition = ctx.getAnchorPosition?.({
-              triggerRect: triggerRect ? DOMRect.fromRect(getElementRect(triggerRect)) : null,
+              triggerRect,
               boundaryRect: DOMRect.fromRect(boundaryRect),
             })
-            if (!anchorPosition)
+            if (!isCurrent())
               return
-            ctx.position = anchorPosition
+            if (anchorPosition)
+              ctx.position = anchorPosition
           })
         },
         setPrevPosition(ctx, evt) {
@@ -340,6 +373,7 @@ export function machine(userContext: UserDefinedContext) {
           el?.style.setProperty('--y', `${ctx.position.y}px`)
         },
         resetRect(ctx, _evt, { initialContext }) {
+          clearAnchorPosition(ctx)
           ctx.stage = undefined
           if (!ctx.persistRect) {
             set.position(ctx, initialContext.position)
@@ -458,6 +492,10 @@ export function machine(userContext: UserDefinedContext) {
         addToPanelStack(ctx) {
           panelStack.add(ctx.id)
         },
+        removeFromPanelStack(ctx) {
+          panelStack.remove(ctx.id)
+          ctx.isTopmost = false
+        },
         bringToFrontOfPanelStack(ctx) {
           panelStack.bringToFront(ctx.id)
         },
@@ -475,12 +513,6 @@ export function machine(userContext: UserDefinedContext) {
         },
         invokeOnResizeEnd(ctx) {
           ctx.onSizeChangeEnd?.({ size: ctx.size })
-        },
-        invokeOnMinimize(ctx) {
-          ctx.onStageChange?.({ stage: 'minimized' })
-        },
-        invokeOnMaximize(ctx) {
-          ctx.onStageChange?.({ stage: 'maximized' })
         },
       },
     },
