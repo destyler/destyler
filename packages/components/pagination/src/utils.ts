@@ -1,4 +1,19 @@
-import type { MachineContext as Ctx, Pages } from './types'
+import type { MachineContext as Ctx, IntlTranslations, Pages } from './types'
+
+export const defaultTranslations: IntlTranslations = {
+  rootLabel: 'pagination',
+  prevTriggerLabel: 'previous page',
+  nextTriggerLabel: 'next page',
+  itemLabel({ page, totalPages }) {
+    const isLastPage = totalPages > 1 && page === totalPages
+    return `${isLastPage ? 'last page, ' : ''}page ${page}`
+  },
+}
+
+export function getTranslation<K extends keyof IntlTranslations>(translations: IntlTranslations, key: K): IntlTranslations[K] {
+  // Preserve inherited fields and explicit undefined without cloning the receiver.
+  return key in translations ? translations[key] : defaultTranslations[key]
+}
 
 export function range(start: number, end: number) {
   const length = end - start + 1
