@@ -66,6 +66,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'aria-disabled': disabled,
         'data-disabled': dataAttr(disabled),
         onPointerDown(event) {
+          if (event.defaultPrevented)
+            return
           if (!isLeftClick(event))
             return
           if (isModifierKey(event))
@@ -134,8 +136,10 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'type': 'button',
         'aria-label': translations.clearTrigger,
         'hidden': !state.context.paths.length || drawing,
-        disabled,
-        onClick() {
+        'disabled': !interactive,
+        onClick(event) {
+          if (event.defaultPrevented || !interactive)
+            return
           send({ type: 'CLEAR' })
         },
       })
