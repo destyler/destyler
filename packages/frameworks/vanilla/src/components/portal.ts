@@ -14,7 +14,7 @@ export class Portal {
     private elements: HTMLElement | HTMLElement[],
     private options: PortalOptions = {},
   ) {
-    this.children = Array.isArray(elements) ? elements : [elements]
+    this.children = Array.isArray(this.elements) ? this.elements : [this.elements]
   }
 
   /** Repeated mounts share one cleanup until the current mount is released. */
