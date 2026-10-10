@@ -66,8 +66,8 @@ export function getHandlePanels(ctx: Ctx, id = ctx.activeResizeId) {
   if (!beforeId || !afterId)
     return
 
-  const beforeIndex = ctx.previousPanels.findIndex(panel => panel.id === beforeId)
-  const afterIndex = ctx.previousPanels.findIndex(panel => panel.id === afterId)
+  const beforeIndex = ctx.previousPanels.findIndex(panel => String(panel.id) === beforeId)
+  const afterIndex = ctx.previousPanels.findIndex(panel => String(panel.id) === afterId)
   if (beforeIndex === -1 || afterIndex === -1)
     return
 

@@ -7,37 +7,40 @@ export interface WaitOptions {
 
 type WaitForPromiseReturn<T> = [Promise<T>, () => void]
 
-function waitForPromise<T>(promise: Promise<T>, controller: AbortController, timeout: number): WaitForPromiseReturn<T> {
+function waitForPromise<T>(
+  promise: Promise<T>,
+  controller: AbortController,
+  timeout: number,
+  cleanup: VoidFunction,
+): WaitForPromiseReturn<T> {
   const { signal } = controller
 
   const wrappedPromise = new Promise<T>((resolve, reject) => {
-    const timeoutId = setTimeout(() => {
-      reject(new Error(`Timeout of ${timeout}ms exceeded`))
+    let settled = false
+    let timeoutId: ReturnType<typeof setTimeout>
+    let onAbort: VoidFunction
+    const finish = (callback: VoidFunction) => {
+      if (settled)
+        return
+      settled = true
+      clearTimeout(timeoutId)
+      signal.removeEventListener('abort', onAbort)
+      cleanup()
+      callback()
+    }
+    onAbort = () => finish(() => reject(new Error('Promise aborted')))
+    timeoutId = setTimeout(() => {
+      finish(() => reject(new Error(`Timeout of ${timeout}ms exceeded`)))
     }, timeout)
 
-    signal.addEventListener('abort', () => {
-      clearTimeout(timeoutId)
-      reject(new Error('Promise aborted'))
-    })
-
-    promise
-      .then((result) => {
-        if (!signal.aborted) {
-          clearTimeout(timeoutId)
-          resolve(result)
-        }
-      })
-      .catch((error) => {
-        if (!signal.aborted) {
-          clearTimeout(timeoutId)
-          reject(error)
-        }
-      })
+    signal.addEventListener('abort', onAbort)
+    promise.then(
+      result => finish(() => resolve(result)),
+      error => finish(() => reject(error)),
+    )
   })
 
-  const abort = () => controller.abort()
-
-  return [wrappedPromise, abort]
+  return [wrappedPromise, () => controller.abort()]
 }
 
 export function waitForElement(target: () => HTMLElement, options: WaitOptions): WaitForPromiseReturn<HTMLElement> {
@@ -46,6 +49,7 @@ export function waitForElement(target: () => HTMLElement, options: WaitOptions):
   const win = getWindow(rootNode)
   const doc = getDocument(rootNode)
   const controller = new win.AbortController()
+  let cleanup: VoidFunction = () => {}
 
   return waitForPromise(
     new Promise<HTMLElement>((resolve) => {
@@ -60,18 +64,19 @@ export function waitForElement(target: () => HTMLElement, options: WaitOptions):
         const el = target()
 
         if (el) {
-          observer.disconnect()
           resolve(el)
         }
       })
 
-      observer.observe(doc.body, {
+      cleanup = () => observer.disconnect()
+      observer.observe(rootNode ?? doc.body, {
         childList: true,
         subtree: true,
       })
     }),
     controller,
     timeout,
+    () => cleanup(),
   )
 }
 
@@ -86,6 +91,7 @@ export function waitForElementValue(
 
   const win = getWindow(rootNode)
   const controller = new win.AbortController()
+  let cleanup: VoidFunction = () => {}
 
   return waitForPromise(
     new Promise<void>((resolve) => {
@@ -93,18 +99,22 @@ export function waitForElementValue(
       if (!el)
         return
 
+      if (el.value === value) {
+        resolve()
+        return
+      }
+
       const checkValue = () => {
         if (el.value === value) {
           resolve()
-          el.removeEventListener('input', checkValue)
         }
       }
 
-      checkValue()
-
+      cleanup = () => el.removeEventListener('input', checkValue)
       el.addEventListener('input', checkValue, { signal: controller.signal })
     }),
     controller,
     timeout,
+    () => cleanup(),
   )
 }

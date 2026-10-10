@@ -81,6 +81,7 @@ export function createToastMachine<T>(options: Options<T>) {
         },
 
         'visible': {
+          entry: ['setCreatedAt'],
           tags: ['visible'],
           after: {
             VISIBLE_DURATION: 'dismissing',
@@ -114,7 +115,7 @@ export function createToastMachine<T>(options: Options<T>) {
       activities: {
         trackHeight(ctx, _evt, { self }) {
           let cleanup: VoidFunction
-          raf(() => {
+          const cancelRaf = raf(() => {
             const rootEl = dom.getRootEl(ctx)
             if (!rootEl)
               return
@@ -146,7 +147,10 @@ export function createToastMachine<T>(options: Options<T>) {
             cleanup = () => observer.disconnect()
           })
 
-          return () => cleanup?.()
+          return () => {
+            cancelRaf()
+            cleanup?.()
+          }
         },
       },
 
