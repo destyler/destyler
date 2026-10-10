@@ -23,6 +23,7 @@ import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { parse } from './parse'
 import { getChannelValue } from './utils/get-channel-input-value'
+import { getResolvedColor } from './utils/get-resolved-color'
 
 const { and } = guards
 
@@ -33,7 +34,7 @@ const sync = {
     raf(() => {
       channelInputs.forEach((inputEl: any) => {
         const channel = inputEl.dataset.channel as ExtendedColorChannel | null
-        dom.setValue(inputEl, getChannelValue(color || ctx.value, channel))
+        dom.setValue(inputEl, getChannelValue(getResolvedColor(color || ctx.value), channel))
       })
     })
   },
@@ -56,14 +57,14 @@ function getChannelColor(ctx: MachineContext, channel: ColorChannel, format?: Co
 
 const invoke = {
   changeEnd(ctx: MachineContext) {
-    const value = ctx.value.toFormat(ctx.format)
+    const value = getResolvedColor(ctx.value).toFormat(ctx.format)
     ctx.onValueChangeEnd?.({
       value,
       valueAsString: ctx.valueAsString,
     })
   },
   change(ctx: MachineContext, isCurrent?: () => boolean) {
-    const value = ctx.value.toFormat(ctx.format)
+    const value = getResolvedColor(ctx.value).toFormat(ctx.format)
     ctx.onValueChange?.({
       value,
       valueAsString: ctx.valueAsString,
@@ -82,7 +83,7 @@ const invoke = {
 
 const set = {
   value(ctx: Pick<MachineContext, keyof MachineContext>, color: Color | ColorType | undefined, isCurrent?: () => boolean) {
-    if (!color || ctx.value.isEqual(color))
+    if (!color || getResolvedColor(ctx.value).isEqual(color))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
     if (isControlled(ctx, 'value')) {
@@ -126,17 +127,22 @@ export function machine(userContext: UserDefinedContext) {
     return owner
   }
 
+  // Keep the original key order while resolving value after the user context.
+  const defaults = {
+    dir: 'ltr',
+    value: parse('#000000'),
+    format: 'rgba',
+    disabled: false,
+    closeOnSelect: false,
+    openAutoFocus: true,
+  } satisfies Partial<MachineContext>
+
   return createMachine<MachineContext, MachineState>(
     {
       id: 'color-picker',
       initial: initialOpen ? 'open' : 'idle',
       context: {
-        dir: 'ltr',
-        value: parse('#000000'),
-        format: 'rgba',
-        disabled: false,
-        closeOnSelect: false,
-        openAutoFocus: true,
+        ...defaults,
         ...ctx,
         // Resolve after spread so defaultValue / legacy value seed win consistently
         value: initialValue,
@@ -155,10 +161,10 @@ export function machine(userContext: UserDefinedContext) {
         isRtl: ctx => ctx.dir === 'rtl',
         isDisabled: ctx => !!ctx.disabled || ctx.fieldsetDisabled,
         isInteractive: ctx => !(ctx.isDisabled || ctx.readOnly),
-        valueAsString: ctx => ctx.value.toString(ctx.format),
+        valueAsString: ctx => getResolvedColor(ctx.value).toString(ctx.format),
         areaValue: (ctx) => {
           const format = ctx.format.startsWith('hsl') ? 'hsla' : 'hsba'
-          return ctx.value.toFormat(format)
+          return getResolvedColor(ctx.value).toFormat(format)
         },
       },
 
@@ -538,12 +544,12 @@ export function machine(userContext: UserDefinedContext) {
               .then(({ sRGBHex }: any) => {
                 if (!isCurrent())
                   return
-                const format = ctx.value.getFormat()
+                const format = getResolvedColor(ctx.value).getFormat()
                 const color = parseColor(sRGBHex).toFormat(format) as Color
                 set.value(ctx, color, isCurrent)
                 if (!isCurrent())
                   return
-                ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
+                ctx.onValueChangeEnd?.({ value: getResolvedColor(ctx.value), valueAsString: ctx.valueAsString })
               })
               .catch(() => void 0)
               .finally(() => owner.controllers.delete(controller))
@@ -566,7 +572,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.activeOrientation = null
         },
         setAreaColorFromPoint(ctx, evt) {
-          const normalizedValue = evt.format ? ctx.value.toFormat(evt.format) : ctx.areaValue
+          const normalizedValue = evt.format ? getResolvedColor(ctx.value).toFormat(evt.format) : ctx.areaValue
           const { xChannel, yChannel } = evt.channel || ctx.activeChannel
 
           const percent = dom.getAreaValueFromPoint(ctx, evt.point)
@@ -581,7 +587,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setChannelColorFromPoint(ctx, evt) {
           const channel = evt.channel || ctx.activeId
-          const normalizedValue = evt.format ? ctx.value.toFormat(evt.format) : ctx.areaValue
+          const normalizedValue = evt.format ? getResolvedColor(ctx.value).toFormat(evt.format) : ctx.areaValue
 
           const percent = dom.getChannelSliderValueFromPoint(ctx, evt.point, channel)
           if (!percent)
@@ -608,7 +614,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setChannelColorFromInput(ctx, evt) {
           const { channel, isTextField, value } = evt
-          const currentAlpha = ctx.value.getChannelValue('alpha')
+          const currentAlpha = getResolvedColor(ctx.value).getChannelValue('alpha')
 
           // handle other text channels
           let color: Color
@@ -618,20 +624,20 @@ export function machine(userContext: UserDefinedContext) {
             //
             let valueAsNumber = Number.parseFloat(value)
             valueAsNumber = Number.isNaN(valueAsNumber) ? currentAlpha : valueAsNumber
-            color = ctx.value.withChannelValue('alpha', valueAsNumber)
+            color = getResolvedColor(ctx.value).withChannelValue('alpha', valueAsNumber)
             //
           }
           else if (isTextField) {
             //
             color = tryCatch(
               () => parse(value).withChannelValue('alpha', currentAlpha),
-              () => ctx.value,
+              () => getResolvedColor(ctx.value),
             )
             //
           }
           else {
             //
-            const current = ctx.value.toFormat(ctx.format)
+            const current = getResolvedColor(ctx.value).toFormat(ctx.format)
             const valueAsNumber = Number.isNaN(value) ? current.getChannelValue(channel) : value
             color = current.withChannelValue(channel, valueAsNumber)
             //
@@ -723,7 +729,7 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
       compareFns: {
-        value: (a, b) => a.isEqual(b),
+        value: (a, b) => getResolvedColor(a).isEqual(getResolvedColor(b)),
       },
     },
   )

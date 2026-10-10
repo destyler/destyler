@@ -15,10 +15,11 @@ import { parts } from './anatomy'
 import { dom } from './dom'
 import { getChannelDisplayColor } from './utils/get-channel-display-color'
 import { getChannelRange, getChannelValue } from './utils/get-channel-input-value'
+import { getResolvedColor } from './utils/get-resolved-color'
 import { getSliderBackground } from './utils/get-slider-background'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
-  const value = state.context.value
+  const value = getResolvedColor(state.context.value)
   const areaValue = state.context.areaValue
   const valueAsString = state.context.valueAsString
 
