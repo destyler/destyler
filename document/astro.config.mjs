@@ -67,6 +67,7 @@ export default defineConfig({
         baseUrl: 'https://github.com/destyler/starlight-theme-destyler/edit/main/docs/',
       },
       components: {
+        Head: './src/components/Head.astro',
         Sidebar: './src/components/Sidebar.astro',
       },
       customCss: [

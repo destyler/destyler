@@ -1,0 +1,8 @@
+---
+import DefaultHead from '@astrojs/starlight/components/Head.astro'
+
+const { title } = Astro.locals.starlightRoute.entry.data
+---
+
+<DefaultHead />
+<meta name="pagefind-title" data-pagefind-meta="title[content]" content={title} />

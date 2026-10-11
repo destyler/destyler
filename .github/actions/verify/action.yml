@@ -11,6 +11,10 @@ runs:
       shell: bash
       run: pnpm run build
 
+    - name: Check documentation search
+      shell: bash
+      run: pnpm run docs:build && pnpm exec node scripts/test-docs-search.mjs
+
     - name: Test public type contracts
       shell: bash
       run: pnpm run test:types
