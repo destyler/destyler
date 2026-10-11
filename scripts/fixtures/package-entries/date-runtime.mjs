@@ -67,8 +67,7 @@ export function assertDateRuntime(date) {
     assert.equal(date.alignStart(today, { months: 1 }, 'en-US').toString(), '2024-03-01')
     assert.equal(date.alignStart(today, { years: 1 }, 'en-US').toString(), '2024-01-01')
 
-    // Locale defaults exercise the bindings. Explicit weekday overrides have a
-    // separate known minimum-peer behavior gap and are not covered by this gate.
+    // Both supported peers must preserve locale defaults and numeric weekday overrides.
     assert.equal(date.getStartOfWeek(today, 'en-US').toString(), '2024-03-10')
     assert.equal(date.getEndOfWeek(today, 'en-US').toString(), '2024-03-16')
     const month = date.getMonthDays(new peer.CalendarDate(2023, 10, 1), 'en-US')
@@ -76,6 +75,32 @@ export function assertDateRuntime(date) {
     assert.deepEqual(month.map(week => week.length), [7, 7, 7, 7, 7])
     assert.equal(month[0][0].toString(), '2023-10-01')
     assert.equal(month[4][6].toString(), '2023-11-04')
+    const wednesday = new peer.CalendarDate(2024, 8, 21)
+    assert.equal(date.getStartOfWeek(wednesday, 'en-US', 1).toString(), '2024-08-19')
+    assert.equal(date.getStartOfWeek(wednesday, 'en-US', 6).toString(), '2024-08-17')
+    assert.equal(date.getEndOfWeek(wednesday, 'en-US', 1).toString(), '2024-08-25')
+    assert.equal(date.getEndOfWeek(wednesday, 'en-GB').toString(), '2024-08-24')
+    const mondayMonth = date.getMonthDays(new peer.CalendarDate(2023, 10, 1), 'en-US', undefined, 1)
+    assert.equal(mondayMonth[0][0].toString(), '2023-09-25')
+    assert.equal(mondayMonth.length, 6)
+    assert.equal(date.getStartOfWeek(wednesday, 'en-GB').toString(), '2024-08-19')
+    assert.equal(date.getStartOfWeek(wednesday, 'en-GB', undefined).toString(), '2024-08-19')
+    assert.equal(date.getEndOfWeek(wednesday, 'en-GB', undefined).toString(), '2024-08-24')
+    assert.equal(date.getStartOfWeek(wednesday, 'en-GB', 7).toString(), '2024-08-19')
+    const newYear = new peer.CalendarDate(2024, 1, 1)
+    assert.equal(date.getStartOfWeek(newYear, 'en-US', 6).toString(), '2023-12-30')
+    assert.equal(date.getEndOfWeek(newYear, 'en-US', 6).toString(), '2024-01-05')
+    const japaneseDate = peer.toCalendar(new peer.CalendarDate(2019, 5, 1), new peer.JapaneseCalendar())
+    const eraStart = date.getStartOfWeek(japaneseDate, 'en-US', 1)
+    assert.equal(eraStart.calendar.identifier, 'japanese')
+    assert.equal(eraStart.era, 'heisei')
+    assert.equal(eraStart.toString(), '2019-04-29')
+    // Preserve upstream start-then-add semantics when the intermediate start clamps or crosses a DST gap.
+    const minimumDate = new peer.CalendarDate('BC', 9999, 1, 1)
+    const minimumEnd = date.getEndOfWeek(minimumDate, 'en-US', 0)
+    assert.deepEqual([minimumEnd.era, minimumEnd.year, minimumEnd.month, minimumEnd.day], ['BC', 9999, 1, 7])
+    const gapWeek = peer.toZoned(new peer.CalendarDateTime(2024, 3, 13, 2, 30), 'America/New_York')
+    assert.equal(date.getEndOfWeek(gapWeek, 'en-US', 0).toString(), '2024-03-16T03:30:00-04:00[America/New_York]')
     const weekdays = date.getWeekDays(today, undefined, 'UTC', 'en-US')
     assert.deepEqual(weekdays.map(day => day.long), ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
     assert.equal(date.getSectionStart(today.add({ days: 2 }), today, { weeks: 1 }, 'en-US').focusedDate.toString(), '2024-03-10')
@@ -87,7 +112,7 @@ export function assertDateRuntime(date) {
     ]) {
       assert.deepEqual(date.getDateRangePreset(preset, 'en-US', 'UTC').map(value => value.toString().slice(0, 10)), expected)
     }
-    for (const name of ['CalendarDate', 'DateFormatter', 'endOfMonth', 'endOfWeek', 'endOfYear', 'getLocalTimeZone', 'getWeeksInMonth', 'isSameDay', 'maxDate', 'minDate', 'now', 'startOfMonth', 'startOfWeek', 'startOfYear', 'toCalendar', 'toCalendarDate', 'toCalendarDateTime', 'today'])
+    for (const name of ['CalendarDate', 'DateFormatter', 'endOfMonth', 'endOfWeek', 'endOfYear', 'getDayOfWeek', 'getLocalTimeZone', 'getWeeksInMonth', 'isSameDay', 'maxDate', 'minDate', 'now', 'startOfMonth', 'startOfWeek', 'startOfYear', 'toCalendar', 'toCalendarDate', 'toCalendarDateTime', 'today'])
       assert.equal(Object.hasOwn(date, name), false, `${name}: private bridge binding must not become public`)
   }
   finally {

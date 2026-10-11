@@ -63,8 +63,7 @@ export function assertDateBrowserRuntime() {
     equal(date.alignStart(today, { months: 1 }, 'en-US').toString(), '2024-03-01')
     equal(date.alignStart(today, { years: 1 }, 'en-US').toString(), '2024-01-01')
 
-    // Locale defaults exercise the bindings. Explicit weekday overrides have a
-    // separate known minimum-peer behavior gap and are not covered by this gate.
+    // Both supported peers must preserve locale defaults and numeric weekday overrides.
     equal(date.getStartOfWeek(today, 'en-US').toString(), '2024-03-10')
     equal(date.getEndOfWeek(today, 'en-US').toString(), '2024-03-16')
     const month = date.getMonthDays(new peer.CalendarDate(2023, 10, 1), 'en-US')
@@ -72,6 +71,28 @@ export function assertDateBrowserRuntime() {
     equal(month.map(week => week.length), [7, 7, 7, 7, 7])
     equal(month[0][0].toString(), '2023-10-01')
     equal(month[4][6].toString(), '2023-11-04')
+    const wednesday = new peer.CalendarDate(2024, 8, 21)
+    equal(date.getStartOfWeek(wednesday, 'en-US', 1).toString(), '2024-08-19')
+    equal(date.getStartOfWeek(wednesday, 'en-US', 6).toString(), '2024-08-17')
+    equal(date.getEndOfWeek(wednesday, 'en-US', 1).toString(), '2024-08-25')
+    equal(date.getEndOfWeek(wednesday, 'en-GB').toString(), '2024-08-24')
+    const mondayMonth = date.getMonthDays(new peer.CalendarDate(2023, 10, 1), 'en-US', undefined, 1)
+    equal(mondayMonth[0][0].toString(), '2023-09-25')
+    equal(mondayMonth.length, 6)
+    const newYear = new peer.CalendarDate(2024, 1, 1)
+    equal(date.getStartOfWeek(newYear, 'en-US', 6).toString(), '2023-12-30')
+    equal(date.getEndOfWeek(newYear, 'en-US', 6).toString(), '2024-01-05')
+    const japaneseDate = peer.toCalendar(new peer.CalendarDate(2019, 5, 1), new peer.JapaneseCalendar())
+    const eraStart = date.getStartOfWeek(japaneseDate, 'en-US', 1)
+    equal(eraStart.calendar.identifier, 'japanese')
+    equal(eraStart.era, 'heisei')
+    equal(eraStart.toString(), '2019-04-29')
+    // Preserve upstream start-then-add semantics when the intermediate start clamps or crosses a DST gap.
+    const minimumDate = new peer.CalendarDate('BC', 9999, 1, 1)
+    const minimumEnd = date.getEndOfWeek(minimumDate, 'en-US', 0)
+    equal([minimumEnd.era, minimumEnd.year, minimumEnd.month, minimumEnd.day], ['BC', 9999, 1, 7])
+    const gapWeek = peer.toZoned(new peer.CalendarDateTime(2024, 3, 13, 2, 30), 'America/New_York')
+    equal(date.getEndOfWeek(gapWeek, 'en-US', 0).toString(), '2024-03-16T03:30:00-04:00[America/New_York]')
     const weekdays = date.getWeekDays(today, undefined, 'UTC', 'en-US')
     equal(weekdays.map(day => day.long), ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
     equal(date.getSectionStart(today.add({ days: 2 }), today, { weeks: 1 }, 'en-US').focusedDate.toString(), '2024-03-10')
@@ -83,7 +104,7 @@ export function assertDateBrowserRuntime() {
     ]) {
       equal(date.getDateRangePreset(preset, 'en-US', 'UTC').map(value => value.toString().slice(0, 10)), expected)
     }
-    for (const name of ['CalendarDate', 'DateFormatter', 'endOfMonth', 'endOfWeek', 'endOfYear', 'getLocalTimeZone', 'getWeeksInMonth', 'isSameDay', 'maxDate', 'minDate', 'now', 'startOfMonth', 'startOfWeek', 'startOfYear', 'toCalendar', 'toCalendarDate', 'toCalendarDateTime', 'today'])
+    for (const name of ['CalendarDate', 'DateFormatter', 'endOfMonth', 'endOfWeek', 'endOfYear', 'getDayOfWeek', 'getLocalTimeZone', 'getWeeksInMonth', 'isSameDay', 'maxDate', 'minDate', 'now', 'startOfMonth', 'startOfWeek', 'startOfYear', 'toCalendar', 'toCalendarDate', 'toCalendarDateTime', 'today'])
       equal(Object.hasOwn(date, name), false, `${name}: private bridge binding must not become public`)
   }
   finally {

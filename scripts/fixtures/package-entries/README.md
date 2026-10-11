@@ -17,6 +17,8 @@ It checks:
 - Invalid public prop types that must remain errors, preventing an `any` false pass
 - Date's 216 ISO parser cases across host zones, frozen clocks, locales, and requested zones
 - Public Date formatter, range, mutation, month, and constructor identity assertions
+- Numeric Date weekday overrides at both peers, including month row counts,
+  year and calendar-era boundaries, BC clamping, and DST start-then-add semantics
 - Typed Date parsing and inferred CalendarDate, DateFormatter, and CalendarDateTime
   results, including invalid input/return assignments that must remain errors
 - Six negative controls per peer: a missing `main` and missing `types` for each package
@@ -33,7 +35,9 @@ It checks:
 - Chromium execution of the Vite output for each peer: all 216 ISO parser cases
   across three browser time zones, frozen clocks, locales, and requested zones;
   public formatter, range, mutation, month, and constructor identity assertions
-  cover the 18 private bridge bindings against the same bundled peer module.
+  cover the 19 private bridge bindings against the same bundled peer module.
+  Selected weekday overrides and boundary cases from the native runtime fixture
+  run in each browser time zone too, including a check that `getDayOfWeek` stays private.
 
 Captured stdout and stderr are printed unchanged, including expected negative
 control errors. Every Vite warning is forwarded through its normal handler. The
@@ -51,10 +55,10 @@ fallback. The small parser-only bundle and broader browser-runtime fixture stay
 separate so the latter does not change parser-only bundle-size evidence.
 
 This gate covers module interoperability and the listed public operations, not
-complete minimum-peer behavioral compatibility. Explicit `firstDayOfWeek`
-overrides have a separate known gap with peer 3.0.0, which ignores the newer
-third peer-function argument. Existing weekday-override unit expectations remain
-unchanged and are not replaced by this gate's locale-default checks.
+complete minimum-peer behavioral compatibility. Date's numeric `firstDayOfWeek`
+overrides are checked at both peers, including a browser subset using 0, 1, and 6.
+Existing weekday-override unit expectations remain unchanged; these packed-package
+checks add consumer and browser coverage.
 
 `Node10` names TypeScript's legacy resolver. It does not assert Node.js 10 runtime
 support. Legacy runtime resolution likewise does not add a CommonJS build; these
