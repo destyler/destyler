@@ -9,6 +9,14 @@ const isValidDay = (day: string | null | undefined): day is string => day != nul
 export function parseDateString(date: string, locale: string, timeZone: string): DateValue | undefined {
   const regex = createRegex(locale, timeZone)
 
+  // Complete ISO dates must not be consumed as partial locale input.
+  if (/^\d{4}-\d{2}-\d{2}$/.exec(date)?.[0] === date) {
+    const parsedDate = new CalendarDate(+date.slice(0, 4), +date.slice(5, 7), +date.slice(8, 10))
+    if (parsedDate.toString() === date) {
+      return parsedDate
+    }
+  }
+
   let { year, month, day } = extract(regex, date) ?? {}
 
   const hasMatch = year != null || month != null || day != null
