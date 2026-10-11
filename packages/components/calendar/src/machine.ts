@@ -72,76 +72,6 @@ function isDateEqualFn(a: DateValue[] | undefined, b: DateValue[] | undefined) {
   return first.every((date, index) => isDateEqual(date, second[index]))
 }
 
-interface DomRun {
-  active: boolean
-  provisional: boolean
-  pending: Set<VoidFunction>
-}
-
-const domRuns = new WeakMap<MachineContext, DomRun>()
-
-function retireDomRun(run: DomRun) {
-  run.active = false
-  for (const cancel of run.pending) {
-    cancel()
-    run.pending.delete(cancel)
-  }
-}
-
-function beginDomRun(ctx: MachineContext) {
-  let run = domRuns.get(ctx)
-  if (run?.active && run.provisional) {
-    run.provisional = false
-  }
-  else {
-    if (run)
-      retireDomRun(run)
-    run = { active: true, provisional: false, pending: new Set() }
-    domRuns.set(ctx, run)
-  }
-  const owner = run
-  return () => retireDomRun(owner)
-}
-
-function retireProvisionalDomRun(ctx: MachineContext) {
-  const run = domRuns.get(ctx)
-  if (run?.provisional)
-    retireDomRun(run)
-}
-
-function runDomEffect(
-  ctx: MachineContext,
-  scheduling: 'sync' | 'frame' | 'microtask',
-  effect: (isCurrent: () => boolean) => void,
-) {
-  let owner = domRuns.get(ctx)
-  if (!owner) {
-    owner = { active: true, provisional: true, pending: new Set() }
-    domRuns.set(ctx, owner)
-  }
-  const run = owner
-  const isCurrent = () => run.active && domRuns.get(ctx) === run
-  if (!isCurrent())
-    return
-  const invoke = () => {
-    if (isCurrent())
-      effect(isCurrent)
-  }
-  if (scheduling === 'sync') {
-    invoke()
-    return
-  }
-  if (scheduling === 'microtask') {
-    queueMicrotask(invoke)
-    return
-  }
-  const cancel = raf(() => {
-    run.pending.delete(cancel)
-    invoke()
-  })
-  run.pending.add(cancel)
-}
-
 function normalizeValue(ctx: MachineContext, value: number | DateValue) {
   let dateValue = typeof value === 'number' ? ctx.focusedValue.set({ [ctx.view]: value }) : value
   eachView((view) => {
@@ -302,9 +232,7 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
 
-      activities: ['trackDeferredDom', 'setupLiveRegion'],
-
-      exit: ['retireProvisionalDom'],
+      activities: ['setupLiveRegion'],
 
       created: ['setStartValue'],
 
@@ -762,7 +690,6 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       activities: {
-        trackDeferredDom: beginDomRun,
         trackPositioning(ctx) {
           ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getControlEl(ctx)
@@ -802,7 +729,6 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       actions: {
-        retireProvisionalDom: retireProvisionalDomRun,
         setNextView(ctx) {
           const nextView = getNextView(ctx.view, ctx.minView, ctx.maxView)
           set.view(ctx, nextView)
@@ -837,16 +763,11 @@ export function machine(userContext: UserDefinedContext) {
           set.focusedValue(ctx, getResolvedCalendarValue(ctx.value)[0])
         },
         syncInputElement(ctx) {
-          runDomEffect(ctx, 'frame', (isCurrent) => {
+          raf(() => {
             const inputEls = dom.getInputEls(ctx)
-            if (!isCurrent())
-              return
-            for (const [index, inputEl] of inputEls.entries()) {
-              const value = ctx.valueAsString[index] || ''
-              if (!isCurrent())
-                return
-              dom.setValue(inputEl, value)
-            }
+            inputEls.forEach((inputEl, index) => {
+              dom.setValue(inputEl, ctx.valueAsString[index] || '')
+            })
           })
         },
         setFocusedDate(ctx, evt) {
@@ -1028,19 +949,15 @@ export function machine(userContext: UserDefinedContext) {
           ctx.activeIndex = 0
         },
         focusActiveCell(ctx) {
-          runDomEffect(ctx, 'frame', (isCurrent) => {
-            const cell = dom.getFocusedCell(ctx)
-            if (isCurrent())
-              cell?.focus({ preventScroll: true })
+          raf(() => {
+            dom.getFocusedCell(ctx)?.focus({ preventScroll: true })
           })
         },
         focusActiveCellIfNeeded(ctx, evt) {
           if (!evt.focus)
             return
-          runDomEffect(ctx, 'frame', (isCurrent) => {
-            const cell = dom.getFocusedCell(ctx)
-            if (isCurrent())
-              cell?.focus({ preventScroll: true })
+          raf(() => {
+            dom.getFocusedCell(ctx)?.focus({ preventScroll: true })
           })
         },
         setHoveredValueIfKeyboard(ctx, evt) {
@@ -1049,57 +966,36 @@ export function machine(userContext: UserDefinedContext) {
           ctx.hoveredValue = ctx.focusedValue.copy()
         },
         focusTriggerElement(ctx) {
-          runDomEffect(ctx, 'frame', (isCurrent) => {
-            const trigger = dom.getTriggerEl(ctx)
-            if (isCurrent())
-              trigger?.focus({ preventScroll: true })
+          raf(() => {
+            dom.getTriggerEl(ctx)?.focus({ preventScroll: true })
           })
         },
         focusFirstInputElement(ctx) {
-          runDomEffect(ctx, 'frame', (isCurrent) => {
+          raf(() => {
             const [inputEl] = dom.getInputEls(ctx)
-            if (isCurrent())
-              inputEl?.focus({ preventScroll: true })
+            inputEl?.focus({ preventScroll: true })
           })
         },
         focusInputElement(ctx) {
-          runDomEffect(ctx, 'frame', (isCurrent) => {
+          raf(() => {
             const inputEls = dom.getInputEls(ctx)
-
-            if (!isCurrent())
-              return
 
             const lastIndexWithValue = inputEls.findLastIndex(inputEl => inputEl.value !== '')
             const indexToFocus = Math.max(lastIndexWithValue, 0)
 
             const inputEl = inputEls[indexToFocus]
-            if (!isCurrent())
-              return
             inputEl?.focus({ preventScroll: true })
             // move cursor to the end
-            if (!inputEl || !isCurrent())
-              return
-            const start = inputEl.value.length
-            const end = inputEl.value.length
-            if (isCurrent())
-              inputEl.setSelectionRange(start, end)
+            inputEl?.setSelectionRange(inputEl.value.length, inputEl.value.length)
           })
         },
         syncMonthSelectElement(ctx) {
-          runDomEffect(ctx, 'sync', (isCurrent) => {
-            const monthSelectEl = dom.getMonthSelectEl(ctx)
-            const value = ctx.startValue.month.toString()
-            if (isCurrent())
-              dom.setValue(monthSelectEl, value)
-          })
+          const monthSelectEl = dom.getMonthSelectEl(ctx)
+          dom.setValue(monthSelectEl, ctx.startValue.month.toString())
         },
         syncYearSelectElement(ctx) {
-          runDomEffect(ctx, 'sync', (isCurrent) => {
-            const yearSelectEl = dom.getYearSelectEl(ctx)
-            const value = ctx.startValue.year.toString()
-            if (isCurrent())
-              dom.setValue(yearSelectEl, value)
-          })
+          const yearSelectEl = dom.getYearSelectEl(ctx)
+          dom.setValue(yearSelectEl, ctx.startValue.year.toString())
         },
         setInputValue(ctx, evt) {
           if (ctx.activeIndex !== evt.index)
@@ -1107,12 +1003,10 @@ export function machine(userContext: UserDefinedContext) {
           ctx.inputValue = evt.value
         },
         syncInputValue(ctx, evt) {
-          runDomEffect(ctx, 'microtask', (isCurrent) => {
+          queueMicrotask(() => {
             const inputEls = dom.getInputEls(ctx)
             const idx = evt.index ?? ctx.activeIndex
-            const value = ctx.inputValue
-            if (isCurrent())
-              dom.setValue(inputEls[idx], value)
+            dom.setValue(inputEls[idx], ctx.inputValue)
           })
         },
         focusParsedDate(ctx, evt) {
