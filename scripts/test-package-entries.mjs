@@ -16,7 +16,7 @@ const astroRequire = createRequire(createRequire(import.meta.url).resolve('astro
 const { build, normalizePath } = await import(pathToFileURL(astroRequire.resolve('vite')).href)
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-package-entries-')))
 const entries = ['@destyler/navigation-menu', '@destyler/scroll-area', '@destyler/date']
-const datePeers = ['3.0.0', '3.10.1']
+const datePeers = ['3.0.0', '3.10.1', '3.12.4']
 const runtimeFields = ['dependencies', 'optionalDependencies', 'peerDependencies']
 
 function execute(command, args, cwd, capture = false) {
@@ -176,7 +176,7 @@ async function assertStaticDateImportControl(consumer, datePeer) {
       assert.ok(result.stderr.includes('CalendarDate') && result.stderr.includes('not found') && result.stderr.includes('@internationalized/date'), result.stderr)
     }
     else {
-      assert.equal(result.status, 0, 'Current peer supports the static named-import control')
+      assert.equal(result.status, 0, 'Modern peers support the static named-import control')
     }
   }
   finally {
@@ -348,7 +348,7 @@ try {
     browserBundles.push({ datePeer, code: await bundleDate(consumer, 'date-browser-runtime.mjs') })
   }
   await assertDateChromium(browserBundles)
-  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, static Date import controls, Vite browser bundles, missing Date export controls, and Chromium runtime passed')
+  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1/3.12.4, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, static Date import controls, Vite browser bundles, missing Date export controls, and Chromium runtime passed')
 }
 finally {
   await rm(temporaryDir, { recursive: true, force: true })
