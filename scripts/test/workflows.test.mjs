@@ -106,6 +106,7 @@ test('pull requests exercise the same non-publishing build and tests as releases
   assert.deepEqual(verification.runs.steps.map(step => step.run), [
     'pnpm run test:workflows',
     'pnpm run build',
+    'pnpm run docs:build && pnpm exec node scripts/test-docs-search.mjs',
     'pnpm run test:types',
     'pnpm exec node scripts/test-svelte-package.mjs',
     'pnpm exec node scripts/test-package-entries.mjs',
