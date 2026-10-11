@@ -1,5 +1,5 @@
 import type { DateValue } from '@internationalized/date'
-import { CalendarDate, DateFormatter } from '@internationalized/date'
+import { CalendarDate, DateFormatter } from './internationalized-date'
 import { normalizeYear } from './year'
 
 const isValidYear = (year: string | null | undefined): year is string => year != null && year.length === 4

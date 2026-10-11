@@ -10,7 +10,8 @@ import { fileURLToPath } from 'node:url'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-package-entries-')))
-const entries = ['@destyler/navigation-menu', '@destyler/scroll-area']
+const entries = ['@destyler/navigation-menu', '@destyler/scroll-area', '@destyler/date']
+const datePeers = ['3.0.0', '3.10.1']
 const runtimeFields = ['dependencies', 'optionalDependencies', 'peerDependencies']
 
 function execute(command, args, cwd, capture = false) {
@@ -19,7 +20,13 @@ function execute(command, args, cwd, capture = false) {
     env: process.env,
     stdio: capture ? 'pipe' : 'inherit',
     encoding: 'utf8',
+    maxBuffer: 10 * 1024 * 1024,
   })
+  // Capturing output for assertions must not hide warnings or expected failures.
+  if (capture) {
+    process.stdout.write(result.stdout ?? '')
+    process.stderr.write(result.stderr ?? '')
+  }
   if (result.error)
     throw result.error
   return result
@@ -81,9 +88,14 @@ async function packClosure(packages) {
   return packed
 }
 
-async function assertProvenance(consumer, packed) {
+async function assertProvenance(consumer, packed, datePeer) {
   const lock = JSON.parse(await readFile(path.join(consumer, 'package-lock.json'), 'utf8'))
   for (const [location, entry] of Object.entries(lock.packages)) {
+    if (location.endsWith('node_modules/@internationalized/date')) {
+      assert.equal(location, 'node_modules/@internationalized/date', 'Unexpected nested Date peer')
+      assert.equal(entry.version, datePeer)
+      assert.equal(entry.link, undefined)
+    }
     const name = location.match(/(?:^|\/)node_modules\/(@destyler\/[^/]+)$/)?.[1]
     if (!name)
       continue
@@ -113,6 +125,13 @@ async function assertProvenance(consumer, packed) {
       }
     }
   }
+  const peerDirectory = path.join(consumer, 'node_modules/@internationalized/date')
+  assert.equal((await manifest(peerDirectory)).version, datePeer)
+  assert.equal((await lstat(peerDirectory)).isSymbolicLink(), false)
+  assert.equal(await realpath(peerDirectory), peerDirectory)
+  assert.equal(lock.packages['node_modules/@internationalized/date'].version, datePeer)
+  const dateRequire = createRequire(path.join(consumer, 'node_modules/@destyler/date/package.json'))
+  assert.ok(dateRequire.resolve('@internationalized/date').startsWith(`${peerDirectory}${path.sep}`))
 }
 
 const compilerArgs = resolution => ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json', '--moduleResolution', resolution, '--module', resolution === 'NodeNext' ? 'NodeNext' : 'ESNext']
@@ -139,42 +158,68 @@ async function assertRejectsBrokenEntries(consumer) {
   }
 }
 
+async function assertStaticDateImportControl(consumer, datePeer) {
+  // Mutate only the disposable installed tarball, then restore its exact bytes.
+  const require = createRequire(path.join(consumer, 'package.json'))
+  const filename = require.resolve('@destyler/date')
+  const original = await readFile(filename, 'utf8')
+  try {
+    await writeFile(filename, `import { CalendarDate as staticPeerCalendarDate } from '@internationalized/date'\nvoid staticPeerCalendarDate\n${original}`)
+    const result = execute(process.execPath, ['imports.mjs'], consumer, true)
+    if (datePeer === '3.0.0') {
+      assert.notEqual(result.status, 0, 'Minimum peer must reject a restored static named import')
+      assert.ok(result.stderr.includes('CalendarDate') && result.stderr.includes('not found') && result.stderr.includes('@internationalized/date'), result.stderr)
+    }
+    else {
+      assert.equal(result.status, 0, 'Current peer supports the static named-import control')
+    }
+  }
+  finally {
+    await writeFile(filename, original)
+  }
+  run(process.execPath, ['imports.mjs'], consumer)
+}
+
 try {
   const packages = await runtimeClosure()
   pnpm([...entries.flatMap(name => ['--filter', `${name}...`]), '-r', 'run', 'build'])
   const packed = await packClosure(packages)
-  const consumer = path.join(temporaryDir, 'consumer')
-  await cp(path.join(root, 'scripts/fixtures/package-entries'), consumer, { recursive: true })
-  await writeFile(path.join(consumer, 'package.json'), JSON.stringify({
-    name: 'destyler-package-entry-consumer',
-    private: true,
-    type: 'module',
-    dependencies: {
-      ...Object.fromEntries([...packed].map(([name, { tarball }]) => [name, `file:${tarball}`])),
-      typescript: '5.9.3',
-    },
-  }, null, 2))
-  // No @destyler runtime dependency may silently fall back to a published version.
-  await writeFile(path.join(consumer, '.npmrc'), '@destyler:registry=http://127.0.0.1:9/\nfetch-retries=0\n')
-  run(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=true'], consumer)
-  await assertProvenance(consumer, packed)
-  const probes = [
-    ['modern runtime', ['imports.mjs']],
-    ['legacy main runtime', ['imports.mjs', '--legacy']],
-    ...['Bundler', 'NodeNext', 'Node10'].map(resolution => [`${resolution} types`, compilerArgs(resolution)]),
-  ]
-  const failures = []
-  for (const [label, args] of probes) {
-    const result = execute(process.execPath, args, consumer, true)
-    console.log(`${label}: ${result.status === 0 ? 'PASS' : 'FAIL'}`)
-    if (result.status !== 0)
-      failures.push(`${label}\n${result.stdout}${result.stderr}`)
+  for (const datePeer of datePeers) {
+    const consumer = path.join(temporaryDir, `consumer-${datePeer}`)
+    await cp(path.join(root, 'scripts/fixtures/package-entries'), consumer, { recursive: true })
+    await writeFile(path.join(consumer, 'package.json'), JSON.stringify({
+      name: 'destyler-package-entry-consumer',
+      private: true,
+      type: 'module',
+      dependencies: {
+        ...Object.fromEntries([...packed].map(([name, { tarball }]) => [name, `file:${tarball}`])),
+        '@internationalized/date': datePeer,
+        'typescript': '5.9.3',
+      },
+    }, null, 2))
+    // No @destyler runtime dependency may silently fall back to a published version.
+    await writeFile(path.join(consumer, '.npmrc'), '@destyler:registry=http://127.0.0.1:9/\nfetch-retries=0\n')
+    run(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=true'], consumer)
+    await assertProvenance(consumer, packed, datePeer)
+    const probes = [
+      ['modern runtime', ['imports.mjs']],
+      ['legacy main runtime', ['imports.mjs', '--legacy']],
+      ...['Bundler', 'NodeNext', 'Node10'].map(resolution => [`${resolution} types`, compilerArgs(resolution)]),
+    ]
+    const failures = []
+    for (const [label, args] of probes) {
+      const result = execute(process.execPath, args, consumer, true)
+      console.log(`Date peer ${datePeer}, ${label}: ${result.status === 0 ? 'PASS' : 'FAIL'}`)
+      if (result.status !== 0)
+        failures.push(`${label}\n${result.stdout}${result.stderr}`)
+    }
+    assert.deepEqual(failures, [], failures.join('\n'))
+    await assertRejectsBrokenEntries(consumer)
+    run(process.execPath, ['imports.mjs', '--legacy'], consumer)
+    run(process.execPath, compilerArgs('Node10'), consumer)
+    await assertStaticDateImportControl(consumer, datePeer)
   }
-  assert.deepEqual(failures, [], failures.join('\n'))
-  await assertRejectsBrokenEntries(consumer)
-  run(process.execPath, ['imports.mjs', '--legacy'], consumer)
-  run(process.execPath, compilerArgs('Node10'), consumer)
-  console.log('Packed package entries: local tarball provenance, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, and four negative controls passed')
+  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, and static Date import controls passed')
 }
 finally {
   await rm(temporaryDir, { recursive: true, force: true })

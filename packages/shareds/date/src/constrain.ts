@@ -6,7 +6,7 @@ import {
   startOfWeek,
   startOfYear,
   toCalendarDate,
-} from '@internationalized/date'
+} from './internationalized-date'
 
 /* -----------------------------------------------------------------------------
  * Align date to start, end, or center of a duration

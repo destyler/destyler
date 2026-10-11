@@ -8,7 +8,7 @@ import {
   startOfMonth,
   startOfWeek,
   startOfYear,
-} from '@internationalized/date'
+} from './internationalized-date'
 
 export function getDateRangePreset(preset: DateRangePreset, locale: string, timeZone: string): [DateValue, DateValue] {
   const today = now(timeZone)

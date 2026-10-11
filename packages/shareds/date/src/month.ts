@@ -5,7 +5,7 @@ import {
   getWeeksInMonth,
   isSameDay,
   startOfWeek,
-} from '@internationalized/date'
+} from './internationalized-date'
 
 const daysOfTheWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const
 type DaysOfTheWeek = (typeof daysOfTheWeek)[number]
