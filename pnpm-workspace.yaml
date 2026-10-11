@@ -56,13 +56,13 @@ catalogs:
     vite-plugin-solid: ^2.11.14
   prod:
     '@floating-ui/dom': 1.7.4
-    '@internationalized/date': ^3.10.1
+    '@internationalized/date': ^3.12.4
     '@internationalized/number': ^3.6.5
     csstype: ^3.2.3
-    perfect-freehand: ^1.2.2
+    perfect-freehand: ^1.2.3
     proxy-compare: ^3.0.1
     proxy-memoize: ^3.0.1
-    uqr: ^0.1.2
+    uqr: ^0.1.3
   script:
     bumpp: ^10.3.2
     plop: ^4.0.5
