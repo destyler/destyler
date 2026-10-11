@@ -31,8 +31,14 @@ export function parseDateString(date: string, locale: string, timeZone: string):
   // We should never get here, but just in case
   const time = Date.parse(date)
   if (!Number.isNaN(time)) {
-    const date = new Date(time)
-    return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate())
+    const parsedDate = new Date(time)
+    // Date.parse interprets valid ISO date-only forms as UTC, rather than local time.
+    const isDateOnly = /^\d{4}(?:-\d{2}){0,2}$/.exec(date)?.[0] === date
+      && parsedDate.toISOString().startsWith(date)
+    if (isDateOnly) {
+      return new CalendarDate(parsedDate.getUTCFullYear(), parsedDate.getUTCMonth() + 1, parsedDate.getUTCDate())
+    }
+    return new CalendarDate(parsedDate.getFullYear(), parsedDate.getMonth() + 1, parsedDate.getDate())
   }
 }
 
