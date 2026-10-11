@@ -51,22 +51,26 @@ async function waitForOverflowScrollbar() {
   }, { timeout: 3000 })
 }
 
+async function mountFixture() {
+  cleanup?.()
+  if (mount && mount.parentElement) {
+    document.body.removeChild(mount)
+  }
+  mount = document.createElement('div')
+  document.body.appendChild(mount)
+  cleanup = render(mount)
+  // Wait for component to initialize
+  await vi.waitFor(() => {
+    const root = document.querySelector('[data-scope="scroll-area"][data-part="root"]')
+    expect(root).toBeTruthy()
+  }, { timeout: 2000 })
+  await waitForOverflowScrollbar()
+  // Replacing DOM does not reset the browser's native pointer position.
+  // Start each fixture outside the scroll area before asserting idle visibility.
+}
+
 describe('[scroll-area] browser tests', () => {
-  beforeEach(async () => {
-    cleanup?.()
-    if (mount && mount.parentElement) {
-      document.body.removeChild(mount)
-    }
-    mount = document.createElement('div')
-    document.body.appendChild(mount)
-    cleanup = render(mount)
-    // Wait for component to initialize
-    await vi.waitFor(() => {
-      const root = document.querySelector('[data-scope="scroll-area"][data-part="root"]')
-      expect(root).toBeTruthy()
-    }, { timeout: 2000 })
-    await waitForOverflowScrollbar()
-  })
+  beforeEach(mountFixture)
 
   afterEach(() => {
     cleanup?.()
@@ -245,5 +249,29 @@ describe('[scroll-area] browser tests', () => {
       const scrollTop = Number((await getScrollStatus().element()).getAttribute('data-scroll-top') || '0')
       expect(scrollTop).toBeGreaterThan(0)
     }, { timeout: 2000 })
+  })
+
+  it('starts hidden after replacing a hovered fixture', async () => {
+    const previousRoot = await getRootEl().element()
+    await userEvent.hover(getRootEl())
+    await expect.element(getScrollbarY()).toHaveAttribute('data-state', 'visible')
+
+    await mountFixture()
+
+    expect(previousRoot.isConnected).toBe(false)
+    expect(await getRootEl().element()).not.toBe(previousRoot)
+    await setType('hover')
+    const delayInput = page.getByTestId('scrollHideDelay')
+    await delayInput.fill('50')
+    await userEvent.keyboard('{Enter}')
+    await vi.waitFor(async () => {
+      await expect.element(getScrollbarY()).toHaveAttribute('data-state', 'hidden')
+    }, { timeout: 2000 })
+
+    await userEvent.hover(getRootEl())
+    await expect.element(getScrollbarY()).toHaveAttribute('data-state', 'visible')
+
+    await userEvent.unhover(getRootEl())
+    await expect.element(getScrollbarY()).toHaveAttribute('data-state', 'hidden')
   })
 })
