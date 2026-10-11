@@ -3,7 +3,7 @@
 Run `pnpm exec node scripts/test-svelte-package.mjs` from the repository root.
 It builds the adapter and its workspace dependencies, packs the actual artifact,
 then installs the tarball into independent external npm consumers. Svelte 5.0.0
-(the public peer minimum) and 5.46.0 (the current workspace release) are exact pins.
+(the public peer minimum) and 5.57.2 (the current workspace release) are exact pins.
 
 Both consumers check public declarations with strict TypeScript and
 `skipLibCheck: false` in Bundler and NodeNext modes. There are no source aliases,

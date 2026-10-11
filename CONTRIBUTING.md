@@ -106,7 +106,7 @@ The packed Svelte consumer gate builds and packs the adapter's complete runtime
 workspace dependency closure from the same checkout. Isolated npm consumers use
 those tarballs, verify package identity, version, integrity and dependency origin,
 and reject workspace symlinks or registry fallback. Strict Bundler/NodeNext type
-checks and runtime imports run with Svelte 5.0.0 and 5.46.0. The same checks repeat
+checks and runtime imports run with Svelte 5.0.0 and 5.57.2. The same checks repeat
 with a disposable unpublished-version workspace to cover a lockstep release bump
 before any packages exist on npm; the checkout's versions are never changed.
 Run this gate locally with `pnpm exec node scripts/test-svelte-package.mjs`.
