@@ -55,7 +55,7 @@ catalogs:
     '@vitejs/plugin-vue': ^6.0.10
     vite-plugin-solid: ^2.11.14
   prod:
-    '@floating-ui/dom': 1.7.4
+    '@floating-ui/dom': 1.8.0
     '@internationalized/date': ^3.12.4
     '@internationalized/number': ^3.6.5
     csstype: ^3.2.3
