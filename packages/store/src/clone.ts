@@ -47,7 +47,8 @@ export function clone<T>(x: T): T {
     tmp = new RegExp((x as RegExp).source, (x as RegExp).flags)
   }
   else if (str === '[object DataView]') {
-    tmp = new ((x as DataView).constructor as DataViewConstructor)(clone((x as DataView).buffer))
+    const view = x as DataView
+    tmp = new (view.constructor as DataViewConstructor)(clone(view.buffer), view.byteOffset, view.byteLength)
   }
   else if (str === '[object ArrayBuffer]') {
     tmp = (x as ArrayBuffer).slice(0)

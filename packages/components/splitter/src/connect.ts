@@ -23,7 +23,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       panelIds,
       min: panels?.min,
       max: panels?.max,
-      value: 0,
+      value: state.context.panels.find(panel => String(panel.id) === ids[0])?.end ?? 0,
     }
   }
 
@@ -101,6 +101,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           [horizontal ? 'minHeight' : 'minWidth']: '0',
         },
         onPointerDown(event) {
+          if (event.defaultPrevented || event.button !== 0 || event.isPrimary === false)
+            return
           if (disabled) {
             event.preventDefault()
             return

@@ -5,7 +5,7 @@ function createGhostElement(doc: Document) {
   const el = doc.createElement('div')
   el.id = 'ghost'
   el.style.cssText
-    = 'display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
+    = 'display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:pre;'
   doc.body.appendChild(el)
   return el
 }
@@ -25,7 +25,7 @@ export function autoResizeInput(input: HTMLInputElement | null) {
 
   function resize() {
     win.requestAnimationFrame(() => {
-      ghost.innerHTML = input!.value
+      ghost.textContent = input!.value
       const rect = win.getComputedStyle(ghost)
       input?.style.setProperty('width', rect.width)
     })

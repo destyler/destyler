@@ -27,8 +27,7 @@ export function useSnapshot<
   const lastAffected = useRef<WeakMap<object, unknown>>(undefined)
 
   const currSnapshot = useSyncExternalStore(
-    useCallback(callback => subscribe(service.state, callback, notifyInSync), [notifyInSync]),
-    () => {
+    useCallback(callback => subscribe(service.state, () => {
       const nextSnapshot = snapshot(service.state)
       try {
         if (
@@ -36,14 +35,15 @@ export function useSnapshot<
           && lastAffected.current
           && !isChanged(lastSnapshot.current, nextSnapshot, lastAffected.current, new WeakMap())
         ) {
-          return lastSnapshot.current
+          return
         }
       }
       catch {
         // ignore if a promise or something is thrown
       }
-      return nextSnapshot
-    },
+      callback()
+    }, notifyInSync), [service, notifyInSync]),
+    () => snapshot(service.state),
     () => snapshot(service.state),
   )
 

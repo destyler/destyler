@@ -276,7 +276,7 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
         onClick(event) {
           if (event.defaultPrevented)
             return
-          if (itemState.disabled)
+          if (!interactive || itemState.disabled)
             return
           send({ type: 'ITEM.CLICK', src: 'pointerup', value: itemState.value })
         },
@@ -351,6 +351,8 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
         onClick(event) {
           if (event.defaultPrevented)
             return
+          if (!interactive)
+            return
           send('CLEAR.CLICK')
         },
       })
@@ -401,6 +403,8 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
         'aria-labelledby': dom.getLabelId(state.context),
         'tabIndex': 0,
         onKeyDown(event) {
+          if (event.defaultPrevented)
+            return
           if (!interactive)
             return
           if (!isSelfTarget(event))

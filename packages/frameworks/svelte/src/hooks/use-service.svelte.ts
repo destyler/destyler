@@ -13,6 +13,13 @@ export function useService<
   // @ts-expect-error - svelte typing issue
   service.setContext(contextSnapshot)
 
+  if (options?.actions) {
+    // svelte-ignore state_snapshot_uncloneable
+    const actionSnapshot = $state.snapshot(options.actions)
+    // @ts-expect-error - svelte typing issue
+    service.setOptions({ actions: actionSnapshot })
+  }
+
   service._created()
 
   $effect(() => {

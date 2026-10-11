@@ -97,7 +97,7 @@ type ComputedContext = Readonly<{
 interface PrivateContext {
   /**
    * @internal
-   * The elements that are rendered on mount
+   * The elements that are rendered on startup and opening
    */
   renderedElements: {
     title: boolean

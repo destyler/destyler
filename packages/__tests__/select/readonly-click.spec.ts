@@ -1,0 +1,1 @@
+import './readonly-click.cases'

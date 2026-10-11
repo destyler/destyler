@@ -15,7 +15,8 @@ export function Portal(props: PropsWithChildren<PortalProps>): JSX.Element {
   if (isServer || disabled)
     return <>{children}</>
 
-  const doc = getRootNode?.().ownerDocument ?? document
+  const root = getRootNode?.()
+  const doc = root?.nodeType === 9 ? root as Document : root?.ownerDocument ?? document
   const mountNode = container?.current ?? doc.body
 
   return <>{Children.map(children, child => createPortal(child, mountNode))}</>

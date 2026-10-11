@@ -121,7 +121,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
             return
           }
 
-          const checked = event.currentTarget.checked
+          const checked = event.currentTarget.indeterminate ? 'indeterminate' : event.currentTarget.checked
           send({ type: 'CHECKED.SET', checked, isTrusted: true })
         },
       })

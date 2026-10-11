@@ -1,5 +1,5 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
-import { dispatchInputCheckedEvent, trackFormControl, trackPress } from '@destyler/dom'
+import { dispatchInputCheckedEvent, trackCanceledInputClick, trackFormControl, trackPress } from '@destyler/dom'
 import { trackFocusVisible } from '@destyler/focus-visible'
 import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
 import { createMachine, guards } from '@destyler/xstate'
@@ -60,7 +60,7 @@ export function machine(userContext: UserDefinedContext) {
         checked: 'syncInputElement',
       },
 
-      activities: ['trackFormControlState', 'trackPressEvent', 'trackFocusVisible'],
+      activities: ['trackCanceledInputClick', 'trackFormControlState', 'trackPressEvent', 'trackFocusVisible'],
 
       on: {
         'CHECKED.TOGGLE': [
@@ -78,7 +78,7 @@ export function machine(userContext: UserDefinedContext) {
             actions: ['setChecked', 'dispatchChangeEvent'],
           },
           {
-            actions: ['setChecked'],
+            actions: ['setChecked', 'syncInputElement'],
           },
         ],
         'CONTEXT.SET': {
@@ -95,6 +95,13 @@ export function machine(userContext: UserDefinedContext) {
         isTrusted: (_ctx, evt) => !!evt.isTrusted,
       },
       activities: {
+        trackCanceledInputClick(ctx) {
+          const input = dom.getHiddenInputEl(ctx)
+          return trackCanceledInputClick(input, (target) => {
+            if (target === input)
+              target.checked = !!ctx.checked
+          })
+        },
         trackPressEvent(ctx) {
           if (ctx.isDisabled)
             return

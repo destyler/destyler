@@ -28,5 +28,8 @@ export function queueBeforeEvent(el: EventTarget, type: string, cb: () => void) 
     cb()
   })
   el.addEventListener(type, exec, { once: true, capture: true })
-  return cancelTimer
+  return () => {
+    cancelTimer()
+    el.removeEventListener(type, exec, true)
+  }
 }

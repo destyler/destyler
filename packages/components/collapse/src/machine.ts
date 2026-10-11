@@ -136,13 +136,13 @@ export function machine(userContext: UserDefinedContext) {
           dom.getLastTriggerEl(ctx)?.focus()
         },
         focusNextTrigger(ctx) {
-          if (!ctx.focusedValue)
+          if (ctx.focusedValue == null)
             return
           const triggerEl = dom.getNextTriggerEl(ctx, ctx.focusedValue)
           triggerEl?.focus()
         },
         focusPrevTrigger(ctx) {
-          if (!ctx.focusedValue)
+          if (ctx.focusedValue == null)
             return
           const triggerEl = dom.getPrevTriggerEl(ctx, ctx.focusedValue)
           triggerEl?.focus()

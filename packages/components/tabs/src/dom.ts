@@ -25,12 +25,12 @@ export const dom = createScope({
   getNextTriggerEl: (ctx: Ctx, id: string) => nextById(dom.getElements(ctx), dom.getTriggerId(ctx, id), ctx.loopFocus),
   getPrevTriggerEl: (ctx: Ctx, id: string) => prevById(dom.getElements(ctx), dom.getTriggerId(ctx, id), ctx.loopFocus),
   getSelectedContentEl: (ctx: Ctx) => {
-    if (!ctx.value)
+    if (ctx.value == null)
       return
     return dom.getContentEl(ctx, ctx.value)
   },
   getSelectedTriggerEl: (ctx: Ctx) => {
-    if (!ctx.value)
+    if (ctx.value == null)
       return
     return dom.getTriggerEl(ctx, ctx.value)
   },

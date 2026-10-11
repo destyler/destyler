@@ -1,5 +1,5 @@
 function isMIMEType(v: string) {
-  return v === 'audio/*' || v === 'video/*' || v === 'image/*' || v === 'text/*' || /\w+\/[-+.\w]+/.test(v)
+  return v === 'audio/*' || v === 'video/*' || v === 'image/*' || v === 'text/*' || v === 'application/*' || v === 'font/*' || /\w+\/[-+.\w]+/.test(v)
 }
 
 function isExt(v: string) {

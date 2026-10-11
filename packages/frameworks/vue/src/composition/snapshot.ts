@@ -2,7 +2,7 @@ import type { AnyEventObject, EventObject, Machine, StateSchema, XState } from '
 import type { Ref } from 'vue'
 import type { MachineOptions } from '../types'
 import { snapshot, subscribe } from '@destyler/store'
-import { onUnmounted, shallowRef, unref, watch, watchEffect } from 'vue'
+import { onMounted, onUnmounted, shallowRef, unref, watch, watchEffect } from 'vue'
 
 export function useSnapshot<
   TContext extends Record<string, any>,
@@ -14,10 +14,16 @@ export function useSnapshot<
 ): Ref<XState<TContext, TState, TEvent>> {
   const { actions, context } = options ?? {}
 
-  const state = shallowRef(service.state)
+  const state = shallowRef(snapshot(service.state) as XState<TContext, TState, TEvent>)
+  let unsubscribe: (() => void) | undefined
 
-  const unsubscribe = subscribe(service.state, () => {
-    state.value = snapshot(service.state) as any
+  onMounted(() => {
+    const update = () => {
+      state.value = snapshot(service.state) as XState<TContext, TState, TEvent>
+    }
+    unsubscribe = subscribe(service.state, update)
+    // Starting the service or an earlier mount hook may have changed its state.
+    update()
   })
 
   onUnmounted(() => {

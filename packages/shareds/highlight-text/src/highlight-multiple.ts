@@ -12,8 +12,8 @@ function getRegexFlags(ignoreCase: boolean | undefined, matchAll = true): string
   return `${ignoreCase ? 'i' : ''}${matchAll ? 'g' : ''}`
 }
 
-export function highlightMultiple(props: HighlightWordProps): HighlightChunk[] {
-  const { text, query, ignoreCase, matchAll } = props
+export function highlightMultiple(props: HighlightWordProps, matchAll = props.matchAll): HighlightChunk[] {
+  const { text, query, ignoreCase } = props
 
   if (query.length === 0) {
     return [{ text, match: false }]

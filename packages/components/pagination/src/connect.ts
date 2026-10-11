@@ -3,7 +3,7 @@ import type { MachineApi, Send, State } from './types'
 import { dataAttr } from '@destyler/dom'
 import { parts } from './anatomy'
 import { dom } from './dom'
-import { getTransformedRange } from './utils'
+import { defaultTranslations, getTransformedRange, getTranslation } from './utils'
 
 export function connect<T extends PropTypes>(state: State, send: Send, normalize: NormalizeProps<T>): MachineApi<T> {
   const totalPages = state.context.totalPages
@@ -18,8 +18,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   const type = state.context.type
   const isButton = type === 'button'
 
-  const isFirstPage = page === 1
-  const isLastPage = page === totalPages
+  const isPrevDisabled = previousPage === null
+  const isNextDisabled = nextPage === null
   const pages = getTransformedRange(state.context)
 
   return {
@@ -61,7 +61,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getRootId(state.context),
         ...parts.root.attrs,
         'dir': state.context.dir,
-        'aria-label': translations.rootLabel,
+        'aria-label': getTranslation(translations, 'rootLabel'),
       })
     },
 
@@ -84,7 +84,9 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'data-index': index,
         'data-selected': dataAttr(isCurrentPage),
         'aria-current': isCurrentPage ? 'page' : undefined,
-        'aria-label': translations.itemLabel?.({ page: index, totalPages }),
+        'aria-label': 'itemLabel' in translations
+          ? translations.itemLabel?.({ page: index, totalPages })
+          : defaultTranslations.itemLabel?.({ page: index, totalPages }),
         onClick() {
           send({ type: 'SET_PAGE', page: index })
         },
@@ -97,12 +99,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getPrevTriggerId(state.context),
         ...parts.prevTrigger.attrs,
         'dir': state.context.dir,
-        'data-disabled': dataAttr(isFirstPage),
-        'aria-label': translations.prevTriggerLabel,
+        'data-disabled': dataAttr(isPrevDisabled),
+        'aria-label': getTranslation(translations, 'prevTriggerLabel'),
         onClick() {
           send({ type: 'PREVIOUS_PAGE' })
         },
-        ...(isButton && { disabled: isFirstPage, type: 'button' }),
+        ...(isButton && { disabled: isPrevDisabled, type: 'button' }),
       })
     },
 
@@ -111,12 +113,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'id': dom.getNextTriggerId(state.context),
         ...parts.nextTrigger.attrs,
         'dir': state.context.dir,
-        'data-disabled': dataAttr(isLastPage),
-        'aria-label': translations.nextTriggerLabel,
+        'data-disabled': dataAttr(isNextDisabled),
+        'aria-label': getTranslation(translations, 'nextTriggerLabel'),
         onClick() {
           send({ type: 'NEXT_PAGE' })
         },
-        ...(isButton && { disabled: isLastPage, type: 'button' }),
+        ...(isButton && { disabled: isNextDisabled, type: 'button' }),
       })
     },
   }

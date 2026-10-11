@@ -1,10 +1,15 @@
 import type { MachineContext, MachineState, UserDefinedContext } from './types'
 import { raf } from '@destyler/dom'
 import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableProp, withControllableProvided } from '@destyler/utils'
-import { createMachine, guards } from '@destyler/xstate'
+import { createMachine, guards, ref } from '@destyler/xstate'
 import { dom } from './dom'
 
 const { not, and } = guards
+
+function timerRef<T>(handle: T): T {
+  // Node returns opaque objects; browser timer IDs are primitive numbers.
+  return typeof handle === 'object' && handle !== null ? ref(handle) : handle
+}
 
 const set = {
   value(ctx: MachineContext, value: string | null) {
@@ -71,6 +76,8 @@ export function machine(userContext: UserDefinedContext) {
         value: 'syncValue',
       },
 
+      exit: ['clearTimers'],
+
       on: {
         'VALUE.SET': [
           {
@@ -78,7 +85,7 @@ export function machine(userContext: UserDefinedContext) {
             actions: ['invokeOnValueChange'],
           },
           {
-            actions: ['setValue', 'invokeOnValueChange'],
+            actions: ['setValue'],
           },
         ],
         'CLOSE': [
@@ -88,7 +95,7 @@ export function machine(userContext: UserDefinedContext) {
           },
           {
             target: 'idle',
-            actions: ['clearValue', 'invokeOnClose'],
+            actions: ['clearValue'],
           },
         ],
         'ARROW_NEXT': {
@@ -239,25 +246,25 @@ export function machine(userContext: UserDefinedContext) {
           if (ctx.value === evt.value)
             return
 
-          ctx.openTimer = globalThis.setTimeout(() => {
+          ctx.openTimer = timerRef(globalThis.setTimeout(() => {
             send({ type: 'OPEN_TIMER_COMPLETE', value: evt.value })
-          }, ctx.openDelay)
+          }, ctx.openDelay))
         },
         setOpenTimer(ctx, evt, { send }) {
           clearOpenTimer(ctx)
           ctx.isTriggerHovered = true
 
-          ctx.openTimer = globalThis.setTimeout(() => {
+          ctx.openTimer = timerRef(globalThis.setTimeout(() => {
             send({ type: 'OPEN_TIMER_COMPLETE', value: evt.value })
-          }, ctx.openDelay)
+          }, ctx.openDelay))
         },
         setCloseTimer(ctx, _evt, { send }) {
           clearCloseTimer(ctx)
           ctx.isTriggerHovered = false
 
-          ctx.closeTimer = globalThis.setTimeout(() => {
+          ctx.closeTimer = timerRef(globalThis.setTimeout(() => {
             send({ type: 'CLOSE_TIMER_COMPLETE' })
-          }, ctx.closeDelay)
+          }, ctx.closeDelay))
         },
         clearCloseTimer(ctx) {
           clearCloseTimer(ctx)

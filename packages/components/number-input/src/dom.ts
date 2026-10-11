@@ -68,7 +68,7 @@ export const dom = createScope({
 
     if (ctx.isRtl && hint === 'increment')
       hint = 'decrement'
-    if (ctx.isRtl && hint === 'decrement')
+    else if (ctx.isRtl && hint === 'decrement')
       hint = 'increment'
 
     const point = {

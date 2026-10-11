@@ -203,12 +203,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           const isRtl = state.context.dir === 'rtl'
           switch (event.key) {
             case 'ArrowRight':
-              if (!hasNextStep)
+              if (isRtl ? !hasPrevStep : !hasNextStep)
                 return
               send({ type: isRtl ? 'STEP.PREV' : 'STEP.NEXT', src: 'keydown' })
               break
             case 'ArrowLeft':
-              if (!hasPrevStep)
+              if (isRtl ? !hasNextStep : !hasPrevStep)
                 return
               send({ type: isRtl ? 'STEP.NEXT' : 'STEP.PREV', src: 'keydown' })
               break
@@ -236,7 +236,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     },
 
     getCloseTriggerProps() {
-      return normalize.element({
+      return normalize.button({
+        'type': 'button',
         ...parts.closeTrigger.attrs,
         'data-type': step?.type,
         'aria-label': state.context.translations.close,

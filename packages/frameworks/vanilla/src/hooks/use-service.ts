@@ -11,12 +11,14 @@ export function useService<
   machine: MachineSrc<TContext, TState, TEvent>,
   options?: HookOptions<TContext, TState, TEvent>,
 ) {
-  const { state: hydratedState, context } = options ?? {}
+  const { state: hydratedState, context, actions } = options ?? {}
 
   const service = useConstant(target, 'service', () => {
     const instance = typeof machine === 'function' ? machine() : machine
     if (context)
       instance.setContext(context)
+    if (actions)
+      instance.setOptions({ actions })
     instance._created()
     return instance
   })

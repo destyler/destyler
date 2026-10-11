@@ -172,8 +172,6 @@ export function machine(userContext: UserDefinedContext) {
               actions: ['invokeAutoplayStart'],
             },
             'INVIEW.SET': {
-              target: 'idle',
-              internal: false,
               actions: ['setSlidesInView'],
             },
           },
@@ -191,8 +189,6 @@ export function machine(userContext: UserDefinedContext) {
               actions: ['endDragging', 'invokeDraggingEnd'],
             },
             'INVIEW.SET': {
-              target: 'dragging',
-              internal: false,
               actions: ['setSlidesInView'],
             },
           },
@@ -211,8 +207,6 @@ export function machine(userContext: UserDefinedContext) {
             },
             'AUTOPLAY.PAUSE': 'idle',
             'INVIEW.SET': {
-              target: 'autoplay',
-              internal: false,
               actions: ['setSlidesInView'],
             },
           },

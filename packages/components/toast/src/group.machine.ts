@@ -176,6 +176,7 @@ export function groupMachine<T = any>(userContext: UserDefinedGroupContext) {
 
           if (!hasToasts) {
             ctx._cleanup?.()
+            ctx._cleanup = undefined
             return
           }
 
@@ -190,6 +191,7 @@ export function groupMachine<T = any>(userContext: UserDefinedGroupContext) {
         },
         clearDismissableBranch(ctx) {
           ctx._cleanup?.()
+          ctx._cleanup = undefined
         },
         focusRegionEl(ctx) {
           queueMicrotask(() => {

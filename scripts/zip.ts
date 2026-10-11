@@ -30,6 +30,10 @@ export async function zipDirectory(sourceDir: string, zipName: string): Promise<
     const output = createWriteStream(outPath)
     const archive = archiver('zip', { zlib: { level: 9 } })
 
+    output.on('error', (error) => {
+      archive.abort()
+      reject(error)
+    })
     output.on('close', () => resolvePromise(outPath))
     archive.on('error', reject)
     archive.pipe(output)

@@ -26,7 +26,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     return {
       value,
       valuePath: collection.getValuePath(indexPath),
-      disabled: Boolean(node.disabled),
+      disabled: collection.getNodeDisabled(node),
       focused: focusedValue == null ? isEqual(indexPath, [0]) : focusedValue === value,
       selected: selectedValue.includes(value),
       expanded: expandedValue.includes(value),
@@ -192,7 +192,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
               if (node.matches('[data-disabled]'))
                 return
 
-              if (isTypingAhead) {
+              if (state.context.typeahead && isTypingAhead) {
+                event.preventDefault()
                 send({ type: 'TREE.TYPEAHEAD', key: event.key })
               }
               else {

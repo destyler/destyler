@@ -97,16 +97,29 @@ function trackFormReset(el: HTMLElement | null | undefined, callback: VoidFuncti
 }
 
 function trackFieldsetDisabled(el: HTMLElement | null | undefined, callback: (disabled: boolean) => void) {
-  const fieldset = el?.closest('fieldset')
-  if (!fieldset)
+  if (!el)
     return
-  callback(fieldset.disabled)
-  const win = getWindow(fieldset)
-  const obs = new win.MutationObserver(() => callback(fieldset.disabled))
-  obs.observe(fieldset, {
+  const fieldsets: HTMLFieldSetElement[] = []
+  let fieldset = el.closest('fieldset')
+  while (fieldset) {
+    fieldsets.push(fieldset)
+    fieldset = fieldset.parentElement?.closest('fieldset') ?? null
+  }
+  if (!fieldsets.length)
+    return
+  const isDisabled = () => fieldsets.some((fieldset) => {
+    if (!fieldset.disabled)
+      return false
+    const firstLegend = Array.from(fieldset.children).find(child => child.tagName === 'LEGEND')
+    return !firstLegend?.contains(el)
+  })
+  callback(isDisabled())
+  const win = getWindow(el)
+  const obs = new win.MutationObserver(() => callback(isDisabled()))
+  fieldsets.forEach(fieldset => obs.observe(fieldset, {
     attributes: true,
     attributeFilter: ['disabled'],
-  })
+  }))
   return () => obs.disconnect()
 }
 
@@ -121,4 +134,33 @@ export function trackFormControl(el: HTMLElement | null, options: TrackFormContr
   const { onFieldsetDisabledChange, onFormReset } = options
   const cleanups = [trackFormReset(el, onFormReset), trackFieldsetDisabled(el, onFieldsetDisabledChange)]
   return () => cleanups.forEach(cleanup => cleanup?.())
+}
+
+/** Reconcile checked controls after a canceled activation has rolled back. */
+export function trackCanceledInputClick(el: HTMLElement | null, callback: (input: HTMLInputElement) => void) {
+  if (!el)
+    return
+  const win = getWindow(el)
+  const pending = new Set<number>()
+  let active = true
+  const onClick = (event: Event) => {
+    const target = event.composedPath()[0]
+    if (!(target instanceof win.HTMLInputElement) || !['checkbox', 'radio'].includes(target.type))
+      return
+    // Trusted activation can checkpoint microtasks between listeners. A task
+    // runs after every later listener and the canceled activation rollback.
+    const timer = win.setTimeout(() => {
+      pending.delete(timer)
+      if (active && event.defaultPrevented && el.isConnected && target.isConnected)
+        callback(target)
+    }, 0)
+    pending.add(timer)
+  }
+  el.addEventListener('click', onClick, true)
+  return () => {
+    active = false
+    el.removeEventListener('click', onClick, true)
+    pending.forEach(timer => win.clearTimeout(timer))
+    pending.clear()
+  }
 }

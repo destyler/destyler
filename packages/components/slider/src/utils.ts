@@ -15,7 +15,7 @@ export function normalizeValues(ctx: Ctx, nextValues: number[]) {
 }
 
 export function getRangeAtIndex(ctx: Ctx, index: number) {
-  return getValueRanges(ctx.value, ctx.min, ctx.max, ctx.minStepsBetweenThumbs)[index]
+  return getValueRanges(ctx.value, ctx.min, ctx.max, ctx.minStepsBetweenThumbs * ctx.step)[index]
 }
 
 export function constrainValue(ctx: Ctx, value: number, index: number) {

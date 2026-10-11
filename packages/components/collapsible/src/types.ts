@@ -68,6 +68,11 @@ interface PrivateContext {
   _rafCleanup?: VoidFunction | undefined
   /**
    * @internal
+   * The pending initial-animation reset cleanup
+   */
+  _initialRafCleanup?: VoidFunction | undefined
+  /**
+   * @internal
    * The unmount animation name
    */
   unmountAnimationName: string | null

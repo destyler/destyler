@@ -2,7 +2,7 @@ import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from 
 import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
 
 export interface ValueChangeDetails {
-  value: string
+  value: string | null
 }
 
 export interface FocusChangeDetails {

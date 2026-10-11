@@ -347,6 +347,40 @@ describe('clone', () => {
     })
   })
 
+  describe('dataView byte ranges', () => {
+    it.each([
+      { byteOffset: 2, byteLength: 3 },
+      { byteOffset: 2, byteLength: 0 },
+      { byteOffset: 0, byteLength: 3 },
+    ])('preserves offset $byteOffset and length $byteLength', ({ byteOffset, byteLength }) => {
+      const original = new DataView(new Uint8Array([10, 20, 30, 40, 50, 60]).buffer, byteOffset, byteLength)
+      const copied = clone(original)
+
+      expect(copied).not.toBe(original)
+      expect(copied.buffer).not.toBe(original.buffer)
+      expect(copied.byteOffset).toBe(byteOffset)
+      expect(copied.byteLength).toBe(byteLength)
+      expect(Array.from(new Uint8Array(copied.buffer))).toEqual([10, 20, 30, 40, 50, 60])
+      expect(() => copied.getUint8(byteLength)).toThrow(RangeError)
+
+      if (byteLength > 0) {
+        expect(copied.getUint8(0)).toBe(original.getUint8(0))
+        copied.setUint8(0, 99)
+        expect(original.getUint8(0)).toBe(10 * (byteOffset + 1))
+      }
+    })
+
+    it('preserves a nested DataView range', () => {
+      const original = { view: new DataView(new Uint8Array([10, 20, 30, 40]).buffer, 1, 2) }
+      const copied = clone(original)
+
+      expect(copied.view).not.toBe(original.view)
+      expect(copied.view.byteOffset).toBe(1)
+      expect(copied.view.byteLength).toBe(2)
+      expect(copied.view.getUint8(0)).toBe(20)
+    })
+  })
+
   describe('blob', () => {
     it('should clone a Blob', () => {
       const original = new Blob(['hello world'], { type: 'text/plain' })

@@ -189,11 +189,18 @@ export function machine(userContext: UserDefinedContext) {
           ctx.initial = true
         },
         clearInitial(ctx) {
-          raf(() => {
+          ctx._initialRafCleanup?.()
+          ctx._initialRafCleanup = raf(() => {
+            ctx._initialRafCleanup = undefined
             ctx.initial = false
           })
         },
         cleanupNode(ctx) {
+          ctx._rafCleanup?.()
+          ctx._initialRafCleanup?.()
+          ctx._rafCleanup = undefined
+          ctx._initialRafCleanup = undefined
+          ctx.initial = false
           ctx.stylesRef = null
         },
         measureSize(ctx) {

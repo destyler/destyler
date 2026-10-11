@@ -26,7 +26,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   return {
     open,
     setOpen(nextOpen) {
-      if (nextOpen === open)
+      const pending = state.matches('opening') || state.matches('closing')
+      if (nextOpen === open && !pending)
         return
       send(nextOpen ? 'OPEN' : 'CLOSE')
     },

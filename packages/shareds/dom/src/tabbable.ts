@@ -36,7 +36,7 @@ export function getFocusables(container: Pick<HTMLElement, 'querySelectorAll'> |
 }
 
 export function isFocusable(element: HTMLElement | null): element is HTMLElement {
-  if (!element || element.closest('[inert]'))
+  if (!element || element.closest('[inert]') || element.matches(':disabled'))
     return false
   return element.matches(focusableSelector) && isElementVisible(element)
 }
@@ -75,8 +75,6 @@ export function getTabbables(container: HTMLElement | null, includeContainer?: I
 }
 
 export function isTabbable(el: HTMLElement | null): el is HTMLElement {
-  if (el != null && el.tabIndex > 0)
-    return true
   return isFocusable(el) && !hasNegativeTabIndex(el)
 }
 

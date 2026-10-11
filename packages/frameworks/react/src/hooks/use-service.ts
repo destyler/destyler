@@ -8,12 +8,14 @@ export function useService<
   TState extends StateSchema,
   TEvent extends EventObject = AnyEventObject,
 >(machine: MachineSrc<TContext, TState, TEvent>, options?: HookOptions<TContext, TState, TEvent>) {
-  const { state: hydratedState, context } = options ?? {}
+  const { state: hydratedState, context, actions } = options ?? {}
 
   const service = useConstant(() => {
     const instance = typeof machine === 'function' ? machine() : machine
     if (context)
       instance.setContext(context)
+    if (actions)
+      instance.setOptions({ actions })
     instance._created()
     return instance
   })

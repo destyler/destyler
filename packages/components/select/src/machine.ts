@@ -150,7 +150,7 @@ export function machine<T extends CollectionItem>(userContext: UserDefinedContex
         selectedItems: [],
         valueAsString: '',
         collection: ctx.collection ?? collection.empty(),
-        typeahead: getByTypeahead.defaultOptions,
+        typeahead: { ...getByTypeahead.defaultOptions },
         fieldsetDisabled: false,
         positioning: {
           placement: 'bottom-start',

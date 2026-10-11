@@ -17,16 +17,24 @@ export function ariaHidden(targetsOrFn: TargetsOrFn, options: Options = {}) {
   const { defer = true } = options
   const func = defer ? raf : (v: any) => v()
   const cleanups: (VoidFunction | undefined)[] = []
+  let disposed = false
   cleanups.push(
     func(() => {
       const targets = typeof targetsOrFn === 'function' ? targetsOrFn() : targetsOrFn
+      if (disposed)
+        return
       const elements = targets.filter(Boolean) as HTMLElement[]
       if (elements.length === 0)
         return
-      cleanups.push(hideOthers(elements))
+      const cleanup = hideOthers(elements)
+      if (disposed)
+        cleanup?.()
+      else
+        cleanups.push(cleanup)
     }),
   )
   return () => {
-    cleanups.forEach(fn => fn?.())
+    disposed = true
+    cleanups.splice(0).forEach(fn => fn?.())
   }
 }

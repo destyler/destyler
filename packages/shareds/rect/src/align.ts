@@ -1,18 +1,19 @@
 import type { AlignOptions, HAlign, Rect, VAlign } from './types'
+import { createRect } from './rect'
 
 function hAlign(a: Rect, ref: Rect, h: HAlign): Rect {
   let x = ref.minX
   if (h === 'left-inside')
     x = ref.minX
   if (h === 'left-outside')
-    x = ref.minX - ref.width
+    x = ref.minX - a.width
   if (h === 'right-inside')
-    x = ref.maxX - ref.width
+    x = ref.maxX - a.width
   if (h === 'right-outside')
     x = ref.maxX
   if (h === 'center')
-    x = ref.midX - ref.width / 2
-  return { ...a, x }
+    x = ref.midX - a.width / 2
+  return createRect({ ...a, x })
 }
 
 function vAlign(a: Rect, ref: Rect, v: VAlign): Rect {
@@ -27,7 +28,7 @@ function vAlign(a: Rect, ref: Rect, v: VAlign): Rect {
     y = ref.maxY
   if (v === 'center')
     y = ref.midY - a.height / 2
-  return { ...a, y }
+  return createRect({ ...a, y })
 }
 
 export function alignRect(a: Rect, ref: Rect, options: AlignOptions): Rect {

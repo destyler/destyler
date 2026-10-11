@@ -2,6 +2,16 @@ import { mergeProps as PropMerge } from '@destyler/xstate'
 
 export type MaybeAccessor<T> = T | (() => T)
 
+function normalizeEventHandler(value: unknown) {
+  if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'function') {
+    const [handler, data] = value
+    return function (this: unknown, event: Event) {
+      return handler.call(event?.currentTarget ?? this, data, event)
+    }
+  }
+  return value
+}
+
 export function mergeProps<T>(source: MaybeAccessor<T>): T
 export function mergeProps<T, U>(source: MaybeAccessor<T>, source1: MaybeAccessor<U>): T & U
 export function mergeProps<T, U, V>(
@@ -35,7 +45,11 @@ export function mergeProps(...sources: any[]) {
                 let s = sources[i]
                 if (typeof s === 'function')
                   s = s()
-                e = PropMerge(e, { [key]: (s || {})[key] })
+                let value = (s || {})[key]
+                // Solid's bound event tuples must be functions before generic composition.
+                if (key.startsWith('on') && !key.includes(':'))
+                  value = normalizeEventHandler(value)
+                e = PropMerge(e, { [key]: value })
               }
 
               return (e as any)[key]

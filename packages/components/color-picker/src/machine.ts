@@ -1,4 +1,4 @@
-import type { Color } from '@destyler/color'
+import type { Color, ColorChannel } from '@destyler/color'
 import type {
   ColorFormat,
   ColorType,
@@ -23,6 +23,7 @@ import { createMachine, guards } from '@destyler/xstate'
 import { dom } from './dom'
 import { parse } from './parse'
 import { getChannelValue } from './utils/get-channel-input-value'
+import { getResolvedColor } from './utils/get-resolved-color'
 
 const { and } = guards
 
@@ -33,7 +34,7 @@ const sync = {
     raf(() => {
       channelInputs.forEach((inputEl: any) => {
         const channel = inputEl.dataset.channel as ExtendedColorChannel | null
-        dom.setValue(inputEl, getChannelValue(color || ctx.value, channel))
+        dom.setValue(inputEl, getChannelValue(getResolvedColor(color || ctx.value), channel))
       })
     })
   },
@@ -46,20 +47,32 @@ const sync = {
   },
 }
 
+function getChannelColor(ctx: MachineContext, channel: ColorChannel, format?: ColorFormat) {
+  // Alpha is independent of color space; preserve the other stored channels.
+  const value = ctx.value!
+  if (channel === 'alpha')
+    return value
+  return format ? value.toFormat(format) : ctx.areaValue
+}
+
 const invoke = {
   changeEnd(ctx: MachineContext) {
-    const value = ctx.value.toFormat(ctx.format)
+    const value = getResolvedColor(ctx.value).toFormat(ctx.format)
     ctx.onValueChangeEnd?.({
       value,
       valueAsString: ctx.valueAsString,
     })
   },
-  change(ctx: MachineContext) {
-    const value = ctx.value.toFormat(ctx.format)
+  change(ctx: MachineContext, isCurrent?: () => boolean) {
+    const value = getResolvedColor(ctx.value).toFormat(ctx.format)
     ctx.onValueChange?.({
       value,
       valueAsString: ctx.valueAsString,
     })
+
+    // An async request can lose ownership while the consumer handles the change.
+    if (isCurrent && !isCurrent())
+      return
 
     dispatchInputValueEvent(dom.getHiddenInputEl(ctx), { value: ctx.valueAsString })
   },
@@ -69,8 +82,8 @@ const invoke = {
 }
 
 const set = {
-  value(ctx: MachineContext, color: Color | ColorType | undefined) {
-    if (!color || ctx.value.isEqual(color))
+  value(ctx: Pick<MachineContext, keyof MachineContext>, color: Color | ColorType | undefined, isCurrent?: () => boolean) {
+    if (!color || getResolvedColor(ctx.value).isEqual(color))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
     if (isControlled(ctx, 'value')) {
@@ -82,7 +95,10 @@ const set = {
       return
     }
     ctx.value = color
-    invoke.change(ctx)
+    // Synchronous subscribers can stop or restart the owner during assignment.
+    if (isCurrent && !isCurrent())
+      return
+    invoke.change(ctx, isCurrent)
   },
   format(ctx: MachineContext, format: ColorFormat) {
     if (ctx.format === format)
@@ -93,7 +109,7 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext, ['open', 'value']))
   const { initialOpen } = resolveControllableOpen(ctx)
   const { initial: initialValue } = resolveControllableProp({
     value: ctx.value,
@@ -101,17 +117,32 @@ export function machine(userContext: UserDefinedContext) {
     valueProvided: isPropUserProvided(ctx as Record<string, unknown>, 'value'),
     fallback: parse('#000000'),
   })
+  const eyeDropperOwners = new WeakMap<MachineContext, { generation: number, controllers: Set<AbortController> }>()
+  const getEyeDropperOwner = (ctx: MachineContext) => {
+    let owner = eyeDropperOwners.get(ctx)
+    if (!owner) {
+      owner = { generation: 0, controllers: new Set() }
+      eyeDropperOwners.set(ctx, owner)
+    }
+    return owner
+  }
+
+  // Keep the original key order while resolving value after the user context.
+  const defaults = {
+    dir: 'ltr',
+    value: parse('#000000'),
+    format: 'rgba',
+    disabled: false,
+    closeOnSelect: false,
+    openAutoFocus: true,
+  } satisfies Partial<MachineContext>
+
   return createMachine<MachineContext, MachineState>(
     {
       id: 'color-picker',
       initial: initialOpen ? 'open' : 'idle',
       context: {
-        dir: 'ltr',
-        value: parse('#000000'),
-        format: 'rgba',
-        disabled: false,
-        closeOnSelect: false,
-        openAutoFocus: true,
+        ...defaults,
         ...ctx,
         // Resolve after spread so defaultValue / legacy value seed win consistently
         value: initialValue,
@@ -130,14 +161,14 @@ export function machine(userContext: UserDefinedContext) {
         isRtl: ctx => ctx.dir === 'rtl',
         isDisabled: ctx => !!ctx.disabled || ctx.fieldsetDisabled,
         isInteractive: ctx => !(ctx.isDisabled || ctx.readOnly),
-        valueAsString: ctx => ctx.value.toString(ctx.format),
+        valueAsString: ctx => getResolvedColor(ctx.value).toString(ctx.format),
         areaValue: (ctx) => {
           const format = ctx.format.startsWith('hsl') ? 'hsla' : 'hsba'
-          return ctx.value.toFormat(format)
+          return getResolvedColor(ctx.value).toFormat(format)
         },
       },
 
-      activities: ['trackFormControl'],
+      activities: ['trackFormControl', 'trackEyeDropper'],
 
       watch: {
         value: ['syncInputElements'],
@@ -425,10 +456,19 @@ export function machine(userContext: UserDefinedContext) {
       guards: {
         closeOnSelect: ctx => !!ctx.closeOnSelect,
         // Phase 3 HARD: stamped prop presence only (#103)
-        isOpenControlled: ctx => isControlled(ctx, 'open'),
+        isOpenControlled: (ctx: Pick<MachineContext, keyof MachineContext>) => isControlled(ctx, 'open'),
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
       },
       activities: {
+        trackEyeDropper(ctx) {
+          const owner = getEyeDropperOwner(ctx)
+          owner.generation++
+          return () => {
+            owner.generation++
+            owner.controllers.forEach(controller => controller.abort())
+            owner.controllers.clear()
+          }
+        },
         trackPositioning(ctx) {
           ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getTriggerEl(ctx)
@@ -493,15 +533,31 @@ export function machine(userContext: UserDefinedContext) {
             return
           const win = dom.getWin(ctx)
           const picker = new win.EyeDropper()
-          picker
-            .open()
-            .then(({ sRGBHex }: any) => {
-              const format = ctx.value.getFormat()
-              const color = parseColor(sRGBHex).toFormat(format) as Color
-              set.value(ctx, color)
-              ctx.onValueChangeEnd?.({ value: ctx.value, valueAsString: ctx.valueAsString })
-            })
-            .catch(() => void 0)
+          const controller = new win.AbortController()
+          const owner = getEyeDropperOwner(ctx)
+          const generation = owner.generation
+          const isCurrent = () => generation === owner.generation && !controller.signal.aborted
+          owner.controllers.add(controller)
+          try {
+            picker
+              .open({ signal: controller.signal })
+              .then(({ sRGBHex }: any) => {
+                if (!isCurrent())
+                  return
+                const format = getResolvedColor(ctx.value).getFormat()
+                const color = parseColor(sRGBHex).toFormat(format) as Color
+                set.value(ctx, color, isCurrent)
+                if (!isCurrent())
+                  return
+                ctx.onValueChangeEnd?.({ value: getResolvedColor(ctx.value), valueAsString: ctx.valueAsString })
+              })
+              .catch(() => void 0)
+              .finally(() => owner.controllers.delete(controller))
+          }
+          catch (error) {
+            owner.controllers.delete(controller)
+            throw error
+          }
         },
         setActiveChannel(ctx, evt) {
           ctx.activeId = evt.id
@@ -516,7 +572,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.activeOrientation = null
         },
         setAreaColorFromPoint(ctx, evt) {
-          const normalizedValue = evt.format ? ctx.value.toFormat(evt.format) : ctx.areaValue
+          const normalizedValue = evt.format ? getResolvedColor(ctx.value).toFormat(evt.format) : ctx.areaValue
           const { xChannel, yChannel } = evt.channel || ctx.activeChannel
 
           const percent = dom.getAreaValueFromPoint(ctx, evt.point)
@@ -531,7 +587,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setChannelColorFromPoint(ctx, evt) {
           const channel = evt.channel || ctx.activeId
-          const normalizedValue = evt.format ? ctx.value.toFormat(evt.format) : ctx.areaValue
+          const normalizedValue = evt.format ? getResolvedColor(ctx.value).toFormat(evt.format) : ctx.areaValue
 
           const percent = dom.getChannelSliderValueFromPoint(ctx, evt.point, channel)
           if (!percent)
@@ -558,7 +614,7 @@ export function machine(userContext: UserDefinedContext) {
         },
         setChannelColorFromInput(ctx, evt) {
           const { channel, isTextField, value } = evt
-          const currentAlpha = ctx.value.getChannelValue('alpha')
+          const currentAlpha = getResolvedColor(ctx.value).getChannelValue('alpha')
 
           // handle other text channels
           let color: Color
@@ -568,20 +624,20 @@ export function machine(userContext: UserDefinedContext) {
             //
             let valueAsNumber = Number.parseFloat(value)
             valueAsNumber = Number.isNaN(valueAsNumber) ? currentAlpha : valueAsNumber
-            color = ctx.value.withChannelValue('alpha', valueAsNumber)
+            color = getResolvedColor(ctx.value).withChannelValue('alpha', valueAsNumber)
             //
           }
           else if (isTextField) {
             //
             color = tryCatch(
               () => parse(value).withChannelValue('alpha', currentAlpha),
-              () => ctx.value,
+              () => getResolvedColor(ctx.value),
             )
             //
           }
           else {
             //
-            const current = ctx.value.toFormat(ctx.format)
+            const current = getResolvedColor(ctx.value).toFormat(ctx.format)
             const valueAsNumber = Number.isNaN(value) ? current.getChannelValue(channel) : value
             color = current.withChannelValue(channel, valueAsNumber)
             //
@@ -594,11 +650,11 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, color)
         },
         incrementChannel(ctx, evt) {
-          const color = ctx.value.incrementChannel(evt.channel, evt.step)
+          const color = getChannelColor(ctx, evt.channel, evt.format).incrementChannel(evt.channel, evt.step)
           set.value(ctx, color)
         },
         decrementChannel(ctx, evt) {
-          const color = ctx.value.decrementChannel(evt.channel, evt.step)
+          const color = getChannelColor(ctx, evt.channel, evt.format).decrementChannel(evt.channel, evt.step)
           set.value(ctx, color)
         },
         incrementAreaXChannel(ctx, evt) {
@@ -622,13 +678,15 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, color)
         },
         setChannelToMax(ctx, evt) {
-          const range = ctx.value.getChannelRange(evt.channel)
-          const color = ctx.value.withChannelValue(evt.channel, range.maxValue)
+          const value = getChannelColor(ctx, evt.channel, evt.format)
+          const range = value.getChannelRange(evt.channel)
+          const color = value.withChannelValue(evt.channel, range.maxValue)
           set.value(ctx, color)
         },
         setChannelToMin(ctx, evt) {
-          const range = ctx.value.getChannelRange(evt.channel)
-          const color = ctx.value.withChannelValue(evt.channel, range.minValue)
+          const value = getChannelColor(ctx, evt.channel, evt.format)
+          const range = value.getChannelRange(evt.channel)
+          const color = value.withChannelValue(evt.channel, range.minValue)
           set.value(ctx, color)
         },
         focusAreaThumb(ctx) {
@@ -671,7 +729,7 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
       compareFns: {
-        value: (a, b) => a.isEqual(b),
+        value: (a, b) => getResolvedColor(a).isEqual(getResolvedColor(b)),
       },
     },
   )

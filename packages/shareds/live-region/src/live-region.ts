@@ -14,8 +14,11 @@ export function createLiveRegion(opts: Partial<LiveRegionOptions> = {}) {
 
   const win = doc.defaultView ?? window
   const parent = root ?? doc.body
+  let ownedRegion: HTMLSpanElement | undefined
+  let timeoutId: number | undefined
 
   function announce(message: string, delay?: number) {
+    destroy()
     const oldRegion = doc.getElementById(ID)
 
     // remove old region
@@ -26,6 +29,7 @@ export function createLiveRegion(opts: Partial<LiveRegionOptions> = {}) {
 
     // create fresh region
     const region = doc.createElement('span')
+    ownedRegion = region
     region.id = ID
     region.dataset.liveAnnouncer = 'true'
 
@@ -53,14 +57,19 @@ export function createLiveRegion(opts: Partial<LiveRegionOptions> = {}) {
     parent.appendChild(region)
 
     // populate region to trigger it
-    win.setTimeout(() => {
+    timeoutId = win.setTimeout(() => {
       region.textContent = message
+      timeoutId = undefined
     }, delay)
   }
 
   function destroy() {
-    const oldRegion = doc.getElementById(ID)
-    oldRegion?.remove()
+    if (timeoutId !== undefined) {
+      win.clearTimeout(timeoutId)
+      timeoutId = undefined
+    }
+    ownedRegion?.remove()
+    ownedRegion = undefined
   }
 
   return {

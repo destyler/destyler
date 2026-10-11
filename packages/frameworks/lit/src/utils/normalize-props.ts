@@ -1,7 +1,8 @@
+import type { PropTypes } from '@destyler/types'
 import { createNormalizer } from '@destyler/types'
 import { isObject, isString } from '@destyler/utils'
 
-const booleanAttr = /* @__PURE__ */ `allowFullscreen,allowTransparency,allowpopups,autosize,async,autoFocus,autoPlay,contentEditable,controls,checked,controls,defer,default,disabled,formNovalidate,frame,hidden,indeterminate,inert,isMap,loop,multiple,muted,noModule,noValidate,open,popover,playsInline,readOnly,required,reversed,scoped,seamless,selected`
+const booleanAttr = /* @__PURE__ */ `allowFullscreen,allowTransparency,allowpopups,autosize,async,autoFocus,autoPlay,controls,checked,controls,defer,default,disabled,formNovalidate,frame,hidden,indeterminate,inert,isMap,loop,multiple,muted,noModule,noValidate,open,popover,playsInline,readOnly,required,reversed,scoped,seamless,selected`
 const booleanAttrs = new Set(booleanAttr.split(','))
 
 const eventMap: any = {
@@ -21,7 +22,7 @@ function toProp(prop: string) {
 
 type Dict = Record<string, any>
 
-export const normalizeProps = createNormalizer<any>((props: Dict) => {
+export const normalizeProps = createNormalizer<PropTypes>((props: Dict) => {
   const normalized: Dict = {}
 
   for (const key in props) {

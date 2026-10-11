@@ -19,6 +19,9 @@ export function machine(userContext: UserDefinedContext) {
       context: ctx,
 
       on: {
+        'SRC.SET': {
+          actions: ['setSrc'],
+        },
         'SRC.CHANGE': {
           target: 'loading',
         },
@@ -77,10 +80,17 @@ export function machine(userContext: UserDefinedContext) {
           const rootEl = dom.getRootEl(ctx)
           return observeChildren(rootEl, {
             callback(records) {
-              const removedNodes = Array.from(records[0].removedNodes) as HTMLElement[]
-              const removed = removedNodes.find(
-                node => node.nodeType === Node.ELEMENT_NODE && node.matches('[data-scope=avatar][data-part=image]'),
-              )
+              if (rootEl?.contains(dom.getImageEl(ctx)))
+                return
+
+              const imageId = dom.getImageId(ctx)
+              const removed = records.some(record => Array.from(record.removedNodes).some((node) => {
+                if (node.nodeType !== Node.ELEMENT_NODE)
+                  return false
+                const element = node as Element
+                return element.id === imageId
+                  || Array.from(element.querySelectorAll('[id]')).some(child => child.id === imageId)
+              }))
               if (removed) {
                 send({ type: 'IMG.UNMOUNT' })
               }
@@ -89,6 +99,9 @@ export function machine(userContext: UserDefinedContext) {
         },
       },
       actions: {
+        setSrc(ctx, evt) {
+          dom.getImageEl(ctx)?.setAttribute('src', evt.src)
+        },
         invokeOnLoad(ctx) {
           ctx.onStatusChange?.({ status: 'loaded' })
         },

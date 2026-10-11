@@ -90,13 +90,14 @@ export function machine(userContext: UserDefinedContext) {
         typeahead: true,
         ...ctx,
         collection: ctx.collection ?? collection.empty(),
-        typeaheadState: getByTypeahead.defaultOptions,
+        typeaheadState: { ...getByTypeahead.defaultOptions },
         // Resolve after spread so default* / legacy seeds win consistently
         expandedValue: Array.from(initialExpandedValue),
         selectedValue: Array.from(initialSelectedValue),
       },
 
       computed: {
+        isTypingAhead: ctx => ctx.typeaheadState.keysSoFar.length > 0,
         isMultipleSelection: ctx => ctx.selectionMode === 'multiple',
       },
 
@@ -324,8 +325,13 @@ export function machine(userContext: UserDefinedContext) {
           set.expanded(ctx, uniq([...(ctx.expandedValue ?? []), ...values]))
         },
         extendSelectionToNode(ctx, evt) {
-          const anchorValue = first(ctx.selectedValue) || ctx.collection.getNodeValue(ctx.collection.getFirstNode())
+          const anchorValue = first(ctx.selectedValue) ?? ctx.collection.getNodeValue(ctx.collection.getFirstNode())
           const targetValue = evt.id
+
+          if (anchorValue === targetValue) {
+            set.selected(ctx, [anchorValue])
+            return
+          }
 
           const values: string[] = [anchorValue, targetValue]
 

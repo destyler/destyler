@@ -7,7 +7,8 @@ function assignStyle(el: HTMLElement | null | undefined, style: Partial<CSSStyle
     return
   const previousStyle = Object.keys(style).reduce(
     (acc, key) => {
-      acc[key] = el.style.getPropertyValue(key)
+      const property = key.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+      acc[key] = el.style.getPropertyValue(property)
       return acc
     },
     {} as Record<string, string>,

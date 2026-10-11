@@ -1,5 +1,5 @@
 import { playwright } from '@vitest/browser-playwright'
-import { defineProject } from 'vitest/config'
+import { configDefaults, defineProject } from 'vitest/config'
 
 // Pre-bundle framework deps so Vite does not rediscover them mid-suite
 // (that triggers "optimized dependencies changed. reloading" and flakes
@@ -57,6 +57,7 @@ export default defineProject({
       './vitest.browser.setup.ts',
     ],
     exclude: [
+      ...configDefaults.exclude,
       'packages/**/solid.browser.spec.{js,ts,jsx,tsx}',
       'packages/**/vue.browser.spec.{js,ts,jsx,tsx}',
       'packages/**/react.browser.spec.{js,ts,jsx,tsx}',

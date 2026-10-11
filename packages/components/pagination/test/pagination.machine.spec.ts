@@ -37,7 +37,7 @@ describe('pagination controllable page (Phase 3)', () => {
     expect(service.state.context.page).toBe(3)
   })
 
-  it('uncontrolled: legacy page seed (compat)', () => {
+  it('controlled: provided page seeds the initial value', () => {
     const service = start({ page: 4 })
     expect(service.state.context.page).toBe(4)
   })
@@ -48,7 +48,7 @@ describe('pagination controllable page (Phase 3)', () => {
     expect(service.state.context.pageSize).toBe(10)
   })
 
-  it('uncontrolled: defaultPage preferred over page seed', () => {
+  it('controlled: defaultPage takes precedence for the initial page', () => {
     const service = start({ defaultPage: 2, page: 5 })
     expect(service.state.context.page).toBe(2)
   })

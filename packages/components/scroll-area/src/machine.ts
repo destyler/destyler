@@ -294,6 +294,10 @@ export function machine(userContext: UserDefinedContext) {
         idle: {
           tags: ['idle'],
           on: {
+            THUMB_POINTER_DOWN: {
+              target: 'dragging',
+              actions: ['startDrag'],
+            },
             POINTER_ENTER: {
               target: 'hovering',
               actions: ['setHovering'],
@@ -351,13 +355,14 @@ export function machine(userContext: UserDefinedContext) {
 
         dragging: {
           tags: ['interacting'],
+          activities: ['trackDrag'],
+          exit: ['endDrag'],
           on: {
             POINTER_MOVE: {
               actions: ['updateDrag'],
             },
             POINTER_UP: {
               target: 'hovering',
-              actions: ['endDrag'],
             },
           },
         },
@@ -371,6 +376,39 @@ export function machine(userContext: UserDefinedContext) {
       guards: {},
 
       activities: {
+        trackDrag(ctx, evt, { send }) {
+          const target = evt.target as HTMLElement | undefined
+          const doc = target?.ownerDocument ?? dom.getDoc(ctx)
+          const isActivePointer = (event: PointerEvent) => evt.pointerId == null || event.pointerId === evt.pointerId
+          const onPointerMove = (event: PointerEvent) => {
+            if (!isActivePointer(event))
+              return
+            send({ type: 'POINTER_MOVE', clientX: event.clientX, clientY: event.clientY })
+          }
+          const onPointerEnd = (event: PointerEvent) => {
+            if (isActivePointer(event))
+              send('POINTER_UP')
+          }
+          const onLostPointerCapture = (event: PointerEvent) => {
+            if (event.target === target || (!target?.isConnected && event.target === doc))
+              onPointerEnd(event)
+          }
+          doc.addEventListener('pointermove', onPointerMove)
+          doc.addEventListener('pointerup', onPointerEnd)
+          doc.addEventListener('pointercancel', onPointerEnd)
+          doc.addEventListener('lostpointercapture', onLostPointerCapture, true)
+          target?.addEventListener('lostpointercapture', onLostPointerCapture)
+
+          return () => {
+            doc.removeEventListener('pointermove', onPointerMove)
+            doc.removeEventListener('pointerup', onPointerEnd)
+            doc.removeEventListener('pointercancel', onPointerEnd)
+            doc.removeEventListener('lostpointercapture', onLostPointerCapture, true)
+            target?.removeEventListener('lostpointercapture', onLostPointerCapture)
+            if (target?.hasPointerCapture?.(evt.pointerId))
+              target.releasePointerCapture(evt.pointerId)
+          }
+        },
         trackResize(ctx, _evt, { send }) {
           return ensureViewportAndContent(ctx, (viewport, content) => {
             const emitResize = () => {

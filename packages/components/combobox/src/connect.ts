@@ -39,11 +39,11 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
   })
 
   function getItemState(props: ItemProps): ItemState {
-    const disabled = collection.getItemDisabled(props.item)
+    const itemDisabled = collection.getItemDisabled(props.item)
     const value = collection.getItemValue(props.item)!
     return {
       value,
-      disabled: Boolean(disabled || disabled),
+      disabled: Boolean(disabled || itemDisabled),
       highlighted: highlightedValue === value,
       selected: state.context.value.includes(value),
     }
@@ -406,6 +406,8 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
         'data-disabled': dataAttr(itemState.disabled),
         'data-value': itemState.value,
         onPointerMove() {
+          if (!interactive)
+            return
           if (itemState.disabled)
             return
           if (itemState.highlighted)
@@ -413,6 +415,8 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
           send({ type: 'ITEM.POINTER_MOVE', value })
         },
         onPointerLeave() {
+          if (!interactive)
+            return
           if (props.persistFocus)
             return
           if (itemState.disabled)
@@ -423,6 +427,8 @@ export function connect<T extends PropTypes, V extends CollectionItem>(
           send({ type: 'ITEM.POINTER_LEAVE', value })
         },
         onClick(event) {
+          if (event.defaultPrevented || !interactive)
+            return
           if (isDownloadingEvent(event))
             return
           if (isOpeningInNewTab(event))

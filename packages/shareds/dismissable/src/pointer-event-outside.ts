@@ -26,14 +26,15 @@ export function disablePointerEventsOutside(node: HTMLElement, persistentElement
     })
   }
 
+  let cancelPersistentWait: VoidFunction | undefined
   if (persistentElements) {
-    const persistedCleanup = waitForElements(persistentElements, (el) => {
+    cancelPersistentWait = waitForElements(persistentElements, (el) => {
       cleanups.push(setStyle(el, { pointerEvents: 'auto' }))
     })
-    cleanups.push(persistedCleanup)
   }
 
   return () => {
+    cancelPersistentWait?.()
     if (layerStack.hasPointerBlockingLayer())
       return
     queueMicrotask(() => {

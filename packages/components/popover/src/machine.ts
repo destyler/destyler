@@ -6,12 +6,13 @@ import { trapFocus } from '@destyler/focus-trap'
 import { getPlacement } from '@destyler/popper'
 import { preventBodyScroll } from '@destyler/remove-scroll'
 import { compact, isControlled, resolveControllableOpen, withControllableProvided } from '@destyler/utils'
-import { createMachine } from '@destyler/xstate'
+import { ActionTypes, createMachine } from '@destyler/xstate'
 import { dom } from './dom'
 
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open'])) as typeof userContext
   const { initialOpen } = resolveControllableOpen(ctx)
+  const renderedElementChecks = new WeakMap<MachineContext, { cancel?: VoidFunction }>()
   return createMachine<MachineContext, MachineState>(
     {
       id: 'popover',
@@ -42,10 +43,12 @@ export function machine(userContext: UserDefinedContext) {
         open: ['toggleVisibility'],
       },
 
+      activities: ['trackRenderedElements'],
       entry: ['checkRenderedElements'],
 
       states: {
         closed: {
+          activities: ['trackRenderedElements'],
           on: {
             'CONTROLLED.OPEN': {
               target: 'open',
@@ -76,6 +79,7 @@ export function machine(userContext: UserDefinedContext) {
 
         open: {
           activities: [
+            'trackRenderedElements',
             'trapFocus',
             'preventScroll',
             'hideContentBelow',
@@ -121,6 +125,21 @@ export function machine(userContext: UserDefinedContext) {
         isOpenControlled: ctx => isControlled(ctx, 'open'),
       },
       activities: {
+        trackRenderedElements(ctx, evt, meta) {
+          // Root ownership starts before startup actions and stays separate for
+          // each run, including a restart inside an action override.
+          if (evt.type === ActionTypes.Start)
+            renderedElementChecks.set(ctx, {})
+          const checks = renderedElementChecks.get(ctx)!
+          // The root entry already checks once on startup. Only accepted opens
+          // refresh the snapshot; closing can leave content mounted for an exit.
+          if (meta.state.matches('open') && evt.type !== ActionTypes.Init)
+            meta.getAction('checkRenderedElements')?.(ctx, evt, meta)
+          return () => {
+            checks.cancel?.()
+            delete checks.cancel
+          }
+        },
         trackPositioning(ctx) {
           ctx.currentPlacement = ctx.positioning.placement
           const anchorEl = dom.getAnchorEl(ctx) ?? dom.getTriggerEl(ctx)
@@ -215,7 +234,11 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         checkRenderedElements(ctx) {
-          raf(() => {
+          const checks = renderedElementChecks.get(ctx) ?? {}
+          renderedElementChecks.set(ctx, checks)
+          checks.cancel?.()
+          checks.cancel = raf(() => {
+            delete checks.cancel
             Object.assign(ctx.renderedElements, {
               title: !!dom.getTitleEl(ctx),
               description: !!dom.getDescriptionEl(ctx),
