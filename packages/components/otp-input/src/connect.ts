@@ -110,17 +110,20 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'placeholder': focusedIndex === index ? '' : state.context.placeholder,
         onBeforeInput(event) {
           try {
-            const value = getBeforeInputValue(event)
-            const isValid = isValidValue(state.context, value)
-            if (!isValid) {
+            const evt = getNativeEvent(event)
+            const isPaste = evt.inputType === 'insertFromPaste'
+            const value = isPaste ? evt.data : getBeforeInputValue(event)
+            if (value != null && !isValidValue(state.context, value)) {
               send({ type: 'VALUE.INVALID', value })
               event.preventDefault()
+              if (isPaste)
+                return
             }
 
             // select the text so paste always replaces the
             // current input's value regardless of cursor position
-            if (value.length > 2) {
-              event.currentTarget.setSelectionRange(0, 1, 'forward')
+            if (isPaste || value.length > 2) {
+              event.currentTarget.setSelectionRange(0, isPaste ? event.currentTarget.value.length : 1, 'forward')
             }
           }
           catch {
@@ -129,10 +132,36 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         },
         onChange(event) {
           const evt = getNativeEvent(event)
-          const { value } = event.currentTarget
+          const isPaste = evt.inputType === 'insertFromPaste'
+          // Paste data excludes old text around a collapsed caret. The beforeinput
+          // binding prepares a full-slot replacement for the DOM-value fallback.
+          const value = isPaste ? evt.data ?? event.currentTarget.value : event.currentTarget.value
 
-          if (evt.inputType === 'insertFromPaste' || value.length > 2) {
-            send({ type: 'INPUT.PASTE', value })
+          if (isPaste && value === '') {
+            event.currentTarget.value = state.context.value[index] || ''
+            event.preventDefault()
+            return
+          }
+
+          // Validate the final payload even when beforeinput had no paste data.
+          if (isPaste) {
+            let isValid = true
+            try {
+              isValid = isValidValue(state.context, value)
+            }
+            catch {
+              // Retain the beforeinput validation error boundary.
+            }
+            if (!isValid) {
+              event.currentTarget.value = state.context.value[index] || ''
+              event.preventDefault()
+              send({ type: 'VALUE.INVALID', value })
+              return
+            }
+          }
+
+          if (isPaste || value.length > 2) {
+            send({ type: 'INPUT.PASTE', value, index })
             // prevent multiple characters being pasted
             // into a single input
             event.currentTarget.value = value[0]
