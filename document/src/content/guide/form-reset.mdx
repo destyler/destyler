@@ -1,0 +1,59 @@
+---
+head:
+  - tag: title
+    content: Form Reset Timing - Destyler
+title: Form Reset Timing
+---
+
+## Reset notifications run in the next task
+
+Checkbox, Color Picker, Dynamic, Number Input, Radio, Select, Slider, and Switch
+share the form-reset listener. Their reset-driven state updates and change
+callbacks now run in a timer task after the reset event has finished. This is a
+timing change from the previous synchronous notification.
+
+The listener checks the event's final `defaultPrevented` state before notifying
+the component. A later listener on the form or an ancestor can therefore cancel
+the reset without receiving a Destyler reset notification. This also applies to
+activation of a native reset button, where the browser can run microtasks between
+event listeners. A Promise microtask alone is not a sufficient notification
+boundary.
+
+## Migrate synchronous reads
+
+Do not expect a component change callback to have run immediately after
+`form.reset()`. Handle the reset proposal in the component's change callback.
+Controlled consumers must apply their acceptance decision before relying on the
+accepted value. In a test, wait for the reset task before inspecting the proposal:
+
+```ts
+form.reset()
+await new Promise<void>(resolve => window.setTimeout(resolve, 0))
+// Inspect the component state or its reset proposal here.
+```
+
+Framework rendering may need its usual additional render flush. Native form
+controls still follow the browser's reset default action; this timer changes
+Destyler's notification timing, not the browser's event or default-action order.
+
+Reset targets and value ownership are unchanged. An uncontrolled component
+returns to its initial value. A component that supports controlled values proposes the initial value
+through its existing callback and continues to use the value accepted by its
+parent. Dynamic retains its existing mutable value behavior. A callback is still subject to that component's existing equality and
+notification rules.
+
+## Cancellation and lifetime
+
+Register `preventDefault()` in a reset listener to cancel the reset. The shared
+listener does not notify for an event canceled before its scheduled task runs.
+Each reset event has its own task; repeated resets are not coalesced. Stopping or
+disposing the component removes its listener and cancels its pending reset
+tasks. Starting it again installs a new listener; pending work from the previous
+run cannot notify the new run.
+
+Programmatically dispatching a `reset` event can notify the component but does
+not invoke the browser's native reset default action. Use `form.reset()` or a
+native reset button when testing that default action.
+
+This migration applies when adopting the release containing this change. It
+does not change the behavior of previously published packages.
