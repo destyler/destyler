@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { Buffer } from 'node:buffer'
 import { spawnSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { cp, lstat, mkdir, mkdtemp, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises'
@@ -6,9 +7,13 @@ import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import process from 'node:process'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+import { chromium } from 'playwright'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
+// Use the locked documentation bundler without adding a consumer dependency.
+const astroRequire = createRequire(createRequire(import.meta.url).resolve('astro/package.json'))
+const { build, normalizePath } = await import(pathToFileURL(astroRequire.resolve('vite')).href)
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-package-entries-')))
 const entries = ['@destyler/navigation-menu', '@destyler/scroll-area', '@destyler/date']
 const datePeers = ['3.0.0', '3.10.1']
@@ -180,10 +185,130 @@ async function assertStaticDateImportControl(consumer, datePeer) {
   run(process.execPath, ['imports.mjs'], consumer)
 }
 
+async function bundleDate(consumer, entry = 'date-browser-entry.mjs') {
+  const require = createRequire(path.join(consumer, 'package.json'))
+  const dateEntry = normalizePath(require.resolve('@destyler/date'))
+  const peerDirectory = path.join(consumer, 'node_modules/@internationalized/date')
+  const peerManifest = await manifest(peerDirectory)
+  const peerEntry = normalizePath(path.resolve(peerDirectory, peerManifest.exports?.import ?? peerManifest.module))
+  const source = await readFile(dateEntry, 'utf8')
+  const optionalDefault = 'const optionalDefault = dateModule.default;'
+  const optionalDefaultPosition = source.indexOf(optionalDefault) + optionalDefault.indexOf('.default') + 1
+  const optionalDefaultWarnings = []
+  const unexpectedMissingExports = []
+  const result = await build({
+    root: consumer,
+    configFile: false,
+    build: {
+      write: false,
+      lib: {
+        entry: path.join(consumer, entry),
+        formats: ['es'],
+      },
+      rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          // Preserve Vite's normal warning output, including expected controls.
+          defaultHandler(warning)
+          if (warning.code !== 'MISSING_EXPORT')
+            return
+          // Only this optional default probe is expected for the peer's ESM entry.
+          if (warning.binding === 'default' && warning.id === dateEntry && warning.exporter === peerEntry && warning.loc?.file === dateEntry && source.split('\n')[warning.loc.line - 1] === optionalDefault && warning.pos === optionalDefaultPosition)
+            optionalDefaultWarnings.push(warning)
+          else
+            unexpectedMissingExports.push(warning)
+        },
+      },
+    },
+  })
+  assert.deepEqual(unexpectedMissingExports, [], 'Unexpected browser missing exports')
+  assert.equal(optionalDefaultWarnings.length, 1, 'Expected the original optional-default probe warning')
+  assert.ok(Array.isArray(result))
+  assert.equal(result.length, 1)
+  assert.equal(result[0].output.length, 1)
+  const [chunk] = result[0].output
+  assert.equal(chunk.type, 'chunk')
+  assert.deepEqual(chunk.imports, [], 'Date browser bundle must include its dependencies')
+  assert.deepEqual(chunk.dynamicImports, [])
+  for (const name of ['@destyler/date', '@internationalized/date']) {
+    const prefix = `${normalizePath(path.join(consumer, 'node_modules', name))}/`
+    assert.ok(Object.keys(chunk.modules).some(id => id.startsWith(prefix)), `Browser bundle must use installed ${name}`)
+  }
+  return chunk.code
+}
+
+async function assertDateBrowserBundle(consumer, datePeer) {
+  const code = await bundleDate(consumer)
+  const date = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`)
+  for (const input of ['2024-03-10', '2024-02-29', '0099-12-31', '9999-12-31'])
+    assert.equal(date.parseDateString(input, 'ja-JP', 'UTC').toString(), input)
+  console.log(`Date peer ${datePeer}, Vite browser bundle parsing in Node: PASS`)
+}
+
+async function assertMissingDateExportControls(consumer, datePeer) {
+  const require = createRequire(path.join(consumer, 'package.json'))
+  const filename = require.resolve('@destyler/date')
+  const original = await readFile(filename, 'utf8')
+  try {
+    const brokenNamespace = original.replace('dateModule.CalendarDate ??', 'dateModule.__missingCalendarDate ??')
+    assert.notEqual(brokenNamespace, original, 'Missing namespace export control must change the installed bridge')
+    await writeFile(filename, brokenNamespace)
+    await assert.rejects(() => bundleDate(consumer), error => error.code === 'ERR_ASSERTION' && Array.isArray(error.actual) && error.actual.some(warning => warning.code === 'MISSING_EXPORT' && warning.binding === '__missingCalendarDate' && warning.id === normalizePath(filename)))
+  }
+  finally {
+    await writeFile(filename, original)
+  }
+  try {
+    await writeFile(filename, `import { __missingDateBinding } from '@internationalized/date'\nvoid __missingDateBinding\n${original}`)
+    await assert.rejects(() => bundleDate(consumer), (error) => {
+      console.error(error.message)
+      return error.code === 'MISSING_EXPORT' && error.binding === '__missingDateBinding' && error.id === normalizePath(filename)
+    })
+  }
+  finally {
+    await writeFile(filename, original)
+  }
+  console.log(`Date peer ${datePeer}, missing namespace and named export controls: PASS`)
+  await assertDateBrowserBundle(consumer, datePeer)
+}
+
+async function assertDateChromium(bundles) {
+  const browser = await chromium.launch({ headless: true })
+  try {
+    for (const { datePeer, code } of bundles) {
+      let parserAssertions = 0
+      for (const timezoneId of ['UTC', 'America/Los_Angeles', 'Asia/Tokyo']) {
+        const page = await browser.newPage({ timezoneId })
+        const errors = []
+        page.on('pageerror', error => errors.push(error.message))
+        page.on('console', (message) => {
+          if (message.type() === 'error')
+            errors.push(message.text())
+        })
+        try {
+          parserAssertions += await page.evaluate(async (url) => {
+            const fixture = await import(url)
+            return fixture.assertDateBrowserRuntime()
+          }, `data:text/javascript;base64,${Buffer.from(code).toString('base64')}`)
+          assert.deepEqual(errors, [], `Date peer ${datePeer}, ${timezoneId}: browser errors`)
+        }
+        finally {
+          await page.close()
+        }
+      }
+      assert.equal(parserAssertions, 216)
+      console.log(`Date peer ${datePeer}, Chromium: ${parserAssertions} ISO parser assertions and public format/range/mutation/month binding assertions passed`)
+    }
+  }
+  finally {
+    await browser.close()
+  }
+}
+
 try {
   const packages = await runtimeClosure()
   pnpm([...entries.flatMap(name => ['--filter', `${name}...`]), '-r', 'run', 'build'])
   const packed = await packClosure(packages)
+  const browserBundles = []
   for (const datePeer of datePeers) {
     const consumer = path.join(temporaryDir, `consumer-${datePeer}`)
     await cp(path.join(root, 'scripts/fixtures/package-entries'), consumer, { recursive: true })
@@ -218,8 +343,12 @@ try {
     run(process.execPath, ['imports.mjs', '--legacy'], consumer)
     run(process.execPath, compilerArgs('Node10'), consumer)
     await assertStaticDateImportControl(consumer, datePeer)
+    await assertDateBrowserBundle(consumer, datePeer)
+    await assertMissingDateExportControls(consumer, datePeer)
+    browserBundles.push({ datePeer, code: await bundleDate(consumer, 'date-browser-runtime.mjs') })
   }
-  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, and static Date import controls passed')
+  await assertDateChromium(browserBundles)
+  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, static Date import controls, Vite browser bundles, missing Date export controls, and Chromium runtime passed')
 }
 finally {
   await rm(temporaryDir, { recursive: true, force: true })

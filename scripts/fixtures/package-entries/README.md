@@ -23,10 +23,32 @@ It checks:
 - A static Date named import restored in each disposable installed entry: the
   minimum peer must reject it, while the current peer must run successfully.
   Exact entry bytes are restored in `finally`, followed by another runtime check.
+- A Vite browser-targeted ESM bundle of the packed public Date entry with each
+  peer, using the repository's locked Astro/Vite dependency and no project config.
+  Its module graph must include the installed Date package and peer, with no
+  external imports. The emitted bundle's public ISO parsing is checked too.
+- A missing namespace member in Date's CalendarDate binding must be rejected by
+  the warning check; a missing named peer import must make Vite fail. Each control
+  restores exact entry bytes in `finally`, followed by bundling and parsing.
+- Chromium execution of the Vite output for each peer: all 216 ISO parser cases
+  across three browser time zones, frozen clocks, locales, and requested zones;
+  public formatter, range, mutation, month, and constructor identity assertions
+  cover the 18 private bridge bindings against the same bundled peer module.
 
 Captured stdout and stderr are printed unchanged, including expected negative
-control errors. Runtime checks use the invoking native Node binary, with no
-bundler, loader, source alias, or workspace dependency fallback.
+control errors. Every Vite warning is forwarded through its normal handler. The
+only accepted `MISSING_EXPORT` is the optional `.default` probe at its exact source
+position in the installed Date entry, against the installed peer's ESM entry.
+Any other missing export fails the browser bundle check. Native runtime checks use
+the invoking Node binary, with no bundler or loader. All checks use installed
+tarballs, with no source alias or workspace dependency fallback.
+
+The native/type probes and Vite controls run for both peers before Chromium starts.
+Chromium is required: install the repository's Playwright browsers before running
+the command (the shared CI/release workflows already do this). Browser launch,
+runtime, console, and page errors fail the gate; there is no browser skip or Node
+fallback. The small parser-only bundle and broader browser-runtime fixture stay
+separate so the latter does not change parser-only bundle-size evidence.
 
 This gate covers module interoperability and the listed public operations, not
 complete minimum-peer behavioral compatibility. Explicit `firstDayOfWeek`
