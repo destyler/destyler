@@ -118,7 +118,7 @@ async function assertProvenance(consumerDir, packed) {
 
 async function checkConsumers(packages, destination, label) {
   const packed = await packClosure(packages, path.join(destination, 'tarballs'))
-  for (const version of ['5.0.0', '5.46.0']) {
+  for (const version of ['5.0.0', '5.57.2']) {
     const consumerDir = path.join(destination, `svelte-${version}`)
     await cp(path.join(root, 'scripts/fixtures/svelte-package'), consumerDir, { recursive: true })
     await writeFile(path.join(consumerDir, 'package.json'), JSON.stringify({
