@@ -1,26 +1,33 @@
 import type { DateValue } from '@internationalized/date'
 import {
   DateFormatter,
-  endOfWeek,
+  getDayOfWeek,
   getWeeksInMonth,
   isSameDay,
+  startOfMonth,
   startOfWeek,
 } from './internationalized-date'
 
-const daysOfTheWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const
+const daysOfTheWeek = [0, 1, 2, 3, 4, 5, 6] as const
 type DaysOfTheWeek = (typeof daysOfTheWeek)[number]
 function normalizeFirstDayOfWeek(firstDayOfWeek?: number): DaysOfTheWeek | undefined {
   return firstDayOfWeek != null ? daysOfTheWeek[firstDayOfWeek] : undefined
 }
 
-export function getStartOfWeek(date: DateValue, locale: string, firstDayOfWeek?: number) {
-  const firstDay = normalizeFirstDayOfWeek(firstDayOfWeek)
-  return startOfWeek(date, locale, firstDay)
+function getWeekdayOffset(date: DateValue, firstDayOfWeek: DaysOfTheWeek) {
+  // The minimum supported peer has no weekday override; en-US numbers Sunday as zero.
+  return (getDayOfWeek(date, 'en-US') - firstDayOfWeek + 7) % 7
 }
 
-export function getEndOfWeek(date: DateValue, locale: string, firstDayOfWeek = 0) {
+export function getStartOfWeek(date: DateValue, locale: string, firstDayOfWeek?: number) {
   const firstDay = normalizeFirstDayOfWeek(firstDayOfWeek)
-  return endOfWeek(date, locale, firstDay)
+  return firstDay === undefined
+    ? startOfWeek(date, locale)
+    : date.subtract({ days: getWeekdayOffset(date, firstDay) })
+}
+
+export function getEndOfWeek(date: DateValue, locale: string, firstDayOfWeek = 0): DateValue {
+  return getStartOfWeek(date, locale, firstDayOfWeek).add({ days: 6 })
 }
 
 export function getDaysInWeek(weekIndex: number, from: DateValue, locale: string, firstDayOfWeek?: number) {
@@ -39,7 +46,9 @@ export function getDaysInWeek(weekIndex: number, from: DateValue, locale: string
 
 export function getMonthDays(from: DateValue, locale: string, numOfWeeks?: number, firstDayOfWeek?: number) {
   const firstDay = normalizeFirstDayOfWeek(firstDayOfWeek)
-  const monthWeeks = numOfWeeks ?? getWeeksInMonth(from, locale, firstDay)
+  const monthWeeks = numOfWeeks ?? (firstDay === undefined
+    ? getWeeksInMonth(from, locale)
+    : Math.ceil((getWeekdayOffset(startOfMonth(from), firstDay) + from.calendar.getDaysInMonth(from)) / 7))
   const weeks = Array.from({ length: monthWeeks }, (_, i) => i)
   return weeks.map(week => getDaysInWeek(week, from, locale, firstDayOfWeek))
 }

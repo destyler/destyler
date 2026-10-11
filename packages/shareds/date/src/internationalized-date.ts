@@ -9,6 +9,7 @@ export const DateFormatter: typeof dateModule.DateFormatter = dateModule.DateFor
 export const endOfMonth: typeof dateModule.endOfMonth = dateModule.endOfMonth ?? optionalDefault?.endOfMonth
 export const endOfWeek: typeof dateModule.endOfWeek = dateModule.endOfWeek ?? optionalDefault?.endOfWeek
 export const endOfYear: typeof dateModule.endOfYear = dateModule.endOfYear ?? optionalDefault?.endOfYear
+export const getDayOfWeek: typeof dateModule.getDayOfWeek = dateModule.getDayOfWeek ?? optionalDefault?.getDayOfWeek
 export const getLocalTimeZone: typeof dateModule.getLocalTimeZone = dateModule.getLocalTimeZone ?? optionalDefault?.getLocalTimeZone
 export const getWeeksInMonth: typeof dateModule.getWeeksInMonth = dateModule.getWeeksInMonth ?? optionalDefault?.getWeeksInMonth
 export const isSameDay: typeof dateModule.isSameDay = dateModule.isSameDay ?? optionalDefault?.isSameDay
