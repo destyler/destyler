@@ -9,5 +9,8 @@
     "noEmit": true,
     "skipLibCheck": false
   },
-  "include": ["packages/frameworks/lit/test/public-normalizer.test-d.ts"]
+  "include": [
+    "packages/frameworks/lit/test/public-normalizer.test-d.ts",
+    "packages/frameworks/lit/test/explicit-context.test-d.ts"
+  ]
 }

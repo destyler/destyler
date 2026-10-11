@@ -1,4 +1,6 @@
 export { portal } from './src/components/portal'
+export { contextSource, contextValue } from './src/controllers/context-input'
+export type { ContextInput, ContextSource } from './src/controllers/context-input'
 export { MachineController } from './src/controllers/machine-controller'
 export { spread, SpreadDirective, spreadEvents, SpreadEventsDirective, spreadProps, SpreadPropsDirective } from './src/directives/spread-props'
 export { normalizeProps } from './src/utils/normalize-props'

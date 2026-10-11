@@ -21,3 +21,14 @@ The absent-`get` case preserves the original ordinary-subscribe-data requirement
 The narrow repair handles ordinary context with a non-nullish, non-callable `get`. It deliberately keeps the legacy subscribe-presence test. Reading `subscribe` earlier would change valid accessor/Proxy traces, exception order, and initialization before `created`; late validation cannot undo those side effects. Broad callable source discrimination therefore remains on hold pending an explicit compatible policy.
 
 A future classification change must rerun these diagnostics along with the normal accessor, lifecycle, ownership, and strict-consumer tests. The callable browser-only `document.all` control must run in an actual browser. Do not suppress these failures or widen the normal suite's success count to claim the broad requirement is resolved.
+
+## Explicit-input policy
+
+The explicit API now offers `contextValue(data)` for ordinary context and
+`contextSource(source)` for subscriptions. See the package README for migration
+and ordering details. Unwrapped inputs deliberately retain the compatible legacy
+behavior. The four assertions above are preserved as historical requirements for
+automatic classification, which this policy does not implement. They continue to
+fail and must be reported separately. Equivalent ordinary-data assertions pass
+through `contextValue` in `../explicit-context.test.ts`; none of these diagnostic
+assertions has been removed, weakened, or counted as a passing test.
