@@ -55,11 +55,11 @@ catalogs:
       specifier: ^3.3.3
       version: 3.3.3
     react:
-      specifier: ^19.2.3
-      version: 19.2.3
+      specifier: ^19.3.0
+      version: 19.3.0
     react-dom:
-      specifier: ^19.2.3
-      version: 19.2.3
+      specifier: ^19.3.0
+      version: 19.3.0
     solid-js:
       specifier: ^1.9.17
       version: 1.9.17
@@ -220,11 +220,11 @@ catalogs:
       specifier: ^25.0.3
       version: 25.0.3
     '@types/react':
-      specifier: ^19.2.7
-      version: 19.2.7
+      specifier: ^19.3.0
+      version: 19.3.0
     '@types/react-dom':
-      specifier: ^19.2.3
-      version: 19.2.3
+      specifier: ^19.3.0
+      version: 19.3.0
     ts-morph:
       specifier: ^27.0.2
       version: 27.0.2
@@ -264,7 +264,7 @@ importers:
         version: 6.7.3(@vue/compiler-sfc@3.5.43)(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.16)
       '@astrojs/react':
         specifier: catalog:frontend
-        version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.23.15)(yaml@2.9.1)
+        version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(jiti@2.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tsx@4.23.15)(yaml@2.9.1)
       '@astrojs/solid-js':
         specifier: catalog:frontend
         version: 5.1.3(@types/node@25.0.3)(jiti@2.6.1)(solid-js@1.9.17)(tsx@4.23.15)(yaml@2.9.1)
@@ -318,10 +318,10 @@ importers:
         version: 25.0.3
       '@types/react':
         specifier: catalog:types
-        version: 19.2.7
+        version: 19.3.0
       '@types/react-dom':
         specifier: catalog:types
-        version: 19.2.3(@types/react@19.2.7)
+        version: 19.3.0(@types/react@19.3.0)
       '@unocss/reset':
         specifier: catalog:css
         version: 66.5.10
@@ -387,10 +387,10 @@ importers:
         version: 4.0.5(@types/node@25.0.3)
       react:
         specifier: catalog:frontend
-        version: 19.2.3
+        version: 19.3.0
       react-dom:
         specifier: catalog:frontend
-        version: 19.2.3(react@19.2.3)
+        version: 19.3.0(react@19.3.0)
       rimraf:
         specifier: catalog:script
         version: 6.1.3
@@ -580,7 +580,7 @@ importers:
     devDependencies:
       '@astrojs/react':
         specifier: catalog:frontend
-        version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.23.15)(yaml@2.9.1)
+        version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(jiti@2.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tsx@4.23.15)(yaml@2.9.1)
       '@astrojs/solid-js':
         specifier: catalog:frontend
         version: 5.1.3(@types/node@25.0.3)(jiti@2.6.1)(solid-js@1.9.17)(tsx@4.23.15)(yaml@2.9.1)
@@ -631,10 +631,10 @@ importers:
         version: 1.4.0
       '@types/react':
         specifier: catalog:types
-        version: 19.2.7
+        version: 19.3.0
       '@types/react-dom':
         specifier: catalog:types
-        version: 19.2.3(@types/react@19.2.7)
+        version: 19.3.0(@types/react@19.3.0)
       '@unocss/core':
         specifier: catalog:css
         version: 66.5.10
@@ -655,10 +655,10 @@ importers:
         version: 1.1.0
       react:
         specifier: catalog:frontend
-        version: 19.2.3
+        version: 19.3.0
       react-dom:
         specifier: catalog:frontend
-        version: 19.2.3(react@19.2.3)
+        version: 19.3.0(react@19.3.0)
       sharp:
         specifier: catalog:util
         version: 0.34.5
@@ -1667,10 +1667,10 @@ importers:
         version: link:../../utils
       react:
         specifier: catalog:frontend
-        version: 19.2.3
+        version: 19.3.0
       react-dom:
         specifier: catalog:frontend
-        version: 19.2.3(react@19.2.3)
+        version: 19.3.0(react@19.3.0)
 
   packages/frameworks/solid:
     dependencies:
@@ -1892,10 +1892,10 @@ importers:
         version: link:../packages/components/tour
       react:
         specifier: catalog:frontend
-        version: 19.2.3
+        version: 19.3.0
       react-dom:
         specifier: catalog:frontend
-        version: 19.2.3(react@19.2.3)
+        version: 19.3.0(react@19.3.0)
       solid-js:
         specifier: catalog:frontend
         version: 1.9.17
@@ -1910,7 +1910,7 @@ importers:
     dependencies:
       '@astrojs/react':
         specifier: catalog:frontend
-        version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.23.15)(yaml@2.9.1)
+        version: 4.4.2(@types/node@25.0.3)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(jiti@2.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tsx@4.23.15)(yaml@2.9.1)
       '@astrojs/solid-js':
         specifier: catalog:frontend
         version: 5.1.3(@types/node@25.0.3)(jiti@2.6.1)(solid-js@1.9.17)(tsx@4.23.15)(yaml@2.9.1)
@@ -1929,10 +1929,10 @@ importers:
     devDependencies:
       '@types/react':
         specifier: catalog:types
-        version: 19.2.7
+        version: 19.3.0
       '@types/react-dom':
         specifier: catalog:types
-        version: 19.2.3(@types/react@19.2.7)
+        version: 19.3.0(@types/react@19.3.0)
       '@unocss/core':
         specifier: catalog:css
         version: 66.5.10
@@ -1941,10 +1941,10 @@ importers:
         version: 66.5.10
       react:
         specifier: catalog:frontend
-        version: 19.2.3
+        version: 19.3.0
       react-dom:
         specifier: catalog:frontend
-        version: 19.2.3(react@19.2.3)
+        version: 19.3.0(react@19.3.0)
       solid-js:
         specifier: catalog:frontend
         version: 1.9.17
@@ -3470,13 +3470,15 @@ packages:
   '@types/picomatch@4.0.2':
     resolution: {integrity: sha512-qHHxQ+P9PysNEGbALT8f8YOSHW0KJu6l2xU8DYY0fu/EmGxXdVnuTLvFUvBgPJMSqXq29SYHveejeAha+4AYgA==}
 
-  '@types/react-dom@19.2.3':
-    resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
+  '@types/react-dom@19.3.0':
+    resolution:
+      integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==
     peerDependencies:
-      '@types/react': ^19.2.0
+      '@types/react': ^19.3.0
 
-  '@types/react@19.2.7':
-    resolution: {integrity: sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==}
+  '@types/react@19.3.0':
+    resolution:
+      integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==
 
   '@types/readdir-glob@1.1.5':
     resolution: {integrity: sha512-raiuEPUYqXu+nvtY2Pe8s8FEmZ3x5yAH4VkLdihcPdalvsHltomrRC9BzuStrJ9yk06470hS0Crw0f1pXqD+Hg==}
@@ -6152,10 +6154,11 @@ packages:
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
 
-  react-dom@19.2.3:
-    resolution: {integrity: sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==}
+  react-dom@19.3.0:
+    resolution:
+      integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==
     peerDependencies:
-      react: ^19.2.3
+      react: ^19.3.0
 
   react-refresh@0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
@@ -6165,9 +6168,11 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react@19.2.3:
-    resolution: {integrity: sha512-Ku/hhYbVjOQnXDZFv2+RibmLFGwFdeeKHFcOTlrt7xplBnya5OGn/hIRDsqDiSUcfORsDC7MPxwork8jBwsIWA==}
-    engines: {node: '>=0.10.0'}
+  react@19.3.0:
+    resolution:
+      integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==
+    engines:
+      node: '>=0.10.0'
 
   read-yaml-file@2.1.0:
     resolution: {integrity: sha512-UkRNRIwnhG+y7hpqnycCL/xbTk7+ia9VuVTC0S+zVbwd65DI9eUpRMfsWIGrCWxTU/mi+JW8cHQCrv+zfCbEPQ==}
@@ -6403,8 +6408,9 @@ packages:
   sax@1.4.3:
     resolution: {integrity: sha512-yqYn1JhPczigF94DMS+shiDMjDowYO6y9+wB/4WgO0Y19jWYk0lQ4tuG5KI7kj4FTp1wxPj5IFfcrz/s1c3jjQ==}
 
-  scheduler@0.27.0:
-    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+  scheduler@0.28.0:
+    resolution:
+      integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==
 
   scslre@0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
@@ -7492,13 +7498,13 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@4.4.2(@types/node@25.0.3)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.23.15)(yaml@2.9.1)':
+  '@astrojs/react@4.4.2(@types/node@25.0.3)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(jiti@2.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tsx@4.23.15)(yaml@2.9.1)':
     dependencies:
-      '@types/react': 19.2.7
-      '@types/react-dom': 19.2.3(@types/react@19.2.7)
+      '@types/react': 19.3.0
+      '@types/react-dom': 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react': 4.7.0(vite@6.4.1(@types/node@25.0.3)(jiti@2.6.1)(tsx@4.23.15)(yaml@2.9.1))
-      react: 19.2.3
-      react-dom: 19.2.3(react@19.2.3)
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
       ultrahtml: 1.6.0
       vite: 6.4.1(@types/node@25.0.3)(jiti@2.6.1)(tsx@4.23.15)(yaml@2.9.1)
     transitivePeerDependencies:
@@ -8869,11 +8875,11 @@ snapshots:
 
   '@types/picomatch@4.0.2': {}
 
-  '@types/react-dom@19.2.3(@types/react@19.2.7)':
+  '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:
-      '@types/react': 19.2.7
+      '@types/react': 19.3.0
 
-  '@types/react@19.2.7':
+  '@types/react@19.3.0':
     dependencies:
       csstype: 3.2.3
 
@@ -12413,16 +12419,16 @@ snapshots:
       defu: 6.1.4
       destr: 2.0.5
 
-  react-dom@19.2.3(react@19.2.3):
+  react-dom@19.3.0(react@19.3.0):
     dependencies:
-      react: 19.2.3
-      scheduler: 0.27.0
+      react: 19.3.0
+      scheduler: 0.28.0
 
   react-refresh@0.17.0: {}
 
   react-refresh@0.18.0: {}
 
-  react@19.2.3: {}
+  react@19.3.0: {}
 
   read-yaml-file@2.1.0:
     dependencies:
@@ -12777,7 +12783,7 @@ snapshots:
 
   sax@1.4.3: {}
 
-  scheduler@0.27.0: {}
+  scheduler@0.28.0: {}
 
   scslre@0.3.0:
     dependencies:
