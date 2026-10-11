@@ -87,13 +87,28 @@ function trackFormReset(el: HTMLElement | null | undefined, callback: VoidFuncti
   if (!el)
     return
   const form = getClosestForm(el)
+  const win = getWindow(el)
+  const pending = new Set<number>()
+  let active = true
   const onReset = (e: Event) => {
     if (e.defaultPrevented)
       return
-    callback()
+    // Trusted reset activation can checkpoint microtasks between listeners.
+    // A task observes cancellation by every listener and the native reset.
+    const timer = win.setTimeout(() => {
+      pending.delete(timer)
+      if (active && !e.defaultPrevented)
+        callback()
+    }, 0)
+    pending.add(timer)
   }
   form?.addEventListener('reset', onReset, { passive: true })
-  return () => form?.removeEventListener('reset', onReset)
+  return () => {
+    active = false
+    form?.removeEventListener('reset', onReset)
+    pending.forEach(timer => win.clearTimeout(timer))
+    pending.clear()
+  }
 }
 
 function trackFieldsetDisabled(el: HTMLElement | null | undefined, callback: (disabled: boolean) => void) {

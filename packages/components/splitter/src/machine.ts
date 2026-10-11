@@ -19,7 +19,7 @@ const invoke = {
 }
 
 const set = {
-  size(ctx: MachineContext, value: PanelSizeData[]) {
+  size(ctx: Pick<MachineContext, keyof MachineContext>, value: PanelSizeData[]) {
     const next = cloneSize(value)
     if (isEqual(ctx.size, next))
       return
@@ -34,7 +34,7 @@ const set = {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['size'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext, ['size']))
   const { initial: initialSize } = resolveControllableProp({
     value: ctx.size,
     defaultValue: ctx.defaultSize,

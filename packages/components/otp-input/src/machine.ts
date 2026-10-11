@@ -295,20 +295,17 @@ export function machine(userContext: UserDefinedContext) {
           })
         },
         setPastedValue(ctx, evt) {
+          // Capture the event origin before callbacks or deferred work move focus.
+          const startIndex = Math.max(0, evt.index ?? ctx.focusedIndex)
           scheduleEffect(ctx, (isActive) => {
-            const startIndex = Math.min(ctx.focusedIndex, ctx.filledValueLength)
+            const value = Array.from(ctx.value)
+            const pasted = evt.value.slice(0, Math.max(0, value.length - startIndex))
+            for (let index = 0; index < pasted.length; index++) {
+              value[startIndex + index] = pasted[index]
+            }
+            set.value(ctx, value)
 
-            // keep value left of cursor
-            // replace value from cursor to end with pasted text
-            const left = startIndex > 0 ? ctx.valueAsString.substring(0, ctx.focusedIndex) : ''
-            const right = evt.value.substring(0, ctx.valueLength - startIndex)
-
-            const value = left + right
-
-            set.value(ctx, value.split(''))
-
-            // Retain existing pre-request text/caret and paste routing. After
-            // the request, controlled fields reflect the current parent value.
+            // After the request, controlled fields reflect the current parent value.
             if (!isActive() || !isControlled(ctx as Pick<MachineContext, keyof MachineContext>, 'value'))
               return
             const inputs = dom.getInputEls(ctx)

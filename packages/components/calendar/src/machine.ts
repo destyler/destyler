@@ -38,13 +38,14 @@ import {
   isValidDate,
   sortDates,
 } from './utils'
+import { getResolvedCalendarValue } from './utils/get-resolved-calendar-value'
 
 const { and } = guards
 
 const invoke = {
   change(ctx: MachineContext) {
     ctx.onValueChange?.({
-      value: Array.from(ctx.value),
+      value: Array.from(getResolvedCalendarValue(ctx.value)),
       valueAsString: Array.from(ctx.valueAsString),
       view: ctx.view,
     })
@@ -52,7 +53,7 @@ const invoke = {
   focusChange(ctx: MachineContext) {
     ctx.onFocusChange?.({
       focusedValue: ctx.focusedValue,
-      value: Array.from(ctx.value),
+      value: Array.from(getResolvedCalendarValue(ctx.value)),
       valueAsString: Array.from(ctx.valueAsString),
       view: ctx.view,
     })
@@ -62,10 +63,83 @@ const invoke = {
   },
 }
 
-function isDateEqualFn(a: DateValue[], b: DateValue[]) {
-  if (a.length !== b.length)
+function isDateEqualFn(a: DateValue[] | undefined, b: DateValue[] | undefined) {
+  const first = getResolvedCalendarValue(a)
+  const firstLength = first.length
+  const second = getResolvedCalendarValue(b)
+  if (firstLength !== second.length)
     return false
-  return a.every((date, index) => isDateEqual(date, b[index]))
+  return first.every((date, index) => isDateEqual(date, second[index]))
+}
+
+interface DomRun {
+  active: boolean
+  provisional: boolean
+  pending: Set<VoidFunction>
+}
+
+const domRuns = new WeakMap<MachineContext, DomRun>()
+
+function retireDomRun(run: DomRun) {
+  run.active = false
+  for (const cancel of run.pending) {
+    cancel()
+    run.pending.delete(cancel)
+  }
+}
+
+function beginDomRun(ctx: MachineContext) {
+  let run = domRuns.get(ctx)
+  if (run?.active && run.provisional) {
+    run.provisional = false
+  }
+  else {
+    if (run)
+      retireDomRun(run)
+    run = { active: true, provisional: false, pending: new Set() }
+    domRuns.set(ctx, run)
+  }
+  const owner = run
+  return () => retireDomRun(owner)
+}
+
+function retireProvisionalDomRun(ctx: MachineContext) {
+  const run = domRuns.get(ctx)
+  if (run?.provisional)
+    retireDomRun(run)
+}
+
+function runDomEffect(
+  ctx: MachineContext,
+  scheduling: 'sync' | 'frame' | 'microtask',
+  effect: (isCurrent: () => boolean) => void,
+) {
+  let owner = domRuns.get(ctx)
+  if (!owner) {
+    owner = { active: true, provisional: true, pending: new Set() }
+    domRuns.set(ctx, owner)
+  }
+  const run = owner
+  const isCurrent = () => run.active && domRuns.get(ctx) === run
+  if (!isCurrent())
+    return
+  const invoke = () => {
+    if (isCurrent())
+      effect(isCurrent)
+  }
+  if (scheduling === 'sync') {
+    invoke()
+    return
+  }
+  if (scheduling === 'microtask') {
+    queueMicrotask(invoke)
+    return
+  }
+  const cancel = raf(() => {
+    run.pending.delete(cancel)
+    invoke()
+  })
+  run.pending.add(cancel)
 }
 
 function normalizeValue(ctx: MachineContext, value: number | DateValue) {
@@ -80,7 +154,7 @@ function normalizeValue(ctx: MachineContext, value: number | DateValue) {
 }
 
 const set = {
-  value(ctx: MachineContext, value: DateValue[]) {
+  value(ctx: Pick<MachineContext, keyof MachineContext>, value: DateValue[]) {
     if (isDateEqualFn(ctx.value, value))
       return
     // Phase 2 dual-track: flag or stamped prop presence (#103)
@@ -202,7 +276,7 @@ function transformContext(ctx: Partial<MachineContext>): MachineContext {
 }
 
 export function machine(userContext: UserDefinedContext) {
-  const ctx = compact(withControllableProvided(userContext as Record<string, unknown>, ['open', 'value'])) as typeof userContext
+  const ctx = compact(withControllableProvided(userContext, ['open', 'value']))
   const { initialOpen } = resolveControllableOpen(ctx)
   return createMachine<MachineContext, MachineState>(
     {
@@ -224,11 +298,13 @@ export function machine(userContext: UserDefinedContext) {
         isPrevVisibleRangeValid: ctx => !isPreviousVisibleRangeInvalid(ctx.startValue, ctx.min, ctx.max),
         isNextVisibleRangeValid: ctx => !isNextVisibleRangeInvalid(ctx.endValue, ctx.min, ctx.max),
         valueAsString(ctx) {
-          return ctx.value.map(date => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone }))
+          return getResolvedCalendarValue(ctx.value).map(date => ctx.format(date, { locale: ctx.locale, timeZone: ctx.timeZone }))
         },
       },
 
-      activities: ['setupLiveRegion'],
+      activities: ['trackDeferredDom', 'setupLiveRegion'],
+
+      exit: ['retireProvisionalDom'],
 
       created: ['setStartValue'],
 
@@ -673,19 +749,20 @@ export function machine(userContext: UserDefinedContext) {
         isMonthView: (ctx, evt) => (evt.view || ctx.view) === 'month',
         isYearView: (ctx, evt) => (evt.view || ctx.view) === 'year',
         isRangePicker: ctx => ctx.selectionMode === 'range',
-        hasSelectedRange: ctx => ctx.value.length === 2,
+        hasSelectedRange: ctx => getResolvedCalendarValue(ctx.value).length === 2,
         isMultiPicker: ctx => ctx.selectionMode === 'multiple',
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
         isSelectingEndDate: ctx => ctx.activeIndex === 1,
         closeOnSelect: ctx => !!ctx.closeOnSelect,
         // Phase 3 HARD: stamped prop presence only (#103)
-        isOpenControlled: ctx => isControlled(ctx, 'open'),
+        isOpenControlled: (ctx: Pick<MachineContext, keyof MachineContext>) => isControlled(ctx, 'open'),
         isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === 'INTERACT_OUTSIDE',
         isInputValueEmpty: (_ctx, evt) => evt.value.trim() === '',
         shouldFixOnBlur: (_ctx, evt) => !!evt.fixOnBlur,
       },
 
       activities: {
+        trackDeferredDom: beginDomRun,
         trackPositioning(ctx) {
           ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getControlEl(ctx)
@@ -725,6 +802,7 @@ export function machine(userContext: UserDefinedContext) {
       },
 
       actions: {
+        retireProvisionalDom: retireProvisionalDomRun,
         setNextView(ctx) {
           const nextView = getNextView(ctx.view, ctx.minView, ctx.maxView)
           set.view(ctx, nextView)
@@ -740,7 +818,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.restoreFocus = true
         },
         announceValueText(ctx) {
-          const announceText = ctx.value.map(date => formatSelectedDate(date, null, ctx.locale, ctx.timeZone))
+          const announceText = getResolvedCalendarValue(ctx.value).map(date => formatSelectedDate(date, null, ctx.locale, ctx.timeZone))
           ctx.announcer?.announce(announceText.join(','), 3000)
         },
         announceVisibleRange(ctx) {
@@ -754,16 +832,21 @@ export function machine(userContext: UserDefinedContext) {
           restoreTextSelection({ doc: dom.getDoc(ctx), target: dom.getContentEl(ctx)! })
         },
         focusFirstSelectedDate(ctx) {
-          if (!ctx.value.length)
+          if (!getResolvedCalendarValue(ctx.value).length)
             return
-          set.focusedValue(ctx, ctx.value[0])
+          set.focusedValue(ctx, getResolvedCalendarValue(ctx.value)[0])
         },
         syncInputElement(ctx) {
-          raf(() => {
+          runDomEffect(ctx, 'frame', (isCurrent) => {
             const inputEls = dom.getInputEls(ctx)
-            inputEls.forEach((inputEl, index) => {
-              dom.setValue(inputEl, ctx.valueAsString[index] || '')
-            })
+            if (!isCurrent())
+              return
+            for (const [index, inputEl] of inputEls.entries()) {
+              const value = ctx.valueAsString[index] || ''
+              if (!isCurrent())
+                return
+              dom.setValue(inputEl, value)
+            }
           })
         },
         setFocusedDate(ctx, evt) {
@@ -789,20 +872,20 @@ export function machine(userContext: UserDefinedContext) {
           set.value(ctx, [])
         },
         setSelectedDate(ctx, evt) {
-          const values = Array.from(ctx.value)
+          const values = Array.from(getResolvedCalendarValue(ctx.value))
           values[ctx.activeIndex] = normalizeValue(ctx, evt.value ?? ctx.focusedValue)
           set.value(ctx, adjustStartAndEndDate(values))
         },
         toggleSelectedDate(ctx, evt) {
           const currentValue = normalizeValue(ctx, evt.value ?? ctx.focusedValue)
-          const index = ctx.value.findIndex(date => isDateEqual(date, currentValue))
+          const index = getResolvedCalendarValue(ctx.value).findIndex(date => isDateEqual(date, currentValue))
 
           if (index === -1) {
-            const values = [...ctx.value, currentValue]
+            const values = [...getResolvedCalendarValue(ctx.value), currentValue]
             set.value(ctx, sortDates(values))
           }
           else {
-            const values = Array.from(ctx.value)
+            const values = Array.from(getResolvedCalendarValue(ctx.value))
             values.splice(index, 1)
             set.value(ctx, sortDates(values))
           }
@@ -814,7 +897,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.hoveredValue = null
         },
         selectFocusedDate(ctx) {
-          const values = Array.from(ctx.value)
+          const values = Array.from(getResolvedCalendarValue(ctx.value))
           values[ctx.activeIndex] = ctx.focusedValue.copy()
           set.value(ctx, adjustStartAndEndDate(values))
 
@@ -945,15 +1028,19 @@ export function machine(userContext: UserDefinedContext) {
           ctx.activeIndex = 0
         },
         focusActiveCell(ctx) {
-          raf(() => {
-            dom.getFocusedCell(ctx)?.focus({ preventScroll: true })
+          runDomEffect(ctx, 'frame', (isCurrent) => {
+            const cell = dom.getFocusedCell(ctx)
+            if (isCurrent())
+              cell?.focus({ preventScroll: true })
           })
         },
         focusActiveCellIfNeeded(ctx, evt) {
           if (!evt.focus)
             return
-          raf(() => {
-            dom.getFocusedCell(ctx)?.focus({ preventScroll: true })
+          runDomEffect(ctx, 'frame', (isCurrent) => {
+            const cell = dom.getFocusedCell(ctx)
+            if (isCurrent())
+              cell?.focus({ preventScroll: true })
           })
         },
         setHoveredValueIfKeyboard(ctx, evt) {
@@ -962,36 +1049,57 @@ export function machine(userContext: UserDefinedContext) {
           ctx.hoveredValue = ctx.focusedValue.copy()
         },
         focusTriggerElement(ctx) {
-          raf(() => {
-            dom.getTriggerEl(ctx)?.focus({ preventScroll: true })
+          runDomEffect(ctx, 'frame', (isCurrent) => {
+            const trigger = dom.getTriggerEl(ctx)
+            if (isCurrent())
+              trigger?.focus({ preventScroll: true })
           })
         },
         focusFirstInputElement(ctx) {
-          raf(() => {
+          runDomEffect(ctx, 'frame', (isCurrent) => {
             const [inputEl] = dom.getInputEls(ctx)
-            inputEl?.focus({ preventScroll: true })
+            if (isCurrent())
+              inputEl?.focus({ preventScroll: true })
           })
         },
         focusInputElement(ctx) {
-          raf(() => {
+          runDomEffect(ctx, 'frame', (isCurrent) => {
             const inputEls = dom.getInputEls(ctx)
+
+            if (!isCurrent())
+              return
 
             const lastIndexWithValue = inputEls.findLastIndex(inputEl => inputEl.value !== '')
             const indexToFocus = Math.max(lastIndexWithValue, 0)
 
             const inputEl = inputEls[indexToFocus]
+            if (!isCurrent())
+              return
             inputEl?.focus({ preventScroll: true })
             // move cursor to the end
-            inputEl?.setSelectionRange(inputEl.value.length, inputEl.value.length)
+            if (!inputEl || !isCurrent())
+              return
+            const start = inputEl.value.length
+            const end = inputEl.value.length
+            if (isCurrent())
+              inputEl.setSelectionRange(start, end)
           })
         },
         syncMonthSelectElement(ctx) {
-          const monthSelectEl = dom.getMonthSelectEl(ctx)
-          dom.setValue(monthSelectEl, ctx.startValue.month.toString())
+          runDomEffect(ctx, 'sync', (isCurrent) => {
+            const monthSelectEl = dom.getMonthSelectEl(ctx)
+            const value = ctx.startValue.month.toString()
+            if (isCurrent())
+              dom.setValue(monthSelectEl, value)
+          })
         },
         syncYearSelectElement(ctx) {
-          const yearSelectEl = dom.getYearSelectEl(ctx)
-          dom.setValue(yearSelectEl, ctx.startValue.year.toString())
+          runDomEffect(ctx, 'sync', (isCurrent) => {
+            const yearSelectEl = dom.getYearSelectEl(ctx)
+            const value = ctx.startValue.year.toString()
+            if (isCurrent())
+              dom.setValue(yearSelectEl, value)
+          })
         },
         setInputValue(ctx, evt) {
           if (ctx.activeIndex !== evt.index)
@@ -999,10 +1107,12 @@ export function machine(userContext: UserDefinedContext) {
           ctx.inputValue = evt.value
         },
         syncInputValue(ctx, evt) {
-          queueMicrotask(() => {
+          runDomEffect(ctx, 'microtask', (isCurrent) => {
             const inputEls = dom.getInputEls(ctx)
             const idx = evt.index ?? ctx.activeIndex
-            dom.setValue(inputEls[idx], ctx.inputValue)
+            const value = ctx.inputValue
+            if (isCurrent())
+              dom.setValue(inputEls[idx], value)
           })
         },
         focusParsedDate(ctx, evt) {
@@ -1031,7 +1141,7 @@ export function machine(userContext: UserDefinedContext) {
           if (!date)
             return
 
-          const values = Array.from(ctx.value)
+          const values = Array.from(getResolvedCalendarValue(ctx.value))
           values[evt.index] = date
 
           set.value(ctx, values)

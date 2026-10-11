@@ -1,7 +1,11 @@
 import type { AnyEventObject, EventObject, HookOptions, Machine, StateInit, StateSchema, UserContext, XState } from '@destyler/xstate'
 import type { ReactiveController, ReactiveControllerHost } from 'lit'
+import type { ContextInput, ContextSource } from './context-input'
 import { snapshot, subscribe } from '@destyler/store'
 import { MachineStatus } from '@destyler/xstate'
+import { getContextInput, unwrapContextValue } from './context-input'
+
+export type { ContextSource } from './context-input'
 
 /**
  * MachineController
@@ -9,17 +13,15 @@ import { MachineStatus } from '@destyler/xstate'
  * - Mirrors React's useMachine ergonomics: exposes state, send, and service
  * - Triggers host.requestUpdate() when the machine state changes
  */
-export interface ContextSource<TContext> {
-  get?: () => Partial<TContext> | undefined
-  subscribe: (fn: (ctx: Partial<TContext>) => void) => () => void
-}
-
 type OptionsEx<TContext extends Record<string, any>, TState extends StateSchema, TEvent extends EventObject>
   = Omit<HookOptions<TContext, TState, TEvent>, 'context'> & {
-    context?: UserContext<TContext> | ContextSource<TContext>
+    context?: UserContext<TContext> | ContextSource<TContext> | ContextInput<TContext>
   }
 
-function isContextSource<T>(value: unknown): value is ContextSource<T> {
+function isContextSource<T>(value: unknown): value is ContextSource<T> | ContextInput<T> {
+  const input = getContextInput<T>(value)
+  if (input)
+    return input.kind === 'source'
   return !!value && typeof value === 'object' && 'subscribe' in (value as any)
 }
 
@@ -64,10 +66,12 @@ export class MachineController<
     // Apply initial context/options before created
     if (options?.context) {
       if (isContextSource<TContext>(options.context)) {
-        const context = options.context
+        const option = options.context
+        const input = getContextInput<TContext>(option)
+        const context = input?.kind === 'source' ? input.value : option as ContextSource<TContext>
         const get = context.get
         // document.all remains callable despite its legacy typeof 'undefined'.
-        if (get !== null && typeof get !== 'undefined' && typeof get !== 'function') {
+        if (!input && get !== null && typeof get !== 'undefined' && typeof get !== 'function') {
           instance.setContext(context as unknown as UserContext<TContext>)
         }
         else {
@@ -77,7 +81,7 @@ export class MachineController<
         }
       }
       else {
-        instance.setContext(options.context as UserContext<TContext>)
+        instance.setContext(unwrapContextValue(options.context as UserContext<TContext> | ContextInput<TContext>))
       }
     }
 
@@ -229,20 +233,22 @@ export class MachineController<
     if (!isCurrent())
       return
     if (isContextSource<TContext>(context)) {
-      const get = context.get
-      if (get !== null && typeof get !== 'undefined' && typeof get !== 'function') {
+      const input = getContextInput<TContext>(context)
+      const source = input?.kind === 'source' ? input.value : context as ContextSource<TContext>
+      const get = source.get
+      if (!input && get !== null && typeof get !== 'undefined' && typeof get !== 'function') {
         if (isCurrent() && applyPlainContext)
           this.service.setContext(context as unknown as UserContext<TContext>)
         return
       }
-      const initial = get === undefined || get === null ? undefined : Reflect.apply(get, context, [])
+      const initial = get === undefined || get === null ? undefined : Reflect.apply(get, source, [])
       if (!isCurrent())
         return
       if (initial)
         this.service.setContext(initial)
       if (!isCurrent() || !connection)
         return
-      const unsubscribe = context.subscribe((ctx) => {
+      const unsubscribe = source.subscribe((ctx) => {
         if (!isCurrent())
           return
         this.service.setContext(ctx)
@@ -255,7 +261,7 @@ export class MachineController<
         unsubscribe()
     }
     else if (applyPlainContext && context) {
-      this.service.setContext(context as UserContext<TContext>)
+      this.service.setContext(unwrapContextValue(context as UserContext<TContext> | ContextInput<TContext>))
     }
   }
 
