@@ -1,6 +1,6 @@
 import type { DateFormatter, DateValue } from '@internationalized/date'
-import { endOfMonth, isSameDay, startOfMonth } from '@internationalized/date'
 import { getDayFormatter, getMonthFormatter } from './formatter'
+import { endOfMonth, isSameDay, startOfMonth } from './internationalized-date'
 
 export function formatRange(
   startDate: DateValue,

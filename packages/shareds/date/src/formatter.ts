@@ -1,5 +1,5 @@
-import { DateFormatter, toCalendarDate, toCalendarDateTime, today } from '@internationalized/date'
 import { getEraFormat } from './get-era-format'
+import { DateFormatter, toCalendarDate, toCalendarDateTime, today } from './internationalized-date'
 
 export function getDayFormatter(locale: string, timeZone: string) {
   const date = toCalendarDateTime(today(timeZone))

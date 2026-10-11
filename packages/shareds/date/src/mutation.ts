@@ -1,12 +1,12 @@
 import type { Calendar, DateValue } from '@internationalized/date'
 import type { DateAvailableFn } from './types'
+import { constrainValue } from './constrain'
 import {
   getLocalTimeZone,
   toCalendar,
   toCalendarDateTime,
   today,
-} from '@internationalized/date'
-import { constrainValue } from './constrain'
+} from './internationalized-date'
 
 export function getTodayDate(timeZone?: string) {
   return today(timeZone ?? getLocalTimeZone())
