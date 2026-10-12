@@ -25,7 +25,7 @@ export const dom = createScope({
     const value = ctx.highlightedValue
     if (value == null)
       return
-    const selector = `[role=option][data-value="${CSS.escape(value)}"`
+    const selector = `[role=option][data-value="${CSS.escape(value)}"]`
     return query(dom.getContentEl(ctx), selector)
   },
 
