@@ -57,6 +57,12 @@ try {
     },
   })
   context.setDefaultTimeout(5000)
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async (text) => { globalThis.__docsCopiedText = text } },
+    })
+  })
   const page = await context.newPage()
   page.on('pageerror', error => failures.push({ type: 'pageerror', error: error.stack || String(error) }))
   page.on('console', (message) => {
@@ -94,8 +100,39 @@ try {
     await expect(snippet).toHaveCount(1)
     await expect(snippet).toContainText(`from '@destyler/${framework}'`)
     await expect(snippet).toContainText('checkbox.connect(')
+    const code = snippet.locator('pre.shiki > code')
+    await expect(code).toContainText('<input')
+    await expect(code.locator('script, input, label, template')).toHaveCount(0)
+    const source = await code.textContent()
+    await page.evaluate(() => {
+      globalThis.__docsCopiedText = null
+    })
+    await codeGroup.locator('button[aria-label="复制代码"]:visible, button[aria-label="已复制"]:visible').click()
+    await expect.poll(() => page.evaluate(() => globalThis.__docsCopiedText)).toBe(source)
+    for (const theme of ['light', 'dark']) {
+      // Exercise the existing theme CSS against actual highlighted token output.
+      await page.evaluate((theme) => {
+        document.documentElement.classList.remove('light', 'dark')
+        document.documentElement.classList.add(theme)
+        document.documentElement.dataset.theme = theme
+      }, theme)
+      const colors = await code.evaluate((element, theme) => {
+        const token = [...element.querySelectorAll('span[style]')].find(token =>
+          token.style.color && token.style.getPropertyValue('--shiki-dark'))
+        if (!token)
+          return null
+        const sample = document.createElement('span')
+        sample.style.color = theme === 'light' ? token.style.color : token.style.getPropertyValue('--shiki-dark')
+        document.body.append(sample)
+        const expected = getComputedStyle(sample).color
+        sample.remove()
+        return { expected, actual: getComputedStyle(token).color }
+      }, theme)
+      assert.ok(colors, `${framework}: both theme token colors are present`)
+      assert.equal(colors.actual, colors.expected, `${framework}: ${theme} token CSS is applied`)
+    }
     assert.equal(await page.evaluate(() => localStorage.getItem('destyler-framework')), framework)
-    console.log(JSON.stringify({ framework, filename, hydrated: true, visibleSnippet: true }))
+    console.log(JSON.stringify({ framework, filename, hydrated: true, visibleSnippet: true, escaped: true, copyText: true, themes: ['light', 'dark'] }))
   }
 
   await page.goto(`${origin}/components/checkbox/`)
@@ -124,9 +161,15 @@ try {
   assert(iconResponses.every(icon => icon.status === 200 && icon.contentType === 'image/svg+xml' && icon.svg), 'Every declared documentation icon must serve its real SVG asset')
   await checkFramework('vue', 'Vue', 'Checkbox.vue')
   const visibleControl = page.locator('.select-framework-root:visible')
-  await visibleControl.locator('.select-framework-trigger').click()
-  await visibleControl.locator('.select-framework-item[data-value="react"]').click()
-  await checkFramework('react', 'React', 'Checkbox.react.tsx')
+  for (const [framework, label, filename] of [
+    ['solid', 'Solid', 'Checkbox.solid.tsx'],
+    ['svelte', 'Svelte', 'Checkbox.svelte'],
+    ['react', 'React', 'Checkbox.react.tsx'],
+  ]) {
+    await visibleControl.locator('.select-framework-trigger').click()
+    await visibleControl.locator(`.select-framework-item[data-value="${framework}"]`).click()
+    await checkFramework(framework, label, filename)
+  }
   await page.reload()
   await checkFramework('react', 'React', 'Checkbox.react.tsx')
 

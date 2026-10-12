@@ -49,8 +49,8 @@ catalogs:
     '@antfu/eslint-config': ^6.7.3
     eslint: ^9.39.2
   markdown:
-    marked: ^17.0.1
-    shiki: ^3.20.0
+    marked: ^18.1.0
+    shiki: ^4.5.0
   plugin:
     '@sveltejs/vite-plugin-svelte': ^6.2.1
     '@vitejs/plugin-react': ^5.1.2
