@@ -83,7 +83,7 @@ catalogs:
     '@vitest/eslint-plugin': ^1.6.1
     '@vitest/ui': ^4.0.16
     happy-dom: ^20.0.11
-    playwright: ^1.57.0
+    playwright: ^1.64.0
     vitest: ^4.0.16
     vitest-axe: ^0.1.0
     yaml: ^2.9.1
