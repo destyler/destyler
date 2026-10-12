@@ -65,6 +65,9 @@ function renderCombobox(composite: boolean, value: string) {
   const unsubscribe = service.subscribe(render)
   cleanups.push(() => {
     unsubscribe()
+    // Release spread event handlers before stopping or removing the focused input.
+    for (const element of [input, root, control, positioner, content, list, ...options])
+      spreadProps(element, {})
     service.stop()
     root.remove()
   })
