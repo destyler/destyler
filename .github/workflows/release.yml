@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [20, 22, 24]
+        node: [22.22.3, 24]
     steps:
       - name: Checkout release commit
         uses: actions/checkout@v6
@@ -52,8 +52,26 @@ jobs:
       - name: Verify packages
         uses: ./.github/actions/verify
 
+  node20-consumer:
+    runs-on: ubuntu-latest
+    name: 'Packed consumers: node-20.19.0'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout consumer source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+      - name: Verify Node 20 consumers
+        uses: ./.github/actions/verify-node20-consumers
+
   release:
-    needs: verify
+    needs: [verify, node20-consumer]
     runs-on: ubuntu-latest
     name: Release Package
     steps:
@@ -88,7 +106,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   changelog:
-    needs: verify
+    needs: [verify, node20-consumer]
     runs-on: ubuntu-latest
     name: Generate Changelog
     steps:
@@ -110,7 +128,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   deploy:
-    needs: verify
+    needs: [verify, node20-consumer]
     runs-on: ubuntu-latest
     name: Deploy Release Page
     steps:

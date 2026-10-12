@@ -17,7 +17,8 @@ If you are unsure whether your idea fits, open a GitHub Discussion or issue befo
 
 ## Prerequisites
 
-- **Node.js**: v20 or newer is recommended.
+- **Node.js for development**: `^22.22.3 || ^24.16.0 || >=26.3.0`. The full source/build/test matrix runs on exact `22.22.3` and current `24.x` (at least `24.16.0`). The declared `26.3.0+` branch is not exercised by that matrix.
+- **Published package consumers**: Node.js `20.19.0` remains independently checked. Packages are built and packed on Node.js 22, then installed with engine checks and exercised in isolated Node.js 20 consumers. This does not require development tools to support Node.js 20.
 - **pnpm**: `10.26.1` (the workspace is pinned via the `packageManager` field).
 - **Git**: any modern version that supports worktrees.
 
@@ -97,7 +98,7 @@ pnpm test:workflows
 Pull requests and tag releases share the non-publishing build and test action in
 `.github/actions/verify`. Release verification runs against the exact commit that
 triggered the tag push, using the same Node.js matrix as CI, and also requires
-lint on Node.js 24. Publishing packages, generating the GitHub changelog, and
+lint on Node.js 24. A separate required Node.js `20.19.0` job checks all packed public package entries and the existing minimum/current Date and Svelte consumer contracts; build, pack and browser tooling run on Node.js `22.22.3`. Publishing packages, generating the GitHub changelog, and
 deploying release sites wait for every verification job to succeed and check out
 that same commit. A failed, skipped, or cancelled verification prevents those
 release jobs from starting.
@@ -110,6 +111,17 @@ checks and runtime imports run with Svelte 5.0.0 and 5.57.2. The same checks rep
 with a disposable unpublished-version workspace to cover a lockstep release bump
 before any packages exist on npm; the checkout's versions are never changed.
 Run this gate locally with `pnpm exec node scripts/test-svelte-package.mjs`.
+
+`pnpm exec node scripts/test-public-package-runtime.mjs` builds every public
+package, installs local tarballs in an isolated consumer with exact installed
+framework peers, and checks explicit import/require and legacy main/module
+entries. The dedicated Node 20 job also runs the existing Date and Svelte gates.
+Set all three of `DESTYLER_CONSUMER_NODE` (absolute Node binary path),
+`DESTYLER_CONSUMER_NPM` (absolute npm CLI JavaScript path), and
+`DESTYLER_CONSUMER_NODE_VERSION` (exact version) to run their consumer processes
+on a different Node installation. The invoking development Node still builds,
+packs, and runs the locked browser tooling. An incomplete selection, version
+mismatch, or incompatible consumer dependency engine fails the dedicated check.
 
 All workflow workspace installs use the frozen pnpm lockfile. When editing
 workflows, run `pnpm test:workflows` to check YAML parsing, the job dependency graph,

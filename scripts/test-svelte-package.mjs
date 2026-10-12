@@ -8,6 +8,8 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 
+import { consumerNode, installConsumer } from './consumer-runtime.mjs'
+
 const root = fileURLToPath(new URL('..', import.meta.url))
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-svelte-adapter-packed-')))
 const runtimeFields = ['dependencies', 'optionalDependencies', 'peerDependencies']
@@ -134,17 +136,18 @@ async function checkConsumers(packages, destination, label) {
     }, null, 2))
     // A missing workspace tarball must never be silently replaced by a registry release.
     await writeFile(path.join(consumerDir, '.npmrc'), '@destyler:registry=http://127.0.0.1:9/\nfetch-retries=0\n')
-    run(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=true'], consumerDir)
+    installConsumer(consumerDir)
     await assertProvenance(consumerDir, packed)
     const installedDir = path.join(consumerDir, 'node_modules/@destyler/svelte')
     const manifest = await readManifest(installedDir)
     for (const target of Object.values(manifest.exports).flatMap(conditions => Object.values(conditions)))
       await readFile(path.join(installedDir, target))
     for (const resolution of ['Bundler', 'NodeNext'])
-      run(process.execPath, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json', '--moduleResolution', resolution, '--module', resolution === 'Bundler' ? 'ESNext' : 'NodeNext'], consumerDir)
+      run(consumerNode, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.json', '--moduleResolution', resolution, '--module', resolution === 'Bundler' ? 'ESNext' : 'NodeNext'], consumerDir)
     for (const condition of ['node', 'browser', 'svelte'])
-      run(process.execPath, [`--conditions=${condition}`, 'imports.mjs'], consumerDir)
+      run(consumerNode, [`--conditions=${condition}`, 'imports.mjs'], consumerDir)
     console.log(`Packed Svelte adapter (${label}, Svelte ${version}): local runtime closure, strict Bundler/NodeNext and runtime entry imports passed`)
+    await rm(consumerDir, { recursive: true, force: true })
   }
 }
 
