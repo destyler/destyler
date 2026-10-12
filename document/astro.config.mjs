@@ -38,6 +38,7 @@ export default defineConfig({
       injectReset: true,
     }),
     starlight({
+      favicon: '/logo-light.svg',
       logo: {
         dark: './public/logo-dark.svg',
         light: './public/logo-light.svg',
@@ -49,7 +50,7 @@ export default defineConfig({
           attrs: {
             rel: 'icon',
             href: '/logo-light.svg',
-            type: 'image/x-icon',
+            type: 'image/svg+xml',
             media: '(prefers-color-scheme: light)',
           },
         },
@@ -58,7 +59,7 @@ export default defineConfig({
           attrs: {
             rel: 'icon',
             href: '/logo-dark.svg',
-            type: 'image/x-icon',
+            type: 'image/svg+xml',
             media: '(prefers-color-scheme: dark)',
           },
         },

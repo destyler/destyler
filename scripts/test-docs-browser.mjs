@@ -99,6 +99,29 @@ try {
   }
 
   await page.goto(`${origin}/components/checkbox/`)
+  // Check every declared icon directly: browser favicon selection can be deferred
+  // until after this smoke test's ordinary page and search interactions finish.
+  const iconLinks = await page.locator('link[rel~="icon"]').evaluateAll(links => links.map(link => ({
+    rel: link.getAttribute('rel'),
+    href: link.getAttribute('href'),
+    type: link.getAttribute('type'),
+    media: link.getAttribute('media'),
+  })))
+  const iconResponses = []
+  for (const icon of iconLinks) {
+    const url = new URL(icon.href, origin)
+    assert.equal(url.origin, origin, 'Documentation icons must be local assets')
+    const response = await context.request.get(url.href)
+    const content = await response.text()
+    iconResponses.push({ ...icon, status: response.status(), contentType: response.headers()['content-type'], svg: /<svg\s[^>]*xmlns="http:\/\/www\.w3\.org\/2000\/svg"/.test(content) })
+  }
+  console.log(JSON.stringify({ documentationIcons: iconResponses }))
+  assert.deepEqual(iconLinks, [
+    { rel: 'icon', href: '/logo-light.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: light)' },
+    { rel: 'icon', href: '/logo-dark.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
+    { rel: 'shortcut icon', href: '/logo-light.svg', type: 'image/svg+xml', media: null },
+  ])
+  assert(iconResponses.every(icon => icon.status === 200 && icon.contentType === 'image/svg+xml' && icon.svg), 'Every declared documentation icon must serve its real SVG asset')
   await checkFramework('vue', 'Vue', 'Checkbox.vue')
   const visibleControl = page.locator('.select-framework-root:visible')
   await visibleControl.locator('.select-framework-trigger').click()
