@@ -46,6 +46,22 @@ jobs:
       - name: Verify packages
         uses: ./.github/actions/verify
 
+      - name: Observe temporary UnoCSS native comparison
+        if: matrix.node == 22
+        run: >-
+          pnpm exec node scripts/observe-unocss-native.mjs
+          --baseline 6e5c746f6d9ab545b09cd72c530fe567b14106a5
+          --candidate "$(git rev-parse HEAD)"
+          --output "$RUNNER_TEMP/core-unocss-native-evidence"
+
+      - name: Upload temporary UnoCSS native evidence
+        if: always() && matrix.node == 22
+        uses: actions/upload-artifact@v6
+        with:
+          name: core-unocss-native-evidence
+          path: ${{ runner.temp }}/core-unocss-native-evidence
+          if-no-files-found: error
+
       - name: Report Coverage
         if: always() && matrix.node == 24
         uses: davelosert/vitest-coverage-report-action@v2

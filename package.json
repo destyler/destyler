@@ -104,6 +104,7 @@
     "react": "catalog:frontend",
     "react-dom": "catalog:frontend",
     "rimraf": "catalog:script",
+    "rolldown": "catalog:build",
     "solid-js": "catalog:frontend",
     "svelte": "catalog:frontend",
     "taze": "catalog:script",
