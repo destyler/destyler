@@ -70,8 +70,8 @@ catalogs:
     taze: ^19.9.2
     tsx: ^4.23.15
   store:
-    '@nanostores/vue': ^1.0.1
-    nanostores: ^1.1.0
+    '@nanostores/vue': ^1.1.0
+    nanostores: ^1.5.5
   storybook:
     astrobook: ^0.11.2
   test:
@@ -86,7 +86,7 @@ catalogs:
     vitest-axe: ^0.1.0
     yaml: ^2.9.1
   theme:
-    '@pagefind/default-ui': ^1.4.0
+    '@pagefind/default-ui': ^1.5.2
     starlight-theme-destyler: ^0.1.7
   types:
     '@types/archiver': ^7.0.0
