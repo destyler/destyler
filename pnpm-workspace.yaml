@@ -52,8 +52,8 @@ catalogs:
     marked: ^18.1.0
     shiki: ^4.5.0
   plugin:
-    '@sveltejs/vite-plugin-svelte': ^6.2.1
-    '@vitejs/plugin-react': ^5.1.2
+    '@sveltejs/vite-plugin-svelte': ^6.2.4
+    '@vitejs/plugin-react': ^5.2.0
     '@vitejs/plugin-vue': ^6.0.10
     vite-plugin-solid: ^2.11.14
   prod:
