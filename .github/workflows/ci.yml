@@ -50,7 +50,7 @@ jobs:
         if: matrix.node == 22
         run: >-
           pnpm exec node scripts/observe-unocss-native.mjs
-          --baseline 6e5c746f6d9ab545b09cd72c530fe567b14106a5
+          --baseline 95f4c6df9586db518ba5f1c14d68e8a27b88b253
           --candidate "$(git rev-parse HEAD)"
           --output "$RUNNER_TEMP/core-unocss-native-evidence"
 

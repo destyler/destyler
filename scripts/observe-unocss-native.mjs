@@ -12,9 +12,9 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 
-const baselineCommit = '6e5c746f6d9ab545b09cd72c530fe567b14106a5'
-const baselineTree = '2c4eef668328c3635a16b6e20b8e38baefa61e4a'
-const cleanCandidateTree = '73ce3e03b89022da1e895e893019f97921df8c11'
+const baselineCommit = '95f4c6df9586db518ba5f1c14d68e8a27b88b253'
+const baselineTree = '2c9376af15f9dfbe8cc6a3925761f92ef46a42eb'
+const cleanCandidateTree = '5aba0a2e81ad81eb569f8e346b62eb3206386440'
 const scriptPath = 'scripts/observe-unocss-native.mjs'
 const workflowPath = '.github/workflows/ci.yml'
 const dependencies = {
@@ -27,7 +27,7 @@ const temporarySteps = `      - name: Observe temporary UnoCSS native comparison
         if: matrix.node == 22
         run: >-
           pnpm exec node scripts/observe-unocss-native.mjs
-          --baseline 6e5c746f6d9ab545b09cd72c530fe567b14106a5
+          --baseline 95f4c6df9586db518ba5f1c14d68e8a27b88b253
           --candidate "$(git rev-parse HEAD)"
           --output "$RUNNER_TEMP/core-unocss-native-evidence"
 
@@ -263,6 +263,7 @@ async function visit(side, origin, route, theme, result) {
       const properties = ['width', 'height', 'color', 'background-color', 'background-image', 'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color', 'border-top-style', 'border-right-style', 'border-bottom-style', 'border-left-style', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width', 'border-radius', 'box-shadow', 'font-family', 'font-size', 'font-weight', 'line-height', 'display', 'visibility', 'opacity', 'overflow-x', 'overflow-y', 'position', 'z-index', 'transform', 'max-height', 'scrollbar-width', 'scrollbar-color', 'mask-image', '-webkit-mask-image']
       const styles = Object.fromEntries(properties.map(name => [name, style.getPropertyValue(name)]))
       const rect = element.getBoundingClientRect()
+      const windowScroll = { x: window.scrollX, y: window.scrollY }
       const pseudo = {}
       for (const name of ['::-webkit-scrollbar', '::-webkit-scrollbar-thumb', '::-webkit-scrollbar-track']) {
         const supported = CSS.supports(`selector(${name})`)
@@ -276,7 +277,7 @@ async function visit(side, origin, route, theme, result) {
         catch (error) { record.unmeasured = String(error) }
         return record
       })
-      return { path: cssPath(element), html: element.outerHTML, tag: element.localName, classes: [...element.classList], styles, rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, documentRect: { x: rect.x + scrollX, y: rect.y + scrollY, width: rect.width, height: rect.height }, checked: 'checked' in element ? element.checked : null, state: element.getAttribute('data-state'), scroll: Object.fromEntries(['clientWidth', 'scrollWidth', 'clientHeight', 'scrollHeight', 'scrollTop', 'scrollLeft'].map(k => [k, element[k]])), layout: { width: element.offsetWidth, height: element.offsetHeight }, shikiDark: style.getPropertyValue('--shiki-dark'), pseudo, styleSheets, inlineStyle: element.getAttribute('style'), hover: element.matches(':hover'), animations: element.getAnimations().map(animation => ({ playState: animation.playState, currentTime: animation.currentTime })) }
+      return { path: cssPath(element), html: element.outerHTML, tag: element.localName, classes: [...element.classList], styles, rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, documentRect: { x: rect.x + windowScroll.x, y: rect.y + windowScroll.y, width: rect.width, height: rect.height }, windowScroll, checked: 'checked' in element ? element.checked : null, state: element.getAttribute('data-state'), scroll: Object.fromEntries(['clientWidth', 'scrollWidth', 'clientHeight', 'scrollHeight', 'scrollTop', 'scrollLeft'].map(k => [k, element[k]])), layout: { width: element.offsetWidth, height: element.offsetHeight }, shikiDark: style.getPropertyValue('--shiki-dark'), pseudo, styleSheets, inlineStyle: element.getAttribute('style'), hover: element.matches(':hover'), animations: element.getAnimations().map(animation => ({ playState: animation.playState, currentTime: animation.currentTime })) }
     })
     // Chromium's matching engine handles nesting, pseudo selectors, inherited rules and at-rules.
     // Full raw protocol responses and ordered CSSOM sheets remain available for review.
@@ -420,10 +421,26 @@ async function visit(side, origin, route, theme, result) {
       visitRecord.codeScrollExercised = scrolled.scroll.scrollHeight > scrolled.scroll.clientHeight
       if (!visitRecord.codeScrollExercised)
         visitRecord.unmeasured.push({ area: 'code-scroll', reason: 'actual code block does not overflow; no synthetic overflow added' })
-      await screenshot(`${id}/code`, code)
+      const codeCrop = code.locator('[data-scope="tabs"][data-part="root"]')
+      await expect(codeCrop).toHaveCount(1)
+      await expect(codeCrop).toBeVisible()
+      await expect(codeCrop.getByRole('tablist')).toHaveCount(1)
+      await expect(codeCrop.locator('.code-container:visible')).toHaveCount(1)
+      await codeCrop.scrollIntoViewIfNeeded()
+      visitRecord.codeCrop = await codeCrop.evaluate((element) => {
+        const rect = element.getBoundingClientRect()
+        return { tag: element.localName, html: element.outerHTML, isHTMLElement: element instanceof HTMLElement, display: getComputedStyle(element).display, rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, windowScroll: { x: window.scrollX, y: window.scrollY } }
+      })
+      await save()
+      assert(visitRecord.codeCrop.isHTMLElement && visitRecord.codeCrop.display !== 'contents', 'code crop must be a real rendered HTMLElement box')
+      assert(Object.values(visitRecord.codeCrop.rect).every(Number.isFinite) && visitRecord.codeCrop.rect.width > 0 && visitRecord.codeCrop.rect.height > 0, 'code crop must have a finite nonzero box')
+      await screenshot(`${id}/code`, codeCrop)
       const feature = page.locator('astro-island[component-url*="/FeatureItem."]').first()
-      await feature.scrollIntoViewIfNeeded()
       await expect(feature).not.toHaveAttribute('ssr')
+      const featureScroll = feature.locator(':scope > li')
+      await expect(featureScroll).toHaveCount(1)
+      await expect(featureScroll).toBeVisible()
+      await featureScroll.scrollIntoViewIfNeeded()
       const flip = feature.locator('li > div:first-child > div:first-child')
       await expect(flip).toHaveCount(1)
       const deadline = Date.now() + 5000
@@ -502,6 +519,9 @@ function compare(results) {
   const differences = []
   const expectedObservations = []
   const ruleOrderPairs = []
+  const geometryTolerancePx = 0.5
+  const rectKeys = ['x', 'y', 'width', 'height']
+  const equalStateKeys = ['checked', 'state', 'shikiDark', 'scroll', 'layout', 'pseudo']
   const unresolved = (id, field, before, after) => differences.push({ id, field, before, after, classification: 'unresolved' })
   for (const id of [...inventory, ...conditionalInventory]) {
     const a = results.baseline.samples[id]
@@ -515,11 +535,34 @@ function compare(results) {
       continue
     }
     const featureIcon = id.endsWith('/feature/icon')
+    const geometryConsistent = [a, b].map((sample, index) => {
+      const finite = rectKeys.every(key => Number.isFinite(sample.rect?.[key]) && Number.isFinite(sample.documentRect?.[key])) && ['x', 'y'].every(key => Number.isFinite(sample.windowScroll?.[key]))
+      const consistent = finite && ['x', 'y'].every(key => Math.abs(sample.rect[key] + sample.windowScroll[key] - sample.documentRect[key]) <= geometryTolerancePx) && ['width', 'height'].every(key => sample.rect[key] >= 0 && sample.documentRect[key] >= 0 && Math.abs(sample.rect[key] - sample.documentRect[key]) <= geometryTolerancePx)
+      if (!consistent)
+        unresolved(id, `${index === 0 ? 'baseline' : 'candidate'}.geometry-consistency`, { rect: sample.rect, documentRect: sample.documentRect, windowScroll: sample.windowScroll }, 'finite rectangles and measured window scroll must agree')
+      return consistent
+    })
+    // Only the 13 reviewed dark-checkbox preview targets may classify a vertical
+    // viewport-origin change. Its cause remains unknown; all raw values are retained.
+    const knownPreview = /^checkbox\/dark\/(?:(?:unchecked|checked|unchecked-again)\/(?:root|control|input|label)|checked\/icon)$/.test(id)
+    const scrollOnly = knownPreview && geometryConsistent.every(Boolean)
+      && JSON.stringify(a.styles) === JSON.stringify(b.styles)
+      && equalStateKeys.every(key => JSON.stringify(a[key]) === JSON.stringify(b[key]))
+      && rectKeys.every(key => Math.abs(a.documentRect[key] - b.documentRect[key]) <= geometryTolerancePx)
+      && ['x', 'width', 'height'].every(key => Math.abs(a.rect[key] - b.rect[key]) <= geometryTolerancePx)
+      && Math.abs(a.windowScroll.x - b.windowScroll.x) <= geometryTolerancePx
+      && Math.abs((b.rect.y - a.rect.y) + (b.windowScroll.y - a.windowScroll.y)) <= geometryTolerancePx
+    if (scrollOnly && Math.abs(a.windowScroll.y - b.windowScroll.y) > geometryTolerancePx)
+      expectedObservations.push({ id, classification: 'observed-viewport-origin-offset', reason: 'Reviewed dark-checkbox target: measured window scroll explains viewport y; styles, element scroll, layout, state and document geometry agree. The cause of different window scroll is not established.', baseline: { rect: a.rect, documentRect: a.documentRect, windowScroll: a.windowScroll }, candidate: { rect: b.rect, documentRect: b.documentRect, windowScroll: b.windowScroll } })
+    for (const key of ['x', 'y']) {
+      if (Number.isFinite(a.windowScroll?.[key]) && Number.isFinite(b.windowScroll?.[key]) && Math.abs(a.windowScroll[key] - b.windowScroll[key]) > geometryTolerancePx && !(key === 'y' && scrollOnly))
+        unresolved(id, `windowScroll.${key}`, a.windowScroll[key], b.windowScroll[key])
+    }
     ruleOrderPairs.push({ id, baseline: a.ruleOrder, candidate: b.ruleOrder, classification: 'raw-order-evidence-for-review' })
     if (featureIcon) {
       expectedObservations.push({ id, classification: 'expected', reason: 'natural rotating icon animation; compare untransformed layout dimensions, retain instantaneous transform/rectangles', baseline: { transform: a.styles.transform, rect: a.rect, documentRect: a.documentRect }, candidate: { transform: b.styles.transform, rect: b.rect, documentRect: b.documentRect } })
     }
-    for (const key of Object.keys(a.styles)) {
+    for (const key of new Set([...Object.keys(a.styles), ...Object.keys(b.styles)])) {
       // The rotating icon's instantaneous animation transform is intentionally recorded only.
       if (featureIcon && key === 'transform')
         continue
@@ -529,17 +572,19 @@ function compare(results) {
     for (const area of ['rect', 'documentRect']) {
       if (featureIcon)
         continue
-      for (const key of ['x', 'y', 'width', 'height']) {
-        if (Math.abs(a[area][key] - b[area][key]) > 0.5)
+      for (const key of rectKeys) {
+        if (area === 'rect' && key === 'y' && scrollOnly)
+          continue
+        if (Math.abs(a[area][key] - b[area][key]) > geometryTolerancePx)
           unresolved(id, `${area}.${key}`, a[area][key], b[area][key])
       }
     }
-    for (const key of ['checked', 'state', 'shikiDark', 'scroll', 'layout', 'pseudo']) {
+    for (const key of equalStateKeys) {
       if (JSON.stringify(a[key]) !== JSON.stringify(b[key]))
         unresolved(id, key, a[key], b[key])
     }
   }
-  return { differences, expectedObservations, ruleOrderPairs, geometryTolerancePx: 0.5, classification: differences.length ? 'unresolved-observed-differences' : 'no-observed-style-layout-difference', ruleOrder: 'Raw Chromium matching rules, nested contexts, stylesheet text and document order retained per live target; no selector/scope normalization or cascade-equivalence claim.', expectedNondeterminism: 'Feature source random states/timing and the rotating icon instantaneous transform are retained as observations, not equality assertions.', screenshots: 'Paired raw element screenshots retained for review; no automatic pixel-equality claim.' }
+  return { differences, expectedObservations, ruleOrderPairs, geometryTolerancePx, viewportScrollPolicy: 'Only the 13 reviewed dark-checkbox preview targets can classify a measured vertical viewport-origin offset when both geometry relations and all styles, state, layout, element scroll and document geometry agree; other window scroll differences remain unresolved. Scroll causes are not inferred.', classification: differences.length ? 'unresolved-observed-differences' : 'no-observed-style-layout-difference', ruleOrder: 'Raw Chromium matching rules, nested contexts, stylesheet text and document order retained per live target; no selector/scope normalization or cascade-equivalence claim.', expectedNondeterminism: 'Feature source random states/timing and the rotating icon instantaneous transform are retained as observations, not equality assertions.', screenshots: 'Paired raw element screenshots retained for review; no automatic pixel-equality claim.' }
 }
 
 try {
