@@ -91,14 +91,14 @@ catalogs:
     '@pagefind/default-ui': ^1.5.2
     starlight-theme-destyler: ^0.1.7
   types:
-    '@types/archiver': ^7.0.0
+    '@types/archiver': ^8.0.0
     '@types/node': ^25.0.3
     '@types/react': ^19.3.0
     '@types/react-dom': ^19.3.0
     ts-morph: ^27.0.2
     typescript: ^5.9.3
   util:
-    archiver: ^7.0.1
+    archiver: ^8.0.0
     cross-env: ^10.1.0
     fast-glob: ^3.3.3
     find-packages: ^10.0.4
