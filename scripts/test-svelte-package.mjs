@@ -129,7 +129,7 @@ async function checkConsumers(packages, destination, label) {
         ...Object.fromEntries([...packed].map(([name, { tarball }]) => [name, `file:${tarball}`])),
         'svelte': version,
         'typescript': '5.9.3',
-        'happy-dom': '20.3.3',
+        'happy-dom': '21.0.1',
       },
     }, null, 2))
     // A missing workspace tarball must never be silently replaced by a registry release.

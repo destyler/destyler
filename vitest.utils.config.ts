@@ -7,6 +7,13 @@ export default defineProject({
       color: 'yellow',
     },
     environment: 'node',
+    environmentOptions: {
+      happyDOM: {
+        settings: {
+          enableIframePageLoading: true,
+        },
+      },
+    },
     include: [
       'packages/**/*.test.{js,ts,jsx,tsx}',
     ],
