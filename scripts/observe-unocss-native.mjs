@@ -58,6 +58,7 @@ const routes = ['checkbox', 'hover-card']
 const manifest = { started: new Date().toISOString(), argv: process.argv, result: 'collection-failed', commands: [], sides: {}, cleanupErrors: [], failures: [], tools: { node: process.version, executable: process.execPath, platform: process.platform, arch: process.arch, osRelease: os.release() } }
 const worktrees = []
 const servers = []
+const retainedFeatureContexts = []
 let temporaryRoot
 let browser
 let expect
@@ -214,6 +215,262 @@ for (const theme of themes) {
 const conditionalInventory = themes.flatMap(theme => [`checkbox/${theme}/feature/flip`, `checkbox/${theme}/feature/icon`])
 const screenshotInventory = themes.flatMap(theme => [`checkbox/${theme}/checked`, `checkbox/${theme}/code`, `hover-card/${theme}/open`])
 
+// One retained handle owns only the original first FeatureItem and its CSS spin.
+function createFeaturePhaseOwner(parent, sourceBlob) {
+  const need = (condition, message) => {
+    if (!condition)
+      throw new Error(message)
+  }
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b)
+  const serial = value => JSON.parse(JSON.stringify(value, (_key, item) => item === Infinity ? 'Infinity' : item))
+  const children = parent.querySelectorAll(':scope > div')
+  const child = children.length === 1 ? children[0] : null
+  const animations = child?.getAnimations() || []
+  const animation = animations.length === 1 ? animations[0] : null
+  const effect = animation?.effect
+  const mutations = []
+  let properties
+  let bound
+  let observer
+  let observerError = null
+  let mutationOverflow = false
+  const collect = (records) => {
+    try {
+      for (const record of records) {
+        if (mutations.length === 32) {
+          mutationOverflow = true
+          break
+        }
+        mutations.push({ type: record.type, target: record.target === parent ? 'parent' : record.target === child ? 'child' : 'descendant', attribute: record.attributeName, addedNodes: record.addedNodes.length, removedNodes: record.removedNodes.length })
+      }
+    }
+    catch (error) { observerError ||= error.stack || String(error) }
+  }
+  const drain = () => {
+    try {
+      if (observer)
+        collect(observer.takeRecords())
+    }
+    catch (error) { observerError ||= error.stack || String(error) }
+  }
+  const timing = () => ({ name: animation.animationName, currentTime: animation.currentTime, startTime: animation.startTime, playState: animation.playState, pending: animation.pending, playbackRate: animation.playbackRate, composite: effect.composite, iterationComposite: effect.iterationComposite ?? null, timing: serial(effect.getTiming()), computedTiming: serial(effect.getComputedTiming()), keyframes: effect.getKeyframes() })
+  const ownership = () => {
+    need(sourceBlob === 'bf5642529673863a219fb0cc7e450d0b5233908b', 'FeatureItem source drift')
+    need(parent.isConnected && parent.matches('li > div:first-child > div:first-child') && parent.closest('astro-island') === document.querySelector('astro-island[component-url*="/FeatureItem."]'), 'fixed first feature parent changed')
+    need(child && children.length === 1 && parent.querySelectorAll(':scope > div').length === 1 && child.parentElement === parent, 'fixed unique child changed')
+    need(animation && child.getAnimations().length === 1 && child.getAnimations()[0] === animation && animation.effect === effect && effect.target === child, 'fixed animation ownership missing or ambiguous')
+    need(animation instanceof CSSAnimation && animation.animationName === 'spin' && effect instanceof KeyframeEffect && animation.timeline === document.timeline && effect.composite === 'replace' && [undefined, 'replace'].includes(effect.iterationComposite), 'unsupported CSS animation or timeline/compositing')
+    need(parent.classList.contains('flip') && parent.getAnimations().every(item => item.playState === 'finished'), 'parent flip no longer settled')
+    const actual = effect.getTiming()
+    need(actual.duration === 1000 && actual.iterations === Infinity && actual.delay === 0 && actual.endDelay === 0 && actual.iterationStart === 0 && actual.direction === 'normal' && actual.fill === 'none' && actual.easing === 'linear', 'reviewed timing changed or unsupported')
+    const frames = effect.getKeyframes()
+    need(frames.length === 2 && frames.every((frame, index) => frame.offset === index && frame.computedOffset === index && frame.easing === 'linear' && ['auto', 'replace'].includes(frame.composite) && frame.transform === `rotate(${index * 360}deg)` && Object.keys(frame).every(key => ['offset', 'computedOffset', 'easing', 'composite', 'transform'].includes(key))), 'reviewed keyframes changed or unsupported')
+  }
+  const read = (element) => {
+    const style = getComputedStyle(element)
+    const rect = element.getBoundingClientRect()
+    const windowScroll = { x: window.scrollX, y: window.scrollY }
+    const record = { styles: Object.fromEntries([...properties, 'animation-name', 'animation-duration', 'animation-timing-function', 'animation-iteration-count', 'animation-direction', 'animation-delay', 'animation-fill-mode', 'animation-play-state'].map(name => [name, style.getPropertyValue(name)])), rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, documentRect: { x: rect.x + windowScroll.x, y: rect.y + windowScroll.y, width: rect.width, height: rect.height }, windowScroll, scroll: Object.fromEntries(['clientWidth', 'scrollWidth', 'clientHeight', 'scrollHeight', 'scrollTop', 'scrollLeft'].map(key => [key, element[key]])), layout: { width: element.offsetWidth, height: element.offsetHeight } }
+    need([record.rect, record.documentRect, windowScroll, record.scroll, record.layout].every(area => Object.values(area).every(Number.isFinite)), 'nonfinite phase geometry')
+    return record
+  }
+  const snapshot = () => {
+    ownership()
+    const before = animation.currentTime
+    const state = { parent: read(parent), child: read(child), animation: timing() }
+    need(before === animation.currentTime, 'time changed within atomic snapshot')
+    return state
+  }
+  const stable = (state) => {
+    drain()
+    need(!observerError && !mutationOverflow && mutations.length === 0, 'retained target mutation or incomplete observer evidence')
+    need(same(state.animation.timing, bound.state.animation.timing) && same(state.animation.keyframes, bound.state.animation.keyframes), 'retained animation drift')
+    for (const target of ['parent', 'child']) {
+      need(same(state[target].layout, bound.state[target].layout) && same(state[target].windowScroll, bound.state[target].windowScroll), 'retained layout/window scroll drift')
+      for (const key of Object.keys(state[target].styles)) {
+        if (!(target === 'child' && key === 'transform'))
+          need(state[target].styles[key] === bound.state[target].styles[key], `retained style drift: ${target}.${key}`)
+      }
+      for (const key of Object.keys(state[target].scroll)) {
+        if (!(target === 'parent' && ['scrollWidth', 'scrollHeight'].includes(key)))
+          need(state[target].scroll[key] === bound.state[target].scroll[key], `retained non-overflow scroll drift: ${target}.${key}`)
+      }
+    }
+    need(same(state.parent.rect, bound.state.parent.rect) && same(state.parent.documentRect, bound.state.parent.documentRect), 'retained parent geometry drift')
+  }
+  const running = state => need(state.animation.playState === 'running' && !state.animation.pending && state.animation.playbackRate === 1 && [state.animation.currentTime, state.animation.startTime, document.timeline.currentTime].every(Number.isFinite), 'unsupported running animation state')
+  return {
+    start: () => ({ currentTime: animation?.currentTime, timelineTime: document.timeline.currentTime }),
+    bind: (sample, styleProperties, start) => {
+      const result = { status: 'failed', sourceBlob, start, error: null }
+      try {
+        need(!bound && sample.tag === parent.localName, 'natural parent already bound or changed')
+        properties = styleProperties
+        result.state = snapshot()
+        result.timelineTime = document.timeline.currentTime
+        running(result.state)
+        need(start.currentTime === result.state.animation.currentTime && start.timelineTime === result.timelineTime, 'original natural capture crossed an animation tick')
+        need(properties.every(key => sample.styles[key] === result.state.parent.styles[key]) && ['rect', 'documentRect', 'windowScroll', 'scroll', 'layout'].every(key => same(sample[key], result.state.parent[key])), 'phase binding differs from original natural parent measurement')
+        need(result.state.parent.styles.transform === 'matrix3d(0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1)' && same(result.state.parent.layout, { width: 20, height: 24 }) && same(result.state.child.layout, { width: 20, height: 20 }), 'reviewed transform/layout changed')
+        result.status = 'bound'
+        bound = result
+        observer = new MutationObserver(collect)
+        observer.observe(parent, { attributes: true, childList: true })
+        observer.observe(child, { attributes: true, childList: true })
+      }
+      catch (error) {
+        result.error = error.stack || String(error)
+        result.status = 'failed'
+      }
+      return result
+    },
+    replay: (times) => {
+      const result = { status: 'failed', sourceBlob, times, natural: bound, frames: [], error: null, restoreError: null }
+      let owned = false
+      try {
+        need(bound?.status === 'bound' && !bound.error, 'natural phase was not bound')
+        need(times.length >= 1 && times.length <= 2 && new Set(times).size === times.length && times.every(time => Number.isFinite(time) && time >= 0) && times.includes(bound.state.animation.currentTime), 'invalid bounded union of actual observation times')
+        result.before = snapshot()
+        result.timelineTime = document.timeline.currentTime
+        running(result.before)
+        stable(result.before)
+        need(result.before.animation.startTime === bound.state.animation.startTime, 'original animation timeline was restarted')
+        owned = true
+        animation.pause()
+        for (let pass = 0; pass < 2; pass++) {
+          for (const currentTime of times) {
+            animation.currentTime = currentTime
+            need(animation.playState === 'paused' && !animation.pending && animation.currentTime === currentTime, 'exact observed time did not settle synchronously')
+            const state = snapshot()
+            stable(state)
+            result.frames.push({ pass, currentTime, state })
+          }
+        }
+        need(result.frames.some(frame => frame.currentTime === bound.state.animation.currentTime && same(frame.state.parent, bound.state.parent) && same(frame.state.child, bound.state.child) && same(frame.state.animation.computedTiming, bound.state.animation.computedTiming)), 'exact natural-time replay did not reproduce the atomic observed geometry')
+      }
+      catch (error) { result.error = error.stack || String(error) }
+      finally {
+        if (owned) {
+          try {
+            ownership()
+            animation.currentTime = result.before.animation.currentTime
+            animation.play()
+            animation.startTime = result.before.animation.startTime
+            result.restored = snapshot()
+            need(document.timeline.currentTime === result.timelineTime && same(result.before, result.restored), 'owned animation failed exact restoration to replay-entry state')
+          }
+          catch (error) { result.restoreError = error.stack || String(error) }
+        }
+        drain()
+        result.mutations = [...mutations]
+        result.observerError = observerError
+        result.mutationOverflow = mutationOverflow
+      }
+      if (!result.error && !result.restoreError && result.restored && !result.mutations.length && !observerError && !mutationOverflow)
+        result.status = 'collected-restored'
+      return result
+    },
+    finish: () => {
+      const result = { status: 'failed', mutations: [], error: null }
+      try {
+        need(bound?.status === 'bound', 'missing natural binding at cleanup')
+        result.state = snapshot()
+        running(result.state)
+        stable(result.state)
+        need(result.state.animation.startTime === bound.state.animation.startTime, 'animation timeline changed before cleanup')
+        result.status = 'stable'
+      }
+      catch (error) { result.error = error.stack || String(error) }
+      finally {
+        drain()
+        result.mutations = [...mutations]
+        try {
+          observer?.disconnect()
+        }
+        catch (error) { result.cleanupError = error.stack || String(error) }
+        result.observerError = observerError
+        result.mutationOverflow = mutationOverflow
+        if (observerError || mutationOverflow || result.cleanupError || result.mutations.length)
+          result.status = 'failed'
+      }
+      return result
+    },
+  }
+}
+
+async function replayRetainedFeatures(results) {
+  for (const theme of themes) {
+    const id = `checkbox/${theme}`
+    const times = [...new Set(sides.map(side => results[side].samples[`${id}/feature/flip`]?.featurePhase?.state?.animation?.currentTime))].sort((a, b) => a - b)
+    for (const retained of retainedFeatureContexts.filter(item => item.id === id)) {
+      try {
+        retained.visit.feature.phaseReplay = await retained.owner.evaluate((owner, observedTimes) => owner.replay(observedTimes), times)
+        const probe = retained.visit.feature.phaseReplay
+        if (probe.status !== 'collected-restored')
+          retained.visit.errors.push({ type: 'feature-phase-replay', error: probe.error, restoreError: probe.restoreError, observerError: probe.observerError, mutationOverflow: probe.mutationOverflow })
+      }
+      catch (error) { retained.visit.errors.push({ type: 'feature-phase-replay', error: error.stack || String(error) }) }
+      await cleanup(`phase-evidence:${retained.side}:${retained.id}`, () => write(`${retained.side}.json`, retained.result))
+    }
+  }
+}
+
+async function closeRetainedFeatures() {
+  for (const retained of retainedFeatureContexts) {
+    if (retained.cleanupAttempted)
+      continue
+    retained.cleanupAttempted = true
+    await cleanup(`feature-retention:${retained.side}:${retained.id}`, async () => {
+      retained.visit.feature.retention = await retained.owner.evaluate(owner => owner.finish())
+      assert.equal(retained.visit.feature.retention.status, 'stable', retained.visit.feature.retention.error || 'retained target changed')
+    })
+    await cleanup(`context:${retained.side}:${retained.id}`, async () => {
+      await retained.context.close()
+      retained.closed = true
+    })
+    retained.visit.feature.contextClosed = retained.closed === true
+    retained.visit.errors.push(...retained.visit.console.filter(entry => entry.type === 'error' || (entry.type === 'warning' && /pagefind|hydration/i.test(entry.text))))
+    retained.visit.errors.push(...retained.visit.requests)
+    await cleanup(`retained-evidence:${retained.side}:${retained.id}`, () => write(`${retained.side}.json`, retained.result))
+  }
+}
+
+function qualifyFeatureReplay(results, theme, naturalDifferences) {
+  const id = `checkbox/${theme}/feature/flip`
+  const iconId = `checkbox/${theme}/feature/icon`
+  const need = (condition, message) => {
+    if (!condition)
+      throw new Error(message)
+  }
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b)
+  const times = [...new Set(['baseline', 'candidate'].map(side => results[side].samples[id]?.featurePhase?.state?.animation?.currentTime))].sort((a, b) => a - b)
+  need(times.length >= 1 && times.length <= 2 && times.every(time => Number.isFinite(time) && time >= 0), 'missing exact natural observation times')
+  const probes = ['baseline', 'candidate'].map((side) => {
+    const sample = results[side].samples[id]
+    const icon = results[side].samples[iconId]
+    const natural = sample.featurePhase
+    const visits = results[side].visits.filter(visit => visit.id === `checkbox/${theme}`)
+    need(visits.length === 1, 'fixed feature visit missing or ambiguous')
+    const feature = visits[0].feature
+    const probe = feature?.phaseReplay
+    need(natural?.status === 'bound' && !natural.error && sample.conditionalComparable && icon?.conditionalComparable, `${side}: original natural binding/state failed`)
+    need(probe?.status === 'collected-restored' && !probe.error && !probe.restoreError && !probe.observerError && !probe.mutationOverflow && probe.mutations?.length === 0 && same(probe.before, probe.restored) && same(probe.natural, natural) && probe.sourceBlob === 'bf5642529673863a219fb0cc7e450d0b5233908b', `${side}: replay/restore/source/mutation guard failed`)
+    need(feature.retention?.status === 'stable' && !feature.retention.error && !feature.retention.cleanupError && !feature.retention.observerError && !feature.retention.mutationOverflow && feature.retention.mutations?.length === 0 && feature.contextClosed === true, `${side}: retention or context cleanup failed`)
+    need(same(probe.times, times) && probe.frames.length === times.length * 2, `${side}: bounded shared-time coverage incomplete`)
+    for (let index = 0; index < times.length; index++) {
+      const first = probe.frames[index]
+      const repeat = probe.frames[index + times.length]
+      need(first.pass === 0 && repeat.pass === 1 && first.currentTime === times[index] && repeat.currentTime === first.currentTime && same(first.state, repeat.state), `${side}: exact-time repeat differs`)
+    }
+    need(Object.keys(sample.styles).every(key => sample.styles[key] === natural.state.parent.styles[key]) && ['rect', 'documentRect', 'windowScroll', 'scroll', 'layout'].every(key => same(sample[key], natural.state.parent[key])), `${side}: binding no longer matches original parent sample`)
+    need(probe.frames.some(frame => frame.currentTime === natural.state.animation.currentTime && same(frame.state.parent, natural.state.parent) && same(frame.state.child, natural.state.child) && same(frame.state.animation.computedTiming, natural.state.animation.computedTiming)), `${side}: exact observed geometry was not reproduced`)
+    return probe
+  })
+  need(same(probes[0].frames, probes[1].frames), 'paired exact-time replay differs')
+  need(naturalDifferences.filter(item => item.id === id || item.id === iconId).every(item => item.id === id && item.field === 'scroll' && same(item.before, results.baseline.samples[id].scroll) && same(item.after, results.candidate.samples[id].scroll) && ['clientWidth', 'clientHeight', 'scrollTop', 'scrollLeft'].every(key => item.before[key] === item.after[key])), 'another natural feature difference remains unresolved')
+  return { id, qualified: true, times, reason: 'Each original parent sample was atomically bound to its owned child animation time. Both builds reproduced each exact observed parent/child geometry and agree on the bounded shared-time replay, with ownership, source, timing, keyframe, retention and restoration guards satisfied. Historical captures without this binding remain unexplained.' }
+}
+
 async function visit(side, origin, route, theme, result) {
   const id = `${route}/${theme}`
   const visitRecord = { side, id, errors: [], console: [], requests: [], unmeasured: [], samples: {}, screenshots: [], transitions: [], counts: {}, stylesheetEvents: [] }
@@ -222,6 +479,8 @@ async function visit(side, origin, route, theme, result) {
   context.setDefaultTimeout(10000)
   context.setDefaultNavigationTimeout(30000)
   const page = await context.newPage()
+  let phaseOwner
+  let retained = false
   page.on('pageerror', error => visitRecord.errors.push({ type: 'pageerror', error: error.stack || String(error) }))
   page.on('console', message => visitRecord.console.push({ type: message.type(), text: message.text(), location: message.location() }))
   context.on('requestfailed', request => visitRecord.requests.push({ type: 'requestfailed', url: request.url(), resourceType: request.resourceType(), error: request.failure(), local: request.url().startsWith(origin) }))
@@ -242,11 +501,12 @@ async function visit(side, origin, route, theme, result) {
   async function save() {
     await write(`${side}.json`, result)
   }
-  async function capture(key, locator, visible = true) {
+  async function capture(key, locator, visible = true, owner = null) {
     await expect(locator).toHaveCount(1)
     if (visible)
       await expect(locator).toBeVisible()
-    const sample = await locator.evaluate((element) => {
+    const sample = await locator.evaluate((element, phaseOwner) => {
+      const phaseStart = phaseOwner?.start()
       const cssPath = (node) => {
         const parts = []
         for (let el = node; el?.nodeType === 1; el = el.parentElement) {
@@ -277,8 +537,11 @@ async function visit(side, origin, route, theme, result) {
         catch (error) { record.unmeasured = String(error) }
         return record
       })
-      return { path: cssPath(element), html: element.outerHTML, tag: element.localName, classes: [...element.classList], styles, rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, documentRect: { x: rect.x + windowScroll.x, y: rect.y + windowScroll.y, width: rect.width, height: rect.height }, windowScroll, checked: 'checked' in element ? element.checked : null, state: element.getAttribute('data-state'), scroll: Object.fromEntries(['clientWidth', 'scrollWidth', 'clientHeight', 'scrollHeight', 'scrollTop', 'scrollLeft'].map(k => [k, element[k]])), layout: { width: element.offsetWidth, height: element.offsetHeight }, shikiDark: style.getPropertyValue('--shiki-dark'), pseudo, styleSheets, inlineStyle: element.getAttribute('style'), hover: element.matches(':hover'), animations: element.getAnimations().map(animation => ({ playState: animation.playState, currentTime: animation.currentTime })) }
-    })
+      const measurement = { path: cssPath(element), html: element.outerHTML, tag: element.localName, classes: [...element.classList], styles, rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height }, documentRect: { x: rect.x + windowScroll.x, y: rect.y + windowScroll.y, width: rect.width, height: rect.height }, windowScroll, checked: 'checked' in element ? element.checked : null, state: element.getAttribute('data-state'), scroll: Object.fromEntries(['clientWidth', 'scrollWidth', 'clientHeight', 'scrollHeight', 'scrollTop', 'scrollLeft'].map(k => [k, element[k]])), layout: { width: element.offsetWidth, height: element.offsetHeight }, shikiDark: style.getPropertyValue('--shiki-dark'), pseudo, styleSheets, inlineStyle: element.getAttribute('style'), hover: element.matches(':hover'), animations: element.getAnimations().map(animation => ({ playState: animation.playState, currentTime: animation.currentTime })) }
+      if (phaseOwner)
+        measurement.featurePhase = phaseOwner.bind(measurement, properties, phaseStart)
+      return measurement
+    }, owner)
     // Chromium's matching engine handles nesting, pseudo selectors, inherited rules and at-rules.
     // Full raw protocol responses and ordered CSSOM sheets remain available for review.
     try {
@@ -453,7 +716,8 @@ async function visit(side, origin, route, theme, result) {
       }
       visitRecord.feature = { observedFlip: found, html: await feature.innerHTML(), waitBoundMs: 5000, reason: 'natural random timing; no state override or retry' }
       if (found) {
-        const flipped = await capture(`${id}/feature/flip`, flip, false)
+        phaseOwner = await flip.evaluateHandle(createFeaturePhaseOwner, manifest.sides[side].before['document/src/components/FeatureItem.vue'].blob)
+        const flipped = await capture(`${id}/feature/flip`, flip, false, phaseOwner)
         if (!flipped.classes.includes('flip') || flipped.animations.some(animation => animation.playState !== 'finished'))
           visitRecord.unmeasured.push({ area: 'feature', reason: 'random state changed during capture' })
         const icon = await capture(`${id}/feature/icon`, flip.locator(':scope > div'), false)
@@ -465,6 +729,8 @@ async function visit(side, origin, route, theme, result) {
         visitRecord.feature.comparable = comparable
         if (!comparable)
           visitRecord.unmeasured.push({ area: 'feature', reason: 'the fixed icon did not remain in the same settled .flip state through capture' })
+        if (flipped.featurePhase?.status !== 'bound')
+          visitRecord.errors.push({ type: 'feature-phase-binding', error: flipped.featurePhase?.error || 'original natural measurement has no exact phase binding' })
       }
       else {
         visitRecord.unmeasured.push({ area: 'feature', reason: 'fixed icon did not enter a settled .flip state within the observation bound' })
@@ -501,6 +767,10 @@ async function visit(side, origin, route, theme, result) {
     await page.waitForLoadState('networkidle')
     assert.equal(new URL(page.url()).pathname, `/components/${route}/`)
     visitRecord.completed = true
+    if (phaseOwner && visitRecord.feature?.comparable && result.samples[`${id}/feature/flip`]?.featurePhase?.status === 'bound') {
+      retained = true
+      retainedFeatureContexts.push({ side, id, context, owner: phaseOwner, visit: visitRecord, result })
+    }
   }
   catch (error) {
     visitRecord.errors.push({ type: 'observation', error: error.stack || String(error) })
@@ -508,9 +778,11 @@ async function visit(side, origin, route, theme, result) {
   }
   finally {
     await save()
-    await cleanup(`context:${side}:${id}`, () => context.close())
-    visitRecord.errors.push(...visitRecord.console.filter(entry => entry.type === 'error' || (entry.type === 'warning' && /pagefind|hydration/i.test(entry.text))))
-    visitRecord.errors.push(...visitRecord.requests)
+    if (!retained) {
+      await cleanup(`context:${side}:${id}`, () => context.close())
+      visitRecord.errors.push(...visitRecord.console.filter(entry => entry.type === 'error' || (entry.type === 'warning' && /pagefind|hydration/i.test(entry.text))))
+      visitRecord.errors.push(...visitRecord.requests)
+    }
     await save()
   }
 }
@@ -584,7 +856,26 @@ function compare(results) {
         unresolved(id, key, a[key], b[key])
     }
   }
-  return { differences, expectedObservations, ruleOrderPairs, geometryTolerancePx, viewportScrollPolicy: 'Only the 13 reviewed dark-checkbox preview targets can classify a measured vertical viewport-origin offset when both geometry relations and all styles, state, layout, element scroll and document geometry agree; other window scroll differences remain unresolved. Scroll causes are not inferred.', classification: differences.length ? 'unresolved-observed-differences' : 'no-observed-style-layout-difference', ruleOrder: 'Raw Chromium matching rules, nested contexts, stylesheet text and document order retained per live target; no selector/scope normalization or cascade-equivalence claim.', expectedNondeterminism: 'Feature source random states/timing and the rotating icon instantaneous transform are retained as observations, not equality assertions.', screenshots: 'Paired raw element screenshots retained for review; no automatic pixel-equality claim.' }
+  const naturalDifferences = differences.map(difference => ({ ...difference }))
+  const featurePhaseReviews = []
+  for (const theme of themes) {
+    const id = `checkbox/${theme}/feature/flip`
+    try {
+      const review = qualifyFeatureReplay(results, theme, naturalDifferences)
+      featurePhaseReviews.push(review)
+      for (const difference of naturalDifferences.filter(item => item.id === id && item.field === 'scroll')) {
+        expectedObservations.push({ ...difference, classification: 'measured-animation-overflow', reason: review.reason, times: review.times })
+        const index = differences.findIndex(item => item.id === id && item.field === 'scroll')
+        assert(index >= 0, 'original natural difference must remain present')
+        differences.splice(index, 1)
+      }
+    }
+    catch (error) {
+      featurePhaseReviews.push({ id, qualified: false, error: error.stack || String(error) })
+      unresolved(id, 'feature-phase-replay', 'exact atomic binding, shared-time replay, retention and cleanup must pass', error.message || String(error))
+    }
+  }
+  return { differences, naturalDifferences, featurePhaseReviews, expectedObservations, ruleOrderPairs, geometryTolerancePx, viewportScrollPolicy: 'Only the 13 reviewed dark-checkbox preview targets can classify a measured vertical viewport-origin offset when both geometry relations and all styles, state, layout, element scroll and document geometry agree; other window scroll differences remain unresolved. Scroll causes are not inferred.', classification: differences.length ? 'unresolved-observed-differences' : 'no-observed-style-layout-difference', ruleOrder: 'Raw Chromium matching rules, nested contexts, stylesheet text and document order retained per live target; no selector/scope normalization or cascade-equivalence claim.', expectedNondeterminism: 'Feature source random states/timing and the rotating icon instantaneous transform are retained as observations, not equality assertions.', screenshots: 'Paired raw element screenshots retained for review; no automatic pixel-equality claim.' }
 }
 
 try {
@@ -695,6 +986,8 @@ try {
       for (const route of routes) await visit(side, origin, route, theme, results[side])
     }
   }
+  await replayRetainedFeatures(results)
+  await closeRetainedFeatures()
   const comparison = compare(results)
   const visits = sides.flatMap(side => results[side].visits)
   const missing = sides.flatMap(side => inventory.filter(id => !results[side].samples[id]).map(id => ({ side, id })))
@@ -711,6 +1004,7 @@ catch (error) {
   process.exitCode = 1
 }
 finally {
+  await closeRetainedFeatures() // Also close every retained context after an earlier failure.
   for (const [side, info] of Object.entries(manifest.sides)) {
     try {
       info.finalInputs = await hashInputs(info.checkout, info.materialized)
@@ -750,8 +1044,10 @@ finally {
   }
   if (temporaryRoot && !manifest.cleanupErrors.some(error => error.checkout))
     await cleanup('temporary-root', () => fs.rmdir(temporaryRoot))
-  if (manifest.cleanupErrors.length || manifest.failures.length || process.exitCode === 1)
+  if (manifest.cleanupErrors.length || manifest.failures.length || process.exitCode === 1) {
     manifest.result = 'collection-failed'
+    process.exitCode = 1
+  }
   manifest.finished = new Date().toISOString()
   await persist('finished')
   const hashes = {}
