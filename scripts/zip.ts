@@ -2,7 +2,7 @@ import { createWriteStream, existsSync, statSync } from 'node:fs'
 import { mkdir } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import process from 'node:process'
-import archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 
 /**
  * Compress a directory into a zip file placed at repository root (process.cwd())
@@ -28,7 +28,7 @@ export async function zipDirectory(sourceDir: string, zipName: string): Promise<
 
   return new Promise<string>((resolvePromise, reject) => {
     const output = createWriteStream(outPath)
-    const archive = archiver('zip', { zlib: { level: 9 } })
+    const archive = new ZipArchive({ zlib: { level: 9 } })
 
     output.on('error', (error) => {
       archive.abort()
