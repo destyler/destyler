@@ -34,6 +34,7 @@ test/report
 test/junit.xml
 test/results
 html
+.vitest
 __screenshots__
 .node-modules-inspector
 .astro

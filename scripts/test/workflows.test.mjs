@@ -205,6 +205,7 @@ test('pull requests exercise the same non-publishing build and tests as releases
     'pnpm run docs:build && pnpm exec node scripts/test-docs-search.mjs',
     'pnpm exec node scripts/test-docs-browser.mjs',
     'pnpm exec node scripts/test-node-modules-inspector.mjs',
+    'pnpm run storybook:build && pnpm exec node scripts/test-storybook-browser.mjs',
     'pnpm run test:types',
     'pnpm exec node scripts/test-svelte-package.mjs',
     'pnpm exec node scripts/test-package-entries.mjs',

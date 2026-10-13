@@ -30,6 +30,8 @@ export default defineProject({
     include: browserOptimizeDeps,
   },
   test: {
+    // Preserve the pre-Vitest 5 mock lifecycle; suites manage their own cleanup.
+    clearMocks: false,
     name: {
       label: 'browser',
       color: 'green',
@@ -42,6 +44,8 @@ export default defineProject({
     retry: 1,
     browser: {
       enabled: true,
+      // Existing locators intentionally allow partial text and accessible names.
+      locators: { exact: false },
       provider: playwright(),
       instances: [
         { browser: 'chromium' },

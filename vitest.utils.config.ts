@@ -2,6 +2,8 @@ import { defineProject } from 'vitest/config'
 
 export default defineProject({
   test: {
+    // Preserve the pre-Vitest 5 mock lifecycle; suites manage their own cleanup.
+    clearMocks: false,
     name: {
       label: 'node',
       color: 'yellow',

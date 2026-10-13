@@ -1,4 +1,3 @@
-import type { AxeMatchers } from 'vitest-axe/matchers'
 import type { Locator } from 'vitest/browser'
 import { expect } from 'vitest'
 import * as matchers from 'vitest-axe/matchers'
@@ -18,8 +17,9 @@ locators.extend({
 })
 
 declare module 'vitest' {
-  export interface Assertion extends AxeMatchers {}
-  export interface AsymmetricMatchersContaining extends AxeMatchers {}
+  interface Matchers<R> {
+    toHaveNoViolations: () => R
+  }
 }
 
 declare module 'vitest/browser' {

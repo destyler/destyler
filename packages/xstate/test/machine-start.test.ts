@@ -114,7 +114,8 @@ describe('machine start', () => {
       initial: 'waiting',
       states: {
         waiting: {
-          every: { 10: tick },
+          // Keep all three ticks before expiry; equal-deadline callback order is unspecified.
+          every: { 9: tick },
           after: { 30: { target: 'ready' } },
           exit,
         },
@@ -125,7 +126,14 @@ describe('machine start', () => {
     machine.start()
     vi.advanceTimersByTime(10)
     machine.start()
-    vi.advanceTimersByTime(20)
+    vi.advanceTimersByTime(19)
+
+    expect(machine.state.value).toBe('waiting')
+    expect(exit).not.toHaveBeenCalled()
+    expect(tick).toHaveBeenCalledTimes(3)
+    expect(vi.getTimerCount()).toBe(2)
+
+    vi.advanceTimersByTime(1)
 
     expect(machine.state.value).toBe('ready')
     expect(exit).toHaveBeenCalledTimes(1)

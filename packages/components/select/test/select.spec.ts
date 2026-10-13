@@ -24,7 +24,7 @@ async function clickDeselectable() {
 }
 
 async function seeTriggerHasText(text: string) {
-  await expect.element(testHook.getTrigger('select')).toHaveTextContent(text)
+  await expect.element(testHook.getTrigger('select')).toMatchTextContent(text)
 }
 
 async function seeItemIsHighlighted(item: string) {
