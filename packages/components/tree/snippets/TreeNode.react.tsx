@@ -51,7 +51,7 @@ export default function TreeNode({ node, indexPath, api }: TreeNodeProps) {
       return 'i-catppuccin-image'
     if (fileName.endsWith('.ico'))
       return 'i-catppuccin-image'
-    if (fileName.match(/\.(png|jpg|jpeg|gif|webp)$/))
+    if (/\.(png|jpg|jpeg|gif|webp)$/.test(fileName))
       return 'i-catppuccin-image'
 
     // 文档文件

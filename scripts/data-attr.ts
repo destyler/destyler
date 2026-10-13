@@ -3,7 +3,7 @@ import { writeFileSync } from 'node:fs'
 import { join, sep } from 'node:path'
 import process from 'node:process'
 import fg from 'fast-glob'
-import { ModuleResolutionKind, Node, Project, SyntaxKind } from 'ts-morph'
+import { ModuleKind, ModuleResolutionKind, Node, Project, SyntaxKind } from 'ts-morph'
 
 const docsMap = {
   'data-state': 'The state of the {{widget}}',
@@ -153,7 +153,10 @@ type DataAttrMap = Record<string, string>
 async function main() {
   const project = new Project({
     compilerOptions: {
-      moduleResolution: ModuleResolutionKind.NodeNext,
+      module: ModuleKind.ESNext,
+      moduleResolution: ModuleResolutionKind.Bundler,
+      // Preserve the documentation generator's existing optional-property rendering.
+      strict: false,
     },
   })
 

@@ -48,7 +48,7 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   readOnly?: boolean | undefined
   /**
    * Function called once a radio is checked
-   * @param value the value of the checked radio
+   * @param details the value of the checked radio
    */
   onValueChange?: (details: ValueChangeDetails) => void
   /**

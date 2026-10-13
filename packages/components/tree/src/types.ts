@@ -1,7 +1,7 @@
 import type { TreeCollection, TreeNode } from '@destyler/collection'
 import type { TypeaheadState } from '@destyler/dom'
 import type { CommonProperties, DirectionProperty, PropTypes, RequiredBy } from '@destyler/types'
-import type { AnyEventObject, Machine, XSend, XState } from 'packages/xstate'
+import type { AnyEventObject, Machine, XSend, XState } from '../../../xstate'
 
 export interface FocusChangeDetails {
   focusedValue: string | null

@@ -59,7 +59,8 @@ export function clone<T>(x: T): T {
   else if (str.slice(-6) === 'Array]') {
     // ArrayBuffer.isView(x)
     // ~> `new` bcuz `Buffer.slice` => ref
-    tmp = new (x as any).constructor(x)
+    const Constructor = (x as any).constructor
+    tmp = new Constructor(x)
   }
 
   if (tmp) {

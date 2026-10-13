@@ -83,6 +83,7 @@
     "@types/node": "catalog:types",
     "@types/react": "catalog:types",
     "@types/react-dom": "catalog:types",
+    "@typescript/native": "catalog:types",
     "@unocss/reset": "catalog:css",
     "@vitejs/plugin-react": "catalog:plugin",
     "@vitejs/plugin-vue": "catalog:plugin",

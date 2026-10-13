@@ -847,5 +847,14 @@ describe('AbstractView', () => {
   test('should have document and styleMedia properties', () => {
     expectTypeOf<AbstractView['document']>().toEqualTypeOf<Document>()
     expectTypeOf<AbstractView['styleMedia']>().toEqualTypeOf<StyleMedia>()
+    expectTypeOf<AbstractView['styleMedia']['vendorFlag']>().toEqualTypeOf<boolean | undefined>()
+    expectTypeOf<{ type: string, matchMedium: (mediaquery: 'screen') => boolean }>().toMatchTypeOf<AbstractView['styleMedia']>()
   })
 })
+
+// Compile-time consumer control: AbstractView must retain global augmentation.
+declare global {
+  interface StyleMedia {
+    vendorFlag?: boolean
+  }
+}

@@ -25,7 +25,7 @@ export function groupConnect<T extends PropTypes, O = any>(
     const toasts = getState().context.toasts
     if (!toasts.length)
       return false
-    return !!toasts.find(toast => toast.id === id)
+    return toasts.some(toast => toast.id === id)
   }
 
   function create(options: Options<O>) {

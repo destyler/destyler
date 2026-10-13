@@ -7,5 +7,6 @@ export default defineConfig({
   dts: true,
   format: ['esm'],
   clean: true,
+  failOnWarn: 'ci-only',
   hash: false,
 })

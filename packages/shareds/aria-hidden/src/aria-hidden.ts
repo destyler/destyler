@@ -30,6 +30,7 @@ export function inertOthers(originalTarget: Element | Element[], parentNode = ge
   })
 }
 
+// eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
 const supportsInert = () => typeof HTMLElement !== 'undefined' && HTMLElement.prototype.hasOwnProperty('inert')
 
 export function suppressOthers(originalTarget: Element | Element[], parentNode?: HTMLElement, markerName: string = 'data-suppressed') {

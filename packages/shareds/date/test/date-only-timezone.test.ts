@@ -29,7 +29,7 @@ describe('date-only fallback time zones', () => {
     try {
       for (const { timeZone: hostTimeZone, offset, day, hour } of timeZones) {
         process.env.TZ = hostTimeZone
-        expect(Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(hostTimeZone)
+        expect(new Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(hostTimeZone)
         const instant = new Date('2023-12-25T00:00:00Z')
         expect(instant.getTimezoneOffset()).toBe(offset)
         expect([instant.getFullYear(), instant.getMonth() + 1, instant.getDate(), instant.getHours()])

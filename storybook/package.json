@@ -29,6 +29,7 @@
     "react": "catalog:frontend",
     "react-dom": "catalog:frontend",
     "solid-js": "catalog:frontend",
+    "typescript": "catalog:types",
     "unocss": "catalog:css",
     "vue": "catalog:frontend"
   }

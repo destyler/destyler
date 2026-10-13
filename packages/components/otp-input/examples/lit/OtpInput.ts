@@ -19,7 +19,7 @@ export class OtpInputElement extends LitElement {
     otpInput.machine({
       id: 'otp-input:lit',
       name: 'otp',
-      defaultValue: Array.from({ length: INPUT_LENGTH }, () => ''),
+      defaultValue: Array.from<string>({ length: INPUT_LENGTH }).fill(''),
     }),
     {
       context: {

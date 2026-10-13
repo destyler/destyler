@@ -149,7 +149,7 @@ export class ListCollection<T extends CollectionItem = CollectionItem> {
    * Whether the collection has a value
    */
   has(value: string | null): boolean {
-    // eslint-disable-next-line unicorn/prefer-includes
+    // eslint-disable-next-line unicorn/prefer-includes, e18e/prefer-includes -- ListCollection has its own indexOf and no includes method.
     return this.indexOf(value) !== -1
   }
 

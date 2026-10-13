@@ -299,13 +299,14 @@ describe('lit context with a non-callable get member', () => {
       noEmit: true,
       skipLibCheck: true,
       esModuleInterop: true,
-      baseUrl: root,
+      // TypeScript 6 no longer includes visible @types packages by default.
+      types: ['node'],
       paths: {
-        '@destyler/lit': ['packages/frameworks/lit/index.ts'],
-        '@destyler/xstate': ['packages/xstate/index.ts'],
-        '@destyler/store': ['packages/store/index.ts'],
-        '@destyler/utils': ['packages/utils/index.ts'],
-        '@destyler/types': ['packages/types/index.ts'],
+        '@destyler/lit': [resolve(root, 'packages/frameworks/lit/index.ts')],
+        '@destyler/xstate': [resolve(root, 'packages/xstate/index.ts')],
+        '@destyler/store': [resolve(root, 'packages/store/index.ts')],
+        '@destyler/utils': [resolve(root, 'packages/utils/index.ts')],
+        '@destyler/types': [resolve(root, 'packages/types/index.ts')],
       },
     }
     const checked = ts.createProgram([fixture], options)

@@ -4,12 +4,11 @@
     "jsx": "preserve",
     "jsxImportSource": "react",
     "lib": ["DOM", "ESNext"],
-    "baseUrl": ".",
     "rootDir": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "@destyler/shared-private/*": ["shared/src/*"]
+      "@destyler/shared-private/*": ["./shared/src/*"]
     },
     "resolveJsonModule": true,
     "types": [

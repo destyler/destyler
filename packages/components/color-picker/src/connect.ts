@@ -549,7 +549,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
           if (isTextField || !interactive)
             return
           const value = event.currentTarget.value
-          if (value.match(/[^0-9.]/g)) {
+          if (/[^0-9.]/.test(value)) {
             event.preventDefault()
           }
         },

@@ -413,10 +413,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       const option = getOptionItemProps(props)
       const itemState = getOptionItemState(props)
       // Preserve declared fields that object spread omits without rereading getters.
+      // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
       if (!Object.prototype.hasOwnProperty.call(option, 'type') && 'type' in props)
         option.type = type
+      // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
       if (!Object.prototype.hasOwnProperty.call(option, 'checked') && 'checked' in props)
         option.checked = itemState.checked
+      // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
       if (!Object.prototype.hasOwnProperty.call(option, 'onCheckedChange') && onCheckedChange !== undefined)
         option.onCheckedChange = onCheckedChange
 
