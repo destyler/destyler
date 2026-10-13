@@ -202,6 +202,8 @@ try {
   await expect(reopenedResult).toHaveText('Checkbox')
   await page.keyboard.press('Escape')
   await expect(dialog).not.toBeVisible()
+  await page.goto(`${origin}/`)
+  console.log(JSON.stringify({ homepage: true }))
   assert.deepEqual(failures, [], 'Served documentation must have no runtime or request failures')
   console.log(JSON.stringify({ worker: '/pagefind/pagefind-worker.js', reopenedSearch: true, warnings, failures }))
 }
