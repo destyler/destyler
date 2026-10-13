@@ -6,6 +6,49 @@ import { createServer } from 'node:http'
 import { extname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, expect } from 'playwright/test'
+import { runNativeHomeScrollControls } from './observe-home-native-scroll.mjs'
+
+async function prepareHomeKeyboardScroll(pre, keyboardTrace) {
+  return pre.evaluateHandle((element, trace) => {
+    const controller = new AbortController()
+    const state = { resetComplete: element.scrollTop === 0, keyStartTop: null, keyReleased: false, moved: false, completed: false }
+    const observe = (event) => {
+      if (event.target !== element || !event.isTrusted)
+        return
+      if (event.type === 'keydown' && event.key === 'ArrowDown' && state.resetComplete && state.keyStartTop === null) {
+        state.keyStartTop = element.scrollTop
+      }
+      else if (event.type === 'keyup' && event.key === 'ArrowDown' && state.keyStartTop !== null) {
+        state.keyReleased = true
+      }
+      else if (event.type === 'scroll' && state.keyStartTop !== null && element.scrollTop > state.keyStartTop) {
+        state.moved = true
+      }
+      else if (event.type === 'scrollend') {
+        if (state.keyStartTop === null && element.scrollTop === 0)
+          state.resetComplete = true
+        else if (state.keyReleased && state.moved && element.scrollTop > state.keyStartTop)
+          state.completed = true
+      }
+    }
+    try {
+      // A changed reset must finish before its scrollend can be confused with the key.
+      for (const type of ['keydown', 'keyup', 'scroll', 'scrollend'])
+        element.addEventListener(type, observe, { capture: true, passive: true, signal: controller.signal })
+      trace?.mark?.('reset-before')
+      element.scrollTop = 0
+      trace?.mark?.('reset-after')
+      return { state, stop: () => controller.abort() }
+    }
+    catch (error) {
+      try {
+        controller.abort()
+      }
+      catch {}
+      throw error
+    }
+  }, keyboardTrace)
+}
 
 const site = await realpath(fileURLToPath(new URL('../document/dist/', import.meta.url)))
 const types = {
@@ -50,6 +93,7 @@ try {
   await once(server, 'listening')
   const origin = `http://127.0.0.1:${server.address().port}`
   browser = await chromium.launch()
+  const nativeScrollControls = await runNativeHomeScrollControls(browser)
   const context = await browser.newContext({
     // Seed storage before any client script, without resetting the value on reload.
     storageState: {
@@ -305,7 +349,7 @@ try {
           }
           if (!attempt('setup', () => {
             controller = new AbortController()
-            for (const type of ['keydown', 'keyup', 'focusin', 'focusout', 'scroll', 'resize'])
+            for (const type of ['keydown', 'keyup', 'focusin', 'focusout', 'scroll', 'scrollend', 'resize'])
               window.addEventListener(type, observeEvent, { capture: true, passive: true, signal: controller.signal })
             observer = new MutationObserver((records) => {
               if (boundary)
@@ -321,6 +365,10 @@ try {
             stop('setup-gap')
           }
           return {
+            mark(type) {
+              if (!boundary)
+                attempt('mark', () => record(type, { target: identify(element), scrollTop: element.scrollTop, pageY: scrollY }))
+            },
             finish() {
               stop('finish')
               const trace = { events: events.map(({ event, ...entry }) => ({ ...entry, defaultPreventedAtFinish: event?.defaultPrevented })), dropped, gaps, droppedGaps, boundary }
@@ -366,13 +414,45 @@ try {
         assert.ok(layout.scrollHeight > layout.clientHeight, `${framework}: code scrolls vertically`)
         await expect(pre).toHaveAttribute('tabindex', '0')
         await expect(pre).toHaveAttribute('role', 'region')
-        await pre.evaluate(element => element.scrollTop = 0)
-        await pre.focus()
-        await expect(pre).toBeFocused()
-        const headerY = (await snippet.locator('.header').boundingBox()).y
-        await page.keyboard.press('ArrowDown')
-        await expect.poll(() => pre.evaluate(element => element.scrollTop)).toBeGreaterThan(0)
-        assert.equal((await snippet.locator('.header').boundingBox()).y, headerY, `${framework}: title stays outside the scroll area`)
+        const keyboardScroll = await prepareHomeKeyboardScroll(pre, keyboardTrace)
+        const cleanupErrors = []
+        try {
+          await expect.poll(() => keyboardScroll.evaluate(({ state }) => state.resetComplete)).toBe(true)
+          await pre.focus()
+          await expect(pre).toBeFocused()
+          const headerY = (await snippet.locator('.header').boundingBox()).y
+          await page.keyboard.press('ArrowDown')
+          // Keep both checks inside the original key observation window.
+          const deadline = performance.now() + 5000
+          const movement = expect.poll(() => pre.evaluate(element => element.scrollTop)).toBeGreaterThan(0)
+          const remaining = deadline - performance.now()
+          const completion = remaining > 0
+            ? expect.poll(() => keyboardScroll.evaluate(({ state }) => ({ keyStartTop: state.keyStartTop, keyReleased: state.keyReleased, moved: state.moved, completed: state.completed })), { timeout: remaining }).toEqual({ keyStartTop: 0, keyReleased: true, moved: true, completed: true })
+            : Promise.reject(new Error('Keyboard scroll completion exceeded the original 5000ms window'))
+          const outcomes = await Promise.allSettled([movement, completion])
+          // Preserve the original positive-scroll assertion if both checks fail.
+          for (const outcome of outcomes) {
+            if (outcome.status === 'rejected')
+              throw outcome.reason
+          }
+          assert.equal((await snippet.locator('.header').boundingBox()).y, headerY, `${framework}: title stays outside the scroll area`)
+        }
+        finally {
+          try {
+            await keyboardScroll.evaluate(scroll => scroll.stop())
+          }
+          catch (error) {
+            cleanupErrors.push(error)
+          }
+          try {
+            await keyboardScroll.dispose()
+          }
+          catch (error) {
+            cleanupErrors.push(error)
+          }
+        }
+        if (cleanupErrors.length)
+          throw cleanupErrors[0]
       }
       finally {
         let trace
@@ -468,6 +548,7 @@ try {
   await page.setViewportSize({ width: 1280, height: 720 })
   console.log(JSON.stringify({ homepageShowcaseImage: decodedImage, local: true, themes: ['light', 'dark'], bounded: true }))
   assert.deepEqual(failures, [], 'Served documentation must have no runtime or request failures')
+  assert.equal(nativeScrollControls.allSynchronizationControlsPassed, true, 'Native synchronization controls must all pass')
   console.log(JSON.stringify({ worker: '/pagefind/pagefind-worker.js', reopenedSearch: true, warnings, failures }))
 }
 catch (error) {
