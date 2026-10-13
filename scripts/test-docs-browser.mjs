@@ -213,9 +213,16 @@ try {
     ['svelte', 'Svelte', 'svelte', 'Dialog.svelte', 'abb4edd6b0c70ff88a0bd7430bebe984a16923741760a7ed1e81694f6b8175d9'],
     ['react', 'React', 'tsx', 'Dialog.tsx', '258babafd735d29f4790fc339dd4201470fd533f37fe2f320ed9bc1cdf4b713b'],
   ]) {
+    // The docs selector persists the framework used by the homepage examples.
+    await page.setViewportSize({ width: 1280, height: 720 })
+    await page.goto(`${origin}/components/checkbox/`)
+    await expect(visibleControl).toHaveCount(1)
     await visibleControl.locator('.select-framework-trigger').click()
     await visibleControl.locator(`.select-framework-item[data-value="${framework}"]`).click()
     await expect(visibleControl.locator('.selected-label')).toHaveText(label)
+    assert.equal(await page.evaluate(() => localStorage.getItem('destyler-framework')), framework)
+    await page.goto(`${origin}/`)
+    await expect(homeSnippets).toHaveCount(4)
     await expect(page.locator('.home-code:visible')).toHaveCount(1)
     const snippet = page.locator(`.framework-content[data-framework="${framework}"] .home-code`)
     await expect(snippet).toBeVisible()
