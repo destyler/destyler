@@ -45,7 +45,7 @@
     "solid": "pnpm --filter \"./examples/solid\"",
     "svelte": "pnpm --filter \"./examples/svelte\"",
     "docs script": "Group: Documentation & API",
-    "node-modules:dev": "node-modules-inspector",
+    "node-modules:dev": "cross-env DEVFRAME_DISABLE_INSTANCE_REGISTRY=1 DEVFRAME_INSTANCES_DIR=node_modules/.cache/node-modules-inspector/instances node-modules-inspector --host 127.0.0.1",
     "node-modules:build": "node-modules-inspector build",
     "visualize script": "Group: Dependency visualization",
     "docs:dev": "pnpm -C document run dev",

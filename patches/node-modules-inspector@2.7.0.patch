@@ -1,0 +1,10 @@
+--- a/dist/cli.mjs
++++ b/dist/cli.mjs
+@@ -1050,6 +1050,7 @@
+   const server = await createDevServer(devframe, {
+     host,
+     port,
++    mcp: false,
+     flags: {
+       root: options.root,
+       config: options.config,

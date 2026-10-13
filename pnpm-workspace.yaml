@@ -105,10 +105,13 @@ catalogs:
     nanoid: ^5.1.6
     sharp: ^0.34.5
   visual:
-    node-modules-inspector: ^1.2.0
+    node-modules-inspector: ^2.7.0
 
 cleanupUnusedCatalogs: true
 
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+patchedDependencies:
+  node-modules-inspector@2.7.0: patches/node-modules-inspector@2.7.0.patch
