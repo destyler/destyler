@@ -31,8 +31,12 @@ assert.deepEqual(lockDocument.errors, [], 'Lockfile must parse without duplicate
 const lock = lockDocument.toJS()
 const inspectorVersion = lock.catalogs.visual['node-modules-inspector'].version
 assert.equal(inspectorVersion, '2.7.0', 'Review the exact dependency patch and this smoke on every Inspector upgrade')
-// Review exact upstream bytes on every upgrade; remove this patch once upstream
-// supports explicitly disabling automatic MCP through its public CLI/config.
+// Review exact upstream bytes on every upgrade. The patch disables automatic MCP,
+// gates both avatar components on the existing third-party setting, and removes
+// eight font-face rules for four files absent from the official archive.
+// Review the CLI, avatar settings/imports/fallbacks, and font inventory separately.
+// Remove each hunk when upstream fixes its behavior: an explicit MCP-off option,
+// avatars honoring the setting, or complete local fonts/no dangling font rules.
 const inspectorEntry = await realpath(fileURLToPath(import.meta.resolve('node-modules-inspector')))
 const installedLock = parseDocument(await readFile(join(root, 'node_modules/.pnpm/lock.yaml'), 'utf8'))
 assert.deepEqual(installedLock.errors, [])

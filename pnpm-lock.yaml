@@ -263,7 +263,7 @@ catalogs:
 
 patchedDependencies:
   node-modules-inspector@2.7.0:
-    hash: 5e59c46e5a79d328da21f39ee3e849f57a037a338f75a20a44603c797fc5e1a5
+    hash: 3ef1e9607ef2d74d6d8208e5dbce5c7ffc196157422f275e97030e9dbd3d58e3
     path: patches/node-modules-inspector@2.7.0.patch
 
 importers:
@@ -389,7 +389,7 @@ importers:
         version: 5.1.6
       node-modules-inspector:
         specifier: catalog:visual
-        version: 2.7.0(patch_hash=5e59c46e5a79d328da21f39ee3e849f57a037a338f75a20a44603c797fc5e1a5)(crossws@0.4.15(srvx@1.0.5))(srvx@1.0.5)(typescript@5.9.3)
+        version: 2.7.0(patch_hash=3ef1e9607ef2d74d6d8208e5dbce5c7ffc196157422f275e97030e9dbd3d58e3)(crossws@0.4.15(srvx@1.0.5))(srvx@1.0.5)(typescript@5.9.3)
       playwright:
         specifier: catalog:test
         version: 1.64.0
@@ -12843,7 +12843,7 @@ snapshots:
 
   node-mock-http@1.0.4: {}
 
-  node-modules-inspector@2.7.0(patch_hash=5e59c46e5a79d328da21f39ee3e849f57a037a338f75a20a44603c797fc5e1a5)(crossws@0.4.15(srvx@1.0.5))(srvx@1.0.5)(typescript@5.9.3):
+  node-modules-inspector@2.7.0(patch_hash=3ef1e9607ef2d74d6d8208e5dbce5c7ffc196157422f275e97030e9dbd3d58e3)(crossws@0.4.15(srvx@1.0.5))(srvx@1.0.5)(typescript@5.9.3):
     dependencies:
       '@devframes/agentic': 1.2.3(crossws@0.4.15(srvx@1.0.5))(devframe@1.2.3)
       '@devframes/service-open': 1.2.3(devframe@1.2.3)
