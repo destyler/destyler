@@ -19,6 +19,10 @@ runs:
       shell: bash
       run: pnpm exec node scripts/test-docs-browser.mjs
 
+    - name: Check dependency inspector in Chromium
+      shell: bash
+      run: pnpm exec node scripts/test-node-modules-inspector.mjs
+
     - name: Test public type contracts
       shell: bash
       run: pnpm run test:types
