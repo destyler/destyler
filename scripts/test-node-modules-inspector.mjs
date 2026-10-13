@@ -309,7 +309,7 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
     const assertRoute = async (route) => {
       await expect(page).toHaveURL(new RegExp(`${route.replaceAll('/', '\\/')}(?:#.*)?$`))
       if (route === '/graph') {
-        await expect(page.getByTitle('Toggle Graph Render Mode', { exact: true })).toBeVisible()
+        await expect(page.locator('button:is([title="Toggle Graph Render Mode"], [data-original-title="Toggle Graph Render Mode"])')).toBeVisible()
         await expect.poll(() => page.locator('svg[z-graph-link] path').count(), { timeout }).toBeGreaterThan(0)
       }
       else if (route === '/grid/depth') {
@@ -338,9 +338,12 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
       assert.deepEqual(failures, [], 'Inspector emitted browser/transport errors')
     }
     const clickView = async (title, route) => {
-      const control = page.getByTitle(title, { exact: true })
+      // vue-afloat moves tooltip titles to data-original-title after mounting.
+      // Select the real navigation link and still verify its authored label.
+      const control = page.locator(`[z-panel-nav] a:is([href="${route}"], [href^="${route}#"])`)
       await expect(control).toHaveCount(1)
       await expect(control).toBeVisible()
+      await expect.poll(async () => await control.getAttribute('data-original-title') ?? await control.getAttribute('title')).toBe(title)
       await control.click()
       await assertRoute(route)
     }
@@ -356,7 +359,7 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
     await clickView('Graph View', '/graph')
     if (mode === 'dev') {
       const input = page.getByPlaceholder('Goto', { exact: true })
-      const popup = page.locator('.v-popper__popper--shown').filter({ hasText: selectedWorkspace.name })
+      const popup = page.locator('[data-popper-placement].vue-afloat--shown[aria-hidden="false"]').filter({ hasText: selectedWorkspace.name })
       await input.fill(selectedWorkspace.name)
       await expect(popup).toBeVisible()
       await input.locator('..').getByRole('button').click()
@@ -388,9 +391,9 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
     await page.goForward()
     await assertRoute('/graph')
     await page.mouse.move(0, 0)
-    await expect(page.locator('.v-popper__popper--shown')).toHaveCount(0)
+    await expect(page.locator('[data-popper-placement].vue-afloat--shown[aria-hidden="false"]')).toHaveCount(0)
     await expect(page.getByPlaceholder('Filter by Text', { exact: true })).toBeHidden()
-    await page.getByTitle('Toggle Graph Render Mode', { exact: true }).click({ trial: true })
+    await page.locator('button:is([title="Toggle Graph Render Mode"], [data-original-title="Toggle Graph Render Mode"])').click({ trial: true })
     const beforeReload = payloads
     await page.reload()
     await assertRoute('/graph')
