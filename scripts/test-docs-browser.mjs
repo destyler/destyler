@@ -247,31 +247,154 @@ try {
     await expect.poll(() => page.evaluate(() => globalThis.__docsCopiedText)).toBe(canonical)
     await expect(snippet.locator('.copy [aria-live="polite"] .feedback')).toHaveText('Copied!')
     for (const viewport of [{ width: 1600, height: 900 }, { width: 390, height: 844 }]) {
-      await page.setViewportSize(viewport)
-      const layout = await pre.evaluate((element) => {
-        const style = getComputedStyle(element)
-        return {
-          maxHeight: Number.parseFloat(style.maxHeight),
-          expectedMaxHeight: Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 35,
-          overflowY: style.overflowY,
-          height: element.getBoundingClientRect().height,
-          scrollHeight: element.scrollHeight,
-          clientHeight: element.clientHeight,
+      // Observe the real keyboard attempt without changing its actions or timeout.
+      let keyboardTrace
+      const diagnosticGaps = []
+      try {
+        keyboardTrace = await pre.evaluateHandle((element) => {
+          const events = []
+          const gaps = []
+          let dropped = 0
+          let droppedGaps = 0
+          let controller
+          let observer
+          let boundary
+          const started = performance.now()
+          const identify = target => ({ tag: target?.tagName || null, pre: target === element })
+          const attempt = (stage, action) => {
+            try {
+              action()
+              return true
+            }
+            catch (error) {
+              if (gaps.length < 8)
+                gaps.push({ stage, error: String(error) })
+              else
+                droppedGaps++
+              return false
+            }
+          }
+          const record = (type, detail = {}) => {
+            events.push({ at: performance.now() - started, type, focused: document.activeElement === element, ...detail })
+            if (events.length > 64) {
+              events.shift()
+              dropped++
+            }
+          }
+          const recordMutations = (records, delivery) => {
+            for (const mutation of records)
+              record('attribute', { delivery, target: identify(mutation.target), name: mutation.attributeName, oldValue: mutation.oldValue, value: mutation.target.getAttribute(mutation.attributeName) })
+          }
+          const stop = (reason) => {
+            if (boundary)
+              return
+            boundary = { reason, at: performance.now() - started, drainedRecords: null, laterEventsCaptured: false }
+            attempt('drain', () => {
+              const records = observer?.takeRecords() || []
+              boundary.drainedRecords = records.length
+              recordMutations(records, 'tail-drain')
+            })
+            attempt('disconnect', () => observer?.disconnect())
+            attempt('remove-listeners', () => controller?.abort())
+          }
+          const observeEvent = (event) => {
+            if (boundary)
+              return
+            if (!attempt('event', () => record(event.type, { event, target: identify(event.target), key: event.key, defaultPreventedAtCapture: event.defaultPrevented, trusted: event.isTrusted, scrollTop: element.scrollTop, pageY: scrollY })))
+              stop('event-gap')
+          }
+          if (!attempt('setup', () => {
+            controller = new AbortController()
+            for (const type of ['keydown', 'keyup', 'focusin', 'focusout', 'scroll', 'resize'])
+              window.addEventListener(type, observeEvent, { capture: true, passive: true, signal: controller.signal })
+            observer = new MutationObserver((records) => {
+              if (boundary)
+                return
+              if (!attempt('mutations', () => recordMutations(records, 'callback')))
+                stop('mutation-gap')
+            })
+            const attributes = { attributes: true, attributeOldValue: true, attributeFilter: ['tabindex', 'role', 'style', 'class', 'hidden', 'inert'] }
+            observer.observe(element, attributes)
+            observer.observe(element.closest('.framework-content'), attributes)
+            record('installed')
+          })) {
+            stop('setup-gap')
+          }
+          return {
+            finish() {
+              stop('finish')
+              const trace = { events: events.map(({ event, ...entry }) => ({ ...entry, defaultPreventedAtFinish: event?.defaultPrevented })), dropped, gaps, droppedGaps, boundary }
+              attempt('snapshot', () => {
+                const style = getComputedStyle(element)
+                trace.final = {
+                  connected: element.isConnected,
+                  focus: { pre: document.activeElement === element, active: identify(document.activeElement), document: document.hasFocus() },
+                  document: { visibility: document.visibilityState, fonts: document.fonts.status },
+                  attributes: { tabindex: element.getAttribute('tabindex'), role: element.getAttribute('role') },
+                  scroll: { top: element.scrollTop, left: element.scrollLeft, height: element.scrollHeight, width: element.scrollWidth },
+                  client: { height: element.clientHeight, width: element.clientWidth },
+                  bounds: element.getBoundingClientRect().toJSON(),
+                  page: { x: scrollX, y: scrollY, width: innerWidth, height: innerHeight },
+                  style: { overflowY: style.overflowY, display: style.display, visibility: style.visibility, scrollBehavior: style.scrollBehavior },
+                }
+              })
+              trace.droppedGaps = droppedGaps
+              return trace
+            },
+          }
+        })
+      }
+      catch (error) {
+        diagnosticGaps.push({ stage: 'install', error: String(error) })
+      }
+      try {
+        await page.setViewportSize(viewport)
+        const layout = await pre.evaluate((element) => {
+          const style = getComputedStyle(element)
+          return {
+            maxHeight: Number.parseFloat(style.maxHeight),
+            expectedMaxHeight: Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 35,
+            overflowY: style.overflowY,
+            height: element.getBoundingClientRect().height,
+            scrollHeight: element.scrollHeight,
+            clientHeight: element.clientHeight,
+          }
+        })
+        assert.equal(layout.maxHeight, layout.expectedMaxHeight, `${framework}: 35rem pre limit`)
+        assert.equal(layout.overflowY, 'auto', `${framework}: pre owns vertical scrolling`)
+        assert.ok(layout.height <= layout.maxHeight + 1, `${framework}: bounded code height`)
+        assert.ok(layout.scrollHeight > layout.clientHeight, `${framework}: code scrolls vertically`)
+        await expect(pre).toHaveAttribute('tabindex', '0')
+        await expect(pre).toHaveAttribute('role', 'region')
+        await pre.evaluate(element => element.scrollTop = 0)
+        await pre.focus()
+        await expect(pre).toBeFocused()
+        const headerY = (await snippet.locator('.header').boundingBox()).y
+        await page.keyboard.press('ArrowDown')
+        await expect.poll(() => pre.evaluate(element => element.scrollTop)).toBeGreaterThan(0)
+        assert.equal((await snippet.locator('.header').boundingBox()).y, headerY, `${framework}: title stays outside the scroll area`)
+      }
+      finally {
+        let trace
+        try {
+          trace = await keyboardTrace?.evaluate(trace => trace.finish())
         }
-      })
-      assert.equal(layout.maxHeight, layout.expectedMaxHeight, `${framework}: 35rem pre limit`)
-      assert.equal(layout.overflowY, 'auto', `${framework}: pre owns vertical scrolling`)
-      assert.ok(layout.height <= layout.maxHeight + 1, `${framework}: bounded code height`)
-      assert.ok(layout.scrollHeight > layout.clientHeight, `${framework}: code scrolls vertically`)
-      await expect(pre).toHaveAttribute('tabindex', '0')
-      await expect(pre).toHaveAttribute('role', 'region')
-      await pre.evaluate(element => element.scrollTop = 0)
-      await pre.focus()
-      await expect(pre).toBeFocused()
-      const headerY = (await snippet.locator('.header').boundingBox()).y
-      await page.keyboard.press('ArrowDown')
-      await expect.poll(() => pre.evaluate(element => element.scrollTop)).toBeGreaterThan(0)
-      assert.equal((await snippet.locator('.header').boundingBox()).y, headerY, `${framework}: title stays outside the scroll area`)
+        catch (error) {
+          diagnosticGaps.push({ stage: 'read', error: String(error) })
+        }
+        try {
+          await keyboardTrace?.dispose()
+        }
+        catch (error) {
+          diagnosticGaps.push({ stage: 'dispose', error: String(error) })
+        }
+        try {
+          console.log(JSON.stringify({ homepageKeyboardScroll: { framework, filename, viewport, browser: browser.version(), trace, diagnosticGaps } }))
+        }
+        catch {
+          // Diagnostic output must never replace the original assertion failure.
+        }
+      }
     }
     await page.setViewportSize({ width: 1280, height: 720 })
     assert.equal(await page.evaluate(() => localStorage.getItem('destyler-framework')), framework)
