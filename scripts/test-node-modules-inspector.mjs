@@ -321,7 +321,7 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
         await expect(page.locator('details[open] button').filter({ hasText: selectedWorkspace.name }).first()).toBeVisible()
       }
       else {
-        await expect(page.getByRole('button', { name: 'Treemap', exact: true })).toBeVisible()
+        await expect(page.getByRole('link', { name: 'Treemap', exact: true })).toBeVisible()
         await expect.poll(() => page.locator('canvas').evaluateAll(canvases => canvases.some((canvas) => {
           if (!canvas.width || !canvas.height)
             return false
@@ -358,7 +358,7 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
     await clickView('Graph View', '/graph')
     await clickView('Grid View', '/grid/depth')
     await clickView('Chart View', '/chart')
-    await page.getByRole('button', { name: 'Treemap', exact: true }).click()
+    await page.getByRole('link', { name: 'Treemap', exact: true }).click()
     await assertRoute('/chart/treemap')
     await clickView('Graph View', '/graph')
     if (mode === 'dev') {
