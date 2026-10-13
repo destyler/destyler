@@ -136,8 +136,8 @@ catalogs:
       specifier: ^3.12.4
       version: 3.12.4
     '@internationalized/number':
-      specifier: ^3.6.5
-      version: 3.6.5
+      specifier: ^3.6.9
+      version: 3.6.9
     csstype:
       specifier: ^3.2.3
       version: 3.2.3
@@ -1174,7 +1174,7 @@ importers:
         version: link:../../xstate
       '@internationalized/number':
         specifier: catalog:prod
-        version: 3.6.5
+        version: 3.6.9
 
   packages/components/otp-input:
     dependencies:
@@ -2993,8 +2993,8 @@ packages:
   '@internationalized/date@3.12.4':
     resolution: {integrity: sha512-M1dEn4c1U1HsSlaVR8upZtSqvXrTkHDfv18H01uCSJyjVLDxnBR38v/fMxecmlwXKR4i9HeZcmgQAPE6A+aGJQ==}
 
-  '@internationalized/number@3.6.5':
-    resolution: {integrity: sha512-6hY4Kl4HPBvtfS62asS/R22JzNNy8vi/Ssev7x6EobfCp+9QIB2hKvI2EtbdJ0VSQacxVNtqhE/NmF/NZ0gm6g==}
+  '@internationalized/number@3.6.9':
+    resolution: {integrity: sha512-GgWy2caO/+hV9sT/oCTWGHvbjmJMPT9kkXzoKRLnkEq7adghhR7UprhvY9sXrKfrp3NcDfhF6QQHXR1KfQbB8g==}
 
   '@isaacs/balanced-match@4.0.1':
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
@@ -8812,7 +8812,7 @@ snapshots:
     dependencies:
       '@swc/helpers': 0.5.17
 
-  '@internationalized/number@3.6.5':
+  '@internationalized/number@3.6.9':
     dependencies:
       '@swc/helpers': 0.5.17
 

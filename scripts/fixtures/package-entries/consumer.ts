@@ -1,9 +1,11 @@
 import type { Context as NavigationContext, ValueChangeDetails } from '@destyler/navigation-menu'
+import type { Service as NumberInputService } from '@destyler/number-input'
 import type { ScrollChangeDetails, Context as ScrollContext, VirtualItem } from '@destyler/scroll-area'
 import type { CalendarDate, CalendarDateTime, DateFormatter, DateValue } from '@internationalized/date'
 import { getDayFormatter, getTodayDate, parseDateString, setCalendar } from '@destyler/date'
 import { machine as navigationMachine } from '@destyler/navigation-menu'
 import { machine as scrollMachine } from '@destyler/scroll-area'
+import { NumberFormatter, NumberParser } from '@internationalized/number'
 
 const navigation: NavigationContext = { id: 'navigation', defaultValue: 'products' }
 const scroll: ScrollContext = { id: 'scroll', type: 'hover' }
@@ -48,3 +50,19 @@ const invalidFormatter: number = formatter
 // @ts-expect-error the inferred CalendarDateTime return must not degrade into any
 const invalidCalendar: number = converted
 void [invalidParsed, invalidToday, invalidFormatter, invalidCalendar]
+
+// Native Intl instances must remain valid through the original public route.
+const numberFormatter: NumberInputService['contextSnapshot']['formatter'] = new Intl.NumberFormat('en-US')
+void numberFormatter
+
+class CustomNumberFormatter extends NumberFormatter {}
+class CustomNumberParser extends NumberParser {}
+const upstreamNumberFormatter: NumberInputService['contextSnapshot']['formatter'] = new NumberFormatter('en-US')
+const upstreamNumberParser: NumberInputService['contextSnapshot']['parser'] = new NumberParser('en-US')
+const formatterSubclass: NumberInputService['contextSnapshot']['formatter'] = new CustomNumberFormatter('en-US')
+const parserSubclass: NumberInputService['contextSnapshot']['parser'] = new CustomNumberParser('en-US')
+// @ts-expect-error a structural snapshot does not promise upstream private fields
+const nominalFormatter: NumberFormatter = numberFormatter
+// @ts-expect-error a structural snapshot does not promise upstream private fields
+const nominalParser: NumberParser = upstreamNumberParser
+void [upstreamNumberFormatter, upstreamNumberParser, formatterSubclass, parserSubclass, nominalFormatter, nominalParser]

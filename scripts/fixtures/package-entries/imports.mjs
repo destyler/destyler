@@ -4,13 +4,16 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { assertDateRuntime } from './date-runtime.mjs'
+import { assertNumberRuntime } from './number-runtime.mjs'
 
 const require = createRequire(import.meta.url)
 const consumer = fileURLToPath(new URL('.', import.meta.url))
-for (const name of ['@destyler/navigation-menu', '@destyler/scroll-area']) {
+for (const name of ['@destyler/navigation-menu', '@destyler/scroll-area', '@destyler/number-input']) {
   const modern = await import(name)
   assert.equal(typeof modern.machine, 'function', `${name}: modern machine export`)
   assert.equal(typeof modern.connect, 'function', `${name}: modern connect export`)
+  if (name === '@destyler/number-input')
+    assertNumberRuntime(modern)
   if (process.argv.includes('--legacy')) {
     // Resolving the installed package directory exercises Node's legacy main-field
     // resolver rather than exports. Loading its result still honors the ESM format.

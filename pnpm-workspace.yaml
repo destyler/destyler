@@ -59,7 +59,7 @@ catalogs:
   prod:
     '@floating-ui/dom': 1.8.0
     '@internationalized/date': ^3.12.4
-    '@internationalized/number': ^3.6.5
+    '@internationalized/number': ^3.6.9
     csstype: ^3.2.3
     perfect-freehand: ^1.2.3
     proxy-compare: ^3.0.1
