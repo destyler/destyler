@@ -19,7 +19,7 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 22.22.3
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec node scripts/test-svelte-package.mjs

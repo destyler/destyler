@@ -10,6 +10,8 @@ import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { chromium } from 'playwright'
 
+import { consumerNode, installConsumer } from './consumer-runtime.mjs'
+
 const root = fileURLToPath(new URL('..', import.meta.url))
 // Use the locked documentation bundler without adding a consumer dependency.
 const astroRequire = createRequire(createRequire(import.meta.url).resolve('astro/package.json'))
@@ -149,11 +151,11 @@ async function assertRejectsBrokenEntries(consumer) {
     try {
       // Each mutation runs in a fresh consumer process to avoid resolver caching.
       await writeFile(filename, JSON.stringify({ ...source, main: 'dist/missing-entry.cjs' }))
-      const runtime = execute(process.execPath, ['imports.mjs', '--legacy'], consumer, true)
+      const runtime = execute(consumerNode, ['imports.mjs', '--legacy'], consumer, true)
       assert.notEqual(runtime.status, 0, `${name}: legacy runtime must reject broken main`)
       assert.ok(runtime.stderr.includes('MODULE_NOT_FOUND') && runtime.stderr.includes(name))
       await writeFile(filename, JSON.stringify({ ...source, types: 'dist/missing-entry.d.ts' }))
-      const types = execute(process.execPath, compilerArgs('Node10'), consumer, true)
+      const types = execute(consumerNode, compilerArgs('Node10'), consumer, true)
       assert.notEqual(types.status, 0, `${name}: Node10 consumer must reject broken types`)
       assert.ok(types.stdout.includes('TS7016') && types.stdout.includes(name), types.stdout + types.stderr)
     }
@@ -170,7 +172,7 @@ async function assertStaticDateImportControl(consumer, datePeer) {
   const original = await readFile(filename, 'utf8')
   try {
     await writeFile(filename, `import { CalendarDate as staticPeerCalendarDate } from '@internationalized/date'\nvoid staticPeerCalendarDate\n${original}`)
-    const result = execute(process.execPath, ['imports.mjs'], consumer, true)
+    const result = execute(consumerNode, ['imports.mjs'], consumer, true)
     if (datePeer === '3.0.0') {
       assert.notEqual(result.status, 0, 'Minimum peer must reject a restored static named import')
       assert.ok(result.stderr.includes('CalendarDate') && result.stderr.includes('not found') && result.stderr.includes('@internationalized/date'), result.stderr)
@@ -182,7 +184,7 @@ async function assertStaticDateImportControl(consumer, datePeer) {
   finally {
     await writeFile(filename, original)
   }
-  run(process.execPath, ['imports.mjs'], consumer)
+  run(consumerNode, ['imports.mjs'], consumer)
 }
 
 async function bundleDate(consumer, entry = 'date-browser-entry.mjs') {
@@ -324,7 +326,7 @@ try {
     }, null, 2))
     // No @destyler runtime dependency may silently fall back to a published version.
     await writeFile(path.join(consumer, '.npmrc'), '@destyler:registry=http://127.0.0.1:9/\nfetch-retries=0\n')
-    run(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=true'], consumer)
+    installConsumer(consumer)
     await assertProvenance(consumer, packed, datePeer)
     const probes = [
       ['modern runtime', ['imports.mjs']],
@@ -333,19 +335,20 @@ try {
     ]
     const failures = []
     for (const [label, args] of probes) {
-      const result = execute(process.execPath, args, consumer, true)
+      const result = execute(consumerNode, args, consumer, true)
       console.log(`Date peer ${datePeer}, ${label}: ${result.status === 0 ? 'PASS' : 'FAIL'}`)
       if (result.status !== 0)
         failures.push(`${label}\n${result.stdout}${result.stderr}`)
     }
     assert.deepEqual(failures, [], failures.join('\n'))
     await assertRejectsBrokenEntries(consumer)
-    run(process.execPath, ['imports.mjs', '--legacy'], consumer)
-    run(process.execPath, compilerArgs('Node10'), consumer)
+    run(consumerNode, ['imports.mjs', '--legacy'], consumer)
+    run(consumerNode, compilerArgs('Node10'), consumer)
     await assertStaticDateImportControl(consumer, datePeer)
     await assertDateBrowserBundle(consumer, datePeer)
     await assertMissingDateExportControls(consumer, datePeer)
     browserBundles.push({ datePeer, code: await bundleDate(consumer, 'date-browser-runtime.mjs') })
+    await rm(consumer, { recursive: true, force: true })
   }
   await assertDateChromium(browserBundles)
   console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1/3.12.4, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, static Date import controls, Vite browser bundles, missing Date export controls, and Chromium runtime passed')

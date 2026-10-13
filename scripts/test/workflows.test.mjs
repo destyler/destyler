@@ -7,6 +7,8 @@ import { parseDocument } from 'yaml'
 
 const root = new URL('../../', import.meta.url)
 const verifyAction = './.github/actions/verify'
+const consumerAction = './.github/actions/verify-node20-consumers'
+const sourceMatrix = ['22.22.3', 24]
 
 function readYaml(path) {
   const document = parseDocument(readFileSync(new URL(path, root), 'utf8'))
@@ -22,14 +24,103 @@ const workflows = Object.fromEntries(
 const ci = workflows['ci.yml']
 const release = workflows['release.yml']
 const verification = readYaml('.github/actions/verify/action.yml')
+const consumerVerification = readYaml('.github/actions/verify-node20-consumers/action.yml')
 
 function assertRequired(job, label) {
   assert.equal(job.if, undefined, `${label} must use the default success condition`)
   assert.equal(job['continue-on-error'], undefined, `${label} must fail closed`)
 }
 
+function assertConsumerJob(job) {
+  assert.ok(job, 'Node 20 consumers must have an independent job')
+  assertRequired(job, 'Node 20 consumers')
+  assert.deepEqual(job.permissions, { contents: 'read' })
+  assert.ok(job.steps.some(step => step.uses === consumerAction))
+  for (const step of job.steps)
+    assertRequired(step, step.name)
+  assert.ok(!JSON.stringify(job).includes('secrets.'))
+}
+
+function assertConsumerAction(action) {
+  assert.equal(action.runs.using, 'composite')
+  const steps = action.runs.steps
+  assert.deepEqual(steps.map(step => step.uses ?? step.run), [
+    'actions/setup-node@v6',
+    'echo "node=$(command -v node)" >> "$GITHUB_OUTPUT"\necho "npm=$(realpath "$(command -v npm)")" >> "$GITHUB_OUTPUT"\n',
+    'actions/setup-node@v6',
+    'pnpm/action-setup@v4',
+    'pnpm install --frozen-lockfile',
+    'pnpm playwright install --with-deps chromium',
+    'pnpm exec node scripts/test-public-package-runtime.mjs\npnpm exec node scripts/test-svelte-package.mjs\npnpm exec node scripts/test-package-entries.mjs\n',
+  ])
+  assert.equal(steps[0].with['node-version'], '20.19.0')
+  assert.equal(steps[1].id, 'consumer')
+  assert.equal(steps[2].with['node-version'], '22.22.3')
+  assert.deepEqual(steps[6].env, {
+    DESTYLER_CONSUMER_NODE: '${{ steps.consumer.outputs.node }}',
+    DESTYLER_CONSUMER_NPM: '${{ steps.consumer.outputs.npm }}',
+    DESTYLER_CONSUMER_NODE_VERSION: '20.19.0',
+  })
+  for (const step of steps) {
+    assertRequired(step, step.name)
+    if (step.run)
+      assert.equal(step.shell, 'bash')
+  }
+}
+
+function assertSourceSupport(workflow) {
+  const job = workflow.jobs.test ?? workflow.jobs.verify
+  assertRequired(job, 'Source verification')
+  assert.deepEqual(job.strategy.matrix.node, sourceMatrix)
+  assert.ok(job.steps.some(step => step.uses === verifyAction))
+  const setup = job.steps.find(step => step.uses?.startsWith('actions/setup-node@'))
+  assert.equal(setup.with['node-version'], '${{ matrix.node }}')
+}
+
+test('source support and package-manager contracts are explicit', () => {
+  for (const name of ['package.json', 'document/package.json']) {
+    const manifest = JSON.parse(readFileSync(new URL(name, root), 'utf8'))
+    assert.equal(manifest.engines.node, '^22.22.3 || ^24.16.0 || >=26.3.0')
+    assert.equal(manifest.packageManager, name === 'package.json' ? 'pnpm@10.26.1' : 'pnpm@10.13.1')
+  }
+  for (const workflow of [ci, release]) {
+    assertSourceSupport(workflow)
+    assertConsumerJob(workflow.jobs['node20-consumer'])
+  }
+  const svelteSetup = workflows['svelte-package.yml'].jobs['packed-consumer'].steps.find(step => step.uses?.startsWith('actions/setup-node@'))
+  assert.equal(svelteSetup.with['node-version'], '22.22.3')
+  const report = ci.jobs.test.steps.find(step => step.uses?.startsWith('davelosert/vitest-coverage-report-action@'))
+  assert.equal(report.if, 'always() && matrix.node == 24')
+  assertConsumerAction(consumerVerification)
+})
+
+test('source and consumer support gates reject runtime drift and bypasses', () => {
+  for (const nodes of [[20, 22, 24], [22, 24], ['22.12.0', 24], ['22.22.3']]) {
+    const workflow = structuredClone(ci)
+    workflow.jobs.test.strategy.matrix.node = nodes
+    assert.throws(() => assertSourceSupport(workflow))
+  }
+  const mutations = [
+    action => action.runs.steps[0].with['node-version'] = '20',
+    action => action.runs.steps[2].with['node-version'] = '22',
+    action => action.runs.steps[1].id = 'wrong',
+    action => action.runs.steps.reverse(),
+    action => action.runs.steps[6].env.DESTYLER_CONSUMER_NODE = 'node',
+    action => action.runs.steps[6].env.DESTYLER_CONSUMER_NODE_VERSION = '22.22.3',
+    action => action.runs.steps[6].run = 'echo skipped',
+    action => action.runs.steps[6]['continue-on-error'] = true,
+    action => action.runs.steps[6].if = 'false',
+  ]
+  for (const mutate of mutations) {
+    const action = structuredClone(consumerVerification)
+    mutate(action)
+    assert.throws(() => assertConsumerAction(action))
+  }
+})
+
 function assertReleaseGate(workflow) {
-  const { verify, ...sideEffects } = workflow.jobs
+  const { verify, 'node20-consumer': consumer, ...sideEffects } = workflow.jobs
+  assertConsumerJob(consumer)
   assert.ok(verify, 'release needs a verification job')
   assertRequired(verify, 'verify')
   assert.deepEqual(verify.permissions, { contents: 'read' })
@@ -46,6 +137,7 @@ function assertReleaseGate(workflow) {
   for (const [id, job] of Object.entries(sideEffects)) {
     const needs = Array.isArray(job.needs) ? job.needs : [job.needs]
     assert.ok(needs.includes('verify'), `${id} must wait for verification`)
+    assert.ok(needs.includes('node20-consumer'), `${id} must wait for Node 20 consumers`)
     assertRequired(job, id)
   }
 
@@ -82,6 +174,10 @@ test('every release side effect requires verification of the exact triggering SH
 test('release gates reject bypasses and moving-ref checkouts', () => {
   const mutations = [
     workflow => delete workflow.jobs.release.needs,
+    workflow => workflow.jobs.release.needs = ['verify'],
+    workflow => delete workflow.jobs['node20-consumer'],
+    workflow => workflow.jobs['node20-consumer']['continue-on-error'] = true,
+    workflow => workflow.jobs['node20-consumer'].steps[1].if = 'false',
     workflow => workflow.jobs.changelog.if = 'always()',
     workflow => workflow.jobs.deploy['continue-on-error'] = true,
     workflow => workflow.jobs.verify['continue-on-error'] = true,

@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [20, 22, 24]
+        node: [22.22.3, 24]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -52,3 +52,21 @@ jobs:
         with:
           json-summary-path: ./html/coverage/coverage-summary.json
           json-final-path: ./html/coverage/coverage-final.json
+
+  node20-consumer:
+    runs-on: ubuntu-latest
+    name: 'Packed consumers: node-20.19.0'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout consumer source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+      - name: Verify Node 20 consumers
+        uses: ./.github/actions/verify-node20-consumers

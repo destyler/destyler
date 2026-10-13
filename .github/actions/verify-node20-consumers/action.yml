@@ -1,0 +1,43 @@
+name: Verify Node 20 packed consumers
+description: Build with development tools on Node 22 and consume tarballs on exact Node 20
+runs:
+  using: composite
+  steps:
+    - name: Install consumer Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: 20.19.0
+
+    - name: Record consumer executables
+      id: consumer
+      shell: bash
+      run: |
+        echo "node=$(command -v node)" >> "$GITHUB_OUTPUT"
+        echo "npm=$(realpath "$(command -v npm)")" >> "$GITHUB_OUTPUT"
+
+    - name: Install development Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: 22.22.3
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Install development dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+
+    - name: Install Playwright Chromium
+      shell: bash
+      run: pnpm playwright install --with-deps chromium
+
+    - name: Check public Node 20 consumers
+      shell: bash
+      env:
+        DESTYLER_CONSUMER_NODE: ${{ steps.consumer.outputs.node }}
+        DESTYLER_CONSUMER_NPM: ${{ steps.consumer.outputs.npm }}
+        DESTYLER_CONSUMER_NODE_VERSION: 20.19.0
+      run: |
+        pnpm exec node scripts/test-public-package-runtime.mjs
+        pnpm exec node scripts/test-svelte-package.mjs
+        pnpm exec node scripts/test-package-entries.mjs
