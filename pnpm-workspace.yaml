@@ -50,7 +50,7 @@ catalogs:
     '@antfu/eslint-config': ^9.5.1
     eslint: ^10.12.0
   markdown:
-    marked: ^18.1.0
+    marked: ^18.1.1
     shiki: ^4.5.0
   plugin:
     '@babel/core': ^8.0.7
