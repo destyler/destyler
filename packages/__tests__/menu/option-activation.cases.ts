@@ -252,8 +252,8 @@ describe('menu option callback boundaries', () => {
     const action = vi.fn()
     fixture.service.setOptions({ actions: { setOptionState: action } })
     await activate(fixture, 'pointer')
-    expect(Object.prototype.hasOwnProperty.call(action.mock.calls[0][1].option, 'type')).toBe(false)
-    expect(Object.prototype.hasOwnProperty.call(action.mock.calls[0][1].option, 'checked')).toBe(false)
+    expect(Object.hasOwn(action.mock.calls[0][1].option, 'type')).toBe(false)
+    expect(Object.hasOwn(action.mock.calls[0][1].option, 'checked')).toBe(false)
   })
 
   it('snapshots an own getter callback once per emitted option event', () => {
@@ -392,7 +392,7 @@ describe('menu option callback boundaries', () => {
     const action = vi.fn()
     fixture.service.setOptions({ actions: { setOptionState: action } })
     await activate(fixture, 'pointer')
-    expect(Object.prototype.hasOwnProperty.call(action.mock.calls[0][1].option, 'onCheckedChange')).toBe(false)
+    expect(Object.hasOwn(action.mock.calls[0][1].option, 'onCheckedChange')).toBe(false)
   })
 
   it('uses the current override of setOptionState and does not invoke a fallback', async () => {

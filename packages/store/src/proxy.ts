@@ -183,6 +183,7 @@ function buildProxyFunction(objectIs = Object.is, newProxy = <T extends object>(
           removePropListener(prop)
           if (isArrayLength) {
             propProxyStates.forEach((_state, key) => {
+              // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
               if (!Object.prototype.hasOwnProperty.call(target, key))
                 removePropListener(key)
             })

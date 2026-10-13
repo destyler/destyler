@@ -86,7 +86,9 @@ pnpm build
 pnpm test:workflows
 ```
 
-- `pnpm test:types` checks the compile-time assertions in `packages/types/test/*.test-d.ts`; runtime tests do not execute these files.
+- `pnpm test:types` runs the native TypeScript 7 compiler against the public type-contract projects, including `packages/types/test/*.test-d.ts`; runtime tests do not execute these files.
+- Tooling that needs the JavaScript compiler API uses the official TypeScript 6 compatibility package installed under the `typescript` alias. The `@typescript/native` alias supplies the TypeScript 7 `tsc` executable; `tsc6` is available for API-tooling diagnostics.
+- Packed consumers keep their isolated TypeScript 5.9.3 checks, including the legacy `Node10` resolver. They do not use either workspace compiler alias.
 - Use `pnpm test:dev` for watch mode and `pnpm test:ui` for Vitest UI debugging.
 - For browser-based components, consider `pnpm test:deploy` or `pnpm test:coverage` to ensure no regressions.
 - Add regression tests whenever you fix a bug or introduce a new feature. Cover normal, boundary, and error cases, especially for utilities like color and date libraries.

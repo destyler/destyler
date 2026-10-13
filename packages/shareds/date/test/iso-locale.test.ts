@@ -9,7 +9,7 @@ function withDateContexts(assertion: (today: Date, timeZone: string) => void) {
   try {
     for (const hostTimeZone of timeZones) {
       process.env.TZ = hostTimeZone
-      expect(Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(hostTimeZone)
+      expect(new Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(hostTimeZone)
       for (const now of ['2026-10-11T00:30:00Z', '2020-07-04T12:00:00Z']) {
         vi.setSystemTime(new Date(now))
         for (const timeZone of timeZones) {

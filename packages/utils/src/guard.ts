@@ -10,6 +10,7 @@ export const isFunction = (v: any): v is AnyFunction => typeof v === 'function'
 export const isNull = (v: any): v is null | undefined => v == null
 
 export function hasProp<T extends string>(obj: any, prop: T): obj is Record<T, any> {
+  // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
   return Object.prototype.hasOwnProperty.call(obj, prop)
 }
 

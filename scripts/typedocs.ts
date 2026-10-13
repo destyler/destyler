@@ -2,7 +2,7 @@ import type { SourceFile, Symbol, TypeChecker } from 'ts-morph'
 import { writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import process from 'node:process'
-import { ModuleResolutionKind, Project } from 'ts-morph'
+import { ModuleKind, ModuleResolutionKind, Project } from 'ts-morph'
 import { getComponentsPackages } from './get-packages'
 
 function trimType(value: string) {
@@ -78,7 +78,10 @@ function getContextReturnType(sourceFile: SourceFile | undefined, typeName: stri
 async function main() {
   const project = new Project({
     compilerOptions: {
-      moduleResolution: ModuleResolutionKind.NodeNext,
+      module: ModuleKind.ESNext,
+      moduleResolution: ModuleResolutionKind.Bundler,
+      // Preserve the documentation generator's existing optional-property rendering.
+      strict: false,
     },
   })
 

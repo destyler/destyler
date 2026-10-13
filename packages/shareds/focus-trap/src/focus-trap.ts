@@ -144,7 +144,7 @@ export class FocusTrap {
         .reverse()
         .find(node => isTabbable(node))
 
-      const posTabIndexesFound = !!tabbableNodes.find(node => getTabIndex(node) > 0)
+      const posTabIndexesFound = tabbableNodes.some(node => getTabIndex(node) > 0)
 
       function nextTabbableNode(node: HTMLElement, forward = true) {
         const nodeIdx = tabbableNodes.indexOf(node)
@@ -184,7 +184,7 @@ export class FocusTrap {
       )
     }
 
-    if (this.state.containerGroups.find(g => g.posTabIndexesFound) && this.state.containerGroups.length > 1) {
+    if (this.state.containerGroups.some(g => g.posTabIndexesFound) && this.state.containerGroups.length > 1) {
       throw new Error(
         'At least one node with a positive tabindex was found in one of your focus-trap\'s multiple containers. Positive tabindexes are only supported in single-container focus-traps.',
       )

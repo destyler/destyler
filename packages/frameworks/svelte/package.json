@@ -53,6 +53,7 @@
   "devDependencies": {
     "@destyler/utils": "workspace:*",
     "@sveltejs/package": "catalog:build",
-    "svelte": "catalog:frontend"
+    "svelte": "catalog:frontend",
+    "typescript": "catalog:types"
   }
 }

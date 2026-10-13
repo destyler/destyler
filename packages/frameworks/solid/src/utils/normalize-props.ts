@@ -77,6 +77,7 @@ function toHyphenLower(match: string) {
 const cache: Record<string, any> = {}
 
 function hyphenateStyleName(name: string) {
+  // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
   if (cache.hasOwnProperty(name))
     return cache[name]
   const hName = name.replace(uppercasePattern, toHyphenLower)

@@ -8,6 +8,7 @@ function pick(obj: Dict, keys: string[]) {
   return Object.fromEntries(keys.filter(key => key in obj).map(key => [key, obj[key]]))
 }
 
+// eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
 const hasProp = (v: any, prop: string) => Object.prototype.hasOwnProperty.call(v, prop)
 
 const isTimeObject = (v: any) => hasProp(v, 'hour') && hasProp(v, 'minute') && hasProp(v, 'second')

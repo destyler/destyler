@@ -1,4 +1,4 @@
-import antfu from '@antfu/eslint-config'
+import antfu, { GLOB_SRC, GLOB_VUE } from '@antfu/eslint-config'
 import vitest from '@vitest/eslint-plugin'
 
 export default antfu({
@@ -26,4 +26,9 @@ export default antfu({
     ...vitest.configs.recommended.rules,
     'vitest/max-nested-describe': ['error', { max: 3 }],
   },
+}).overrides({
+  // Keep the existing Vue script checks after Antfu scoped these presets to JS/TS.
+  'antfu/jsdoc/rules': { files: [GLOB_SRC, GLOB_VUE] },
+  'antfu/node/rules': { files: [GLOB_SRC, GLOB_VUE] },
+  'antfu/unicorn/rules': { files: [GLOB_SRC, GLOB_VUE] },
 })

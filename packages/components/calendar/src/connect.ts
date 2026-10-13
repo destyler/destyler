@@ -119,6 +119,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     const cellState = {
       focused: focusedValue.year === props.value,
       selectable: isValueWithinRange(value, min?.year ?? 0, max?.year ?? 9999),
+      // eslint-disable-next-line e18e/prefer-array-some -- Preserve find visitation of caller-provided calendar values.
       selected: !!getResolvedCalendarValue(selectedValue).find(date => date.year === value),
       valueText: value.toString(),
       get disabled() {
@@ -135,6 +136,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     const cellState = {
       focused: focusedValue.month === props.value,
       selectable: !isDateInvalid(normalized, min, max),
+      // eslint-disable-next-line e18e/prefer-array-some -- Preserve find visitation of caller-provided calendar values.
       selected: !!getResolvedCalendarValue(selectedValue).find(date => date.month === value && date.year === focusedValue.year),
       valueText: formatter.format(normalized.toDate(timeZone)),
       get disabled() {

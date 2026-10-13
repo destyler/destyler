@@ -256,7 +256,7 @@ describe('proxyWithComputed', () => {
         {
           allDone: snap => snap.todos.every(t => t.done),
           anyDone: snap => snap.todos.some(t => t.done),
-          noneLeft: snap => snap.todos.filter(t => !t.done).length === 0,
+          noneLeft: snap => !snap.todos.some(t => !t.done),
           remaining: snap => snap.todos.filter(t => !t.done).length,
         },
       )

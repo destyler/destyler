@@ -96,6 +96,7 @@
     "solid-js": "catalog:frontend",
     "starlight-theme-destyler": "catalog:theme",
     "svelte": "catalog:frontend",
+    "typescript": "catalog:types",
     "unocss": "catalog:css",
     "unocss-preset-animations": "catalog:css",
     "vue": "catalog:frontend"

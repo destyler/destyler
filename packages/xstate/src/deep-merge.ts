@@ -20,6 +20,7 @@ export function deepMerge<T extends Record<string, any>>(source: T, ...objects: 
     const target = compact(obj)
     for (const key in target) {
       // Skip prototype chain properties
+      // eslint-disable-next-line e18e/prefer-object-has-own -- Preserve browser compatibility without requiring Object.hasOwn.
       if (!Object.prototype.hasOwnProperty.call(target, key))
         continue
 

@@ -136,6 +136,15 @@ export interface SyntheticTouchEvent<T = Element> extends SyntheticUIEvent<T, Na
   touches: TouchList
 }
 
+declare global {
+  // Preserve the legacy DOM interface and consumers' declaration merging.
+  interface StyleMedia {
+    type: string
+    // eslint-disable-next-line ts/method-signature-style -- Preserve the legacy DOM method's parameter bivariance.
+    matchMedium(mediaquery: string): boolean
+  }
+}
+
 export interface AbstractView {
   document: Document
   styleMedia: StyleMedia
