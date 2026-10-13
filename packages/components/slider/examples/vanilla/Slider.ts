@@ -56,10 +56,18 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
 
   onStateChange(listener: (state: SliderState) => void) {
     this.stateListeners.add(listener)
+    return () => this.stateListeners.delete(listener)
   }
 
   protected override onTransition(state: SliderState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.thumbObserver?.disconnect()
+    this.thumbObserver = null
+    this.stateListeners.clear()
+    super.destroy()
   }
 
   private syncThumbs(api: slider.Api) {
@@ -153,7 +161,7 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(sliderControls)
   const layout = Layout()
 
@@ -190,7 +198,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-slider-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -212,5 +220,14 @@ export function render(target: HTMLElement) {
   }
 
   updateVisualizer(instance.state as SliderState)
-  instance.onStateChange(updateVisualizer)
+  const unsubscribeVisualizer = instance.onStateChange(updateVisualizer)
+
+  let disposed = false
+  return () => {
+    if (disposed)
+      return
+    disposed = true
+    unsubscribeVisualizer()
+    instance.destroy()
+  }
 }

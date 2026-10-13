@@ -1,9 +1,10 @@
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { render } from '../examples/vanilla/Slider'
 
 let mount: HTMLElement
+let cleanup: () => void
 
 const valueText = testHook.part('value-text')
 
@@ -19,12 +20,14 @@ async function seeValueText(value: string) {
 
 describe('slider browser tests', () => {
   beforeEach(() => {
-    if (mount)
-      document.body.removeChild(mount)
-
     mount = document.createElement('div')
     document.body.appendChild(mount)
-    render(mount)
+    cleanup = render(mount)
+  })
+
+  afterEach(() => {
+    cleanup()
+    mount.remove()
   })
 
   it('[keyboard] should work with arrow left/right keys', async () => {
