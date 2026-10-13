@@ -12,8 +12,8 @@ const { title, description, link, imgSrc } = Astro.props
 <a href={link} class="decoration-none! hover:decoration-none! border-px rounded-md overflow-hidden flex border-border hover:border-primary">
   <div class="shadow-none flex flex-col overflow-hidden relative rounded-md bg-background">
     <!-- img -->
-    <div class="px-4 pt-4 pb-3 max-h-13rem overflow-hidden p-6 gap-1">
-      <img class="rounded-1 m-0!" src={imgSrc}>
+    <div class="build-image">
+      <img src={imgSrc} alt={`${title} logo`} width="701" height="701">
     </div>
     <!-- body -->
     <div class="mt-0! flex-1 flex-col flex px-6 p-4">
@@ -26,3 +26,27 @@ const { title, description, link, imgSrc } = Astro.props
     </div>
   </div>
 </a>
+
+<style>
+  .build-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 13rem;
+    padding: 1.5rem;
+  }
+
+  .build-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 10rem;
+    max-height: 10rem;
+    margin: 0;
+    object-fit: contain;
+  }
+
+  :global([data-theme='dark']) .build-image img {
+    filter: invert(1);
+  }
+</style>

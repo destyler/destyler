@@ -1,0 +1,58 @@
+---
+import { Code } from '@astrojs/starlight/components'
+
+interface Props {
+  code: string
+  lang: string
+  title: string
+}
+
+const { code, lang, title } = Astro.props
+---
+
+<destyler-home-code class="home-code" data-title={title}>
+  <Code code={code} lang={lang} title={title} class="my-0!" />
+</destyler-home-code>
+
+<style>
+  destyler-home-code {
+    display: block;
+  }
+
+  destyler-home-code :global(pre) {
+    max-height: 35rem;
+    overflow-y: auto;
+  }
+</style>
+
+<script>
+class HomeCode extends HTMLElement {
+  private observer?: MutationObserver
+
+  connectedCallback() {
+    this.observer?.disconnect()
+    const pre = this.querySelector('pre')
+    if (!pre)
+      return
+
+    // EC toggles keyboard access for horizontal overflow. These samples also scroll vertically.
+    const preserveKeyboardAccess = () => {
+      if (pre.getAttribute('tabindex') !== '0')
+        pre.setAttribute('tabindex', '0')
+      if (pre.getAttribute('role') !== 'region')
+        pre.setAttribute('role', 'region')
+    }
+    pre.setAttribute('aria-label', `${this.dataset.title} source code`)
+    preserveKeyboardAccess()
+    this.observer = new MutationObserver(preserveKeyboardAccess)
+    this.observer.observe(pre, { attributes: true, attributeFilter: ['tabindex', 'role'] })
+  }
+
+  disconnectedCallback() {
+    this.observer?.disconnect()
+    this.observer = undefined
+  }
+}
+
+customElements.define('destyler-home-code', HomeCode)
+</script>

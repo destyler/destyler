@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import { once } from 'node:events'
 import { readFile, realpath, stat } from 'node:fs/promises'
 import { createServer } from 'node:http'
@@ -204,6 +205,138 @@ try {
   await expect(dialog).not.toBeVisible()
   await page.goto(`${origin}/`)
   console.log(JSON.stringify({ homepage: true }))
+  const homeSnippets = page.locator('.home-code')
+  await expect(homeSnippets).toHaveCount(4)
+  for (const [framework, label, lang, filename, sha256] of [
+    ['vue', 'Vue', 'vue', 'Dialog.vue', '52f1b2a8a4fad9a67ca6e9ae2956a74a25ffae17073b3678fc64858d7d62d989'],
+    ['solid', 'Solid', 'tsx', 'Dialog.tsx', '3a840c297b60fea93af8168a2432039fc9c1f053bd07ed49e889d02575d5887b'],
+    ['svelte', 'Svelte', 'svelte', 'Dialog.svelte', 'abb4edd6b0c70ff88a0bd7430bebe984a16923741760a7ed1e81694f6b8175d9'],
+    ['react', 'React', 'tsx', 'Dialog.tsx', '258babafd735d29f4790fc339dd4201470fd533f37fe2f320ed9bc1cdf4b713b'],
+  ]) {
+    await visibleControl.locator('.select-framework-trigger').click()
+    await visibleControl.locator(`.select-framework-item[data-value="${framework}"]`).click()
+    await expect(visibleControl.locator('.selected-label')).toHaveText(label)
+    await expect(page.locator('.home-code:visible')).toHaveCount(1)
+    const snippet = page.locator(`.framework-content[data-framework="${framework}"] .home-code`)
+    await expect(snippet).toBeVisible()
+    await expect(snippet.locator('.expressive-code')).toHaveClass(/\bmy-0!($|\s)/)
+    await expect(snippet.locator('.title')).toHaveText(filename)
+    const pre = snippet.locator('pre')
+    await expect(pre).toHaveAttribute('data-language', lang)
+    await expect(pre).toHaveAttribute('aria-label', `${filename} source code`)
+    await expect(pre).toHaveAttribute('tabindex', '0')
+    await expect(pre).toHaveAttribute('role', 'region')
+    const button = snippet.locator('button[data-code]')
+    const canonical = (await button.getAttribute('data-code')).replace(/\u007F/g, '\n')
+    // These hashes bind the text to the old copy payload, including its exact whitespace.
+    assert.equal(createHash('sha256').update(canonical).digest('hex'), sha256, `${framework}: canonical copy text`)
+    // EC uses a newline as the visual placeholder for an otherwise empty line.
+    assert.equal(await pre.locator('.ec-line .code').evaluateAll(lines => lines.map(line => line.textContent === '\n' ? '' : line.textContent).join('\n')), canonical)
+    await expect(pre.locator('script, input, button, template')).toHaveCount(0)
+    await page.evaluate(() => {
+      globalThis.__docsCopiedText = null
+    })
+    await button.click()
+    await expect.poll(() => page.evaluate(() => globalThis.__docsCopiedText)).toBe(canonical)
+    await expect(snippet.locator('.copy [aria-live="polite"] .feedback')).toHaveText('Copied!')
+    for (const viewport of [{ width: 1600, height: 900 }, { width: 390, height: 844 }]) {
+      await page.setViewportSize(viewport)
+      const layout = await pre.evaluate((element) => {
+        const style = getComputedStyle(element)
+        return {
+          maxHeight: Number.parseFloat(style.maxHeight),
+          expectedMaxHeight: Number.parseFloat(getComputedStyle(document.documentElement).fontSize) * 35,
+          overflowY: style.overflowY,
+          height: element.getBoundingClientRect().height,
+          scrollHeight: element.scrollHeight,
+          clientHeight: element.clientHeight,
+        }
+      })
+      assert.equal(layout.maxHeight, layout.expectedMaxHeight, `${framework}: 35rem pre limit`)
+      assert.equal(layout.overflowY, 'auto', `${framework}: pre owns vertical scrolling`)
+      assert.ok(layout.height <= layout.maxHeight + 1, `${framework}: bounded code height`)
+      assert.ok(layout.scrollHeight > layout.clientHeight, `${framework}: code scrolls vertically`)
+      await expect(pre).toHaveAttribute('tabindex', '0')
+      await expect(pre).toHaveAttribute('role', 'region')
+      await pre.evaluate(element => element.scrollTop = 0)
+      await pre.focus()
+      await expect(pre).toBeFocused()
+      const headerY = (await snippet.locator('.header').boundingBox()).y
+      await page.keyboard.press('ArrowDown')
+      await expect.poll(() => pre.evaluate(element => element.scrollTop)).toBeGreaterThan(0)
+      assert.equal((await snippet.locator('.header').boundingBox()).y, headerY, `${framework}: title stays outside the scroll area`)
+    }
+    await page.setViewportSize({ width: 1280, height: 720 })
+    assert.equal(await page.evaluate(() => localStorage.getItem('destyler-framework')), framework)
+    console.log(JSON.stringify({ homepageFramework: framework, filename, sha256, copyText: true, feedback: true, keyboardScroll: true }))
+  }
+  const homeAssets = await homeSnippets.locator('link[rel="stylesheet"][href], script[src]').evaluateAll(elements => elements.map(element => element.getAttribute('href') || element.getAttribute('src')))
+  assert.ok(homeAssets.some(url => url.endsWith('.css')), 'Homepage Code must include its current stylesheet')
+  assert.ok(homeAssets.some(url => url.endsWith('.js')), 'Homepage Code must include its current runtime')
+  for (const asset of new Set(homeAssets)) {
+    const url = new URL(asset, origin)
+    assert.equal(url.origin, origin, 'Homepage Code assets must be local')
+    const response = await context.request.get(url.href)
+    assert.equal(response.status(), 200, `Homepage Code asset must exist: ${url.pathname}`)
+    assert.match(response.headers()['content-type'], url.pathname.endsWith('.css') ? /^text\/css/ : /^text\/javascript/)
+  }
+  await page.reload()
+  await expect(page.locator('.framework-content[data-framework="react"] .home-code')).toBeVisible()
+  await expect(page.locator('.home-code:visible')).toHaveCount(1)
+  const buildCard = page.locator('a[href="https://github.com/destyler/ui"]').filter({ has: page.locator('.build-image') })
+  await expect(buildCard).toHaveCount(1)
+  await expect(buildCard.locator('h3')).toHaveText('Destyler')
+  await expect(buildCard).toContainText('Build scalable design systems with unstyled, accessible UI components')
+  const buildImage = buildCard.getByRole('img', { name: 'Destyler logo', exact: true })
+  await expect(buildImage).toHaveAttribute('src', '/logo-light.svg')
+  const imageSource = new URL(await buildImage.getAttribute('src'), origin)
+  assert.equal(imageSource.origin, origin, 'The homepage showcase image must be local')
+  const imageResponse = await context.request.get(imageSource.href)
+  assert.equal(imageResponse.status(), 200, 'The homepage showcase image must serve successfully')
+  assert.equal(imageResponse.headers()['content-type'], 'image/svg+xml')
+  const decodedImage = await buildImage.evaluate(async (image) => {
+    await image.decode()
+    return { complete: image.complete, width: image.naturalWidth, height: image.naturalHeight, src: image.currentSrc }
+  })
+  assert.ok(decodedImage.complete && decodedImage.width > 0 && decodedImage.height > 0, 'The homepage showcase image must decode')
+  assert.equal(decodedImage.src, imageSource.href)
+  for (const theme of ['light', 'dark']) {
+    await page.evaluate((theme) => {
+      document.documentElement.classList.remove('light', 'dark')
+      document.documentElement.classList.add(theme)
+      document.documentElement.dataset.theme = theme
+    }, theme)
+    for (const viewport of [{ width: 1600, height: 900 }, { width: 390, height: 844 }]) {
+      await page.setViewportSize(viewport)
+      await expect(buildImage).toBeVisible()
+      const imageLayout = await buildImage.evaluate((image) => {
+        const bounds = image.getBoundingClientRect()
+        const container = image.parentElement.getBoundingClientRect()
+        const style = getComputedStyle(image)
+        return {
+          width: bounds.width,
+          height: bounds.height,
+          left: bounds.left,
+          right: bounds.right,
+          top: bounds.top,
+          bottom: bounds.bottom,
+          container: { width: container.width, height: container.height, left: container.left, right: container.right, top: container.top, bottom: container.bottom },
+          rootFontSize: Number.parseFloat(getComputedStyle(document.documentElement).fontSize),
+          objectFit: style.objectFit,
+          filter: style.filter,
+        }
+      })
+      assert.ok(imageLayout.width > 0 && imageLayout.height > 0, 'The showcase logo must have visible dimensions')
+      assert.ok(imageLayout.width <= 10 * imageLayout.rootFontSize + 1 && imageLayout.height <= 10 * imageLayout.rootFontSize + 1, 'The showcase logo must stay within 10rem')
+      assert.ok(imageLayout.container.height <= 13 * imageLayout.rootFontSize + 1, 'The showcase image area must stay within 13rem')
+      assert.ok(imageLayout.left >= imageLayout.container.left && imageLayout.right <= imageLayout.container.right, 'The showcase logo must fit horizontally')
+      assert.ok(imageLayout.top >= imageLayout.container.top && imageLayout.bottom <= imageLayout.container.bottom, 'The showcase logo must fit vertically')
+      assert.equal(imageLayout.objectFit, 'contain')
+      assert.equal(imageLayout.filter, theme === 'dark' ? 'invert(1)' : 'none', `The showcase logo must match the ${theme} theme`)
+    }
+  }
+  await page.setViewportSize({ width: 1280, height: 720 })
+  console.log(JSON.stringify({ homepageShowcaseImage: decodedImage, local: true, themes: ['light', 'dark'], bounded: true }))
   assert.deepEqual(failures, [], 'Served documentation must have no runtime or request failures')
   console.log(JSON.stringify({ worker: '/pagefind/pagefind-worker.js', reopenedSearch: true, warnings, failures }))
 }

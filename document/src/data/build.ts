@@ -10,6 +10,6 @@ export const data: BuildData[] = [
     title: 'Destyler',
     description: 'Build scalable design systems with unstyled, accessible UI components',
     link: 'https://github.com/destyler/ui',
-    imgSrc: 'https://elonehoo.me/destyler/node',
+    imgSrc: '/logo-light.svg',
   },
 ]
