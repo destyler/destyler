@@ -167,7 +167,8 @@ it('does transition into state after options defined timer delay has passed and 
           },
         },
         running: {
-          every: [{ delay: 100, actions: 'increment' }],
+          // Make the guard true before expiry without relying on equal-deadline timer order.
+          every: [{ delay: 99, actions: 'increment' }],
           after: {
             TIMER_DELAY: { target: 'initial', guard: 'isAllowed' },
           },
@@ -192,8 +193,11 @@ it('does transition into state after options defined timer delay has passed and 
   counter.start()
   counter.send('START')
   expect(counter.state.context.value).toBe(0)
-  vi.advanceTimersByTime(200)
-  // guard becomes true and after delay passed
+  vi.advanceTimersByTime(199)
+  expect(counter.state.value).toBe('running')
+  expect(counter.state.context.value).toBe(2)
+  vi.advanceTimersByTime(1)
+  // The guard was already true, and the original 200ms deadline has now elapsed.
   expect(counter.state.value).toBe('initial')
   expect(counter.state.context.value).toBe(2)
   counter.stop()
@@ -211,7 +215,8 @@ it('does transition into state after static defined timer delay has passed and g
           },
         },
         running: {
-          every: [{ delay: 100, actions: 'increment' }],
+          // Make the guard true before expiry without relying on equal-deadline timer order.
+          every: [{ delay: 99, actions: 'increment' }],
           after: {
             200: { target: 'initial', guard: 'isAllowed' },
           },
@@ -233,8 +238,11 @@ it('does transition into state after static defined timer delay has passed and g
   counter.start()
   counter.send('START')
   expect(counter.state.context.value).toBe(0)
-  vi.advanceTimersByTime(200)
-  // guard becomes true and after delay passed
+  vi.advanceTimersByTime(199)
+  expect(counter.state.value).toBe('running')
+  expect(counter.state.context.value).toBe(2)
+  vi.advanceTimersByTime(1)
+  // The guard was already true, and the original 200ms deadline has now elapsed.
   expect(counter.state.value).toBe('initial')
   expect(counter.state.context.value).toBe(2)
   counter.stop()

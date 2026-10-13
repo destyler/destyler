@@ -84,9 +84,9 @@ describe('calendar browser tests', () => {
     const dayLabel = await selectInRangeDay()
 
     const selected = page.getByTestId('calendar:selected')
-    await expect.element(selected).not.toHaveTextContent('-')
+    await expect.element(selected).not.toMatchTextContent('-')
     if (dayLabel)
-      await expect.element(selected).toHaveTextContent(dayLabel)
+      await expect.element(selected).toMatchTextContent(dayLabel)
 
     await userEvent.click(testHook.getClearEl('calendar'), { force: true })
     // cleared valueAsString is '' (render falls back to '-' only for nullish)

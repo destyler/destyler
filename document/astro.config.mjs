@@ -13,6 +13,8 @@ const documentRoot = new URL('./', import.meta.url)
 const componentsDocsDir = new URL('../packages/components/', import.meta.url)
 
 export default defineConfig({
+  // Preserve the existing whitespace between inline elements.
+  compressHTML: true,
   markdown: {
     syntaxHighlight: 'shiki',
   },
@@ -234,10 +236,11 @@ export default defineConfig({
       },
     },
     resolve: {
+      // Package docs outside this app must use its Starlight export map.
+      dedupe: ['@astrojs/starlight'],
       alias: [
         { find: '@docs', replacement: fileURLToPath(`${documentRoot}/src/`) },
         { find: '@component', replacement: fileURLToPath(componentsDocsDir) },
-        { find: '@astrojs/starlight', replacement: fileURLToPath(new URL('./node_modules/@astrojs/starlight/', import.meta.url)) },
         // Only match exact specifier (no trailing /index.js) to avoid self-aliasing inside shim.
         { find: 'nanoid', replacement: fileURLToPath(new URL('../node_modules/nanoid/', import.meta.url)) },
       ],

@@ -17,6 +17,11 @@
     "astrobook": "catalog:storybook"
   },
   "devDependencies": {
+    "@babel/core": "catalog:plugin",
+    "@babel/plugin-proposal-decorators": "catalog:plugin",
+    "@babel/plugin-transform-class-properties": "catalog:plugin",
+    "@babel/plugin-transform-class-static-block": "catalog:plugin",
+    "@rolldown/plugin-babel": "catalog:plugin",
     "@types/react": "catalog:types",
     "@types/react-dom": "catalog:types",
     "@unocss/core": "catalog:css",

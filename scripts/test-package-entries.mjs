@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { stripVTControlCharacters } from 'node:util'
 import { chromium } from 'playwright'
 
 import { consumerNode, installConsumer } from './consumer-runtime.mjs'
@@ -198,15 +199,42 @@ async function assertStaticDateImportControl(consumer, datePeer) {
   run(consumerNode, ['imports.mjs'], consumer)
 }
 
-async function bundleDate(consumer, entry = 'date-browser-entry.mjs') {
+async function dateBundleEntries(consumer) {
   const require = createRequire(path.join(consumer, 'package.json'))
   const dateEntry = normalizePath(require.resolve('@destyler/date'))
   const peerDirectory = path.join(consumer, 'node_modules/@internationalized/date')
   const peerManifest = await manifest(peerDirectory)
   const peerEntry = normalizePath(path.resolve(peerDirectory, peerManifest.exports?.import ?? peerManifest.module))
+  return { dateEntry, peerEntry }
+}
+
+function matchesDateExportDiagnostic(diagnostic, { binding, dateEntry, peerEntry, source, statement, reference }) {
+  if (!['MISSING_EXPORT', 'IMPORT_IS_UNDEFINED'].includes(diagnostic.code) || typeof diagnostic.message !== 'string')
+    return false
+  const statementPosition = source.indexOf(statement)
+  if (statementPosition < 0)
+    return false
+  const line = source.slice(0, statementPosition).split('\n').length
+  const rolldownNamespace = diagnostic.code === 'IMPORT_IS_UNDEFINED'
+  const column = statement.indexOf(rolldownNamespace ? reference : binding)
+  const position = statementPosition + column
+  if (column < 0 || diagnostic.id !== dateEntry || diagnostic.loc?.file !== dateEntry || diagnostic.loc.line !== line || diagnostic.loc.column !== column || diagnostic.pos !== position || source.split('\n')[line - 1] !== statement)
+    return false
+  if (diagnostic.code === 'MISSING_EXPORT' && diagnostic.binding === binding)
+    return diagnostic.exporter === peerEntry
+  // Rolldown omits binding, and namespace warnings also omit exporter. Match
+  // the complete diagnostic header so another export or file cannot pass.
+  const exporter = normalizePath(path.relative(process.cwd(), peerEntry))
+  const header = stripVTControlCharacters(diagnostic.message).split('\n')[0]
+  if (rolldownNamespace)
+    return diagnostic.binding === undefined && diagnostic.exporter === undefined && header === `[IMPORT_IS_UNDEFINED] Import \`${binding}\` will always be undefined because there is no matching export in '${exporter}'`
+  return diagnostic.code === 'MISSING_EXPORT' && diagnostic.binding === undefined && diagnostic.exporter === peerEntry && header === `[MISSING_EXPORT] "${binding}" is not exported by "${exporter}".`
+}
+
+async function bundleDate(consumer, entry = 'date-browser-entry.mjs') {
+  const { dateEntry, peerEntry } = await dateBundleEntries(consumer)
   const source = await readFile(dateEntry, 'utf8')
   const optionalDefault = 'const optionalDefault = dateModule.default;'
-  const optionalDefaultPosition = source.indexOf(optionalDefault) + optionalDefault.indexOf('.default') + 1
   const optionalDefaultWarnings = []
   const unexpectedMissingExports = []
   const result = await build({
@@ -222,18 +250,25 @@ async function bundleDate(consumer, entry = 'date-browser-entry.mjs') {
         onwarn(warning, defaultHandler) {
           // Preserve Vite's normal warning output, including expected controls.
           defaultHandler(warning)
-          if (warning.code !== 'MISSING_EXPORT')
-            return
           // Only this optional default probe is expected for the peer's ESM entry.
-          if (warning.binding === 'default' && warning.id === dateEntry && warning.exporter === peerEntry && warning.loc?.file === dateEntry && source.split('\n')[warning.loc.line - 1] === optionalDefault && warning.pos === optionalDefaultPosition)
+          if (matchesDateExportDiagnostic(warning, {
+            binding: 'default',
+            dateEntry,
+            peerEntry,
+            source,
+            statement: optionalDefault,
+            reference: 'dateModule.default',
+          })) {
             optionalDefaultWarnings.push(warning)
-          else
+          }
+          else {
             unexpectedMissingExports.push(warning)
+          }
         },
       },
     },
   })
-  assert.deepEqual(unexpectedMissingExports, [], 'Unexpected browser missing exports')
+  assert.deepEqual(unexpectedMissingExports, [], 'Unexpected browser bundle warnings')
   assert.equal(optionalDefaultWarnings.length, 1, 'Expected the original optional-default probe warning')
   assert.ok(Array.isArray(result))
   assert.equal(result.length, 1)
@@ -258,23 +293,39 @@ async function assertDateBrowserBundle(consumer, datePeer) {
 }
 
 async function assertMissingDateExportControls(consumer, datePeer) {
-  const require = createRequire(path.join(consumer, 'package.json'))
-  const filename = require.resolve('@destyler/date')
+  const { dateEntry: filename, peerEntry } = await dateBundleEntries(consumer)
   const original = await readFile(filename, 'utf8')
   try {
     const brokenNamespace = original.replace('dateModule.CalendarDate ??', 'dateModule.__missingCalendarDate ??')
     assert.notEqual(brokenNamespace, original, 'Missing namespace export control must change the installed bridge')
     await writeFile(filename, brokenNamespace)
-    await assert.rejects(() => bundleDate(consumer), error => error.code === 'ERR_ASSERTION' && Array.isArray(error.actual) && error.actual.some(warning => warning.code === 'MISSING_EXPORT' && warning.binding === '__missingCalendarDate' && warning.id === normalizePath(filename)))
+    await assert.rejects(() => bundleDate(consumer), error => error.code === 'ERR_ASSERTION' && Array.isArray(error.actual) && error.actual.some(warning => matchesDateExportDiagnostic(warning, {
+      binding: '__missingCalendarDate',
+      dateEntry: filename,
+      peerEntry,
+      source: brokenNamespace,
+      statement: 'const CalendarDate = dateModule.__missingCalendarDate ?? optionalDefault?.CalendarDate;',
+      reference: 'dateModule.__missingCalendarDate',
+    })))
   }
   finally {
     await writeFile(filename, original)
   }
   try {
-    await writeFile(filename, `import { __missingDateBinding } from '@internationalized/date'\nvoid __missingDateBinding\n${original}`)
+    const statement = 'import { __missingDateBinding } from \'@internationalized/date\''
+    const brokenNamed = `${statement}\nvoid __missingDateBinding\n${original}`
+    await writeFile(filename, brokenNamed)
     await assert.rejects(() => bundleDate(consumer), (error) => {
       console.error(error.message)
-      return error.code === 'MISSING_EXPORT' && error.binding === '__missingDateBinding' && error.id === normalizePath(filename)
+      const diagnostics = Array.isArray(error.errors) ? error.errors : [error]
+      return diagnostics.length === 1 && matchesDateExportDiagnostic(diagnostics[0], {
+        binding: '__missingDateBinding',
+        dateEntry: filename,
+        peerEntry,
+        source: brokenNamed,
+        statement,
+        reference: '__missingDateBinding',
+      })
     })
   }
   finally {

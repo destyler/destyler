@@ -116,6 +116,7 @@
     "tsx": "catalog:script",
     "typescript": "catalog:types",
     "unocss": "catalog:css",
+    "vite": "catalog:build",
     "vite-plugin-solid": "catalog:plugin",
     "vitest": "catalog:test",
     "vitest-axe": "catalog:test",

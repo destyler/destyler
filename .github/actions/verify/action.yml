@@ -23,6 +23,10 @@ runs:
       shell: bash
       run: pnpm exec node scripts/test-node-modules-inspector.mjs
 
+    - name: Check built Storybook in Chromium
+      shell: bash
+      run: pnpm run storybook:build && pnpm exec node scripts/test-storybook-browser.mjs
+
     - name: Test public type contracts
       shell: bash
       run: pnpm run test:types
