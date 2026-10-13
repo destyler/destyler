@@ -32,6 +32,7 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
 
   private readonly thumbsHost = this.rootEl.querySelector<HTMLElement>('[data-slider-thumbs]')
   private thumbItems: Array<{ wrapper: HTMLElement, input: HTMLInputElement }> = []
+  private disposed = false
   private readonly stateListeners = new Set<(state: SliderState) => void>()
   // Mirror the machine's thumb-size tracking so parts become visible once rendered.
   private thumbObserver: ResizeObserver | null = typeof window !== 'undefined' && 'ResizeObserver' in window
@@ -51,7 +52,10 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
   }
 
   initApi() {
-    return slider.connect(this.service.state as SliderSnapshot, this.service.send, normalizeProps)
+    return slider.connect(this.service.state as SliderSnapshot, (event) => {
+      if (!this.disposed)
+        this.service.send(event)
+    }, normalizeProps)
   }
 
   onStateChange(listener: (state: SliderState) => void) {
@@ -64,6 +68,7 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
   }
 
   override destroy(): void {
+    this.disposed = true
     this.thumbObserver?.disconnect()
     this.thumbObserver = null
     this.stateListeners.clear()
