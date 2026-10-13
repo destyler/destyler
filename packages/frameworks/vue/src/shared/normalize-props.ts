@@ -3,7 +3,7 @@ import { createNormalizer } from '@destyler/types'
 
 interface ReservedProps {
   key?: string | number | symbol
-  ref?: Vue.VNodeRef
+  ref?: NonNullable<Vue.VNodeProps['ref']>
 }
 
 type Attrs<T> = T & ReservedProps
