@@ -32,6 +32,7 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
 
   private readonly thumbsHost = this.rootEl.querySelector<HTMLElement>('[data-slider-thumbs]')
   private thumbItems: Array<{ wrapper: HTMLElement, input: HTMLInputElement }> = []
+  private disposed = false
   private readonly stateListeners = new Set<(state: SliderState) => void>()
   // Mirror the machine's thumb-size tracking so parts become visible once rendered.
   private thumbObserver: ResizeObserver | null = typeof window !== 'undefined' && 'ResizeObserver' in window
@@ -51,15 +52,27 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
   }
 
   initApi() {
-    return slider.connect(this.service.state as SliderSnapshot, this.service.send, normalizeProps)
+    return slider.connect(this.service.state as SliderSnapshot, (event) => {
+      if (!this.disposed)
+        this.service.send(event)
+    }, normalizeProps)
   }
 
   onStateChange(listener: (state: SliderState) => void) {
     this.stateListeners.add(listener)
+    return () => this.stateListeners.delete(listener)
   }
 
   protected override onTransition(state: SliderState) {
     this.stateListeners.forEach(listener => listener(state))
+  }
+
+  override destroy(): void {
+    this.disposed = true
+    this.thumbObserver?.disconnect()
+    this.thumbObserver = null
+    this.stateListeners.clear()
+    super.destroy()
   }
 
   private syncThumbs(api: slider.Api) {
@@ -153,7 +166,7 @@ class SliderExample extends Component<slider.Context, slider.Api, SliderMachineC
   }
 }
 
-export function render(target: HTMLElement) {
+export function render(target: HTMLElement): () => void {
   const controls = useControls(sliderControls)
   const layout = Layout()
 
@@ -190,7 +203,7 @@ export function render(target: HTMLElement) {
 
   const scope = layout.main.querySelector<HTMLElement>('[data-slider-example]')
   if (!scope)
-    return
+    return () => {}
 
   const toolbar = Toolbar()
   toolbar.setControlsSlot(() => ControlsPanel(controls))
@@ -212,5 +225,14 @@ export function render(target: HTMLElement) {
   }
 
   updateVisualizer(instance.state as SliderState)
-  instance.onStateChange(updateVisualizer)
+  const unsubscribeVisualizer = instance.onStateChange(updateVisualizer)
+
+  let disposed = false
+  return () => {
+    if (disposed)
+      return
+    disposed = true
+    unsubscribeVisualizer()
+    instance.destroy()
+  }
 }
