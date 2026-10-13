@@ -30,6 +30,42 @@ describe('lit normalizeProps', () => {
     expect(normalizedFalse.disabled).toBeUndefined()
   })
 
+  describe.each(['checked', 'defaultChecked'] as const)('%s boolean attribute', (key) => {
+    it.each([false, true, undefined, null])('normalizes %s without mutating props', (value) => {
+      const props = Object.freeze({ [key]: value })
+      const normalized = normalizeProps.input(props)
+
+      expect(normalized).toEqual({ checked: value ? '' : undefined })
+      expect(props[key]).toBe(value)
+    })
+  })
+
+  it('preserves nonboolean attributes and other aliases beside defaultChecked', () => {
+    const onChange = () => {}
+    const onClick = () => {}
+    const props = Object.freeze({
+      'defaultChecked': false,
+      'defaultValue': 'false',
+      'aria-checked': false,
+      'data-active': false,
+      'title': 'checkbox',
+      onChange,
+      onClick,
+    })
+
+    expect(normalizeProps.input(props)).toEqual({
+      'checked': undefined,
+      'value': 'false',
+      'aria-checked': false,
+      'data-active': false,
+      'title': 'checkbox',
+      '@input': onChange,
+      '@click': onClick,
+    })
+    expect(props.defaultChecked).toBe(false)
+    expect(props.defaultValue).toBe('false')
+  })
+
   it('moves string children into textContent placeholders', () => {
     const normalized = normalizeProps.span({
       children: 'Lit Portal',

@@ -27,13 +27,14 @@ export const normalizeProps = createNormalizer<PropTypes>((props: Dict) => {
 
   for (const key in props) {
     let value = props[key]
+    let nextKey = toProp(key)
 
     if (key === 'style' && isObject(value)) {
       normalized.style = cssify(value)
       continue
     }
 
-    if (booleanAttrs.has(key)) {
+    if (booleanAttrs.has(nextKey)) {
       value = value ? '' : undefined
     }
 
@@ -44,7 +45,6 @@ export const normalizeProps = createNormalizer<PropTypes>((props: Dict) => {
       continue
     }
 
-    let nextKey = toProp(key)
     if (nextKey.startsWith('on')) {
       nextKey = `@${nextKey.slice(2).toLowerCase()}`
     }
