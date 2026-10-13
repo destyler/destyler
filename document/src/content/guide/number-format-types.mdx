@@ -1,0 +1,51 @@
+---
+title: Number input formatter types
+description: Structural formatter and parser compatibility with internationalized number 3.6.9.
+---
+
+The Number input uses `@internationalized/number` 3.6.9 for parsing. Its formatter
+continues to be a native `Intl.NumberFormat`. The existing unformatted
+`Number.parseFloat` and string-conversion branches are unchanged.
+
+The formatter and parser types are reachable through
+`Service['contextSnapshot']['formatter']` and
+`Service['contextSnapshot']['parser']`. The exported `Context` contains user
+options; it does not expose these internal fields.
+
+These snapshot fields now use structural interfaces for the same eight methods:
+
+- Formatter: `format`, `formatToParts`, `formatRange`, `formatRangeToParts`, and `resolvedOptions`.
+- Parser: `parse`, `isValidPartialNumber`, and `getNumberingSystem`.
+
+Native formatters, structural custom implementations, upstream class instances,
+and subclasses remain assignable when they provide the corresponding methods.
+Range parts retain `source: 'startRange' | 'endRange' | 'shared'` without requiring
+consumers to add the ES2023 Intl library merely to read these public declarations.
+The existing native runtime requirements of individual Intl methods still apply.
+
+Upstream 3.6.9 classes declare private fields. A snapshot's structural formatter or
+parser therefore cannot be assigned back to the upstream class type. Accept the
+snapshot field type in code that only needs these methods. Code that needs an
+upstream class instance should retain that instance's own type.
+
+Module augmentation of upstream `NumberFormatter` or `NumberParser` no longer
+automatically adds members to the snapshot types. Define an explicit intersection
+with your extension where needed, and verify that the actual object implements it.
+This also means a required upstream augmentation does not force a native formatter
+or an unextended custom parser to implement that member.
+
+The dependency update includes upstream parser fixes. For example, Arabic meter
+unit text `متر` with `{ style: 'unit', unit: 'meter', unitDisplay: 'long' }` can now
+parse as `1`; 3.6.5 returned `NaN` in the tested Node 20 runtime. This affects
+Number input when these options are supplied: the snapshot's `valueAsNumber` is
+now `1`, its `formattedValue` is the localized meter label rather than an empty
+string. Applications checking for `NaN` will now receive a valid numeric value.
+The default `isOutOfRange` flag remains `false` in both versions. With no
+`formatOptions`, the existing `Number.parseFloat` path is unchanged.
+
+This follows the upstream parser's numeral-free-unit handling in
+`src/NumberParser.ts` in the official
+[3.6.9 source archive](https://registry.npmjs.org/@internationalized/number/-/number-3.6.9.tgz).
+Locale data depends
+on the runtime's ICU version. The type repair does not replace or emulate the
+upstream parser.

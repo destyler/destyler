@@ -1,6 +1,28 @@
 import type { CommonProperties, LocaleProperties, PropTypes, RequiredBy } from '@destyler/types'
 import type { AnyEventObject, Machine, XSend, XState } from '@destyler/xstate'
-import type { NumberFormatter, NumberParser } from '@internationalized/number'
+
+// Keep the existing structural surface and Intl library requirements.
+// The upstream classes now have private members and newer Intl type references.
+interface NumberRangeFormatPart extends Intl.NumberFormatPart {
+  source: 'startRange' | 'endRange' | 'shared'
+}
+
+// Preserve the method variance of the previously exposed upstream classes.
+/* eslint-disable ts/method-signature-style */
+interface NumberFormatterLike {
+  format(value: number): string
+  formatToParts(value: number): Intl.NumberFormatPart[]
+  formatRange(start: number, end: number): string
+  formatRangeToParts(start: number, end: number): NumberRangeFormatPart[]
+  resolvedOptions(): Intl.ResolvedNumberFormatOptions
+}
+
+interface NumberParserLike {
+  parse(value: string): number
+  isValidPartialNumber(value: string, minValue?: number, maxValue?: number): boolean
+  getNumberingSystem(value: string): string
+}
+/* eslint-enable ts/method-signature-style */
 
 export interface ValueChangeDetails {
   value: string
@@ -230,12 +252,12 @@ interface PrivateContext {
    * @internal
    * The number i18n formatter
    */
-  formatter: NumberFormatter
+  formatter: NumberFormatterLike
   /**
    * @internal
    * The number i18n parser
    */
-  parser: NumberParser
+  parser: NumberParserLike
   /**
    * @internal
    * Whether the checkbox's fieldset is disabled

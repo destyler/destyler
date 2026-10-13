@@ -17,7 +17,7 @@ const root = fileURLToPath(new URL('..', import.meta.url))
 const astroRequire = createRequire(createRequire(import.meta.url).resolve('astro/package.json'))
 const { build, normalizePath } = await import(pathToFileURL(astroRequire.resolve('vite')).href)
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-package-entries-')))
-const entries = ['@destyler/navigation-menu', '@destyler/scroll-area', '@destyler/date']
+const entries = ['@destyler/navigation-menu', '@destyler/scroll-area', '@destyler/date', '@destyler/number-input']
 const datePeers = ['3.0.0', '3.10.1', '3.12.4']
 const runtimeFields = ['dependencies', 'optionalDependencies', 'peerDependencies']
 
@@ -103,6 +103,11 @@ async function assertProvenance(consumer, packed, datePeer) {
       assert.equal(entry.version, datePeer)
       assert.equal(entry.link, undefined)
     }
+    if (location.endsWith('node_modules/@internationalized/number')) {
+      assert.equal(location, 'node_modules/@internationalized/number', 'Unexpected nested Number dependency')
+      assert.equal(entry.version, '3.6.9')
+      assert.equal(entry.link, undefined)
+    }
     const name = location.match(/(?:^|\/)node_modules\/(@destyler\/[^/]+)$/)?.[1]
     if (!name)
       continue
@@ -132,6 +137,12 @@ async function assertProvenance(consumer, packed, datePeer) {
       }
     }
   }
+  const numberDirectory = path.join(consumer, 'node_modules/@internationalized/number')
+  assert.equal((await manifest(numberDirectory)).version, '3.6.9')
+  assert.equal((await lstat(numberDirectory)).isSymbolicLink(), false)
+  assert.equal(await realpath(numberDirectory), numberDirectory)
+  const numberRequire = createRequire(path.join(consumer, 'node_modules/@destyler/number-input/package.json'))
+  assert.ok(numberRequire.resolve('@internationalized/number').startsWith(`${numberDirectory}${path.sep}`))
   const peerDirectory = path.join(consumer, 'node_modules/@internationalized/date')
   assert.equal((await manifest(peerDirectory)).version, datePeer)
   assert.equal((await lstat(peerDirectory)).isSymbolicLink(), false)
@@ -321,6 +332,7 @@ try {
       dependencies: {
         ...Object.fromEntries([...packed].map(([name, { tarball }]) => [name, `file:${tarball}`])),
         '@internationalized/date': datePeer,
+        '@internationalized/number': '3.6.9',
         'typescript': '5.9.3',
       },
     }, null, 2))
@@ -341,6 +353,8 @@ try {
         failures.push(`${label}\n${result.stdout}${result.stderr}`)
     }
     assert.deepEqual(failures, [], failures.join('\n'))
+    for (const resolution of ['Bundler', 'NodeNext', 'Node10'])
+      run(consumerNode, ['node_modules/typescript/bin/tsc', '-p', 'tsconfig.number.json', '--moduleResolution', resolution, '--module', resolution === 'NodeNext' ? 'NodeNext' : 'ESNext'], consumer)
     await assertRejectsBrokenEntries(consumer)
     run(consumerNode, ['imports.mjs', '--legacy'], consumer)
     run(consumerNode, compilerArgs('Node10'), consumer)
@@ -351,7 +365,7 @@ try {
     await rm(consumer, { recursive: true, force: true })
   }
   await assertDateChromium(browserBundles)
-  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1/3.12.4, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, six broken-entry controls per peer, static Date import controls, Vite browser bundles, missing Date export controls, and Chromium runtime passed')
+  console.log('Packed package entries: local tarball provenance, exact Date peers 3.0.0/3.10.1/3.12.4 and Number 3.6.9, modern/legacy runtime, strict Bundler/NodeNext/Node10 types, eight broken-entry controls per peer, static Date import controls, Vite browser bundles, missing Date export controls, and Chromium runtime passed')
 }
 finally {
   await rm(temporaryDir, { recursive: true, force: true })
