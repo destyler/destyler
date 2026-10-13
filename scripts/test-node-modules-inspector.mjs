@@ -363,13 +363,24 @@ async function exercise(origin, mode, staticPayloadPaths = new Set()) {
     await clickView('Graph View', '/graph')
     if (mode === 'dev') {
       const input = page.getByPlaceholder('Goto', { exact: true })
+      const activateGoto = async () => {
+        // Empty Goto collapses until its native label focuses the input.
+        // Selection clears and blurs it, so open it before every fill.
+        const opener = input.locator('..').locator('[i-ph-magnifying-glass-duotone]')
+        await expect(opener).toBeVisible()
+        await opener.click()
+        await expect(input).toBeFocused()
+        await expect(input).toBeVisible()
+      }
       const popup = page.locator('[data-popper-placement].vue-afloat--shown[aria-hidden="false"]').filter({ hasText: selectedWorkspace.name })
+      await activateGoto()
       await input.fill(selectedWorkspace.name)
       await expect(popup).toBeVisible()
       await input.locator('..').getByRole('button').click()
       await expect(input).toHaveValue('')
       await expect(popup).toBeHidden()
       for (let i = 0; i < 2; i++) {
+        await activateGoto()
         await input.fill(selectedWorkspace.name)
         await expect(popup).toBeVisible()
         await input.press('Enter')
