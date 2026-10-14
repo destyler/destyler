@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readdirSync, readFileSync } from 'node:fs'
 // eslint-disable-next-line test/no-import-node-test -- Check CI independently of the browser test configuration.
 import { test } from 'node:test'
-import { parseDocument } from 'yaml'
+import { parseAllDocuments, parseDocument } from 'yaml'
 
 const root = new URL('../../', import.meta.url)
 const verifyAction = './.github/actions/verify'
@@ -81,7 +81,7 @@ test('source support and package-manager contracts are explicit', () => {
   for (const name of ['package.json', 'document/package.json']) {
     const manifest = JSON.parse(readFileSync(new URL(name, root), 'utf8'))
     assert.equal(manifest.engines.node, '^22.22.3 || ^24.16.0 || >=26.3.0')
-    assert.equal(manifest.packageManager, name === 'package.json' ? 'pnpm@10.26.1' : 'pnpm@10.13.1')
+    assert.equal(manifest.packageManager, 'pnpm@12.11.2')
   }
   for (const workflow of [ci, release]) {
     assertSourceSupport(workflow)
@@ -92,6 +92,56 @@ test('source support and package-manager contracts are explicit', () => {
   const report = ci.jobs.test.steps.find(step => step.uses?.startsWith('davelosert/vitest-coverage-report-action@'))
   assert.equal(report.if, 'always() && matrix.node == 24')
   assertConsumerAction(consumerVerification)
+})
+
+test('pnpm migration retains strict supply-chain and build boundaries', () => {
+  const workspace = readYaml('pnpm-workspace.yaml')
+  assert.equal(workspace.engineStrict, true)
+  assert.equal(workspace.strictPeerDependencies, true)
+  assert.equal(workspace.minimumReleaseAge, 1440)
+  assert.equal(workspace.minimumReleaseAgeStrict, true)
+  assert.equal(workspace.trustPolicy, 'no-downgrade')
+  assert.equal(workspace.trustLockfile, false)
+  assert.equal(workspace.strictDepBuilds, true)
+  assert.equal(workspace.blockExoticSubdeps, true)
+  assert.equal(workspace.verifyDepsBeforeRun, 'error')
+  assert.deepEqual(workspace.allowBuilds, { esbuild: true, sharp: true })
+  for (const name of ['minimumReleaseAgeExclude', 'trustPolicyExclude', 'trustPolicyIgnoreAfter', 'dangerouslyAllowAllBuilds', 'onlyBuiltDependencies'])
+    assert.equal(workspace[name], undefined, `${name} must not bypass the reviewed policies`)
+  assert.equal(readFileSync(new URL('.npmrc', root), 'utf8'), 'registry=https://registry.npmjs.org/\n')
+})
+
+test('pnpm environment lock and scoped compatibility overrides match the manifests', () => {
+  const documents = parseAllDocuments(readFileSync(new URL('pnpm-lock.yaml', root), 'utf8'))
+  assert.equal(documents.length, 2)
+  for (const document of documents)
+    assert.deepEqual(document.errors, [])
+  const [environment, graph] = documents.map(document => document.toJS())
+  const manifest = JSON.parse(readFileSync(new URL('package.json', root), 'utf8'))
+  const version = manifest.packageManager.slice('pnpm@'.length)
+  assert.deepEqual(environment.importers['.'].packageManagerDependencies, {
+    pnpm: { specifier: version, version },
+  })
+  const parents = [
+    '@babel/core@7.29.7',
+    '@babel/helper-compilation-targets@7.29.7',
+    '@babel/helper-create-class-features-plugin@7.28.5',
+    '@babel/helper-create-class-features-plugin@7.29.7',
+  ]
+  const overrides = Object.fromEntries(parents.map(parent => [`${parent}>semver`, '7.8.5']))
+  assert.deepEqual(readYaml('pnpm-workspace.yaml').overrides, overrides)
+  assert.deepEqual(graph.overrides, overrides)
+  assert.deepEqual(readYaml('node_modules/.pnpm/lock.yaml').patchedDependencies, Object.fromEntries(
+    Object.entries(graph.patchedDependencies).map(([name, patch]) => [name, patch.hash]),
+  ))
+  assert.equal(graph.packages['semver@6.3.1'], undefined)
+  assert.equal(graph.snapshots['semver@6.3.1'], undefined)
+  for (const parent of parents) {
+    const entries = Object.entries(graph.snapshots).filter(([key]) => key === parent || key.startsWith(`${parent}(`))
+    assert.ok(entries.length > 0, `Review the override when ${parent} leaves the graph`)
+    for (const [, snapshot] of entries)
+      assert.equal(snapshot.dependencies.semver, '7.8.5')
+  }
 })
 
 test('source and consumer support gates reject runtime drift and bypasses', () => {

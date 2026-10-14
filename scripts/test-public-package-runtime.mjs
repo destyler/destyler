@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
-import { consumerNode, installConsumer } from './consumer-runtime.mjs'
+import { consumerNode, installConsumer, pnpmCommand } from './consumer-runtime.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-public-runtime-')))
@@ -24,9 +24,8 @@ function run(command, args, cwd = root) {
 }
 
 function pnpm(args, cwd = root) {
-  if (process.env.npm_execpath)
-    return run(process.execPath, [process.env.npm_execpath, ...args], cwd)
-  return run(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', args, cwd)
+  const [command, commandArgs] = pnpmCommand(args)
+  return run(command, commandArgs, cwd)
 }
 
 const manifest = async directory => JSON.parse(await readFile(path.join(directory, 'package.json'), 'utf8'))

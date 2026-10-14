@@ -7,6 +7,16 @@ packages:
 
 catalogMode: prefer
 shellEmulator: true
+ignoreWorkspaceRootCheck: true
+engineStrict: true
+strictPeerDependencies: true
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+trustPolicy: no-downgrade
+trustLockfile: false
+strictDepBuilds: true
+blockExoticSubdeps: true
+verifyDepsBeforeRun: error
 
 catalogs:
   build:
@@ -116,9 +126,17 @@ catalogs:
 
 cleanupUnusedCatalogs: true
 
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+# Babel 7 requests semver 6.3.1, which fails the no-downgrade policy.
+# Limit the compatibility override to these exact consumers, not trust checks.
+overrides:
+  '@babel/core@7.29.7>semver': 7.8.5
+  '@babel/helper-compilation-targets@7.29.7>semver': 7.8.5
+  '@babel/helper-create-class-features-plugin@7.28.5>semver': 7.8.5
+  '@babel/helper-create-class-features-plugin@7.29.7>semver': 7.8.5
 
 patchedDependencies:
   node-modules-inspector@2.7.0: patches/node-modules-inspector@2.7.0.patch

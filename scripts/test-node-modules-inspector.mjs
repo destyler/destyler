@@ -11,7 +11,7 @@ import { dirname, extname, join, resolve, sep } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { expect as baseExpect, chromium } from 'playwright/test'
-import { parseDocument } from 'yaml'
+import { parseAllDocuments } from 'yaml'
 
 const root = await realpath(fileURLToPath(new URL('../', import.meta.url)))
 const artifacts = join(root, 'node_modules/.cache/inspector-smoke')
@@ -26,9 +26,14 @@ const expect = baseExpect.configure({ timeout })
 const failures = []
 const diagnostics = { requestsBlocked: [], rpcMethods: [], views: [] }
 const packageJson = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
-const lockDocument = parseDocument(await readFile(join(root, 'pnpm-lock.yaml'), 'utf8'))
-assert.deepEqual(lockDocument.errors, [], 'Lockfile must parse without duplicate keys')
-const lock = lockDocument.toJS()
+function readLockfile(source, label) {
+  const documents = parseAllDocuments(source)
+  assert.ok(documents.length > 0 && documents.length <= 2, `${label}: expected one graph document and an optional environment document`)
+  for (const document of documents)
+    assert.deepEqual(document.errors, [], `${label}: every document must parse without duplicate keys`)
+  return documents.at(-1).toJS()
+}
+const lock = readLockfile(await readFile(join(root, 'pnpm-lock.yaml'), 'utf8'), 'Project lockfile')
 const inspectorVersion = lock.catalogs.visual['node-modules-inspector'].version
 assert.equal(inspectorVersion, '2.7.0', 'Review the exact dependency patch and this smoke on every Inspector upgrade')
 // Review exact upstream bytes on every upgrade. The patch disables automatic MCP,
@@ -38,10 +43,11 @@ assert.equal(inspectorVersion, '2.7.0', 'Review the exact dependency patch and t
 // Remove each hunk when upstream fixes its behavior: an explicit MCP-off option,
 // avatars honoring the setting, or complete local fonts/no dangling font rules.
 const inspectorEntry = await realpath(fileURLToPath(import.meta.resolve('node-modules-inspector')))
-const installedLock = parseDocument(await readFile(join(root, 'node_modules/.pnpm/lock.yaml'), 'utf8'))
-assert.deepEqual(installedLock.errors, [])
-assert.deepEqual(installedLock.toJS().importers, lock.importers, 'Run the full frozen workspace install before this smoke')
-assert.deepEqual(installedLock.toJS().patchedDependencies, lock.patchedDependencies)
+const installedLock = readLockfile(await readFile(join(root, 'node_modules/.pnpm/lock.yaml'), 'utf8'), 'Installed lockfile')
+assert.deepEqual(installedLock.importers, lock.importers, 'Run the full frozen workspace install before this smoke')
+assert.deepEqual(installedLock.patchedDependencies, Object.fromEntries(
+  Object.entries(lock.patchedDependencies).map(([name, patch]) => [name, patch.hash]),
+))
 const inspectorRoot = resolve(dirname(inspectorEntry), '..')
 const inspectorRequire = createRequire(inspectorEntry)
 const { structuredCloneParse } = await import(pathToFileURL(inspectorRequire.resolve('devframe/utils/structured-clone')))
