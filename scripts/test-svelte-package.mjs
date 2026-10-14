@@ -8,7 +8,7 @@ import path from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 
-import { consumerNode, installConsumer } from './consumer-runtime.mjs'
+import { consumerNode, installConsumer, pnpmCommand } from './consumer-runtime.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const temporaryDir = await realpath(await mkdtemp(path.join(tmpdir(), 'destyler-svelte-adapter-packed-')))
@@ -29,9 +29,8 @@ function run(command, args, cwd, capture = false) {
 }
 
 function pnpm(args, cwd = root, capture = false) {
-  if (process.env.npm_execpath)
-    return run(process.execPath, [process.env.npm_execpath, ...args], cwd, capture)
-  return run(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', args, cwd, capture)
+  const [command, commandArgs] = pnpmCommand(args)
+  return run(command, commandArgs, cwd, capture)
 }
 
 async function readManifest(directory) {

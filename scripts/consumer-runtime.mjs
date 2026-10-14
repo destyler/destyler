@@ -8,6 +8,13 @@ const configured = [node, npm, version].filter(Boolean).length
 assert.ok(configured === 0 || configured === 3, 'Consumer Node, npm CLI and exact Node version must be configured together')
 export const consumerNode = node ?? process.execPath
 
+export function pnpmCommand(args) {
+  const executable = process.env.npm_execpath || (process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm')
+  return /\.[cm]?js$/.test(executable)
+    ? [process.execPath, [executable, ...args]]
+    : [executable, args]
+}
+
 function execute(command, args, cwd) {
   const result = spawnSync(command, args, { cwd, env: process.env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
   process.stdout.write(result.stdout ?? '')

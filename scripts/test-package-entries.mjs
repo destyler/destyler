@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { stripVTControlCharacters } from 'node:util'
 import { chromium } from 'playwright'
 
-import { consumerNode, installConsumer } from './consumer-runtime.mjs'
+import { consumerNode, installConsumer, pnpmCommand } from './consumer-runtime.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 // Use the locked documentation bundler without adding a consumer dependency.
@@ -47,9 +47,8 @@ function run(command, args, cwd, capture = false) {
 }
 
 function pnpm(args, cwd = root, capture = false) {
-  if (process.env.npm_execpath)
-    return run(process.execPath, [process.env.npm_execpath, ...args], cwd, capture)
-  return run(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', args, cwd, capture)
+  const [command, commandArgs] = pnpmCommand(args)
+  return run(command, commandArgs, cwd, capture)
 }
 
 async function manifest(directory) {

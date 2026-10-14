@@ -19,13 +19,13 @@ If you are unsure whether your idea fits, open a GitHub Discussion or issue befo
 
 - **Node.js for development**: `^22.22.3 || ^24.16.0 || >=26.3.0`. The full source/build/test matrix runs on exact `22.22.3` and current `24.x` (at least `24.16.0`). The declared `26.3.0+` branch is not exercised by that matrix.
 - **Published package consumers**: Node.js `20.19.0` remains independently checked. Packages are built and packed on Node.js 22, then installed with engine checks and exercised in isolated Node.js 20 consumers. This does not require development tools to support Node.js 20.
-- **pnpm**: `10.26.1` (the workspace is pinned via the `packageManager` field).
+- **pnpm**: `12.11.2` (the workspace is pinned via the `packageManager` field).
 - **Git**: any modern version that supports worktrees.
 
 Install pnpm globally if you have not already:
 
 ```bash
-npm install --global pnpm@10.26.1
+npm install --global pnpm@12.11.2
 ```
 
 ## Repository Overview
@@ -39,6 +39,10 @@ Destyler is a pnpm-powered monorepo. Common top-level folders:
 - `templates/` & `plopfile.cjs` – Code generators for new components and examples.
 
 Most commands are orchestrated via root-level pnpm scripts and `--filter` selectors.
+
+pnpm settings live in `pnpm-workspace.yaml`; `.npmrc` retains the registry setting. Installs enforce engine and peer compatibility, a strict 24-hour release delay, no trust downgrade, and the reviewed build-script allowlist. pnpm’s default still skips release-age and trust checks, with a warning, when registry publish times are unavailable. A failed policy check must be resolved before continuing; commands fail on stale dependencies instead of implicitly reinstalling them.
+
+Four exact Babel 7 dependency edges temporarily use `semver@7.8.5` because their requested `semver@6.3.1` fails the no-downgrade policy. These scoped overrides intentionally exceed the upstream dependency range; keep compatibility and full build/test verification when changing them, and remove them when supported upstream versions resolve the conflict. Do not replace them with a trust-policy exemption.
 
 ## Local Development Workflow
 
