@@ -1,20 +1,8 @@
-import { execSync } from 'node:child_process'
-import { createRequire } from 'node:module'
+import process from 'node:process'
+import { publishPackages } from './publish-packages.mjs'
 
-const require = createRequire(import.meta.url)
-const { version } = require('../package.json')
+const args = process.argv.slice(2)
+if (args.length > 1 || (args.length === 1 && args[0] !== '--dry-run'))
+  throw new Error('Usage: publish:ci [--dry-run]')
 
-function getTag(version: string): string {
-  if (version.includes('beta')) {
-    return 'beta'
-  }
-  return 'latest'
-}
-
-const tag = getTag(version)
-
-console.log(`Publishing version ${version} with tag "${tag}"`)
-
-execSync(`pnpm -r publish --access public --no-git-checks --tag ${tag}`, {
-  stdio: 'inherit',
-})
+publishPackages({ dryRun: args.includes('--dry-run') })
