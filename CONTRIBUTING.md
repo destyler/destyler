@@ -134,6 +134,17 @@ workflows, run `pnpm test:workflows` to check YAML parsing, the job dependency g
 exact-SHA checkouts, and the shared verification contract. This command does not
 publish packages or deploy sites; browser tests still run separately in CI.
 
+Publishing is restricted to the reviewed path/name allowlist in
+`scripts/publish-targets.json`. Add a new public package to that list explicitly;
+all other workspaces, including the root, `shared`, `document`, and `storybook`,
+must use the boolean `"private": true`. Public packages must retain their approved
+name and the root release version, and cannot redirect their published directory
+or name with `publishConfig`. The release script validates raw manifests and
+checks pnpm's exact filtered selection before invoking any publish lifecycle.
+`pnpm run publish:ci --dry-run` only lists and validates targets; it does not call
+`pnpm publish`, build, pack, or upload packages. The offline regression tests run
+as part of `pnpm test:workflows` with a stubbed publish runner.
+
 ## Documentation & Typedocs
 
 - Keep public APIs documented. Update Markdown docs in `document/src`, data files in `document/data`, and snippets as needed.
