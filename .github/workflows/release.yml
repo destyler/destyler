@@ -158,25 +158,45 @@ jobs:
       - name: Build Document
         run: pnpm run docs:build
 
-      - name: Zip destyler.org
-        run: npx tsx scripts/zip.ts document/dist docs-dist
-
-      - name: Deploy destyler.org
-        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} docs-dist.zip
-        env:
-          TOKEN: ${{secrets.ZEABUR_TOKEN}}
-          ENV: ${{secrets.DESTYLER_ENV}}
-          SERVICE: ${{secrets.DESTYLER_ORG}}
-
       - name: Build Storybook
         run: pnpm run storybook:build
 
-      - name: Zip storybook.destyler.org
-        run: npx tsx scripts/zip.ts storybook/dist storybook-dist
+  promote-websites:
+    needs: [verify, node20-consumer, deploy]
+    runs-on: ubuntu-latest
+    name: Update Vercel Production Branch
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout release commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
 
-      - name: Deploy storybook.destyler.org
-        run: npx tsx scripts/deploy.ts ${TOKEN} ${ENV} ${SERVICE} storybook-dist.zip
-        env:
-          TOKEN: ${{secrets.ZEABUR_TOKEN}}
-          ENV: ${{secrets.DESTYLER_ENV}}
-          SERVICE: ${{secrets.STORYBOOK_ORG}}
+      - name: Publish verified release to Vercel
+        uses: actions/github-script@v8
+        with:
+          script: |
+            if (context.eventName !== 'push' || !context.ref.startsWith('refs/tags/v')) {
+              throw new Error('Production websites require a version tag push')
+            }
+            const ref = 'heads/vercel-production'
+            const sha = context.sha
+            let current
+            try {
+              current = await github.rest.git.getRef({ ...context.repo, ref })
+            } catch (error) {
+              if (error.status !== 404) throw error
+              await github.rest.git.createRef({ ...context.repo, ref: `refs/${ref}`, sha })
+              return
+            }
+            if (current.data.object.sha === sha) {
+              core.info('The production branch already points to this release')
+              return
+            }
+            await github.rest.git.updateRef({ ...context.repo, ref, sha, force: false })
