@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import { readdirSync, readFileSync } from 'node:fs'
 // eslint-disable-next-line test/no-import-node-test -- Check CI independently of the browser test configuration.
 import { test } from 'node:test'
+import { runInNewContext } from 'node:vm'
 import { parseAllDocuments, parseDocument } from 'yaml'
 
 const root = new URL('../../', import.meta.url)
@@ -219,6 +220,91 @@ test('workflows have valid, acyclic job dependencies', () => {
 
 test('every release side effect requires verification of the exact triggering SHA', () => {
   assertReleaseGate(release)
+})
+
+test('production websites follow version tags only after both website builds pass', () => {
+  assert.deepEqual(release.on, { push: { tags: ['v*'] } })
+  const promotion = release.jobs['promote-websites']
+  assert.deepEqual(promotion.needs, ['verify', 'node20-consumer', 'deploy'])
+  assert.deepEqual(promotion.permissions, { contents: 'write' })
+  assertRequired(promotion, 'Website promotion')
+  assert.deepEqual(release.jobs.deploy.steps.map(step => step.run).filter(Boolean), [
+    'pnpm install --frozen-lockfile',
+    'pnpm run build',
+    'pnpm run docs:build',
+    'pnpm run storybook:build',
+  ])
+  const step = promotion.steps.find(step => step.uses === 'actions/github-script@v8')
+  assert.ok(step, 'Use the repository-scoped, short-lived GitHub token')
+  assert.ok(!JSON.stringify(promotion).includes('secrets.'))
+  assert.ok(!JSON.stringify(release).includes('VERCEL_'))
+})
+
+test('website promotion updates only its dedicated branch without overwriting history', async () => {
+  const script = release.jobs['promote-websites'].steps.find(step => step.uses === 'actions/github-script@v8').with.script
+  const sha = 'a'.repeat(40)
+  const repo = { owner: 'destyler', repo: 'destyler' }
+  const ref = 'heads/vercel-production'
+
+  async function run({ missing = false, current = 'b'.repeat(40), getError, updateError, eventName = 'push', triggerRef = 'refs/tags/v0.2.14' } = {}) {
+    const calls = []
+    const github = {
+      rest: {
+        git: {
+          async getRef(args) {
+            calls.push(['get', structuredClone(args)])
+            if (getError)
+              throw getError
+            if (missing)
+              throw Object.assign(new Error('Not found'), { status: 404 })
+            return { data: { object: { sha: current } } }
+          },
+          async createRef(args) {
+            calls.push(['create', structuredClone(args)])
+          },
+          async updateRef(args) {
+            calls.push(['update', structuredClone(args)])
+            if (updateError)
+              throw updateError
+          },
+        },
+      },
+    }
+    const result = runInNewContext(`(async () => {\n${script}\n})()`, {
+      github,
+      context: { eventName, ref: triggerRef, sha, repo },
+      core: { info() {} },
+    })
+    return { calls, result }
+  }
+
+  const updated = await run()
+  await updated.result
+  assert.deepEqual(updated.calls, [
+    ['get', { ...repo, ref }],
+    ['update', { ...repo, ref, sha, force: false }],
+  ])
+  const created = await run({ missing: true })
+  await created.result
+  assert.deepEqual(created.calls, [
+    ['get', { ...repo, ref }],
+    ['create', { ...repo, ref: `refs/${ref}`, sha }],
+  ])
+  const unchanged = await run({ current: sha })
+  await unchanged.result
+  assert.deepEqual(unchanged.calls, [['get', { ...repo, ref }]])
+
+  const unavailable = await run({ getError: Object.assign(new Error('Unavailable'), { status: 503 }) })
+  await assert.rejects(unavailable.result, /Unavailable/)
+  assert.deepEqual(unavailable.calls, [['get', { ...repo, ref }]])
+  const olderRelease = await run({ updateError: Object.assign(new Error('Not a fast forward'), { status: 422 }) })
+  await assert.rejects(olderRelease.result, /Not a fast forward/)
+  assert.deepEqual(olderRelease.calls, updated.calls)
+  for (const trigger of [{ triggerRef: 'refs/heads/main' }, { eventName: 'workflow_dispatch' }]) {
+    const denied = await run(trigger)
+    await assert.rejects(denied.result, /version tag push/)
+    assert.deepEqual(denied.calls, [])
+  }
 })
 
 test('release gates reject bypasses and moving-ref checkouts', () => {

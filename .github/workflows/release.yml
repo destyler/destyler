@@ -158,37 +158,45 @@ jobs:
       - name: Build Document
         run: pnpm run docs:build
 
-      - name: Deploy destyler.org to Vercel
-        env:
-          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.VERCEL_DOCS_PROJECT_ID }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_DOCS_TOKEN }}
-        run: |
-          : "${VERCEL_ORG_ID:?Missing VERCEL_ORG_ID}"
-          : "${VERCEL_PROJECT_ID:?Missing VERCEL_DOCS_PROJECT_ID}"
-          : "${VERCEL_TOKEN:?Missing VERCEL_DOCS_TOKEN}"
-          deployment_dir=$(mktemp -d)
-          trap 'rm -rf "$deployment_dir"' EXIT
-          mkdir -p "$deployment_dir/.vercel/output"
-          cp -R document/dist "$deployment_dir/.vercel/output/static"
-          printf '%s\n' '{"version":3,"routes":[{"handle":"filesystem"},{"src":"/.*","dest":"/404.html","status":404}]}' > "$deployment_dir/.vercel/output/config.json"
-          npx --yes vercel@64.5.0 deploy --cwd "$deployment_dir" --prebuilt --prod --archive=tgz --yes --token "$VERCEL_TOKEN"
-
       - name: Build Storybook
         run: pnpm run storybook:build
 
-      - name: Deploy storybook.destyler.org to Vercel
-        env:
-          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.VERCEL_STORYBOOK_PROJECT_ID }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_STORYBOOK_TOKEN }}
-        run: |
-          : "${VERCEL_ORG_ID:?Missing VERCEL_ORG_ID}"
-          : "${VERCEL_PROJECT_ID:?Missing VERCEL_STORYBOOK_PROJECT_ID}"
-          : "${VERCEL_TOKEN:?Missing VERCEL_STORYBOOK_TOKEN}"
-          deployment_dir=$(mktemp -d)
-          trap 'rm -rf "$deployment_dir"' EXIT
-          mkdir -p "$deployment_dir/.vercel/output"
-          cp -R storybook/dist "$deployment_dir/.vercel/output/static"
-          printf '%s\n' '{"version":3}' > "$deployment_dir/.vercel/output/config.json"
-          npx --yes vercel@64.5.0 deploy --cwd "$deployment_dir" --prebuilt --prod --archive=tgz --yes --token "$VERCEL_TOKEN"
+  promote-websites:
+    needs: [verify, node20-consumer, deploy]
+    runs-on: ubuntu-latest
+    name: Update Vercel Production Branch
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout release commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+
+      - name: Publish verified release to Vercel
+        uses: actions/github-script@v8
+        with:
+          script: |
+            if (context.eventName !== 'push' || !context.ref.startsWith('refs/tags/v')) {
+              throw new Error('Production websites require a version tag push')
+            }
+            const ref = 'heads/vercel-production'
+            const sha = context.sha
+            let current
+            try {
+              current = await github.rest.git.getRef({ ...context.repo, ref })
+            } catch (error) {
+              if (error.status !== 404) throw error
+              await github.rest.git.createRef({ ...context.repo, ref: `refs/${ref}`, sha })
+              return
+            }
+            if (current.data.object.sha === sha) {
+              core.info('The production branch already points to this release')
+              return
+            }
+            await github.rest.git.updateRef({ ...context.repo, ref, sha, force: false })
