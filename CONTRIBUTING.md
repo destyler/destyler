@@ -116,8 +116,51 @@ not only commit categories such as `fix`:
   migration links. Generated Bug Fixes entries alone are insufficient.
 
 See [release compatibility notes](./RELEASE-NOTES.md) for the 0.2.12 Tabs correction
-added to the existing Release. This checklist is manual; it does not add an
-automated compatibility/version gate or change the project's versioning policy.
+added to the existing Release.
+
+#### Declared-break communication gate
+
+`node scripts/release-compatibility.mjs` runs in the shared PR/tag verification
+before builds and release side effects. It checks **declared breaking-change
+communication**, not arbitrary TypeScript or runtime compatibility, and does not
+choose a version bump or change 0.x versioning policy.
+
+- Mark an incompatible change with a conventional `type!:` / `type(scope)!:`
+  subject, or a conventional subject and a `BREAKING CHANGE:` commit footer.
+  Preserve that metadata in the eventual squash commit. The publisher does not
+  recognize a hyphenated footer alone; use `!` if using `BREAKING-CHANGE:`.
+- Add `## Unreleased: BREAKING <short summary>` to `RELEASE-NOTES.md` with impact,
+  migration steps, and a visible inline link such as
+  `[Migration guide](./packages/components/tabs/docs/tabs.mdx#migration-nullable-value-change-notifications)`.
+  No version choice or manifest bump is required for the PR. Multiple changes
+  share the section and should each explain their migration.
+- Migration targets must be repository-local `.md`/`.mdx` files and plain ASCII
+  ATX headings (letters, digits, spaces, colon, underscore, or hyphen). External
+  URLs alone, code-block examples, HTML comments, and missing anchors do not
+  satisfy the gate. Existing versioned breaking sections remain checked too.
+- Before an authorized release, move Unreleased notes to the chosen version,
+  for example `## 0.3.0: BREAKING <short summary>`. The example is not a mandate
+  to select 0.3.0. The tag must match the root package version and exact checkout.
+  An unassigned section, missing versioned notes, or lost breaking metadata
+  fails release verification rather than silently omitting the migration heading.
+
+Full history and version tags are required. Checks use the closest reachable
+version tag (annotated or lightweight), excluding tags on the release commit.
+Stable releases compare with the preceding stable tag when one exists, retaining
+changes introduced during prereleases. A repository without a preceding version
+tag requires an explicit initial-release review rather than a silent empty range.
+PR title and explicit footer lines are read as JSON, never interpolated into a
+shell; fenced/commented examples in PR descriptions are ignored. Actual commit
+bodies follow the publisher's broader footer recognition, so avoid quoting that
+footer syntax in nonbreaking commit bodies.
+
+`changelogithub.config.mjs` reuses the checked range and adds a tag-pinned migration
+link to the generated **BREAKING CHANGES** heading. It does not prepend historical
+notices to every release or publish during validation. For a local non-publishing
+preview on the actual tagged checkout, set `GITHUB_EVENT_NAME=push` and
+`GITHUB_REF=refs/tags/<version-tag>` when running `npx changelogithub --dry`.
+The gate cannot detect a break whose metadata **and** notes were both omitted;
+source and consumer-contract review remain required.
 
 ### Release verification
 

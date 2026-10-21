@@ -1,0 +1,27 @@
+name: Release communication
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  communication:
+    name: Declared-break communication
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: node scripts/release-compatibility.mjs
