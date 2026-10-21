@@ -337,6 +337,7 @@ test('pull requests exercise the same non-publishing build and tests as releases
   assert.equal(verification.runs.using, 'composite')
   assert.deepEqual(verification.runs.steps.map(step => step.run), [
     'pnpm run test:workflows',
+    'node scripts/release-compatibility.mjs',
     'pnpm run build',
     'pnpm run docs:build && pnpm exec node scripts/test-docs-search.mjs',
     'pnpm exec node scripts/test-docs-browser.mjs',
@@ -366,4 +367,27 @@ test('CI and release install workspace dependencies from the frozen lockfile', (
     }
   }
   assert.ok(installs > 0)
+})
+
+test('PR metadata edits rerun the read-only declared-break communication gate', () => {
+  const workflow = workflows['release-communication.yml']
+  assert.deepEqual(workflow.on.pull_request.types, ['opened', 'synchronize', 'reopened', 'edited', 'ready_for_review'])
+  assert.deepEqual(workflow.permissions, { contents: 'read' })
+  const job = workflow.jobs.communication
+  assertRequired(job, 'Declared-break communication')
+  const [checkout, setup, check] = job.steps
+  assert.equal(checkout.uses, 'actions/checkout@v6')
+  assert.equal(checkout.with['fetch-depth'], 0)
+  assert.equal(checkout.with['persist-credentials'], false)
+  assert.equal(setup.with['node-version'], 24)
+  assert.equal(check.run, 'node scripts/release-compatibility.mjs')
+  for (const step of job.steps)
+    assertRequired(step, step.name)
+  assert.ok(!JSON.stringify(workflow).includes('pull_request_target'))
+  assert.ok(!JSON.stringify(workflow).includes('secrets.'))
+  assert.ok(!JSON.stringify(check).includes('${{'))
+  const config = readFileSync(new URL('changelogithub.config.mjs', root), 'utf8')
+  assert.match(config, /import \{ changelogConfig \} from '\.\/scripts\/release-compatibility\.mjs'/)
+  assert.match(config, /export default changelogConfig\(\)/)
+  assert.ok(release.jobs.changelog.steps.some(step => step.run === 'npx changelogithub'))
 })

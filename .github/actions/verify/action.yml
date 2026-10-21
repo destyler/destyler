@@ -7,6 +7,10 @@ runs:
       shell: bash
       run: pnpm run test:workflows
 
+    - name: Check declared breaking-change communication
+      shell: bash
+      run: node scripts/release-compatibility.mjs
+
     - name: Build
       shell: bash
       run: pnpm run build
