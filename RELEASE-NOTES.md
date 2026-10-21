@@ -39,19 +39,9 @@ programmatic selection. It did not introduce the nullable callback contract.
 The [published UI compatibility issue](https://github.com/destyler/ui/issues/151)
 is separate from this core migration note.
 
-### Release-note correction to prepare
+### Published Release correction
 
-The published [v0.2.12 Release](https://github.com/destyler/destyler/releases/tag/v0.2.12)
-lists #208 under Bug Fixes. The notice below is prepared for the top of that
-existing Release body; adding this file does not update GitHub Releases. Preserve
-the existing changelog, tag, assets, and publication metadata when applying the
-text correction.
-
-> **BREAKING compatibility notice: Tabs callbacks (0.2.12).** `@destyler/tabs`
-> now reports `onValueChange({ value: null })` for clear/deselect requests, and
-> `ValueChangeDetails.value` is `string | null` (PR #208, not #285). Explicitly
-> string-only handlers under strict TypeScript function checking must be widened;
-> JavaScript handlers receiving this callback must also handle null. Controlled callbacks are requests:
-> selection changes only when the parent accepts the value. This shipped in a
-> patch release and can be picked up by ranges such as `^0.2.6`.
-> [Migration guide](https://github.com/destyler/destyler/blob/main/packages/components/tabs/docs/tabs.mdx#migration-nullable-value-change-notifications).
+The [v0.2.12 Release](https://github.com/destyler/destyler/releases/tag/v0.2.12)
+now opens with a BREAKING compatibility notice and a direct migration link.
+The original Bug Fixes changelog remains below it. This is a documentation
+correction to the existing Release, not a new package release or a tag change.

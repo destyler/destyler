@@ -116,7 +116,7 @@ not only commit categories such as `fix`:
   migration links. Generated Bug Fixes entries alone are insufficient.
 
 See [release compatibility notes](./RELEASE-NOTES.md) for the 0.2.12 Tabs correction
-prepared for the existing Release. This checklist is manual; it does not add an
+added to the existing Release. This checklist is manual; it does not add an
 automated compatibility/version gate or change the project's versioning policy.
 
 ### Release verification
