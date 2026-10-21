@@ -22,9 +22,11 @@ function useSynchronousSnapshot(service: AnyMachine) {
 }
 
 it.each([
-  ['public useActor (batched)', usePublicActorSnapshot],
-  ['internal useSnapshot (sync)', useSynchronousSnapshot],
-] as const)('investigates committed event reads after a suspended render: %s', async (_name, useObservedState) => {
+  ['public useActor (batched), event-only read', usePublicActorSnapshot, false],
+  ['internal useSnapshot (sync), event-only read', useSynchronousSnapshot, false],
+  ['public useActor (batched), render-read control', usePublicActorSnapshot, true],
+  ['internal useSnapshot (sync), render-read control', useSynchronousSnapshot, true],
+] as const)('investigates committed event reads after a suspended render: %s', async (_name, useObservedState, observeInRender) => {
   const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } }).start()
   const container = document.createElement('div')
   const root = createRoot(container)
@@ -37,6 +39,10 @@ it.each([
   const reads: number[] = []
   function View({ suspend }: { suspend: boolean }) {
     const state = useObservedState(service)
+    // Positive control: the unresolved transition must not itself prevent
+    // a normally observed external-store update from committing.
+    if (observeInRender)
+      void state.context.count
     if (suspend && !ready) {
       attempts++
       throw pending
@@ -46,7 +52,7 @@ it.each([
   const render = (suspend: boolean) => createElement(Suspense, { fallback: 'loading' }, createElement(View, { suspend }))
   try {
     await act(async () => root.render(render(false)))
-    // R0 commits without observing count; R1 reuses R0's raw snapshot and
+    // The event-only R0 commits without reading count; R1 reuses its snapshot and
     // suspends. R0's button remains mounted and interactive.
     await act(async () => startTransition(() => root.render(render(true))))
     expect(attempts).toBeGreaterThan(0)
