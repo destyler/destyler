@@ -99,6 +99,26 @@ pnpm test:workflows
 - When working on color utilities, follow the testing guidance in `shareds/color` (format conversions, transparency, hue wrapping, etc.).
 - For date utilities, include range boundaries (`minValue`, `maxValue`) and navigation behavior in your tests.
 
+### Release-note preparation
+
+Before preparing a release, review public type and callback behavior changes,
+not only commit categories such as `fix`:
+
+- Identify incompatible changes prominently as **BREAKING** and link directly to
+  migration guidance. Use conventional breaking metadata (`feat!`, `fix!`, or a
+  `BREAKING CHANGE:` footer) in the eventual squash commit where applicable.
+- Describe affected consumers precisely, including nullable callback handling
+  and controlled request-versus-accepted-state semantics where relevant.
+- Confirm the intended version with maintainers before tagging, especially for
+  incompatible changes within 0.x. Do not assume a patch label makes an API change
+  compatible or that a dependency range prevents consumers receiving it.
+- Review the rendered Release body for a visible compatibility notice and working
+  migration links. Generated Bug Fixes entries alone are insufficient.
+
+See [release compatibility notes](./RELEASE-NOTES.md) for the 0.2.12 Tabs correction
+prepared for the existing Release. This checklist is manual; it does not add an
+automated compatibility/version gate or change the project's versioning policy.
+
 ### Release verification
 
 Pull requests and tag releases share the non-publishing build and test action in

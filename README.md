@@ -18,6 +18,12 @@
 
 The packages provide interaction and accessibility building blocks. Application-level accessibility still requires testing of the composed UI, content, and styles.
 
+## Upgrade compatibility
+
+**Tabs in 0.2.12 introduced nullable value-change callbacks, including in patch
+upgrades.** Read the [breaking compatibility note and migration guidance](./RELEASE-NOTES.md#0212-breaking-tabs-nullable-value-change-callbacks)
+before upgrading a string-only handler.
+
 ## Features
 
 - On demand Import - Provide resolver to automatically import only used components.
