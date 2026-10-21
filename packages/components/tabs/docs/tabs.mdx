@@ -254,6 +254,12 @@ tabs.machine({
 
 ### Migration: nullable value-change notifications
 
+**BREAKING compatibility change in 0.2.12:** this callback widening shipped in a
+patch release. It affects explicitly string-only handlers under strict TypeScript
+function checking, not every TypeScript consumer. JavaScript handlers receiving this callback must also
+handle null. See the [0.2.12 compatibility note](https://github.com/destyler/destyler/blob/main/RELEASE-NOTES.md#0212-breaking-tabs-nullable-value-change-callbacks)
+when upgrading from 0.2.11 or earlier.
+
 `onValueChange` now reports `{ value: null }` when `api.clearValue()` clears a
 selection, or when a selected tab is deselected with `deselectable: true`.
 Deselection includes clicking the selected trigger and pressing `Enter` in
