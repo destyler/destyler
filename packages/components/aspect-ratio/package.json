@@ -25,6 +25,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=22.22.3"
+  },
   "scripts": {
     "clear": "rimraf ./dist",
     "clear:node_modules": "rimraf ./node_modules",

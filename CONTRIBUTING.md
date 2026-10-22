@@ -18,7 +18,7 @@ If you are unsure whether your idea fits, open a GitHub Discussion or issue befo
 ## Prerequisites
 
 - **Node.js for development**: `^22.22.3 || ^24.16.0 || >=26.3.0`. The full source/build/test matrix runs on exact `22.22.3` and current `24.x` (at least `24.16.0`). The declared `26.3.0+` branch is not exercised by that matrix.
-- **Published package consumers**: Node.js `20.19.0` remains independently checked. Packages are built and packed on Node.js 22, then installed with engine checks and exercised in isolated Node.js 20 consumers. This does not require development tools to support Node.js 20.
+- **Published package consumers**: the next release containing this migration requires Node.js `>=22.22.3`, matching UI. Packages are built and packed with supported development tools, then installed with engine checks and exercised in isolated consumers on exact Node.js `22.22.3`. This does not broaden the development tooling engine range. See the [Node support migration](./document/src/content/guide/node-support.mdx).
 - **pnpm**: `12.11.2` (the workspace is pinned via the `packageManager` field).
 - **Git**: any modern version that supports worktrees.
 
@@ -167,7 +167,7 @@ source and consumer-contract review remain required.
 Pull requests and tag releases share the non-publishing build and test action in
 `.github/actions/verify`. Release verification runs against the exact commit that
 triggered the tag push, using the same Node.js matrix as CI, and also requires
-lint on Node.js 24. A separate required Node.js `20.19.0` job checks all packed public package entries and the existing minimum/current Date and Svelte consumer contracts; build, pack and browser tooling run on Node.js `22.22.3`. Publishing packages, generating the GitHub changelog, and
+lint on Node.js 24. A separate required Node.js `22.22.3` job checks all packed public package entries and the existing minimum/current Date and Svelte consumer contracts; build, pack and browser tooling run on Node.js `22.22.3`. Publishing packages, generating the GitHub changelog, and
 deploying release sites wait for every verification job to succeed and check out
 that same commit. A failed, skipped, or cancelled verification prevents those
 release jobs from starting.
@@ -184,7 +184,7 @@ Run this gate locally with `pnpm exec node scripts/test-svelte-package.mjs`.
 `pnpm exec node scripts/test-public-package-runtime.mjs` builds every public
 package, installs local tarballs in an isolated consumer with exact installed
 framework peers, and checks explicit import/require and legacy main/module
-entries. The dedicated Node 20 job also runs the existing Date and Svelte gates.
+entries. The dedicated minimum-supported-Node job also runs the existing Date and Svelte gates.
 Set all three of `DESTYLER_CONSUMER_NODE` (absolute Node binary path),
 `DESTYLER_CONSUMER_NPM` (absolute npm CLI JavaScript path), and
 `DESTYLER_CONSUMER_NODE_VERSION` (exact version) to run their consumer processes

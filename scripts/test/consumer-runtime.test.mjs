@@ -25,8 +25,8 @@ test('ordinary packed checks keep their invoking Node runtime', () => {
 test('a partial or relative consumer selection fails instead of using development Node', () => {
   for (const env of [
     { DESTYLER_CONSUMER_NODE: process.execPath },
-    { DESTYLER_CONSUMER_NPM: '/missing/npm-cli.js', DESTYLER_CONSUMER_NODE_VERSION: '20.19.0' },
-    { DESTYLER_CONSUMER_NODE: 'node', DESTYLER_CONSUMER_NPM: '/missing/npm-cli.js', DESTYLER_CONSUMER_NODE_VERSION: '20.19.0' },
+    { DESTYLER_CONSUMER_NPM: '/missing/npm-cli.js', DESTYLER_CONSUMER_NODE_VERSION: '22.22.3' },
+    { DESTYLER_CONSUMER_NODE: 'node', DESTYLER_CONSUMER_NPM: '/missing/npm-cli.js', DESTYLER_CONSUMER_NODE_VERSION: '22.22.3' },
   ]) {
     const result = probe(env)
     assert.notEqual(result.status, 0)

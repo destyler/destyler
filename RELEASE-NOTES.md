@@ -4,6 +4,18 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## Unreleased: BREAKING Node.js support floor
+
+The next release containing this change requires Node.js **22.22.3 or newer**
+for all public `@destyler/*` packages, including adapters and shared/type packages.
+Node 20 and Node 22 versions below 22.22.3 are no longer supported. Previously
+published packages, versions, and tags are unchanged; this is not a new release.
+
+Upgrade application development, build, CI, and SSR environments before installing
+that release. Follow the [Node support migration](./document/src/content/guide/node-support.mdx#migration)
+for strict engine checks and validation. The private development workspace retains
+its separate, narrower toolchain engine range. No framework peer ranges change.
+
 ## 0.2.12: BREAKING Tabs nullable value-change callbacks
 
 **Upgrading `@destyler/tabs` from 0.2.11 or earlier to 0.2.12 or later requires

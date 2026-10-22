@@ -53,9 +53,9 @@ jobs:
           json-summary-path: ./html/coverage/coverage-summary.json
           json-final-path: ./html/coverage/coverage-final.json
 
-  node20-consumer:
+  supported-consumer:
     runs-on: ubuntu-latest
-    name: 'Packed consumers: node-20.19.0'
+    name: 'Packed consumers: node-22.22.3'
     permissions:
       contents: read
     steps:
@@ -68,5 +68,5 @@ jobs:
           sparse-checkout: |
             /*
             !/.specstory/
-      - name: Verify Node 20 consumers
-        uses: ./.github/actions/verify-node20-consumers
+      - name: Verify Node 22.22.3 consumers
+        uses: ./.github/actions/verify-supported-consumers

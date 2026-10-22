@@ -1,12 +1,12 @@
-name: Verify Node 20 packed consumers
-description: Build with development tools on Node 22 and consume tarballs on exact Node 20
+name: Verify Node 22.22.3 packed consumers
+description: Build with development tools on Node 22 and consume tarballs on exact Node 22.22.3
 runs:
   using: composite
   steps:
     - name: Install consumer Node
       uses: actions/setup-node@v6
       with:
-        node-version: 20.19.0
+        node-version: 22.22.3
 
     - name: Record consumer executables
       id: consumer
@@ -31,12 +31,12 @@ runs:
       shell: bash
       run: pnpm playwright install --with-deps chromium
 
-    - name: Check public Node 20 consumers
+    - name: Check public Node 22.22.3 consumers
       shell: bash
       env:
         DESTYLER_CONSUMER_NODE: ${{ steps.consumer.outputs.node }}
         DESTYLER_CONSUMER_NPM: ${{ steps.consumer.outputs.npm }}
-        DESTYLER_CONSUMER_NODE_VERSION: 20.19.0
+        DESTYLER_CONSUMER_NODE_VERSION: 22.22.3
       run: |
         pnpm exec node scripts/test-public-package-runtime.mjs
         pnpm exec node scripts/test-svelte-package.mjs
