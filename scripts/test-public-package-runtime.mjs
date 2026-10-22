@@ -39,6 +39,8 @@ try {
       packages.push({ directory: workspace.path, source })
   }
   assert.ok(packages.length > 0, 'No public packages discovered')
+  for (const { source } of packages)
+    assert.equal(source.engines?.node, '>=22.22.3', `${source.name}: public Node support must be explicit`)
   const names = new Set(packages.map(({ source }) => source.name))
   pnpm(['--filter', './packages/**', '-r', 'run', 'build'])
   const packed = new Map()
@@ -98,6 +100,7 @@ try {
     const installedManifest = await manifest(installed)
     assert.equal(installedManifest.name, name)
     assert.equal(installedManifest.version, source.version)
+    assert.equal(installedManifest.engines?.node, '>=22.22.3', `${name}: packed Node support must match the source`)
     const require = createRequire(path.join(installed, 'package.json'))
     for (const field of runtimeFields) {
       for (const dependency of Object.keys(source[field] ?? {})) {

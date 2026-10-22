@@ -1,0 +1,49 @@
+---
+head:
+  - tag: title
+    content: Node Support - Destyler
+title: Node Support
+---
+
+## Supported package consumers
+
+The next release containing this migration requires **Node.js 22.22.3 or newer**
+for every public `@destyler/*` package, including framework adapters, shared
+packages, and type packages. Each published manifest declares
+`engines.node: ">=22.22.3"`, matching the UI consumer support floor.
+
+Node 20 and earlier Node 22 releases are no longer supported by that release.
+Existing npm artifacts and tags are not changed. This document does not announce
+a new version, change framework peer ranges, or claim a browser requires Node.js.
+Node-based installation, builds, tests, and server-side rendering use the new floor.
+
+## Migration
+
+1. Upgrade Node.js on developer machines, CI, build images, and SSR hosting to
+   22.22.3 or newer before installing the release containing this change.
+2. Install packages with engine checking enabled: `npm install --engine-strict`
+   or `pnpm install --engine-strict`. Do not bypass an incompatible engine warning.
+3. Run the application's type, build, SSR, hydration, and browser tests. Framework
+   peer ranges are unchanged; keep dependencies within their supported ranges.
+
+npm treats dependency engines as advisory by default. An unsupported Node version
+may warn and still install unless engine-strict is enabled. There is no install
+script or runtime version guard in these packages. See the
+[npm engines documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-json/#engines).
+
+## Repository tooling and verification
+
+The private repository root and documentation workspace retain the narrower
+`^22.22.3 || ^24.16.0 || >=26.3.0` development-tool range. A Node version accepted
+by a public package's engine declaration is not necessarily supported by this
+repository's package manager, build tools, or documentation dependencies.
+
+Source CI runs on exact Node 22.22.3 and current Node 24. The independent packed
+consumer gate runs on exact Node 22.22.3 with strict engine checks, retains all
+public runtime entries and the minimum/current Date and Svelte consumer tests,
+and verifies the installed tarballs' engine declarations. It replaces the former
+Node 20 consumer job without removing framework, SSR, hydration, or entry checks.
+
+These checks do not claim every later Node version or every application toolchain
+has been tested. Node 20 compatibility is no longer a requirement for future
+releases containing this change; historical release results remain historical.

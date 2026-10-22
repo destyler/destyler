@@ -142,6 +142,7 @@ export default defineConfig({
           items: [
             { slug: 'guide/introduction' },
             { slug: 'guide/getting-started' },
+            { slug: 'guide/node-support' },
           ],
         },
         {

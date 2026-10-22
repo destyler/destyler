@@ -52,9 +52,9 @@ jobs:
       - name: Verify packages
         uses: ./.github/actions/verify
 
-  node20-consumer:
+  supported-consumer:
     runs-on: ubuntu-latest
-    name: 'Packed consumers: node-20.19.0'
+    name: 'Packed consumers: node-22.22.3'
     permissions:
       contents: read
     steps:
@@ -67,11 +67,11 @@ jobs:
           sparse-checkout: |
             /*
             !/.specstory/
-      - name: Verify Node 20 consumers
-        uses: ./.github/actions/verify-node20-consumers
+      - name: Verify Node 22.22.3 consumers
+        uses: ./.github/actions/verify-supported-consumers
 
   release:
-    needs: [verify, node20-consumer]
+    needs: [verify, supported-consumer]
     runs-on: ubuntu-latest
     name: Release Package
     steps:
@@ -106,7 +106,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   changelog:
-    needs: [verify, node20-consumer]
+    needs: [verify, supported-consumer]
     runs-on: ubuntu-latest
     name: Generate Changelog
     steps:
@@ -128,7 +128,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   deploy:
-    needs: [verify, node20-consumer]
+    needs: [verify, supported-consumer]
     runs-on: ubuntu-latest
     name: Deploy Release Page
     steps:
@@ -162,7 +162,7 @@ jobs:
         run: pnpm run storybook:build
 
   promote-websites:
-    needs: [verify, node20-consumer, deploy]
+    needs: [verify, supported-consumer, deploy]
     runs-on: ubuntu-latest
     name: Update Vercel Production Branch
     permissions:

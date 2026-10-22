@@ -8,7 +8,7 @@ import { parseAllDocuments, parseDocument } from 'yaml'
 
 const root = new URL('../../', import.meta.url)
 const verifyAction = './.github/actions/verify'
-const consumerAction = './.github/actions/verify-node20-consumers'
+const consumerAction = './.github/actions/verify-supported-consumers'
 const sourceMatrix = ['22.22.3', 24]
 
 function readYaml(path) {
@@ -25,7 +25,7 @@ const workflows = Object.fromEntries(
 const ci = workflows['ci.yml']
 const release = workflows['release.yml']
 const verification = readYaml('.github/actions/verify/action.yml')
-const consumerVerification = readYaml('.github/actions/verify-node20-consumers/action.yml')
+const consumerVerification = readYaml('.github/actions/verify-supported-consumers/action.yml')
 
 function assertRequired(job, label) {
   assert.equal(job.if, undefined, `${label} must use the default success condition`)
@@ -33,8 +33,8 @@ function assertRequired(job, label) {
 }
 
 function assertConsumerJob(job) {
-  assert.ok(job, 'Node 20 consumers must have an independent job')
-  assertRequired(job, 'Node 20 consumers')
+  assert.ok(job, 'Node 22.22.3 consumers must have an independent job')
+  assertRequired(job, 'Node 22.22.3 consumers')
   assert.deepEqual(job.permissions, { contents: 'read' })
   assert.ok(job.steps.some(step => step.uses === consumerAction))
   for (const step of job.steps)
@@ -54,13 +54,13 @@ function assertConsumerAction(action) {
     'pnpm playwright install --with-deps chromium',
     'pnpm exec node scripts/test-public-package-runtime.mjs\npnpm exec node scripts/test-svelte-package.mjs\npnpm exec node scripts/test-package-entries.mjs\n',
   ])
-  assert.equal(steps[0].with['node-version'], '20.19.0')
+  assert.equal(steps[0].with['node-version'], '22.22.3')
   assert.equal(steps[1].id, 'consumer')
   assert.equal(steps[2].with['node-version'], '22.22.3')
   assert.deepEqual(steps[6].env, {
     DESTYLER_CONSUMER_NODE: '${{ steps.consumer.outputs.node }}',
     DESTYLER_CONSUMER_NPM: '${{ steps.consumer.outputs.npm }}',
-    DESTYLER_CONSUMER_NODE_VERSION: '20.19.0',
+    DESTYLER_CONSUMER_NODE_VERSION: '22.22.3',
   })
   for (const step of steps) {
     assertRequired(step, step.name)
@@ -86,13 +86,31 @@ test('source support and package-manager contracts are explicit', () => {
   }
   for (const workflow of [ci, release]) {
     assertSourceSupport(workflow)
-    assertConsumerJob(workflow.jobs['node20-consumer'])
+    assertConsumerJob(workflow.jobs['supported-consumer'])
   }
   const svelteSetup = workflows['svelte-package.yml'].jobs['packed-consumer'].steps.find(step => step.uses?.startsWith('actions/setup-node@'))
   assert.equal(svelteSetup.with['node-version'], '22.22.3')
   const report = ci.jobs.test.steps.find(step => step.uses?.startsWith('davelosert/vitest-coverage-report-action@'))
   assert.equal(report.if, 'always() && matrix.node == 24')
   assertConsumerAction(consumerVerification)
+})
+
+function assertPublicEngine(manifest) {
+  assert.equal(manifest.engines?.node, '>=22.22.3', `${manifest.name}: public Node support must be explicit`)
+}
+
+test('all approved public packages and new-package templates declare the consumer floor', () => {
+  const targets = JSON.parse(readFileSync(new URL('scripts/publish-targets.json', root), 'utf8'))
+  for (const [directory, name] of Object.entries(targets)) {
+    const manifest = JSON.parse(readFileSync(new URL(`${directory}/package.json`, root), 'utf8'))
+    assert.equal(manifest.name, name)
+    assert.notEqual(manifest.private, true)
+    assertPublicEngine(manifest)
+  }
+  for (const template of ['component', 'shared'])
+    assertPublicEngine(JSON.parse(readFileSync(new URL(`templates/${template}/package.json.hbs`, root), 'utf8')))
+  for (const engines of [undefined, {}, { node: '>=20' }, { node: '>=22' }, { node: '>=24' }])
+    assert.throws(() => assertPublicEngine({ name: 'negative-control', engines }))
 })
 
 test('pnpm migration retains strict supply-chain and build boundaries', () => {
@@ -157,7 +175,7 @@ test('source and consumer support gates reject runtime drift and bypasses', () =
     action => action.runs.steps[1].id = 'wrong',
     action => action.runs.steps.reverse(),
     action => action.runs.steps[6].env.DESTYLER_CONSUMER_NODE = 'node',
-    action => action.runs.steps[6].env.DESTYLER_CONSUMER_NODE_VERSION = '22.22.3',
+    action => action.runs.steps[6].env.DESTYLER_CONSUMER_NODE_VERSION = '20.19.0',
     action => action.runs.steps[6].run = 'echo skipped',
     action => action.runs.steps[6]['continue-on-error'] = true,
     action => action.runs.steps[6].if = 'false',
@@ -170,7 +188,7 @@ test('source and consumer support gates reject runtime drift and bypasses', () =
 })
 
 function assertReleaseGate(workflow) {
-  const { verify, 'node20-consumer': consumer, ...sideEffects } = workflow.jobs
+  const { verify, 'supported-consumer': consumer, ...sideEffects } = workflow.jobs
   assertConsumerJob(consumer)
   assert.ok(verify, 'release needs a verification job')
   assertRequired(verify, 'verify')
@@ -188,7 +206,7 @@ function assertReleaseGate(workflow) {
   for (const [id, job] of Object.entries(sideEffects)) {
     const needs = Array.isArray(job.needs) ? job.needs : [job.needs]
     assert.ok(needs.includes('verify'), `${id} must wait for verification`)
-    assert.ok(needs.includes('node20-consumer'), `${id} must wait for Node 20 consumers`)
+    assert.ok(needs.includes('supported-consumer'), `${id} must wait for Node 22.22.3 consumers`)
     assertRequired(job, id)
   }
 
@@ -225,7 +243,7 @@ test('every release side effect requires verification of the exact triggering SH
 test('production websites follow version tags only after both website builds pass', () => {
   assert.deepEqual(release.on, { push: { tags: ['v*'] } })
   const promotion = release.jobs['promote-websites']
-  assert.deepEqual(promotion.needs, ['verify', 'node20-consumer', 'deploy'])
+  assert.deepEqual(promotion.needs, ['verify', 'supported-consumer', 'deploy'])
   assert.deepEqual(promotion.permissions, { contents: 'write' })
   assertRequired(promotion, 'Website promotion')
   assert.deepEqual(release.jobs.deploy.steps.map(step => step.run).filter(Boolean), [
@@ -311,9 +329,9 @@ test('release gates reject bypasses and moving-ref checkouts', () => {
   const mutations = [
     workflow => delete workflow.jobs.release.needs,
     workflow => workflow.jobs.release.needs = ['verify'],
-    workflow => delete workflow.jobs['node20-consumer'],
-    workflow => workflow.jobs['node20-consumer']['continue-on-error'] = true,
-    workflow => workflow.jobs['node20-consumer'].steps[1].if = 'false',
+    workflow => delete workflow.jobs['supported-consumer'],
+    workflow => workflow.jobs['supported-consumer']['continue-on-error'] = true,
+    workflow => workflow.jobs['supported-consumer'].steps[1].if = 'false',
     workflow => workflow.jobs.changelog.if = 'always()',
     workflow => workflow.jobs.deploy['continue-on-error'] = true,
     workflow => workflow.jobs.verify['continue-on-error'] = true,
