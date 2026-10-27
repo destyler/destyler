@@ -96,7 +96,15 @@ export function publishPackages({ root = repositoryRoot, dryRun = false, run = e
     return plan
   }
 
-  run('pnpm', [...plan.filters, 'publish', '--recursive', '--access', 'public', '--no-git-checks', '--tag', plan.tag], {
+  // The topological build must already have written dependency dist declarations.
+  // prepublishOnly would clear and rebuild each package. A rerun skips packages
+  // already in the registry, so those declarations never exist and inferred
+  // exports collapse to any. Ship the build that the declaration check just saw.
+  run('pnpm', ['run', 'check:declarations'], {
+    cwd: root,
+    stdio: 'inherit',
+  })
+  run('pnpm', [...plan.filters, 'publish', '--recursive', '--access', 'public', '--no-git-checks', '--ignore-scripts', '--tag', plan.tag], {
     cwd: root,
     stdio: 'inherit',
   })

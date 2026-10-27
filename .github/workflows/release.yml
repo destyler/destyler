@@ -101,6 +101,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+      - name: Build packages
+        run: pnpm run --filter "./packages/**" -r build
+
+      - name: Check public type declarations
+        run: pnpm run check:declarations
+
       - name: Publish to NPM
         run: pnpm run publish:ci
         env:

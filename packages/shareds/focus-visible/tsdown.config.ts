@@ -1,12 +1,1 @@
-import { defineConfig } from 'tsdown'
-
-export default defineConfig({
-  entry: [
-    'index.ts',
-  ],
-  dts: true,
-  format: ['esm'],
-  clean: true,
-  failOnWarn: 'ci-only',
-  hash: false,
-})
+export { default } from '../../../scripts/tsdown-package.config.mjs'
