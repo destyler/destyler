@@ -58,6 +58,71 @@ test('a local any declaration re-exported under a contract name fails', () => {
   assert.deepEqual(degradedContractExports(source), ['anatomy', 'connect'])
 })
 
+test('renamed locals are judged by the exported contract name', () => {
+  assert.deepEqual(degradedContractExports(`
+    declare const a: any
+    export { a as anatomy }
+  `), ['anatomy'])
+  assert.deepEqual(degradedContractExports(`
+    declare const a: any[]
+    declare function b(userContext: UserDefinedContext): Array<any>
+    export { a as props, b as machine }
+  `), ['machine', 'props'])
+  assert.deepEqual(degradedContractExports(`
+    declare const a: import("@destyler/anatomy").AnatomyInstance<"root" | "label">
+    export { a as anatomy }
+    declare const hidden: any
+    export { hidden as notAContract }
+  `), [])
+})
+
+test('nested any in exported machine contracts fails', () => {
+  const cases = [
+    ['any[]', 'export declare const props: any[];', ['props']],
+    ['Array<any>', 'export declare const props: Array<any>;', ['props']],
+    ['ReadonlyArray<any>', 'export declare const splitProps: ReadonlyArray<any>;', ['splitProps']],
+    ['readonly any[]', 'export declare const props: readonly any[];', ['props']],
+    ['any | undefined', 'export declare const anatomy: any | undefined;', ['anatomy']],
+    ['string | any', 'export declare function machine(): string | any;', ['machine']],
+    ['any & object', 'export declare const connect: any & { tag: string };', ['connect']],
+    ['Machine<any>', 'export declare function machine(): Machine<any>;', ['machine']],
+    ['Machine<any, State>', 'export declare function machine(): import("@destyler/xstate").Machine<any, MachineState, AnyEventObject>;', ['machine']],
+    ['AnatomyInstance<any>', 'export declare const anatomy: AnatomyInstance<any>;', ['anatomy']],
+    ['imported AnatomyInstance<any>', 'export declare const anatomy: import("@destyler/anatomy").AnatomyInstance<any>;', ['anatomy']],
+    ['Array<any | undefined>', 'export declare const props: Array<any | undefined>;', ['props']],
+    ['tuple member any', 'export declare const props: [any, "id"];', ['props']],
+    ['function type return any[]', 'export declare const splitProps: <T>(props: T) => any[];', ['splitProps']],
+    ['type literal member any', 'export type InputProps = { value: any };', ['InputProps']],
+  ]
+  for (const [label, source, names] of cases) {
+    assert.deepEqual(degradedContractExports(source), names, label)
+  }
+})
+
+test('exported props aliases that are any fail and intact generics do not', () => {
+  assert.deepEqual(degradedContractExports('export type XProps = any'), ['XProps'])
+  assert.deepEqual(degradedContractExports('export type XProps = any | undefined'), ['XProps'])
+  assert.deepEqual(degradedContractExports('export type XProps = Machine<any>'), ['XProps'])
+  assert.deepEqual(degradedContractExports(`
+    type Local = any
+    export type { Local as InputProps }
+  `), ['InputProps'])
+
+  const intact = `
+    export type XProps = Record<string, unknown>
+    export type InputProps = Record<string, unknown>
+    export declare const props: ("checked" | "dir" | "id")[]
+    export declare const itemProps: (keyof ItemProps<any>)[]
+    export declare const splitItemProps: <Props extends ItemProps<any>>(props: Props) => [ItemProps<any>, Omit<Props, keyof ItemProps<any>>]
+    export declare function machine(userContext: UserDefinedContext): import("@destyler/xstate").Machine<MachineContext<any>, MachineState, import("@destyler/xstate").AnyEventObject>
+    export declare const normalizeProps: import("@destyler/types").NormalizeProps<import("@destyler/types").PropTypes<{ [x: string]: any }>>
+    export declare const anatomy: import("@destyler/anatomy").AnatomyInstance<"root" | "label">
+    export declare function connect<T>(state: any, send: any, normalize: any): MachineApi<T>
+    export declare function isMachine(value: any): boolean
+  `
+  assert.deepEqual(degradedContractExports(intact), [])
+})
+
 test('missing workspace declaration files are reported and present files are accepted', (t) => {
   const root = mkdtempSync(path.join(os.tmpdir(), 'destyler-declarations-'))
   t.after(() => rmSync(root, { recursive: true, force: true }))
