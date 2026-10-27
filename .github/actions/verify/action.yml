@@ -15,6 +15,10 @@ runs:
       shell: bash
       run: pnpm run build
 
+    - name: Check public type declarations
+      shell: bash
+      run: pnpm run check:declarations
+
     - name: Check documentation search
       shell: bash
       run: pnpm run docs:build && pnpm exec node scripts/test-docs-search.mjs

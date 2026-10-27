@@ -240,6 +240,22 @@ test('every release side effect requires verification of the exact triggering SH
   assertReleaseGate(release)
 })
 
+test('npm publish builds the workspace graph and rejects degraded declarations first', () => {
+  const steps = release.jobs.release.steps.map(step => step.run).filter(Boolean)
+  const build = steps.indexOf('pnpm run --filter "./packages/**" -r build')
+  const check = steps.indexOf('pnpm run check:declarations')
+  const publish = steps.indexOf('pnpm run publish:ci')
+  assert.ok(build !== -1 && check !== -1 && publish !== -1)
+  assert.ok(build < check && check < publish)
+  for (const run of ['pnpm run --filter "./packages/**" -r build', 'pnpm run check:declarations', 'pnpm run publish:ci']) {
+    const step = release.jobs.release.steps.find(candidate => candidate.run === run)
+    assertRequired(step, run)
+    assert.equal(step.if, undefined)
+  }
+  assert.ok(ci.jobs.test.steps.some(step => step.uses === verifyAction))
+  assert.ok(verification.runs.steps.some(step => step.run === 'pnpm run check:declarations' && step.shell === 'bash'))
+})
+
 test('production websites follow version tags only after both website builds pass', () => {
   assert.deepEqual(release.on, { push: { tags: ['v*'] } })
   const promotion = release.jobs['promote-websites']
@@ -357,6 +373,7 @@ test('pull requests exercise the same non-publishing build and tests as releases
     'pnpm run test:workflows',
     'node scripts/release-compatibility.mjs',
     'pnpm run build',
+    'pnpm run check:declarations',
     'pnpm run docs:build && pnpm exec node scripts/test-docs-search.mjs',
     'pnpm exec node scripts/test-docs-browser.mjs',
     'pnpm exec node scripts/test-node-modules-inspector.mjs',

@@ -60,6 +60,8 @@ function runner(f, selected = () => f.projects().filter(project => project.path 
       calls.push({ args: [...args], options })
       if (args.includes('list'))
         return JSON.stringify(args.includes('--filter') ? selected() : f.projects())
+      if (args[0] === 'run' && args[1] === 'check:declarations')
+        return ''
       // A stub only: no process, lifecycle, package data or registry call is made.
       assert.ok(args.includes('publish'))
       return ''
@@ -164,11 +166,13 @@ test('publishing uses exact validated path filters and preserves existing public
   const f = fixture(t)
   const stub = runner(f)
   publishPackages({ root: f.root, run: stub.run, log() {} })
-  assert.equal(stub.calls.length, 3)
+  assert.equal(stub.calls.length, 4)
   assert.deepEqual(stub.calls[0].args, ['list', '--recursive', '--depth', '-1', '--json'])
   assert.deepEqual(stub.calls[1].args, ['--filter', `./${publicPath}`, ...stub.calls[0].args])
-  assert.deepEqual(stub.calls[2].args, ['--filter', `./${publicPath}`, 'publish', '--recursive', '--access', 'public', '--no-git-checks', '--tag', 'latest'])
+  assert.deepEqual(stub.calls[2].args, ['run', 'check:declarations'])
   assert.deepEqual(stub.calls[2].options, { cwd: f.root, stdio: 'inherit' })
+  assert.deepEqual(stub.calls[3].args, ['--filter', `./${publicPath}`, 'publish', '--recursive', '--access', 'public', '--no-git-checks', '--ignore-scripts', '--tag', 'latest'])
+  assert.deepEqual(stub.calls[3].options, { cwd: f.root, stdio: 'inherit' })
 })
 
 test('offline dry-run only lists projects and never invokes publishing or package lifecycle scripts', (t) => {
