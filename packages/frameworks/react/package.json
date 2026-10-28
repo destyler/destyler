@@ -45,7 +45,8 @@
   "devDependencies": {
     "@destyler/utils": "workspace:*",
     "react": "catalog:frontend",
-    "react-dom": "catalog:frontend"
+    "react-dom": "catalog:frontend",
+    "react-test-renderer": "catalog:frontend"
   },
   "publishConfig": {
     "access": "public"

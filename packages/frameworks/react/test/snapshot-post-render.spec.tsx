@@ -137,4 +137,74 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
       service.stop()
     }
   })
+
+  it('keeps an event `in` observation after the snapshot identity changes', async () => {
+    const service = createService()
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    const reads: boolean[] = []
+    let renders = 0
+    function View() {
+      const state = useSnapshot(service, { sync })
+      renders++
+      return createElement('button', {
+        onClick: () => {
+          reads.push('extra' in state.context)
+        },
+      }, state.value)
+    }
+    try {
+      await act(async () => root.render(createElement(View)))
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([false])
+      const rendersAfterRead = renders
+      await act(async () => service.setContext({ extra: 1 }))
+      expect(renders).toBeGreaterThan(rendersAfterRead)
+      const rendersAfterAdd = renders
+      await act(async () => {
+        delete service.state.context.extra
+      })
+      expect(renders).toBeGreaterThan(rendersAfterAdd)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([false, false])
+    }
+    finally {
+      await act(async () => root.unmount())
+      service.stop()
+    }
+  })
+
+  it('keeps an event Object.keys observation after the snapshot identity changes', async () => {
+    const service = createService()
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    const reads: string[] = []
+    let renders = 0
+    function View() {
+      const state = useSnapshot(service, { sync })
+      renders++
+      return createElement('button', {
+        onClick: () => {
+          reads.push(Object.keys(state.context).join(','))
+        },
+      }, state.value)
+    }
+    try {
+      await act(async () => root.render(createElement(View)))
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual(['count,other'])
+      const rendersAfterRead = renders
+      await act(async () => service.setContext({ extra: 1 }))
+      expect(renders).toBeGreaterThan(rendersAfterRead)
+      const rendersAfterExtra = renders
+      await act(async () => service.setContext({ more: 2 }))
+      expect(renders).toBeGreaterThan(rendersAfterExtra)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads.at(-1)).toContain('more')
+    }
+    finally {
+      await act(async () => root.unmount())
+      service.stop()
+    }
+  })
 })

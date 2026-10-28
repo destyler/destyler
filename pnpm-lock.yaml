@@ -227,6 +227,9 @@ catalogs:
     react-dom:
       specifier: ^19.3.0
       version: 19.3.0
+    react-test-renderer:
+      specifier: 19.3.0
+      version: 19.3.0
     solid-js:
       specifier: ^1.9.17
       version: 1.9.17
@@ -1880,6 +1883,9 @@ importers:
         specifier: catalog:frontend
         version: 19.3.0
       react-dom:
+        specifier: catalog:frontend
+        version: 19.3.0(react@19.3.0)
+      react-test-renderer:
         specifier: catalog:frontend
         version: 19.3.0(react@19.3.0)
 
@@ -6893,6 +6899,14 @@ packages:
 
   react-dom@19.3.0:
     resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
+    peerDependencies:
+      react: ^19.3.0
+
+  react-is@19.3.1:
+    resolution: {integrity: sha512-RRieF6IyxQBkcK6pP8xOHprLTPW6QjRkbGdImtqNme+/hYVwCZkLQLdlZGOhUqXwkS9IEynaGvPJtv6XB/cz0Q==}
+
+  react-test-renderer@19.3.0:
+    resolution: {integrity: sha512-AUxgv+hRbqjRgx4xVwiWL6cvDDKPAva1VWLXQIMoevqQn9us//C5TX9LEnBGH47D0zvJpjwjxb1umzgOMvE8Wg==}
     peerDependencies:
       react: ^19.3.0
 
@@ -13133,6 +13147,14 @@ snapshots:
   react-dom@19.3.0(react@19.3.0):
     dependencies:
       react: 19.3.0
+      scheduler: 0.28.0
+
+  react-is@19.3.1: {}
+
+  react-test-renderer@19.3.0(react@19.3.0):
+    dependencies:
+      react: 19.3.0
+      react-is: 19.3.1
       scheduler: 0.28.0
 
   react@19.3.0: {}
