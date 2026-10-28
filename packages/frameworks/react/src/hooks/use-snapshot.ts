@@ -4,15 +4,31 @@ import type { Snapshot } from '@destyler/store'
 import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, XState } from '@destyler/xstate'
 import { globalRef, snapshot, subscribe } from '@destyler/store'
 import { compact, isEqual } from '@destyler/utils'
-import { affectedToPathList, createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
+import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
 import * as ReactNamespace from 'react'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 import { useUpdateEffect } from './use-update-effect'
 
 const targetCache = globalRef('__destyler__targetCache', () => new WeakMap())
 
-const HAS_SEGMENT = /^:has\((.*)\)$/
-const HAS_OWN_SEGMENT = /^:hasOwn\((.*)\)$/
+// proxy-compare's affected record. These keys hold the real property keys,
+// including symbols, which `affectedToPathList` would stringify.
+const HAS_KEY = 'h'
+const ALL_OWN_KEYS = 'w'
+const HAS_OWN_KEY = 'o'
+const KEYS = 'k'
+
+interface AffectedUsed {
+  [HAS_KEY]?: Set<PropertyKey>
+  [ALL_OWN_KEYS]?: true
+  [HAS_OWN_KEY]?: Set<PropertyKey>
+  [KEYS]?: Set<PropertyKey>
+}
+
+interface RenderAttempt {
+  readonly id: object
+  readonly map: WeakMap<object, unknown>
+}
 
 /**
  * proxy-compare keeps one handler per cached object and points it at whichever
@@ -38,8 +54,13 @@ const HAS_OWN_SEGMENT = /^:hasOwn\((.*)\)$/
  * the base WeakMap would record the read in a place `isChanged` never sees.
  */
 class AffectedRouter extends WeakMap<object, unknown> {
-  /** Map for the render attempt currently executing. Not part of the subscription. */
-  attempt: WeakMap<object, unknown>
+  /**
+   * Attempt opened by the hook body. The next render replaces it, so a
+   * discarded attempt's map is dropped instead of merged into `retained`.
+   */
+  openAttempt: RenderAttempt
+  /** Identity of the attempt published by the layout effect. */
+  committedAttemptId: object | null
   /** Map published by the last commit. Effect reads extend this object. */
   committed: WeakMap<object, unknown>
   /** Event observations. Only grows until this router is discarded. */
@@ -49,12 +70,15 @@ class AffectedRouter extends WeakMap<object, unknown> {
    * then `'event'`. A yielded or discarded render does not change this.
    */
   phase: 'effect' | 'event'
+  /** Replay must record into `retained` even if a commit is still in the effect phase. */
+  private replaying = false
 
   private readonly markRetained: () => void
 
   constructor(retained: WeakMap<object, unknown>, markRetained: () => void) {
     super()
-    this.attempt = new WeakMap()
+    this.openAttempt = { id: {}, map: new WeakMap() }
+    this.committedAttemptId = null
     this.committed = new WeakMap()
     this.retained = retained
     this.phase = 'event'
@@ -63,23 +87,29 @@ class AffectedRouter extends WeakMap<object, unknown> {
 
   /**
    * `isChanged` looks observations up by snapshot identity. Replay retained
-   * paths, including `in` (`:has`) and `ownKeys`, onto the snapshot that is
-   * about to become the committed one.
+   * paths, including `in` and `ownKeys`, onto the snapshot that is about to
+   * become the committed one. Symbol keys stay symbols; the string form
+   * `:has(Symbol(...))` cannot recover them.
    */
   replayRetainedPaths(previous: object, next: object) {
-    const paths = affectedToPathList(previous, this.retained, true)
-    const proxy = createProxyToCompare(next, this, new WeakMap(), targetCache)
-    for (const path of paths)
-      replayPath(proxy, path)
+    this.replaying = true
+    try {
+      const proxy = createProxyToCompare(next, this, new WeakMap(), targetCache)
+      replayAffected(proxy, previous, this.retained, new WeakSet())
+    }
+    finally {
+      this.replaying = false
+    }
   }
 
   private select(): WeakMap<object, unknown> {
-    // React installs the hooks dispatcher for the whole render attempt,
-    // including a child rendered in a later slice, and restores the
-    // context-only dispatcher when the attempt yields or ends. Selecting
-    // here avoids a microtask that would otherwise run between those slices.
+    if (this.replaying)
+      return this.retained
+    // A later slice of this attempt still has React's render dispatcher, so
+    // its reads stay on the open attempt. An event after a discarded attempt
+    // does not, and must not inherit that attempt's map.
     if (isReactRendering())
-      return this.attempt
+      return this.openAttempt.map
     if (this.phase === 'effect')
       return this.committed
     return this.retained
@@ -128,51 +158,65 @@ function createAffectTracking(service: object): AffectTracking {
   return tracking
 }
 
-interface ReactDispatcher {
-  useState?: unknown
-  useEffect?: unknown
-}
+const HOOK_SLOTS = ['useState', 'useEffect', 'useMemo', 'useRef', 'useCallback'] as const
 
-// React does not declare this field. It is the same shared dispatcher every
-// renderer (DOM, React Native, test renderer, server) writes during render.
-const clientInternals = (ReactNamespace as unknown as {
-  __CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE?: { H: ReactDispatcher | null }
-}).__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE
+function readDispatcher(): object | null | undefined {
+  const react = ReactNamespace as unknown as Record<string, unknown>
+  // React 19.
+  const client = react.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE
+  if (client && typeof client === 'object' && 'H' in client)
+    return (client as { H?: object | null }).H ?? null
+  // React 18.
+  const secret = react.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+  const current = secret && typeof secret === 'object'
+    ? (secret as { ReactCurrentDispatcher?: { current?: object | null } }).ReactCurrentDispatcher
+    : undefined
+  if (current && typeof current === 'object' && 'current' in current)
+    return current.current ?? null
+  // Unknown build. Callers fail safe.
+  return undefined
+}
 
 function isReactRendering(): boolean {
-  const dispatcher = clientInternals?.H
-  if (!dispatcher)
-    return false
-  // Outside render, every hook slot is the same invalid-hook thrower.
-  // During render, `useState` and `useEffect` are distinct implementations.
-  return dispatcher.useState !== dispatcher.useEffect
+  const dispatcher = readDispatcher()
+  // Missing internals, or a dispatcher React has not installed. Treat the
+  // read as a render so it cannot be stored in `retained`.
+  if (dispatcher == null)
+    return true
+  const slots = HOOK_SLOTS.map(name => (dispatcher as Record<string, unknown>)[name])
+  if (slots.some(slot => typeof slot !== 'function'))
+    return true
+  const [first, ...rest] = slots
+  // Context-only dispatchers in React 18 and 19 share one invalid-hook
+  // function across every slot. Anything else is a render, or an unknown
+  // shape that must not leak into `retained`.
+  return !rest.every(slot => slot === first)
 }
 
-function replayPath(proxy: object, path: readonly (string | symbol)[]) {
-  let cursor: unknown = proxy
-  for (let index = 0; index < path.length; index++) {
-    if (cursor == null || (typeof cursor !== 'object' && typeof cursor !== 'function'))
-      return
-    const segment = path[index]!
-    const last = index === path.length - 1
-    if (typeof segment === 'string' && last) {
-      if (segment === ':ownKeys') {
-        Reflect.ownKeys(cursor)
-        return
-      }
-      const has = HAS_SEGMENT.exec(segment)
-      if (has) {
-        void (has[1]! in cursor)
-        return
-      }
-      const hasOwn = HAS_OWN_SEGMENT.exec(segment)
-      if (hasOwn) {
-        Reflect.getOwnPropertyDescriptor(cursor, hasOwn[1]!)
-        return
-      }
-    }
-    cursor = (cursor as Record<PropertyKey, unknown>)[segment]
-  }
+function replayAffected(proxy: object, source: object, affected: WeakMap<object, unknown>, seen: WeakSet<object>) {
+  if (seen.has(source))
+    return
+  seen.add(source)
+  const used = affected.get(source) as AffectedUsed | undefined
+  if (!used)
+    return
+  const record = proxy as Record<PropertyKey, unknown>
+  const sourceRecord = source as Record<PropertyKey, unknown>
+  used[KEYS]?.forEach((key) => {
+    const child = record[key]
+    const sourceChild = sourceRecord[key]
+    if (child != null && sourceChild != null && typeof child === 'object' && typeof sourceChild === 'object')
+      replayAffected(child as object, sourceChild as object, affected, seen)
+  })
+  // `in` and getOwnPropertyDescriptor keep the original key, symbol or string.
+  used[HAS_KEY]?.forEach((key) => {
+    void (key in proxy)
+  })
+  used[HAS_OWN_KEY]?.forEach((key) => {
+    Reflect.getOwnPropertyDescriptor(proxy, key)
+  })
+  if (used[ALL_OWN_KEYS] === true)
+    Reflect.ownKeys(proxy)
 }
 
 function warnSnapshotObservation(message: string, error: unknown) {
@@ -230,10 +274,11 @@ export function useSnapshot<
   const lastSnapshot = useRef<Snapshot<State>>(undefined)
   const lastAffected = useRef<WeakMap<object, unknown>>(undefined)
   const currAffected = new WeakMap<object, unknown>()
-  // Children and the rest of this attempt read the proxy after this hook
-  // returns, including in a later slice. Point the attempt map at this render
-  // without touching `retained`.
-  tracking.router.attempt = currAffected
+  // This attempt's identity is replaced on the next render. Children in a
+  // later slice still read `openAttempt`; a discarded attempt is not committed
+  // and is never copied into `retained`.
+  const attempt: RenderAttempt = { id: {}, map: currAffected }
+  tracking.router.openAttempt = attempt
 
   const currSnapshot = useSyncExternalStore(
     useCallback(callback => subscribe(service.state, () => {
@@ -285,16 +330,17 @@ export function useSnapshot<
     lastSnapshot.current = currSnapshot
     lastAffected.current = currAffected
     tracking.router.committed = currAffected
+    tracking.router.committedAttemptId = attempt.id
     // Passive effects still extend this commit. Event reads move to `retained`
     // only after those effects, not from a microtask queued during render.
     tracking.router.phase = 'effect'
   })
 
   useEffect(() => {
-    const attempt = currAffected
+    const attemptId = attempt.id
     const router = tracking.router
     queueMicrotask(() => {
-      if (router.phase === 'effect' && router.committed === attempt)
+      if (router.phase === 'effect' && router.committedAttemptId === attemptId)
         router.phase = 'event'
     })
   })

@@ -207,4 +207,44 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
       service.stop()
     }
   })
+
+  it('replays a symbol key observed with in after the snapshot identity changes', async () => {
+    const service = createService()
+    const flag = Symbol('flag')
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    const context = service.state.context as Record<PropertyKey, unknown>
+    const reads: boolean[] = []
+    let renders = 0
+    function View() {
+      const state = useSnapshot(service, { sync })
+      renders++
+      return createElement('button', {
+        onClick: () => {
+          reads.push(flag in (state.context as object))
+        },
+      }, state.value)
+    }
+    try {
+      await act(async () => root.render(createElement(View)))
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([false])
+      const rendersAfterRead = renders
+      await act(async () => {
+        context[flag] = 1
+      })
+      expect(renders).toBeGreaterThan(rendersAfterRead)
+      const rendersAfterSet = renders
+      await act(async () => {
+        delete context[flag]
+      })
+      expect(renders).toBeGreaterThan(rendersAfterSet)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([false, false])
+    }
+    finally {
+      await act(async () => root.unmount())
+      service.stop()
+    }
+  })
 })

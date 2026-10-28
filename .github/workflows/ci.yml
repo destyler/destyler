@@ -53,6 +53,41 @@ jobs:
           json-summary-path: ./html/coverage/coverage-summary.json
           json-final-path: ./html/coverage/coverage-final.json
 
+  react-18:
+    runs-on: ubuntu-latest
+    name: 'Test: react-18'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/.specstory/
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.22.3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm playwright install --with-deps chromium
+
+      - name: Build React framework dependencies
+        run: pnpm --filter "@destyler/react..." build
+
+      - name: Test React framework on React 18
+        run: node scripts/test-react-18.mjs
+
   supported-consumer:
     runs-on: ubuntu-latest
     name: 'Packed consumers: node-22.22.3'

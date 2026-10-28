@@ -38,7 +38,9 @@ describe('snapshot observation without a DOM document', () => {
     const render = (suspend: boolean) => createElement(Suspense, { fallback: 'loading' }, createElement(View, { suspend }))
     try {
       await act(async () => {
-        renderer = createRenderer(render(false))
+        // React 18's test renderer is a legacy root unless this is set, and a
+        // legacy update replaces the committed button with the Suspense fallback.
+        renderer = createRenderer(render(false), { unstable_isConcurrent: true })
       })
       expect(renderer.toJSON()).toMatchObject({ type: 'button', children: ['idle'] })
       await act(async () => startTransition(() => {
