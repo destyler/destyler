@@ -74,17 +74,19 @@ describe.each([false, true])('snapshot render ownership (sync: %s)', (sync) => {
     const values: number[] = []
     let renders = 0
     const useReadEffect = phase === 'layout' ? useLayoutEffect : useEffect
-    function Child({ state, read }: { state: State, read: boolean }) {
+    // React 19 development profiling inspects changed object props. Pass an
+    // accessor so only the child effect, not that inspection, observes count.
+    function Child({ readState, read }: { readState: () => State, read: boolean }) {
       useReadEffect(() => {
         if (read)
-          values.push(state.context.count)
+          values.push(readState().context.count)
       })
       return null
     }
     function Owner({ read }: { read: boolean }) {
       const state = useSnapshot(service, { sync })
       renders++
-      return createElement('div', null, state.value, createElement(Child, { state, read }))
+      return createElement('div', null, state.value, createElement(Child, { readState: () => state, read }))
     }
     try {
       await act(async () => root.render(createElement(Owner, { read: true })))

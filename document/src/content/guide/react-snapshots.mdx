@@ -53,6 +53,13 @@ avoid a render loop. The same caution applies to `useMemo` and `useCallback`.
 For object-valued dependencies, select their relevant primitive fields rather
 than another nested observation proxy.
 
+Developer-tool inspection also counts as property access. For example, React 19
+development profiling can inspect changed object props and observe fields on a
+snapshot passed to a child, causing extra notifications. This does not make the
+snapshot live or lose updates. Pass selected values when the child should not
+observe the whole object; an accessor can isolate an intentional effect-time read
+from automatic prop inspection.
+
 A render-time observation is renewed by reading the field in subsequent renders.
 An event-only observation ends when a newer hook render commits without that
 read. Read the field in render when it should continuously drive the UI; do not
