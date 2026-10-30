@@ -5,6 +5,22 @@ import { describe, expect, it, vi } from 'vitest'
 import { useActor } from '../src/hooks/use-actor'
 
 describe('react server snapshot observation', () => {
+  it('does not warn about client-only layout effects during server rendering', () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } })
+    function View() {
+      const [state] = useActor(service)
+      return createElement('span', null, state.context.count)
+    }
+    try {
+      expect(renderToString(createElement(View))).toBe('<span>0</span>')
+      expect(error).not.toHaveBeenCalled()
+    }
+    finally {
+      error.mockRestore()
+    }
+  })
+
   it('reads each current server snapshot without starting or stopping the actor', () => {
     const service = createMachine({ initial: 'idle', context: { count: 4 }, states: { idle: {} } })
     const start = vi.spyOn(service, 'start')

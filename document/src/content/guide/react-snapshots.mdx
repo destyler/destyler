@@ -1,0 +1,81 @@
+---
+title: React snapshot observations
+description: Render-scoped observations, immutable state, and snapshot reference migration.
+---
+
+`useActor` and `useMachine` return an immutable view of a machine's state for
+rendering. Reading a field records an observation for that hook render. Store
+notifications are filtered using the most recently committed hook render's
+observations. Fields read in its effects, handlers, or children can extend that
+same set; they do not create permanent subscriptions for the hook's lifetime.
+
+Each hook render owns a separate observation proxy, including when two renders
+see the same underlying immutable state. A suspended hook render cannot redirect
+reads made through the still-mounted render's proxy. If the attempt is discarded,
+its observation set does not replace the committed one. A child reading a proxy
+provided by a committed parent extends that parent's observations; this is not a
+separate subscription or a guarantee of isolation for every speculative child
+render.
+
+The raw store snapshot remains cached until the store changes. This satisfies
+React's [`useSyncExternalStore` snapshot contract](https://react.dev/reference/react/useSyncExternalStore).
+Observation proxies are created **after** that hook returns; they are not the
+values returned by its `getSnapshot` callback. The implementation does not depend
+on private React dispatchers, browser globals, or replaying observed paths.
+
+## Migration
+
+**Breaking reference-identity change:** the snapshot returned by the React hooks,
+and nested observation proxies, can have different references on every render,
+even when the underlying state has not changed. References remain consistent
+within a single render. This also affects snapshots returned by `useMachine`,
+which uses the same snapshot hook internally.
+
+Do not use the entire snapshot or a nested proxy as a stable effect dependency or
+memoized-child prop. Select the values that the operation actually uses:
+
+```tsx
+const [state] = useActor(service)
+const count = state.context.count
+
+useEffect(() => {
+  reportCount(count)
+}, [count])
+
+return <MemoizedCounter count={count} />
+```
+
+Passing the entire proxy to a memoized child is supported, but the child may
+render whenever the owner renders, even if the store is unchanged. An effect
+whose dependency is the whole proxy also runs again. If that effect updates
+component state, migrate its dependency list to the specific consumed values to
+avoid a render loop. The same caution applies to `useMemo` and `useCallback`.
+For object-valued dependencies, select their relevant primitive fields rather
+than another nested observation proxy.
+
+A render-time observation is renewed by reading the field in subsequent renders.
+An event-only observation ends when a newer hook render commits without that
+read. Read the field in render when it should continuously drive the UI; do not
+rely on a single past click to subscribe forever.
+
+## Event-time state
+
+A captured snapshot is historical data, not a live getter. If an unobserved field
+changes, a handler retaining an older snapshot can still see its older value.
+When an event needs the machine's current state at execution time, call the
+existing public `service.getState()` method inside that event:
+
+```tsx
+const [state] = useActor(service)
+
+return (
+  <button onClick={() => saveCount(service.getState().context.count)}>
+    {state.value}
+  </button>
+)
+```
+
+`getState()` returns the current immutable store snapshot and does not itself
+subscribe a component. Repeated calls return the same raw snapshot while the
+store is unchanged. Keep rendering through the React hooks so UI updates retain
+their subscription and hydration behavior.

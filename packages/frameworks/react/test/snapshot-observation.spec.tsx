@@ -10,7 +10,7 @@ import { useSnapshot } from '../src/hooks/use-snapshot'
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
 describe('react snapshot observation lifecycle', () => {
-  it('preserves snapshot identity across renders without store mutations', async () => {
+  it('isolates render proxies while preserving the cached store snapshot', async () => {
     const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } }).start()
     const root = createRoot(document.createElement('div'))
     const snapshots: object[] = []
@@ -22,8 +22,13 @@ describe('react snapshot observation lifecycle', () => {
     try {
       await act(async () => root.render(createElement(View, { label: 'first' })))
       const initial = snapshots.at(-1)
+      const initialStoreSnapshot = service.getState()
+      expect(service.getState()).toBe(initialStoreSnapshot)
       await act(async () => root.render(createElement(View, { label: 'second' })))
-      expect(snapshots.at(-1)).toBe(initial)
+      // Observation ownership is per render; only the immutable store snapshot
+      // passed to useSyncExternalStore is cached across unchanged renders.
+      expect(snapshots.at(-1)).not.toBe(initial)
+      expect(service.getState()).toBe(initialStoreSnapshot)
       const beforeNoChange = snapshots.length
       await act(async () => service.setContext({ count: 0 }))
       expect(snapshots).toHaveLength(beforeNoChange)

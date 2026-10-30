@@ -4,6 +4,24 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## Unreleased: BREAKING React snapshot proxy references
+
+React `useActor` and `useMachine` now return render-scoped observation proxies.
+The whole snapshot and nested proxies are no longer reference-stable between
+unchanged renders. This prevents suspended hook attempts from redirecting reads
+made by the still-committed UI. The immutable raw store snapshot remains cached;
+React's external-store snapshot requirement and framework peer ranges are unchanged.
+
+Migrate effect/memo dependencies and memoized-child props to the specific values
+they consume. Whole-proxy dependencies can rerun effects on every render, and an
+effect that updates state can loop. Event reads are not lifetime subscriptions;
+use `service.getState()` inside a handler when it needs event-time current data.
+See the [Migration guide](./document/src/content/guide/react-snapshots.mdx#migration)
+for reference behavior, subscription boundaries, and examples.
+
+This change is unreleased. It does not select a release version or modify existing
+published versions or tags.
+
 ## 0.3.0: BREAKING Node.js support floor
 
 Release 0.3.0 requires Node.js **22.22.3 or newer**

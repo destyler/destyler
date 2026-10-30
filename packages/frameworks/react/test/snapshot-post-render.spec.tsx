@@ -21,7 +21,7 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
     function View() {
       const state = useSnapshot(service, { sync })
       renders++
-      // useSnapshot publishes its affected map in a layout effect. This later
+      // useSnapshot publishes its affected map in a passive effect. This later
       // passive read extends that subscription rather than a frozen render-time set.
       useEffect(() => {
         effects.push(state.context.count)
@@ -138,7 +138,7 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
     }
   })
 
-  it('keeps an event `in` observation after the snapshot identity changes', async () => {
+  it('tracks a new event `in` observation on each committed snapshot', async () => {
     const service = createService()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -160,13 +160,16 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
       const rendersAfterRead = renders
       await act(async () => service.setContext({ extra: 1 }))
       expect(renders).toBeGreaterThan(rendersAfterRead)
+      // Event-only observations belong to a commit, not the hook lifetime.
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([false, true])
       const rendersAfterAdd = renders
       await act(async () => {
         delete service.state.context.extra
       })
       expect(renders).toBeGreaterThan(rendersAfterAdd)
       await act(async () => container.querySelector('button')!.click())
-      expect(reads).toEqual([false, false])
+      expect(reads).toEqual([false, true, false])
     }
     finally {
       await act(async () => root.unmount())
@@ -174,7 +177,7 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
     }
   })
 
-  it('keeps an event Object.keys observation after the snapshot identity changes', async () => {
+  it('tracks a new event Object.keys observation on each committed snapshot', async () => {
     const service = createService()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -196,6 +199,8 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
       const rendersAfterRead = renders
       await act(async () => service.setContext({ extra: 1 }))
       expect(renders).toBeGreaterThan(rendersAfterRead)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads.at(-1)).toContain('extra')
       const rendersAfterExtra = renders
       await act(async () => service.setContext({ more: 2 }))
       expect(renders).toBeGreaterThan(rendersAfterExtra)
@@ -208,7 +213,7 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
     }
   })
 
-  it('replays a symbol key observed with in after the snapshot identity changes', async () => {
+  it('tracks a symbol key observed with in on each committed snapshot', async () => {
     const service = createService()
     const flag = Symbol('flag')
     const container = document.createElement('div')
@@ -234,13 +239,15 @@ describe.each([false, true])('react post-render snapshot reads (sync: %s)', (syn
         context[flag] = 1
       })
       expect(renders).toBeGreaterThan(rendersAfterRead)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([false, true])
       const rendersAfterSet = renders
       await act(async () => {
         delete context[flag]
       })
       expect(renders).toBeGreaterThan(rendersAfterSet)
       await act(async () => container.querySelector('button')!.click())
-      expect(reads).toEqual([false, false])
+      expect(reads).toEqual([false, true, false])
     }
     finally {
       await act(async () => root.unmount())

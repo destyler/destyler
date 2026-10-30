@@ -2,7 +2,7 @@ import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyle
 import { createMachine } from '@destyler/xstate'
 import { act, createElement, startTransition, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { useActor } from '../src/hooks/use-actor'
 import { useSnapshot } from '../src/hooks/use-snapshot'
 
@@ -148,7 +148,7 @@ describe('committed event reads after a suspended render', () => {
   })
 })
 
-describe('discarded transition reads stay off the retained subscription', () => {
+describe('discarded transition reads stay off the committed subscription', () => {
   it.each([
     ['public useActor (batched)', usePublicActorSnapshot],
     ['internal useSnapshot (sync)', useSynchronousSnapshot],
@@ -167,11 +167,12 @@ describe('discarded transition reads stay off the retained subscription', () => 
     let ready = false
     let attempts = 0
     let renders = 0
-    let yieldedBeforeChild = false
+    const yieldedBeforeChild: boolean[] = []
     const reads: number[] = []
     function Shell({ suspend }: { suspend: boolean }) {
       const state = useObservedState(service)
       renders++
+      const slice = { microtaskRan: false }
       if (suspend) {
         const start = performance.now()
         // Outlast the scheduler's frame interval so React yields before Child.
@@ -179,14 +180,16 @@ describe('discarded transition reads stay off the retained subscription', () => 
           // busy
         }
         queueMicrotask(() => {
-          yieldedBeforeChild = true
+          slice.microtaskRan = true
         })
       }
-      return createElement(Child, { suspend, state })
+      return createElement(Child, { suspend, state, slice })
     }
-    function Child({ suspend, state }: { suspend: boolean, state: { value: string, context: { count: number, leaked: number } } }) {
+    function Child({ suspend, state, slice }: { suspend: boolean, state: { value: string, context: { count: number, leaked: number } }, slice: { microtaskRan: boolean } }) {
       if (suspend && !ready) {
-        // This read happens in a later slice. It must stay on the attempt map.
+        // Capture the checkpoint at the read, not after awaiting act (which
+        // would flush the microtask even if React never yielded before Child).
+        yieldedBeforeChild.push(slice.microtaskRan)
         void state.context.leaked
         attempts++
         throw pending
@@ -198,9 +201,22 @@ describe('discarded transition reads stay off the retained subscription', () => 
       await act(async () => root.render(render(false)))
       await act(async () => container.querySelector('button')!.click())
       expect(reads).toEqual([0])
-      await act(async () => startTransition(() => root.render(render(true))))
-      expect(attempts).toBeGreaterThan(0)
-      expect(yieldedBeforeChild).toBe(true)
+      // act drains React's work without yielding to the host. Schedule this
+      // transition outside it so the scheduler can actually split Shell/Child.
+      // @ts-expect-error - React testing flag
+      const actEnvironment = globalThis.IS_REACT_ACT_ENVIRONMENT
+      // @ts-expect-error - React testing flag
+      globalThis.IS_REACT_ACT_ENVIRONMENT = false
+      try {
+        startTransition(() => root.render(render(true)))
+        await vi.waitFor(() => expect(attempts).toBeGreaterThan(0))
+      }
+      finally {
+        // @ts-expect-error - React testing flag
+        globalThis.IS_REACT_ACT_ENVIRONMENT = actEnvironment
+      }
+      expect(yieldedBeforeChild.length).toBeGreaterThan(0)
+      expect(yieldedBeforeChild.every(Boolean)).toBe(true)
       expect(container.textContent).toBe('idle')
       const rendersAfterDiscard = renders
       const attemptsAfterDiscard = attempts
@@ -224,7 +240,7 @@ describe('discarded transition reads stay off the retained subscription', () => 
   it.each([
     ['public useActor (batched)', usePublicActorSnapshot],
     ['internal useSnapshot (sync)', useSynchronousSnapshot],
-  ] as const)('a discarded service swap does not wipe the committed retained map (%s)', async (_name, useObservedState) => {
+  ] as const)('a discarded service swap does not wipe the committed observations (%s)', async (_name, useObservedState) => {
     function actor(label: string, count: number) {
       return createMachine({ initial: 'idle', context: { count, label }, states: { idle: {} } }).start()
     }
