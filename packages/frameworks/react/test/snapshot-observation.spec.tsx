@@ -4,13 +4,14 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 import { useActor } from '../src/hooks/use-actor'
+import { useSelector } from '../src/hooks/use-selector'
 import { useSnapshot } from '../src/hooks/use-snapshot'
 
 // @ts-expect-error - React testing flag
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
 describe('react snapshot observation lifecycle', () => {
-  it('isolates render proxies while preserving the cached store snapshot', async () => {
+  it('preserves observation-proxy identity for unchanged immutable snapshots', async () => {
     const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } }).start()
     const root = createRoot(document.createElement('div'))
     const snapshots: object[] = []
@@ -25,9 +26,7 @@ describe('react snapshot observation lifecycle', () => {
       const initialStoreSnapshot = service.getState()
       expect(service.getState()).toBe(initialStoreSnapshot)
       await act(async () => root.render(createElement(View, { label: 'second' })))
-      // Observation ownership is per render; only the immutable store snapshot
-      // passed to useSyncExternalStore is cached across unchanged renders.
-      expect(snapshots.at(-1)).not.toBe(initial)
+      expect(snapshots.at(-1)).toBe(initial)
       expect(service.getState()).toBe(initialStoreSnapshot)
       const beforeNoChange = snapshots.length
       await act(async () => service.setContext({ count: 0 }))
@@ -102,7 +101,7 @@ describe('react snapshot observation lifecycle', () => {
     }
   })
 
-  it.each([false, true])('reads newly observed fields while filtering unobserved notifications (sync: %s)', async (sync) => {
+  it.each([false, true])('filters never-read fields and conservatively retains reads on reused snapshots (sync: %s)', async (sync) => {
     const service = createMachine({ initial: 'idle', context: { count: 0, other: 0 }, states: { idle: {} } }).start()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -131,9 +130,14 @@ describe('react snapshot observation lifecycle', () => {
       await act(async () => root.render(createElement(View, { showCount: false })))
       const beforeUnobserving = renders
       await act(async () => service.setContext({ count: 3 }))
-      expect(renders).toBe(beforeUnobserving)
+      // Hiding count reused the same immutable object, so its old read can
+      // cause one conservative notification. The next snapshot omits that read.
+      expect(renders).toBe(beforeUnobserving + 1)
+      const afterRefresh = renders
+      await act(async () => service.setContext({ count: 4 }))
+      expect(renders).toBe(afterRefresh)
       await act(async () => root.render(createElement(View, { showCount: true })))
-      expect(container.textContent).toBe('idle:3')
+      expect(container.textContent).toBe('idle:4')
     }
     finally {
       await act(async () => root.unmount())
@@ -141,7 +145,7 @@ describe('react snapshot observation lifecycle', () => {
     }
   })
 
-  it.each(['commit', 'discard'] as const)('uses current data after suspended observation is followed by %s', async (outcome) => {
+  it.each(['commit', 'discard'] as const)('keeps the committed selector when a suspended selection is followed by %s', async (outcome) => {
     const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } }).start()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -152,8 +156,7 @@ describe('react snapshot observation lifecycle', () => {
     let ready = false
     let attempts = 0
     function View({ showCount }: { showCount: boolean }) {
-      const state = useSnapshot(service)
-      const text = showCount ? `${state.value}:${state.context.count}` : state.value
+      const text = useSelector(service, state => showCount ? `${state.value}:${state.context.count}` : state.value)
       if (showCount && !ready) {
         attempts++
         throw pending

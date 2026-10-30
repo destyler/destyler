@@ -4,20 +4,29 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
-## Unreleased: BREAKING React snapshot proxy references
+## Unreleased: BREAKING React snapshot observation lifetime
 
-React `useActor` and `useMachine` now return render-scoped observation proxies.
-The whole snapshot and nested proxies are no longer reference-stable between
-unchanged renders. This prevents suspended hook attempts from redirecting reads
-made by the still-committed UI. The immutable raw store snapshot remains cached;
-React's external-store snapshot requirement and framework peer ranges are unchanged.
+React `useActor` and `useMachine` keep a stable observation map and proxy cache
+per hook/service. Unchanged snapshots and nested objects retain their references,
+so existing `[state, send]` memoization and structured-value dependencies remain
+supported. This replaces the earlier unreleased render-scoped-wrapper proposal;
+it does not introduce unconditional full-store subscriptions.
 
-Migrate effect/memo dependencies and memoized-child props to the specific values
-they consume. Whole-proxy dependencies can rerun effects on every render, and an
-effect that updates state can loop. Event reads are not lifetime subscriptions;
-use `service.getState()` inside a handler when it needs event-time current data.
+**Automatic read tracking is now conservative across renders that reuse an
+immutable object.** Earlier or abandoned reads can cause extra notifications
+while those immutable objects or branches continue to be reused. Hiding a field
+does not immediately remove its
+observation, and event reads are not permanent subscriptions. Consumers that need
+explicit selected-value notification behavior should use the new
+`useSelector(service, selector, isEqual?)` API. Direct object/array selections use
+`Object.is`; allocated results need suitable equality to retain their references.
+The new `useService` hook supports selector-only owned machines without a redundant
+snapshot subscription. Use `service.getState()` for event-time current state.
+
 See the [Migration guide](./document/src/content/guide/react-snapshots.mdx#migration)
-for reference behavior, subscription boundaries, and examples.
+for automatic versus explicit subscriptions, structured values, lifecycle and
+measured performance tradeoffs. The cached raw `useSyncExternalStore` snapshot
+contract and React peer ranges are unchanged.
 
 This change is unreleased. It does not select a release version or modify existing
 published versions or tags.

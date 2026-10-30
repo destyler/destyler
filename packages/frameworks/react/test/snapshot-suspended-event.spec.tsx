@@ -4,6 +4,7 @@ import { act, createElement, startTransition, StrictMode, Suspense } from 'react
 import { createRoot } from 'react-dom/client'
 import { describe, expect, it, vi } from 'vitest'
 import { useActor } from '../src/hooks/use-actor'
+import { useSelector } from '../src/hooks/use-selector'
 import { useSnapshot } from '../src/hooks/use-snapshot'
 
 // @ts-expect-error - React testing flag
@@ -18,6 +19,13 @@ function usePublicActorSnapshot(service: Service) {
 
 function useSynchronousSnapshot(service: Service) {
   return useSnapshot(service as Parameters<typeof useSnapshot>[0], { sync: true })
+}
+
+function useSelectedActorSnapshot(service: Service) {
+  return useSelector(service, state => ({
+    value: state.value,
+    context: { count: state.context.count },
+  }), (previous, next) => previous.value === next.value && previous.context.count === next.context.count)
 }
 
 function tree(node: ReturnType<typeof createElement>, strict: boolean) {
@@ -85,11 +93,9 @@ describe('committed event reads after a suspended render', () => {
   })
 
   it.each([
-    ['public useActor (batched)', usePublicActorSnapshot, false],
-    ['internal useSnapshot (sync)', useSynchronousSnapshot, false],
-    ['public useActor (batched), StrictMode', usePublicActorSnapshot, true],
-    ['internal useSnapshot (sync), StrictMode', useSynchronousSnapshot, true],
-  ] as const)('does not notify for a field that was never read (%s)', async (_name, useObservedState, strict) => {
+    ['useSelector', useSelectedActorSnapshot, false],
+    ['useSelector, StrictMode', useSelectedActorSnapshot, true],
+  ] as const)('does not notify for a field outside the explicit selection (%s)', async (_name, useObservedState, strict) => {
     const service = createMachine({ initial: 'idle', context: { count: 0, other: 0 }, states: { idle: {} } }).start()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -130,8 +136,7 @@ describe('committed event reads after a suspended render', () => {
       await act(async () => container.querySelector('button')!.click())
       expect(reads).toEqual([0, 1])
 
-      // The count notification commits a new snapshot. `other` was still never
-      // read, including by the suspended attempt, so it must not notify again.
+      // A new selected value does not widen the subscription to other fields.
       const rendersAfterCount = renders
       const attemptsAfterCount = attempts
       await act(async () => service.setContext({ other: 2 }))
@@ -148,11 +153,8 @@ describe('committed event reads after a suspended render', () => {
   })
 })
 
-describe('discarded transition reads stay off the committed subscription', () => {
-  it.each([
-    ['public useActor (batched)', usePublicActorSnapshot],
-    ['internal useSnapshot (sync)', useSynchronousSnapshot],
-  ] as const)('a yielded child read does not subscribe when the attempt is discarded (%s)', async (_name, useObservedState) => {
+describe('discarded transitions preserve the committed subscription', () => {
+  it.each([false, true])('a yielded child with a discarded selector does not change the committed selection (strict: %s)', async (strict) => {
     const service = createMachine({
       initial: 'idle',
       context: { count: 0, leaked: 0 },
@@ -170,7 +172,7 @@ describe('discarded transition reads stay off the committed subscription', () =>
     const yieldedBeforeChild: boolean[] = []
     const reads: number[] = []
     function Shell({ suspend }: { suspend: boolean }) {
-      const state = useObservedState(service)
+      const value = useSelector(service, state => suspend ? state.context.leaked : state.context.count)
       renders++
       const slice = { microtaskRan: false }
       if (suspend) {
@@ -183,20 +185,20 @@ describe('discarded transition reads stay off the committed subscription', () =>
           slice.microtaskRan = true
         })
       }
-      return createElement(Child, { suspend, state, slice })
+      return createElement(Child, { suspend, value, slice })
     }
-    function Child({ suspend, state, slice }: { suspend: boolean, state: { value: string, context: { count: number, leaked: number } }, slice: { microtaskRan: boolean } }) {
+    function Child({ suspend, value, slice }: { suspend: boolean, value: number, slice: { microtaskRan: boolean } }) {
       if (suspend && !ready) {
         // Capture the checkpoint at the read, not after awaiting act (which
         // would flush the microtask even if React never yielded before Child).
         yieldedBeforeChild.push(slice.microtaskRan)
-        void state.context.leaked
+        void value
         attempts++
         throw pending
       }
-      return createElement('button', { onClick: () => reads.push(state.context.count) }, state.value)
+      return createElement('button', { onClick: () => reads.push(value) }, 'idle')
     }
-    const render = (suspend: boolean) => createElement(Suspense, { fallback: 'loading' }, createElement(Shell, { suspend }))
+    const render = (suspend: boolean) => tree(createElement(Suspense, { fallback: 'loading' }, createElement(Shell, { suspend })), strict)
     try {
       await act(async () => root.render(render(false)))
       await act(async () => container.querySelector('button')!.click())
@@ -240,7 +242,7 @@ describe('discarded transition reads stay off the committed subscription', () =>
   it.each([
     ['public useActor (batched)', usePublicActorSnapshot],
     ['internal useSnapshot (sync)', useSynchronousSnapshot],
-  ] as const)('a discarded service swap does not wipe the committed observations (%s)', async (_name, useObservedState) => {
+  ] as const)('a discarded service swap does not replace the committed subscription (%s)', async (_name, useObservedState) => {
     function actor(label: string, count: number) {
       return createMachine({ initial: 'idle', context: { count, label }, states: { idle: {} } }).start()
     }

@@ -1,76 +1,161 @@
 ---
-title: React snapshot observations
-description: Render-scoped observations, immutable state, and snapshot reference migration.
+title: React snapshots and selectors
+description: Stable snapshot references, conservative automatic tracking, and explicit structured selections.
 ---
 
-`useActor` and `useMachine` return an immutable view of a machine's state for
-rendering. Reading a field records an observation for that hook render. Store
-notifications are filtered using the most recently committed hook render's
-observations. Fields read in its effects, handlers, or children can extend that
-same set; they do not create permanent subscriptions for the hook's lifetime.
+`useActor` and `useMachine` return immutable snapshot views with automatic read
+tracking. The existing tuple shapes are unchanged. A snapshot wrapper stays
+reference-stable during ordinary rerenders while the same mounted hook and service
+reuse the same immutable store snapshot. Unchanged nested objects and arrays also
+reuse their wrappers. A changed
+object receives a new wrapper; references are not shared across different hook
+instances or service replacements.
 
-Each hook render owns a separate observation proxy, including when two renders
-see the same underlying immutable state. A suspended hook render cannot redirect
-reads made through the still-mounted render's proxy. If the attempt is discarded,
-its observation set does not replace the committed one. A child reading a proxy
-provided by a committed parent extends that parent's observations; this is not a
-separate subscription or a guarantee of isolation for every speculative child
-render.
+This supports ordinary React memoization, including the OTP Input and Signature
+examples that memoize `connect` using `[state, send]`:
 
-The raw store snapshot remains cached until the store changes. This satisfies
-React's [`useSyncExternalStore` snapshot contract](https://react.dev/reference/react/useSyncExternalStore).
-Observation proxies are created **after** that hook returns; they are not the
-values returned by its `getSnapshot` callback. The implementation does not depend
-on private React dispatchers, browser globals, or replaying observed paths.
+```tsx
+const [state, send] = useMachine(otpInput.machine({ id: useId() }))
+const api = useMemo(
+  () => otpInput.connect(state, send, normalizeProps),
+  [state, send],
+)
+
+useEffect(() => {
+  reportDigits(api.value)
+}, [api.value])
+```
+
+The underlying store snapshot remains cached and immutable. The observation
+wrapper is created **after** `useSyncExternalStore` returns; it is not the value
+returned by that hook's `getSnapshot` callback. This preserves React's
+[external-store snapshot contract](https://react.dev/reference/react/useSyncExternalStore).
+The implementation does not inspect private React dispatchers or replay paths.
 
 ## Migration
 
-**Breaking reference-identity change:** the snapshot returned by the React hooks,
-and nested observation proxies, can have different references on every render,
-even when the underlying state has not changed. References remain consistent
-within a single render. This also affects snapshots returned by `useMachine`,
-which uses the same snapshot hook internally.
+**Changed observation lifetime:** automatic tracking is a conservative
+optimization, not an exact per-render subscription declaration. Each hook/service
+keeps one observation map and proxy cache. A proxy is never redirected to another
+render's map, so a suspended attempt cannot steal reads made by the committed
+UI's handlers or independently rendering children.
 
-Do not use the entire snapshot or a nested proxy as a stable effect dependency or
-memoized-child prop. Select the values that the operation actually uses:
+Reads on the same immutable object accumulate. A field read by an earlier or
+abandoned render, a child, an effect, or developer-tool inspection may cause an
+extra notification even when the latest render no longer uses it. Changing a
+label or hiding a field does not immediately erase reads on a reused snapshot.
+Observations are not replayed into every new snapshot and are **not** permanent
+event subscriptions. There is no guarantee that every speculative child read is
+isolated from automatic tracking.
+
+- Existing whole-snapshot and nested-value effect/memo dependencies remain
+  supported when the underlying objects are unchanged. Do not add a fresh wrapper
+  or clone merely to depend on a value.
+- If exact selected-value notification behavior matters, migrate that consumer
+  to `useSelector`. This avoids history-dependent reads and developer-tool
+  inspection expanding its subscription.
+- A new array or object created by your own `map`, spread, or `connect` operation
+  is still a new reference. Memoize that derivation or supply an appropriate
+  selector equality function; stable input references do not stabilize arbitrary
+  derived results automatically.
+- Selectors and equality functions must be pure. Equality must compare everything
+  the consumer uses. Returning `true` for meaningfully different results hides
+  updates, including changes to callbacks or nested values.
+
+This supersedes the earlier unreleased render-scoped-wrapper proposal. It does
+not require changing all structured values into primitive-only dependencies.
+
+## Explicit selectors
+
+`useSelector(service, selector, isEqual?)` subscribes to an existing service
+without starting or stopping it. It selects from the raw immutable store
+snapshot, not an observation proxy. Property reads after selection never widen
+that subscription. The default comparison is `Object.is`.
+
+Directly selecting an unchanged array or object preserves its reference:
 
 ```tsx
-const [state] = useActor(service)
-const count = state.context.count
-
-useEffect(() => {
-  reportCount(count)
-}, [count])
-
-return <MemoizedCounter count={count} />
+const paths = useSelector(service, state => state.context.paths)
+const drawing = useSelector(service, state => state.context.drawing)
 ```
 
-Passing the entire proxy to a memoized child is supported, but the child may
-render whenever the owner renders, even if the store is unchanged. An effect
-whose dependency is the whole proxy also runs again. If that effect updates
-component state, migrate its dependency list to the specific consumed values to
-avoid a render loop. The same caution applies to `useMemo` and `useCallback`.
-For object-valued dependencies, select their relevant primitive fields rather
-than another nested observation proxy.
+For an allocated record, compare its relevant members explicitly:
 
-Developer-tool inspection also counts as property access. For example, React 19
-development profiling can inspect changed object props and observe fields on a
-snapshot passed to a child, causing extra notifications. This does not make the
-snapshot live or lose updates. Pass selected values when the child should not
-observe the whole object; an accessor can isolate an intentional effect-time read
-from automatic prop inspection.
+```tsx
+const selected = useSelector(
+  service,
+  state => ({ paths: state.context.paths, drawing: state.context.drawing }),
+  (previous, next) =>
+    previous.paths === next.paths && previous.drawing === next.drawing,
+)
 
-A render-time observation is renewed by reading the field in subsequent renders.
-An event-only observation ends when a newer hook render commits without that
-read. Read the field in render when it should continuously drive the UI; do not
-rely on a single past click to subscribe forever.
+useEffect(() => {
+  reportDrawing(selected)
+}, [selected])
+```
+
+Equal results retain the previous selected reference, including when an inline
+selector changes identity during a parent render. Without a suitable equality
+function, an inline selector returning a fresh object can still retrigger an
+effect on each parent render. An effect that updates React state can then loop.
+Selection caching prevents repeated `getSnapshot` calls from allocating new
+results for the same snapshot; it is not automatic deep equality.
+
+Selectors preserve store values such as symbols, cyclic objects, Files and
+reference-marked instances. They do not serialize or clone the selected data.
+Do not mutate store-owned snapshot objects; send events or use the service API.
+
+## Owning a service without observing the whole snapshot
+
+`useService(machineOrFactory, options?)` owns the same creation/start/stop
+lifecycle as `useMachine`, but does not subscribe the component to state updates.
+It keeps the first service for that hook instance, applies initial options, and
+synchronizes live `context` and `actions` options as `useMachine` does.
+
+Combine it with selectors instead of calling `useMachine` only to obtain its
+third tuple member:
+
+```tsx
+import * as otpInput from '@destyler/otp-input'
+import { useSelector, useService } from '@destyler/react'
+import { useId } from 'react'
+
+function DigitPreview({ value }: { value: string[] }) {
+  const id = useId()
+  const service = useService(
+    () => otpInput.machine({ id }),
+    { context: { value } },
+  )
+  const digits = useSelector(service, state => state.context.value)
+  return <output>{digits.join('')}</output>
+}
+```
+
+For an externally owned actor, use `useActor` or `useSelector` directly; do not
+transfer lifecycle ownership accidentally. For server rendering, create services
+per request and initialize server/client state consistently. These hooks do not
+serialize or hydrate state automatically.
+
+## Subscription cost
+
+Automatic tracking can still filter unrelated changes: reading one field does
+not automatically observe every field, unlike a full-store subscription. Explicit selectors
+make the boundary predictable for shared actors and high-frequency updates.
+
+Regression fixtures cover 20 readers with 50 separately flushed updates to one
+reader's field: both automatic tracking and explicit selectors produce 50
+component renders, and neither rerenders for 20 metadata-only events. A rejected
+full-snapshot-subscription prototype produced 1,000 and 400 respectively. In a
+real Signature fixture, unchanged paths skip pointer-move updates while the
+current path refreshes. These are bounded fixture measurements, not general
+performance ratios or a guarantee about React scheduling.
 
 ## Event-time state
 
-A captured snapshot is historical data, not a live getter. If an unobserved field
-changes, a handler retaining an older snapshot can still see its older value.
-When an event needs the machine's current state at execution time, call the
-existing public `service.getState()` method inside that event:
+A captured snapshot or selection is historical data, not a live getter. If an
+unobserved field changes, a handler retaining an older snapshot can still see its
+older value. When an event needs the machine's current state at execution time,
+call the existing public `service.getState()` method inside that event:
 
 ```tsx
 const [state] = useActor(service)
@@ -82,7 +167,6 @@ return (
 )
 ```
 
-`getState()` returns the current immutable store snapshot and does not itself
-subscribe a component. Repeated calls return the same raw snapshot while the
-store is unchanged. Keep rendering through the React hooks so UI updates retain
-their subscription and hydration behavior.
+`getState()` returns the current immutable raw snapshot without subscribing the
+component. Repeated calls return the same raw snapshot while the store is
+unchanged. Keep UI rendering subscribed through the hooks.

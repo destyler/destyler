@@ -68,7 +68,7 @@ describe.each([false, true])('snapshot render ownership (sync: %s)', (sync) => {
     }
   })
 
-  it.each(['layout', 'passive'] as const)('drops a child %s-effect observation after a newer commit', async (phase) => {
+  it.each(['layout', 'passive'] as const)('retains a child %s-effect read on a reused snapshot, not for the hook lifetime', async (phase) => {
     const service = createService()
     const root = createRoot(document.createElement('div'))
     const values: number[] = []
@@ -96,7 +96,10 @@ describe.each([false, true])('snapshot render ownership (sync: %s)', (sync) => {
       await act(async () => root.render(createElement(Owner, { read: false })))
       const beforeUnobservedChange = renders
       await act(async () => service.setContext({ count: 2 }))
-      expect(renders).toBe(beforeUnobservedChange)
+      expect(renders).toBe(beforeUnobservedChange + 1)
+      const afterRefresh = renders
+      await act(async () => service.setContext({ count: 3 }))
+      expect(renders).toBe(afterRefresh)
     }
     finally {
       await act(async () => root.unmount())
@@ -104,7 +107,7 @@ describe.each([false, true])('snapshot render ownership (sync: %s)', (sync) => {
     }
   })
 
-  it('does not retain event-only observations for the lifetime of the hook', async () => {
+  it('retains event reads on a reused snapshot but does not replay them into later snapshots', async () => {
     const service = createService()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -122,14 +125,18 @@ describe.each([false, true])('snapshot render ownership (sync: %s)', (sync) => {
       await act(async () => root.render(createElement(View, { label: 'second' })))
       const beforeUnobservedChange = renders
       await act(async () => service.setContext({ count: 1 }))
-      expect(renders).toBe(beforeUnobservedChange)
-      // Captured snapshots are immutable, not a live event-time state getter.
-      await act(async () => container.querySelector('button')!.click())
-      expect(reads).toEqual([0, 0])
-      expect(service.getState().context.count).toBe(1)
+      expect(renders).toBe(beforeUnobservedChange + 1)
+      const afterRefresh = renders
       await act(async () => service.setContext({ count: 2 }))
+      expect(renders).toBe(afterRefresh)
+      // The current handler captured count=1. It is historical, not live; its
+      // read can observe this snapshot again but is not replayed automatically.
       await act(async () => container.querySelector('button')!.click())
-      expect(reads).toEqual([0, 0, 2])
+      expect(reads).toEqual([0, 1])
+      expect(service.getState().context.count).toBe(2)
+      await act(async () => service.setContext({ count: 3 }))
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0, 1, 3])
     }
     finally {
       await act(async () => root.unmount())
@@ -209,7 +216,7 @@ describe.each([false, true])('snapshot render ownership (sync: %s)', (sync) => {
   })
 })
 
-it('keeps field-based memo and effect dependencies stable across unchanged renders', async () => {
+it('keeps whole snapshots and field dependencies stable across unchanged renders', async () => {
   const service = createService()
   const root = createRoot(document.createElement('div'))
   let ownerRenders = 0
@@ -240,8 +247,7 @@ it('keeps field-based memo and effect dependencies stable across unchanged rende
     expect(ownerRenders).toBe(11)
     expect(fieldRenders).toBe(1)
     expect(fieldEffects).toBe(1)
-    // Document the intentional memo cost of passing the whole render proxy.
-    expect(snapshotRenders).toBe(11)
+    expect(snapshotRenders).toBe(1)
     expect(service.getState()).toBe(raw)
     await act(async () => service.setContext({ count: 0 }))
     expect(ownerRenders).toBe(11)
