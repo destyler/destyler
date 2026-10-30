@@ -288,11 +288,11 @@ describe('react selector contract', () => {
     }
   })
 
-  it.each(['automatic', 'selector'] as const)('filters shared-actor fields and metadata notifications: %s', async (mode) => {
+  it.each(['snapshot', 'selector'] as const)('measures full-snapshot versus selected shared-actor notification fanout: %s', async (mode) => {
     const service = createService()
     const root = createRoot(document.createElement('div'))
     const renders = Array.from<number>({ length: 20 }).fill(0)
-    function AutomaticReader({ index }: { index: number }) {
+    function SnapshotReader({ index }: { index: number }) {
       const [state] = useActor(service)
       renders[index]++
       return createElement('span', null, index === 0 ? state.context.count : state.context.other)
@@ -302,7 +302,7 @@ describe('react selector contract', () => {
       renders[index]++
       return createElement('span', null, value)
     }
-    const Reader = mode === 'automatic' ? AutomaticReader : SelectiveReader
+    const Reader = mode === 'snapshot' ? SnapshotReader : SelectiveReader
     const total = () => renders.reduce((sum, value) => sum + value, 0)
     try {
       await act(async () => root.render(createElement('div', null, renders.map((_, index) => createElement(Reader, { key: index, index })))))
@@ -310,11 +310,11 @@ describe('react selector contract', () => {
       // Separate act calls model separate event-loop updates, not one batch.
       for (let count = 1; count <= 50; count++)
         await act(async () => service.setContext({ count }))
-      expect(total() - initial).toBe(50)
+      expect(total() - initial).toBe(mode === 'snapshot' ? 1000 : 50)
       const beforeEvents = total()
       for (let index = 0; index < 20; index++)
         await act(async () => service.send({ type: 'PING' }))
-      expect(total() - beforeEvents).toBe(0)
+      expect(total() - beforeEvents).toBe(mode === 'snapshot' ? 400 : 0)
     }
     finally {
       await act(async () => root.unmount())

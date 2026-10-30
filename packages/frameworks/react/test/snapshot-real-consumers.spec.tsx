@@ -215,24 +215,24 @@ describe.each([false, true])('real React snapshot consumers (StrictMode: %s)', (
     }
   })
 
-  it('measures automatic versus selected Signature consumers without claiming universal performance', async () => {
+  it('measures full-snapshot versus selected Signature consumers without claiming universal performance', async () => {
     const { container, root } = mountPoint()
     const service = signature.machine({ id: 'react-signature-selection', drawing: { size: 4 } })
-    const commits = { automaticPaths: 0, automaticCurrent: 0, selectedPaths: 0, selectedCurrent: 0, record: 0 }
+    const commits = { snapshotPaths: 0, snapshotCurrent: 0, selectedPaths: 0, selectedCurrent: 0, record: 0 }
     let selectedRecord!: { paths: string[], drawing: typeof service.state.context.drawing }
-    function AutomaticPaths() {
+    function SnapshotPaths() {
       const [state] = useActor(service)
       useLayoutEffect(() => {
-        commits.automaticPaths++
+        commits.snapshotPaths++
       })
-      return createElement('output', { 'data-automatic-paths': '' }, state.context.paths.length)
+      return createElement('output', { 'data-snapshot-paths': '' }, state.context.paths.length)
     }
-    function AutomaticCurrent() {
+    function SnapshotCurrent() {
       const [state] = useActor(service)
       useLayoutEffect(() => {
-        commits.automaticCurrent++
+        commits.snapshotCurrent++
       })
-      return createElement('output', { 'data-automatic-current': '' }, state.context.currentPath)
+      return createElement('output', { 'data-snapshot-current': '' }, state.context.currentPath)
     }
     function SelectedPaths() {
       const paths = useSelector(service, state => state.context.paths)
@@ -257,15 +257,15 @@ describe.each([false, true])('real React snapshot consumers (StrictMode: %s)', (
     }
     function View() {
       useService(() => service)
-      return createElement('div', null, createElement(AutomaticPaths), createElement(AutomaticCurrent), createElement(SelectedPaths), createElement(SelectedCurrent), createElement(SelectedRecord))
+      return createElement('div', null, createElement(SnapshotPaths), createElement(SnapshotCurrent), createElement(SelectedPaths), createElement(SelectedCurrent), createElement(SelectedRecord))
     }
     try {
       await act(async () => root.render(tree(createElement(View), strict)))
       const initial = { ...commits }
       const initialRecord = selectedRecord
       await act(async () => service.setContext({ disabled: true }))
-      expect(commits.automaticPaths).toBe(initial.automaticPaths)
-      expect(commits.automaticCurrent).toBe(initial.automaticCurrent)
+      expect(commits.snapshotPaths).toBe(initial.snapshotPaths + 1)
+      expect(commits.snapshotCurrent).toBe(initial.snapshotCurrent + 1)
       expect(commits.selectedPaths).toBe(initial.selectedPaths)
       expect(commits.selectedCurrent).toBe(initial.selectedCurrent)
       expect(commits.record).toBe(initial.record)
@@ -281,10 +281,10 @@ describe.each([false, true])('real React snapshot consumers (StrictMode: %s)', (
       expect(selectedRecord.paths).toHaveLength(1)
       expect(selectedRecord).not.toBe(initialRecord)
       expect(container.querySelector('[data-selected-paths]')!.textContent).toBe('1')
-      expect(container.querySelector('[data-automatic-paths]')!.textContent).toBe('1')
-      expect(container.querySelector('[data-selected-current]')!.textContent).toBe(container.querySelector('[data-automatic-current]')!.textContent)
+      expect(container.querySelector('[data-snapshot-paths]')!.textContent).toBe('1')
+      expect(container.querySelector('[data-selected-current]')!.textContent).toBe(container.querySelector('[data-snapshot-current]')!.textContent)
       const deltas = Object.fromEntries(Object.entries(commits).map(([key, value]) => [key, value - initial[key as keyof typeof commits]]))
-      expect(deltas).toEqual({ automaticPaths: 1, automaticCurrent: 3, selectedPaths: 1, selectedCurrent: 3, record: 1 })
+      expect(deltas).toEqual({ snapshotPaths: 5, snapshotCurrent: 5, selectedPaths: 1, selectedCurrent: 3, record: 1 })
       // Counts are a bounded fixture measurement, not a wall-clock benchmark.
       // eslint-disable-next-line no-console -- Report bounded fixture measurements alongside correctness assertions.
       console.info('Signature subscriber commit deltas', { strict, ...deltas })

@@ -54,9 +54,10 @@ describe('snapshot observation without a DOM document', () => {
       expect(reads).toEqual([0])
       const rendersAfterRead = renders
       await act(async () => service.setContext({ other: 1 }))
-      expect(renders).toBe(rendersAfterRead)
-      await act(async () => service.setContext({ count: 1 }))
       expect(renders).toBeGreaterThan(rendersAfterRead)
+      const rendersAfterOther = renders
+      await act(async () => service.setContext({ count: 1 }))
+      expect(renders).toBeGreaterThan(rendersAfterOther)
       await act(async () => {
         renderer.root.findByType('button').props.onClick()
       })

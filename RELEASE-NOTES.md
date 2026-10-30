@@ -4,29 +4,36 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
-## Unreleased: BREAKING React snapshot observation lifetime
+## Unreleased: BREAKING React snapshot subscription behavior
 
-React `useActor` and `useMachine` keep a stable observation map and proxy cache
-per hook/service. Unchanged snapshots and nested objects retain their references,
-so existing `[state, send]` memoization and structured-value dependencies remain
-supported. This replaces the earlier unreleased render-scoped-wrapper proposal;
-it does not introduce unconditional full-store subscriptions.
+React `useActor` and `useMachine` now return the store's cached immutable snapshot
+and subscribe to **every changed snapshot**, rather than filtering updates by
+observed property reads. Unchanged root snapshots and nested objects keep their
+references, supporting existing `[state, send]` memoization and structured-value
+dependencies without render-scoped wrappers.
 
-**Automatic read tracking is now conservative across renders that reuse an
-immutable object.** Earlier or abandoned reads can cause extra notifications
-while those immutable objects or branches continue to be reused. Hiding a field
-does not immediately remove its
-observation, and event reads are not permanent subscriptions. Consumers that need
-explicit selected-value notification behavior should use the new
-`useSelector(service, selector, isEqual?)` API. Direct object/array selections use
+**This can increase rerenders**, including for unrelated context fields and event
+metadata. An effect that depends on the whole snapshot and writes back to the
+machine can now enter a feedback loop where those events were previously
+filtered; select its actual dependencies and guard writes. This replaces the
+earlier unreleased render-scoped-wrapper and persistent
+observation-map proposals: read-based comparison could miss updates when React
+consumed an object only by reference, and later nested reads narrowed tracking.
+
+Migrate narrow or high-frequency consumers to
+`useSelector(service, selector, isEqual?)`. Direct object/array selections use
 `Object.is`; allocated results need suitable equality to retain their references.
-The new `useService` hook supports selector-only owned machines without a redundant
-snapshot subscription. Use `service.getState()` for event-time current state.
+Use the new lifecycle-only `useService` hook with selectors for owned machines,
+not `useMachine` plus another subscription. The existing `useMachine` `sync`
+notification option is preserved. Captured values remain historical snapshots;
+use `service.getState()` for event-time current data.
 
-See the [Migration guide](./document/src/content/guide/react-snapshots.mdx#migration)
-for automatic versus explicit subscriptions, structured values, lifecycle and
-measured performance tradeoffs. The cached raw `useSyncExternalStore` snapshot
-contract and React peer ranges are unchanged.
+In the bounded 20-reader fixture, 50 field updates cause 1,000 default renders
+versus 50 with selectors; 20 metadata events cause 400 versus 0. These are not
+general application timing ratios. See the
+[Migration guide](./document/src/content/guide/react-snapshots.mdx#migration)
+for reference semantics, selectors, lifecycle and performance tradeoffs. React's
+cached immutable `useSyncExternalStore` contract and peer ranges are unchanged.
 
 This change is unreleased. It does not select a release version or modify existing
 published versions or tags.

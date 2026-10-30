@@ -11,7 +11,7 @@ import { useSnapshot } from '../src/hooks/use-snapshot'
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
 describe('react snapshot observation lifecycle', () => {
-  it('preserves observation-proxy identity for unchanged immutable snapshots', async () => {
+  it('returns the cached raw snapshot and preserves identity across unchanged renders', async () => {
     const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } }).start()
     const root = createRoot(document.createElement('div'))
     const snapshots: object[] = []
@@ -24,6 +24,7 @@ describe('react snapshot observation lifecycle', () => {
       await act(async () => root.render(createElement(View, { label: 'first' })))
       const initial = snapshots.at(-1)
       const initialStoreSnapshot = service.getState()
+      expect(initial).toBe(initialStoreSnapshot)
       expect(service.getState()).toBe(initialStoreSnapshot)
       await act(async () => root.render(createElement(View, { label: 'second' })))
       expect(snapshots.at(-1)).toBe(initial)
@@ -101,7 +102,7 @@ describe('react snapshot observation lifecycle', () => {
     }
   })
 
-  it.each([false, true])('filters never-read fields and conservatively retains reads on reused snapshots (sync: %s)', async (sync) => {
+  it.each([false, true])('subscribes to all snapshot changes regardless of current or previous reads (sync: %s)', async (sync) => {
     const service = createMachine({ initial: 'idle', context: { count: 0, other: 0 }, states: { idle: {} } }).start()
     const container = document.createElement('div')
     const root = createRoot(container)
@@ -116,26 +117,61 @@ describe('react snapshot observation lifecycle', () => {
       expect(container.textContent).toBe('idle')
       const beforeHiddenChange = renders
       await act(async () => service.setContext({ count: 1 }))
-      expect(renders).toBe(beforeHiddenChange)
+      expect(renders).toBe(beforeHiddenChange + 1)
       expect(service.contextSnapshot.count).toBe(1)
       await act(async () => root.render(createElement(View, { showCount: true })))
       expect.soft(container.textContent).toBe('idle:1')
 
       const beforeOtherChange = renders
       await act(async () => service.setContext({ other: 1 }))
-      expect.soft(renders).toBe(beforeOtherChange)
+      expect(renders).toBe(beforeOtherChange + 1)
       await act(async () => service.setContext({ count: 2 }))
       expect(container.textContent).toBe('idle:2')
 
       await act(async () => root.render(createElement(View, { showCount: false })))
       const beforeUnobserving = renders
       await act(async () => service.setContext({ count: 3 }))
-      // Hiding count reused the same immutable object, so its old read can
-      // cause one conservative notification. The next snapshot omits that read.
+      // Hiding count does not change subscription membership, now or later.
       expect(renders).toBe(beforeUnobserving + 1)
       const afterRefresh = renders
       await act(async () => service.setContext({ count: 4 }))
-      expect(renders).toBe(afterRefresh)
+      expect(renders).toBe(afterRefresh + 1)
+      await act(async () => root.render(createElement(View, { showCount: true })))
+      expect(container.textContent).toBe('idle:4')
+    }
+    finally {
+      await act(async () => root.unmount())
+      service.stop()
+    }
+  })
+
+  it('uses explicit selection to filter hidden fields and changes membership with the selector', async () => {
+    const service = createMachine({ initial: 'idle', context: { count: 0, other: 0 }, states: { idle: {} } }).start()
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    let renders = 0
+    function View({ showCount }: { showCount: boolean }) {
+      const text = useSelector(service, state => showCount ? `${state.value}:${state.context.count}` : state.value)
+      renders++
+      return createElement('span', null, text)
+    }
+    try {
+      await act(async () => root.render(createElement(View, { showCount: false })))
+      const hidden = renders
+      await act(async () => service.setContext({ count: 1 }))
+      expect(renders).toBe(hidden)
+      await act(async () => root.render(createElement(View, { showCount: true })))
+      expect(container.textContent).toBe('idle:1')
+      const shown = renders
+      await act(async () => service.setContext({ other: 1 }))
+      expect(renders).toBe(shown)
+      await act(async () => service.setContext({ count: 2 }))
+      expect(container.textContent).toBe('idle:2')
+      await act(async () => root.render(createElement(View, { showCount: false })))
+      const hiddenAgain = renders
+      await act(async () => service.setContext({ count: 3 }))
+      await act(async () => service.setContext({ count: 4 }))
+      expect(renders).toBe(hiddenAgain)
       await act(async () => root.render(createElement(View, { showCount: true })))
       expect(container.textContent).toBe('idle:4')
     }
