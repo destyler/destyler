@@ -4,7 +4,7 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
-## Unreleased: BREAKING React snapshot subscription behavior
+## 0.3.2: BREAKING React snapshot subscription behavior
 
 React `useActor` and `useMachine` now return the store's cached immutable snapshot
 and subscribe to **every changed snapshot**, rather than filtering updates by
@@ -35,8 +35,7 @@ general application timing ratios. See the
 for reference semantics, selectors, lifecycle and performance tradeoffs. React's
 cached immutable `useSyncExternalStore` contract and peer ranges are unchanged.
 
-This change is unreleased. It does not select a release version or modify existing
-published versions or tags.
+This change ships in 0.3.2. Previously published versions and tags are unchanged.
 
 ## 0.3.0: BREAKING Node.js support floor
 

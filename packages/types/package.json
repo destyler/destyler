@@ -1,7 +1,7 @@
 {
   "name": "@destyler/types",
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "a minimal implementation of types for UI machines",
   "author": "Elone Hoo <elonehoo@gmail.com>",
   "license": "MIT",

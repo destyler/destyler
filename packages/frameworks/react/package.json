@@ -1,7 +1,7 @@
 {
   "name": "@destyler/react",
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.3.2",
 
   "description": "the react wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",
