@@ -1,6 +1,7 @@
 import { useActor, useMachine, useSelector, useService } from '@destyler/react'
-import { createMachine } from '@destyler/xstate'
 import { expectTypeOf } from 'vitest'
+// eslint-disable-next-line antfu/no-import-dist -- Validate the built public declaration boundary without an undeclared workspace dependency.
+import { createMachine } from '../../xstate/dist/index.mjs'
 
 const machine = createMachine<
   { count: number, items: string[] },

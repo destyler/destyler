@@ -82,8 +82,8 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm playwright install --with-deps chromium
 
-      - name: Build React framework dependencies
-        run: pnpm --filter "@destyler/react..." build
+      - name: Build React framework and integration-test dependencies
+        run: pnpm --filter "@destyler/react..." --filter "@destyler/otp-input..." --filter "@destyler/signature..." build
 
       - name: Test React framework on React 18
         run: node scripts/test-react-18.mjs
