@@ -1,0 +1,186 @@
+---
+title: React snapshots and selectors
+description: Stable immutable snapshots, explicit subscriptions, and structured-value equality.
+---
+
+`useActor` and `useMachine` return the store's cached immutable snapshot. Their
+existing tuple shapes are unchanged. Repeated reads of an unchanged store return
+the same root reference; unchanged nested objects and arrays retain their
+references through structural sharing. Property reads do not change which
+updates the hook receives.
+
+This supports ordinary React memoization, including the OTP Input and Signature
+examples that memoize `connect` using `[state, send]`:
+
+```tsx
+const [state, send] = useMachine(otpInput.machine({ id: useId() }))
+const api = useMemo(
+  () => otpInput.connect(state, send, normalizeProps),
+  [state, send],
+)
+
+useEffect(() => {
+  reportDigits(api.value)
+}, [api.value])
+```
+
+The same cached snapshot is returned by the `getSnapshot` callback passed to
+`useSyncExternalStore`. No observation proxy is added. This follows React's
+[external-store snapshot contract](https://react.dev/reference/react/useSyncExternalStore):
+unchanged store state must return the same immutable value. The implementation
+does not inspect React internals, infer render phases, or retain/replay read paths.
+
+## Migration
+
+**Breaking subscription change:** `useActor` and `useMachine` now subscribe to the
+**whole snapshot**, not only previously read properties. Any changed root
+snapshot may rerender their component, including a context field or event
+metadata that its current render does not display. A true no-op that preserves
+the snapshot reference does not cause an additional render.
+
+This deliberately gives up implicit read-based filtering. A property proxy
+cannot observe that React uses an object only as an effect dependency or memoized
+prop. Worse, a nested read in a previous or abandoned render can make deep-read
+comparison ignore a later change to that object's identity. The earlier
+unreleased per-render-wrapper and persistent-observation proposals are therefore
+superseded; neither is the final contract.
+
+- Existing whole-snapshot and nested-value effect/memo dependencies remain
+  supported. They change when their immutable values change, not merely because
+  an owner component rerendered.
+- An effect depending on the whole snapshot runs for any changed snapshot.
+  **If it sends an event or writes back to the machine on every run, it can create
+  a feedback loop**, including for metadata-only events that were previously
+  filtered. Depend on selected values and guard writes against meaningful
+  differences; stable references for unchanged state do not prevent a loop that
+  continually changes the store.
+- To preserve narrow update behavior, migrate shared-actor consumers, frequently
+  changing machines, or expensive subtrees to `useSelector`.
+- Do not call `useMachine` just to obtain its third tuple member and then add a
+  selector: the full subscription remains. Use `useService` plus `useSelector`
+  for an owned machine instead.
+- Event, effect, child, and developer-tool reads no longer widen or narrow a
+  subscription. An old click never declares a new subscription. The hook's
+  explicit full-snapshot or selector boundary determines notification behavior.
+
+A new array or object created by your own `map`, spread, or `connect` operation
+is still a new reference. Stable inputs do not stabilize arbitrary derived
+results automatically; memoize the derivation or supply appropriate selector
+equality.
+
+## Explicit selectors
+
+`useSelector(service, selector, isEqual?)` subscribes to an existing service
+without starting or stopping it. It selects from the raw immutable store
+snapshot. Property reads after selection never change that subscription. The
+default comparison is `Object.is`.
+
+Directly selecting an unchanged array or object preserves its reference and
+skips unrelated updates:
+
+```tsx
+const paths = useSelector(service, state => state.context.paths)
+const drawing = useSelector(service, state => state.context.drawing)
+```
+
+For an allocated record, compare its relevant members explicitly:
+
+```tsx
+const selected = useSelector(
+  service,
+  state => ({ paths: state.context.paths, drawing: state.context.drawing }),
+  (previous, next) =>
+    previous.paths === next.paths && previous.drawing === next.drawing,
+)
+
+useEffect(() => {
+  reportDrawing(selected)
+}, [selected])
+```
+
+Equal results retain the previous selected reference, including when an inline
+selector changes identity during a parent render. Without suitable equality,
+an inline selector returning a fresh object can retrigger an effect on each
+parent render. An effect that updates React state can then loop. Selection
+caching prevents repeated `getSnapshot` calls from allocating new results for the
+same snapshot; it is not automatic deep equality.
+
+Selectors and equality functions must be pure. Equality must compare everything
+the consumer uses: returning `true` for meaningfully different results hides
+updates, including changes to callbacks or nested values. Selectors preserve
+symbols, cyclic objects, Files and reference-marked instances; they do not
+serialize or clone selected data. Do not mutate store-owned snapshot objects.
+
+## Owning a service without a full subscription
+
+`useService(machineOrFactory, options?)` owns the same creation/start/stop
+lifecycle as `useMachine`, but does not subscribe the component to state updates.
+It keeps the first service for that hook instance, applies initial options, and
+synchronizes live `context` and `actions` options as `useMachine` does. This does
+not change the existing timing of machine-option publication.
+
+Combine it with selectors:
+
+```tsx
+import * as otpInput from '@destyler/otp-input'
+import { useSelector, useService } from '@destyler/react'
+import { useId } from 'react'
+
+function DigitPreview({ value }: { value: string[] }) {
+  const id = useId()
+  const service = useService(
+    () => otpInput.machine({ id }),
+    { context: { value } },
+  )
+  const digits = useSelector(service, state => state.context.value)
+  return <output>{digits.join('')}</output>
+}
+```
+
+For an externally owned actor, use `useActor` or `useSelector` directly; do not
+transfer lifecycle ownership accidentally. `useMachine` retains its public
+`sync` option for synchronous store notifications. Selectors use the store's
+default batched notification mode.
+
+For server rendering, create services per request and initialize server/client
+state consistently. These hooks do not serialize or hydrate state automatically.
+
+## Subscription cost
+
+Full-snapshot correctness has a real performance cost for narrow consumers.
+In a fixture with 20 readers and 50 separately flushed changes to one reader's
+field, the default full-snapshot hooks produce **1,000 component renders** versus
+**50 with selectors**. For 20 metadata-only events, the counts are **400 versus
+0**. The earlier read-tracking implementation also produced 50/0 in this fixture,
+but failed the reference-dependent correctness cases above.
+
+These are bounded render-count measurements, not general timing ratios or a
+claim that every application becomes 20 times slower. Selectors still run when
+the store notifies; equality avoids committing unrelated component updates.
+In the bounded Signature sequence (two disabled changes and pointer down/move/up),
+full-snapshot paths/current-path consumers each commit five times; selected
+consumers commit once/three times, and a combined structured selection once.
+Real OTP and Signature tests also cover unchanged structured values, memoized
+children, controlled updates and drawing/clearing. Use selectors at a shared actor's narrow
+consumer boundary rather than depending on invisible read history.
+
+## Event-time state
+
+A captured snapshot or selection is historical data, not a live getter. Even
+though subscribed renders receive updates, a separately retained old callback or
+snapshot still belongs to its old render. For event-time current data, call the
+existing public `service.getState()` method inside the handler:
+
+```tsx
+const [state] = useActor(service)
+
+return (
+  <button onClick={() => saveCount(service.getState().context.count)}>
+    {state.value}
+  </button>
+)
+```
+
+`getState()` returns the current immutable raw snapshot without subscribing the
+component. Repeated calls return the same snapshot while the store is unchanged.
+Keep UI rendering subscribed through the hooks.

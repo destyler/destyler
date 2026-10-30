@@ -1,7 +1,9 @@
 import type { AnyEventObject, EventObject, HookOptions, MachineSrc, StateInit, StateSchema } from '@destyler/xstate'
-import { useRef } from 'react'
+import { compact, isEqual } from '@destyler/utils'
+import { useMemo, useRef } from 'react'
 import { useConstant } from './use-constant'
 import { useSafeLayoutEffect } from './use-layout-effect'
+import { useUpdateEffect } from './use-update-effect'
 
 export function useService<
   TContext extends Record<string, any>,
@@ -29,6 +31,16 @@ export function useService<
       service.stop()
     }
   }, [])
+
+  service.setOptions({ actions })
+
+  const ctx = useMemo(() => compact(context ?? {}), [context])
+  useUpdateEffect(() => {
+    const previousCtx = service.contextSnapshot ?? {}
+    const changed = Object.entries(ctx).some(([key, value]) => !isEqual(previousCtx[key], value))
+    if (changed)
+      service.setContext(ctx)
+  }, [ctx])
 
   return service
 }

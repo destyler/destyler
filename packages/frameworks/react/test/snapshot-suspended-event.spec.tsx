@@ -1,0 +1,297 @@
+import type { AnyEventObject, EventObject, Machine, StateSchema } from '@destyler/xstate'
+import { createMachine } from '@destyler/xstate'
+import { act, createElement, startTransition, StrictMode, Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
+import { describe, expect, it, vi } from 'vitest'
+import { useActor } from '../src/hooks/use-actor'
+import { useSelector } from '../src/hooks/use-selector'
+import { useSnapshot } from '../src/hooks/use-snapshot'
+
+// @ts-expect-error - React testing flag
+globalThis.IS_REACT_ACT_ENVIRONMENT = true
+
+type Service = Machine<Record<string, any>, StateSchema, EventObject | AnyEventObject>
+
+function usePublicActorSnapshot(service: Service) {
+  const [state] = useActor(service as Parameters<typeof useActor>[0])
+  return state
+}
+
+function useSynchronousSnapshot(service: Service) {
+  return useSnapshot(service as Parameters<typeof useSnapshot>[0], { sync: true })
+}
+
+function useSelectedActorSnapshot(service: Service) {
+  return useSelector(service, state => ({
+    value: state.value,
+    context: { count: state.context.count },
+  }), (previous, next) => previous.value === next.value && previous.context.count === next.context.count)
+}
+
+function tree(node: ReturnType<typeof createElement>, strict: boolean) {
+  return strict ? createElement(StrictMode, null, node) : node
+}
+
+describe('committed event reads after a suspended render', () => {
+  it.each([
+    ['public useActor (batched)', usePublicActorSnapshot, false, false],
+    ['internal useSnapshot (sync)', useSynchronousSnapshot, false, false],
+    ['public useActor (batched), render-read control', usePublicActorSnapshot, true, false],
+    ['internal useSnapshot (sync), render-read control', useSynchronousSnapshot, true, false],
+    ['public useActor (batched), StrictMode', usePublicActorSnapshot, false, true],
+    ['internal useSnapshot (sync), StrictMode', useSynchronousSnapshot, false, true],
+  ] as const)('observes a field first read by a committed handler: %s', async (_name, useObservedState, observeInRender, strict) => {
+    const service = createMachine({ initial: 'idle', context: { count: 0 }, states: { idle: {} } }).start()
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    let resolve!: () => void
+    const pending = new Promise<void>((done) => {
+      resolve = done
+    })
+    let ready = false
+    let attempts = 0
+    const reads: number[] = []
+    function View({ suspend }: { suspend: boolean }) {
+      const state = useObservedState(service)
+      // Positive control: a render read must keep notifying while an unresolved
+      // transition is pending. The event-only cases leave this unread.
+      if (observeInRender)
+        void state.context.count
+      if (suspend && !ready) {
+        attempts++
+        throw pending
+      }
+      return createElement('button', { onClick: () => reads.push(state.context.count) }, state.value)
+    }
+    const render = (suspend: boolean) => tree(createElement(Suspense, { fallback: 'loading' }, createElement(View, { suspend })), strict)
+    try {
+      await act(async () => root.render(render(false)))
+      // R0 commits without reading count. R1 reuses that snapshot and suspends,
+      // leaving R0's button mounted.
+      await act(async () => startTransition(() => root.render(render(true))))
+      expect(attempts).toBeGreaterThan(0)
+      expect(container.textContent).toBe('idle')
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0])
+      // The handler observed count before this mutation, so the update must commit.
+      await act(async () => service.setContext({ count: 1 }))
+      expect(service.contextSnapshot.count).toBe(1)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0, 1])
+      if (!observeInRender) {
+        await act(async () => service.setContext({ count: 2 }))
+        await act(async () => container.querySelector('button')!.click())
+        expect(reads).toEqual([0, 1, 2])
+      }
+    }
+    finally {
+      await act(async () => root.unmount())
+      ready = true
+      await act(async () => resolve())
+      service.stop()
+    }
+  })
+
+  it.each([
+    ['useSelector', useSelectedActorSnapshot, false],
+    ['useSelector, StrictMode', useSelectedActorSnapshot, true],
+  ] as const)('does not notify for a field outside the explicit selection (%s)', async (_name, useObservedState, strict) => {
+    const service = createMachine({ initial: 'idle', context: { count: 0, other: 0 }, states: { idle: {} } }).start()
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    let resolve!: () => void
+    const pending = new Promise<void>((done) => {
+      resolve = done
+    })
+    let ready = false
+    let attempts = 0
+    let renders = 0
+    const reads: number[] = []
+    function View({ suspend }: { suspend: boolean }) {
+      const state = useObservedState(service)
+      renders++
+      if (suspend && !ready) {
+        attempts++
+        throw pending
+      }
+      return createElement('button', { onClick: () => reads.push(state.context.count) }, state.value)
+    }
+    const render = (suspend: boolean) => tree(createElement(Suspense, { fallback: 'loading' }, createElement(View, { suspend })), strict)
+    try {
+      await act(async () => root.render(render(false)))
+      await act(async () => startTransition(() => root.render(render(true))))
+      expect(attempts).toBeGreaterThan(0)
+      expect(container.textContent).toBe('idle')
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0])
+      const rendersAfterRead = renders
+      const attemptsAfterRead = attempts
+      await act(async () => service.setContext({ other: 1 }))
+      expect(service.contextSnapshot.other).toBe(1)
+      expect(renders).toBe(rendersAfterRead)
+      expect(attempts).toBe(attemptsAfterRead)
+
+      await act(async () => service.setContext({ count: 1 }))
+      expect(renders).toBeGreaterThan(rendersAfterRead)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0, 1])
+
+      // A new selected value does not widen the subscription to other fields.
+      const rendersAfterCount = renders
+      const attemptsAfterCount = attempts
+      await act(async () => service.setContext({ other: 2 }))
+      expect(service.contextSnapshot.other).toBe(2)
+      expect(renders).toBe(rendersAfterCount)
+      expect(attempts).toBe(attemptsAfterCount)
+    }
+    finally {
+      await act(async () => root.unmount())
+      ready = true
+      await act(async () => resolve())
+      service.stop()
+    }
+  })
+})
+
+describe('discarded transitions preserve the committed subscription', () => {
+  it.each([false, true])('a yielded child with a discarded selector does not change the committed selection (strict: %s)', async (strict) => {
+    const service = createMachine({
+      initial: 'idle',
+      context: { count: 0, leaked: 0 },
+      states: { idle: {} },
+    }).start()
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    let resolve!: () => void
+    const pending = new Promise<void>((done) => {
+      resolve = done
+    })
+    let ready = false
+    let attempts = 0
+    let renders = 0
+    const yieldedBeforeChild: boolean[] = []
+    const reads: number[] = []
+    function Shell({ suspend }: { suspend: boolean }) {
+      const value = useSelector(service, state => suspend ? state.context.leaked : state.context.count)
+      renders++
+      const slice = { microtaskRan: false }
+      if (suspend) {
+        const start = performance.now()
+        // Outlast the scheduler's frame interval so React yields before Child.
+        while (performance.now() - start < 40) {
+          // busy
+        }
+        queueMicrotask(() => {
+          slice.microtaskRan = true
+        })
+      }
+      return createElement(Child, { suspend, value, slice })
+    }
+    function Child({ suspend, value, slice }: { suspend: boolean, value: number, slice: { microtaskRan: boolean } }) {
+      if (suspend && !ready) {
+        // Capture the checkpoint at the read, not after awaiting act (which
+        // would flush the microtask even if React never yielded before Child).
+        yieldedBeforeChild.push(slice.microtaskRan)
+        void value
+        attempts++
+        throw pending
+      }
+      return createElement('button', { onClick: () => reads.push(value) }, 'idle')
+    }
+    const render = (suspend: boolean) => tree(createElement(Suspense, { fallback: 'loading' }, createElement(Shell, { suspend })), strict)
+    try {
+      await act(async () => root.render(render(false)))
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0])
+      // act drains React's work without yielding to the host. Schedule this
+      // transition outside it so the scheduler can actually split Shell/Child.
+      // @ts-expect-error - React testing flag
+      const actEnvironment = globalThis.IS_REACT_ACT_ENVIRONMENT
+      // @ts-expect-error - React testing flag
+      globalThis.IS_REACT_ACT_ENVIRONMENT = false
+      try {
+        startTransition(() => root.render(render(true)))
+        await vi.waitFor(() => expect(attempts).toBeGreaterThan(0))
+      }
+      finally {
+        // @ts-expect-error - React testing flag
+        globalThis.IS_REACT_ACT_ENVIRONMENT = actEnvironment
+      }
+      expect(yieldedBeforeChild.length).toBeGreaterThan(0)
+      expect(yieldedBeforeChild.every(Boolean)).toBe(true)
+      expect(container.textContent).toBe('idle')
+      const rendersAfterDiscard = renders
+      const attemptsAfterDiscard = attempts
+      await act(async () => service.setContext({ leaked: 1 }))
+      expect(service.contextSnapshot.leaked).toBe(1)
+      expect(renders).toBe(rendersAfterDiscard)
+      expect(attempts).toBe(attemptsAfterDiscard)
+      await act(async () => service.setContext({ count: 1 }))
+      expect(renders).toBeGreaterThan(rendersAfterDiscard)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0, 1])
+    }
+    finally {
+      await act(async () => root.unmount())
+      ready = true
+      await act(async () => resolve())
+      service.stop()
+    }
+  })
+
+  it.each([
+    ['public useActor (batched)', usePublicActorSnapshot],
+    ['internal useSnapshot (sync)', useSynchronousSnapshot],
+  ] as const)('a discarded service swap does not replace the committed subscription (%s)', async (_name, useObservedState) => {
+    function actor(label: string, count: number) {
+      return createMachine({ initial: 'idle', context: { count, label }, states: { idle: {} } }).start()
+    }
+    const first = actor('a', 0)
+    const second = actor('b', 5)
+    const container = document.createElement('div')
+    const root = createRoot(container)
+    let resolve!: () => void
+    const pending = new Promise<void>((done) => {
+      resolve = done
+    })
+    let ready = false
+    let attempts = 0
+    let renders = 0
+    const reads: number[] = []
+    function View({ service, suspend }: { service: Service, suspend: boolean }) {
+      const state = useObservedState(service)
+      renders++
+      if (suspend && !ready) {
+        attempts++
+        throw pending
+      }
+      return createElement('button', { onClick: () => reads.push(state.context.count) }, state.context.label)
+    }
+    const render = (service: Service, suspend: boolean) => createElement(Suspense, { fallback: 'loading' }, createElement(View, { service, suspend }))
+    try {
+      await act(async () => root.render(render(first, false)))
+      expect(container.textContent).toBe('a')
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0])
+      await act(async () => startTransition(() => root.render(render(second, true))))
+      expect(attempts).toBeGreaterThan(0)
+      expect(container.textContent).toBe('a')
+      const rendersAfterDiscard = renders
+      await act(async () => second.setContext({ count: 9 }))
+      expect(renders).toBe(rendersAfterDiscard)
+      expect(container.textContent).toBe('a')
+      await act(async () => first.setContext({ count: 1 }))
+      expect(renders).toBeGreaterThan(rendersAfterDiscard)
+      await act(async () => container.querySelector('button')!.click())
+      expect(reads).toEqual([0, 1])
+      expect(container.textContent).toBe('a')
+    }
+    finally {
+      await act(async () => root.unmount())
+      ready = true
+      await act(async () => resolve())
+      first.stop()
+      second.stop()
+    }
+  })
+})

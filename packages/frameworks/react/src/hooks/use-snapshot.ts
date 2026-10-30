@@ -1,14 +1,6 @@
-/// <reference types="react/experimental" />
-
-import type { Snapshot } from '@destyler/store'
-import type { AnyEventObject, EventObject, HookOptions, Machine, StateSchema, XState } from '@destyler/xstate'
-import { globalRef, snapshot, subscribe } from '@destyler/store'
-import { compact, isEqual } from '@destyler/utils'
-import { createProxy as createProxyToCompare, isChanged } from 'proxy-compare'
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from 'react'
-import { useUpdateEffect } from './use-update-effect'
-
-const targetCache = globalRef('__destyler__targetCache', () => new WeakMap())
+import type { AnyEventObject, EventObject, Machine, StateSchema, XState } from '@destyler/xstate'
+import { subscribe } from '@destyler/store'
+import { useCallback, useSyncExternalStore } from 'react'
 
 export function useSnapshot<
   TContext extends Record<string, any>,
@@ -16,69 +8,16 @@ export function useSnapshot<
   TEvent extends EventObject = AnyEventObject,
 >(
   service: Machine<TContext, TState, TEvent>,
-  options?: HookOptions<TContext, TState, TEvent> & { sync?: boolean },
+  options?: { sync?: boolean },
 ): XState<TContext, TState, TEvent> {
-  //
-  type State = XState<TContext, TState, TEvent>
-
-  const { actions, context, sync: notifyInSync } = options ?? {}
-
-  const lastSnapshot = useRef<Snapshot<State>>(undefined)
-  const lastAffected = useRef<WeakMap<object, unknown>>(undefined)
-
-  const currSnapshot = useSyncExternalStore(
-    useCallback(callback => subscribe(service.state, () => {
-      const nextSnapshot = snapshot(service.state)
-      try {
-        if (
-          lastSnapshot.current
-          && lastAffected.current
-          && !isChanged(lastSnapshot.current, nextSnapshot, lastAffected.current, new WeakMap())
-        ) {
-          return
-        }
-      }
-      catch {
-        // ignore if a promise or something is thrown
-      }
-      callback()
-    }, notifyInSync), [service, notifyInSync]),
-    () => snapshot(service.state),
-    () => snapshot(service.state),
+  const sync = options?.sync
+  const subscribeToState = useCallback(
+    (callback: () => void) => subscribe(service.state, callback, sync),
+    [service, sync],
   )
-
-  service.setOptions({ actions })
-
-  const ctx = useMemo(() => compact(context ?? {}), [context])
-
-  useUpdateEffect(() => {
-    const entries = Object.entries(ctx)
-
-    const previousCtx = service.contextSnapshot ?? {}
-
-    const equality = entries.map(([key, value]) => ({
-      key,
-      curr: value,
-      prev: previousCtx[key],
-      equal: isEqual(previousCtx[key], value),
-    }))
-
-    const allEqual = equality.every(({ equal }) => equal)
-
-    if (!allEqual) {
-      // console.log(equality.filter(({ equal }) => !equal))
-      service.setContext(ctx)
-    }
-  }, [ctx])
-
-  const currAffected = new WeakMap()
-
-  useEffect(() => {
-    lastSnapshot.current = currSnapshot
-    lastAffected.current = currAffected
-  })
-
-  const proxyCache = useMemo(() => new WeakMap(), []) // per-hook proxyCache
-
-  return createProxyToCompare(currSnapshot, currAffected, proxyCache, targetCache) as any
+  const getSnapshot = useCallback(() => service.getState(), [service])
+  // Observe the whole immutable value, including reference-only dependencies.
+  // Property reads cannot reveal how React consumes object identity. Consumers
+  // needing a narrower subscription use useSelector with explicit equality.
+  return useSyncExternalStore(subscribeToState, getSnapshot, getSnapshot)
 }

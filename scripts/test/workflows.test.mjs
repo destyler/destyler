@@ -95,6 +95,34 @@ test('source support and package-manager contracts are explicit', () => {
   assertConsumerAction(consumerVerification)
 })
 
+function assertReact18IntegrationJob(job) {
+  assertRequired(job, 'React 18 integration')
+  assert.deepEqual(job.permissions, { contents: 'read' })
+  const build = job.steps.findIndex(step => step.run === 'pnpm --filter "@destyler/react..." --filter "@destyler/otp-input..." --filter "@destyler/signature..." build')
+  const test = job.steps.findIndex(step => step.run === 'node scripts/test-react-18.mjs')
+  assert.ok(build >= 0 && test > build, 'Build the adapter and real-component dependency closures before React 18 tests')
+  for (const step of job.steps)
+    assertRequired(step, step.name)
+}
+
+test('React 18 tests build real component dependencies and fail closed', () => {
+  assertReact18IntegrationJob(ci.jobs['react-18'])
+  for (const mutate of [
+    job => job.steps.find(step => step.run?.endsWith(' build')).run = 'pnpm --filter "@destyler/react..." build',
+    ...['react', 'otp-input', 'signature'].map(name => (job) => {
+      const build = job.steps.find(step => step.run?.endsWith(' build'))
+      build.run = build.run.replace(`@destyler/${name}...`, `@destyler/${name}`)
+    }),
+    job => job.steps.reverse(),
+    job => job.steps.find(step => step.run === 'node scripts/test-react-18.mjs')['continue-on-error'] = true,
+    job => job.steps.find(step => step.run?.endsWith(' build'))['continue-on-error'] = true,
+  ]) {
+    const job = structuredClone(ci.jobs['react-18'])
+    mutate(job)
+    assert.throws(() => assertReact18IntegrationJob(job))
+  }
+})
+
 function assertPublicEngine(manifest) {
   assert.equal(manifest.engines?.node, '>=22.22.3', `${manifest.name}: public Node support must be explicit`)
 }

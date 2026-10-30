@@ -3,6 +3,8 @@ export { Portal } from './src/components/portal'
 
 export * from './src/hooks/use-actor'
 export * from './src/hooks/use-machine'
+export * from './src/hooks/use-selector'
+export * from './src/hooks/use-service'
 export * from './src/utils/normalize-props'
 
 export { mergeProps } from '@destyler/xstate'

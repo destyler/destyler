@@ -4,6 +4,40 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## Unreleased: BREAKING React snapshot subscription behavior
+
+React `useActor` and `useMachine` now return the store's cached immutable snapshot
+and subscribe to **every changed snapshot**, rather than filtering updates by
+observed property reads. Unchanged root snapshots and nested objects keep their
+references, supporting existing `[state, send]` memoization and structured-value
+dependencies without render-scoped wrappers.
+
+**This can increase rerenders**, including for unrelated context fields and event
+metadata. An effect that depends on the whole snapshot and writes back to the
+machine can now enter a feedback loop where those events were previously
+filtered; select its actual dependencies and guard writes. This replaces the
+earlier unreleased render-scoped-wrapper and persistent
+observation-map proposals: read-based comparison could miss updates when React
+consumed an object only by reference, and later nested reads narrowed tracking.
+
+Migrate narrow or high-frequency consumers to
+`useSelector(service, selector, isEqual?)`. Direct object/array selections use
+`Object.is`; allocated results need suitable equality to retain their references.
+Use the new lifecycle-only `useService` hook with selectors for owned machines,
+not `useMachine` plus another subscription. The existing `useMachine` `sync`
+notification option is preserved. Captured values remain historical snapshots;
+use `service.getState()` for event-time current data.
+
+In the bounded 20-reader fixture, 50 field updates cause 1,000 default renders
+versus 50 with selectors; 20 metadata events cause 400 versus 0. These are not
+general application timing ratios. See the
+[Migration guide](./document/src/content/guide/react-snapshots.mdx#migration)
+for reference semantics, selectors, lifecycle and performance tradeoffs. React's
+cached immutable `useSyncExternalStore` contract and peer ranges are unchanged.
+
+This change is unreleased. It does not select a release version or modify existing
+published versions or tags.
+
 ## 0.3.0: BREAKING Node.js support floor
 
 Release 0.3.0 requires Node.js **22.22.3 or newer**
