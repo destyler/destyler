@@ -1,0 +1,131 @@
+---
+title: Primitive styling, accessibility, and Vue SVG migration
+description: Migrate thumb styling, separator orientation, breadcrumb semantics, and Vue SVG attributes.
+---
+
+These corrections ship in core 0.3.3 and are not part of 0.3.2. Update the
+affected core packages through your application or UI wrapper dependency graph,
+and verify the resolved lockfile versions.
+
+The selected release is **0.3.3 and includes breaking behavior changes**.
+Existing `^0.3.2` ranges allow 0.3.3 on a fresh install without an existing
+lockfile or when the lockfile is explicitly updated. A lockfile already pinning
+0.3.2 does not update itself; a frozen install keeps the locked version. Review
+this migration even when your package manager accepts the patch version without
+a dependency-range change.
+
+## Migration
+
+The shared `@destyler/scroll-area`, `@destyler/splitter`, and
+`@destyler/breadcrumbs` changes affect their consumers across frameworks. The
+SVG normalization correction is specific to `@destyler/vue` and consumers that
+use that adapter, including Vue QR components.
+
+**The styling and accessibility changes are compatibility changes for consumers
+that rely on the old output.** No exported function is removed, and
+`BreadcrumbItem.current` is optional, but an unchanged TypeScript build does not
+prove that styling, focus order, or role-based tests retain their old behavior.
+
+Review the affected contracts below. A UI wrapper must resolve the corrected
+core packages before a downstream application can rely on them. Check the
+wrapper's dependency range as well as the application lockfile. A permitted
+patch update can contain a behavior correction that requires migration.
+
+## Scroll-area thumb color
+
+The thumb no longer sets `backgroundColor: 'rgba(0, 0, 0, 0.5)'` inline. A
+consumer that relied on this default must supply a visible thumb color in its
+theme, for example:
+
+```css
+[data-scope='scroll-area'][data-part='thumb'] {
+  background-color: var(--scrollbar-thumb-color, #737373);
+}
+```
+
+Check the color against the actual track/background in each supported theme.
+Existing thumb CSS can now apply without `!important` solely to defeat the old
+inline background. Preserve unrelated overrides that your application needs.
+
+Thumb position, size, orientation attributes, and pointer handlers are
+unchanged. Keep binding the props returned by `getThumbProps`; verify scrolling
+and dragging rather than replacing those props with a visual-only element.
+
+## Splitter separator orientation
+
+`aria-orientation` now describes the separator, perpendicular to the panel
+layout:
+
+- Horizontal panel layout: vertical separator, `aria-orientation="vertical"`.
+- Vertical panel layout: horizontal separator, `aria-orientation="horizontal"`.
+
+`data-orientation` still describes panel layout. The layout configuration,
+resize cursor, keyboard directions, and right-to-left behavior have not been
+remapped. Use `data-orientation` for layout styling. Review CSS selectors,
+accessible-role queries, and snapshots that used the previous ARIA value as a
+layout signal; do not invert the machine's orientation to restore an old test.
+
+Verify the separator's accessible orientation and keyboard resizing in both
+layouts and in the text directions your application supports.
+
+## Breadcrumb links and current pages
+
+An item without `href` is static text. It no longer receives `role="link"` or
+an artificial tab stop from `getLinkProps`. Render it as a span or an anchor
+without `href`; preserve the returned props. Update tests that expected this
+static item to be a link or a keyboard navigation stop. Items with a real
+destination remain links and retain native anchor keyboard behavior.
+
+Use the optional `current` property to identify a current page that still has
+a destination:
+
+```ts
+import type { BreadcrumbItem } from '@destyler/breadcrumbs'
+
+const items: BreadcrumbItem[] = [
+  { id: 'home', label: 'Home', href: '/' },
+  { id: 'settings', label: 'Settings', href: '/settings', current: true },
+]
+```
+
+`current: true` adds `aria-current="page"` and `data-current="page"`, with or
+without an `href`. Use `current: false` for a non-current text item. When
+`current` is omitted, an item without `href` retains the legacy current-page
+inference. Ensure that only one item in a trail represents the current page.
+The optional field does not require existing item arrays to change when this
+inference already matches their meaning.
+
+## Vue SVG attributes
+
+Vue's normalizer previously lowercased non-event attributes, turning `viewBox`
+into `viewbox`. SVG attribute names are case-sensitive. The adapter now keeps
+native mixed-case names and maps React-style input aliases to native SVG
+spellings, including:
+
+- `viewBox`, `preserveAspectRatio`, gradient/pattern units, and marker sizes
+  retain their native case.
+- `strokeWidth`, `fillRule`, and `clipRule` become `stroke-width`, `fill-rule`,
+  and `clip-rule`.
+- `xlinkHref` becomes `xlink:href`.
+
+Remove only workarounds for the old normalization bug, such as copying
+`viewbox` into `viewBox`, injecting fixed QR coordinates, or forcing a remount
+after a value update. Keep intentional application-specific SVG configuration.
+Update direct DOM assertions to use native attribute spellings.
+
+For QR components, continue binding `getFrameProps()` and `getPatternProps()`.
+The frame's viewBox describes the actual encoded coordinate space, which can
+change when the value or encoding changes. CSS width and height describe the
+display size and are not substitutes for those coordinates. Verify a value
+change that increases the encoded size, not just the existence of a nonempty
+path.
+
+Check the server-rendered SVG string before hydration, the mounted SVG after
+updates, and the XML returned by `getDataUrl('image/svg+xml')`. They must retain
+the correctly-cased viewBox and the current encoded path. A browser's HTML
+parser can repair some SVG attribute casing during parsing, so checking only
+the initial hydrated DOM can hide an incorrect server string.
+
+Style objects remain style objects; do not rename their properties solely for
+this migration. Existing HTML, event, data/ARIA, and default form-property
+normalization behavior is unchanged.

@@ -1360,7 +1360,10 @@
     "Item": {
       "data-scope": "steps",
       "data-part": "item",
-      "data-orientation": "The orientation of the item"
+      "data-orientation": "The orientation of the item",
+      "data-complete": "Present when the item value is complete",
+      "data-current": "Present when current",
+      "data-incomplete": ""
     },
     "Trigger": {
       "data-scope": "steps",
