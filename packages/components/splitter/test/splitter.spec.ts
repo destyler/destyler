@@ -95,7 +95,7 @@ describe('splitter browser tests', () => {
     const controls = handle.getAttribute('aria-controls')?.split(' ') ?? []
     expect(controls).toContain(panelA.id)
     expect(controls).toContain(panelB.id)
-    expect(handle.getAttribute('aria-orientation')).toBe('horizontal')
+    expect(handle.getAttribute('aria-orientation')).toBe('vertical')
     expect(handle.getAttribute('role')).toBe('separator')
 
     expect(getVisualizerText()).toContain('"orientation": "horizontal"')
@@ -113,7 +113,7 @@ describe('splitter browser tests', () => {
     })
 
     expect(root.style.flexDirection).toBe('column')
-    expect(handle.getAttribute('aria-orientation')).toBe('vertical')
+    expect(handle.getAttribute('aria-orientation')).toBe('horizontal')
 
     await page.getByTestId('dir').selectOptions('rtl')
 

@@ -39,6 +39,8 @@ describe('[breadcrumbs] browser tests', () => {
     await expect.element(current).toHaveAttribute('aria-current', 'page')
     await expect.element(current).toHaveAttribute('data-current', 'page')
     await expect.element(current).not.toHaveAttribute('href')
+    await expect.element(current).not.toHaveAttribute('role')
+    await expect.element(current).not.toHaveAttribute('tabindex')
 
     for (let index = 0; index < separators.length; index++) {
       await expect.element(separatorLocator.nth(index)).toHaveAttribute('aria-hidden', 'true')

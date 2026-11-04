@@ -87,7 +87,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'aria-valuemin': triggerState.min,
         'aria-valuemax': triggerState.max,
         'data-orientation': state.context.orientation,
-        'aria-orientation': state.context.orientation,
+        // ARIA describes the separator, perpendicular to the panel layout.
+        'aria-orientation': horizontal ? 'vertical' : 'horizontal',
         'aria-controls': triggerState.panelIds.join(' '),
         'data-focus': dataAttr(triggerState.focused),
         'data-disabled': dataAttr(disabled),

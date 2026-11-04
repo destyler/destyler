@@ -32,9 +32,28 @@ describe('breadcrumbs structural contracts', () => {
     expect(api().getRootProps()).toMatchObject({ 'role': 'navigation', 'aria-label': 'breadcrumbs' })
     expect(api().getLinkProps(home)).toMatchObject({ role: 'link', href: '/' })
     expect(api().getLinkProps(home)['aria-current']).toBeUndefined()
-    expect(api().getLinkProps(current)).toMatchObject({ 'aria-current': 'page', 'data-current': 'page', 'tabIndex': 0 })
+    expect(api().getLinkProps(current)).toMatchObject({ 'aria-current': 'page', 'data-current': 'page' })
     expect(api().getLinkProps(current).href).toBeUndefined()
+    expect(api().getLinkProps(current).role).toBeUndefined()
+    expect(api().getLinkProps(current).tabIndex).toBeUndefined()
     expect(api().getSeparatorProps()['aria-hidden']).toBe(true)
+  })
+
+  it('allows an explicit current page with a destination and non-current text items', () => {
+    const { api } = setup()
+    expect(api().getLinkProps({ ...home, current: true })).toMatchObject({
+      'role': 'link',
+      'href': '/',
+      'aria-current': 'page',
+      'data-current': 'page',
+    })
+    const text = api().getLinkProps({ ...current, current: false })
+    expect(text['aria-current']).toBeUndefined()
+    expect(text['data-current']).toBeUndefined()
+    expect(text.role).toBeUndefined()
+    expect(text.tabIndex).toBeUndefined()
+    expect(api().getLinkProps({ ...current, current: true })['aria-current']).toBe('page')
+    expect(api().getLinkProps({ ...home, current: false })['aria-current']).toBeUndefined()
   })
 
   it('tracks simultaneous hover and focus without losing either independent state', () => {
