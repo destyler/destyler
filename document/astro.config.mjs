@@ -151,6 +151,7 @@ export default defineConfig({
             { slug: 'guide/styling' },
             { slug: 'guide/composition' },
             { slug: 'guide/controllable-state' },
+            { slug: 'guide/primitive-contracts' },
           ],
         },
         {

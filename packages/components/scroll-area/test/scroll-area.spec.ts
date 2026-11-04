@@ -85,6 +85,23 @@ describe('[scroll-area] browser tests', () => {
     await expect.element(getRootEl()).toBeInTheDocument()
   })
 
+  it('allows consumer stylesheets to color the thumb without an important override', async () => {
+    const style = document.createElement('style')
+    style.textContent = '[data-scope="scroll-area"][data-part="thumb"] { background-color: rgb(12, 34, 56); }'
+    document.head.append(style)
+    try {
+      const thumb = await getThumbY().element() as HTMLElement
+      expect(thumb.style.backgroundColor).toBe('')
+      // The example transitions its background for 160ms; assert the settled consumer color.
+      await vi.waitFor(() => {
+        expect(getComputedStyle(thumb).backgroundColor).toBe('rgb(12, 34, 56)')
+      })
+    }
+    finally {
+      style.remove()
+    }
+  })
+
   it('should render viewport element', async () => {
     await expect.element(getViewport()).toBeInTheDocument()
   })

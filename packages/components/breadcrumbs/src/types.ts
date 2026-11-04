@@ -5,6 +5,11 @@ export interface BreadcrumbItem {
   id: string
   label: string
   href?: string
+  /**
+   * Whether this item represents the current page. When omitted, items without
+   * an href retain the legacy current-page behavior.
+   */
+  current?: boolean
 }
 
 export type ElementIds = Partial<{

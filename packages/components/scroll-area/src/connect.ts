@@ -213,7 +213,6 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'style': {
           position: 'absolute',
           borderRadius: '9999px',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
           ...(isVertical
             ? {
                 width: '100%',

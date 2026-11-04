@@ -29,6 +29,18 @@ Install the component from your command line.
 <InstallShell name="breadcrumbs" />
 
 
+## Current page
+
+Set `current: true` on an item to identify the current page, including when it
+retains an `href`. This adds `aria-current="page"` and `data-current="page"`.
+Use `current: false` for a non-current text item without a destination. For
+compatibility, omitting `current` still marks items without an `href` as current.
+Only one item in a breadcrumb trail should represent the current page.
+
+An item without an `href` is static text: it does not receive a link role or a
+tab stop. Render it as a span or an anchor without `href`, and preserve the
+props returned by `getLinkProps`.
+
 ## Anatomy
 
 Import all parts and piece them together.

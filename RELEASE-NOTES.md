@@ -4,6 +4,50 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## 0.3.3: BREAKING primitive and Vue SVG contracts
+
+The selected release is **0.3.3, including the breaking behavior changes below**.
+The range `^0.3.2` permits 0.3.3: a fresh install without an existing lockfile or
+an explicit lockfile update can receive it. A lockfile already pinning 0.3.2 does
+not change by itself; a frozen install retains its resolved version. Do not use
+the patch version or existing range as evidence that migration is unnecessary.
+
+**Consumers that rely on the previous thumb color, breadcrumb link roles or tab
+stops, or splitter ARIA orientation must migrate.** These are observable
+compatibility changes even though they correct unstyled-component and
+accessibility behavior. The optional breadcrumb `current` property is additive;
+it does not make the other behavior changes backwards-compatible.
+
+- Scroll-area no longer supplies a black inline thumb background. Consumers must
+  style `[data-scope="scroll-area"][data-part="thumb"]` with a visible theme color.
+  Existing example and snippet styles already provide one. Geometry and pointer
+  handling are unchanged; no `!important` override is required for thumb color.
+- Splitter `aria-orientation` now describes the separator itself, perpendicular
+  to the panel layout. `data-orientation`, cursor, and keyboard directions keep
+  their existing layout meaning. Style by `data-orientation`, not the ARIA value.
+- Breadcrumb items without `href` no longer claim to be links or add a tab stop.
+  `current: true` supports current-page links that keep their destination;
+  `current: false` supports non-current text items. Omitting the property retains
+  the previous no-`href` current-page inference. Review role-based queries and
+  keyboard-order expectations for non-link items.
+- Vue `normalizeProps` now preserves case-sensitive SVG attributes such as
+  `viewBox` and `preserveAspectRatio`, maps presentation aliases such as
+  `strokeWidth` to `stroke-width`, and maps namespaced aliases such as `xlinkHref`
+  to `xlink:href`. This fixes QR SVG coordinates during client rendering, updates,
+  and SVG export. Remove workarounds or assertions that rely on the previously
+  incorrect attribute names; style-object and HTML/event normalization rules
+  are unchanged.
+
+Follow the [migration overview](./document/src/content/guide/primitive-contracts.mdx#migration),
+[thumb-color migration](./document/src/content/guide/primitive-contracts.mdx#scroll-area-thumb-color),
+[splitter migration](./document/src/content/guide/primitive-contracts.mdx#splitter-separator-orientation),
+[breadcrumb migration](./document/src/content/guide/primitive-contracts.mdx#breadcrumb-links-and-current-pages),
+and [Vue SVG migration](./document/src/content/guide/primitive-contracts.mdx#vue-svg-attributes).
+
+These changes ship in core 0.3.3. They are not included in 0.3.2.
+UI wrappers must consume the fixed core packages before downstream designs can
+rely on these contracts.
+
 ## 0.3.2: BREAKING React snapshot subscription behavior
 
 React `useActor` and `useMachine` now return the store's cached immutable snapshot

@@ -932,7 +932,7 @@
         "description": "\nThe unique identifier of the machine."
       },
       "getRootNode": {
-        "type": "() => Node | ShadowRoot | Document",
+        "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
       },
       "dir": {
@@ -1312,7 +1312,7 @@
         "description": "\nThe unique identifier of the machine."
       },
       "getRootNode": {
-        "type": "() => Node | ShadowRoot | Document",
+        "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
       },
       "onEscapeKeyDown": {
@@ -1661,7 +1661,7 @@
         "description": "\nThe unique identifier of the machine."
       },
       "getRootNode": {
-        "type": "() => Node | ShadowRoot | Document",
+        "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
       },
       "onPointerDownOutside": {
@@ -1962,7 +1962,7 @@
         "description": "\nThe unique identifier of the machine."
       },
       "getRootNode": {
-        "type": "() => Node | ShadowRoot | Document",
+        "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
       }
     }
@@ -2663,7 +2663,7 @@
       },
       "setCount": {
         "type": "(count: number) => void",
-        "description": "\nFunction to set the total number of pages."
+        "description": "\nFunction to set the total number of data items."
       },
       "setPageSize": {
         "type": "(size: number) => void",
@@ -2828,7 +2828,7 @@
         "description": "\nThe unique identifier of the machine."
       },
       "getRootNode": {
-        "type": "() => Node | ShadowRoot | Document",
+        "type": "() => ShadowRoot | Node | Document",
         "description": "\nA root node to correctly resolve document in custom environments. E.x.: Iframes, Electron."
       },
       "dir": {

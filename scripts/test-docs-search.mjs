@@ -37,6 +37,7 @@ try {
     ['Checkbox', 'Checkbox', '/components/checkbox/', /checkbox/i],
     ['indeterminate', 'Checkbox', '/components/checkbox/', /indeterminate/i],
     ['Dialog', 'Dialog', '/components/dialog/', /dialog/i],
+    ['viewBox', 'Primitive styling, accessibility, and Vue SVG migration', '/guide/primitive-contracts/', /viewbox/i],
     ['Checkbox', 'Checkbox', '/components/checkbox/', /checkbox/i],
   ]
   for (const [query, title, url, text] of cases) {

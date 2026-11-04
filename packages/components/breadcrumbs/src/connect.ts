@@ -38,13 +38,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
     },
 
     getLinkProps(item: BreadcrumbItem) {
+      const current = item.current ?? !item.href
       return normalize.element({
         ...parts.link.attrs,
-        'role': 'link',
-        'aria-current': item.href ? undefined : 'page',
-        'data-current': item.href ? undefined : 'page',
+        'role': item.href ? 'link' : undefined,
+        'aria-current': current ? 'page' : undefined,
+        'data-current': current ? 'page' : undefined,
         'href': item.href,
-        'tabIndex': item.href ? undefined : 0,
         'data-hover': state.context.hoveredId === item.id ? 'true' : 'false',
         'data-focus': state.context.focusedId === item.id ? 'true' : 'false',
         onPointerEnter(event) {
