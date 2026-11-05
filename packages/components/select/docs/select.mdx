@@ -26,6 +26,24 @@ import InstallShell from '@docs/components/InstallShell.astro'
 ]}>
 </Features>
 
+## Focus ownership
+
+With the default `composite: true`, Content is the focusable listbox and owns
+`aria-activedescendant`. Options may be direct children of Content or wrapped in
+List. List adds no default `tabIndex` in this mode, so a plain nested List does
+not take initial focus away from Content.
+
+With `composite: false`, Content remains a focusable dialog and List is the
+focusable listbox (`tabIndex: 0`), owning `aria-activedescendant` and, for multiple
+selection, `aria-multiselectable`. Use a nested List for this composition.
+
+Explicit caller `tabIndex`, `autofocus`, and `data-autofocus` choices still affect
+initial focus. This default-focus adjustment does not override them or change
+existing keyboard event bubbling. Custom focusable children require their own
+interaction design. Node/happy-dom regression tests cover the default focus
+contract; real-browser and assistive-technology behavior has not been verified
+by those tests.
+
 ## Install
 
 Install the component from your command line.

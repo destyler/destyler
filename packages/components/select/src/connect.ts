@@ -469,7 +469,7 @@ export function connect<T extends PropTypes, V extends CollectionItem = Collecti
     getListProps() {
       return normalize.element({
         ...parts.list.attrs,
-        'tabIndex': 0,
+        'tabIndex': composite ? undefined : 0,
         'role': !composite ? 'listbox' : undefined,
         'aria-labelledby': dom.getTriggerId(state.context),
         'aria-activedescendant': !composite ? ariaActiveDescendant : undefined,

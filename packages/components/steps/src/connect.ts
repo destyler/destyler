@@ -1,6 +1,6 @@
 import type { NormalizeProps, PropTypes } from '@destyler/types'
 import type { ItemProps, ItemState, MachineApi, Send, State } from './types'
-import { dataAttr } from '@destyler/dom'
+import { dataAttr, getEventKey, isComposingEvent } from '@destyler/dom'
 import { fromLength } from '@destyler/utils'
 import { parts } from './anatomy'
 import { dom } from './dom'
@@ -11,6 +11,12 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
   const percent = state.context.percent
   const hasNextStep = state.context.hasNextStep
   const hasPrevStep = state.context.hasPrevStep
+  const focusedStep = state.context.focusedStep
+  // Manual activation keeps keyboard focus independent of accepted selection.
+  // On completion, the last real trigger remains a way back into the list.
+  const tabStop = focusedStep != null && focusedStep >= 0 && focusedStep < count
+    ? focusedStep
+    : Math.min(step ?? 0, count - 1)
 
   const getItemState = (props: ItemProps): ItemState => ({
     triggerId: dom.getTriggerId(state.context, props.index),
@@ -99,14 +105,46 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         'type': 'button',
         'role': 'tab',
         'dir': state.context.dir,
-        'tabIndex': !state.context.linear || itemState.current ? 0 : -1,
+        'tabIndex': props.index === tabStop ? 0 : -1,
         'aria-selected': itemState.current,
+        'aria-disabled': state.context.linear && !itemState.current ? true : undefined,
         'aria-controls': itemState.contentId,
         'data-state': itemState.current ? 'open' : 'closed',
         'data-orientation': state.context.orientation,
         'data-complete': dataAttr(itemState.completed),
         'data-current': dataAttr(itemState.current),
         'data-incomplete': dataAttr(itemState.incomplete),
+        onFocus() {
+          send({ type: 'STEP.FOCUS', index: props.index })
+        },
+        onBlur(event) {
+          const target = event.relatedTarget as HTMLButtonElement | null
+          if (!target || !dom.getTriggerEls(state.context).includes(target))
+            send({ type: 'STEP.BLUR' })
+        },
+        onKeyDown(event) {
+          if (event.defaultPrevented || isComposingEvent(event) || event.altKey || event.ctrlKey || event.metaKey)
+            return
+
+          const key = getEventKey(event, state.context)
+          const vertical = state.context.orientation === 'vertical'
+          const nextKey = vertical ? 'ArrowDown' : 'ArrowRight'
+          const prevKey = vertical ? 'ArrowUp' : 'ArrowLeft'
+          if (key !== nextKey && key !== prevKey && key !== 'Home' && key !== 'End')
+            return
+
+          const triggers = dom.getTriggerEls(state.context)
+          const currentIndex = triggers.indexOf(event.currentTarget as HTMLButtonElement)
+          if (currentIndex === -1)
+            return
+          const nextIndex = key === 'Home'
+            ? 0
+            : key === 'End'
+              ? triggers.length - 1
+              : (currentIndex + (key === nextKey ? 1 : -1) + triggers.length) % triggers.length
+          event.preventDefault()
+          triggers[nextIndex]?.focus()
+        },
         onClick(event) {
           if (event.defaultPrevented)
             return
@@ -119,16 +157,17 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
     getContentProps(props) {
       const itemState = getItemState(props)
+      const isCompletion = props.index === count
       return normalize.element({
         ...parts.content.attrs,
         'dir': state.context.dir,
         'id': itemState.contentId,
-        'role': 'tabpanel',
+        'role': isCompletion ? undefined : 'tabpanel',
         'tabIndex': 0,
         'hidden': !itemState.current,
         'data-state': itemState.current ? 'open' : 'closed',
         'data-orientation': state.context.orientation,
-        'aria-labelledby': itemState.triggerId,
+        'aria-labelledby': isCompletion ? undefined : itemState.triggerId,
       })
     },
 

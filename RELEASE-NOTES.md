@@ -4,6 +4,26 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## Unreleased: BREAKING Steps keyboard and Select focus ownership
+
+Steps now uses one roving tab stop instead of placing every non-linear trigger in
+the Tab sequence. Arrow keys, Home and End move focus without changing the selected step;
+native button Enter and Space activate it. Review keyboard-order assertions and
+custom key handlers. Keep enabled triggers mounted, and preserve the documented
+linear, controlled and RTL behavior. At completion, the summary content no longer
+claims to be a tabpanel labelled by a nonexistent trigger. Update role-based
+queries for that summary. See the
+[Steps keyboard migration](./packages/components/steps/docs/steps.mdx#keyboard-navigation).
+
+Select's default composite mode no longer gives its nested List a tab stop. By
+default, focus stays on Content, which owns the listbox role and active-descendant relationship.
+Move List-specific focus styling or imperative focus assumptions to Content, or
+review explicit custom focus overrides. Non-composite mode retains the List tab
+stop. See the
+[Select focus migration](./packages/components/select/docs/select.mdx#focus-ownership).
+
+These changes are unreleased. No version has been selected or published.
+
 ## 0.3.3: BREAKING primitive and Vue SVG contracts
 
 The selected release is **0.3.3, including the breaking behavior changes below**.

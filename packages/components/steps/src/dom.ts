@@ -6,4 +6,7 @@ export const dom = createScope({
   getListId: (ctx: Ctx) => ctx.ids?.list ?? `steps:${ctx.id}:list`,
   getTriggerId: (ctx: Ctx, index: number) => ctx.ids?.triggerId?.(index) ?? `steps:${ctx.id}:trigger:${index}`,
   getContentId: (ctx: Ctx, index: number) => ctx.ids?.contentId?.(index) ?? `steps:${ctx.id}:content:${index}`,
+  getTriggerEl: (ctx: Ctx, index: number) => dom.getById<HTMLButtonElement>(ctx, dom.getTriggerId(ctx, index)),
+  getTriggerEls: (ctx: Ctx) => Array.from({ length: ctx.count }, (_, index) => dom.getTriggerEl(ctx, index))
+    .filter((element): element is HTMLButtonElement => !!element && !element.disabled),
 })

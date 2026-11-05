@@ -48,7 +48,9 @@ interface PublicContext extends DirectionProperty, CommonProperties {
   count: number
 }
 
-interface PrivateContext {}
+interface PrivateContext {
+  focusedStep: number | null
+}
 
 type ComputedContext = Readonly<{
   percent: number

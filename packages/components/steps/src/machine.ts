@@ -52,6 +52,7 @@ export function machine(userContext: UserDefinedContext) {
         ...ctx,
         // Resolve after spread so defaultStep / legacy step seed win consistently
         step: initialStep,
+        focusedStep: null,
       },
 
       computed: {
@@ -64,6 +65,12 @@ export function machine(userContext: UserDefinedContext) {
       states: {
         idle: {
           on: {
+            'STEP.FOCUS': {
+              actions: 'setFocusedStep',
+            },
+            'STEP.BLUR': {
+              actions: 'clearFocusedStep',
+            },
             'STEP.SET': {
               actions: 'setStep',
             },
@@ -82,6 +89,12 @@ export function machine(userContext: UserDefinedContext) {
     },
     {
       actions: {
+        setFocusedStep(ctx, evt) {
+          ctx.focusedStep = evt.index
+        },
+        clearFocusedStep(ctx) {
+          ctx.focusedStep = null
+        },
         goToNextStep(ctx) {
           const value = Math.min(ctx.step + 1, ctx.count)
           set.value(ctx, value)
