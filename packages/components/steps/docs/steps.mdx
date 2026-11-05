@@ -25,6 +25,35 @@ import InstallShell from '@docs/components/InstallShell.astro'
 ]}>
 </Features>
 
+## Keyboard navigation
+
+Give the step list an accessible name, for example by adding `aria-label="Checkout steps"`
+to the element that receives `getListProps()`.
+Render one native button trigger for every index from zero through `count - 1`; keep
+the selected trigger mounted and enabled. Per-trigger native disabling and partially
+mounted step lists are not supported navigation modes. Use `linear` to gate activation.
+
+Steps use manual tab activation. Tab enters the list at the selected step. Left and Right
+move focus between horizontal steps, with the direction reversed in RTL layouts. Up and
+Down move focus in vertical layouts. Navigation wraps at either end; Home and End focus
+the first and last rendered, enabled triggers. Arrow keys do not change the current step
+or call `onStepChange`. Press Enter or Space on the native trigger button to activate the
+focused step. Tab leaves the list, and returning to it starts at the selected step again.
+
+In linear mode, inactive triggers expose `aria-disabled="true"`. Arrow keys can still
+focus them so their labels and state remain discoverable, but activating them cannot
+skip or revisit a step. Use the Next and Previous controls to move through the process.
+In controlled mode, activation requests a change; the selected step and its content
+change only after the parent accepts the new `step`.
+
+The completion content at `index: count` is a terminal message, not a tab panel, because
+it has no corresponding step trigger. Give it meaningful content or a heading. It remains
+focusable, and the last real step is the list's fallback entry point when focus is outside
+the list. All steps are complete and none is selected in this terminal state. This state
+is a process summary rather than the usual active-tab/active-panel pattern. If your
+application hides the element containing focus when advancing, move focus to an
+appropriate visible heading or control as part of that transition.
+
 ## Install
 
 Install the component from your command line.

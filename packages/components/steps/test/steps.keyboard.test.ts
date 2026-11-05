@@ -1,0 +1,186 @@
+// @vitest-environment happy-dom
+import { afterEach, describe, expect, it } from 'vitest'
+import { mountSteps } from './steps.keyboard-fixture'
+
+const fixtures: ReturnType<typeof mountSteps>[] = []
+afterEach(() => fixtures.splice(0).reverse().forEach(fixture => fixture.dispose()))
+function mount(...args: Parameters<typeof mountSteps>) {
+  const fixture = mountSteps(...args)
+  fixtures.push(fixture)
+  return fixture
+}
+
+describe('steps manual keyboard navigation (synthetic DOM)', () => {
+  it('starts with one tab stop at the selected step and moves focus without activation', async () => {
+    const f = mount({ defaultStep: 1 })
+    expect(f.tabIndexes()).toEqual([-1, 0, -1])
+    f.triggers[1].focus()
+    expect((await f.key('ArrowRight')).defaultPrevented).toBe(true)
+    expect(document.activeElement).toBe(f.triggers[2])
+    expect(f.tabIndexes()).toEqual([-1, -1, 0])
+    expect(f.api().value).toBe(1)
+    expect(f.onStepChange).not.toHaveBeenCalled()
+    f.triggers[2].click()
+    await Promise.resolve()
+    expect(f.api().value).toBe(2)
+    expect(f.onStepChange.mock.calls).toEqual([[{ step: 2 }]])
+  })
+
+  it('wraps horizontal focus and supports Home and End', async () => {
+    const f = mount()
+    f.triggers[0].focus()
+    await f.key('ArrowLeft')
+    expect(document.activeElement).toBe(f.triggers[2])
+    await f.key('ArrowRight')
+    expect(document.activeElement).toBe(f.triggers[0])
+    await f.key('End')
+    expect(document.activeElement).toBe(f.triggers[2])
+    await f.key('Home')
+    expect(document.activeElement).toBe(f.triggers[0])
+    expect(f.api().value).toBe(0)
+  })
+
+  it.each(['ltr', 'rtl'] as const)('uses Up/Down vertically without RTL inversion (%s)', async (dir) => {
+    const f = mount({ orientation: 'vertical', dir })
+    f.triggers[0].focus()
+    await f.key('ArrowDown')
+    expect(document.activeElement).toBe(f.triggers[1])
+    await f.key('ArrowUp')
+    expect(document.activeElement).toBe(f.triggers[0])
+    expect((await f.key('ArrowRight')).defaultPrevented).toBe(false)
+    expect(document.activeElement).toBe(f.triggers[0])
+    expect(f.list.getAttribute('aria-orientation')).toBe('vertical')
+  })
+
+  it('reverses only horizontal arrows in RTL', async () => {
+    const f = mount({ dir: 'rtl' })
+    f.triggers[0].focus()
+    await f.key('ArrowRight')
+    expect(document.activeElement).toBe(f.triggers[2])
+    await f.key('ArrowLeft')
+    expect(document.activeElement).toBe(f.triggers[0])
+    expect((await f.key('ArrowDown')).defaultPrevented).toBe(false)
+  })
+
+  it('restores the selected entry tab after focus leaves the list, without stealing focus', async () => {
+    const f = mount()
+    f.triggers[0].focus()
+    await f.key('ArrowRight')
+    f.after.focus()
+    await Promise.resolve()
+    expect(document.activeElement).toBe(f.after)
+    expect(f.tabIndexes()).toEqual([0, -1, -1])
+  })
+
+  it('keeps controlled acceptance and rejection separate from focus navigation', async () => {
+    const f = mount({ step: 0 })
+    f.triggers[0].focus()
+    await f.key('ArrowRight')
+    f.triggers[1].click()
+    await Promise.resolve()
+    expect(f.api().value).toBe(0)
+    expect(f.onStepChange.mock.calls).toEqual([[{ step: 1 }]])
+    expect(f.triggers[1].getAttribute('aria-selected')).toBe('false')
+    expect(document.activeElement).toBe(f.triggers[1])
+    await f.sync({ step: 1 })
+    expect(f.triggers[1].getAttribute('aria-selected')).toBe('true')
+    expect(f.onStepChange).toHaveBeenCalledTimes(1)
+    f.after.focus()
+    await f.sync({ step: 2 })
+    expect(document.activeElement).toBe(f.after)
+    expect(f.tabIndexes()).toEqual([-1, -1, 0])
+  })
+
+  it('makes linear inactive steps discoverable but never activates them', async () => {
+    const f = mount({ linear: true })
+    expect(f.triggers.map(t => t.getAttribute('aria-disabled'))).toEqual([null, 'true', 'true'])
+    f.triggers[0].focus()
+    await f.key('ArrowRight')
+    expect(document.activeElement).toBe(f.triggers[1])
+    f.triggers[1].click()
+    await Promise.resolve()
+    expect(f.api().value).toBe(0)
+    expect(f.onStepChange).not.toHaveBeenCalled()
+    f.next.click()
+    await Promise.resolve()
+    expect(f.api().value).toBe(1)
+    expect(f.triggers.map(t => t.getAttribute('aria-disabled'))).toEqual(['true', null, 'true'])
+    f.prev.click()
+    await Promise.resolve()
+    expect(f.api().value).toBe(0)
+  })
+
+  it.each([{ ctrlKey: true }, { altKey: true }, { metaKey: true }, { isComposing: true }])('leaves shortcuts and IME input alone: %j', async (options) => {
+    const f = mount()
+    f.triggers[0].focus()
+    expect((await f.key('ArrowRight', options)).defaultPrevented).toBe(false)
+    expect(document.activeElement).toBe(f.triggers[0])
+    expect(f.onStepChange).not.toHaveBeenCalled()
+  })
+
+  it('honors prevented keyboard events and does not synthesize Enter/Space clicks', async () => {
+    const f = mount()
+    f.triggers[0].focus()
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true, cancelable: true })
+    event.preventDefault()
+    f.triggers[0].dispatchEvent(event)
+    await Promise.resolve()
+    expect(document.activeElement).toBe(f.triggers[0])
+    for (const key of ['Enter', ' ', 'Tab'])
+      expect((await f.key(key)).defaultPrevented).toBe(false)
+    expect(f.onStepChange).not.toHaveBeenCalled()
+  })
+
+  it('skips unmounted and native-disabled triggers and stays inside this instance', async () => {
+    const f = mount({ count: 4, ids: { triggerId: index => `custom-${index}` } })
+    const other = mount()
+    f.triggers[1].remove()
+    f.triggers[2].disabled = true
+    f.triggers[0].focus()
+    await f.key('ArrowRight')
+    expect(document.activeElement).toBe(f.triggers[3])
+    await f.key('ArrowRight')
+    expect(document.activeElement).toBe(f.triggers[0])
+    expect(other.tabIndexes()).toEqual([0, -1, -1])
+  })
+
+  it('reconciles a removed focused index after count changes', async () => {
+    const f = mount()
+    f.triggers[2].focus()
+    await Promise.resolve()
+    f.triggers[2].remove()
+    await f.sync({ count: 2 })
+    expect(f.tabIndexes().slice(0, 2)).toEqual([0, -1])
+    f.triggers[0].focus()
+    await f.key('ArrowLeft')
+    expect(document.activeElement).toBe(f.triggers[1])
+  })
+
+  it.each([false, true])('keeps completion reachable without inventing a tab or label (linear=%s)', async (linear) => {
+    const f = mount({ linear })
+    f.api().setStep(3)
+    await Promise.resolve()
+    expect(f.tabIndexes()).toEqual([-1, -1, 0])
+    expect(f.triggers.map(t => t.getAttribute('aria-selected'))).toEqual(['false', 'false', 'false'])
+    expect(f.panels[3].hidden).toBe(false)
+    expect(f.panels[3].getAttribute('role')).toBeNull()
+    expect(f.panels[3].getAttribute('aria-labelledby')).toBeNull()
+    expect(f.panels[3].tabIndex).toBe(0)
+    for (const trigger of f.triggers)
+      expect(document.getElementById(trigger.getAttribute('aria-controls')!)).not.toBeNull()
+    f.panels[3].focus()
+    expect(document.activeElement).toBe(f.panels[3])
+    f.prev.click()
+    await Promise.resolve()
+    expect(f.api().value).toBe(2)
+    expect(f.panels[2].getAttribute('aria-labelledby')).toBe(f.triggers[2].id)
+  })
+
+  it('does not manufacture a trigger for an empty completed process', () => {
+    const f = mount({ count: 0 })
+    expect(f.triggers).toHaveLength(0)
+    expect(f.list.getAttribute('aria-owns')).toBe('')
+    expect(f.panels[0].getAttribute('role')).toBeNull()
+    expect(f.panels[0].getAttribute('aria-labelledby')).toBeNull()
+  })
+})

@@ -1,6 +1,6 @@
 import { stepsData } from '@destyler/shared-private'
 import { testHook } from '@destyler/shared-private/test'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { page } from 'vitest/browser'
 import { render } from '../examples/vanilla/Steps'
 
@@ -91,7 +91,21 @@ describe('[steps] browser tests', () => {
     await linearToggle().click()
 
     await expect.element(stepTrigger(2)).toHaveAttribute('tabindex', '-1')
-    await stepTrigger(2).click()
+    await expect.element(stepTrigger(2)).toHaveAttribute('aria-disabled', 'true')
+    await expect.element(stepTrigger(2)).not.toHaveAttribute('disabled')
+    await expect.element(stepTrigger(2)).toBeVisible()
+    const trigger = stepTrigger(2).element()
+    const onClick = vi.fn()
+    trigger.addEventListener('click', onClick)
+    try {
+      // aria-disabled must not prevent the test from reaching the native click guard.
+      await stepTrigger(2).click({ force: true })
+      expect(onClick).toHaveBeenCalledTimes(1)
+      expect(onClick.mock.calls[0][0].isTrusted).toBe(true)
+    }
+    finally {
+      trigger.removeEventListener('click', onClick)
+    }
 
     await expect.element(stepContent(0)).toBeVisible()
     await expect.element(stepIndicator(0)).toHaveAttribute('data-current', '')

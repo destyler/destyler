@@ -5,7 +5,7 @@ import { connect } from '../src/connect'
 import { machine } from '../src/machine'
 
 const normalize = createNormalizer(props => props)
-type Activate = (button: HTMLButtonElement) => Promise<void>
+type Activate = (button: HTMLButtonElement, options?: { force?: boolean }) => Promise<void>
 
 function mountForm(context: Partial<UserDefinedContext> = {}, options: {
   triggerType?: HTMLButtonElement['type']
@@ -172,7 +172,9 @@ export function formContracts(name: string, activate: Activate) {
     it('blocks a linear step trigger without submitting but permits next and previous', async () => {
       const fixture = mount({ linear: true })
       expect(fixture.triggers[2].tabIndex).toBe(-1)
-      await activate(fixture.triggers[2])
+      expect(fixture.triggers[2].getAttribute('aria-disabled')).toBe('true')
+      expect(fixture.triggers[2].disabled).toBe(false)
+      await activate(fixture.triggers[2], { force: true })
       expect(fixture.api().value).toBe(0)
       expect(fixture.onStepChange).not.toHaveBeenCalled()
       expect(fixture.onSubmit).not.toHaveBeenCalled()
@@ -223,7 +225,9 @@ export function formContracts(name: string, activate: Activate) {
 
     it('retains an explicit submit override even when linear navigation is blocked', async () => {
       const fixture = mount({ linear: true }, { triggerType: 'submit' })
-      await activate(fixture.triggers[2])
+      expect(fixture.triggers[2].getAttribute('aria-disabled')).toBe('true')
+      expect(fixture.triggers[2].disabled).toBe(false)
+      await activate(fixture.triggers[2], { force: true })
       expect(fixture.api().value).toBe(0)
       expect(fixture.onStepChange).not.toHaveBeenCalled()
       expect(fixture.onSubmit).toHaveBeenCalledTimes(1)
