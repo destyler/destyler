@@ -4,7 +4,12 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
-## Unreleased: BREAKING Steps keyboard and Select focus ownership
+## 0.3.4: BREAKING Steps keyboard and Select focus ownership
+
+The selected release is **0.3.4, including the breaking behavior changes below**.
+The range `^0.3.3` permits 0.3.4: a fresh resolution or explicit lockfile update
+can receive these changes. An existing frozen lockfile does not update itself.
+The patch version is not evidence that keyboard and focus contracts are unchanged.
 
 Steps now uses one roving tab stop instead of placing every non-linear trigger in
 the Tab sequence. Arrow keys, Home and End move focus without changing the selected step;
@@ -22,7 +27,8 @@ review explicit custom focus overrides. Non-composite mode retains the List tab
 stop. See the
 [Select focus migration](./packages/components/select/docs/select.mdx#focus-ownership).
 
-These changes are unreleased. No version has been selected or published.
+These changes target core 0.3.4 and are not included in 0.3.3. UI wrappers must
+consume the updated core packages before downstream designs rely on them.
 
 ## 0.3.3: BREAKING primitive and Vue SVG contracts
 
