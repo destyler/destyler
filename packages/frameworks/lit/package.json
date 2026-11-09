@@ -1,7 +1,7 @@
 {
   "name": "@destyler/lit",
   "type": "module",
-  "version": "0.3.4",
+  "version": "0.3.5",
 
   "description": "the lit wrapper for destyler",
   "author": "Elone Hoo <elonehoo@gmail.com>",

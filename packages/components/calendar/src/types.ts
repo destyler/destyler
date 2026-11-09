@@ -163,6 +163,14 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   fixedWeeks?: boolean | undefined
   /**
+   * Allow selecting dates rendered outside a month's visible range.
+   * Min/max, unavailable dates, and explicitly disabled cells still apply.
+   * Selecting an outside date navigates to its month. Range hover may also
+   * navigate while choosing an end date. Outside duplicates remain untabbable.
+   * @default false
+   */
+  allowOutsideDays?: boolean | undefined
+  /**
    * Function called when the value changes.
    */
   onValueChange?: ((details: ValueChangeDetails) => void) | undefined

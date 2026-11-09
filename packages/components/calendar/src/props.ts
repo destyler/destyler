@@ -10,6 +10,7 @@ import { createProps } from '@destyler/types'
 import { createSplitProps } from '@destyler/utils'
 
 export const props = createProps<UserDefinedContext>()([
+  'allowOutsideDays',
   'closeOnSelect',
   'dir',
   'disabled',
