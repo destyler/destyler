@@ -4,6 +4,17 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## 0.3.5: Opt-in outside-month Calendar selection
+
+Calendar adds `allowOutsideDays` (default `false`). Existing consumers keep the
+0.3.4 outside-day disabled behavior. Opting in permits selection while preserving
+min/max, unavailable dates and explicit cell disabling. Selecting an outside day
+navigates to its month; range end-date hover can also navigate. Duplicate outside
+cells retain their existing exclusion from the roving tab stop.
+
+UI wrappers must forward this new option and use Calendar 0.3.5 or later. This is
+an additive API, not a claim of pixel or interaction equivalence with DayPicker.
+
 ## 0.3.4: BREAKING Steps keyboard and Select focus ownership
 
 The selected release is **0.3.4, including the breaking behavior changes below**.

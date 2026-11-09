@@ -275,6 +275,11 @@
         "type": "boolean",
         "description": "\nWhether the calendar should have a fixed number of weeks.\nThis renders the calendar with 6 weeks instead of 5 or 6."
       },
+      "allowOutsideDays": {
+        "type": "boolean",
+        "description": "\nAllow selecting dates rendered outside a month's visible range.\nMin/max, unavailable dates, and explicitly disabled cells still apply.\nSelecting an outside date navigates to its month. Range hover may also\nnavigate while choosing an end date. Outside duplicates remain untabbable.",
+        "defaultValue": "false"
+      },
       "onValueChange": {
         "type": "(details: ValueChangeDetails) => void",
         "description": "\nFunction called when the value changes."

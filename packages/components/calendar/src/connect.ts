@@ -23,7 +23,6 @@ import {
   getUnitDuration,
   getWeekDays,
   getYearsRange,
-  isDateDisabled,
   isDateEqual,
   isDateInvalid,
   isDateOutsideVisibleRange,
@@ -158,7 +157,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
 
     const cellState = {
       invalid: isDateInvalid(value, min, max),
-      disabled: disabled || isDateDisabled(value, visibleRange.start, end, min, max),
+      disabled: disabled || isDateInvalid(value, min, max)
+        || (!state.context.allowOutsideDays && isDateOutsideVisibleRange(value, visibleRange.start, end)),
       selected: getResolvedCalendarValue(selectedValue).some(date => isDateEqual(value, date)),
       unavailable: isDateUnavailable(value, isDateUnavailableFn, locale, min, max) && !disabled,
       outsideRange: isDateOutsideVisibleRange(value, visibleRange.start, end),
