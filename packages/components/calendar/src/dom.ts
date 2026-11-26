@@ -23,11 +23,13 @@ export const dom = createScope({
 
   getFocusedCell: (ctx: Ctx, view = ctx.view) =>
     query(
-      dom.getContentEl(ctx),
+      dom.getGridEl(ctx),
       `[data-part=table-cell-trigger][data-view=${view}][data-focus]:not([data-outside-range])`,
     ),
   getTriggerEl: (ctx: Ctx) => dom.getById<HTMLButtonElement>(ctx, dom.getTriggerId(ctx)),
   getContentEl: (ctx: Ctx) => dom.getById(ctx, dom.getContentId(ctx)),
+  getRootEl: (ctx: Ctx) => dom.getById(ctx, dom.getRootId(ctx)),
+  getGridEl: (ctx: Ctx) => ctx.isInline ? dom.getRootEl(ctx) : dom.getContentEl(ctx),
   getInputEls: (ctx: Ctx) => queryAll<HTMLInputElement>(dom.getControlEl(ctx), `[data-part=input]`),
   getYearSelectEl: (ctx: Ctx) => dom.getById<HTMLSelectElement>(ctx, dom.getYearSelectId(ctx)),
   getMonthSelectEl: (ctx: Ctx) => dom.getById<HTMLSelectElement>(ctx, dom.getMonthSelectId(ctx)),

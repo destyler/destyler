@@ -231,6 +231,12 @@ interface PublicContext extends DirectionProperty, CommonProperties {
    */
   positioning: PositioningOptions
   /**
+   * Render the calendar as an always-visible inline grid instead of a popup.
+   * Set at mount time; remount to change modes. Ignores popup open/close options.
+   * @default false
+   */
+  inline?: boolean | undefined
+  /**
    * Whether the calendar is open
    */
   open?: boolean | undefined
@@ -286,6 +292,8 @@ interface PrivateContext {
 }
 
 type ComputedContext = Readonly<{
+  /** The inline rendering mode fixed when this machine was created. */
+  isInline: boolean
   /**
    * @computed
    * The end date of the current visible duration.

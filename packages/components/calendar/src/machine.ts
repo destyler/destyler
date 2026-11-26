@@ -80,6 +80,30 @@ interface DomRun {
 
 const domRuns = new WeakMap<MachineContext, DomRun>()
 
+// An inline grid remains mounted when the pointer leaves it. Restore the exact
+// owner and its original selection style even when release happens elsewhere.
+const inlineSelections = new WeakMap<MachineContext, VoidFunction>()
+function endInlineSelection(ctx: MachineContext) {
+  inlineSelections.get(ctx)?.()
+}
+function beginInlineSelection(ctx: MachineContext, target: HTMLElement) {
+  if (inlineSelections.has(ctx)) return
+  const doc = target.ownerDocument
+  const restore = disableTextSelection({ target, doc })
+  const cleanup = () => {
+    inlineSelections.delete(ctx)
+    doc.removeEventListener('pointerup', cleanup, true)
+    doc.removeEventListener('pointercancel', cleanup, true)
+    doc.defaultView?.removeEventListener('blur', cleanup)
+    restore()
+  }
+  inlineSelections.set(ctx, cleanup)
+  doc.addEventListener('pointerup', cleanup, true)
+  doc.addEventListener('pointercancel', cleanup, true)
+  doc.defaultView?.addEventListener('blur', cleanup)
+}
+
+
 function retireDomRun(run: DomRun) {
   run.active = false
   for (const cancel of run.pending) {
@@ -278,12 +302,14 @@ function transformContext(ctx: Partial<MachineContext>): MachineContext {
 export function machine(userContext: UserDefinedContext) {
   const ctx = compact(withControllableProvided(userContext, ['open', 'value']))
   const { initialOpen } = resolveControllableOpen(ctx)
+  const inline = ctx.inline === true
   return createMachine<MachineContext, MachineState>(
     {
       id: 'calendar',
-      initial: initialOpen ? 'open' : 'idle',
+      initial: inline || initialOpen ? 'open' : 'idle',
       context: transformContext(ctx),
       computed: {
+        isInline: () => inline,
         isInteractive: ctx => !ctx.disabled && !ctx.readOnly,
         visibleDuration: ctx => ({ months: ctx.numOfMonths }),
         endValue: ctx => getEndDate(ctx.startValue, ctx.visibleDuration),
@@ -362,6 +388,10 @@ export function machine(userContext: UserDefinedContext) {
           },
         ],
         'PRESET.CLICK': [
+          {
+            guard: 'isInline',
+            actions: ['setDateValue', 'setFocusedDate'],
+          },
           {
             guard: 'isOpenControlled',
             actions: ['setDateValue', 'setFocusedDate', 'invokeOnClose'],
@@ -462,10 +492,11 @@ export function machine(userContext: UserDefinedContext) {
 
         open: {
           tags: 'open',
-          activities: ['trackDismissableElement', 'trackPositioning'],
+          activities: inline ? ['trackInlineTextSelection'] : ['trackDismissableElement', 'trackPositioning'],
           exit: ['clearHoveredDate', 'resetView'],
           on: {
             'CONTROLLED.CLOSE': [
+              { guard: 'isInline' },
               {
                 guard: and('shouldRestoreFocus', 'isInteractOutsideEvent'),
                 target: 'focused',
@@ -560,6 +591,7 @@ export function machine(userContext: UserDefinedContext) {
               actions: ['enableTextSelection'],
             },
             'TABLE.ESCAPE': [
+              { guard: 'isInline' },
               {
                 guard: 'isOpenControlled',
                 actions: ['focusFirstSelectedDate', 'invokeOnClose'],
@@ -701,6 +733,7 @@ export function machine(userContext: UserDefinedContext) {
               },
             ],
             'TRIGGER.CLICK': [
+              { guard: 'isInline' },
               {
                 guard: 'isOpenControlled',
                 actions: ['invokeOnClose'],
@@ -714,6 +747,7 @@ export function machine(userContext: UserDefinedContext) {
               actions: ['setNextView'],
             },
             'INTERACT_OUTSIDE': [
+              { guard: 'isInline' },
               {
                 guard: 'isOpenControlled',
                 actions: ['setActiveIndexToStart', 'invokeOnClose'],
@@ -729,6 +763,7 @@ export function machine(userContext: UserDefinedContext) {
               },
             ],
             'CLOSE': [
+              { guard: 'isInline' },
               {
                 guard: 'isOpenControlled',
                 actions: ['setActiveIndexToStart', 'invokeOnClose'],
@@ -753,7 +788,8 @@ export function machine(userContext: UserDefinedContext) {
         isMultiPicker: ctx => ctx.selectionMode === 'multiple',
         shouldRestoreFocus: ctx => !!ctx.restoreFocus,
         isSelectingEndDate: ctx => ctx.activeIndex === 1,
-        closeOnSelect: ctx => !!ctx.closeOnSelect,
+        isInline: () => inline,
+        closeOnSelect: ctx => !inline && !!ctx.closeOnSelect,
         // Phase 3 HARD: stamped prop presence only (#103)
         isOpenControlled: (ctx: Pick<MachineContext, keyof MachineContext>) => isControlled(ctx, 'open'),
         isInteractOutsideEvent: (_ctx, evt) => evt.previousEvent?.type === 'INTERACT_OUTSIDE',
@@ -763,6 +799,7 @@ export function machine(userContext: UserDefinedContext) {
 
       activities: {
         trackDeferredDom: beginDomRun,
+        trackInlineTextSelection: ctx => () => endInlineSelection(ctx),
         trackPositioning(ctx) {
           ctx.currentPlacement ||= ctx.positioning.placement
           const anchorEl = dom.getControlEl(ctx)
@@ -826,10 +863,18 @@ export function machine(userContext: UserDefinedContext) {
           ctx.announcer?.announce(formatted)
         },
         disableTextSelection(ctx) {
-          disableTextSelection({ target: dom.getContentEl(ctx)!, doc: dom.getDoc(ctx) })
+          const target = dom.getGridEl(ctx)
+          if (!target) return
+          if (ctx.isInline) beginInlineSelection(ctx, target)
+          else disableTextSelection({ target, doc: dom.getDoc(ctx) })
         },
         enableTextSelection(ctx) {
-          restoreTextSelection({ doc: dom.getDoc(ctx), target: dom.getContentEl(ctx)! })
+          if (ctx.isInline) {
+            endInlineSelection(ctx)
+            return
+          }
+          const target = dom.getGridEl(ctx)
+          if (target) restoreTextSelection({ doc: dom.getDoc(ctx), target })
         },
         focusFirstSelectedDate(ctx) {
           if (!getResolvedCalendarValue(ctx.value).length)
@@ -1166,6 +1211,7 @@ export function machine(userContext: UserDefinedContext) {
           ctx.onOpenChange?.({ open: false })
         },
         toggleVisibility(ctx, evt, { send }) {
+          if (inline) return
           send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
         },
       },

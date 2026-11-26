@@ -231,6 +231,7 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       send({ type: 'FOCUS.SET', value })
     },
     setOpen(nextOpen) {
+      if (state.context.isInline) return
       if (nextOpen === open)
         return
       send(nextOpen ? 'OPEN' : 'CLOSE')
