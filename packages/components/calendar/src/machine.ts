@@ -87,7 +87,8 @@ function endInlineSelection(ctx: MachineContext) {
   inlineSelections.get(ctx)?.()
 }
 function beginInlineSelection(ctx: MachineContext, target: HTMLElement) {
-  if (inlineSelections.has(ctx)) return
+  if (inlineSelections.has(ctx))
+    return
   const doc = target.ownerDocument
   const restore = disableTextSelection({ target, doc })
   const cleanup = () => {
@@ -102,7 +103,6 @@ function beginInlineSelection(ctx: MachineContext, target: HTMLElement) {
   doc.addEventListener('pointercancel', cleanup, true)
   doc.defaultView?.addEventListener('blur', cleanup)
 }
-
 
 function retireDomRun(run: DomRun) {
   run.active = false
@@ -864,8 +864,10 @@ export function machine(userContext: UserDefinedContext) {
         },
         disableTextSelection(ctx) {
           const target = dom.getGridEl(ctx)
-          if (!target) return
-          if (ctx.isInline) beginInlineSelection(ctx, target)
+          if (!target)
+            return
+          if (ctx.isInline)
+            beginInlineSelection(ctx, target)
           else disableTextSelection({ target, doc: dom.getDoc(ctx) })
         },
         enableTextSelection(ctx) {
@@ -874,7 +876,8 @@ export function machine(userContext: UserDefinedContext) {
             return
           }
           const target = dom.getGridEl(ctx)
-          if (target) restoreTextSelection({ doc: dom.getDoc(ctx), target })
+          if (target)
+            restoreTextSelection({ doc: dom.getDoc(ctx), target })
         },
         focusFirstSelectedDate(ctx) {
           if (!getResolvedCalendarValue(ctx.value).length)
@@ -1211,7 +1214,8 @@ export function machine(userContext: UserDefinedContext) {
           ctx.onOpenChange?.({ open: false })
         },
         toggleVisibility(ctx, evt, { send }) {
-          if (inline) return
+          if (inline)
+            return
           send({ type: ctx.open ? 'CONTROLLED.OPEN' : 'CONTROLLED.CLOSE', previousEvent: evt })
         },
       },

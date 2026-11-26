@@ -1,11 +1,11 @@
 // @vitest-environment happy-dom
 import { CalendarDate } from '@internationalized/date'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { normalizeProps } from '../../../frameworks/vanilla/src/normalize-props'
 import { connect } from '../src/connect'
 import { dom } from '../src/dom'
 import { machine } from '../src/machine'
 import { splitProps } from '../src/props'
-import { normalizeProps } from '../../../frameworks/vanilla/src/normalize-props'
 
 const services: Array<ReturnType<typeof machine>> = []
 const date = new CalendarDate(2026, 11, 15)
@@ -66,11 +66,11 @@ describe('inline Calendar', () => {
   })
 
   it('runs native deferred focus after a keyboard move within the correct inline instance', async () => {
-    const fixtures = ['left', 'right'].map(id => {
+    const fixtures = ['left', 'right'].map((id) => {
       const { service, api } = setup(id, { id, inline: true })
       const root = document.createElement('div')
       root.id = dom.getRootId(service.state.context)
-      const buttons = [date, next].map(value => {
+      const buttons = [date, next].map((value) => {
         const button = document.createElement('button')
         button.dataset.part = 'table-cell-trigger'
         button.dataset.view = 'day'
