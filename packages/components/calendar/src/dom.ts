@@ -1,6 +1,9 @@
 import type { MachineContext as Ctx, DateView } from './types'
 import { createScope, query, queryAll } from '@destyler/dom'
 
+const rootSelector = '[data-scope="calendar"][data-part="root"]'
+const focusedCellSelector = (view: DateView) => `[data-part=table-cell-trigger][data-view=${view}][data-focus]:not([data-outside-range])`
+
 export const dom = createScope({
   getLabelId: (ctx: Ctx, index: number) => ctx.ids?.label?.(index) ?? `calendar:${ctx.id}:label:${index}`,
   getRootId: (ctx: Ctx) => ctx.ids?.root ?? `calendar:${ctx.id}`,
@@ -21,11 +24,17 @@ export const dom = createScope({
   getMonthSelectId: (ctx: Ctx) => ctx.ids?.monthSelect ?? `calendar:${ctx.id}:month-select`,
   getYearSelectId: (ctx: Ctx) => ctx.ids?.yearSelect ?? `calendar:${ctx.id}:year-select`,
 
-  getFocusedCell: (ctx: Ctx, view = ctx.view) =>
-    query(
-      dom.getGridEl(ctx),
-      `[data-part=table-cell-trigger][data-view=${view}][data-focus]:not([data-outside-range])`,
-    ),
+  ownsInlineElement: (ctx: Ctx, element: Element | null) => {
+    const root = dom.getRootEl(ctx)
+    return !!root && !!element && root.contains(element) && element.closest(rootSelector) === root
+  },
+  getFocusedCell: (ctx: Ctx, view = ctx.view) => {
+    const grid = dom.getGridEl(ctx)
+    const selector = focusedCellSelector(view)
+    if (!ctx.isInline)
+      return query(grid, selector)
+    return queryAll<HTMLElement>(grid, selector).find(cell => dom.ownsInlineElement(ctx, cell)) ?? null
+  },
   getTriggerEl: (ctx: Ctx) => dom.getById<HTMLButtonElement>(ctx, dom.getTriggerId(ctx)),
   getContentEl: (ctx: Ctx) => dom.getById(ctx, dom.getContentId(ctx)),
   getRootEl: (ctx: Ctx) => dom.getById(ctx, dom.getRootId(ctx)),

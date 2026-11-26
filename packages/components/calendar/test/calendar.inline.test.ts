@@ -47,6 +47,8 @@ describe('inline Calendar', () => {
     for (const { service } of [a, b]) {
       const root = document.createElement('div')
       root.id = dom.getRootId(service.state.context)
+      root.dataset.scope = 'calendar'
+      root.dataset.part = 'root'
       const cell = document.createElement('button')
       cell.dataset.part = 'table-cell-trigger'
       cell.dataset.view = 'day'
@@ -70,6 +72,8 @@ describe('inline Calendar', () => {
       const { service, api } = setup(id, { id, inline: true })
       const root = document.createElement('div')
       root.id = dom.getRootId(service.state.context)
+      root.dataset.scope = 'calendar'
+      root.dataset.part = 'root'
       const buttons = [date, next].map((value) => {
         const button = document.createElement('button')
         button.dataset.part = 'table-cell-trigger'
@@ -101,21 +105,23 @@ describe('inline Calendar', () => {
     const { service } = setup('selection', { id: 'selection', inline: true })
     const root = document.createElement('div')
     root.id = dom.getRootId(service.state.context)
+    root.dataset.scope = 'calendar'
+    root.dataset.part = 'root'
     root.style.userSelect = 'text'
     document.body.append(root)
     service.start()
-    service.send('TABLE.POINTER_DOWN')
+    service.send({ type: 'TABLE.POINTER_DOWN', pointerId: 1 })
     expect(root.style.userSelect).toBe('none')
-    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }))
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1 }))
     expect(root.style.userSelect).toBe('text')
-    service.send('TABLE.POINTER_DOWN')
-    service.send('TABLE.POINTER_DOWN')
-    document.dispatchEvent(new PointerEvent('pointercancel', { bubbles: true }))
+    service.send({ type: 'TABLE.POINTER_DOWN', pointerId: 1 })
+    service.send({ type: 'TABLE.POINTER_DOWN', pointerId: 1 })
+    document.dispatchEvent(new PointerEvent('pointercancel', { bubbles: true, pointerId: 1 }))
     expect(root.style.userSelect).toBe('text')
-    service.send('TABLE.POINTER_DOWN')
-    service.send('TABLE.POINTER_UP')
+    service.send({ type: 'TABLE.POINTER_DOWN', pointerId: 1 })
+    service.send({ type: 'TABLE.POINTER_UP', pointerId: 1 })
     expect(root.style.userSelect).toBe('text')
-    service.send('TABLE.POINTER_DOWN')
+    service.send({ type: 'TABLE.POINTER_DOWN', pointerId: 1 })
     service.stop()
     expect(root.style.userSelect).toBe('text')
   })

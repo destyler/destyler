@@ -20,7 +20,7 @@ import {
   parseDateString,
 } from '@destyler/date'
 import { trackDismissableElement } from '@destyler/dismissable'
-import { disableTextSelection, raf, restoreTextSelection } from '@destyler/dom'
+import { disableTextSelection, isIos, raf, restoreTextSelection } from '@destyler/dom'
 import { createLiveRegion } from '@destyler/live-region'
 import { getPlacement } from '@destyler/popper'
 import { compact, isControlled, isEqual, isPropUserProvided, resolveControllableOpen, resolveControllableProp, withControllableProvided } from '@destyler/utils'
@@ -82,26 +82,85 @@ const domRuns = new WeakMap<MachineContext, DomRun>()
 
 // An inline grid remains mounted when the pointer leaves it. Restore the exact
 // owner and its original selection style even when release happens elsewhere.
-const inlineSelections = new WeakMap<MachineContext, VoidFunction>()
-function endInlineSelection(ctx: MachineContext) {
-  inlineSelections.get(ctx)?.()
+interface InlineSelection {
+  pointers: Set<number>
+  cleanup: VoidFunction
 }
-function beginInlineSelection(ctx: MachineContext, target: HTMLElement) {
-  if (inlineSelections.has(ctx))
-    return
+
+const inlineSelections = new WeakMap<MachineContext, InlineSelection>()
+
+// The shared iOS helper locks the document rather than the individual root.
+// Keep it locked until every inline calendar gesture in that document ends.
+const inlineDocumentLocks = new WeakMap<Document, { count: number, restore: VoidFunction }>()
+function lockInlineSelection(target: HTMLElement) {
   const doc = target.ownerDocument
-  const restore = disableTextSelection({ target, doc })
+  if (!isIos())
+    return disableTextSelection({ target, doc })
+  let lock = inlineDocumentLocks.get(doc)
+  if (!lock) {
+    lock = { count: 0, restore: disableTextSelection({ target, doc }) }
+    inlineDocumentLocks.set(doc, lock)
+  }
+  lock.count++
+  const owner = lock
+  return () => {
+    if (--owner.count === 0) {
+      inlineDocumentLocks.delete(doc)
+      owner.restore()
+    }
+  }
+}
+function endInlineSelection(ctx: MachineContext, pointerId?: number) {
+  const selection = inlineSelections.get(ctx)
+  if (!selection)
+    return
+  if (pointerId !== undefined) {
+    selection.pointers.delete(pointerId)
+    if (selection.pointers.size)
+      return
+  }
+  selection.cleanup()
+}
+function beginInlineSelection(ctx: MachineContext, target: HTMLElement, pointerId: number) {
+  const current = inlineSelections.get(ctx)
+  if (current) {
+    current.pointers.add(pointerId)
+    return
+  }
+  const doc = target.ownerDocument
+  const restore = lockInlineSelection(target)
+  const release = (event: PointerEvent) => endInlineSelection(ctx, event.pointerId)
   const cleanup = () => {
     inlineSelections.delete(ctx)
-    doc.removeEventListener('pointerup', cleanup, true)
-    doc.removeEventListener('pointercancel', cleanup, true)
+    doc.removeEventListener('pointerup', release, true)
+    doc.removeEventListener('pointercancel', release, true)
     doc.defaultView?.removeEventListener('blur', cleanup)
     restore()
   }
-  inlineSelections.set(ctx, cleanup)
-  doc.addEventListener('pointerup', cleanup, true)
-  doc.addEventListener('pointercancel', cleanup, true)
+  inlineSelections.set(ctx, { pointers: new Set([pointerId]), cleanup })
+  doc.addEventListener('pointerup', release, true)
+  doc.addEventListener('pointercancel', release, true)
   doc.defaultView?.addEventListener('blur', cleanup)
+}
+
+// An inline calendar may update while focus lives elsewhere. Re-check at the
+// frame boundary, since a user can leave the grid before its DOM update runs.
+function focusGridCell(ctx: MachineContext) {
+  const previous = ctx.isInline ? dom.getActiveElement(ctx) : null
+  if (ctx.isInline && !dom.ownsInlineElement(ctx, previous))
+    return
+  runDomEffect(ctx, 'frame', (isCurrent) => {
+    if (!isCurrent())
+      return
+    if (ctx.isInline) {
+      const active = dom.getActiveElement(ctx)
+      const removedDuringRender = previous && !previous.isConnected
+        && (!active || active === dom.getDoc(ctx).body)
+      if (!dom.ownsInlineElement(ctx, active) && !removedDuringRender)
+        return
+    }
+    dom.getFocusedCell(ctx)?.focus({ preventScroll: true })
+  })
 }
 
 function retireDomRun(run: DomRun) {
@@ -862,17 +921,17 @@ export function machine(userContext: UserDefinedContext) {
           const { formatted } = ctx.visibleRangeText
           ctx.announcer?.announce(formatted)
         },
-        disableTextSelection(ctx) {
+        disableTextSelection(ctx, evt) {
           const target = dom.getGridEl(ctx)
           if (!target)
             return
           if (ctx.isInline)
-            beginInlineSelection(ctx, target)
+            beginInlineSelection(ctx, target, evt.pointerId ?? 0)
           else disableTextSelection({ target, doc: dom.getDoc(ctx) })
         },
-        enableTextSelection(ctx) {
+        enableTextSelection(ctx, evt) {
           if (ctx.isInline) {
-            endInlineSelection(ctx)
+            endInlineSelection(ctx, evt.pointerId ?? 0)
             return
           }
           const target = dom.getGridEl(ctx)
@@ -1076,20 +1135,11 @@ export function machine(userContext: UserDefinedContext) {
           ctx.activeIndex = 0
         },
         focusActiveCell(ctx) {
-          runDomEffect(ctx, 'frame', (isCurrent) => {
-            const cell = dom.getFocusedCell(ctx)
-            if (isCurrent())
-              cell?.focus({ preventScroll: true })
-          })
+          focusGridCell(ctx)
         },
         focusActiveCellIfNeeded(ctx, evt) {
-          if (!evt.focus)
-            return
-          runDomEffect(ctx, 'frame', (isCurrent) => {
-            const cell = dom.getFocusedCell(ctx)
-            if (isCurrent())
-              cell?.focus({ preventScroll: true })
-          })
+          if (evt.focus)
+            focusGridCell(ctx)
         },
         setHoveredValueIfKeyboard(ctx, evt) {
           if (!evt.type.startsWith('TABLE.ARROW') || ctx.selectionMode !== 'range' || ctx.activeIndex === 0)
