@@ -336,6 +336,11 @@
         "type": "PositioningOptions",
         "description": "\nThe user provided options used to position the date picker content"
       },
+      "inline": {
+        "type": "boolean",
+        "description": "\nRender the calendar as an always-visible inline grid instead of a popup.\nSet at mount time; remount to change modes. Ignores popup open/close options.",
+        "defaultValue": "false"
+      },
       "open": {
         "type": "boolean",
         "description": "\nWhether the calendar is open"

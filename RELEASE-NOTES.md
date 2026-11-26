@@ -4,6 +4,17 @@ These notes supplement the [GitHub Releases](https://github.com/destyler/destyle
 They provide migration guidance and evidence-backed historical addenda, not a new
 release or a complete historical changelog.
 
+## 0.3.6: Always-visible Calendar inline mode
+
+Calendar adds the opt-in, mount-time `inline` option (default `false`).
+Render the calendar grid within Root without popup Content or Positioner.
+Inline mode remains open, does not run popup dismissal or positioning,
+and keeps keyboard focus within the owning calendar. Pointer selection
+cleanup tracks active pointer IDs. Existing popup consumers retain their
+default behavior. Remount to change modes.
+
+UI wrappers must forward `inline` and consume Calendar 0.3.6 or later.
+
 ## 0.3.5: Opt-in outside-month Calendar selection
 
 Calendar adds `allowOutsideDays` (default `false`). Existing consumers keep the

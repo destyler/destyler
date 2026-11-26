@@ -28,6 +28,15 @@ Install the component from your command line.
 
 <InstallShell name="calendar" />
 
+## Inline mode
+
+Starting in 0.3.6, set `inline: true` when creating the Calendar machine
+to render an always-visible grid. Apply `api.getRootProps()` to its root
+and render the day, month and year views inside that root, without popup
+Content, Positioner, or a portalled grid. Open/close options and
+`closeOnSelect` do not dismiss the inline grid. The default remains
+the popup calendar; remount to switch modes.
+
 ## Anatomy
 
 Import all parts and piece them together.
