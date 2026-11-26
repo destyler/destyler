@@ -231,6 +231,8 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
       send({ type: 'FOCUS.SET', value })
     },
     setOpen(nextOpen) {
+      if (state.context.isInline)
+        return
       if (nextOpen === open)
         return
       send(nextOpen ? 'OPEN' : 'CLOSE')
@@ -383,11 +385,13 @@ export function connect<T extends PropTypes>(state: State, send: Send, normalize
         onPointerLeave() {
           send({ type: 'TABLE.POINTER_LEAVE' })
         },
-        onPointerDown() {
-          send({ type: 'TABLE.POINTER_DOWN', view })
+        onPointerDown(event) {
+          if (state.context.isInline && !dom.ownsInlineElement(state.context, event.target as Element))
+            return
+          send({ type: 'TABLE.POINTER_DOWN', view, pointerId: event.pointerId })
         },
-        onPointerUp() {
-          send({ type: 'TABLE.POINTER_UP', view })
+        onPointerUp(event) {
+          send({ type: 'TABLE.POINTER_UP', view, pointerId: event.pointerId })
         },
       })
     },

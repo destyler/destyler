@@ -22,6 +22,7 @@ export const props = createProps<UserDefinedContext>()([
   'getRootNode',
   'id',
   'ids',
+  'inline',
   'isDateUnavailable',
   'isDateUnavailable',
   'locale',
